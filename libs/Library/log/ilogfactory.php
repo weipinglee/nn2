@@ -24,16 +24,16 @@ class ILogFactory
      */
     public static function getInstance($logType = '')
     {
-    	$className = isset(self::$logClass[$logType]) ? self::$logClass[$logType] : '';
-    	if(!class_exists($className))
-    	{
-    		throw new IException('the log class is not exists',403);
-    	}
 
-    	if(!self::$log instanceof $className)
-    	{
-    		self::$log = new $className;
-    	}
+		switch($logType){
+			case 'db' : self::$log = new IDBLog();
+				break;
+			case 'file' : self::$log = new IFileLog();
+				break;
+			default:throw new IException('the log class is not exists',403);
+		}
+
+
     	return self::$log;
     }
 

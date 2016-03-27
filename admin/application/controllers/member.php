@@ -83,13 +83,17 @@ class MemberController extends Yaf\Controller_Abstract {
 	 * 角色认证
 	 */
 	public function doDealerCertAction(){
+		if(IS_POST){
 		$user_id = safe::filterPost('user_id','int',0);
 		$status  = safe::filterPost('result','int',0);
 		$info    = safe::filterPost('info');
 		$status  = $status==1 ? 1 : 0;
 		$m = new certificate();
-		$res = $m->certVerify($user_id,$status,$info,'deal');
-		
+		$m->certVerify($user_id,$status,$info,'deal');
+
+		}
+		return false;
+
 	}
 
 	/**

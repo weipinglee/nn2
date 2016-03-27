@@ -31,15 +31,13 @@ class Log
 			return false;
 		}
 
-		$className = get_class($this->log);
-
-		switch($className)
+		switch($this->logType)
 		{
 			//文件日志
-			case "IFileLog":
+			case "file":
 			{
 				//设置路径
-				$path     = 'backup/log';
+				$path     = 'log';
 				$fileName = rtrim($path,'\\/').'/'.$type.'/'.date('Y/m').'/'.date('d').'.log';
 				$this->log->setPath($fileName);
 
@@ -49,15 +47,22 @@ class Log
 			break;
 
 			//数据库日志
-			case "IDBLog":
+			case "db":
 			{
 				$content['datetime'] = Time::getDateTime();
 				$tableName           = $logInfo[$type]['table'];
 
 				foreach($logInfo[$type]['cols'] as $key => $val)
 				{
-					$content[$val] = isset($logs[$val]) ? $logs[$val] : isset($logs[$key]) ? $logs[$key] : '';
+					if(isset($logs[$val])){
+						$content[$val] = $logs[$val];
+					}
+					else if(isset($logs[$key])){
+						$content[$val] = $logs[$key];
+					}
+					else $content[$val] = '';
 				}
+
 				$this->log->setTableName($tableName);
 				return $this->log->write($content);
 			}

@@ -10,6 +10,7 @@ use \Library\M;
 use \Library\Time;
 use \Library\Query;
 use \Library\Thumb;
+use \Library\log;
 class certificate{
 
     const CERT_BEFORE  =  -1; //表示从未发起认证,不存在认证数据
@@ -125,9 +126,15 @@ class certificate{
     public function certVerify($user_id,$result=1,$info='',$type='deal'){
         $table = self::getCertTable($type);
         $certModel = new M($table);
+        $certModel->beginTrans();
         $status = $result==1 ? self::CERT_SUCCESS : self::CERT_FAIL;
         $certModel->data(array('status'=>$status,'message'=>$info,'verify_time'=>Time::getDateTime()))->where(array('user_id'=>$user_id))->update();
 
+        $log = new log();
+        $logs = array('admin','处理了一个申请认证','用户id:'.$user_id);
+        $log->write('operation',$logs);
+
+        $certModel->commit();
     }
 
     /**
