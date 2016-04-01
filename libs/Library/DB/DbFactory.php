@@ -20,8 +20,6 @@ class DbFactory {
                         self::$_instance = new MYPDO();
                      }
             }
-
-
 		}
 		return self::$_instance;
 	}

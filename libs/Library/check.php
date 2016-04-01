@@ -185,11 +185,11 @@ class check
                 list($start,$end)   =  explode(',',$rule);
                 if(!is_numeric($start)) $start   =  strtotime($start);
                 if(!is_numeric($end)) $end   =  strtotime($end);
-                return NOW_TIME >= $start && NOW_TIME <= $end;
+                return time::getTime() >= $start && time::getTime() <= $end;
             case 'ip_allow': // IP 操作许可验证
-                return in_array(get_client_ip(),explode(',',$rule));
+                return in_array(Client::getIp(),explode(',',$rule));
             case 'ip_deny': // IP 操作禁止验证
-                return !in_array(get_client_ip(),explode(',',$rule));
+                return !in_array(Client::getIp(),explode(',',$rule));
             case 'regex':
             default:    // 默认使用正则验证 可以使用验证类中定义的验证名称
                 // 检查附加规则

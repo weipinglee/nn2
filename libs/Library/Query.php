@@ -17,7 +17,7 @@ use \Library\Page;
 class Query
 {
 	public  $db       = null;
-	private $sql      = array('table'=>'','fields'=>'*','where'=>'','whereParam'=>array(),'join'=>'','group'=>'','having'=>'','order'=>'',
+	private $sql      = array('table'=>'','fields'=>'*','where'=>'','bind'=>array(),'join'=>'','group'=>'','having'=>'','order'=>'',
 								'limit'=>'limit 1000','distinct'=>'');
 	private $tablePre = '';
 	private $cache    = null;
@@ -112,7 +112,7 @@ class Query
 				$this->cache = new Cache($value);
 			}
 			break;
-			case 'whereParam':$this->sql['whereParam'] = $value;
+			case 'bind':$this->sql['bind'] = $value;
 			break;
 		}
 	}
@@ -168,12 +168,12 @@ class Query
 			if ($result) {
 				return $result;
 			} else {
-				$result = $this->db->exec($sql, $this->sql['whereParam']);
+				$result = $this->db->exec($sql, $this->sql['bind'], 'SELECT');
 				$this->cache->set($cacheKey, $result);
 			}
 		} //关闭缓存
 		else {
-			$result = $this->db->exec($sql, $this->sql['whereParam'], 'SELECT');
+			$result = $this->db->exec($sql, $this->sql['bind'], 'SELECT');
 		}
 		return $result;
 	}
@@ -186,11 +186,11 @@ class Query
 		{
 			$endstr = strstr($sql,'from');
 			$endstr = preg_replace('/^(.*)order\s+by.+$/i','$1',$endstr);
-			$count=$this->db->exec("select count(*) as total ".$endstr,$this->sql['whereParam'],'SELECT');
+			$count=$this->db->exec("select count(*) as total ".$endstr,$this->sql['bind'],'SELECT');
 		}
 		else
 		{
-			$count=$this->db->exec("select count(*) as total from (".$sql.") as IPaging",$this->sql['whereParam'],'SELECT');
+			$count=$this->db->exec("select count(*) as total from (".$sql.") as IPaging",$this->sql['bind'],'SELECT');
 		}
 
 		return isset($count[0]['total']) ? $count[0]['total'] : 0;

@@ -16,7 +16,10 @@ class tool{
      * @return mix 如果没有改配置信息则返回null
      */
     public static function getConfig($name=null){
-        $configObj = \Yaf\Application::app()->getConfig();
+        $configObj = \Yaf\Registry::get("config");
+        if($configObj===false){
+            $configObj = Yaf\Application::app()->getConfig();
+        }
         if($name!=null){
             if(!is_array($name)){
                 $configObj = isset($configObj->$name) ? $configObj->$name : null;
@@ -54,15 +57,16 @@ class tool{
 
     }
 
-
-
     //获取全局配置信息
     public static function getGlobalConfig($name=null){
-        self::$globalConfigs = require 'configs.php';
+        if(empty(self::$globalConfigs)){
+            self::$globalConfigs = require 'configs.php';
+        }
+
         if($name==null)
             return self::$globalConfigs;
         elseif(is_string($name))
-            return isset(self::$globalConfigs[$name]) ?self::$globalConfigs[$name] : '' ;
+            return isset(self::$globalConfigs[$name]) ?self::$globalConfigs[$name] : null ;
         else if(is_array($name)){
             $temp = self::$globalConfigs;
             foreach($name as $v){

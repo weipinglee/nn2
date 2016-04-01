@@ -51,7 +51,7 @@ class MYPDO {
                     $num = rand(0,count($rdb_config)-1);
                     self::$rdb = new \PDO('mysql:dbname='.$rdb_config[$num]['database'].';host='.$rdb_config[$num]['host'].';charset=utf8', $rdb_config[$num]['user'], $rdb_config[$num]['password']);
                     self::$rdb->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                } catch (PDOException $e) {
+                } catch (\PDOException $e) {
                     exit($e->getMessage());
                 }
                 return self::$rdb;
@@ -68,7 +68,7 @@ class MYPDO {
 
                     self::$wdb = new \PDO('mysql:dbname='.$db_config['database'].';host='.$db_config['host'].';charset=utf8', $db_config['user'], $db_config['password']);
                     self::$wdb->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                } catch (PDOException $e) {
+                } catch (\PDOException $e) {
                     exit($e->getMessage());
                 }
                 return self::$wdb;
@@ -99,9 +99,6 @@ class MYPDO {
                 $stmt->bindParam(':'.$k,$data[$k]);
             }
         }
-
-
-
 
         try{
             if($res = $stmt->execute()){

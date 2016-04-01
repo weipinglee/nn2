@@ -6,7 +6,7 @@ class photoupload{
 	private $thumbHeight = array();  //缩略图高度
 	private $thumbKey    = array();  //缩略图返回键名
 
-	private $dir = 'filefromuser';
+	private $dir = 'upload';
 
 	//构造函数
 	function __construct($dir = '')
