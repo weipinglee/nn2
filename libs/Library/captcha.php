@@ -6,6 +6,7 @@
 namespace Library;
 class Captcha
 {
+
     /** Width of the image */
     public $width  = 200;
 
@@ -92,6 +93,7 @@ class Captcha
     public $im;
 
     public function __construct($config = array()) {
+
     }
 
     public function CreateImage() {
