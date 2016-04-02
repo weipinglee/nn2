@@ -88,6 +88,7 @@ class Safe
      * @param mixed $data
      */
     public static function filter($data,$filter='string',$default=''){
+        $filter = trim($filter);
         if(method_exists(__CLASS__,$filter)){//调用本类的方法
             return  call_user_func(array(__CLASS__,$filter),$data);
         }
