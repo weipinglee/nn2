@@ -102,7 +102,7 @@ class UcenterController extends Yaf\Controller_Abstract {
             //调用文件上传类
             $photoObj = new photoupload();
             $photoObj->setThumbParams(array(180,180));
-            $photo = current($photoObj->uploadPhoto());
+            $photo = $photoObj->uploadPhoto();
 
             if($photo['flag'] == 1)
             {

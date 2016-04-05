@@ -1,9 +1,8 @@
 <?php
 /**
- * @name IndexController
- * @author root
- * @desc 默认控制器
- * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
+ * @name MemberController
+ * @author weipinglee
+ * @desc 用户管理控制器
  */
 use \Library\safe;
 use \nainai\certificate;
