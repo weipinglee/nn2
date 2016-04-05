@@ -120,7 +120,7 @@ class IndexController extends \Yaf\Controller_Abstract {
 	 * 生成验证码
 	 */
 	public function getCaptchaAction(){
-		$ca = new \Library\captcha();
+		$ca = new captcha();
 		$ca->CreateImage();
 	}
 	/**
