@@ -8,7 +8,7 @@ use \Library\safe;
 use \nainai\certificate;
 use \Library\Thumb;
 use \nainai\subRight;
-use \Library\url;
+use \Library\tool;
 class storeController extends Yaf\Controller_Abstract{
 
     public function init(){
@@ -24,7 +24,9 @@ class storeController extends Yaf\Controller_Abstract{
      *²Ö¿âÌí¼Ó
      */
     public function storeAddAction(){
+        $storeModel = new storeModel();
         if(IS_POST){
+            $store['id']              = safe::filterPost('id','int',0);
             $store['name']            = safe::filterPost('name');
             $store['short_name']      = safe::filterPost('short_name');
             $store['area']            = safe::filterPost('area','/^\d{6}$/');
@@ -36,9 +38,9 @@ class storeController extends Yaf\Controller_Abstract{
             $store['type']            = safe::filterPost('type','/^[01]$/');
             $store['status']          = safe::filterPost('status','/^[01]$/');
             $store['note']            = safe::filterPost('note');
-            $store['img']             = safe::filterPost('imgfile1');
+            $store['img']             = tool::setImgApp(safe::filterPost('imgfile1'));
 
-            $storeModel = new storeModel();
+
             $res = $storeModel->storeAdd($store);
             if($res['success']==1){
                 $this->redirect('storeList');
@@ -46,6 +48,16 @@ class storeController extends Yaf\Controller_Abstract{
                 echo $res['info'];
             }
 
+        }else{
+            $store_id  = $this->getRequest()->getParam('id',0);
+            $store_id = safe::filter($store_id,'int');
+            if($store_id){
+                $storeInfo = $storeModel->getStoreInfo($store_id);
+                if($storeInfo['img']!='')
+                    $storeInfo['img'] = Thumb::get($storeInfo['img'],180,180);
+
+                $this->getView()->assign('store',$storeInfo);
+            }
         }
     }
 

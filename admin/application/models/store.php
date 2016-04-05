@@ -34,12 +34,28 @@ class StoreModel{
 
 
 	/**
+	 * 获取一条仓库数据
+	 * @param int $id
+	 */
+	public function getStoreInfo($id){
+		$storeObj = new M('store_list');
+		return $storeObj->where(array('id'=>$id))->getObj();
+	}
+	/**
 	 * 仓库添加
+	 * @param array $data 仓库数据
 	 */
 	public function storeAdd($data){
 		$storeObj = new M('store_list');
 		if($storeObj->data($data)->validate($this->storeRules)){
-			$res = $storeObj->add() ? 1 : 0;
+			if($data['id']){
+				$id = $data['id'];
+				unset($storeObj->id);
+				$res = $storeObj->where(array('id'=>$id))->update() ? 1 : 0;
+			}else{
+				$res = $storeObj->add() ? 1 : 0;
+			}
+
 			$info = '';
 		}
 		else{
