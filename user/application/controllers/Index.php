@@ -56,11 +56,12 @@ class IndexController extends \Yaf\Controller_Abstract {
 			'type'         => safe::filterPost('type','int'),
 			'mobile'       => safe::filterPost('mobile','/^\d+$/'),
 			'email'        =>safe::filterPost('email','email'),
-			'agent'        => safe::filterPost('agent','int',0),
-		    'agent_pass'   => safe::filterPost('agent','/^[a-zA-Z0-9]{6,30}$/'),
 		);
 
 		if($userData['type']==1){
+			$userData['agent'] = safe::filterPost('agent','int',0);
+			$userData['agent_pass'] = safe::filterPost('agent','/^[a-zA-Z0-9]{6,30}$/');
+
 			$companyData = array(
 				'company_name' => safe::filterPost('company_name'),
 				'area'         => safe::filterPost('area','/\d+/'),

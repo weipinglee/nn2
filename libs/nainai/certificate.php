@@ -190,7 +190,7 @@ class certificate{
 
     /**
      * 获取申请认证的详细信息
-     * @param int $id
+     * @param int $id 用户id
      * @param string $certType 认证类型
      */
     public function getCertDetail($id,$certType){
