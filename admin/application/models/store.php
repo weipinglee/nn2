@@ -32,6 +32,19 @@ class StoreModel{
 		array('img','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片',2),
 	);
 
+	/**
+	 * 获取仓库列表
+	 * @param int $page 页码
+	 * @return array 分页数据和分页bar
+	 */
+	public function getStoreList($page){
+		$Q = new Query('store_list');
+		$Q->page = $page;
+		$Q->pagesize = 5;
+		$data = $Q->find();
+		$pageBar =  $Q->getPageBar();
+		return array('data'=>$data,'bar'=>$pageBar);
+	}
 
 	/**
 	 * 获取一条仓库数据

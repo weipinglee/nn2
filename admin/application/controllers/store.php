@@ -17,6 +17,11 @@ class storeController extends Yaf\Controller_Abstract{
     }
 
     public function storeListAction(){
+        $storeModel = new storeModel();
+        $page = safe::filterGet('page','int');
+        $pageData = $storeModel->getStoreList($page);
+        $this->getView()->assign('store',$pageData['data']);
+        $this->getView()->assign('bar',$pageData['bar']);
 
     }
 
