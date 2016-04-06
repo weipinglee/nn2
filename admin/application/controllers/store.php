@@ -45,7 +45,6 @@ class storeController extends Yaf\Controller_Abstract{
             $store['note']            = safe::filterPost('note');
             $store['img']             = tool::setImgApp(safe::filterPost('imgfile1'));
 
-
             $res = $storeModel->storeAdd($store);
             if($res['success']==1){
                 $this->redirect('storeList');
