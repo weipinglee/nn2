@@ -283,7 +283,7 @@ class UcenterController extends Yaf\Controller_Abstract {
                 exit;
             }
             else{
-                echo JSON::decode(Tool::getSuccInfo(0,'系统繁忙，稍后再试',Url::createUrl('/ucenter/dealCert')));
+                echo JSON::encode(Tool::getSuccInfo(0,'系统繁忙，稍后再试',Url::createUrl('/ucenter/dealCert')));
                 exit;
             }
         }
