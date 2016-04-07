@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-04-05 08:15:35
+-- Generation Time: 2016-04-07 02:54:36
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `nn2`
+-- Database: `nn`
 --
 
 -- --------------------------------------------------------
@@ -118,20 +118,6 @@ CREATE TABLE IF NOT EXISTS `call_bid` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `category`
---
-
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `pid` int(11) DEFAULT NULL COMMENT '父类id',
-  `sort` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- 表的结构 `company_info`
 --
 
@@ -176,7 +162,7 @@ INSERT INTO `company_info` (`user_id`, `area`, `address`, `company_name`, `legal
 (31, '130102', NULL, '耐耐', '玩儿', '23.00', 0, 0, '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (34, '140311', NULL, '白泉耐火', '赵总', '100.00', 1, 2, '张', '14323232323', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (35, '140303', 'sdfsdf', 'weqwe', '张小j', '100.00', 1, 1, '王', '123123123', 1, '张张', '13534343434', '水电费水电费水电费', '了看见了看见', '112342342234234234', '1234234234234', 'filefromuser/2016/03/11/20160311071634276.jpg@user@user@user@user@user@user@user@user@user@user@user', 'filefromuser/2016/03/11/20160311071631414.jpg@user@user@user@user@user@user@user@user@user@user@user', 'filefromuser/2016/03/11/20160311071637894.jpg@user@user@user@user@user@user@user@user@user@user@user', ''),
-(36, '230204', 'sdfsdf', '下百强d', '水电费水电费水电费', '200.00', 1, 1, '赵', '14232323', 1, 'asdasd', '13123123123', '13123', '123123123', '123123123123', '123123123', 'filefromuser/2016/03/12/20160312165149275.png@user', 'filefromuser/2016/03/12/20160312165147148.png@user', 'filefromuser/2016/03/12/20160312165152543.png@user', '123123');
+(36, '230204', 'sdfsdf', '下百强d9', '水电费水电费水电费', '200.00', 1, 1, '赵', '14232323', 1, 'asdasd', '13123123123', '13123', '123123123', '123123123123', '123123123', 'filefromuser/2016/03/12/20160312165149275.png@user', 'filefromuser/2016/03/12/20160312165147148.png@user', 'filefromuser/2016/03/12/20160312165152543.png@user', '123123');
 
 -- --------------------------------------------------------
 
@@ -199,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `dealer` (
 --
 
 INSERT INTO `dealer` (`user_id`, `status`, `apply_time`, `verify_time`, `admin_id`, `message`) VALUES
-(36, 2, '2016-03-25 10:35:00', '2016-03-26 15:51:31', NULL, ''),
+(36, 0, '2016-03-25 10:35:00', '2016-03-26 15:51:31', NULL, ''),
 (42, 3, '2016-03-25 09:16:04', '2016-03-27 17:08:34', NULL, '');
 
 -- --------------------------------------------------------
@@ -384,6 +370,37 @@ CREATE TABLE IF NOT EXISTS `product_attr` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `product_category`
+--
+
+CREATE TABLE IF NOT EXISTS `product_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `childname` varchar(20) NOT NULL COMMENT '下级分类统称',
+  `pid` int(11) DEFAULT NULL COMMENT '父类id',
+  `sort` int(11) DEFAULT NULL,
+  `note` varchar(255) NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- 转存表中的数据 `product_category`
+--
+
+INSERT INTO `product_category` (`id`, `name`, `childname`, `pid`, `sort`, `note`) VALUES
+(1, '钢材', '种类', 0, 1, ''),
+(2, '耐材', '种类', 0, 1, ''),
+(3, '建材', '种类', 0, 1, ''),
+(4, '热卷', '种类', 3, 1, ''),
+(5, '普卷', '种类', 4, 1, ''),
+(6, '薄卷', '种类', 4, 1, ''),
+(7, 'dsfd', '', 1, 2, ''),
+(8, '234', '', 7, 4, ''),
+(9, '普卷', '种类', 7, 1, '');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `product_photos`
 --
 
@@ -512,13 +529,26 @@ CREATE TABLE IF NOT EXISTS `store_in_out` (
 CREATE TABLE IF NOT EXISTS `store_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
-  `province` varchar(6) DEFAULT NULL,
-  `city` varchar(6) DEFAULT NULL,
+  `short_name` varchar(20) NOT NULL COMMENT '仓库简称',
   `area` varchar(6) DEFAULT NULL,
   `address` varchar(80) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `service_phone` varchar(20) NOT NULL COMMENT '仓库服务的电话',
+  `service_address` varchar(255) NOT NULL COMMENT '仓库服务点地址',
+  `contact` varchar(30) NOT NULL COMMENT '联系人',
+  `contact_phone` varchar(20) NOT NULL COMMENT '联系人电话',
+  `type` int(2) NOT NULL COMMENT '仓库类型',
+  `note` text NOT NULL COMMENT '备注',
+  `status` int(2) NOT NULL COMMENT '0:关闭，1：启用',
+  `img` varchar(255) NOT NULL COMMENT '仓库图片',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `store_list`
+--
+
+INSERT INTO `store_list` (`id`, `name`, `short_name`, `area`, `address`, `service_phone`, `service_address`, `contact`, `contact_phone`, `type`, `note`, `status`, `img`) VALUES
+(1, '一号店', 'yi', '230303', '点开看看', '123234545', 'dfgdfgdfg', '赵', '13434343434', 1, '水电费水电费水电费法国恢复供货', 1, 'upload/2016/04/05/20160405172056268.jpg@admin');
 
 -- --------------------------------------------------------
 
@@ -697,12 +727,12 @@ INSERT INTO `user` (`id`, `type`, `username`, `password`, `mobile`, `email`, `he
 (33, 0, 'wplee', '05fe7461c607c33229772d402505601016a7d0ea', '12323232328', '', '@user', NULL, NULL, NULL, 0, '0', NULL, NULL, '5buhd54rqajbajsfumkgr9ijb4'),
 (34, 1, 'wplee127', '05fe7461c607c33229772d402505601016a7d0ea', '14523232323', '', NULL, NULL, NULL, NULL, 3, '123123', NULL, NULL, '8qgb5uv4h90s5vlsu1ddr8pr22'),
 (35, 1, '123qwe', 'c53255317bb11707d0f614696b3ce6f221d0e2f2', '13434343434', '', 'filefromuser/2016/03/11/20160311074729915.jpg@user@user', NULL, NULL, NULL, 4, 'sdfsdfsdf', NULL, NULL, 'd6dr0opqrvgejc72khn3qoli91'),
-(36, 1, 'weipinglee', '05fe7461c607c33229772d402505601016a7d0ea', '16767676767', '', 'filefromuser/2016/03/19/20160319100358393.jpg@user', 0, NULL, NULL, 4, '1233124', NULL, NULL, 'jf7uhru3pn5d7ge4r30tcubor3'),
+(36, 1, 'weipinglee', '05fe7461c607c33229772d402505601016a7d0ea', '16767676767', '', 'filefromuser/2016/03/19/20160319100358393.jpg@user', 0, NULL, NULL, 4, '1233124', NULL, NULL, 'jjfe3n6n2m664kmukm0qmfe2d3'),
 (37, 0, 'geren', '05fe7461c607c33229772d402505601016a7d0ea', '14334343434', '', '', NULL, NULL, NULL, 0, '0', NULL, NULL, ''),
 (39, 0, 'kljklj', '05fe7461c607c33229772d402505601016a7d0ea', '15454545454', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, 'ekp720eh5rqapk3ftfp87o3is5'),
 (40, 0, 'kljlkjlkji', '05fe7461c607c33229772d402505601016a7d0ea', '14454545454', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, ''),
 (41, 0, 'weimama', '05fe7461c607c33229772d402505601016a7d0ea', '12323232329', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, ''),
-(42, 0, 'gerenyonghu', '7c4a8d09ca3762af61e59520943dc26494f8941b', '16767676760', '', 'filefromuser/2016/03/12/20160312193238190.png@user', 0, NULL, NULL, 0, '0', NULL, NULL, '84onn09tp27oicd5kf2mumjo77'),
+(42, 0, 'gerenyonghu', '7c4a8d09ca3762af61e59520943dc26494f8941b', '16767676760', '', 'filefromuser/2016/03/12/20160312193238190.png@user', 0, NULL, NULL, 0, '0', NULL, NULL, '789amflrvshs0c43j1t0bgo4n5'),
 (43, 0, 'weipine12', '05fe7461c607c33229772d402505601016a7d0ea', '15323232323', 'weeer@133.com', NULL, 36, NULL, NULL, 0, '', NULL, NULL, ''),
 (44, 0, 'weiping12', '05fe7461c607c33229772d402505601016a7d0ea', '12345678945', '123@1234.com', NULL, 36, NULL, NULL, 0, '', NULL, NULL, ''),
 (45, 0, 'weiping17', '05fe7461c607c33229772d402505601016a7d0ea', '17878654325', '123@1234.com', NULL, 36, NULL, NULL, 0, '', NULL, NULL, ''),
@@ -739,7 +769,8 @@ CREATE TABLE IF NOT EXISTS `user_session` (
 --
 
 INSERT INTO `user_session` (`session_id`, `session_expire`, `session_data`) VALUES
-('jf7uhru3pn5d7ge4r30tcubor3', 1459578255, 0x3a7365737344617461);
+('789amflrvshs0c43j1t0bgo4n5', 1459932867, 0x3a7365737344617461),
+('jjfe3n6n2m664kmukm0qmfe2d3', 1459932934, 0x3a7365737344617461);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
