@@ -142,7 +142,12 @@ class ProductModel{
 	 */
 	public function getAttr(){
 		$m = new M('product_attribute');
-		return $m->select();
+		$attr = $m->select();
+		$res = array();
+		foreach($attr as $k=>$v){
+			$res[$attr[$k]['id']] = $v;
+		}
+		return $res;
 	}
 
 

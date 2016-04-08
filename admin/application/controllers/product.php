@@ -62,6 +62,29 @@ class productController extends Yaf\Controller_Abstract{
     }
 
     /**
+     * 分类列表
+     *
+     */
+    public function categoryListAction(){
+        $productModel = new productModel();
+        $cateTree = $productModel->getCateTree();//获取分类树
+        $attrs    = $productModel->getAttr();//获取所有属性
+
+        //各个分类的属性id转换为属性名称
+        foreach($cateTree as $key=>$val){
+            $temp = '';
+            $attr = explode(',',$val['attrs']);
+            foreach($attr as $k=>$v){
+                $temp .= isset($attrs[$attr[$k]]['name']) ? $attrs[$attr[$k]]['name'] .',' : '';
+            }
+            $temp = rtrim($temp,',');
+            $cateTree[$key]['attrs'] =$temp;
+
+        }
+        $this->getView()->assign('cate',$cateTree);
+    }
+
+    /**
      * 属性添加
      */
     public function attributeAddAction(){

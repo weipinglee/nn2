@@ -30,7 +30,7 @@
               <select name="pid">
                 <option value="0" >顶级分类</option>
                 {foreach: items=$tree}
-                    <option value="{$item['id']}">{echo:str_repeat('--',$item['level'])}{$item['name']}</option>
+                    <option value="{$item['id']}" {if:$item['id']==$cate['pid']}selected{/if}>{echo:str_repeat('--',$item['level'])}{$item['name']}</option>
 
                 {/foreach}
               </select>
