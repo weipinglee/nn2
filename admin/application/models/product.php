@@ -139,10 +139,13 @@ class ProductModel{
 
 	/**
 	 * 获取所有属性
+	 * @param int $page 页码 0表示获取全部
 	 */
-	public function getAttr(){
-		$m = new M('product_attribute');
-		$attr = $m->select();
+	public function getAttr($page=0){
+		$m = new Query('product_attribute');
+		if($page!=0)
+			$m->page = $page;
+		$attr = $m->find();
 		$res = array();
 		foreach($attr as $k=>$v){
 			$res[$attr[$k]['id']] = $v;

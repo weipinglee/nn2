@@ -113,6 +113,18 @@ class productController extends Yaf\Controller_Abstract{
         }
     }
 
+    /**
+     * 属性列表
+     */
+    public function attributeListAction(){
+        $page = safe::filterGet('page','int',1);
+        $productModel = new productModel();
+        $attrs    = $productModel->getAttr($page);//获取所有属性
+
+
+        $this->getView()->assign('attr',$attrs);
+    }
+
 
 
 
