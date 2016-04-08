@@ -91,7 +91,8 @@
                 </li>
                 <li><a href="#" target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />交易管理</a>
                     <ul>
-                        <li><a href="{url:/product/}" target="content">产品分类设置</a></li>
+                        <li><a href="{url:/product/categoryAdd}" target="content">产品分类设置</a></li>
+                        <li><a href="{url:/product/attributeAdd}" target="content">产品属性设置</a></li>
                         <li><a target="content">交易费率设置</a>
                             <ul>
                                 <li><a href="scale-bond.html" target="content">保证金收取比例</a></li>

@@ -19,7 +19,7 @@ class productController extends Yaf\Controller_Abstract{
 
 
     /**
-     *仓库添加
+     *分类添加
      */
     public function categoryAddAction(){
         $productModel = new productModel();
@@ -30,21 +30,59 @@ class productController extends Yaf\Controller_Abstract{
             $cate['pid']       = safe::filterPost('pid','int',0);
             $cate['sort']      = safe::filterPost('sort','int',0);
             $cate['note']      = safe::filterPost('note');
-            $productModel->cateAdd($cate);
-            $this->redirect('categoryList');
+            $res = $productModel->cateAdd($cate);
+            if($res['success']==1){
+                $this->redirect('categoryList');
+            }
+            else{
+                echo $res['info'];
+                return false;
+            }
+
 
         }else{
             $cate_id  = $this->getRequest()->getParam('cid',0);
             $cate_id = safe::filter($cate_id,'int');
             if($cate_id){
                 $cateData = $productModel->getCateInfo($cate_id);
-                $this->getView()->assign('cate',$cateData);
+                if(!empty($cateData))
+                    $this->getView()->assign('cate',$cateData);
             }
             $cateTree = $productModel->getCateTree();
-print_r($cateTree);
+
             $this->getView()->assign('tree',$cateTree);
         }
     }
+
+    /**
+     * 属性添加
+     */
+    public function attributeAddAction(){
+        $productModel = new productModel();
+        if(IS_POST){
+            $attr['id']    = safe::filterPost('id','int',0);
+            $attr['name']  = safe::filterPost('name');
+            $attr['value'] = safe::filterPost('value');
+            $attr['type']  = safe::filterPost('type','int',1);
+            $attr['sort']  = safe::filterPost('sort','int',0);
+            $attr['note']  = safe::filterPost('note');
+            $res = $productModel->attrAdd($attr);
+            if($res['success']==1)
+                 $this->redirect('attributeList');
+            else
+                echo $res['info'];
+        }
+        else{
+            $attr_id  = $this->getRequest()->getParam('aid',0);
+            $attr_id = safe::filter($attr_id,'int',0);
+            if($attr_id){
+                $attrData = $productModel->getAttrInfo($attr_id);
+                if(!empty($attrData))
+                    $this->getView()->assign('attr',$attrData);
+            }
+        }
+    }
+
 
 
 
