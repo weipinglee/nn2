@@ -23,6 +23,7 @@ class productController extends Yaf\Controller_Abstract{
      */
     public function categoryAddAction(){
         $productModel = new productModel();
+
         if(IS_POST){//编辑或新增
             $cate['id'] = safe::filterPost('id','int',0);
             $cate['name'] = safe::filterPost('name');
@@ -30,6 +31,8 @@ class productController extends Yaf\Controller_Abstract{
             $cate['pid']       = safe::filterPost('pid','int',0);
             $cate['sort']      = safe::filterPost('sort','int',0);
             $cate['note']      = safe::filterPost('note');
+            $cate['attrs']     = implode(',',safe::filterPost('attrs','int',''));
+
             $res = $productModel->cateAdd($cate);
             if($res['success']==1){
                 $this->redirect('categoryList');
@@ -48,9 +51,13 @@ class productController extends Yaf\Controller_Abstract{
                 if(!empty($cateData))
                     $this->getView()->assign('cate',$cateData);
             }
-            $cateTree = $productModel->getCateTree();
+            $cateTree = $productModel->getCateTree();//获取分类树
+
+            //获取所有属性
+            $attr = $productModel->getAttr();
 
             $this->getView()->assign('tree',$cateTree);
+            $this->getView()->assign('attr',$attr);
         }
     }
 

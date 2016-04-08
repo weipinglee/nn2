@@ -128,13 +128,21 @@ class ProductModel{
 	}
 
 	/**
-	 * 获取属性信息
+	 * 获取一条属性信息
 	 * @param int $id 属性id
 	 *
 	 */
 	public function getAttrInfo($id){
 		$m = new M('product_attribute');
 		return $m->where(array('id'=>$id))->getObj();
+	}
+
+	/**
+	 * 获取所有属性
+	 */
+	public function getAttr(){
+		$m = new M('product_attribute');
+		return $m->select();
 	}
 
 

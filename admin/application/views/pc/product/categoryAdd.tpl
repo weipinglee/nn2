@@ -9,6 +9,7 @@
     </div>
  <div class="pd-20">
   <form action="{url:/product/categoryAdd}" method="post" class="form form-horizontal" id="form-user-add">
+      <input type="hidden" name="id" value="{if:isset($cate)}{$cate['id']}{/if}" />
     <div class="row cl">
       <label class="form-label col-2"><span class="c-red">*</span>分类名称：</label>
       <div class="formControls col-5">
@@ -32,6 +33,23 @@
                     <option value="{$item['id']}">{echo:str_repeat('--',$item['level'])}{$item['name']}</option>
 
                 {/foreach}
+              </select>
+          </div>
+          <div class="col-5"> </div>
+      </div>
+      <div class="row cl">
+          <label class="form-label col-2"><span class="c-red"></span>属性：</label>
+          <div class="formControls col-5">
+             <!-- <input type="hidden" name="attrs[]" value="1"/>
+              <input type="hidden" name="attrs[]" value="2"/> -->
+              <select name="pid">
+                  {if:!empty($attr)}
+                      {foreach: items=$attr}
+                          <option value="{$item['id']}">{$item['name']}</option>
+
+                      {/foreach}
+                  {/if}
+
               </select>
           </div>
           <div class="col-5"> </div>
