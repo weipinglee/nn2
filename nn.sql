@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-04-08 09:07:47
+-- Generation Time: 2016-04-11 08:03:25
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -336,19 +336,18 @@ INSERT INTO `person_info` (`user_id`, `true_name`, `sex`, `identify_no`, `identi
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
-  `sell_price` decimal(15,2) DEFAULT NULL,
-  `up_time` datetime DEFAULT NULL,
-  `down_time` datetime DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `store_nums` decimal(15,2) DEFAULT NULL,
-  `img` varchar(100) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL COMMENT '状态：申请上架，上架，下架',
-  `content` text,
-  `unit` varchar(6) DEFAULT NULL COMMENT '计量单位',
-  `dealer_id` int(11) DEFAULT NULL COMMENT '交易商id',
-  `user_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `model_id` int(11) NOT NULL,
+  `cate_id` int(11) NOT NULL COMMENT '商品分类',
+  `attribute` text NOT NULL COMMENT '商品属性',
+  `unit` varchar(20) NOT NULL DEFAULT '吨' COMMENT '单位',
+  `price` decimal(15,2) NOT NULL COMMENT '单价',
+  `currency` int(2) NOT NULL DEFAULT '1' COMMENT '币种1：人民币',
+  `quantity` decimal(10,5) NOT NULL COMMENT '总数量',
+  `divide` int(2) NOT NULL DEFAULT '0' COMMENT '是否可拆分：1：不可，0：可以',
+  `minimum` decimal(10,5) NOT NULL COMMENT '最小起订量',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `expire_time` datetime DEFAULT NULL,
+  `sort` int(11) NOT NULL COMMENT '排序',
+  `note` varchar(255) NOT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -392,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `product_category` (
   `status` int(2) NOT NULL DEFAULT '1' COMMENT '0：关闭，1：开启',
   `note` varchar(255) NOT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `product_category`
@@ -408,6 +407,23 @@ INSERT INTO `product_category` (`id`, `name`, `childname`, `pid`, `attrs`, `sort
 (7, 'dsfd', '', 1, '', 2, 1, ''),
 (8, '234', '', 7, '', 4, 1, ''),
 (9, '普卷', '种类', 7, '', 1, 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `product_offer`
+--
+
+CREATE TABLE IF NOT EXISTS `product_offer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(2) NOT NULL DEFAULT '1' COMMENT '报盘类型：1：卖盘，2：买盘',
+  `mode` int(2) NOT NULL COMMENT '报盘模式：1：自由，2：保证金，3:仓单',
+  `product_id` int(11) NOT NULL COMMENT '商品iD',
+  `status` int(2) NOT NULL COMMENT '审核状态',
+  `apply_time` datetime DEFAULT NULL COMMENT '申请时间',
+  `finish_time` datetime DEFAULT NULL COMMENT '审核时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -594,9 +610,11 @@ INSERT INTO `store_manager` (`user_id`, `status`, `apply_time`, `verify_time`, `
 
 CREATE TABLE IF NOT EXISTS `store_products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `store_id` int(11) NOT NULL COMMENT '仓库id',
   `product_id` int(11) DEFAULT NULL,
-  `nums` decimal(15,2) DEFAULT NULL,
-  `store_list_id` int(11) NOT NULL,
+  `status` int(2) NOT NULL COMMENT '审核状态',
+  `apply_time` datetime NOT NULL COMMENT '申请时间',
+  `finish_time` datetime NOT NULL COMMENT '完成时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
