@@ -55,9 +55,9 @@
                     <ul>
                                                 <li class="current"><a target="content">权限管理</a>
                                                     <ul>
-                                                        <li><a href="admin-role.html" target="content">管理员分组</a></li>
-                                                        <li><a href="admin-list.html" target="content">管理员列表</a></li>
-                                                        <li><a href="admin-permission.html" target="content">权限分配</a></li>
+                                                        <li><a href="{url:/rbac/roleList}" target="content">管理员分组</a></li>
+                                                        <li><a href="{url:/admin/adminList}" target="content">管理员列表</a></li>
+                                                        <li><a href="{url:/rbac/accessList}" target="content">权限分配</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="system-base.html" target="content">系统设置</a></li>

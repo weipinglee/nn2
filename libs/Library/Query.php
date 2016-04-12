@@ -146,11 +146,9 @@ class Query
             $limit = $this->paging->getPageLimit($this->page, $p);
 			$sql .=$limit;
             if ($p == 1) $this->page = 0;
-
 			return $this->getSqlResult($sql);
 		} else {
 			$sql = "select $this->distinct $this->fields from $this->table $this->join $this->where $this->group $this->having $this->order $this->limit";
-
 			return $this->getSqlResult($sql);
 		}
 	}
