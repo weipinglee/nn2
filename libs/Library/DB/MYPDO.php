@@ -132,7 +132,13 @@ class MYPDO {
 
     }
 
-
+    /**
+     * 返回上次新增条目id
+     * @return [type] [description]
+     */
+    public function lastInsertId(){
+        self::$wdb->lastInsertId();
+    }
 
     //开启事物
     public function beginTrans(){

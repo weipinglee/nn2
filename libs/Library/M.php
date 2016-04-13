@@ -309,6 +309,14 @@ class M{
 	}
 
 	/**
+	 * 返回上次新增条目的id
+	 * @return [type] [description]
+	 */
+	public function lastInsertId(){
+		return $this->db->lastInsertId();
+	}
+
+	/**
 	 * 插入多条数据
 	 */
 	public function adds($trans=0){
