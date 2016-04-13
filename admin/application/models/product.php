@@ -21,6 +21,7 @@ class ProductModel{
 	protected $cateRules = array(
 		array('id','number','id错误',0,'regex'),
 		array('name','require','分类名名必填'),
+		array('percent',array(0,100),'首付比例错误',0,'between'),
 		array('pid','number','pid错误'),
 		array('sort','number','排序请填写一个数字'),
 	);

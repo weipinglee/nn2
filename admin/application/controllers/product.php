@@ -28,6 +28,8 @@ class productController extends Yaf\Controller_Abstract{
             $cate['id'] = safe::filterPost('id','int',0);
             $cate['name'] = safe::filterPost('name');
             $cate['childname'] = safe::filterPost('childname');
+            $cate['unit'] = safe::filterPost('unit');
+            $cate['percent'] = safe::filterPost('percent','int',100);
             $cate['pid']       = safe::filterPost('pid','int',0);
             $cate['sort']      = safe::filterPost('sort','int',0);
             $cate['note']      = safe::filterPost('note');
@@ -81,6 +83,7 @@ class productController extends Yaf\Controller_Abstract{
             $cateTree[$key]['attrs'] =$temp;
 
         }
+
         $this->getView()->assign('cate',$cateTree);
     }
 
