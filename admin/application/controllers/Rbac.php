@@ -121,7 +121,7 @@ class RbacController extends Yaf\Controller_Abstract{
 		if(!IS_AJAX) return false;
 		$module_name = safe::filterPost('module');
 		if(!$module_name) return false;
-
+		
 		$controllers = $this->rbacModel->controllerList($module_name,true);
 		echo JSON::encode($controllers);
 		return false;

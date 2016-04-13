@@ -46,6 +46,19 @@
    <div class="pd-20">
   <form action="http://localhost/nn2/admin/public/admin/adminadd" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="http://localhost/nn2/admin/public/admin/adminlist">
     <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>管理员分组：</label>
+
+      <div class="formControls col-5">
+        <select class='input-select roles' name='admin-role' nullmsg = '请选择分组' dataType="/^[1-9]\d*$/">
+          <option value='-1'>请选择分组</option>
+            <?php foreach($admin_roles as $key => $item){?>
+              <option value="<?php echo isset($item['id'])?$item['id']:"";?>"><?php echo isset($item['name'])?$item['name']:"";?></option>
+            <?php }?>
+        </select>
+      </div>
+      <div class="col-4"> </div>
+    </div>
+    <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>用户名：</label>
       <div class="formControls col-5">
         <input type="text" class="input-text" value="" placeholder="" id="admin-name" name="admin-name" datatype="s2-16" nullmsg="用户名不能为空">
@@ -75,8 +88,8 @@
     </div>
     <div class="row cl">
       <div class="col-9 col-offset-3">
-        <input type="hidden" name="admin-role" value='1'/>
         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+        &emsp;<a class="btn btn-primary radius" href="http://localhost/nn2/admin/public/admin/adminlist">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
       </div>
     </div>
   </form>

@@ -25,10 +25,10 @@
         <div id="head">
             <div class="left">
                 <a href="#" class="button profile"><img src="{views:img/icons/top/huser.png}" alt="" /></a>
-                超级管理员
-                <a href="#">admin</a>
+                {$info['role']}
+                <a href="#">{$info['name']}</a>
                 |
-                <a href="#">退出</a>
+                <a href="{url:/login/logout}">退出</a>
             </div>
             <div class="right">
                 <form action="#" id="search" class="search placeholder">
@@ -159,7 +159,7 @@
               CONTENT 
                         --> 
         <div class="main_content" id="content_1" >
-            <iframe class="white" scrolling="yes" frameborder="0" src="welcome.html" name="content" marginheight="0" marginwidth="0" width="100%" height="600px"  id="iframe" style="overflow-y:scroll;"></iframe>
+            <iframe class="white" scrolling="yes" frameborder="0" src="{url:/index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="600px"  id="iframe" style="overflow-y:scroll;"></iframe>
 
      </div>
 </div>

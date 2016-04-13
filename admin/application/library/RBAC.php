@@ -1,8 +1,5 @@
 <?php
 
-namespace tool;
-
-
 /**
  * 基于角色的数据库方式验证类
  */
@@ -63,8 +60,18 @@ KEY `group_id` (`role_id`),
 KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  */
+use \Library\Db;
+use \Library\Query;
+use \Library\tool;
+namespace library;
 class Rbac
 {
+    private $rbac_config = array();
+    private $dispatcher = '';
+    public function __construct($dispatcher = ''){
+        $this->rbac_config = tool::getConfig('rbac');
+        $this->dispatcher = $dispatcher;
+    }
     // 认证方法
     public static function authenticate($map, $model = '')
     {
@@ -112,31 +119,13 @@ class Rbac
     public static function checkAccess()
     {
         //如果项目要求认证，并且当前模块需要认证，则进行权限认证
-        if (C('USER_AUTH_ON')) {
+        if ($this->rbac_config['auth_on']) {
             $_module = array();
-            $_action = array();
-            if ("" != C('REQUIRE_AUTH_MODULE')) {
-                //需要认证的模块
-                $_module['yes'] = explode(',', strtoupper(C('REQUIRE_AUTH_MODULE')));
-            } else {
-                //无需认证的模块
-                $_module['no'] = explode(',', strtoupper(C('NOT_AUTH_MODULE')));
-            }
-            //检查当前模块是否需要认证
-            if ((!empty($_module['no']) && !in_array(strtoupper(CONTROLLER_NAME), $_module['no'])) || (!empty($_module['yes']) && in_array(strtoupper(CONTROLLER_NAME), $_module['yes']))) {
-                if ("" != C('REQUIRE_AUTH_ACTION')) {
-                    //需要认证的操作
-                    $_action['yes'] = explode(',', strtoupper(C('REQUIRE_AUTH_ACTION')));
-                } else {
-                    //无需认证的操作
-                    $_action['no'] = explode(',', strtoupper(C('NOT_AUTH_ACTION')));
-                }
-                //检查当前操作是否需要认证
-                if ((!empty($_action['no']) && !in_array(strtoupper(ACTION_NAME), $_action['no'])) || (!empty($_action['yes']) && in_array(strtoupper(ACTION_NAME), $_action['yes']))) {
-                    return true;
-                } else {
-                    return false;
-                }
+            $_controller['no'] = explode(',', strtoupper($this->rbac_config['no_auth_controller']));
+            
+            //检查当前操作是否需要认证
+            if ((!empty($_controller['no']) && !in_array(strtoupper(ACTION_NAME), $_action['no'])) ) {
+                return true;
             } else {
                 return false;
             }
@@ -211,14 +200,14 @@ class Rbac
     public static function getAccessList($authId)
     {
         // Db方式权限数据
-        $db    = Db::getInstance(C('RBAC_DB_DSN'));
-        $table = array('role' => C('RBAC_ROLE_TABLE'), 'user' => C('RBAC_USER_TABLE'), 'access' => C('RBAC_ACCESS_TABLE'), 'node' => C('RBAC_NODE_TABLE'));
+        $db    = DbFactory::getInstance();
+        $table = array('role' => 'admin_role', 'user' => 'admin', 'access' => 'admin_access', 'node' => 'admin_node');
         $sql   = "select node.id,node.name from " .
         $table['role'] . " as role," .
         $table['user'] . " as user," .
         $table['access'] . " as access ," .
         $table['node'] . " as node " .
-        "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=1 and node.status=1";
+        "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=1 and node.status=1";
         $apps   = $db->query($sql);
         $access = array();
         foreach ($apps as $key => $app) {
@@ -231,7 +220,7 @@ class Rbac
             $table['user'] . " as user," .
             $table['access'] . " as access ," .
             $table['node'] . " as node " .
-            "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=2 and node.pid={$appId} and node.status=1";
+            "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=2 and node.pid={$appId} and node.status=1";
             $modules = $db->query($sql);
             // 判断是否存在公共模块的权限
             $publicAction = array();
@@ -244,7 +233,7 @@ class Rbac
                     $table['user'] . " as user," .
                     $table['access'] . " as access ," .
                     $table['node'] . " as node " .
-                    "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=1";
+                    "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=1";
                     $rs = $db->query($sql);
                     foreach ($rs as $a) {
                         $publicAction[$a['name']] = $a['id'];
@@ -262,7 +251,7 @@ class Rbac
                 $table['user'] . " as user," .
                 $table['access'] . " as access ," .
                 $table['node'] . " as node " .
-                "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=1";
+                "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=1";
                 $rs     = $db->query($sql);
                 $action = array();
                 foreach ($rs as $a) {
@@ -286,7 +275,7 @@ class Rbac
         $table['role'] . " as role," .
         $table['user'] . " as user," .
         $table['access'] . " as access " .
-        "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and  access.module='{$module}' and access.status=1";
+        "where user.user_id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and  access.module='{$module}' and access.status=1";
         $rs     = $db->query($sql);
         $access = array();
         foreach ($rs as $node) {

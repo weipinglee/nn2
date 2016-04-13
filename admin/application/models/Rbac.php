@@ -13,8 +13,10 @@ class RbacModel{
 	private $node;//权限节点模型
 	private $access;//授权中间模型
 	private $role_user;//用户分组中间模型
+	private $admin;//管理员表
 
 	public function __construct(){
+		$this->admin = new M('admim');
 		$this->role = new M('admin_role');
 		$this->node = new M('admin_node');
 		$this->access = new M('admin_access');
@@ -112,13 +114,12 @@ class RbacModel{
 	 */
 	public function roleDel($id){
 		$role = $this->role;
-		$role_user = $this->role_user;
 		if(($id = intval($id))>0){
 			try {
 				$role->beginTrans();
 
 				$role->where(array('id'=>$id))->delete();
-				$role_user->where(array('role_id'=>$id))->delete();
+				$this->admin->where(array('role'=>$id))->data(array('role'=>0))->update();
 
 				$res = $role->commit();
 			} catch (PDOException $e) {
@@ -179,7 +180,7 @@ class RbacModel{
 				$controllers_html .= "<option value='{$value}'>{$value}</option>";
 			}
 		}
-
+		
 		//查询节点表中的标题
 		$title = $this->node->where(array('name'=>$module,'level'=>1))->getField('title');
 		$resInfo =  tool::getSuccInfo();
@@ -191,9 +192,10 @@ class RbacModel{
 	/**
 	 * 获取指定控制器下的action 列表 （过滤特殊方法/查询不在数据库中的action）
 	 * @param  [type] $controller [description]
+	 * @param  bool   notin_db  是否只取不在数据库中的
 	 * @return [type]             [description]
 	 */
-	public function actionList($module,$controller,$to_html = false){
+	public function actionList($module,$controller,$to_html = false,$notin_db = false){
 		//缓存 TODO
 		$path = dirname(APPLICATION_PATH).'/'.$module."/application/controllers/".$controller.'.php';
 		if(!file_exists($path)){
@@ -205,12 +207,14 @@ class RbacModel{
 				$obj = new $class_name();
 				$actions = get_class_methods($obj);
 				
-				//获取数据库中的action列表
-				$tmp_db_actions = $this->node->where(array('level'=>3))->fields('name')->select();
-				foreach ($tmp_db_actions as $value) {
-					$db_actions []= $value['name'].'Action';
+				if($notin_db){
+					//获取数据库中的action列表
+					$tmp_db_actions = $this->node->where(array('level'=>3))->fields('name')->select();
+					foreach ($tmp_db_actions as $value) {
+						$db_actions []= $value['name'].'Action';
+					}
+					$actions = array_diff($actions,$db_actions);
 				}
-				$actions = array_diff($actions,$db_actions);
 				$actions_html = '<option value="-1">请选择</option>';
 				foreach ($actions as $key => $value) {
 					if(!strpos($value,'Action')){
@@ -384,6 +388,7 @@ class RbacModel{
 			}
 			try {
 				$this->access->beginTrans();
+				$this->access->where(array('role_id'=>$role_id))->delete();
 				$this->access->data($data)->adds();	
 				$res = $this->access->commit();
 			} catch (PDOException $e) {
@@ -399,6 +404,16 @@ class RbacModel{
 			$resInfo = tool::getSuccInfo(0,is_string($res) && $res ? $res : '未知错误,请重试');
 		}
 		return $resInfo;
+	}
+
+	/**
+	 * 根据id获取管理员分组
+	 * @param  int    $id  管理员id
+	 * @return string $res 分组描述
+	 */	
+	public function adminRole($id){
+		$info = $this->role->where(array('id'=>$id))->getField('name');
+		return $info ? $info : '无分组';
 	}
 }
 ?>

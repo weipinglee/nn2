@@ -7,12 +7,15 @@
 use \Library\safe;
 use \Library\url;
 use \Library\json;
+use \Library\cache\driver;
+use \Library\tool;
 class AdminController extends Yaf\Controller_Abstract {
 
-	private $adminModel;
+	private $adminModel,$rbacModel;
 	public function init(){
 		$this->getView()->setLayout('admin');
 		$this->adminModel = new AdminModel();
+		$this->rbacModel = new RbacModel();
 		//echo $this->getViewPath();
 	}
 
@@ -39,16 +42,15 @@ class AdminController extends Yaf\Controller_Abstract {
 			$adminData['name'] 	    = safe::filterPost('admin-name');
 			$adminData['password']  = safe::filterPost('admin-pwd');
 			$adminData['email']     = safe::filterPost('admin-email');
-			$adminData['role']      = safe::filterPost('admin-role');
+			$adminData['role']      = safe::filterPost('admin-role','int');
 			$adminData['last_ip']   = $_SERVER['REMOTE_ADDR'];
 			$adminData['last_time'] = $adminData['create_time'] = date('Y-m-d H:i:s');
 			$adminData['status']    = 0;
             $res = $this->adminModel->adminUpdate($adminData);
-
             echo JSON::encode($res);
             return false;
 		}
-
+		$this->getView()->assign('admin_roles',$this->rbacModel->roleList(1,10000)['data']);
 		//$this->getView()->display('/adminUpdate.tpl');
 	}
 
@@ -61,6 +63,7 @@ class AdminController extends Yaf\Controller_Abstract {
 			$adminData['name']  = safe::filterPost('admin-name');
 			$adminData['id']    = safe::filterPost('admin-id');
 			$adminData['email'] = safe::filterPost('admin-email');
+			$adminData['role'] = safe::filterPost('admin-role','int');
 			$res = $this->adminModel->adminUpdate($adminData);
 
             echo JSON::encode($res);
@@ -69,6 +72,7 @@ class AdminController extends Yaf\Controller_Abstract {
 			//输出页面
 			$id = intval($this->_request->getParam('id'));
 			$admin_info = $this->adminModel->getAdminInfo($id);
+			$this->getView()->assign('admin_roles',$this->rbacModel->roleList(1,10000)['data']);
 			$this->getView()->assign('info',$admin_info);
 		}
 	}

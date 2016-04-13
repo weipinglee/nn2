@@ -7,11 +7,13 @@
  */
 use \Library\photoupload;
 use \Library\json;
+use \Library\Session;
 class IndexController extends Yaf\Controller_Abstract {
 
 
 	public function init(){
 		//echo $this->getViewPath();
+		$this->getView()->setLayout('admin');
 	}
 	/** 
      * 默认动作
@@ -19,7 +21,16 @@ class IndexController extends Yaf\Controller_Abstract {
      * 对于如下的例子, 当访问http://yourhost/yar-demo/index/index/index/name/root 的时候, 你就会发现不同
      */
 	public function indexAction() {
+		// session_destroy();
+		$admin_info = admintool\admin::sessionInfo();
+		$this->getView()->assign('info',$admin_info);
+	}
 
+	public function welcomeAction(){
+		
+	}
+
+	public function noaccessAction(){
 
 	}
 

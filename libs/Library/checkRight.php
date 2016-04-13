@@ -51,8 +51,7 @@ class checkRight{
         self::$sessObj->write($sessID,Session::get('login'));
         $userModel = new M('user');
         $userModel->where(array('id'=>$data['id']))->data(array('session_id'=>$sessID))->update();
-
-
+        
     }
 
     /**

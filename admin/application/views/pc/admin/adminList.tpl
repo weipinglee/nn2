@@ -21,6 +21,7 @@
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">ID</th>
 				<th width="100">用户名</th>
+				<th width="100">所属分组</th>
 				<th width="150">邮箱</th>
 				<th width="130">加入时间</th>
 				<th width="70">状态</th>
@@ -33,7 +34,7 @@
 				<td><input type="checkbox" value="" name=""></td>
 				<td>{$item['id']}</td>
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">{$item['name']}</u></td>
-
+				<td>{$item['role_name']}</td>
 				<td>{$item['email']}</td>
 				<td>{$item['create_time']}</td>
 				<td class="td-status">

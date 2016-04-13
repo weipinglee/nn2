@@ -26,7 +26,7 @@
 	.node_tree .v3{padding-left: 30px;}
 </style>
 <form action="http://localhost/nn2/admin/public/rbac/accessadd" method="post" class="form form-horizontal" id="form-access-add" no_redirect="1" auto_submit>
-<div class="bloc">
+<div class="bloc" style="margin-top: 20px;">
     <div class="title">
         权限节点列表
     </div>
