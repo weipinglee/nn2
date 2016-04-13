@@ -25,11 +25,22 @@
 					<div class="center_tabl">
                     <form action="" method="">
 						<table border="0">
-        					<tr>
-            					<th colspan="4">供求信息：</th>
-           					</tr>
+                        <tr>
+                            <th colspan="4">供求信息：</th>
+                        </tr>
 
-          					<tr>
+                        <tr>
+
+                            <td><span>*</span>报盘类型：</td>
+                            <td>
+                                <select name="mode" id="">
+                                    <option value="1" >自由报盘</option>
+                                    <option value="2" >保证金报盘</option>
+                                </select>
+                            </td>
+
+                        </tr>
+                        <tr>
                             <td><span>*</span>货名：</td>
                             <td><input name="warename" id="warename" type="text"></td>
             				<td><span>*</span>商品类别：</td>
@@ -42,21 +53,12 @@
            				 </tr>
 
            		 		<tr>
-                            <td><span>*</span>计量单位：</td>
-                            <td><input name="unit" id="" type="text"></td>
+                            <td><span>*</span>单价：</td>
+                            <td><input name="price" id="" type="text"></td>
                             <td><span>*</span>供货总量(单位)：</td>
                             <td><input name="quantity" id="" maxlength="7" type="text"></td>
                         </tr>
-                        <tr>
-                            <td><span>*</span>单价：</td>
-                            <td><input name="price" id="" type="text"></td>
-                            <td><span>*</span>币种：</td>
-                            <td>
-                             <select name="classcode" id="">
-                                <option value="1" selected >人民币</option>
-                             </select>
-                            </td>
-                        </tr>
+
                         <tr>
                             <td><span>*</span>是否可拆分：</td>
                             <td>
