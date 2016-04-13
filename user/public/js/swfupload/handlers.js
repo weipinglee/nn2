@@ -60,7 +60,7 @@ function uploadSuccess(file, serverData) {
 		var progress = new FileProgress(file,  this.customSettings.upload_target);
 		var resultObject = $.parseJSON(serverData);
 		if (resultObject.flag == 1)
-		{alert(4);
+		{
 
 			//回调页面上传后的处理
 			addImage(resultObject.img);

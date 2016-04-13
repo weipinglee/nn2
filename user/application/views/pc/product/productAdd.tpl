@@ -58,7 +58,12 @@
                             <td><span>*</span>供货总量(单位)：</td>
                             <td><input name="quantity" id="" maxlength="7" type="text"></td>
                         </tr>
+                        <tr>
+                            <td><span>*</span>产地：</td>
+                            <td>
 
+                            </td>
+                        </tr>
                         <tr>
                             <td><span>*</span>是否可拆分：</td>
                             <td>

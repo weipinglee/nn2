@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-04-11 08:03:25
+-- Generation Time: 2016-04-13 06:58:14
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `nn`
+-- Database: `nn2`
 --
 
 -- --------------------------------------------------------
@@ -340,10 +340,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   `attribute` text NOT NULL COMMENT '商品属性',
   `unit` varchar(20) NOT NULL DEFAULT '吨' COMMENT '单位',
   `price` decimal(15,2) NOT NULL COMMENT '单价',
+  `produce_area` varchar(6) NOT NULL COMMENT '产地',
   `currency` int(2) NOT NULL DEFAULT '1' COMMENT '币种1：人民币',
   `quantity` decimal(10,5) NOT NULL COMMENT '总数量',
-  `divide` int(2) NOT NULL DEFAULT '0' COMMENT '是否可拆分：1：不可，0：可以',
-  `minimum` decimal(10,5) NOT NULL COMMENT '最小起订量',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `expire_time` datetime DEFAULT NULL,
   `sort` int(11) NOT NULL COMMENT '排序',
@@ -419,6 +418,8 @@ CREATE TABLE IF NOT EXISTS `product_offer` (
   `type` int(2) NOT NULL DEFAULT '1' COMMENT '报盘类型：1：卖盘，2：买盘',
   `mode` int(2) NOT NULL COMMENT '报盘模式：1：自由，2：保证金，3:仓单',
   `product_id` int(11) NOT NULL COMMENT '商品iD',
+  `divide` int(2) NOT NULL COMMENT '是否拆分，0：可以，1：不可',
+  `minimum` decimal(15,2) NOT NULL COMMENT '最小起订量',
   `status` int(2) NOT NULL COMMENT '审核状态',
   `apply_time` datetime DEFAULT NULL COMMENT '申请时间',
   `finish_time` datetime DEFAULT NULL COMMENT '审核时间',
@@ -756,7 +757,7 @@ INSERT INTO `user` (`id`, `type`, `username`, `password`, `mobile`, `email`, `he
 (33, 0, 'wplee', '05fe7461c607c33229772d402505601016a7d0ea', '12323232328', '', '@user', NULL, NULL, NULL, 0, '0', NULL, NULL, '5buhd54rqajbajsfumkgr9ijb4'),
 (34, 1, 'wplee127', '05fe7461c607c33229772d402505601016a7d0ea', '14523232323', '', NULL, NULL, NULL, NULL, 3, '123123', NULL, NULL, '8qgb5uv4h90s5vlsu1ddr8pr22'),
 (35, 1, '123qwe', 'c53255317bb11707d0f614696b3ce6f221d0e2f2', '13434343434', '', 'filefromuser/2016/03/11/20160311074729915.jpg@user@user', NULL, NULL, NULL, 4, 'sdfsdfsdf', NULL, NULL, 'd6dr0opqrvgejc72khn3qoli91'),
-(36, 1, 'weipinglee', '05fe7461c607c33229772d402505601016a7d0ea', '16767676767', '', 'filefromuser/2016/03/19/20160319100358393.jpg@user', 0, NULL, NULL, 4, '1233124', NULL, NULL, 'bjltv8uqcrld9b3qeqs5ubd4d5'),
+(36, 1, 'weipinglee', '05fe7461c607c33229772d402505601016a7d0ea', '16767676767', '', 'filefromuser/2016/03/19/20160319100358393.jpg@user', 0, NULL, NULL, 4, '1233124', NULL, NULL, 'p1ah8rrvu9ciefeeefkvjojdl4'),
 (37, 0, 'geren', '05fe7461c607c33229772d402505601016a7d0ea', '14334343434', '', '', NULL, NULL, NULL, 0, '0', NULL, NULL, ''),
 (39, 0, 'kljklj', '05fe7461c607c33229772d402505601016a7d0ea', '15454545454', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, 'ekp720eh5rqapk3ftfp87o3is5'),
 (40, 0, 'kljlkjlkji', '05fe7461c607c33229772d402505601016a7d0ea', '14454545454', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, ''),
@@ -798,10 +799,7 @@ CREATE TABLE IF NOT EXISTS `user_session` (
 --
 
 INSERT INTO `user_session` (`session_id`, `session_expire`, `session_data`) VALUES
-('1je8nvmarc78cd24qa9jd6vqe0', 1460077400, 0x3a7365737344617461),
-('bjltv8uqcrld9b3qeqs5ubd4d5', 1460077406, 0x3a7365737344617461),
-('btiradtbftggkg1dbukfcfpof1', 1460077387, 0x3a7365737344617461),
-('c97e52mnopg3ave7tvt2glolu4', 1460077388, 0x3a7365737344617461);
+('p1ah8rrvu9ciefeeefkvjojdl4', 1460520464, 0x3a7365737344617461);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
