@@ -8,11 +8,11 @@
 use \Library\safe;
 use \Library\url;
 use \Library\json;
-class RbacController extends Yaf\Controller_Abstract{
+class RbacController extends InitController{
 
 	private $rbacModel ;
 	public function init(){
-		$this->getView()->setLayout('admin');
+		parent::init();
 		$this->rbacModel = new RbacModel();
 	}
 	/**

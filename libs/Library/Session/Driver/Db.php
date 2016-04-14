@@ -54,8 +54,8 @@ class Db{
        $hander = self::$hander;
        $sql = 'SELECT session_data AS data FROM '.$this->sessionTable." WHERE session_id = :session_id   AND session_expire >".time();
        $res = $hander->query($sql,array('session_id'=>$sessID));
-       if($res !== false){
-          return $res;
+       if($res !== false && count($res) > 0 ){
+          return $res[0]['data'];
        }
        return array();
    } 

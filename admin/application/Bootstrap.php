@@ -23,14 +23,14 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 		define('IS_AJAX',       ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) ? true : false);
 
 		//数据库方式存储session
-		// ini_set('session.save_handler','user');
-		// $session = new Db('admin_session',1800);
-		// session_set_save_handler(array($session, 'open'),
-		//                          array($session, 'close'),
-		//                          array($session, 'read'),
-		//                          array($session, 'write'),
-		//                          array($session, 'destroy'),
-		//                          array($session, 'gc'));
+		ini_set('session.save_handler','user');
+		$session = new Db('admin_session',1800);
+		session_set_save_handler(array($session, 'open'),
+		                         array($session, 'close'),
+		                         array($session, 'read'),
+		                         array($session, 'write'),
+		                         array($session, 'destroy'),
+		                         array($session, 'gc'));
 		
 		session_start();
 

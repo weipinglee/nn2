@@ -30,12 +30,5 @@ class admin{
 		return \Library\Session::get(isset(\Library\tool::getConfig('rbac')['user_session']) ? \Library\tool::getConfig('rbac')['user_session'] : '');
 	}
 
-	/**
-	 * 登出
-	 * @return [type] [description]
-	 */
-	public static function logout(){
-		\Library\Session::set(\Library\tool::getConfig('rbac')['user_session'],array());
-	} 
 }
  ?>

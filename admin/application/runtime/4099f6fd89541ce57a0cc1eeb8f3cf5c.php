@@ -60,7 +60,7 @@
         <div id="sidebar">
             <ul>
                 <li>
-                    <a href="index.html">
+                    <a href="#">
                         <img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/inbox.png" alt="" />
                         耐耐网后台管理系统
                     </a>
@@ -83,7 +83,7 @@
                 <li><a href="#" target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/brush.png" alt="" />会员管理</a>
                     <ul>
                         <li><a href="member-audit.html" target="content">会员审核</a></li>
-                        <li><a href="member-renzheng.html target="content">会员认证</a>
+                        <li><a href="member-renzheng.html" target="content">会员认证</a>
                             <ul>
                                 <li><a href="http://localhost/nn2/admin/public/member/dealercert" target="content">交易商认证</a></li>
                                 <li><a href="scale-hand.html" target="content">仓库认证</a></li>
@@ -166,8 +166,29 @@
 
 
         </div>
-          
-                
+        <script type="text/javascript">
+            $(function(){
+                var menus = <?php echo isset($menus)?$menus:"";?>;
+                if(menus != 'admin'){
+                    $('ul li a').each(function(){
+                        var href = $(this).attr('href');
+                        if(href && href != '#'){
+                            var flag = 0;
+                            for(var i=0;i<menus.length;i++){
+                                //console.log(href.indexOf(menus[i]));
+                                if(href.indexOf(menus[i]) > 0){
+                                    flag = 1;
+                                }
+                            }
+                            if(flag == 0){
+                                $(this).remove();
+                            }
+                        }        
+                    }) 
+                }
+            });    
+        </script>
+        
                 
         <!--            
               CONTENT 
@@ -178,7 +199,7 @@
      </div>
 </div>
         
-        
+    
     </body>
 </html>
 </body>

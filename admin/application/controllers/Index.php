@@ -8,12 +8,20 @@
 use \Library\photoupload;
 use \Library\json;
 use \Library\Session;
-class IndexController extends Yaf\Controller_Abstract {
+use \Library\adminrbac\rbac;
+class IndexController extends InitController {
 
 
 	public function init(){
-		//echo $this->getViewPath();
-		$this->getView()->setLayout('admin');
+		parent::init();
+		if (!\admintool\admin::is_admin()) {
+			// $menus = \Library\Session::get('admin_menus');
+			$menus = rbac::accessMenu();
+			$this->getView()->assign('menus',JSON::encode($menus));
+		}else{
+			$this->getView()->assign('menus','admin');
+		}
+		
 	}
 	/** 
      * 默认动作

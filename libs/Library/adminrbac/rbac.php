@@ -55,6 +55,7 @@ class rbac
     {
         //检查是否需要认证
         if (self::checkAccess()) {
+            $accessList = array();
             //存在认证识别号，则进行进一步的访问决策
             $accessGuid = md5($module.$controller.$action);
             if (!\admintool\admin::is_admin()) {
@@ -64,8 +65,8 @@ class rbac
                     // //var_dump(\Library\Session::get(self::$rbac_config['\Library\user_session']]['id']);
                     $auth_id = \Library\Session::get(self::$rbac_config['user_session']) ? \Library\Session::get(self::$rbac_config['user_session'])['id'] : 0;
                     $accessList = self::getAccessList($auth_id);
+
                     // echo $module.'-'.$controller.'-'.$action;
-                    // var_dump($accessList);
                 } 
                 // else {
                 //     // 如果是管理员或者当前操作已经认证过，无需再次认证
@@ -79,15 +80,37 @@ class rbac
                 if (!isset($accessList[strtoupper($module)][strtoupper($controller)][strtoupper($action)])) {
                     \Library\Session::set($accessGuid , false);
                     return false;
-                } else {
-                    \Library\Session::set($accessGuid , true);
                 }
+                //\Library\Session::set('accessList',$accessList);
             } else {
                 //管理员无需认证
                 return true;
             }
         }
         return true;
+    }
+
+    //生成权限菜单
+    public static function accessMenu(){
+        $admin_info = \admintool\admin::sessionInfo();
+        if(isset($admin_info)){
+            $accessList = self::getAccessList($admin_info['id']);
+            if(is_array($accessList)){
+                foreach ($accessList as $k1=>$m) {
+                    foreach ($m as $k2=>$c) {
+                        foreach ($c as $k3=>$a) {
+                            $menus []= strtolower($k1.'/public/'.$k2.'/'.$k3);
+                        }
+                    }
+                }
+            }else{
+                $menus = array();
+            }
+        }else{
+            $menus = array();
+        }
+        // \Library\Session::set('admin_menus' , $menus);
+        return $menus;
     }
 
     /**

@@ -9,11 +9,11 @@ use \Library\url;
 use \Library\json;
 use \Library\cache\driver;
 use \Library\tool;
-class AdminController extends Yaf\Controller_Abstract {
+class AdminController extends InitController {
 
 	private $adminModel,$rbacModel;
 	public function init(){
-		$this->getView()->setLayout('admin');
+		parent::init();
 		$this->adminModel = new AdminModel();
 		$this->rbacModel = new RbacModel();
 		//echo $this->getViewPath();
