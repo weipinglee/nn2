@@ -182,7 +182,7 @@ class RbacController extends InitController{
 	public function AccessAddAction(){
 		$role_id = safe::filterPost('role_id','int');
 		$node_id = safe::filterPost('node_id');
-		$res = $this->rbacModel->accessAdd($role_id,$node_id);
+		$res = $this->rbacModel->accessAdd($role_id,is_array($node_id) ? $node_id : array());
 		echo JSON::encode($res);
 		return false;
 	} 

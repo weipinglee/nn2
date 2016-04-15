@@ -43,7 +43,7 @@
        编辑分组
     </div>
    <div class="pd-20">
-  <form action="http://localhost/nn2/admin/public/rbac/roleupdate" method="post" class="form form-horizontal" id="form-role-update" auto_submit redirect_url="http://localhost/nn2/admin/public/rbac/rolelist">
+  <form action="http://localhost/nn2/admin/public/systemrbac/roleupdate" method="post" class="form form-horizontal" id="form-role-update" auto_submit redirect_url="http://localhost/nn2/admin/public/systemrbac/rolelist">
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>分组名：</label>
       <div class="formControls col-5">

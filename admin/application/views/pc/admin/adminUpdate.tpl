@@ -29,7 +29,7 @@
        编辑管理员
     </div>
    <div class="pd-20">
-  <form action="{url:/admin/adminUpdate}" method="post" class="form form-horizontal" id="form-admin-update" auto_submit redirect_url="{url:/admin/adminList}">
+  <form action="{url:/system/admin/adminUpdate}" method="post" class="form form-horizontal" id="form-admin-update" auto_submit redirect_url="{url:/system/admin/adminList}">
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>管理员分组：</label>
 
@@ -76,7 +76,7 @@
       <div class="col-9 col-offset-3">
         <input type="hidden" name="admin-id" value="{$info['id']}"/>
         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-        &emsp;<a class="btn btn-primary radius" href="{url:/admin/adminList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
+        &emsp;<a class="btn btn-primary radius" href="{url:/system/admin/adminList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
       </div>
     </div>
   </form>

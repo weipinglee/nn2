@@ -30,7 +30,7 @@
        添加权限节点
     </div>
    <div class="pd-20">
-  <form action="{url:/rbac/nodeAdd}" method="post" class="form form-horizontal" id="form-node-add" no_redirect="1" auto_submit>
+  <form action="{url:/system/rbac/nodeAdd}" method="post" class="form form-horizontal" id="form-node-add" no_redirect="1" auto_submit>
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>模块名：</label>
       <div class="formControls col-5">
@@ -85,7 +85,7 @@
     <div class="row cl">
       <div class="col-9 col-offset-3">
         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-        &emsp;<a class="btn btn-primary radius" href="{url:/rbac/accessList}">&nbsp;&nbsp;前往权限分配&nbsp;&nbsp;</a>
+        &emsp;<a class="btn btn-primary radius" href="{url:/system/rbac/accessList}">&nbsp;&nbsp;前往权限分配&nbsp;&nbsp;</a>
       </div>
 
     </div>
@@ -110,7 +110,7 @@
           $('input[name=action_title]').val('');
           $('input[name=module_title]').val('');
           if(module_name == -1) return false;
-          formacc_sel.ajax_post("{url:/rbac/controllerList}",{module:module_name},function(){
+          formacc_sel.ajax_post("{url:/system/rbac/controllerList}",{module:module_name},function(){
             $('.controller').html(formacc_sel.ajax_return_data.controllers);
             $('input[name=module_title]').val(formacc_sel.ajax_return_data.title);
           },function(){
@@ -124,7 +124,7 @@
           $('input[name=action_title]').val('');
           $('input[name=controller_title]').val('');
           if(controller_name == -1) return false;
-          formacc_sel.ajax_post("{url:/rbac/actionList}",{controller:controller_name,module:module_name},function(){
+          formacc_sel.ajax_post("{url:/system/rbac/actionList}",{controller:controller_name,module:module_name},function(){
             $('.action').html(formacc_sel.ajax_return_data.actions);
             $('input[name=controller_title]').val(formacc_sel.ajax_return_data.title);
           },function(){
@@ -140,7 +140,7 @@
           if(action_name == -1) {
             return false;
           }else{
-            formacc_sel.ajax_post("{url:/rbac/actionTitle}",{controller:controller_name,module:module_name,action:action_name},function(){
+            formacc_sel.ajax_post("{url:/system/rbac/actionTitle}",{controller:controller_name,module:module_name,action:action_name},function(){
               $('input[name=action_title]').val(formacc_sel.ajax_return_data.action_title);
             },function(){});
           }

@@ -93,21 +93,20 @@ class rbac
     //生成权限菜单
     public static function accessMenu(){
         $admin_info = \admintool\admin::sessionInfo();
+        $menus = array();
         if(isset($admin_info)){
             $accessList = self::getAccessList($admin_info['id']);
             if(is_array($accessList)){
                 foreach ($accessList as $k1=>$m) {
+                    //$menus []= strtolower($k1);
                     foreach ($m as $k2=>$c) {
+                        //$menus []= strtolower($k1.'/'.$k2);
                         foreach ($c as $k3=>$a) {
-                            $menus []= strtolower($k1.'/public/'.$k2.'/'.$k3);
+                            $menus []= strtolower($k1.'/'.$k2.'/'.$k3);
                         }
                     }
                 }
-            }else{
-                $menus = array();
             }
-        }else{
-            $menus = array();
         }
         // \Library\Session::set('admin_menus' , $menus);
         return $menus;

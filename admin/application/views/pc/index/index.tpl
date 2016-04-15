@@ -46,25 +46,25 @@
         <div id="sidebar">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="#" no_access='no_access'>
                         <img src="{views:img/icons/menu/inbox.png}" alt="" />
                         耐耐网后台管理系统
                     </a>
                 </li>
                 <li class="current"><a target="content"><img src="{views:img/icons/menu/layout.png}" alt="" />系统管理</a>
                     <ul>
-                                                <li class="current"><a target="content">权限管理</a>
-                                                    <ul>
-                                                        <li><a href="{url:/rbac/roleList}" target="content">管理员分组</a></li>
-                                                        <li><a href="{url:/admin/adminList}" target="content">管理员列表</a></li>
-                                                        <li><a href="{url:/rbac/accessList}" target="content">权限分配</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="system-base.html" target="content">系统设置</a></li>
-                                                <li><a href="table.html" target="content">导航栏目管理</a></li>
-                                                <li><a href="tabs.html" target="content">地域信息管理</a></li>
-                                                <li><a href="gallery.html" target="content">客服添加</a></li>
-                                            </ul>
+                        <li class="current"><a target="content">权限管理</a>
+                            <ul>
+                                <li><a href="{url:/system/rbac/roleList}" target="content">管理员分组</a></li>
+                                <li><a href="{url:/system/rbac/accessList}" target="content">权限分配</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{url:/system/admin/adminList}" target="content">管理员列表</a></li>
+                        <li><a href="system-base.html" target="content">系统设置</a></li>
+                        <li><a href="table.html" target="content">导航栏目管理</a></li>
+                        <li><a href="tabs.html" target="content">地域信息管理</a></li>
+                        <li><a href="gallery.html" target="content">客服添加</a></li>
+                    </ul>
                 </li>
                 <li><a href="#" target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
                     <ul>
@@ -156,21 +156,62 @@
             $(function(){
                 var menus = {$menus};
                 if(menus != 'admin'){
-                    $('ul li a').each(function(){
+                    $('ul a').each(function(){
                         var href = $(this).attr('href');
-                        if(href && href != '#'){
+                        if($(this).attr('no_access') != 'no_access'){
                             var flag = 0;
-                            for(var i=0;i<menus.length;i++){
-                                //console.log(href.indexOf(menus[i]));
-                                if(href.indexOf(menus[i]) > 0){
-                                    flag = 1;
+                            if(href){
+                                for(var i=0;i<menus.length;i++){
+                                    var href = href.toLocaleLowerCase();
+                                    if(href.indexOf(menus[i]) > 0){
+                                        flag = 1;
+                                    }
                                 }
+                            }else{
+                                flag = 1;
                             }
                             if(flag == 0){
-                                $(this).remove();
+                                $(this).parent().remove();
                             }
                         }        
-                    }) 
+                    });
+                    $("#sidebar>ul>li>ul>li>a").each(function(){
+                        if($(this).siblings('ul').length == 0 || $(this).siblings('ul').children().length == 0){
+                            if(!$(this).attr('href') || $(this).attr('href').length < 10){
+                                $(this).parent().remove();
+                            }
+                        }
+                    });
+                    $("#sidebar>ul>li>ul>li>ul").each(function(){
+                        if($(this).find('li').length == 0){
+                            $(this).remove();
+                        }
+                    });
+                    // $("#sidebar>ul>li>ul>li").each(function(){
+                    //     if($(this).find('ul').length == 0){
+                    //         $(this).remove();
+                    //     }
+                    // });
+                    // 
+                    
+                    $("#sidebar>ul>li>ul").each(function(){
+                        if($(this).find('li').length == 0){
+                            $(this).remove();
+                        }
+                    });
+
+                    $("#sidebar>ul>li:not(:first)").each(function(){
+                        if($(this).find('ul').length == 0){
+                            $(this).remove();
+                        }
+                    });
+
+                    
+                    // 
+                    // 
+                    
+
+
                 }
             });    
         </script>

@@ -23,7 +23,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a class="btn btn-primary radius" href="http://localhost/nn2/admin/public/rbac/roleadd"><i class=" icon-plus"></i> 添加分组</a> </span>  </div>
+	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a class="btn btn-primary radius" href="http://localhost/nn2/admin/public/system/rbac/roleAdd/"><i class=" icon-plus"></i> 添加分组</a> </span>  </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -50,12 +50,12 @@
 				</td>
 				<td class="td-manage">
 					<?php if($item['status'] == 0){?>
-					<a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=1 ajax_url="http://localhost/nn2/admin/public/rbac/setstatus/id/<?php echo $item['id'];?>"><i class="icon-pause"></i></a>
+					<a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=1 ajax_url="http://localhost/nn2/admin/public/system/rbac/setStatus/id/<?php echo isset($item['id'])?$item['id']:"";?>"><i class="icon-pause"></i></a>
 					<?php }elseif($item['status'] == 1){?>
-					<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=0 ajax_url="http://localhost/nn2/admin/public/rbac/setstatus/id/<?php echo $item['id'];?>"><i class="icon-play"></i></a>
+					<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=0 ajax_url="http://localhost/nn2/admin/public/system/rbac/setStatus/id/<?php echo isset($item['id'])?$item['id']:"";?>"><i class="icon-play"></i></a>
 					<?php }?>
-				 <a title="编辑" href="http://localhost/nn2/admin/public/rbac/roleupdate/id/<?php echo $item['id'];?>" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a> 
-				 <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="http://localhost/nn2/admin/public/rbac/roledel/id/<?php echo $item['id'];?>" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+				 <a title="编辑" href="http://localhost/nn2/admin/public/system/rbac/roleUpdate/id/<?php echo isset($item['id'])?$item['id']:"";?>" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a> 
+				 <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="http://localhost/nn2/admin/public/system/rbac/roleDel/id/<?php echo isset($item['id'])?$item['id']:"";?>" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
 
 				 
 			</tr>
@@ -70,7 +70,7 @@
 	;$(function(){
 		$('.search-admin').click(function(){
 			var name = $(this).siblings('input').val();
-			window.location.href = "http://localhost/nn2/admin/public/admin/adminlist"+"?name="+name;
+			window.location.href = "http://localhost/nn2/admin/public/system/admin/adminList/"+"?name="+name;
 		});
 	})
 </script>

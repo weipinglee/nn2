@@ -11,7 +11,7 @@ class loginModel{
 	 */
 	private $admin = '';
 	public function __construct(){
-		$this->admin = new M('admin');
+		$this->admin = new M('admin'); 
 	}
 	public function login($name,$pwd){
 		$user = $this->admin->where(array('name'=>$name))->fields('password,name,id,role,session_id')->getObj();

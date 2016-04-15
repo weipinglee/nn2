@@ -24,15 +24,16 @@
 	.node_tree .v1{background-color: #14A8FF;border: 1px solid #ddd;padding: 3px 6px;color: #fff;border-radius: 3px;font-weight: border;margin-bottom: 5px;margin-top: 5px;}
 	.node_tree .v2{text-indent: 2em;font-weight: bolder;}
 	.node_tree .v3{padding-left: 30px;}
+	.node_tree .ins{}
 </style>
-<form action="http://localhost/nn2/admin/public/rbac/accessadd" method="post" class="form form-horizontal" id="form-access-add" no_redirect="1" auto_submit>
+<form action="http://localhost/nn2/admin/public/system/rbac/accessAdd/" method="post" class="form form-horizontal" id="form-access-add" no_redirect="1" auto_submit>
 <div class="bloc" style="margin-top: 20px;">
     <div class="title">
         权限节点列表
     </div>
     <div class="content">
         <div class="pd-20">
-	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a class="btn btn-primary radius node-add" href="http://localhost/nn2/admin/public/rbac/nodeadd"><i class=" icon-plus"></i>添加节点 </a> </span>  
+	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a class="btn btn-primary radius node-add" href="http://localhost/nn2/admin/public/system/rbac/nodeAdd/"><i class=" icon-plus"></i>添加节点 </a> </span>  
 	 <div class=" cl">
       <!-- <label class="form-label col-3"><span class="c-red">*</span>模块名：</label> -->
 
@@ -59,12 +60,18 @@
 							<div class='v2'><span><input type="checkbox" name="node_id[]" value="<?php echo isset($v1['id'])?$v1['id']:"";?>" <?php if(in_array($v1['id'],$access_array)){?>checked='checked'<?php }?>/>&nbsp;<?php echo isset($v1['title'])?$v1['title']:"";?></span>
 							</div>
 							<div class='v3'>
-								<ul>
-									<?php foreach($v1['_child'] as $k2 => $v2){?>
+								
+								<?php foreach($v1['_child'] as $k2 => $v2){?>
+									<ul>
 									<!-- action -->
-										<li><input type="checkbox" name="node_id[]" value="<?php echo isset($v2['id'])?$v2['id']:"";?>" <?php if(in_array($v2['id'],$access_array)){?>checked='checked'<?php }?>/>&nbsp;<?php echo isset($v2['title'])?$v2['title']:"";?></li>
+									<div class='ins'>[<?php echo isset($k2)?$k2:"";?>]</div>
+									<?php foreach($v2 as $key => $v3){?>
+										<li><input type="checkbox" name="node_id[]" value="<?php echo isset($v3['id'])?$v3['id']:"";?>" <?php if(in_array($v3['id'],$access_array)){?>checked='checked'<?php }?>/>&nbsp;<?php echo isset($v3['title'])?$v3['title']:"";?></li>
 									<?php }?>
-								</ul>
+									</ul>	
+									<div class='clearfix'></div>
+								<?php }?>
+								
 							</div>
 							<div class='clearfix'></div>
 						</div>
@@ -106,7 +113,7 @@
 			}
 		});
 
-		var url = "http://localhost/nn2/admin/public/rbac/accesslist";
+		var url = "http://localhost/nn2/admin/public/system/rbac/accessList/";
 		//切换角色
 		$('.roles').change(function(){
 			var role_id = $(this).val();
