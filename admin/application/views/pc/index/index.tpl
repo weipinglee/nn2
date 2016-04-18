@@ -66,7 +66,7 @@
                         <li><a href="gallery.html" target="content">客服添加</a></li>
                     </ul>
                 </li>
-                <li><a href="#" target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
+                <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
                     <ul>
                         <li><a href="member-audit.html" target="content">会员审核</a></li>
                         <li><a href="member-renzheng.html" target="content">会员认证</a>
@@ -89,7 +89,7 @@
                         <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>
                     </ul>
                 </li>
-                <li><a href="#" target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />交易管理</a>
+                <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />交易管理</a>
                     <ul>
                         <li><a href="{url:/product/}" target="content">产品分类设置</a></li>
                         <li><a target="content">交易费率设置</a>
