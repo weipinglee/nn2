@@ -95,7 +95,7 @@
                                 <li><a href="http://localhost/nn2/admin/public/member/roleadd" target="content">添加角色</a></li>
                             </ul>
                         </li>
-                        <li><a href="member-role.html" target="content">角色分组</a></li>
+                        <li><a href="http://localhost/nn2/admin/public/member/usergroup/groupList/" target="content">角色分组</a></li>
                         <li><a href="http://localhost/nn2/admin/public/member/memberlist" target="content">会员列表</a></li>
                         <li><a href="member-del.html" target="content">黑名单列表</a></li>
                         <li><a href="agent-list.html" target="content">经纪人管理</a></li>

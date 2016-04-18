@@ -16,7 +16,7 @@ class RbacModel{
 	private $admin;//管理员表
 
 	public function __construct(){
-		$this->admin = new M('admim');
+		$this->admin = new M('admin');
 		$this->role = new M('admin_role');
 		$this->node = new M('admin_node');
 		$this->access = new M('admin_access');

@@ -24,7 +24,7 @@ class UcenterController extends Yaf\Controller_Abstract {
      * 个人中心首页
      */
     public function indexAction(){
-
+        
     }
 
     /**

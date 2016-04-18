@@ -81,7 +81,7 @@
                                 <li><a href="{url:/member/roleAdd}" target="content">添加角色</a></li>
                             </ul>
                         </li>
-                        <li><a href="member-role.html" target="content">角色分组</a></li>
+                        <li><a href="{url:/member/usergroup/groupList}" target="content">角色分组</a></li>
                         <li><a href="{url:/member/memberList}" target="content">会员列表</a></li>
                         <li><a href="member-del.html" target="content">黑名单列表</a></li>
                         <li><a href="agent-list.html" target="content">经纪人管理</a></li>

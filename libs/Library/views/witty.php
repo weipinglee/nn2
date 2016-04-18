@@ -118,9 +118,7 @@ class witty{
         }
 
         $parse_file = $this->_compile_dir.md5($tpl).'.php';
-
         $layout_file = $this->layout.$this->_tpl_ext;
-
         if(!file_exists($parse_file) || (filemtime($template) > filemtime($parse_file)) || (file_exists($layout_file) && (filemtime($layout_file) > filemtime($parse_file)))){
 
 
