@@ -33,7 +33,9 @@ class productController extends Yaf\Controller_Abstract{
             $cate['pid']       = safe::filterPost('pid','int',0);
             $cate['sort']      = safe::filterPost('sort','int',0);
             $cate['note']      = safe::filterPost('note');
-            $cate['attrs']     = implode(',',safe::filterPost('attrs','int',''));
+
+            $attrs = safe::filterPost('attr_id','int','');
+            $cate['attrs']     = $attrs=='' ? '' : implode(',',array_unique($attrs));
 
             $res = $productModel->cateAdd($cate);
             if($res['success']==1){
@@ -48,15 +50,27 @@ class productController extends Yaf\Controller_Abstract{
         }else{
             $cate_id  = $this->getRequest()->getParam('cid',0);
             $cate_id = safe::filter($cate_id,'int');
+            //获取所有属性
+            $attr = $productModel->getAttr();
             if($cate_id){
                 $cateData = $productModel->getCateInfo($cate_id);
-                if(!empty($cateData))
+                if(!empty($cateData)){
+                    $attr_arr = explode(',',$cateData['attrs']);
+                    $attr_sel = array();
+                    foreach($attr_arr as $v){
+                        if($v=='')
+                            continue;
+                        $attr_sel[$v] = $attr[$v]['name'];
+                    }
+                    $this->getView()->assign('attr_sel',$attr_sel);
                     $this->getView()->assign('cate',$cateData);
+                }
+
+
             }
             $cateTree = $productModel->getCateTree();//获取分类树
 
-            //获取所有属性
-            $attr = $productModel->getAttr();
+
 
             $this->getView()->assign('tree',$cateTree);
             $this->getView()->assign('attr',$attr);

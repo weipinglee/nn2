@@ -1,4 +1,4 @@
-
+<script type="text/javascript" src="{views:js/product/cate.js}"></script>
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" /> 添加商品类型
 </h1>
@@ -52,11 +52,22 @@
           <div class="col-5"> </div>
       </div>
       <div class="row cl">
+           <label class="form-label col-2"><span class="c-red"></span>所选属性：</label>
+          <div class="formControls col-5" id="attr_box">
+            {if:isset($attr_sel)&&!empty($attr_sel)}
+                {foreach:items=$attr_sel}
+                    <div ><input type="text"  value="{$item}"/> <input type="hidden" value="{$key}" name="attr_id[]"/><a href="javascript:void(0);" >删除</a></div>
+                {/foreach}
+            {/if}
+          </div>
+            <div class="col-5"> </div>
+      </div>
+      <div class="row cl">
           <label class="form-label col-2"><span class="c-red"></span>属性：</label>
           <div class="formControls col-5">
              <!-- <input type="hidden" name="attrs[]" value="1"/>
               <input type="hidden" name="attrs[]" value="2"/> -->
-              <select >
+              <select id='all_attr'>
                   {if:!empty($attr)}
                       {foreach: items=$attr}
                           <option value="{$item['id']}">{$item['name']}</option>
@@ -65,7 +76,8 @@
                   {/if}
 
               </select>
-          </div>
+
+          </div><a href="javascript:void(0)" onclick="addAttr()">添加</a>
           <div class="col-5"> </div>
       </div>
       <div class="row cl">
@@ -95,3 +107,4 @@
 </div>
 
 </div>
+<div class="attr" style="display:none;"><input type="text"  /> <input type="hidden" /><a href="javascript:void(0);">删除</a></div>
