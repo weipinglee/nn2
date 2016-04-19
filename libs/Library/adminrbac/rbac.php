@@ -128,7 +128,7 @@ class rbac
         $table['access'] . " as access ," .
         $table['node'] . " as node " .
         "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=0 and access.node_id=node.id and node.level=1 and node.status=0";
-        $apps   = $db->query($sql);
+        $apps   = $db->query($sql,array(),"SELECT");
         $access = array();
         foreach ($apps as $key => $app) {
             $appId   = $app['id'];
@@ -141,7 +141,7 @@ class rbac
             $table['access'] . " as access ," .
             $table['node'] . " as node " .
             "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=0 and access.node_id=node.id and node.level=2 and node.pid={$appId} and node.status=0";
-            $modules = $db->query($sql);
+            $modules = $db->query($sql,array(),"SELECT");
             // 判断是否存在公共模块的权限
             $publicAction = array();
             foreach ($modules as $key => $module) {
@@ -154,7 +154,7 @@ class rbac
                     $table['access'] . " as access ," .
                     $table['node'] . " as node " .
                     "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=1";
-                    $rs = $db->query($sql);
+                    $rs = $db->query($sql,array(),"SELECT");
                     foreach ($rs as $a) {
                         $publicAction[$a['name']] = $a['id'];
                     }
@@ -172,7 +172,7 @@ class rbac
                 $table['access'] . " as access ," .
                 $table['node'] . " as node " .
                 "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=0 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=0";
-                $rs     = $db->query($sql);
+                $rs     = $db->query($sql,array(),"SELECT");
                 $action = array();
                 foreach ($rs as $a) {
                     $action[$a['name']] = $a['id'];
