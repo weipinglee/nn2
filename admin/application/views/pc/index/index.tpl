@@ -59,7 +59,11 @@
                                 <li><a href="{url:/system/rbac/accessList}" target="content">权限分配</a></li>
                             </ul>
                         </li>
-                        <li><a href="{url:/system/admin/adminList}" target="content">管理员列表</a></li>
+                        <li><a target="content">系统配置项</a>
+                            <ul>
+                                <li><a href="{url:/system/confcredit/creditList}" target="content">信誉值配置列表</a></li>
+                            </ul>
+                        </li>
                         <li><a href="system-base.html" target="content">系统设置</a></li>
                         <li><a href="table.html" target="content">导航栏目管理</a></li>
                         <li><a href="tabs.html" target="content">地域信息管理</a></li>
