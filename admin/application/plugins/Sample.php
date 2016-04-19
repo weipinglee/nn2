@@ -25,6 +25,7 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 		$rbac = new rbac($request);
 		$auth = rbac::AccessDecision($request->module,$request->controller,$request->action);
 		if($auth === false){
+			// if($request->isXmlHttpRequest())
 			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
 				die(JSON::encode(tool::getSuccInfo(0,'无操作权限')));
 			}else{

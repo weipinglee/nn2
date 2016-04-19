@@ -75,7 +75,7 @@
                         </li>
                         <li><a target="content">系统配置项</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/system/confcredit/creditList/" target="content">信誉值配置列表</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/system/confsystem/creditList/" target="content">信誉值配置列表</a></li>
                             </ul>
                         </li>
                         <li><a href="system-base.html" target="content">系统设置</a></li>

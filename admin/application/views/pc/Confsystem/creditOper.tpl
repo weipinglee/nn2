@@ -26,7 +26,7 @@
        {$oper}信誉值配置
     </div>
    <div class="pd-20">
-  <form action="{url:/system/confcredit/creditOper}" method="post" class="form form-horizontal" id="form-credit-add" auto_submit redirect_url = "{url:/system/confcredit/creditList}">
+  <form action="{url:/system/Confsystem/creditOper}" method="post" class="form form-horizontal" id="form-credit-add" auto_submit redirect_url = "{url:/system/Confsystem/creditList}">
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>参数名：</label>
       <div class="formControls col-5">
@@ -95,7 +95,7 @@
         {if:$oper_type==2}<input type="hidden" name="ori_name" value="{$info['name']}" />{/if}
         <input type="hidden" name="oper_type" value="{$oper_type}"/>
         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-        &emsp;<a class="btn btn-primary radius" href="{url:/system/confcredit/creditList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
+        &emsp;<a class="btn btn-primary radius" href="{url:/system/Confsystem/creditList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
       </div>
     </div>
   </form>

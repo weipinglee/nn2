@@ -1,13 +1,13 @@
 <?php 
 
 /**
- * 信誉制配置项控制器
+ * 系统配置项控制器
  */
 use \Library\safe;
 use \Library\tool;
 use \Library\JSON;
 use \Library\url;
-class ConfcreditController extends Yaf\Controller_Abstract{
+class ConfsystemController extends Yaf\Controller_Abstract{
 
 	private $confcredit;
 	public function init(){
@@ -17,7 +17,7 @@ class ConfcreditController extends Yaf\Controller_Abstract{
 	}
 
 	/**
-	 * 获取列表
+	 * 获取信誉值配置列表
 	 * @return 
 	 */
 	public function creditListAction(){
@@ -28,7 +28,7 @@ class ConfcreditController extends Yaf\Controller_Abstract{
 	}
 	
 	/**
-	 * 新增或修改
+	 * 新增或修改信誉值配置
 	 */
 
 	public function creditOperAction(){
@@ -52,7 +52,7 @@ class ConfcreditController extends Yaf\Controller_Abstract{
 			echo JSON::encode($res);
 			return false;
 		}else{
-			$oper_type = $this->_request->getParam('oper_type');
+			$oper_type = intval($this->_request->getParam('oper_type'));
 			if($oper_type == 2){
 				$oper = "编辑";
 				$name = $this->_request->getParam('name');
@@ -67,7 +67,7 @@ class ConfcreditController extends Yaf\Controller_Abstract{
 	}
 
 	/**
-	 * 删除
+	 * 删除信誉值
 	 */
 	public function creditDelAction(){
 		$name = $this->_request->getParam('name');
