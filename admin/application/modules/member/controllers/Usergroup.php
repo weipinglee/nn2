@@ -34,7 +34,6 @@ class UsergroupController extends Yaf\Controller_Abstract{
 	 * 新增页面
 	 */
 	public function groupAddAction(){
-		//权限验证 TODO
 		if(IS_AJAX){
 			$usergroupData['group_name'] = safe::filterPost('group_name');
 			$usergroupData['credit']    = safe::filterPost('credit','int');

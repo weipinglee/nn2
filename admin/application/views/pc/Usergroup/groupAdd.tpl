@@ -36,7 +36,7 @@
     </div>
     
     <div class="row cl">
-      <label class="form-label col-3"><span class="c-red">*</span>信誉制分界线:</label>
+      <label class="form-label col-3"><span class="c-red">*</span>信誉值分界线:</label>
       <div class="formControls col-5">
         <input type="text" class="input-text" value="" placeholder="" id="credit" name="credit"  datatype="n" nullmsg="信誉制分界线不能为空">
       </div>

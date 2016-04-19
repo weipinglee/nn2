@@ -5,6 +5,7 @@
 
 namespace Library\Session\Driver;
 use \Library\M;
+use \Library\tool;
 /**
  * 数据库方式Session驱动
  *    CREATE TABLE user_session (
@@ -53,9 +54,10 @@ class Db{
    public function read($sessID) { 
        $hander = self::$hander;
        $sql = 'SELECT session_data AS data FROM '.$this->sessionTable." WHERE session_id = :session_id   AND session_expire >".time();
-       $res = $hander->query($sql,array('session_id'=>$sessID));
+       $res = $hander->query($sql,array('session_id'=>$sessID),'SELECT');
        if($res !== false && count($res) > 0 ){
-          return $res[0]['data'];
+          $config = tool::getConfig(array("application",'name'));
+          return $config == 'admin' ? $res[0]['data'] : $res;
        }
        return array();
    } 

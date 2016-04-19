@@ -462,7 +462,7 @@ class M{
      * @param $sql
      * @return 查询结果
      */
-    public function query($sql,$param=array(),$type='SELECT'){
+    public function query($sql,$param=array(),$type=''){
         $res =  $this->db->exec($sql,array_merge($this->whereParam,$param),$type);
         return $res;
     }
