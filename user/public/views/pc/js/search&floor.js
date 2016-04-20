@@ -58,5 +58,3 @@ window.onscroll = function () {
         $("#floornav").fadeOut(300);
     }
 }
-
-

@@ -28,3 +28,26 @@ function promptinfo()
 
                     
 })
+
+ //检验用户名是否已注册
+ //此处obj是htmlElement对象，不是选择器对象，所以不能obj.attr('name')
+ function checkUser(obj){
+     var username = obj.value;
+     var field = obj.getAttribute('name');
+     var res = false;
+     $.ajax({
+         url:$('input[name=checkUrl]').val(),
+         async:false,
+         type:'post',
+         data : {field:field,value:username},
+         success:function(data){
+             if(data==1){
+                 res = field=='username'?'用户名已存在' : '手机号已存在';
+             }
+         }
+     })
+     return res;
+
+ }
+
+
