@@ -14,6 +14,8 @@ use \Library\log;
 class product{
 
     private $product_limit = 5;
+
+    private $_errorInfo = '';
     /**
      * 商品验证规则
      * @var array
@@ -49,6 +51,10 @@ class product{
         $this->_productObj = new M('products');
     }
 
+    public function getErrorMessage(){
+        return $this->_errorInfo;
+    }
+
     /**
      * 获取分级的分类
      * @param int $gid
@@ -73,9 +79,6 @@ class product{
         }
 
         return $this->getTree($categorys,$pid,1,$pid_chain);
-
-
-
     }
 
     /**
@@ -83,8 +86,12 @@ class product{
      * @param $id
      */
     private function getParentCateId($id){
-
         return $this->_productObj->table('product_category')->where(array('id'=>$id))->getField('pid');
+    }
+
+    public function getStoretList(){
+        $where  = array('status' => 1);
+        return $this->_productObj->table('store_list')->fields('id, name, short_name, area, address')->where($where)->select();
     }
 
 
@@ -152,6 +159,49 @@ class product{
         if(empty($attr_arr))
             return array();
         return $this->_productObj->table('product_attribute')->where('id in ('.join(',',$attr_arr).')')->select();
+    }
+
+    /**
+     * 添加商品数据
+     * @param  [Array] &$productData [提交的商品数据]
+     * @param  [Array] &$imgData     [提交的商品图片地址数据]
+     * @return [Array]               [添加是否成功，及失败信息]
+     */
+    public function insertProduct(&$productData, &$imgData){
+        if ($this->_productObj->validate($this->productRules,$productData)){
+            $this->_productObj->beginTrans();
+            $pId = $this->_productObj->data($productData)->add(1);
+
+            if (intval($pId) > 0) {
+                    if (!empty($imgData)) {
+                        foreach ($imgData as $key => $imgUrl) {
+                            $imgData[$key]['products_id'] = $pId;
+                        }
+                        $this->_productObj->table('product_photos')->data($imgData)->adds(1);
+                        return $pId;
+                    }
+            }else{
+                $this->_errorInfo = '无效的产品Id';
+            }
+        }else{
+            $this->_errorInfo = $this->_productObj->getError();
+        }
+        return null;
+    }
+
+    /**
+     * 插入报盘数据
+     * @param  [Array] &$productOffer[提交的报盘数据]
+     * @return [Boolean]         
+     */
+    public function insertOffer(& $productOffer){
+         if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
+                $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+                return $this->_productObj->commit();
+          }else{
+             $this->_errorInfo = $this->_productObj->getError();
+          }
+          return false;
     }
 
 

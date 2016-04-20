@@ -15,21 +15,52 @@ use \Library\Thumb;
 use \Library\tool;
 class ProductController extends Yaf\Controller_Abstract {
 
+
     /**
      * 设置分类多少以后有展开
      * @var integer
      */
     private $_limiteProduct = 2;
-    protected $category=array();
 
+    /**
+     * 提示mode对应的类型
+     * @var array
+     */
+    private $_mode = array(
+        1 => '保证金报盘',
+        2 => '自由报盘',
+        3 => '申请仓单'
+    );
 
     public function init(){
-        //$right = new checkRight();
+       //  $right = new checkRight();
        // $right->checkLogin($this);//未登录自动跳到登录页
+       
+       $this->getView()->assign('leftArray', $this->getLeftArray());
         $this->getView()->setLayout('ucenter');
 
-        $productLeftLayout = APPLICATION_PATH . '/application/views/pc/layout/productleft.tpl';
-        $this->getView()->assign('productLeftLayout',  file_get_contents($productLeftLayout));
+    }
+
+    private function  getLeftArray(){
+        return array(
+            array('name' => '交易管理', 'list' => array()),
+            array('name' => '销售管理', 'list' => array(
+                array('url' => '', 'title' => '销售列表' ),
+                array('url' => url::createUrl('/product/offerIndex'), 'title' => '发布产品' ),
+            )),
+            array('name' => '仓单管理', 'list' => array(
+                array('url' => '', 'title' => '申请仓单' ),
+                array('url' => '', 'title' => '仓单列表' ),
+            )),
+            array('name' => '采购管理', 'list' => array(
+                array('url' => '', 'title' => '采购列表' ),
+                array('url' => '', 'title' => '发布采购' ),
+            )),
+            array('name' => '合同管理', 'list' => array(
+                array('url' => '', 'title' => '销售合同' ),
+                array('url' => '', 'title' => '购买合同' ),
+            ))
+        );
     }
     /**
      * 个人中心首页
@@ -38,25 +69,37 @@ class ProductController extends Yaf\Controller_Abstract {
 
     }
 
+    /**
+     * 产品发布页面展示
+     * @return 
+     */
+    public function offerIndexAction(){}
+
    /**
      * 商品添加页面展示
      */
     public function productAddAction(){
         $category = array();
+        $mode = $this->getRequest()->getParam('mode');
+
         //获取商品分类信息，默认取第一个分类信息
         $productModel = new \nainai\product();
         $category = $productModel->getCategoryLevel();
-
         $attr = $productModel->getProductAttr($category['chain']);
-
+        //上传图片插件
         $plupload = new PlUpload(url::createUrl('/product/swfupload'));
+
+        //如果mode==3,为申请仓单
+        if ($mode == 3) {
+            $this->getView()->assign('storeList', $productModel->getStoretList());
+        }
+
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('plupload',$plupload->show()); 
         $this->getView()->assign('categorys', $category['cate']);
         $this->getView()->assign('attrs', $attr);
-        $this->getView()->assign('mode', 1);
+        $this->getView()->assign('mode',  $mode);
         $this->getView()->assign('cate_id', $category['default']);
-       // $this->getView()->assign('max', count($this->category['cateList']));
     }
 
     /**
@@ -65,7 +108,7 @@ class ProductController extends Yaf\Controller_Abstract {
      */
     public function ajaxGetCategoryAction(){
 
-        $pid = safe::filterPost('pid', 'int',0);
+        $pid = Safe::filterPost('pid', 'int',0);
         if($pid){
             $productModel = new \nainai\product();
             $cate = $productModel->getCategoryLevel($pid);
@@ -84,23 +127,28 @@ class ProductController extends Yaf\Controller_Abstract {
     public function WithAddProductAction(){
        if (IS_POST) {
             $attrs = array();
-            $attrs = safe::filterPost('attribute');
+            $attrs = Safe::filterPost('attribute');
             foreach($attrs as $k=>$v){
                 if(!is_numeric($k)){
                     echo JSON::encode(tool::getSuccInfo(0,'属性错误'));
                     exit;
                 }
             }
-            
+            $time = date('Y-m-d H:i:s', time());
+            $mode = Safe::filterPost('mode', 'int');
+            if (empty($this->_mode($mode))) {
+                throw new Exception("Error Mode", 1);
+            }
+  
             $productData = array(
-                'name'         => safe::filterPost('warename'),
-                'cate_id'      => safe::filterPost('cate_id', 'int'),
-                'price'        => safe::filterPost('price', 'float'),
-                'quantity'     => safe::filterPost('quantity', 'int'),
+                'name'         => Safe::filterPost('warename'),
+                'cate_id'      => Safe::filterPost('cate_id', 'int'),
+                'price'        => Safe::filterPost('price', 'float'),
+                'quantity'     => Safe::filterPost('quantity', 'int'),
                 'attribute'    => serialize($attrs),
-                'note'         => safe::filterPost('note'),
+                'note'         => Safe::filterPost('note'),
                 'produce_area' => $this->getRequest()->getPost('area'),
-                'create_time'  => date('Y-m-d H:i:s', time())
+                'create_time'  => $time
             );
 
             //图片数据
@@ -111,22 +159,34 @@ class ProductController extends Yaf\Controller_Abstract {
                 }
             }
 
-            // 报盘数据
-            $productOffer = array(
-                'mode'          => Safe::filterPost('mode', 'int'),
-                'apply_time'  => date('Y-m-d H:i:s', time()),
-                'divide'      => Safe::filterPost('divide', 'int'),
-                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
-                'status'      => 0,
-                'accept_area' => Safe::filterPost('accept_area'),
-                'accept_day' => Safe::filterPost('accept_day', 'int'),
-                'price'        => safe::filterPost('price', 'float')
-            );
-            
-            $productModel = new ProductModel();
-            $result = $productModel->insertProduct($productData, $imgData, $productOffer);
+            $productModel = new \nainai\product();
+            $pid = $productModel->insertProduct($productData, $imgData);
 
-             echo $result['info']; exit();
+            if ($mode == 1 || $mode == 2) {
+                // 报盘数据
+                $productOffer = array(
+                    'mode'          => $mode,
+                    'apply_time'  => $time,
+                    'divide'      => Safe::filterPost('divide', 'int'),
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+                    'status'      => 0,
+                    'accept_area' => Safe::filterPost('accept_area'),
+                    'accept_day' => Safe::filterPost('accept_day', 'int'),
+                    'price'        => Safe::filterPost('price', 'float'),
+                    'product_id' => $pid
+                );
+                $productModel->insertOffer($productOffer);
+            }else{
+                $storeList = array(
+                    'store_id' => Safe::filterPost('store_id', 'int'),
+                    'product_id' => $pid,
+                    'apply_time' => $time,
+                    'satus' => 0
+                );
+            }
+           
+           //空为成功，没有错误信息就是成功
+             echo $productModel->getErrorMessage(); exit();
         }else{
             $this->redirect('productAdd');
         }

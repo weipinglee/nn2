@@ -68,8 +68,6 @@ class url {
             }
         }
 
-
-
         if($baseUrl==null){
             if($pos['host']==''){
                 $baseUrl = self::getHost().self::getScriptDir();
@@ -77,7 +75,7 @@ class url {
             else $baseUrl = self::getConfigHost($pos['host']);
         }
 
-      return $baseUrl.self::getRoute($pos['controller'],$pos['action'],$pos['module'],$params);
+      return $baseUrl.'/index.php/'.self::getRoute($pos['controller'],$pos['action'],$pos['module'],$params);
     }
 
     /**
