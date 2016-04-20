@@ -56,8 +56,7 @@ class Db{
        $sql = 'SELECT session_data AS data FROM '.$this->sessionTable." WHERE session_id = :session_id   AND session_expire >".time();
        $res = $hander->query($sql,array('session_id'=>$sessID),'SELECT');
        if($res !== false && count($res) > 0 ){
-          $config = tool::getConfig(array("application",'name'));
-          return $config == 'admin' ? $res[0]['data'] : $res;
+          return  $res[0]['data'];
        }
        return array();
    } 
