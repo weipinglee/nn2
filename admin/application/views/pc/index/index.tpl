@@ -25,10 +25,10 @@
         <div id="head">
             <div class="left">
                 <a href="#" class="button profile"><img src="{views:img/icons/top/huser.png}" alt="" /></a>
-                超级管理员
-                <a href="#">admin</a>
+                {$info['role']}
+                <a href="#">{$info['name']}</a>
                 |
-                <a href="#">退出</a>
+                <a href="{url:/login/logout}">退出</a>
             </div>
             <div class="right">
                 <form action="#" id="search" class="search placeholder">
@@ -46,30 +46,34 @@
         <div id="sidebar">
             <ul>
                 <li>
-                    <a href="index.html">
+                    <a href="#" no_access='no_access'>
                         <img src="{views:img/icons/menu/inbox.png}" alt="" />
                         耐耐网后台管理系统
                     </a>
                 </li>
                 <li class="current"><a target="content"><img src="{views:img/icons/menu/layout.png}" alt="" />系统管理</a>
                     <ul>
-                                                <li class="current"><a target="content">权限管理</a>
-                                                    <ul>
-                                                        <li><a href="{url:/rbac/roleList}" target="content">管理员分组</a></li>
-                                                        <li><a href="{url:/admin/adminList}" target="content">管理员列表</a></li>
-                                                        <li><a href="{url:/rbac/accessList}" target="content">权限分配</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="system-base.html" target="content">系统设置</a></li>
-                                                <li><a href="table.html" target="content">导航栏目管理</a></li>
-                                                <li><a href="tabs.html" target="content">地域信息管理</a></li>
-                                                <li><a href="gallery.html" target="content">客服添加</a></li>
-                                            </ul>
+                        <li class="current"><a target="content">权限管理</a>
+                            <ul>
+                                <li><a href="{url:/system/rbac/roleList}" target="content">管理员分组</a></li>
+                                <li><a href="{url:/system/rbac/accessList}" target="content">权限分配</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">系统配置项</a>
+                            <ul>
+                                <li><a href="{url:/system/Confsystem/creditList}" target="content">信誉值配置列表</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="system-base.html" target="content">系统设置</a></li>
+                        <li><a href="table.html" target="content">导航栏目管理</a></li>
+                        <li><a href="tabs.html" target="content">地域信息管理</a></li>
+                        <li><a href="gallery.html" target="content">客服添加</a></li>
+                    </ul>
                 </li>
-                <li><a href="#" target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
+                <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
                     <ul>
                         <li><a href="member-audit.html" target="content">会员审核</a></li>
-                        <li><a href="member-renzheng.html target="content">会员认证</a>
+                        <li><a href="member-renzheng.html" target="content">会员认证</a>
                             <ul>
                                 <li><a href="{url:/member/dealerCert}" target="content">交易商认证</a></li>
                                 <li><a href="scale-hand.html" target="content">仓库认证</a></li>
@@ -81,7 +85,7 @@
                                 <li><a href="{url:/member/roleAdd}" target="content">添加角色</a></li>
                             </ul>
                         </li>
-                        <li><a href="member-role.html" target="content">角色分组</a></li>
+                        <li><a href="{url:/member/usergroup/groupList}" target="content">角色分组</a></li>
                         <li><a href="{url:/member/memberList}" target="content">会员列表</a></li>
                         <li><a href="member-del.html" target="content">黑名单列表</a></li>
                         <li><a href="agent-list.html" target="content">经纪人管理</a></li>
@@ -89,7 +93,7 @@
                         <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>
                     </ul>
                 </li>
-                <li><a href="#" target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />交易管理</a>
+                <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />交易管理</a>
                     <ul>
                         <li><a href="{url:/product/categoryAdd}" target="content">产品分类设置</a>
                             <ul>
@@ -163,18 +167,80 @@
 
 
         </div>
-          
-                
+        <script type="text/javascript">
+            $(function(){
+                var menus = {$menus};
+                if(menus != 'admin'){
+                    $('ul a').each(function(){
+                        var href = $(this).attr('href');
+                        if($(this).attr('no_access') != 'no_access'){
+                            var flag = 0;
+                            if(href){
+                                for(var i=0;i<menus.length;i++){
+                                    var href = href.toLocaleLowerCase();
+                                    if(href.indexOf(menus[i]) > 0){
+                                        flag = 1;
+                                    }
+                                }
+                            }else{
+                                flag = 1;
+                            }
+                            if(flag == 0){
+                                $(this).parent().remove();
+                            }
+                        }        
+                    });
+                    $("#sidebar>ul>li>ul>li>a").each(function(){
+                        if($(this).siblings('ul').length == 0 || $(this).siblings('ul').children().length == 0){
+                            if(!$(this).attr('href') || $(this).attr('href').length < 10){
+                                $(this).parent().remove();
+                            }
+                        }
+                    });
+                    $("#sidebar>ul>li>ul>li>ul").each(function(){
+                        if($(this).find('li').length == 0){
+                            $(this).remove();
+                        }
+                    });
+                    // $("#sidebar>ul>li>ul>li").each(function(){
+                    //     if($(this).find('ul').length == 0){
+                    //         $(this).remove();
+                    //     }
+                    // });
+                    // 
+                    
+                    $("#sidebar>ul>li>ul").each(function(){
+                        if($(this).find('li').length == 0){
+                            $(this).remove();
+                        }
+                    });
+
+                    $("#sidebar>ul>li:not(:first)").each(function(){
+                        if($(this).find('ul').length == 0){
+                            $(this).remove();
+                        }
+                    });
+
+                    
+                    // 
+                    // 
+                    
+
+
+                }
+            });    
+        </script>
+        
                 
         <!--            
               CONTENT 
                         --> 
         <div class="main_content" id="content_1" >
-            <iframe class="white" scrolling="yes" frameborder="0" src="welcome.html" name="content" marginheight="0" marginwidth="0" width="100%" height="600px"  id="iframe" style="overflow-y:scroll;"></iframe>
+            <iframe class="white" scrolling="yes" frameborder="0" src="{url:/index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="600px"  id="iframe" style="overflow-y:scroll;"></iframe>
 
      </div>
 </div>
         
-        
+    
     </body>
 </html>

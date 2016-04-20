@@ -135,38 +135,43 @@ class IndexController extends \Yaf\Controller_Abstract {
 	 * 登录处理
 	 */
 	public function doLogAction(){
-		$account = safe::filterPost('account');
-		$password = $_POST['password'];
-		$captcha  = safe::filterPost('captcha','/^[a-zA-Z]{4}$/');
-		$data=array('errorCode'=>0);
-		$captchaObj = new captcha();
-		if($account == ''){
-			$data['errorCode'] = 1;
-		}
-		else if($password==''){
-			$data['errorCode'] = 2;
-		}
-		else if($captcha==''){
-			$data['errorCode'] = 3;
-		}
-		else if(!$captchaObj->check($captcha)){//验证码是否正确
-			$data['errorCode'] = 4;
-		}
-		else{
-			$userModel = new UserModel();
-			$userData = $userModel->checkUser($account,$password);
-			if(empty($userData)){//账户密码错误
-				$data['errorCode'] = 5;
-			}
-			else{//登录成功
-				$checkRight = new checkRight();
-				$checkRight->loginAfter($userData);
+		if(IS_AJAX){
+			$account = safe::filterPost('account');
+			$password = $_POST['password'];
+			$captcha  = safe::filterPost('captcha','/^[a-zA-Z]{4}$/');
 
-			}
-		}
-		$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/');
 
-		echo JSON::encode($data);
+			$data=array('errorCode'=>0);
+			$captchaObj = new captcha();
+			if($account == ''){
+				$data['errorCode'] = 1;
+			}
+			else if($password==''){
+				$data['errorCode'] = 2;
+			}
+			else if($captcha==''){
+				$data['errorCode'] = 3;
+			}
+			else if(!$captchaObj->check($captcha)){//验证码是否正确
+				$data['errorCode'] = 4;
+			}
+			else{
+				$userModel = new UserModel();
+				$userData = $userModel->checkUser($account,$password);
+				if(empty($userData)){//账户密码错误
+					$data['errorCode'] = 5;
+				}
+				else{//登录成功
+					$checkRight = new checkRight();
+					$checkRight->loginAfter($userData);
+
+				}
+			}
+			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/');
+
+			echo JSON::encode($data);
+		}
+
 		return false;
 	}
 

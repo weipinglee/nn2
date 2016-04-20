@@ -63,7 +63,7 @@ class Session
      * @return mixed 对应字段值
      */
 	public static function get($name)
-	{
+	{	
 		self::$pre  = self::getPre();
 		return isset($_SESSION[self::$pre.$name])?$_SESSION[self::$pre.$name]:null;
 

@@ -8,13 +8,13 @@
  * 调用的次序, 和申明的次序相同
  */
 use \Library\views\wittyAdapter;
+use \Library\Session\Driver\Db;
 class Bootstrap extends \Yaf\Bootstrap_Abstract{
 
     public function _initConfig(Yaf\Dispatcher $dispatcher) {
 		//把配置保存起来
 		$this->config = Yaf\Application::app()->getConfig();
 		Yaf\Registry::set('config', $this->config);
-		session_start();
 		define('REQUEST_METHOD', strtoupper($dispatcher->getRequest()->getMethod()));
 		define('IS_GET',        REQUEST_METHOD =='GET' ? true : false);
 		define('IS_POST',       REQUEST_METHOD =='POST' ? true : false);
@@ -22,8 +22,24 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 		define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
 		define('IS_AJAX',       ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) ? true : false);
 
-	}
+		//数据库方式存储session
+		ini_set('session.save_handler','user');
+		$session = new Db('admin_session',1800);
+		session_set_save_handler(array($session, 'open'),
+		                         array($session, 'close'),
+		                         array($session, 'read'),
+		                         array($session, 'write'),
+		                         array($session, 'destroy'),
+		                         array($session, 'gc'));
+		
+		session_start();
 
+	}
+	//注册本地类 所有相同前缀的类会加载到本地library路径
+	public function _initLoader(Yaf\Dispatcher $dispatcher) {
+		$loader = Yaf\Loader::getInstance();
+        $loader->registerLocalNamespace(array('admintool'));
+	}
 	public function _initPlugin(Yaf\Dispatcher $dispatcher) {
 		//注册一个插件
 		$objSamplePlugin = new SamplePlugin();

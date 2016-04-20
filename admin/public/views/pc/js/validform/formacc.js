@@ -21,8 +21,24 @@ nn_panduo.formacc.prototype = {
 			_this.redirect_url = $(this).attr("redirect_url");
 			_this.form = this;
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
+			_this.bind_select();
 			_this.validform();
 		});
+	},
+	/**
+	 * 自动绑定select选中项
+	 */
+	bind_select:function(){
+        $(this.form).find("select").each(function(){
+        	var value = $(this).attr('value');
+        	if(value != null && value != ''){
+        		var option = $(this).find("option[value='"+value+"']");
+	        	var txt = $(option).text();
+	        	$(option).attr("selected",'selected');
+	        	$(this).siblings("span").text(txt);
+        	}
+        });
+        // $("select[name='type']").find("option[value='{$info['type']}']").attr("selected",'selected');     
 	},
 	/**
 	 * 表单提交
@@ -139,6 +155,7 @@ $(function(){
 	var formacc = new nn_panduo.formacc();
 	formacc.bind_status_handle();
 	formacc.form_init();
+
 })
 
 

@@ -29,7 +29,7 @@
        修改管理员密码
     </div>
    <div class="pd-20">
-  <form action="{url:/admin/adminPwd}" method="post" class="form form-horizontal" id="form-admin-updatepwd" auto_submit redirect_url="{url:/admin/adminList}">
+  <form action="{url:/system/admin/adminPwd}" method="post" class="form form-horizontal" id="form-admin-updatepwd" auto_submit redirect_url="{url:/system/admin/adminList}">
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red"></span>用户名：</label>
       <div class="formControls col-3">

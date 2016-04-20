@@ -5,6 +5,7 @@
 
 namespace Library\Session\Driver;
 use \Library\M;
+use \Library\tool;
 /**
  * 数据库方式Session驱动
  *    CREATE TABLE user_session (
@@ -14,7 +15,7 @@ use \Library\M;
  *      UNIQUE KEY `session_id` (`session_id`)
  *    );
  */
-class Db {
+class Db{
 
     /**
      * Session有效时间
@@ -35,9 +36,16 @@ class Db {
 
         if(self::$hander==null)
              self::$hander = new M($this->sessionTable);
-
     }
 
+
+    public function open(){
+      return true;
+    }
+
+    public function close(){
+      return true;
+    }
     /**
      * 读取Session 
      * @access public 
@@ -46,9 +54,10 @@ class Db {
    public function read($sessID) { 
        $hander = self::$hander;
        $sql = 'SELECT session_data AS data FROM '.$this->sessionTable." WHERE session_id = :session_id   AND session_expire >".time();
-        $res = $hander->query($sql,array('session_id'=>$sessID));
-       if($res !== false){
-           return $res;
+       $res = $hander->query($sql,array('session_id'=>$sessID),'SELECT');
+       if($res !== false && count($res) > 0 ){
+          $config = tool::getConfig(array("application",'name'));
+          return $config == 'admin' ? $res[0]['data'] : $res;
        }
        return array();
    } 
@@ -60,9 +69,11 @@ class Db {
      * @param String $sessData  
      */
    public function write($sessID,$sessData) { 
+       if(!$sessData) return false;
        $sessDB = self::$hander;
         $expire 		= 	time() + $this->lifeTime;
-       $sql = 'REPLACE INTO  '.$this->sessionTable." (  session_id, session_expire, session_data)  VALUES( '$sessID', '$expire',  ':sessData')";
+       $sql = 'REPLACE INTO  '.$this->sessionTable." (  session_id, session_expire, session_data)  VALUES( '$sessID', '$expire',  :sessData)";
+
        return $sessDB->query($sql,array('sessData'=>$sessData));
    }
 
@@ -102,5 +113,6 @@ class Db {
         }
         return true;
     }
+
 
 }

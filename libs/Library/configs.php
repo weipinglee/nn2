@@ -3,15 +3,17 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016/3/10 0010
- * Time: ÏÂÎç 4:43
+<<<<<<< HEAD
+ * Time: ???? 4:43
  */
 namespace Library;
 return array(
-    'host'=>array(//¸÷×ÓÏµÍ³ÓòÃûÁĞ±í£¬×îºó²»¼Ó'/'
+    'host'=>array(//å„ç³»ç»ŸåŸŸåè·¯å¾„
         'deal'=>'localhost/nn2/deal',
         'user'=>'http://localhost/nn2/user/public'
     ),
-    'rootDir'=>array(//×ÓÏµÍ³¸ùÄ¿Â¼ÎïÀíÂ·¾¶
+    'rootDir'=>array(//é¡¹ç›®æ ¹ç›®å½•ç»å¯¹è·¯å¾„
+
         'user'=>'D:\wamp2.5\www\nn2\user\public'
     ),
 );
