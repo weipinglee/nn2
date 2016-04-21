@@ -11,7 +11,7 @@ use \nainai\product;
 use \Library\Tool;
 class store{
 
-
+    private $storeProduct = 'store_products';
     private $storeProductRules = array(
         array('store_id','number','仓库id必须是数字'),
 
@@ -34,11 +34,12 @@ class store{
      */
     public function createStoreProduct($productData,$storeData){
         $productObj = new product();
-        $storeProductObj = new M('storeProduct');
+        $storeProductObj = new M($this->storeProduct);
         //验证商品数据和仓单数据
         if($productObj->proValidate($productData) && $storeProductObj->validate($this->storeProductRules,$storeData)){
             $storeProductObj->beginTrans();
-            $pId = $storeProductObj->table('products')->data($productData)->add(1);
+            $pId = $storeProductObj->table('products')->data($productData[0])->add(1);
+            $imgData = $productData[1];
             if (intval($pId) > 0) {
                 //插入图片数据
                 if (!empty($imgData)) {
@@ -50,7 +51,7 @@ class store{
                 }
                 //插入仓单数据
                 $storeData['product_id'] = $pId;
-                $storeProductObj->table('storeProduct')->data($storeData)->add(1);
+                $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
             }
             $res = $storeProductObj->commit();
         }

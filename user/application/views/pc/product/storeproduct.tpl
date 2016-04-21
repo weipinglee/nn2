@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/product/WithAddProduct}" method="POST">
+                    <form action="{url:/product/doStoreProduct}" method="POST">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
@@ -152,7 +152,7 @@
                                     <tr>
                                         <td>是否包装：</td>
                                         <td colspan="2">
-                                            <select name="store_id" id="store_id">
+                                            <select name="package" >
                                                 <option value="0">不可以</option>
                                                 <option value="1">可以</option>
                                             </select>
@@ -160,12 +160,12 @@
                                         </tr>
                                         <td>包装数量：</td>
                                         <td colspan="2">
-                                            <input type="text" class='text' name="accept_area">
+                                            <input type="text" class='text' name="package_num">
                                         </td>
                                         </tr>
                                         <td>包装重量：</td>
                                         <td colspan="2">
-                                            <input type="text" class='text' name="accept_area">
+                                            <input type="text" class='text' name="package_weight">
                                         </td>
                                         </tr>
 

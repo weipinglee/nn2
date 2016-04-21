@@ -222,8 +222,11 @@ class ProductController extends Yaf\Controller_Abstract {
             $productData = $this->getProductData();//获取商品数据
             $storeList = array(
                 'store_id' => Safe::filterPost('store_id', 'int'),
+                'package'  => Safe::filterPost('package','int'),
+                'package_num' => Safe::filterPost('package_num'),
+                'package_weight' => Safe::filterPost('package_weight'),
                 'apply_time' => \Library\Time::getDateTime(),
-                'satus' => 0
+                'status' => 0
             );
             $storeObj = new store();
             $res = $storeObj->createStoreProduct($productData,$storeList);
