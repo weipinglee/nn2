@@ -35,8 +35,8 @@ class ProductController extends Yaf\Controller_Abstract {
     );
 
     public function init(){
-       //  $right = new checkRight();
-       // $right->checkLogin($this);//未登录自动跳到登录页
+         $right = new checkRight();
+        $right->checkLogin($this);//未登录自动跳到登录页
 
        $this->getView()->assign('leftArray', $this->getLeftArray());
         $this->getView()->setLayout('ucenter');
@@ -167,6 +167,7 @@ class ProductController extends Yaf\Controller_Abstract {
 
         //图片数据
         $imgData = Safe::filterPost('imgData');
+
         $resImg = array();
         if(!empty($imgData)){
 

@@ -11,7 +11,9 @@ use \nainai\product;
 use \Library\Tool;
 class store{
 
-    private $storeProduct = 'store_products';
+
+    private $storeProduct = 'store_products';//仓单数据表
+    //仓单数据规则
     private $storeProductRules = array(
         array('store_id','number','仓库id必须是数字'),
 
@@ -69,4 +71,7 @@ class store{
 
 
     }
+
+
+
 }
