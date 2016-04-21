@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/product/WithAddProduct}" method="POST">
+                    <form action="{url:/product/doOffer}" method="POST">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
