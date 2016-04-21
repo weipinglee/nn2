@@ -220,7 +220,7 @@ class M{
 	 * @return $this
      */
 	public function bindWhere($bindArr){
-		$this->whereParam = $bindArr;
+		$this->whereParam = array_merge($this->whereParam,$bindArr);
 		return $this;
 	}
 
@@ -230,7 +230,7 @@ class M{
 	 * @return $this
 	 */
 	public function bind($bindArr){
-		$this->whereParam = $bindArr;
+		$this->whereParam = array_merge($this->whereParam,$bindArr);
 		return $this;
 	}
 
@@ -464,7 +464,8 @@ class M{
      */
     public function query($sql,$param=array(),$type=''){
         $res =  $this->db->exec($sql,array_merge($this->whereParam,$param),$type);
-        return $res;
+		if(false === $res)$this->rollBack();
+		return $res;
     }
 
 	/**
@@ -474,8 +475,14 @@ class M{
 	 * @param integer $step  增长值
 	 * @return boolean
 	 */
-	public function setInc($field,$step=1) {
-		if($this->whereStr=='') return false;
+	public function setInc($field,$step=1,$trans=0) {
+		if($trans==1 && !$this->inTrans()){//应该在事务中且实际不在事务中，返回false
+			return false;
+		}
+		if($this->whereStr=='') {
+			$this->rollBack();
+			return false;
+		}
 		$sql = 'UPDATE '.$this->tableName.' SET '.$field.' = '.$field.' + :step '.$this->whereStr;
 		return $this->query($sql,array_merge(array('step'=>$step),$this->whereParam),'UPDATE');
 	}

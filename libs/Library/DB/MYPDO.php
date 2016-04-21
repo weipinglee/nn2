@@ -87,6 +87,11 @@ class MYPDO {
     public function exec($sql,$data=array(),$type=''){
         $sql = ltrim($sql);
 
+        if($type==''){
+            $type = $this->getSqlType($sql);
+
+        }
+
         $DBlink = $this->createDB($type);
 
         $stmt = $DBlink->prepare($sql);
@@ -101,8 +106,7 @@ class MYPDO {
         }
 
         try{
-            $res = $stmt->execute();
-            if($res){
+            if($res = $stmt->execute()){
 
                 switch($type){  //根据不同的操作类型，返回数据
                     case 'SELECT' : {
@@ -123,6 +127,7 @@ class MYPDO {
             }
         }
         catch(\PDOException $e){
+            $this->rollBack();
             exit($e->getMessage());
         }
 

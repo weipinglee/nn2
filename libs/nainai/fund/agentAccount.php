@@ -8,16 +8,65 @@
 
 namespace nainai\fund;
 use \Library\M;
+use \Library\Time;
  class agentAccount extends account{
 
 
      private $agentModel = null;
      private $agentTable = 'user_account';//代理账户数据表名
+     private $fundFlowTable = 'user_fund_flow';//资金流水表
 
      private $errorCode = array(
-         'fundLess' => '账户余额不足',
+         'fundLess' => array('code'=>-1,'info'=>'账户余额不足'),
+         'fundWrong'=> array('code'=>-2,'info'=>'金额数据错误'),
+
      );
 
+     /**
+      * 生成一个流水号
+      */
+     private function createFlowNo(){
+        return date('YmdHis').rand(100000,999999);
+     }
+
+     /**
+      * 生成流水数据
+      * @param int $user_id 用户id
+      * @param float $num 更改金额
+      * @param str $type 类型
+      *
+      */
+     private function createFlowData($user_id,$num,$type){
+
+         $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id));
+         $flow_data = array();
+
+         $flow_data['flow_no'] = $this->createFlowNo();
+         $flow_data['user_id'] = $user_id;
+         $flow_data['time']    = Time::getDateTime();
+         $flow_data['acc_type'] = 1;
+         $fund = $this->agentModel->fields('fund,freeze')->getObj();//如金前的总金额
+
+        switch($type){
+            case 'in' : {
+                $flow_data['fund_in'] = $num;
+                $flow_data['total']   = $num + $fund['fund'];
+                $flow_data['active']  = $num + $fund['fund'] - $fund['freeze'];
+            }
+            break;
+
+            case 'freeze' : {
+                $flow_data['freeze']  = $num;
+                $flow_data['total']   = $fund['fund'] + $fund['freeze'] ;
+                $flow_data['active']  = $flow_data['total']  -$fund['freeze'] - $flow_data['freeze'];
+            }
+        }
+
+         return $this->agentModel->table($this->fundFlowTable)->data($flow_data)->add(1);
+
+
+
+     }
 
      public function __construct(){
         $this->agentModel = new M($this->agentTable);
@@ -52,7 +101,18 @@ use \Library\M;
      * @param $num float 入金金额
      */
     public function in($user_id,$num){
-        return $this->agentModel->where(array('user_id'=>$user_id))->setInc('fund',$num);
+        if(is_integer($num) || is_float($num)){
+            $this->agentModel->beginTrans();
+
+            $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->setInc('fund',$num);//总帐户增加金额
+            $this->createFlowData($user_id,$num,'in');
+             return $this->agentModel->commit();
+        }
+        else{
+            return $this->errorCode['fundWrong'];
+        }
+
+
     }
 
 
@@ -63,20 +123,23 @@ use \Library\M;
      * @param float $num 冻结金额
      */
     public function freeze($user_id,$num){
-        //$this->agentModel->beginTrans();
-        $fund = $this->agentModel->where(array('user_id'=>$user_id))->getField('fund');
+        if(is_integer($num) || is_float($num)){
+            $fund = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('fund');
+            if($fund===false || $fund<$num)
+                return $this->errorCode['fundLess'];
+            $this->agentModel->beginTrans();
+            $this->createFlowData($user_id,$num,'freeze');
 
-        if($fund===false || $fund<$num)
-            return $this->errorCode['fundLess'];
-        $res = $this->agentModel
-            ->where(array('user_id'=>$user_id))
-            ->data(array('fund'=>'fund - :num1','freeze'=>'freeze - :num2'))
-            ->bind(array('num1'=>$num,'num2'=>$num))
-            ->update();
-echo 123;
+            $sql = 'UPDATE '.$this->agentModel->table().
+                ' SET fund = fund - :fund ,freeze = freeze + :fund  WHERE user_id = :user_id';
+            $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
 
-        return $res;
-       // return $this->agentModel->commit();
+            return $this->agentModel->commit();
+
+        }
+        else{
+            return $this->errorCode['fundWrong'];
+        }
     }
 
     /**
