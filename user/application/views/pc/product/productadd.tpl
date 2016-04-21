@@ -91,9 +91,9 @@
 </td> -->
                             </tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>挂牌数量:</td>
+                                <td nowrap="nowrap"><span></span>数量:</td>
                                 <td> 
-                                    <input class="text" type="text" name="quantity">(吨)
+                                    <input class="text" type="text" name="quantity"><span></span>
                                 </td>
                                <!--  <td> 
                                    请选择支付保证金比例：
@@ -183,22 +183,32 @@
                                     <tr>
                                         <td>是否包装：</td>
                                         <td colspan="2">
-                                            <select name="store_id" id="store_id">
-                                                <option value="0">不可以</option>
+                                            <select name="package" id="package">
                                                 <option value="1">可以</option>
+                                                <option value="0">不可以</option>
                                             </select>
                                         </td>
-                                        </tr>
-                                        <td>包装数量：</td>
-                                        <td colspan="2">
-                                            <input type="text" class='text' name="accept_area">
-                                        </td>
-                                        </tr>
-                                        <td>包装重量：</td>
-                                        <td colspan="2">
-                                            <input type="text" class='text' name="accept_area">
-                                        </td>
-                                        </tr>
+                                             </tr>
+
+                                            <tr id="packUnit" >
+                                                 <td>包装单位：</td>
+                                            <td colspan="2">
+                                                <input type="text" class='text' name="packUnit">
+                                            </td>
+                                            </tr>
+                                            <tr id='packNumber'>
+                                            <td>包装数量：</td>
+                                            <td colspan="2">
+                                                <input type="text" class='text' name="packNumber">
+                                            </td>
+                                            </tr>
+                                            <tr id='packWeight'>
+                                            <td>包装重量：</td>
+                                            <td colspan="2">
+                                                <input type="text" class='text' name="packWeight">
+                                            </td>
+                                            </tr>
+                                      
                             {/if}
 <!--                               <tr>
                             <td>是否投保：</td>
@@ -236,22 +246,4 @@
             {$plupload}
 
 
-            <!--end中间内容-->  
-            <!--start右侧广告-->            
-            <div class="user_r">
-                <div class="wrap_con">
-                    <div class="tit clearfix">
-                        <h3>公告</h3>
-                    </div>
-                    <div class="con">
-                        <div class="con_medal clearfix">
-                            <ul>
-                                <li><a>暂无勋章</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end右侧广告-->
-        </div>
-    </div>
+

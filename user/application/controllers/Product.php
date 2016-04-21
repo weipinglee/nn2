@@ -49,7 +49,7 @@ class ProductController extends Yaf\Controller_Abstract {
                 array('url' => url::createUrl('/product/offerIndex'), 'title' => '发布产品' ),
             )),
             array('name' => '仓单管理', 'list' => array(
-                array('url' => '', 'title' => '申请仓单' ),
+                array('url' => url::createUrl('/product/productAdd?mode=3'), 'title' => '申请仓单' ),
                 array('url' => '', 'title' => '仓单列表' ),
             )),
             array('name' => '采购管理', 'list' => array(
@@ -92,7 +92,7 @@ class ProductController extends Yaf\Controller_Abstract {
         //如果mode==3,为申请仓单
         if ($mode == 3) {
             $this->getView()->assign('storeList', $productModel->getStoretList());
-        }
+        }   
 
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('plupload',$plupload->show()); 
@@ -136,7 +136,7 @@ class ProductController extends Yaf\Controller_Abstract {
             }
             $time = date('Y-m-d H:i:s', time());
             $mode = Safe::filterPost('mode', 'int');
-            if (empty($this->_mode($mode))) {
+            if (empty($this->_mode[$mode])) {
                 throw new Exception("Error Mode", 1);
             }
   
@@ -165,15 +165,15 @@ class ProductController extends Yaf\Controller_Abstract {
             if ($mode == 1 || $mode == 2) {
                 // 报盘数据
                 $productOffer = array(
-                    'mode'          => $mode,
+                    'mode'              => $mode,
                     'apply_time'  => $time,
                     'divide'      => Safe::filterPost('divide', 'int'),
                     'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
                     'status'      => 0,
                     'accept_area' => Safe::filterPost('accept_area'),
-                    'accept_day' => Safe::filterPost('accept_day', 'int'),
-                    'price'        => Safe::filterPost('price', 'float'),
-                    'product_id' => $pid
+                    'accept_day'  => Safe::filterPost('accept_day', 'int'),
+                    'price'       => Safe::filterPost('price', 'float'),
+                    'product_id'  => $pid
                 );
                 $productModel->insertOffer($productOffer);
             }else{
@@ -181,8 +181,13 @@ class ProductController extends Yaf\Controller_Abstract {
                     'store_id' => Safe::filterPost('store_id', 'int'),
                     'product_id' => $pid,
                     'apply_time' => $time,
-                    'satus' => 0
+                    'status' => 0,
+                    'package' => Safe::filterPost('package', 'int'),
+                    'package_unit' => (Safe::filterPost('package', 'int') == 1) ? Safe::filterPost('packUnit') : '',
+                    'package_num' => (Safe::filterPost('package', 'int') == 1) ? Safe::filterPost('packNumber', 'int') : 0,
+                    'package_weight' => (Safe::filterPost('package', 'int') == 1) ? Safe::filterPost('packWeight', 'int') : 0,
                 );
+                $productModel->insertStoreProduct($storeList);
             }
            
            //空为成功，没有错误信息就是成功

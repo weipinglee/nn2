@@ -41,6 +41,12 @@ class product{
         array('accept_day', 'number', '交收时间必须填写')
     );
 
+    protected $storeProductRules = array(
+        array('store_id', 'number', '必须选择仓库!'),
+        array('product_id', 'number', '请填写产品信息'),
+        array('package', 'number','请选择是否打包!')
+    );
+
     /**
      * pdo的对象
      * @var [Obj]
@@ -197,6 +203,16 @@ class product{
     public function insertOffer(& $productOffer){
          if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
                 $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+                return $this->_productObj->commit();
+          }else{
+             $this->_errorInfo = $this->_productObj->getError();
+          }
+          return false;
+    }
+
+    public function insertStoreProduct(& $storeProduct){
+        if ($this->_productObj->validate($this->storeProductRules, $storeProduct)) {
+                $this->_productObj->table('store_products')->data($storeProduct)->add(1);
                 return $this->_productObj->commit();
           }else{
              $this->_errorInfo = $this->_productObj->getError();
