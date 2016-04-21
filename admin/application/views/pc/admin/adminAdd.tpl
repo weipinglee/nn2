@@ -30,7 +30,20 @@
        添加管理员
     </div>
    <div class="pd-20">
-  <form action="{url:/admin/adminAdd}" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="{url:/admin/adminList}">
+  <form action="{url:/system/admin/adminAdd}" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="{url:/system/admin/adminList}">
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>管理员分组：</label>
+
+      <div class="formControls col-5">
+        <select class='input-select roles' name='admin-role' nullmsg = '请选择分组' dataType="/^[1-9]\d*$/">
+          <option value='-1'>请选择分组</option>
+            {foreach:items=$admin_roles}
+              <option value="{$item['id']}">{$item['name']}</option>
+            {/foreach}
+        </select>
+      </div>
+      <div class="col-4"> </div>
+    </div>
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>用户名：</label>
       <div class="formControls col-5">
@@ -61,8 +74,8 @@
     </div>
     <div class="row cl">
       <div class="col-9 col-offset-3">
-        <input type="hidden" name="admin-role" value='1'/>
         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+        &emsp;<a class="btn btn-primary radius" href="{url:/system/admin/adminList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
       </div>
     </div>
   </form>

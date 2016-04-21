@@ -11,6 +11,7 @@ use \Library\Time;
 use \Library\Query;
 use \Library\Thumb;
 use \Library\log;
+use \Library\tool;
 class product{
 
     private $product_limit = 5;
@@ -41,12 +42,6 @@ class product{
         array('accept_day', 'number', '交收时间必须填写')
     );
 
-    protected $storeProductRules = array(
-        array('store_id', 'number', '必须选择仓库!'),
-        array('product_id', 'number', '请填写产品信息'),
-        array('package', 'number','请选择是否打包!')
-    );
-
     /**
      * pdo的对象
      * @var [Obj]
@@ -59,6 +54,10 @@ class product{
 
     public function getErrorMessage(){
         return $this->_errorInfo;
+    }
+
+    public function setErrorMessage($mess){
+        $this->_errorInfo = $mess;
     }
 
     /**
@@ -95,10 +94,7 @@ class product{
         return $this->_productObj->table('product_category')->where(array('id'=>$id))->getField('pid');
     }
 
-    public function getStoretList(){
-        $where  = array('status' => 1);
-        return $this->_productObj->table('store_list')->fields('id, name, short_name, area, address')->where($where)->select();
-    }
+
 
 
     /**
@@ -168,57 +164,56 @@ class product{
     }
 
     /**
-     * 添加商品数据
-     * @param  [Array] &$productData [提交的商品数据]
-     * @param  [Array] &$imgData     [提交的商品图片地址数据]
-     * @return [Array]               [添加是否成功，及失败信息]
+     * 验证商品数据是否正确
+     * @param array $productData 商品数据
+     * @return bool
      */
-    public function insertProduct(&$productData, &$imgData){
-        if ($this->_productObj->validate($this->productRules,$productData)){
-            $this->_productObj->beginTrans();
-            $pId = $this->_productObj->data($productData)->add(1);
+    public function proValidate($productData){
+        if($this->_productObj->validate($this->productRules,$productData)){
+            return true;
+        }
 
-            if (intval($pId) > 0) {
+        return false;
+    }
+
+
+    /**
+         * 添加商品数据
+         * @param  [Array] &$productData [提交的商品数据]
+         * @param  [Array] &$productOffer[提交的报盘数据]
+         * @return [Array]               [添加是否成功，及失败信息]
+         */
+        public function insertOffer(&$productData, &$productOffer){
+            if ($this->_productObj->validate($this->productRules,$productData)){
+
+                $this->_productObj->beginTrans();
+                $pId = $this->_productObj->data($productData[0])->add(1);
+                $productOffer['product_id'] = $pId;
+
+                if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
+                    $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+                    $imgData = $productData[1];
                     if (!empty($imgData)) {
                         foreach ($imgData as $key => $imgUrl) {
                             $imgData[$key]['products_id'] = $pId;
                         }
                         $this->_productObj->table('product_photos')->data($imgData)->adds(1);
-                        return $pId;
                     }
+                    $res = $this->_productObj->commit();
+                }else{
+                    $res = $this->_productObj->getError();
+                }
+
             }else{
-                $this->_errorInfo = '无效的产品Id';
+                $res = $this->_productObj->getError();
             }
-        }else{
-            $this->_errorInfo = $this->_productObj->getError();
+
+            if ($res === TRUE) {
+                return tool::getSuccInfo(1, 'add Success');
+            }else{
+                $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+            }
+
         }
-        return null;
-    }
-
-    /**
-     * 插入报盘数据
-     * @param  [Array] &$productOffer[提交的报盘数据]
-     * @return [Boolean]         
-     */
-    public function insertOffer(& $productOffer){
-         if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
-                $this->_productObj->table('product_offer')->data($productOffer)->add(1);
-                return $this->_productObj->commit();
-          }else{
-             $this->_errorInfo = $this->_productObj->getError();
-          }
-          return false;
-    }
-
-    public function insertStoreProduct(& $storeProduct){
-        if ($this->_productObj->validate($this->storeProductRules, $storeProduct)) {
-                $this->_productObj->table('store_products')->data($storeProduct)->add(1);
-                return $this->_productObj->commit();
-          }else{
-             $this->_errorInfo = $this->_productObj->getError();
-          }
-          return false;
-    }
-
 
 }

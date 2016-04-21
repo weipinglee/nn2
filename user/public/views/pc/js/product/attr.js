@@ -10,7 +10,19 @@ $(document).ready(function(){
         }else{
             $('#nowrap').hide();
         }
-    })
+    });
+
+    $('#package').change(function(){
+        if ($('#package').val() == 1) {
+            $('#packUnit').show();
+            $('#packNumber').show();
+            $('#packWeight').show();
+        }else{
+            $('#packUnit').hide();
+            $('#packNumber').hide();
+            $('#packWeight').hide();
+        }
+    });
 
     $('[id^=level]').find('li').on('click',getCategory);
 

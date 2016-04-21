@@ -12,7 +12,7 @@
 								<img src="{views:/images/center/offter1.jpg}">
 							</div>
 							<p class="of_title1">
-								<a class="title1_a" href="{url:/product/productAdd?mode=1}">保证金报盘</a>
+								<a class="title1_a" href="{url:/product/Offer?mode=1}">保证金报盘</a>
 							</p>
 							<p class="of_title2">保证金报盘有什么吗</p>
 							<p class="of_title1">保证金报盘优点</p>
@@ -22,7 +22,7 @@
 								<img src="{views:/images/center/offter2.jpg}">
 							</div>
 							<p class="of_title1">
-								<a class="title1_a" href="{url:/product/productAdd?mode=2}">自由报盘</a>
+								<a class="title1_a" href="{url:/product/Offer?mode=2}">自由报盘</a>
 							</p>
 							<p class="of_title2">自由报盘有什么吗</p>
 							<p class="of_title1">自由报盘有什么吗</p>

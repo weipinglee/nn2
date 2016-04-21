@@ -249,7 +249,6 @@
 									<span><input class="text" type="text" name="qq" empty pattern="qq" value="{$user['qq']}"/></span>
 								</div>
 
-
 								<div class="zhxi_con">
 									<span class="con_tit"><i>*</i>营业执照：</span>
 									<div>

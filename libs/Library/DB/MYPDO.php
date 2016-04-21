@@ -101,7 +101,8 @@ class MYPDO {
         }
 
         try{
-            if($res = $stmt->execute()){
+            $res = $stmt->execute();
+            if($res){
 
                 switch($type){  //根据不同的操作类型，返回数据
                     case 'SELECT' : {

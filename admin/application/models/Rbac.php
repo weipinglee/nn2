@@ -13,8 +13,10 @@ class RbacModel{
 	private $node;//权限节点模型
 	private $access;//授权中间模型
 	private $role_user;//用户分组中间模型
+	private $admin;//管理员表
 
 	public function __construct(){
+		$this->admin = new M('admin');
 		$this->role = new M('admin_role');
 		$this->node = new M('admin_node');
 		$this->access = new M('admin_access');
@@ -37,7 +39,7 @@ class RbacModel{
 		array('action_name','/^\S{2,20}$/','动作方法名格式错误',0,'regex'),
 		array('module_title','/^\S{2,20}$/','模块标题格式错误',0,'regex'),
 		array('controller_title','/^\S{2,20}$/','控制器格式错误',0,'regex'),
-		array('action_title','/^\S{2,20}$/','动作方法格式错误',0,'regex'),
+		array('action_title','/^\S{2,40}$/','动作方法标题格式错误',0,'regex'),
 	);
 
 	/**
@@ -112,13 +114,12 @@ class RbacModel{
 	 */
 	public function roleDel($id){
 		$role = $this->role;
-		$role_user = $this->role_user;
 		if(($id = intval($id))>0){
 			try {
 				$role->beginTrans();
 
 				$role->where(array('id'=>$id))->delete();
-				$role_user->where(array('role_id'=>$id))->delete();
+				$this->admin->where(array('role'=>$id))->data(array('role'=>0))->update();
 
 				$res = $role->commit();
 			} catch (PDOException $e) {
@@ -144,7 +145,7 @@ class RbacModel{
 	 * @return [type] [description]
 	 */
 	public function moduleList(){
-		$app_path = dirname(APPLICATION_PATH);
+		$app_path = rtrim(APPLICATION_PATH,'/').'/application/modules';
 		$dir_path = @glob($app_path."/*");
 		foreach ($dir_path as $key => $value) {
 			$dir_name = basename($value);
@@ -166,7 +167,7 @@ class RbacModel{
 		//缓存TODO
 		if(!$module)
 			return tool::getSuccInfo(0,'参数错误');
-		$controller_path = dirname(APPLICATION_PATH).'/'.$module.'/application/controllers/';
+		$controller_path = rtrim(APPLICATION_PATH,'/').'/application/modules/'.$module.'/controllers/';
 		if(!is_dir($controller_path)) return tool::getSuccInfo(0,'无指定模块');
 		$controller_path .= "*.php";
 		$controllers = @glob($controller_path);
@@ -179,7 +180,7 @@ class RbacModel{
 				$controllers_html .= "<option value='{$value}'>{$value}</option>";
 			}
 		}
-
+		
 		//查询节点表中的标题
 		$title = $this->node->where(array('name'=>$module,'level'=>1))->getField('title');
 		$resInfo =  tool::getSuccInfo();
@@ -191,26 +192,29 @@ class RbacModel{
 	/**
 	 * 获取指定控制器下的action 列表 （过滤特殊方法/查询不在数据库中的action）
 	 * @param  [type] $controller [description]
+	 * @param  bool   notin_db  是否只取不在数据库中的
 	 * @return [type]             [description]
 	 */
-	public function actionList($module,$controller,$to_html = false){
+	public function actionList($module,$controller,$to_html = false,$notin_db = false){
 		//缓存 TODO
-		$path = dirname(APPLICATION_PATH).'/'.$module."/application/controllers/".$controller.'.php';
+		$path = rtrim(APPLICATION_PATH,'/')."/application/modules/".$module."/controllers/".$controller.'.php';
 		if(!file_exists($path)){
 			$resInfo = tool::getSuccInfo(0,$controller.'.php文件不存在');
 		}else{
-			include_once $path;
+			if($controller != 'Rbac')
+				include_once $path;	
 			$class_name = $controller."Controller";
 			if(class_exists($class_name)){
 				$obj = new $class_name();
 				$actions = get_class_methods($obj);
-				
-				//获取数据库中的action列表
-				$tmp_db_actions = $this->node->where(array('level'=>3))->fields('name')->select();
-				foreach ($tmp_db_actions as $value) {
-					$db_actions []= $value['name'].'Action';
+				if($notin_db){
+					//获取数据库中的action列表
+					$tmp_db_actions = $this->node->where(array('level'=>3))->fields('name')->select();
+					foreach ($tmp_db_actions as $value) {
+						$db_actions []= $value['name'].'Action';
+					}
+					$actions = array_diff($actions,$db_actions);
 				}
-				$actions = array_diff($actions,$db_actions);
 				$actions_html = '<option value="-1">请选择</option>';
 				foreach ($actions as $key => $value) {
 					if(!strpos($value,'Action')){
@@ -348,8 +352,18 @@ class RbacModel{
 		$query->where = $where;
 		$data = $query->find();
 		foreach ($data as $key => &$value) {
-			if(!isset($value['_child'])){
+			$action_array = array();
+			if(!isset($value['_child']) && $level != 2){
 				$value['_child'] = $this->nodeTree($value['id'],$level+1,$role_id);
+			}else{
+				$actions = $this->nodeTree($value['id'],$level+1,$role_id);
+				foreach ($actions as $k => &$v) {
+					$title = explode(',',$v['title']);
+					$v['title'] = isset($title[1]) ? $title[1] : $title[0];
+					$pre = isset($title[0]) ? $title[0] : '未分类';
+					$action_array [$pre][] = $v;
+				}
+				$value['_child'] = $action_array;
 			}
 		}
 		return $data;
@@ -376,15 +390,17 @@ class RbacModel{
 	 * @param  array $node_id 节点数组
 	 * @return array 状态信息
 	 */
-	public function accessAdd($role_id,$node_id){
-		if(isset($role_id) && $role_id>0 && count($node_id)>0){
-
+	public function accessAdd($role_id,$node_id=array()){
+		if(isset($role_id) && $role_id>0 && is_array($node_id)){
+			$data = array();
 			foreach ($node_id as $key => $value) {
 				$data []= array('role_id'=>$role_id,'node_id'=>$value);
 			}
 			try {
 				$this->access->beginTrans();
-				$this->access->data($data)->adds();	
+				$this->access->where(array('role_id'=>$role_id))->delete();
+				if(count($data)>0)
+					$this->access->data($data)->adds();	
 				$res = $this->access->commit();
 			} catch (PDOException $e) {
 				$this->access->rollBack();
@@ -399,6 +415,16 @@ class RbacModel{
 			$resInfo = tool::getSuccInfo(0,is_string($res) && $res ? $res : '未知错误,请重试');
 		}
 		return $resInfo;
+	}
+
+	/**
+	 * 根据id获取管理员分组
+	 * @param  int    $id  管理员id
+	 * @return string $res 分组描述
+	 */	
+	public function adminRole($id){
+		$info = $this->role->where(array('id'=>$id))->getField('name');
+		return $info ? $info : '无分组';
 	}
 }
 ?>

@@ -28,13 +28,13 @@ class Memcached extends Cache {
         }
 
         $options = array_merge(array(
-            'servers'       =>  C('MEMCACHED_SERVER') ? : null,
-            'lib_options'   =>  C('MEMCACHED_LIB') ? : null
+            'servers'       =>  '127.0.0.1:11211',
+            'lib_options'   =>  null
         ), $options);
 
         $this->options      =   $options;
-        $this->options['expire'] =  isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
-        $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');
+        $this->options['expire'] =  isset($options['expire'])?  $options['expire']  :   3600;
+        $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   "nn2_";
         $this->options['length'] =  isset($options['length'])?  $options['length']  :   0;
 
         $this->handler      =   new MemcachedResource;

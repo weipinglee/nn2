@@ -63,7 +63,7 @@
         return false;
     });
 
-})();
+})
 
 
  function button_recover() {

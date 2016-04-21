@@ -22,7 +22,8 @@ class AdminModel{
 	protected $adminRules = array(
 		array('id','number','id错误',0,'regex'),
 		array('password','/^\S{6,40}$/','密码格式错误',0,'regex'),
-		array('email','email','邮箱格式错误',2,'regex'),
+		array('email','email','邮箱格式错误',0,'regex'),
+		array('role','/^[1-9]\d*$/','分组id错误',0,'regex'),
 	);
 
 	/**
@@ -31,10 +32,13 @@ class AdminModel{
 	 * @return array
 	 */
 	public function getList($page,$name){
-		$Q = new Query('admin');
+		$Q = new Query('admin as a');
+		$Q->join = 'left join admin_role as r on a.role = r.id';
 		$Q->page = $page;
 		$Q->pagesize = 5;
-		$Q->where = "status >= 0 ".($name ? " and name like '%$name%'" : '');
+		$Q->fields = "a.*,r.name as role_name";
+		$Q->order = "a.create_time desc";
+		$Q->where = "a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
 		$data = $Q->find();
 		$pageBar =  $Q->getPageBar();
 		return array('data'=>$data,'bar'=>$pageBar);
@@ -101,7 +105,7 @@ class AdminModel{
 	 * 根据id获取管理员信息
 	 * 
 	 * @param  int $id 管理员id
-	 * @return array     管理员信息
+	 * @return array  管理员信息
 	 */
 	public function getAdminInfo($id){
 		$info = $this->adminObj->where(array('id'=>$id))->getObj();

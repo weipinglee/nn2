@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/product/WithAddProduct}" method="POST">
+                    <form action="{url:/product/doOffer}" method="POST">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
@@ -136,7 +136,7 @@
                          <tr>
                              <th colspan="3"><b>详细信息</b></th>
                         </tr>
-                        {if : $mode == 1 || $mode == 2}
+
                        </tr>
                             <tr>
                                 <td><span>*</span>是否可拆分：</td>
@@ -168,55 +168,14 @@
                                 <input type="text" class='text' name="accept_day">
                             </td>
                             </tr>
-                            {elseif: $mode == 3}
-                                 </tr>
-                                    <tr>
-                                        <td><span>*</span>选择仓库：</td>
-                                        <td>
-                                            <select name="store_id" id="store_id">
-                                            {foreach: items=$storeList item=$list}
-                                                <option value="{$list['id']}" {if: $key==0} selected {/if} >{$list['name']}</option>
-                                            {/foreach}
-                                            </select>
-                                        </td>
-                                        </tr>
-                                    <tr>
-                                        <td>是否包装：</td>
-                                        <td colspan="2">
-                                            <select name="package" id="package">
-                                                <option value="1">可以</option>
-                                                <option value="0">不可以</option>
-                                            </select>
-                                        </td>
-                                             </tr>
 
-                                            <tr id="packUnit" >
-                                                 <td>包装单位：</td>
-                                            <td colspan="2">
-                                                <input type="text" class='text' name="packUnit">
-                                            </td>
-                                            </tr>
-                                            <tr id='packNumber'>
-                                            <td>包装数量：</td>
-                                            <td colspan="2">
-                                                <input type="text" class='text' name="packNumber">
-                                            </td>
-                                            </tr>
-                                            <tr id='packWeight'>
-                                            <td>包装重量：</td>
-                                            <td colspan="2">
-                                                <input type="text" class='text' name="packWeight">
-                                            </td>
-                                            </tr>
-                                      
-                            {/if}
-<!--                               <tr>
-                            <td>是否投保：</td>
+                   <tr>
+                           <!--  <td>是否投保：</td>
                             <td colspan="2">
   <input type ="radio" name ="safe" checked="checked" style="width:auto;height:auto;">投保
       <input type ="radio" name ="safe" style="width:auto;height:auto;"> 不投保
                             </td>
-                        </tr> -->
+                        </tr>  -->
                         <tr>
                             <td>产品描述：</td>
                             <td colspan="2">
@@ -228,11 +187,10 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="submit" value='submit'>
-                            <input type="hidden" name="mode" value="{$mode}">
+                            <input type="text" name="mode" value="{$mode}">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
                                 <a href="javascript:void(0);" onclick="checkform()">提交审核</a> 
                                 <span class="color">审核将收取N元/条的人工费用，请仔细填写</span>
-                                
                             </td>
                         </tr>
                          

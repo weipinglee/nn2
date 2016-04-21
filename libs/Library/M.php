@@ -1,7 +1,7 @@
 <?php
 
 /**
- * æ¨¡å‹ç±» ç”±äºYafä¸­ä¼šå°†ä»¥Modelç»“å°¾çš„ç±»çœ‹åšæ¨¡å‹ç±»ï¼Œä¼šåœ¨å½“å‰é¡¹ç›®æ¨¡å‹ä¸­æŸ¥æ‰¾ï¼Œæ‰€ä»¥æ›´åä¸ºData;
+ * Ä£ĞÍÀà ÓÉÓÚYafÖĞ»á½«ÒÔModel½áÎ²µÄÀà¿´×öÄ£ĞÍÀà£¬»áÔÚµ±Ç°ÏîÄ¿Ä£ĞÍÖĞ²éÕÒ£¬ËùÒÔ¸üÃûÎªData;
  * author: wplee
  * Date: 2016/1/28
  */
@@ -12,11 +12,11 @@ class M{
 
 
 
-	protected $db = null;//DBå®ä¾‹
+	protected $db = null;//DBÊµÀı
 
     private $tablePre = '';
 
-	public $tableData = array();//æ’å…¥æˆ–æ›´æ–°çš„æ•°æ®
+	public $tableData = array();//²åÈë»ò¸üĞÂµÄÊı¾İ
 
 	private $tableName = '';
 
@@ -43,26 +43,26 @@ class M{
 		$this->tableName = $this->tablePre.$tableName;
 	}
 
-	//è®¾ç½®ä¸»é”®
+	//ÉèÖÃÖ÷¼ü
 	public function pk($pk){
 		$this->pk = $pk;
 	}
 	/**
-	 * è®¾ç½®æ•°æ®å¯¹è±¡çš„å€¼
+	 * ÉèÖÃÊı¾İ¶ÔÏóµÄÖµ
 	 * @access public
-	 * @param string $name åç§°
-	 * @param mixed $value å€¼
+	 * @param string $name Ãû³Æ
+	 * @param mixed $value Öµ
 	 * @return void
 	 */
 	public function __set($name,$value) {
-		// è®¾ç½®æ•°æ®å¯¹è±¡å±æ€§
+		// ÉèÖÃÊı¾İ¶ÔÏóÊôĞÔ
 		$this->tableData[$name]  =   $value;
 	}
 
 	/**
-	 * è·å–æ•°æ®å¯¹è±¡çš„å€¼
+	 * »ñÈ¡Êı¾İ¶ÔÏóµÄÖµ
 	 * @access public
-	 * @param string $name åç§°
+	 * @param string $name Ãû³Æ
 	 * @return mixed
 	 */
 	public function __get($name) {
@@ -73,9 +73,9 @@ class M{
 
 
 	/**
-	 * æ£€æµ‹æ•°æ®å¯¹è±¡çš„å€¼
+	 * ¼ì²âÊı¾İ¶ÔÏóµÄÖµ
 	 * @access public
-	 * @param string $name åç§°
+	 * @param string $name Ãû³Æ
 	 * @return boolean
 	 */
 	public function __isset($name) {
@@ -83,41 +83,41 @@ class M{
 	}
 
 	/**
-	 * é”€æ¯æ•°æ®å¯¹è±¡çš„å€¼
+	 * Ïú»ÙÊı¾İ¶ÔÏóµÄÖµ
 	 * @access public
-	 * @param string $name åç§°
+	 * @param string $name Ãû³Æ
 	 * @return void
 	 */
 	public function __unset($name) {
 		unset($this->tableData[$name]);
 	}
 
-	//è·å–é”™è¯¯ä¿¡æ¯
+	//»ñÈ¡´íÎóĞÅÏ¢
 	public function getError(){
 		return $this->error;
 	}
 
-	//å¼€å¯äº‹ç‰©
+	//¿ªÆôÊÂÎï
 	public function beginTrans(){
 		$this->db->beginTrans();
 	}
-	//äº‹ç‰©å›æ»š
+	//ÊÂÎï»Ø¹ö
 	public function rollBack(){
 		$this->db->rollBack();
 	}
-	//äº‹ç‰©æäº¤
+	//ÊÂÎïÌá½»
 	public function commit(){
 		return $this->db->commit();
 	}
 
-	//æ˜¯å¦åœ¨äº‹åŠ¡ä¸­
+	//ÊÇ·ñÔÚÊÂÎñÖĞ
 	public function inTrans(){
 		return $this->db->inTrans();
 	}
 
 	/**
-	 * @brief è®¾ç½®æ–°å¢æˆ–æ›´æ”¹çš„æ•°æ®
-	 * @param $data array æ›´æ–°æˆ–æ–°å¢çš„æ•°æ®
+	 * @brief ÉèÖÃĞÂÔö»ò¸ü¸ÄµÄÊı¾İ
+	 * @param $data array ¸üĞÂ»òĞÂÔöµÄÊı¾İ
      */
 	public function data($data){
 		$this->tableData = $data;
@@ -125,8 +125,8 @@ class M{
 	}
 
 	/**
-	 * è®¾ç½®æ“ä½œè¡¨å æˆ–è¿”å›å½“å‰æ“ä½œè¡¨å
-	 * @param $tableName str è¡¨å
+	 * ÉèÖÃ²Ù×÷±íÃû »ò·µ»Øµ±Ç°²Ù×÷±íÃû
+	 * @param $tableName str ±íÃû
 	 * @return $this
      */
 	public function table($tableName=''){
@@ -140,7 +140,7 @@ class M{
 	}
 
 	/**
-	 *æ¸…é™¤æ•°æ®
+	 *Çå³ıÊı¾İ
 	 *
      */
 	private function clear(){
@@ -155,13 +155,13 @@ class M{
 	}
 
 	/**
-	 * @param $where array or str æŸ¥è¯¢æ¡ä»¶
-	 * @return string æŸ¥è¯¢æ¡ä»¶å­—ç¬¦ä¸²
+	 * @param $where array or str ²éÑ¯Ìõ¼ş
+	 * @return string ²éÑ¯Ìõ¼ş×Ö·û´®
 	 */
 	public function where($where){
 		if(!isset($where))return false;
 		$sql = '';
-		$this->whereParam = array();//æƒ…å†µwhereæ•°ç»„
+		$this->whereParam = array();//Çé¿öwhereÊı×é
 		if(is_array($where)){
 			$sql .= ' WHERE ';
 			foreach($where as $key=>$val){
@@ -180,7 +180,7 @@ class M{
 						$this->whereParam = array_merge($this->whereParam,$val[1]);
 					}
 					else{
-						//éç›¸ç­‰çš„æƒ…å†µ
+						//·ÇÏàµÈµÄÇé¿ö
 						switch(strtolower($val[0])){
 							case 'eq' : {
 								$sql .= $key.' = :'.$key.' AND ';
@@ -215,7 +215,7 @@ class M{
 	}
 
 	/**
-	 * @brief è®¾ç½®whereæ¡ä»¶ç»‘å®šå‚æ•°æ•°ç»„,whereæ¡ä»¶ä¸ºstræ—¶è®¾å®š
+	 * @brief ÉèÖÃwhereÌõ¼ş°ó¶¨²ÎÊıÊı×é,whereÌõ¼şÎªstrÊ±Éè¶¨
 	 * @param $bindArr
 	 * @return $this
      */
@@ -225,7 +225,7 @@ class M{
 	}
 
 	/**
-	 * @brief æ›¿æ¢bindWhere
+	 * @brief Ìæ»»bindWhere
 	 * @param $bindArr
 	 * @return $this
 	 */
@@ -235,8 +235,8 @@ class M{
 	}
 
     /**
-     * @brief è®¾ç½®æŸ¥è¯¢çš„å­—æ®µ
-     * @$fields array or str æŸ¥è¯¢å­—æ®µ
+     * @brief ÉèÖÃ²éÑ¯µÄ×Ö¶Î
+     * @$fields array or str ²éÑ¯×Ö¶Î
      */
     public function fields($fields='*'){
         if(is_string($fields))
@@ -255,8 +255,8 @@ class M{
 
 
     /**
-     *è®¾ç½®æŸ¥è¯¢æ’åº
-     * @param string $order  æ’åºä¾æ®å­—æ®µï¼Œä¾‹å¦‚ï¼šid ,id DESC
+     *ÉèÖÃ²éÑ¯ÅÅĞò
+     * @param string $order  ÅÅĞòÒÀ¾İ×Ö¶Î£¬ÀıÈç£ºid ,id DESC
      */
     public function order($order=''){
         if($order != ''){
@@ -268,7 +268,7 @@ class M{
     }
 
     /**
-     * è®¾ç½®æŸ¥è¯¢limit
+     * ÉèÖÃ²éÑ¯limit
      * @param $limit str
      */
     public function limit($limit=''){
@@ -280,13 +280,13 @@ class M{
     }
 
 	/**
-     * @brief æ–°å¢æ•°æ®
-	 * @param bool $trans æ˜¯å¦åº”è¯¥åœ¨äº‹åŠ¡ä¸­
+     * @brief ĞÂÔöÊı¾İ
+	 * @param bool $trans ÊÇ·ñÓ¦¸ÃÔÚÊÂÎñÖĞ
 	 * @return bool
      */
 	public function add($trans=0) {
 		$res = false;
-		if($trans==1 && !$this->inTrans()){//åº”è¯¥åœ¨äº‹åŠ¡ä¸­ä¸”å®é™…ä¸åœ¨äº‹åŠ¡ä¸­ï¼Œè¿”å›false
+		if($trans==1 && !$this->inTrans()){//Ó¦¸ÃÔÚÊÂÎñÖĞÇÒÊµ¼Ê²»ÔÚÊÂÎñÖĞ£¬·µ»Øfalse
 			return false;
 		}
 		if(!empty($this->tableData)){
@@ -309,7 +309,7 @@ class M{
 	}
 
 	/**
-	 * è¿”å›ä¸Šæ¬¡æ–°å¢æ¡ç›®çš„id
+	 * ·µ»ØÉÏ´ÎĞÂÔöÌõÄ¿µÄid
 	 * @return [type] [description]
 	 */
 	public function lastInsertId(){
@@ -317,11 +317,11 @@ class M{
 	}
 
 	/**
-	 * æ’å…¥å¤šæ¡æ•°æ®
+	 * ²åÈë¶àÌõÊı¾İ
 	 */
 	public function adds($trans=0){
 		$res = false;
-		if($trans==1 && !$this->inTrans()){//åº”è¯¥åœ¨äº‹åŠ¡ä¸­ä¸”å®é™…ä¸åœ¨äº‹åŠ¡ä¸­ï¼Œè¿”å›false
+		if($trans==1 && !$this->inTrans()){//Ó¦¸ÃÔÚÊÂÎñÖĞÇÒÊµ¼Ê²»ÔÚÊÂÎñÖĞ£¬·µ»Øfalse
 			return false;
 		}
 		if(!empty($this->tableData)){
@@ -357,13 +357,13 @@ class M{
 	}
 
 	/**
-	 * @brief æ›´æ–°æ•°æ®
+	 * @brief ¸üĞÂÊı¾İ
 	 * @param bool $trans
-	 * @return bool|è¿”å›å¤„ç†ç»“æœ
+	 * @return bool|·µ»Ø´¦Àí½á¹û
      */
 	public function update($trans=0){
 		$res = false;
-		if($trans==1 && !$this->inTrans()){//åº”è¯¥åœ¨äº‹åŠ¡ä¸­ä¸”å®é™…ä¸åœ¨äº‹åŠ¡ä¸­ï¼Œè¿”å›false
+		if($trans==1 && !$this->inTrans()){//Ó¦¸ÃÔÚÊÂÎñÖĞÇÒÊµ¼Ê²»ÔÚÊÂÎñÖĞ£¬·µ»Øfalse
 			return false;
 		}
 		if(!empty($this->tableData) && $this->whereStr != ''){
@@ -382,12 +382,12 @@ class M{
 	}
 
 	/**
-	 * åˆ é™¤æ•°æ®
-	 * @return bool|è¿”å›å¤„ç†ç»“æœ
+	 * É¾³ıÊı¾İ
+	 * @return bool|·µ»Ø´¦Àí½á¹û
      */
 	public function delete($trans=0){
 		$res = false;
-		if($trans==1 && !$this->inTrans()){//åº”è¯¥åœ¨äº‹åŠ¡ä¸­ä¸”å®é™…ä¸åœ¨äº‹åŠ¡ä¸­ï¼Œè¿”å›false
+		if($trans==1 && !$this->inTrans()){//Ó¦¸ÃÔÚÊÂÎñÖĞÇÒÊµ¼Ê²»ÔÚÊÂÎñÖĞ£¬·µ»Øfalse
 			return false;
 		}
 		if($this->whereStr != ''){
@@ -400,12 +400,12 @@ class M{
 	}
 
     /**
-     * @brief è·å–å¤šæ¡æ•°æ®
-     * @param array or string $cols æŸ¥è¯¢å­—æ®µ,æ”¯æŒæ•°ç»„æ ¼å¼,å¦‚array('cols1','cols2')
-     * @param array or string $orderBy æ’åºå­—æ®µ
-     * @param array or string $desc æ’åˆ—é¡ºåº å€¼: DESC:å€’åº; ASC:æ­£åº;
-     * @param array or int $limit æ˜¾ç¤ºæ•°æ®æ¡æ•° é»˜è®¤(500)
-     * @return array æŸ¥è¯¢ç»“æœ
+     * @brief »ñÈ¡¶àÌõÊı¾İ
+     * @param array or string $cols ²éÑ¯×Ö¶Î,Ö§³ÖÊı×é¸ñÊ½,Èçarray('cols1','cols2')
+     * @param array or string $orderBy ÅÅĞò×Ö¶Î
+     * @param array or string $desc ÅÅÁĞË³Ğò Öµ: DESC:µ¹Ğò; ASC:ÕıĞò;
+     * @param array or int $limit ÏÔÊ¾Êı¾İÌõÊı Ä¬ÈÏ(500)
+     * @return array ²éÑ¯½á¹û
      */
     public function select()
     {
@@ -415,8 +415,8 @@ class M{
     }
 
     /**
-     * @brief æŸ¥è¯¢ä¸€æ¡ç»“æœ
-     * @return array è¿”å›å¤„ç†ç»“æœ
+     * @brief ²éÑ¯Ò»Ìõ½á¹û
+     * @return array ·µ»Ø´¦Àí½á¹û
      */
     public function getObj(){
         $this->limit(1);
@@ -427,9 +427,9 @@ class M{
     }
 
 	/**
-	 * è·å–ä¸€ä¸ªå­—æ®µ
-	 * @param string $field å­—æ®µ
-	 * @return è¿”å›å¤„ç†ç»“æœ
+	 * »ñÈ¡Ò»¸ö×Ö¶Î
+	 * @param string $field ×Ö¶Î
+	 * @return ·µ»Ø´¦Àí½á¹û
      */
 	public function getField($field){
 		$this->limit(1)->fields($field);
@@ -440,7 +440,7 @@ class M{
 	}
 
 	/**
-	 * è·å–ä¸€ä¸ªå­—æ®µå¤šæ¡æ•°æ®
+	 * »ñÈ¡Ò»¸ö×Ö¶Î¶àÌõÊı¾İ
 	 *
 	 */
 	public function getFields($field){
@@ -458,20 +458,20 @@ class M{
 	}
 
     /**
-     * æ‰§è¡Œä¸€æ¡sql
+     * Ö´ĞĞÒ»Ìõsql
      * @param $sql
-     * @return æŸ¥è¯¢ç»“æœ
+     * @return ²éÑ¯½á¹û
      */
-    public function query($sql,$param=array()){
-        $res =  $this->db->exec($sql,array_merge($this->whereParam,$param));
+    public function query($sql,$param=array(),$type=''){
+        $res =  $this->db->exec($sql,array_merge($this->whereParam,$param),$type);
         return $res;
     }
 
 	/**
-	 * å­—æ®µå€¼å¢é•¿
+	 * ×Ö¶ÎÖµÔö³¤
 	 * @access public
-	 * @param string $field  å­—æ®µå
-	 * @param integer $step  å¢é•¿å€¼
+	 * @param string $field  ×Ö¶ÎÃû
+	 * @param integer $step  Ôö³¤Öµ
 	 * @return boolean
 	 */
 	public function setInc($field,$step=1) {
@@ -481,14 +481,30 @@ class M{
 	}
 
 	/**
-	 *æ’å…¥æ›´æ–°ï¼Œæ’å…¥å­—æ®µå”¯ä¸€é”®å·²å­˜åœ¨åˆ™æ›´æ–°ï¼Œä¸å­˜åœ¨åˆ™æ’å…¥
-	 * @param array $insert æ’å…¥æ•°æ®
-	 * @param array $update æ›´æ–°æ•°æ®
+	 * ×Ö¶ÎÖµÔö³¤
+	 * @access public
+	 * @param string $field  ×Ö¶ÎÃû
+	 * @param integer $step  Ôö³¤Öµ
+	 * @return boolean
+	 */
+	public function setDec($field,$step=1,$trans=0) {
+		if($trans==1 && !$this->inTrans()){//Ó¦¸ÃÔÚÊÂÎñÖĞÇÒÊµ¼Ê²»ÔÚÊÂÎñÖĞ£¬·µ»Øfalse
+			return false;
+		}
+		if($this->whereStr=='') return false;
+		$sql = 'UPDATE '.$this->tableName.' SET '.$field.' = '.$field.' - :step '.$this->whereStr;
+		return $this->query($sql,array_merge(array('step'=>$step),$this->whereParam),'UPDATE');
+	}
+
+	/**
+	 *²åÈë¸üĞÂ£¬²åÈë×Ö¶ÎÎ¨Ò»¼üÒÑ´æÔÚÔò¸üĞÂ£¬²»´æÔÚÔò²åÈë
+	 * @param array $insert ²åÈëÊı¾İ
+	 * @param array $update ¸üĞÂÊı¾İ
 	 * @param bool $trans
 	 * @return 
      */
 	public function insertUpdate($insert,$update,$trans=0){
-		if($trans==1 && !$this->inTrans()){//åº”è¯¥åœ¨äº‹åŠ¡ä¸­ä¸”å®é™…ä¸åœ¨äº‹åŠ¡ä¸­ï¼Œè¿”å›false
+		if($trans==1 && !$this->inTrans()){//Ó¦¸ÃÔÚÊÂÎñÖĞÇÒÊµ¼Ê²»ÔÚÊÂÎñÖĞ£¬·µ»Øfalse
 			return false;
 		}
 		$sql = 'INSERT INTO '.$this->table();
@@ -510,11 +526,11 @@ class M{
 	}
 
 	/**
-	 * æ•°æ®éªŒè¯
-	 * @param array $rules éªŒè¯è§„åˆ™
-	 * @param int $type 1 : æ’å…¥ 2ï¼šæ›´æ–°
-	 * @param array $data è¦éªŒè¯çš„æ•°æ®
-	 * @return bool éªŒè¯ç»“æœ å¦‚æœè¿”å›falseï¼Œä¼šä¿®æ”¹$this->errorçš„å€¼
+	 * Êı¾İÑéÖ¤
+	 * @param array $rules ÑéÖ¤¹æÔò
+	 * @param int $type 1 : ²åÈë 2£º¸üĞÂ
+	 * @param array $data ÒªÑéÖ¤µÄÊı¾İ
+	 * @return bool ÑéÖ¤½á¹û Èç¹û·µ»Øfalse£¬»áĞŞ¸Ä$this->errorµÄÖµ
 	 */
 	public function validate($rules,$data=array(),$type=''){
 		$checkData = empty($data) ? $this->tableData : $data;

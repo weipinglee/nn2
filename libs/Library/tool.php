@@ -6,7 +6,7 @@
  * Time: ионГ 9:28
  */
 namespace Library;
-class tool{
+class Tool{
 
     //х╚╬жеДжц
     private static $globalConfigs = array();
