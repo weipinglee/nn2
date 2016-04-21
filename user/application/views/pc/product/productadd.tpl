@@ -18,8 +18,6 @@
 
 </div>
 
-
-{$productLeftLayout}
        <input type="hidden" name="attr_url" value="{url:/product/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
             <!--start中间内容-->    
@@ -102,26 +100,16 @@
                                    <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
                                            
                                </td> -->
-                            </tr>
-                            <tr>
-                                <td><span>*</span>是否可拆分：</td>
-                                <td>
-                                    <select name="divide" id="divide">
-                                        <option value="0" selected >可以</option>
-                                        <option value="1" selected >不可以</option>
-                                    </select>
-                                </td>
-                                </tr>
-                                <tr id='nowrap' style="display: none">
-                                <td nowrap="nowrap" ><span>*</span>最小起订量：</td>
-                                <td>
-                                    <input name="minimum" id="" type="text" class="text"  />
-                                </td>
-                                <td> 
-                                    <span>*</span>
-                                    最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
-                                </td>
-                            </tr>
+
+                                <tr>
+                            <td>产地:</td>
+                            <td colspan="2">
+                                {area:data=getAreaData()}
+                            </td>
+                         
+                        </tr>
+                            
+                               
                             
                             <tr>
                                 <td>图片预览：</td>
@@ -148,14 +136,27 @@
                          <tr>
                              <th colspan="3"><b>详细信息</b></th>
                         </tr>
-                        
-                        <tr>
-                            <td>产地:</td>
-                            <td colspan="2">
-                                {area:data=getAreaData()}
-                            </td>
-                         
-                        </tr>
+
+                       </tr>
+                            <tr>
+                                <td><span>*</span>是否可拆分：</td>
+                                <td>
+                                    <select name="divide" id="divide">
+                                        <option value="0" selected >可以</option>
+                                        <option value="1" selected >不可以</option>
+                                    </select>
+                                </td>
+                                </tr>
+                         <tr id='nowrap' style="display: none">
+                                <td nowrap="nowrap" ><span>*</span>最小起订量：</td>
+                                <td>
+                                    <input name="minimum" id="" type="text" class="text"  />
+                                </td>
+                                <td> 
+                                    <span>*</span>
+                                    最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
+                                </td>
+                            </tr>
                           <tr>
                             <td>交收地点：</td>
                             <td colspan="2">
@@ -167,6 +168,7 @@
                                 <input type="text" class='text' name="accept_day">
                             </td>
                             </tr>
+
 <!--                               <tr>
                             <td>是否投保：</td>
                             <td colspan="2">
