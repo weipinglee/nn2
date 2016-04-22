@@ -87,6 +87,11 @@ class MYPDO {
     public function exec($sql,$data=array(),$type=''){
         $sql = ltrim($sql);
 
+        if($type==''){
+            $type = $this->getSqlType($sql);
+
+        }
+
         $DBlink = $this->createDB($type);
 
         $stmt = $DBlink->prepare($sql);
@@ -120,13 +125,13 @@ class MYPDO {
                     default : return $res;
                 }
             }
+            else{
+                $this->rollBack();
+            }
         }
         catch(\PDOException $e){
-            exit($e->getMessage());
+             exit($e->getMessage());
         }
-
-
-
 
         return false;
 

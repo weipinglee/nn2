@@ -47,8 +47,9 @@ class checkRight{
 
         //session数据计入数据库
         $sessID = session_id();
+        $sessData = Session::get('login');
         self::$sessObj->gc();
-        self::$sessObj->write($sessID,Session::get('login'));
+        self::$sessObj->write($sessID,serialize($sessData));
         $userModel = new M('user');
         $userModel->where(array('id'=>$data['id']))->data(array('session_id'=>$sessID))->update();
         

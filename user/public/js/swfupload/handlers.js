@@ -138,7 +138,7 @@ function addImage(src) {
 	var newImg = document.createElement("img");
 	newImg.style.margin = "5px";
 	newSpan.appendChild(newImg);
-	document.getElementById("thumbnails").appendChild(newSpan);
+	document.getElementById("imgContainer").appendChild(newSpan);
 	if (newImg.filters) {
 		try {
 			newImg.filters.item("DXImageTransform.Microsoft.Alpha").opacity = 0;
@@ -194,7 +194,7 @@ function fadeIn(element, opacity) {
  * ****************************************** */
 
 function FileProgress(file, targetID) {
-	this.fileProgressID = "divFileProgress";
+	this.fileProgressID = targetID;
 
 	this.fileProgressWrapper = document.getElementById(this.fileProgressID);
 	if (!this.fileProgressWrapper) {

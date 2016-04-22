@@ -20,9 +20,20 @@ class ProductModel{
 	 */
 	protected $cateRules = array(
 		array('id','number','id错误',0,'regex'),
-		array('name','require','仓库名必填'),
+		array('name','require','分类名名必填'),
+		array('percent',array(0,100),'首付比例错误',0,'between'),
 		array('pid','number','pid错误'),
 		array('sort','number','排序请填写一个数字'),
+	);
+
+	/**
+	 * 属性规则
+	 */
+	protected $attrRules = array(
+		array('id','number','id错误',0,'regex'),
+		array('name','require','属性名必填'),
+		array('type',array(1,2,3),'类型错误',0,'in'),
+		array('sort','number','必须是一个整数')
 	);
 
 	/**
@@ -90,6 +101,57 @@ class ProductModel{
 			}
 		}
 		return $tree;
+	}
+
+	/**
+	 * 属性添加
+	 * @param array $data 添加的数据
+	 */
+	public function attrAdd($data){
+		$m = new M('product_attribute');
+		if($m->data($data)->validate($this->attrRules)){
+			if($data['id']){
+				$id = $data['id'];
+				unset($m->id);
+				$res = $m->where(array('id'=>$id))->update() ? 1 : 0;
+			}else{
+				$res = $m->add() ? 1 : 0;
+			}
+
+			$info = '';
+		}
+		else{
+			$res = 0;
+			$info = $m->getError();
+			$info = $info=='' ? '系统繁忙' : $info;
+		}
+		return tool::getSuccInfo($res,$info);
+	}
+
+	/**
+	 * 获取一条属性信息
+	 * @param int $id 属性id
+	 *
+	 */
+	public function getAttrInfo($id){
+		$m = new M('product_attribute');
+		return $m->where(array('id'=>$id))->getObj();
+	}
+
+	/**
+	 * 获取所有属性
+	 * @param int $page 页码 0表示获取全部
+	 */
+	public function getAttr($page=0){
+		$m = new Query('product_attribute');
+		if($page!=0)
+			$m->page = $page;
+		$attr = $m->find();
+		$res = array();
+		foreach($attr as $k=>$v){
+			$res[$attr[$k]['id']] = $v;
+		}
+		return $res;
 	}
 
 

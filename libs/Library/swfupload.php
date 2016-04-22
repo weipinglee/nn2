@@ -23,7 +23,6 @@ class Swfupload
 
 	public $imgContainer ;
 
-	public $rand ;
 	/**
 	 * @brief 构造函数
 	 * @param array $params 参数数组
@@ -34,10 +33,9 @@ class Swfupload
 		$this->path   = url::getBaseUrl().'/js/swfupload/';
 		$this->submit = isset($params['upload_url']) ? url::createUrl($params['upload_url']) : 'ucenter/upload';
 		$this->buttonID = isset($params['button_placeholder_id']) ? $params['button_placeholder_id'] : 'uploadButton';
-		if(isset($params['button_action']) && $params['button_action']==-100)
-			$this->buttonAction = -100;//单图上传
+
 		$this->imgContainer = isset($params['imgContainer']) ? $params['imgContainer'] : 'imgContainer';
-		$this->rand = rand(1,9);
+
 	}
 
 	/**
@@ -50,7 +48,7 @@ return <<< OEF
 		<script type="text/javascript">
 		window.onload = function()
 		{
-			var obj{$this->rand} = new SWFUpload({
+			new SWFUpload({
 				// Backend Settings
 				upload_url: "{$this->submit}",
 
@@ -58,7 +56,6 @@ return <<< OEF
 				// File Upload Settings
 				file_types : "*.jpg;*.jpge;*.png;*.gif",
 
-				button_action:{$this->buttonAction},
 				// Event Handler Settings - these functions as defined in Handlers.js
 				//  The handlers are not part of SWFUpload but are part of my website and control how
 				//  my website reacts to the SWFUpload events.
@@ -69,7 +66,7 @@ return <<< OEF
 				//upload_progress_handler : uploadProgress,
 				upload_error_handler : uploadError,
 				upload_success_handler : uploadSuccess,
-				//upload_complete_handler : uploadComplete,
+				upload_complete_handler : uploadComplete,
 
 				// Button Settings
 				button_placeholder_id : "{$this->buttonID}",
