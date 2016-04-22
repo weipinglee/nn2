@@ -176,7 +176,6 @@ class product{
         }
 
         return false;
-
     }
 
 
@@ -220,6 +219,8 @@ class product{
         }
         return $resInfo;
     }
+
+    
 
 
 

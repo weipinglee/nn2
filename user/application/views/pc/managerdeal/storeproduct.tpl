@@ -158,10 +158,18 @@
                                             </select>
                                         </td>
                                         </tr>
+                                        <tr>
+                                        <td>计量单位：</td>
+                                        <td colspan="2">
+                                            <input type="text" class='text' name="package_unit">
+                                        </td>
+                                        <tr>
+                                        <tr>
                                         <td>包装数量：</td>
                                         <td colspan="2">
                                             <input type="text" class='text' name="package_num">
                                         </td>
+                                        <tr>
                                         </tr>
                                         <td>包装重量：</td>
                                         <td colspan="2">
