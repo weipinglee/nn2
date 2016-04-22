@@ -34,7 +34,7 @@
         <div id="content" class="white">
             <h1><img src="http://localhost/nn2/admin/public/views/pc/img/icons/dashboard.png" alt="" /><?php echo isset($oper)?$oper:"";?>信誉值配置
 </h1>
-                
+
 <div class="bloc">
     <div class="title">
        <?php echo isset($oper)?$oper:"";?>信誉值配置

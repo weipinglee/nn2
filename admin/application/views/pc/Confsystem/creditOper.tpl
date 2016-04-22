@@ -20,7 +20,7 @@
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" />{$oper}信誉值配置
 </h1>
-                
+
 <div class="bloc">
     <div class="title">
        {$oper}信誉值配置

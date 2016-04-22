@@ -32,13 +32,14 @@ class AdminModel{
 	 * @return array
 	 */
 	public function getList($page,$name){
+		$super_admin = tool::getConfig(array("rbac","super_admin"));
 		$Q = new Query('admin as a');
 		$Q->join = 'left join admin_role as r on a.role = r.id';
 		$Q->page = $page;
 		$Q->pagesize = 5;
 		$Q->fields = "a.*,r.name as role_name";
 		$Q->order = "a.create_time desc";
-		$Q->where = "a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
+		$Q->where = "a.name <> '$super_admin' and a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
 		$data = $Q->find();
 		$pageBar =  $Q->getPageBar();
 		return array('data'=>$data,'bar'=>$pageBar);

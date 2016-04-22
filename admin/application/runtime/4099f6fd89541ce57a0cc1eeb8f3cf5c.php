@@ -78,6 +78,7 @@
                                 <li><a href="http://localhost/nn2/admin/public/system/confsystem/creditList/" target="content">信誉值配置列表</a></li>
                             </ul>
                         </li>
+                        <li><a href="http://localhost/nn2/admin/public/system/admin/adminList/" target="content">管理员列表</a></li>
                         <li><a href="system-base.html" target="content">系统设置</a></li>
                         <li><a href="table.html" target="content">导航栏目管理</a></li>
                         <li><a href="tabs.html" target="content">地域信息管理</a></li>

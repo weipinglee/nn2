@@ -27,12 +27,12 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="" value="<?php echo isset($name)?$name:"";?>">
 		<button type="submit" class="btn btn-success radius search-admin" id="" name=""><i class="icon-search"></i> 搜管理员</button>
 	</div>
-	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i>批量删除</a> <a class="btn btn-primary radius" href="http://localhost/nn2/admin/public/system/admin/adminAdd/"><i class=" icon-plus"></i> 添加管理员</a> </span>  </div>
+	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i>批量删除</a>  --><a class="btn btn-primary radius" href="http://localhost/nn2/admin/public/system/admin/adminAdd/"><i class=" icon-plus"></i> 添加管理员</a> </span>  </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
+				<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
 				<th width="80">ID</th>
 				<th width="100">用户名</th>
 				<th width="100">所属分组</th>
@@ -45,7 +45,7 @@
 		<tbody>
 		<?php foreach($data as $key => $item){?>
 			<tr class="text-c">
-				<td><input type="checkbox" value="" name=""></td>
+				<!-- <td><input type="checkbox" value="" name=""></td> -->
 				<td><?php echo isset($item['id'])?$item['id']:"";?></td>
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')"><?php echo isset($item['name'])?$item['name']:"";?></u></td>
 				<td><?php echo isset($item['role_name'])?$item['role_name']:"";?></td>
