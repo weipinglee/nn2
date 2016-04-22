@@ -31,7 +31,6 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 	}
 	
 	public function _initView(Yaf\Dispatcher $dispatcher){
-		$view = new \views\wittyAdapter(\Yaf\Registry::get("config")->witty);
-		$dispatcher->setView($view);
+
 	}
 }
