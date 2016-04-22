@@ -125,14 +125,13 @@ class MYPDO {
                     default : return $res;
                 }
             }
+            else{
+                $this->rollBack();
+            }
         }
         catch(\PDOException $e){
-            $this->rollBack();
-            exit($e->getMessage());
+             exit($e->getMessage());
         }
-
-
-
 
         return false;
 
