@@ -15,7 +15,7 @@ use \Library\Thumb;
 use \Library\tool;
 use \nainai\store;
 use \nainai\offer;
-class ProductController extends Yaf\Controller_Abstract {
+class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
 
 
     /**
@@ -34,24 +34,17 @@ class ProductController extends Yaf\Controller_Abstract {
         3 => '委托报盘'
     );
 
-    public function init(){
-         $right = new checkRight();
-        $right->checkLogin($this);//未登录自动跳到登录页
 
-       $this->getView()->assign('leftArray', $this->getLeftArray());
-        $this->getView()->setLayout('ucenter');
 
-    }
-
-    private function  getLeftArray(){
+    protected function  getLeftArray(){
         return array(
             array('name' => '交易管理', 'list' => array()),
             array('name' => '销售管理', 'list' => array(
                 array('url' => '', 'title' => '销售列表' ),
-                array('url' => url::createUrl('/product/offerIndex'), 'title' => '发布产品' ),
+                array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '发布产品' ),
             )),
             array('name' => '仓单管理', 'list' => array(
-                array('url' => '', 'title' => '申请仓单' ),
+                array('url' => url::createUrl('/product/storeProduct'), 'title' => '申请仓单' ),
                 array('url' => '', 'title' => '仓单列表' ),
             )),
             array('name' => '采购管理', 'list' => array(
@@ -75,12 +68,15 @@ class ProductController extends Yaf\Controller_Abstract {
      * 产品发布页面展示
      * @return
      */
-    public function offerIndexAction(){}
+    public function indexOfferAction(){
+
+    }
 
    /**
      * 商品添加页面展示
      */
     private function productAddAction(){
+        
         $category = array();
 
         //获取商品分类信息，默认取第一个分类信息
@@ -88,9 +84,7 @@ class ProductController extends Yaf\Controller_Abstract {
         $category = $productModel->getCategoryLevel();
         $attr = $productModel->getProductAttr($category['chain']);
         //上传图片插件
-        $plupload = new PlUpload(url::createUrl('/product/swfupload'));
-
-
+        $plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
 
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('plupload',$plupload->show());
@@ -110,12 +104,17 @@ class ProductController extends Yaf\Controller_Abstract {
         $this->getView()->assign('mode',$mode);
         $this->productAddAction();
     }
+
+    public function storeAction(){
+
+    }
     /**
      * 申请仓单页面
      */
     public function storeProductAction(){
         $store_list = store::getStoretList();
         $this->getView()->assign('storeList',$store_list);
+        $this->getView()->assign('mode',3);
         $this->productAddAction();
 
     }
@@ -124,7 +123,6 @@ class ProductController extends Yaf\Controller_Abstract {
      * @return [Json]
      */
     public function ajaxGetCategoryAction(){
-
         $pid = Safe::filterPost('pid', 'int',0);
         if($pid){
             $productModel = new \nainai\product();
@@ -185,7 +183,6 @@ class ProductController extends Yaf\Controller_Abstract {
      */
     public function doOfferAction(){
        if (IS_POST) {
-
            $productData = $this->getProductData();
            $mode = Safe::filterPost('mode', 'int');
            if (!isset($this->_mode[$mode])){
@@ -203,15 +200,14 @@ class ProductController extends Yaf\Controller_Abstract {
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
             );
+
            $offerObj = new \nainai\product();
             $res = $offerObj->insertOffer($productData,$offerData);
            if($res['success']==1)
                $this->redirect('offerList');
            else $this->redirect('offer');
+       }
 
-        }else{
-            $this->redirect('offer');
-        }
         return false;
     }
 
@@ -225,9 +221,10 @@ class ProductController extends Yaf\Controller_Abstract {
                 'store_id' => Safe::filterPost('store_id', 'int'),
                 'package'  => Safe::filterPost('package','int'),
                 'package_num' => Safe::filterPost('package_num'),
+                'package_unit' => Safe::filterPost('package_unit'),
                 'package_weight' => Safe::filterPost('package_weight'),
-                'apply_time' => \Library\Time::getDateTime(),
-                'status' => 0
+                'status' => 0,
+                'apply_time'  => \Library\Time::getDateTime(),
             );
             $storeObj = new store();
             $res = $storeObj->createStoreProduct($productData,$storeList);

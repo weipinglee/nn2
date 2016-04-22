@@ -7,19 +7,28 @@
  */
 namespace nainai;
 use \Library\M;
+use \Library\Query;
 use \nainai\product;
 use \Library\Tool;
+
 class store{
 
-
-    private $storeProduct = 'store_products';//仓单数据表
+     private $storeProduct = 'store_products';//仓单数据表
     //仓单数据规则
-    private $storeProductRules = array(
-        array('store_id','number','仓库id必须是数字'),
-
+     protected $storeProductRules = array(
+        array('store_id', 'number', '必须选择仓库!'),
+        array('product_id', 'number', '请填写产品信息'),
+        array('package', 'number','请选择是否打包!')
     );
 
-    /**
+    public function getStatus(){
+        return array(
+            0 => '未审核',
+            1 => '审核通过'
+        );
+    }
+
+     /**
      * 获取仓库列表
      * @return mixed
      */
@@ -29,7 +38,70 @@ class store{
         return $storeModel->table('store_list')->fields('id, name, short_name, area, address')->where($where)->select();
     }
 
+   
+ /**
+     * 获取仓单列表
+     * @param  [Int] $page     
+     * @param  [Int] $pagesize 
+     * @return [Array]       ]
+     */
+    public function getApplyStoreList($page, $pagesize){
+         //仓单列表
+        $query = new Query('store_list as b');
+        $query->fields = 'a.id, b.name as sname, a.status, c.name as pname,  d.name as cname, c.attribute, a.package_unit, a.package_weight';
+        $query->join = ' RIGHT JOIN (store_products as a LEFT JOIN products as c ON a.product_id = c.id ) ON a.store_id=b.id LEFT JOIN product_category as d  ON c.cate_id=d.id';
+        $query->page = $page;
+        $query->pagesize = $pagesize;
+        $storeList = $query->find();
+
+        $attrs = $attr_id = array();
+        foreach ($storeList as $key => $value) {
+
+            $attrs = unserialize($value['attribute']);
+            $storeList[$key]['attribute'] = $attrs;
+            foreach ($attrs as $aid => $name) {
+                if (!in_array($aid, $attr_id)) {
+                    $attr_id[] = $aid;
+                }
+            }
+        }
+
+        if (!empty($attr_id)) {
+            $attrObj = new M('product_attribute');
+            $attr_id = $attrObj->fields('id, name')->where('id IN (' . implode(',', $attr_id) . ')')->select();
+            foreach ($attr_id as $value) {
+               $attrs[$value['id']] = $value['name']; 
+            }
+        }
+        
+        return array('list' => $storeList, 'pageHtml' => $query->getPageBar(), 'attrs' => $attrs);
+    }
+
     /**
+     * 获取仓单详情
+     * @param  [Int] $id [仓单id]
+     * @return [Array]    
+     */
+    public function getApplyStoreDetails($id){
+
+        $query = new Query('store_products as a');
+        $query->fields = 'a.id, a.product_id, b.name as sname, a.package_num, a.package_unit, a.package_weight, a.package';
+        $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id';
+        $query->where = ' a.id = '.$id;
+        $storeDetail = $query->getObj();
+
+        $imgObj = new M('product_photos');
+        $storeDetail['imgData'] = $imgObj->fields('id, img')->where('products_id = ' .  $storeDetail['product_id'])->select();
+
+        return $storeDetail;
+    }
+
+    public function UpdateApplyStore( & $store, $id){
+         $storeProductObj = new M($this->storeProduct);
+        return  $storeProductObj->data($store)->where('id = '. $id)->update(0);
+    }
+
+     /**
      * 生成仓单
      * @param array $productData 商品数据
      * @param array $storeData 仓库数据
@@ -71,7 +143,6 @@ class store{
 
 
     }
-
 
 
 }

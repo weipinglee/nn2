@@ -34,15 +34,13 @@ class product{
      * 报盘验证规则
      * @var array
      */
-    protected $offerRules = array(
+    protected $productOfferRules = array(
         array('product_id', 'number', '必须有商品id'),
         array('mode', 'number', '必须有报盘类型'),
         array('divide', 'number','是否可拆分的id错误'),
         array('accept_area', 'require', '交收地点必须填写'),
         array('accept_day', 'number', '交收时间必须填写')
     );
-
-
 
     /**
      * pdo的对象
@@ -176,51 +174,51 @@ class product{
         }
 
         return false;
-
     }
-
 
 
     /**
-     * 插入报盘数据
-     * @param  array $productData 商品数据
-     * @param array $productOffer 报盘数据
-     * @return [Boolean]
-     */
-    public function insertOffer(&$productData,&$productOffer){
-        if($this->_productObj->validate($this->offerRules, $productOffer) && $this->proValidate($productData)){
-            $this->_productObj->beginTrans();
-            $pId = $this->_productObj->data($productData[0])->add(1);
-            $imgData = $productData[1];
-            if (intval($pId) > 0) {
-                //插入图片数据
-                if (!empty($imgData)) {
-                    foreach ($imgData as $key => $imgUrl) {
-                        $imgData[$key]['products_id'] = $pId;
+         * 添加商品数据
+         * @param  [Array] &$productData [提交的商品数据]
+         * @param  [Array] &$productOffer[提交的报盘数据]
+         * @return [Array]               [添加是否成功，及失败信息]
+         */
+        public function insertOffer(&$productData, &$productOffer){
+            if ($this->_productObj->validate($this->productRules,$productData)){
+
+                $this->_productObj->beginTrans();
+                $pId = $this->_productObj->data($productData[0])->add(1);
+                $productOffer['product_id'] = $pId;
+
+                if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
+                    $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+                    $imgData = $productData[1];
+                    if (!empty($imgData)) {
+                        foreach ($imgData as $key => $imgUrl) {
+                            $imgData[$key]['products_id'] = $pId;
+                        }
+                        $this->_productObj->table('product_photos')->data($imgData)->adds(1);
                     }
-                    $this->_productObj->table('product_photos')->data($imgData)->adds(1);
-
+                    $res = $this->_productObj->commit();
+                }else{
+                    $res = $this->_productObj->getError();
                 }
-                //插入报盘数据
-                $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+
+            }else{
+                $res = $this->_productObj->getError();
             }
-            $res = $this->_productObj->commit();
 
-        }
-        else{
-            $this->setErrorMessage($this->_productObj->getError());
-            $res = $this->_errorInfo;
-        }
+            if ($res === TRUE) {
+                return tool::getSuccInfo(1, 'add Success');
+            }else{
+                $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+            }
 
-        if($res===true){
-            $resInfo = Tool::getSuccInfo();
-        }
-        else{
-            $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
-        }
+
         return $resInfo;
     }
 
+    
 
 
 
