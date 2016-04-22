@@ -107,17 +107,23 @@ nn_panduo.formacc.prototype = {
 				$(_this.event_obj).parents("tr").remove();
 				return;
 			}
-			$(_this.event_obj).attr("title","");//$(_this.event_obj).attr("title") == "启用" ? "停用" : "启用");
-			$(_this.event_obj).attr("ajax_status",$(_this.event_obj).attr("ajax_status") == 1 ? 0 : 1);
-			$(_this.event_obj).find('i').attr("class",$(_this.event_obj).find('i').attr("class") == "icon-pause" ? "icon-play" : "icon-pause");
-			var td_status = $(_this.event_obj).parents("td").siblings(".td-status").find('span.label');
-			if(td_status.hasClass('label-success')){
-				td_status.removeClass('label-success').addClass('label-error').html("停用");
-			}else if(td_status.hasClass('label-error')){
-				td_status.removeClass('label-error').addClass('label-success').html("已启用");
+			if($(_this.event_obj).attr("to_list")){
+				layer.msg("操作成功!");
+	            setTimeout(function(){
+		          	window.location.reload();
+		        },1000);
+			}else{
+				$(_this.event_obj).attr("title","");//$(_this.event_obj).attr("title") == "启用" ? "停用" : "启用");
+				$(_this.event_obj).attr("ajax_status",$(_this.event_obj).attr("ajax_status") == 1 ? 0 : 1);
+				$(_this.event_obj).find('i').attr("class",$(_this.event_obj).find('i').attr("class") == "icon-pause" ? "icon-play" : "icon-pause");
+				var td_status = $(_this.event_obj).parents("td").siblings(".td-status").find('span.label');
+				if(td_status.hasClass('label-success')){
+					td_status.removeClass('label-success').addClass('label-error').html("停用");
+				}else if(td_status.hasClass('label-error')){
+					td_status.removeClass('label-error').addClass('label-success').html("已启用");
+				}
+				_this.bind_status_handle();	
 			}
-			_this.bind_status_handle();
-			
 			//console.log(_this.event_obj);
 		});
 	},

@@ -63,7 +63,7 @@ class AdminModel{
 				//编辑
 				unset($data['id']);
 				$res = $admin->where(array('id'=>$id))->data($data)->update();
-				$res = is_int($res) && $res>0 ? true : ($admin->getError() ? $admin->getError() : '未知错误,请重试');
+				$res = is_int($res) && $res>0 ? true : ($admin->getError() ? $admin->getError() : '数据未修改');
 			}else{
 				if($this->existAdmin(array('name'=>$data['name'])))
 					return tool::getSuccInfo(0,'用户名已注册');

@@ -10,6 +10,6 @@ use \Library\M;
 use \nainai\product;
 class offer{
 
-
+	
 
 }

@@ -86,7 +86,6 @@ class MYPDO {
      */
     public function exec($sql,$data=array(),$type=''){
         $sql = ltrim($sql);
-
         if($type==''){
             $type = $this->getSqlType($sql);
 
