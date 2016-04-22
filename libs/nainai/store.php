@@ -1,6 +1,6 @@
 <?php
 /**
- * ä»“å•çš„å¤„ç†ç±»
+ * ²Ö¿â¹ÜÀíÀà
  * author: weiping
  * Date: 2016/4/21
  * Time: 8:18
@@ -13,23 +13,23 @@ use \Library\Tool;
 
 class store{
 
-
-    private $storeProduct = 'store_products';//Â²Ã–ÂµÂ¥ÃŠÃ½Å¸ÃÂ±Ã­
-
-
-    private $storeProductRules = array(
-        array('store_id','number','è¯·é€‰æ‹©ä»“åº“!'),
+     private $storeProduct = 'store_products';//²Öµ¥Êı¾İ±í
+    //²Öµ¥Êı¾İ¹æÔò
+     protected $storeProductRules = array(
+        array('store_id', 'number', '±ØĞëÑ¡Ôñ²Ö¿â!'),
+        array('product_id', 'number', 'ÇëÌîĞ´²úÆ·ĞÅÏ¢'),
+        array('package', 'number','ÇëÑ¡ÔñÊÇ·ñ´ò°ü!')
     );
 
     public function getStatus(){
         return array(
-            0 => 'æœªå®¡æ ¸',
-            1 => 'å®¡æ ¸é€šè¿‡'
+            0 => 'Î´ÉóºË',
+            1 => 'ÉóºËÍ¨¹ı'
         );
     }
 
-    /**
-     * è·å–ä»“åº“åˆ—è¡¨
+     /**
+     * »ñÈ¡²Ö¿âÁĞ±í
      * @return mixed
      */
     public static function getStoretList(){
@@ -38,14 +38,15 @@ class store{
         return $storeModel->table('store_list')->fields('id, name, short_name, area, address')->where($where)->select();
     }
 
-    /**
-     * è·å–ä»“å•åˆ—è¡¨
+   
+ /**
+     * »ñÈ¡²Öµ¥ÁĞ±í
      * @param  [Int] $page     
      * @param  [Int] $pagesize 
      * @return [Array]       ]
      */
     public function getApplyStoreList($page, $pagesize){
-       	 //è·å–ä»“å•åˆ—è¡¨
+         //²Öµ¥ÁĞ±í
         $query = new Query('store_list as b');
         $query->fields = 'a.id, b.name as sname, a.status, c.name as pname,  d.name as cname, c.attribute, a.package_unit, a.package_weight';
         $query->join = ' RIGHT JOIN (store_products as a LEFT JOIN products as c ON a.product_id = c.id ) ON a.store_id=b.id LEFT JOIN product_category as d  ON c.cate_id=d.id';
@@ -77,12 +78,12 @@ class store{
     }
 
     /**
-     * è·å–ç”³è¯·å®¡æ ¸çš„ä»“å•è¯¦æƒ…æ•°æ®
-     * @param  [Int] $id [ä»“å•id]
+     * »ñÈ¡²Öµ¥ÏêÇé
+     * @param  [Int] $id [²Öµ¥id]
      * @return [Array]    
      */
     public function getApplyStoreDetails($id){
-         //è·å–ä»“å•åˆ—è¡¨
+
         $query = new Query('store_products as a');
         $query->fields = 'a.id, a.product_id, b.name as sname, a.package_num, a.package_unit, a.package_weight, a.package';
         $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id';
@@ -100,21 +101,21 @@ class store{
         return  $storeProductObj->data($store)->where('id = '. $id)->update(0);
     }
 
-    /**
-     * æ·»åŠ ä»“å•
-     * @param array $productData äº§å“æ•°æ®
-     * @param array $storeData ä»“å•æ•°æ®
+     /**
+     * Éú³É²Öµ¥
+     * @param array $productData ÉÌÆ·Êı¾İ
+     * @param array $storeData ²Ö¿âÊı¾İ
      */
     public function createStoreProduct($productData,$storeData){
         $productObj = new product();
         $storeProductObj = new M($this->storeProduct);
-
+        //ÑéÖ¤ÉÌÆ·Êı¾İºÍ²Öµ¥Êı¾İ
         if($productObj->proValidate($productData) && $storeProductObj->validate($this->storeProductRules,$storeData)){
             $storeProductObj->beginTrans();
             $pId = $storeProductObj->table('products')->data($productData[0])->add(1);
             $imgData = $productData[1];
             if (intval($pId) > 0) {
-
+                //²åÈëÍ¼Æ¬Êı¾İ
                 if (!empty($imgData)) {
                     foreach ($imgData as $key => $imgUrl) {
                         $imgData[$key]['products_id'] = $pId;
@@ -122,7 +123,7 @@ class store{
                     $storeProductObj->table('product_photos')->data($imgData)->adds(1);
 
                 }
-                //Â²Ã¥ÃˆÃ«Â²Ã–ÂµÂ¥ÃŠÃ½Å¸Ã
+                //²åÈë²Öµ¥Êı¾İ
                 $storeData['product_id'] = $pId;
                 $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
             }
@@ -136,12 +137,12 @@ class store{
             $resInfo = Tool::getSuccInfo();
         }
         else{
-            $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : 'ÃÂµÃÂ³Â·Â±ÃƒÅ Â£Â¬Ã‡Ã«Ã‰Ã”ÂºÃ³Ã”Ã™ÃŠÃ”');
+            $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : 'ÏµÍ³·±Ã¦£¬ÇëÉÔºóÔÙÊÔ');
         }
         return $resInfo;
 
-    }
 
+    }
 
 
 }

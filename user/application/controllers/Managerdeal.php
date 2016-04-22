@@ -35,6 +35,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
     );
 
 
+
     protected function  getLeftArray(){
         return array(
             array('name' => '交易管理', 'list' => array()),
@@ -43,7 +44,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
                 array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '发布产品' ),
             )),
             array('name' => '仓单管理', 'list' => array(
-                array('url' => '', 'title' => '申请仓单' ),
+                array('url' => url::createUrl('/product/storeProduct'), 'title' => '申请仓单' ),
                 array('url' => '', 'title' => '仓单列表' ),
             )),
             array('name' => '采购管理', 'list' => array(
@@ -75,6 +76,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
      * 商品添加页面展示
      */
     private function productAddAction(){
+        
         $category = array();
 
         //获取商品分类信息，默认取第一个分类信息
@@ -112,6 +114,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
     public function storeProductAction(){
         $store_list = store::getStoretList();
         $this->getView()->assign('storeList',$store_list);
+        $this->getView()->assign('mode',3);
         $this->productAddAction();
 
     }
@@ -120,7 +123,6 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
      * @return [Json]
      */
     public function ajaxGetCategoryAction(){
-
         $pid = Safe::filterPost('pid', 'int',0);
         if($pid){
             $productModel = new \nainai\product();
@@ -181,7 +183,6 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
      */
     public function doOfferAction(){
        if (IS_POST) {
-
            $productData = $this->getProductData();
            $mode = Safe::filterPost('mode', 'int');
            if (!isset($this->_mode[$mode])){
@@ -199,15 +200,14 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
             );
+
            $offerObj = new \nainai\product();
             $res = $offerObj->insertOffer($productData,$offerData);
            if($res['success']==1)
                $this->redirect('offerList');
            else $this->redirect('offer');
+       }
 
-        }else{
-            $this->redirect('offer');
-        }
         return false;
     }
 

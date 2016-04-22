@@ -91,7 +91,7 @@
 </td> -->
                             </tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>挂牌数量:</td>
+                                <td nowrap="nowrap"><span></span>数量:</td>
                                 <td> 
                                     <input class="text" type="text" name="quantity">(吨)
                                 </td>
