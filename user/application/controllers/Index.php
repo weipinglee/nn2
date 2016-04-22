@@ -26,7 +26,7 @@ class IndexController extends \Yaf\Controller_Abstract {
      */
 	public function indexAction() {
 		$m = new \nainai\fund\agentAccount();
-		$a = $m->freeze(32,50);
+		$a = $m->in(28,10);
 return false;
 		//echo $a;
 

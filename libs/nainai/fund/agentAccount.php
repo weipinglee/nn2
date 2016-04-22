@@ -13,21 +13,16 @@ use \Library\Time;
 
 
      private $agentModel = null;
+     private $flowModel  = null;
      private $agentTable = 'user_account';//代理账户数据表名
      private $fundFlowTable = 'user_fund_flow';//资金流水表
 
      private $errorCode = array(
          'fundLess' => array('code'=>-1,'info'=>'账户余额不足'),
          'fundWrong'=> array('code'=>-2,'info'=>'金额数据错误'),
-
+         'freezeLess' => array('code'=>-3,'info'=>'冻结金额不足'),
      );
 
-     /**
-      * 生成一个流水号
-      */
-     private function createFlowNo(){
-        return date('YmdHis').rand(100000,999999);
-     }
 
      /**
       * 生成流水数据
@@ -38,38 +33,50 @@ use \Library\Time;
       */
      private function createFlowData($user_id,$num,$type){
 
-         $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id));
          $flow_data = array();
 
-         $flow_data['flow_no'] = $this->createFlowNo();
+         $flow_data['flow_no'] = date('YmdHis').rand(100000,999999);
          $flow_data['user_id'] = $user_id;
          $flow_data['time']    = Time::getDateTime();
          $flow_data['acc_type'] = 1;
-         $fund = $this->agentModel->fields('fund,freeze')->getObj();//如金前的总金额
+         $fund = $this->agentModel->where(array('user_id'=>$user_id))->fields('fund,freeze')->getObj();//如金前的总金额
 
         switch($type){
             case 'in' : {
                 $flow_data['fund_in'] = $num;
-                $flow_data['total']   = $num + $fund['fund'];
-                $flow_data['active']  = $num + $fund['fund'] - $fund['freeze'];
+                $flow_data['total']   = $fund['fund'] + $fund['freeze'];
+                $flow_data['active']  = $fund['fund'] ;
             }
             break;
 
             case 'freeze' : {
-                $flow_data['freeze']  = $num;
+                $flow_data['freeze']  = $num;//负数代表释放
                 $flow_data['total']   = $fund['fund'] + $fund['freeze'] ;
-                $flow_data['active']  = $flow_data['total']  -$fund['freeze'] - $flow_data['freeze'];
+                $flow_data['active']  = $fund['fund'] - $flow_data['freeze'];
             }
+            break;
+            case 'freezePay' : {
+                $flow_data['freeze']   = -$num;
+                $flow_data['total']    = $fund['fund'] + $fund['freeze'] ;
+                $flow_data['active']   = $fund['fund'];
+                $flow_data['fund_out'] = $num;
+            }
+            break;
+            case 'pay' : {
+                $flow_data['total']    = $fund['fund'] + $fund['freeze'] ;
+                $flow_data['active']   = $fund['fund'];
+                $flow_data['fund_out'] = $num;
+            }
+            break;
         }
 
-         return $this->agentModel->table($this->fundFlowTable)->data($flow_data)->add(1);
-
-
+         return $this->flowModel->data($flow_data)->add(1);
 
      }
 
      public function __construct(){
         $this->agentModel = new M($this->agentTable);
+        $this->flowModel  = new M($this->fundFlowTable);
      }
     /**
      * 获取可用余额
@@ -129,7 +136,7 @@ use \Library\Time;
                 return $this->errorCode['fundLess'];
             $this->agentModel->beginTrans();
             $this->createFlowData($user_id,$num,'freeze');
-
+            $this->agentModel->table($this->agentTable);
             $sql = 'UPDATE '.$this->agentModel->table().
                 ' SET fund = fund - :fund ,freeze = freeze + :fund  WHERE user_id = :user_id';
             $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
@@ -148,20 +155,61 @@ use \Library\Time;
      * @param float $num 释放金额
      */
     public function freezeRelease($user_id,$num){
-        $this->agentModel->where(array('user_id'=>$user_id))->setInc('fund',$num);
-        $this->agentModel->where(array('user_id'=>$user_id))->setDec('freeze',$num);
+        if(is_integer($num) || is_float($num)){
+            $freeze = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('freeze');
+            if($freeze===false || $freeze<$num)
+                return $this->errorCode['freezeLess'];
+            $this->agentModel->beginTrans();
+            $this->createFlowData($user_id,-$num,'freeze');
+            $this->agentModel->table($this->agentTable);
+            $sql = 'UPDATE '.$this->agentModel->table().
+                ' SET fund = fund + :fund ,freeze = freeze - :fund  WHERE user_id = :user_id';
+            $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
+
+            return $this->agentModel->commit();
+
+        }
+        else{
+            return $this->errorCode['fundWrong'];
+        }
     }
 
     /**
      * 冻结资金支付
      * 将冻结资金解冻，支付给另外一个用户
      * @param int $from 冻结账户用户id
-     * @param int $to  转到的账户用户id
+     * @param int $to  转到的账户用户id,0代表市场
      * @param float $num 转账的金额
      *
      */
     public function freezePay($from,$to,$num){
+        if(is_integer($num) || is_float($num)){
 
+            $fromFreeze = $this->agentModel->where(array('user_id'=>$from))->getField('freeze');
+
+            if($fromFreeze>=$num){
+                $this->agentModel->beginTrans();
+                if($to==0){//付款到市场
+
+                }
+                else{
+                    //收款人入金
+                    $this->agentModel->where(array('user_id'=>$to))->setInc('fund',$num);//总帐户增加金额
+
+                    $this->createFlowData($to,$num,'in');
+                }
+                //付款人减少冻结
+                $this->agentModel->where(array('user_id'=>$from))->setDec('freeze',$num);
+                $this->createFlowData($from,$num,'freezePay');
+                return $this->agentModel->commit();
+            }
+            else{
+                return $this->errorCode['freezeLess'];
+            }
+        }
+        else{
+            return $this->errorCode['fundWrong'];
+        }
     }
 
     /**
@@ -170,7 +218,28 @@ use \Library\Time;
      * @param float $num 转账的金额
      */
     public function payMarket($user_id,$num){
+        if(is_integer($num) || is_float($num)){
 
+            $fund = $this->agentModel->where(array('user_id'=>$user_id))->getField('fund');
+
+            if($fund>=$num){//可以付款
+                $this->agentModel->beginTrans();
+
+                //市场账户增加
+
+
+                //付款人减少冻结
+                $this->agentModel->where(array('user_id'=>$user_id))->setDec('fund',$num);
+                $this->createFlowData($user_id,$num,'pay');
+                return $this->agentModel->commit();
+            }
+            else{
+                return $this->errorCode['fundLess'];
+            }
+        }
+        else{
+            return $this->errorCode['fundWrong'];
+        }
     }
 
 
