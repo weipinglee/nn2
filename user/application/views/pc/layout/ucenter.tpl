@@ -191,7 +191,7 @@
                     		{else:}
                     		<a class="nav-first"><i class="icon-caret-down"></i>{$leftList['name']}</a>
                     		{/if}
-                    		
+
                     		{if: !empty($leftList['list'])}
                     			<ul class="zj_zh" id="zj_zh{k}">
                     				{foreach: items=$leftList['list'] item=$list}
@@ -199,7 +199,7 @@
                     				{/foreach}
                     			</ul>
 				{/if}
-			</li>  
+			</li>
                     	{/foreach}
                         
                       
