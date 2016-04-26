@@ -1,10 +1,5 @@
 <?php
-/**
- * 用户中心
- * User: weipinglee
- * Date: 2016/3/4 0004
- * Time: 上午 9:35
- */
+
 use \Library\checkRight;
 use \Library\PlUpload;
 use \Library\photoupload;
@@ -15,6 +10,10 @@ use \Library\Thumb;
 use \Library\tool;
 use \nainai\store;
 use \nainai\offer;
+
+/**
+ * 交易管理的控制器类
+ */
 class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
 
 

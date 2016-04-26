@@ -3,8 +3,17 @@
 namespace nainai\Abstruct;
 
 use \Library\checkRight;
+use \Library\PlUpload;
+use \Library\photoupload;
+use \Library\json;
 use \Library\url;
+use \Library\Safe;
+use \Library\Thumb;
+use \Library\tool;
 
+/**
+ * 用户中心的抽象基类
+ */
 abstract class UcenterControllerAbstract extends BaseControllerAbstract{
 
         /**
@@ -13,13 +22,15 @@ abstract class UcenterControllerAbstract extends BaseControllerAbstract{
          */
         protected $pagesize = 10;
 
-	public function preinit(){}
+	public function preinit(){
+
+        }
 
 	final private function init(){
 		$this->preinit();
 	        //  $right = new checkRight();
 	        // $right->checkLogin($this);//未登录自动跳到登录页
-
+                 $this->user_id = 48;
 	        $this->getView()->setLayout('ucenter');
 	        $this->getView()->assign('topArray', $this->getTopArray());
 	        $this->getView()->assign('leftArray', $this->getLeftArray());

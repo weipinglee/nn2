@@ -5,6 +5,9 @@ use \nainai\store;
 use \Library\Safe;
 use \Library\Thumb;
 
+/**
+ * 仓单管理的的控制器类
+ */
 class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 
 	protected function  getLeftArray(){
