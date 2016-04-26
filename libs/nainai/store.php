@@ -101,7 +101,7 @@ class store{
      */
     public function UpdateApplyStore( & $store, $id){
          $storeProductObj = new M($this->storeProduct);
-        return  $storeProductObj->data($store)->where('id = '. $id)->update(0);
+        return  $storeProductObj->data($store)->where('id = :id')->bind(array('id'=>$id))->update(0);
     }
 
     /**

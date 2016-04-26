@@ -80,6 +80,19 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	public function doApplyStoreAction(){
 		$id = Safe::filterPost('id', 'int', 0);
 		if (IS_POST && intval($id) > 0) {
+			$apply = array();
+			$apply['status'] = !empty(Safe::filterPost('apply')) ? 1 : 2;
+
+			$store = new store();
+			$store->UpdateApplyStore($apply, $id);
+			$this->redirect('addSuccess');exit();
+		}
+		$this->redirect('ApplyStoreDetails');
+	}
+
+	public function doStoreAction(){
+		$id = Safe::filterPost('id', 'int', 0);
+		if (IS_POST && intval($id) > 0) {
 			$apply = array(
 				'store_pos' => Safe::filterPost('pos'),
 				'status' =>1

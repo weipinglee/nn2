@@ -14,7 +14,9 @@
                      
                     <form action="{url:/ManagerStore/doApplyStore}" method="POST">
 						<table border="0">
+                        <tr>
                             <th colspan="3">商品类型和规格</th>
+                            </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>商品类型:</td>
                                 <td> 
@@ -83,11 +85,9 @@
                                 </td>              
                             </tr>
               				
-                         <tr>
-                             <th colspan="3"><b>选择仓库</b></th>
-                        </tr>
+
                         <tr>
-                            <td nowrap="nowrap"><span></span>选择仓库:</td>
+                            <td nowrap="nowrap">仓库:</td>
                             <td colspan="2"> 
                                 <select>
                                     <option>{$detail['sname']}</option>
@@ -106,8 +106,10 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" value="{$detail['sid']}" name="id">
-                               <input type="submit" value="submit">
+                               <input type="submit" value="submit" name="apply">
+                               <input type="submit" value="驳回" name="bohui">
                                 <a class="for_storage" href="cd_add1.html" onclick="checkform()">申请入仓</a> 
+                                <a class="for_storage" href="cd_add1.html" onclick="checkform()">驳回申请</a> 
                                 <!-- <span class="color">审核将收取N元/条的人工费用，请仔细填写</span> -->
                                 
                             </td>
