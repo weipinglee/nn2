@@ -174,7 +174,12 @@
                     		{if: $k == 0}
                     		<li class="let_nav_tit"><span class="line"></span><h3>{$leftList['name']}</h3></li>
                     		{else:}
-                    		<a class="nav-first" href="{$leftList['url']}"><i class="icon-caret-down"></i>{$leftList['name']}</a>
+                    			{if: empty($leftList['url'])}
+					<a class="nav-first"><i class="icon-caret-down"></i>{$leftList['name']}</a>
+                    			{else:}
+                    			<a class="nav-first" href="{$leftList['url']}"><i class="icon-caret-down"></i>{$leftList['name']}</a>
+                    			{/if}
+                    		
                     		{/if}
                     		
                     		{if: !empty($leftList['list'])}

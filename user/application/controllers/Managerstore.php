@@ -33,22 +33,42 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	}	
 
 	/**
-	 * 审核仓单，仓单的详情页面
+	 * 审核仓单后，仓单签发的详情页面
 	 */
 	public function ApplyStoreDetailsAction(){
 		$id = $this->getRequest()->getParam('id');
 		if (intval($id) > 0) {
 			$store = new store();
 			$data = $store->getApplyStoreDetails($id);
-
-			foreach ($data['imgData'] as $key => $value) {
-				$data['imgData'][$key] = Thumb::get($value['img'],180,180);
-			}
-
 			$this->getView()->assign('storeDetail', $data);
 		}else{
 			$this->redirect('ApplyStoreList');
 		}
+	}
+
+
+	/**
+	 * 仓单审核页面
+	 */
+	public function ApplyStoreAction(){
+		$category = array();
+		$id = $this->getRequest()->getParam('id');
+		if (intval($id) > 0) {
+			$store = new store();
+			$data = $store->getUserStoreDetail($id);
+			//获取商品分类信息，默认取第一个分类信息
+		        $productModel = new \nainai\product();
+		        $attr_ids = array();
+		        $data['attribute'] = unserialize($data['attribute']);
+		        foreach ($data['attribute'] as $key => $value) {
+		        		$attr_ids[] = $key;
+		        }
+
+		       $this->getView()->assign('detail', $data);
+	                $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
+	               $this->getView()->assign('photos', $productModel->getProductPhoto($data['pid']));
+		}
+	        
 	}
 
 	/**
@@ -63,10 +83,17 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 				'status' =>1
 			);
 
+			if (!empty(Safe::filterPost('packNumber'))) {
+				$apply['package_num'] = Safe::filterPost('packNumber', 'float');
+				$apply['package_weight'] = Safe::filterPost('packWeight', 'float');
+			}
+
 			$store = new store();
 			$store->UpdateApplyStore($apply, $id);
-			echo 'ok';exit();
+			$this->redirect('addSuccess');exit();
 		}
 		$this->redirect('ApplyStoreDetails');
 	}
+
+	public function addSuccessAction(){}
 }

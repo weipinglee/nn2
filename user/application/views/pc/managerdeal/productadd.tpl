@@ -18,7 +18,7 @@
 
 </div>
 
-       <input type="hidden" name="attr_url" value="{url:/product/ajaxGetCategory}"  />
+       <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
             <!--start中间内容-->    
             <div class="user_c">
@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/product/doOffer}" method="POST">
+                    <form action="{url:/ManagerDeal/doOffer}" method="POST">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 

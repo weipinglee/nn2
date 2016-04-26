@@ -18,7 +18,7 @@
 
 </div>
 
-       <input type="hidden" name="attr_url" value="{url:/product/ajaxGetCategory}"  />
+       <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
             <!--start中间内容-->    
             <div class="user_c">
@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/product/doStoreProduct}" method="POST">
+                    <form action="{url:/ManagerDeal/doStoreProduct}" method="POST">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
@@ -161,7 +161,7 @@
                                              </tr>
 
                                             <tr id="packUnit" >
-                                                 <td>包装单位：</td>
+                                                 <td>计量单位：</td>
                                             <td colspan="2">
                                                 <input type="text" class='text' name="packUnit">
                                             </td>

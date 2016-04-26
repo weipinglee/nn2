@@ -1,4 +1,4 @@
-﻿﻿
+﻿
 			<!--start中间内容-->	
 			<div class="user_c">
 				<div class="user_zhxi">
@@ -21,8 +21,9 @@
                                                                                 <td>操作</td>
 								</tr>
                                                                                         {foreach:  items=$storeList item=$list}
+                                                                                        {set:$key++}
                                                                                         <tr>
-                                                                                                <td>GF012</td>
+                                                                                                <td>{$key}</td>
                                                                                                 <td>{$list['pname']}</td>
                                                                                                 <td>{$list['cname']}</td>
                                                                                                 <td>
@@ -35,7 +36,11 @@
                                                                                                 <td>{$list['package_weight']}({$list['package_unit']})</td>
                                                                                                 <td>{$statuList[$list['status']]}</td>
                                                                                                 <td>{$list['sname']}</td>
-                                                                                                <td><a href='{url:/ManagerStore/ApplyStoreDetails?id=$list["id"]}'>审核</a></td>
+                                                                                                {if: $list['status'] == 0}
+                                                                                                <td><a href='{url:/ManagerStore/ApplyStore?id=$list["id"]}'>审核</a></td>
+                                                                                                {else:}
+                                                                                                <td><a href='{url:/ManagerStore/ApplyStoreDetails?id=$list["id"]}'>查看</a></td>
+                                                                                                {/if}
                                                                                         </tr>
                                                                                       {/foreach}
 							</table>

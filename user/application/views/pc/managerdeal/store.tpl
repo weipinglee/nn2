@@ -1,4 +1,7 @@
-﻿
+﻿<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
+<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
+<script type="text/javascript" src="{views:js/product/attr.js}" ></script>
+
 			<!--start中间内容-->	
 			<div class="user_c">
 				<div class="user_zhxi">
@@ -6,16 +9,19 @@
 						<p><a>产品管理</a>><a>商品分类</a></p>
 					</div>
 					<div class="center_tabl">
-                    <form action="" method="">
+                    <input type="hidden" id='ajaxGetStoreUrl' value="{url:/Managerdeal/ajaxGetStore}">
+                                        <form action="{url:/Managerdeal/doOffer}" method="POST">
 						<table border="0">
                             <tr>
                                 <th colspan="3">选择仓单</th>
-           				 	</tr>
+           		</tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>可选仓单:</td>
                                 <td colspan="2"> 
-                                    <select>
-                                        <option value="13">河北</option>
+                                    <select id="storeList">
+                                       {foreach: items=$storeList item=$list}
+                                        <option value="{$list['id']}" {if: $key==0}selected{/if}>{$list['name']}</option>
+                                       {/foreach}
                                     </select>
                                 </td>
                             </tr>
@@ -25,46 +31,45 @@
                                         <tr>
                                             <td class="spmx_title" colspan="2">商品明细</td>
                                         </tr>
+                                      
                                         <tr>
-                                            <td>商品编号</td>
+                                            <td>商品名称</td>
                                             <td> 
-                                                GP00201602250000003
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>品种</td>
-                                            <td> 
-                                                铝矾土
+                                                <span id="pname">{$storeDetail['pname']}</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>产品大类</td>
                                             <td> 
-                                                耐火材料建筑材料
+                                                <span id="cname">{$storeDetail['cname']}</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>规格</td>
-                                            <td> 
-                                                含铝20%。。。
+                                            <td>
+                                            <span id="attrs">
+                                                {foreach: items=$storeDetail['attribute'] item=$v}
+                                                    {$attrs[$key]} : {$v}
+                                                {/foreach}
+                                            </span> 
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>产地</td>
                                             <td> 
-                                                山西阳泉华龄耐火
+                                                {area:data=$storeDetail['produce_area']}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>生产日期</td>
+                                            <td id="create_time">生产日期</td>
                                             <td> 
-                                                2014-04-04
+                                                <span>{$storeDetail['create_time']}</span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="end_td">产品数量（吨）</td>
+                                            <td class="end_td">产品数量（<span id="unit">{$storeDetail['unit']}</span>）</td>
                                             <td class="end_td"> 
-                                                1000
+                                               <span id="quantity">{$storeDetail['quantity']}</span> 
                                             </td>
                                         </tr>
                                     </table>
@@ -72,124 +77,68 @@
                                 </td>
                             </tr>
                             
-                            <tr>
-                                <td nowrap="nowrap"><span></span>厚度（mm）:</td>
-                                <td colspan="2"> 
-                                    <input class="text" type="text">
-                                </td>
-                            </tr>
+
                             <tr>
                                <th colspan="3">基本挂牌信息</th>
                             </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>商品单价:</td>
                                 <td> 
-                                    <input class="text" type="text">
+                                    <input class="text" type="text" name="price">
                                     
                                 </td>
-                                <td> 
-                                    请选择付款方式：
-                                    <input type ="radio" name ="safe" checked="checked" style="width:auto;height:auto;"> 线上
-                                    <input type ="radio" name ="safe" style="width:auto;height:auto;"> 线下
-                                </td>
+                               <!--  <td> 
+                                   请选择付款方式：
+                                   <input type ="radio" name ="safe" checked="checked" style="width:auto;height:auto;"> 线上
+                                   <input type ="radio" name ="safe" style="width:auto;height:auto;"> 线下
+                               </td> -->
                             </tr>
-                            <tr>
-                                <td nowrap="nowrap"><span></span>挂牌数量:</td>
-                                <td> 
-                                    <input class="text" type="text">(吨)
-                                </td>
-                                <td> 
-                                    请选择支付保证金比例：
-                                    <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
-            
-                                </td>
+                           <tr>
+                            <td><span>*</span>是否可拆分：</td>
+                            <td>
+                                <select name="divide" id="divide">
+                                    <option value="0"  selected>可以</option>
+                                    <option value="1"  >不可以</option>
+                                </select>
+                            </td>
                             </tr>
-                            <tr>
-                                <td nowrap="nowrap"><span></span>最小起订量:</td>
-                                <td> 
-                                    <input class="text" type="text">（吨）
-                                    
-                                </td>
-                                <td> 
-                                    <span>*</span>
-                                    最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
-                                </td>
-                            </tr>
+                            <tr id='nowrap'>
+                            <td><span>*</span>最小起订量：</td>
+                            <td>
+                                <input name="minimum" id="" type="text" />
+                            </td>
+                        </tr>
           					
                             <tr>
                                 <td>图片预览：</td>
                                 <td colspan="2">
-    								<span class="zhs_img">
-    								<img src="../images/banner/551b861eNe1c401dc.jpg"/>
-    								<img src="../images/banner/551b861eNe1c401dc.jpg"/>
-    								<img src="../images/banner/551b861eNe1c401dc.jpg"/>
-    								<img src="../images/banner/551b861eNe1c401dc.jpg"/>
+    							<span class="zhs_img" id="photos">
+                                {foreach: items=$photos item=$photo}
+    								<img src="{$photo}"/>
+                                
+                                {/foreach}	
     							</span>
                                 </td>              
                             </tr>
-              				<tr>
-                                <td>上传图片：</td>
-                                <td>
-    								<span>
-    									<div>
-    										<input id="doc" type="file">
-    										<input type="submit" class="tj" value="上传">
-    									</div>
-    								</span> 
-                   				 </td>
-               				 </tr>
-                         <tr>
-                             <th colspan="3"><b>详细信息</b></th>
-                        </tr>
-                        <tr>
-                            <td nowrap="nowrap"><span></span>商品标题：</td>
-                            <td colspan="2"> 
-                                <input class="text" type="text">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>产地:</td>
+                            <tr>
+                        <td>交收地点：</td>
                             <td colspan="2">
-                                <select name="area" id="area">
-                                <option value="13">河北</option>
-                                
-                                </select>
-                                <select name="area" id="area">
-                                    <option value="13">河北</option>
-                                
-                                </select>
-                                <select name="area" id="area">
-                                    <option value="13">河北</option>
-                                
-                                </select>
+                                <input type="text" class='text' name="accept_area">
                             </td>
-                         
-                        </tr>
-                          <tr>
-                            <td>交货地：</td>
+                            </tr>
+                            <td>交收时间：</td>
                             <td colspan="2">
-                                <select>
-                                <option value="13">耐耐网一号库</option>
-                                
-                                </select>
+                                <input type="text" class='text' name="accept_day">
                             </td>
-                              <tr>
-                            <td>是否投保：</td>
-                            <td colspan="2">
-                                <input type ="radio" name ="safe" checked="checked" style="width:auto;height:auto;">投保
-                                    <input type ="radio" name ="safe" style="width:auto;height:auto;"> 不投保
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>产品描述：</td>
-                            <td colspan="2">
-                                <textarea></textarea>
-                            </td>
-                        </tr>
+                            </tr>
+              			                      
 
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
+                            <input type="hidden" name="mode" value="3">
+                            <input type="hidden" name="product_id" value="{$storeDetail['pid']}">
+                        <input type="submit" value="submit">
                                 <a class="button bzjin">提交审核</a> 
                                 <span class="color">审核将收取N元/条的人工费用，请仔细填写</span>
                                 

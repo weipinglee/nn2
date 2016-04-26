@@ -1,6 +1,6 @@
 <?php
 /**
- * ²Ö¿â¹ÜÀíÀà
+ * ä»“åº“ç®¡ç†ç±»
  * author: weiping
  * Date: 2016/4/21
  * Time: 8:18
@@ -13,23 +13,27 @@ use \Library\Tool;
 
 class store{
 
-     private $storeProduct = 'store_products';//²Öµ¥Êı¾İ±í
-    //²Öµ¥Êı¾İ¹æÔò
+     private $storeProduct = 'store_products';//ä»“å•æ•°æ®è¡¨
+    //ä»“å•æ•°æ®è§„åˆ™
      protected $storeProductRules = array(
-        array('store_id', 'number', '±ØĞëÑ¡Ôñ²Ö¿â!'),
-        array('product_id', 'number', 'ÇëÌîĞ´²úÆ·ĞÅÏ¢'),
-        array('package', 'number','ÇëÑ¡ÔñÊÇ·ñ´ò°ü!')
+        array('store_id', 'number', 'å¿…é¡»é€‰æ‹©ä»“åº“!'),
+        array('product_id', 'number', 'è¯·å¡«å†™äº§å“ä¿¡æ¯'),
+        array('package', 'number','è¯·é€‰æ‹©æ˜¯å¦æ‰“åŒ…!')
     );
 
     public function getStatus(){
         return array(
-            0 => 'Î´ÉóºË',
-            1 => 'ÉóºËÍ¨¹ı'
+            0 => 'æœªå®¡æ ¸',
+            1 => 'ä»“åº“ç®¡ç†å‘˜å®¡æ ¸é€šè¿‡',
+            2 => 'ä»“åº“ç®¡ç†å‘˜å®¡æ ¸ä¸é€šè¿‡',
+            3 => 'å–æ–¹ç¡®è®¤',
+            4 => 'åå°å®¡æ ¸é€šè¿‡',
+            5 => 'åå°å®¡æ ¸é©³å›'
         );
     }
 
      /**
-     * »ñÈ¡²Ö¿âÁĞ±í
+     * è·å–ä»“åº“åˆ—è¡¨
      * @return mixed
      */
     public static function getStoretList(){
@@ -40,13 +44,13 @@ class store{
 
    
  /**
-     * »ñÈ¡²Öµ¥ÁĞ±í
+     * è·å–ä»“å•åˆ—è¡¨
      * @param  [Int] $page     
      * @param  [Int] $pagesize 
      * @return [Array]       ]
      */
     public function getApplyStoreList($page, $pagesize){
-         //²Öµ¥ÁĞ±í
+         //ä»“å•åˆ—è¡¨
         $query = new Query('store_list as b');
         $query->fields = 'a.id, b.name as sname, a.status, c.name as pname,  d.name as cname, c.attribute, a.package_unit, a.package_weight';
         $query->join = ' RIGHT JOIN (store_products as a LEFT JOIN products as c ON a.product_id = c.id ) ON a.store_id=b.id LEFT JOIN product_category as d  ON c.cate_id=d.id';
@@ -66,56 +70,80 @@ class store{
             }
         }
 
-        if (!empty($attr_id)) {
-            $attrObj = new M('product_attribute');
-            $attr_id = $attrObj->fields('id, name')->where('id IN (' . implode(',', $attr_id) . ')')->select();
-            foreach ($attr_id as $value) {
-               $attrs[$value['id']] = $value['name']; 
-            }
-        }
+        $obj = new \nainai\product();
         
-        return array('list' => $storeList, 'pageHtml' => $query->getPageBar(), 'attrs' => $attrs);
+        return array('list' => $storeList, 'pageHtml' => $query->getPageBar(), 'attrs' => $obj->getHTMLProductAttr($attr_id));
     }
 
     /**
-     * »ñÈ¡²Öµ¥ÏêÇé
-     * @param  [Int] $id [²Öµ¥id]
+     * è·å–ä»“å•è¯¦æƒ…
+     * @param  [Int] $id [ä»“å•id]
      * @return [Array]    
      */
     public function getApplyStoreDetails($id){
-
         $query = new Query('store_products as a');
-        $query->fields = 'a.id, a.product_id, b.name as sname, a.package_num, a.package_unit, a.package_weight, a.package';
-        $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id';
+        $query->fields = 'a.id, a.product_id, b.name as sname, a.package_num, a.package_unit, a.package_weight, a.package, a.status, c.quantity, c.price, c.unit';
+        $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id LEFT JOIN products as c ON a.product_id=c.id';
         $query->where = ' a.id = '.$id;
         $storeDetail = $query->getObj();
 
-        $imgObj = new M('product_photos');
-        $storeDetail['imgData'] = $imgObj->fields('id, img')->where('products_id = ' .  $storeDetail['product_id'])->select();
+        $obj = new \nainai\product();
+        $storeDetail['imgData'] = $obj->getProductPhoto($storeDetail['product_id']);
 
         return $storeDetail;
     }
 
+    /**
+     * å®¡æ ¸ä»“å•
+     * @param [Array] $store [å®¡æ ¸çš„ä»“å•æ•°æ®]
+     * @param [Int] $id    [ä»“å•id]
+     */
     public function UpdateApplyStore( & $store, $id){
          $storeProductObj = new M($this->storeProduct);
         return  $storeProductObj->data($store)->where('id = '. $id)->update(0);
     }
 
+    /**
+     * [è·å–ç”¨æˆ·çš„ä»“å•åˆ—è¡¨]
+     * @param  [Int] $uid [ç”¨æˆ·id]
+     * @return 
+     */
+    public function getUserStoreLIst($uid){
+        $query = new Query('store_products as a');
+        $query->fields = 'a.id,  b.name';
+        $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id';
+        $query->where = ' a.status=1 AND a.user_id = '.$uid;
+        return $query->find();
+    }
+
+    /**
+     * è·å–å¯¹åº”çš„ä»“å•è¯¦æƒ…
+     * @param  [Int] $id [ä»“å•id]
+     * @return 
+     */
+    public function getUserStoreDetail($id){
+        $query = new Query('store_products as a');
+        $query->fields = 'a.id as sid, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note';
+        $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
+        $query->where = ' a.id = '.$id;
+        return $query->getObj();
+    }
+
      /**
-     * Éú³É²Öµ¥
-     * @param array $productData ÉÌÆ·Êı¾İ
-     * @param array $storeData ²Ö¿âÊı¾İ
+     * ç”Ÿæˆä»“å•
+     * @param array $productData å•†å“æ•°æ®
+     * @param array $storeData ä»“åº“æ•°æ®
      */
     public function createStoreProduct($productData,$storeData){
         $productObj = new product();
         $storeProductObj = new M($this->storeProduct);
-        //ÑéÖ¤ÉÌÆ·Êı¾İºÍ²Öµ¥Êı¾İ
+        //éªŒè¯å•†å“æ•°æ®å’Œä»“å•æ•°æ®
         if($productObj->proValidate($productData) && $storeProductObj->validate($this->storeProductRules,$storeData)){
             $storeProductObj->beginTrans();
             $pId = $storeProductObj->table('products')->data($productData[0])->add(1);
             $imgData = $productData[1];
             if (intval($pId) > 0) {
-                //²åÈëÍ¼Æ¬Êı¾İ
+                //æ’å…¥å›¾ç‰‡æ•°æ®
                 if (!empty($imgData)) {
                     foreach ($imgData as $key => $imgUrl) {
                         $imgData[$key]['products_id'] = $pId;
@@ -123,7 +151,7 @@ class store{
                     $storeProductObj->table('product_photos')->data($imgData)->adds(1);
 
                 }
-                //²åÈë²Öµ¥Êı¾İ
+                //æ’å…¥ä»“å•æ•°æ®
                 $storeData['product_id'] = $pId;
                 $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
             }
@@ -137,7 +165,7 @@ class store{
             $resInfo = Tool::getSuccInfo();
         }
         else{
-            $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : 'ÏµÍ³·±Ã¦£¬ÇëÉÔºóÔÙÊÔ');
+            $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : 'ç³»ç»Ÿç¹å¿™ï¼Œè¯·ç¨åå†è¯•');
         }
         return $resInfo;
 
@@ -146,3 +174,4 @@ class store{
 
 
 }
+
