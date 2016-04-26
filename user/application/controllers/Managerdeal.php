@@ -117,6 +117,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
     public function storeAction(){
         $storeModel = new \nainai\store();
         $storeList = $storeModel->getUserStoreLIst($this->user_id);
+
         if (!empty($storeList)) {
             $storeDetail = $storeModel->getUserStoreDetail($storeList[0]['id']);
             $attr_ids = array();
@@ -133,15 +134,14 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         $this->getView()->assign('storeList', $storeList);
         $this->getView()->assign('storeDetail', $storeDetail);
     }
+
     /**
      * 申请仓单页面
      */
     public function storeProductAction(){
         $store_list = store::getStoretList();
         $this->getView()->assign('storeList',$store_list);
-        $this->getView()->assign('mode', 4);
         $this->productAddAction();
-
     }
     
 

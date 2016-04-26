@@ -84,7 +84,8 @@ class store{
         $query = new Query('store_products as a');
         $query->fields = 'a.id, a.product_id, b.name as sname, a.package_num, a.package_unit, a.package_weight, a.package, a.status, c.quantity, c.price, c.unit';
         $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id LEFT JOIN products as c ON a.product_id=c.id';
-        $query->where = ' a.id = '.$id;
+        $query->where = ' a.id =:id ';
+        $query->bind = array('id' => $id);
         $storeDetail = $query->getObj();
 
         $obj = new \nainai\product();
@@ -112,8 +113,10 @@ class store{
         $query = new Query('store_products as a');
         $query->fields = 'a.id,  b.name';
         $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id';
-        $query->where = ' a.status=1 AND a.user_id = '.$uid;
-        return $query->find();
+        $query->where = 'a.status=:status AND a.user_id=:user_id';
+        $query->bind = array('status' => 4, 'user_id' => $uid);
+        $data = $query->find();
+        return $data;
     }
 
     /**
@@ -125,7 +128,8 @@ class store{
         $query = new Query('store_products as a');
         $query->fields = 'a.id as sid, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
-        $query->where = ' a.id = '.$id;
+        $query->where = ' a.id=:id';
+        $query->bind = array('id' => $id);
         return $query->getObj();
     }
 

@@ -153,8 +153,8 @@
                                         <td>是否包装：</td>
                                         <td colspan="2">
                                             <select name="package" id="package">
-                                                <option value="1" selected="selected">可以</option>
-                                                <option value="0">不可以</option>
+                                                <option value="1" selected="selected">是</option>
+                                                <option value="0">否</option>
                                             </select>
                                         </td>
 
@@ -197,7 +197,6 @@
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
-                            <input type="hidden" name="mode" value="{$mode}">
                             <input type="submit" value='submit'>
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
                                 <a href="javascript:void(0);" onclick="checkform()">提交审核</a> 

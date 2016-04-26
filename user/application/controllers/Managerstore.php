@@ -37,12 +37,13 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	 */
 	public function ApplyStoreDetailsAction(){
 		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
-			$data = $store->getApplyStoreDetails($id);
+			$data = $store->getUserStoreDetail($id);
 			$this->getView()->assign('storeDetail', $data);
 		}else{
-			$this->redirect('ApplyStoreList');
+			$this->redirect('/ManagerStore/ApplyStoreList');
 		}
 	}
 
@@ -53,6 +54,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	public function ApplyStoreAction(){
 		$category = array();
 		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
 			$data = $store->getUserStoreDetail($id);
@@ -76,7 +78,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	 * @return 
 	 */
 	public function doApplyStoreAction(){
-		$id = Safe::filterPost('id', 'int');
+		$id = Safe::filterPost('id', 'int', 0);
 		if (IS_POST && intval($id) > 0) {
 			$apply = array(
 				'store_pos' => Safe::filterPost('pos'),
