@@ -33,13 +33,13 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>入库日期：</td>
                                 <td colspan="2"> 
-                                    <input name="brandname" id="brandname" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" type="text">
+                                    <input name="inTime" value="{$storeDetail['in_time']}"  class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" type="text">
                                 </td>
                             </tr>
                              <tr>
                                 <td nowrap="nowrap"><span></span>租库日期：</td>
                                 <td colspan="2"> 
-                                    <input name="brandname" id="brandname" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" type="text">
+                                    <input name="rentTime" value="{$storeDetail['rent_time']}"  class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" type="text">
                                 </td>
                             </tr>
                             <tr >

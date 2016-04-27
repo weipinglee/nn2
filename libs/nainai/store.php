@@ -86,25 +86,6 @@ class store{
     }
 
     /**
-     * 获取仓单详情
-     * @param  [Int] $id [仓单id]
-     * @return [Array]    
-     */
-    public function getApplyStoreDetails($id){
-        $query = new Query('store_products as a');
-        $query->fields = 'a.id, a.product_id, b.name as sname, a.package_num, a.package_unit, a.package_weight, a.package, a.status, c.quantity, c.price, c.unit';
-        $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id LEFT JOIN products as c ON a.product_id=c.id';
-        $query->where = ' a.id =:id ';
-        $query->bind = array('id' => $id);
-        $storeDetail = $query->getObj();
-
-        $obj = new \nainai\product();
-        $storeDetail['imgData'] = $obj->getProductPhoto($storeDetail['product_id']);
-
-        return $storeDetail;
-    }
-
-    /**
      * 审核仓单
      * @param [Array] $store [审核的仓单数据]
      * @param [Int] $id    [仓单id]
@@ -115,15 +96,15 @@ class store{
     }
 
     /**
-     * [获取用户的仓单列表]
+     * [获取用户的仓单列表, 并且没有添加报盘]
      * @param  [Int] $uid [用户id]
-     * @return 
+     * @return [Array]
      */
     public function getUserStoreLIst($uid){
         $query = new Query('store_products as a');
-        $query->fields = 'a.id,  b.name';
-        $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id';
-        $query->where = 'a.status=:status AND a.user_id=:user_id';
+        $query->fields = 'a.id as sid,  b.name, c.id as oid';
+        $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id LEFT JOIN product_offer as c ON a.product_id=c.product_id';
+        $query->where = 'a.status=:status AND a.user_id=:user_id AND c.id IS NULL';
         $query->bind = array('status' => 4, 'user_id' => $uid);
         $data = $query->find();
         return $data;
@@ -132,15 +113,33 @@ class store{
     /**
      * 获取对应的仓单详情
      * @param  [Int] $id [仓单id]
-     * @return 
+     * @return [Array]
      */
     public function getUserStoreDetail($id){
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos';
+        $query->fields = 'a.id as sid, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
         $query->where = ' a.id=:id';
         $query->bind = array('id' => $id);
         return $query->getObj();
+    }
+
+    /**
+     * 判断仓单是否为这个用户的
+     * @param  [Int] $id      [仓单Id]
+     * @param  [Int] $user_id [用户id]
+     * @return [Boolean] 
+     */
+    public function judgeIsUserStore($id, $user_id){
+        if (intval($id) > 0 && intval($user_id) > 0) {
+            $storeObj = new M($this->storeProduct);
+            $data = $storeObj->fields('id')->where('id=:id AND user_id=:user_id AND status=:status')->bind(array('id'=>$id, 'user_id' => $user_id, 'status' => 4))->getObj();
+
+            if (!empty($data)) {
+                return true;
+            }
+        }
+        return false;
     }
 
      /**

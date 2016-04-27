@@ -113,7 +113,8 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 		if (IS_POST && intval($id) > 0) {
 			$apply = array(
 				'store_pos' => Safe::filterPost('pos'),
-				'status' =>1
+				'in_time' => Safe::filterPost('inTime'),
+				'rent_time' => Safe::filterPost('rentTime')
 			);
 
 			if (!empty(Safe::filterPost('packNumber'))) {

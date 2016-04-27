@@ -254,6 +254,11 @@ class product{
         return $resInfo;
     }
 
+    /**
+     * 仓单报盘数据添加
+     * @param  [Array] $productOffer [报盘的数据]
+     * @return [Array]      
+     */
     public function insertStoreOffer( & $productOffer){
         if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
             $res = (int)$this->_productObj->table('product_offer')->data($productOffer)->add(0);
