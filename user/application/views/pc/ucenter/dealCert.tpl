@@ -1,21 +1,5 @@
 <script type="text/javascript" src="{views:js/certificate.js}"></script>
-	<div class="user_body">
-		<div class="user_b">
-			<div class="user_l">
-				<div class="left_navigation">
-					<ul>
-						<li class="let_nav_tit"><h3>账户管理</h3></li>
-						<li><a href="{url:/ucenter/info}" >基本信息</a></li>
-						<li><a href="{url:/ucenter/password}"class="cur">修改密码</a></li>
-						<li><a href="javascript:void(0)"class="cur">资质认证</a>
-							<ul>
-								<li><a href="{url:/ucenter/dealCert}">交易商</a></li>
-								<li><a href="{url:/ucenter/storeCert}">仓库管理</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
+
 			<div class="user_c">
 				<div class="user_zhxi">
 				<form >

@@ -189,13 +189,13 @@
                     		{if: $k == 0}
                     		<li class="let_nav_tit"><span class="line"></span><h3>{$leftList['name']}</h3></li>
                     		{else:}
-                    		<a class="nav-first"><i class="icon-caret-down"></i>{$leftList['name']}</a>
+                    		<a class="nav-first" ><i class="icon-caret-down"></i>{$leftList['name']}</a>
                     		{/if}
 
                     		{if: !empty($leftList['list'])}
                     			<ul class="zj_zh" id="zj_zh{k}">
                     				{foreach: items=$leftList['list'] item=$list}
-                    					<li><a href="{$list['url']}">{$list['title']}</a></li>
+                    					<li><a href="{$list['url']}" {if:$leftCur==$list['url']}class="cur"{/if} >{$list['title']}</a></li>
                     				{/foreach}
                     			</ul>
 				{/if}
