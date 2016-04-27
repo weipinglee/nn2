@@ -5,7 +5,7 @@
  * Date: 2016/3/11
  * Time: 22:55
  */
-namespace nainai;
+namespace nainai\cert;
 use \Library\M;
 use \Library\Time;
 use \Library\Query;
@@ -19,11 +19,13 @@ class certificate{
     const CERT_SUCCESS =   2; //后台确认认证通过
     const CERT_FAIL    =   3; //后台拒绝认证
 
-    private $certTable = array(
+    protected $certTable = array(
         'deal'=>'dealer',
         'store'=>'store_manager'
 
     );
+
+    protected $certFields = array();
 
     /**
      * 获取用户认证状态
@@ -193,7 +195,7 @@ class certificate{
      * @param int $id 用户id
      * @param string $certType 认证类型
      */
-    public function getCertDetail($id,$certType){
+    protected function getCertDetail($id,$certType){
         $userModel = new M('user');
         $userData = $userModel->fields('username,type,mobile,email')->where(array('id'=>$id,'pid'=>0))->getObj();
 
@@ -201,9 +203,7 @@ class certificate{
             $userDetail = $userData['type']==1 ? $this->getCompanyInfo($id) : $this->getPersonInfo($id);
             $userCert   = $userModel->table($this->getCertTable($certType))->where(array('user_id'=>$id))->getObj();
 
-            if(empty($userCert) || $userCert['status']== self::CERT_BEFORE || $userCert['status']== self::CERT_INIT)
-                return array();
-            return array($userData,$userDetail,$userCert);
+            return array_merge($userDetail,$userCert,$userData);
         }
         return array();
 

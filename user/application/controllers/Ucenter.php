@@ -247,6 +247,17 @@ class UcenterController extends Yaf\Controller_Abstract {
         $this->getView()->assign('cert',$res);
 
     }
+
+    /**
+     * 交易商认证页面
+     *
+     */
+    public function certTestAction(){
+        $cert = new \nainai\cert\certDealer();
+        $certData = $cert->getCertData($this->user_id);print_r($certData);
+       $this->getView()->assign('certData',$certData);
+        $this->getView()->assign('userType',$certData['type']);
+    }
     /**
      * 仓库认证
      */
