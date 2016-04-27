@@ -187,7 +187,7 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="submit" value='submit'>
-                            <input type="text" name="mode" value="{$mode}">
+                            <input type="hidden" name="mode" value="{$mode}">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
                                 <a href="javascript:void(0);" onclick="checkform()">提交审核</a> 
                                 <span class="color">审核将收取N元/条的人工费用，请仔细填写</span>

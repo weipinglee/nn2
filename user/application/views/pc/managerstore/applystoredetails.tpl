@@ -16,12 +16,12 @@
                         <span>{$storeDetail['sname']}</span>
                     </div>
                      
-                    <form action="{url: /ManagerStore/doApplyStore}" method="POST">
+                    <form action="{url: /ManagerStore/doStoreSign}" method="POST">
 						<table border="0">
                             <tr>
               					<td nowrap="nowrap"><span></span>库位：</td>
                 				<td colspan="2"> 
-                                    <input class="text" type="text" name="pos">
+                                    <input class="text" type="text" name="pos" {if: !empty($storeDetail['store_pos'])} value="{$storeDetail['store_pos']}" readonly="readonly" {/if}>
                                 </td>
            				 	</tr>
                             <tr>
@@ -91,7 +91,7 @@
                                 <td>图片预览：</td>
                                 <td colspan="2">
     				<span class="zhs_img">
-                                    {foreach: items=$storeDetail['imgData'] item=$url}
+                                    {foreach: items=$photos item=$url}
     					<img src="{$url}"/>
                                     {/foreach}
     				</span>
@@ -105,7 +105,7 @@
                             <td colspan="2" class="btn">
                             {if: $storeDetail['status'] == 0}
                             <input type="submit" value="submit">
-                            <input type="hidden" value="{$storeDetail['id']}" name="id" >
+                            <input type="hidden" value="{$storeDetail['sid']}" name="id" >
                                 <a href="add1_success.html" onclick="checkform()">申请仓单</a> 
                             {/if}
                                 <!-- <span class="color">审核将收取N元/条的人工费用，请仔细填写</span> -->

@@ -21,6 +21,10 @@ class store{
         array('package', 'number','请选择是否打包!')
     );
 
+     /**
+      * 获取仓单的状态
+      * @return [Array] 
+      */
     public function getStatus(){
         return array(
             0 => '未审核',
@@ -49,13 +53,19 @@ class store{
      * @param  [Int] $pagesize 
      * @return [Array]       ]
      */
-    public function getApplyStoreList($page, $pagesize){
+    public function getApplyStoreList($page, $pagesize, $user_id=0){
          //仓单列表
         $query = new Query('store_list as b');
         $query->fields = 'a.id, b.name as sname, a.status, c.name as pname,  d.name as cname, c.attribute, a.package_unit, a.package_weight';
         $query->join = ' RIGHT JOIN (store_products as a LEFT JOIN products as c ON a.product_id = c.id ) ON a.store_id=b.id LEFT JOIN product_category as d  ON c.cate_id=d.id';
         $query->page = $page;
         $query->pagesize = $pagesize;
+
+        if (intval($user_id) > 0) {
+            $query->where = ' a.user_id=:user_id';
+            $query->bind = array('user_id' => $user_id);
+        }
+
         $storeList = $query->find();
 
         $attrs = $attr_id = array();
@@ -126,7 +136,7 @@ class store{
      */
     public function getUserStoreDetail($id){
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note';
+        $query->fields = 'a.id as sid, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
         $query->where = ' a.id=:id';
         $query->bind = array('id' => $id);

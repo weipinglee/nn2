@@ -100,16 +100,20 @@
                                 <textarea name="note" readonly="readonly">{$detail['note']}</textarea>
                             </td>
                         </tr>
-                         
+                         <tr>
+                            <td>是否通过审核：</td>
+                            <td colspan="2">
+                                <input type="radio" name="apply" value="1"> 通过
+                                <input type="radio" name="apply" value="0"> 驳回
+                            </td>
+                        </tr>
 
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" value="{$detail['sid']}" name="id">
-                               <input type="submit" value="submit" name="apply">
-                               <input type="submit" value="驳回" name="bohui">
-                                <a class="for_storage" href="cd_add1.html" onclick="checkform()">申请入仓</a> 
-                                <a class="for_storage" href="cd_add1.html" onclick="checkform()">驳回申请</a> 
+                               <input type="submit" value="submit">
+                                <a class="for_storage" href="cd_add1.html" onclick="checkform()">提交</a> 
                                 <!-- <span class="color">审核将收取N元/条的人工费用，请仔细填写</span> -->
                                 
                             </td>

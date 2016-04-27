@@ -23,9 +23,9 @@ class product{
      */
     protected $productRules = array(
         array('name','require','商品名称必须填写'),
-        // array('cate_id','number','商品类型id错误'),
+        array('cate_id','number','商品类型id错误'),
         array('price','double','商品价格必须是数字'),
-        array('quantity','number','供货总量必须是整数'),
+        array('quantity','double','供货总量必须是整数'),
         array('attribute', 'require', '请选择商品属性'),
         array('note', 'require', '商品描述必须填写')
     );
@@ -199,7 +199,7 @@ class product{
          * @param  [type] $pid [description]
          * @return [type]      [description]
          */
-        public function getProductPhoto($pid){
+        public function getProductPhoto($pid = 0){
             $photos = array();
             if (intval($pid) > 0) {
                 $imgObj = new M('product_photos');
