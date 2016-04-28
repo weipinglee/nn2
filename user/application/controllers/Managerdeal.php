@@ -45,7 +45,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
             )),
             array('name' => '仓单管理', 'list' => array(
                 array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单' ),
-                array('url' => '', 'title' => '仓单列表' ),
+                array('url' => url::createUrl('/ManagerDeal/storeList'), 'title' => '仓单列表' ),
             )),
             array('name' => '采购管理', 'list' => array(
                 array('url' => '', 'title' => '采购列表' ),
@@ -116,8 +116,8 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
     public function storeAction(){
         $storeModel = new \nainai\store();
         $storeList = $storeModel->getUserStoreLIst($this->user_id);
-
-        if (!empty($storeList)) {
+        // 默认获取第一个的商品数据
+        /*if (!empty($storeList)) {
             $storeDetail = $storeModel->getUserStoreDetail($storeList[0]['id']);
             $attr_ids = array();
             $storeDetail['attribute'] = unserialize($storeDetail['attribute']);
@@ -128,7 +128,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
             $productModel = new \nainai\product(); 
             $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
             $this->getView()->assign('photos', $productModel->getProductPhoto($storeDetail['pid']));
-        }
+        }*/
         
         $this->getView()->assign('storeList', $storeList);
         $this->getView()->assign('storeDetail', $storeDetail);
@@ -142,6 +142,20 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         $this->getView()->assign('storeList',$store_list);
         $this->productAddAction();
     }
+
+    /**
+     * 仓单管理页面
+     */
+    public function StoreListAction(){
+        $page = Safe::filterGet('page', 'int', 0);
+        $store = new store();
+        $data = $store->getApplyStoreList($page, $this->pagesize, $this->user_id);
+
+        $this->getView()->assign('statuList', $store->getStatus());
+        $this->getView()->assign('storeList', $data['list']);
+        $this->getView()->assign('attrs', $data['attrs']);
+        $this->getView()->assign('pageHtml', $data['pageHtml']);
+    }
     
 
     /**
@@ -151,6 +165,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
     public function ajaxGetStoreAction(){
         $return_json = array();
         $pid = Safe::filterPost('pid', 'int');
+
         if (intval($pid) > 0) {
             $storeModel = new \nainai\store();
             $return_json['storeDetail'] = $storeModel->getUserStoreDetail($pid);
@@ -253,19 +268,49 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
                 'price'        => Safe::filterPost('price', 'float'),
             );
 
-           $offerObj = new \nainai\product();
-           if ($mode == 3) { //处理仓单报盘
-                $offerData['product_id'] = Safe::filterPost('product_id', 'int');
-                 $res = $offerObj->insertStoreOffer($offerData);
-           }else{
-                $productData = $this->getProductData(); 
-                $res = $offerObj->insertOffer($productData,$offerData);
-           }
+        $offerObj = new \nainai\product();
+        $productData = $this->getProductData(); 
+        $res = $offerObj->insertOffer($productData,$offerData);
 
            if($res['success']==1)
                $this->redirect('addSuccess');
            else $this->redirect('offer');
        }
+
+        return false;
+    }
+
+    /**
+     * 处理仓单报盘
+     * @return 
+     */
+    public function doStoreOfferAction(){
+        if (IS_POST) {
+            $id = Safe::filterPost('id', 'int', 0);
+            $storeObj = new \nainai\store();
+            if ($storeObj->judgeIsUserStore($id, $this->user_id)) { //判断是否为用户的仓单
+                 // 报盘数据
+                $offerData = array(
+                    'mode'          => Safe::filterPost('mode', 'int'),
+                    'apply_time'  => \Library\Time::getDateTime(),
+                    'divide'      => Safe::filterPost('divide', 'int'),
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+                    'status'      => 0,
+                    'accept_area' => Safe::filterPost('accept_area'),
+                    'accept_day' => Safe::filterPost('accept_day', 'int'),
+                    'price'        => Safe::filterPost('price', 'float'),
+                );
+
+
+                $offerObj = new \nainai\product();
+                $offerData['product_id'] = Safe::filterPost('product_id', 'int');
+                $res = $offerObj->insertStoreOffer($offerData);
+                if($res['success']==1)
+                       $this->redirect('addSuccess');
+                else $this->redirect('offer');
+            }
+            echo '无效的仓单';
+        }
 
         return false;
     }
