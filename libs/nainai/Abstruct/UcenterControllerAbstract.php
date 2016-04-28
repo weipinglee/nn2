@@ -28,9 +28,9 @@ abstract class UcenterControllerAbstract extends BaseControllerAbstract{
 
 	final private function init(){
 		$this->preinit();
-	        //  $right = new checkRight();
-	        // $right->checkLogin($this);//未登录自动跳到登录页
-                 $this->user_id = 48;
+	          $right = new checkRight();
+	         $right->checkLogin($this);//未登录自动跳到登录页
+
 	        $this->getView()->setLayout('ucenter');
 	        $this->getView()->assign('topArray', $this->getTopArray());
 	        $this->getView()->assign('leftArray', $this->getLeftArray());

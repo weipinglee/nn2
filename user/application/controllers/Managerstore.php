@@ -20,8 +20,8 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	protected function  getLeftArray(){
 	        return array(
 	            array('name' => '仓单管理', 'list' => array()),
-	            array('name' => '仓单管理', 'url' => url::createUrl('/ManagerStore/ManagerStoreList'),  'list' => array()),
-	            array('name' => '仓单审核', 'url' => url::createUrl('/ManagerStore/ApplyStoreList'),  'list' => array())
+	            array('name' => '仓单管理', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=2'),  'list' => array()),
+	            array('name' => '仓单审核', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=1'),  'list' => array())
 	        );
 	    }
 
@@ -32,16 +32,22 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	/**
 	 * 审核仓单列表
 	 */
-	public function ApplyStoreListAction(){
+	public function applyStoreListAction(){
 		$page = Safe::filterGet('page', 'int', 0);
+		$type = $this->getRequest()->getParam('type');
+		$type = Safe::filter($type,'int',1);
 		$store = new store();
-		$data = $store->getApplyStoreList($page, $this->pagesize);
-
+		if($type==1)
+			$data = $store->getManagerApplyStoreList($page,$this->user_id);
+		else
+			$data = $store->getManagerStoreList($page,$this->user_id);
 		$this->getView()->assign('statuList', $store->getStatus());
 		$this->getView()->assign('storeList', $data['list']);
 		$this->getView()->assign('attrs', $data['attrs']);
 		$this->getView()->assign('pageHtml', $data['pageHtml']);
-	}	
+	}
+
+
 
 	/**
 	 * 审核仓单后，仓单签发的详情页面
@@ -96,10 +102,10 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 		$id = Safe::filterPost('id', 'int', 0);
 		if (IS_POST && intval($id) > 0) {
 			$apply = array();
-			$apply['status'] = (Safe::filterPost('apply', 'int', 0) == 1) ? 1 : 2;
+			$apply['status'] = (Safe::filterPost('apply', 'int', 0) == 1) ? 1 : 0;//获取审核状态
 
 			$store = new store();
-			$store->UpdateApplyStore($apply, $id);
+			$store->storeManagerCheck($apply, $id);
 			$this->redirect('addSuccess');exit();
 		}
 		$this->redirect('ApplyStore');
@@ -123,7 +129,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 			}
 
 			$store = new store();
-			$store->UpdateApplyStore($apply, $id);
+			$store->storeManagerSign($apply, $id);
 			$this->redirect('addSuccess');exit();
 		}
 		$this->redirect('ApplyStoreDetails');

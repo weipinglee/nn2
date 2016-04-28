@@ -175,7 +175,7 @@
                     		<li class="let_nav_tit"><span class="line"></span><h3>{$leftList['name']}</h3></li>
                     		{else:}
 
-                    		<a class="nav-first" ><i class="icon-caret-down"></i>{$leftList['name']}</a>
+                    		<a class="nav-first" {if:isset($leftList['url'])}href="{$leftList['url']}"{/if} ><i class="icon-caret-down"></i>{$leftList['name']}</a>
 
                     		{/if}
 
