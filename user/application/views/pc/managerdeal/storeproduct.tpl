@@ -93,7 +93,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>数量:</td>
                                 <td> 
-                                    <input class="text" type="text" name="quantity">(吨)
+                                    <input class="text" type="text" name="quantity">
                                 </td>
                                <!--  <td> 
                                    请选择支付保证金比例：
@@ -102,6 +102,18 @@
                                </td> -->
 
                                 <tr>
+                            <tr>
+                                <td nowrap="nowrap"><span></span>单位:</td>
+                                <td>
+                                    <span id="unit">{$unit}</span>
+                                </td>
+                                <!--  <td>
+                                    请选择支付保证金比例：
+                                    <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
+
+                                </td> -->
+
+                            <tr>
                             <td>产地:</td>
                             <td colspan="2">
                                 {area:data=getAreaData()}

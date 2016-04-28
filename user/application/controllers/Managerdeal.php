@@ -86,6 +86,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         //获取商品分类信息，默认取第一个分类信息
         $productModel = new \nainai\product();
         $category = $productModel->getCategoryLevel();
+
         $attr = $productModel->getProductAttr($category['chain']);
         //上传图片插件
         $plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
@@ -94,6 +95,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         $this->getView()->assign('plupload',$plupload->show());
         $this->getView()->assign('categorys', $category['cate']);
         $this->getView()->assign('attrs', $attr);
+        $this->getView()->assign('unit', $category['unit']);
         $this->getView()->assign('cate_id', $category['default']);
     }
 
@@ -178,9 +180,11 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
          */
         public function ajaxGetCategoryAction(){
             $pid = Safe::filterPost('pid', 'int',0);
+
             if($pid){
                 $productModel = new \nainai\product();
                 $cate = $productModel->getCategoryLevel($pid);
+
                 $cate['attr'] = $productModel->getProductAttr($cate['chain']);
                 unset($cate['chain']);
                 echo JSON::encode($cate);
