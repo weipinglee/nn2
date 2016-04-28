@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/product/WithAddProduct}" method="POST">
+                    <form action="{url:/product/doOffer}" method="POST">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
@@ -91,7 +91,7 @@
 </td> -->
                             </tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>挂牌数量:</td>
+                                <td nowrap="nowrap"><span></span>数量:</td>
                                 <td> 
                                     <input class="text" type="text" name="quantity">(吨)
                                 </td>

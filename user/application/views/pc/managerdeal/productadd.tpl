@@ -18,7 +18,7 @@
 
 </div>
 
-       <input type="hidden" name="attr_url" value="{url:/product/ajaxGetCategory}"  />
+       <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
             <!--start中间内容-->    
             <div class="user_c">
@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/product/doStoreProduct}" method="POST">
+                    <form action="{url:/ManagerDeal/doOffer}" method="POST">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
@@ -91,9 +91,9 @@
 </td> -->
                             </tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>挂牌数量:</td>
+                                <td nowrap="nowrap"><span></span>数量:</td>
                                 <td> 
-                                    <input class="text" type="text" name="quantity">(吨)
+                                    <input class="text" type="text" name="quantity"><span></span>
                                 </td>
                                <!--  <td> 
                                    请选择支付保证金比例：
@@ -137,45 +137,45 @@
                              <th colspan="3"><b>详细信息</b></th>
                         </tr>
 
+                       </tr>
+                            <tr>
+                                <td><span>*</span>是否可拆分：</td>
+                                <td>
+                                    <select name="divide" id="divide">
+                                        <option value="0" selected >可以</option>
+                                        <option value="1" selected >不可以</option>
+                                    </select>
+                                </td>
+                                </tr>
+                         <tr id='nowrap' style="display: none">
+                                <td nowrap="nowrap" ><span>*</span>最小起订量：</td>
+                                <td>
+                                    <input name="minimum" id="" type="text" class="text"  />
+                                </td>
+                                <td> 
+                                    <span>*</span>
+                                    最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
+                                </td>
+                            </tr>
+                          <tr>
+                            <td>交收地点：</td>
+                            <td colspan="2">
+                                <input type="text" class='text' name="accept_area">
+                            </td>
+                            </tr>
+                            <td>交收时间：</td>
+                            <td colspan="2">
+                                <input type="text" class='text' name="accept_day">
+                            </td>
+                            </tr>
 
-                                 </tr>
-                                    <tr>
-                                        <td><span>*</span>选择仓库：</td>
-                                        <td>
-                                            <select name="store_id" id="store_id">
-                                            {foreach: items=$storeList item=$list}
-                                                <option value="{$list['id']}" {if: $key==0} selected {/if} >{$list['name']}</option>
-                                            {/foreach}
-                                            </select>
-                                        </td>
-                                        </tr>
-                                    <tr>
-                                        <td>是否包装：</td>
-                                        <td colspan="2">
-                                            <select name="package" >
-                                                <option value="0">不可以</option>
-                                                <option value="1">可以</option>
-                                            </select>
-                                        </td>
-                                        </tr>
-                                        <td>包装数量：</td>
-                                        <td colspan="2">
-                                            <input type="text" class='text' name="package_num">
-                                        </td>
-                                        </tr>
-                                        <td>包装重量：</td>
-                                        <td colspan="2">
-                                            <input type="text" class='text' name="package_weight">
-                                        </td>
-                                        </tr>
-
-<!--                               <tr>
-                            <td>是否投保：</td>
+                   <tr>
+                           <!--  <td>是否投保：</td>
                             <td colspan="2">
   <input type ="radio" name ="safe" checked="checked" style="width:auto;height:auto;">投保
       <input type ="radio" name ="safe" style="width:auto;height:auto;"> 不投保
                             </td>
-                        </tr> -->
+                        </tr>  -->
                         <tr>
                             <td>产品描述：</td>
                             <td colspan="2">
@@ -187,10 +187,10 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="submit" value='submit'>
+                            <input type="text" name="mode" value="{$mode}">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
                                 <a href="javascript:void(0);" onclick="checkform()">提交审核</a> 
-
-                                
+                                <span class="color">审核将收取N元/条的人工费用，请仔细填写</span>
                             </td>
                         </tr>
                          
@@ -204,22 +204,4 @@
             {$plupload}
 
 
-            <!--end中间内容-->  
-            <!--start右侧广告-->            
-            <div class="user_r">
-                <div class="wrap_con">
-                    <div class="tit clearfix">
-                        <h3>公告</h3>
-                    </div>
-                    <div class="con">
-                        <div class="con_medal clearfix">
-                            <ul>
-                                <li><a>暂无勋章</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end右侧广告-->
-        </div>
-    </div>
+

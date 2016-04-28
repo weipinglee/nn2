@@ -152,28 +152,13 @@
                 <a href="../index.html" alt="返回耐耐首页"><img src="{views:/images/icon/nainaiwang.png}"/></a></dd>
             </div>
 			<div class="nav-tit">
-				<ul class="nav-list">
-                    <li>
-                        <a href="user_index.html">首页</a>
-                    </li>
-                    <li>
-                     <a href="user_zh.html">账户信息</a>
-                    </li>
-                    <li>
-                       <a href="user_zj.html">资金管理</a>
-                    </li>
-                    <li>
-                        <a href="user_dd.html" class="cur">交易管理</a>
-                    </li>
-                    <li>
-                        <a href="user_cd.html">仓单管理</a>
-                    </li>
-                    <li>
-                        <a href="user_chl.html">车辆管理</a>
-                    </li>
-                    <li>
-                        <a href="user_gz.html">关注中心</a>
-                    </li>
+		<ul class="nav-list">
+			{foreach: items=$topArray item=$topList}
+				<li>
+		                        <a href="{$topList['url']}" {if: $topList['isSelect']} class="cur" {/if}>{$topList['title']}</a>
+		                   </li>
+			{/foreach}
+                   
                  </ul>
 			</div>
 		</div>
@@ -189,7 +174,12 @@
                     		{if: $k == 0}
                     		<li class="let_nav_tit"><span class="line"></span><h3>{$leftList['name']}</h3></li>
                     		{else:}
-                    		<a class="nav-first"><i class="icon-caret-down"></i>{$leftList['name']}</a>
+                    			{if: empty($leftList['url'])}
+					<a class="nav-first"><i class="icon-caret-down"></i>{$leftList['name']}</a>
+                    			{else:}
+                    			<a class="nav-first" href="{$leftList['url']}"><i class="icon-caret-down"></i>{$leftList['name']}</a>
+                    			{/if}
+                    		
                     		{/if}
                     		
                     		{if: !empty($leftList['list'])}
