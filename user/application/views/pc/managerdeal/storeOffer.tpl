@@ -1,7 +1,7 @@
 ﻿<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
-
+<script type="text/javascript" src="{views:js/product/store.js}" ></script>
 			<!--start中间内容-->	
 			<div class="user_c">
 				<div class="user_zhxi">
@@ -21,9 +21,9 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>可选仓单:</td>
                                 <td colspan="2"> 
-                                    <select id="storeList">
+                                    <select id="storeList" name="storeList">
                                        {foreach: items=$storeList item=$list}
-                                        <option value="{$list['sid']}" {if: $key==0}selected{/if}>{$list['name']}</option>
+                                        <option value="{$list['id']}">{$list['sname']}-{$list['pname']}</option>
                                        {/foreach}
                                     </select>
                                 </td>

@@ -50,6 +50,21 @@ class store{
         );
     }
 
+    /**
+     * 获取仓单详情
+     * @param  [Int] $id [仓单id]
+     * @param int $user_id 仓库管理员id
+     * @return [Array]
+     */
+    public function getManagerStoreDetail($id,$user_id){
+        $store_id = 1;//根据$user_id获取
+        $query = new Query('store_products as a');
+        $query->fields = 'a.id as sid, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
+        $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
+        $query->where = ' a.id=:id AND a.store_id=:store_id';
+        $query->bind = array('id' => $id,'store_id'=>$store_id);
+        return $query->getObj();
+    }
      /**
      * 获取仓库列表
      * @return mixed
@@ -60,6 +75,13 @@ class store{
         return $storeModel->table('store_list')->fields('id, name, short_name, area, address')->where($where)->select();
     }
 
+    /**
+     * 获取用户管理的仓库id
+     * @param $user_id
+     */
+    public function getManagerStoreId($user_id){
+        return 1;
+    }
    
  /**
      * 获取仓库管理员所属的仓单列表，仓库管理员页码
@@ -69,7 +91,7 @@ class store{
      */
     public function getManagerStoreList($page, $user_id=0){
          //仓单列表
-        $store_id = 1;//此处获取仓库管理员管理的仓库id
+        $store_id = $this->getManagerStoreId($user_id);//此处获取仓库管理员管理的仓库id
         $condition = array();
         $condition['where'] = 'a.store_id = :store_id ';
         $condition['bind'] = array('store_id'=>$store_id);
@@ -84,7 +106,7 @@ class store{
      * @return array
      */
     public function getManagerApplyStoreList($page,$user_id){
-        $store_id = 1;//此处获取仓库管理员管理的仓库id
+        $store_id = $this->getManagerStoreId($user_id);//此处获取仓库管理员管理的仓库id
         $condition = array();
         $condition['where'] = 'a.store_id = :store_id AND a.status = :status';
         $condition['bind'] = array('store_id'=>$store_id,'status'=>self::USER_APPLY);
@@ -97,12 +119,12 @@ class store{
      * @param int $page 页码
      * @param array $condition 条件
      */
-    private function getStoreProductList($page,$condition){
+    private function getStoreProductList($page,$condition,$pagesize=20){
         $query = new Query('store_list as b');
         $query->fields = 'a.id, b.name as sname, a.status, c.name as pname,  d.name as cname, c.attribute, a.package_unit, a.package_weight';
         $query->join = ' RIGHT JOIN (store_products as a LEFT JOIN products as c ON a.product_id = c.id ) ON a.store_id=b.id LEFT JOIN product_category as d  ON c.cate_id=d.id';
         $query->page = $page;
-        $query->pagesize = 20;
+        $query->pagesize = $pagesize;
         $query->where = $condition['where'];
         $query->bind  = $condition['bind'];
 
@@ -130,18 +152,20 @@ class store{
      */
     public function getStoreProductStatus($id){
         $st = new M($this->storeProduct);
-        return $st->where(array('id'=>$id))->getFiled('status');
+        return $st->where(array('id'=>$id))->getField('status');
 
     }
     /**
      * 仓库管理员审核仓单
      * @param array $store array('status'=>,'info'),status 为0拒绝，1通过
-     * @param $id
+     * @param $id 仓单id
+     * @param $user_id 管理员id
      */
-    public function storeManagerCheck(& $store, $id){
+    public function storeManagerCheck(& $store, $id,$user_id){
         if($this->getStoreProductStatus($id)==self::USER_APPLY){//处于申请状态可审核
+            $store_id = $this->getManagerStoreId($user_id);
             $store['status'] = intval($store['status'])==1 ? self::STOREMANAGER_AGREE : self::STOREMANAGER_REJECT;
-            return  $this->UpdateApplyStore( $store, $id);
+            return  $this->UpdateApplyStore( $store, array('id'=>$id,'store_id'=>$store_id));
         }
         return false;
 
@@ -151,11 +175,13 @@ class store{
      * 仓单签发
      * @param array $store array('status'=>,'info'),status 为0拒绝，1通过
      * @param $id
+     * @param $user_id 管理员id
      */
-    public function storeManagerSign(& $store, $id){
+    public function storeManagerSign(& $store, $id,$user_id){
         if($this->getStoreProductStatus($id)==self::STOREMANAGER_AGREE) {//处于仓管审核已审核可签发
+            $store_id = $this->getManagerStoreId($user_id);
             $store['status'] = self::STOREMANAGER_SIGN;
-            return $this->UpdateApplyStore($store, $id);
+            return $this->UpdateApplyStore($store, array('id'=>$id,'store_id'=>$store_id));
         }
         return false;
     }
@@ -164,12 +190,13 @@ class store{
      * 用户确认仓单
      * @param int $status 确认状态
      * @param int $id 仓单id
+     * @param int $user_id 用户id
      */
-    public function userCheck($status,$id){
+    public function userCheck($status,$id,$user_id){
         if($this->getStoreProductStatus($id)==self::STOREMANAGER_SIGN) {
             $store = array();
             $store['status'] = intval($status) == 1 ? self::USER_AGREE : self::USER_REJECT;
-            return $this->UpdateApplyStore($store, $id);
+            return $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
         }
         return false;
     }
@@ -183,20 +210,20 @@ class store{
     public function marketCheck($store,$id){
         if($this->getStoreProductStatus($id)==self::USER_AGREE) {
             $store['status'] = intval($store['status']) == 1 ? self::MARKET_AGREE : self::MARKET_REJECT;
-            return $this->UpdateApplyStore($store, $id);
+            return $this->UpdateApplyStore($store, array('id'=>$id));
         }
         return false;
     }
     /**
      * 更改仓单状态,各方审核调用
      * @param [Array] $store [审核的仓单数据]
-     * @param [Int] $id    [仓单id]
+     * @param [array] $where    [搜索条件]
      */
-    private function UpdateApplyStore( & $store, $id){
+    private function UpdateApplyStore( & $store, $where){
          $storeProductObj = new M($this->storeProduct);
         $storeProductObj->data($store);
         if($storeProductObj->validate($this->storeProductRules)){
-           return  $storeProductObj->where(array('id'=>$id))->update();
+           return  $storeProductObj->where($where)->update();
         }
         return  false;
     }
@@ -207,9 +234,9 @@ class store{
      * @param  [Int] $uid [用户id]
      * @return [Array]
      */
-    public function getUserStoreLIst($page,$uid){
+    public function getUserStoreList($page,$uid){
         $condition = array();
-        $condition['where'] = 'a.user_id=:user_id';
+        $condition['where'] = 'a.user_id=:user_id ';
         $condition['bind'] = array('user_id'=>$uid);
 
         return $this->getStoreProductList($page,$condition);
@@ -217,16 +244,28 @@ class store{
     }
 
     /**
+     * 获取可用的仓单
+     * @param $uid 用户id
+     */
+    public function getUserActiveStore($uid){
+        $condition = array();
+        $condition['where'] = 'a.user_id=:user_id AND a.status=:status';
+        $condition['bind'] = array('user_id'=>$uid,'status'=>self::MARKET_AGREE);
+
+        return $this->getStoreProductList(1,$condition,500);
+    }
+    /**
      * 获取对应的仓单详情
      * @param  [Int] $id [仓单id]
+     * @param int $user_id 用户id
      * @return [Array]
      */
-    public function getUserStoreDetail($id){
+    public function getUserStoreDetail($id,$user_id){
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
+        $query->fields = 'a.id as sid,a.status, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
-        $query->where = ' a.id=:id';
-        $query->bind = array('id' => $id);
+        $query->where = ' a.id=:id AND a.user_id=:user_id';
+        $query->bind = array('id' => $id,'user_id'=>$user_id);
         return $query->getObj();
     }
 

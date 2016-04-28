@@ -4,11 +4,11 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>仓单管理</a>><a>仓单审核</a></p>
+						<p><a>仓单管理</a>><a>仓单详情</a></p>
 					</div>
 					<div class="center_tabl">
 
-                    <form action="{url:/ManagerDeal/doApplyStore}" method="POST">
+
 						<table border="0">
                         <tr>
                             <th colspan="3">商品类型和规格</th>
@@ -96,26 +96,31 @@
                                 <textarea name="note" readonly="readonly">{$detail['note']}</textarea>
                             </td>
                         </tr>
-                         <tr>
-                            <td>用户确认：</td>
-                            <td colspan="2">
-                                <input type="radio" name="apply" value="1"> 通过
-                                <input type="radio" name="apply" value="0"> 驳回
-                            </td>
-                        </tr>
+                            {if:$detail['status']==23}
+                                <form method="post" action="{url:/Managerdeal/userMakeSure}" >
+                                    <tr>
+                                    <td>用户确认：</td>
+                                    <td colspan="2">
+                                        <input type="radio" name="status" value="1"> 通过
+                                        <input type="radio" name="status" value="0"> 驳回
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td></td>
-                            <td colspan="2" class="btn">
-                            <input type="hidden" value="{$detail['sid']}" name="id">
-                               <input type="submit" value="submit">
-                                <a class="for_storage" href="cd_add1.html" onclick="checkform()">提交</a> 
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2" class="btn">
+                                        <input type="hidden" value="{$detail['sid']}" name="id">
+                                        <input type="submit" value="submit">
+                                        <a class="for_storage" href="cd_add1.html" onclick="checkform()">提交</a>
 
-                            </td>
-                        </tr>
+                                    </td>
+                                </tr>
+                                </form>
+                            {/if}
+
                          
                  </table>
-            	</form>
+
 						
 					</div>
 				</div>

@@ -57,7 +57,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
-			$data = $store->getUserStoreDetail($id);
+			$data = $store->getManagerStoreDetail($id,$this->user_id);
 
 			$productModel = new \nainai\product();
 
@@ -78,7 +78,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
-			$data = $store->getUserStoreDetail($id);
+			$data = $store->getManagerStoreDetail($id,$this->user_id);
 			//获取商品分类信息，默认取第一个分类信息
 		        $productModel = new \nainai\product();
 		        $attr_ids = array();
@@ -105,7 +105,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 			$apply['status'] = (Safe::filterPost('apply', 'int', 0) == 1) ? 1 : 0;//获取审核状态
 
 			$store = new store();
-			$store->storeManagerCheck($apply, $id);
+			$store->storeManagerCheck($apply, $id,$this->user_id);
 			$this->redirect('addSuccess');exit();
 		}
 		$this->redirect('ApplyStore');
@@ -129,7 +129,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 			}
 
 			$store = new store();
-			$store->storeManagerSign($apply, $id);
+			$store->storeManagerSign($apply, $id,$this->user_id);
 			$this->redirect('addSuccess');exit();
 		}
 		$this->redirect('ApplyStoreDetails');

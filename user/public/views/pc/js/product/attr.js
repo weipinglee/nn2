@@ -66,6 +66,8 @@ $(document).ready(function(){
         });
     });
 
+    $('#storeList').trigger('change');
+
 })
 
 //异步获取分类
