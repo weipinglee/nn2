@@ -99,4 +99,11 @@ class Tool{
             return $uuid;
         }
     }
+
+    public static function pre_dump($data){
+        echo '<pre>';
+
+        print_r($data);
+        echo '</pre>';
+    }
 }

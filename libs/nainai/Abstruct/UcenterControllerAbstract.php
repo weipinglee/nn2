@@ -11,7 +11,7 @@ abstract class UcenterControllerAbstract extends BaseControllerAbstract{
          * 所有的用户中心列表的分页是这个
          * @var integer
          */
-        protected $pagesize = 10;
+    protected $pagesize = 10;
 
 	public function preinit(){}
 
@@ -31,7 +31,7 @@ abstract class UcenterControllerAbstract extends BaseControllerAbstract{
     	 */
     	private function getTopArray(){
     		$topArray = array(
-				'Ucenterindex'      => array('url' => '', 'title' => '首页'),
+				'Ucenterindex'    => array('url' => '', 'title' => '首页'),
 				'Ucenteraccount'  => array('url' => '', 'title' => '账户信息'),
 				'Managerfund'     => array('url' => '', 'title' => '资金管理'),
 				'Managerdeal'     => array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '交易管理'),
