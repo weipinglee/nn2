@@ -52,7 +52,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	/**
 	 * 审核仓单后，仓单签发的详情页面
 	 */
-	public function ApplyStoreDetailsAction(){
+	public function applyStoreSignAction(){
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
@@ -72,7 +72,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	/**
 	 * 仓单审核页面
 	 */
-	public function ApplyStoreAction(){
+	public function applyStoreCheckAction(){
 		$category = array();
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);

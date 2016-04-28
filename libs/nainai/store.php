@@ -31,6 +31,8 @@ class store{
 
     const MARKET_AGREE        = 31;//市场通过
     const MARKET_REJECT       = 32;//市场拒绝
+
+
      /**
       * 获取仓单的状态
       * @return [Array] 
@@ -123,13 +125,26 @@ class store{
     }
 
     /**
+     * 获取仓单id 的状态
+     * @param $id 仓单id
+     */
+    public function getStoreProductStatus($id){
+        $st = new M($this->storeProduct);
+        return $st->where(array('id'=>$id))->getFiled('status');
+
+    }
+    /**
      * 仓库管理员审核仓单
      * @param array $store array('status'=>,'info'),status 为0拒绝，1通过
      * @param $id
      */
     public function storeManagerCheck(& $store, $id){
-        $store['status'] = intval($store['status'])==1 ? self::STOREMANAGER_AGREE : self::STOREMANAGER_REJECT;
-        return  $this->UpdateApplyStore( $store, $id);
+        if($this->getStoreProductStatus($id)==self::USER_APPLY){//处于申请状态可审核
+            $store['status'] = intval($store['status'])==1 ? self::STOREMANAGER_AGREE : self::STOREMANAGER_REJECT;
+            return  $this->UpdateApplyStore( $store, $id);
+        }
+        return false;
+
     }
 
     /**
@@ -138,8 +153,11 @@ class store{
      * @param $id
      */
     public function storeManagerSign(& $store, $id){
-        $store['status'] = self::STOREMANAGER_SIGN;
-        return $this->UpdateApplyStore( $store, $id);
+        if($this->getStoreProductStatus($id)==self::STOREMANAGER_AGREE) {//处于仓管审核已审核可签发
+            $store['status'] = self::STOREMANAGER_SIGN;
+            return $this->UpdateApplyStore($store, $id);
+        }
+        return false;
     }
 
     /**
@@ -148,9 +166,12 @@ class store{
      * @param int $id 仓单id
      */
     public function userCheck($status,$id){
-        $store = array();
-        $store['status'] = intval($status)==1 ? self::USER_AGREE : self::USER_REJECT;
-        return $this->UpdateApplyStore($store,$id);
+        if($this->getStoreProductStatus($id)==self::STOREMANAGER_SIGN) {
+            $store = array();
+            $store['status'] = intval($status) == 1 ? self::USER_AGREE : self::USER_REJECT;
+            return $this->UpdateApplyStore($store, $id);
+        }
+        return false;
     }
 
     /**
@@ -160,8 +181,11 @@ class store{
      * @return bool
      */
     public function marketCheck($store,$id){
-        $store['status'] = intval($store['status'])==1 ? self::MARKET_AGREE : self::MARKET_REJECT;
-        return  $this->UpdateApplyStore( $store, $id);
+        if($this->getStoreProductStatus($id)==self::USER_AGREE) {
+            $store['status'] = intval($store['status']) == 1 ? self::MARKET_AGREE : self::MARKET_REJECT;
+            return $this->UpdateApplyStore($store, $id);
+        }
+        return false;
     }
     /**
      * 更改仓单状态,各方审核调用
@@ -179,16 +203,16 @@ class store{
 
     /**
      * [获取用户的仓单列表, 并且没有添加报盘]
+     * @param int $page 页码
      * @param  [Int] $uid [用户id]
      * @return [Array]
      */
-    public function getUserStoreLIst($uid){
-        $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid,  b.name, c.id as oid';
-        $query->join = ' LEFT JOIN store_list as b ON a.store_id = b.id LEFT JOIN product_offer as c ON a.product_id=c.product_id';
-        $query->where = 'a.status=:status AND a.user_id=:user_id AND c.id IS NULL';
-        $query->bind = array('status' => 4, 'user_id' => $uid);
-        $data = $query->find();
+    public function getUserStoreLIst($page,$uid){
+        $condition = array();
+        $condition['where'] = 'a.user_id=:user_id';
+        $condition['bind'] = array('user_id'=>$uid);
+
+        return $this->getStoreProductList($page,$condition);
         return $data;
     }
 

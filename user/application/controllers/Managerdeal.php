@@ -45,7 +45,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
             )),
             array('name' => '仓单管理', 'list' => array(
                 array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单' ),
-                array('url' => '', 'title' => '仓单列表' ),
+                array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表' ),
             )),
             array('name' => '采购管理', 'list' => array(
                 array('url' => '', 'title' => '采购列表' ),
@@ -144,7 +144,8 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         $this->getView()->assign('storeList',$store_list);
         $this->productAddAction();
     }
-    
+
+
 
     /**
      * Ajax获取仓单报盘页面的商品详情
@@ -302,6 +303,32 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         return false;
     }
 
+    /**
+     * 仓单列表
+     */
+    public function storeProductListAction(){
+        $page = Safe::filterGet('page', 'int', 0);
+        $store = new store();
+
+        $data = $store->getUserStoreLIst($page,$this->user_id);
+        $this->getView()->assign('statuList', $store->getStatus());
+        $this->getView()->assign('storeList', $data['list']);
+        $this->getView()->assign('attrs', $data['attrs']);
+        $this->getView()->assign('pageHtml', $data['pageHtml']);
+
+    }
+
+    /**
+     * 仓单详情
+     * @return bool
+     */
+    public function storeProductDetailAction(){
+        $id = $this->getRequest()->getParam('id');
+        $id = Safe::filter($id,'int',0);
+        if($id){
+
+        }
+    }
     //上传接口
     public function swfuploadAction(){
         //调用文件上传类

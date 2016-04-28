@@ -8,10 +8,6 @@
 					</div>
 					<div class="center_tabl">
 
-                   
-                    
-                       
-                     
                     <form action="{url:/ManagerStore/doApplyStore}" method="POST">
 						<table border="0">
                         <tr>
