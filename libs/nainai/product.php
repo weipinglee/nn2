@@ -1,6 +1,6 @@
 <?php
 /**
- * ÉÌÆ·¹ÜÀíÀà
+ * å•†å“ç®¡ç†ç±»
  * author: weipinglee
  * Date: 2016/4/19
  * Time: 13:31
@@ -18,32 +18,32 @@ class product{
 
     private $_errorInfo = '';
     /**
-     * ÉÌÆ·ÑéÖ¤¹æÔò
+     * å•†å“éªŒè¯è§„åˆ™
      * @var array
      */
     protected $productRules = array(
-        array('name','require','ÉÌÆ·Ãû³Æ±ØĞëÌîĞ´'),
-        // array('cate_id','number','ÉÌÆ·ÀàĞÍid´íÎó'),
-        array('price','double','ÉÌÆ·¼Û¸ñ±ØĞëÊÇÊı×Ö'),
-        array('quantity','number','¹©»õ×ÜÁ¿±ØĞëÊÇÕûÊı'),
-        array('attribute', 'require', 'ÇëÑ¡ÔñÉÌÆ·ÊôĞÔ'),
-        array('note', 'require', 'ÉÌÆ·ÃèÊö±ØĞëÌîĞ´')
+        array('name','require','å•†å“åç§°å¿…é¡»å¡«å†™'),
+        array('cate_id','number','å•†å“ç±»å‹idé”™è¯¯'),
+        array('price','double','å•†å“ä»·æ ¼å¿…é¡»æ˜¯æ•°å­—'),
+        array('quantity','double','ä¾›è´§æ€»é‡å¿…é¡»æ˜¯æ•´æ•°'),
+        array('attribute', 'require', 'è¯·é€‰æ‹©å•†å“å±æ€§'),
+        array('note', 'require', 'å•†å“æè¿°å¿…é¡»å¡«å†™')
     );
 
     /**
-     * ±¨ÅÌÑéÖ¤¹æÔò
+     * æŠ¥ç›˜éªŒè¯è§„åˆ™
      * @var array
      */
     protected $productOfferRules = array(
-        array('product_id', 'number', '±ØĞëÓĞÉÌÆ·id'),
-        array('mode', 'number', '±ØĞëÓĞ±¨ÅÌÀàĞÍ'),
-        array('divide', 'number','ÊÇ·ñ¿É²ğ·ÖµÄid´íÎó'),
-        array('accept_area', 'require', '½»ÊÕµØµã±ØĞëÌîĞ´'),
-        array('accept_day', 'number', '½»ÊÕÊ±¼ä±ØĞëÌîĞ´')
+        array('product_id', 'number', 'å¿…é¡»æœ‰å•†å“id'),
+        array('mode', 'number', 'å¿…é¡»æœ‰æŠ¥ç›˜ç±»å‹'),
+        array('divide', 'number','æ˜¯å¦å¯æ‹†åˆ†çš„idé”™è¯¯'),
+        array('accept_area', 'require', 'äº¤æ”¶åœ°ç‚¹å¿…é¡»å¡«å†™'),
+        array('accept_day', 'number', 'äº¤æ”¶æ—¶é—´å¿…é¡»å¡«å†™')
     );
 
     /**
-     * pdoµÄ¶ÔÏó
+     * pdoçš„å¯¹è±¡
      * @var [Obj]
      */
     private $_productObj;
@@ -61,91 +61,140 @@ class product{
     }
 
     /**
-     * »ñÈ¡·Ö¼¶µÄ·ÖÀà
+     * è·å–åˆ†çº§çš„åˆ†ç±»
      * @param int $gid
      * @return array array('chain'=>,'default'=>,1=>,2=>);
      */
     public function getCategoryLevel($pid = 0){
         $where  = array('status' => 1);
-        $categorys=array();
         $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs')->where($where)->select();
-        foreach ($category as $key => $cate) {
-            $categorys[$cate['pid']][] = $cate;
-        }
-        $pid_chain = array();//¸¸¼¶·ÖÀàµÄÁ´£¬°üº¬×ÔÉí
 
+        $res = $this->generateTree($category);
+
+        return  $this->getCateChain($pid,$res);
+
+    }
+
+
+    /**
+     * è·å–ä¸‹çº§æ‰€æœ‰åˆ†ç±»ï¼Œä»¥åŠåˆ†ç±»é“¾
+     * @param $pid
+     * @param $category
+     * @return mixed
+     */
+    private function getCateChain($pid,$category){
+         static $chain = array();
+        static $res = array();
+        $len = count($category);
+        $step = 0;
         if($pid!=0){
-            $pid_chain[] = $pid;
-            $parent_id = $pid;
-            while($parent_id!=0){
-                $parent_id = $this->getParentCateId($parent_id);
-                $pid_chain[] = $parent_id;
-            }
-        }
-
-        return $this->getTree($categorys,$pid,1,$pid_chain);
-    }
-
-    /**
-     * ÕÒ³ö¸¸¼¶·ÖÀàid
-     * @param $id
-     */
-    private function getParentCateId($id){
-        return $this->_productObj->table('product_category')->where(array('id'=>$id))->getField('pid');
-    }
-
-
-
-
-    /**
-     * [getTree »ñÈ¡·ÖÀàĞÅÏ¢Ê÷,Ä¬ÈÏ»ñÈ¡µÚÒ»¸ö¸¸ÀàµÄ×ÓÀàÊôĞÔ]
-     * @param  [type]  $list [·ÖÀàĞÅÏ¢]
-     * @param  integer $pid  [pid]
-     * @param array $chain ¸¸¼¶·ÖÀàÁ´
-     * @return [type]        [description]
-     */
-    private function getTree(& $list,  $pid=0, $level=1,$chain=array()){
-        $last = 0;
-        static $category = array();
-        if(!empty($chain))
-            $category['chain'] = $chain;
-        if(isset($list[$pid])){
-            foreach ($list as $p => $cate) {//$pÊÇ¸¸ÀàµÄid
-                if ($p == $pid) {
-                    if ($last == 0) {
-                        $last = $cate[0]['id'];
-                        $category['chain'][] = $last;
-                        $category['default'] = $last;
+            foreach($category as $k=>$v){
+                $step += 1;
+                $chain[] = $k;
+                if($k!=$pid && !empty($category[$k]['child'])){
+                    $this->getCateChain($pid,$category[$k]['child']);
+                }
+                else if($k!=$pid && empty($category[$k]['child'])){//ä¸ç­‰äºpidä¸”æ— ä¸‹çº§åˆ†ç±»
+                    array_pop($chain);
+                }
+                else if($k==$pid){
+                    $pidChain = $chain;
+                    $cate = $this->getchildCate($category[$k]['child']);
+                    if(empty($cate)){
+                        $res['chain'] = $pidChain;
+                        $res['cate']  = array();
+                        $res['default'] = $pid;
+                        $res['unit'] = $v['unit'];
                     }
-                    foreach($cate as $k=>$v){
-                        $m = new M('product_category');
-                        $childname = $m->where(array('id'=>$pid))->getField('childname');
-                        $category['cate'][$level]['childname'] = $childname ? $childname : '';
-                        if($k+1<=$this->product_limit){
-                            $category['cate'][$level]['show'][] = $v;
-                        }
-                        else
-                            $category['cate'][$level]['hide'][] = $v;
+                    else{
+                        $res['chain'] = array_merge($pidChain,$cate[1]);
+                        $res['cate']  = $cate[0];
+                        $res['default'] = $cate[1][count($cate[1])-1];
+                        $res['unit'] = $cate[2];
                     }
 
                 }
-            }
-            if ($last == 0) {
-                return array();
-            }else{
-                $level++;
-                $this->getTree($list, $last, $level);
+                if($len==$step)array_pop($chain);
             }
         }
         else{
-            $category['default'] = $pid;
+            $cate = $this->getchildCate($category);
+            $res['chain'] = $cate[1];
+            $res['cate']  = $cate[0];
+            $res['default'] = $cate[1][count($cate[1])-1];
+            $res['unit'] = $cate[2];
+
         }
 
-        return $category;
+
+        return $res;
+    }
+
+    /**
+     * è·å–ä¸‹çº§æ‰€æœ‰åˆ†ç±»ï¼Œä»¥åŠä¸‹çº§æ‰€æœ‰ç¬¬ä¸€ä¸ªåˆ†ç±»id,å•ä½
+     * @param array
+     */
+    private function getChildCate($cate,$level=1){
+        if(empty($cate))return array();
+        static $cateChild = array();
+        static $cateFirst = array();
+         static $step = 0;
+        static $unit = '';
+        $step1 = 0;
+        foreach($cate as $k=>$v){
+
+            if($step==0){//è®°å½•ç¬¬ä¸€ä¸ªåˆ†ç±»åºåˆ—
+                $cateFirst[] = $k;
+                $unit = $v['unit'];
+            }
+
+            if(isset($cate[$k]['child'])){
+                $temp = $cate[$k]['child'];
+                unset($cate[$k]['child']);
+                $cateChild[$level]['show'][] = $cate[$k];//æ‰€æœ‰åˆ†ç±»å†™å…¥
+
+                if($step1==0 ) {//åªæœ‰ç¬¬ä¸€ä¸ªåˆ†ç±»æ‰éå†å­åˆ†ç±»
+                    $this->getChildCate($temp,$level+1);
+                }
+
+            }
+            else{
+                $cateChild[$level]['show'][] = $cate[$k];//æ‰€æœ‰åˆ†ç±»å†™å…¥
+            }
+
+            $step1 +=1;
+            $step += 1;
+        }
+        return array($cateChild,$cateFirst,$unit);
     }
     /**
-     *»ñÈ¡ËùÓĞ·ÖÀàµÄÊôĞÔ£¬È¥³ıÖØ¸´
-     * @param array $cates ·ÖÀàÊı×é,array(2,3)
+     * è·å–é€’å½’æ•°ç»„
+     * @param array $items
+     * @param int $pid çˆ¶ç±»id
+     * @return array
+     */
+    private  function generateTree(&$items,$pid=0,$unit=''){
+         $tree = array();
+
+        foreach($items as $key=>$item){
+            if($item['pid']==$pid){
+                $v = $items[$key];
+                $v['unit'] = $items[$key]['unit'] =='' ? $unit : $items[$key]['unit'] ;
+
+                $tree[$item['id']] = $v;
+                unset($items[$key]);
+                $tree[$item['id']]['child'] = $this->generateTree($items,$item['id'],$v['unit']);
+
+            }
+        }
+
+         return  $tree;
+    }
+
+
+    /**
+     *è·å–æ‰€æœ‰åˆ†ç±»çš„å±æ€§ï¼Œå»é™¤é‡å¤
+     * @param array $cates åˆ†ç±»æ•°ç»„,array(2,3)
      * @return mixed
      */
     public function getProductAttr($cates=array()){
@@ -164,8 +213,8 @@ class product{
     }
 
     /**
-     * ÑéÖ¤ÉÌÆ·Êı¾İÊÇ·ñÕıÈ·
-     * @param array $productData ÉÌÆ·Êı¾İ
+     * éªŒè¯å•†å“æ•°æ®æ˜¯å¦æ­£ç¡®
+     * @param array $productData å•†å“æ•°æ®
      * @return bool
      */
     public function proValidate($productData){
@@ -176,12 +225,49 @@ class product{
         return false;
     }
 
-
     /**
-         * Ìí¼ÓÉÌÆ·Êı¾İ
-         * @param  [Array] &$productData [Ìá½»µÄÉÌÆ·Êı¾İ]
-         * @param  [Array] &$productOffer[Ìá½»µÄ±¨ÅÌÊı¾İ]
-         * @return [Array]               [Ìí¼ÓÊÇ·ñ³É¹¦£¬¼°Ê§°ÜĞÅÏ¢]
+     * è·å–äº§å“çš„å±æ€§å€¼ï¼Œå¯¹åº”çš„å±æ€§id
+     * @param  array  $attr_id [å±æ€§id]
+     * @return [Array]   
+     */
+    public function getHTMLProductAttr($attr_id = array()){
+        $attrs = array();
+        if (!empty($attr_id)) {
+            $attrObj = new M('product_attribute');
+            $attr_id = $attrObj->fields('id, name')->where('id IN (' . implode(',', $attr_id) . ')')->select();
+            foreach ($attr_id as $value) {
+               $attrs[$value['id']] = $value['name']; 
+            }
+        }
+
+        return $attrs;
+    }
+
+        /**
+         * æ ¹æ®äº§å“idè·å–å›¾ç‰‡
+         * @param  [type] $pid [description]
+         * @return [type]      [description]
+         */
+        public function getProductPhoto($pid = 0){
+            $photos = array();
+            if (intval($pid) > 0) {
+                $imgObj = new M('product_photos');
+                $photos = $imgObj->fields('id, img')->where('products_id = ' .  $pid)->select();
+
+                foreach ($photos as $key => $value) {
+                    $photos[$key] = Thumb::get($value['img'],180,180);
+                }
+
+            }
+
+            return $photos;
+        }
+
+        /**
+         * æ·»åŠ å•†å“æ•°æ®
+         * @param  [Array] &$productData [æäº¤çš„å•†å“æ•°æ®]
+         * @param  [Array] &$productOffer[æäº¤çš„æŠ¥ç›˜æ•°æ®]
+         * @return [Array]               [æ·»åŠ æ˜¯å¦æˆåŠŸï¼ŒåŠå¤±è´¥ä¿¡æ¯]
          */
         public function insertOffer(&$productData, &$productOffer){
             if ($this->_productObj->validate($this->productRules,$productData)){
@@ -209,16 +295,32 @@ class product{
             }
 
             if ($res === TRUE) {
-                return tool::getSuccInfo(1, 'add Success');
+                return Tool::getSuccInfo(1, 'add Success');
             }else{
-                $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : 'ÏµÍ³·±Ã¦£¬ÇëÉÔºóÔÙÊÔ');
+                $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : 'ç³»ç»Ÿç¹å¿™ï¼Œè¯·ç¨åå†è¯•');
             }
-
 
         return $resInfo;
     }
 
-    
+    /**
+     * ä»“å•æŠ¥ç›˜æ•°æ®æ·»åŠ 
+     * @param  [Array] $productOffer [æŠ¥ç›˜çš„æ•°æ®]
+     * @return [Array]      
+     */
+    public function insertStoreOffer( & $productOffer){
+        if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
+            $res = (int)$this->_productObj->table('product_offer')->data($productOffer)->add(0);
+        }else{
+            $res = $this->_productObj->getError();
+        }
+
+        if (is_int($res)) {
+            return Tool::getSuccInfo(1, 'add Success');
+        }else{
+            return Tool::getSuccInfo(0,is_string($res) ? $res : 'ç³»ç»Ÿç¹å¿™ï¼Œè¯·ç¨åå†è¯•');
+        }
+    }
 
 
 

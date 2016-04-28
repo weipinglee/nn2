@@ -18,6 +18,11 @@ class UcenterController extends Yaf\Controller_Abstract {
     public function init(){
         $right = new checkRight();
         $right->checkLogin($this);//未登录自动跳到登录页
+
+        $this->getView()->assign('leftArray', $this->getLeftArray());
+        $controller = $this->getRequest()->getControllerName();
+        $action = $this->getRequest()->getActionName();
+        $this->getView()->assign('leftCur', url::createUrl('/'.$controller.'/'.$action));
         $this->getView()->setLayout('ucenter');
     }
     /**
@@ -27,6 +32,23 @@ class UcenterController extends Yaf\Controller_Abstract {
         
     }
 
+    private function  getLeftArray(){
+        return array(
+            array('name' => '账户管理', 'list' =>'' ),
+            array('name' => '账户管理', 'list' => array(
+                array('url' => url::createUrl('/ucenter/info'), 'title' => '基本信息' ),
+                array('url' => url::createUrl('/ucenter/password'), 'title' => '修改密码' ),
+            )),
+            array('name' => '资质认证', 'list' => array(
+                array('url' => url::createUrl('/ucenter/dealCert'), 'title' => '交易商' ),
+                array('url' => url::createUrl('/ucenter/storeCert'), 'title' => '仓库管理员' ),
+            )),
+            array('name' => '子账户管理', 'list' => array(
+                array('url' => url::createUrl('/ucenter/subAcc'), 'title' => '添加子账户' ),
+            )),
+
+        );
+    }
     /**
      * 基本信息修改
      */
@@ -225,6 +247,17 @@ class UcenterController extends Yaf\Controller_Abstract {
         $this->getView()->assign('cert',$res);
 
     }
+
+    /**
+     * 交易商认证页面
+     *
+     */
+    public function certTestAction(){
+        $cert = new \nainai\cert\certDealer();
+        $certData = $cert->getCertData($this->user_id);print_r($certData);
+       $this->getView()->assign('certData',$certData);
+        $this->getView()->assign('userType',$certData['type']);
+    }
     /**
      * 仓库认证
      */
@@ -295,7 +328,7 @@ class UcenterController extends Yaf\Controller_Abstract {
      */
     public function subAccAction(){
 
-        $arr = $this->getRequest()->getParams();print_r($arr);
+        $arr = $this->getRequest()->getParams();
         $uid = safe::filter($arr['uid'],'int','');
         $user_data = array(
             'id'      => $uid,
