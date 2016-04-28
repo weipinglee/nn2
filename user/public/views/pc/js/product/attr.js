@@ -10,9 +10,61 @@ $(document).ready(function(){
         }else{
             $('#nowrap').hide();
         }
-    })
+    });
+
+    $('#package').change(function(){
+        if ($('#package').val() == 1) {
+            $('#packUnit').show();
+            $('#packNumber').show();
+            $('#packWeight').show();
+        }else{
+            $('#packUnit').hide();
+            $('#packNumber').hide();
+            $('#packWeight').hide();
+        }
+    });
 
     $('[id^=level]').find('li').on('click',getCategory);
+
+    $('#storeList').change(function(){
+        $.ajax({
+             'url' :  $('#ajaxGetStoreUrl').val(),
+            'type' : 'post',
+            'data' : {pid : $('#storeList').val()},
+            'dataType': 'json',
+            success:function(data){
+                $('#pname').html(data.storeDetail.pname);
+                $('#cname').html(data.storeDetail.cname);
+                $('#create_time').html(data.storeDetail.create_time);
+                $('#unit').html(data.storeDetail.unit);
+                $('#quantity').html(data.storeDetail.quantity);
+                $('#attrs').html(data.storeDetail.attrs);
+                $('#id').val(data.storeDetail.sid);
+                $('#product_id').val(data.storeDetail.pid);
+
+                var areaData= getAreaData();
+                var p =  areaData[0];
+                var q = areaData[1];
+                var dis_arr = areaData[2];
+                var d = 0;
+                var b = 0;
+                var l = 0;
+                if (data.storeDetail.produce_area != undefined) {
+                    d = parseInt(data.storeDetail.produce_area.substring(0,2));
+                    if(data.storeDetail.produce_area.length>3) b = parseInt(data.storeDetail.produce_area.substring(0,4));
+                    if(data.storeDetail.produce_area.length>5) l = parseInt(data.storeDetail.produce_area.substring(0,6));
+                 }
+
+                $('#area').html(p[d] + q[d][b] + dis_arr[b][l]);
+ 
+                var insertHtml = '';
+                $.each(data.photos, function(key, value){
+                    insertHtml += '<img src="' + value + '" />';
+                });
+                $('#photos').html(insertHtml);
+            }
+        });
+    });
 
 })
 
