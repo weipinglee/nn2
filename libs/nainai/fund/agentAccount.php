@@ -134,14 +134,14 @@ use \Library\Time;
             $fund = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('fund');
             if($fund===false || $fund<$num)
                 return $this->errorCode['fundLess'];
-            $this->agentModel->beginTrans();
+            // $this->agentModel->beginTrans();
             $this->createFlowData($user_id,$num,'freeze');
             $this->agentModel->table($this->agentTable);
             $sql = 'UPDATE '.$this->agentModel->table().
                 ' SET fund = fund - :fund ,freeze = freeze + :fund  WHERE user_id = :user_id';
             $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
-
-            return $this->agentModel->commit();
+            return true;
+            // return $this->agentModel->commit();
 
         }
         else{
@@ -159,14 +159,14 @@ use \Library\Time;
             $freeze = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('freeze');
             if($freeze===false || $freeze<$num)
                 return $this->errorCode['freezeLess'];
-            $this->agentModel->beginTrans();
+            //$this->agentModel->beginTrans();
             $this->createFlowData($user_id,-$num,'freeze');
             $this->agentModel->table($this->agentTable);
             $sql = 'UPDATE '.$this->agentModel->table().
                 ' SET fund = fund + :fund ,freeze = freeze - :fund  WHERE user_id = :user_id';
             $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
-
-            return $this->agentModel->commit();
+            return true;
+            //return $this->agentModel->commit();
 
         }
         else{
