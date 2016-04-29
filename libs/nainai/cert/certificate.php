@@ -151,10 +151,10 @@ class certificate{
 
         if($this->user_type==1)
             $accTable = 'company_info';
-        else $accTable = 'person_info';//echo \Library\JSON::encode(array('d'=>$accTable));exit;
-        $certModel->table($accTable)->data($accData)->where(array('user_id'=>$user_id));
-        $certModel->update();
-        echo 56;exit;
+        else $accTable = 'person_info';
+
+        $certModel->table($accTable)->data($accData)->where(array('user_id'=>$user_id))->update();
+
 
 
     }

@@ -281,7 +281,7 @@ class UcenterController extends Yaf\Controller_Abstract {
             $accData = array();
 
             if($this->user_type==1){
-                $accData['company_info'] = Safe::filterPost('company_info');
+                $accData['company_name'] = Safe::filterPost('company_name');
                 $accData['legal_person'] = Safe::filterPost('legal_person');
                 $accData['contact'] = Safe::filterPost('contact');
                 $accData['contact_phone'] = Safe::filterPost('phone');
@@ -301,7 +301,7 @@ class UcenterController extends Yaf\Controller_Abstract {
             $cert = new \nainai\cert\certDealer($user_id,$this->user_type);
 
             $res = $cert->certDealApply($accData);
-echo 4;exit;
+
             if($res['success']==1)
                 echo 1;
             else
