@@ -19,14 +19,61 @@ class certificate{
     const CERT_SUCCESS =   2; //后台确认认证通过
     const CERT_FAIL    =   3; //后台拒绝认证
 
+    protected static $certType = '';
     protected $certTable = array(
         'deal'=>'dealer',
         'store'=>'store_manager'
 
     );
 
-    protected $certFields = array();
+    protected static $certClass = array(
+        'deal'=>'certDealer',
+        'store'=>'certStore'
+    );
 
+    protected static $certFields = array();
+
+
+    protected $user_type = '';
+    protected $user_id  ;
+
+    public function __construct($user_id,$user_type){
+        $this->user_type = $user_type==1 ? 1 : 0;
+        $this->user_id   = $user_id  ;
+    }
+    /**
+     * 验证其他的认证是否会失效
+     * @param array $oldData 旧的数据
+     * @param array $accData 账户数据（公司、个人表数据）
+     * @return array 需要重新认证的类型数组
+     */
+    public function checkOtherCert($accData){
+        $user_id = $this->user_id;
+        $certType = self::$certType;
+        $certClass = self::$certClass;
+        unset($certClass[$certType]);
+        $reCertType = array();//需要重新认证的类型
+        $oldData = $this->getCertDetail($user_id);//包括user、个人/企业表的数据
+
+        if(!empty($certClass)){
+            foreach($certClass as $type=>$class){
+                $classObj = '\nainai\cert\\'.$class;
+                $fields = $classObj::$certFields[$this->user_type];
+
+                foreach($fields as $f){
+                    if(isset($oldData[$f]) && isset($accData[$f]) && $oldData[$f]!=$accData[$f]){
+                        $reCertType[] = $type;
+                        break;
+                    }
+
+                }
+
+            }
+        }
+        return $reCertType;
+
+
+    }
     /**
      * 获取用户认证状态
      */
@@ -82,30 +129,35 @@ class certificate{
         }
         return $certArr;
     }
+
+
     /**
-     * 检验用户是否信息填写完整
-     * @param int $user_id
-     * @param int $type
+     * 插入认证数据
+     * @param string $certType 认证类型
+     * @param array $accData 账户数据（个人、公司表数据)
+     * @param array $certData 认证数据
      */
-    public function checkUserInfo($user_id,$type){
-        $userModel = new \UserModel();
-        return $userModel->checkUserInfo($user_id,$type);
-    }
-    /**
-     * 认证交易商
-     * @param int $user_id 用户id
-     */
-    public function certDealApply($user_id){
-        $certModel = new M('dealer');
+    public function createCertApply($certType,$accData,$certData){
+        $user_id = $this->user_id;
+        $certModel = new M($this->certTable[$certType]);
+        $update = $certData;
         $status = self::CERT_APPLY;
-        $insert_data = array('user_id'=>$user_id,'status'=>$status,'apply_time'=>Time::getDateTime());
-        $update_data = array('status'=>$status,'apply_time'=>Time::getDateTime());
-        return $certModel->insertUpdate($insert_data,$update_data);
+        $certData['status'] = $status;
+        $certData['user_id'] = $this->user_id;
+        $certData['apply_time'] = Time::getDateTime();
 
+
+        $certModel->insertUpdate($certData,$certData);//更新或插入认证数据
+
+        if($this->user_type==1)
+            $accTable = 'company_info';
+        else $accTable = 'person_info';//echo \Library\JSON::encode(array('d'=>$accTable));exit;
+        $certModel->table($accTable)->data($accData)->where(array('user_id'=>$user_id));
+        $certModel->update();
+        echo 56;exit;
 
 
     }
-
     /**
      * 认证仓库管理
      * @param int $user_id
@@ -141,20 +193,28 @@ class certificate{
 
     /**
      *认证复原，status改为0，需重新认证
-     * @param int $user_id
+     * @param array $reCert 重新认证的类型数组
      *
      */
-    public function certInit($user_id){
+    public function certInit($reCert){
         $tables = $this->certTable;
         $m = '';
-        foreach($tables as $val){
-            $m = new M($val);
-            $res = $m->data(array('status'=>self::CERT_INIT))->where(array('user_id'=>$user_id))->update();
-            if($res===false)//更新失败，后续不再更新
-                break;
+        $user_id = $this->user_id;
+        foreach($tables as $k=> $val){
+            if(!in_array($k,$reCert))
+                continue;
+
+           if(is_object($m)) {
+               $m->table($val);
+           }
+            else{
+                $m = new M($val);
+            }
+            $m->data(array('status'=>self::CERT_INIT))->where(array('user_id'=>$user_id))->update();
+
         }
-        if(is_object($m))
-             $m->commit();
+
+
 
 
     }
@@ -193,17 +253,20 @@ class certificate{
     /**
      * 获取申请认证的详细信息
      * @param int $id 用户id
-     * @param string $certType 认证类型
+     * @param string $certType 认证类型 如果为空，不获取认证表数据
      */
-    protected function getCertDetail($id,$certType){
+    protected function getCertDetail($id,$certType=''){
         $userModel = new M('user');
         $userData = $userModel->fields('username,type,mobile,email')->where(array('id'=>$id,'pid'=>0))->getObj();
 
         if(!empty($userData)){
             $userDetail = $userData['type']==1 ? $this->getCompanyInfo($id) : $this->getPersonInfo($id);
-            $userCert   = $userModel->table($this->getCertTable($certType))->where(array('user_id'=>$id))->getObj();
+            if($certType!=''){
+                $userCert   = $userModel->table($this->getCertTable($certType))->where(array('user_id'=>$id))->getObj();
+                return array_merge($userData,$userDetail,$userCert);
+            }
+            return $userDetail;
 
-            return array_merge($userDetail,$userCert,$userData);
         }
         return array();
 

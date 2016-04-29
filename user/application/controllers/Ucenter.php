@@ -253,7 +253,7 @@ class UcenterController extends Yaf\Controller_Abstract {
      *
      */
     public function certTestAction(){
-        $cert = new \nainai\cert\certDealer();
+        $cert = new \nainai\cert\certDealer($this->user_type);
         $certData = $cert->getCertData($this->user_id);print_r($certData);
        $this->getView()->assign('certData',$certData);
         $this->getView()->assign('userType',$certData['type']);
@@ -277,20 +277,35 @@ class UcenterController extends Yaf\Controller_Abstract {
 
         if(IS_AJAX){
             $user_id = $this->user_id;
-            $cert = new \nainai\certificate();
-            if(!empty($res = $cert->checkUserInfo($user_id,$this->user_type))){//用户信息不完整
-                $res['return']=Url::createUrl('/ucenter/info');
-                echo JSON::encode($res);
-                exit;
-            }
-            else if($res=$cert->certDealApply($user_id)) {//提交成功
-                echo JSON::encode(Tool::getSuccInfo());
-                exit;
+
+            $accData = array();
+
+            if($this->user_type==1){
+                $accData['company_info'] = Safe::filterPost('company_info');
+                $accData['legal_person'] = Safe::filterPost('legal_person');
+                $accData['contact'] = Safe::filterPost('contact');
+                $accData['contact_phone'] = Safe::filterPost('phone');
+                $accData['area'] = Safe::filterPost('area');
+                $accData['address'] = Safe::filterPost('address');
+                $accData['cert_bl'] = Tool::setImgApp(Safe::filterPost('imgfile1'));
+                $accData['cert_tax'] = Tool::setImgApp(Safe::filterPost('imgfile2'));
+                $accData['cert_oc'] = Tool::setImgApp(Safe::filterPost('imgfile3'));
             }
             else{
-               echo JSON::decode(Tool::getSuccInfo(0,'系统繁忙，稍后再试',Url::createUrl('/ucenter/dealCert')));
-                exit;
+                $accData['true_name'] = Safe::filterPost('true_name');
+                $accData['identify_no'] = Safe::filterPost('identify_no');
+                $accData['identify_front'] = Tool::setImgApp(Safe::filterPost('imgfile1'));
+                $accData['identify_back'] = Tool::setImgApp(Safe::filterPost('imgfile2'));
             }
+
+            $cert = new \nainai\cert\certDealer($user_id,$this->user_type);
+
+            $res = $cert->certDealApply($accData);
+echo 4;exit;
+            if($res['success']==1)
+                echo 1;
+            else
+                echo 0;
         }
         return false;
 

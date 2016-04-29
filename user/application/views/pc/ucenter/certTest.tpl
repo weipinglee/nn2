@@ -3,6 +3,7 @@
 <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{views:js/upload.js}"></script>
+<script type="text/javascript" src="{views:js/cert/cert.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 			<div class="user_c">
 				<div class="user_zhxi">
@@ -20,8 +21,9 @@
 						</ul>
 
 					</div>
+					<form method="post" action="{url:/ucenter/doDealCert}">
 					<div class="re_xx">
-						<form method="post" action="{url:/ucenter/dealerCert}">
+
 						<!--公司信息-->
 						{if:$userType==1}
 							<div class="zhxi_con">
@@ -33,20 +35,20 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>法定代表人：</span>
 							<span>
-								<input class="text" type="text" value="{$certData['legal_person']}"/>
+								<input class="text" type="text" name="legal_person" value="{$certData['legal_person']}"/>
 							</span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>联系人：</span>
 							<span>
-								<input class="text" type="text" value="{$certData['contact']}"/>
+								<input class="text" type="text" name="contact" value="{$certData['contact']}"/>
 							</span>
 							</div>
 
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>联系电话：</span>
 							<span>
-								<input class="text" type="text" value="{$certData['contact_phone']}"/>
+								<input class="text" type="text" name="phone" value="{$certData['contact_phone']}"/>
 							</span>
 							</div>
 							<div class="zhxi_con">
@@ -58,7 +60,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>详细地址：</span>
 							<span>
-								<input class="text" type="text" value="{$certData['address']}"/>
+								<input class="text" type="text" name="address" value="{$certData['address']}"/>
 							</span>
 							</div>
 							<div class="zhxi_con">
@@ -109,9 +111,9 @@
 
 						{/if}
 						<div class="zhxi_con">
-							<span><input class="submit" type="submit" value="保存"/></span>
+							<span><input class="submit" type="button" onclick="nextTab()" value="下一步"/></span>
 						</div>
-						</form>
+
 					</div>
 
 					<div class="yz_img">
@@ -191,10 +193,10 @@
 							</div>
 						{/if}
 						<div class="zhxi_con">
-							<span><input class="submit" type="submit" value="提交审核"></span>
+							<span><input class="submit" onclick="toCertApply()" type="button" value="提交审核"></span>
 						</div>
 					</div>
-
+					</form>
 					<div class="sh_jg">
 						<div class="success_text">
 							<p><b class="b_size">恭喜您，认证申请已提交成功！</b></p>
