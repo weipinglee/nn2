@@ -34,7 +34,7 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
     }
 
 	public function depositListAction(){
-		$user_id = 42;
+		$user_id = $this->user_id;
 		$deposit = new \nainai\order\DepositOrder();
 		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);

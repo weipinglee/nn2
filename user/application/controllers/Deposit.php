@@ -35,7 +35,7 @@ class DepositController extends Yaf\Controller_Abstract{
 		$orderData['id'] = safe::filter('id','int');
 		$orderData['type'] = safe::filter('type');//1:全款 0:定金
 
-		$id = 5;
+		$id = 1;
 		$type = 0;//1:全款 0:定金		
 		$res = $this->deposit->buyerDeposit($id,$type);
 		var_dump($res);
@@ -60,7 +60,7 @@ class DepositController extends Yaf\Controller_Abstract{
 		$order_id = safe::filter('id','int');
 		$type = safe::filter('type');//online:线上 offline:线下
 
-		$order_id = 5;
+		$order_id = 1;
 		$type = 'online';
 
 		$res = $this->deposit->buyerRetainage($order_id,$type);

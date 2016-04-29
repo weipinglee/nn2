@@ -27,7 +27,7 @@ class DepositOrder{
 	private $account;//用户资金类
 
 	public function __construct(){
-		$this->order = new M('deposit_order');
+		$this->order = new M('order_deposit');
 		$this->offer = new M('product_offer');
 		$this->account = new \nainai\fund\agentAccount();
 	}
@@ -141,7 +141,7 @@ class DepositOrder{
 	 * @return int:用户id string:错误信息
 	 */
 	public function sellerUserid($order_id){
-		$query = new Query('deposit_order as o');
+		$query = new Query('order_deposit as o');
 		$query->join = 'left join product_offer as po on po.id = o.offer_id';
 		$query->fields = 'po.user_id';
 		$query->where = 'o.id=:id';
@@ -197,7 +197,7 @@ class DepositOrder{
 					$this->order->rollBack();
 					$res = $upd_res['info'];
 				}
-			} catch (PDOException $e) {
+			} catch (\PDOException $e) {
 				$res = $e->getMessage();
 				$this->order->rollBack();
 			}
@@ -269,7 +269,7 @@ class DepositOrder{
 					$this->order->rollBack();
 					$res = isset($acc_res['info']) ? $acc_res['info'] : $res;
 				}
-			} catch (PDOException $e) {
+			} catch (\PDOException $e) {
 				$res = $e->getMessage();
 				$this->order->rollBack();
 			}
@@ -406,7 +406,7 @@ class DepositOrder{
 	 * @param  int $user_id 卖家id
 	 */
 	public function depositContractList($user_id,$page,$where = array()){
-		$query = new Query('deposit_order as do');
+		$query = new Query('order_deposit as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
 		$query->where = 'po.user_id = :user_id';
 		// $bind = array();
