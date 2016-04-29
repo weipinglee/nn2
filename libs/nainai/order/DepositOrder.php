@@ -290,8 +290,7 @@ class DepositOrder{
 				if($acc_res === true){
 					$upd_res = $this->orderUpdate($orderData);
 					if($upd_res['success'] == 1){
-						$res = $pro_res === true && $log_res === true ? $this->order->commit() : $pro_res === true ? $log_res : $pro_res;
-						var_dump($log_res);
+						$res = $pro_res === true && $log_res === true ? $this->order->commit() : ($pro_res === true ? $log_res : $pro_res);
 					}else{
 						$this->order->rollBack();
 						$res = $upd_res['info'];
