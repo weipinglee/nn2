@@ -171,9 +171,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
             $return_json['storeDetail'] = $storeModel->getUserStoreDetail($pid);
             $attr_ids = array();
             $return_json['storeDetail']['attribute'] = unserialize($return_json['storeDetail']['attribute']);
-            foreach ($return_json['storeDetail']['attribute'] as $key => $value) {
-                $attr_ids[] = $key;
-            }
+            $attr_ids = array_keys($return_json['storeDetail']['attribute']);
 
             $productModel = new \nainai\product(); 
             $attrs = $productModel->getHTMLProductAttr($attr_ids);

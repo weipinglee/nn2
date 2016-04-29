@@ -51,7 +51,10 @@ class store{
      * 获取仓单列表
      * @param  [Int] $page     
      * @param  [Int] $pagesize 
-     * @return [Array]       ]
+     * @return  [Array]       仓单列表数据
+     * @return  [Array.list] [<仓单列表数据>]
+     * @return  [Array.PageHtml] [<仓单分页html>]
+     * @return  [Array.attrs] [<仓单产品分类id对应的中文名>]
      */
     public function getApplyStoreList($page, $pagesize, $user_id=0){
          //仓单列表
@@ -86,7 +89,7 @@ class store{
     }
 
     /**
-     * 审核仓单
+     * 修改仓单的数据
      * @param [Array] $store [审核的仓单数据]
      * @param [Int] $id    [仓单id]
      */
@@ -96,7 +99,7 @@ class store{
     }
 
     /**
-     * [获取用户的仓单列表, 并且没有添加报盘]
+     * [获取没有添加报盘的用户的仓单列表]
      * @param  [Int] $uid [用户id]
      * @return [Array]
      */
@@ -111,7 +114,7 @@ class store{
     }
 
     /**
-     * 获取对应的仓单详情
+     * 获取根据仓单的id对应的仓单详情
      * @param  [Int] $id [仓单id]
      * @return [Array]
      */

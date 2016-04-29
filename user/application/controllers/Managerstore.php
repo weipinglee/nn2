@@ -36,7 +36,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 		$page = Safe::filterGet('page', 'int', 0);
 		$store = new store();
 		$data = $store->getApplyStoreList($page, $this->pagesize);
-
+				
 		$this->getView()->assign('statuList', $store->getStatus());
 		$this->getView()->assign('storeList', $data['list']);
 		$this->getView()->assign('attrs', $data['attrs']);
@@ -77,9 +77,7 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 		        $productModel = new \nainai\product();
 		        $attr_ids = array();
 		        $data['attribute'] = unserialize($data['attribute']);
-		        foreach ($data['attribute'] as $key => $value) {
-		        		$attr_ids[] = $key;
-		        }
+		        $attr_ids = array_keys($data['attribute']);
 
 		       $this->getView()->assign('detail', $data);
 	                $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
