@@ -23,6 +23,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
      */
     private $_limiteProduct = 2;
 
+
     /**
      * 提示mode对应的类型
      * @var array
@@ -30,8 +31,8 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
     private $_mode = array(
         1 => '自由报盘',
         2 => '保证金报盘',
-        3 => '仓单报盘',
-        4 => '委托报盘'
+        3 => '委托报盘',
+        4 => '仓单报盘'
     );
 
 
@@ -260,17 +261,43 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
 
            if($res['success']==1)
                $this->redirect('addSuccess');
-           else $this->redirect('offer');
+           else $this->redirect('indexoffer');
        }
 
         return false;
     }
 
-
+    /**
+     * 处理仓单报盘
+     * @return
+     */
     public function doStoreOfferAction(){
-        if(IS_POST){
-            
+        if (IS_POST) {
+            $id = Safe::filterPost('id', 'int', 0);
+            $storeObj = new \nainai\store();
+            if ($storeObj->judgeIsUserStore($id, $this->user_id)) { //判断是否为用户的仓单
+                // 报盘数据
+                $offerData = array(
+                    'apply_time'  => \Library\Time::getDateTime(),
+                    'divide'      => Safe::filterPost('divide', 'int'),
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+                    'status'      => 0,
+                    'accept_area' => Safe::filterPost('accept_area'),
+                    'accept_day' => Safe::filterPost('accept_day', 'int'),
+                    'price'        => Safe::filterPost('price', 'float'),
+                );
+
+
+                $offerObj = new \nainai\product();
+                $offerData['product_id'] = Safe::filterPost('product_id', 'int');
+                $res = $offerObj->insertStoreOffer($offerData);
+                if($res['success']==1)
+                    $this->redirect('addSuccess');
+                else $this->redirect('offer');
+            }
+            $this->redirect('indexoffer');
         }
+
         return false;
     }
 
@@ -286,7 +313,6 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
                 'package_num' => Safe::filterPost('package_num'),
                 'package_unit' => Safe::filterPost('package_unit'),
                 'package_weight' => Safe::filterPost('package_weight'),
-                'status' => 0,
                 'apply_time'  => \Library\Time::getDateTime(),
                 'user_id' => $this->user_id
             );

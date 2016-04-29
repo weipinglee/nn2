@@ -278,7 +278,7 @@ class store{
     public function judgeIsUserStore($id, $user_id){
         if (intval($id) > 0 && intval($user_id) > 0) {
             $storeObj = new M($this->storeProduct);
-            $data = $storeObj->fields('id')->where('id=:id AND user_id=:user_id AND status=:status')->bind(array('id'=>$id, 'user_id' => $user_id, 'status' => 4))->getObj();
+            $data = $storeObj->fields('id')->where('id=:id AND user_id=:user_id AND status=:status')->bind(array('id'=>$id, 'user_id' => $user_id, 'status' => self::MARKET_AGREE))->getObj();
 
             if (!empty($data)) {
                 return true;
@@ -311,6 +311,7 @@ class store{
                 }
                 //插入仓单数据
                 $storeData['product_id'] = $pId;
+                $storeData['status'] = self::USER_APPLY;
                 $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
             }
             $res = $storeProductObj->commit();

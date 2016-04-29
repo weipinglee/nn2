@@ -16,6 +16,10 @@ class product{
 
     private $product_limit = 5;
 
+    const FREE_OFFER  = 1;
+    const DEPOSIT_OFFER = 2;
+    const DEPUTE_OFFER  = 3;
+    const STORE_OFFER = 4;
     private $_errorInfo = '';
     /**
      * 商品验证规则
@@ -310,6 +314,7 @@ class product{
      */
     public function insertStoreOffer( & $productOffer){
         if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
+            $productOffer['mode'] = self::STORE_OFFER;
             $res = (int)$this->_productObj->table('product_offer')->data($productOffer)->add(0);
         }else{
             $res = $this->_productObj->getError();
