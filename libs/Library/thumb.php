@@ -51,6 +51,7 @@ class Thumb
 		{
 			Image::thumb($sourcePath,$width,$height,$preThumb,$thumbDir);
 		}
+
 		return url::getBaseUrl().'/'.$webThumbDir.$thumbFileName;
     }
 

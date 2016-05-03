@@ -109,5 +109,10 @@ class certDealer extends certificate{
 
     }
 
+    //获取交易商认证列表
+    public function certList($page){
+       return parent::certApplyList(self::$certType,$page);
+    }
+
 
 }

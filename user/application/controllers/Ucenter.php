@@ -236,26 +236,18 @@ class UcenterController extends Yaf\Controller_Abstract {
         return false;
     }
 
-    /**
-     * 交易商认证页面
-     */
-    public function dealCertAction(){
-
-        $user_id = $this->user_id;
-        $cert = new \nainai\certificate();
-        $res = $cert->getCertShow($user_id,'deal');//获取显示数据
-        $this->getView()->assign('cert',$res);
-
-    }
 
     /**
      * 交易商认证页面
      *
      */
-    public function certTestAction(){
-        $cert = new \nainai\cert\certDealer($this->user_type);
-        $certData = $cert->getCertData($this->user_id);print_r($certData);
+    public function dealCertAction(){
+        $cert = new certDealerModel($this->user_id,$this->user_type);
+        $certData = $cert->getCertData($this->user_id);
+        $certShow = $cert->getCertShow($this->user_id);
+        print_r($certShow);
        $this->getView()->assign('certData',$certData);
+        $this->getView()->assign('certShow',$certShow);
         $this->getView()->assign('userType',$certData['type']);
     }
     /**

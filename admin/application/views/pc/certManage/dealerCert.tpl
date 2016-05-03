@@ -39,9 +39,9 @@
                 <td><input type="checkbox" value="" name=""></td>
                 <td>{$item['id']}</td>
                 <td>{$item['username']}</td>
-                <td>{$item['type']}</td>
+                <td>{echo:\nainai\member::getType($item['type'])}</td>
                 <td>{$item['mobile']}</td>
-				<td>{$item['status']}</td>
+				<td>{echo:\nainai\cert\certDealer::getStatusText($item['status'])}</td>
 				<td>{$item['apply_time']}</td>
 				
                 <td class="f-14"><a title="编辑" href="{url:/member/dealercertDetail?uid=$item['id']}"  style="text-decoration:none"><i class=" icon-edit"></i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>

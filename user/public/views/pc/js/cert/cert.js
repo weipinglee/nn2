@@ -5,8 +5,14 @@
  */
 
 //ÇÐ»»tab
-function nextTab(){
-    $('.rz_ul').find('.cur').next('li').find('a').trigger('click');
+function nextTab(step){
+    if(step===undefined){
+        $('.rz_ul').find('.cur').next('li').find('a').trigger('click');
+    }
+   else{
+        $('.rz_ul').find('li.rz_li').eq(step-1).find('a').trigger('click');
+    }
+
 
 }
 

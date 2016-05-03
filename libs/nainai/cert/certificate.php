@@ -26,9 +26,20 @@ class certificate{
 
     );
 
+
+
     protected static $certClass = array(
         'deal'=>'certDealer',
         'store'=>'certStore'
+    );
+
+    protected static $status_text = array(
+        self::CERT_BEFORE => '未申请认证',
+        self::CERT_INIT => '认证失效,需重新认证',
+        self::CERT_APPLY => '等待后台审核',
+        self::CERT_SUCCESS => '认证成功',
+        self::CERT_FAIL => '后台审核驳回'
+
     );
 
     protected static $certFields = array();
@@ -37,9 +48,18 @@ class certificate{
     protected $user_type = '';
     protected $user_id  ;
 
-    public function __construct($user_id,$user_type){
+    public function __construct($user_id=0,$user_type=''){
         $this->user_type = $user_type==1 ? 1 : 0;
         $this->user_id   = $user_id  ;
+    }
+
+    /**
+     * 获取状态信息
+     * @param $status
+     * @return string
+     */
+    public static function getStatusText($status){
+        return isset(self::$status_text[$status]) ? self::$status_text[$status] : '未知';
     }
     /**
      * 验证其他的认证是否会失效
@@ -84,51 +104,7 @@ class certificate{
         return $status_data;
     }
 
-    /**
-     * 获取用户中心认证页面显示内容
-     * @param int $user_id
-     * @param string $cert_type 认证类型
-     * @return array
-     */
-    public function getCertShow($user_id,$cert_type){
-        $status_data = $this->getCertStatus($user_id,$cert_type);
-        $certArr = array();
-        switch($status_data['status']){
-            case self::CERT_BEFORE : {//从未申请
-                $certArr['button_show'] = true;
-                $certArr['button_text'] = '去认证';
-                $certArr['status_text'] = '未认证';
 
-            }
-            break;
-            case self::CERT_INIT:{//更改资料后
-                $certArr['button_show'] = true;
-                $certArr['button_text'] = '重新认证';
-                $certArr['status_text'] = '认证失效';
-            }
-            break;
-            case self::CERT_APPLY:{//提交申请
-                $certArr['button_show'] = false;
-                $certArr['button_text'] = '';
-                $certArr['status_text'] = '等待审核';
-            }
-            break;
-            case self::CERT_SUCCESS:{//认证成功
-                $certArr['button_show'] = false;
-                $certArr['button_text'] = '';
-                $certArr['status_text'] = '认证成功';
-            }
-            break;
-            case self::CERT_FAIL : {//认证驳回
-                $certArr['button_show'] = true;
-                $certArr['button_text'] = '重新认证';
-                $certArr['status_text'] = '认证被驳回';
-                $certArr['err_info']    = $status_data['info'];
-            }
-            break;
-        }
-        return $certArr;
-    }
 
 
     /**
@@ -262,7 +238,7 @@ class certificate{
         if(!empty($userData)){
             $userDetail = $userData['type']==1 ? $this->getCompanyInfo($id) : $this->getPersonInfo($id);
             if($certType!=''){
-                $userCert   = $userModel->table($this->getCertTable($certType))->where(array('user_id'=>$id))->getObj();
+                $userCert   = $userModel->table($this->getCertTable($certType))->fields('status as cert_status,apply_time,verify_time,admin_id,message')->where(array('user_id'=>$id))->getObj();
                 return array_merge($userData,$userDetail,$userCert);
             }
             return $userDetail;
