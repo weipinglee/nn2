@@ -10,7 +10,7 @@ use \Library\M;
 use \Library\Query;
 use \Library\tool;
 use \Library\url;
-class DepositOrder extends Order{
+class StoreOrder extends Order{
 	
 	/**
 	 * 买方预付定金(全款或定金)
@@ -26,9 +26,9 @@ class DepositOrder extends Order{
 			if($info['user_id'] != $user_id)
 				return tool::getSuccInfo(0,'订单买家信息有误');
 			$orderData['id'] = $order_id;
-			$orderData['contract_status'] = self::CONTRACT_SELLER_DEPOSIT;//合同状态置为等待卖方保证金支付
 			if($type == 0){
 				//定金支付
+				$orderData['contract_status'] = self::CONTRACT_BUYER_RETAINAGE;//合同状态置为等待买方支付尾款
 				$pay_deposit = $this->payDeposit($info);
 				if(is_float($pay_deposit)){
 					$orderData['pay_deposit'] = $pay_deposit;
@@ -37,6 +37,7 @@ class DepositOrder extends Order{
 				}
 			}else{
 				//全款
+				$orderData['contract_status'] = self::CONTRACT_EFFECT;//合同状态置为已生效
 				$amount = floatval($info['amount']);
 				if($amount>0){
 					$orderData['pay_deposit'] = $amount;
@@ -84,93 +85,11 @@ class DepositOrder extends Order{
 	}
 
 	/**
-	 * 卖方支付保证金
-	 * @param  int  $order_id 订单id
-	 * @param  boolean $pay      卖方是否支付保证金 若未支付则取消合同 同时扣除卖方信誉值
-	 * @param  int $user_id session中用户id
-	 * @return array   结果信息数组
-	 */
-	public function sellerDeposit($order_id,$pay = true,$user_id){
-		$info = $this->orderInfo($order_id);
-		if(is_array($info) && isset($info['contract_status'])){
-			$orderData['id'] = $order_id;
-			$seller = $this->sellerUserid($order_id);//获取卖方帐户id
-
-			if($info['contract_status'] != self::CONTRACT_SELLER_DEPOSIT)
-				return tool::getSuccInfo(0,'合同状态有误');
-			if($seller != $user_id)
-				return tool::getSuccInfo(0,'订单卖家信息有误');
-			try {
-				$this->order->beginTrans();
-				if($pay === false){
-					//未支付 合同取消
-					
-					//扣除信誉值 TODO
-					
-					//将买方冻结资金解冻
-					$acc_res = $this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']));
-					//将商品数量解冻
-					$pro_res = $this->productsFreezeRelease($this->offerInfo($info['offer_id']),$info['num']);
-
-					$log_res = $this->payLog($order_id,$user_id,1,'卖方未支付保证金,合同作废,扣除信誉值');
-					$orderData['contract_status'] = self::CONTRACT_CANCEL;
-
-				}elseif($pay === true){
-					//卖方支付保证金
-					
-					if(is_int($seller)){
-						//获取卖方保证金数值 TODO
-						$seller_deposit = 1;
-						//冻结卖方帐户保证金
-						$acc_res = $this->account->freeze($seller,$seller_deposit);
-						$orderData['seller_deposit'] = $seller_deposit;
-						//判断此订单是否支付全款
-						if($info['amount'] === $info['pay_deposit']){
-							//全款 合同生效 等待提货 生成提货表 TODO
-							$orderData['contract_status'] = self::CONTRACT_EFFECT;
-						}else{
-							//定金 等待支付尾款
-							$orderData['contract_status'] = self::CONTRACT_BUYER_RETAINAGE;
-						}
-						$pro_res = true;
-						$log_res = $this->payLog($order_id,$user_id,1,'卖方支付保证金');
-					}else{
-						$res = $seller;
-					}
-				}else{
-					$res = '参数错误';
-				}
-
-				if($acc_res === true){
-					$upd_res = $this->orderUpdate($orderData);
-					if($upd_res['success'] == 1){
-						$res = $pro_res === true && $log_res === true ? $this->order->commit() : ($pro_res === true ? $log_res : $pro_res);
-					}else{
-						$this->order->rollBack();
-						$res = $upd_res['info'];
-					}
-				}else{
-					$this->order->rollBack();
-					$res = isset($acc_res['info']) ? $acc_res['info'] : $res;
-				}
-			} catch (PDOException $e) {
-				$res = $e->getMessage();
-				$this->order->rollBack();
-			}
-		}else{
-			$res = '无效订单id';
-		}
-
-		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res ? $res : '未知错误');
-	}
-
-
-	/**
 	 * 获取用户所有合同信息(含商品信息与买家信息)
 	 * @param  int $user_id 卖家id
 	 */
-	public function depositContractList($user_id,$page,$where = array()){
-		$query = new Query('deposit_order as do');
+	public function storeContractList($user_id,$page,$where = array()){
+		$query = new Query('store_order as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
 		$query->where = 'po.user_id = :user_id';
 		// $bind = array();
@@ -195,10 +114,6 @@ class DepositOrder extends Order{
 				case self::CONTRACT_NOTFORM:
 					$title = '等待买方付款';
 					break;
-				case self::CONTRACT_SELLER_DEPOSIT:
-					$title = '支付保证金';
-					$href  = url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']);
-					break;
 				case self::CONTRACT_CANCEL:
 					$title = '合同已作废';
 					break;
@@ -210,7 +125,7 @@ class DepositOrder extends Order{
 						$title = '等待支付尾款';
 					}else{
 						$title = '确认线下凭证';
-						$href  = url::createUrl('/Deposit/confirmProof?order_id='.$value['id']);
+						$href  = url::createUrl('/storeOrder/confirmProof?order_id='.$value['id']);
 					}
 					break;
 				case self::CONTRACT_COMPLETE:

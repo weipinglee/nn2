@@ -28,6 +28,7 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
             )),
             array('name' => '合同管理', 'list' => array(
                 array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ),
+                array('url' => url::createUrl('/Contract/storeList'), 'title' => '仓单合同' ),
                 array('url' => '', 'title' => '购买合同' ),
             ))
         );
@@ -44,6 +45,21 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
 			$where []= array(" and p.name = :name ",array('name'=>$name)); 
 		}
 		$list = $deposit->depositContractList($user_id,$page,$where);
+		$this->getView()->assign('data',$list['data']);
+		$this->getView()->assign('page',$list['bar']);
+	}
+
+	public function storeListAction(){
+		$user_id = 42;
+		$store = new \nainai\order\StoreOrder();
+		// $page = $this->_request->getParam('page');
+		$page = safe::filterGet('page','int',1);
+		$name = safe::filterPost('name');
+		$where = array();
+		if(!empty($name)){
+			$where []= array(" and p.name = :name ",array('name'=>$name)); 
+		}
+		$list = $store->storeContractList($user_id,$page,$where);
 		$this->getView()->assign('data',$list['data']);
 		$this->getView()->assign('page',$list['bar']);
 	}
