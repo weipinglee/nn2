@@ -65,7 +65,13 @@
                                 <li><a href="{url:/system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
                             </ul>
                         </li>
-                        <li><a href="{url:/system/admin/adminList}" target="content">管理员列表</a></li>
+                        <li><a target="content">管理员信息</a>
+                            <ul>
+                                <li><a href="{url:/system/admin/adminAdd}" target="content">新增管理员</a></li>
+                                <li><a href="{url:/system/admin/adminList}" target="content">管理员列表</a></li>
+                                <li><a href="{url:/system/admin/logList}" target="content">管理员操作记录</a></li>
+                            </ul>
+                        </li>
                         <li><a href="system-base.html" target="content">系统设置</a></li>
                         <li><a href="table.html" target="content">导航栏目管理</a></li>
                         <li><a href="tabs.html" target="content">地域信息管理</a></li>

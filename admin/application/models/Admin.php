@@ -113,4 +113,41 @@ class AdminModel{
 		return $info ? $info : array();
 	}
 
+	//管理员操作记录 默认登陆
+	public function adminLog($admin_id,$ip,$type = 'login'){
+		if(intval($admin_id) > 0 && !empty($type)){
+			$admin_log = new M('admin_log');
+			return $admin_log->data(array('admin_id'=>$admin_id,'ip'=>$ip,'type'=>$type,'time'=>date('Y-m-d H:i:s',time())))->add();
+		}else{
+			return '参数错误';
+		}
+	}
+
+	//获取管理员操作记录
+	public function logList($page,$name='')
+	{
+		$Q = new Query('admin as a');
+		$Q->join = 'right join admin_log as l on a.id = l.admin_id';
+		$Q->page = $page;
+		$Q->pagesize = 5;
+		$Q->fields = "l.*,a.name";
+		$Q->order = "l.time desc";
+		$Q->where = "a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
+		$data = $Q->find();
+		foreach ($data as $key => &$value) {
+			switch ($value['type']) {
+				case 'login':
+					$type = '登录';
+					break;
+				
+				default:
+					$type = '登录';
+					break;
+			}
+			$value['type_txt'] = $type;
+		}
+		$pageBar =  $Q->getPageBar();
+		return array('data'=>$data,'bar'=>$pageBar);
+	}
+
 }
