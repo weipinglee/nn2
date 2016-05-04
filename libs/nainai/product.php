@@ -61,6 +61,19 @@ class product{
     }
 
     /**
+     * 获取报盘的状态
+     * @return [Array]
+     */
+    public function getStatus(){
+        return array(
+            0 => '审核中',
+            1 => '发布成功',
+            2 => '被驳回',
+            3 => '已过期'
+        );
+    }
+
+    /**
      * 获取分级的分类
      * @param int $gid
      * @return array array('chain'=>,'default'=>,1=>,2=>);
@@ -271,6 +284,51 @@ class product{
         }else{
             return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
         }
+    }
+
+    /**
+     * 获取报盘对应的产品列表
+     * @param  [Int] $page     [分页]
+     * @param  [Int] $pagesize [分页]
+     * @param  string $where    [where的条件]
+     * @param  array  $bind     [where绑定的参数]
+     * @return [Array.list]           [返回的对应的列表数据]
+     * @return [Array.pageHtml]           [返回的分页html数据]
+     */
+    public function getOfferProductList($page, $pagesize, $where='', $bind=array()){
+        $query = new Query('product_offer as c');
+        $query->fields = 'c.id, a.name, b.name as cname, a.quantity, a.price, a.expire_time, c.status, c.type, a.user_id, c.apply_time';
+        $query->join = '  LEFT JOIN products as a ON c.product_id=a.id LEFT JOIN product_category as b ON a.cate_id=b.id ';
+        $query->page = $page;
+        $query->pagesize = $pagesize;
+        $query->order = ' a.create_time desc';
+
+        if (empty($where)) {
+            $where = ' c.type IN (1, 2, 4) ';
+        }else{
+            $where .= ' AND c.type IN (1, 2, 4) ';
+            $query->bind = $bind;
+        }
+
+        $query->where = $where;
+
+        $list = $query->find();
+        return array('list' => $list, 'pageHtml' => $query->getPageBar());
+    }
+
+    /**
+     * 获取对应id的报盘和产品详情数据
+     * @param  [Int] $id [报盘id]
+     * @return [Array]     [报盘和产品数据]
+     */
+    public function getOfferProductDetail($id){
+        $query = new Query('product_offer as a');
+        $query->fields = 'a.id, a.type, a.mode, a.divide, a.minimum, a.price, a.accept_area, b.name as pname, b.id as pid, b.attribute, b.create_time, b.produce_area, b.quantity, b.note, c.name as cname';
+        $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN product_category as c ON b.cate_id=c.id';
+        $query->where = 'a.id=:id';
+        $query->bind = array('id' => $id);
+
+        return $query->getObj();
     }
 
 

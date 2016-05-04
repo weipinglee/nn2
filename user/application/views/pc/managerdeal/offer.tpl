@@ -18,7 +18,7 @@
 
 </div>
 
-       <input type="hidden" name="attr_url" value="{url:/product/ajaxGetCategory}"  />
+       <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
             <!--start中间内容-->    
             <div class="user_c">
@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/product/doOffer}" method="POST">
+                    <form action="{url:/ManagerDeal/doOffer}" method="POST">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
@@ -206,21 +206,4 @@
 
 
             <!--end中间内容-->  
-            <!--start右侧广告-->            
-            <div class="user_r">
-                <div class="wrap_con">
-                    <div class="tit clearfix">
-                        <h3>公告</h3>
-                    </div>
-                    <div class="con">
-                        <div class="con_medal clearfix">
-                            <ul>
-                                <li><a>暂无勋章</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end右侧广告-->
-        </div>
-    </div>
+           
