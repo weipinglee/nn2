@@ -55,7 +55,7 @@ class certDealer extends certificate{
      *获取认证资料
      * @param $user_id
      */
-    public function getCertData($user_id){
+    public function getCertData($user_id=0){
         return $this->getCertDetail($user_id,self::$certType);
 
 

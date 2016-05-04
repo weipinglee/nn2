@@ -8,6 +8,7 @@
  */
 use \Library\safe;
 use \nainai\cert\certDealer;
+use \nainai\cert\certStore;
 use \Library\Thumb;
 use \Library\url;
 class certManageController extends Yaf\Controller_Abstract {
@@ -69,7 +70,7 @@ class certManageController extends Yaf\Controller_Abstract {
 	}
 
 	/**
-	 * 角色认证
+	 * 交易商认证角色处理
 	 */
 	public function doDealerCertAction(){
 		if(IS_POST){
@@ -78,6 +79,63 @@ class certManageController extends Yaf\Controller_Abstract {
 			$info    = safe::filterPost('info');
 			$status  = $status==1 ? 1 : 0;
 			$m = new certDealer();
+			$res = $m->verify($user_id,$status,$info);
+
+			echo $res;
+
+		}
+		return false;
+
+	}
+
+	/**
+	 *仓库管理员认证列表页
+	 */
+	public function storeCertAction(){
+		$m = new certStore();
+
+		$page = safe::filterGet('page','int',1);
+		$pageData = $m->certList($page);
+
+		$this->getView()->assign('certData',$pageData['data']);
+		$this->getView()->assign('bar',$pageData['bar']);
+
+	}
+
+	/**
+	 * 仓库管理员认证详情
+	 */
+	public function storecertDetailAction(){
+		$id = $this->getRequest()->getParam('uid',0);
+		$id = safe::filter($id,'int',0);
+
+		if($id){
+			$certObj = new certStore();
+
+			$data = $certObj->getDetail($id);
+
+			if(empty($data))
+				$this->redirect(url::createUrl('member/member/storeCert'));
+
+			$this->getView()->assign('cert',$data[0]);
+			$this->getView()->assign('store',$data[1]);
+
+		}
+		else{
+			$this->redirect(url::createUrl('member/member/storeCert'));
+		}
+	}
+
+	/**
+	 * 仓库认证角色处理
+	 */
+	public function doStoreCertAction(){
+		if(IS_POST){
+			$user_id = safe::filterPost('user_id','int',0);
+			$status  = safe::filterPost('result','int',0);
+			$info    = safe::filterPost('info');
+			$status  = $status==1 ? 1 : 0;
+			$m = new certStore();
 			$res = $m->verify($user_id,$status,$info);
 
 			echo $res;

@@ -6,7 +6,7 @@
  * Time: 下午 3:56
  */
 
-class certDealerModel extends \nainai\cert\certDealer{
+class certStoreModel extends \nainai\cert\certStore{
 
     /**
      * 获取用户中心认证页面显示内容

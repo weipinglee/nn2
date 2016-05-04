@@ -205,7 +205,7 @@ class certificate{
         $table = self::getCertTable($type);
         $Q = new Query('user as u');
         $Q->join = 'left join '.$table.' as c on u.id = c.user_id';
-        $Q->fields = 'u.id,u.type,u.username,u.mobile,u.email,u.status as user_status,u.create_time,c.status ,c.apply_time';
+        $Q->fields = 'u.id,u.type,u.username,u.mobile,u.email,u.status as user_status,u.create_time,c.*';
         $Q->page = $page;
         $Q->where = 'c.status='.self::CERT_APPLY;
         $data = $Q->find();
@@ -217,12 +217,10 @@ class certificate{
      * 获取认证类型相对应的表
      * @param string $type
      */
-    private function getCertTable($type){
+    protected function getCertTable($type){
         $table = '';
-        switch($type){
-            case 'deal' : $table = 'dealer';
-                break;
-        }
+        if(isset($this->certTable[$type]))
+            return $this->certTable[$type];
         return $table;
     }
 
@@ -231,8 +229,9 @@ class certificate{
      * @param int $id 用户id
      * @param string $certType 认证类型 如果为空，不获取认证表数据
      */
-    protected function getCertDetail($id,$certType=''){
+    protected function getCertDetail($id=0,$certType=''){
         $userModel = new M('user');
+        if($id==0)$id=$this->user_id;
         $userData = $userModel->fields('username,type,mobile,email')->where(array('id'=>$id,'pid'=>0))->getObj();
 
         if(!empty($userData)){
@@ -252,7 +251,7 @@ class certificate{
      * 获取用户信息(企业或个人）
      * @param $user_id
      */
-    private function getPersonInfo($user_id){
+    protected function getPersonInfo($user_id){
         $um = new M('person_info');
         $result = $um->where(array('user_id'=>$user_id))->getObj();
         $result['identify_front_thumb'] = Thumb::get($result['identify_front'],300,200);
@@ -264,7 +263,7 @@ class certificate{
      * 获取用户信息(企业或个人）
      * @param $user_id
      */
-    private function getCompanyInfo($user_id){
+    protected function getCompanyInfo($user_id){
         $um = new M('company_info');
         $result = $um->where(array('user_id'=>$user_id))->getObj();
         $result['cert_oc_thumb'] = Thumb::get($result['cert_oc'],300,200);

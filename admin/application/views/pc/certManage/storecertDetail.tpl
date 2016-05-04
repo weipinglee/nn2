@@ -1,14 +1,14 @@
 ﻿<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
         <div id="content" class="white">
-            <h1><img src="{views:img/icons/dashboard.png}" alt="" /> 交易商认证信息</h1>
+            <h1><img src="{views:img/icons/dashboard.png}" alt="" /> 仓库管理员认证信息</h1>
                 
 <div class="bloc">
     <div class="title">
-		交易商认证信息
+		仓库管理员认证信息
     </div>
  <div class="pd-20">
-	 <form action="{url:member/certManage/doDealerCert}" method="post" class="form form-horizontal" id="form-admin-add">
+	 <form action="{url:member/certManage/doStoreCert}" method="post" class="form form-horizontal" id="form-admin-add">
 		<div class="row cl">
 			<label class="form-label col-3">申请时间：</label>
 			<div class="formControls col-5">
@@ -16,6 +16,20 @@
 			</div>
 			<div class="col-4"> </div>
 		</div>
+		 <div class="row cl">
+			 <label class="form-label col-3">认证仓库：</label>
+			 <div class="formControls col-5">
+				 <span>{$store['name']}</span>
+			 </div>
+			 <div class="col-4"> </div>
+		 </div>
+		 <div class="row cl">
+			 <label class="form-label col-3">仓库地区：</label>
+			 <div class="formControls col-5">
+				 <span id="areatext1">{areatext:data=$store['area'] id=areatext1}</span>
+			 </div>
+			 <div class="col-4"> </div>
+		 </div>
 		<div class="row cl">
 			<label class="form-label col-3">用户名：</label>
 			<div class="formControls col-5">
@@ -55,24 +69,6 @@
 		</div>
 
 
-		<div class="row cl">
-			<label class="form-label col-3">身份证正面：</label>
-			<div class="formControls col-5">
-
-				<p>
-					<img src="{$cert['identify_front_thumb']}">
-				</p>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-3">身份证背面：</label>
-			<div class="formControls col-5">
-
-				<p>
-					<img src="{$cert['identify_back_thumb']}">
-				</p>
-			</div>
-		</div>
 	 {else:}
 		 <div class="row cl">
 			 <label class="form-label col-3">企业名称：</label>
@@ -84,7 +80,7 @@
 		 <div class="row cl">
 			 <label class="form-label col-3">地址：</label>
 			 <div class="formControls col-5" id="areatext">
-				{areatext:data=$cert['area'] id=areatext delimiter=/}
+				{areatext:data=$cert['area'] id=areatext}
 			 </div>
 			 <div class="col-4"> </div>
 		 </div>
@@ -123,33 +119,7 @@
 			 </div>
 			 <div class="col-4"> </div>
 		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">营业执照：</label>
-			 <div class="formControls col-5">
 
-				 <p>
-					 <img src="{$cert['cert_bl_thumb']}">
-				 </p>
-			 </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">组织机构代码证：</label>
-			 <div class="formControls col-5">
-
-				 <p>
-					 <img src="{$cert['cert_oc_thumb']}">
-				 </p>
-			 </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">税务登记证：</label>
-			 <div class="formControls col-5">
-
-				 <p>
-					 <img src="{$cert['cert_tax_thumb']}">
-				 </p>
-			 </div>
-		 </div>
 
 	 {/if}
 		<div class="row cl">

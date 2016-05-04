@@ -77,8 +77,8 @@
                         <li><a href="member-audit.html" target="content">会员审核</a></li>
                         <li><a href="member-renzheng.html" target="content">会员认证</a>
                             <ul>
-                                <li><a href="{url:/member/dealerCert}" target="content">交易商认证</a></li>
-                                <li><a href="scale-hand.html" target="content">仓库认证</a></li>
+                                <li><a href="{url:member/certManage/dealerCert}" target="content">交易商认证</a></li>
+                                <li><a href="{url:member/certManage/storeCert}" target="content">仓库认证</a></li>
                             </ul>
                         </li>
                         <li><a href='' target="content">子账户权限管理</a>
