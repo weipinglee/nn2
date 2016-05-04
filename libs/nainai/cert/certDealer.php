@@ -114,5 +114,22 @@ class certDealer extends certificate{
        return parent::certApplyList(self::$certType,$page);
     }
 
+    /**
+     * 获取认证详细信息
+     */
+    public function getDetail($id){
+        return $this->getCertDetail($id,self::$certType);
+    }
+
+    /**
+     * 交易商审核
+     * @param int $user_id 用户id
+     * @param int $result 审核结果 1：通过，0：驳回
+     * @param string $info 意见
+     */
+    public function verify($user_id,$result=1,$info=''){
+        return $this->certVerify($user_id,$result,$info,self::$certType);
+    }
+
 
 }

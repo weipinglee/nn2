@@ -127,7 +127,7 @@ class witty{
             //处理layout
             $content = $this->renderLayout($layout_file,$content);
 
-            $content = preg_replace_callback('/{(\/?)(\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|area)\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
+            $content = preg_replace_callback('/{(\/?)(\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|areatext|area)\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
 
 
 
@@ -267,6 +267,27 @@ OEF;
                 }
                 break;
 
+                case 'areatext:' : {
+                    $attr = $this->getAttrs($matches[4]);
+                    if(!isset($attr['data'])) $attr['data'] = '000000';
+                    if(!isset($attr['id'])) $attr['id'] = 'areaText';
+                    if(!isset($attr['delimiter'])) $attr['delimiter'] = ' ';
+                    if(substr($attr['data'],0,1) == '$')
+                        $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
+                    return   <<< OEF
+                <script type="text/javascript">
+                 {$attr['id']}Obj = new Area();
+
+                  $(function () {
+                    var text = {$attr['id']}Obj.getAreaText('{$attr['data']}','{$attr['delimiter']}');
+                    $('#{$attr['id']}').html(text);
+                  });
+                </script>
+
+OEF;
+
+                }
+                break;
 
 
                 default:

@@ -153,7 +153,7 @@ class certificate{
      * @param string $info 驳回原因或成功提示信息
      * @param string $type 认证类型
      */
-    public function certVerify($user_id,$result=1,$info='',$type='deal'){
+    protected function certVerify($user_id,$result=1,$info='',$type='deal',$log=''){
         $table = self::getCertTable($type);
         $certModel = new M($table);
         $certModel->beginTrans();
@@ -164,7 +164,7 @@ class certificate{
         $logs = array('admin','处理了一个申请认证','用户id:'.$user_id);
         $log->write('operation',$logs);
 
-        $certModel->commit();
+        return $certModel->commit();
     }
 
     /**

@@ -51,16 +51,14 @@ class certManageController extends Yaf\Controller_Abstract {
 		$id = safe::filter($id,'int',0);
 
 		if($id){
-			$certObj = new certificate();
+			$certObj = new certDealer();
 
-			$certData = $certObj->getCertDetail($id,'deal');
+			$certData = $certObj->getDetail($id);
 
 			if(empty($certData))
-				$this->redirect(url::createUrl('/member/dealerCert'));
+				$this->redirect(url::createUrl('member/member/dealerCert'));
 
-			$this->getView()->assign('user',$certData[0]);
-			$this->getView()->assign('detail',$certData[1]);
-			$this->getView()->assign('cert',$certData[2]);
+			$this->getView()->assign('cert',$certData);
 		}
 		else{
 			return false;
@@ -75,12 +73,14 @@ class certManageController extends Yaf\Controller_Abstract {
 	 */
 	public function doDealerCertAction(){
 		if(IS_POST){
-		$user_id = safe::filterPost('user_id','int',0);
-		$status  = safe::filterPost('result','int',0);
-		$info    = safe::filterPost('info');
-		$status  = $status==1 ? 1 : 0;
-		$m = new certificate();
-		$m->certVerify($user_id,$status,$info,'deal');
+			$user_id = safe::filterPost('user_id','int',0);
+			$status  = safe::filterPost('result','int',0);
+			$info    = safe::filterPost('info');
+			$status  = $status==1 ? 1 : 0;
+			$m = new certDealer();
+			$res = $m->verify($user_id,$status,$info);
+
+			echo $res;
 
 		}
 		return false;

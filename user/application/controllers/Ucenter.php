@@ -245,7 +245,7 @@ class UcenterController extends Yaf\Controller_Abstract {
         $cert = new certDealerModel($this->user_id,$this->user_type);
         $certData = $cert->getCertData($this->user_id);
         $certShow = $cert->getCertShow($this->user_id);
-        print_r($certShow);
+
        $this->getView()->assign('certData',$certData);
         $this->getView()->assign('certShow',$certShow);
         $this->getView()->assign('userType',$certData['type']);
