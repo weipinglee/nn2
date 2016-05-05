@@ -34,7 +34,7 @@ class loginModel{
 					//写入管理员表session与ip信息
 					$this->admin->where(array('id'=>$user['id']))->data($data)->update();
 						
-					//写入管理员登陆日志
+					//写入管理员登录日志
 					$this->admin_log->adminLog($user['id'],$ip);
 
 					$resInfo = tool::getSuccInfo();
