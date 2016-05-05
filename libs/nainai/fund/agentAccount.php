@@ -109,11 +109,10 @@ use \Library\Time;
      */
     public function in($user_id,$num){
         if(is_integer($num) || is_float($num)){
-            $this->agentModel->beginTrans();
 
             $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->setInc('fund',$num);//总帐户增加金额
             $this->createFlowData($user_id,$num,'in');
-             return $this->agentModel->commit();
+            return true;
         }
         else{
             return $this->errorCode['fundWrong'];
