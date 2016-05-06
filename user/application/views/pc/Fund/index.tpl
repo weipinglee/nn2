@@ -12,8 +12,8 @@
 								<a href="{url:/Fund/Cz}" class="zj_a cz">充值</a>
 								<a href="zj_tx.html" class="zj_a tx">提现</a>	
 								<p class="re_t">结算账号资金总额</p>
-								<h1 class="rental">￥0.00</h1>
-								<p class="state">该账户被挂起</p>
+								<h1 class="rental">￥{echo:$active+$freeze}</h1>
+								<p class="state"></p>
 							</div>
 							<div class="zj_r">
 								<div class="zj_price">￥0.00</div>
@@ -50,23 +50,29 @@
 					<div class="jy_xq">
                     <table cellpadding="0" cellspacing="0">
 				        <tr>
-				            <th>序号</th>
+				            <th>交易号</th>
 				            <th>交易时间</th>
-				            <th>收支金额</th>
-				            <th>账户余额</th>
-				            <th>交易方</th>
+				            <th>收入</th>
+				            <th>支出</th>
+				            <th>冻结</th>
+							<th>总金额</th>
+							<th>可用金额</th>
 				            <th>摘要备注</th>
-				            <th>状态</th>
 				        </tr>
+						{foreach:items=$flow }
 						<tr>
-							<td>0913809830</td>
-							<td>2016-01-25 <span style="color:#666;">16:44</span></td>
-							<td>+200.00</td>
-							<td>3300.00</td>
-							<td>市场</td>
-							<td>充值</td>
-							<td>交易成功</td>
+
+							<td>{$item['flow_no']}</td>
+							<td>{$item['time']}</td>
+							<td>{$item['fund_in']}</td>
+							<td>{$item['fund_out']}</td>
+							<td>{$item['freeze']}</td>
+							<td>{$item['total']}</td>
+							<td>{$item['active']}</td>
+							<td>{$item['note']}</td>
+
 						</tr>
+						{/foreach}
                     </table>
 					</div>
 				</form>

@@ -95,13 +95,26 @@ use \Library\Time;
      * 获取冻结资金金额
      * @param int $user_id 用户id
      */
-    public function getFeeze($user_id){
+    public function getFreeze($user_id){
         $agentData = $this->agentModel->fields('freeze')->where(array('user_id'=>$user_id))->getObj();
         if(!empty($agentData)){
             return $agentData['freeze']>0 ? $agentData['freeze'] : 0;
         }
         return 0;
     }
+
+     /**
+      * 获取资金流水表
+      * @param int $user_id
+      * @param int $day 天数
+      */
+     public function getFundFlow($user_id=0,$day=7){
+         if($user_id){
+             $time = Time::getDateTime('',time() - $day*24*3600);
+              $where = array('user_id'=>$user_id,'time'=>array('gt'=>$time));
+             return $this->flowModel->where($where)->select();
+         }
+     }
     /**
      * 入金操作
      * @param int $user_id 用户id

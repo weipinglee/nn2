@@ -181,26 +181,34 @@ class M{
 						$this->whereParam = array_merge($this->whereParam,$val[1]);
 					}
 					else{
-						//非相等的情况
-						switch(strtolower($val[0])){
-							case 'eq' : {
-								$sql .= $key.' = :'.$key.' AND ';
+						foreach($val as $ekey => $eval){
+							//非相等的情况
+							switch(strtolower($ekey)){
+
+								case 'neq' : {
+									$sql .= $key.' <> :'.$key.$ekey.' AND ';
+								}
+									break;
+								case 'gt' : {
+									$sql .= $key.' > :'.$key.$ekey.' AND ';
+								}
+									break;
+								case 'lt' : {
+									$sql .= $key.' < :'.$key.$ekey.' AND ';
+								}
+									break;
+								case 'eq' :
+								default : {
+									$sql .= $key.' = :'.$key.$ekey.' AND ';
+								}
+								break;
+
 							}
-							break;
-							case 'neq' : {
-								$sql .= $key.' <> :'.$key.' AND ';
-							}
-							break;
-							case 'gt' : {
-								$sql .= $key.' > :'.$key.' AND ';
-							}
-							break;
-							case 'lt' : {
-								$sql .= $key.' < :'.$key.' AND ';
-							}
-							break;
+
+							$this->whereParam[$key.$ekey] = $eval;
 						}
-						$this->whereParam[$key] = $val[1];
+
+
 					}
 				}
 

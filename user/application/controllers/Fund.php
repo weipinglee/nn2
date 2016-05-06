@@ -15,7 +15,29 @@ class FundController extends \nainai\Abstruct\UcenterControllerAbstract {
 
 
 	public function indexAction() {
+
+		$fundObj = \nainai\fund::createFund(1);
+
+		$active = $fundObj->getActive($this->user_id);
+		$freeze = $fundObj->getFreeze($this->user_id);
+		$flowData = $fundObj->getFundFlow($this->user_id);
+
+		$this->getView()->assign('freeze',$freeze);
+		$this->getView()->assign('active',$active);
+		$this->getView()->assign('flow',$flowData);
 		//$obj = new \nainai\fund();
+	}
+
+	protected function  getLeftArray(){
+		return array(
+			array('name' => '资金管理', 'list' => array()),
+			array('name' => '开户信息管理'),
+			array('name' => '资金账户管理', 'list' => array(
+				array('url' => \Library\url::createUrl('/Fund/index'), 'title' => '市场代理账户' ),
+				array('url' => '', 'title' => '票据账户' ),
+			)),
+
+		);
 	}
 	//处理充值操作
 	public function doFundInAction() {
