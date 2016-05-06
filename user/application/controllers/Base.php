@@ -1,6 +1,5 @@
 <?php
 
-namespace nainai\Abstruct;
 
 use \Library\checkRight;
 use \Library\PlUpload;
@@ -14,7 +13,7 @@ use \Library\tool;
 /**
  * 用户中心的抽象基类
  */
-abstract class UcenterControllerAbstract extends BaseControllerAbstract{
+class BaseController extends \Yaf\Controller_Abstract{
 
         /**
          * 所有的用户中心列表的分页是这个
@@ -22,19 +21,17 @@ abstract class UcenterControllerAbstract extends BaseControllerAbstract{
          */
         protected $pagesize = 10;
 
-	public function preinit(){
-
-        }
 
 	final private function init(){
-		$this->preinit();
 	          $right = new checkRight();
 	         $right->checkLogin($this);//未登录自动跳到登录页
 
 	        $this->getView()->setLayout('ucenter');
 	        $this->getView()->assign('topArray', $this->getTopArray());
 	        $this->getView()->assign('leftArray', $this->getLeftArray());
-    	}
+		$action = $this->getRequest()->getActionName();
+		$this->getView()->assign('action', $action);
+    }
 
     	/**
     	 * 获取头菜单的数据
@@ -42,8 +39,8 @@ abstract class UcenterControllerAbstract extends BaseControllerAbstract{
     	 */
     	private function getTopArray(){
     		$topArray = array(
-				'Ucenterindex'      => array('url' => '', 'title' => '首页'),
-				'Ucenteraccount'  => array('url' => '', 'title' => '账户信息'),
+				'index'      => array('url' => '', 'title' => '首页'),
+				'Ucenter'  => array('url' => url::createUrl('/ucenter/info'), 'title' => '账户信息'),
 				'Managerfund'     => array('url' => '', 'title' => '资金管理'),
 				'Managerdeal'     => array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '交易管理'),
 				'Managerstore'    => array('url' => url::createUrl('/ManagerStore/ApplyStoreList'), 'title' => '仓单管理'),

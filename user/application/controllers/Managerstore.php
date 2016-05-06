@@ -8,7 +8,7 @@ use \Library\Thumb;
 /**
  * 仓单管理的的控制器类
  */
-class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
+class ManagerStoreController extends BaseController{
 
 	/**
 	 * 获取左侧菜单数据

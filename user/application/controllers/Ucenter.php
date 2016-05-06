@@ -12,19 +12,10 @@ use \Library\url;
 use \Library\safe;
 use \Library\Thumb;
 use \Library\tool;
-class UcenterController extends Yaf\Controller_Abstract {
+class UcenterController extends BaseController {
 
 
-    public function init(){
-        $right = new checkRight();
-        $right->checkLogin($this);//未登录自动跳到登录页
 
-        $this->getView()->assign('leftArray', $this->getLeftArray());
-        $controller = $this->getRequest()->getControllerName();
-        $action = $this->getRequest()->getActionName();
-        $this->getView()->assign('leftCur', url::createUrl('/'.$controller.'/'.$action));
-        $this->getView()->setLayout('ucenter');
-    }
     /**
      * 个人中心首页
      */
@@ -32,12 +23,16 @@ class UcenterController extends Yaf\Controller_Abstract {
         
     }
 
-    private function  getLeftArray(){
+    protected function  getLeftArray(){
         return array(
             array('name' => '账户管理', 'list' =>'' ),
             array('name' => '账户管理', 'list' => array(
-                array('url' => url::createUrl('/ucenter/info'), 'title' => '基本信息' ),
-                array('url' => url::createUrl('/ucenter/password'), 'title' => '修改密码' ),
+                array(
+                    'url' => url::createUrl('/ucenter/info'),
+                    'title' => '基本信息' ,
+                    'action'=>array('info')
+                ),
+                array('url' => url::createUrl('/ucenter/password'), 'title' => '修改密码' ,'action'=>array('password')),
             )),
             array('name' => '资质认证', 'list' => array(
                 array('url' => url::createUrl('/ucenter/dealCert'), 'title' => '交易商' ),

@@ -11,7 +11,7 @@ use \Library\Payment;
 use \Library\safe;
 use \Library\Session;
 
-class FundController extends \nainai\Abstruct\UcenterControllerAbstract {
+class FundController extends BaseController {
 
 
 	public function indexAction() {

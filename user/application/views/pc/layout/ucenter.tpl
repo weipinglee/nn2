@@ -152,14 +152,14 @@
                 <a href="../index.html" alt="返回耐耐首页"><img src="{views:/images/icon/nainaiwang.png}"/></a></dd>
             </div>
 			<div class="nav-tit">
-		<ul class="nav-list">
-			{foreach: items=$topArray item=$topList}
-				<li>
-		                        <a href="{$topList['url']}" {if: $topList['isSelect']} class="cur" {/if}>{$topList['title']}</a>
-		                   </li>
-			{/foreach}
-                   
-                 </ul>
+                <ul class="nav-list">
+                    {foreach: items=$topArray item=$topList}
+                        <li>
+                            <a href="{$topList['url']}" {if: $topList['isSelect']} class="cur" {/if}>{$topList['title']}</a>
+                        </li>
+                    {/foreach}
+
+                </ul>
 			</div>
 		</div>
 	</div>
@@ -169,32 +169,41 @@
             <div class="user_l">
                 <div class="left_navigation">
                     <ul>
-                    	{foreach: items=$leftArray item=$leftList key=$k}
-                    	<li class="btn1" id="btn{k}">
-                    		{if: $k == 0}
-                    		<li class="let_nav_tit"><span class="line"></span><h3>{$leftList['name']}</h3></li>
-                    		{else:}
 
-                    		<a class="nav-first" {if:isset($leftList['url'])}href="{$leftList['url']}"{/if} ><i class="icon-caret-down"></i>{$leftList['name']}</a>
+                    	{foreach: items=$leftArray item=$leftList key=$k}
+
+                    		{if: $k == 0}
+                    		<li class="let_nav_tit"><h3>{$leftList['name']}</h3></li>
+                    		{else:}
+                            <li class="btn1" id="btn{$k}">
+                                <a class="nav-first" {if:isset($leftList['url'])} href="{$leftList['url']}"{/if} >
+                                    {$leftList['name']}
+                                    <i class="icon-caret-down"></i>
+                                </a>
+                                {if: !empty($leftList['list'])}
+                                    <ul class="zj_zh" >
+                                        {foreach: items=$leftList['list'] item=$list}
+                                            <li><a  href="{$list['url']}" {if:in_array($action,$list['action'])}class="cur"{/if} >{$list['title']}</a></li>
+                                        {/foreach}
+                                    </ul>
+                                {/if}
+                            </li>
 
                     		{/if}
 
-                    		{if: !empty($leftList['list'])}
-                    			<ul class="zj_zh" id="zj_zh{k}">
-                    				{foreach: items=$leftList['list'] item=$list}
-                    					<li><a href="{$list['url']}" {if:$leftCur==$list['url']}class="cur"{/if} >{$list['title']}</a></li>
-                    				{/foreach}
-                    			</ul>
-				{/if}
-			</li>
+
+
                     	{/foreach}
                         
                       
                     </ul>
                 </div>
             </div>
-            <!--end左侧导航-->  
-	{content}
+            <!--end左侧导航-->
+            <div id="cont">
+                {content}
+            </div>
+
 				<!--end中间内容-->	
 			<!--start右侧广告-->			
 			<div class="user_r">
@@ -214,5 +223,10 @@
 			<!--end右侧广告-->
 		</div>
 	</div>
+<script type="text/javascript">
+    $(function() {
+        $('.left_navigation ').find('.cur').parents('.btn1').find('.nav-first').trigger('click');
+    })
+</script>
 </body>
 </html>

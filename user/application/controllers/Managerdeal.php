@@ -14,7 +14,7 @@ use \nainai\offer;
 /**
  * 交易管理的控制器类
  */
-class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
+class ManagerDealController extends baseController {
 
 
     /**
@@ -41,8 +41,13 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         return array(
             array('name' => '交易管理', 'list' => array()),
             array('name' => '销售管理', 'list' => array(
-                array('url' => '', 'title' => '销售列表' ),
-                array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '发布产品' ),
+                array('url' => '', 'title' => '销售列表','action'=>array() ),
+                array(
+                    'url' => url::createUrl('/ManagerDeal/indexOffer'),
+                    'title' => '发布产品' ,
+                    'action' => array('indexoffer','productadd'),//action都用小写
+
+                ),
             )),
             array('name' => '仓单管理', 'list' => array(
                 array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单' ),
