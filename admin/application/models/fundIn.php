@@ -90,7 +90,7 @@ class fundInModel{
         //线上
         $reModel->join = 'left join user as u on r.user_id = u.id';
         $reModel->fields = 'r.order_no,r.amount,r.proot,r.pay_type,r.status as recharge_status,r.create_time,u.username,u.mobile,u.type';
-        $reModel->where = 'pay_type <>'.self::OFFLINE;
+        $reModel->where = 'pay_type <>'.self::OFFLINE.'  AND is_del = 0';
         $reModel->page = $page;
         $onlineInfo = $reModel->find();
         $reBar = $reModel->getPageBar();
@@ -108,7 +108,7 @@ class fundInModel{
         //线下
         $reModel->join = 'left join user as u on u.id=r.user_id';
         $reModel->fields = 'u.username,r.*';
-        $reModel->where = 'pay_type = '.self::OFFLINE;
+        $reModel->where = 'pay_type = '.self::OFFLINE.'  AND is_del = 0';
         $reModel->page = $page;
         $offlineInfo = $reModel->find();
         $reBar = $reModel->getPageBar();
@@ -178,6 +178,7 @@ class fundInModel{
         $reModel = new M('recharge_order');
         $where = array('id'=>$rid);
         $reInfo = $reModel->where($where)->getObj();
+
         if ($reInfo['status'] == self::OFFLINE_FIRST_OK) {//只有处于初审通过的才可以
             $data = array();
             $reModel->beginTrans();
@@ -185,7 +186,8 @@ class fundInModel{
                 $data['status'] = self::OFFLINE_FINAL_OK;
                 $fundObj = fund::createFund(1);//实例化代理账户对象
 
-                $fundObj->in($reInfo['user_id'],$reInfo['amount']);//入金操作
+                $fundObj->in($reInfo['user_id'],floatval($reInfo['amount']));//入金操作
+
             }
             else{
                 $data['status'] = self::OFFLINE_FINAL_NG;
@@ -199,5 +201,18 @@ class fundInModel{
         } else {
             return false;
         }
+    }
+
+    /**
+     * 逻辑删除
+     * @param $id
+     *
+     */
+    public function logicDel($id){
+        $reModel = new M('recharge_order');
+        $where = array('id'=>$id);
+
+        return $reModel->data(array('is_del'=>1))->where($where)->update();
+
     }
 }

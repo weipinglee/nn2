@@ -85,18 +85,20 @@ class fundInController extends Yaf\Controller_Abstract {
 		else echo 0;
 
 	}
+
+	/**
+	 *
+	 */
 	public function delAction() {
 		$id = safe::filterGet('id', 'int');
-		$reModel = new M('recharge_order');
-		$where = 'id =' . $id;
-		$result = $reModel->where($where)->delete();
-		if ($result) {
-			echo 1;
-			return false;
-		} else {
-			echo 0;
-			return false;
+
+		$fundObj = new fundInModel();
+
+		if($fundObj->logicDel($id)){
+
 		}
+
+
 
 	}
 }
