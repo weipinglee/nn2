@@ -91,6 +91,8 @@ class checkRight{
         return $isLogin;
     }
 
+    
+
     /**
      * 登出
      */

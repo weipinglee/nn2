@@ -108,6 +108,7 @@ class M{
 	//事物提交
 	public function commit(){
 		return $this->db->commit();
+
 	}
 
 	//是否在事务中
@@ -286,9 +287,7 @@ class M{
      */
 	public function add($trans=0) {
 		$res = false;
-		if($trans==1 && !$this->inTrans()){//应该在事务中且实际不在事务中，返回false
-			return false;
-		}
+
 		if(!empty($this->tableData)){
 			$insData = $this->tableData;
 
@@ -304,7 +303,6 @@ class M{
 			$res =  $this->db->exec($sql,$this->tableData,'INSERT');
 		}
 
-		if(false === $res)$this->rollBack();
 		return $res;
 	}
 
@@ -321,9 +319,7 @@ class M{
 	 */
 	public function adds($trans=0){
 		$res = false;
-		if($trans==1 && !$this->inTrans()){//应该在事务中且实际不在事务中，返回false
-			return false;
-		}
+
 		if(!empty($this->tableData)){
 			$insData = $this->tableData;
 
@@ -352,7 +348,6 @@ class M{
 			$res =  $this->db->exec($sql,$bindData,'INSERT');
 		}
 
-		if(false === $res)$this->rollBack();
 		return $res;
 	}
 
@@ -363,9 +358,7 @@ class M{
      */
 	public function update($trans=0){
 		$res = false;
-		if($trans==1 && !$this->inTrans()){//应该在事务中且实际不在事务中，返回false
-			return false;
-		}
+
 		if(!empty($this->tableData) && $this->whereStr != ''){
 			$sql = 'UPDATE '.$this->tableName.' SET ';
 			foreach($this->tableData as $key=>$val){
@@ -377,7 +370,6 @@ class M{
 
 			$res =  $this->db->exec($sql,array_merge($this->tableData,$this->whereParam),'UPDATE');
 		}
-		if(false === $res)$this->rollBack();
 		return $res;
 	}
 
@@ -387,15 +379,12 @@ class M{
      */
 	public function delete($trans=0){
 		$res = false;
-		if($trans==1 && !$this->inTrans()){//应该在事务中且实际不在事务中，返回false
-			return false;
-		}
+
 		if($this->whereStr != ''){
 			$sql = 'DELETE FROM '.$this->tableName.$this->whereStr;
 			$res =  $this->db->exec($sql,$this->whereParam,'DELETE');
 
 		}
-		if(false === $res)$this->rollBack();
 		return $res;
 	}
 
@@ -464,7 +453,6 @@ class M{
      */
     public function query($sql,$param=array(),$type=''){
         $res =  $this->db->exec($sql,array_merge($this->whereParam,$param),$type);
-		if(false === $res)$this->rollBack();
 		return $res;
     }
 
@@ -476,15 +464,14 @@ class M{
 	 * @return boolean
 	 */
 	public function setInc($field,$step=1,$trans=0) {
-		if($trans==1 && !$this->inTrans()){//应该在事务中且实际不在事务中，返回false
-			return false;
+
+		if($this->whereStr!='') {
+			$sql = 'UPDATE '.$this->tableName.' SET '.$field.' = '.$field.' + :step '.$this->whereStr;
+			return $this->query($sql,array_merge(array('step'=>$step),$this->whereParam),'UPDATE');
 		}
-		if($this->whereStr=='') {
-			$this->rollBack();
-			return false;
-		}
-		$sql = 'UPDATE '.$this->tableName.' SET '.$field.' = '.$field.' + :step '.$this->whereStr;
-		return $this->query($sql,array_merge(array('step'=>$step),$this->whereParam),'UPDATE');
+		return false;
+
+
 	}
 
 	/**
@@ -495,12 +482,12 @@ class M{
 	 * @return boolean
 	 */
 	public function setDec($field,$step=1,$trans=0) {
-		if($trans==1 && !$this->inTrans()){//应该在事务中且实际不在事务中，返回false
-			return false;
+		if($this->whereStr!='') {
+			$sql = 'UPDATE '.$this->tableName.' SET '.$field.' = '.$field.' - :step '.$this->whereStr;
+			return $this->query($sql,array_merge(array('step'=>$step),$this->whereParam),'UPDATE');
 		}
-		if($this->whereStr=='') return false;
-		$sql = 'UPDATE '.$this->tableName.' SET '.$field.' = '.$field.' - :step '.$this->whereStr;
-		return $this->query($sql,array_merge(array('step'=>$step),$this->whereParam),'UPDATE');
+		else return false;
+
 	}
 
 	/**
@@ -511,9 +498,6 @@ class M{
 	 * @return 
      */
 	public function insertUpdate($insert,$update,$trans=0){
-		if($trans==1 && !$this->inTrans()){//应该在事务中且实际不在事务中，返回false
-			return false;
-		}
 		$sql = 'INSERT INTO '.$this->table();
 		$insertCol = '';
 		$insertVal = '';

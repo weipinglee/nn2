@@ -36,10 +36,12 @@
                                                                                                 <td>{$list['package_weight']}({$list['package_unit']})</td>
                                                                                                 <td>{$statuList[$list['status']]}</td>
                                                                                                 <td>{$list['sname']}</td>
-                                                                                                {if: $list['status'] == 0}
-                                                                                                <td><a href='{url:/ManagerStore/ApplyStore?id=$list["id"]}'>审核</a></td>
-                                                                                                {else:}
-                                                                                                <td><a href='{url:/ManagerStore/ApplyStoreDetails?id=$list["id"]}'>查看</a></td>
+                                                                                                {if: $list['status'] == 10}
+                                                                                                <td><a href='{url:/ManagerStore/applyStoreCheck?id=$list["id"]}'>审核</a></td>
+                                                                                                {elseif:$list['status'] == 21 }
+                                                                                                <td><a href='{url:/ManagerStore/applyStoreSign?id=$list["id"]}'>签发</a></td>
+																								{else:}
+																									<td><a href=''>查看</a></td>
                                                                                                 {/if}
                                                                                         </tr>
                                                                                       {/foreach}

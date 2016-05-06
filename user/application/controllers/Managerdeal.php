@@ -1,10 +1,5 @@
 <?php
-/**
- * 用户中心
- * User: weipinglee
- * Date: 2016/3/4 0004
- * Time: 上午 9:35
- */
+
 use \Library\checkRight;
 use \Library\PlUpload;
 use \Library\photoupload;
@@ -15,6 +10,10 @@ use \Library\Thumb;
 use \Library\tool;
 use \nainai\store;
 use \nainai\offer;
+
+/**
+ * 交易管理的控制器类
+ */
 class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
 
 
@@ -24,6 +23,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
      */
     private $_limiteProduct = 2;
 
+
     /**
      * 提示mode对应的类型
      * @var array
@@ -31,8 +31,8 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
     private $_mode = array(
         1 => '自由报盘',
         2 => '保证金报盘',
-        3 => '仓单报盘',
-        4 => '委托报盘'
+        3 => '委托报盘',
+        4 => '仓单报盘'
     );
 
 
@@ -46,7 +46,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
             )),
             array('name' => '仓单管理', 'list' => array(
                 array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单' ),
-                array('url' => '', 'title' => '仓单列表' ),
+                array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表' ),
             )),
             array('name' => '采购管理', 'list' => array(
                 array('url' => '', 'title' => '采购列表' ),
@@ -87,6 +87,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         //获取商品分类信息，默认取第一个分类信息
         $productModel = new \nainai\product();
         $category = $productModel->getCategoryLevel();
+
         $attr = $productModel->getProductAttr($category['chain']);
         //上传图片插件
         $plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
@@ -95,6 +96,7 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         $this->getView()->assign('plupload',$plupload->show());
         $this->getView()->assign('categorys', $category['cate']);
         $this->getView()->assign('attrs', $attr);
+        $this->getView()->assign('unit', $category['unit']);
         $this->getView()->assign('cate_id', $category['default']);
     }
 
@@ -114,25 +116,11 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
      * 仓单报盘
      * @return 
      */
-    public function storeAction(){
+    public function storeOfferAction(){
         $storeModel = new \nainai\store();
-        $storeList = $storeModel->getUserStoreLIst($this->user_id);
+        $storeList = $storeModel->getUserActiveStore($this->user_id);
 
-        if (!empty($storeList)) {
-            $storeDetail = $storeModel->getUserStoreDetail($storeList[0]['id']);
-            $attr_ids = array();
-            $storeDetail['attribute'] = unserialize($storeDetail['attribute']);
-            foreach ($storeDetail['attribute'] as $key => $value) {
-                $attr_ids[] = $key;
-            }
-
-            $productModel = new \nainai\product(); 
-            $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
-            $this->getView()->assign('photos', $productModel->getProductPhoto($storeDetail['pid']));
-        }
-        
-        $this->getView()->assign('storeList', $storeList);
-        $this->getView()->assign('storeDetail', $storeDetail);
+        $this->getView()->assign('storeList', $storeList['list']);
     }
 
     /**
@@ -143,7 +131,8 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         $this->getView()->assign('storeList',$store_list);
         $this->productAddAction();
     }
-    
+
+
 
     /**
      * Ajax获取仓单报盘页面的商品详情
@@ -154,7 +143,12 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         $pid = Safe::filterPost('pid', 'int');
         if (intval($pid) > 0) {
             $storeModel = new \nainai\store();
-            $return_json['storeDetail'] = $storeModel->getUserStoreDetail($pid);
+            $return_json['storeDetail'] = $storeModel->getUserStoreDetail($pid,$this->user_id);
+            if(empty($return_json['storeDetail'])){
+                echo JSON::encode(array());
+                exit;
+            }
+
             $attr_ids = array();
             $return_json['storeDetail']['attribute'] = unserialize($return_json['storeDetail']['attribute']);
             foreach ($return_json['storeDetail']['attribute'] as $key => $value) {
@@ -179,9 +173,11 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
          */
         public function ajaxGetCategoryAction(){
             $pid = Safe::filterPost('pid', 'int',0);
+
             if($pid){
                 $productModel = new \nainai\product();
                 $cate = $productModel->getCategoryLevel($pid);
+
                 $cate['attr'] = $productModel->getProductAttr($cate['chain']);
                 unset($cate['chain']);
                 echo JSON::encode($cate);
@@ -265,13 +261,45 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
 
            if($res['success']==1)
                $this->redirect('addSuccess');
-           else $this->redirect('offer');
+           else $this->redirect('indexoffer');
        }
 
         return false;
     }
 
+    /**
+     * 处理仓单报盘
+     * @return
+     */
+    public function doStoreOfferAction(){
+        if (IS_POST) {
+            $id = Safe::filterPost('id', 'int', 0);
+            $storeObj = new \nainai\store();
+            if ($storeObj->judgeIsUserStore($id, $this->user_id)) { //判断是否为用户的仓单
+                // 报盘数据
+                $offerData = array(
+                    'apply_time'  => \Library\Time::getDateTime(),
+                    'divide'      => Safe::filterPost('divide', 'int'),
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+                    'status'      => 0,
+                    'accept_area' => Safe::filterPost('accept_area'),
+                    'accept_day' => Safe::filterPost('accept_day', 'int'),
+                    'price'        => Safe::filterPost('price', 'float'),
+                );
 
+
+                $offerObj = new \nainai\product();
+                $offerData['product_id'] = Safe::filterPost('product_id', 'int');
+                $res = $offerObj->insertStoreOffer($offerData);
+                if($res['success']==1)
+                    $this->redirect('addSuccess');
+                else $this->redirect('offer');
+            }
+            $this->redirect('indexoffer');
+        }
+
+        return false;
+    }
 
     /**
      * 申请仓单处理
@@ -285,7 +313,6 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
                 'package_num' => Safe::filterPost('package_num'),
                 'package_unit' => Safe::filterPost('package_unit'),
                 'package_weight' => Safe::filterPost('package_weight'),
-                'status' => 0,
                 'apply_time'  => \Library\Time::getDateTime(),
                 'user_id' => $this->user_id
             );
@@ -299,6 +326,56 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         return false;
     }
 
+    /**
+     * 仓单列表
+     */
+    public function storeProductListAction(){
+        $page = Safe::filterGet('page', 'int', 0);
+        $store = new store();
+
+        $data = $store->getUserStoreList($page,$this->user_id);
+        $this->getView()->assign('statuList', $store->getStatus());
+        $this->getView()->assign('storeList', $data['list']);
+        $this->getView()->assign('attrs', $data['attrs']);
+        $this->getView()->assign('pageHtml', $data['pageHtml']);
+
+    }
+
+    /**
+     * 仓单详情
+     * @return bool
+     */
+    public function storeProductDetailAction(){
+        $id = $this->getRequest()->getParam('id');
+        $id = Safe::filter($id,'int',0);
+        if($id){
+            $stObj = new store();
+            $detail = $stObj->getUserStoreDetail($id,$this->user_id);
+
+            $productModel = new \nainai\product();
+
+            $this->getView()->assign('detail', $detail);
+            $this->getView()->assign('photos', $productModel->getProductPhoto($detail['pid']));
+        }
+        else
+        return false;
+    }
+
+    /**
+     * 仓单确认
+     */
+    public function userMakeSureAction(){
+        if(IS_POST){
+            $storeProductID = Safe::filterPost('id','int',0);
+            $status = Safe::filterPost('status','int',0);
+            $store = new store();
+           $res = $store->userCheck($status,$storeProductID,$this->user_id);
+            $this->redirect('storeProductDetail/id/'.$storeProductID);
+
+        }
+        return false;
+
+    }
     //上传接口
     public function swfuploadAction(){
         //调用文件上传类

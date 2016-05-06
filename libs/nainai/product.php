@@ -16,6 +16,10 @@ class product{
 
     private $product_limit = 5;
 
+    const FREE_OFFER  = 1;
+    const DEPOSIT_OFFER = 2;
+    const DEPUTE_OFFER  = 3;
+    const STORE_OFFER = 4;
     private $_errorInfo = '';
     /**
      * 商品验证规则
@@ -23,9 +27,9 @@ class product{
      */
     protected $productRules = array(
         array('name','require','商品名称必须填写'),
-        // array('cate_id','number','商品类型id错误'),
+        array('cate_id','number','商品类型id错误'),
         array('price','double','商品价格必须是数字'),
-        array('quantity','number','供货总量必须是整数'),
+        array('quantity','double','供货总量必须是整数'),
         array('attribute', 'require', '请选择商品属性'),
         array('note', 'require', '商品描述必须填写')
     );
@@ -67,82 +71,131 @@ class product{
      */
     public function getCategoryLevel($pid = 0){
         $where  = array('status' => 1);
-        $categorys=array();
         $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs')->where($where)->select();
-        foreach ($category as $key => $cate) {
-            $categorys[$cate['pid']][] = $cate;
-        }
-        $pid_chain = array();//父级分类的链，包含自身
 
+        $res = $this->generateTree($category);
+
+        return  $this->getCateChain($pid,$res);
+
+    }
+
+
+    /**
+     * 获取下级所有分类，以及分类链
+     * @param $pid
+     * @param $category
+     * @return mixed
+     */
+    private function getCateChain($pid,$category){
+         static $chain = array();
+        static $res = array();
+        $len = count($category);
+        $step = 0;
         if($pid!=0){
-            $pid_chain[] = $pid;
-            $parent_id = $pid;
-            while($parent_id!=0){
-                $parent_id = $this->getParentCateId($parent_id);
-                $pid_chain[] = $parent_id;
-            }
-        }
-
-        return $this->getTree($categorys,$pid,1,$pid_chain);
-    }
-
-    /**
-     * 找出父级分类id
-     * @param $id
-     */
-    private function getParentCateId($id){
-        return $this->_productObj->table('product_category')->where(array('id'=>$id))->getField('pid');
-    }
-
-
-
-
-    /**
-     * [getTree 获取分类信息树,默认获取第一个父类的子类属性]
-     * @param  [type]  $list [分类信息]
-     * @param  integer $pid  [pid]
-     * @param array $chain 父级分类链
-     * @return [type]        [description]
-     */
-    private function getTree(& $list,  $pid=0, $level=1,$chain=array()){
-        $last = 0;
-        static $category = array();
-        if(!empty($chain))
-            $category['chain'] = $chain;
-        if(isset($list[$pid])){
-            foreach ($list as $p => $cate) {//$p是父类的id
-                if ($p == $pid) {
-                    if ($last == 0) {
-                        $last = $cate[0]['id'];
-                        $category['chain'][] = $last;
-                        $category['default'] = $last;
+            foreach($category as $k=>$v){
+                $step += 1;
+                $chain[] = $k;
+                if($k!=$pid && !empty($category[$k]['child'])){
+                    $this->getCateChain($pid,$category[$k]['child']);
+                }
+                else if($k!=$pid && empty($category[$k]['child'])){//不等于pid且无下级分类
+                    array_pop($chain);
+                }
+                else if($k==$pid){
+                    $pidChain = $chain;
+                    $cate = $this->getchildCate($category[$k]['child']);
+                    if(empty($cate)){
+                        $res['chain'] = $pidChain;
+                        $res['cate']  = array();
+                        $res['default'] = $pid;
+                        $res['unit'] = $v['unit'];
                     }
-                    foreach($cate as $k=>$v){
-                        $m = new M('product_category');
-                        $childname = $m->where(array('id'=>$pid))->getField('childname');
-                        $category['cate'][$level]['childname'] = $childname ? $childname : '';
-                        if($k+1<=$this->product_limit){
-                            $category['cate'][$level]['show'][] = $v;
-                        }
-                        else
-                            $category['cate'][$level]['hide'][] = $v;
+                    else{
+                        $res['chain'] = array_merge($pidChain,$cate[1]);
+                        $res['cate']  = $cate[0];
+                        $res['default'] = $cate[1][count($cate[1])-1];
+                        $res['unit'] = $cate[2];
                     }
 
                 }
-            }
-            if ($last == 0) {
-                return array();
-            }else{
-                $level++;
-                $this->getTree($list, $last, $level);
+                if($len==$step)array_pop($chain);
             }
         }
         else{
-            $category['default'] = $pid;
+            $cate = $this->getchildCate($category);
+            $res['chain'] = $cate[1];
+            $res['cate']  = $cate[0];
+            $res['default'] = $cate[1][count($cate[1])-1];
+            $res['unit'] = $cate[2];
+
         }
 
-        return $category;
+
+        return $res;
     }
+
+    /**
+     * 获取下级所有分类，以及下级所有第一个分类id,单位
+     * @param array
+     */
+    private function getChildCate($cate,$level=1){
+        if(empty($cate))return array();
+        static $cateChild = array();
+        static $cateFirst = array();
+         static $step = 0;
+        static $unit = '';
+        $step1 = 0;
+        foreach($cate as $k=>$v){
+
+            if($step==0){//记录第一个分类序列
+                $cateFirst[] = $k;
+                $unit = $v['unit'];
+            }
+
+            if(isset($cate[$k]['child'])){
+                $temp = $cate[$k]['child'];
+                unset($cate[$k]['child']);
+                $cateChild[$level]['show'][] = $cate[$k];//所有分类写入
+
+                if($step1==0 ) {//只有第一个分类才遍历子分类
+                    $this->getChildCate($temp,$level+1);
+                }
+
+            }
+            else{
+                $cateChild[$level]['show'][] = $cate[$k];//所有分类写入
+            }
+
+            $step1 +=1;
+            $step += 1;
+        }
+        return array($cateChild,$cateFirst,$unit);
+    }
+    /**
+     * 获取递归数组
+     * @param array $items
+     * @param int $pid 父类id
+     * @return array
+     */
+    private  function generateTree(&$items,$pid=0,$unit=''){
+         $tree = array();
+
+        foreach($items as $key=>$item){
+            if($item['pid']==$pid){
+                $v = $items[$key];
+                $v['unit'] = $items[$key]['unit'] =='' ? $unit : $items[$key]['unit'] ;
+
+                $tree[$item['id']] = $v;
+                unset($items[$key]);
+                $tree[$item['id']]['child'] = $this->generateTree($items,$item['id'],$v['unit']);
+
+            }
+        }
+
+         return  $tree;
+    }
+
+
     /**
      *获取所有分类的属性，去除重复
      * @param array $cates 分类数组,array(2,3)
@@ -199,7 +252,7 @@ class product{
          * @param  [type] $pid [description]
          * @return [type]      [description]
          */
-        public function getProductPhoto($pid){
+        public function getProductPhoto($pid = 0){
             $photos = array();
             if (intval($pid) > 0) {
                 $imgObj = new M('product_photos');
@@ -254,8 +307,14 @@ class product{
         return $resInfo;
     }
 
+    /**
+     * 仓单报盘数据添加
+     * @param  [Array] $productOffer [报盘的数据]
+     * @return [Array]      
+     */
     public function insertStoreOffer( & $productOffer){
         if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
+            $productOffer['mode'] = self::STORE_OFFER;
             $res = (int)$this->_productObj->table('product_offer')->data($productOffer)->add(0);
         }else{
             $res = $this->_productObj->getError();

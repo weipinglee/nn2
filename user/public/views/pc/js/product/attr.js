@@ -26,6 +26,48 @@ $(document).ready(function(){
 
     $('[id^=level]').find('li').on('click',getCategory);
 
+    $('#storeList').change(function(){
+        $.ajax({
+             'url' :  $('#ajaxGetStoreUrl').val(),
+            'type' : 'post',
+            'data' : {pid : $('#storeList').val()},
+            'dataType': 'json',
+            success:function(data){
+                $('#pname').html(data.storeDetail.pname);
+                $('#cname').html(data.storeDetail.cname);
+                $('#create_time').html(data.storeDetail.create_time);
+                $('#unit').html(data.storeDetail.unit);
+                $('#quantity').html(data.storeDetail.quantity);
+                $('#attrs').html(data.storeDetail.attrs);
+                $('#id').val(data.storeDetail.sid);
+                $('#product_id').val(data.storeDetail.pid);
+
+                var areaData= getAreaData();
+                var p =  areaData[0];
+                var q = areaData[1];
+                var dis_arr = areaData[2];
+                var d = 0;
+                var b = 0;
+                var l = 0;
+                if (data.storeDetail.produce_area != undefined) {
+                    d = parseInt(data.storeDetail.produce_area.substring(0,2));
+                    if(data.storeDetail.produce_area.length>3) b = parseInt(data.storeDetail.produce_area.substring(0,4));
+                    if(data.storeDetail.produce_area.length>5) l = parseInt(data.storeDetail.produce_area.substring(0,6));
+                 }
+
+                $('#area').html(p[d] + q[d][b] + dis_arr[b][l]);
+ 
+                var insertHtml = '';
+                $.each(data.photos, function(key, value){
+                    insertHtml += '<img src="' + value + '" />';
+                });
+                $('#photos').html(insertHtml);
+            }
+        });
+    });
+
+    $('#storeList').trigger('change');
+
 })
 
 //异步获取分类
@@ -46,7 +88,9 @@ function getCategory(){
             $('#productAdd').find('input[name=cate_id]').val(data.default);
             $('#productAdd').find('.attr').remove();
             if(data.cate){
+                $('#unit').text(data.unit);
                 $.each(data.cate,function(k,v){
+
                     var box = $('#cate_box').clone();
 
                     if(v.childname){

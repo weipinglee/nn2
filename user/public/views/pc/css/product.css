@@ -194,7 +194,7 @@ text-align: right;
 }
 .pro_main .pro_cen ul li{
 	float: left;
-	width: 94px;
+	width: 80px;
 	text-align: center;
 }
 /*product.html*/
@@ -268,6 +268,7 @@ text-align: right;
 	background: #c4141c;
 	line-height: 25px;
 	border-bottom: 1px solid;
+	margin:0 auto;
 
 }
 .pro_main .pro_cen ul li a{
@@ -398,6 +399,9 @@ text-align: right;
 	padding: 15px 25px;
 	font-size: 20px;
 }
+ .pop_con_tit .main{
+ 	width: 760px;margin:0 auto;
+ }
 .is-visible .cd-popup-close{
 padding: 7px 25px 0 0px;
 font-size: 15px;

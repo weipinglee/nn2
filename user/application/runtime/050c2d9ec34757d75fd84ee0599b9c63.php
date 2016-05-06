@@ -12,7 +12,7 @@
 </head>
 <body>
 <script type="text/javascript" >
-  var logPath = 'http://localhost/nn2/user/public/index.php//index/dolog';
+  var logPath = 'http://localhost/nn2/user/public/index/dolog';
 </script>
 
 <div class="wrap">
@@ -49,12 +49,12 @@
         <!-- !验证码 -->
         <div class="cell vcode">
           <input type="text" name="code" id="js-mobile_vcode_ipt" class="text" maxlength="4" placeholder="验证码"/>
-       <a id='chgCode' href="javascript:void(0)" onclick="changeCaptcha('http://localhost/nn2/user/public/index.php//index/getcaptcha',$(this).find('img'))"><img src="http://localhost/nn2/user/public/index.php//index/getcaptcha" /></a>
+       <a id='chgCode' href="javascript:void(0)" onclick="changeCaptcha('http://localhost/nn2/user/public/index/getcaptcha',$(this).find('img'))"><img src="http://localhost/nn2/user/public/index/getcaptcha" /></a>
         </div>
         <div class="bottom">
           <a id="js-mobile_btn" href="javascript:void(0);" class="button btn-green" onclick="double_submit()"> 立即登录</a>
         </div>
-		<div class="mm_reg"><a>忘记密码</a><a href="http://localhost/nn2/user/public/index.php//index/register">注册>></a></div>
+		<div class="mm_reg"><a>忘记密码</a><a href="http://localhost/nn2/user/public/index/register">注册>></a></div>
       </div>
     </div>
   </div>

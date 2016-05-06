@@ -40,5 +40,66 @@ $("#jian").click(function(){
   $("#num").val(num);
   });
 });
+//企业认证切换
+$(document).ready(function(){
+  $(".rz_ul .rz").click(function(){
+    $(".rz_ul .rz_li").removeClass("cur");
+    $(".re_xx").show();
+    $(".yz_img").hide();
+    $(".sh_jg").hide();
+    $(this).parents(".rz_li").addClass("cur");
 
+  });
+  $(".rz_ul .yz").click(function(){
+    $(".rz_ul .rz_li").removeClass("cur");
+    $(".yz_img").show();
+    $(".re_xx").hide();
+    $(".sh_jg").hide();
+    $(this).parents(".rz_li").addClass("cur");
+
+  });
+  $(".rz_ul .shjg").click(function(){
+    $(".rz_ul .rz_li").removeClass("cur");
+    $(".sh_jg").show();
+    $(".yz_img").hide();
+    $(".re_xx").hide();
+    $(this).parents(".rz_li").addClass("cur");
+
+  });
+});
+//end企业认证切换
+//发布报盘弹出提示窗
+jQuery(document).ready(function($){
+  //open popup
+  $('.bzjin').on('click', function(event){
+    event.preventDefault();
+    $('.cd-popup').addClass('is-visible');
+  });
+  
+  //close popup
+  $('.cd-popup').on('click', function(event){
+    if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+      event.preventDefault();
+      $(this).removeClass('is-visible');
+    }
+  });
+  //close popup when clicking the esc keyboard button
+  $(document).keyup(function(event){
+      if(event.which=='27'){
+        $('.cd-popup').removeClass('is-visible');
+      }
+    });
+  //报盘弹出信息end
+
+  //合同列表用户信息显示。
+      $(".Place").mouseover(function () {
+          $(this).find(".prompt-01").css("display", "block");
+      });
+      $(".Place").mouseout(function () {
+          $(this).find(".prompt-01").css("display", "none");
+      });
+      
+    //合同列表用户信息显示end
+        
+});
 

@@ -104,6 +104,9 @@ class Order{
 		
 		if($res === true){
 			$resInfo = tool::getSuccInfo();
+			if(isset($order_id)){
+				$resInfo['order_id'] = $order_id;
+			}
 		}else{
 			$resInfo = tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
 		}
@@ -129,12 +132,14 @@ class Order{
 		$orderData['contract_status'] = self::CONTRACT_NOTFORM;
 		$offer_info = $this->offerInfo($orderData['offer_id']);
 		if(isset($offer_info['price']) && $offer_info['price']>0){
+			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
+			if($product_valid !== true)
+				return tool::getSuccInfo(0,$product_valid);
 			$orderData['amount'] = $offer_info['price'] * $orderData['num'];
 			$res = $this->orderUpdate($orderData);
 		}else{
 			$res = tool::getSuccInfo(0,'无效报盘');
 		}
-
 		return $res;
 	}
 
@@ -156,7 +161,7 @@ class Order{
 
 	//根据订单id获取订单内容	
 	protected function orderInfo($order_id){
-		return empty($order_id) ? array() : $this->order->where(array('id'=>$order_id))->getObj();
+		return empty($order_id) ? array() : $this->order->where(array('id'=>$order_id))->fields()->getObj();
 	}
 
 	//根据报盘id获取相应信息
@@ -325,30 +330,64 @@ class Order{
 		}
 	}
 
+	//获取买方定金数额（通用）
+	public function payDepositCom($offer_id,$amount){
+		if(($amount = floatval($amount)) > 0){
+			//获取保证金比率
+			$query = new Query('products as p');
+			$query->join = 'left join product_offer as po on po.product_id = p.id left join product_category as pc on pc.id = p.cate_id';
+			$query->fields = 'pc.percent';
+			$query->where = 'po.id=:offer_id';
+			$query->bind = array('offer_id'=>$offer_id);
+			$res = $query->getObj();
+			$percent = intval($res['percent']);
+			if($percent>0 && $percent<100){
+				//能否等于0或者100
+				return ($percent/100)*$amount;
+			}
+			return false;
+		}
+		return false;
+	}
+
+	/**
+	 * 查看产品数量是否合规
+	 * @param  array $product 产品信息数组
+	 * @return true:可以下单 string:错误信息
+	 */
+	public function productNumValid($num,$offer_info,$product=array()){
+		if(empty($product))
+			$product = $this->products->where(array('id'=>$offer_info['product_id']))->getObj();
+		$quantity = floatval($product['quantity']); //商品总数量
+		$sell = floatval($product['sell']); //商品已售数量
+		$freeze = floatval($product['freeze']);//商品已冻结数量
+		if($offer_info['divide'] == 1 && $num != $quantity)
+			return '此商品不可拆分';
+
+		$product_left = $quantity-$sell-$freeze;//商品剩余数量
+		if($num > $product_left)
+			return '商品存货不足';
+		if($num < $offer_info['minimum'])
+			return '小于最小起订量';
+
+		return true;
+	}
+
 	/**
 	 * 买家支付定金后冻结相应数量的商品
 	 * @param  array $offer_info 报盘信息数组
 	 * @param  float $num  商品数目
 	 * @return true:冻结成功 string:报错信息
 	 */
-	final protected function productsFreeze($offer_info,$num){
+	final public function productsFreeze($offer_info,$num){
 		$num = floatval($num);
 		if($offer_info && is_array($offer_info) && $num > 0){
 			$product = $this->products->where(array('id'=>$offer_info['product_id']))->getObj();
 			if($product){
-				$quantity = floatval($product['quantity']); //商品总数量
-				$sell = floatval($product['sell']); //商品已售数量
-				$freeze = floatval($product['freeze']);//商品已冻结数量
-				if($offer_info['divide'] == 0 && $num != $quantity)
-					return '此商品不可拆分';
-
-				$product_left = $quantity-$sell-$freeze;//商品剩余数量
-				if($num > $product_left)
-					return '商品存货不足';
-				if($num < $offer_info['minimum'])
-					return '小于最小起订量';
-
-				$res = $this->products->where(array('id'=>$product['id']))->data(array('freeze'=>$freeze+$num))->update();
+				$product_valid = $this->productNumValid($num,$offer_info,$product);
+				if($product_valid !== true)
+					return $product_valid;
+				$res = $this->products->where(array('id'=>$product['id']))->data(array('freeze'=>floatval($product['freeze'])+$num))->update();
 				return is_int($res) && $res>0 ? true : ($this->products->getError() ? $this->products->getError() : '数据未修改');
 			}
 			return '无效产品';

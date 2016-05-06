@@ -8,12 +8,12 @@
  */
 namespace Library;
 return array(
-    'host'=>array(//各系统域名路径
+    'host'=>array(//各系统域名路�?
         'deal'=>'localhost/nn2/deal',
         'user'=>'http://localhost/nn2/user/public'
     ),
-    'rootDir'=>array(//项目根目录绝对路径
+    'rootDir'=>array(//项目根目录绝对路�?
 
-        'user'=>'D:\wamp2.5\www\nn2\user\public'
+        'user'=>'E:\wamp\www\nn2\user\public'
     ),
 );

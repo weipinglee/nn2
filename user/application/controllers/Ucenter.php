@@ -18,6 +18,11 @@ class UcenterController extends Yaf\Controller_Abstract {
     public function init(){
         $right = new checkRight();
         $right->checkLogin($this);//未登录自动跳到登录页
+        
+        $this->getView()->assign('leftArray', $this->getLeftArray());
+        $controller = $this->getRequest()->getControllerName();
+        $action = $this->getRequest()->getActionName();
+        $this->getView()->assign('leftCur', url::createUrl('/'.$controller.'/'.$action));
         $this->getView()->setLayout('ucenter');
     }
     /**
@@ -27,6 +32,23 @@ class UcenterController extends Yaf\Controller_Abstract {
         
     }
 
+    private function  getLeftArray(){
+        return array(
+            array('name' => '账户管理', 'list' =>'' ),
+            array('name' => '账户管理', 'list' => array(
+                array('url' => url::createUrl('/ucenter/info'), 'title' => '基本信息' ),
+                array('url' => url::createUrl('/ucenter/password'), 'title' => '修改密码' ),
+            )),
+            array('name' => '资质认证', 'list' => array(
+                array('url' => url::createUrl('/ucenter/dealCert'), 'title' => '交易商' ),
+                array('url' => url::createUrl('/ucenter/storeCert'), 'title' => '仓库管理员' ),
+            )),
+            array('name' => '子账户管理', 'list' => array(
+                array('url' => url::createUrl('/ucenter/subAcc'), 'title' => '添加子账户' ),
+            )),
+
+        );
+    }
     /**
      * 基本信息修改
      */
@@ -214,25 +236,39 @@ class UcenterController extends Yaf\Controller_Abstract {
         return false;
     }
 
+
     /**
      * 交易商认证页面
+     *
      */
     public function dealCertAction(){
+        $cert = new certDealerModel($this->user_id,$this->user_type);
+        $certData = $cert->getCertData($this->user_id);
+        $certShow = $cert->getCertShow($this->user_id);
 
-        $user_id = $this->user_id;
-        $cert = new \nainai\certificate();
-        $res = $cert->getCertShow($user_id,'deal');//获取显示数据
-        $this->getView()->assign('cert',$res);
-
+       $this->getView()->assign('certData',$certData);
+        $this->getView()->assign('certShow',$certShow);
+        $this->getView()->assign('userType',$certData['type']);
     }
     /**
      * 仓库认证
      */
     public function storeCertAction(){
-        $user_id = $this->user_id;
-        $cert = new \nainai\certificate();
-        $res = $cert->getCertShow($user_id,'store');//获取显示数据
-        $this->getView()->assign('cert',$res);
+        $cert = new certStoreModel($this->user_id,$this->user_type);
+        $store = nainai\store::getStoretList();
+
+        $certData = $cert->getDetail();
+        $certData = $certData[0];
+        if(isset($certData['store_id'])){
+            $this->getView()->assign('store_id',$certData['store_id']);
+        }
+
+        $certShow = $cert->getCertShow();
+        $this->getView()->assign('store',$store);
+        $this->getView()->assign('userType',$certData['type']);
+        $this->getView()->assign('certData',$certData);
+        $this->getView()->assign('certShow',$certShow);
+
     }
 
 
@@ -244,20 +280,35 @@ class UcenterController extends Yaf\Controller_Abstract {
 
         if(IS_AJAX){
             $user_id = $this->user_id;
-            $cert = new \nainai\certificate();
-            if(!empty($res = $cert->checkUserInfo($user_id,$this->user_type))){//用户信息不完整
-                $res['return']=Url::createUrl('/ucenter/info');
-                echo JSON::encode($res);
-                exit;
-            }
-            else if($res=$cert->certDealApply($user_id)) {//提交成功
-                echo JSON::encode(Tool::getSuccInfo());
-                exit;
+
+            $accData = array();
+
+            if($this->user_type==1){
+                $accData['company_name'] = Safe::filterPost('company_name');
+                $accData['legal_person'] = Safe::filterPost('legal_person');
+                $accData['contact'] = Safe::filterPost('contact');
+                $accData['contact_phone'] = Safe::filterPost('phone');
+                $accData['area'] = Safe::filterPost('area');
+                $accData['address'] = Safe::filterPost('address');
+                $accData['cert_bl'] = Tool::setImgApp(Safe::filterPost('imgfile1'));
+                $accData['cert_tax'] = Tool::setImgApp(Safe::filterPost('imgfile2'));
+                $accData['cert_oc'] = Tool::setImgApp(Safe::filterPost('imgfile3'));
             }
             else{
-               echo JSON::decode(Tool::getSuccInfo(0,'系统繁忙，稍后再试',Url::createUrl('/ucenter/dealCert')));
-                exit;
+                $accData['true_name'] = Safe::filterPost('true_name');
+                $accData['identify_no'] = Safe::filterPost('identify_no');
+                $accData['identify_front'] = Tool::setImgApp(Safe::filterPost('imgfile1'));
+                $accData['identify_back'] = Tool::setImgApp(Safe::filterPost('imgfile2'));
             }
+
+            $cert = new \nainai\cert\certDealer($user_id,$this->user_type);
+
+            $res = $cert->certDealApply($accData);
+
+            if($res['success']==1)
+                echo 1;
+            else
+                echo 0;
         }
         return false;
 
@@ -270,22 +321,29 @@ class UcenterController extends Yaf\Controller_Abstract {
     public function doStoreCertAction(){
         if(IS_AJAX){
             $user_id = $this->user_id;
-            $cert = new \nainai\certificate();
-            $store_id = intval($_POST['store']);
-            if(!empty($res = $cert->checkUserInfo($user_id,$this->user_type))){//用户信息不完整
-                $res['return']=Url::createUrl('/ucenter/info');
-                echo JSON::encode($res);
-                exit;
-            }
-            else if($res=$cert->certStoreApply($user_id,$store_id)) {//提交成功
 
-                echo JSON::encode(Tool::getSuccInfo());
-                exit;
+            $accData = array();
+
+            if($this->user_type==1){
+                $accData['company_name'] = Safe::filterPost('company_name');
+                $accData['legal_person'] = Safe::filterPost('legal_person');
+                $accData['contact'] = Safe::filterPost('contact');
+                $accData['contact_phone'] = Safe::filterPost('phone');
+                $accData['area'] = Safe::filterPost('area');
+                $accData['address'] = Safe::filterPost('address');
             }
             else{
-                echo JSON::encode(Tool::getSuccInfo(0,'系统繁忙，稍后再试',Url::createUrl('/ucenter/dealCert')));
-                exit;
+                $accData['true_name'] = Safe::filterPost('true_name');
             }
+
+            $cert = new \nainai\cert\certStore($user_id,$this->user_type);
+
+            $res = $cert->certStoreApply($accData);
+
+            if($res['success']==1)
+                echo 1;
+            else
+                echo 0;
         }
         return false;
     }
@@ -295,7 +353,7 @@ class UcenterController extends Yaf\Controller_Abstract {
      */
     public function subAccAction(){
 
-        $arr = $this->getRequest()->getParams();print_r($arr);
+        $arr = $this->getRequest()->getParams();
         $uid = safe::filter($arr['uid'],'int','');
         $user_data = array(
             'id'      => $uid,

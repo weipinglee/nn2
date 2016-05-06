@@ -38,62 +38,6 @@ class MemberController extends Yaf\Controller_Abstract {
 		$this->getView()->assign('bar',$pageData['bar']);
 	}
 
-	/**
-	 *交易商认证列表页
-     */
-	public function dealerCertAction(){
-		$m = new certificate();
-
-		$page = safe::filterGet('page','int',1);
-		$pageData = $m->certApplyList('deal',$page);
-		$this->getView()->assign('certData',$pageData['data']);
-		$this->getView()->assign('bar',$pageData['bar']);
-
-	}
-
-	/**
-	 * 交易商申请认证详情页
-	 */
-	public function dealercertDetailAction(){
-		$id = $this->getRequest()->getParam('uid',0);
-		$id = safe::filter($id,'int',0);
-
-		if($id){
-			$certObj = new certificate();
-
-			$certData = $certObj->getCertDetail($id,'deal');
-
-			if(empty($certData))
-				$this->redirect(url::createUrl('/member/dealerCert'));
-
-			$this->getView()->assign('user',$certData[0]);
-			$this->getView()->assign('detail',$certData[1]);
-			$this->getView()->assign('cert',$certData[2]);
-		}
-		else{
-			return false;
-		}
-
-
-
-	}
-
-	/**
-	 * 角色认证
-	 */
-	public function doDealerCertAction(){
-		if(IS_POST){
-		$user_id = safe::filterPost('user_id','int',0);
-		$status  = safe::filterPost('result','int',0);
-		$info    = safe::filterPost('info');
-		$status  = $status==1 ? 1 : 0;
-		$m = new certificate();
-		$m->certVerify($user_id,$status,$info,'deal');
-
-		}
-		return false;
-
-	}
 
 	/**
 	 *角色添加页面，如果传递参数id，则为更新
