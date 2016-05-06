@@ -112,28 +112,49 @@ use \Library\Time;
          if($user_id){
              $time = Time::getDateTime('',time() - $day*24*3600);
               $where = array('user_id'=>$user_id,'time'=>array('gt'=>$time));
-             return $this->flowModel->where($where)->select();
+             return $this->flowModel->where($where)->order('time DESC')->select();
          }
      }
     /**
-     * 入金操作
-     * @param int $user_id 用户id
-     * @param $num float 入金金额
-     */
-    public function in($user_id,$num){
-        if(is_integer($num) || is_float($num)){
+  * 入金操作
+  * @param int $user_id 用户id
+  * @param $num float 入金金额
+  */
+     public function in($user_id,$num){
+         if(is_integer($num) || is_float($num)){
 
-            $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->setInc('fund',$num);//总帐户增加金额
-            $this->createFlowData($user_id,$num,'in');
-            return true;
-        }
-        else{
-            return $this->errorCode['fundWrong'];
-        }
+             $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->setInc('fund',$num);//总帐户增加金额
+             $this->createFlowData($user_id,$num,'in');
+             return true;
+         }
+         else{
+             return $this->errorCode['fundWrong'];
+         }
 
 
-    }
+     }
 
+     /**
+      * 出金操作
+      * @param int $user_id 用户id
+      * @param $num float 入金金额
+      */
+     public function out($user_id,$num){
+         if(is_integer($num) || is_float($num)){
+             //获取账户可用资金总额
+             $fund = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('fund');
+             if($fund===false || $fund<$num)
+                 return $this->errorCode['fundLess'];
+             $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->setDec('fund',$num);//可用帐户减少金额
+             $this->createFlowData($user_id,$num,'pay');
+             return true;
+         }
+         else{
+             return $this->errorCode['fundWrong'];
+         }
+
+
+     }
 
 
     /**
