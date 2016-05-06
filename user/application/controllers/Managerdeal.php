@@ -24,6 +24,12 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
     private $_limiteProduct = 2;
 
     /**
+     * 设置产品过期的天数
+     * @var integer
+     */
+    private $_expireDay = 5;
+
+    /**
      * 提示mode对应的类型
      * @var array
      */
@@ -33,8 +39,6 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         3 => '仓单报盘',
         4 => '委托报盘'
     );
-
-
 
     protected function  getLeftArray(){
         return array(
@@ -217,16 +221,16 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         }
         $time = date('Y-m-d H:i:s', time());
 
-
         $detail = array(
             'name'         => Safe::filterPost('warename'),
             'cate_id'      => Safe::filterPost('cate_id', 'int'),
             'price'        => Safe::filterPost('price', 'float'),
             'quantity'     => Safe::filterPost('quantity', 'int'),
-            'attribute'    => serialize($attrs),
+            'attribute'    => empty($attrs) ? '' : serialize($attrs),
             'note'         => Safe::filterPost('note'),
             'produce_area' => Safe::filterPost('area'),
             'create_time'  => $time,
+            'expire_time' => date('Y-m-d H:i:s', strtotime('+'.$this->_expireDay.' days')),
             'user_id' => $this->user_id
         );
 
@@ -235,7 +239,6 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
 
         $resImg = array();
         if(!empty($imgData)){
-
             foreach ($imgData as $imgUrl) {
                 if (!empty($imgUrl) && is_string($imgUrl)) {
                     array_push($resImg, array('img' => tool::setImgApp($imgUrl)));
@@ -245,6 +248,8 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
 
         return array($detail,$resImg);
     }
+
+    
     /**
      * 处理报盘
      */
@@ -381,29 +386,25 @@ class ManagerDealController extends \nainai\Abstruct\UcenterControllerAbstract {
         
         if (!empty($name)) {
                 $where .= ' AND a.name like"%'.$name.'%"';
-                $this->getView()->assign('name', $name);
-                $page = 0; //有查询条件的时候初始化到第一页
+                $this->getView()->assign('name', $name); 
         }
 
         if (!empty($status) && $status != 9) {
                 $where .= ' AND c.status=:status';
                 $bind['status'] = $status;
                 $this->getView()->assign('status', $status);
-                $page = 0;
         }
 
         if (!empty($beginDate)) {
                 $where .= ' AND apply_time>=:beginDate';
                 $bind['beginDate'] = $beginDate;
                 $this->getView()->assign('beginDate', $beginDate);
-                $page = 0;
         }
 
         if (!empty($endDate)) {
                 $where .= ' AND apply_time<=:endDate';
                 $bind['endDate'] = $endDate;
                 $this->getView()->assign('endDate', $endDate);
-                $page = 0;
         }
 
         $productModel = new \nainai\product();
