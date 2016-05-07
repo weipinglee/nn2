@@ -167,7 +167,6 @@ use \Library\Time;
             $fund = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('fund');
             if($fund===false || $fund<$num)
                 return $this->errorCode['fundLess'];
-            $this->agentModel->beginTrans();
             $res = $this->createFlowData($user_id,$num,'freeze');
             if($res){
                 $this->agentModel->table($this->agentTable);
@@ -177,7 +176,7 @@ use \Library\Time;
 
             }
 
-            return $this->agentModel->commit() ;
+            return true ;
 
         }
         else{

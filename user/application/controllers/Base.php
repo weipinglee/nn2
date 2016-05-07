@@ -23,12 +23,12 @@ class BaseController extends \Yaf\Controller_Abstract{
 
 
 	final private function init(){
-	          $right = new checkRight();
-	         $right->checkLogin($this);//未登录自动跳到登录页
+		$right = new checkRight();
+		$right->checkLogin($this);//未登录自动跳到登录页
 
-	        $this->getView()->setLayout('ucenter');
-	        $this->getView()->assign('topArray', $this->getTopArray());
-	        $this->getView()->assign('leftArray', $this->getLeftArray());
+		$this->getView()->setLayout('ucenter');
+		$this->getView()->assign('topArray', $this->getTopArray());
+		$this->getView()->assign('leftArray', $this->getLeftArray());
 		$action = $this->getRequest()->getActionName();
 		$this->getView()->assign('action', $action);
     }
@@ -41,7 +41,7 @@ class BaseController extends \Yaf\Controller_Abstract{
     		$topArray = array(
 				'index'      => array('url' => '', 'title' => '首页'),
 				'Ucenter'  => array('url' => url::createUrl('/ucenter/info'), 'title' => '账户信息'),
-				'Managerfund'     => array('url' => '', 'title' => '资金管理'),
+				'Fund'     => array('url' => url::createUrl('/Fund/index'), 'title' => '资金管理'),
 				'Managerdeal'     => array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '交易管理'),
 				'Managerstore'    => array('url' => url::createUrl('/ManagerStore/ApplyStoreList'), 'title' => '仓单管理'),
 				'Managercar'      => array('url' => '', 'title' => '车辆管理'),

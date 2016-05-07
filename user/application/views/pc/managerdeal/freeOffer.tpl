@@ -24,7 +24,7 @@
             <div class="user_c">
                 <div class="user_zhxi pro_classify">
                     <div class="zhxi_tit">
-                        <p><a>产品管理</a>><a>商品分类</a></p>
+                        <p><a>产品管理</a>><a>自由报盘</a></p>
                     </div>
                     <div class="center_tabl">
                     <div class="lx_gg">
@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/ManagerDeal/doOffer}" method="POST">
+                    <form action="{url:/ManagerDeal/doFreeOffer}" method="POST">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
@@ -186,11 +186,9 @@
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
-                            <input type="submit" value='submit'>
-                            <input type="hidden" name="mode" value="{$mode}">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
-                                <a href="javascript:void(0);" onclick="checkform()">提交审核</a> 
-                                <span class="color">审核将收取N元/条的人工费用，请仔细填写</span>
+                                <input  type="submit" onclick="checkform()">提交审核</input>
+                                <span class="color">审核通过将收取{$fee}元的费用，请仔细填写</span>
                             </td>
                         </tr>
                          

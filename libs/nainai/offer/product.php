@@ -5,7 +5,7 @@
  * Date: 2016/4/19
  * Time: 13:31
  */
-namespace nainai;
+namespace nainai\offer;
 use \Library\M;
 use \Library\Time;
 use \Library\Query;
@@ -21,6 +21,8 @@ class product{
     const DEPUTE_OFFER  = 3;
     const STORE_OFFER = 4;
     private $_errorInfo = '';
+
+    protected $user_id = '';
     /**
      * 商品验证规则
      * @var array
@@ -50,10 +52,16 @@ class product{
      * pdo的对象
      * @var [Obj]
      */
-    private $_productObj;
+    protected $_productObj;
 
-    public function __construct(){
+    /**
+     * @param int $user_id 用户id
+     */
+    public function __construct($user_id=0){
         $this->_productObj = new M('products');
+        if($user_id!=0){
+            $this->user_id = $user_id;
+        }
     }
 
     public function getErrorMessage(){
@@ -273,15 +281,13 @@ class product{
          * @param  [Array] &$productOffer[提交的报盘数据]
          * @return [Array]               [添加是否成功，及失败信息]
          */
-        public function insertOffer(&$productData, &$productOffer){
-            if ($this->_productObj->validate($this->productRules,$productData)){
+        protected function insertOffer(&$productData, &$productOffer){
+            if ($this->_productObj->validate($this->productRules,$productData) && $this->_productObj->validate($this->productOfferRules, $productOffer)){
 
-                $this->_productObj->beginTrans();
-                $pId = $this->_productObj->data($productData[0])->add(1);
+                $pId = $this->_productObj->data($productData[0])->add();
                 $productOffer['product_id'] = $pId;
 
-                if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
-                    $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+                   $this->_productObj->table('product_offer')->data($productOffer)->add(1);
                     $imgData = $productData[1];
                     if (!empty($imgData)) {
                         foreach ($imgData as $key => $imgUrl) {
@@ -289,22 +295,12 @@ class product{
                         }
                         $this->_productObj->table('product_photos')->data($imgData)->adds(1);
                     }
-                    $res = $this->_productObj->commit();
-                }else{
-                    $res = $this->_productObj->getError();
-                }
+                return true;
 
             }else{
-                $res = $this->_productObj->getError();
+                 return $this->_productObj->getError();
             }
 
-            if ($res === TRUE) {
-                return Tool::getSuccInfo(1, 'add Success');
-            }else{
-                $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
-            }
-
-        return $resInfo;
     }
 
     /**

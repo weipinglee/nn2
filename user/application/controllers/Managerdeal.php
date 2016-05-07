@@ -9,14 +9,13 @@ use \Library\Safe;
 use \Library\Thumb;
 use \Library\tool;
 use \nainai\store;
-use \nainai\offer;
+use \nainai\offer\product;
+use \nainai\offer\freeOffer;
 
 /**
  * 交易管理的控制器类
  */
 class ManagerDealController extends baseController {
-
-
     /**
      * 设置分类多少以后有展开
      * @var integer
@@ -36,7 +35,10 @@ class ManagerDealController extends baseController {
     );
 
 
-
+    /**
+     * 获取左侧菜单
+     * @return array
+     */
     protected function  getLeftArray(){
         return array(
             array('name' => '交易管理', 'list' => array()),
@@ -45,7 +47,7 @@ class ManagerDealController extends baseController {
                 array(
                     'url' => url::createUrl('/ManagerDeal/indexOffer'),
                     'title' => '发布产品' ,
-                    'action' => array('indexoffer','productadd'),//action都用小写
+                    'action' => array('indexoffer','freeoffer'),//action都用小写
 
                 ),
             )),
@@ -90,7 +92,7 @@ class ManagerDealController extends baseController {
         $category = array();
 
         //获取商品分类信息，默认取第一个分类信息
-        $productModel = new \nainai\product();
+        $productModel = new product();
         $category = $productModel->getCategoryLevel();
 
         $attr = $productModel->getProductAttr($category['chain']);
@@ -106,15 +108,42 @@ class ManagerDealController extends baseController {
     }
 
     /**
-     * 自由报盘和保证金、委托报盘
+     * 自由报盘申请页面
      *
      */
-    public function OfferAction(){
-        $mode = $this->getRequest()->getParam('mode');
-        if(!isset($this->_mode[$mode]))//如果mode不在三中模式当中，默认为1，自由报盘
-            $mode = 1;
-        $this->getView()->assign('mode',$mode);
+    public function freeOfferAction(){
+        $freeObj = new freeOffer();
+        $freeFee = $freeObj->getFee();
+        $this->getView()->assign('fee',$freeFee);
         $this->productAddAction();
+    }
+
+    /**
+     * 自由报盘提交处理
+     *
+     */
+    public function doFreeOfferAction(){
+        if(IS_POST){
+            $offerData = array(
+                'apply_time'  => \Library\Time::getDateTime(),
+                'divide'      => Safe::filterPost('divide', 'int'),
+                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+
+                'accept_area' => Safe::filterPost('accept_area'),
+                'accept_day' => Safe::filterPost('accept_day', 'int'),
+                'price'        => Safe::filterPost('price', 'float'),
+                'acc_type'   => 1,//现在写死了，就是代理账户
+            );
+
+            $offerObj = new freeOffer($this->user_id);
+            $productData = $this->getProductData();
+            $res = $offerObj->doOffer($productData,$offerData);
+           
+            if($res===true){
+                echo 8;
+            }
+            else echo 9;
+        }
     }
 
     /**
@@ -180,7 +209,7 @@ class ManagerDealController extends baseController {
             $pid = Safe::filterPost('pid', 'int',0);
 
             if($pid){
-                $productModel = new \nainai\product();
+                $productModel = new product();
                 $cate = $productModel->getCategoryLevel($pid);
 
                 $cate['attr'] = $productModel->getProductAttr($cate['chain']);
