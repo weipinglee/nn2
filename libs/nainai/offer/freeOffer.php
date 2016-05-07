@@ -11,11 +11,7 @@ use nainai\fund;
 class freeOffer extends product{
 
 
-    private $errorCode = array(
-        'fundLess' => array('code'=>-1,'info'=>'账户余额不足'),
-        'dataWrong' => array('code'=>1,'info'=>''),
-        'server'   => array('code'=>2,'网络错误')
-    );
+
     /**
      * 获取自由报盘费率 TODO
      *
@@ -38,6 +34,7 @@ class freeOffer extends product{
         $fee = $this->getFee();//获取自由报盘费用
         if($active >= $fee){
             $offerData['offer_fee'] = $fee;
+            $offerData['user_id'] = $user_id;
             $offerData['mode'] = self::FREE_OFFER;
             $this->_productObj->beginTrans();
             $insert = $this->insertOffer($productData,$offerData);

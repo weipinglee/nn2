@@ -16,6 +16,11 @@ class product{
 
     private $product_limit = 5;
 
+    protected $errorCode = array(
+        'fundLess' => array('code'=>-1,'info'=>'账户余额不足'),
+        'dataWrong' => array('code'=>1,'info'=>''),
+        'server'   => array('code'=>2,'info'=>'网络错误')
+    );
     const FREE_OFFER  = 1;
     const DEPOSIT_OFFER = 2;
     const DEPUTE_OFFER  = 3;
@@ -44,6 +49,9 @@ class product{
         array('product_id', 'number', '必须有商品id'),
         array('mode', 'number', '必须有报盘类型'),
         array('divide', 'number','是否可拆分的id错误'),
+        array('acc_type','/^[\d+,?]+$/','账户类型错误'),
+        array('offer_fee','currency','金额错误'),
+        array('sign','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
         array('accept_area', 'require', '交收地点必须填写'),
         array('accept_day', 'number', '交收时间必须填写')
     );

@@ -36,9 +36,9 @@ class UserModel{
 	protected $personRules = array(
 		array('true_name','require','真实姓名必填',1),//默认是正则
 		array('sex',array(0,1),'性别错误',0,'in'),
-		array('identify_no','/^\d{1,20}[a-zA-Z]?$/','请填写身份证号码',1,'regex'),
-		array('identify_front','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片',1,'regex'),
-		array('identify_back','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片',1,'regex'),
+		array('identify_no','/^\d{1,20}[a-zA-Z]?$/','请填写身份证号码'),
+		array('identify_front','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
+		array('identify_back','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 		array('birth','date','请正确填写生日',2,'regex'),
 		array('education','number','请选择学历',2,'regex'),
 		array('qq','/^\d+$/','请正确填写QQ号',2,'regex'),

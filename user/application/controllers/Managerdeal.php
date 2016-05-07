@@ -11,7 +11,8 @@ use \Library\tool;
 use \nainai\store;
 use \nainai\offer\product;
 use \nainai\offer\freeOffer;
-
+use \nainai\offer\depositOffer;
+use \nainai\offer\deputeOffer;
 /**
  * 交易管理的控制器类
  */
@@ -47,7 +48,7 @@ class ManagerDealController extends baseController {
                 array(
                     'url' => url::createUrl('/ManagerDeal/indexOffer'),
                     'title' => '发布产品' ,
-                    'action' => array('indexoffer','freeoffer'),//action都用小写
+                    'action' => array('indexoffer','freeoffer','depositeoffer','deputeoffer'),//action都用小写
 
                 ),
             )),
@@ -118,6 +119,8 @@ class ManagerDealController extends baseController {
         $this->productAddAction();
     }
 
+
+
     /**
      * 自由报盘提交处理
      *
@@ -138,12 +141,99 @@ class ManagerDealController extends baseController {
             $offerObj = new freeOffer($this->user_id);
             $productData = $this->getProductData();
             $res = $offerObj->doOffer($productData,$offerData);
-           
+
             if($res===true){
-                echo 8;
+                $this->redirect('addSuccess');
             }
             else echo 9;
         }
+        return false;
+
+    }
+
+    /**
+     * 保证金报盘申请页面
+     *
+     */
+    public function depositOfferAction(){
+        $depositObj = new \nainai\offer\depositOffer();
+        $rate = $depositObj->getDepositRate($this->user_id);
+        $this->getView()->assign('rate',$rate);
+        $this->productAddAction();
+    }
+
+    /**
+     * 保证金报盘提交处理
+     *
+     */
+    public function doDepositOfferAction(){
+        if(IS_POST){
+            $offerData = array(
+                'apply_time'  => \Library\Time::getDateTime(),
+                'divide'      => Safe::filterPost('divide', 'int'),
+                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+
+                'accept_area' => Safe::filterPost('accept_area'),
+                'accept_day' => Safe::filterPost('accept_day', 'int'),
+                'price'        => Safe::filterPost('price', 'float'),
+               // 'acc_type'   => 1,
+            );
+
+            $depositObj = new depositOffer($this->user_id);
+            $productData = $this->getProductData();
+            $res = $depositObj->doOffer($productData,$offerData);
+
+            if($res===true){
+                $this->redirect('addSuccess');
+            }
+            else echo 9;
+        }
+        return false;
+
+    }
+
+
+
+    /**
+     * 委托报盘申请页面
+     *
+     */
+    public function deputeOfferAction(){
+        $Obj = new \nainai\offer\deputeOffer();
+        $rate = $Obj->getFeeRate($this->user_id);
+        $this->getView()->assign('rate',$rate);
+        $this->productAddAction();
+    }
+
+    /**
+     * 保证金报盘提交处理
+     *
+     */
+    public function doDeputeOfferAction(){
+        if(IS_POST){
+            $offerData = array(
+                'apply_time'  => \Library\Time::getDateTime(),
+                'divide'      => Safe::filterPost('divide', 'int'),
+                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+
+                'accept_area' => Safe::filterPost('accept_area'),
+                'accept_day' => Safe::filterPost('accept_day', 'int'),
+                'price'        => Safe::filterPost('price', 'float'),
+                'sign'        => Tool::setImgApp(Safe::filterPost('imgfile1')),//委托书照片
+                // 'acc_type'   => 1,
+            );
+
+            $deputeObj = new deputeOffer($this->user_id);
+            $productData = $this->getProductData();
+            $res = $deputeObj->doOffer($productData,$offerData);
+
+            if($res===true){
+                $this->redirect('addSuccess');
+            }
+            else echo 9;
+        }
+        return false;
+
     }
 
     /**

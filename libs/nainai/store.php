@@ -142,7 +142,7 @@ class store{
                 }
             }
         }
-        $obj = new \nainai\product();
+        $obj = new \nainai\offer\product();
         return array('list' => $storeList, 'pageHtml' => $query->getPageBar(), 'attrs' => $obj->getHTMLProductAttr($attr_id));
     }
 
