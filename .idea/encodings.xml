@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/admin/application/models/storeProduct.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/nainai/member.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/nainai/offer/freeOffer.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/application/models/certDealer.php" charset="UTF-8" />

@@ -4,7 +4,7 @@ use \Library\url;
 use \nainai\store;
 use \Library\Safe;
 use \Library\Thumb;
-
+use \nainai\offer\product;
 /**
  * 仓单管理的的控制器类
  */
@@ -59,7 +59,7 @@ class ManagerStoreController extends BaseController{
 			$store = new store();
 			$data = $store->getManagerStoreDetail($id,$this->user_id);
 
-			$productModel = new \nainai\product();
+			$productModel = new product();
 
 			$this->getView()->assign('storeDetail', $data);
 			$this->getView()->assign('photos', $productModel->getProductPhoto($data['pid']));
@@ -80,7 +80,7 @@ class ManagerStoreController extends BaseController{
 			$store = new store();
 			$data = $store->getManagerStoreDetail($id,$this->user_id);
 			//获取商品分类信息，默认取第一个分类信息
-		        $productModel = new \nainai\product();
+		        $productModel = new product();
 		        $attr_ids = array();
 		        $data['attribute'] = unserialize($data['attribute']);
 		        foreach ($data['attribute'] as $key => $value) {
@@ -128,9 +128,13 @@ class ManagerStoreController extends BaseController{
 				$apply['package_weight'] = Safe::filterPost('packWeight', 'float');
 			}
 
+			$productData = array('quantity'=>Safe::filterPost('quantity','float'));
+
 			$store = new store();
-			$store->storeManagerSign($apply, $id,$this->user_id);
-			$this->redirect('addSuccess');exit();
+			$res = $store->storeManagerSign($apply, $productData,$id,$this->user_id);
+			if($res)
+				$this->redirect('addSuccess');
+			else echo 1;
 		}
 		$this->redirect('ApplyStoreDetails');
 	}

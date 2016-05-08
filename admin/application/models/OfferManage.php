@@ -110,6 +110,7 @@ class OfferManageModel extends \nainai\offer\product{
 		$info = $query->getobj();
 		$parent_cates = $this->getParents($info['cate_id']);
 		$info['topcate_name'] = array_pop($parent_cates)['name'];
+		$parents = array();
 		foreach ($parent_cates as $value) {
 			$parents []= $value['name'];
 		}

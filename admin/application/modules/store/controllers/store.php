@@ -5,7 +5,6 @@
  * @desc 用户管理控制器
  */
 use \Library\safe;
-use \nainai\certificate;
 use \Library\Thumb;
 use \nainai\subRight;
 use \Library\tool;

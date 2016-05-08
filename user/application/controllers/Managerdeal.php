@@ -53,8 +53,8 @@ class ManagerDealController extends baseController {
                 ),
             )),
             array('name' => '仓单管理', 'list' => array(
-                array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单' ),
-                array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表' ),
+                array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单','action'=>array('storeproduct') ),
+                array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表','action'=>array('storeproductlist','storeproductdetail') ),
             )),
             array('name' => '采购管理', 'list' => array(
                 array('url' => '', 'title' => '采购列表' ),
@@ -335,6 +335,7 @@ class ManagerDealController extends baseController {
             'note'         => Safe::filterPost('note'),
             'produce_area' => Safe::filterPost('area'),
             'create_time'  => $time,
+            //'unit'         => Safe::filterPost('unit'),
             'user_id' => $this->user_id
         );
 
@@ -409,10 +410,11 @@ class ManagerDealController extends baseController {
                     'accept_area' => Safe::filterPost('accept_area'),
                     'accept_day' => Safe::filterPost('accept_day', 'int'),
                     'price'        => Safe::filterPost('price', 'float'),
+                    'user_id'     => $this->user_id,
                 );
 
 
-                $offerObj = new \nainai\product();
+                $offerObj = new product();
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');
                 $res = $offerObj->insertStoreOffer($offerData);
                 if($res['success']==1)
@@ -476,7 +478,7 @@ class ManagerDealController extends baseController {
             $stObj = new store();
             $detail = $stObj->getUserStoreDetail($id,$this->user_id);
 
-            $productModel = new \nainai\product();
+            $productModel = new product();
 
             $this->getView()->assign('detail', $detail);
             $this->getView()->assign('photos', $productModel->getProductPhoto($detail['pid']));

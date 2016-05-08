@@ -8,12 +8,12 @@
 namespace nainai;
 use \Library\M;
 use \Library\Query;
-use \nainai\product;
+use \nainai\offer\product;
 use \Library\Tool;
 
 class store{
 
-     private $storeProduct = 'store_products';//仓单数据表
+     protected $storeProduct = 'store_products';//仓单数据表
     //仓单数据规则
      protected $storeProductRules = array(
         array('store_id', 'number', '必须选择仓库!'),
@@ -119,15 +119,16 @@ class store{
      * @param int $page 页码
      * @param array $condition 条件
      */
-    private function getStoreProductList($page,$condition,$pagesize=20){
+    protected function getStoreProductList($page,$condition=array(),$pagesize=20){
         $query = new Query('store_list as b');
-        $query->fields = 'a.id, b.name as sname, a.status, c.name as pname,  d.name as cname, c.attribute, a.package_unit, a.package_weight';
+        $query->fields = 'a.id,a.user_id,b.name as sname, a.status, c.name as pname,c.quantity,d.name as cname, c.attribute, a.package_unit, a.package_weight';
         $query->join = ' RIGHT JOIN (store_products as a LEFT JOIN products as c ON a.product_id = c.id ) ON a.store_id=b.id LEFT JOIN product_category as d  ON c.cate_id=d.id';
         $query->page = $page;
         $query->pagesize = $pagesize;
-        $query->where = $condition['where'];
-        $query->bind  = $condition['bind'];
-
+        if(!empty($condition)){
+            $query->where = $condition['where'];
+            $query->bind  = isset($condition['bind']) ? $condition['bind'] : array();
+        }
 
         $storeList = $query->find();
 
@@ -142,7 +143,7 @@ class store{
                 }
             }
         }
-        $obj = new \nainai\offer\product();
+        $obj = new product();
         return array('list' => $storeList, 'pageHtml' => $query->getPageBar(), 'attrs' => $obj->getHTMLProductAttr($attr_id));
     }
 
@@ -174,14 +175,35 @@ class store{
     /**
      * 仓单签发
      * @param array $store array('status'=>,'info'),status 为0拒绝，1通过
+     * @param array $productData 商品数据
      * @param $id
      * @param $user_id 管理员id
      */
-    public function storeManagerSign(& $store, $id,$user_id){
+    public function storeManagerSign(& $store,$productData, $id,$user_id){
         if($this->getStoreProductStatus($id)==self::STOREMANAGER_AGREE) {//处于仓管审核已审核可签发
             $store_id = $this->getManagerStoreId($user_id);
             $store['status'] = self::STOREMANAGER_SIGN;
-            return $this->UpdateApplyStore($store, array('id'=>$id,'store_id'=>$store_id));
+
+            $pObj = new M('store_products');
+            $spData = $pObj->where(array('id'=>$id))->getObj();
+
+            if(!empty($spData) && $spData['store_id']==$store_id){//存在仓单数据且该仓库属于当前用户
+                $product = new product();
+                if($product->proValidate($productData)){
+                    $pObj->beginTrans();
+                    $upRes = $this->UpdateApplyStore($store, array('id'=>$id,'store_id'=>$store_id));
+                    if($upRes!==false && !empty($productData)){
+                        $pObj->table('products')->data($productData)->where(array('id'=>$spData['product_id']))->update();
+                    }
+                    return $pObj->commit();
+
+                }
+                else{
+                    return false;
+                }
+            }
+
+
         }
         return false;
     }
@@ -201,25 +223,13 @@ class store{
         return false;
     }
 
-    /**
-     * 市场审核
-     * @param $store
-     * @param $id
-     * @return bool
-     */
-    public function marketCheck($store,$id){
-        if($this->getStoreProductStatus($id)==self::USER_AGREE) {
-            $store['status'] = intval($store['status']) == 1 ? self::MARKET_AGREE : self::MARKET_REJECT;
-            return $this->UpdateApplyStore($store, array('id'=>$id));
-        }
-        return false;
-    }
+
     /**
      * 更改仓单状态,各方审核调用
      * @param [Array] $store [审核的仓单数据]
      * @param [array] $where    [搜索条件]
      */
-    private function UpdateApplyStore( & $store, $where){
+    protected function UpdateApplyStore( & $store, $where){
          $storeProductObj = new M($this->storeProduct);
         $storeProductObj->data($store);
         if($storeProductObj->validate($this->storeProductRules)){
