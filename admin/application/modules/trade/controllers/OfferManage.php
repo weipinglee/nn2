@@ -17,13 +17,23 @@ class OfferManageController extends Yaf\Controller_Abstract{
 	}
 
 	/**
-	 * 获取列表
+	 * 获取审核通过的报盘列表
 	 * @return 
 	 */
 	public function offerListAction(){
 		// $no = $this->_request->getParam('no');
 		$page = safe::filterGet('page','int');
-		$pageData = $this->offer->getList($page,"o.status >= 0 ");
+		$pageData = $this->offer->getActiveList($page);
+		$this->getView()->assign('data',$pageData['data']);
+		$this->getView()->assign('bar',$pageData['bar']);
+		$this->getView()->assign('count',$pageData['count']);
+	}
+
+	//报盘审核
+	public function offerReviewAction(){
+		$page = safe::filterGet('page','int');
+		$pageData = $this->offer->getApplyList($page);
+
 		$this->getView()->assign('data',$pageData['data']);
 		$this->getView()->assign('bar',$pageData['bar']);
 		$this->getView()->assign('count',$pageData['count']);
@@ -57,14 +67,7 @@ class OfferManageController extends Yaf\Controller_Abstract{
 
 	}
 
-	//报盘审核
-	public function offerReviewAction(){
-		$page = safe::filterGet('page','int');
-		$pageData = $this->offer->getList($page,'o.status=1');
-		$this->getView()->assign('data',$pageData['data']);
-		$this->getView()->assign('bar',$pageData['bar']);
-		$this->getView()->assign('count',$pageData['count']);
-	}
+
 
 	//审核详情
 	public function reviewDetailsAction(){
@@ -91,10 +94,37 @@ class OfferManageController extends Yaf\Controller_Abstract{
 	//回收站
 	public function offerRecycleAction(){
 		$page = safe::filterGet('page','int');
-		$pageData = $this->offer->getList($page,'o.status=-1');
+		$pageData = $this->offer->getDelList($page);
 		$this->getView()->assign('data',$pageData['data']);
 		$this->getView()->assign('bar',$pageData['bar']);
 		$this->getView()->assign('count',$pageData['count']);
+	}
+
+	/**
+	 * 报盘逻辑删除
+	 */
+	public function logicDelAction(){
+		if(IS_AJAX){
+			$id = safe::filterPost("id","int");
+			if(!$id) $id = intval($this->_request->getParam('id'));
+
+			$res = $this->offer->logicDel($id);
+			die(JSON::encode($res));
+		}
+		return false;
+	}
+
+	/**
+	 * 逻辑删除复原
+	 */
+	public function logicRecAction(){
+		if(IS_AJAX){
+			$id = safe::filterPost("id","int");
+			if(!$id) $id = intval($this->_request->getParam('id'));
+			$res = $this->offer->logicDel($id,0);
+			die(JSON::encode($res));
+		}
+		return false;
 	}
 }
  ?>

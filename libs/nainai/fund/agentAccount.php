@@ -172,7 +172,7 @@ use \Library\Time;
                 $this->agentModel->table($this->agentTable);
                 $sql = 'UPDATE '.$this->agentModel->table().
                     ' SET fund = fund - :fund ,freeze = freeze + :fund  WHERE user_id = :user_id';
-                $res = $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
+                $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
 
             }
 
@@ -194,14 +194,13 @@ use \Library\Time;
             $freeze = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('freeze');
             if($freeze===false || $freeze<$num)
                 return $this->errorCode['freezeLess'];
-            $this->agentModel->beginTrans();
             $this->createFlowData($user_id,-$num,'freeze');
             $this->agentModel->table($this->agentTable);
             $sql = 'UPDATE '.$this->agentModel->table().
                 ' SET fund = fund + :fund ,freeze = freeze - :fund  WHERE user_id = :user_id';
             $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
 
-            return $this->agentModel->commit();
+            return true;
 
         }
         else{
@@ -217,13 +216,12 @@ use \Library\Time;
      * @param float $num 转账的金额
      *
      */
-    public function freezePay($from,$to,$num){
+    public function freezePay($from,$to=0,$num){
         if(is_integer($num) || is_float($num)){
 
             $fromFreeze = $this->agentModel->where(array('user_id'=>$from))->getField('freeze');
 
             if($fromFreeze>=$num){
-                $this->agentModel->beginTrans();
                 if($to==0){//付款到市场
 
                 }
@@ -236,7 +234,7 @@ use \Library\Time;
                 //付款人减少冻结
                 $this->agentModel->where(array('user_id'=>$from))->setDec('freeze',$num);
                 $this->createFlowData($from,$num,'freezePay');
-                return $this->agentModel->commit();
+                return true;
             }
             else{
                 return $this->errorCode['freezeLess'];

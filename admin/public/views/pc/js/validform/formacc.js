@@ -149,7 +149,7 @@ nn_panduo.formacc.prototype = {
               layer.msg(data.info);
             }
           },
-          error:function(){
+          error:function(data){
             layer.msg("服务器错误,请重试");
           }
         });

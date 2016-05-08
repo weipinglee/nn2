@@ -21,13 +21,79 @@ class product{
         'dataWrong' => array('code'=>1,'info'=>''),
         'server'   => array('code'=>2,'info'=>'网络错误')
     );
+
+    //报盘类型
     const FREE_OFFER  = 1;
     const DEPOSIT_OFFER = 2;
     const DEPUTE_OFFER  = 3;
     const STORE_OFFER = 4;
+
     private $_errorInfo = '';
 
     protected $user_id = '';
+
+    //报盘状态
+    const OFFER_APPLY = 0;
+    const OFFER_OK    = 1;
+    const OFFER_NG    = 2;
+
+    //获取状态信息
+    public function getStatus($status){
+        switch ($status) {
+            case self::OFFER_APPLY:
+                $st = '待审核';
+                break;
+            case self::OFFER_OK:
+                $st = '已通过';
+                break;
+            case self::OFFER_NG:
+                $st = '未通过';
+                break;
+            default:
+                $st = '未知';
+                break;
+        }
+        return $st;
+    }
+
+    //获取报盘模式文本
+    public function getMode($mode){
+        switch ($mode) {
+            case self::FREE_OFFER:
+                $mode_txt = '自由报盘';
+                break;
+            case self::DEPOSIT_OFFER:
+                $mode_txt = '保证金报盘';
+                break;
+            case self::STORE_OFFER:
+                $mode_txt = '仓单报盘';
+                break;
+            case self::DEPUTE_OFFER :
+                $mode_txt = '委托报盘';
+                break;
+            default:
+                $mode_txt = '未知';
+                break;
+        }
+        return $mode_txt;
+    }
+
+    //获取交易方式
+    public function getType($type){
+        switch ($type) {
+            case 1:
+                $tp = '卖盘';
+                break;
+            case 2:
+                $tp = '买盘';
+                break;
+
+            default:
+                $tp = '未知';
+                break;
+        }
+        return $tp;
+    }
     /**
      * 商品验证规则
      * @var array
@@ -330,6 +396,31 @@ class product{
             return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
         }
     }
+
+    /**
+     * 将小数格式化，去掉小数点后尾部的0
+     * @param float $float 小数
+     *
+     */
+    public function floatForm($float){
+        $float = strval($float);
+        if(strpos($float,'.')===false){//如果是整数，直接返回
+            return intval($float);
+        }
+        else{
+            $n = strlen($float);
+            $i=$n-1;
+            while($i>0){
+                if($float[$i]!='0')
+                    break;
+                $i = $i-1;
+            }
+            $float = substr($float,0,$i+1);
+            return floatval($float);
+        }
+    }
+
+
 
 
 

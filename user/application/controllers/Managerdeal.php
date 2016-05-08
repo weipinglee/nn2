@@ -48,7 +48,7 @@ class ManagerDealController extends baseController {
                 array(
                     'url' => url::createUrl('/ManagerDeal/indexOffer'),
                     'title' => '发布产品' ,
-                    'action' => array('indexoffer','freeoffer','depositeoffer','deputeoffer'),//action都用小写
+                    'action' => array('indexoffer','freeoffer','depositoffer','deputeoffer','storeoffer'),//action都用小写
 
                 ),
             )),
@@ -279,7 +279,7 @@ class ManagerDealController extends baseController {
                 $attr_ids[] = $key;
             }
 
-            $productModel = new \nainai\product(); 
+            $productModel = new product();
             $attrs = $productModel->getHTMLProductAttr($attr_ids);
             $return_json['storeDetail']['attrs'] = '';
              foreach ($return_json['storeDetail']['attribute'] as $key => $value) {
