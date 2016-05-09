@@ -20,7 +20,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>可选仓单:</td>
                                 <td colspan="2"> 
-                                    <select id="storeList" name="storeList">
+                                    <select id="storeList" name="storeproduct">
                                        {foreach: items=$storeList item=$list}
                                         <option value="{$list['id']}">{$list['sname']}-{$list['pname']}</option>
                                        {/foreach}
@@ -132,7 +132,6 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" name="mode" value="3">
-                            <input type="hidden" name="id" id="id">
                             <input type="hidden" name="product_id" id="product_id" value="{$storeDetail['pid']}">
                         <input type="submit" value="submit">
                                 <a class="button bzjin">提交审核</a> 

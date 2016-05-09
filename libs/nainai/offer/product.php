@@ -412,25 +412,6 @@ class product{
 
     }
 
-    /**
-     * 仓单报盘数据添加
-     * @param  [Array] $productOffer [报盘的数据]
-     * @return [Array]      
-     */
-    public function insertStoreOffer( & $productOffer){
-        if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
-            $productOffer['mode'] = self::STORE_OFFER;
-            $res = (int)$this->_productObj->table('product_offer')->data($productOffer)->add(0);
-        }else{
-            $res = $this->_productObj->getError();
-        }
-
-        if (is_int($res)) {
-            return Tool::getSuccInfo(1, 'add Success');
-        }else{
-            return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
-        }
-    }
 
     /**
      * 将小数格式化，去掉小数点后尾部的0

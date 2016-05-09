@@ -265,8 +265,8 @@ class store{
      */
     public function getUserActiveStore($uid){
         $condition = array();
-        $condition['where'] = 'a.user_id=:user_id AND a.status=:status';
-        $condition['bind'] = array('user_id'=>$uid,'status'=>self::MARKET_AGREE);
+        $condition['where'] = 'a.user_id=:user_id AND a.status=:status AND is_offer = :is_offer';
+        $condition['bind'] = array('user_id'=>$uid,'status'=>self::MARKET_AGREE,'is_offer'=>0);
 
         return $this->getStoreProductList(1,$condition,500);
     }
@@ -314,7 +314,8 @@ class store{
     public function judgeIsUserStore($id, $user_id){
         if (intval($id) > 0 && intval($user_id) > 0) {
             $storeObj = new M($this->storeProduct);
-            $data = $storeObj->fields('id')->where('id=:id AND user_id=:user_id AND status=:status')->bind(array('id'=>$id, 'user_id' => $user_id, 'status' => self::MARKET_AGREE))->getObj();
+            $where = array('id'=>$id,'user_id'=>$user_id,'status'=>self::MARKET_AGREE,'is_offer'=>0);//is_offer是否报盘
+            $data = $storeObj->fields('id')->where($where)->getObj();
 
             if (!empty($data)) {
                 return true;

@@ -339,43 +339,7 @@ class ManagerDealController extends baseController {
 
         return array($detail,$resImg);
     }
-    /**
-     * 处理报盘
-     */
-    public function doOfferAction(){
-       if (IS_POST) {
-           $mode = Safe::filterPost('mode', 'int');
-           if (!isset($this->_mode[$mode])){
-               throw new Exception("Error Mode", 1);
-           }           
-            // 报盘数据
-            $offerData = array(
-                'mode'          => $mode,
-                'apply_time'  => \Library\Time::getDateTime(),
-                'divide'      => Safe::filterPost('divide', 'int'),
-                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
-                'status'      => 0,
-                'accept_area' => Safe::filterPost('accept_area'),
-                'accept_day' => Safe::filterPost('accept_day', 'int'),
-                'price'        => Safe::filterPost('price', 'float'),
-            );
 
-           $offerObj = new \nainai\product();
-           if ($mode == 3) { //处理仓单报盘
-                $offerData['product_id'] = Safe::filterPost('product_id', 'int');
-                 $res = $offerObj->insertStoreOffer($offerData);
-           }else{
-                $productData = $this->getProductData(); 
-                $res = $offerObj->insertOffer($productData,$offerData);
-           }
-
-           if($res['success']==1)
-               $this->redirect('addSuccess');
-           else $this->redirect('indexoffer');
-       }
-
-        return false;
-    }
 
     /**
      * 处理仓单报盘
@@ -383,8 +347,9 @@ class ManagerDealController extends baseController {
      */
     public function doStoreOfferAction(){
         if (IS_POST) {
-            $id = Safe::filterPost('id', 'int', 0);
+            $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
             $storeObj = new \nainai\store();
+
             if ($storeObj->judgeIsUserStore($id, $this->user_id)) { //判断是否为用户的仓单
                 // 报盘数据
                 $offerData = array(
@@ -397,11 +362,10 @@ class ManagerDealController extends baseController {
                     'price'        => Safe::filterPost('price', 'float'),
                     'user_id'     => $this->user_id,
                 );
-
-
-                $offerObj = new product();
+                
+                $offerObj = new \nainai\offer\storeOffer($this->user_id);
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');
-                $res = $offerObj->insertStoreOffer($offerData);
+                $res = $offerObj->insertStoreOffer($id,$offerData);
                 if($res['success']==1)
                     $this->redirect('addSuccess');
                 else $this->redirect('offer');
@@ -409,7 +373,7 @@ class ManagerDealController extends baseController {
             $this->redirect('indexoffer');
         }
 
-        return false;
+        $this->redirect('indexoffer');
     }
 
     /**
