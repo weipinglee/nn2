@@ -137,11 +137,14 @@ class store{
 
             $attrs = unserialize($value['attribute']);
             $storeList[$key]['attribute'] = $attrs;
-            foreach ($attrs as $aid => $name) {
-                if (!in_array($aid, $attr_id)) {
-                    $attr_id[] = $aid;
+            if(!empty($attrs)){
+                foreach ($attrs as $aid => $name) {
+                    if (!in_array($aid, $attr_id)) {
+                        $attr_id[] = $aid;
+                    }
                 }
             }
+
         }
         $obj = new product();
         return array('list' => $storeList, 'pageHtml' => $query->getPageBar(), 'attrs' => $obj->getHTMLProductAttr($attr_id));
@@ -270,13 +273,35 @@ class store{
      * @param int $user_id 用户id
      * @return [Array]
      */
-    public function getUserStoreDetail($id,$user_id){
+    public function getUserStoreDetail($id,$user_id=0){
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid,a.status, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
-        $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
-        $query->where = ' a.id=:id AND a.user_id=:user_id';
-        $query->bind = array('id' => $id,'user_id'=>$user_id);
-        return $query->getObj();
+       // $query->fields = 'a.id as sid,a.status,a.user_id, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
+        $query->fields = 'a.id as id,a.status,a.user_id,a.product_id,  d.name as store_name, a.store_pos, a.in_time, a.rent_time';
+
+        //  $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
+        $query->join = '  LEFT JOIN store_list as d ON a.store_id=d.id';
+
+        if($user_id){
+            $query->where = ' a.id=:id AND a.user_id=:user_id';
+            $query->bind = array('id' => $id,'user_id'=>$user_id);
+        }
+        else{
+            $query->where = ' a.id=:id ';
+            $query->bind = array('id' => $id);
+        }
+
+        $detail =  $query->getObj();//仓单详情，不包括商品
+
+         if(empty($detail)){
+            return false;
+        }
+
+        //获取商品信息
+        $productModel = new product();
+
+        $product = $productModel->getProductDetails($detail['product_id']);
+        $detail = array_merge($detail,$product);
+        return $detail;
     }
 
     /**

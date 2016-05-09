@@ -70,31 +70,7 @@ class OfferManageModel extends \nainai\offer\product{
 	public function getDelList($page){
 		return $this->getList($page,'o.is_del = 1 ');
 	}
-	/**
-	 * 获取某一商品分类所有父级分类
-	 * @param int $cate_id 分类id
-	 * @return array
-	 */
-	public function getParents($cate_id){
-		if(!($cate_id && $cate_id>0)) return array();
-		$m = new M('product_category');
-		$data = $m->select();
-		$res = $this->listParents($data,$cate_id);
-		return $res;
-	}
 
-	private function listParents($data,$id,$parents = array()){
-		foreach ($data as $key => $value) {
-			if($value['id'] == $id){
-				$parents []= array('id'=>$id,'name'=>$value['name']);
-				$pid = $value['pid'];
-				if($pid != 0){
-					$parents = $this->listParents($data,$pid,$parents);
-				}
-			}
-		}
-		return $parents;
-	}
 
 	/**
 	 * 获取信息

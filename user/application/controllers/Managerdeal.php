@@ -265,28 +265,13 @@ class ManagerDealController extends baseController {
     public function ajaxGetStoreAction(){
         $return_json = array();
         $pid = Safe::filterPost('pid', 'int');
-        if (intval($pid) > 0) {
+
+        if (IS_AJAX && intval($pid) > 0) {
             $storeModel = new \nainai\store();
-            $return_json['storeDetail'] = $storeModel->getUserStoreDetail($pid,$this->user_id);
-            if(empty($return_json['storeDetail'])){
-                echo JSON::encode(array());
-                exit;
-            }
+            $return_json = $storeModel->getUserStoreDetail($pid,$this->user_id);
 
-            $attr_ids = array();
-            $return_json['storeDetail']['attribute'] = unserialize($return_json['storeDetail']['attribute']);
-            foreach ($return_json['storeDetail']['attribute'] as $key => $value) {
-                $attr_ids[] = $key;
-            }
-
-            $productModel = new product();
-            $attrs = $productModel->getHTMLProductAttr($attr_ids);
-            $return_json['storeDetail']['attrs'] = '';
-             foreach ($return_json['storeDetail']['attribute'] as $key => $value) {
-                $return_json['storeDetail']['attrs'] .= $attrs[$key] . ' : ' . $value . ';';
-            }
-            $return_json['photos'] = $productModel->getProductPhoto($return_json['storeDetail']['pid']);
         }
+
         echo JSON::encode($return_json);
         return false;
     }
@@ -478,11 +463,9 @@ class ManagerDealController extends baseController {
             $stObj = new store();
             $detail = $stObj->getUserStoreDetail($id,$this->user_id);
 
-            $productModel = new product();
-
             $this->getView()->assign('detail', $detail);
-            $this->getView()->assign('photos', $productModel->getProductPhoto($detail['pid']));
         }
+
         else
         return false;
     }

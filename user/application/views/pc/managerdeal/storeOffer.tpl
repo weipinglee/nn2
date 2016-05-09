@@ -1,7 +1,6 @@
 ﻿<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
-<script type="text/javascript" src="{views:js/product/store.js}" ></script>
 			<!--start中间内容-->	
 			<div class="user_c">
 				<div class="user_zhxi">

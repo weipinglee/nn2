@@ -312,6 +312,41 @@ class product{
     }
 
     /**
+     * 获取商品详情
+     * @param int $product_id 商品id
+     *
+     */
+    public function getProductDetails($product_id){
+        if(!$product_id)
+            return array();
+        $obj = new M('products');
+        $obj->fields('name as product_name,  attribute, produce_area, create_time, quantity,cate_id, unit, id as product_id, price, note');
+        $obj->where(array('id'=>$product_id));
+        $detail = $obj->getObj();
+
+        $attr_ids = array();
+        $detail['attribute'] = unserialize($detail['attribute']);
+        foreach ($detail['attribute'] as $key => $value) {
+            $attr_ids[] = $key;
+        }
+
+        //获取所属分类
+        $cates = $this->getParents($detail['cate_id']);
+        $detail['cate'] = array_reverse($cates);
+        //获取属性
+        $attrs = $this->getHTMLProductAttr($attr_ids);
+        $detail['attrs'] = '';
+        foreach ($detail['attribute'] as $key => $value) {
+            $detail['attr_arr'][$attrs[$key]] = $value;
+            $detail['attrs'] .= $attrs[$key] . ' : ' . $value . ';';
+        }
+        //获取图片
+        $detail['photos'] = $this->getProductPhoto($product_id);
+        return $detail;
+
+    }
+
+    /**
      * 获取产品的属性值，对应的属性id
      * @param  array  $attr_id [属性id]
      * @return [Array]   
@@ -338,7 +373,7 @@ class product{
             $photos = array();
             if (intval($pid) > 0) {
                 $imgObj = new M('product_photos');
-                $photos = $imgObj->fields('id, img')->where('products_id = ' .  $pid)->select();
+                $photos = $imgObj->fields('id, img')->where(array('products_id'=>$pid))->select();
 
                 foreach ($photos as $key => $value) {
                     $photos[$key] = Thumb::get($value['img'],180,180);
@@ -418,6 +453,32 @@ class product{
             $float = substr($float,0,$i+1);
             return floatval($float);
         }
+    }
+
+    /**
+     * 获取某一商品分类所有父级分类
+     * @param int $cate_id 分类id
+     * @return array
+     */
+    public function getParents($cate_id){
+        if(!($cate_id && $cate_id>0)) return array();
+        $m = new M('product_category');
+        $data = $m->select();
+        $res = $this->listParents($data,$cate_id);
+        return $res;
+    }
+
+    private function listParents($data,$id,$parents = array()){
+        foreach ($data as $key => $value) {
+            if($value['id'] == $id){
+                $parents []= array('id'=>$id,'name'=>$value['name']);
+                $pid = $value['pid'];
+                if($pid != 0){
+                    $parents = $this->listParents($data,$pid,$parents);
+                }
+            }
+        }
+        return $parents;
     }
 
 

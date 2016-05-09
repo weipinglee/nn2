@@ -37,9 +37,11 @@
 				<td>{$item['pname']}</td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['cname']}</u></td>
 
-				<td>{foreach:items=$item['attribute'] key=$k item=$v}
+				<td>{if:!empty($item['attribute'])}
+					{foreach:items=$item['attribute'] key=$k item=$v}
 						{$attr[$k]}:{$v}</br>
 					{/foreach}
+					{/if}
 
 				</td>
 				<td>{$item['quantity']}</td>

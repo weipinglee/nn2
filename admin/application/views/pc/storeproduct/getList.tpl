@@ -37,16 +37,18 @@
 				<td>{$item['pname']}</td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['cname']}</u></td>
 
-				<td>{foreach:items=$item['attribute'] key=$k item=$v}
+				<td>{if:!empty($item['attribute'])}
+					{foreach:items=$item['attribute'] key=$k item=$v}
 						{$attr[$k]}:{$v}</br>
 					{/foreach}
+					{/if}
 
 				</td>
 				<td>{$item['quantity']}</td>
 				<td>{$item['sname']}</td>
 				<td>{$item['status_txt']}</td>
 				<td class="td-manage">
-					<a title="编辑" href="{url:/store/storeAdd?id=$item['id']}" class="ml-5" style="text-decoration:none">
+					<a title="编辑" href="{url:store/store/details?id=$item['id']}" class="ml-5" style="text-decoration:none">
 						<i class="icon-edit"></i>
 					</a>
 					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i>

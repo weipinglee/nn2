@@ -33,14 +33,21 @@ $(document).ready(function(){
             'data' : {pid : $('#storeList').val()},
             'dataType': 'json',
             success:function(data){
-                $('#pname').html(data.storeDetail.pname);
-                $('#cname').html(data.storeDetail.cname);
-                $('#create_time').html(data.storeDetail.create_time);
-                $('#unit').html(data.storeDetail.unit);
-                $('#quantity').html(data.storeDetail.quantity);
-                $('#attrs').html(data.storeDetail.attrs);
-                $('#id').val(data.storeDetail.sid);
-                $('#product_id').val(data.storeDetail.pid);
+                $('#pname').html(data.product_name);
+                var cate_text = '';
+                $.each(data.cate,function(index,val){
+                    if(cate_text=='')
+                        cate_text = cate_text + val.name;
+                    else
+                        cate_text = cate_text +'>'+ val.name;
+                })
+                $('#cname').html(cate_text);
+                $('#create_time').html(data.create_time);
+                $('#unit').html(data.unit);
+                $('#quantity').html(data.quantity);
+                $('#attrs').html(data.attrs);
+                $('#id').val(data.sid);
+                $('#product_id').val(data.product_id);
 
                 var areaData= getAreaData();
                 var p =  areaData[0];
@@ -49,10 +56,10 @@ $(document).ready(function(){
                 var d = 0;
                 var b = 0;
                 var l = 0;
-                if (data.storeDetail.produce_area != undefined) {
-                    d = parseInt(data.storeDetail.produce_area.substring(0,2));
-                    if(data.storeDetail.produce_area.length>3) b = parseInt(data.storeDetail.produce_area.substring(0,4));
-                    if(data.storeDetail.produce_area.length>5) l = parseInt(data.storeDetail.produce_area.substring(0,6));
+                if (data.produce_area != undefined) {
+                    d = parseInt(data.produce_area.substring(0,2));
+                    if(data.produce_area.length>3) b = parseInt(data.produce_area.substring(0,4));
+                    if(data.produce_area.length>5) l = parseInt(data.produce_area.substring(0,6));
                  }
 
                 $('#area').html(p[d] + q[d][b] + dis_arr[b][l]);

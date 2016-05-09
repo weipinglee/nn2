@@ -39,6 +39,14 @@ class storeProductController extends Yaf\Controller_Abstract{
         $this->getView()->assign('bar',$data['pageHtml']);
     }
 
+    /**
+     * ´ıÉóºË²Öµ¥ÏêÇé
+     */
+    public function reviewDetailsAction(){
+
+    }
+
+
 
 
 
