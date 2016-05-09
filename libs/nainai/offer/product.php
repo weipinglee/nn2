@@ -36,6 +36,7 @@ class product{
     const OFFER_APPLY = 0;
     const OFFER_OK    = 1;
     const OFFER_NG    = 2;
+    const OFFER_EXPIRE = 3;//过期
 
     //获取状态信息
     public function getStatus($status){
@@ -48,6 +49,9 @@ class product{
                 break;
             case self::OFFER_NG:
                 $st = '未通过';
+                break;
+            case self::OFFER_EXPIRE:
+                $st = '已过期';
                 break;
             default:
                 $st = '未知';
