@@ -42,11 +42,14 @@ class BaseController extends \Yaf\Controller_Abstract{
 				'index'      => array('url' => '', 'title' => '首页'),
 				'Ucenter'  => array('url' => url::createUrl('/ucenter/info'), 'title' => '账户信息'),
 				'Fund'     => array('url' => url::createUrl('/Fund/index'), 'title' => '资金管理'),
-				'Managerdeal'     => array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '交易管理'),
-				'Managerstore'    => array('url' => url::createUrl('/ManagerStore/ApplyStoreList'), 'title' => '仓单管理'),
 				'Managercar'      => array('url' => '', 'title' => '车辆管理'),
 				'Attentioncenter' => array('url' => '', 'title' => '关注中心')
     		);
+			if($this->deal==1)
+				$topArray['Managerdeal'] = array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '交易管理');
+			if($this->store==1){
+				$topArray['Managerstore'] = array('url' => url::createUrl('/ManagerStore/ApplyStoreList'), 'title' => '仓单管理');
+			}
     		$controller = $this->getRequest()->getControllerName();
     		if (!empty($topArray[$controller])) {
     			$topArray[$controller]['isSelect'] = 1;

@@ -52,7 +52,12 @@ class checkRight{
         self::$sessObj->write($sessID,serialize($sessData));
         $userModel = new M('user');
         $userModel->where(array('id'=>$data['id']))->data(array('session_id'=>$sessID))->update();
-        
+
+        //获取认证状态
+        $cert = new \nainai\cert\certificate();
+        $certData = $cert->checkCert($data['id']);
+        Session::merge('login',$certData);
+
     }
 
     /**
@@ -68,9 +73,20 @@ class checkRight{
         //判断是否登录以及登录是否超时
         if($sessLogin!=null && isset($sessLogin['user_id']) && $sessID !=''){
             $userModel = new M('user');
-            $login_sessID = $userModel->where(array('id'=>$sessLogin['user_id']))->getField('session_id');
-            if($sessID == $login_sessID && self::$sessObj->expire($sessID))
+            $login_sess = $userModel->where(array('id'=>$sessLogin['user_id']))->fields('session_id,cert_status')->getObj();
+            if($sessID == $login_sess['session_id'] && self::$sessObj->expire($sessID)){
                 $isLogin = true;
+                if($login_sess['cert_status']==1){//认证状态发生了变化
+                    //获取认证状态
+                    $cert = new \nainai\cert\certificate();
+                    $certData = $cert->checkCert($sessLogin['user_id']);
+                    Session::merge('login',$certData);
+                    $userModel->where(array('id'=>$sessLogin['user_id']))->data(array('cert_status'=>0))->update();
+                    $sessLogin = session::get('login');
+                }
+
+            }
+
         }
         if($obj!==null){
             if($isLogin == false){//如果未登录或超时，登出操作，跳转到登录页
@@ -82,8 +98,9 @@ class checkRight{
                 exit;
             }
             else{//已登录则记录user_id
-                $obj->user_id = $sessLogin['user_id'];
-                $obj->user_type = $sessLogin['type'];
+                foreach($sessLogin as $k=>$v){
+                    $obj->$k = $v;
+                }
 
             }
         }

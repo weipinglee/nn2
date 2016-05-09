@@ -134,18 +134,7 @@ class certificate{
 
 
     }
-    /**
-     * 认证仓库管理
-     * @param int $user_id
-     * @param int $store_id
-     */
-    public function certStoreApply($user_id,$store_id){
-        $certModel = new M($this->certTable['store']);
-        $status = self::CERT_APPLY;
-        $sql = 'INSERT INTO '.$certModel->table().' (`user_id`,`status`,`apply_time`,`store_id`) VALUES ('.$user_id.','.$status.',"'.Time::getDateTime().'",:store_id) ON DUPLICATE KEY UPDATE status ='.$status.' , store_id=:store_id,apply_time = "'.Time::getDateTime().'"';
 
-        return $certModel->bind(array('store_id'=>$store_id))->query($sql);
-    }
     /**
      * 后台审核认证
      * @param int $user_id 用户id
@@ -269,6 +258,21 @@ class certificate{
         $result['cert_oc_thumb'] = Thumb::get($result['cert_oc'],300,200);
         $result['cert_bl_thumb'] = Thumb::get($result['cert_bl'],300,200);
         $result['cert_tax_thumb'] = Thumb::get($result['cert_tax'],300,200);
+        return $result;
+    }
+
+
+    /**
+     * 验证角色认证是否通过
+     * @param $user_id
+     */
+    public function checkCert($user_id){
+        $obj = new M('');
+        $result = array();
+        foreach($this->certTable as $type=>$table){
+            $status = $obj->table($table)->where(array('user_id'=>$user_id))->getField('status');
+            $result[$type] = $status==self::CERT_SUCCESS ? 1 : 0;
+        }
         return $result;
     }
 }

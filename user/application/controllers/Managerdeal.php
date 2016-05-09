@@ -527,13 +527,14 @@ class ManagerDealController extends baseController {
      * 产品详情页面
      */
     public function productDetailAction(){
+
         $id = $this->getRequest()->getParam('id');
         $id = Safe::filter($id, 'int', 0);
 
         if (intval($id) > 0) {
             $productModel = new productModel();
             $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
-print_r($offerDetail);
+
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
         }
