@@ -176,7 +176,7 @@
                         <li><a href="" target="content">仓单管理</a>
                             <ul>
                                 <li><a target="content" href="{url:store/storeProduct/getList}">仓单列表</a></li>
-                                <li><a href="{url:store/storeProduct/checkList}" target="content">仓单审核</a></li>
+                                <li><a href="{url:store/storeProduct/reviewList}" target="content">仓单审核</a></li>
                             </ul>
                         </li>
 

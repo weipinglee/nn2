@@ -94,47 +94,21 @@
                  <td>{$detail['sign_time']}</td>
                  <th>用户确认时间</th>
                  <td>{$detail['user_time']}</td>
+
+             </tr>
+             <tr>
+                 <th>市场审核时间</th>
+                 <td>{$detail['market_time']}</td>
+                 <th scope="col" colspan="6">
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                 </th>
              </tr>
 
-
-            <tr>
-              <th scope="col" colspan="6">
-                 <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok"></i> 通过</a> 
-                 <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove"></i> 不通过</a>
-                 <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
-              </th>
-            </tr>
 	 	</table>
  	</div>
 </div>
 </div>
-      <script type="text/javascript">
-        $(function(){
-          var formacc = new nn_panduo.formacc();
-          var status = '';
-          $('a.pass').click(function(){
-            $(this).unbind('click');
-            msg = '已通过';
-            setStatus(1,msg);
-          })
 
-          $('a.ref').click(function(){
-            $(this).unbind('click');
-            msg = '已驳回';
-            setStatus(0,msg);
-          })
-
-          function setStatus(status,msg){
-            formacc.ajax_post("{url:store/storeProduct/setStatus}",{status:status,id:{$detail['id']}},function(){
-              layer.msg(msg+"稍后自动跳转");
-                  setTimeout(function(){
-                      window.location.href = "{url:trade/OfferManage/reviewList}";
-                  },1500);
-            });
-          }
-        })
-
-      </script>
         
     </body>
 </html>

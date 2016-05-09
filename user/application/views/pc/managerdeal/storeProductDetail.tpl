@@ -10,6 +10,15 @@
 
 
 						<table border="0">
+                            <tr>
+                                <th colspan="3">仓库</th>
+                            </tr>
+                            <tr>
+                                <td nowrap="nowrap">仓库:</td>
+                                <td colspan="2">
+                                    {$detail['store_name']}
+                                </td>
+                            </tr>
                         <tr>
                             <th colspan="3">商品类型和规格</th>
                             </tr>
@@ -66,7 +75,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>数量:</td>
                                 <td>
-                                    {$detail['quantity']}
+                                    {$detail['quantity']} ({$detail['unit']})
                                 <td> 
                                    
                                 </td>
@@ -86,12 +95,7 @@
                             </tr>
               				
 
-                        <tr>
-                            <td nowrap="nowrap">仓库:</td>
-                            <td colspan="2">
-                                {$detail['store_name']}
-                            </td>
-                        </tr>
+
                         <tr>
                             <td>产品描述：</td>
                             <td colspan="2">

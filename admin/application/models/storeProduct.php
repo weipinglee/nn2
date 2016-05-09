@@ -7,6 +7,7 @@
  */
 use \Library\Query;
 use \Library\M;
+use \Library\tool;
 class storeProductModel extends \nainai\store{
 
 
@@ -57,8 +58,24 @@ class storeProductModel extends \nainai\store{
     public function marketCheck($store,$id){
         if($this->getStoreProductStatus($id)==self::USER_AGREE) {
             $store['status'] = intval($store['status']) == 1 ? self::MARKET_AGREE : self::MARKET_REJECT;
-            return $this->UpdateApplyStore($store, array('id'=>$id));
+            $store['market_time'] = \Library\Time::getDateTime();
+            $obj = new M('');
+            $obj->beginTrans();
+            if(false === $this->UpdateApplyStore($store, array('id'=>$id))) {
+                $obj->rollBack();
+                return tool::getSuccInfo(0,'数据错误');
+            }
+            else{
+
+            }
+            $res = $obj->commit();
+
+            if($res){
+                return tool::getSuccInfo();
+            }
+            else return tool::getSuccInfo(0,'系统繁忙');
         }
-        return false;
+        return tool::getSuccInfo(0,'该状态不能审核');
     }
+
 }

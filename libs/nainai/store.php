@@ -169,6 +169,7 @@ class store{
         if($this->getStoreProductStatus($id)==self::USER_APPLY){//处于申请状态可审核
             $store_id = $this->getManagerStoreId($user_id);
             $store['status'] = intval($store['status'])==1 ? self::STOREMANAGER_AGREE : self::STOREMANAGER_REJECT;
+            $store['manager_time'] = \Library\Time::getDateTime();
             return  $this->UpdateApplyStore( $store, array('id'=>$id,'store_id'=>$store_id));
         }
         return false;
@@ -193,6 +194,7 @@ class store{
             if(!empty($spData) && $spData['store_id']==$store_id){//存在仓单数据且该仓库属于当前用户
                 $product = new product();
                 if($product->proValidate($productData)){
+                    $store['sign_time'] = \Library\Time::getDateTime();
                     $pObj->beginTrans();
                     $upRes = $this->UpdateApplyStore($store, array('id'=>$id,'store_id'=>$store_id));
                     if($upRes!==false && !empty($productData)){
@@ -221,6 +223,7 @@ class store{
         if($this->getStoreProductStatus($id)==self::STOREMANAGER_SIGN) {
             $store = array();
             $store['status'] = intval($status) == 1 ? self::USER_AGREE : self::USER_REJECT;
+            $store['user_time'] = \Library\Time::getDateTime();
             return $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
         }
         return false;
@@ -275,10 +278,7 @@ class store{
      */
     public function getUserStoreDetail($id,$user_id=0){
         $query = new Query('store_products as a');
-       // $query->fields = 'a.id as sid,a.status,a.user_id, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
-        $query->fields = 'a.id as id,a.status,a.user_id,a.product_id,  d.name as store_name, a.store_pos, a.in_time, a.rent_time';
-
-        //  $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
+        $query->fields = 'a.id as id,a.status,a.user_id,a.product_id,  d.name as store_name, a.store_pos, a.in_time, a.rent_time,a.manager_time,a.user_time,a.market_time';
         $query->join = '  LEFT JOIN store_list as d ON a.store_id=d.id';
 
         if($user_id){
@@ -300,6 +300,7 @@ class store{
         $productModel = new product();
 
         $product = $productModel->getProductDetails($detail['product_id']);
+        $product['quantity'] = $productModel->floatForm($product['quantity']);
         $detail = array_merge($detail,$product);
         return $detail;
     }
