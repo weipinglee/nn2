@@ -31,7 +31,7 @@ class storeProductModel extends \nainai\store{
     public function getApplyList($page){
         $obj = new storeProductModel();
         $con = array();
-        $con['where'] = 'a.status = '.self::STOREMANAGER_SIGN;
+        $con['where'] = 'a.status = '.self::USER_AGREE;
         $data = $obj->getStoreProductList($page,$con);
         foreach($data['list'] as $k=>$v){
             $data['list'][$k]['status_txt'] = $this->getStatusText($v['status']);
@@ -55,9 +55,11 @@ class storeProductModel extends \nainai\store{
      * @param $id
      * @return bool
      */
-    public function marketCheck($store,$id){
-        if($this->getStoreProductStatus($id)==self::USER_AGREE) {
-            $store['status'] = intval($store['status']) == 1 ? self::MARKET_AGREE : self::MARKET_REJECT;
+    public function marketCheck($id,$status){
+        $old_status = $this->getStoreProductStatus($id);
+
+        if($old_status == self::USER_AGREE) {
+            $store['status'] = $status == 1 ? self::MARKET_AGREE : self::MARKET_REJECT;
             $store['market_time'] = \Library\Time::getDateTime();
             $obj = new M('');
             $obj->beginTrans();
@@ -69,12 +71,12 @@ class storeProductModel extends \nainai\store{
 
             }
             $res = $obj->commit();
-
             if($res){
                 return tool::getSuccInfo();
             }
             else return tool::getSuccInfo(0,'系统繁忙');
         }
+        else
         return tool::getSuccInfo(0,'该状态不能审核');
     }
 

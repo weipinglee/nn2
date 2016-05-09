@@ -128,7 +128,7 @@
             formacc.ajax_post("{url:store/storeProduct/setStatus}",{status:status,id:{$detail['id']}},function(){
               layer.msg(msg+"稍后自动跳转");
                   setTimeout(function(){
-                      window.location.href = "{url:trade/OfferManage/reviewList}";
+                      window.location.href = "{url:store/storeProduct/reviewList}";
                   },1500);
             });
           }

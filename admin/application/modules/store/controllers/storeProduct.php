@@ -78,7 +78,6 @@ class storeProductController extends Yaf\Controller_Abstract{
             $id = safe::filterPost("id","int");
             if(!$id) $id = intval($this->_request->getParam('id'));
             $status = safe::filterPost("status","int");
-
             $obj = new storeProductModel();
             $res = $obj->marketCheck($id,$status);
             die(\Library\JSON::encode($res));
