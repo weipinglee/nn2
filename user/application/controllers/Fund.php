@@ -13,7 +13,7 @@ use \Library\Session;
 
 class FundController extends BaseController {
 
-
+	protected  $certType = 'deal';
 	public function indexAction() {
 
 		$fundObj = \nainai\fund::createFund(1);

@@ -18,7 +18,7 @@ class checkRight{
     public function __construct(){
         $sess = 'DB';//根据配置文件获取
         $tableName = 'user_session';
-        $expireTime = '';
+        $expireTime = 7200;
         switch($sess){
             case 'DB' : {
                 self::$sessObj = new Db($tableName,$expireTime);
@@ -43,7 +43,7 @@ class checkRight{
         Session::merge('login',array('username'=>$data['username']));
         Session::merge('login',array('mobile'=>$data['mobile']));
        // Session::merge('login',array('pwd'=>$data['password']));
-        Session::merge('login',array('type'=>$data['type']));
+        Session::merge('login',array('user_type'=>$data['type']));
 
         //session数据计入数据库
         $sessID = session_id();
@@ -54,12 +54,15 @@ class checkRight{
         $userModel->where(array('id'=>$data['id']))->data(array('session_id'=>$sessID))->update();
 
         //获取认证状态
-        $cert = new \nainai\cert\certificate();
-        $certData = $cert->checkCert($data['id']);
-        Session::merge('login',$certData);
+        $this->getCert($data['id']);
 
     }
 
+    private function getCert($id){
+        $cert = new \nainai\cert\certificate();
+        $certData = $cert->checkCert($id);
+        Session::merge('login',array('cert'=>$certData));
+    }
     /**
      *验证是否登录:判断已登录条件：存在session['login']、session中user_id的用户session_id字段等于session_id()、session_id()未过期
      * @param object $obj 控制器实例
@@ -78,9 +81,7 @@ class checkRight{
                 $isLogin = true;
                 if($login_sess['cert_status']==1){//认证状态发生了变化
                     //获取认证状态
-                    $cert = new \nainai\cert\certificate();
-                    $certData = $cert->checkCert($sessLogin['user_id']);
-                    Session::merge('login',$certData);
+                    $this->getCert($sessLogin['user_id']);
                     $userModel->where(array('id'=>$sessLogin['user_id']))->data(array('cert_status'=>0))->update();
                     $sessLogin = session::get('login');
                 }

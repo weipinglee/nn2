@@ -112,12 +112,7 @@
 								<input class="text" type="text" value="{$certData['address']}"/>
 							</span>
 							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>主营品种：</span>
-							<span>
-								<input class="text" type="text" />
-							</span>
-							</div>
+
 
 						{/if}
 

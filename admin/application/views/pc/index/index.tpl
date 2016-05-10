@@ -74,11 +74,10 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
                     <ul>
-                        <li><a href="member-audit.html" target="content">会员审核</a></li>
-                        <li><a href="member-renzheng.html" target="content">会员认证</a>
+                        <li><a href="" target="content">会员认证</a>
                             <ul>
-                                <li><a href="{url:/member/dealerCert}" target="content">交易商认证</a></li>
-                                <li><a href="scale-hand.html" target="content">仓库认证</a></li>
+                                <li><a href="{url:member/certManage/dealerCert}" target="content">交易商认证</a></li>
+                                <li><a href="{url:member/certManage/storeCert}" target="content">仓库认证</a></li>
                             </ul>
                         </li>
                         <li><a href='' target="content">子账户权限管理</a>
@@ -87,8 +86,8 @@
                                 <li><a href="{url:/member/roleAdd}" target="content">添加角色</a></li>
                             </ul>
                         </li>
-                        <li><a href="{url:/member/usergroup/groupList}" target="content">角色分组</a></li>
-                        <li><a href="{url:/member/memberList}" target="content">会员列表</a></li>
+                        <li><a href="{url:member/usergroup/groupList}" target="content">角色分组</a></li>
+                        <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
                         <li><a href="member-del.html" target="content">黑名单列表</a></li>
                         <li><a href="agent-list.html" target="content">经纪人管理</a></li>
                         <li><a href="shop-list.html" target="content">商铺管理</a></li>
@@ -97,16 +96,16 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />交易管理</a>
                     <ul>
-                        <li><a href="{url:/product/categoryAdd}" target="content">产品分类设置</a>
+                        <li><a href="{url:trade/product/categoryAdd}" target="content">产品分类设置</a>
                             <ul>
-                                <li><a href="{url:/product/categoryAdd}" target="content">分类添加</a></li>
-                                <li><a href="{url:/product/categoryList}" target="content">分类列表</a></li>
+                                <li><a href="{url:trade/product/categoryAdd}" target="content">分类添加</a></li>
+                                <li><a href="{url:trade/product/categoryList}" target="content">分类列表</a></li>
                             </ul>
                         </li>
-                        <li><a href="{url:/product/attributeAdd}" target="content">产品属性设置</a>
+                        <li><a href="{url:trade/product/attributeAdd}" target="content">产品属性设置</a>
                             <ul>
-                                <li><a href="{url:/product/attributeAdd}" target="content">属性添加</a></li>
-                                <li><a href="{url:/product/attributeList}" target="content">属性列表</a></li>
+                                <li><a href="{url:trade/product/attributeAdd}" target="content">属性添加</a></li>
+                                <li><a href="{url:trade/product/attributeList}" target="content">属性列表</a></li>
                             </ul>
                         </li>
                         <li><a target="content">交易费率设置</a>

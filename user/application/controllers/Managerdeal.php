@@ -35,6 +35,7 @@ class ManagerDealController extends baseController {
         4 => '仓单报盘'
     );
 
+    protected  $certType = 'deal';
 
     /**
      * 获取左侧菜单

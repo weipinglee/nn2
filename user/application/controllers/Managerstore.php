@@ -10,6 +10,7 @@ use \nainai\offer\product;
  */
 class ManagerStoreController extends BaseController{
 
+	protected  $certType = 'store';
 	/**
 	 * 获取左侧菜单数据
 	 * @var name [<菜单名称>]

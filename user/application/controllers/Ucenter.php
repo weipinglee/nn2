@@ -44,6 +44,8 @@ class UcenterController extends BaseController {
 
         );
     }
+
+
     /**
      * 基本信息修改
      */
@@ -334,11 +336,8 @@ class UcenterController extends BaseController {
             $cert = new \nainai\cert\certStore($user_id,$this->user_type);
 
             $res = $cert->certStoreApply($accData);
+            echo JSON::encode($res);
 
-            if($res['success']==1)
-                echo 1;
-            else
-                echo 0;
         }
         return false;
     }

@@ -13,7 +13,7 @@
 			 <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
 				 <i class="icon-trash"></i>批量删除
 			 </a>
-			 <a class="btn btn-primary radius" href="{url:/product/attributeAdd}">
+			 <a class="btn btn-primary radius" href="{url:trade/product/attributeAdd}">
 				 <i class=" icon-plus"></i> 添加属性
 			 </a>
 		 </span>

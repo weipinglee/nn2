@@ -20,7 +20,7 @@ class certificate{
     const CERT_FAIL    =   3; //后台拒绝认证
 
     protected static $certType = '';
-    protected $certTable = array(
+    protected static $certTable = array(
         'deal'=>'dealer',
         'store'=>'store_manager'
 
@@ -98,7 +98,7 @@ class certificate{
      * 获取用户认证状态
      */
     public function getCertStatus($user_id,$cert_type){
-        $certM = new M($this->certTable[$cert_type]);
+        $certM = new M(self::$certTable[$cert_type]);
         $status_data = $certM->where(array('user_id'=>$user_id))->getObj();
         $status_data['status'] = empty($status_data) ? self::CERT_BEFORE : $status_data['status'];
         return $status_data;
@@ -115,7 +115,7 @@ class certificate{
      */
     public function createCertApply($certType,$accData,$certData){
         $user_id = $this->user_id;
-        $certModel = new M($this->certTable[$certType]);
+        $certModel = new M(self::$certTable[$certType]);
         $update = $certData;
         $status = self::CERT_APPLY;
         $certData['status'] = $status;
@@ -130,8 +130,6 @@ class certificate{
         else $accTable = 'person_info';
 
         $certModel->table($accTable)->data($accData)->where(array('user_id'=>$user_id))->update();
-
-
 
     }
 
@@ -149,6 +147,7 @@ class certificate{
         $status = $result==1 ? self::CERT_SUCCESS : self::CERT_FAIL;
         $certModel->data(array('status'=>$status,'message'=>$info,'verify_time'=>Time::getDateTime()))->where(array('user_id'=>$user_id))->update();
 
+        $this->chgCertStatus($user_id,$certModel);
         $log = new log();
         $logs = array('admin','处理了一个申请认证','用户id:'.$user_id);
         $log->write('operation',$logs);
@@ -162,26 +161,27 @@ class certificate{
      *
      */
     public function certInit($reCert){
-        $tables = $this->certTable;
-        $m = '';
+        $tables = self::$certTable;
         $user_id = $this->user_id;
+
+        $m = new M('');
         foreach($tables as $k=> $val){
             if(!in_array($k,$reCert))
                 continue;
-
-           if(is_object($m)) {
-               $m->table($val);
-           }
-            else{
-                $m = new M($val);
-            }
+            $m->table($val);
             $m->data(array('status'=>self::CERT_INIT))->where(array('user_id'=>$user_id))->update();
-
         }
 
+    }
 
-
-
+    /**
+     *
+     * @param $user_id
+     * @param $obj
+     */
+    protected function chgCertStatus($user_id,&$obj=null){
+        $obj = new M('user');
+        $obj->data(array('cert_status'=>1))->where(array('id'=>$user_id))->update();
     }
 
     /**
@@ -208,8 +208,8 @@ class certificate{
      */
     protected function getCertTable($type){
         $table = '';
-        if(isset($this->certTable[$type]))
-            return $this->certTable[$type];
+        if(isset(self::$certTable[$type]))
+            return self::$certTable[$type];
         return $table;
     }
 
@@ -269,7 +269,7 @@ class certificate{
     public function checkCert($user_id){
         $obj = new M('');
         $result = array();
-        foreach($this->certTable as $type=>$table){
+        foreach(self::$certTable as $type=>$table){
             $status = $obj->table($table)->where(array('user_id'=>$user_id))->getField('status');
             $result[$type] = $status==self::CERT_SUCCESS ? 1 : 0;
         }
