@@ -65,6 +65,6 @@
 	}
 </script>
 	</table>
-		{$reBar}
+		{$outBar}
 	</div>
 </div>

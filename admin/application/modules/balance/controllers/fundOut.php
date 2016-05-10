@@ -32,53 +32,88 @@ class fundOutController extends Yaf\Controller_Abstract {
 		$controllerName = $this->getRequest()->getControllerName();
 		$moduleName = $this->getRequest()->getModuleName();
 		$data['url'] = \Library\url::createUrl($moduleName . '/' . $controllerName . '/' . $data['action']);
-
+		$data['proot'] = \Library\Thumb::get($data['proot'],180,180);
 		$this->getView()->assign('outInfo', $data);
 	}
 	//出金初审
 	public function firstCheckAction() {
-		$id = safe::filterPost('out_id', 'int');
-		$status = safe::filterPost('status', 'int');
-		$message = safe::filterPost('message');
-		$fundOutModel = new fundOutModel();
-		$res = $fundOutModel->fundOutFirst($id, $status, $message);
-		die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
+		if(IS_AJAX && IS_POST){
+			$id = safe::filterPost('out_id', 'int');
+			$status = safe::filterPost('status', 'int');
+			$message = safe::filterPost('message');
+			$fundOutModel = new fundOutModel();
+			$res = $fundOutModel->fundOutFirst($id, $status, $message);
+			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
+		}
+
 	}
 	//出金终审
 	public function finalCheckAction() {
-		$id = safe::filterPost('out_id', 'int');
-		$status = safe::filterPost('status', 'int');
-		$message = safe::filterPost('message');
-		$fundOutModel = new fundOutModel();
-		$res = $fundOutModel->fundOutFinal($id, $status, $message);
-		die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
+		if(IS_AJAX && IS_POST){
+			$id = safe::filterPost('out_id', 'int');
+			$status = safe::filterPost('status', 'int');
+			$message = safe::filterPost('message');
+			$fundOutModel = new fundOutModel();
+			$res = $fundOutModel->fundOutFinal($id, $status, $message);
+			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
+		}
+
 	}
 	//上传凭证
 	public function transferAction() {
-		$id = safe::filterPost('out_id', 'int');
-		if (!empty($_FILES['proot']['name'])) {
+		if(IS_AJAX && IS_POST){
+			$id = safe::filterPost('out_id', 'int',0);
+			$proof = safe::filterPost('imgfile2');
 
+
+			if(!$id || $proof==''){
+				die(JSON::encode(tool::getSuccInfo(0,'请上传打款凭证'))) ;
+			}
+
+			$proof = tool::setImgApp($proof);
 			$fundOutModel = new fundOutModel();
-			$res = $fundOutModel->fundOutTransfer($id);
-			/*var_dump($res);
-			 */
+			$res = $fundOutModel->fundOutTransfer($id,$proof);
+			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
+		}
+	}
 
-			echo JSON::encode($res);
-
-			return false;
-			//die(JSON::encode(tool::getSuccInfo($res['code']), $res['info']));
-		} else {
-			//die(JSON::encode(tool::getSuccInfo(0, '请上传凭证')));
+	public function delAction() {
+		if(IS_AJAX && IS_POST) {
+			$id = safe::filterGet('id', 'int');
+			$fundOutModel = new fundOutModel();
+			$res = $fundOutModel->logicDel($id);
 			echo JSON::encode($res);
 			return false;
 		}
 	}
-	public function delAction() {
-		$id = safe::filterGet('id', 'int');
-		$fundOutModel = new fundOutModel();
-		$res = $fundOutModel->logicDel($id);
-		echo JSON::encode($res);
+
+	/**
+	 * ajax上传图片
+	 * @return bool
+	 */
+	public function uploadAction(){
+
+		//调用文件上传类
+		$photoObj = new \Library\photoupload();
+		$photoObj->setThumbParams(array(180,180));
+		$photo = current($photoObj->uploadPhoto());
+
+		if($photo['flag'] == 1)
+		{
+			$result = array(
+				'flag'=> 1,
+				'img' => $photo['img'],
+				'thumb'=> $photo['thumb'][1]
+			);
+		}
+		else
+		{
+			$result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
+		}
+		echo JSON::encode($result);
+
 		return false;
 	}
+
 }
 ?>

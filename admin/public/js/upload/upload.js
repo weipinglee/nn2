@@ -4,7 +4,8 @@
  * @param isHead 是否是头像
  */
 function uploadImg(_this,uploadUrl){
-    if(uploadUrl==undefined)var uploadUrl = $('input[name=uploadUrl]').val();
+    if(uploadUrl==undefined)
+        var uploadUrl = $('input[name=uploadUrl]').val();
     var id = $(_this).attr('id');
 
     var imgInput = $('input[name=img'+id+']');
@@ -20,7 +21,7 @@ function uploadImg(_this,uploadUrl){
 
             },
             success: function (data)  //服务器成功响应处理函数
-            {
+            {//alert(JSON.stringify(data));
                  if(data.flag==1){
                     $('img[name='+id+']').attr('src',data.thumb);
                     imgInput.val(data.img);

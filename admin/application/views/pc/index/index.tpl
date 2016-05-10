@@ -141,7 +141,7 @@
                                 <li><a href="{url:balance/fundIn/offlineList}" target="content">线下入金</a></li>
                             </ul>
                         </li>
-                        <li><a href="audit-cash.html" target="content">出金审核</a></li>
+                        <li><a href="{url:balance/fundOut/fundOutList}" target="content">出金审核</a></li>
                         <li><a target="content">账户管理</a>
                             <ul>
                                 <li><a href="account-member.html" target="content">会员账户</a></li>

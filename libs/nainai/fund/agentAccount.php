@@ -28,7 +28,7 @@ use \Library\Time;
       * 生成流水数据
       * @param int $user_id 用户id
       * @param float $num 更改金额
-      * @param str $type 类型
+      * @param string $type 类型
       *
       */
      private function createFlowData($user_id,$num,$type){
@@ -142,11 +142,11 @@ use \Library\Time;
      public function out($user_id,$num){
          if(is_integer($num) || is_float($num)){
              //获取账户可用资金总额
-             $fund = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('fund');
+             $fund = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('freeze');
              if($fund===false || $fund<$num)
                  return $this->resWrong('fundLess');
-             $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->setDec('fund',$num);//可用帐户减少金额
-             $this->createFlowData($user_id,$num,'pay');
+             $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->setDec('freeze',$num);//冻结资金帐户减少金额
+             $this->createFlowData($user_id,$num,'freezePay');
              return true;
          }
          else{

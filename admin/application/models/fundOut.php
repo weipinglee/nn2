@@ -6,14 +6,16 @@ Date :2015/5/6
  */
 use Library\M;
 use Library\Query;
-
+use Library\tool;
 class fundOutModel {
+
 	CONST FUNDOUT_APPLY = 0;
 	CONST FUNDOUT_FIRST_OK = 2;//初审通过
 	CONST FUNDOUT_FIRST_NG = 3;//初审驳回
-	CONST FUNDOUT_FINAL_OK = 5;//终审通过，提现成功
+	CONST FUNDOUT_FINAL_OK = 5;//终审通过
 	CONST FUNDOUT_FINAL_NG = 4;//终审驳回
 	CONST FUNDOUT_OK = 1;//出金完成
+
 	private $hintCode = array(
 		'outWrong' => array('code' => 0, 'info' => '操作错误'),
 		'freezeLess' => array('code' => 0, 'info' => '冻结金额不足'),
@@ -156,27 +158,41 @@ class fundOutModel {
 			return $this->hintCode['outWrong'];
 		}
 	}
-	public function fundOutTransfer($wid) {
-		$upload = new \Library\photoupload();
-		$upload->uploadPhoto($_FILES);
-		$upload->setThumbParams(array(180, 180));
-		$res = $upload->uploadPhoto();
+
+	/**
+	 * 上传打款凭证
+	 * @param $wid
+	 * @param $proof
+	 * @return mixed
+	 */
+	public function fundOutTransfer($wid,$proof) {
 		$fundOut = new M('withdraw_request');
 		$where = array('id' => $wid);
 
-		$data = array(
-			'proot' => $res['proot']['thumb'][1],
-			'status' => self::FUNDOUT_OK,
-		);
-		/*	var_dump($res);
-		var_dump($res['proot']['thumb'][1]);
-		var_dump($this->hintCode['outOk']);*/
+		$userData = $fundOut->where($where)->fields('amount,user_id,status')->getObj();//提现总金额
 
-		if ($fundOut->where($where)->data($data)->update()) {
-			return $this->hintCode['outOk'];
-		} else {
-			return $this->hintCode['outWrong'];
+		if($userData['status']==self::FUNDOUT_FINAL_OK){
+			$data = array(
+				'proot' => $proof,
+				'status' => self::FUNDOUT_OK,
+			);
+
+			$fundOut->beginTrans();
+
+			if ($fundOut->where($where)->data($data)->update()) {
+
+				$fund = \nainai\fund::createFund(1);
+				$fund->out($userData['user_id'],floatval($userData['amount']));
+
+				if(true===$fundOut->commit()){
+					return $this->hintCode['outOk'];
+				}
+
+			}
+			$fundOut->rollBack();
 		}
+
+		return $this->hintCode['outWrong'];
 	}
 	/**
 	 * 逻辑删除

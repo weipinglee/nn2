@@ -3,16 +3,17 @@
 <script type="text/javascript" src="{views:js/validform/validform.js}"></script>
 <script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
 <script type="text/javascript" src="{views:js/layer/layer.js}"></script>
-<script type="text/javascript" src='{views:js/upload/ajaxfileupload.js}'></script>
+<script type="text/javascript" src='{root:js/upload/ajaxfileupload.js}'></script>
+<script type="text/javascript" src='{root:js/upload/upload.js}'></script>
 <link rel="stylesheet" href="{views:content/settings/style.css}" />
-<link rel="stylesheet" type="text/css" href="{views:css/H-ui.admin.css}">
-          
-            
-                
-                
-        <!--            
-              CONTENT 
-                        --> 
+
+
+
+
+
+<!--
+      CONTENT
+                -->
         <div id="content" class="white">
             <h1><img src="{views:img/icons/posts.png}" alt="" /> 线下入金审核</h1>
 <div class="bloc">
@@ -21,8 +22,8 @@
     </div>
     <div class="content">
         <div class="pd-20">
-    <form action="{$outInfo['url']}" method="post" enctype="multipart/form-data" class="form form-horizontal"
-     id="offlineEidt" {if:$outInfo['action']!='transfer'}auto_submit redirect_url="{url:/balance/fundOut/fundOutList}"{/if}>
+    <form action="{$outInfo['url']}" method="post"  class="form form-horizontal"
+     id="offlineEidt" auto_submit redirect_url="{url:/balance/fundOut/fundOutList}">
         
         <div class="row cl">
             <label class="form-label col-2">当前状态：</label>
@@ -121,10 +122,21 @@
                 <div class="">
                 <label class="form-label col-2"><span class="c-red">*</span>打款凭证：</label>
                 <div class="">
-                        <input id='out_id' name='out_id' type="hidden" value="{if:isset($outInfo['id'])}{$outInfo['id']}{/if}" />
-                        <input type='file' name='proot' id='proot' value='上传凭证'/>
-                        <input type='button' value='上传' id='btnOk' />
+                    <input type="hidden" name="uploadUrl"  value="{url:balance/fundOut/upload@admin}" />
+                        <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
                 </div>
+                    <div>
+                    <img name="file2" />
+                    <input type="hidden" name="imgfile2"  />
+
+                </div>
+
+                    <div class="row cl">
+                        <div class="col-10 col-offset-2">
+                            <input id='out_id' name='out_id' type="hidden" value="{if:isset($outInfo['id'])}{$outInfo['id']}{/if}" />
+                            <button type="submit" class="btn btn-success radius" id="offline-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+                        </div>
+                    </div>
             </div>
         {/if}
         {if:$outInfo['action']!=''&&$outInfo['action']!='transfer'}
