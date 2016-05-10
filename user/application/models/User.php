@@ -222,7 +222,24 @@ class UserModel{
 	}
 
 
+	/**
+	 * 更新用户表数据
+	 * @param $data
+	 */
+	public function updateUserInfo($data){
+		if($this->existUser(array('username'=>$data['username']))){
+			return \Library\tool::getSuccInfo(0,'用户名已存在');
+		}
+		if(!is_object(self::$userObj)){
+			self::$userObj = new M('user');
+		}
+		$id = $data['id'];
+		unset($data['id']);
+		$res = self::$userObj->where(array('id'=>$id))->data($data)->update();
 
+
+
+	}
 	/**验证用户是否已注册
 	 * @param array $userData 用户数据
 	 * @return bool  存在 true 否则 false

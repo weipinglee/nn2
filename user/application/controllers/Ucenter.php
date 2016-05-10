@@ -28,15 +28,15 @@ class UcenterController extends BaseController {
             array('name' => '账户管理', 'list' =>'' ),
             array('name' => '账户管理', 'list' => array(
                 array(
-                    'url' => url::createUrl('/ucenter/info'),
+                    'url' => url::createUrl('/ucenter/baseinfo'),
                     'title' => '基本信息' ,
-                    'action'=>array('info')
+                    'action'=>array('info','baseinfo','baseedit')
                 ),
                 array('url' => url::createUrl('/ucenter/password'), 'title' => '修改密码' ,'action'=>array('password')),
             )),
             array('name' => '资质认证', 'list' => array(
-                array('url' => url::createUrl('/ucenter/dealCert'), 'title' => '交易商' ),
-                array('url' => url::createUrl('/ucenter/storeCert'), 'title' => '仓库管理员' ),
+                array('url' => url::createUrl('/ucenter/dealCert'), 'title' => '交易商','action'=>array('dealcert') ),
+                array('url' => url::createUrl('/ucenter/storeCert'), 'title' => '仓库管理员','action'=>array('storecert')  ),
             )),
             array('name' => '子账户管理', 'list' => array(
                 array('url' => url::createUrl('/ucenter/subAcc'), 'title' => '添加子账户' ),
@@ -46,6 +46,28 @@ class UcenterController extends BaseController {
     }
 
 
+    public function baseInfoAction(){
+        $userModel = new userModel();
+        $userData = $userModel->getUserInfo($this->user_id);
+        $this->getView()->assign('user',$userData);
+    }
+
+    public function baseEditAction(){
+        $userModel = new userModel();
+        $userData = $userModel->getUserInfo($this->user_id);
+        $this->getView()->assign('user',$userData);
+    }
+
+    public function dobaseAction(){
+        $data = array();
+        $data['id'] = $this->user_id;
+        $data['username'] = safe::filterPost('username');
+        $data['email'] = safe::filterPost('email');
+
+        $userModel = new userModel();
+        $userModel->updateUserInfo($data);
+        $this->redirect('baseInfo');
+    }
     /**
      * 基本信息修改
      */
