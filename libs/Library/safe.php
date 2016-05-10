@@ -5,7 +5,7 @@
  * Time: ионГ 9:26
  */
 namespace Library;
-class Safe
+class safe
 {
 
 
