@@ -163,6 +163,11 @@
                         <li><a href="{url:/store/storeAdd}" target="content">仓库添加</a></li>
                     </ul>
                 </li>
+                <li class="nosubmenu"><a href="javascript:void(0)" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 导航管理</a>
+                    <ul>
+                        <li><a target="content" href="{url:/guide/guideList}">导航列表</a></li>
+                    </ul>
+                </li>
             </ul>
 
 
