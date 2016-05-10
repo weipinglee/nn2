@@ -12,7 +12,7 @@
  * @note
  */
 namespace Library;
-class Session
+class session
 {
 	//session前缀
 	private static $pre='nn_';

@@ -292,5 +292,26 @@ class Safe
     }
 
 
+    /**
+     * 获取
+     */
+    public static function createToken(){
+        $token = sha1(mt_rand(1,999999).Client::getIp().time());
+        session::set('token',$token);
+        return $token;
+    }
+
+    /**
+     * 检验token正确与否
+     */
+    public static function checkToken($token){
+        $sessToken = \Library\session::get('token');
+        \Library\session::clear('token');
+        if($sessToken!=$token || $sessToken==null)
+            return false;
+        return true;
+    }
+
+
 }
 

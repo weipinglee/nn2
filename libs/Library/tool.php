@@ -6,7 +6,7 @@
  * Time: ÉÏÎç 9:28
  */
 namespace Library;
-class Tool{
+class tool{
 
     //È«¾ÖÅäÖÃ
     private static $globalConfigs = array();
@@ -82,6 +82,8 @@ class Tool{
     public static function getSuccInfo($res=1,$info='',$url=''){
         return array('success'=>$res,'info'=>$info,'return'=>$url);
     }
+
+
 
 
 }

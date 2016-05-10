@@ -9,6 +9,7 @@
 use \Library\M;
 use \Library\Payment;
 use \Library\safe;
+use \Library\JSON;
 use \Library\Session;
 
 class FundController extends BaseController {
@@ -33,7 +34,7 @@ class FundController extends BaseController {
 			array('name' => '资金管理', 'list' => array()),
 			array('name' => '开户信息管理'),
 			array('name' => '资金账户管理', 'list' => array(
-				array('url' => \Library\url::createUrl('/Fund/index'), 'title' => '市场代理账户' ),
+				array('url' => \Library\url::createUrl('/Fund/index'), 'title' => '市场代理账户' ,'action'=>array('tx','cz')),
 				array('url' => '', 'title' => '票据账户' ),
 			)),
 
@@ -105,6 +106,42 @@ class FundController extends BaseController {
 	//充值视图
 	public function czAction() {
 
+	}
+
+	//提现视图
+	public function txAction() {
+		$token =  \Library\safe::createToken();
+		$this->getView()->assign('token',$token);
+	}
+	//提现提交处理
+	public function dofundOutAction() {
+
+		$user_id = $this->user_id;
+
+		$token = safe::filterPost('token');
+		if(!safe::checkToken($token))
+			return false;
+		//提现申请表
+		$data = array(
+			'user_id' => $user_id,
+			'request_no' => self::createRefundNum(),
+			'amount' => safe::filterPost('amount', 'float'),
+			'acc_name' => safe::filterPost('acc_name'),
+			'bank_name' => safe::filterPost('bank_name'),
+			'back_card' => safe::filterPost('back_card'),
+
+			'note' => safe::filterPost('note'),
+			'create_time' => \Library\Time::getDateTime(),
+		);
+		$fundModel = new fundModel();
+		$res = $fundModel->fundOutApply($user_id,$data);
+
+		echo JSON::encode($res);
+
+	}
+	//退款订单
+	public static function createRefundNum() {
+		return 'gold_' . date('YmdHis') . rand(100000, 999999);
 	}
 
 }
