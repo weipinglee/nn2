@@ -126,7 +126,7 @@ class Guide{
      * @param  integer $level    [分类的等级，根据等级从分类修饰图形获取图形]
      * @return Boolean 是否获取成功
      */
-    public function getGuideCategoryOption($selectId = 0, $type=0, $pid = 0, $level=0){
+    public function getGuideCategoryOption($selectId = 0, $type=0, $pid = 0, $level=-1){
     	$list = $this->_guideModel->fields('id, name, pid')->where('type=:type AND pid=:id')->bind(array('type'=>$type, 'id'=>$pid))->select();
     	if (empty($list)) {
     		return false;
