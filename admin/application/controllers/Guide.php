@@ -121,6 +121,8 @@ class GuideController extends InitController{
 		          }else{
 		                	echo JSON::encode(Tool::getSuccInfo(0, '删除失败!'));
 		          }
+		}else{
+			echo JSON::encode(Tool::getSuccInfo(0, '删除失败!'));
 		}
 		exit();
 	}

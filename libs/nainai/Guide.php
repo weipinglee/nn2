@@ -87,7 +87,7 @@ class Guide{
      * @return [Array]    
      */
     public function getGuideDetail($id){
-    	if (intval($id) > 0) {
+    	if (intval($id) > 0 ) {
     		return $this->_guideModel->where('id=:id')->bind(array('id'=>$id))->getObj();
     	}
     	return array();
