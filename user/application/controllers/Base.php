@@ -51,7 +51,7 @@ class BaseController extends \Yaf\Controller_Abstract{
     	private function getTopArray(){
     		$topArray = array(
 				'index'      => array('url' => '', 'title' => '首页'),
-				'Ucenter'  => array('url' => url::createUrl('/ucenter/info'), 'title' => '账户信息')
+				'Ucenter'  => array('url' => url::createUrl('/ucenter/baseinfo'), 'title' => '账户信息')
     		);
 			if($this->cert['deal']==1){
 				$topArray['Fund'] = array('url' => url::createUrl('/Fund/index'), 'title' => '资金管理');
