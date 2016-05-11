@@ -9,30 +9,35 @@ use \Library\url;
 use \Library\Safe;
 use \Library\Thumb;
 use \Library\tool;
-class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
+class ContractController extends UcenterBaseController{
 
 	protected function  getLeftArray(){
-        return array(
-            array('name' => '交易管理', 'list' => array()),
-            array('name' => '销售管理', 'list' => array(
-                array('url' => '', 'title' => '销售列表' ),
-                array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '发布产品' ),
-            )),
-            array('name' => '仓单管理', 'list' => array(
-                array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单' ),
-                array('url' => '', 'title' => '仓单列表' ),
-            )),
-            array('name' => '采购管理', 'list' => array(
-                array('url' => '', 'title' => '采购列表' ),
-                array('url' => '', 'title' => '发布采购' ),
-            )),
-            array('name' => '合同管理', 'list' => array(
-                array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ),
-                array('url' => url::createUrl('/Contract/storeList'), 'title' => '仓单合同' ),
-                array('url' => '', 'title' => '购买合同' ),
-            ))
-        );
-    }
+		return array(
+			array('name' => '交易管理', 'list' => array()),
+			array('name' => '销售管理', 'list' => array(
+				array('url' => url::createUrl('/ManagerDeal/productlist'), 'title' => '销售列表','action'=>array('productlist') ),
+				array(
+					'url' => url::createUrl('/ManagerDeal/indexOffer'),
+					'title' => '发布产品' ,
+					'action' => array('indexoffer','freeoffer','depositoffer','deputeoffer','storeoffer'),//action都用小写
+
+				),
+			)),
+			array('name' => '仓单管理', 'list' => array(
+				array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单','action'=>array('storeproduct') ),
+				array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表','action'=>array('storeproductlist','storeproductdetail') ),
+			)),
+			array('name' => '采购管理', 'list' => array(
+				array('url' => '', 'title' => '采购列表' ),
+				array('url' => '', 'title' => '发布采购' ),
+			)),
+			array('name' => '合同管理', 'list' => array(
+				array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ,'action'=>array('depositlist')),
+				array('url' => '', 'title' => '购买合同' ),
+			))
+		);
+	}
+
 
 	public function depositListAction(){
 		$user_id = $this->user_id;
@@ -50,7 +55,7 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
 	}
 
 	public function storeListAction(){
-		$user_id = 42;
+		$user_id = $this->user_id;
 		$store = new \nainai\order\StoreOrder();
 		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);

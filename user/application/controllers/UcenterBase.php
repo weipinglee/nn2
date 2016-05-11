@@ -13,7 +13,7 @@ use \Library\tool;
 /**
  * 用户中心的抽象基类
  */
-class BaseController extends \Yaf\Controller_Abstract{
+class UcenterBaseController extends \nainai\controller\Base{
 
 	/**
 	 * 所有的用户中心列表的分页是这个
@@ -28,22 +28,15 @@ class BaseController extends \Yaf\Controller_Abstract{
 		'store'=>'storecert'
 	);
 
-	 protected function init(){
-		$right = new checkRight();
-		$right->checkLogin($this);//未登录自动跳到登录页
 
-		 //请求需要认证的页面而没有认证
-		 if($this->certType!==null && (!isset($this->cert[$this->certType]) || $this->cert[$this->certType]==0)){
-			 $this->redirect(url::createUrl('/ucenter/'.self::$certPage[$this->certType].'@user'));exit;
-		 }
-
+	protected function init(){
+		parent::init();//继承父类的方法，检测是否登录和角色
 		$this->getView()->setLayout('ucenter');
 		$this->getView()->assign('topArray', $this->getTopArray());
 		$this->getView()->assign('leftArray', $this->getLeftArray());
 		$action = $this->getRequest()->getActionName();
 		$this->getView()->assign('action', $action);
-    }
-
+	}
     	/**
     	 * 获取头菜单的数据
     	 * @return [Array]

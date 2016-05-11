@@ -16,7 +16,7 @@ use \nainai\offer\deputeOffer;
 /**
  * 交易管理的控制器类
  */
-class ManagerDealController extends baseController {
+class ManagerDealController extends UcenterBaseController {
     /**
      * 设置分类多少以后有展开
      * @var integer

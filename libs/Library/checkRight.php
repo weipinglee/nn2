@@ -77,6 +77,7 @@ class checkRight{
         if($sessLogin!=null && isset($sessLogin['user_id']) && $sessID !=''){
             $userModel = new M('user');
             $login_sess = $userModel->where(array('id'=>$sessLogin['user_id']))->fields('session_id,cert_status')->getObj();
+
             if($sessID == $login_sess['session_id'] && self::$sessObj->expire($sessID)){
                 $isLogin = true;
                 if($login_sess['cert_status']==1){//认证状态发生了变化
@@ -85,7 +86,6 @@ class checkRight{
                     $userModel->where(array('id'=>$sessLogin['user_id']))->data(array('cert_status'=>0))->update();
                     $sessLogin = session::get('login');
                 }
-
             }
 
         }

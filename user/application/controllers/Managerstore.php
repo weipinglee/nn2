@@ -8,7 +8,7 @@ use \nainai\offer\product;
 /**
  * 仓单管理的的控制器类
  */
-class ManagerStoreController extends BaseController{
+class ManagerStoreController extends UcenterBaseController{
 
 	protected  $certType = 'store';
 	/**

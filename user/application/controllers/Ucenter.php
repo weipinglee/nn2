@@ -12,7 +12,7 @@ use \Library\url;
 use \Library\safe;
 use \Library\Thumb;
 use \Library\tool;
-class UcenterController extends BaseController {
+class UcenterController extends UcenterBaseController {
 
 
 

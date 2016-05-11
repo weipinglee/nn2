@@ -189,7 +189,7 @@ use \Library\Time;
 
      private function resWrong($type=''){
          $text = ($type=='' || isset($this->errorCode[$type])) ? $this->errorCode[$type]['info'] : '服务器异常';
-         $this->agentModel->rollBack();
+
         return $text;
      }
 

@@ -21,8 +21,7 @@
 
     <link href="{views:css/footer.css}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{views:css/product.css}">
-    <link rel="stylesheet" type="text/css" href="{views:css/style_main.css}">
-
+    <link rel="stylesheet" type="text/css" href="{views:css/style_main.css}"
 
     <!--[if lte IE 6]>
     <script>

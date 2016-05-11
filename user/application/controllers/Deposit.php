@@ -9,7 +9,7 @@ use \Library\JSON;
 use \Library\url;
 use \Library\checkRight;
 
-class DepositController extends Yaf\Controller_Abstract{
+class DepositController extends UcenterBaseController{
 
 	public function init(){
         $right = new checkRight();

@@ -12,7 +12,7 @@ use \Library\safe;
 use \Library\JSON;
 use \Library\Session;
 
-class FundController extends BaseController {
+class FundController extends UcenterBaseController {
 
 	protected  $certType = 'deal';
 	public function indexAction() {
