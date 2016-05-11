@@ -37,9 +37,9 @@ class OffersController extends \Yaf\Controller_Abstract {
 		$id = safe::filter($this->_request->getParam('id'),'int',1);
 		$info = $this->offer->offerDetail($id);
 
-		$info['num'] = 100;
-		$info['amount'] = $info['num'] * $info['price'];
-		$order_mode = new order\Order(2);
+		print_r($info);
+		$info['amount'] = $info['minimum'] * $info['price'];
+		$order_mode = new order\Order();
 		$info['pay_deposit'] = $order_mode->payDepositCom($info['id'],$info['amount']);
 
 		$this->getView()->assign('data',$info);

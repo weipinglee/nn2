@@ -317,7 +317,7 @@ body{_padding-top:30px;}
                                  <p>品牌：诗茗化工</p>
                                  <p>规格/纯度：≥98% &nbsp; 起订量：{$data['minimum']}{$data['unit']}</p>
                              </div></a>
-                             <span class="shulag"> {$data['num']} </span>
+                             <span class="shulag"> {$data['minimum']} </span>
                              <span class="danjia"><i><b>￥</b>{$data['price']}</i></span>
                              <span class="jine"><i><b>￥</b>{$data['amount']}</i></span>
 

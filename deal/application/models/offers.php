@@ -67,7 +67,10 @@ class OffersModel{
 		$res = $query->getObj();
 		$res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
 		$res['left'] = number_format(floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']),2);
-		
+
+		if(!empty($res)){
+			$res['mode_text'] = $this->offerMode($res['mode']);
+		}
 		return $res ? $res : array();
 	}
 
