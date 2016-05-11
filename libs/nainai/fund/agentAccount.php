@@ -166,7 +166,9 @@ use \Library\Time;
         if(is_integer($num) || is_float($num)){
             $fund = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('fund');
             if($fund===false || $fund<$num)
+
                 return $this->resWrong('fundLess');
+
             $res = $this->createFlowData($user_id,$num,'freeze');
             if($res){
                 $this->agentModel->table($this->agentTable);
@@ -178,7 +180,6 @@ use \Library\Time;
             else{
                 return $this->resWrong();
             }
-
 
         }
         else{
@@ -201,14 +202,18 @@ use \Library\Time;
         if(is_integer($num) || is_float($num)){
             $freeze = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('freeze');
             if($freeze===false || $freeze<$num)
+
                 return $this->resWrong('freezeLess');
+
             $this->createFlowData($user_id,-$num,'freeze');
             $this->agentModel->table($this->agentTable);
             $sql = 'UPDATE '.$this->agentModel->table().
                 ' SET fund = fund + :fund ,freeze = freeze - :fund  WHERE user_id = :user_id';
             $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
 
+
             return true;
+
 
         }
         else{

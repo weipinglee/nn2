@@ -21,10 +21,7 @@ class IndexController extends Yaf\Controller_Abstract {
      * 对于如下的例子, 当访问http://yourhost/yar-demo/index/index/index/name/root 的时候, 你就会发现不同
      */
 	public function indexAction() {
-		$a = 'ab';
-		$$a = 123;
-		echo $ab;
-		return false;
+
 
 	}
 

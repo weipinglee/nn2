@@ -62,7 +62,7 @@ class ManagerDealController extends baseController {
                 array('url' => '', 'title' => '发布采购' ),
             )),
             array('name' => '合同管理', 'list' => array(
-                array('url' => '', 'title' => '销售合同' ),
+                array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ),
                 array('url' => '', 'title' => '购买合同' ),
             ))
         );
