@@ -135,13 +135,16 @@ use \Library\Time;
             if($fund===false || $fund<$num)
                 return $this->errorCode['fundLess'];
             // $this->agentModel->beginTrans();
-            $this->createFlowData($user_id,$num,'freeze');
-            $this->agentModel->table($this->agentTable);
-            $sql = 'UPDATE '.$this->agentModel->table().
-                ' SET fund = fund - :fund ,freeze = freeze + :fund  WHERE user_id = :user_id';
-            $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
+            $res = $this->createFlowData($user_id,$num,'freeze');
+            if($res){
+                $this->agentModel->table($this->agentTable);
+                $sql = 'UPDATE '.$this->agentModel->table().
+                    ' SET fund = fund - :fund ,freeze = freeze + :fund  WHERE user_id = :user_id';
+                $res = $this->agentModel->query($sql,array('fund'=>$num,'user_id'=>$user_id));
+
+            }
             return true;
-            // return $this->agentModel->commit();
+            // return $this->agentModel->commit() ;
 
         }
         else{

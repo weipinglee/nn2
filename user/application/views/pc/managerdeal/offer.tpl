@@ -18,11 +18,11 @@
 
 </div>
 
-       <input type="hidden" name="attr_url" value="{url:/product/ajaxGetCategory}"  />
+       <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
             <!--start中间内容-->    
             <div class="user_c">
-                <div class="user_zhxi">
+                <div class="user_zhxi pro_classify">
                     <div class="zhxi_tit">
                         <p><a>产品管理</a>><a>商品分类</a></p>
                     </div>
@@ -37,14 +37,14 @@
                                 <span class="jy_title">市场类型：</span>
                                 <ul>
                                     {foreach: items=$category['show'] item=$cate}
-                                    <li value="{$cate['id']}"  {if: $key=0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
+                                    <li value="{$cate['id']}"  {if: $key==0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
                                     {/foreach}
                                 </ul>
 
                                     {if: !empty($category['hide'])}
                                     <ul class="infoslider" style="display: none;">
                                         {foreach: items=$category['hide'] item=$cate}
-                                        <li value="{$cate['id']}"  {if: $key=0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
+                                        <li value="{$cate['id']}"   ><a>{$cate['name']}</a></li>
                                         {/foreach}
                                     </ul>
                                         <div class="sl_ext">
@@ -93,7 +93,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>数量:</td>
                                 <td> 
-                                    <input class="text" type="text" name="quantity">(吨)
+                                    <input class="text" type="text" name="quantity">
                                 </td>
                                <!--  <td> 
                                    请选择支付保证金比例：
@@ -102,6 +102,13 @@
                                </td> -->
 
                                 <tr>
+                                <td nowrap="nowrap"><span></span>单位:</td>
+                                <td>
+                                    <span id="unit">{$unit}</span>
+                                </td>
+
+
+                            <tr>
                             <td>产地:</td>
                             <td colspan="2">
                                 {area:data=getAreaData()}

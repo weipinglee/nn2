@@ -76,7 +76,7 @@ class url {
             else $baseUrl = self::getConfigHost($pos['host']);
         }
 
-      return $baseUrl.'/index.php/'.self::getRoute($pos['controller'],$pos['action'],$pos['module'],$params);
+      return $baseUrl.'/'.self::getRoute($pos['controller'],$pos['action'],$pos['module'],$params);
     }
 
     /**
@@ -164,7 +164,7 @@ class url {
         }
         //没有匹配到则用yaf_route_static静态路由，/module/controller/action/parms的模式
 
-        $match = $module=='index' ? '/' : '/'.$module;
+        $match = $module=='index' ? '' : $module.'/';
         $match .= $controller.'/'.$action;
         foreach($params as $key=>$val){
             $match .= '/'.$key.'/'.$val;

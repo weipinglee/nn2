@@ -22,7 +22,7 @@
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
             <!--start中间内容-->    
             <div class="user_c">
-                <div class="user_zhxi">
+                <div class="user_zhxi pro_classify">
                     <div class="zhxi_tit">
                         <p><a>产品管理</a>><a>商品分类</a></p>
                     </div>
@@ -37,14 +37,14 @@
                                 <span class="jy_title">市场类型：</span>
                                 <ul>
                                     {foreach: items=$category['show'] item=$cate}
-                                    <li value="{$cate['id']}"  {if: $key=0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
+                                    <li value="{$cate['id']}"  {if: $key==0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
                                     {/foreach}
                                 </ul>
 
                                     {if: !empty($category['hide'])}
                                     <ul class="infoslider" style="display: none;">
                                         {foreach: items=$category['hide'] item=$cate}
-                                        <li value="{$cate['id']}"  {if: $key=0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
+                                        <li value="{$cate['id']}"  ><a>{$cate['name']}</a></li>
                                         {/foreach}
                                     </ul>
                                         <div class="sl_ext">
@@ -187,7 +187,7 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="submit" value='submit'>
-                            <input type="text" name="mode" value="{$mode}">
+                            <input type="hidden" name="mode" value="{$mode}">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
                                 <a href="javascript:void(0);" onclick="checkform()">提交审核</a> 
                                 <span class="color">审核将收取N元/条的人工费用，请仔细填写</span>

@@ -5,43 +5,64 @@ use \nainai\store;
 use \Library\Safe;
 use \Library\Thumb;
 
+/**
+ * 仓单管理的的控制器类
+ */
 class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 
+	/**
+	 * 获取左侧菜单数据
+	 * @var name [<菜单名称>]
+	 * @var url   [<菜单url>]
+	 * @var list [<子菜单的数据，key和父级菜单一致>]
+	 * @return [Array]
+	 */
 	protected function  getLeftArray(){
 	        return array(
 	            array('name' => '仓单管理', 'list' => array()),
-	            array('name' => '仓单管理', 'url' => '',  'list' => array()),
-	            array('name' => '仓单审核', 'url' => url::createUrl('/ManagerStore/ApplyStoreList'),  'list' => array())
+	            array('name' => '仓单管理', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=2'),  'list' => array()),
+	            array('name' => '仓单审核', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=1'),  'list' => array())
 	        );
 	    }
 
 	public function indexAction(){}
 
+	public function addSuccessAction(){}
 
 	/**
 	 * 审核仓单列表
 	 */
-	public function ApplyStoreListAction(){
-		$page = intval(Safe::filterGet('page', 'int')) >= 0 ? Safe::filterGet('page', 'int') : 0;
+	public function applyStoreListAction(){
+		$page = Safe::filterGet('page', 'int', 0);
+		$type = $this->getRequest()->getParam('type');
+		$type = Safe::filter($type,'int',1);
 		$store = new store();
-		$data = $store->getApplyStoreList($page, $this->pagesize);
-
+		if($type==1)
+			$data = $store->getManagerApplyStoreList($page,$this->user_id);
+		else
+			$data = $store->getManagerStoreList($page,$this->user_id);
 		$this->getView()->assign('statuList', $store->getStatus());
 		$this->getView()->assign('storeList', $data['list']);
 		$this->getView()->assign('attrs', $data['attrs']);
 		$this->getView()->assign('pageHtml', $data['pageHtml']);
-	}	
+	}
+
+
 
 	/**
 	 * 审核仓单后，仓单签发的详情页面
 	 */
-	public function ApplyStoreDetailsAction(){
+	public function applyStoreSignAction(){
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
-			$data = $store->getUserStoreDetail($id);
+			$data = $store->getManagerStoreDetail($id,$this->user_id);
+
+			$productModel = new \nainai\product();
+
 			$this->getView()->assign('storeDetail', $data);
+			$this->getView()->assign('photos', $productModel->getProductPhoto($data['pid']));
 		}else{
 			$this->redirect('/ManagerStore/ApplyStoreList');
 		}
@@ -51,13 +72,13 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 	/**
 	 * 仓单审核页面
 	 */
-	public function ApplyStoreAction(){
+	public function applyStoreCheckAction(){
 		$category = array();
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
-			$data = $store->getUserStoreDetail($id);
+			$data = $store->getManagerStoreDetail($id,$this->user_id);
 			//获取商品分类信息，默认取第一个分类信息
 		        $productModel = new \nainai\product();
 		        $attr_ids = array();
@@ -81,21 +102,25 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 		$id = Safe::filterPost('id', 'int', 0);
 		if (IS_POST && intval($id) > 0) {
 			$apply = array();
-			$apply['status'] = !empty(Safe::filterPost('apply')) ? 1 : 2;
+			$apply['status'] = (Safe::filterPost('apply', 'int', 0) == 1) ? 1 : 0;//获取审核状态
 
 			$store = new store();
-			$store->UpdateApplyStore($apply, $id);
+			$store->storeManagerCheck($apply, $id,$this->user_id);
 			$this->redirect('addSuccess');exit();
 		}
-		$this->redirect('ApplyStoreDetails');
+		$this->redirect('ApplyStore');
 	}
 
-	public function doStoreAction(){
+	/**
+	 * 处理仓单签发
+	 */
+	public function doStoreSignAction(){
 		$id = Safe::filterPost('id', 'int', 0);
 		if (IS_POST && intval($id) > 0) {
 			$apply = array(
 				'store_pos' => Safe::filterPost('pos'),
-				'status' =>1
+				'in_time' => Safe::filterPost('inTime'),
+				'rent_time' => Safe::filterPost('rentTime')
 			);
 
 			if (!empty(Safe::filterPost('packNumber'))) {
@@ -104,11 +129,24 @@ class ManagerStoreController extends \nainai\Abstruct\UcenterControllerAbstract{
 			}
 
 			$store = new store();
-			$store->UpdateApplyStore($apply, $id);
+			$store->storeManagerSign($apply, $id,$this->user_id);
 			$this->redirect('addSuccess');exit();
 		}
 		$this->redirect('ApplyStoreDetails');
 	}
 
-	public function addSuccessAction(){}
+	/**
+	 * 仓单管理页面
+	 */
+	public function ManagerStoreListAction(){
+		$page = Safe::filterGet('page', 'int', 0);
+		$store = new store();
+		$data = $store->getApplyStoreList($page, $this->pagesize, $this->user_id);
+
+		$this->getView()->assign('statuList', $store->getStatus());
+		$this->getView()->assign('storeList', $data['list']);
+		$this->getView()->assign('attrs', $data['attrs']);
+		$this->getView()->assign('pageHtml', $data['pageHtml']);
+	}
+
 }

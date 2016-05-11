@@ -14,6 +14,8 @@ class MYPDO {
 
     static private $wdb = null;//写数据库PDO对象，可写可读
 
+    static private $rollback = false;//是否应该回滚的标记
+
     //私有克隆
     private function __clone() {}
 
@@ -125,7 +127,7 @@ class MYPDO {
                 }
             }
             else{
-                $this->rollBack();
+                $this->setRollback();
             }
         }
         catch(\PDOException $e){
@@ -158,7 +160,14 @@ class MYPDO {
     //事物提交(在事物中才提交)
     public function commit(){
         if($this->inTrans()){
-           return self::$wdb->commit();
+            if($this->getRollback()===false){
+                return self::$wdb->commit();
+            }
+            else {
+                $this->rollBack();
+                return false;
+            }
+
         }else return false;
 
     }
@@ -166,6 +175,14 @@ class MYPDO {
     //判断是否在事物当中
     public function inTrans(){
         return self::$wdb->inTransaction();
+    }
+
+    public function setRollback(){
+        self::$rollback = true;
+    }
+    //是否应该回滚
+    public function getRollback(){
+        return self::$rollback;
     }
 
 

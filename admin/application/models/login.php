@@ -9,9 +9,11 @@ class loginModel{
 	 * 登录处理方法
 	 * @return [type] [description]
 	 */
-	private $admin = '';
+	private $admin;
+	private $admin_log;
 	public function __construct(){
 		$this->admin = new M('admin'); 
+		$this->admin_log = new AdminModel();
 	}
 	public function login($name,$pwd){
 		$user = $this->admin->where(array('name'=>$name))->fields('password,name,id,role,session_id,status')->getObj();
@@ -26,9 +28,15 @@ class loginModel{
 						$admin_session = new M('admin_session');
 						$admin_session->where(array('session_id'=>$user['session_id']))->delete();
 					}
-					$data = array('last_ip'=>$_SERVER['REMOTE_ADDR'],'session_id' => session_id());
-					$this->admin->where(array('id'=>$user['id']))->data($data)->update();
+					$ip = tool::getIp();
+					$data = array('last_ip'=>$ip,'session_id' => session_id());
 					
+					//写入管理员表session与ip信息
+					$this->admin->where(array('id'=>$user['id']))->data($data)->update();
+						
+					//写入管理员登录日志
+					$this->admin_log->adminLog($user['id'],$ip);
+
 					$resInfo = tool::getSuccInfo();
 					//获取用户分组
 					$rbacModel = new RbacModel();

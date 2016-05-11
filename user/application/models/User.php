@@ -251,40 +251,18 @@ class UserModel{
 
 	}
 
-	/**
-	 * 验证用户信息是否齐全，认证时用
-	 * @param int $user_id  用户id
-	 * @param int $user_type 用户类型 0：个人 1：企业
-	 */
-	public function checkUserInfo($user_id,$user_type){
-		if($user_type==0){
-			$data =  $this->getPersonInfo($user_id);
-			return $this->checkPersonInfo($data);
-		}
-		else {
-			$data =  $this->getCompanyInfo($user_id);
-			return $this->checkCompanyInfo($data);
-		}
-
-	}
 
 	/**
 	 * 个人用户认证信息验证
 	 * @param array $data 个人用户数据
 	 */
-	private function checkPersonInfo($data){
-		$res = array();
-		if($data['true_name']=='')
-			$res = $this->getSuccInfo(0,'请填写真实姓名');
-		else if($data['identify_no']=='')
-			$res = $this->getSuccInfo(0,'请填写身份证号码');
-		else if($data['identify_front']=='')
-			$res = $this->getSuccInfo(0,'请上传身份证正面照片');
-		else if($data['identify_back']=='')
-			$res = $this->getSuccInfo(0,'请上传身份证背面照片');
-		else if($data['identify_back']=='')
-			$res = $this->getSuccInfo(0,'请上传身份证背面照片');
-		return $res;
+	public function checkPersonInfo($data){
+
+		if(self::$userObj->validate($this->personRules,$data)){
+			return true;
+		}
+		return self::$userObj->getError();
+
 
 	}
 
@@ -292,36 +270,11 @@ class UserModel{
 	 * 企业用户认证信息验证
 	 * @param array 企业用户数据
 	 */
-	private function checkCompanyInfo($data){
-		$info = array(
-			'area'=>'请填写公司地区',
-			'address'=>'请填写公司详细地址',
-			'company_name'=>'请填写公司名称',
-			'legal_person'=>'请填写法人姓名',
-			'reg_fund'    => '请填写注册资金',
-			'contact'     => '请填写联系人姓名',
-			'contact_phone' => '请填写联系人电话',
-			'contact_duty'  => '请填写联系人职务',
-			'check_taker'   => '请填写收票人',
-			'check_taker_phone'=>'请填写收票人电话',
-			'check_taker_add'  => '请填写收票人地址',
-			'deposit_bank'     => '请填写开户行',
-			'bank_acc'      =>  '请填写银行账号',
-			'tax_no'        =>  '请填写税号',
-			'cert_oc'       =>  '请上传组织机构代码证',
-			'cert_bl'       =>  '请上传营业执照',
-			'cert_tax'      =>  '请上传税务登记证'
-		);
-		$res = array();
-		foreach($data as $key=>$val){
-			if(!isset($info[$key]))
-				continue;
-			if($val==NULL){
-				$res = $this->getSuccInfo(0,$info[$key]);
-				break;
-			}
+	public function checkCompanyInfo($data){
+		if(self::$userObj->validate($this->companyRules,$data)){
+			return true;
 		}
-		return $res;
+		return self::$userObj->getError();
 	}
 
 
