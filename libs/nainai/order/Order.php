@@ -24,6 +24,7 @@ class Order{
 	const ORDER_FREE = 1;//自由报盘订单
 	const ORDER_DEPOSIT = 2;//保证金报盘订单
 	const ORDER_STORE = 3;//仓单报盘订单
+	const ORDER_ENTRUST = 4;//委托报盘
 
 	protected $order_table;//订单表
 	protected $order;
@@ -53,7 +54,9 @@ class Order{
 			case self::ORDER_STORE:
 				$table = 'store_order';
 				break;
-			
+			case self::ORDER_ENTRUST:
+				$table = 'entrust_order';
+				break;
 			default:
 				$table = '';
 				break;
@@ -181,7 +184,7 @@ class Order{
 	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = ''){
 		$info = $this->orderInfo(intval($order_id));
 		if(is_array($info) && isset($info['contract_status'])){
-			if($info['contract_status'] == self::CONTRACT_BUYER_RETAINAGE){
+			if($info['contract_status'] == self::CONTRACT_BUYER_RETAINAGE || $info['contract_status'] == self::CONTRACT_NOTFORM){
 				if($info['user_id'] != $user_id)
 					return tool::getSuccInfo(0,'订单买家信息有误');
 

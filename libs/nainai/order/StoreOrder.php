@@ -81,7 +81,7 @@ class StoreOrder extends Order{
 		}else{
 			$res = '无效订单id';
 		}
-		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res ? $res : '未知错误');
+		return $res === true ? array_merge(tool::getSuccInfo(),array('amount'=>$info['amount'],'pay_deposit'=>$orderData['pay_deposit'])) : tool::getSuccInfo(0,$res ? $res : '未知错误');
 	}
 
 	/**

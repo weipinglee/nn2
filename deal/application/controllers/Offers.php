@@ -62,6 +62,10 @@ class OffersController extends Yaf\Controller_Abstract {
 				//仓单报盘
 				$order_mode = new order\StoreOrder($offer_type);
 				break;
+			case order\Order::ORDER_ENTRUST;
+				//委托报盘
+				$order_mode = new order\EntrustOrder($offer_type);
+				break;
 			default:
 				die('无效报盘方式');
 				break;
@@ -94,11 +98,15 @@ class OffersController extends Yaf\Controller_Abstract {
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$gen_res = $order_mode->geneOrder($orderData);
 		if($gen_res['success'] == 1){
-			$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
-			if($pay_res['success'] == 1){
-				$this->redirect(url::createUrl('/Offers/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
+			if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){
+				$this->redirect(url::createUrl('/Offers/paySuccess?order_no='.$orderData['order_no'].'&amount=111&payed=0&info=等待上传线下支付凭证'));
 			}else{
-				die('预付定金失败:'.$pay_res['info']);	
+				$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
+				if($pay_res['success'] == 1){
+					$this->redirect(url::createUrl('/Offers/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
+				}else{
+					die('预付定金失败:'.$pay_res['info']);	
+				}
 			}
 		}else{
 			die('生成订单失败:'.$gen_res['info']);
@@ -110,10 +118,11 @@ class OffersController extends Yaf\Controller_Abstract {
 	public function paySuccessAction(){
 		$order_no = safe::filter($this->_request->getParam('order_no'));
 		$amount = safe::filter($this->_request->getParam('amount'));
+		$info = safe::filter($this->_request->getParam('info'));
 		$pay_deposit = safe::filter($this->_request->getParam('payed'));
-
 		$this->getView()->assign('order_no',$order_no);
 		$this->getView()->assign('amount',$amount);
+		$this->getView()->assign('info',$info);
 		$this->getView()->assign('pay_deposit',$pay_deposit);
 	}
 

@@ -1,7 +1,7 @@
 <?php 
 
 /**
- * 仓单摘牌控制器
+ * 委托报盘摘牌控制器
  */
 use \Library\safe;
 use \Library\tool;
@@ -9,13 +9,13 @@ use \Library\JSON;
 use \Library\url;
 use \Library\checkRight;
 
-class StoreOrderController extends Yaf\Controller_Abstract{
+class EntrustOrderController extends Yaf\Controller_Abstract{
 
 	public function init(){
-        $right = new checkRight();
-        $right->checkLogin($this);//未登录自动跳到登录页
-        $this->getView()->setLayout('ucenter');
-		$this->store = new \nainai\order\StoreOrder(3);
+        // $right = new checkRight();
+        // $right->checkLogin($this);//未登录自动跳到登录页
+        // $this->getView()->setLayout('ucenter');
+		$this->entrust = new \nainai\order\EntrustOrder(4);
 	}
 
 	/**
@@ -30,33 +30,23 @@ class StoreOrderController extends Yaf\Controller_Abstract{
 		$orderData['order_no'] = tool::create_uuid();
 		$orderData['user_id'] = $this->user_id;//session
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
-		$res = $this->store->geneOrder($orderData);
+		$res = $this->entrust->geneOrder($orderData);
 		die(JSON::encode($res));
 	}
 
 	//买家支付定金
 	public function buyerDepositAction(){
-		$orderData['id'] = safe::filter('id','int');
-		$orderData['type'] = safe::filter('type');//1:全款 0:定金
-
-		$order_id = 1;
-		$type = 0;//1:全款 0:定金		
-		$user_id = $this->user_id;
-		$res = $this->store->buyerDeposit($order_id,$type,$user_id);
-		var_dump($res);
-		return false;
+		die(JSON::encode(tool::getSuccInfo()));
 	}
 
-	//买家支付尾款
+	//买家上传线下支付凭证
 	public function buyerRetainageAction(){
 		$order_id = safe::filter('id','int');
-		$type = safe::filter('type');//online:线上 offline:线下
-
 		$order_id = 1;
-		$type = 'online';
-		$user_id = $this->user_id;
+		$type = 'offline';
+		$user_id = 49;//$this->user_id;
 		$proof = 'xianxia.jpg';
-		$res = $this->store->buyerRetainage($order_id,$user_id,$type,$proof);
+		$res = $this->entrust->buyerRetainage($order_id,$user_id,$type,$proof);
 		var_dump($res);
 		return false;
 	}
@@ -67,7 +57,7 @@ class StoreOrderController extends Yaf\Controller_Abstract{
 		$type = safe::filter('type');//0:未确认 1：确认
 		$type = true;
 		$user_id = 42;//$this->user_id;
-		$res = $this->store->confirmProof($order_id,$user_id,$type);
+		$res = $this->entrust->confirmProof($order_id,$user_id,$type);
 		if($res['success'] == 1)
 			$this->redirect($_SERVER['HTTP_REFERER']);
 		else

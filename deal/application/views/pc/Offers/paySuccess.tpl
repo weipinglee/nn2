@@ -290,7 +290,7 @@ body{_padding-top:30px;}
               </div> 
               <!--头部结束--> 
               <div class="alreaor">
-             <h1>支付完成，订单已生成！</h1>
+             <h1>{if:$info}{$info}{else:}支付完成，订单已生成！{/if}</h1>
                
                
                

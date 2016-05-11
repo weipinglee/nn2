@@ -42,7 +42,7 @@
                 <?php echo isset($info['role'])?$info['role']:"";?>
                 <a href="#"><?php echo isset($info['name'])?$info['name']:"";?></a>
                 |
-                <a href="http://localhost/nn2/admin/public/index.php//login/logout">退出</a>
+                <a href="http://localhost/nn2/admin/public/login/logout">退出</a>
             </div>
             <div class="right">
                 <form action="#" id="search" class="search placeholder">
@@ -69,21 +69,21 @@
                     <ul>
                         <li class="current"><a target="content">权限管理</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//system/rbac/roleList/" target="content">管理员分组</a></li>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//system/rbac/accessList/" target="content">权限分配</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/system/rbac/roleList/" target="content">管理员分组</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/system/rbac/accessList/" target="content">权限分配</a></li>
                             </ul>
                         </li>
                         <li><a target="content">系统配置项</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//system/confsystem/creditList/" target="content">信誉值配置列表</a></li>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//system/confsystem/scaleOfferOper/" target="content">报盘费率设置</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/system/confsystem/creditList/" target="content">信誉值配置列表</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/system/confsystem/scaleOfferOper/" target="content">报盘费率设置</a></li>
                             </ul>
                         </li>
                         <li><a target="content">管理员信息</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//system/admin/adminAdd/" target="content">新增管理员</a></li>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//system/admin/adminList/" target="content">管理员列表</a></li>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//system/admin/logList/" target="content">管理员操作记录</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/system/admin/adminAdd/" target="content">新增管理员</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/system/admin/adminList/" target="content">管理员列表</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/system/admin/logList/" target="content">管理员操作记录</a></li>
                             </ul>
                         </li>
                         <li><a href="system-base.html" target="content">系统设置</a></li>
@@ -97,18 +97,18 @@
                         <li><a href="member-audit.html" target="content">会员审核</a></li>
                         <li><a href="member-renzheng.html" target="content">会员认证</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//member/dealercert" target="content">交易商认证</a></li>
-                                <li><a href="scale-hand.html" target="content">仓库认证</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/member/certmanage/dealercert" target="content">交易商认证</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/member/certmanage/storecert" target="content">仓库认证</a></li>
                             </ul>
                         </li>
                         <li><a href='' target="content">子账户权限管理</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//member/subrolelist" target="content">角色列表</a></li>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//member/roleadd" target="content">添加角色</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/member/subrolelist" target="content">角色列表</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/member/roleadd" target="content">添加角色</a></li>
                             </ul>
                         </li>
-                        <li><a href="http://localhost/nn2/admin/public/index.php//member/usergroup/groupList/" target="content">角色分组</a></li>
-                        <li><a href="http://localhost/nn2/admin/public/index.php//member/memberlist" target="content">会员列表</a></li>
+                        <li><a href="http://localhost/nn2/admin/public/member/usergroup/groupList/" target="content">角色分组</a></li>
+                        <li><a href="http://localhost/nn2/admin/public/member/memberlist" target="content">会员列表</a></li>
                         <li><a href="member-del.html" target="content">黑名单列表</a></li>
                         <li><a href="agent-list.html" target="content">经纪人管理</a></li>
                         <li><a href="shop-list.html" target="content">商铺管理</a></li>
@@ -117,16 +117,16 @@
                 </li>
                 <li><a target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/brush.png" alt="" />交易管理</a>
                     <ul>
-                        <li><a href="http://localhost/nn2/admin/public/index.php//product/categoryadd" target="content">产品分类设置</a>
+                        <li><a href="http://localhost/nn2/admin/public/product/categoryadd" target="content">产品分类设置</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//product/categoryadd" target="content">分类添加</a></li>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//product/categorylist" target="content">分类列表</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/product/categoryadd" target="content">分类添加</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/product/categorylist" target="content">分类列表</a></li>
                             </ul>
                         </li>
-                        <li><a href="http://localhost/nn2/admin/public/index.php//product/attributeadd" target="content">产品属性设置</a>
+                        <li><a href="http://localhost/nn2/admin/public/product/attributeadd" target="content">产品属性设置</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//product/attributeadd" target="content">属性添加</a></li>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//product/attributelist" target="content">属性列表</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/product/attributeadd" target="content">属性添加</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/product/attributelist" target="content">属性列表</a></li>
                             </ul>
                         </li>
                         <li><a target="content">交易费率设置</a>
@@ -138,10 +138,10 @@
                         </li>
                         <li><a target="content">报盘管理</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//trade/offermanage/offerList/" target="content">报盘管理</a></li>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//trade/offermanage/offerReview/" target="content">报盘审核</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/trade/offermanage/offerList/" target="content">报盘管理</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/trade/offermanage/offerReview/" target="content">报盘审核</a></li>
                                 <li><a href="#" target="content">历史报盘信息查询</a></li>
-                                <li><a href="http://localhost/nn2/admin/public/index.php//trade/offermanage/offerRecycle/" target="content">报盘信息垃圾箱</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/trade/offermanage/offerRecycle/" target="content">报盘信息垃圾箱</a></li>
                             </ul>
                         </li>
                         <li><a target="content">合同管理</a>
@@ -182,8 +182,8 @@
                 <li class="nosubmenu"><a href="modal.html" class="zoombox w450 h700" target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/comment.png" alt="" /> 数据统计</a></li>
                 <li class="nosubmenu"><a href="javascript:void(0)" class="zoombox w450 h700" target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/comment.png" alt="" /> 仓库管理</a>
                     <ul>
-                        <li><a target="content" href="http://localhost/nn2/admin/public/index.php//store/storelist">仓库列表</a></li>
-                        <li><a href="http://localhost/nn2/admin/public/index.php//store/storeadd" target="content">仓库添加</a></li>
+                        <li><a target="content" href="http://localhost/nn2/admin/public/store/storelist">仓库列表</a></li>
+                        <li><a href="http://localhost/nn2/admin/public/store/storeadd" target="content">仓库添加</a></li>
                     </ul>
                 </li>
             </ul>
@@ -259,7 +259,7 @@
               CONTENT 
                         --> 
         <div class="main_content" id="content_1" >
-            <iframe class="white" scrolling="yes" frameborder="0" src="http://localhost/nn2/admin/public/index.php//index/index/welcome/" name="content" marginheight="0" marginwidth="0" width="100%" height="600px"  id="iframe" style="overflow-y:scroll;"></iframe>
+            <iframe class="white" scrolling="yes" frameborder="0" src="http://localhost/nn2/admin/public/index/index/welcome/" name="content" marginheight="0" marginwidth="0" width="100%" height="600px"  id="iframe" style="overflow-y:scroll;"></iframe>
 
      </div>
 </div>

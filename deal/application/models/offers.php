@@ -43,6 +43,9 @@ class OffersModel{
 			case Order::ORDER_STORE:
 				$mode_txt = '仓单报盘';
 				break;
+			case Order::ORDER_ENTRUST:
+				$mode_txt = '委托报盘';
+				break;
 			default:
 				$mode_txt = '未知类型';
 				break;

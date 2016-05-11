@@ -1,8 +1,8 @@
 <?php
 /**
  * @author panduo
- * @date 2016-4-25
- * @brief 自由摘牌订单表 暂只支持余额支付
+ * @date 2016-5-9
+ * @brief 委托订单表 暂只支持余额支付
  *
  */
 namespace nainai\order;
@@ -10,7 +10,8 @@ use \Library\M;
 use \Library\Query;
 use \Library\tool;
 use \Library\url;
-class FreeOrder extends Order{
+class entrustOrder extends Order{
+	
 	/**
 	 * 获取用户所有合同信息(含商品信息与买家信息)
 	 * @param  int $user_id 卖家id
