@@ -94,8 +94,12 @@
                         </li>
                         <li><a href="{url:member/usergroup/groupList}" target="content">角色分组</a></li>
                         <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
-                        <li><a href="member-del.html" target="content">黑名单列表</a></li>
-                        <li><a href="agent-list.html" target="content">经纪人管理</a></li>
+                        <li><a href='javascript:voie(0)' target="content">代理商管理</a>
+                            <ul>
+                                <li><a href="{url:member/agent/agentList}" target="content">代理商列表</a></li>
+                                <li><a href="{url:member/agent/addAgent}" target="content">代理商添加</a></li>
+                            </ul>
+                        </li>
                         <li><a href="shop-list.html" target="content">商铺管理</a></li>
                         <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>
                     </ul>
