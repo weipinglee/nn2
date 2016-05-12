@@ -122,13 +122,7 @@ class UcenterController extends UcenterBaseController {
 
         $userModel = new userModel();
         $res = $userModel->changePass($pass,$user_id);
-        if(isset($res['success']) && $res['success']==1){
-
-            $this->redirect('info');
-        }
-        else{
-            echo $res['info'];
-        }
+       echo JSON::encode($res);
         return false;
     }
 

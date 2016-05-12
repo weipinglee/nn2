@@ -7,8 +7,6 @@
   <meta charset="utf-8">
   <link href="{views:css/user_index.css}" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
-	<script type="text/javascript" src="{root:js/autovalidate/validate.js}" ></script>
-	<link href="{root:js/autovalidate/style.css}" rel="stylesheet" type="text/css">
 
 
 

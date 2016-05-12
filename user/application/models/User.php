@@ -23,7 +23,7 @@ class UserModel{
 		array('id','number','id错误',0,'regex'),
 		array('pid','number','',0,'regex'),
 		array('username','/^[a-zA-Z0-9_]{3,30}$/','用户名格式错误'),
-		array('password','/^\S{6,20}$/','密码格式错误',0,'regex',3),
+		array('password','/^\S{6,15}$/','密码格式错误',0,'regex',3),
 		array('repassword','password','两次密码输入不同',0,'confirm'),
 		array('type',array(0,1),'类型错误',0,'in'),
 		array('head_photo','/^[a-zA-Z0-9_@\.\/]+$/','请正确上传头像',2,'regex'),
