@@ -150,7 +150,7 @@
                         <li><a href="{url:balance/fundOut/fundOutList}" target="content">出金审核</a></li>
                         <li><a target="content">账户管理</a>
                             <ul>
-                                <li><a href="account-member.html" target="content">会员账户</a></li>
+                                <li><a href="{url:balance/accManage/userAccList}" target="content">会员账户</a></li>
                                 <li><a href="account-market.html" target="content">市场账户</a></li>
                                 <li><a href="account-agent.html" target="content">经纪人账户</a></li>
                             </ul>
