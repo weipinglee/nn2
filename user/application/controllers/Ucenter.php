@@ -42,6 +42,7 @@ class UcenterController extends UcenterBaseController {
                 array('url' => url::createUrl('/ucenter/subAcc'), 'title' => '添加子账户' ),
             )),
 
+            array('name' => '开票信息管理', 'url' => url::createUrl('/ucenter/invoice'),'action'=>array('invoice')),
         );
     }
 
@@ -425,6 +426,11 @@ class UcenterController extends UcenterBaseController {
             else echo $res['info'];
         }
         return false;
+    }
+
+    public function invoiceAction(){
+
+
     }
 
 

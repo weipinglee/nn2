@@ -18,6 +18,10 @@
   <link href="{views:css/topnav20141027.css}" rel="stylesheet" type="text/css">
   <script src="{views:js/topnav20141027.js}" type="text/javascript"></script>
     <!-- 头部控制 -->
+
+    <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
+    <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
+    <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
 </head>
 <body>
 <!--    公用头部控件 -->
@@ -174,7 +178,7 @@
                     		<li class="let_nav_tit"><h3>{$leftList['name']}</h3></li>
                     		{else:}
                             <li class="btn1" id="btn{$k}">
-                                <a class="nav-first" {if:isset($leftList['url'])} href="{$leftList['url']}"{/if} >
+                                <a class="nav-first {if:isset($leftList['action']) && in_array($action,$leftList['action'])}cur{/if}" {if:isset($leftList['url'])} href="{$leftList['url']}"{/if} >
                                     {$leftList['name']}
                                     <i class="icon-caret-down"></i>
                                 </a>
