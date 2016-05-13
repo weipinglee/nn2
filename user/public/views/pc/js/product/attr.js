@@ -138,3 +138,18 @@ function getCategory(){
 function AddProductCategory(data){
 
 }
+
+//验证规则添加
+
+$(function(){
+    var validObj = formacc;
+
+    //为地址选择框添加验证规则
+    var rules = [{
+        ele:"input[name=area]",
+        datatype:"n4-6",
+        nullmsg:"请选择地址！",
+        errormsg:"请选择地址！"
+    }];
+    validObj.addRule(rules);
+})

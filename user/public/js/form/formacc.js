@@ -53,6 +53,13 @@ nn_panduo.formacc.prototype = {
 		      ajaxPost:false,
 		      showAllError:false,
 		      postonce:true,
+			  datatype : {
+				  'float' : /^\d+\.?\d*$/i,
+				  'qq' : /^[1-9][0-9]{4,}$/i,
+				  'zip' : /^\d{6}$/i,
+				  'mobile':/^1[2|3|4|5|6|7|8|9][0-9]\d{4,8}$/,
+
+			  },
 		      beforeSubmit:function(curform){
 		        var url = $(curform).attr('action');
 		        var data = $(curform).serialize();

@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/ManagerDeal/doDepositOffer}" method="POST">
+                    <form action="{url:/ManagerDeal/doDepositOffer}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
@@ -75,14 +75,16 @@
                             <tr>
                             <td nowrap="nowrap"><span></span>商品标题：</td>
                             <td colspan="2"> 
-                                <input class="text" type="text" name="warename">
+                                <span><input class="text" type="text" datatype="s1-30" errormsg="填写商品标题" name="warename"></span>
+                                <span></span>
                             </td>
+
                         </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>商品单价:</td>
                                 <td> 
-                                    <input class="text" type="text" name="price">
-                                    
+                                    <span> <input class="text" type="text" datatype="float" errormsg="填写正确填写单价" name="price"></span>
+                                    <span></span>
                                 </td>
 <!--                                 <td> 
     请选择付款方式：
@@ -93,8 +95,10 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>数量:</td>
                                 <td> 
-                                    <input class="text" type="text" name="quantity"><span></span>
+                                      <span><input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="quantity"></span>
+                                    <span></span>
                                 </td>
+                                <span></span>
                                <!--  <td> 
                                    请选择支付保证金比例：
                                    <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
@@ -104,7 +108,8 @@
                                 <tr>
                             <td>产地:</td>
                             <td colspan="2">
-                                {area:data=getAreaData()}
+                               <span>{area:data=getAreaData()}</span>
+                                <span></span>
                             </td>
                          
                         </tr>
@@ -160,12 +165,14 @@
                           <tr>
                             <td>交收地点：</td>
                             <td colspan="2">
-                                <input type="text" class='text' name="accept_area">
+                               <span><input type="text" class='text' datatype="s1-30" errormsg="填写商品标题" name="accept_area"></span>
+                                <span></span>
                             </td>
                             </tr>
                             <td>交收时间：</td>
                             <td colspan="2">
-                                <input type="text" class='text' name="accept_day">
+                                 <span><input type="text" class='text' name="accept_day"></span>
+                                <span></span>
                             </td>
                             </tr>
 
@@ -187,7 +194,7 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
-                                <input  type="submit" onclick="checkform()" value="提交审核"></input>
+                                <input  type="submit"  value="提交审核" />
                                 <span class="color">买方付首款后需缴纳{$rate}%的保证金，合同完成后退还</span>
                             </td>
                         </tr>

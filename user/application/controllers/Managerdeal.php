@@ -5,7 +5,7 @@ use \Library\PlUpload;
 use \Library\photoupload;
 use \Library\json;
 use \Library\url;
-use \Library\Safe;
+use \Library\safe;
 use \Library\Thumb;
 use \Library\tool;
 use \nainai\store;
@@ -171,12 +171,12 @@ class ManagerDealController extends UcenterBaseController {
         if(IS_POST){
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
-                'divide'      => Safe::filterPost('divide', 'int'),
-                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+                'divide'      => safe::filterPost('divide', 'int'),
+                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? safe::filterPost('minimum', 'int') : 0,
 
-                'accept_area' => Safe::filterPost('accept_area'),
-                'accept_day' => Safe::filterPost('accept_day', 'int'),
-                'price'        => Safe::filterPost('price', 'float'),
+                'accept_area' => safe::filterPost('accept_area'),
+                'accept_day' => safe::filterPost('accept_day', 'int'),
+                'price'        => safe::filterPost('price', 'float'),
                // 'acc_type'   => 1,
             );
 
@@ -184,12 +184,12 @@ class ManagerDealController extends UcenterBaseController {
             $productData = $this->getProductData();
             $res = $depositObj->doOffer($productData,$offerData);
 
-            if($res===true){
-                $this->redirect('addSuccess');
-            }
-            else echo 9;
+            echo json::encode($res);
+            exit;
         }
-        return false;
+        else
+        echo \Library\json::encode(tool::getSuccInfo(0,'操作失败'));
+        exit;
 
     }
 

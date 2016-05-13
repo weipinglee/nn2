@@ -6,7 +6,7 @@
  * Time: 23:16
  */
 namespace nainai\offer;
-
+use \Library\tool;
 class depositOffer extends product{
 
     /**
@@ -29,14 +29,14 @@ class depositOffer extends product{
 
         if($insert===true){
             if($this->_productObj->commit()){
-                return true;
+                return tool::getSuccInfo();
             }
-            else return $this->errorCode['server'];
+            else return tool::getSuccInfo(0,$this->errorCode['server']['info']);
         }
         else{
             $this->_productObj->rollBack();
             $this->errorCode['dataWrong']['info'] = $insert;
-            return $this->errorCode['dataWrong'];
+            return tool::getSuccInfo(0,$this->errorCode['dataWrong']['info']);
         }
 
     }
