@@ -4,6 +4,7 @@ nn_panduo.formacc = function(obj){
 	this.event_obj = '';//当前事件对象
 	this.ajax_return_data = '';//ajax返回数据
 	this.no_redirect = false;
+	this.validObj = '';
 	if(obj){
 		this.form = obj.form || '';//要提交的表单对象
 		this.redirect_url = obj.redirect_url||'';//操作成功后自动跳转的地址
@@ -47,7 +48,7 @@ nn_panduo.formacc.prototype = {
 	validform:function(){
         var _this = this;
         if(this.form){
-		  $(this.form).Validform({
+			this.validObj = $(this.form).Validform({
 		      tiptype : 2,
 		      ajaxPost:false,
 		      showAllError:false,
@@ -74,6 +75,23 @@ nn_panduo.formacc.prototype = {
 	      });
 	    }
 	},
+
+	check:function(bool){
+		return this.validObj.check(bool);
+	},
+
+	ignore:function(selecter){
+		this.validObj.ignore(selecter);
+	},
+	unignore:function(selecter){
+		this.validObj.unignore(selecter);
+	},
+
+
+	addRule :function(roles){
+		this.validObj.addRule(roles);
+	},
+
 	/**
 	 * 设置数据状态
 	 * @return {[type]} [description]
@@ -158,8 +176,9 @@ nn_panduo.formacc.prototype = {
 
 
 $(function(){
-	var formacc = new nn_panduo.formacc();
+	 formacc = new nn_panduo.formacc();
 	formacc.bind_status_handle();
+
 	formacc.form_init();
 
 })

@@ -11,6 +11,7 @@ use \nainai\cert\certDealer;
 use \nainai\cert\certStore;
 use \Library\Thumb;
 use \Library\url;
+use \Library\JSON;
 class certManageController extends Yaf\Controller_Abstract {
 
 
@@ -81,7 +82,7 @@ class certManageController extends Yaf\Controller_Abstract {
 			$m = new certDealer();
 			$res = $m->verify($user_id,$status,$info);
 
-			echo $res;
+			echo JSON::encode($res);
 
 		}
 		return false;
@@ -138,7 +139,7 @@ class certManageController extends Yaf\Controller_Abstract {
 			$m = new certStore();
 			$res = $m->verify($user_id,$status,$info);
 
-			echo $res;
+			echo JSON::encode($res);
 
 		}
 		return false;

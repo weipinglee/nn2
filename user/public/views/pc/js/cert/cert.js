@@ -1,10 +1,10 @@
 /**
- * ��֤ҳ��js
+ * 认证页面js
  * author:weipinglee
  * date:2016/4/29
  */
 
-//�л�tab
+//切换tab
 function nextTab(step){
     if(step===undefined){
         $('.rz_ul').find('.cur').next('li').find('a').trigger('click');
@@ -16,24 +16,26 @@ function nextTab(step){
 
 }
 
-//ȥ��֤
-function toCertApply(){
-    var url = $('form').attr('action');
-
-    $.ajax({
-        'url' :  url,
-        'type' : 'post',
-        'data' : $('form').serialize(),
-        'dataType': 'json',
-        'success' : function(data){
-            alert(JSON.stringify(data));
-        },
-        'complate': function(){
-
+$(function(){
+    var validObj = formacc;
+    $('#next_step').on('click',function(){
+        validObj.ignore('.yz_img input');
+        if(validObj.check()){
+            nextTab();
+            validObj.unignore();
         }
-
     })
 
-}
+    //为地址选择框添加验证规则
+    var rules = [{
+        ele:"input[name=area]",
+        datatype:"n4-6",
+        nullmsg:"请选择地址！",
+        errormsg:"请选择地址！"
+    }];
+    validObj.addRule(rules);
+
+
+})
 
 

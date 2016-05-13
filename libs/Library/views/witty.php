@@ -241,9 +241,6 @@ class witty{
                     if(!isset($attr['cityID']))$attr['cityID'] = 'seachcity';
                     if(!isset($attr['districtID']))$attr['districtID'] = 'seachdistrict';
                     if(!isset($attr['inputName'])) $attr['inputName'] = 'area';
-                    if(!isset($attr['pattern'])) $attr['pattern'] = '';
-                    else $attr['pattern'] = 'pattern="'.$attr['pattern'].'"';
-                    if(!isset($attr['alt'])) $attr['alt'] = '请选择地区';
                     if(substr($attr['data'],0,1) == '$')
                         $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
 
@@ -261,8 +258,8 @@ class witty{
               </select>&nbsp;&nbsp;<span id='{$attr['districtID']}_div' >
                <select   id="{$attr['districtID']}"  onchange=" {$attr['inputName']}Obj.changeDistrict(this.value);">
                </select></span>
-               <input type="hidden" name="{$attr['inputName']}" {$attr['pattern']} alt="{$attr['alt']}" value='{$attr['data']}' />
-
+               <input type="hidden"  name="{$attr['inputName']}" {$attr['pattern']} alt="{$attr['alt']}" value='{$attr['data']}' />
+                <span></span>
 OEF;
                 }
                 break;

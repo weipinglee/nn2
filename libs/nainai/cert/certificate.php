@@ -11,6 +11,7 @@ use \Library\Time;
 use \Library\Query;
 use \Library\Thumb;
 use \Library\log;
+use \Library\tool;
 class certificate{
 
     const CERT_BEFORE  =  -1; //表示从未发起认证,不存在认证数据
@@ -152,7 +153,11 @@ class certificate{
         $logs = array('admin','处理了一个申请认证','用户id:'.$user_id);
         $log->write('operation',$logs);
 
-        return $certModel->commit();
+        $res = $certModel->commit();
+        if($res===true){
+            return tool::getSuccInfo();
+        }
+        return tool::getSuccInfo(0,'操作失败');
     }
 
     /**
