@@ -15,29 +15,25 @@ class FreeOrderController extends Yaf\Controller_Abstract{
         // $right = new checkRight();
         // $right->checkLogin($this);//未登录自动跳到登录页
         // $this->getView()->setLayout('ucenter');
-		$this->free = new \nainai\order\FreeOrder(1);
+		$this->free = new \nainai\order\FreeOrder();
 	}
 
 	/**
 	 * 生成订单
 	 */
-	public function geneOrderAction(){
-		$orderData['offer_id'] = safe::filterPost('offer_id','int');
-		$orderData['num'] = safe::filterPost('num');
+	// public function geneOrderAction(){
+	// 	$orderData['offer_id'] = safe::filterPost('offer_id','int');
+	// 	$orderData['num'] = safe::filterPost('num');
 
-		$orderData['offer_id'] = 1;
-		$orderData['num'] = 20;
-		$orderData['order_no'] = tool::create_uuid();
-		$orderData['user_id'] = $this->user_id;//session
-		$orderData['create_time'] = date('Y-m-d H:i:s',time());
-		$res = $this->free->geneOrder($orderData);
-		die(JSON::encode($res));
-	}
+	// 	$orderData['offer_id'] = 1;
+	// 	$orderData['num'] = 20;
+	// 	$orderData['order_no'] = tool::create_uuid();
+	// 	$orderData['user_id'] = $this->user_id;//session
+	// 	$orderData['create_time'] = date('Y-m-d H:i:s',time());
+	// 	$res = $this->free->geneOrder($orderData);
+	// 	die(JSON::encode($res));
+	// }
 
-	//买家支付定金
-	public function buyerDepositAction(){
-		die(JSON::encode(tool::getSuccInfo()));
-	}
 
 	//买家上传线下支付凭证
 	public function buyerRetainageAction(){

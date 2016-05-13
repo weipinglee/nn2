@@ -191,7 +191,7 @@ use \Library\Time;
             $fromFreeze = $this->agentModel->where(array('user_id'=>$from))->getField('freeze');
 
             if($fromFreeze>=$num){
-                $this->agentModel->beginTrans();
+                // $this->agentModel->beginTrans();
                 if($to==0){//付款到市场
 
                 }
@@ -204,7 +204,8 @@ use \Library\Time;
                 //付款人减少冻结
                 $this->agentModel->where(array('user_id'=>$from))->setDec('freeze',$num);
                 $this->createFlowData($from,$num,'freezePay');
-                return $this->agentModel->commit();
+                return true;
+                // return $this->agentModel->commit();
             }
             else{
                 return $this->errorCode['freezeLess'];

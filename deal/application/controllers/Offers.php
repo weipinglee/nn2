@@ -52,19 +52,19 @@ class OffersController extends Yaf\Controller_Abstract {
 		switch ($offer_type) {
 			case order\Order::ORDER_FREE:
 				//自由报盘
-				$order_mode = new order\FreeOrder($offer_type);
+				$order_mode = new order\FreeOrder();
 				break;
 			case order\Order::ORDER_DEPOSIT:
 				//保证金报盘
-				$order_mode = new order\DepositOrder($offer_type);
+				$order_mode = new order\DepositOrder();
 				break;
 			case order\Order::ORDER_STORE:
 				//仓单报盘
-				$order_mode = new order\StoreOrder($offer_type);
+				$order_mode = new order\StoreOrder();
 				break;
 			case order\Order::ORDER_ENTRUST;
 				//委托报盘
-				$order_mode = new order\EntrustOrder($offer_type);
+				$order_mode = new order\EntrustOrder();
 				break;
 			default:
 				die('无效报盘方式');
@@ -96,6 +96,7 @@ class OffersController extends Yaf\Controller_Abstract {
 		$orderData['order_no'] = tool::create_uuid();
 		$orderData['user_id'] = $user_id;
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
+		$orderData['offer_type'] = $offer_type;
 		$gen_res = $order_mode->geneOrder($orderData);
 		if($gen_res['success'] == 1){
 			if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){

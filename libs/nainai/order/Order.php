@@ -18,16 +18,18 @@ class Order{
 	const CONTRACT_CANCEL = 2;//卖家未按时支付保证金合同作废
 	const CONTRACT_BUYER_RETAINAGE = 3;//卖家支付保证金后等待接受尾款
 	const CONTRACT_EFFECT = 4;//支付完成合同生效
-	const CONTRACT_COMPLETE = 5;//提货完成 合同完成
+	const CONTRACT_VERIFY_QAULITY = 5;//买家已确认货物质量（保证金/仓单） 提货
+	const CONTRACT_COMPLETE = 6;//提货完成 合同完成
 
-	//订单类型常量定义
+	//订单类型常量定义 
 	const ORDER_FREE = 1;//自由报盘订单
 	const ORDER_DEPOSIT = 2;//保证金报盘订单
 	const ORDER_STORE = 3;//仓单报盘订单
 	const ORDER_ENTRUST = 4;//委托报盘
 
-	protected $order_table;//订单表
-	protected $order;
+	protected $order_table;//订单表名
+	protected $order;//订单表M对象
+	protected $order_type;//订单表类型
 	protected $offer;//报盘表
 	protected $account;//用户资金类
 	protected $products;//商品表
@@ -44,26 +46,9 @@ class Order{
 
 
 	public function __construct($order_type){
-		switch ($order_type) {
-			case self::ORDER_FREE:
-				$table = 'free_order';
-				break;
-			case self::ORDER_DEPOSIT:
-				$table = 'deposit_order';
-				break;
-			case self::ORDER_STORE:
-				$table = 'store_order';
-				break;
-			case self::ORDER_ENTRUST:
-				$table = 'entrust_order';
-				break;
-			default:
-				$table = '';
-				break;
-		}
-		if(empty($table)) return false;
-		$this->order_table = $table;
-		$this->order = new M($table);
+		$this->order_type = $order_type;
+		$this->order_table = 'product_order';
+		$this->order = new M($this->order_table);
 		$this->offer = new M('product_offer');
 		$this->products = new M('products');
 		$this->paylog = new M('pay_log');
@@ -255,7 +240,7 @@ class Order{
 	public function confirmProof($order_id,$user_id,$confirm = true){
 		$info = $this->orderInfo($order_id);
 		if(is_array($info) && isset($info['contract_status'])){
-			if($info['contract_status'] != self::CONTRACT_BUYER_RETAINAGE){
+			if($this->order_type != self::ORDER_FREE && $this->order_type != self::ORDER_ENTRUST && $info['contract_status'] != self::CONTRACT_BUYER_RETAINAGE){
 				return tool::getSuccInfo(0,'合同状态有误');
 			}
 			$seller = $this->sellerUserid($order_id);//获取卖方帐户id
@@ -270,7 +255,7 @@ class Order{
 				//卖家确认收款
 				
 				//合同状态置为生效
-				$orderData['contract_status'] = self::CONTRACT_EFFECT;
+				$orderData['contract_status'] = $this->order_type != self::ORDER_FREE && $this->order_type != self::ORDER_ENTRUST ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
 				$log_res = $this->payLog($order_id,$user_id,1,'卖家确认线下支付凭证');
 			}elseif($confirm === false){
 				//删除之前上传proof
@@ -431,6 +416,125 @@ class Order{
 		$res = $this->paylog->data(array('pay_type'=>$this->order_table,'order_id'=>$order_id,'user_id'=>$user_id,'user_type'=>$user_type,'remark'=>$remark,'create_time'=>date('Y-m-d H:i:s',time())))->add();
 		$err = $this->paylog->getError();
 		return  intval($res) > 0 ? true : (!empty($err) ? $err : '日志记录失败');
+	}
+
+	/**
+	 * 买方确认货物质量
+	 * @param  int $order_id 订单id
+	 * @return array  $res   返回结果
+	 */
+	public function verifyQaulity($order_id){
+		$order = $this->orderInfo($order_id);
+		if($order && in_array($order['offer_type'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
+			if($order['contract_status'] == self::CONTRACT_EFFECT){
+				//查询提货表是否已经提货完毕
+				$delivery = new M('product_delivery');
+				$record = $delivery->where(array('order_id'=>$order_id,'status'=>\nainai\delivery\Delivery::DELIVERY_COMPLETE))->getfield('id');
+
+				if(empty($record)){
+					$error = '无此订单或此订单尚未完成提货';
+				}else{
+					$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//买家已确认质量
+					$orderData['id'] = $order_id;
+
+					try {
+						$this->order->beginTrans();
+						$res = $this->orderUpdate($orderData);
+						//更新合同状态
+						if($res['success'] == 1){
+							$buyer = $this->offer->where(array('id'=>$order['offer_id']))->getfield('user_id');
+							//将订单款60%支付给卖方
+							$amount = $order['amount'] * 0.6;
+							$acc_res = $this->account->freezePay($order['user_id'],$buyer,floatval($amount));
+							if($acc_res === true){
+								$log_res = $this->payLog($order_id,$order['user_id'],0,'买家确认提货质量');
+								if($log_res === true){
+									$this->order->commit();
+									return tool::getSuccInfo();
+								}else{
+									$error = $log_res;
+								}
+							}else{
+								$error = $acc_res['info'];
+							}
+						}else{
+							$error = $res['info'];
+						}
+					}catch(PDOException $e) {
+						$this->order->rollBack();
+						$error = $e->getMessage();
+					}
+				}
+			}else{
+				$error = '合同状态有误';
+			}
+		}else{
+			$error = '无效订单';
+		}
+
+		return tool::getSuccInfo(0,$error);
+	}
+
+	/**
+	 * 买方确认合同完成
+	 * @param  int $order_id 订单id
+	 * @return array  $res   返回结果信息
+	 */
+	public function contractComplete($order_id){
+		$order = $this->orderInfo($order_id);
+		if($order && in_array($order['offer_type'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
+			if($order['contract_status'] == self::CONTRACT_VERIFY_QAULITY){
+				$orderData['contract_status'] = self::CONTRACT_COMPLETE;
+				$orderData['id'] = $order_id;
+
+				try {
+					$this->order->beginTrans();
+					$res = $this->orderUpdate($orderData);
+					if($res['success'] == 1){
+						//释放卖家保证金
+						$buyer = $this->offer->where(array('id'=>$order['offer_id']))->getfield('user_id');
+
+						//判断是否为保证金订单
+						if($order['offer_type'] == self::ORDER_DEPOSIT){
+							//如果是则需要将卖家的保证金解冻
+							$accf_res = $this->account->freezeRelease($buyer,floatval($order['seller_deposit']));
+						}else{
+							$accf_res = true;
+						}
+						
+						if($accf_res === true){
+							//支付剩余的40%货款
+							$amount = $order['amount'] * 0.4;
+							$accp_res = $this->account->freezePay($order['user_id'],$buyer,floatval($amount));
+							if($accp_res === true){
+								$log_res = $this->payLog($order_id,$order['user_id'],0,'买家确认合同,合同结束');
+								if($log_res === true){
+									$this->order->commit();
+									return tool::getSuccInfo();
+								}else{
+									$error = $log_res;
+								}
+							}else{
+								$error = $accp_res['info'];
+							}
+						}else{
+							$error = $accf_res['info'];
+						}
+					}else{
+						$error = $res['info'];
+					}
+				} catch (PDOException $e) {
+					$error = $e->getMessage();
+					$this->order->rollBack();
+				}
+			}else{
+				$error = '合同状态有误';
+			}
+		}else{
+			$error = '无效订单';
+		}
+
+		return tool::getSuccInfo(0,$error);
 	}
 
 }
