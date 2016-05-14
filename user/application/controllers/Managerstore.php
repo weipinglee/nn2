@@ -5,6 +5,7 @@ use \nainai\store;
 use \Library\Safe;
 use \Library\Thumb;
 use \nainai\offer\product;
+use \Library\json;
 /**
  * 仓单管理的的控制器类
  */
@@ -42,6 +43,7 @@ class ManagerStoreController extends UcenterBaseController{
 			$data = $store->getManagerApplyStoreList($page,$this->user_id);
 		else
 			$data = $store->getManagerStoreList($page,$this->user_id);
+
 		$this->getView()->assign('statuList', $store->getStatus());
 		$this->getView()->assign('storeList', $data['list']);
 		$this->getView()->assign('attrs', $data['attrs']);
@@ -95,6 +97,20 @@ class ManagerStoreController extends UcenterBaseController{
 	        
 	}
 
+	public function applyStoreDetailAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int', 0);
+		if (intval($id) > 0) {
+			$store = new store();
+			$data = $store->getManagerStoreDetail($id,$this->user_id);
+
+			$this->getView()->assign('storeDetail', $data);
+			$this->getView()->assign('photos', $data['photos']);
+		}else{
+			$this->redirect('/ManagerStore/ApplyStoreList');
+		}
+	}
+
 	/**
 	 * 处理审核
 	 * @return 
@@ -106,8 +122,8 @@ class ManagerStoreController extends UcenterBaseController{
 			$apply['status'] = (Safe::filterPost('apply', 'int', 0) == 1) ? 1 : 0;//获取审核状态
 
 			$store = new store();
-			$store->storeManagerCheck($apply, $id,$this->user_id);
-			$this->redirect('addSuccess');exit();
+			$res = $store->storeManagerCheck($apply, $id,$this->user_id);
+			die(json::encode($res)) ;
 		}
 		$this->redirect('ApplyStore');
 	}
@@ -119,23 +135,24 @@ class ManagerStoreController extends UcenterBaseController{
 		$id = Safe::filterPost('id', 'int', 0);
 		if (IS_POST && intval($id) > 0) {
 			$apply = array(
-				'store_pos' => Safe::filterPost('pos'),
-				'in_time' => Safe::filterPost('inTime'),
-				'rent_time' => Safe::filterPost('rentTime')
+				'store_pos' => safe::filterPost('pos'),
+				'cang_pos'  => safe::filterPost('cang'),
+				'in_time' => safe::filterPost('inTime'),
+				'rent_time' => safe::filterPost('rentTime'),
+				'check_org' => safe::filterPost('check'),
+				'check_no'  => safe::filterPost('check_no')
 			);
 
-			if (!empty(Safe::filterPost('packNumber'))) {
-				$apply['package_num'] = Safe::filterPost('packNumber', 'float');
-				$apply['package_weight'] = Safe::filterPost('packWeight', 'float');
+			if (!empty(safe::filterPost('packNumber'))) {
+				$apply['package_num'] = safe::filterPost('packNumber', 'float');
+				$apply['package_weight'] = safe::filterPost('packWeight', 'float');
 			}
 
-			$productData = array('quantity'=>Safe::filterPost('quantity','float'));
+			$productData = array('quantity'=>safe::filterPost('quantity','float'));
 
 			$store = new store();
 			$res = $store->storeManagerSign($apply, $productData,$id,$this->user_id);
-			if($res)
-				$this->redirect('addSuccess');
-			else echo 1;
+			die(json::encode($res)) ;
 		}
 		$this->redirect('ApplyStoreDetails');
 	}

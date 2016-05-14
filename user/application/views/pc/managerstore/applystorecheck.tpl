@@ -8,16 +8,15 @@
 					</div>
 					<div class="center_tabl">
 
-                    <form action="{url:/ManagerStore/doApplyStore}" method="POST">
+                    <form action="{url:/ManagerStore/doApplyStore}" method="POST" auto_submit redirect_url="{url:/managerstore/applystorelist?type=1}">
 						<table border="0">
                         <tr>
                             <th colspan="3">商品类型和规格</th>
                             </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>商品类型:</td>
-                                <td> 
-                                    <input class="text" type="text" name="cate" value="{$detail['cname']}" readonly="readonly">
-                                    
+                                <td>
+                                    {$detail['cname']}
                                 </td>
                                 <td> 
                                     
@@ -27,9 +26,8 @@
                             {foreach: items=$detail['attribute'] item=$c key=$k}
                             <tr>
                                 <td nowrap="nowrap"><span></span>{$attrs[$k]}:</td>
-                                <td> 
-                                    <input class="text" type="text" name="attrs[]" value="{$c}" readonly="readonly">
-                                    
+                                <td>
+                                    {$c}
                                 </td>
                                 <td> 
                                     
@@ -37,12 +35,11 @@
                             </tr>
                             {/foreach}
                             
-                               <th colspan="3">基本挂牌信息</th>
+                               <th colspan="3">基本商品信息</th>
                                 <tr>
                                 <td nowrap="nowrap"><span></span>商品名称:</td>
-                                <td> 
-                                    <input class="text" type="text" name="pname" value="{$detail['pname']}" readonly="readonly">
-                                    
+                                <td>
+                                    {$detail['pname']}
                                 </td>
                                 <td> 
                                     
@@ -50,9 +47,8 @@
                             </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>商品单价:</td>
-                                <td> 
-                                    <input class="text" type="text" name="price" value="{$detail['price']}" readonly="readonly">
-                                    
+                                <td>
+                                    {$detail['price']}
                                 </td>
                                 <td> 
                                     
@@ -60,8 +56,8 @@
                             </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>挂牌数量:</td>
-                                <td> 
-                                    <input class="text" type="text" name="quantity" value="{$detail['quantity']}" readonly="readonly">({$detail['unit']})
+                                <td>
+                                    {$detail['quantity']}({$detail['unit']})
                                 </td>
                                 <td> 
                                    
@@ -84,22 +80,20 @@
 
                         <tr>
                             <td nowrap="nowrap">仓库:</td>
-                            <td colspan="2"> 
-                                <select>
-                                    <option>{$detail['sname']}</option>
-                                </select>
+                            <td colspan="2">
+                                {$detail['sname']}
                             </td>
                         </tr>
                         <tr>
                             <td>产品描述：</td>
                             <td colspan="2">
-                                <textarea name="note" readonly="readonly">{$detail['note']}</textarea>
+                                {$detail['note']}
                             </td>
                         </tr>
                          <tr>
                             <td>是否通过审核：</td>
                             <td colspan="2">
-                                <input type="radio" name="apply" value="1"> 通过
+                                <input type="radio" name="apply" checked value="1"> 通过
                                 <input type="radio" name="apply" value="0"> 驳回
                             </td>
                         </tr>
@@ -108,8 +102,7 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" value="{$detail['sid']}" name="id">
-                               <input type="submit" value="submit">
-                                <a class="for_storage" href="cd_add1.html" onclick="checkform()">提交</a> 
+                               <input type="submit" value="确认">
                                 <!-- <span class="color">审核将收取N元/条的人工费用，请仔细填写</span> -->
                                 
                             </td>

@@ -51,19 +51,39 @@ class store{
     }
 
     /**
+     * 获取仓单状态
+     */
+    public function getStatusText($status){
+        $array = $this->getStatus();
+        if(isset($array[$status]))
+            return $array[$status];
+        return '未知';
+    }
+
+    /**
      * 获取仓单详情
      * @param  [Int] $id [仓单id]
      * @param int $user_id 仓库管理员id
      * @return [Array]
      */
     public function getManagerStoreDetail($id,$user_id){
-        $store_id = 1;//根据$user_id获取
+        $store_id = $this->getManagerStoreId($user_id);//根据$user_id获取
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
+        $query->fields = 'a.id as sid,a.cang_pos,a.check_org,a.check_no,a.product_id,a.status, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
         $query->where = ' a.id=:id AND a.store_id=:store_id';
         $query->bind = array('id' => $id,'store_id'=>$store_id);
-        return $query->getObj();
+        $data = $query->getObj();
+        if(empty($data)){
+            return false;
+        }
+        $data['status_txt'] = $this->getStatusText($data['status']);
+        $productModel = new product();
+
+        $product = $productModel->getProductDetails($data['product_id']);
+        $product['quantity'] = $productModel->floatForm($product['quantity']);
+        $detail = array_merge($data,$product);
+        return $detail;
     }
      /**
      * 获取仓库列表
@@ -80,7 +100,9 @@ class store{
      * @param $user_id
      */
     public function getManagerStoreId($user_id){
-        return 1;
+        $m = new \nainai\cert\certStore();
+        return  $m->getUserStore($user_id);
+
     }
    
  /**
@@ -170,9 +192,15 @@ class store{
             $store_id = $this->getManagerStoreId($user_id);
             $store['status'] = intval($store['status'])==1 ? self::STOREMANAGER_AGREE : self::STOREMANAGER_REJECT;
             $store['manager_time'] = \Library\Time::getDateTime();
-            return  $this->UpdateApplyStore( $store, array('id'=>$id,'store_id'=>$store_id));
+            $res =  $this->UpdateApplyStore( $store, array('id'=>$id,'store_id'=>$store_id));
+            if($res===true){
+                return tool::getSuccInfo();
+            }
+            else{
+                return tool::getSuccInfo(0,$res);
+            }
         }
-        return false;
+        return tool::getSuccInfo(0,'操作错误');
 
     }
 
@@ -197,20 +225,25 @@ class store{
                     $store['sign_time'] = \Library\Time::getDateTime();
                     $pObj->beginTrans();
                     $upRes = $this->UpdateApplyStore($store, array('id'=>$id,'store_id'=>$store_id));
-                    if($upRes!==false && !empty($productData)){
+                    if($upRes===true && !empty($productData)){
                         $pObj->table('products')->data($productData)->where(array('id'=>$spData['product_id']))->update();
                     }
-                    return $pObj->commit();
+                    if(true === $pObj->commit()){
+                        return tool::getSuccInfo();
+                    }
+                    else{
+                        return tool::getSuccInfo(0,'网络错误');
+                    }
 
                 }
                 else{
-                    return false;
+                    return tool::getSuccInfo(0,'操作错误');
                 }
             }
 
 
         }
-        return false;
+        return tool::getSuccInfo(0,'操作错误');
     }
 
     /**
@@ -224,9 +257,15 @@ class store{
             $store = array();
             $store['status'] = intval($status) == 1 ? self::USER_AGREE : self::USER_REJECT;
             $store['user_time'] = \Library\Time::getDateTime();
-            return $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
+            $res = $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
+            if($res===true){
+                return tool::getSuccInfo();
+            }
+            else{
+                return tool::getSuccInfo(0,$res);
+            }
         }
-        return false;
+        return tool::getSuccInfo(0,'操作错误');
     }
 
 
@@ -239,9 +278,14 @@ class store{
          $storeProductObj = new M($this->storeProduct);
         $storeProductObj->data($store);
         if($storeProductObj->validate($this->storeProductRules)){
-           return  $storeProductObj->where($where)->update();
+           $res =  $storeProductObj->where($where)->update();
+            if(is_int($res) && $res>0)
+                return true;
+            else return '操作错误';
         }
-        return  false;
+        else{
+            return $storeProductObj->getError();
+        }
     }
 
     /**
@@ -296,6 +340,7 @@ class store{
             return false;
         }
 
+        $detail['status_txt'] = $this->getStatusText($detail['status']);
         //获取商品信息
         $productModel = new product();
 

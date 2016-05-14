@@ -144,6 +144,16 @@ class certStore extends certificate{
         return array('data'=>$data,'bar'=>$pageBar);
     }
 
+    /**
+     * 获取用户认证的仓库
+     * @param int $user_id
+     */
+    public function getUserStore($user_id){
+        $obj = new M(self::$certTable[self::$certType]);
+        $store_id = $obj->where(array('user_id'=>$user_id,'status'=>self::CERT_SUCCESS))->getField('store_id');
+        return $store_id;
+    }
+
 
 
 }

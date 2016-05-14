@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/ManagerDeal/doStoreProduct}" method="POST">
+                    <form action="{url:/ManagerDeal/doStoreProduct}" method="POST" auto_submit redirect_url="{url:/managerdeal/storeproductlist}">
                         <table border="0"  id='productAdd'>
                             {foreach: items=$attrs item=$attr}
 
@@ -75,13 +75,13 @@
                             <tr>
                             <td nowrap="nowrap"><span></span>商品标题：</td>
                             <td colspan="2"> 
-                                <input class="text" type="text" name="warename">
+                                <input class="text" type="text" datatype="s1-30" errormsg="填写商品标题" name="warename">
                             </td>
                         </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>商品单价:</td>
                                 <td> 
-                                    <input class="text" type="text" name="price">
+                                    <input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="price">
                                     
                                 </td>
 <!--                                 <td> 
@@ -93,7 +93,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>数量:</td>
                                 <td> 
-                                    <input class="text" type="text" name="quantity">
+                                    <input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="quantity">
                                 </td>
                                <!--  <td> 
                                    请选择支付保证金比例：
@@ -209,9 +209,9 @@
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
-                            <input type="submit" value='submit'>
+                            <input type="submit" value='提交审核' >
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
-                                <a href="javascript:void(0);" onclick="checkform()">提交审核</a> 
+
 
                                 
                             </td>

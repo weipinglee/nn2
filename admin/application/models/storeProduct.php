@@ -40,15 +40,7 @@ class storeProductModel extends \nainai\store{
 
     }
 
-    /**
-     * 获取仓单状态
-     */
-    public function getStatusText($status){
-        $array = $this->getStatus();
-        if(isset($array[$status]))
-            return $array[$status];
-        return '未知';
-    }
+
     /**
      * 市场审核
      * @param $store

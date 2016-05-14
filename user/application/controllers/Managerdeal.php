@@ -367,11 +367,9 @@ class ManagerDealController extends UcenterBaseController {
                 $offerObj = new \nainai\offer\storeOffer($this->user_id);
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');
                 $res = $offerObj->insertStoreOffer($id,$offerData);
-                if($res['success']==1)
-                    $this->redirect('addSuccess');
-                else $this->redirect('offer');
+                die(json::encode($res)) ;
             }
-            $this->redirect('indexoffer');
+            die(json::encode(tool::getSuccInfo(0,'仓单不存在'))) ;
         }
 
         $this->redirect('indexoffer');
@@ -394,9 +392,7 @@ class ManagerDealController extends UcenterBaseController {
             );
             $storeObj = new store();
             $res = $storeObj->createStoreProduct($productData,$storeList);
-            if($res['success']==1)
-                $this->redirect('addSuccess');
-            else $this->redirect('offer');
+            echo json::encode($res);
 
         }
         return false;
@@ -440,11 +436,11 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function userMakeSureAction(){
         if(IS_POST){
-            $storeProductID = Safe::filterPost('id','int',0);
-            $status = Safe::filterPost('status','int',0);
+            $storeProductID = safe::filterPost('id','int',0);
+            $status = safe::filterPost('status','int',0);
             $store = new store();
            $res = $store->userCheck($status,$storeProductID,$this->user_id);
-            $this->redirect('storeProductDetail/id/'.$storeProductID);
+           die(json::encode($res));
 
         }
         return false;
