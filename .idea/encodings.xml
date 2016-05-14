@@ -10,6 +10,7 @@
     <file url="file://$PROJECT_DIR$/user/application/models/certDealer.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/application/models/certStore.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/application/models/fund.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user/application/views/pc/layout/product.tpl" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/public/views/pc/js/cert/cert.js" charset="UTF-8" />
   </component>
 </project>

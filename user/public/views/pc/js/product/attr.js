@@ -127,6 +127,7 @@ function getCategory(){
 
                     $('#productAdd').prepend(attr_box);
                 })
+                bindRules();
             }
 
 
@@ -142,6 +143,10 @@ function AddProductCategory(data){
 //验证规则添加
 
 $(function(){
+bindRules();
+})
+
+function bindRules(){
     var validObj = formacc;
 
     //为地址选择框添加验证规则
@@ -150,6 +155,13 @@ $(function(){
         datatype:"n4-6",
         nullmsg:"请选择地址！",
         errormsg:"请选择地址！"
-    }];
+    },
+        {
+            ele:"input[name^=attribute]",
+            datatype:"s1-30",
+            nullmsg:"请填写规格！",
+            errormsg:"请填写规格！"
+        }
+    ];
     validObj.addRule(rules);
-})
+}

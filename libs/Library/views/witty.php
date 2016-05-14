@@ -127,6 +127,8 @@ class witty{
             //处理layout
             $content = $this->renderLayout($layout_file,$content);
 
+            $content = preg_replace_callback('/{include:([\/a-zA-Z0-9_\.]+)}/',array($this,'includeFile'), $content);
+
             $content = preg_replace_callback('/{(\/?)(\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|areatext|area)\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
 
 
@@ -138,6 +140,14 @@ class witty{
         include($parse_file);
     }
 
+    /**
+     * 载入include标签的内容
+     * @param $matches
+     * @return string
+     */
+    private function includeFile($matches){
+        return file_get_contents($this->_tpl_dir.$matches[1]);
+    }
     /**
      * @brief 渲染layout
      * @param string $layoutFile 布局视图文件名
