@@ -9,6 +9,7 @@
 use \Library\M;
 use \Library\Query;
 use \nainai\fund;
+use \Library\tool;
 class fundInModel{
 
 
@@ -160,12 +161,19 @@ class fundInModel{
             }
             $data['first_time'] = \Library\Time::getDateTime();
             $data['first_message'] = $mess;
+            $reModel->beginTrans();
+            $reModel->where($where)->data($data)->update();
+            $res = $reModel->commit();
 
-            return $reModel->where($where)->data($data)->update();
-
+            if($res===true){
+                return tool::getSuccInfo();
+            }
+            else{
+                return tool::getSuccInfo(0,'操作失败');
+            }
 
         } else {
-            return false;
+            return tool::getSuccInfo(0,'无效操作');
         }
     }
 
@@ -182,11 +190,12 @@ class fundInModel{
         if ($reInfo['status'] == self::OFFLINE_FIRST_OK) {//只有处于初审通过的才可以
             $data = array();
             $reModel->beginTrans();
+            $fundRes = true;
             if($status==1){
                 $data['status'] = self::OFFLINE_FINAL_OK;
                 $fundObj = fund::createFund(1);//实例化代理账户对象
 
-                $fundObj->in($reInfo['user_id'],floatval($reInfo['amount']));//入金操作
+                $fundRes = $fundObj->in($reInfo['user_id'],floatval($reInfo['amount']));//入金操作
 
             }
             else{
@@ -195,11 +204,17 @@ class fundInModel{
             $data['final_time'] = \Library\Time::getDateTime();
             $data['final_message'] = $mess;
 
-            $reModel->where($where)->data($data)->update();
-            return $reModel->commit();
+            if($fundRes===true){
+                $reModel->where($where)->data($data)->update();
+            }
+
+            $res = $reModel->commit();
+            if($res===true){
+                return tool::getSuccInfo();
+            }
 
         } else {
-            return false;
+            return tool::getSuccInfo(0,'无效操作');
         }
     }
 

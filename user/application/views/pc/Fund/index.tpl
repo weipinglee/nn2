@@ -10,7 +10,7 @@
 						<div class="zj_gl">
 							<div class="zj_l">
 								<a href="{url:/Fund/Cz}" class="zj_a cz">充值</a>
-								<a href="zj_tx.html" class="zj_a tx">提现</a>	
+								<a href="{url:/Fund/tx}" class="zj_a tx">提现</a>
 								<p class="re_t">结算账号资金总额</p>
 								<h1 class="rental">￥{echo:$active+$freeze}</h1>
 								<p class="state"></p>

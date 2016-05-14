@@ -66,9 +66,7 @@ class fundInController extends Yaf\Controller_Abstract {
 
 		$res = $fundObj->offLineFirst($id,$status,$mess);//初审操作
 
-		if($res)
-			echo 1;
-		else echo 0;
+		die(json::encode($res));
 	}
 	//终审
 	public function offlineFinalAction() {
@@ -80,9 +78,7 @@ class fundInController extends Yaf\Controller_Abstract {
 
 		$res = $fundObj->offLineFinal($id,$status,$mess);//终审操作
 
-		if($res)
-			echo 1;
-		else echo 0;
+		die(json::encode($res));
 
 	}
 

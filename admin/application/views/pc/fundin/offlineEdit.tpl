@@ -19,7 +19,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-    <form action="{$reInfo['url']}" method="post" class="form form-horizontal" id="offlineEidt">
+    <form action="{$reInfo['url']}" method="post" class="form form-horizontal" id="offlineEidt" auto_submit redirect_url="{url:balance/fundIn/offlineList}">
         <input id='re_id' name='re_id' type="hidden" value="{if:isset($reInfo['id'])}{$reInfo['id']}{/if}" />
         <div class="row cl">
             <label class="form-label col-2">当前状态：</label>

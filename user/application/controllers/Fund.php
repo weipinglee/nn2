@@ -66,17 +66,13 @@ class FundController extends UcenterBaseController {
 
 			$payment_id = 1;
 			//处理图片
+			$proof = safe::filterPost('imgfile1');
 
 			if (!isset($recharge) || $recharge <= 0) {
-				echo '金额不正确';
+				die(json::encode(0,'金额不正确'))  ;
 			}
 			//var_dump($_FILES);
-			if (!empty($_FILES['proot']['name'])) {
-				$upload = new \Library\photoupload();
-				$upload->uploadPhoto($_FILES);
-				$upload->setThumbParams(array(180, 180));
-				$res = $upload->uploadPhoto();
-				//var_dump($res);
+			if ($proof) {
 
 				$rechargeObj = new M('recharge_order');
 				$reData = array(
@@ -86,7 +82,7 @@ class FundController extends UcenterBaseController {
 					//资金
 					'amount' => $recharge,
 					'create_time' => Payment::getDateTime(),
-					'proot' => \Library\Tool::setImgApp($res['proot']['img']),
+					'proot' => \Library\Tool::setImgApp($proof),
 					'status' => '0',
 					//支付方式
 					'pay_type' => $payment_id,
@@ -94,11 +90,11 @@ class FundController extends UcenterBaseController {
 
 				$r_id = $rechargeObj->data($reData)->add();
 				if($r_id){
-					echo 'success';
+					die(json::encode(\Library\tool::getSuccInfo()));
 				}
 
 			} else {
-				echo "1";
+				die(json::encode(\Library\tool::getSuccInfo(0,'请上传凭证')));
 				//请上传支付凭证
 
 			}
@@ -117,9 +113,7 @@ class FundController extends UcenterBaseController {
 	}
 	//提现提交处理
 	public function dofundOutAction() {
-
 		$user_id = $this->user_id;
-
 		$token = safe::filterPost('token');
 		if(!safe::checkToken($token))
 			return false;
@@ -130,7 +124,7 @@ class FundController extends UcenterBaseController {
 			'amount' => safe::filterPost('amount', 'float'),
 			'acc_name' => safe::filterPost('acc_name'),
 			'bank_name' => safe::filterPost('bank_name'),
-			'back_card' => safe::filterPost('back_card'),
+			'bank_card' => safe::filterPost('bank_card'),
 
 			'note' => safe::filterPost('note'),
 			'create_time' => \Library\Time::getDateTime(),
@@ -138,7 +132,7 @@ class FundController extends UcenterBaseController {
 		$fundModel = new fundModel();
 		$res = $fundModel->fundOutApply($user_id,$data);
 
-		echo JSON::encode($res);
+		die(json::encode($res));
 
 	}
 	//退款订单

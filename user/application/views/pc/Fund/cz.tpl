@@ -1,8 +1,10 @@
-﻿				<!--start中间内容-->	
+﻿<script type="text/javascript" src="{root:js/ajaxfileupload.js}"></script>
+<script type="text/javascript" src="{views:js/upload.js}"></script>
+<!--start中间内容-->
 			<div class="user_c">
 				<!--start代理账户充值-->
 				<div class="user_pay">
-				<form method='post' action="{url:/fund/doFundIn}"enctype="multipart/form-data">
+				<form method='post' action="{url:/fund/doFundIn}"enctype="multipart/form-data" auto_submit redirect_url="{url:/fund/index}">
 					<div class="zhxi_tit">
 						<p><a>资金管理</a>><a>代理账户管理</a>><a>充值</a>
 						</p>
@@ -14,7 +16,7 @@
 						</div>
 						<div class="zhxi_con font_set">
 							<span class="con_tit">充值金额：</span>
-							<span><input class="text potwt" type="text" name='recharge'/>元</span>
+							<span><input class="text potwt" type="text" datatype="float" name='recharge'/>元</span>
 						</div>
 		<!--TAB切换start  -->
             <div class="tabs_total">
@@ -88,16 +90,22 @@
             				</div>
 
             				<!-- 单据上传start -->
+							<input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
             				<div class="huikod">
-            				  <div id="preview">
-            				      
-            				  </div>
+
             				  <label for="female">上传汇款单据</label>
-            				  <input type="file" name='proot' onchange="previewImage(this)" />
-            				 </div> 
+								<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" />
+								<div id="preview">
+									<img name="file1" src=""/>
+									<input type="hidden"  name="imgfile1" datatype="*"  />
+
+								</div>
+							</div>
+
+
             				<!-- 单据上传end -->
             				<div class="zhxi_con">
-            					<span><input class="submit" type="submit" value="下一步"/></span>
+            					<span><input class="submit" type="submit" value="提交"/></span>
             				</div>
             			</div>
             		</div>
