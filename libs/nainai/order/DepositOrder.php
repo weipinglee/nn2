@@ -13,6 +13,10 @@ use \Library\url;
 
 class DepositOrder extends Order{
 	
+	public function __construct(){
+		parent::__construct(parent::ORDER_DEPOSIT);
+	}
+
 	/**
 	 * 买方预付定金(全款或定金)
 	 * @param array $info 订单信息数组

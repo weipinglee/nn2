@@ -5,9 +5,8 @@
  */
 
 use \Library\Query;
-use \nainai\order\Order;
 use \Library\M;
-class OffersModel{
+class OffersModel extends \nainai\offer\product{
 	private $offer ;
 	public function __construct(){
 		$this->offer = new M('product_offer');
@@ -33,26 +32,7 @@ class OffersModel{
 
 	//获取报盘类型
 	public function offerMode($type){
-		switch ($type) {
-			case Order::ORDER_FREE:
-				$mode_txt = '自由报盘';
-				break;
-			case Order::ORDER_DEPOSIT:
-				$mode_txt = '保证金报盘';
-				break;
-			case Order::ORDER_DEPUTE:
-				$mode_txt = '委托报盘';
-				break;
-
-			case Order::ORDER_STORE:
-				$mode_txt = '仓单报盘';
-				break;
-			default:
-				$mode_txt = '未知类型';
-				break;
-		}
-
-		return $mode_txt;
+		return $this->getMode($type);
 	}
 
 	/**
@@ -60,17 +40,21 @@ class OffersModel{
 	 */
 	public function offerDetail($id){
 		$query = new Query('product_offer as o');
-		$query->join = "join products as p on o.product_id = p.id left join product_photos as pp on p.id = pp.products_id";
+		$query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id = pp.products_id";
 		$query->fields = "o.*,p.cate_id,p.name,pp.img,p.quantity,p.freeze,p.sell,p.unit";
 		$query->where = 'o.id = :id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();
-		$res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
-		$res['left'] = number_format(floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']),2);
 
 		if(!empty($res)){
 			$res['mode_text'] = $this->offerMode($res['mode']);
+			$res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
+			$res['left'] = number_format(floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']),2);
+			if($res['divide']==self::UNDIVIDE)
+				$res['minimum'] = $res['quantity'];
 		}
+
+
 		return $res ? $res : array();
 	}
 

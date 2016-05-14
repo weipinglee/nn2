@@ -20,7 +20,7 @@ class UcenterController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
-        
+
     }
 
     protected function  getLeftArray(){

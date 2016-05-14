@@ -22,7 +22,6 @@ class tradeController extends \nainai\controller\Base {
 
 	//付款
 	public function buyerPayAction(){
-		//$this->right->checkLogin($this);//未登录自动跳到登录页
 		$id = safe::filterPost('id','int');
 		$num = safe::filterPost('num');
 		$paytype = safe::filterPost('paytype');
@@ -43,7 +42,10 @@ class tradeController extends \nainai\controller\Base {
 				//仓单报盘
 				$order_mode = new order\StoreOrder($offer_type);
 				break;
-
+			case order\Order::ORDER_ENTRUST:
+				//仓单报盘
+				$order_mode = new order\EntrustOrder($offer_type);
+				break;
 			default:
 				die('无效报盘方式');
 				break;
@@ -69,7 +71,7 @@ class tradeController extends \nainai\controller\Base {
 				break;
 		}
 
-		$user_id = 36;//$this->user_id;
+		$user_id = $this->user_id;
 		$orderData['offer_id'] = $id;
 		$orderData['num'] = $num;
 		$orderData['order_no'] = tool::create_uuid();
@@ -77,7 +79,6 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
 		$gen_res = $order_mode->geneOrder($orderData);
-
 
 		if($gen_res['success'] == 1){
 			$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
@@ -92,16 +93,7 @@ class tradeController extends \nainai\controller\Base {
 		return false;
 	}
 
-	//支付成功页面
-	public function paySuccessAction(){
-		$order_no = safe::filter($this->_request->getParam('order_no'));
-		$amount = safe::filter($this->_request->getParam('amount'));
-		$pay_deposit = safe::filter($this->_request->getParam('payed'));
 
-		$this->getView()->assign('order_no',$order_no);
-		$this->getView()->assign('amount',$amount);
-		$this->getView()->assign('pay_deposit',$pay_deposit);
-	}
 
 
 }

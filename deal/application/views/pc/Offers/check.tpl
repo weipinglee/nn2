@@ -291,7 +291,7 @@ body{_padding-top:30px;}
               <img src="{views:images/order/oder-2.jpg}" width="205" height="47" alt="第二步" />
               </div> 
                
-            <form method="post" action='{url:/Offers/buyerPay}'>
+            <form method="post" action='{url:/trade/buyerPay}'>
             <div class="checkim">
             <h2>填写并核对订单信息<a href="contract.html" style="color:blue;">合同预览</a></h2>
 
@@ -311,11 +311,9 @@ body{_padding-top:30px;}
 
                          <div class="module_clear">
 
-                             <a href="javascript:;"><img src="{views:images/order/dp-4.jpg}" width="80" height="80" alt="产品"> </a>
+                             <a href="javascript:;"><img src="{$data['img']}" width="80" height="80" alt="产品"> </a>
                              <a href="javascript:;"><div class="clear_word">
                                  <h5>{$data['name']}</h5>
-                                 <p>品牌：诗茗化工</p>
-                                 <p>规格/纯度：≥98% &nbsp; 起订量：{$data['minimum']}{$data['unit']}</p>
                              </div></a>
                              <span class="shulag"> {$data['minimum']} </span>
                              <span class="danjia"><i><b>￥</b>{$data['price']}</i></span>
@@ -391,7 +389,7 @@ body{_padding-top:30px;}
             
             <span class="daizfji"><span class="zhifjin">待支付金额：</span><i>￥</i><b>{$data['pay_deposit']}</b></span>
                <input type="hidden" name="id" value="{$data['id']}" />
-               <input type="hidden" name="num" value="{$data['num']}" />
+               <input type="hidden" name="num" value="{$data['minimum']}" />
              <div class="order_comit"><a class="btoncomit" href="javascript:;" type="submit">确认支付</a></div>
             </form>
 

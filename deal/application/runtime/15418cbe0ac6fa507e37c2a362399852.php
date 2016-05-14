@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
 	耐耐网
 </title><meta name="Keywords" content="耐火材料、耐耐网"><meta name="Description" content="耐火材料、耐耐网">
-    <script type="text/javascript" defer="" async="" src="{views:js/uta.js}"></script>
-    <script src="{views:js/jquery-1.7.2.min.js}" type="text/javascript" language="javascript"></script>
-    <script src="{views:js/gtxh_formlogin.js}" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="{views:css/index20141027.css}">
-    <script src="{views:js/index20141027.js}" type="text/javascript"></script>
-    <link rel="stylesheet" href="{views:css/classify.css}">
-    <link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
+    <script type="text/javascript" defer="" async="" src="http://localhost/nn2/deal/public/views/pc/js/uta.js"></script>
+    <script src="http://localhost/nn2/deal/public/views/pc/js/jquery-1.7.2.min.js" type="text/javascript" language="javascript"></script>
+    <script src="http://localhost/nn2/deal/public/views/pc/js/gtxh_formlogin.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="http://localhost/nn2/deal/public/views/pc/css/index20141027.css">
+    <script src="http://localhost/nn2/deal/public/views/pc/js/index20141027.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="http://localhost/nn2/deal/public/views/pc/css/classify.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/nn2/deal/public/views/pc/css/submit_order.css"/>
     <style type="text/css">
         /*临时顶部图片style 要remove的*/
         body{behavior:url(css/csshover.htc);} 
@@ -66,10 +66,10 @@ $(function(){
 
 
 
-<link href="{views:css/topnav20141027.css}" rel="stylesheet" type="text/css">
-<script src="{views:js/topnav20141027.js}" type="text/javascript"></script>
+<link href="http://localhost/nn2/deal/public/views/pc/css/topnav20141027.css" rel="stylesheet" type="text/css">
+<script src="http://localhost/nn2/deal/public/views/pc/js/topnav20141027.js" type="text/javascript"></script>
 
-<script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
+<script src="http://localhost/nn2/deal/public/views/pc/js/gtxh_Login.js" type="text/javascript"></script>
 
 
 <!--[if lte IE 6]>
@@ -216,7 +216,7 @@ body{_padding-top:30px;}
                 </h1>
             </div>
 
-            <script type="text/javascript" src="{views:js/search&floor.js}"></script>
+            <script type="text/javascript" src="http://localhost/nn2/deal/public/views/pc/js/search&floor.js"></script>
             <div class="searchbox">
                 <ul class="border1">
                     <li><a href="#" class="style1">供应</a></li>
@@ -285,25 +285,25 @@ body{_padding-top:30px;}
              <span>支付完成</span>
              </div>  
             <div class="submit_photo">
-              <img src="{views:images/order/oder-5.jpg}" width="209" height="47" alt="第一步" /> 
-              <img src="{views:images/order/oder-7.jpg}" width="203" height="47" alt="第二步" />
+              <img src="http://localhost/nn2/deal/public/views/pc/images/order/oder-5.jpg" width="209" height="47" alt="第一步" /> 
+              <img src="http://localhost/nn2/deal/public/views/pc/images/order/oder-7.jpg" width="203" height="47" alt="第二步" />
               </div> 
               <!--头部结束--> 
               <div class="alreaor">
-             <h1>{if:$info}{$info}{else:}支付完成，订单已生成！{/if}</h1>
+             <h1><?php if($info){?><?php echo isset($info)?$info:"";?><?php }else{?>支付完成，订单已生成！<?php }?></h1>
                
                
                
                
                <div class="bormin">
-               <p>订单号<i class="spsce">：</i>{$order_no}</p>
-               <p>订单总额<i>：</i>￥{$amount}</p>
-               <p>已支付<i>：</i>￥{$pay_deposit}</p>
+               <p>订单号<i class="spsce">：</i><?php echo isset($order_no)?$order_no:"";?></p>
+               <p>订单总额<i>：</i>￥<?php echo isset($amount)?$amount:"";?></p>
+               <p>已支付<i>：</i>￥<?php echo isset($pay_deposit)?$pay_deposit:"";?></p>
 
                <p>交货地点<i>:</i>4</p>
 
                <div class="od_buton">
-                <a class="fanhod" href="{url:/Offers/offerList}">返回报盘列表</a>
+                <a class="fanhod" href="http://localhost/nn2/deal/public/offers/offerlist">返回报盘列表</a>
                 
                 
                 </div>
@@ -332,7 +332,7 @@ body{_padding-top:30px;}
 
                   
                 <div class="div_flink">
-                    <img src="{views:Images/icon/icon_news_img.png}">
+                    <img src="http://localhost/nn2/deal/public/views/pc/Images/icon/icon_news_img.png">
                     
                             <a href="http://www.gt123.cn/link/link.asp" target="_blank">钢铁123网</a>
                                                                     
@@ -346,7 +346,7 @@ body{_padding-top:30px;}
 
 
 <!--公用底部控件 开始-->
-<link href="{views:css/footer.css}" rel="stylesheet" type="text/css">
+<link href="http://localhost/nn2/deal/public/views/pc/css/footer.css" rel="stylesheet" type="text/css">
 <div id="footer">
     
     <div class="footer_link">
@@ -373,15 +373,15 @@ body{_padding-top:30px;}
         <center>
             &nbsp;
             <a rel="external nofollow" href="http://www.miibeian.gov.cn/" target="_blank">
-                <img style="border: currentColor;" src="{views:./head_files/miibeian.gif}"></a>
+                <img style="border: currentColor;" src="http://localhost/nn2/deal/public/views/pc/./head_files/miibeian.gif"></a>
             &nbsp; <a rel="external nofollow" href="https://online.unionpay.com/" target="_blank">
-                <img style="border: currentColor;" src="{views:./head_files/indexBlankIco.gif}"></a>
+                <img style="border: currentColor;" src="http://localhost/nn2/deal/public/views/pc/./head_files/indexBlankIco.gif"></a>
             &nbsp;
-            <script src="{views:./head_files/seallogo.dll"></script><a href="https://ss.knet.cn/verifyseal.dll?sn=e1305144301004068157sj000000&ct=df&a=1&pa=0.9814090973231941" target="_blank" kx_type="缩放式" style="display:inline-block;position:relative;width:89px;height:32px;"><img src="{views:./head_files/cnnic.png}" height="32" width="89" h="32" w="89" onmouseover="showFull(this)" onmouseout="showMin(this)" style="left:0;position:absolute;top:0;border:none;"></a>&nbsp;&nbsp; 
+            <script src="http://localhost/nn2/deal/public/views/pc/./head_files/seallogo.dll"></script><a href="https://ss.knet.cn/verifyseal.dll?sn=e1305144301004068157sj000000&ct=df&a=1&pa=0.9814090973231941" target="_blank" kx_type="缩放式" style="display:inline-block;position:relative;width:89px;height:32px;"><img src="{views:./head_files/cnnic.png" height="32" width="89" h="32" w="89" onmouseover="showFull(this)" onmouseout="showMin(this)" style="left:0;position:absolute;top:0;border:none;"></a>&nbsp;&nbsp; 
             <a rel="external nofollow" href="http://www.spdb.com.cn/" target="_blank">
-                <img style="border: currentColor;" src="{views:./head_files/pufa.png}"></a>&nbsp;&nbsp;
+                <img style="border: currentColor;" src="http://localhost/nn2/deal/public/views/pc/./head_files/pufa.png"></a>&nbsp;&nbsp;
             <a rel="external nofollow" href="http://www.allinpay.com/" target="_blank">
-                <img style="border: currentColor;" src="{views:./head_files/tonglian.png}"></a>
+                <img style="border: currentColor;" src="http://localhost/nn2/deal/public/views/pc/./head_files/tonglian.png"></a>
         </center>
     </div>
     <div>
@@ -399,9 +399,9 @@ body{_padding-top:30px;}
 </div>  
     <!--主要内容 结束-->
     
-<script type="text/javascript" src="{views:js/jquery.fixed.js}" charset="UTF-8"></script>
-<script type="text/javascript" src="{views:js/init.fixed.js}" charset="UTF-8"></script>
-<link href="{views:css/fixed.css}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="http://localhost/nn2/deal/public/views/pc/js/jquery.fixed.js" charset="UTF-8"></script>
+<script type="text/javascript" src="http://localhost/nn2/deal/public/views/pc/js/init.fixed.js" charset="UTF-8"></script>
+<link href="http://localhost/nn2/deal/public/views/pc/css/fixed.css" rel="stylesheet" type="text/css"/>
 
 <!-- 页面侧边栏 -->
 <div id="fixed">
@@ -418,7 +418,7 @@ body{_padding-top:30px;}
 
 <!-- 底部导航 -->
 
-<link type="text/css" rel="stylesheet" href="{views:css/global_site_index_new.css}">
+<link type="text/css" rel="stylesheet" href="http://localhost/nn2/deal/public/views/pc/css/global_site_index_new.css">
 <!--复选框-->
 <script>
 

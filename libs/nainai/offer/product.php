@@ -22,6 +22,9 @@ class product{
         'server'   => array('code'=>2,'info'=>'网络错误')
     );
 
+    //是否可拆分
+    const DIVIDE = 0;//可拆分
+    const UNDIVIDE = 1;//不可拆分
     //报盘类型
     const FREE_OFFER  = 1;
     const DEPOSIT_OFFER = 2;

@@ -235,6 +235,7 @@ use \Library\Time;
             $fromFreeze = $this->agentModel->where(array('user_id'=>$from))->getField('freeze');
 
             if($fromFreeze>=$num){
+
                 if($to==0){//付款到市场
 
                 }
@@ -248,6 +249,7 @@ use \Library\Time;
                 $this->agentModel->where(array('user_id'=>$from))->setDec('freeze',$num);
                 $this->createFlowData($from,$num,'freezePay');
                 return true;
+
             }
             else{
                 return $this->resWrong('freezeLess');
