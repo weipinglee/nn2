@@ -63,4 +63,8 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
 		$this->getView()->assign('data',$list['data']);
 		$this->getView()->assign('page',$list['bar']);
 	}
+
+	public function contractDetailActiom(){
+		
+	}
 }

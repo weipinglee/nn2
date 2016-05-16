@@ -66,7 +66,6 @@ class UserModel{
 		array('cert_oc','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 		array('cert_tax','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 
-
 	);
 
 

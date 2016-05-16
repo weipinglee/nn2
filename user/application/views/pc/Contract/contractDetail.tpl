@@ -1,29 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>个人中心</title>
+  <title>合同详情</title>
   <meta name="keywords"/>
   <meta name="description"/>
   <meta charset="utf-8">
-  <link href="http://localhost/nn2/user/public/views/pc/css/user_index.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="http://localhost/nn2/user/public/js/jquery/jquery-1.7.2.min.js"></script>
-	<script type="text/javascript" src="http://localhost/nn2/user/public/js/autovalidate/validate.js" ></script>
-	<link href="http://localhost/nn2/user/public/js/autovalidate/style.css" rel="stylesheet" type="text/css">
-
-
-
-  <script language="javascript" type="text/javascript" src="http://localhost/nn2/user/public/views/pc/js/My97DatePicker/WdatePicker.js"></script>
-  <script type="text/javascript" src="http://localhost/nn2/user/public/views/pc/js/regular.js"></script>
-   <script src="http://localhost/nn2/user/public/views/pc/js/center.js" type="text/javascript"></script>
-  <link href="http://localhost/nn2/user/public/views/pc/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="../css/user_index.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+  <script src="../js/center.js" type="text/javascript"></script>
+  <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
    <!-- 头部控制 -->
-  <link href="http://localhost/nn2/user/public/views/pc/css/topnav20141027.css" rel="stylesheet" type="text/css">
-  <script src="http://localhost/nn2/user/public/views/pc/js/topnav20141027.js" type="text/javascript"></script>
+  <link href="../css/topnav20141027.css" rel="stylesheet" type="text/css">
+  <script src="../js/topnav20141027.js" type="text/javascript"></script>
     <!-- 头部控制 -->
 </head>
 <body>
-<!--    公用头部控件 -->
-    <div class="bg_topnav">
+<!-- 	公用头部控件 -->
+	<div class="bg_topnav">
     <div class="topnav_width">
         <div class="topnav_left">
             <div class="login_link" id="toploginbox">
@@ -55,10 +48,10 @@
         <div class="topnav_right">
             <ul>
                 <li>
-                    <div class="top_app" id="topPhone">
+					<div class="top_app" id="topPhone">
                         <a href="javascript:;"><em class="icons iphone"></em><span>手机APP</span></a>
-                        <a rel="external nofollow" href="http://app.nainaiwang.com/" class="top_a" target="_blank" style="display:none !important;visibility: hidden"><!--<em class="icons zz"></em>--><i style="font-size:14px;">▪</i><span>掌中耐耐APP</span></a>
-                    </div>
+						<a rel="external nofollow" href="http://app.nainaiwang.com/" class="top_a" target="_blank" style="display:none !important;visibility: hidden"><!--<em class="icons zz"></em>--><i style="font-size:14px;">▪</i><span>掌中耐耐APP</span></a>
+					</div>
                 </li>
                 <li>
                     <div class="popueButton">
@@ -146,130 +139,162 @@
 </div>
 <div class="clearfix"></div>
 <!-- 公用头部控件 -->
-<div class="header">
+	<div class="header">
 		<div class="nav">
-            <div class="logo-box zn-l">
-                <a href="../index.html" alt="返回耐耐首页"><img src="http://localhost/nn2/user/public/views/pc/images/icon/nainaiwang.png"/></a></dd>
-            </div>
+			<div class="logo-box zn-l">
+				<a href="../index.html" alt="返回耐耐首页"><img src="../images/icon/nainaiwang.png"/></a></dd>
+			</div>
 			<div class="nav-tit">
-		<ul class="nav-list">
-			<?php foreach($topArray as $key => $topList){?>
-				<li>
-		                        <a href="<?php echo isset($topList['url'])?$topList['url']:"";?>" <?php if( $topList['isSelect']){?> class="cur" <?php }?>><?php echo isset($topList['title'])?$topList['title']:"";?></a>
-		                   </li>
-			<?php }?>
-                   
-                 </ul>
+				<ul class="nav-list">
+					<li>
+						<a href="user_index.html">会员中心</a>
+					</li>
+					<li>
+						<a href="user_zh.html">账户信息</a>
+					</li>
+					<li>
+						<a href="user_zj.html">资金管理</a>
+					</li>
+					<li>
+						<a href="user_dd.html" class="cur">交易管理</a>
+					</li>
+					<li>
+						<a href="user_cd.html">仓单管理</a>
+					</li>
+					<li>
+						<a href="user_chl.html">车辆管理</a>
+					</li>
+					<li>
+						<a href="user_gz.html">关注中心</a>
+					</li>
+			 	</ul>
 			</div>
 		</div>
 	</div>
 	<div class="user_body">
 		<div class="user_b">
-			<!--start左侧导航--> 
-            <div class="user_l">
-                <div class="left_navigation">
-                    <ul>
-                    	<?php foreach($leftArray as $k => $leftList){?>
-                    	<li class="btn1" id="btn{k}">
-                    		<?php if( $k == 0){?>
-                    		<li class="let_nav_tit"><span class="line"></span><h3><?php echo isset($leftList['name'])?$leftList['name']:"";?></h3></li>
-                    		<?php }else{?>
-                    			<?php if( empty($leftList['url'])){?>
-					<a class="nav-first"><i class="icon-caret-down"></i><?php echo isset($leftList['name'])?$leftList['name']:"";?></a>
-                    			<?php }else{?>
-                    			<a class="nav-first" href="<?php echo isset($leftList['url'])?$leftList['url']:"";?>"><i class="icon-caret-down"></i><?php echo isset($leftList['name'])?$leftList['name']:"";?></a>
-                    			<?php }?>
-                    		
-                    		<?php }?>
-                    		
-                    		<?php if( !empty($leftList['list'])){?>
-                    			<ul class="zj_zh" id="zj_zh{k}">
-                    				<?php foreach($leftList['list'] as $key => $list){?>
-                    					<li><a href="<?php echo isset($list['url'])?$list['url']:"";?>"><?php echo isset($list['title'])?$list['title']:"";?></a></li>
-                    				<?php }?>
-                    			</ul>
-				<?php }?>
-			</li>  
-                    	<?php }?>
-                        
-                      
-                    </ul>
-                </div>
-            </div>
-            <!--end左侧导航-->  
-	﻿
+			<!--start左侧导航-->	
+			<div class="user_l">
+				<div class="left_navigation">
+					<ul>
+						<li class="let_nav_tit"><span class="line"></span><h3>交易管理</h3></li>
+						<li class="btn1" id="btn1">
+							<a class="nav-first">销售管理<i class="icon-caret-down"></i></a>
+							<ul class="zj_zh" id="zj_zh1">
+								<li><a href="chp_list.html">销售列表</a></li>
+								<li><a href="offer_index.html">发布产品</a></li>
+							</ul>
+						</li>								
+						
+						<li class="btn1" id="btn2">
+							<a class="nav-first">采购管理<i class="icon-caret-right"></i></a>
+							<ul class="zj_zh" id="zj_zh2">
+								<li><a href="procurement_list.html">采购列表</a></li>
+                                						<li><a href="procurement_fb.html">发布采购</a></li>
+							</ul>
+						</li>
+							
+						<li class="btn1" id="btn3">
+							<a class="nav-first">合同管理<i class=" icon-caret-right"></i></a>
+							<ul class="zj_zh" id="zj_zh3">
+								<li><a href="sales_list.html">销售合同</a></li>
+								<li><a href="dd_detail.html" class="cur">购买合同</a></li>
+							</ul>
+
+						</li>
+						<li  class="btn1"><a class="nav-first">申诉管理<i class=" icon-caret-right"></i></a>
+                            <ul class="zj_zh">
+                                <li><a href="user_complaint.html">合同申诉</a></li>
+                                <li><a href="user_complaint.html">提货申诉</a></li>
+                            </ul>
+                        </li>
+					</ul>
+				</div>
+			</div>
+			<!--end左侧导航-->	
 			<!--start中间内容-->	
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>仓单管理</a>><a>仓单列表</a></p>
+						<p><a>交易管理</a>><a>合同详情</a></p>
 					</div>
 					<div class="chp_xx">
-						
-						<div class="xx_center">
-
-							<table border="0"  cellpadding="" cellspacing="">
-								<tr class="title">
-									<td>序号</td>
-									<td>商品名称</td>
-									<td>市场分类</td>
-									<td>规格</td>
-									<td>重量</td>
-                                                                                <td>仓单状态</td>
-                                                                                <td>所在库</td>
-                                                                                <td>操作</td>
-								</tr>
-                                                                                        <?php foreach($storeList as $key => $list){?>
-                                                                                        <?php $key++; ?>
-                                                                                        <tr>
-                                                                                                <td><?php echo isset($key)?$key:"";?></td>
-                                                                                                <td><?php echo isset($list['pname'])?$list['pname']:"";?></td>
-                                                                                                <td><?php echo isset($list['cname'])?$list['cname']:"";?></td>
-                                                                                                <td>
-                                                                                                		<ul>
-                                                                                                		<?php foreach($list['attribute'] as $aid => $attr){?>
-                                                                                                		<li><?php echo isset($attrs[$aid])?$attrs[$aid]:"";?> : <?php echo isset($attr)?$attr:"";?></li>
-                                                                                                		<?php }?>
-                                                                                                		</ul>
-                                                                                                </td>
-                                                                                                <td><?php echo isset($list['package_weight'])?$list['package_weight']:"";?>(<?php echo isset($list['package_unit'])?$list['package_unit']:"";?>)</td>
-                                                                                                <td><?php echo isset($statuList[$list['status']])?$statuList[$list['status']]:"";?></td>
-                                                                                                <td><?php echo isset($list['sname'])?$list['sname']:"";?></td>
-                                                                                                <?php if( $list['status'] == 0){?>
-                                                                                                <td><a href='http://localhost/nn2/user/public/index.php//managerstore/applystore/id/<?php echo $list["id"];?>'>审核</a></td>
-                                                                                                <?php }else{?>
-                                                                                                <td><a href='http://localhost/nn2/user/public/index.php//managerstore/applystoredetails/id/<?php echo $list["id"];?>'>查看</a></td>
-                                                                                                <?php }?>
-                                                                                        </tr>
-                                                                                      <?php }?>
-							</table>
-
-						</div>
-						
-						<!-- <div class="tab_bt">
-							<div class="t_bt">
-								<a class="a_1" title="编辑" href="user_cd.html"></a>
-								<a class="a_2" title="添加" href="user_cd.html"></a>
-								<a class="a_3" title="删除" href="user_cd.html"></a>
+						<div class="de_ce">
+							<div class="detail_chj">
+								<span>2016-02-26 16:11:55</span>
+								<span>订单创建</span>
 							</div>
-						</div> -->
-						<div class="page_num">
-<!-- 							共0条记录&nbsp;当前第<font color="#FF0000">1</font>/0页&nbsp;
-<a href="#">第一页</a>&nbsp;
-<a href="#">上一页</a>&nbsp;
-<a href="#">下一页</a>&nbsp;
-<a href="#">最后页</a>&nbsp; 
-跳转到第 <input name="pagefind" id="pagefind" type="text" style="width:20px;font-size: 12px;" maxlength="5" value="1"> 页 
-<a><span class="style1">确定</span></a> -->
-	<?php echo isset($pageHtml)?$pageHtml:"";?>
+							<div class="detail_chj">
+								<b>订单号：</b><span>1016022611798797</span>
+								<b>下单日期:</b><span>2016-02-29 10:24:30</span>
+								<b>状态:</b><span>等待付款</span>
+							</div>
+							<div class="detail_chj">
+								<input class="qx_butt" type="button" value="取消订单"/>
+								<input class="fk_butt" type="button" value="立即付款"/>
+							</div>
+						</div>
+						<div class="sjxx">
+							<p>收件人信息</p>
+							<div class="sj_detal">
+								<b class="sj_de_tit">收货人：</b>
+								<span>&nbsp;laijjj</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">地址：</b>
+								<span>&nbsp;山西省晋中市xxx县</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">邮编：</b>
+								<span>&nbsp;045000</span>
+							</div>
+						</div>
+						<div class="sjxx">
+							<p>支付配送</p>
+							<div class="sj_detal">
+								<b class="sj_de_tit">收货人：</b>
+								<span>&nbsp;laijjj</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">地址：</b>
+								<span>&nbsp;山西省晋中市xxx县</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">邮编：</b>
+								<span>&nbsp;045000</span>
+							</div>
+						</div>
+						<div class="xx_center">
+							<table border="0" cellpadding="" cellspacing="">
+								<tbody>
+								<tr class="title" >
+									<td align="left" colspan="7">&nbsp;商品清单</td>
+								</tr>
+								<tr>
+									<th>图片</th>
+									<th>商品名称</th>
+									<th>商品价格</th>
+									<th>优惠金额</th>
+									<th>商品数量</th>
+									<th>小计</th>
+									<th>配送</th>
+								</tr>
+								<tr>
+									<td><img src="../images/banner/551b861eNe1c401dc.jpg"/></td>
+									<td>耐火材料</td>
+									<td>2090</td>
+									<td>90</td>
+									<td>2吨</td>
+									<td>2000</td>
+									<td>未发货</td>
+
+								</tr>
+							</tbody></table>
 						</div>
 					</div>
 				</div>
-				
-				
 			</div>
-			
-				<!--end中间内容-->	
+			<!--end中间内容-->	
 			<!--start右侧广告-->			
 			<div class="user_r">
 				<div class="wrap_con">
