@@ -1,8 +1,8 @@
 
 <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
-<script type="text/javascript" src="{root:js/ajaxfileupload.js}"></script>
-<script type="text/javascript" src="{views:js/upload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <script type="text/javascript" src="{views:js/cert/cert.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 			<div class="user_c">
