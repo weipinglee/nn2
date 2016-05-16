@@ -520,7 +520,7 @@ class M{
 			$sql .= '`'.$key.'` = :'.$key.',';
 		}
 		$sql = rtrim($sql,',');
-		return $this->bind(array_merge($insert,$update))->query($sql);
+		return $this->bind(array_merge($insert,$update))->query($sql,array(),'UPDATE');
 
 	}
 

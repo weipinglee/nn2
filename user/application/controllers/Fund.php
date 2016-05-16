@@ -140,8 +140,61 @@ class FundController extends UcenterBaseController {
 		return 'gold_' . date('YmdHis') . rand(100000, 999999);
 	}
 
+	/**
+	 * [bankAction 添加开户信息]
+	 * @return    [type]      [description]
+	 */
 	public function bankAction(){
+		$fundModel = new fundModel();
+		if(IS_POST||IS_AJAX){
+			$data=array(
+				'user_id'=>$this->user_id,
+				'bank_name'=>safe::filterPost('bank_name'),
+				'card_type'=>safe::filterPost('card_type'),
+				'card_no'=>safe::filterPost('card_no'),
+				'true_name'=>safe::filterPost('true_name'),
+				'identify_no'=>safe::filterPost('identify'),
+				'proof'=>\Library\tool::setImgApp(safe::filterPost('imgfile2'))
+			);
 
+			$res = $fundModel->bankUpdate($data);
+			die(json::encode($res));
+		}
+		else{//获取数据
+			$data = $fundModel->getbankInfo($this->user_id);
+			$data['proof_thumb'] = \Library\thumb::get($data['proof'],180,180);
+			$type = $fundModel->getCardType();
+			$this->getView()->assign('bank',$data);
+			$this->getView()->assign('type',$type);
+		}
+	}
+
+	/**
+	 * [upload ajax上传]
+	 * @return    [type]      [description]
+	 */
+	public function uploadAction(){
+
+		//调用文件上传类
+		$photoObj = new \Library\photoupload();
+		$photoObj->setThumbParams(array(180,180));
+		$photo = current($photoObj->uploadPhoto());
+
+		if($photo['flag'] == 1)
+		{
+			$result = array(
+				'flag'=> 1,
+				'img' => $photo['img'],
+				'thumb'=> $photo['thumb'][1]
+			);
+		}
+		else
+		{
+			$result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
+		}
+		echo JSON::encode($result);
+
+		return false;
 	}
 
 }

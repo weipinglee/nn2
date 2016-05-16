@@ -70,6 +70,8 @@ class UserModel{
 	);
 
 
+
+
 	static private  $userObj = '';
 
 	public function __construct(){
@@ -435,6 +437,8 @@ class UserModel{
 			return $this->getSuccInfo(0,'原密码错误');
 		}
 	}
+
+
 
 
 
