@@ -1,5 +1,5 @@
-﻿<script type="text/javascript" src="{root:js/ajaxfileupload.js}"></script>
-<script type="text/javascript" src="{views:js/upload.js}"></script>
+﻿<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <!--start中间内容-->
 			<div class="user_c">
 				<!--start代理账户充值-->
