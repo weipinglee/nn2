@@ -331,6 +331,23 @@ class product{
         return $query->getObj();
     }
 
+    /**
+     * 获取产品对应分类下的的报盘信息列表
+     * @param  [Int] $cateId [分类id]
+     * @return [Array] 
+     */
+    public function getOfferCategoryList($cateId){
+        $query = new Query('product_offer as a');
+        $query->fields = 'a.id, accept_area, a.price, b.cate_id, b.name as pname, b.quantity, b.produce_area, c.name as cname';
+        $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN product_category as c ON b.cate_id=c.id';
+        $query->where = ' find_in_set(b.cate_id, getChildLists(:cid))';
+        $query->bind = array('cid' => $cateId);
+        $query->order = 'a.apply_time desc';
+        $query->limit = 5;
+
+        return $query->find();
+    }
+
 
 
 }
