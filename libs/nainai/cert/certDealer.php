@@ -24,7 +24,9 @@ class certDealer extends certificate{
             'true_name',
             'identify_no',
             'identify_front',
-            'identify_back'
+            'identify_back',
+            'area',
+            'address'
         ),
         1=>array(
             'company_name',
@@ -77,8 +79,6 @@ class certDealer extends certificate{
         }
         else
             $check = $m->checkPersonInfo($accData);
-
-
         $certObj = new M(self::$certTable[self::$certType]);
 
 

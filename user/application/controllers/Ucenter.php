@@ -309,8 +309,10 @@ class UcenterController extends UcenterBaseController {
                 $accData['cert_oc'] = Tool::setImgApp(Safe::filterPost('imgfile3'));
             }
             else{
-                $accData['true_name'] = Safe::filterPost('true_name');
-                $accData['identify_no'] = Safe::filterPost('identify_no');
+                $accData['true_name'] = Safe::filterPost('name');
+                $accData['area'] = Safe::filterPost('area');
+                $accData['address'] = Safe::filterPost('address');
+                $accData['identify_no'] = Safe::filterPost('no');
                 $accData['identify_front'] = Tool::setImgApp(Safe::filterPost('imgfile1'));
                 $accData['identify_back'] = Tool::setImgApp(Safe::filterPost('imgfile2'));
             }
@@ -319,10 +321,7 @@ class UcenterController extends UcenterBaseController {
 
             $res = $cert->certDealApply($accData);
 
-            if($res['success']==1)
-                echo 1;
-            else
-                echo 0;
+            die(json::encode($res));
         }
         return false;
 

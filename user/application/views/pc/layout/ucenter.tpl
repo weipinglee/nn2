@@ -29,7 +29,8 @@
     <div class="topnav_width">
         <div class="topnav_left">
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="login.html" target="_blank" class="topnav_login">登录</a>
+                {if:$login==0}
+                <a rel="external nofollow" href="{url:/index/login}" target="_blank" class="topnav_login">登录</a>
                 <div class="login_box" id="login_boxMain" style="display: none;">
                     <input name="gtxh_LoginMobile" type="text" id="gtxh_LoginMobile" class="txt_topnav" value="手机号码" maxlength="11">
                     <br>
@@ -41,11 +42,15 @@
                     <input name="gtxh_autoLogin" type="checkbox" id="gtxh_autoLogin" style="vertical-align: middle" checked="checked">
                     <label for="checkbox">两周内自动登录</label>
                     <br>
-                    <a href="PasswordReset.html" target="_blank">忘记密码</a> <a href="register.html" target="_blank">立即注册</a>
+                    <a href="PasswordReset.html" target="_blank">忘记密码</a> <a href="{url:/index/register}" target="_blank">立即注册</a>
                 </div>
                 <div class="topnav_regsiter" style=" float:right;">
                     <a rel="external nofollow" href="register.html" target="_blank">免费注册</a>
                 </div>
+                {else:}
+                    <a rel="external nofollow" href="{url:/index/login}" target="_blank" class="topnav_login">您好，{$username}</a>
+                    <a rel="external nofollow" href="{url:/index/logout}" >退出</a>
+                {/if}
             </div>
             <div class="topnav_login_in" id="userCenterbox" style="display: none;">
                 您好，<label class="icon_topnav_loginin" id="gtxh_uame"></label>

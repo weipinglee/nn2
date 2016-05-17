@@ -15,7 +15,7 @@
 						<ul class="rz_ul">
 							<li class="rz_start"></li>
 							<li class="rz_li cur"><a class="rz">认证信息</a></li>
-							<li class="rz_li"><a class="yz">营业执照</a></li>
+							<li class="rz_li"><a class="yz">资质照片</a></li>
 							<li class="rz_li"><a class="shjg">审核结果</a></li>
 							<li class="rz_end"></li>
 						</ul>
@@ -87,28 +87,32 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>真实姓名：</span>
 								<span>
-									<input class="text" type="text" name="company_name" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['true_name']}"/>
+									<input class="text" type="text" name="name" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['true_name']}"/>
 								</span>
+								<span></span>
 							</div>
 
 
 							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>手机号：</span>
+								<span class="con_tit"><i>*</i>身份证号：</span>
 							<span>
-								<input class="text" type="text" datatype="n6-16" errormsg="请正确填写手机号" value="{$certData['mobile']}"/>
+								<input class="text" type="text" name="no" datatype="*" errormsg="请正确填写身份证号" value="{$certData['identify_no']}"/>
 							</span>
+								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>地区：</span>
 							<span>
 								{area:data=$certData['area']}
+								<span></span>
 							</span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>详细地址：</span>
 							<span>
-								<input class="text" type="text" datatype="s2-100" errormsg="请正确填写地址" value="{$certData['address']}"/>
+								<input class="text" type="text" name="address" datatype="s2-100" errormsg="请正确填写地址" value="{$certData['address']}"/>
 							</span>
+								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>主营品种：</span>

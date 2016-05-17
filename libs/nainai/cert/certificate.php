@@ -106,8 +106,6 @@ class certificate{
     }
 
 
-
-
     /**
      * 插入认证数据
      * @param string $certType 认证类型

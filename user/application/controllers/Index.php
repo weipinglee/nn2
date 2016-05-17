@@ -86,12 +86,10 @@ class IndexController extends \Yaf\Controller_Abstract {
 			$login->loginAfter($userData);
 			//$this->redirect('index');
 		}
-		else{
-			echo $res['info'];
-		}
+
+		die(json::encode($res));
 
 
-		return false;
 	}
 
 	public function checkIsOneAction(){
@@ -168,7 +166,7 @@ class IndexController extends \Yaf\Controller_Abstract {
 
 				}
 			}
-			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/');
+			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/ucenter/baseinfo');
 
 			echo JSON::encode($data);
 		}

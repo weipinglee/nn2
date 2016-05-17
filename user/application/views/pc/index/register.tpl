@@ -11,8 +11,9 @@
   <script type="text/javascript" src="{views:js/reg.js}"></script>
   <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
   <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
-  <script type="text/javascript" src="{root:js/autovalidate/validate.js}" ></script>
-  <link href="{root:js/autovalidate/style.css}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
+  <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
+    <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
 </head>
 <body>
 
@@ -37,30 +38,33 @@
       </div>
       <!--个人注册-->
       <div class="reg_cot gr_reg">
-        <input name="checkUrl" value="{url:/index/checkIsOne}" type="hidden"/>
-        <form action="{url:/index/doReg}" method="post">
+        <input name="checkUrl" value="{url:/index/checkIsOne}" type="hidden" />
+        <form action="{url:/index/doReg}" method="post" auto_submit redirect_url="{url:/ucenter/baseinfo}">
           <input type="hidden" name="type" value="0"/>
           <div class="cot">
             <span class="cot_tit"><i>*</i>用户名：</span>
-            <span><input class="text" type="text" name="username" callback="checkUser" pattern="/^[a-zA-Z0-9_]{3,30}$/" alt="请填写3-30位英文字母、数字"/></span>
+            <span><input class="text" type="text" name="username" datatype="/^[a-zA-Z0-9_]{3,30}$/" nullmsg="请填写用户名" errormsg="请使用3-30位字母数字下划线的组合"/></span>
+            <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>密码：</span>
-            <span><input class="text" type="password" name="password" pattern="/^\S{6,20}$/" alt="6-20位非空字符" bind="repassword"/></span>
-
+            <span><input class="text" type="password" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" /></span>
+              <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>确认密码：</span>
-            <span><input class="text" type="password" name="repassword" pattern="/^\S{6,20}$/" alt="6-20位非空字符" bind="password" /></span>
-
+            <span><input class="text" type="password" name="repassword" datatype="/^[\S]{6,15}$/" recheck="password" nullmsg="请重复填写密码" errormsg="两次密码输入不一致" /></span>
+              <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>手机号：</span>
-            <span><input class="text" type="text" name="mobile" callback="checkUser" pattern="mobile" alt="请正确填写手机号"/></span>
+            <span><input class="text" type="text" name="mobile" datatype="mobile" nullmsg="请填写手机号" errormsg="手机号格式错误"/></span>
+              <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i></i>邮箱：</span>
-            <span><input class="text" type="text" name="email" empty pattern="email" alt="请正确填写邮箱"/></span>
+            <span><input class="text" type="text" name="email" ignore="ignore" datatype="e" errormsg="邮箱格式错误"/></span>
+              <span></span>
           </div>
 
            <div class="cot">
@@ -88,7 +92,7 @@
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>手机号：</span>
-            <span><input class="text" type="text" name="mobile" callback="checkUser" pattern="mobile" alt="请正确填写手机号" /></span>
+            <span><input class="text" type="text" name="mobile" datatype="mobile"  /></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i></i>邮箱：</span>

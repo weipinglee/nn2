@@ -32,6 +32,13 @@ class UcenterBaseController extends \nainai\controller\Base{
 	protected function init(){
 		parent::init();//继承父类的方法，检测是否登录和角色
 		$this->getView()->setLayout('ucenter');
+
+		if(isset($this->user_id) && $this->user_id>0){
+			$this->getView()->assign('login',1);
+			$this->getView()->assign('username',$this->username);
+		}
+
+		else $this->getView()->assign('login',0);
 		$this->getView()->assign('topArray', $this->getTopArray());
 		$this->getView()->assign('leftArray', $this->getLeftArray());
 		$action = $this->getRequest()->getActionName();
