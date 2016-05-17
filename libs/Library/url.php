@@ -201,8 +201,11 @@ class url {
      * @return String $baseUrl  网站根路径
      *
      */
-    public static function getHost($protocol='http')
+    public static function getHost($protocol='')
     {
+        $protocol = tool::getGlobalConfig('http');
+        if(!$protocol)
+            $protocol = 'http';
         $host	 = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
         $baseUrl = $protocol.'://'.$host;
         return $baseUrl;

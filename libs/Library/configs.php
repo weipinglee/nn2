@@ -8,6 +8,7 @@
  */
 namespace Library;
 return array(
+    'http'=>'http',
     'host'=>array(//各系统域名路�?
         'deal'=>'http://deal.test.com',
         'user'=>'http://user.test.com',
