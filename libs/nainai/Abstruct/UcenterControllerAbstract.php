@@ -27,13 +27,14 @@ abstract class UcenterControllerAbstract extends BaseControllerAbstract{
         }
 
 	final private function init(){
-		$this->preinit();
-	        //  $right = new checkRight();
-	        // $right->checkLogin($this);//未登录自动跳到登录页
-                 $this->user_id = 48;
-	        $this->getView()->setLayout('ucenter');
-	        $this->getView()->assign('topArray', $this->getTopArray());
-	        $this->getView()->assign('leftArray', $this->getLeftArray());
+            $this->preinit();
+            // $right = new checkRight();
+            // $right->checkLogin($this);//未登录自动跳到登录页
+            $this->user_id = 48;
+            
+            $this->getView()->setLayout('ucenter');
+            $this->getView()->assign('topArray', $this->getTopArray());
+            $this->getView()->assign('leftArray', $this->getLeftArray());
     	}
 
     	/**
@@ -43,7 +44,7 @@ abstract class UcenterControllerAbstract extends BaseControllerAbstract{
     	private function getTopArray(){
     		$topArray = array(
 				'Ucenterindex'      => array('url' => '', 'title' => '首页'),
-				'Ucenteraccount'  => array('url' => '', 'title' => '账户信息'),
+				'Ucenter'  => array('url' => url::createUrl('/ucenter/index'), 'title' => '账户信息'),
 				'Managerfund'     => array('url' => '', 'title' => '资金管理'),
 				'Managerdeal'     => array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '交易管理'),
 				'Managerstore'    => array('url' => url::createUrl('/ManagerStore/ApplyStoreList'), 'title' => '仓单管理'),
@@ -69,5 +70,9 @@ abstract class UcenterControllerAbstract extends BaseControllerAbstract{
     	protected function getLeftArray(){
     		return array();
     	}
+
+        public function addSuccess(){
+
+        }
 
 }

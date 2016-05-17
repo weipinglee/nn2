@@ -12,14 +12,26 @@ use \Library\url;
 use \Library\safe;
 use \Library\Thumb;
 use \Library\tool;
-class UcenterController extends Yaf\Controller_Abstract {
+class UcenterController extends \nainai\Abstruct\UcenterControllerAbstract  {
 
-
-    public function init(){
-        $right = new checkRight();
-        $right->checkLogin($this);//未登录自动跳到登录页
-        $this->getView()->setLayout('ucenter');
+    /**
+     * 获取左侧菜单数据
+     * @var name [<菜单名称>]
+     * @var url   [<菜单url>]
+     * @var list [<子菜单的数据，key和父级菜单一致>]
+     * @return [Array]
+     */
+    protected function  getLeftArray(){
+            return array(
+                array('name' => '账户管理', 'list' => array()),
+                array('name' => '基本信息', 'url' => url::createUrl('/ManagerStore/ManagerStoreList'),  'list' => array()),
+                array('name' => '修改密码', 'url' => url::createUrl('/ManagerStore/ManagerStoreList'),  'list' => array()),
+                array('name' => '身份验证', 'url' => url::createUrl('/ManagerStore/ApplyStoreList'),  'list' => array()),
+                array('name' => '子账户管理', 'url' => url::createUrl('/ManagerStore/ApplyStoreList'),  'list' => array()),
+                array('name' => '开票信息管理', 'url' => url::createUrl('/ucenter/invoice'),  'list' => array())
+            );
     }
+
     /**
      * 个人中心首页
      */
@@ -360,7 +372,32 @@ class UcenterController extends Yaf\Controller_Abstract {
     }
 
 
+    /**
+     * [开票信息管理]
+     */
+    public function invoiceAction(){
 
+            if (IS_POST) {
+                $invoiceData = array(
+                    'title' => urlencode(Safe::filterPost('title')),
+                    'tax_no' => urlencode(Safe::filterPost('tax_no')),
+                    'address' => urlencode(Safe::filterPost('address')),
+                    'phone' => Safe::filterPost('tel', 'int'),
+                    'bank_name' => urlencode(Safe::filterPost('bankName')),
+                    'bank_no' => urlencode(Safe::filterPost('bankAccount'))
+                );
+
+                $invoiceModel = new \nainai\user\UserInvoice();
+                $returnData = $invoiceModel->addUserInvoice($invoiceData);
+
+                if($returnData['success']==1){
+                        $this->redirect('addSuccess');
+                  }else{
+                        echo $returnData['info'];
+                  }
+                exit();
+            }
+    }   
 
 
 }
