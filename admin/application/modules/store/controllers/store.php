@@ -8,6 +8,7 @@ use \Library\safe;
 use \Library\Thumb;
 use \nainai\subRight;
 use \Library\tool;
+use \Library\json;
 class storeController extends Yaf\Controller_Abstract{
 
     public function init(){
@@ -45,11 +46,7 @@ class storeController extends Yaf\Controller_Abstract{
             $store['img']             = tool::setImgApp(safe::filterPost('imgfile1'));
 
             $res = $storeModel->storeAdd($store);
-            if($res['success']==1){
-                $this->redirect('storeList');
-            }else{
-                echo $res['info'];
-            }
+            die(json::encode($res));
 
         }else{
             $store_id  = $this->getRequest()->getParam('id',0);

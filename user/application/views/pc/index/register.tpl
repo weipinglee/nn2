@@ -95,14 +95,17 @@
           <div class="cot">
             <span class="cot_tit"><i>*</i>手机号：</span>
             <span><input class="text" type="text" name="mobile" datatype="m"  /></span>
+			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i></i>邮箱：</span>
             <span><input class="text" type="text" name="email" ignore="ignore" datatype="e" errormsg="邮箱格式错误"/ /></span>
+			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>公司名称：</span>
             <span><input class="text" type="text" name="company_name"  datatype="s2-50" errormsg="请填写公司名称" /></span>
+			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>公司地址：</span>
@@ -115,12 +118,14 @@
           <div class="cot">
             <span class="cot_tit"><i>*</i>法人：</span>
             <span><input class="text" type="text" name="legal_person" datatype="s2-20" errormsg="请填写法人名称"/></span>
+			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>注册资金：</span>
             <span>
               <input class="text" type="text" name="reg_fund" datatype="float" errormsg="请正确填写注册资金"/>万
            </span>
+		   <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>企业类型：</span>
@@ -130,6 +135,7 @@
               <option value="1">建筑</option>
              </select>
            </span>
+		   <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>企业性质：</span>
@@ -140,14 +146,17 @@
                <option value="2">私企</option>
              </select>
            </span>
+		   <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>联系人姓名：</span>
             <span><input class="text" type="text" name="contact" datatype="s2-20" errormsg="请填写联系人姓名" /></span>
+			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>电话：</span>
             <span><input class="text" type="text" name="contact_phone" datatype="m" errormsg="请填写联系人电话"/></span>
+			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>职务：</span>
@@ -159,14 +168,17 @@
               <input name="contact_duty" type="radio" value="3" />
               <span class="tit_zw">员工 </span>
             </span>
+			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>选择代理商：</span>
             <span><input class="text" type="text" name="agent"/></span>
+			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>代理商密码：</span>
             <span><input class="text" type="text" name="agent_pass"/></span>
+			<span></span>
           </div>
 
            <div class="cot">
