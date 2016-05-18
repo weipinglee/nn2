@@ -174,6 +174,7 @@
 		<div class="user_b">
 			<!--start左侧导航--> 
             <div class="user_l">
+                {if:!empty($leftArray)}
                 <div class="left_navigation">
                     <ul>
 
@@ -205,6 +206,31 @@
                       
                     </ul>
                 </div>
+                {else:}
+                    <div class="wrap_con">
+                        <div class="personal_data">
+                            <div class="head_portrait">
+                                <a href="#">
+                                    <img src="{views:/images/icon/head_portrait.jpg}">
+                                </a>
+                            </div>
+                            <div class="per_username">
+                                <p class="username_p"><b>上午好，{$username}</b></p>
+                                <p class="username_p"><img src="{$group['icon']}">{$group['group_name']}</p>
+                                <p class="username_p">消息提醒：<b class="colaa0707">24</b></p>
+                                <p class="username_p"><a class="padding_right" href="">去认证</a><a class="col1734b1" href="">仓储管理</a></p>
+                            </div>
+                            <div class="per_function">
+                                <a href="user_zh.html">基本信息设置</a>
+                                <a href="zh_mm.html">修改密码</a>
+                            </div>
+                            <div class="per_collection">
+                                <p class="collection_padding col1734b1">信誉保证金有什么好处</p>
+                                <p class="collection_padding colaa0707">已缴纳信誉保证金</p>
+                            </div>
+                        </div>
+                    </div>
+                {/if}
             </div>
             <!--end左侧导航-->
             <div id="cont">

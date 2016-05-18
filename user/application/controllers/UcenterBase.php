@@ -43,7 +43,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$this->getView()->assign('topArray', $this->getTopArray());
 		$this->getView()->assign('leftArray', $this->getLeftArray());
 		$action = $this->getRequest()->getActionName();
-		
+
 		//判断该方法买家是否能操作，如果不能，跳转到用户中心首页
 		if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
 			$this->redirect(url::createUrl('/ucenter/index'));
@@ -56,7 +56,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     	 */
     	private function getTopArray(){
     		$topArray = array(
-				'index'      => array('url' => '', 'title' => '首页'),
+				'UcenterIndex'      => array('url' => url::createUrl('/ucenterindex/index'), 'title' => '首页'),
 				'Ucenter'  => array('url' => url::createUrl('/ucenter/baseinfo'), 'title' => '账户信息')
     		);
 			if($this->cert['deal']==1){

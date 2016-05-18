@@ -16,6 +16,7 @@ return array(
     ),
     'rootDir'=>array(//项目根目录绝对路�?
 
-        'user'=>'E:\wamp\www\nn2\user\public'
+        'user'=>'E:\wamp\www\nn2\user\public',
+        'admin'=>'E:\wamp\www\nn2\admin\public'
     ),
 );

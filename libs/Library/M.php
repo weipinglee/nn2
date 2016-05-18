@@ -417,7 +417,7 @@ class M{
      */
     public function getObj(){
         $this->limit(1);
-        $sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->limit ;
+        $sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->order.$this->limit ;
 
         $res =  $this->db->exec($sql,$this->whereParam,'SELECT');
         return empty($res) ? array() : $res[0];
@@ -430,7 +430,7 @@ class M{
      */
 	public function getField($field){
 		$this->limit(1)->fields($field);
-		$sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->limit ;
+		$sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->order.$this->limit ;
 		$res =  $this->db->exec($sql,$this->whereParam,'SELECT');
 		if(!empty($res))return $res[0][$field];
 		return false;
