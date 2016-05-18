@@ -75,32 +75,34 @@
        <!--个人注册结束-->
         <!--企业注册-->
       <div class="reg_cot qy_reg">
-        <form action="{url:/index/doReg}" method="post">
+        <form action="{url:/index/doReg}" method="post" auto_submit redirect_url="{url:/ucenter/baseinfo}" >
           <input type="hidden" name="type" value="1"/>
          <div class="cot">
             <span class="cot_tit"><i>*</i>用户名：</span>
-            <span><input class="text" type="text" name="username" callback="checkUser"  pattern="/^[a-zA-Z0-9_]{3,30}$/" alt="请填写3-30位英文字母、数字" /></span>
-          </div>
+            <span><input class="text" type="text" name="username" callback="checkUser"  datatype="/^[a-zA-Z0-9_]{3,30}$/" errormsg="请填写3-30位英文字母、数字" /></span>
+            <span></span>
+		  </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>密码：</span>
-            <span><input class="text" type="password" name="password" pattern="/^\S{6,20}$/" alt="6-20位非空字符" bind="repassword" /></span>
-          </div>
+            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" errormsg="6-15位非空字符"  /></span>
+            <span></span>
+		  </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>确认密码：</span>
-            <span><input class="text" type="password" name="repassword" pattern="/^\S{6,20}$/" alt="6-20位非空字符" bind="password"/></span>
-
+            <span><input class="text" type="password" name="repassword" datatype="/^\S{6,15}$/" errormsg="两次密码输入不一致" recheck="password" /></span>
+			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>手机号：</span>
-            <span><input class="text" type="text" name="mobile" datatype="mobile"  /></span>
+            <span><input class="text" type="text" name="mobile" datatype="m"  /></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i></i>邮箱：</span>
-            <span><input class="text" type="text" name="email" empty pattern="email" alt="请正确填写邮箱" /></span>
+            <span><input class="text" type="text" name="email" ignore="ignore" datatype="e" errormsg="邮箱格式错误"/ /></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>公司名称：</span>
-            <span><input class="text" type="text" name="company_name" pattern="required" alt="该字段必填"/></span>
+            <span><input class="text" type="text" name="company_name"  datatype="s2-50" errormsg="请填写公司名称" /></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>公司地址：</span>
@@ -112,12 +114,12 @@
 
           <div class="cot">
             <span class="cot_tit"><i>*</i>法人：</span>
-            <span><input class="text" type="text" name="legal_person" pattern="required" alt="该字段不得为空"/></span>
+            <span><input class="text" type="text" name="legal_person" datatype="s2-20" errormsg="请填写法人名称"/></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>注册资金：</span>
             <span>
-              <input class="text" type="text" name="reg_fund" pattern="float" alt="请正确填写注册资金"/>万
+              <input class="text" type="text" name="reg_fund" datatype="float" errormsg="请正确填写注册资金"/>万
            </span>
           </div>
           <div class="cot">
@@ -141,11 +143,11 @@
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>联系人姓名：</span>
-            <span><input class="text" type="text" name="contact" pattern="required" alt="请填写联系人姓名"/></span>
+            <span><input class="text" type="text" name="contact" datatype="s2-20" errormsg="请填写联系人姓名" /></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>电话：</span>
-            <span><input class="text" type="text" name="contact_phone" pattern="mobile" alt="请填写联系人电话"/></span>
+            <span><input class="text" type="text" name="contact_phone" datatype="m" errormsg="请填写联系人电话"/></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>职务：</span>
