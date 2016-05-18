@@ -61,7 +61,7 @@ class IndexController extends \Yaf\Controller_Abstract {
 
 		if($userData['type']==1){
 			$userData['agent'] = safe::filterPost('agent','int',0);
-			$userData['agent_pass'] = safe::filterPost('agent','/^[a-zA-Z0-9]{6,30}$/');
+			$userData['agent_pass'] = safe::filterPost('agent_pass','/^[a-zA-Z0-9]{6,30}$/');
 
 			$companyData = array(
 				'company_name' => safe::filterPost('company_name'),

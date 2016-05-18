@@ -13,7 +13,7 @@
  */
 namespace Library;
 use \Library\Services_JSON\Services_JSON;
-class JSON
+class json
 {
 	//第三方JSON类库实例
 	private static $_jsonInstance = null;

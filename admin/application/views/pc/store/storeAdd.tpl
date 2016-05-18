@@ -11,19 +11,19 @@
        添加仓库
     </div>
    <div class="pd-20">
-  <form action="{url:/store/storeAdd}" method="post" class="form form-horizontal" id="form-member-add">
+  <form action="{url:store/store/storeAdd}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:store/store/storeList}">
       <input type="hidden" name="id" value="{if:isset($store)}{$store['id']}{/if}" />
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>仓库名：</label>
       <div class="formControls col-5">
-        <input type="text" class="input-text" value="{if:isset($store)}{$store['name']}{/if}" id="member-name" name="name"  nullmsg="仓库名不能为空">
+        <input type="text" class="input-text" value="{if:isset($store)}{$store['name']}{/if}" id="member-name" name="name" datatype="s2-50" nullmsg="仓库名不能为空">
       </div>
       <div class="col-4"> </div>
     </div>
       <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>仓库简称：</label>
           <div class="formControls col-5">
-              <input type="text" class="input-text" value="{if:isset($store)}{$store['short_name']}{/if}" placeholder=""  name="short_name"  >
+              <input type="text" class="input-text" value="{if:isset($store)}{$store['short_name']}{/if}" placeholder="" datatype="s2-20" name="short_name" errormsg="请填写简称" >
           </div>
           <div class="col-4"> </div>
       </div>
@@ -41,35 +41,35 @@
       <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>仓库地址：</label>
           <div class="formControls col-5">
-              <input type="text" class="input-text" value="{if:isset($store)}{$store['address']}{/if}" placeholder=""  name="address"  >
+              <input type="text" class="input-text" value="{if:isset($store)}{$store['address']}{/if}" placeholder="" datatype="s2-50" name="address" errormsg="请填写地址" name="address"  >
           </div>
           <div class="col-4"> </div>
       </div>
       <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>仓库服务点电话：</label>
           <div class="formControls col-5">
-              <input type="text" class="input-text" value="{if:isset($store)}{$store['service_phone']}{/if}" placeholder=""  name="service_phone"  >
+              <input type="text" class="input-text" value="{if:isset($store)}{$store['service_phone']}{/if}" placeholder="" datatype="/\d{6,15}/" name="service_phone" errormsg="电话格式错误" >
           </div>
           <div class="col-4"> </div>
       </div>
       <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>仓库服务点地址：</label>
           <div class="formControls col-5">
-              <input type="text" class="input-text" value="{if:isset($store)}{$store['service_address']}{/if}" placeholder=""  name="service_address"  >
+              <input type="text" class="input-text" value="{if:isset($store)}{$store['service_address']}{/if}" placeholder="" datatype="s2-50" errormsg="请填写地址" name="service_address"  >
           </div>
           <div class="col-4"> </div>
       </div>
       <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>仓库联系人：</label>
           <div class="formControls col-5">
-              <input type="text" class="input-text" value="{if:isset($store)}{$store['contact']}{/if}" placeholder=""  name="contact"  >
+              <input type="text" class="input-text" value="{if:isset($store)}{$store['contact']}{/if}" placeholder=""  datatype="s2-20" name="contact" errormsg="格式错误" >
           </div>
           <div class="col-4"> </div>
       </div>
       <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>仓库联系人电话：</label>
           <div class="formControls col-5">
-              <input type="text" class="input-text" value="{if:isset($store)}{$store['contact_phone']}{/if}" placeholder=""  name="contact_phone"  >
+              <input type="text" class="input-text" value="{if:isset($store)}{$store['contact_phone']}{/if}" datatype="/\d{6,15}/" placeholder="" errormsg="电话格式错误" name="contact_phone"  >
           </div>
           <div class="col-4"> </div>
       </div>
