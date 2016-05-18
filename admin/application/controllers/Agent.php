@@ -106,7 +106,7 @@ class AgentController extends InitController{
 
 			if (intval($id) > 0) {
 				$agentModel = new \nainai\Agent();
-				$agentData = $agentModel->getAgentDetail($id);
+				$agentData = $agentModel->getAgent($id);
 				$this->getView()->assign('agentData', $agentData);
 			}
 		}

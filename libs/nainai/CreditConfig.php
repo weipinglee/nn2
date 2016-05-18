@@ -20,6 +20,7 @@ class CreditConfig extends \nainai\Abstruct\ModelAbstract{
 	 * @param  [Int]  $userId      [用户id]
 	 * @param  [String]  $operateName [操作的名称]
 	 * @param  integer $value       [根据百分比计算的信誉值]
+	 * @param String $[note] [<信誉的变化说明>]
 	 * @return [Boolean] 
 	 */
 	public function changeUserCredit($userId, $operateName, $value=0, $note=''){

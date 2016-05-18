@@ -69,15 +69,21 @@ abstract class ModelAbstract{
 	}
 
 	/**
-	 * [__call 默认或调用CRUD的操作，最好以add，get，update，delete开头的方法名称]
+	 * [__call 默认或调用CRUD的操作，调用以add，get，update，delete加上类名的方法名称]
 	 * @param  [Array] $method [方法名称]
 	 * @param  [Array] $args   [参数]
 	 * @return [mixed]         [根据对应操作返回对应数据]
 	 */
 	public function __call($method, $args){
 		$methodArr = preg_split("/(?=[A-Z])/", $method);
+		$operate = $methodArr[0];
+		unset($methodArr[0]);
 
-		switch ($methodArr[0]) {
+		if (implode('', $methodArr) != $this->objName) { //如果方法中的类名和类名不相等，就不掉用
+			throw new \Exception("Unknow Method", 1);exit();
+		}
+
+		switch ($operate) {
 			case 'add':
 				$res = null;
 			    	if ($this->model->validate($this->Rules, $args[0])) {
@@ -95,7 +101,7 @@ abstract class ModelAbstract{
 				break;
 
 			case 'update':
-				if (intval($args[1]) > 0) {
+				if (intval($args[1]) > 0 && $this->model->validate($this->Rules, $args[0])) {
 			    		return (bool)$this->model->data($args[0])->where($this->pk . '=:id')->bind(array('id'=>$args[1]))->update();
 			    	}
 			    	return false;
@@ -110,13 +116,14 @@ abstract class ModelAbstract{
 
 			case 'get':
 				if (intval($args[0]) > 0) {
-			    		return $this->model->where($this->pk . '=:id')->bind(array('id'=>$args[0]))->getObj();
+					$fields = isset($args[1]) ? $args[1] : '*';
+			    		return $this->model->fields($fields)->where($this->pk . '=:id')->bind(array('id'=>$args[0]))->getObj();
 			    	}
 			    	return array();
 				break;
 			
 			default:
-				throw new Exception("Unknow Method", 1);exit();
+				throw new \Exception("Unknow Method", 1);exit();
 				break;
 		}
 	}

@@ -96,7 +96,7 @@ class GuideController extends InitController{
 
 		if (intval($id) > 0) {
 			$guideModel = new \nainai\Guide();
-			$guideData = $guideModel->getGuideDetail($id);
+			$guideData = $guideModel->getGuide($id);
 			$guideModel->getGuideCategoryOption($guideData['id'], $guideData['type']);
 
 			$this->getView()->assign('bar', $this->_bar);
