@@ -33,6 +33,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 		parent::init();//继承父类的方法，检测是否登录和角色
 		$this->getView()->setLayout('ucenter');
 
+		//获取登录信息
 		if(isset($this->user_id) && $this->user_id>0){
 			$this->getView()->assign('login',1);
 			$this->getView()->assign('username',$this->username);
@@ -42,6 +43,11 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$this->getView()->assign('topArray', $this->getTopArray());
 		$this->getView()->assign('leftArray', $this->getLeftArray());
 		$action = $this->getRequest()->getActionName();
+		
+		//判断该方法买家是否能操作，如果不能，跳转到用户中心首页
+		if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
+			$this->redirect(url::createUrl('/ucenter/index'));
+		}
 		$this->getView()->assign('action', $action);
 	}
     	/**
@@ -55,7 +61,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     		);
 			if($this->cert['deal']==1){
 				$topArray['Fund'] = array('url' => url::createUrl('/Fund/index'), 'title' => '资金管理');
-				$topArray['Managerdeal'] = array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '交易管理');
+				$topArray['Managerdeal'] = array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '交易管理');
 			}
 
 			if($this->cert['store']==1){
