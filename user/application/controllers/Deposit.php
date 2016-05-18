@@ -34,18 +34,18 @@ class DepositController extends Yaf\Controller_Abstract{
 	// 	die(JSON::encode($res));
 	// }
 
-	// //买家支付定金
-	// public function buyerDepositAction(){
-	// 	$orderData['id'] = safe::filter('id','int');
-	// 	$orderData['type'] = safe::filter('type');//1:全款 0:定金
+	//买家支付定金
+	public function buyerDepositAction(){
+		$orderData['id'] = safe::filter('id','int');
+		$orderData['type'] = safe::filter('type');//1:全款 0:定金
 
-	// 	$order_id = 22;
-	// 	$type = 0;//1:全款 0:定金		
-	// 	$user_id = $this->user_id;
-	// 	$res = $this->deposit->buyerDeposit($order_id,$type,$user_id);
-	// 	var_dump($res);
-	// 	return false;
-	// }
+		$order_id = 22;
+		$type = 0;//1:全款 0:定金		
+		$user_id = $this->user_id;
+		$res = $this->deposit->buyerDeposit($order_id,$type,$user_id);
+		var_dump($res);
+		return false;
+	}
 
 	//卖家支付保证金
 	public function sellerDepositAction(){
@@ -64,10 +64,10 @@ class DepositController extends Yaf\Controller_Abstract{
 
 	//买家支付尾款
 	public function buyerRetainageAction(){
-		$order_id = safe::filter('id','int');
+		$order_id = safe::filter($this->_request->getParam('order_id'),'int');
 		$type = safe::filter('type');//online:线上 offline:线下
 
-		$order_id = 1;
+		//$order_id = 1;
 		$type = 'online';
 		$user_id = 49;//$this->user_id;
 		$proof = 'xianxia.jpg';

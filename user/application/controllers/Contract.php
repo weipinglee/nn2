@@ -27,16 +27,15 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
                 array('url' => '', 'title' => '发布采购' ),
             )),
             array('name' => '合同管理', 'list' => array(
-                array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ),
-                array('url' => url::createUrl('/Contract/storeList'), 'title' => '仓单合同' ),
-                array('url' => '', 'title' => '购买合同' ),
+                array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ),
+                array('url' => url::createUrl('/Contract/buyerList'), 'title' => '购买合同' ),
             ))
         );
     }
 
-	public function depositListAction(){
+	public function sellerListAction(){
 		$user_id = 42;
-		$deposit = new \nainai\order\DepositOrder();
+		$order = new \nainai\order\Order();
 		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);
 		$name = safe::filterPost('name');
@@ -44,7 +43,7 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
 		if(!empty($name)){
 			$where []= array(" and p.name = :name ",array('name'=>$name)); 
 		}
-		$list = $deposit->depositContractList($user_id,$page,$where);
+		$list = $order->sellerContractList($user_id,$page,$where);
 		$this->getView()->assign('data',$list['data']);
 		$this->getView()->assign('page',$list['bar']);
 	}
@@ -64,7 +63,34 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
 		$this->getView()->assign('page',$list['bar']);
 	}
 
-	public function contractDetailActiom(){
-		
+	public function sellerDetailAction(){
+		$id = safe::filter($this->_request->getParam('id'),'int');
+		$order = new \nainai\order\Order();
+		$info = $order->sellerDetail($id);
+		$this->getView()->assign('info',$info);
+	}
+
+	//购买合同列表
+	public function buyerListAction(){
+		$user_id = 49;
+		$order = new \nainai\order\Order();
+		// $page = $this->_request->getParam('page');
+		$page = safe::filterGet('page','int',1);
+		$name = safe::filterPost('name');
+		$where = array();
+		if(!empty($name)){
+			$where []= array(" and p.name = :name ",array('name'=>$name)); 
+		}
+		$list = $order->buyerContractList($user_id,$page,$where);
+		$this->getView()->assign('data',$list['data']);
+		$this->getView()->assign('page',$list['bar']);
+	}
+
+	//购买合同详情
+	public function buyerDetailAction(){
+		$id = safe::filter($this->_request->getParam('id'),'int');
+		$order = new \nainai\order\Order();
+		$info = $order->buyerDetail($id);
+		$this->getView()->assign('info',$info);
 	}
 }

@@ -97,6 +97,7 @@ class OffersController extends Yaf\Controller_Abstract {
 		$orderData['user_id'] = $user_id;
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['offer_type'] = $offer_type;
+		$orderData['payment'] = $payment;
 		$gen_res = $order_mode->geneOrder($orderData);
 		if($gen_res['success'] == 1){
 			if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){

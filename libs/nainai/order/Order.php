@@ -124,7 +124,15 @@ class Order{
 			if($product_valid !== true)
 				return tool::getSuccInfo(0,$product_valid);
 			$orderData['amount'] = $offer_info['price'] * $orderData['num'];
-			$res = $this->orderUpdate($orderData);
+			if($orderData['payment'] == 1){
+				//代理账户,判断用户买家余额是否足够
+				$user_id = $orderData['user_id'];
+				$balance = $this->account->getActive($user_id);
+				if(floatval($balance) < $orderData['amount']){
+					$res = '代理账户余额不足';
+				}
+			}
+			$res = isset($res) ? tool::getSuccInfo(0,$res) : $this->orderUpdate($orderData);
 		}else{
 			$res = tool::getSuccInfo(0,'无效报盘');
 		}
@@ -537,4 +545,190 @@ class Order{
 		return tool::getSuccInfo(0,$error);
 	}
 
+	/**
+	 * 获取用户所有销售合同信息(含商品信息与买家信息)
+	 * @param  int $user_id 卖家id
+	 */
+	public function sellerContractList($user_id,$page,$where = array()){
+		$query = new Query('product_order as do');
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
+		$query->where = 'po.user_id = :user_id';
+		$query->fields = 'u.username,do.*,p.name as product_name,p.unit';
+		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
+		$query->bind  = array('user_id'=>$user_id);
+		$query->page  = $page;
+		$query->pagesize = 2;
+		// $query->order = "sort";
+		$data = $query->find();
+		$this->sellerContractStatus($data);
+		// tool::pre_dump($data);
+		$pageBar =  $query->getPageBar();
+		return array('data'=>$data,'bar'=>$pageBar);
+	}
+
+	/**
+	 * 销售合同详情
+	 * @param  int $id 订单id
+	 * @return array   结果数组
+	 */
+	public function sellerDetail($id){
+		$query = new Query('product_order as do');
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
+		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit';
+		$query->where = 'do.id=:id';
+		$query->bind = array('id'=>$id);
+		$res = array($query->getObj());
+		// var_dump($res);
+		$this->sellerContractStatus($res);
+		return $res[0];
+	}
+
+	/**
+	 * 用户购买合同列表
+	 * @param  int $user_id 当前登录用户Id
+	 * @param  int $page    当前页
+	 * @param  array  $where  条件数组
+	 * @return array          列表数组
+	 */
+	public function buyerContractList($user_id,$page,$where = array()){
+		$query = new Query('product_order as do');
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
+		$query->where = 'do.user_id = :user_id';
+		// $bind = array();
+		// if($where){
+		// 	foreach ($where as $key => $value) {
+		// 		$query->where .= $value[0];	
+		// 		$bind = array_merge($bind,$value[1]);
+		// 	}
+		// }
+		$query->fields = 'u.username,do.*,p.name as product_name,p.unit';
+		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
+		$query->bind  = array('user_id'=>$user_id);
+		$query->page  = $page;
+		$query->pagesize = 2;
+		// $query->order = "sort";
+		$data = $query->find();
+		$this->buyerContractStatus($data);
+		// tool::pre_dump($data);
+		$pageBar =  $query->getPageBar();
+		return array('data'=>$data,'bar'=>$pageBar);
+
+	}
+
+	/**
+	 * 购买合同详情
+	 * @param  int $id 订单id
+	 * @return array   结果数组
+	 */
+	public function buyerDetail($id){
+		$query = new Query('product_order as do');
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
+		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit';
+		$query->where = 'do.id=:id';
+		$query->bind = array('id'=>$id);
+		$res = array($query->getObj());
+		// var_dump($res);
+		$this->buyerContractStatus($res);
+		return $res[0];
+	}
+
+	/**
+	 * 获取销售合同状态
+	 * @param  array &$data 销售合同订单数组
+	 */
+	private function sellerContractStatus(&$data){
+		foreach ($data as $key => &$value) {
+			//根据合同状态得出对应操作
+			$contract_status = $value['contract_status'];
+			$href = '';
+			switch ($contract_status) {
+				case self::CONTRACT_NOTFORM:
+					$title = '等待买方付款';
+					break;
+				case self::CONTRACT_SELLER_DEPOSIT:
+					$title = '支付保证金';
+					$href  = url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']);
+					break;
+				case self::CONTRACT_CANCEL:
+					$title = '合同已作废';
+					break;
+				case self::CONTRACT_EFFECT:
+					$title = '合同生效,待提货';
+					break;
+				case self::CONTRACT_BUYER_RETAINAGE:
+					if(empty($value['proof'])){
+						$title = '等待支付尾款';
+					}else{
+						$title = '确认线下凭证';
+						$href  = url::createUrl('/Deposit/confirmProof?order_id='.$value['id']);
+					}
+					break;
+				case self::CONTRACT_COMPLETE:
+					$title = '合同已完成';
+					break;
+				default:
+					$title = '无效状态';
+					break;
+			}
+
+			$value['action'] = $title;
+			$value['action_href'] = $href;
+		}
+	}
+
+	/**
+	 * 获取购买合同状态
+	 * @param  array &$data 购买合同订单数组
+	 */
+	private function buyerContractStatus(&$data){
+		foreach ($data as $key => &$value) {
+			//根据合同状态得出对应操作
+			$contract_status = $value['contract_status'];
+			$href = '';
+			switch ($contract_status) {
+				case self::CONTRACT_NOTFORM:
+					$title = '未支付定金';
+					break;
+				case self::CONTRACT_SELLER_DEPOSIT:
+					$title = '等待卖家支付保证金';
+					break;
+				case self::CONTRACT_BUYER_RETAINAGE:
+					if(empty($value['proof'])){
+						$title = '支付尾款';
+						$href = url::createUrl("/Deposit/buyerRetainage?order_id={$value['id']}@user");
+					}else{
+						$title = '等待确认线下支付凭证';
+					}
+					break;
+				case self::CONTRACT_CANCEL:
+					$title = '合同已被卖家取消';
+					break;
+				case self::CONTRACT_EFFECT:
+					$title = '已生效,待提货';
+					switch ($value['offer_type']) {
+						case self::ORDER_DEPOSIT:
+							$url = url::createUrl('/depositDelivery/geneDelivery@user');//此处url均为临时，需要额外制作页面
+							break;
+						case self::ORDER_STORE:
+							$url = url::createUrl('/storeDelivery/geneDelivery@user');
+						default:
+							$url = '#';
+							break;
+					}
+					$href = $url;
+					break;
+				case self::CONTRACT_COMPLETE:
+					$title = '合同已完成';
+					break;
+				case self::CONTRACT_VERIFY_QAULITY:
+					$title = '提货已完成,已确认质量';
+					break;
+				default:
+					$title = '未知状态';
+					break;
+			}
+			$value['action'] = $title;
+			$value['action_href'] = $href;
+		}
+	}
 }

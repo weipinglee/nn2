@@ -3,7 +3,7 @@
 			<div class="user_c_list">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>产品管理</a>><a>产品列表</a></p>
+						<p><a>合同管理</a>><a>购买合同</a></p>
 					</div>
 					<div class="chp_xx">
 						<div class="xx_top">
@@ -33,7 +33,7 @@
 									<td width="180px">产品详情</td>
 									<th width="260px">金额及付款方式</th>
 									<th width="200px">主要指标</td>
-									<th>卖家\买家信息</th>
+									<th>买家信息</th>
 									<th>交易操作</th>
 								</tr>
                                 <tr>
@@ -45,7 +45,7 @@
 									<tr class="title">
 										<td colspan="6">
 											<input id="controlAll" type="checkbox">
-											单号:<span class="col2517EF">{$item['order_no']}</span>
+											单号:<a href="{url:/contract/buyerDetail?id=$item['id']}"><span class="col2517EF">{$item['order_no']}</span></a>
 											<span class="colaa0707 ht_padd"></span>
 											<span><img class="middle_img" src="{views:images/center/ico_cj.jpg}">生成厂家：北京东峰兴达耐火材料有线公司</span>
 											<span class="ht_padd">
