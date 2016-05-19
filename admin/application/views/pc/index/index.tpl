@@ -74,7 +74,6 @@
                         </li>
                         <li><a href="system-base.html" target="content">系统设置</a></li>
                         <li><a href="table.html" target="content">导航栏目管理</a></li>
-                        <li><a href="tabs.html" target="content">地域信息管理</a></li>
                         <li><a href="gallery.html" target="content">客服添加</a></li>
                     </ul>
                 </li>

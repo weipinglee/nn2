@@ -33,6 +33,22 @@ class StoreModel{
 	);
 
 	/**
+	 * @param int $type 仓库类型
+	 */
+	public function getStoreType($type=-1){
+		$typeArr = array(
+			0=>'正常仓库',
+			1=>'监管仓库'
+		);
+		if($type==-1)
+			return $typeArr;
+		else if(isset($typeArr[$type]))
+			return $typeArr[$type];
+		else return '未知';
+
+	}
+
+	/**
 	 * 获取仓库列表
 	 * @param int $page 页码
 	 * @return array 分页数据和分页bar
@@ -79,5 +95,6 @@ class StoreModel{
 		return tool::getSuccInfo($res,$info);
 
 	}
+
 
 }

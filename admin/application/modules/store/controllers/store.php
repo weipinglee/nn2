@@ -20,7 +20,10 @@ class storeController extends Yaf\Controller_Abstract{
         $storeModel = new storeModel();
         $page = safe::filterGet('page','int');
         $pageData = $storeModel->getStoreList($page);
+
+        $storeType = $storeModel->getStoreType();
         $this->getView()->assign('store',$pageData['data']);
+        $this->getView()->assign('store_type',$storeType);
         $this->getView()->assign('bar',$pageData['bar']);
 
     }
@@ -58,7 +61,44 @@ class storeController extends Yaf\Controller_Abstract{
 
                 $this->getView()->assign('store',$storeInfo);
             }
+            $allType = $storeModel->getStoreType();
+            $this->getView()->assign('alltype',$allType);
         }
+    }
+
+    /**
+     * ÉèÖÃ²Ö¿â×´Ì¬
+     * @return bool
+     */
+    public function setStatusAction(){
+        if(IS_AJAX){
+            $data['status'] = intval(safe::filterPost('status'));
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new storeModel();
+
+            $res = $storeModel->storeAdd($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * É¾³ý²Ö¿â
+     */
+    public function logicDelAction(){
+        if(IS_AJAX){
+            $data['is_del'] = intval(safe::filterPost('status'));
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new storeModel();
+
+            $res = $storeModel->storeAdd($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
     }
 
 

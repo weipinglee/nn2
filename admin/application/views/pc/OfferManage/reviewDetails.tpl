@@ -16,10 +16,7 @@
      <div class="pd-20">
 	 	 <table class="table table-border table-bordered table-bg">
 	 		<tr>
-	 			<th>标的编号</th>
-	 			<td>HDBD08003-1</td>
-	 			<th>客户编号</th>
-	 			<td>HDBD08003-1</td>
+
 	 			<th>委托方</th>
 	 			<td>{$info['user']}</td>
 	 		</tr>

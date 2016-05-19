@@ -3,7 +3,7 @@
 <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <div id="content" class="white">
-            <h1><img src="{views:img/icons/dashboard.png}" alt="" />添加仓库
+<h1><img src="{views:img/icons/dashboard.png}" alt="" />添加仓库
 </h1>
                 
 <div class="bloc">
@@ -31,7 +31,7 @@
           <label class="form-label col-3"><span class="c-red">*</span>仓库地区：</label>
           <div class="formControls col-5">
               {if:isset($store)}
-                  {area:data=$store['area'] }
+                 {area:data=$store['area']}
                {else:}
                   {area:}
               {/if}
@@ -76,15 +76,16 @@
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>类型：</label>
       <div class="formControls col-5 skin-minimal">
+
+          {foreach:items=$alltype}
         <div class="radio-box">
-          <input type="radio"  name="type"  value="0" {if:!isset($store) || $store['type']==0}checked{/if}>
-          <label >正常仓库</label>
+          <input type="radio"  name="type"  value="{$key}" {if:$key==$store['type']}checked{/if}>
+          <label >{$item}</label>
 
         </div>
-        <div class="radio-box">
-            <input type="radio"  name="type"  value="1" {if:isset($store) && $store['type']==1}checked{/if}>
-            <label >监管仓库</label>
-        </div>
+          {/foreach}
+
+
       </div>
       <div class="col-4"> </div>
     </div>

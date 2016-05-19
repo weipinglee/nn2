@@ -164,9 +164,7 @@
 		 <div class="row cl">
 			 <label class="form-label col-3">说明：</label>
 			 <div class="formControls col-5">
-				 <textarea style="width:250px;height:100px;" name="info">
-
-				 </textarea>
+				 <textarea style="width:250px;height:100px;" name="info"></textarea>
 			 </div>
 			 <div class="col-4"> </div>
 		 </div>
