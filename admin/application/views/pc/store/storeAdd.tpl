@@ -76,14 +76,23 @@
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>类型：</label>
       <div class="formControls col-5 skin-minimal">
-
+        {if:isset($store)}
           {foreach:items=$alltype}
         <div class="radio-box">
-          <input type="radio"  name="type"  value="{$key}" {if:$key==$store['type']}checked{/if}>
+          <input type="radio"  name="type"  value="{$key}" {if:isset($store['type']) && $key==$store['type']}checked{/if}>
           <label >{$item}</label>
 
         </div>
           {/foreach}
+          {else:}
+            {foreach:items=$alltype}
+            <div class="radio-box">
+                <input type="radio"  name="type"  value="{$key}" {if: $key==0}checked{/if}>
+                <label >{$item}</label>
+
+            </div>
+            {/foreach}
+          {/if}
 
 
       </div>
