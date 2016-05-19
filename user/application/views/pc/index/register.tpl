@@ -58,7 +58,7 @@
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>手机号：</span>
-            <span><input class="text" type="text" name="mobile" datatype="mobile" nullmsg="请填写手机号" errormsg="手机号格式错误"/></span>
+            <span><input class="text" type="text" name="mobile" maxlength="11" datatype="mobile" nullmsg="请填写手机号" errormsg="手机号格式错误"/></span>
               <span></span>
           </div>
           <div class="cot">
