@@ -644,7 +644,7 @@ class Order{
 			switch ($contract_status) {
 				case self::CONTRACT_NOTFORM:
 					$title = '等待买方付款';
-					break;
+					break;	
 				case self::CONTRACT_SELLER_DEPOSIT:
 					$title = '支付保证金';
 					$href  = url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']);

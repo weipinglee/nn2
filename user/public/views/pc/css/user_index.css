@@ -1,27 +1,28 @@
 body,dl,ul,ol,dd,h3,p ,table,tr,td{
-	padding: 0px;
-	margin: 0px;
-	font-size: 12px;
-  color:#333;
+  padding: 0px;
+  margin: 0px;
+  font-size: 12px;
+  color:#777;border:0;
+  border-collapse:collapse;
 }
 ul,ol{
-	list-style-type: none;
+  list-style-type: none;
 }
 a{
- 	cursor: pointer;
- 	text-decoration: none;
-	color:#666;
+  cursor: pointer;
+  text-decoration: none;
+  color:#666;
 }
 img{border:0px;}
 .header{
   width: 100%;
-	height: 60px;
-	background: #D61515;
+  height: 60px;
+  background: #D61515;
   color: #fff;
 }
 .nav,.user_body .user_b{
   margin: 0 auto;
-	width: 1190px;
+  width: 1190px;
 }
 .nav{
   height: 60px;
@@ -29,18 +30,18 @@ img{border:0px;}
 .logo-box{
   float: left;
   padding-right: 18px;
-	height: 60px;
-	width: 200px;
-	line-height: 1.1;
-	position: relative;
-	text-align: center;
+  height: 60px;
+  width: 200px;
+  line-height: 1.1;
+  position: relative;
+  text-align: center;
 }
 .logo-box a img{
-  width:auto;	
+  width:auto; 
   height:55px;
 }
 .nav-list li:hover{
-	background: #930d13;
+  background: #930d13;
 }
 .nav-list li{
   float: left;
@@ -115,15 +116,18 @@ img{border:0px;}
   color: #E20E22!important;
 }
 .user_b .user_l .per_collection {
-padding: 6px 0 6px 25px;
+padding: 6px 0 6px 5px;
+text-align: center;
 border-top: 1px solid #d2d2d2;
 
 }
 .user_b .user_l .per_collection p.collection_padding{
-  height: 20px;
-  line-height: 20px;
+  padding: 5px 0px;
 }
-
+.per_font{
+  font-size: 15px;
+  color: #0ABA20;
+}
 
 .wrap_con .tit {
 padding: 5px 0;
@@ -154,7 +158,7 @@ text-indent: 1em;
     padding: 80px 0;
 }
 .user_c .check-approve p {
-	padding:10px 0;
+  padding:10px 0;
 }
 .user_c .check-approve p a {
 margin: 0 14px;
@@ -171,11 +175,11 @@ background: #027cff;
 /*暂不认证*/
 
 .user_nrz {
-	
-	margin-bottom:20px;
+  
+  margin-bottom:20px;
 }
 .user_nrz .nrz_tit{
-	text-align: left;
+  text-align: left;
     padding: 0 22px;
     height: 30px;
     line-height: 30px;
@@ -199,9 +203,7 @@ text-align: left;
 .user_nrz .nrz_dd table.hy_info td .font-size{
   font-size: 30px;
 }
-.user_nrz .nrz_dd table.hy_info td .icon_rz{
-  padding-top: 10px;
-}
+
 .user_nrz .nrz_dd table.hy_info td .icon_rz span{
   line-height: 30px;
   padding: 0px 3px;
@@ -210,10 +212,10 @@ text-align: left;
 
 /*首页中间css end*/
 .user_nrz .nrz_tit .gengduo{
-	float:right;
+  float:right;
 }
 .user_nrz .nrz_tit .gengduo:hover{
-	color:#3966c7;
+  color:#3966c7;
 }
 /*左侧导航栏*/
 .btn1{cursor: pointer;}
@@ -222,38 +224,38 @@ text-align: left;
 #zj_zh1{display: block;}
 /*控制二级菜单的展开样式*/
 .left_navigation{
-	border:1px solid #c0c0c0;
-	min-height:450px;
+  border:1px solid #c0c0c0;
+  min-height:450px;
 }
 .left_navigation ul li{
   line-height:40px;
   font-size: 16px;
 }
 .left_navigation ul li ul li{
-	line-height:40px;
-	border-bottom:1px solid #c0c0c0;
+  line-height:40px;
+  border-bottom:1px solid #c0c0c0;
   font-size: 14px;
   padding-left: 50px;
 
 }
 .left_navigation .zj_zh li{font-size: 12px;}
 .left_navigation ul li a.cur{
-	color:#D61515;
-	font-weight:600;
+  color:#D61515;
+  font-weight:600;
 }
 .left_navigation .let_nav_tit{
-	background:#D61515;
+  background:#D61515;
 }
 .left_navigation .let_nav_tit h3{
-	padding: 4px 40px;
+  padding: 4px 40px;
   color:#fff;
   font-size: 22px;
   border-bottom: 1px solid #c0c0c0;
 }
 /*中间内容*/
 .user_zhxi,.user_pay,.user_pay_tx,.user_xqbz{
-	
-	text-align: left;
+  
+  text-align: left;
 }
 .user_zhxi .zhxi_tit,.user_pay .zhxi_tit,.user_pay_tx .zhxi_tit,.user_xqbz .zhxi_tit{
     height: 35px;
@@ -262,27 +264,31 @@ text-align: left;
     margin: 0 5px;
 }
 .user_zhxi .zhxi_tit p a,.user_pay .zhxi_tit p a,.user_pay_tx .zhxi_tit p a,.user_xqbz .zhxi_tit p a{
-	padding: 0 10px;
+  padding: 0 10px;
     font-size: 18px;
 }
 .zhxi_tit p a:hover{
-	color:#102BEC;
+  color:#102BEC;
 }
 .zhxi_con{
-	padding:10px 0px;
-	line-height: 30px;
+  padding:10px 0px;
+  line-height: 30px;
 }
 .zhxi_con span i{
-	color:red;
-	padding:0 5px;
+  color:red;
+  padding:0 5px;
   font-style: normal;
 }
 .zhxi_con span.con_tit{
-	display: block;
+  display: block;
     width: 170px;
     text-align: right;
     float: left;
-	line-height:30px;
+  line-height:30px;
+}
+.zhxi_con span.zhxi_addre select{
+  width: 80px;
+  height: 30px;
 }
 div.zhxi_con.font_set{
   font-size: 14px;
@@ -292,14 +298,14 @@ div.zhxi_con.font_set span i.bold{
     font-size: 16px;
 }
 .zhxi_con .text{
-	height: 25px;
+  height: 25px;
   width: 240px;
 }
 .zhxi_con .text.potwt{
   width: 65px;
 }
 .zhxi_con .submit{
-	width: 100px;
+  width: 100px;
   height: 35px;
   background: #0088dd;
   border: 0px;
@@ -322,26 +328,26 @@ cursor: pointer;
 border: 1px solid;
 }
 .zhxi_con  .select{
-	height: 31px;
+  height: 31px;
     width: 205px;
 }
 .zhxi_upimg{
-	float:left;
-	margin:40px;
+  float:left;
+  margin:40px;
   position: relative;
 }
 .zhxi_upimg .up_img{
-	border:1px solid #c0c0c0;
-	width:180px;
-	height:180px;
+  border:1px solid #c0c0c0;
+  width:180px;
+  height:180px;
     margin: 10px auto;
 }
 #doc,.doc{
-	width: 180px;
+  width: 180px;
     border: 1px solid #ccc;
 }
 .tj{
-	margin: 0 0px 0 10px;
+  margin: 0 0px 0 10px;
     width: 46px !important;
 }
 
@@ -423,22 +429,22 @@ border: 1px solid;
     line-height: 40px;
     background: #D6D2D2;
     margin:10px 10px 20px 10px;
-	font-size:12px;
+  font-size:12px;
 }
 .zj_mx .mx_l{
-	float:left;
-	padding-left:5px;
+  float:left;
+  padding-left:5px;
 }
 .zj_mx .mx_r{
-	float:right;
-	padding-right:5px;
+  float:right;
+  padding-right:5px;
 }
 /*选择日期时间段*/
 .Wdate{
-	border:#999 1px solid;
-	height:20px;
-	width:100px;
-	background:#fff url("../images/icon/datePicker.gif") no-repeat right;
+  border:#999 1px solid;
+  height:20px;
+  width:100px;
+  background:#fff url("../images/icon/datePicker.gif") no-repeat right;
 }
 .Wdate::-ms-clear{display:none;}
 
@@ -531,7 +537,7 @@ visibility: hidden;
 }
 /*详情备注*/
 .user_xqbz .user_bz{
-	margin: 10px 100px;
+  margin: 10px 100px;
 }
 
 
@@ -650,7 +656,7 @@ visibility: hidden;
     padding: 10px 50px;
 }
 .center_tabl table tr td textarea{
-	margin-left: 10px;
+  margin-left: 10px;
     width: 95%;
     margin-top: 12px;
 }
@@ -676,20 +682,53 @@ visibility: hidden;
 }
 /*产品信息*/
 .chp_xx{
-	margin:10px;
+  margin:10px;
+}
+.chp_xx label{
+    display: block;
+    min-width: 100px;
+    height: 32px;
+    line-height: 32px;
+    text-align: right;
+    float: left;
+}
+.chp_xx .methed{
+    margin-top: 20px;
+}
+.chp_xx .methed li{
+    min-height: 60px;
+}
+.chp_xx .methed li div{
+    float: left;
+    line-height: 32px;
+}
+.chp_xx .methed li div .gyctht_input{
+  border: 1px solid #dfe5eb;
+  height: 32px;
+  color: #616a70;
+  margin: 0px 10px;
+  width: 120px;
+}
+.chp_xx .methed li div .bz{
+  border: 1px solid #dfe5eb;
+  width: 409px;
+  height: 83px;
+  padding: 10px;
+  font-size: 12px;
+  color: #616a70;
 }
 .chp_xx .xx_top{
-	background: rgb(255, 240, 240) none repeat scroll 0% 0%;
-	padding: 5px;
+  background: rgb(255, 240, 240) none repeat scroll 0% 0%;
+  padding: 5px;
 }
 .xx_top ul li{
-	float: left;
-	height: 25px;
-	line-height: 25px;
-	padding-right: 5px;
+  float: left;
+  height: 25px;
+  line-height: 25px;
+  padding-right: 5px;
 }
 .xx_top ul li .chaz{
-	height: 20px;
+  height: 20px;
 line-height: 20px;
 padding: 4px 10px;
 background: #A0A0A0;
@@ -697,12 +736,12 @@ margin: 0 10px;
 color: #fff;
 }
 /*.chp_xx .xx_center tr{
-	height:35px;
-	line-height:35px;
+  height:35px;
+  line-height:35px;
 }*/
 .chp_xx .xx_center table{
-	border-collapse: collapse;
-	text-align:center;
+  border-collapse: collapse;
+  text-align:center;
 }
 .chp_xx .xx_center tr:first-child{
     font-weight: bold;
@@ -711,10 +750,18 @@ color: #fff;
     color: #666;
 }
 .chp_xx .xx_center tr{
-	 border-bottom: 1px solid #CCC;
+   border-bottom: 1px solid #CCC;
 }
 .chp_xx .xx_center tr td{
   padding: 8px 0px;
+}
+.chp_xx .xx_center tr td .thjs_input{
+  border: 1px solid #dfe5eb;
+  width: 52px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #616a70;
 }
 .xx_center td .ck:hover{
   color: #CD0C0C;
@@ -750,19 +797,19 @@ color: #fff;
 .tab_bt .t_bt .a_2:hover{background-position:-10px -44px;}
 .tab_bt .t_bt .a_3:hover{background-position:-10px -78px;}
 .add_fl{
-	display:none;
+  display:none;
 }
 .add_fl .submit{
-	margin: 0 20px 0 180px;
+  margin: 0 20px 0 180px;
     width: 100px;
 }
 .add_fl .reset{
-	margin: 0px;
+  margin: 0px;
     background-color: #C5C4C4;
 }
 /*分页*/
 .page_num{
-	text-align: center;
+  text-align: center;
 }
 .page_num a:link, .page_num a:visited, .page_num a:active {
 padding: 2px 6px;
@@ -777,7 +824,7 @@ background: #fff;
 color: #333;
 }
 .marg{
-	margin: 40px 0 20px 0px;
+  margin: 40px 0 20px 0px;
 }
 /*关注商品*/
 
@@ -790,58 +837,58 @@ margin:5px;
 }
 .gz_sp ul li:hover{
 
-	background:#DBDADA none repeat scroll 0% 0%
+  background:#DBDADA none repeat scroll 0% 0%
 }
 .gz_sp ul li .img_l img{
-	width: 110px;
-	min-height: 110px;
+  width: 110px;
+  min-height: 110px;
 }
 .img_l,.tit_r{
-	float:left;	
+  float:left; 
 }
 .img_l{
-	width:35%;
+  width:35%;
 }
 .tit_r{
-	width:65%
+  width:65%
 }
 .tit_r p{
-	height: 25px;
+  height: 25px;
 line-height: 25px;
 }
 .sp_an{
-	margin-top:10px;
+  margin-top:10px;
 }
 .sp_an a.jr{
-	background:#F6680E none repeat scroll 0% 0%;
+  background:#F6680E none repeat scroll 0% 0%;
     color: rgb(255, 255, 255);
     padding: 5px 10px;
     margin: 0px 10px 0px 0px;
 
 }
 .sp_an a.jr:hover{
-	background: rgb(246, 14, 14) none repeat scroll 0% 0%;
+  background: rgb(246, 14, 14) none repeat scroll 0% 0%;
 }
 .sp_an a.de:hover{
-	color:#F60808;
+  color:#F60808;
 }
 
 /*资质认证*/
 .zhxi_con .zh_img img{
-	width:200px;
-	height:200px;
-	padding:0 10px;
+  width:200px;
+  height:200px;
+  padding:0 10px;
 }
 .tit_img{
-	line-height:200px !important;
+  line-height:200px !important;
 }
 .zhs_img img{
-	width: 100px;
-	height: 100px;
-	padding:0 10px;
+  width: 100px;
+  height: 100px;
+  padding:0 10px;
 }
 .zhs_tit{
-	line-height:100px !important;
+  line-height:100px !important;
 }
 /*订单详情*/
 .de_ce{
@@ -864,6 +911,7 @@ line-height: 25px;
 .sjxx{
   margin:10px 0px;
   border: 1px solid #ccc;
+  width: 100%;
 }
 .sjxx p{
   line-height: 30px;
@@ -884,7 +932,44 @@ line-height: 25px;
   float: left;
   text-align: center;
 }
-
+/*提货*/
+.sjxx .sj_detal td,.sjxx .sj_detal th{
+  text-align: center;
+  border:1px solid #ccc;
+  border-spacing: 0;
+}
+.sjxx .sj_detal .sj_ti_tit{
+  height: 34px;
+  line-height: 34px; 
+  background: #F2F2F2;
+}
+#ermblock .ermblock_main{
+  border: #D61515 3px solid;
+  background: #fff;
+  height: 100%;
+}
+#ermblock .ermblock_main p{
+  border-bottom: 1px solid #D61515;
+}
+#ermblock .ermblock_main h2{
+  background: #D61515;padding:5px 15px;width:160px;text-align: center;color: #fff;
+  margin-left: 20px;border-bottom: 1px solid #D61515;
+}
+#ermblock .ermblock_main .table_form{
+  margin-top: 20px;
+  width:98%;
+  line-height: 30px;
+  font-size: 13px;
+}
+#ermblock .ermblock_main .table_form .tr{
+  text-align: right;
+}
+#ermblock .ermblock_main .table_form .fb{
+  font-weight: bold;
+}
+#ermblock .ermblock_main .zhxi_con{
+  margin-left:100px;
+}
 /*.user_r.posio{
     float: right;
     position: relative;
@@ -1459,6 +1544,13 @@ border: 1px solid #c0c0c0;
 }
 .xx_center table.sales_table tr .middle_img{
   vertical-align: middle;
+}
+.xx_center .title td{
+  font-size: 16px;
+}
+.xx_center .title_head th{
+  font-size: 16px;
+  line-height: 30px;
 }
 .div_height{
   padding: 5px 10px;

@@ -29,6 +29,10 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
             array('name' => '合同管理', 'list' => array(
                 array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ),
                 array('url' => url::createUrl('/Contract/buyerList'), 'title' => '购买合同' ),
+            )),
+            array('name' => '提货管理', 'list' => array(
+                array('url' => url::createUrl('/Delivery/buyerDeliveryList'), 'title' => '购买提单列表' ),
+                array('url' => url::createUrl('/Delivery/sellerDeliveryList'), 'title' => '销售提单列表' ),
             ))
         );
     }
@@ -93,4 +97,5 @@ class ContractController extends \nainai\Abstruct\UcenterControllerAbstract{
 		$info = $order->buyerDetail($id);
 		$this->getView()->assign('info',$info);
 	}
+
 }
