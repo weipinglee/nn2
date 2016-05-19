@@ -159,7 +159,7 @@ class UserModel{
 			if($this->existUser(array('mobile'=>$userData['mobile'])))
 				return $this->getSuccInfo(0,'手机号码已注册');
 			unset($user->repassword);
-			unset($user->serial_no);
+
 			$user->password = $userData['password'] = sha1($userData['password']);
 			$user->beginTrans();
 			$user_id = $user->add();
@@ -256,8 +256,11 @@ class UserModel{
 	 * @param $data
 	 */
 	public function updateUserInfo($data){
-		if($this->existUser(array('username'=>$data['username']))){
+		if($this->existUser(array('username'=>$data['username'],'id'=>array('neq'=>$data['id'])))){
 			return \Library\tool::getSuccInfo(0,'用户名已存在');
+		}
+		if($this->existUser(array('email'=>$data['email'],'id'=>array('neq'=>$data['id'])))){
+			return \Library\tool::getSuccInfo(0,'邮箱已存在');
 		}
 		if(!is_object(self::$userObj)){
 			self::$userObj = new M('user');
@@ -265,6 +268,11 @@ class UserModel{
 		$id = $data['id'];
 		unset($data['id']);
 		$res = self::$userObj->where(array('id'=>$id))->data($data)->update();
+		if($res!==false){
+			return \Library\tool::getSuccInfo();
+		}
+		else
+			return \Library\tool::getSuccInfo(0,'系统繁忙，稍后再试');
 
 
 

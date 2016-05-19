@@ -48,7 +48,7 @@
                     <a rel="external nofollow" href="register.html" target="_blank">免费注册</a>
                 </div>
                 {else:}
-                    <a rel="external nofollow" href="{url:/index/login}" target="_blank" class="topnav_login">您好，{$username}</a>
+                    您好，{$username}
                     <a rel="external nofollow" href="{url:/index/logout}" >退出</a>
                 {/if}
             </div>

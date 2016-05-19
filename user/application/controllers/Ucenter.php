@@ -66,8 +66,8 @@ class UcenterController extends UcenterBaseController {
         $data['email'] = safe::filterPost('email');
 
         $userModel = new userModel();
-        $userModel->updateUserInfo($data);
-        $this->redirect('baseInfo');
+        $res = $userModel->updateUserInfo($data);
+       die(json::encode($res));
     }
     /**
      * 基本信息修改
