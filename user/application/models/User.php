@@ -30,7 +30,7 @@ class UserModel{
 		array('mobile','mobile','手机号码错误',0,'regex'),
 		array('email','email','邮箱格式错误',2,'regex'),
 		array('agent','number','代理商选择错误'),
-		array('agent_pass','/^[a-zA-Z0-9]{6,30}$/','填写代理商密码')
+		//array('agent_pass','/^[a-zA-Z0-9]{6,30}$/','填写代理商密码')
 	);
 
 	protected $personRules = array(
@@ -77,8 +77,31 @@ class UserModel{
 	public function __construct(){
 		self::$userObj = new M('user');
 	}
+
+	/**
+	 * 验证代理商密码是否正确
+	 * @param $agentId
+	 * @param $agentNo
+	 */
+	protected function checkAgentPass($agentId,$agentNo){
+		if($agentId==0){//如果是市场，不需有密码
+			return true;
+		}
+		else{
+			$agent = new M('agent');
+			$no = $agent->where(array('id'=>$agentId))->getField('serial_no');
+			if($no==$agentNo){
+				return true;
+			}
+			else return false;
+		}
+	}
 	//个人用户注册
 	public function userInsert(&$data){
+
+		if(false===$this->checkAgentPass($data['agent'],$data['serial_no']))
+			return $this->getSuccInfo(0,'代理商密码错误');
+
 		$user = self::$userObj;
 		if($user->data($data)->validate($this->userRules)){
 			if($this->existUser(array('username'=>$data['username'])))
@@ -87,6 +110,7 @@ class UserModel{
 			if($this->existUser(array('mobile'=>$data['mobile'])))
 				return $this->getSuccInfo(0,'手机号码已注册');
 			unset($user->repassword);
+			unset($user->serial_no);
 			$user->password = $data['password'] = sha1($data['password']);
 			$user->beginTrans();
 			$uID = $user->add();
@@ -126,6 +150,8 @@ class UserModel{
 	 */
 	public function companyReg(&$userData,$companyData){
 
+		if(false===$this->checkAgentPass($userData['agent'],$userData['serial_no']))
+			return $this->getSuccInfo(0,'代理商密码错误');
 		$user = self::$userObj;
 		if($user->data($userData)->validate($this->userRules) && $user->validate($this->companyRules,$companyData)){
 			if($this->existUser(array('username'=>$userData['username'])))
@@ -133,6 +159,7 @@ class UserModel{
 			if($this->existUser(array('mobile'=>$userData['mobile'])))
 				return $this->getSuccInfo(0,'手机号码已注册');
 			unset($user->repassword);
+			unset($user->serial_no);
 			$user->password = $userData['password'] = sha1($userData['password']);
 			$user->beginTrans();
 			$user_id = $user->add();

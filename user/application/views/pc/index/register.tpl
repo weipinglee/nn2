@@ -53,7 +53,7 @@
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>确认密码：</span>
-            <span><input class="text" type="password" name="repassword" datatype="/^[\S]{6,15}$/" recheck="password" nullmsg="请重复填写密码" errormsg="两次密码输入不一致" /></span>
+            <span><input class="text" type="password" name="repassword" datatype="*" recheck="password" nullmsg="请重复填写密码" errormsg="两次密码输入不一致" /></span>
               <span></span>
           </div>
           <div class="cot">
@@ -66,7 +66,22 @@
             <span><input class="text" type="text" name="email" ignore="ignore" datatype="e" errormsg="邮箱格式错误"/></span>
               <span></span>
           </div>
-
+            <div class="cot">
+                <span class="cot_tit"><i></i>选择代理商：</span>
+            <span> <select class="select sel_d" name="agent"  >
+                    <option value="0">市场</option>
+                    {foreach:items=$agent}
+                        <option value="{$item['id']}">{$item['company_name']}</option>
+                    {/foreach}
+                </select>
+            </span>
+                <span></span>
+            </div>
+            <div class="cot">
+                <span class="cot_tit"><i></i>代理商密码：</span>
+                <span><input class="text" type="text" name="agent_pass"/></span>
+                <span></span>
+            </div>
            <div class="cot">
             <span class="zc"><input class="but" type="submit"value="完成注册"/></span>
           </div>
@@ -89,7 +104,7 @@
 		  </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>确认密码：</span>
-            <span><input class="text" type="password" name="repassword" datatype="/^\S{6,15}$/" errormsg="两次密码输入不一致" recheck="password" /></span>
+            <span><input class="text" type="password" name="repassword" datatype="*" errormsg="两次密码输入不一致" recheck="password" /></span>
 			<span></span>
           </div>
           <div class="cot">
@@ -110,8 +125,8 @@
           <div class="cot">
             <span class="cot_tit"><i>*</i>公司地址：</span>
             <div >
-              {area:  inputName=area pattern=area }
-
+              <span>{area:  inputName=area pattern=area }</span>
+                <span></span>
             </div>
           </div>
 
@@ -130,9 +145,11 @@
           <div class="cot">
             <span class="cot_tit"><i>*</i>企业类型：</span>
             <span> 
-              <select class="select sel_d" name="category" pattern="/^[1-9]\d{0,}$/" alt="选择企业类型">
+              <select class="select sel_d" name="category" datatype="/[1-9]\d{0,}/" errormsg="请选择企业类型">
               <option value="0">请选择...</option>
-              <option value="1">建筑</option>
+                  {foreach:items=$comtype}
+                      <option value="{$item['id']}">{$item['name']}</option>
+                  {/foreach}
              </select>
            </span>
 		   <span></span>
@@ -140,10 +157,11 @@
           <div class="cot">
             <span class="cot_tit"><i>*</i>企业性质：</span>
             <span> 
-              <select class="select sel_d" name="nature" pattern="/^[1-9]\d{0,}$/" alt="选择企业性质">
-              <option value="0">请选择...</option>
-              <option value="1">国有企业</option>
-               <option value="2">私企</option>
+              <select class="select sel_d" name="nature" datatype="/^[1-9]\d{0,}$/" errormsg="选择企业性质">
+                  <option value="0">请选择...</option>
+                  {foreach:items=$comNature}
+                    <option value="{$key}">{$item}</option>
+                  {/foreach}
              </select>
            </span>
 		   <span></span>
@@ -161,22 +179,27 @@
           <div class="cot">
             <span class="cot_tit"><i>*</i>职务：</span>
             <span>
-              <input name="contact_duty" type="radio" value="1" checked/>
-              <span class="tit_zw">负责人</span>
-              <input name="contact_duty" type="radio" value="2" />
-              <span class="tit_zw">高级管理</span>
-              <input name="contact_duty" type="radio" value="3" />
-              <span class="tit_zw">员工 </span>
+                {foreach:items=$duty}
+                    <input name="contact_duty" type="radio" value="{$key}" {if:$key==1} checked{/if}/>
+                    <span class="tit_zw">{$item}</span>
+                {/foreach}
+
             </span>
 			<span></span>
           </div>
           <div class="cot">
-            <span class="cot_tit"><i>*</i>选择代理商：</span>
-            <span><input class="text" type="text" name="agent"/></span>
+            <span class="cot_tit"><i></i>选择代理商：</span>
+            <span> <select class="select sel_d" name="agent" >
+                    <option value="0">市场</option>
+                    {foreach:items=$agent}
+                        <option value="{$item['id']}">{$item['company_name']}</option>
+                    {/foreach}
+                </select>
+            </span>
 			<span></span>
           </div>
           <div class="cot">
-            <span class="cot_tit"><i>*</i>代理商密码：</span>
+            <span class="cot_tit"><i></i>代理商密码：</span>
             <span><input class="text" type="text" name="agent_pass"/></span>
 			<span></span>
           </div>
@@ -191,5 +214,21 @@
   </div>
   <div style=" clear:both"></div>
 </div>
+<script type="text/javascript">
+
+    $(function(){
+        var validObj = formacc;
+
+        //为地址选择框添加验证规则
+        var rules = [{
+            ele:"input[name=area]",
+            datatype:"n4-6",
+            nullmsg:"请选择地址！",
+            errormsg:"请选择地址！"
+        }];
+        validObj.addRule(rules);
+
+    })
+</script>
 </body>
 </html>
