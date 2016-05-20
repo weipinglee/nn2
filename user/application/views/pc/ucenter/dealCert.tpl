@@ -29,21 +29,21 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>公司名：</span>
 								<span>
-									<input class="text" type="text" name="company_name" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['company_name']}"/>
+									<input class="text" type="text" name="company_name" datatype="s2-20" errormsg="请输入2-20位中文或字母数字下划线点" value="{$certData['company_name']}"/>
 								</span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>法定代表人：</span>
 							<span>
-								<input class="text" type="text" name="legal_person" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['legal_person']}"/>
+								<input class="text" type="text" name="legal_person" datatype="zh2-20" errormsg="请输入2-20个中文字符" value="{$certData['legal_person']}"/>
 							</span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>联系人：</span>
 							<span>
-								<input class="text" type="text" name="contact" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['contact']}"/>
+								<input class="text" type="text" name="contact" datatype="zh2-20" errormsg="请输入2-20个中文字符" value="{$certData['contact']}"/>
 							</span>
 								<span></span>
 							</div>
@@ -51,7 +51,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>联系电话：</span>
 							<span>
-								<input class="text" type="text" name="phone" datatype="n6-16" value="{$certData['contact_phone']}"/>
+								<input class="text" type="text" name="phone" datatype="mobile" value="{$certData['contact_phone']}"/>
 							</span>
 								<span></span>
 							</div>
@@ -65,29 +65,25 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>详细地址：</span>
 							<span>
-								<input class="text" type="text" name="address" value="{$certData['address']}"/>
+								<input class="text" type="text" name="address" datatype="*2-100" errormsg="请至少填写2位字符" value="{$certData['address']}"/>
 							</span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>主营品种：</span>
 							<span>
-								<input class="text" type="text" />
+								<input class="text" type="text" datatype="*1-100" name="zhuying" value="{$certData['business']}" errormsg="请填写主营品种" />
 							</span>
 								<span></span>
 							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i></i>公司介绍：</span>
-								<span><textarea style="width:300px"></textarea></span>
-								<span></span>
-							</div>
+
 
 
 						{else:}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>真实姓名：</span>
 								<span>
-									<input class="text" type="text" name="name" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['true_name']}"/>
+									<input class="text" type="text" name="name" datatype="zh2-20" errormsg="请填写姓名" value="{$certData['true_name']}"/>
 								</span>
 								<span></span>
 							</div>
@@ -96,7 +92,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>身份证号：</span>
 							<span>
-								<input class="text" type="text" name="no" datatype="*" errormsg="请正确填写身份证号" value="{$certData['identify_no']}"/>
+								<input class="text" type="text" name="no" datatype="identify" errormsg="请正确填写身份证号" value="{$certData['identify_no']}"/>
 							</span>
 								<span></span>
 							</div>
@@ -110,16 +106,11 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>详细地址：</span>
 							<span>
-								<input class="text" type="text" name="address" datatype="s2-100" errormsg="请正确填写地址" value="{$certData['address']}"/>
+								<input class="text" type="text" name="address" datatype="*2-100" errormsg="请正确填写地址" value="{$certData['address']}"/>
 							</span>
 								<span></span>
 							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>主营品种：</span>
-							<span>
-								<input class="text" type="text" />
-							</span>
-							</div>
+
 
 						{/if}
 						<div class="zhxi_con">

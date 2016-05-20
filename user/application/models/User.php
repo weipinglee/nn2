@@ -47,9 +47,9 @@ class UserModel{
 	);
 
 	protected $companyRules = array(
-		array('company_name','zh{2,9}','公司名称必填'),
+		array('company_name','s{2,9}','公司名称必填'),
 		array('area','number','地区错误'),
-		array('legal_person','require','法人填写错误'),
+		array('legal_person','zh{2,30}','法人填写错误'),
 		array('reg_fund','double','注册资金格式错误'),
 		array('category','number','企业分类错误'),
 		array('nature','number','企业类型错误'),
@@ -65,6 +65,7 @@ class UserModel{
 		array('cert_bl','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 		array('cert_oc','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 		array('cert_tax','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
+		array('business','/.{1,100}/','请填写主营品种'),
 
 
 	);

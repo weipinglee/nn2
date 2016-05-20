@@ -119,7 +119,7 @@
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>公司名称：</span>
-            <span><input class="text" type="text" name="company_name"  datatype="s2-50" errormsg="请填写公司名称" /></span>
+            <span><input class="text" type="text" name="company_name"  datatype="s2-20" errormsg="请填写公司名称" /></span>
 			<span></span>
           </div>
           <div class="cot">

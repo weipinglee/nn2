@@ -29,7 +29,7 @@ $(function(){
     //为地址选择框添加验证规则
     var rules = [{
         ele:"input[name=area]",
-        datatype:"n4-6",
+        datatype:"n6-6",
         nullmsg:"请选择地址！",
         errormsg:"请选择地址！"
     }];
