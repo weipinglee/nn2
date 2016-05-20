@@ -9,15 +9,17 @@ use \Library\Tool;
 /**
  * 代理商的数据处理
  */
-class agentModel{
+class agentModel extends \baseModel{
 
+
+    protected $table = 'agent';
      /**
      * 添加代理商验证规程
      * @var array
      */
-    protected $agentRules = array(
-        array('username','require','必须填写代理商用户名'),
-        array('mobile','require','必须填写代理商联系方式'),
+    protected $rules = array(
+        array('username','/.{2,16}/','必须填写代理商用户名'),
+        array('mobile','mobile','必须填写代理商联系方式'),
         array('company_name','require','必须填写代理商公司名称'),
         array('contact','require','必须填写代理人联系人名称'),
         array('contact_phone','require','必须填写代理人联系人联系方式'),
@@ -56,25 +58,6 @@ class agentModel{
     	return array('list' => $guideList, 'pageHtml' => $query->getPageBar());
     }
 
-   /**
-     * 添加代理商处理
-     * @param [Array] $guideData [需要添加代理商的数据]
-     */
-    public function addAgent( & $agentData ){
-    	$res = null;
-    	if ($this->_agentModel->validate($this->agentRules, $agentData)) {
-    		$res = $this->_agentModel->data($agentData)->add(0);
-    	}else{
-    		$res = $this->_agentModel->getError();
-    	}
-
-    	if(intval($res) > 0){
-          	return Tool::getSuccInfo();
-         }
-        else{
-            	return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
-         }
-    }
 
        /**
      * 获取代理商详情数据
@@ -88,52 +71,6 @@ class agentModel{
     	return array();
     }
 
-       /**
-     * 修改代理商数据
-     * @param  [Array] &$guideData [修改的导航栏数据]
-     * @param  [Int] $id         [Id]
-     * @return [Boolean]   
-     */
-    public function updateAgent(&$agentData, $id){
-    	if (intval($id) > 0) {
-            if($this->_agentModel->validate($this->agentRules, $agentData)){
-                $this->_agentModel->beginTrans();
 
-                $num = $this->_agentModel->data($agentData)->where(array('id'=>$id))->update();
-                if($num!=0){
-                    //写日志
-
-                }
-                $res = $this->_agentModel->commit();
-
-            }
-            else{
-                $res = $this->_agentModel->getError();
-            }
-
-            if($res===true){
-                return Tool::getSuccInfo();
-            }
-            else{
-                return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
-            }
-
-
-
-    	}
-    	return  Tool::getSuccInfo(0, '参数错误');
-    }
-
-   /**
-     * 删除代理商数据
-     * @param  [Int] $id [id]
-     * @return [Boolean] 
-     */
-    public function deleteAgent($id){
-    	if (intval($id) > 0) {
-    		return (bool)$this->_agentModel->where('id=:id')->bind(array('id'=>$id))->delete(0);
-    	}
-    	return false;
-    }
 
 }

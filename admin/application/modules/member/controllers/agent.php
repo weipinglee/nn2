@@ -49,6 +49,7 @@ class AgentController extends InitController{
 	public function addAgentAction(){
 		if (IS_POST) {
 			$agentData = array(
+				'id' => Safe::filterPost('id', 'int', 0),
 				'username' => Safe::filterPost('username'),
 				'mobile' => Safe::filterPost('mobile'),
 				'email' => Safe::filterPost('email'),
@@ -62,41 +63,10 @@ class AgentController extends InitController{
 			);
 
 			$agentModel = new agentModel();
-			$returnData = $agentModel->addAgent($agentData);
+			$returnData = $agentModel->update($agentData);
 
-			if($returnData['success']==1){
-		                $this->redirect('agentList');
-		          }else{
-		                echo $returnData['info'];
-		          }
-			exit();
-		}
-	}
-
-	/**
-	 * 修改代理商
-	 */
-	public function updateAgentAction(){
-		if (IS_POST) {
-			$id = Safe::filterPost('id', 'int', 0);
-			$agentData = array(
-				'username' => Safe::filterPost('username'),
-				'mobile' => Safe::filterPost('mobile'),
-				'email' => Safe::filterPost('email'),
-				'company_name' => Safe::filterPost('company'),
-				'area' => Safe::filterPost('area'),
-				'contact' => Safe::filterPost('contactName'),
-				'contact_phone' => Safe::filterPost('contacttel'),
-				'address' => Safe::filterPost('contactAddress'),
-				'status' => Safe::filterPost('status', 'int')
-			);
-
-			$guideModel = new agentModel();
-			$returnData = $guideModel->updateAgent($agentData, $id);
-
-			echo JSON::encode($returnData);
-			exit();
-		}else{	
+			die(json::encode($returnData));
+		}else{
 			$id = $this->getRequest()->getParam('id');
 			$id = Safe::filter($id, 'int', 0);
 
@@ -109,6 +79,8 @@ class AgentController extends InitController{
 
 	}
 
+
+
 	/**
 	 * 删除代理商
 	 */
@@ -116,19 +88,11 @@ class AgentController extends InitController{
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);
 
-		if (intval($id) > 0) {
-			$agentModel = new agentModel();
-			$returnData = $agentModel->deleteAgent($id);
+		$agentModel = new agentModel();
+		$returnData = $agentModel->delete($id);
 
-			if($returnData === true){
-				echo JSON::encode(Tool::getSuccInfo(1, '删除成功!'));
-		          }else{
-		                	echo JSON::encode(Tool::getSuccInfo(0, '删除失败!'));
-		          }
-		}else{
-			echo JSON::encode(Tool::getSuccInfo(0, '删除失败!'));
-		};
-		exit();
+		die(json::encode($returnData));
+
 	}
 
 	/**
@@ -136,26 +100,19 @@ class AgentController extends InitController{
 	 */
 	public function ajaxUpdateAgentStatusAction(){
 		$id = $this->getRequest()->getParam('id');
-		$status = $this->getRequest()->getParam('status');
+		$status = safe::filterPost('status','int',0);
 		$id = Safe::filter($id, 'int', 0);
-		$status = Safe::filter($status, 'int', 0);
 
-		if (intval($id) > 0) {
-			$agentData = array(
-				'status' => ($status+1)%2
-			);
 
-			$agentModel = new agentModel();
-			$returnData = $agentModel->updateAgent($agentData, $id);
+		$agentData = array(
+			'status' => $status,
+			'id'     => $id
+		);
 
-			if($returnData === true){
-				echo JSON::encode(Tool::getSuccInfo(1, '更新成功!'));
-		          }else{
-		                	echo JSON::encode(Tool::getSuccInfo(0, '更新失败!'));
-		          }
-		}else{
-			echo JSON::encode(Tool::getSuccInfo(0, '更新失败!'));
-		}
-		exit();
+		$agentModel = new agentModel();
+		$returnData = $agentModel->update($agentData);
+
+		die(json::encode($returnData));
+
 	}
 }

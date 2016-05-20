@@ -12,7 +12,7 @@ class baseModel{
 
 	protected $pk  = 'id';
 	protected $table = '';
-	protected $rules = array();
+	protected $rules = '';
 	/**
 	 *
 	 * @param string $table
