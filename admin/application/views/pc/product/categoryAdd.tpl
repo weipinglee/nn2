@@ -8,7 +8,7 @@
      类型基本信息
     </div>
  <div class="pd-20">
-  <form action="{url:trade/product/categoryAdd}" method="post" class="form form-horizontal" id="form-user-add"  >
+  <form action="{url:trade/product/categoryAdd}" method="post" class="form form-horizontal" id="form-user-add"  auto_submit redirect_url="{url:trade/product/categoryList}">
       <input type="hidden" name="id" value="{if:isset($cate)}{$cate['id']}{/if}" />
     <div class="row cl">
       <label class="form-label col-2"><span class="c-red">*</span>分类名称：</label>

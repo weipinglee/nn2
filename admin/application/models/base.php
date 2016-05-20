@@ -37,7 +37,8 @@ class baseModel{
 		if(!isset($methodArr[1])){
 			$methodArr[1] = '';
 		}
-		$model = new M($this->getTable(strtolower($methodArr[1])));
+		$tableName = $this->getTable(strtolower($methodArr[1]));
+		$model = new M($tableName);
 		$rules = $this->getRules(strtolower($methodArr[1]));
 		$args = $args[0];
 		switch ($methodArr[0]) {
@@ -51,13 +52,14 @@ class baseModel{
 			break;
 			case 'update':
 				if($model->validate($rules,$args)){
-					if(isset($args[$this->pk])){//存在主键则更新
+					if(isset($args[$this->pk]) && $args[$this->pk]>0){//存在主键且大于0则更新
 						$id = $args[$this->pk];
 						unset($args[$this->pk]);
 						$res = $model->data($args)->where($this->pk . '=:id')->bind(array('id'=>$id))->update() ;
+
 					}
 					else{
-						$res = $model->data($args)->add();
+						$res = $model->data($args)->add() ? 1:0;
 					}
 				}else{
 					$res = $model->getError();
@@ -87,10 +89,10 @@ class baseModel{
 
 		//插入更新删除返回提示
 		if(is_int($res)){
-				return Tool::getSuccInfo();
+				return tool::getSuccInfo();
 		}
 		else{
-			return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+			return tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
 		}
 
 	}

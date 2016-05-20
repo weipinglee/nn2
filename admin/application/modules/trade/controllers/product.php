@@ -101,11 +101,8 @@ class productController extends InitController{
             $attr['type']  = safe::filterPost('type','int',1);
             $attr['sort']  = safe::filterPost('sort','int',0);
             $attr['note']  = safe::filterPost('note');
-            $res = $productModel->attrAdd($attr);
-            if($res['success']==1)
-                 $this->redirect('attributeList');
-            else
-                echo $res['info'];
+            $res = $productModel->updateAttr($attr);
+            die(json::encode($res));
         }
         else{
             $attr_id  = $this->getRequest()->getParam('aid',0);
@@ -127,7 +124,8 @@ class productController extends InitController{
         $attrs    = $productModel->getAttr($page);//获取所有属性
 
 
-        $this->getView()->assign('attr',$attrs);
+        $this->getView()->assign('attr',$attrs[0]);
+        $this->getView()->assign('bar',$attrs[1]);
     }
 
     /**
@@ -151,7 +149,7 @@ class productController extends InitController{
      */
     public function setStatusAttrAction(){
         if(IS_AJAX){
-            $data['is_del'] = intval(safe::filterPost('status'));
+            $data['status'] = intval(safe::filterPost('status'));
             $data['id'] = intval($this->_request->getParam('id'));
             $storeModel = new productModel();
 

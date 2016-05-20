@@ -61,6 +61,17 @@ class productModel extends baseModel{
 		return array();
 	}
 
+	/**
+	 * 属性类型
+	 */
+	public function getAttrType($type){
+		switch($type){
+			case 1 : return '输入框';
+			case 2 : return '单选';
+			case 3 : return '多选';
+			default : return '输入框';
+		}
+	}
 
 
 	/**
@@ -105,30 +116,7 @@ class productModel extends baseModel{
 		return $tree;
 	}
 
-	/**
-	 * 属性添加
-	 * @param array $data 添加的数据
-	 */
-	public function attrAdd($data){
-		$m = new M('product_attribute');
-		if($m->data($data)->validate($this->attrRules)){
-			if($data['id']){
-				$id = $data['id'];
-				unset($m->id);
-				$res = $m->where(array('id'=>$id))->update() ? 1 : 0;
-			}else{
-				$res = $m->add() ? 1 : 0;
-			}
 
-			$info = '';
-		}
-		else{
-			$res = 0;
-			$info = $m->getError();
-			$info = $info=='' ? '系统繁忙' : $info;
-		}
-		return tool::getSuccInfo($res,$info);
-	}
 
 	/**
 	 * 获取一条属性信息
@@ -152,8 +140,11 @@ class productModel extends baseModel{
 		$res = array();
 		foreach($attr as $k=>$v){
 			$res[$attr[$k]['id']] = $v;
+			$res[$attr[$k]['id']]['type'] = $this->getAttrType($v['type']);
 		}
-		return $res;
+		$pageBar =  $m->getPageBar();
+
+		return array($res,$pageBar);
 	}
 
 
