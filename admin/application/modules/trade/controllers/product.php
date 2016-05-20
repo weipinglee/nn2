@@ -9,13 +9,7 @@ use \nainai\certificate;
 use \Library\Thumb;
 use \nainai\subRight;
 use \Library\json;
-class productController extends Yaf\Controller_Abstract{
-
-    public function init(){
-        $this->getView()->setLayout('admin');
-
-    }
-
+class productController extends InitController{
 
 
     /**
@@ -134,6 +128,73 @@ class productController extends Yaf\Controller_Abstract{
 
 
         $this->getView()->assign('attr',$attrs);
+    }
+
+    /**
+     * 设置分类开关
+     */
+    public function setStatusCateAction(){
+        if(IS_AJAX){
+            $data['status'] = intval(safe::filterPost('status'));
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new productModel();
+
+            $res = $storeModel->updateCate($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
+    }
+    /**
+     * 设置属性开关
+     */
+    public function setStatusAttrAction(){
+        if(IS_AJAX){
+            $data['is_del'] = intval(safe::filterPost('status'));
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new productModel();
+
+            $res = $storeModel->updateAttr($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * 分类删除
+     */
+    public function logicDelCateAction(){
+        if(IS_AJAX){
+            $data['is_del'] = 1;
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new productModel();
+
+            $res = $storeModel->updateCate($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * 分类删除
+     */
+    public function logicDelAttrAction(){
+        if(IS_AJAX){
+            $data['is_del'] = 1;
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new productModel();
+
+            $res = $storeModel->updateAttr($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
     }
 
 

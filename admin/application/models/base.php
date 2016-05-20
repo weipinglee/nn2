@@ -86,8 +86,8 @@ class baseModel{
 		}
 
 		//插入更新删除返回提示
-		if(is_int($res) && $res>0){
-			return Tool::getSuccInfo();
+		if(is_int($res)){
+				return Tool::getSuccInfo();
 		}
 		else{
 			return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
