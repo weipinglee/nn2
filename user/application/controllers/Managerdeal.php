@@ -130,7 +130,6 @@ class ManagerDealController extends UcenterBaseController {
     }
 
 
-
     /**
      * 自由报盘提交处理
      *
@@ -152,10 +151,8 @@ class ManagerDealController extends UcenterBaseController {
             $productData = $this->getProductData();
             $res = $offerObj->doOffer($productData,$offerData);
 
-            if($res===true){
-                $this->redirect('addSuccess');
-            }
-            else echo 9;
+            echo json::encode($res);
+            exit;
         }
         return false;
 
@@ -237,10 +234,8 @@ class ManagerDealController extends UcenterBaseController {
             $productData = $this->getProductData();
             $res = $deputeObj->doOffer($productData,$offerData);
 
-            if($res===true){
-                $this->redirect('addSuccess');
-            }
-            else echo 9;
+            echo json::encode($res);
+            exit;
         }
         return false;
 
@@ -523,7 +518,6 @@ class ManagerDealController extends UcenterBaseController {
 
         $this->getView()->assign('status', $status);
         $this->getView()->assign('mode', $this->_mode);
-        $this->getView()->assign('statusList', $productModel->getStatus());
         $this->getView()->assign('productList', $productList['list']);
         $this->getView()->assign('pageHtml', $productList['pageHtml']);
     }

@@ -52,7 +52,7 @@
 									<td>{$list['cname']}</td>
 									<td>{$list['price']}</td>
 									<!-- <td>已投保</td> -->
-									<td><span class="col000000">{$statusList[$list['status']]}</span></td>
+									<td><span class="col000000">{$list['status']}</span></td>
 									<td>{$list['apply_time']}</td>
 									<td><a href="{url:/managerDeal/productDetail?id=$list['id']}">查看</a></td>
 								</tr>

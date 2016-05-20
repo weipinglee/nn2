@@ -8,6 +8,7 @@
 
 namespace nainai\offer;
 use nainai\fund;
+use \Library\tool;
 class freeOffer extends product{
 
 
@@ -17,7 +18,14 @@ class freeOffer extends product{
      *
      */
     public function getFee(){
-        return 100;
+        $m = new \nainai\member();
+        $group = $m->getUserGroup($this->user_id);
+        if(empty($group)){
+            return 0;
+        }
+        else{
+            return $group['free_fee'];
+        }
     }
 
     /**
@@ -32,6 +40,9 @@ class freeOffer extends product{
         $fund = fund::createFund($acc_type);
         $active = $fund->getActive($this->user_id);//获取用户可用金额
         $fee = $this->getFee();//获取自由报盘费用
+
+        $total = bcmul($productData[0]['quantity'],$offerData['price']);
+        $fee = bcmul($total,$fee)/100;
         if($active >= $fee){
             $offerData['offer_fee'] = $fee;
             $offerData['user_id'] = $user_id;
@@ -42,19 +53,19 @@ class freeOffer extends product{
             if($insert===true){
                 $fund->freeze($user_id,$fee);
                 if($this->_productObj->commit()){
-                    return true;
+                    return tool::getSuccInfo();
                 }
-                else return $this->errorCode['server'];
+                else  return tool::getSuccInfo(0,$this->errorCode['server']['info']);
             }
             else{
                 $this->_productObj->rollBack();
                 $this->errorCode['dataWrong']['info'] = $insert;
-                return $this->errorCode['dataWrong'];
+                return tool::getSuccInfo(0,$this->errorCode['dataWrong']['info']);
             }
 
         }
         else{//资金不足
-            return $this->errorCode['fundLess'];
+            return tool::getSuccInfo(0,$this->errorCode['fundLess']);
         }
 
     }

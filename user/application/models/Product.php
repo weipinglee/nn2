@@ -36,6 +36,9 @@ class productModel extends \nainai\offer\product{
 
 		$query->where = $where;
 		$list = $query->find();
+		foreach($list as $k=>$v){
+			$list[$k]['status'] = $this->getStatus($list[$k]['status']);
+		}
 		return array('list' => $list, 'pageHtml' => $query->getPageBar());
 	}
 
