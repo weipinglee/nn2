@@ -49,7 +49,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>公司名：</span>
 								<span>
-									<input class="text" type="text" name="company_name" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['company_name']}"/>
+									<input class="text" type="text" name="company_name" datatype="zh2-9" errormsg="请输入2-30个字符" value="{$certData['company_name']}"/>
 								</span>
 								<span></span>
 							</div>
@@ -96,6 +96,7 @@
 								<span>
 									<input class="text" type="text" name="true_name" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['true_name']}"/>
 								</span>
+								<span></span>
 							</div>
 
 
@@ -104,6 +105,7 @@
 							<span>
 								{area:data=$certData['area']}
 							</span>
+								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>详细地址：</span>

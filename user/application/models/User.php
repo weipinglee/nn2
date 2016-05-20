@@ -34,7 +34,7 @@ class UserModel{
 	);
 
 	protected $personRules = array(
-		array('true_name','require','真实姓名必填',1),//默认是正则
+		array('true_name','/.{2,20}/','真实姓名必填',0),//默认是正则
 		array('sex',array(0,1),'性别错误',0,'in'),
 		array('identify_no','/^\d{1,20}[a-zA-Z]?$/','请填写身份证号码'),
 		array('identify_front','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
@@ -47,7 +47,7 @@ class UserModel{
 	);
 
 	protected $companyRules = array(
-		array('company_name','require','公司名称必填'),
+		array('company_name','zh{2,9}','公司名称必填'),
 		array('area','number','地区错误'),
 		array('legal_person','require','法人填写错误'),
 		array('reg_fund','double','注册资金格式错误'),
