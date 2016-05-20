@@ -47,15 +47,15 @@ class check
             'identity'  =>  '/^\d{14,17}(\d|x)$/i',
         );
         // 检查是否有内置的正则表达式
-        $rule = strtolower($rule);
-        if(isset($validate[$rule]))
-            $rule       =   $validate[$rule];
+        if(isset($validate[strtolower($rule)]))
+            $rule       =   $validate[strtolower($rule)];
         else{
-            $pos = strpos($rule,'{');
-            if($pos!==false && isset($validate[substr($rule,0,$pos)])){//匹配内置的限制位数的正则
-                $rule = str_replace('{m,n}',substr($rule,$pos),$validate[substr($rule,0,$pos)]);
+            $pos = strpos(strtolower($rule),'{');
+            if($pos!==false && isset($validate[substr(strtolower($rule),0,$pos)])){//匹配内置的限制位数的正则
+                $rule = str_replace('{m,n}',substr(strtolower($rule),$pos),$validate[substr($rule,0,$pos)]);
             }
         }
+
         return preg_match($rule,$value)===1;
     }
 
