@@ -8,35 +8,35 @@
      类型基本信息
     </div>
  <div class="pd-20">
-  <form action="{url:/product/categoryAdd}" method="post" class="form form-horizontal" id="form-user-add">
+  <form action="{url:trade/product/categoryAdd}" method="post" class="form form-horizontal" id="form-user-add"  >
       <input type="hidden" name="id" value="{if:isset($cate)}{$cate['id']}{/if}" />
     <div class="row cl">
       <label class="form-label col-2"><span class="c-red">*</span>分类名称：</label>
       <div class="formControls col-5">
-        <input type="text" class="input-text" value="{if:isset($cate)}{$cate['name']}{/if}" placeholder="" name="name">
+        <input type="text" class="input-text" value="{if:isset($cate)}{$cate['name']}{/if}" datatype="s1-20" errormsg="请正确填写分类名称" placeholder="" name="name">
       </div>
       <div class="col-5"> </div>
     </div>
       <div class="row cl">
           <label class="form-label col-2"><span class="c-red"></span>下级分类统称：</label>
           <div class="formControls col-5">
-              <input type="text" class="input-text" value="{if:isset($cate)}{$cate['childname']}{/if}" placeholder="" name="childname">
+              <input type="text" class="input-text" value="{if:isset($cate)}{$cate['childname']}{else:}商品分类{/if}" datatype="s1-20" errormsg="请正确填写下级分类统称" name="childname">
           </div>
           <div class="col-5"> </div>
       </div>
       <div class="row cl">
           <label class="form-label col-2"><span class="c-red"></span>计量单位：</label>
           <div class="formControls col-5">
-              <input type="text" class="input-text" value="{if:isset($cate)}{$cate['unit']}{/if}" placeholder="" name="unit">
+              <input type="text" class="input-text" value="{if:isset($cate)}{$cate['unit']}{/if}" datatype="s1-5" errormsg="请正确填写计量单位" placeholder="子级分类的优先级更高" name="unit">
           </div>
-          <div class="col-5"> 子级分类的优先级更高</div>
+          <div class="col-5"> </div>
       </div>
       <div class="row cl">
           <label class="form-label col-2"><span class="c-red"></span>首付款比例：</label>
           <div class="formControls col-5">
-              <input type="text" class="input-text" value="{if:isset($cate)}{$cate['percent']}{/if}" placeholder="" name="percent">
+              <input type="text" class="input-text" value="{if:isset($cate)}{$cate['percent']}{/if}" datatype="/[1-9]\d?/" placeholder="请填写0-100之间的整数， 子级分类的优先级更高"  errormsg="请填写1-100之间数字"  name="percent">
           </div>
-          <div class="col-5">%，请填写0-100之间的整数， 子级分类的优先级更高</div>
+          <div class="col-5"></div>
       </div>
       <div class="row cl">
           <label class="form-label col-2"><span class="c-red"></span>父级分类：</label>
@@ -90,8 +90,7 @@
     <div class="row cl">
       <label class="form-label col-2">备注：</label>
       <div class="formControls col-5">
-        <textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,100)">{if:isset($cate)}{$cate['note']}{/if}</textarea>
-        <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+        <textarea name="" cols="" rows="" class="textarea"   dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,100)">{if:isset($cate)}{$cate['note']}{/if}</textarea>
       </div>
       <div class="col-5"> </div>
     </div>

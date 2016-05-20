@@ -8,7 +8,7 @@ use \Library\safe;
 use \nainai\certificate;
 use \Library\Thumb;
 use \nainai\subRight;
-use \Library\tool;
+use \Library\json;
 class productController extends Yaf\Controller_Abstract{
 
     public function init(){
@@ -37,14 +37,8 @@ class productController extends Yaf\Controller_Abstract{
             $attrs = safe::filterPost('attr_id','int','');
             $cate['attrs']     = $attrs=='' ? '' : implode(',',array_unique($attrs));
 
-            $res = $productModel->cateAdd($cate);
-            if($res['success']==1){
-                $this->redirect('categoryList');
-            }
-            else{
-                echo $res['info'];
-                return false;
-            }
+            $res = $productModel->updateCate($cate);
+            die(json::encode($res));
 
 
         }else{
