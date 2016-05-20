@@ -14,6 +14,8 @@ class member{
         1=>'企业'
     );
 
+
+
     /**
      * 获取会员类型
      * @param $type
@@ -21,6 +23,37 @@ class member{
      */
     public static function getType($type){
         return isset(self::$userType[$type]) ? self::$userType[$type] : '未知';
+    }
+
+    //获取企业所有性质
+    public function getComNature(){
+        return $compNature = array(
+            1=>'国有企业',
+            2=>'私人企业'
+        );
+    }
+
+    //获取企业联系人职务
+    public function getComDuty(){
+        return array(
+            1=>'负责人',
+            2=>'高级管理',
+            3=>'员工'
+        );
+    }
+
+    /**
+     * 获取所有企业类型，以后台商品大类算
+     */
+    public function getComType(){
+        $product = new \nainai\offer\product();
+        $cate = $product->getTopCate();
+        $type = array();
+        foreach($cate as $key=>$v){
+            $type[$key]['id'] = $cate[$key]['id'];
+            $type[$key]['name'] = $cate[$key]['name'];
+        }
+        return $type;
     }
 
 
@@ -56,6 +89,14 @@ class member{
         }
         else
             return 0;
+    }
+
+    /**
+     * 获取所有代理商
+     */
+    public function getAgentList(){
+        $agent = new M('agent');
+        return $agent->where(array('status'=>1))->fields('id,company_name')->select();
     }
 
 

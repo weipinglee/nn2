@@ -44,13 +44,25 @@ class productModel extends \nainai\offer\product{
 	 * 获取报盘的状态
 	 * @return [Array]
 	 */
-	public function getStatus(){
-		return array(
-			self::OFFER_APPLY => '审核中',
-			self::OFFER_OK => '发布成功',
-			self::OFFER_NG => '被驳回',
-			self::OFFER_EXPIRE => '已过期'
-		);
+	public function getStatus($status){
+		switch ($status) {
+			case self::OFFER_APPLY:
+				$st = '审核中';
+				break;
+			case self::OFFER_OK:
+				$st = '发布成功';
+				break;
+			case self::OFFER_NG:
+				$st = '被驳回';
+				break;
+			case self::OFFER_EXPIRE:
+				$st = '已过期';
+				break;
+			default:
+				$st = '未知';
+				break;
+		}
+		return $st;
 	}
 
 
@@ -62,8 +74,7 @@ class productModel extends \nainai\offer\product{
 	public function getOfferProductDetail($id,$user_id){
 		$query = new M('product_offer');
 		$offerData = $query->where(array('id'=>$id,'user_id'=>$user_id))->getObj();
-		$status =  $this->getStatus();
-		$offerData['status_txt'] = isset($status[$offerData['status']]) ? $status[$offerData['status']] : '未知';
+		$offerData['status_txt'] = $this->getStatus($offerData['status']);
 		$productData = $this->getProductDetails($offerData['product_id']);
 		return array($offerData,$productData);
 	}

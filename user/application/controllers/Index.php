@@ -40,7 +40,15 @@ class IndexController extends \Yaf\Controller_Abstract {
 	 *注册页面
      */
 	public function registerAction(){
-
+		$member = new \nainai\member();
+		$comtype = $member->getComType();
+		$comNature = $member->getComNature();
+		$duty = $member->getComDuty();
+		$agent = $member->getAgentList();
+		$this->getView()->assign('comtype',$comtype);
+		$this->getView()->assign('comNature',$comNature);
+		$this->getView()->assign('duty',$duty);
+		$this->getView()->assign('agent',$agent);
 	}
 
 	/**
@@ -57,12 +65,11 @@ class IndexController extends \Yaf\Controller_Abstract {
 			'type'         => safe::filterPost('type','int'),
 			'mobile'       => safe::filterPost('mobile','/^\d+$/'),
 			'email'        =>safe::filterPost('email','email'),
+			'agent' => safe::filterPost('agent','int',0),
+			'serial_no' => safe::filterPost('agent_pass')
 		);
 
 		if($userData['type']==1){
-			$userData['agent'] = safe::filterPost('agent','int',0);
-			$userData['agent_pass'] = safe::filterPost('agent_pass','/^[a-zA-Z0-9]{6,30}$/');
-
 			$companyData = array(
 				'company_name' => safe::filterPost('company_name'),
 				'area'         => safe::filterPost('area','/\d+/'),

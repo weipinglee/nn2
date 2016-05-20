@@ -94,17 +94,11 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>真实姓名：</span>
 								<span>
-									<input class="text" type="text" name="company_name" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['true_name']}"/>
+									<input class="text" type="text" name="true_name" datatype="s2-30" errormsg="请输入2-30个字符" value="{$certData['true_name']}"/>
 								</span>
 							</div>
 
 
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>手机号：</span>
-							<span>
-								<input class="text" type="text" datatype="n6-16" errormsg="请正确填写手机号" value="{$certData['mobile']}"/>
-							</span>
-							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>地区：</span>
 							<span>
@@ -114,7 +108,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>详细地址：</span>
 							<span>
-								<input class="text" type="text" datatype="s2-100" errormsg="请正确填写地址" value="{$certData['address']}"/>
+								<input class="text" name="address" type="text" datatype="s2-100" errormsg="请正确填写地址" value="{$certData['address']}"/>
 							</span>
 							</div>
 

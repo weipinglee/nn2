@@ -66,8 +66,8 @@ class UcenterController extends UcenterBaseController {
         $data['email'] = safe::filterPost('email');
 
         $userModel = new userModel();
-        $userModel->updateUserInfo($data);
-        $this->redirect('baseInfo');
+        $res = $userModel->updateUserInfo($data);
+       die(json::encode($res));
     }
     /**
      * 基本信息修改
@@ -347,6 +347,8 @@ class UcenterController extends UcenterBaseController {
             }
             else{
                 $accData['true_name'] = Safe::filterPost('true_name');
+                $accData['area'] = Safe::filterPost('area');
+                $accData['address'] = Safe::filterPost('address');
             }
 
             $cert = new \nainai\cert\certStore($user_id,$this->user_type);
