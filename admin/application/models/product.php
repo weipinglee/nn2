@@ -7,7 +7,7 @@
 use \Library\M;
 use \Library\Query;
 use \Library\tool;
-class ProductModel{
+class productModel extends baseModel{
 
 	/**
 	 * 验证规则：
@@ -36,30 +36,43 @@ class ProductModel{
 		array('sort','number','必须是一个整数')
 	);
 
-	/**
-	 * 添加商品分类
-	 * @param $data
-	 */
-	public function cateAdd($data){
-		$m = new M('product_category');
-		if($m->data($data)->validate($this->cateRules)){
-			if($data['id']){
-				$id = $data['id'];
-				unset($m->id);
-				$res = $m->where(array('id'=>$id))->update() ? 1 : 0;
-			}else{
-				$res = $m->add() ? 1 : 0;
-			}
 
-			$info = '';
+	public $table = array(
+		'cate'=>'product_category',
+		'attr'=>'product_attribute'
+	);
+
+
+	/**
+	 *获取规则
+	 * @param string $table 表
+	 */
+	public function getRules($table=''){
+		switch(strtolower($table)){
+			case 'cate' : {
+				return $this->cateRules;
+			}
+			break;
+			case 'attr' : {
+				return $this->attrRules;
+			}
+			break;
 		}
-		else{
-			$res = 0;
-			$info = $m->getError();
-			$info = $info=='' ? '系统繁忙' : $info;
-		}
-		return tool::getSuccInfo($res,$info);
+		return array();
 	}
+
+	/**
+	 * 属性类型
+	 */
+	public function getAttrType($type){
+		switch($type){
+			case 1 : return '输入框';
+			case 2 : return '单选';
+			case 3 : return '多选';
+			default : return '输入框';
+		}
+	}
+
 
 	/**
 	 * 获取一条分类数据
@@ -92,41 +105,18 @@ class ProductModel{
 	private  function generateTree(&$items,$pid=0,$level=0){
 		static $tree = array();
 		foreach($items as $key=>$item){
-			if($item['pid']==$pid){
+			if($item['pid']==$pid && !isset($items[$key]['del'])){
 				$v = $items[$key];
 				$v['level'] = $level;
 				$tree[] = $v;
-				unset($items[$key]);
+				$items[$key]['del']=1;
 				$this->generateTree($items,$item['id'],$level+1);
 			}
 		}
 		return $tree;
 	}
 
-	/**
-	 * 属性添加
-	 * @param array $data 添加的数据
-	 */
-	public function attrAdd($data){
-		$m = new M('product_attribute');
-		if($m->data($data)->validate($this->attrRules)){
-			if($data['id']){
-				$id = $data['id'];
-				unset($m->id);
-				$res = $m->where(array('id'=>$id))->update() ? 1 : 0;
-			}else{
-				$res = $m->add() ? 1 : 0;
-			}
 
-			$info = '';
-		}
-		else{
-			$res = 0;
-			$info = $m->getError();
-			$info = $info=='' ? '系统繁忙' : $info;
-		}
-		return tool::getSuccInfo($res,$info);
-	}
 
 	/**
 	 * 获取一条属性信息
@@ -150,8 +140,11 @@ class ProductModel{
 		$res = array();
 		foreach($attr as $k=>$v){
 			$res[$attr[$k]['id']] = $v;
+			$res[$attr[$k]['id']]['type'] = $this->getAttrType($v['type']);
 		}
-		return $res;
+		$pageBar =  $m->getPageBar();
+
+		return array($res,$pageBar);
 	}
 
 

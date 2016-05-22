@@ -342,8 +342,10 @@ class product{
 
         $attr_ids = array();
         $detail['attribute'] = unserialize($detail['attribute']);
-        foreach ($detail['attribute'] as $key => $value) {
-            $attr_ids[] = $key;
+        if(!empty($detail['attribute'])){
+            foreach ($detail['attribute'] as $key => $value) {
+                $attr_ids[] = $key;
+            }
         }
 
         //获取所属分类
@@ -352,9 +354,11 @@ class product{
         //获取属性
         $attrs = $this->getHTMLProductAttr($attr_ids);
         $detail['attrs'] = '';
-        foreach ($detail['attribute'] as $key => $value) {
-            $detail['attr_arr'][$attrs[$key]] = $value;
-            $detail['attrs'] .= $attrs[$key] . ' : ' . $value . ';';
+        if(!empty($detail['attribute'])) {
+            foreach ($detail['attribute'] as $key => $value) {
+                $detail['attr_arr'][$attrs[$key]] = $value;
+                $detail['attrs'] .= $attrs[$key] . ' : ' . $value . ';';
+            }
         }
         //获取图片
         $detail['photos'] = $this->getProductPhoto($product_id);

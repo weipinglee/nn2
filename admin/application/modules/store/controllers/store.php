@@ -48,7 +48,7 @@ class storeController extends Yaf\Controller_Abstract{
             $store['note']            = safe::filterPost('note');
             $store['img']             = tool::setImgApp(safe::filterPost('imgfile1'));
 
-            $res = $storeModel->storeAdd($store);
+            $res = $storeModel->update($store);
             die(json::encode($res));
 
         }else{
@@ -76,10 +76,10 @@ class storeController extends Yaf\Controller_Abstract{
             $data['id'] = intval($this->_request->getParam('id'));
             $storeModel = new storeModel();
 
-            $res = $storeModel->storeAdd($data);
+            $res = $storeModel->update($data);
 
-            echo JSON::encode($res);
-            return false;
+            die(json::encode($res)) ;
+
         }
         return false;
     }

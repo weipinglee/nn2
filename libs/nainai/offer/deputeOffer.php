@@ -7,7 +7,7 @@
  */
 
 namespace nainai\offer;
-
+use \Library\tool;
 class deputeOffer extends product{
 
     /**
@@ -15,7 +15,14 @@ class deputeOffer extends product{
      * @return int
      */
     public function getFeeRate($user_id){
-        return 20;
+        $m = new \nainai\member();
+        $group = $m->getUserGroup($user_id);
+        if(empty($group)){
+            return 0;
+        }
+        else{
+            return $group['depute_fee'];
+        }
     }
 
 
@@ -32,14 +39,14 @@ class deputeOffer extends product{
 
         if($insert===true){
             if($this->_productObj->commit()){
-                return true;
+                return tool::getSuccInfo();
             }
-            else return $this->errorCode['server'];
+            else  return tool::getSuccInfo(0,$this->errorCode['server']['info']);
         }
         else{
             $this->_productObj->rollBack();
             $this->errorCode['dataWrong']['info'] = $insert;
-            return $this->errorCode['dataWrong'];
+            return tool::getSuccInfo(0,$this->errorCode['dataWrong']['info']);
         }
     }
 }

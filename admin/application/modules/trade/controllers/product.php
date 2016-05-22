@@ -8,14 +8,8 @@ use \Library\safe;
 use \nainai\certificate;
 use \Library\Thumb;
 use \nainai\subRight;
-use \Library\tool;
-class productController extends Yaf\Controller_Abstract{
-
-    public function init(){
-        $this->getView()->setLayout('admin');
-
-    }
-
+use \Library\json;
+class productController extends InitController{
 
 
     /**
@@ -37,14 +31,8 @@ class productController extends Yaf\Controller_Abstract{
             $attrs = safe::filterPost('attr_id','int','');
             $cate['attrs']     = $attrs=='' ? '' : implode(',',array_unique($attrs));
 
-            $res = $productModel->cateAdd($cate);
-            if($res['success']==1){
-                $this->redirect('categoryList');
-            }
-            else{
-                echo $res['info'];
-                return false;
-            }
+            $res = $productModel->updateCate($cate);
+            die(json::encode($res));
 
 
         }else{
@@ -113,11 +101,8 @@ class productController extends Yaf\Controller_Abstract{
             $attr['type']  = safe::filterPost('type','int',1);
             $attr['sort']  = safe::filterPost('sort','int',0);
             $attr['note']  = safe::filterPost('note');
-            $res = $productModel->attrAdd($attr);
-            if($res['success']==1)
-                 $this->redirect('attributeList');
-            else
-                echo $res['info'];
+            $res = $productModel->updateAttr($attr);
+            die(json::encode($res));
         }
         else{
             $attr_id  = $this->getRequest()->getParam('aid',0);
@@ -139,7 +124,75 @@ class productController extends Yaf\Controller_Abstract{
         $attrs    = $productModel->getAttr($page);//获取所有属性
 
 
-        $this->getView()->assign('attr',$attrs);
+        $this->getView()->assign('attr',$attrs[0]);
+        $this->getView()->assign('bar',$attrs[1]);
+    }
+
+    /**
+     * 设置分类开关
+     */
+    public function setStatusCateAction(){
+        if(IS_AJAX){
+            $data['status'] = intval(safe::filterPost('status'));
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new productModel();
+
+            $res = $storeModel->updateCate($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
+    }
+    /**
+     * 设置属性开关
+     */
+    public function setStatusAttrAction(){
+        if(IS_AJAX){
+            $data['status'] = intval(safe::filterPost('status'));
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new productModel();
+
+            $res = $storeModel->updateAttr($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * 分类删除
+     */
+    public function logicDelCateAction(){
+        if(IS_AJAX){
+            $data['is_del'] = 1;
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new productModel();
+
+            $res = $storeModel->updateCate($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * 分类删除
+     */
+    public function logicDelAttrAction(){
+        if(IS_AJAX){
+            $data['is_del'] = 1;
+            $data['id'] = intval($this->_request->getParam('id'));
+            $storeModel = new productModel();
+
+            $res = $storeModel->updateAttr($data);
+
+            echo JSON::encode($res);
+            return false;
+        }
+        return false;
     }
 
 

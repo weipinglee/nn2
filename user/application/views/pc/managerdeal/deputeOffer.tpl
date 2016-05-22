@@ -1,7 +1,7 @@
 ﻿<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
-<script type="text/javascript" src="{root:js/ajaxfileupload.js}"></script>
-<script type="text/javascript" src="{views:js/upload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <div class="class_jy" id="cate_box" style="display:none;">
     <span class="jy_title"></span>
     <ul>

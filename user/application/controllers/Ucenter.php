@@ -298,23 +298,24 @@ class UcenterController extends UcenterBaseController {
             $accData = array();
 
             if($this->user_type==1){
-                $accData['company_name'] = Safe::filterPost('company_name');
-                $accData['legal_person'] = Safe::filterPost('legal_person');
-                $accData['contact'] = Safe::filterPost('contact');
-                $accData['contact_phone'] = Safe::filterPost('phone');
-                $accData['area'] = Safe::filterPost('area');
-                $accData['address'] = Safe::filterPost('address');
-                $accData['cert_bl'] = Tool::setImgApp(Safe::filterPost('imgfile1'));
-                $accData['cert_tax'] = Tool::setImgApp(Safe::filterPost('imgfile2'));
-                $accData['cert_oc'] = Tool::setImgApp(Safe::filterPost('imgfile3'));
+                $accData['company_name'] = safe::filterPost('company_name');
+                $accData['legal_person'] = safe::filterPost('legal_person');
+                $accData['contact'] = safe::filterPost('contact');
+                $accData['contact_phone'] = safe::filterPost('phone');
+                $accData['area'] = safe::filterPost('area');
+                $accData['address'] = safe::filterPost('address');
+                $accData['cert_bl'] = Tool::setImgApp(safe::filterPost('imgfile1'));
+                $accData['cert_tax'] = Tool::setImgApp(safe::filterPost('imgfile2'));
+                $accData['cert_oc'] = Tool::setImgApp(safe::filterPost('imgfile3'));
+                $accData['business'] = safe::filterPost('zhuying');
             }
             else{
-                $accData['true_name'] = Safe::filterPost('name');
-                $accData['area'] = Safe::filterPost('area');
-                $accData['address'] = Safe::filterPost('address');
-                $accData['identify_no'] = Safe::filterPost('no');
-                $accData['identify_front'] = Tool::setImgApp(Safe::filterPost('imgfile1'));
-                $accData['identify_back'] = Tool::setImgApp(Safe::filterPost('imgfile2'));
+                $accData['true_name'] = safe::filterPost('name');
+                $accData['area'] = safe::filterPost('area');
+                $accData['address'] = safe::filterPost('address');
+                $accData['identify_no'] = safe::filterPost('no');
+                $accData['identify_front'] = Tool::setImgApp(safe::filterPost('imgfile1'));
+                $accData['identify_back'] = Tool::setImgApp(safe::filterPost('imgfile2'));
             }
 
             $cert = new \nainai\cert\certDealer($user_id,$this->user_type);
@@ -344,6 +345,7 @@ class UcenterController extends UcenterBaseController {
                 $accData['contact_phone'] = Safe::filterPost('phone');
                 $accData['area'] = Safe::filterPost('area');
                 $accData['address'] = Safe::filterPost('address');
+
             }
             else{
                 $accData['true_name'] = Safe::filterPost('true_name');
