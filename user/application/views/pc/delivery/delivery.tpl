@@ -1,29 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>个人中心</title>
+  <title>合同详情</title>
   <meta name="keywords"/>
   <meta name="description"/>
   <meta charset="utf-8">
-  <link href="http://localhost/nn2/user/public/views/pc/css/user_index.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="http://localhost/nn2/user/public/js/jquery/jquery-1.7.2.min.js"></script>
-	<script type="text/javascript" src="http://localhost/nn2/user/public/js/autovalidate/validate.js" ></script>
-	<link href="http://localhost/nn2/user/public/js/autovalidate/style.css" rel="stylesheet" type="text/css">
-
-
-
-  <script language="javascript" type="text/javascript" src="http://localhost/nn2/user/public/views/pc/js/My97DatePicker/WdatePicker.js"></script>
-  <script type="text/javascript" src="http://localhost/nn2/user/public/views/pc/js/regular.js"></script>
-   <script src="http://localhost/nn2/user/public/views/pc/js/center.js" type="text/javascript"></script>
-  <link href="http://localhost/nn2/user/public/views/pc/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="../css/user_index.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+  <script src="../js/center.js" type="text/javascript"></script>
+  <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
    <!-- 头部控制 -->
-  <link href="http://localhost/nn2/user/public/views/pc/css/topnav20141027.css" rel="stylesheet" type="text/css">
-  <script src="http://localhost/nn2/user/public/views/pc/js/topnav20141027.js" type="text/javascript"></script>
+  <link href="../css/topnav20141027.css" rel="stylesheet" type="text/css">
+  <script src="../js/topnav20141027.js" type="text/javascript"></script>
     <!-- 头部控制 -->
 </head>
 <body>
-<!--    公用头部控件 -->
-    <div class="bg_topnav">
+<!-- 	公用头部控件 -->
+	<div class="bg_topnav">
     <div class="topnav_width">
         <div class="topnav_left">
             <div class="login_link" id="toploginbox">
@@ -55,10 +48,10 @@
         <div class="topnav_right">
             <ul>
                 <li>
-                    <div class="top_app" id="topPhone">
+					<div class="top_app" id="topPhone">
                         <a href="javascript:;"><em class="icons iphone"></em><span>手机APP</span></a>
-                        <a rel="external nofollow" href="http://app.nainaiwang.com/" class="top_a" target="_blank" style="display:none !important;visibility: hidden"><!--<em class="icons zz"></em>--><i style="font-size:14px;">▪</i><span>掌中耐耐APP</span></a>
-                    </div>
+						<a rel="external nofollow" href="http://app.nainaiwang.com/" class="top_a" target="_blank" style="display:none !important;visibility: hidden"><!--<em class="icons zz"></em>--><i style="font-size:14px;">▪</i><span>掌中耐耐APP</span></a>
+					</div>
                 </li>
                 <li>
                     <div class="popueButton">
@@ -146,60 +139,189 @@
 </div>
 <div class="clearfix"></div>
 <!-- 公用头部控件 -->
-<div class="header">
+	<div class="header">
 		<div class="nav">
-            <div class="logo-box zn-l">
-                <a href="../index.html" alt="返回耐耐首页"><img src="http://localhost/nn2/user/public/views/pc/images/icon/nainaiwang.png"/></a></dd>
-            </div>
+			<div class="logo-box zn-l">
+				<a href="../index.html" alt="返回耐耐首页"><img src="../images/icon/nainaiwang.png"/></a></dd>
+			</div>
 			<div class="nav-tit">
-		<ul class="nav-list">
-			<?php foreach($topArray as $key => $topList){?>
-				<li>
-		                        <a href="<?php echo isset($topList['url'])?$topList['url']:"";?>" <?php if( $topList['isSelect']){?> class="cur" <?php }?>><?php echo isset($topList['title'])?$topList['title']:"";?></a>
-		                   </li>
-			<?php }?>
-                   
-                 </ul>
+				<ul class="nav-list">
+					<li>
+						<a href="user_index.html">会员中心</a>
+					</li>
+					<li>
+						<a href="user_zh.html">账户信息</a>
+					</li>
+					<li>
+						<a href="user_zj.html">资金管理</a>
+					</li>
+					<li>
+						<a href="user_dd.html" class="cur">交易管理</a>
+					</li>
+					<li>
+						<a href="user_cd.html">仓单管理</a>
+					</li>
+					<li>
+						<a href="user_chl.html">车辆管理</a>
+					</li>
+					<li>
+						<a href="user_gz.html">关注中心</a>
+					</li>
+			 	</ul>
 			</div>
 		</div>
 	</div>
 	<div class="user_body">
 		<div class="user_b">
-			<!--start左侧导航--> 
-            <div class="user_l">
-                <div class="left_navigation">
-                    <ul>
-                    	<?php foreach($leftArray as $k => $leftList){?>
-                    	<li class="btn1" id="btn{k}">
-                    		<?php if( $k == 0){?>
-                    		<li class="let_nav_tit"><span class="line"></span><h3><?php echo isset($leftList['name'])?$leftList['name']:"";?></h3></li>
-                    		<?php }else{?>
+			<!--start左侧导航-->	
+			<div class="user_l">
+				<div class="left_navigation">
+					<ul>
+						<li class="let_nav_tit"><span class="line"></span><h3>交易管理</h3></li>
+						<li class="btn1" id="btn1">
+							<a class="nav-first">销售管理<i class="icon-caret-down"></i></a>
+							<ul class="zj_zh" id="zj_zh1">
+								<li><a href="chp_list.html">销售列表</a></li>
+								<li><a href="offer_index.html">发布产品</a></li>
+							</ul>
+						</li>								
+						
+						<li class="btn1" id="btn2">
+							<a class="nav-first">采购管理<i class="icon-caret-right"></i></a>
+							<ul class="zj_zh" id="zj_zh2">
+								<li><a href="procurement_list.html">采购列表</a></li>
+                                						<li><a href="procurement_fb.html">发布采购</a></li>
+							</ul>
+						</li>
+							
+						<li class="btn1" id="btn3">
+							<a class="nav-first">合同管理<i class=" icon-caret-right"></i></a>
+							<ul class="zj_zh" id="zj_zh3">
+								<li><a href="sales_list.html">销售合同</a></li>
+								<li><a href="dd_detail.html" class="cur">购买合同</a></li>
+							</ul>
 
-                    		<a class="nav-first" <?php if(isset($leftList['url'])){?>href="<?php echo isset($leftList['url'])?$leftList['url']:"";?>"<?php }?> ><i class="icon-caret-down"></i><?php echo isset($leftList['name'])?$leftList['name']:"";?></a>
+						</li>
+						<li  class="btn1"><a class="nav-first">申诉管理<i class=" icon-caret-right"></i></a>
+                            <ul class="zj_zh">
+                                <li><a href="user_complaint.html">合同申诉</a></li>
+                                <li><a href="user_complaint.html">提货申诉</a></li>
+                            </ul>
+                        </li>
+					</ul>
+				</div>
+			</div>
+			<!--end左侧导航-->	
+			<!--start中间内容-->	
+			<div class="user_c_list">
+				<div class="user_zhxi">
+					<div class="zhxi_tit">
+						<p><a>交易管理</a>><a>合同详情</a></p>
+					</div>
+					<div class="chp_xx">
+						
+						<div class="xx_center">
+							<table border="0" cellpadding="" cellspacing="">
+								<tbody>
+								<tr class="title">
+									<td align="left" colspan="7">&nbsp;商品清单</td>
+								</tr>
+								<tr class="title_head">
+									<th>图片</th>
+									<th>商品名称</th>
+									<th>商品数量</th>
+									<th>可提数量</th>
+									<th>提货数量</th>
+									<th>仓库</th>
+								</tr>
+								<tr>
+									<td><img src="../images/banner/551b861eNe1c401dc.jpg"/></td>
+									<td>耐火材料</td>
+									<td>100吨</td>
+									<td>80吨</td>
+									<!-- 判断系统参数是否支持多次开单 如果单次开单则不能修改开单数量-->
+									<td><input type="text" class="thjs_input"></td>
+									<td>德旭</td>
 
-                    		<?php }?>
-
-                    		<?php if( !empty($leftList['list'])){?>
-                    			<ul class="zj_zh" id="zj_zh{k}">
-                    				<?php foreach($leftList['list'] as $key => $list){?>
-                    					<li><a href="<?php echo isset($list['url'])?$list['url']:"";?>" <?php if($leftCur==$list['url']){?>class="cur"<?php }?> ><?php echo isset($list['title'])?$list['title']:"";?></a></li>
-                    				<?php }?>
-                    			</ul>
-				<?php }?>
-			</li>
-                    	<?php }?>
-                        
-                      
-                    </ul>
-                </div>
-            </div>
-            <!--end左侧导航-->  
-	<?php
-echo "Error Msg:"  . $exception->getMessage();
-?>
-
-				<!--end中间内容-->	
-			<!--start右侧广告-->			
+								</tr>
+							</tbody></table>
+						</div>
+						<ul class="methed">
+							<li class="clearfix">
+				                        		<label>预计提货日期：</label>
+					                        <div>
+					                        
+					                        
+					                        <input name="date_start" id="date_start" type="text" class="Wdate gyctht_input" value="2016-04-01">
+						                        	
+						                        	记重方式：过磅  
+						                             <input type="hidden" id="weight_type" value="A">
+						                        	
+						                        	
+					                        
+					                        </div>
+				                        	</li>
+				                        	<li class="clearfix">
+				                        		<label>交易商：</label>
+				                        		<div>jing</div>
+				                        	</li>
+				                        	<li class="clearfix">
+				                        		<label>提货人：</label>
+				                        		<div>
+				                        			<select class=" gyctht_input">
+				                        				<option>第一个</option>
+				                        			</select>
+				                        			<a id="clickdd">添加提货人</a>
+				                        			<p>
+				                        				<b> ● </b>
+				                        				联系电话：<span id="tel">15210325871</span>
+				                        			</p>
+				                        			<p>
+				                        				<b> ● </b>
+				                        				身份证号码：<span id="code">140106199010072514</span>
+				                        			</p>
+				                        			<p>
+				                        				<b> ● </b>
+				                        				车牌号：<span><input type="checkbox">全选</span>
+				                        				<ul>
+				                        					<li style="float:left;width:118px;"><input type="checkbox">123</li>
+				                        					<li style="float:left;width:118px;"><input type="checkbox">123</li>
+				                        				</ul>
+				                        			</p>
+				                        		</div>
+				                        	</li>
+				                        	<li class="clearfix">
+				                        		<label>备注：</label>
+				                        		<div>
+								         <textarea name="" cols="" rows="" id="REMARK" class="bz" maxlength="200">gaegag</textarea>最多输入200个字符
+								     
+								</div>
+				                        	</li>
+						</ul>
+						<div class="zhxi_con">	
+							<span><input class="submit_zz" type="submit" value="提交"></span>
+							<span><input class="submit_zz reset_zz" type="reset" value="返回"></span>
+						</div>
+						<!-- <div class="sjxx">
+							<p>支付配送</p>
+							<div class="sj_detal">
+								<b class="sj_de_tit">收货人：</b>
+								<span>&nbsp;laijjj</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">地址：</b>
+								<span>&nbsp;山西省晋中市xxx县</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">邮编：</b>
+								<span>&nbsp;045000</span>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+			<!--end中间内容-->	
+			<!--start右侧广告			
 			<div class="user_r">
 				<div class="wrap_con">
 					<div class="tit clearfix">
@@ -216,6 +338,56 @@ echo "Error Msg:"  . $exception->getMessage();
 			</div>
 			<!--end右侧广告-->
 		</div>
+		<!-- 弹出层 -->
+		<div id="bgblock" style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 999; background-color: rgb(0, 0, 0); opacity: 0.6; display:none; background-position: initial initial; background-repeat: initial initial;"></div>
+
+		<div id="ermblock" style="position: fixed; left: 427.5px; top: 10%; width: 1000px; height: 320px; z-index: 1000; display:none;">
+			<div class="ermblock_main">
+				<p><h2>添加提货人</h2></p>
+				<form>
+					<table cellspacing="0" align="center" class="table_form">
+					<tbody><tr>
+						<td class="tr fb" width="35%">提货人姓名：</td>
+						<td class="four-content" colspan="3"><input type="text" name="pickman_name" maxlength="12" id="pickman_name" value=""> <span style="color:red;">*</span></td>
+					</tr>
+					<tr>
+						<td class="tr fb">联系电话：</td>
+						<td class="four-content" colspan="3"><input type="text" name="mobile" id="mobile" maxlength="14" value=""> <span style="color:red;">*</span></td>
+					</tr>
+						<tr>
+						<td class="tr fb">身份证号码：</td>
+						<td class="four-content" colspan="3"><input type="text" name="IDENTITY_NUM" id="IDENTITY_NUM" maxlength="18" value=""> <span style="color:red;">*</span></td>
+					</tr>
+					<tr>
+						<td class="tr fb">车牌号码：</td><!-- <input type="text" name="truck_num" id="truck_num" value="" /> -->
+						<td class="four-content" colspan="3"><textarea id="truck_num" name="truck_num" maxlength="500" style="width: 153px; height: 50px;"></textarea> <span style="color:red;">* 多个以逗号分隔</span></td>
+					</tr>
+					</tbody></table>
+
+						<div class="zhxi_con">	
+							<span><input class="submit_zz" type="submit" value="提交"></span>
+							<span><input class="submit_zz reset_zz" type="reset" value="返回" id="close"></span>
+						</div>
+				</form>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			 $(document).ready(function(){
+			  $("#clickdd").click(function(){
+			   $("#ermblock").show();
+			   $("#bgblock").show();
+			     });
+			  $(document).click(function(e){
+			   var target = $(e.target);
+			   if(target.closest("#clickdd").length == 0){
+			    $("#ermblock").hide();
+			    $("#bgblock").hide();
+			   }
+			      }); 
+			 }); 
+		</script>
+		<!-- 弹出层 -->
 	</div>
 </body>
 </html>
