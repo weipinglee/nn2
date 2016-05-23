@@ -24,8 +24,10 @@ class Order{
 	//订单类型常量定义 
 	const ORDER_FREE = 1;//自由报盘订单
 	const ORDER_DEPOSIT = 2;//保证金报盘订单
-	const ORDER_STORE = 3;//仓单报盘订单
-	const ORDER_ENTRUST = 4;//委托报盘
+
+	const ORDER_ENTRUST = 3;//委托报盘
+	const ORDER_STORE = 4;//仓单报盘订单
+
 
 	protected $order_table;//订单表名
 	protected $order;//订单表M对象
@@ -45,11 +47,13 @@ class Order{
 	);
 
 
+
 	public function __construct($order_type){
 		$this->order_type = $order_type;
-		$this->order_table = 'product_order';
+		$this->order_table = 'order_sell';
 		$this->order = new M($this->order_table);
-		$this->offer = new M('product_offer');
+
+		$this->offer = new M('order_sell');
 		$this->products = new M('products');
 		$this->paylog = new M('pay_log');
 		$this->account = new \nainai\fund\agentAccount();
@@ -81,7 +85,7 @@ class Order{
 					$this->payLog($order_id,$data['user_id'],0,'买方下单');
 					
 					$res = $order->commit();	
-				} catch (PDOException $e) {
+				} catch (\PDOException $e) {
 					$order->rollBack();
 					$res = $e->getMessage();
 				}
@@ -307,18 +311,15 @@ class Order{
 			$amount = $info['amount'];
 			if(($amount = floatval($amount)) > 0){
 				//获取保证金比率
-				$query = new Query('products as p');
-				$query->join = 'left join product_offer as po on po.product_id = p.id left join product_category as pc on pc.id = p.cate_id';
-				$query->fields = 'pc.percent';
-				$query->where = 'po.id=:offer_id';
-				$query->bind = array('offer_id'=>$info['offer_id']);
-				$res = $query->getObj();
-				$percent = intval($res['percent']);
-				if($percent>0 && $percent<100){
-					//能否等于0或者100
-					return ($percent/100)*$amount;
+				$preFee = $this->payDepositCom($info['offer_id'],$amount);
+
+				if($preFee===false){
+					return '无效定金';
 				}
-				return '无效定金比例';
+				else{
+					return $preFee;
+				}
+
 			}
 			return '无效订单';
 		}else{
@@ -331,12 +332,14 @@ class Order{
 		if(($amount = floatval($amount)) > 0){
 			//获取保证金比率
 			$query = new Query('products as p');
-			$query->join = 'left join product_offer as po on po.product_id = p.id left join product_category as pc on pc.id = p.cate_id';
-			$query->fields = 'pc.percent';
+			$query->join = 'left join product_offer as po on po.product_id = p.id ';
+			$query->fields = 'p.cate_id';
 			$query->where = 'po.id=:offer_id';
 			$query->bind = array('offer_id'=>$offer_id);
 			$res = $query->getObj();
-			$percent = intval($res['percent']);
+			$cate_id = $res['cate_id'];
+
+			$percent = $this->getCatePercent($cate_id);
 			if($percent>0 && $percent<100){
 				//能否等于0或者100
 				return ($percent/100)*$amount;
@@ -344,6 +347,24 @@ class Order{
 			return false;
 		}
 		return false;
+	}
+
+	/**
+	 * 获取分类首付款比率
+	 */
+	private function getCatePercent($id,$obj=null){
+		if($obj==null)
+			$obj = new M('product_category');
+		static $percent = 0;
+		$res = $obj->where(array('id'=>$id))->fields('percent,pid')->getObj();
+		if($res['percent']==0 && $res['pid']!=0){
+			$percent = $this->getCatePercent($res['pid'],$obj);
+		}
+		else
+			$percent = $res['percent'];
+
+		return $percent;
+
 	}
 
 	/**
@@ -379,6 +400,7 @@ class Order{
 		$num = floatval($num);
 		if($offer_info && is_array($offer_info) && $num > 0){
 			$product = $this->products->where(array('id'=>$offer_info['product_id']))->getObj();
+
 			if($product){
 				$product_valid = $this->productNumValid($num,$offer_info,$product);
 				if($product_valid !== true)

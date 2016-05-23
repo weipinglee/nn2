@@ -1,8 +1,8 @@
 
 <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
-<script type="text/javascript" src="{root:js/ajaxfileupload.js}"></script>
-<script type="text/javascript" src="{views:js/upload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <script type="text/javascript" src="{views:js/cert/cert.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 			<div class="user_c">
@@ -15,13 +15,13 @@
 						<ul class="rz_ul">
 							<li class="rz_start"></li>
 							<li class="rz_li cur"><a class="rz">认证信息</a></li>
-							<li class="rz_li"><a class="yz">营业执照</a></li>
+							<li class="rz_li"><a class="yz">资质照片</a></li>
 							<li class="rz_li"><a class="shjg">审核结果</a></li>
 							<li class="rz_end"></li>
 						</ul>
 
 					</div>
-					<form method="post" action="{url:/ucenter/doDealCert}">
+					<form method="post" action="{url:/ucenter/doDealCert}" auto_submit>
 					<div class="re_xx">
 
 						<!--公司信息-->
@@ -29,89 +29,92 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>公司名：</span>
 								<span>
-									<input class="text" type="text" name="company_name" value="{$certData['company_name']}"/>
+									<input class="text" type="text" name="company_name" datatype="s2-20" errormsg="请输入2-20位中文或字母数字下划线点" value="{$certData['company_name']}"/>
 								</span>
+								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>法定代表人：</span>
 							<span>
-								<input class="text" type="text" name="legal_person" value="{$certData['legal_person']}"/>
+								<input class="text" type="text" name="legal_person" datatype="zh2-20" errormsg="请输入2-20个中文字符" value="{$certData['legal_person']}"/>
 							</span>
+								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>联系人：</span>
 							<span>
-								<input class="text" type="text" name="contact" value="{$certData['contact']}"/>
+								<input class="text" type="text" name="contact" datatype="zh2-20" errormsg="请输入2-20个中文字符" value="{$certData['contact']}"/>
 							</span>
+								<span></span>
 							</div>
 
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>联系电话：</span>
 							<span>
-								<input class="text" type="text" name="phone" value="{$certData['contact_phone']}"/>
+								<input class="text" type="text" name="phone" datatype="mobile" value="{$certData['contact_phone']}"/>
 							</span>
+								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>地区：</span>
 							<span>
 								{area:data=$certData['area']}
 							</span>
+								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>详细地址：</span>
 							<span>
-								<input class="text" type="text" name="address" value="{$certData['address']}"/>
+								<input class="text" type="text" name="address" datatype="*2-100" errormsg="请至少填写2位字符" value="{$certData['address']}"/>
 							</span>
+								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>主营品种：</span>
 							<span>
-								<input class="text" type="text" />
+								<input class="text" type="text" datatype="*1-100" name="zhuying" value="{$certData['business']}" errormsg="请填写主营品种" />
 							</span>
+								<span></span>
 							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i></i>公司介绍：</span>
-								<span><textarea style="width:300px"></textarea></span>
-							</div>
+
 
 
 						{else:}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>真实姓名：</span>
 								<span>
-									<input class="text" type="text" name="company_name" value="{$certData['true_name']}"/>
+									<input class="text" type="text" name="name" datatype="zh2-20" errormsg="请填写姓名" value="{$certData['true_name']}"/>
 								</span>
+								<span></span>
 							</div>
 
 
 							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>手机号：</span>
+								<span class="con_tit"><i>*</i>身份证号：</span>
 							<span>
-								<input class="text" type="text" value="{$certData['mobile']}"/>
+								<input class="text" type="text" name="no" datatype="identify" errormsg="请正确填写身份证号" value="{$certData['identify_no']}"/>
 							</span>
+								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>地区：</span>
 							<span>
 								{area:data=$certData['area']}
+								<span></span>
 							</span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>详细地址：</span>
 							<span>
-								<input class="text" type="text" value="{$certData['address']}"/>
+								<input class="text" type="text" name="address" datatype="*2-100" errormsg="请正确填写地址" value="{$certData['address']}"/>
 							</span>
+								<span></span>
 							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>主营品种：</span>
-							<span>
-								<input class="text" type="text" />
-							</span>
-							</div>
+
 
 						{/if}
 						<div class="zhxi_con">
-							<span><input class="submit" type="button" onclick="nextTab()" value="下一步"/></span>
+							<span><input class="submit" id="next_step" type="button"  value="下一步"/></span>
 						</div>
 
 					</div>
@@ -124,6 +127,7 @@
 							<input type="hidden" name="imgfile1" value="{$certData['cert_bl']}" />
 							
 						</div>
+							<span></span>
 						<div class="zhxi_con">
 							<span class="con_tit tit_img"><i></i></span>
 							<span class="zh_img">
@@ -136,6 +140,7 @@
 							<input type="hidden" name="imgfile2" value="{$certData['cert_tax']}" />
 
 						</div>
+							<span></span>
 						<div class="zhxi_con">
 							<span class="con_tit tit_img"><i></i></span>
 							<span class="zh_img">
@@ -148,6 +153,7 @@
 							<input type="hidden" name="imgfile3" value="{$certData['cert_oc']}" />
 
 						</div>
+							<span></span>
 						<div class="zhxi_con">
 							<span class="con_tit tit_img"><i></i></span>
 							<span class="zh_img">
@@ -193,7 +199,7 @@
 							</div>
 						{/if}
 						<div class="zhxi_con">
-							<span><input class="submit" onclick="toCertApply()" type="button" value="提交审核"></span>
+							<span><input class="submit"  type="submit" value="提交审核"></span>
 						</div>
 					</div>
 					</form>

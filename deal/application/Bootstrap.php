@@ -15,7 +15,7 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 		//把配置保存起来
 		$this->config = Yaf\Application::app()->getConfig();
 		Yaf\Registry::set('config', $this->config);
-
+		session_start();
 		define('REQUEST_METHOD', strtoupper($dispatcher->getRequest()->getMethod()));
 		define('IS_GET',        REQUEST_METHOD =='GET' ? true : false);
 		define('IS_POST',       REQUEST_METHOD =='POST' ? true : false);

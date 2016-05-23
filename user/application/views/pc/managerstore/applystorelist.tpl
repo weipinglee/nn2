@@ -41,7 +41,7 @@
                                                                                                 {elseif:$list['status'] == 21 }
                                                                                                 <td><a href='{url:/ManagerStore/applyStoreSign?id=$list["id"]}'>签发</a></td>
 																								{else:}
-																									<td><a href=''>查看</a></td>
+																									<td><a href='{url:/ManagerStore/applyStoreDetail?id=$list["id"]}'>查看</a></td>
                                                                                                 {/if}
                                                                                         </tr>
                                                                                       {/foreach}

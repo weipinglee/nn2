@@ -78,7 +78,7 @@ class StoreOrder extends Order{
 					$this->order->rollBack();
 					$res = $upd_res['info'];
 				}
-			} catch (PDOException $e) {
+			} catch (\PDOException $e) {
 				$this->order->rollBack();
 				$res = $e->getMessage();
 			}

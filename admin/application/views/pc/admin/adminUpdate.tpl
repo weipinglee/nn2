@@ -10,9 +10,7 @@
         <script type="text/javascript" src="js/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="css/min.css" />
         <script type="text/javascript" src="js/min.js"></script>
-        <script type="text/javascript" src="{views:js/validform/validform.js}"></script>
-        <script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
-        <script type="text/javascript" src="{views:js/layer/layer.js}"></script>
+
 		<link rel="stylesheet" type="text/css" href="css/H-ui.min.css">
 		<link rel="stylesheet" href="css/font-awesome.min.css" />
     </head>

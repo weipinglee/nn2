@@ -4,19 +4,18 @@
  * @desc 报盘列表offers
  * @date 2016-05-05 10:07:47
  */
-use \DB\M;
 use \tool\http;
 use \Library\url;
 use \Library\safe;
 use \Library\tool;
-use \nainai\order;
+use \nainai\order\Order;
 use \Library\checkRight;
-class OffersController extends Yaf\Controller_Abstract {
+class OffersController extends \Yaf\Controller_Abstract {
 
 	private $offer;
-	private $right;
+
+
 	public function init(){
-		$this->right = new checkRight();
 		$this->offer = new OffersModel();
 	}
 
@@ -24,7 +23,9 @@ class OffersController extends Yaf\Controller_Abstract {
 	//列表
 	public function offerListAction(){
 		$page = safe::filterGet('page','int');
+
 		$pageData = $this->offer->getList($page);
+
 		$this->getView()->assign('data',$pageData['data']);
 		$this->getView()->assign('bar',$pageData['bar']);
 	}
@@ -33,62 +34,13 @@ class OffersController extends Yaf\Controller_Abstract {
 	public function checkAction(){
 		$id = safe::filter($this->_request->getParam('id'),'int',1);
 		$info = $this->offer->offerDetail($id);
-		$info['num'] = 5;
-		$info['amount'] = $info['num'] * $info['price'];
-		$order_mode = new order\Order(2);
+
+		if(empty($info)){
+			return false;
+		}
+		$info['amount'] = $info['minimum'] * $info['price'];
+		$order_mode = new Order($info['mode']);
 		$info['pay_deposit'] = $order_mode->payDepositCom($info['id'],$info['amount']);
-		$this->getView()->assign('data',$info);
-	}
-
-	//付款
-	public function buyerPayAction(){
-		//$this->right->checkLogin($this);//未登录自动跳到登录页
-		$id = safe::filterPost('id','int');
-		$num = safe::filterPost('num');
-		$paytype = safe::filterPost('paytype');
-		$account = safe::filterPost('account');
-
-		$offer_type = $this->offer->offerType($id);
-		switch ($offer_type) {
-			case order\Order::ORDER_FREE:
-				//自由报盘
-				$order_mode = new order\FreeOrder();
-				break;
-			case order\Order::ORDER_DEPOSIT:
-				//保证金报盘
-				$order_mode = new order\DepositOrder();
-				break;
-			case order\Order::ORDER_STORE:
-				//仓单报盘
-				$order_mode = new order\StoreOrder();
-				break;
-			case order\Order::ORDER_ENTRUST;
-				//委托报盘
-				$order_mode = new order\EntrustOrder();
-				break;
-			default:
-				die('无效报盘方式');
-				break;
-		}
-		
-		//判断用户账户类型
-		switch ($account) {
-			case 1:
-				//代理账户 直接余额扣款
-				$payment = 1;
-				break;
-			case 2:
-				die('票据账户支付暂时未开通，请选择代理账户');
-				//票据账户
-				break;
-			case 3:
-				die('签约账户支付暂时未开通，请选择代理账户');
-				//签约账户
-				break;
-			default:
-				die('无效账户类型');
-				break;
-		}
 
 		$user_id = 49;//$this->user_id;
 		$orderData['offer_id'] = $id;
@@ -113,25 +65,20 @@ class OffersController extends Yaf\Controller_Abstract {
 		}else{
 			die('生成订单失败:'.$gen_res['info']);
 		}
-		return false;
+		$this->getView()->assign('data',$info);
+
 	}
 
-	//支付成功页面
+//支付成功页面
 	public function paySuccessAction(){
 		$order_no = safe::filter($this->_request->getParam('order_no'));
 		$amount = safe::filter($this->_request->getParam('amount'));
-		$info = safe::filter($this->_request->getParam('info'));
 		$pay_deposit = safe::filter($this->_request->getParam('payed'));
+
 		$this->getView()->assign('order_no',$order_no);
 		$this->getView()->assign('amount',$amount);
-		$this->getView()->assign('info',$info);
 		$this->getView()->assign('pay_deposit',$pay_deposit);
 	}
 
-	// //获取下单报盘详情html
-	// public function offerDetailAction(){
-	// 	$offer_id = safe::filterGet('id','int');
-	// 	$info = $this->offer->offerDetail($offer_id);
-	// }
 
 }

@@ -47,9 +47,9 @@
 				</td>
 				<td class="td-manage">
 					{if:$item['status'] == 0}
-					<a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=1 ajax_url="{url:/system/admin/setStatus}id/{$item['id']}"><i class="icon-pause"></i></a>
+					<a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=1 ajax_url="{url:system/admin/setStatus?id=$item['id']}"><i class="icon-pause"></i></a>
 					{elseif:$item['status'] == 1}
-					<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=0 ajax_url="{url:/system/admin/setStatus}id/{$item['id']}"><i class="icon-play"></i></a>
+					<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=0 ajax_url="{url:system/admin/setStatus?id=$item['id']}"><i class="icon-play"></i></a>
 					{/if}
 				 <a title="编辑" href="{url:/system/admin/adminUpdate}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a> 
 				 <a style="text-decoration:none" class="ml-5" href="{url:/system/admin/adminPwd}id/{$item['id']}" title="修改密码"><i class="icon-unlock"></i></a> 

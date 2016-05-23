@@ -6,7 +6,7 @@
  * Time: ÉÏÎç 9:28
  */
 namespace Library;
-class Tool{
+class tool{
 
     //È«¾ÖÅäÖÃ
     private static $globalConfigs = array();
@@ -18,7 +18,7 @@ class Tool{
     public static function getConfig($name=null){
         $configObj = \Yaf\Registry::get("config");
         if($configObj===false){
-            $configObj = Yaf\Application::app()->getConfig();
+            $configObj = \Yaf\Application::app()->getConfig();
         }
         if($name!=null){
             if(!is_array($name)){
@@ -132,4 +132,5 @@ class Tool{
             $ip = '127.0.0.1';
         return $ip; 
     } 
+
 }

@@ -11,6 +11,7 @@ use \Library\Time;
 use \Library\Query;
 use \Library\Thumb;
 use \Library\log;
+use \Library\tool;
 class certificate{
 
     const CERT_BEFORE  =  -1; //表示从未发起认证,不存在认证数据
@@ -20,7 +21,7 @@ class certificate{
     const CERT_FAIL    =   3; //后台拒绝认证
 
     protected static $certType = '';
-    protected $certTable = array(
+    protected static $certTable = array(
         'deal'=>'dealer',
         'store'=>'store_manager'
 
@@ -98,13 +99,11 @@ class certificate{
      * 获取用户认证状态
      */
     public function getCertStatus($user_id,$cert_type){
-        $certM = new M($this->certTable[$cert_type]);
+        $certM = new M(self::$certTable[$cert_type]);
         $status_data = $certM->where(array('user_id'=>$user_id))->getObj();
         $status_data['status'] = empty($status_data) ? self::CERT_BEFORE : $status_data['status'];
         return $status_data;
     }
-
-
 
 
     /**
@@ -115,7 +114,7 @@ class certificate{
      */
     public function createCertApply($certType,$accData,$certData){
         $user_id = $this->user_id;
-        $certModel = new M($this->certTable[$certType]);
+        $certModel = new M(self::$certTable[$certType]);
         $update = $certData;
         $status = self::CERT_APPLY;
         $certData['status'] = $status;
@@ -131,21 +130,8 @@ class certificate{
 
         $certModel->table($accTable)->data($accData)->where(array('user_id'=>$user_id))->update();
 
-
-
     }
-    /**
-     * 认证仓库管理
-     * @param int $user_id
-     * @param int $store_id
-     */
-    public function certStoreApply($user_id,$store_id){
-        $certModel = new M($this->certTable['store']);
-        $status = self::CERT_APPLY;
-        $sql = 'INSERT INTO '.$certModel->table().' (`user_id`,`status`,`apply_time`,`store_id`) VALUES ('.$user_id.','.$status.',"'.Time::getDateTime().'",:store_id) ON DUPLICATE KEY UPDATE status ='.$status.' , store_id=:store_id,apply_time = "'.Time::getDateTime().'"';
 
-        return $certModel->bind(array('store_id'=>$store_id))->query($sql);
-    }
     /**
      * 后台审核认证
      * @param int $user_id 用户id
@@ -160,11 +146,16 @@ class certificate{
         $status = $result==1 ? self::CERT_SUCCESS : self::CERT_FAIL;
         $certModel->data(array('status'=>$status,'message'=>$info,'verify_time'=>Time::getDateTime()))->where(array('user_id'=>$user_id))->update();
 
+        $this->chgCertStatus($user_id,$certModel);
         $log = new log();
         $logs = array('admin','处理了一个申请认证','用户id:'.$user_id);
         $log->write('operation',$logs);
 
-        return $certModel->commit();
+        $res = $certModel->commit();
+        if($res===true){
+            return tool::getSuccInfo();
+        }
+        return tool::getSuccInfo(0,'操作失败');
     }
 
     /**
@@ -173,26 +164,27 @@ class certificate{
      *
      */
     public function certInit($reCert){
-        $tables = $this->certTable;
-        $m = '';
+        $tables = self::$certTable;
         $user_id = $this->user_id;
+
+        $m = new M('');
         foreach($tables as $k=> $val){
             if(!in_array($k,$reCert))
                 continue;
-
-           if(is_object($m)) {
-               $m->table($val);
-           }
-            else{
-                $m = new M($val);
-            }
+            $m->table($val);
             $m->data(array('status'=>self::CERT_INIT))->where(array('user_id'=>$user_id))->update();
-
         }
 
+    }
 
-
-
+    /**
+     *
+     * @param $user_id
+     * @param $obj
+     */
+    protected function chgCertStatus($user_id,&$obj=null){
+        $obj = new M('user');
+        $obj->data(array('cert_status'=>1))->where(array('id'=>$user_id))->update();
     }
 
     /**
@@ -219,8 +211,8 @@ class certificate{
      */
     protected function getCertTable($type){
         $table = '';
-        if(isset($this->certTable[$type]))
-            return $this->certTable[$type];
+        if(isset(self::$certTable[$type]))
+            return self::$certTable[$type];
         return $table;
     }
 
@@ -269,6 +261,21 @@ class certificate{
         $result['cert_oc_thumb'] = Thumb::get($result['cert_oc'],300,200);
         $result['cert_bl_thumb'] = Thumb::get($result['cert_bl'],300,200);
         $result['cert_tax_thumb'] = Thumb::get($result['cert_tax'],300,200);
+        return $result;
+    }
+
+
+    /**
+     * 验证角色认证是否通过
+     * @param $user_id
+     */
+    public function checkCert($user_id){
+        $obj = new M('');
+        $result = array();
+        foreach(self::$certTable as $type=>$table){
+            $status = $obj->table($table)->where(array('user_id'=>$user_id))->getField('status');
+            $result[$type] = $status==self::CERT_SUCCESS ? 1 : 0;
+        }
         return $result;
     }
 }

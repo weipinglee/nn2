@@ -1,9 +1,9 @@
 <?php
 /**
- * ½»Ò×ÉÌÈÏÖ¤¹ÜÀíÀà
+ * äº¤æ˜“å•†è®¤è¯ç®¡ç†ç±»
  * author: weipinglee
  * Date: 2016/4/27 0027
- * Time: ÏÂÎç 3:35
+ * Time: ä¸‹åˆ 3:35
  */
 
 namespace nainai\cert;
@@ -17,7 +17,7 @@ class certStore extends certificate{
 
 
     protected static $certType = 'store';
-    //ÈÏÖ¤ÐèÒªµÄ×Ö¶Î,0¸öÈËÓÃ»§£¬1ÆóÒµÓÃ»§
+    //è®¤è¯éœ€è¦çš„å­—æ®µ,0ä¸ªäººç”¨æˆ·ï¼Œ1ä¼ä¸šç”¨æˆ·
     protected static $certFields = array(
 
         0=>array(
@@ -37,28 +37,27 @@ class certStore extends certificate{
     );
 
     /**
-     * ÑéÖ¤¹æÔò£º
-     * array(×Ö¶Î£¬¹æÔò£¬´íÎóÐÅÏ¢£¬Ìõ¼þ£¬¸½¼Ó¹æÔò£¬Ê±¼ä£©
-     * Ìõ¼þ£º0£º´æÔÚ×Ö¶ÎÔòÑéÖ¤ 1£º±ØÐëÑéÖ¤ 2£º²»Îª¿ÕÊ±ÑéÖ¤
+     * éªŒè¯è§„åˆ™ï¼š
+     * array(å­—æ®µï¼Œè§„åˆ™ï¼Œé”™è¯¯ä¿¡æ¯ï¼Œæ¡ä»¶ï¼Œé™„åŠ è§„åˆ™ï¼Œæ—¶é—´ï¼‰
+     * æ¡ä»¶ï¼š0ï¼šå­˜åœ¨å­—æ®µåˆ™éªŒè¯ 1ï¼šå¿…é¡»éªŒè¯ 2ï¼šä¸ä¸ºç©ºæ—¶éªŒè¯
      *
      */
     private $rules = array(
-        array('user_id','number','ÓÃ»§id´íÎó'),//Ä¬ÈÏÊÇÕýÔò
+        array('user_id','number','ç”¨æˆ·idé”™è¯¯'),//é»˜è®¤æ˜¯æ­£åˆ™
     );
 
 
 
 
 
-
     /**
-     * ÉêÇëÈÏÖ¤
-     * @param array  $accData ÕË»§Êý¾Ý£¨¸öÈË¡¢¹«Ë¾±íÊý¾Ý£©
-     * @param array $certData ÈÏÖ¤Êý¾Ý £¨ÈÏÖ¤±íµÄÊý¾Ý£©
+     * ç”³è¯·è®¤è¯
+     * @param array  $accData è´¦æˆ·æ•°æ®ï¼ˆä¸ªäººã€å…¬å¸è¡¨æ•°æ®ï¼‰
+     * @param array $certData è®¤è¯æ•°æ® ï¼ˆè®¤è¯è¡¨çš„æ•°æ®ï¼‰
      */
     public function certStoreApply($accData,$certData=array()){
 
-        //¼ìÑé¹«Ë¾¸öÈËÐÅÏ¢ÊÇ·ñ·ûºÏ¹æÔò
+        //æ£€éªŒå…¬å¸ä¸ªäººä¿¡æ¯æ˜¯å¦ç¬¦åˆè§„åˆ™
         $m = new \UserModel();
         if($this->user_type==1){
             $check = $m->checkCompanyInfo($accData);
@@ -67,18 +66,19 @@ class certStore extends certificate{
             $check = $m->checkPersonInfo($accData);
 
 
-        $certObj = new M(self::$certClass[self::$certType]);
+        $certObj = new M(self::$certTable[self::$certType]);
 
 
         if($check===true ){
-            //¼ìÑéÆäËûµÄÈÏÖ¤ÊÇ·ñÐèÒªÖØÐÂÈÏÖ¤
+            //æ£€éªŒå…¶ä»–çš„è®¤è¯æ˜¯å¦éœ€è¦é‡æ–°è®¤è¯
             $reCertType = $this->checkOtherCert($accData);
             $certObj->beginTrans();
-            if(!empty($reCertType))//Èô¹ûÖØÐÂÈÏÖ¤µÄÀàÐÍ²»Îª¿Õ£¬¶ÔÆä³õÊ¼»¯
+            if(!empty($reCertType))//è‹¥æžœé‡æ–°è®¤è¯çš„ç±»åž‹ä¸ä¸ºç©ºï¼Œå¯¹å…¶åˆå§‹åŒ–
                 $this->certInit($reCertType);
 
             $this->createCertApply(self::$certType,$accData,$certData);
 
+            $this->chgCertStatus($this->user_id,$certObj);//æ›´æ”¹ç”¨æˆ·è¡¨è®¤è¯çŠ¶æ€
             $res = $certObj->commit();
         }
         else{
@@ -86,20 +86,18 @@ class certStore extends certificate{
         }
 
         if($res===true){
-            echo  JSON::encode(\Library\Tool::getSuccInfo());
-            exit;
+            return \Library\tool::getSuccInfo();
         }
 
         else{
-            echo \Library\Tool::getSuccInfo(0,is_string($res) ? $res : 'ÉêÇëÊ§°Ü');
-            exit;
+            return \Library\tool::getSuccInfo(0, is_string($res)?$res : 'ç”³è¯·å¤±è´¥');
         }
 
     }
 
 
     /**
-     * »ñÈ¡ÈÏÖ¤ÏêÏ¸ÐÅÏ¢
+     * èŽ·å–è®¤è¯è¯¦ç»†ä¿¡æ¯
      */
     public function getDetail($id=0){
         $userModel = new M('user');
@@ -120,18 +118,18 @@ class certStore extends certificate{
     }
 
     /**
-     * ½»Ò×ÉÌÉóºË
-     * @param int $user_id ÓÃ»§id
-     * @param int $result ÉóºË½á¹û 1£ºÍ¨¹ý£¬0£º²µ»Ø
-     * @param string $info Òâ¼û
+     * äº¤æ˜“å•†å®¡æ ¸
+     * @param int $user_id ç”¨æˆ·id
+     * @param int $result å®¡æ ¸ç»“æžœ 1ï¼šé€šè¿‡ï¼Œ0ï¼šé©³å›ž
+     * @param string $info æ„è§
      */
     public function verify($user_id,$result=1,$info=''){
         return $this->certVerify($user_id,$result,$info,self::$certType);
     }
 
     /**
-     * »ñÈ¡ÉêÇëÈÏÖ¤ÓÃ»§ÁÐ±í
-     * @param int $page Ò³Âë
+     * èŽ·å–ç”³è¯·è®¤è¯ç”¨æˆ·åˆ—è¡¨
+     * @param int $page é¡µç 
      */
     public function certList($page){
         $type = self::$certType;
@@ -144,6 +142,16 @@ class certStore extends certificate{
         $data = $Q->find();
         $pageBar =  $Q->getPageBar();
         return array('data'=>$data,'bar'=>$pageBar);
+    }
+
+    /**
+     * èŽ·å–ç”¨æˆ·è®¤è¯çš„ä»“åº“
+     * @param int $user_id
+     */
+    public function getUserStore($user_id){
+        $obj = new M(self::$certTable[self::$certType]);
+        $store_id = $obj->where(array('user_id'=>$user_id,'status'=>self::CERT_SUCCESS))->getField('store_id');
+        return $store_id;
     }
 
 

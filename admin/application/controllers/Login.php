@@ -30,7 +30,7 @@ class LoginController extends InitController{//Yaf\Controller_Abstract {
 		$pwd = safe::filterPost('admin-pwd');
 
 		$res = $this->loginModel->login($name,$pwd);
-		die(JSON::encode($res));
+		die(json::encode($res));
 		return false;
 	}
 

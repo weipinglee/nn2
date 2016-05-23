@@ -24,7 +24,9 @@ class certDealer extends certificate{
             'true_name',
             'identify_no',
             'identify_front',
-            'identify_back'
+            'identify_back',
+            'area',
+            'address'
         ),
         1=>array(
             'company_name',
@@ -77,9 +79,7 @@ class certDealer extends certificate{
         }
         else
             $check = $m->checkPersonInfo($accData);
-
-
-        $certObj = new M(self::$certClass[self::$certType]);
+        $certObj = new M(self::$certTable[self::$certType]);
 
 
         if($check===true ){
@@ -90,7 +90,7 @@ class certDealer extends certificate{
                 $this->certInit($reCertType);
 
             $this->createCertApply(self::$certType,$accData,$certData);
-
+            $this->chgCertStatus($this->user_id,$certObj);//更改用户表认证状态
             $res = $certObj->commit();
         }
         else{
@@ -98,13 +98,12 @@ class certDealer extends certificate{
         }
 
         if($res===true){
-            echo  JSON::encode(\Library\Tool::getSuccInfo());
-            exit;
+            return \Library\Tool::getSuccInfo();
         }
 
         else{
-            echo \Library\Tool::getSuccInfo(0,is_string($res) ? $res : '申请失败');
-            exit;
+            return \Library\Tool::getSuccInfo(0,is_string($res) ? $res : '申请失败');
+
         }
 
     }

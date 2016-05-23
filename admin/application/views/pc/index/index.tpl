@@ -74,14 +74,12 @@
                         </li>
                         <li><a href="system-base.html" target="content">系统设置</a></li>
                         <li><a href="table.html" target="content">导航栏目管理</a></li>
-                        <li><a href="tabs.html" target="content">地域信息管理</a></li>
                         <li><a href="gallery.html" target="content">客服添加</a></li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
                     <ul>
-                        <li><a href="member-audit.html" target="content">会员审核</a></li>
-                        <li><a href="member-renzheng.html" target="content">会员认证</a>
+                        <li><a href="" target="content">会员认证</a>
                             <ul>
                                 <li><a href="{url:member/certManage/dealerCert}" target="content">交易商认证</a></li>
                                 <li><a href="{url:member/certManage/storeCert}" target="content">仓库认证</a></li>
@@ -93,26 +91,30 @@
                                 <li><a href="{url:/member/roleAdd}" target="content">添加角色</a></li>
                             </ul>
                         </li>
-                        <li><a href="{url:/member/usergroup/groupList}" target="content">角色分组</a></li>
-                        <li><a href="{url:/member/memberList}" target="content">会员列表</a></li>
-                        <li><a href="member-del.html" target="content">黑名单列表</a></li>
-                        <li><a href="agent-list.html" target="content">经纪人管理</a></li>
+                        <li><a href="{url:member/usergroup/groupList}" target="content">角色分组</a></li>
+                        <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
+                        <li><a href='javascript:voie(0)' target="content">代理商管理</a>
+                            <ul>
+                                <li><a href="{url:member/agent/agentList}" target="content">代理商列表</a></li>
+                                <li><a href="{url:member/agent/addAgent}" target="content">代理商添加</a></li>
+                            </ul>
+                        </li>
                         <li><a href="shop-list.html" target="content">商铺管理</a></li>
                         <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />交易管理</a>
                     <ul>
-                        <li><a href="{url:/product/categoryAdd}" target="content">产品分类设置</a>
+                        <li><a href="{url:trade/product/categoryAdd}" target="content">产品分类设置</a>
                             <ul>
-                                <li><a href="{url:/product/categoryAdd}" target="content">分类添加</a></li>
-                                <li><a href="{url:/product/categoryList}" target="content">分类列表</a></li>
+                                <li><a href="{url:trade/product/categoryAdd}" target="content">分类添加</a></li>
+                                <li><a href="{url:trade/product/categoryList}" target="content">分类列表</a></li>
                             </ul>
                         </li>
-                        <li><a href="{url:/product/attributeAdd}" target="content">产品属性设置</a>
+                        <li><a href="{url:trade/product/attributeAdd}" target="content">产品属性设置</a>
                             <ul>
-                                <li><a href="{url:/product/attributeAdd}" target="content">属性添加</a></li>
-                                <li><a href="{url:/product/attributeList}" target="content">属性列表</a></li>
+                                <li><a href="{url:trade/product/attributeAdd}" target="content">属性添加</a></li>
+                                <li><a href="{url:trade/product/attributeList}" target="content">属性列表</a></li>
                             </ul>
                         </li>
                         <li><a target="content">交易费率设置</a>
@@ -142,11 +144,16 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>
                     <ul>
-                        <li><a href="audit-charge.html" target="content">入金审核</a></li>
-                        <li><a href="audit-cash.html" target="content">出金审核</a></li>
+                        <li><a href="" target="content">入金审核</a>
+                            <ul>
+                                <li><a href="{url:balance/fundIn/onlineList}" target="content">线上入金</a></li>
+                                <li><a href="{url:balance/fundIn/offlineList}" target="content">线下入金</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{url:balance/fundOut/fundOutList}" target="content">出金审核</a></li>
                         <li><a target="content">账户管理</a>
                             <ul>
-                                <li><a href="account-member.html" target="content">会员账户</a></li>
+                                <li><a href="{url:balance/accManage/userAccList}" target="content">会员账户</a></li>
                                 <li><a href="account-market.html" target="content">市场账户</a></li>
                                 <li><a href="account-agent.html" target="content">经纪人账户</a></li>
                             </ul>
@@ -168,8 +175,19 @@
                 <li class="nosubmenu"><a href="modal.html" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 数据统计</a></li>
                 <li class="nosubmenu"><a href="javascript:void(0)" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 仓库管理</a>
                     <ul>
-                        <li><a target="content" href="{url:/store/storeList}">仓库列表</a></li>
-                        <li><a href="{url:/store/storeAdd}" target="content">仓库添加</a></li>
+                        <li><a href="" target="content">仓库管理</a>
+                            <ul>
+                                <li><a target="content" href="{url:store/store/storeList}">仓库列表</a></li>
+                                <li><a href="{url:store/store/storeAdd}" target="content">仓库添加</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="" target="content">仓单管理</a>
+                            <ul>
+                                <li><a target="content" href="{url:store/storeProduct/getList}">仓单列表</a></li>
+                                <li><a href="{url:store/storeProduct/reviewList}" target="content">仓单审核</a></li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </li>
             </ul>

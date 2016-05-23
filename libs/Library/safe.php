@@ -5,7 +5,7 @@
  * Time: 上午 9:26
  */
 namespace Library;
-class Safe
+class safe
 {
 
 
@@ -289,6 +289,27 @@ class Safe
         //过略掉所有<script>，<i?frame>标签的on事件,css的js-expression、import等js行为，a的js-href
         $purifier = new \HTMLPurifier($config);
         return self::addSlash($purifier->purify($str));
+    }
+
+
+    /**
+     * 获取
+     */
+    public static function createToken(){
+        $token = sha1(mt_rand(1,999999).Client::getIp().time());
+        session::set('token',$token);
+        return $token;
+    }
+
+    /**
+     * 检验token正确与否
+     */
+    public static function checkToken($token){
+        $sessToken = \Library\session::get('token');
+        \Library\session::clear('token');
+        if($sessToken!=$token || $sessToken==null)
+            return false;
+        return true;
     }
 
 

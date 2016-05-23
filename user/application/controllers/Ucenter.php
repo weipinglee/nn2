@@ -12,42 +12,62 @@ use \Library\url;
 use \Library\safe;
 use \Library\Thumb;
 use \Library\tool;
-class UcenterController extends Yaf\Controller_Abstract {
+class UcenterController extends UcenterBaseController {
 
 
-    public function init(){
-        $right = new checkRight();
-        $right->checkLogin($this);//未登录自动跳到登录页
-        
-        $this->getView()->assign('leftArray', $this->getLeftArray());
-        $controller = $this->getRequest()->getControllerName();
-        $action = $this->getRequest()->getActionName();
-        $this->getView()->assign('leftCur', url::createUrl('/'.$controller.'/'.$action));
-        $this->getView()->setLayout('ucenter');
-    }
+
     /**
      * 个人中心首页
      */
     public function indexAction(){
-        
+
     }
 
-    private function  getLeftArray(){
+    protected function  getLeftArray(){
         return array(
             array('name' => '账户管理', 'list' =>'' ),
             array('name' => '账户管理', 'list' => array(
-                array('url' => url::createUrl('/ucenter/info'), 'title' => '基本信息' ),
-                array('url' => url::createUrl('/ucenter/password'), 'title' => '修改密码' ),
+                array(
+                    'url' => url::createUrl('/ucenter/baseinfo'),
+                    'title' => '基本信息' ,
+                    'action'=>array('info','baseinfo','baseedit')
+                ),
+                array('url' => url::createUrl('/ucenter/password'), 'title' => '修改密码' ,'action'=>array('password')),
             )),
             array('name' => '资质认证', 'list' => array(
-                array('url' => url::createUrl('/ucenter/dealCert'), 'title' => '交易商' ),
-                array('url' => url::createUrl('/ucenter/storeCert'), 'title' => '仓库管理员' ),
+                array('url' => url::createUrl('/ucenter/dealCert'), 'title' => '交易商','action'=>array('dealcert') ),
+                array('url' => url::createUrl('/ucenter/storeCert'), 'title' => '仓库管理员','action'=>array('storecert')  ),
             )),
             array('name' => '子账户管理', 'list' => array(
                 array('url' => url::createUrl('/ucenter/subAcc'), 'title' => '添加子账户' ),
             )),
 
+            array('name' => '开票信息管理', 'url' => url::createUrl('/ucenter/invoice'),'action'=>array('invoice')),
         );
+    }
+
+
+    public function baseInfoAction(){
+        $userModel = new userModel();
+        $userData = $userModel->getUserInfo($this->user_id);
+        $this->getView()->assign('user',$userData);
+    }
+
+    public function baseEditAction(){
+        $userModel = new userModel();
+        $userData = $userModel->getUserInfo($this->user_id);
+        $this->getView()->assign('user',$userData);
+    }
+
+    public function dobaseAction(){
+        $data = array();
+        $data['id'] = $this->user_id;
+        $data['username'] = safe::filterPost('username');
+        $data['email'] = safe::filterPost('email');
+
+        $userModel = new userModel();
+        $res = $userModel->updateUserInfo($data);
+       die(json::encode($res));
     }
     /**
      * 基本信息修改
@@ -103,13 +123,7 @@ class UcenterController extends Yaf\Controller_Abstract {
 
         $userModel = new userModel();
         $res = $userModel->changePass($pass,$user_id);
-        if(isset($res['success']) && $res['success']==1){
-
-            $this->redirect('info');
-        }
-        else{
-            echo $res['info'];
-        }
+       echo JSON::encode($res);
         return false;
     }
 
@@ -284,31 +298,31 @@ class UcenterController extends Yaf\Controller_Abstract {
             $accData = array();
 
             if($this->user_type==1){
-                $accData['company_name'] = Safe::filterPost('company_name');
-                $accData['legal_person'] = Safe::filterPost('legal_person');
-                $accData['contact'] = Safe::filterPost('contact');
-                $accData['contact_phone'] = Safe::filterPost('phone');
-                $accData['area'] = Safe::filterPost('area');
-                $accData['address'] = Safe::filterPost('address');
-                $accData['cert_bl'] = Tool::setImgApp(Safe::filterPost('imgfile1'));
-                $accData['cert_tax'] = Tool::setImgApp(Safe::filterPost('imgfile2'));
-                $accData['cert_oc'] = Tool::setImgApp(Safe::filterPost('imgfile3'));
+                $accData['company_name'] = safe::filterPost('company_name');
+                $accData['legal_person'] = safe::filterPost('legal_person');
+                $accData['contact'] = safe::filterPost('contact');
+                $accData['contact_phone'] = safe::filterPost('phone');
+                $accData['area'] = safe::filterPost('area');
+                $accData['address'] = safe::filterPost('address');
+                $accData['cert_bl'] = Tool::setImgApp(safe::filterPost('imgfile1'));
+                $accData['cert_tax'] = Tool::setImgApp(safe::filterPost('imgfile2'));
+                $accData['cert_oc'] = Tool::setImgApp(safe::filterPost('imgfile3'));
+                $accData['business'] = safe::filterPost('zhuying');
             }
             else{
-                $accData['true_name'] = Safe::filterPost('true_name');
-                $accData['identify_no'] = Safe::filterPost('identify_no');
-                $accData['identify_front'] = Tool::setImgApp(Safe::filterPost('imgfile1'));
-                $accData['identify_back'] = Tool::setImgApp(Safe::filterPost('imgfile2'));
+                $accData['true_name'] = safe::filterPost('name');
+                $accData['area'] = safe::filterPost('area');
+                $accData['address'] = safe::filterPost('address');
+                $accData['identify_no'] = safe::filterPost('no');
+                $accData['identify_front'] = Tool::setImgApp(safe::filterPost('imgfile1'));
+                $accData['identify_back'] = Tool::setImgApp(safe::filterPost('imgfile2'));
             }
 
             $cert = new \nainai\cert\certDealer($user_id,$this->user_type);
 
             $res = $cert->certDealApply($accData);
 
-            if($res['success']==1)
-                echo 1;
-            else
-                echo 0;
+            die(json::encode($res));
         }
         return false;
 
@@ -331,19 +345,19 @@ class UcenterController extends Yaf\Controller_Abstract {
                 $accData['contact_phone'] = Safe::filterPost('phone');
                 $accData['area'] = Safe::filterPost('area');
                 $accData['address'] = Safe::filterPost('address');
+
             }
             else{
                 $accData['true_name'] = Safe::filterPost('true_name');
+                $accData['area'] = Safe::filterPost('area');
+                $accData['address'] = Safe::filterPost('address');
             }
 
             $cert = new \nainai\cert\certStore($user_id,$this->user_type);
 
             $res = $cert->certStoreApply($accData);
+            echo JSON::encode($res);
 
-            if($res['success']==1)
-                echo 1;
-            else
-                echo 0;
         }
         return false;
     }
@@ -415,6 +429,33 @@ class UcenterController extends Yaf\Controller_Abstract {
             else echo $res['info'];
         }
         return false;
+    }
+
+    /**
+     * [开票信息管理]
+     */
+    public function invoiceAction(){
+
+        if (IS_POST) {
+            $invoiceData = array(
+                'title' => urlencode(Safe::filterPost('title')),
+                'tax_no' => urlencode(Safe::filterPost('tax_no')),
+                'address' => urlencode(Safe::filterPost('address')),
+                'phone' => Safe::filterPost('tel', 'int'),
+                'bank_name' => urlencode(Safe::filterPost('bankName')),
+                'bank_no' => urlencode(Safe::filterPost('bankAccount'))
+            );
+
+            $invoiceModel = new \nainai\user\UserInvoice();
+            $returnData = $invoiceModel->addUserInvoice($invoiceData);
+
+            if($returnData['success']==1){
+                $this->redirect('addSuccess');
+            }else{
+                echo $returnData['info'];
+            }
+            exit();
+        }
     }
 
 

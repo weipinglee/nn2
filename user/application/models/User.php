@@ -23,22 +23,22 @@ class UserModel{
 		array('id','number','id错误',0,'regex'),
 		array('pid','number','',0,'regex'),
 		array('username','/^[a-zA-Z0-9_]{3,30}$/','用户名格式错误'),
-		array('password','/^\S{6,20}$/','密码格式错误',0,'regex',3),
+		array('password','/^\S{6,15}$/','密码格式错误',0,'regex',3),
 		array('repassword','password','两次密码输入不同',0,'confirm'),
 		array('type',array(0,1),'类型错误',0,'in'),
 		array('head_photo','/^[a-zA-Z0-9_@\.\/]+$/','请正确上传头像',2,'regex'),
 		array('mobile','mobile','手机号码错误',0,'regex'),
 		array('email','email','邮箱格式错误',2,'regex'),
 		array('agent','number','代理商选择错误'),
-		array('agent_pass','/^[a-zA-Z0-9]{6,30}$/','填写代理商密码')
+		//array('agent_pass','/^[a-zA-Z0-9]{6,30}$/','填写代理商密码')
 	);
 
 	protected $personRules = array(
-		array('true_name','require','真实姓名必填',1),//默认是正则
+		array('true_name','/.{2,20}/','真实姓名必填',0),//默认是正则
 		array('sex',array(0,1),'性别错误',0,'in'),
-		array('identify_no','/^\d{1,20}[a-zA-Z]?$/','请填写身份证号码',1,'regex'),
-		array('identify_front','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片',1,'regex'),
-		array('identify_back','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片',1,'regex'),
+		array('identify_no','/^\d{1,20}[a-zA-Z]?$/','请填写身份证号码'),
+		array('identify_front','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
+		array('identify_back','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 		array('birth','date','请正确填写生日',2,'regex'),
 		array('education','number','请选择学历',2,'regex'),
 		array('qq','/^\d+$/','请正确填写QQ号',2,'regex'),
@@ -47,9 +47,9 @@ class UserModel{
 	);
 
 	protected $companyRules = array(
-		array('company_name','require','公司名称必填'),
+		array('company_name','s{2,9}','公司名称必填'),
 		array('area','number','地区错误'),
-		array('legal_person','require','法人填写错误'),
+		array('legal_person','zh{2,30}','法人填写错误'),
 		array('reg_fund','double','注册资金格式错误'),
 		array('category','number','企业分类错误'),
 		array('nature','number','企业类型错误'),
@@ -65,8 +65,11 @@ class UserModel{
 		array('cert_bl','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 		array('cert_oc','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 		array('cert_tax','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
+		array('business','/.{1,100}/','请填写主营品种'),
 
 	);
+
+
 
 
 	static private  $userObj = '';
@@ -74,8 +77,31 @@ class UserModel{
 	public function __construct(){
 		self::$userObj = new M('user');
 	}
+
+	/**
+	 * 验证代理商密码是否正确
+	 * @param $agentId
+	 * @param $agentNo
+	 */
+	protected function checkAgentPass($agentId,$agentNo){
+		if($agentId==0){//如果是市场，不需有密码
+			return true;
+		}
+		else{
+			$agent = new M('agent');
+			$no = $agent->where(array('id'=>$agentId))->getField('serial_no');
+			if($no==$agentNo){
+				return true;
+			}
+			else return false;
+		}
+	}
 	//个人用户注册
 	public function userInsert(&$data){
+
+		if(false===$this->checkAgentPass($data['agent'],$data['serial_no']))
+			return $this->getSuccInfo(0,'代理商密码错误');
+
 		$user = self::$userObj;
 		if($user->data($data)->validate($this->userRules)){
 			if($this->existUser(array('username'=>$data['username'])))
@@ -84,6 +110,7 @@ class UserModel{
 			if($this->existUser(array('mobile'=>$data['mobile'])))
 				return $this->getSuccInfo(0,'手机号码已注册');
 			unset($user->repassword);
+			unset($user->serial_no);
 			$user->password = $data['password'] = sha1($data['password']);
 			$user->beginTrans();
 			$uID = $user->add();
@@ -123,6 +150,8 @@ class UserModel{
 	 */
 	public function companyReg(&$userData,$companyData){
 
+		if(false===$this->checkAgentPass($userData['agent'],$userData['serial_no']))
+			return $this->getSuccInfo(0,'代理商密码错误');
 		$user = self::$userObj;
 		if($user->data($userData)->validate($this->userRules) && $user->validate($this->companyRules,$companyData)){
 			if($this->existUser(array('username'=>$userData['username'])))
@@ -130,6 +159,7 @@ class UserModel{
 			if($this->existUser(array('mobile'=>$userData['mobile'])))
 				return $this->getSuccInfo(0,'手机号码已注册');
 			unset($user->repassword);
+
 			$user->password = $userData['password'] = sha1($userData['password']);
 			$user->beginTrans();
 			$user_id = $user->add();
@@ -221,7 +251,32 @@ class UserModel{
 	}
 
 
+	/**
+	 * 更新用户表数据
+	 * @param $data
+	 */
+	public function updateUserInfo($data){
+		if($this->existUser(array('username'=>$data['username'],'id'=>array('neq'=>$data['id'])))){
+			return \Library\tool::getSuccInfo(0,'用户名已存在');
+		}
+		if($this->existUser(array('email'=>$data['email'],'id'=>array('neq'=>$data['id'])))){
+			return \Library\tool::getSuccInfo(0,'邮箱已存在');
+		}
+		if(!is_object(self::$userObj)){
+			self::$userObj = new M('user');
+		}
+		$id = $data['id'];
+		unset($data['id']);
+		$res = self::$userObj->where(array('id'=>$id))->data($data)->update();
+		if($res!==false){
+			return \Library\tool::getSuccInfo();
+		}
+		else
+			return \Library\tool::getSuccInfo(0,'系统繁忙，稍后再试');
 
+
+
+	}
 	/**验证用户是否已注册
 	 * @param array $userData 用户数据
 	 * @return bool  存在 true 否则 false
@@ -417,6 +472,10 @@ class UserModel{
 			return $this->getSuccInfo(0,'原密码错误');
 		}
 	}
+
+
+
+
 
 
 

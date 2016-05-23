@@ -8,7 +8,7 @@
 		仓库管理员认证信息
     </div>
  <div class="pd-20">
-	 <form action="{url:member/certManage/doStoreCert}" method="post" class="form form-horizontal" id="form-admin-add">
+	 <form action="{url:member/certManage/doStoreCert}" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="{url:member/certManage/storeCert}">
 		<div class="row cl">
 			<label class="form-label col-3">申请时间：</label>
 			<div class="formControls col-5">

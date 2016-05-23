@@ -1,7 +1,7 @@
 (function autoValidate()
 {
-	addEvent(window,'load',init);
-	function addEvent(obj, type, fn)
+
+	function addEvent (obj, type, fn)
 	{
 		//if (obj.attachEvent)
 		//{
@@ -13,7 +13,7 @@
 		//	obj.addEventListener(type, fn, false);
 		$(obj).on(type,fn);
 	}
-	function FireEvent(elem, eventName)
+	function FireEvent (elem, eventName)
 	{
 		if (document.all)
 		{
@@ -26,7 +26,7 @@
 			 elem.dispatchEvent(evt);
 		}
 	}
-	function removeEvent(obj, type, fn)
+	function removeEvent  (obj, type, fn)
 	{
 		if (obj.detachEvent)
 		{
@@ -38,7 +38,7 @@
 			obj.removeEventListener(type, fn, false);
 		}
 	}
-    function init()
+	function init ()
     {
         for(var i = 0; i < document.forms.length; i++)
         {
@@ -68,7 +68,7 @@
             }
         }
     }
-    function validateOnChange()
+	function validateOnChange ()
     {
         var textfield = this;
         var pattern = textfield.getAttribute("pattern");
@@ -181,7 +181,7 @@
 			}
         }
     }
-    function validateOnSubmit()
+	function validateOnSubmit  ()
     {
         var invalid = false;
         for(var i = 0; i < this.elements.length; i++)
@@ -250,4 +250,5 @@
 		}
 	}
 
-})();
+})()
+

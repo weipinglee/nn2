@@ -16,42 +16,48 @@
                         <span>{$storeDetail['sname']}</span>
                     </div>
                      
-                    <form action="{url: /ManagerStore/doStoreSign}" method="POST">
+                    <form action="{url: /ManagerStore/doStoreSign}" method="POST" auto_submit redirect_url="{url:/managerstore/applystorelist?type=2}">
 						<table border="0">
+                            <tr>
+                                <td nowrap="nowrap"><span></span>状态：</td>
+                                <td colspan="2">
+                                   {$storeDetail['status_txt']}
+                                </td>
+                            </tr>
                             <tr>
               					<td nowrap="nowrap"><span></span>库位：</td>
                 				<td colspan="2"> 
-                                    <input class="text" type="text" name="pos" {if: !empty($storeDetail['store_pos'])} value="{$storeDetail['store_pos']}" readonly="readonly" {/if}>
+                                    <input class="text" type="text" name="pos" datatype="s1-20" errormsg="库位请填写1-20位字符" {if: !empty($storeDetail['store_pos'])} value="{$storeDetail['store_pos']}" readonly="readonly" {/if}>
                                 </td>
            				 	</tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>仓位：</td>
                                 <td colspan="2"> 
-                                    <input class="text" type="text">
+                                    <input class="text" name="cang" type="text">
                                 </td>
                             </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>入库日期：</td>
                                 <td colspan="2"> 
-                                    <input name="inTime" value="{$storeDetail['in_time']}"  class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" type="text">
+                                    <input name="inTime" value="{$storeDetail['in_time']}" datatype="date" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" type="text">
                                 </td>
                             </tr>
                              <tr>
                                 <td nowrap="nowrap"><span></span>租库日期：</td>
                                 <td colspan="2"> 
-                                    <input name="rentTime" value="{$storeDetail['rent_time']}"  class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" type="text">
+                                    <input name="rentTime" value="{$storeDetail['rent_time']}" datatype="date" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" type="text">
                                 </td>
                             </tr>
                             <tr >
                                 <td nowrap="nowrap"><span></span>检测机构：</td>
                                 <td colspan="2"> 
-                                    <input class="text" type="text">
+                                    <input class="text" name="check" type="text">
                                 </td>
                             </tr>
                             <tr >
                                 <td nowrap="nowrap"><span></span>质检证书编号：</td>
                                 <td colspan="2"> 
-                                    <input class="text" type="text">
+                                    <input class="text" name="check_no" type="text">
                                 </td>
                             </tr>
                                <tr >
@@ -63,7 +69,7 @@
                             <tr >
                                 <td nowrap="nowrap"><span></span>总重量：</td>
                                 <td colspan="2"> 
-                                    <input class="text" type="text" name="quantity" value="{$storeDetail['quantity']}">
+                                    <input class="text" type="text" name="quantity" datatype="float" errormsg="请填写小数或整数" value="{$storeDetail['quantity']}">({$storeDetail['unit']})
                                 </td>
                             </tr>
                                     {if: $storeDetail['package'] == 1} 
@@ -103,13 +109,11 @@
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
-                            {if: $storeDetail['status'] == 0}
-                            <input type="submit" value="submit">
+
+                            <input type="submit" value="签发">
                             <input type="hidden" value="{$storeDetail['sid']}" name="id" >
-                                <a href="add1_success.html" onclick="checkform()">申请仓单</a> 
-                            {/if}
-                                <!-- <span class="color">审核将收取N元/条的人工费用，请仔细填写</span> -->
-                            
+
+
                                 
                             </td>
                         </tr>

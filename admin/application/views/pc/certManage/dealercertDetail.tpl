@@ -8,7 +8,7 @@
 		交易商认证信息
     </div>
  <div class="pd-20">
-	 <form action="{url:member/certManage/doDealerCert}" method="post" class="form form-horizontal" id="form-admin-add">
+	 <form action="{url:member/certManage/doDealerCert}" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="{url:member/certManage/dealerCert}" >
 		<div class="row cl">
 			<label class="form-label col-3">申请时间：</label>
 			<div class="formControls col-5">
@@ -156,7 +156,7 @@
 			<label class="form-label col-3">状态：</label>
 			<div class="formControls col-5">
 				<input type="hidden" name="user_id" value="{$cert['user_id']}" />
-				<label><input name="result" type="radio" value="1" />通过 </label>
+				<label><input name="result" type="radio" value="1" checked />通过 </label>
 				<label><input name="result" type="radio" value="0" />不通过 </label>
 			</div>
 			<div class="col-4"> </div>
@@ -164,9 +164,7 @@
 		 <div class="row cl">
 			 <label class="form-label col-3">说明：</label>
 			 <div class="formControls col-5">
-				 <textarea style="width:250px;height:100px;" name="info">
-
-				 </textarea>
+				 <textarea style="width:250px;height:100px;" name="info"></textarea>
 			 </div>
 			 <div class="col-4"> </div>
 		 </div>

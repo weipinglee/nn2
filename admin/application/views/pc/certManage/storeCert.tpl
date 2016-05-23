@@ -16,7 +16,6 @@
                     <button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i>  搜会员</button>
                 </form>
             </div>
-            <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i> 批量删除</a> <a href="javascript:;" class="btn btn-primary radius"><i class=" icon-ok"></i> 认证</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
            <table class="table table-border table-bordered table-hover table-bg">
         <thead>
             <tr>

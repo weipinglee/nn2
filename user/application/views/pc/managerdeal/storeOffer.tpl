@@ -1,7 +1,6 @@
 ﻿<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
-<script type="text/javascript" src="{views:js/product/store.js}" ></script>
 			<!--start中间内容-->	
 			<div class="user_c">
 				<div class="user_zhxi">
@@ -13,7 +12,7 @@
                         请先申请仓单
                     {else:}
                     <input type="hidden" id='ajaxGetStoreUrl' value="{url:/Managerdeal/ajaxGetStore}">
-                                        <form action="{url:/Managerdeal/doStoreOffer}" method="POST">
+                    <form action="{url:/Managerdeal/doStoreOffer}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
 						<table border="0">
                             <tr>
                                 <th colspan="3">选择仓单</th>
@@ -21,7 +20,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>可选仓单:</td>
                                 <td colspan="2"> 
-                                    <select id="storeList" name="storeList">
+                                    <select id="storeList" name="storeproduct">
                                        {foreach: items=$storeList item=$list}
                                         <option value="{$list['id']}">{$list['sname']}-{$list['pname']}</option>
                                        {/foreach}
@@ -83,7 +82,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>商品单价:</td>
                                 <td> 
-                                    <input class="text" type="text" name="price">
+                                    <input class="text" type="text" datatype="float" errormsg="价格错误" name="price">
                                     
                                 </td>
                                <!--  <td> 
@@ -119,12 +118,12 @@
                             <tr>
                         <td>交收地点：</td>
                             <td colspan="2">
-                                <input type="text" class='text' name="accept_area">
+                                <input type="text" class='text' datatype="s2-100" errormsg="请填写交收地址" name="accept_area">
                             </td>
                             </tr>
                             <td>交收时间：</td>
                             <td colspan="2">
-                                <input type="text" class='text' name="accept_day">
+                                <input type="text" class='text' datatype="n" errormsg="请填写交收时间" name="accept_day">
                             </td>
                             </tr>
               			                      
@@ -133,11 +132,9 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" name="mode" value="3">
-                            <input type="hidden" name="id" id="id">
                             <input type="hidden" name="product_id" id="product_id" value="{$storeDetail['pid']}">
-                        <input type="submit" value="submit">
-                                <a class="button bzjin">提交审核</a> 
-                                <span class="color">审核将收取N元/条的人工费用，请仔细填写</span>
+                        <input type="submit" value="提交审核">
+
                                 
                             </td>
                         </tr>

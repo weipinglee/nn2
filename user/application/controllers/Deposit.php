@@ -9,7 +9,7 @@ use \Library\JSON;
 use \Library\url;
 use \Library\checkRight;
 
-class DepositController extends Yaf\Controller_Abstract{
+class DepositController extends UcenterBaseController{
 
 	public function init(){
         // $right = new checkRight();
@@ -47,6 +47,7 @@ class DepositController extends Yaf\Controller_Abstract{
 		return false;
 	}
 
+
 	//卖家支付保证金
 	public function sellerDepositAction(){
 		$order_id = intval($this->_request->getParam('order_id'));
@@ -67,9 +68,9 @@ class DepositController extends Yaf\Controller_Abstract{
 		$order_id = safe::filter($this->_request->getParam('order_id'),'int');
 		$type = safe::filter('type');//online:线上 offline:线下
 
-		//$order_id = 1;
 		$type = 'online';
 		$user_id = 49;//$this->user_id;
+
 		$proof = 'xianxia.jpg';
 		$res = $this->deposit->buyerRetainage($order_id,$user_id,$type,$proof);
 		var_dump($res);

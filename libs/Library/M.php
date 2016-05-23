@@ -181,26 +181,34 @@ class M{
 						$this->whereParam = array_merge($this->whereParam,$val[1]);
 					}
 					else{
-						//非相等的情况
-						switch(strtolower($val[0])){
-							case 'eq' : {
-								$sql .= $key.' = :'.$key.' AND ';
+						foreach($val as $ekey => $eval){
+							//非相等的情况
+							switch(strtolower($ekey)){
+
+								case 'neq' : {
+									$sql .= $key.' <> :'.$key.$ekey.' AND ';
+								}
+									break;
+								case 'gt' : {
+									$sql .= $key.' > :'.$key.$ekey.' AND ';
+								}
+									break;
+								case 'lt' : {
+									$sql .= $key.' < :'.$key.$ekey.' AND ';
+								}
+									break;
+								case 'eq' :
+								default : {
+									$sql .= $key.' = :'.$key.$ekey.' AND ';
+								}
+								break;
+
 							}
-							break;
-							case 'neq' : {
-								$sql .= $key.' <> :'.$key.' AND ';
-							}
-							break;
-							case 'gt' : {
-								$sql .= $key.' > :'.$key.' AND ';
-							}
-							break;
-							case 'lt' : {
-								$sql .= $key.' < :'.$key.' AND ';
-							}
-							break;
+
+							$this->whereParam[$key.$ekey] = $eval;
 						}
-						$this->whereParam[$key] = $val[1];
+
+
 					}
 				}
 
@@ -409,7 +417,7 @@ class M{
      */
     public function getObj(){
         $this->limit(1);
-        $sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->limit ;
+        $sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->order.$this->limit ;
 
         $res =  $this->db->exec($sql,$this->whereParam,'SELECT');
         return empty($res) ? array() : $res[0];
@@ -422,7 +430,7 @@ class M{
      */
 	public function getField($field){
 		$this->limit(1)->fields($field);
-		$sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->limit ;
+		$sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->order.$this->limit ;
 		$res =  $this->db->exec($sql,$this->whereParam,'SELECT');
 		if(!empty($res))return $res[0][$field];
 		return false;
@@ -512,7 +520,7 @@ class M{
 			$sql .= '`'.$key.'` = :'.$key.',';
 		}
 		$sql = rtrim($sql,',');
-		return $this->bind(array_merge($insert,$update))->query($sql);
+		return $this->bind(array_merge($insert,$update))->query($sql,array(),'UPDATE');
 
 	}
 
