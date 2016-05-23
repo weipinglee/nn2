@@ -33,6 +33,7 @@ class fundOutController extends Yaf\Controller_Abstract {
 		$moduleName = $this->getRequest()->getModuleName();
 		$data['url'] = \Library\url::createUrl($moduleName . '/' . $controllerName . '/' . $data['action']);
 		$data['proot'] = \Library\Thumb::get($data['proot'],180,180);
+		$data['bank_proof'] = \Library\Thumb::get($data['bank_proof'],180,180);
 		$this->getView()->assign('outInfo', $data);
 	}
 	//出金初审
