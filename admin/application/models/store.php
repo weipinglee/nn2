@@ -7,7 +7,7 @@
 use \Library\M;
 use \Library\Query;
 use \Library\tool;
-class StoreModel{
+class StoreModel extends \baseModel{
 
 	/**
 	 * 验证规则：
@@ -18,7 +18,7 @@ class StoreModel{
 	/**
 	 * @var
 	 */
-	protected $storeRules = array(
+	protected $rules = array(
 		array('id','number','id错误',0,'regex'),
 		array('name','require','仓库名必填'),
 		array('area','number','地区错误'),
@@ -31,6 +31,23 @@ class StoreModel{
 		array('status',array(0,1),'请正确选择仓库类型',0,'in'),
 		array('img','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片',2),
 	);
+
+	protected $table = 'store_list';
+	/**
+	 * @param int $type 仓库类型
+	 */
+	public function getStoreType($type=-1){
+		$typeArr = array(
+			0=>'正常仓库',
+			1=>'监管仓库'
+		);
+		if($type==-1)
+			return $typeArr;
+		else if(isset($typeArr[$type]))
+			return $typeArr[$type];
+		else return '未知';
+
+	}
 
 	/**
 	 * 获取仓库列表
@@ -54,30 +71,7 @@ class StoreModel{
 		$storeObj = new M('store_list');
 		return $storeObj->where(array('id'=>$id))->getObj();
 	}
-	/**
-	 * 仓库添加
-	 * @param array $data 仓库数据
-	 */
-	public function storeAdd($data){
-		$storeObj = new M('store_list');
-		if($storeObj->data($data)->validate($this->storeRules)){
-			if($data['id']){
-				$id = $data['id'];
-				unset($storeObj->id);
-				$res = $storeObj->where(array('id'=>$id))->update() ? 1 : 0;
-			}else{
-				$res = $storeObj->add() ? 1 : 0;
-			}
 
-			$info = '';
-		}
-		else{
-			$res = 0;
-			$info = $storeObj->getError();
-			$info = $info=='' ? '系统繁忙' : $info;
-		}
-		return tool::getSuccInfo($res,$info);
 
-	}
 
 }

@@ -71,26 +71,5 @@ class Time
 		return $difference;
 	}
 
-	/**
-	 * @brief 获取过去或未来的时间
-	 * @param $second  string 差秒数
-	 * @param $format  string 日期时间格式
-	 * @param $time    int    时间戳
-	 * @param string   返回日期时间
-	 */
-	public static function pass($interval_spec,$format = 'Y-m-d H:i:s',$time = '')
-	{
-		$datetime   = self::getDateTime($format,$time);
-		$dateObject = new DateTime($datetime);
 
-		if($interval_spec > 0)
-		{
-			$dateObject->add(new DateInterval('PT'.$interval_spec.'S'));
-		}
-		else
-		{
-			$dateObject->sub(new DateInterval('PT'.abs($interval_spec).'S'));
-		}
-		return $dateObject->format($format);
-	}
 }

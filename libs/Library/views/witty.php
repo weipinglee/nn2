@@ -127,7 +127,9 @@ class witty{
             //处理layout
             $content = $this->renderLayout($layout_file,$content);
 
-            $content = preg_replace_callback('/{(\/?)(\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|area)\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
+            $content = preg_replace_callback('/{include:([\/a-zA-Z0-9_\.]+)}/',array($this,'includeFile'), $content);
+
+            $content = preg_replace_callback('/{(\/?)(\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|areatext|area)\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
 
 
 
@@ -138,6 +140,14 @@ class witty{
         include($parse_file);
     }
 
+    /**
+     * 载入include标签的内容
+     * @param $matches
+     * @return string
+     */
+    private function includeFile($matches){
+        return file_get_contents($this->_tpl_dir.$matches[1]);
+    }
     /**
      * @brief 渲染layout
      * @param string $layoutFile 布局视图文件名
@@ -241,9 +251,6 @@ class witty{
                     if(!isset($attr['cityID']))$attr['cityID'] = 'seachcity';
                     if(!isset($attr['districtID']))$attr['districtID'] = 'seachdistrict';
                     if(!isset($attr['inputName'])) $attr['inputName'] = 'area';
-                    if(!isset($attr['pattern'])) $attr['pattern'] = '';
-                    else $attr['pattern'] = 'pattern="'.$attr['pattern'].'"';
-                    if(!isset($attr['alt'])) $attr['alt'] = '请选择地区';
                     if(substr($attr['data'],0,1) == '$')
                         $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
 
@@ -261,12 +268,33 @@ class witty{
               </select>&nbsp;&nbsp;<span id='{$attr['districtID']}_div' >
                <select   id="{$attr['districtID']}"  onchange=" {$attr['inputName']}Obj.changeDistrict(this.value);">
                </select></span>
-               <input type="hidden" name="{$attr['inputName']}" {$attr['pattern']} alt="{$attr['alt']}" value='{$attr['data']}' />
-
+               <input type="hidden"  name="{$attr['inputName']}" {$attr['pattern']} alt="{$attr['alt']}" value='{$attr['data']}' />
+                <span></span>
 OEF;
                 }
                 break;
 
+                case 'areatext:' : {
+                    $attr = $this->getAttrs($matches[4]);
+                    if(!isset($attr['data'])) $attr['data'] = '000000';
+                    if(!isset($attr['id'])) $attr['id'] = 'areaText';
+                    if(!isset($attr['delimiter'])) $attr['delimiter'] = ' ';
+                    if(substr($attr['data'],0,1) == '$')
+                        $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
+                    return   <<< OEF
+                <script type="text/javascript">
+                 {$attr['id']}Obj = new Area();
+
+                  $(function () {
+                    var text = {$attr['id']}Obj.getAreaText('{$attr['data']}','{$attr['delimiter']}');
+                    $('#{$attr['id']}').html(text);
+                  });
+                </script>
+
+OEF;
+
+                }
+                break;
 
 
                 default:

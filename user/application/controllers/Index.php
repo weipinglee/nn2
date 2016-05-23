@@ -25,9 +25,12 @@ class IndexController extends \Yaf\Controller_Abstract {
      * 对于如下的例子, 当访问http://yourhost/yar-demo/index/index/index/name/root 的时候, 你就会发现不同
      */
 	public function indexAction() {
-		$m = new \nainai\fund\agentAccount();
-		$a = $m->freeze(32,2);
-		echo $a;
+		$reg = '/^[\x{4e00}-\x{9fa5}]{2,9}$/u';
+		$value = '点的';
+		if(preg_match($reg,$value))
+			echo 'ok';
+		else echo 'ng';
+		//echo $a;
 
 	}
 
@@ -41,7 +44,15 @@ class IndexController extends \Yaf\Controller_Abstract {
 	 *注册页面
      */
 	public function registerAction(){
-
+		$member = new \nainai\member();
+		$comtype = $member->getComType();
+		$comNature = $member->getComNature();
+		$duty = $member->getComDuty();
+		$agent = $member->getAgentList();
+		$this->getView()->assign('comtype',$comtype);
+		$this->getView()->assign('comNature',$comNature);
+		$this->getView()->assign('duty',$duty);
+		$this->getView()->assign('agent',$agent);
 	}
 
 	/**
@@ -58,12 +69,11 @@ class IndexController extends \Yaf\Controller_Abstract {
 			'type'         => safe::filterPost('type','int'),
 			'mobile'       => safe::filterPost('mobile','/^\d+$/'),
 			'email'        =>safe::filterPost('email','email'),
+			'agent' => safe::filterPost('agent','int',0),
+			'serial_no' => safe::filterPost('agent_pass')
 		);
 
 		if($userData['type']==1){
-			$userData['agent'] = safe::filterPost('agent','int',0);
-			$userData['agent_pass'] = safe::filterPost('agent','/^[a-zA-Z0-9]{6,30}$/');
-
 			$companyData = array(
 				'company_name' => safe::filterPost('company_name'),
 				'area'         => safe::filterPost('area','/\d+/'),
@@ -87,12 +97,10 @@ class IndexController extends \Yaf\Controller_Abstract {
 			$login->loginAfter($userData);
 			//$this->redirect('index');
 		}
-		else{
-			echo $res['info'];
-		}
+
+		die(json::encode($res));
 
 
-		return false;
 	}
 
 	public function checkIsOneAction(){
@@ -169,7 +177,7 @@ class IndexController extends \Yaf\Controller_Abstract {
 
 				}
 			}
-			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/');
+			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/ucenter/baseinfo');
 
 			echo JSON::encode($data);
 		}

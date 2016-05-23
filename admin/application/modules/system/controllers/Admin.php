@@ -112,4 +112,14 @@ class AdminController extends InitController {
 		}
 		return false;
 	}
+
+	//获取管理员操作记录
+	public function logListAction(){
+		$page = safe::filterGet('page','int');
+		$name = safe::filterGet('name');
+		$pageData = $this->adminModel->logList($page,$name);
+		$this->getView()->assign('data',$pageData['data']);
+		$this->getView()->assign('bar',$pageData['bar']);
+		$this->getView()->assign('name',$name);
+	}
 }

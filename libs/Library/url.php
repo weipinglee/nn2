@@ -69,8 +69,6 @@ class url {
             }
         }
 
-
-
         if($baseUrl==null){
             if($pos['host']==''){
                 $baseUrl = self::getHost().self::getScriptDir();
@@ -78,7 +76,7 @@ class url {
             else $baseUrl = self::getConfigHost($pos['host']);
         }
 
-      return $baseUrl.self::getRoute($pos['controller'],$pos['action'],$pos['module'],$params);
+      return $baseUrl.'/'.self::getRoute($pos['controller'],$pos['action'],$pos['module'],$params);
     }
 
     /**
@@ -166,7 +164,7 @@ class url {
         }
         //没有匹配到则用yaf_route_static静态路由，/module/controller/action/parms的模式
 
-        $match = $module=='index' ? '/' : '/'.$module;
+        $match = $module=='index' ? '' : $module.'/';
         $match .= $controller.'/'.$action;
         foreach($params as $key=>$val){
             $match .= '/'.$key.'/'.$val;
@@ -203,8 +201,11 @@ class url {
      * @return String $baseUrl  网站根路径
      *
      */
-    public static function getHost($protocol='http')
+    public static function getHost($protocol='')
     {
+        $protocol = tool::getGlobalConfig('http');
+        if(!$protocol)
+            $protocol = 'http';
         $host	 = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
         $baseUrl = $protocol.'://'.$host;
         return $baseUrl;

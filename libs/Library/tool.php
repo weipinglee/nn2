@@ -18,7 +18,7 @@ class tool{
     public static function getConfig($name=null){
         $configObj = \Yaf\Registry::get("config");
         if($configObj===false){
-            $configObj = Yaf\Application::app()->getConfig();
+            $configObj = \Yaf\Application::app()->getConfig();
         }
         if($name!=null){
             if(!is_array($name)){
@@ -83,5 +83,54 @@ class tool{
         return array('success'=>$res,'info'=>$info,'return'=>$url);
     }
 
+    //uuid
+    public static function create_uuid(){
+        if (function_exists('com_create_guid')){
+            return com_create_guid();
+        }else{
+            mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
+            $charid = strtoupper(md5(uniqid(rand(), true)));
+            $hyphen = chr(45);// "-"
+            $uuid = substr($charid, 0, 8).$hyphen
+                    .substr($charid, 8, 4).$hyphen
+                    .substr($charid,12, 4).$hyphen
+                    .substr($charid,16, 4).$hyphen
+                    .substr($charid,20,12);
+            return $uuid;
+        }
+    }
+
+    public static function pre_dump($data){
+        echo '<pre>';
+
+        print_r($data);
+        echo '</pre>';
+    }
+
+    public static function getIP() { 
+        if (getenv('HTTP_CLIENT_IP')) { 
+            $ip = getenv('HTTP_CLIENT_IP'); 
+        } 
+        elseif (getenv('HTTP_X_FORWARDED_FOR')) { 
+            $ip = getenv('HTTP_X_FORWARDED_FOR'); 
+        } 
+        elseif (getenv('HTTP_X_FORWARDED')) { 
+            $ip = getenv('HTTP_X_FORWARDED'); 
+        } 
+        elseif (getenv('HTTP_FORWARDED_FOR')) { 
+            $ip = getenv('HTTP_FORWARDED_FOR'); 
+
+        } 
+        elseif (getenv('HTTP_FORWARDED')) { 
+            $ip = getenv('HTTP_FORWARDED'); 
+        } 
+        else { 
+            $ip = $_SERVER['REMOTE_ADDR']; 
+        } 
+
+        if($ip == '::1')
+            $ip = '127.0.0.1';
+        return $ip; 
+    } 
 
 }

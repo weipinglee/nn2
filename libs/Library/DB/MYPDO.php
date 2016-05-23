@@ -14,6 +14,8 @@ class MYPDO {
 
     static private $wdb = null;//写数据库PDO对象，可写可读
 
+    static private $rollback = false;//是否应该回滚的标记
+
     //私有克隆
     private function __clone() {}
 
@@ -86,6 +88,10 @@ class MYPDO {
      */
     public function exec($sql,$data=array(),$type=''){
         $sql = ltrim($sql);
+        if($type==''){
+            $type = $this->getSqlType($sql);
+
+        }
 
         $DBlink = $this->createDB($type);
 
@@ -101,8 +107,7 @@ class MYPDO {
         }
 
         try{
-            $res = $stmt->execute();
-            if($res){
+            if($res = $stmt->execute()){
 
                 switch($type){  //根据不同的操作类型，返回数据
                     case 'SELECT' : {
@@ -121,13 +126,13 @@ class MYPDO {
                     default : return $res;
                 }
             }
+            else{
+                $this->setRollback();
+            }
         }
         catch(\PDOException $e){
-            exit($e->getMessage());
+             exit($e->getMessage());
         }
-
-
-
 
         return false;
 
@@ -155,7 +160,14 @@ class MYPDO {
     //事物提交(在事物中才提交)
     public function commit(){
         if($this->inTrans()){
-           return self::$wdb->commit();
+            if($this->getRollback()===false){
+                return self::$wdb->commit();
+            }
+            else {
+                $this->rollBack();
+                return false;
+            }
+
         }else return false;
 
     }
@@ -163,6 +175,14 @@ class MYPDO {
     //判断是否在事物当中
     public function inTrans(){
         return self::$wdb->inTransaction();
+    }
+
+    public function setRollback(){
+        self::$rollback = true;
+    }
+    //是否应该回滚
+    public function getRollback(){
+        return self::$rollback;
     }
 
 

@@ -133,6 +133,35 @@ function Area(){
         if(check!=undefined)inputObj.trigger('change');
     }
 
+    /**
+     *获取地区中文
+     * @param code 地区代码
+     * @param sep 分隔符，默认为空
+     */
+    this.getAreaText = function (code,sep){
+        var areaData= getAreaData();
+        var pro_text = areaData[0][code.slice(0,2)];
+        var city_text = areaData[1][code.slice(0,2)][code.slice(0,4)];
+        var area_text = areaData[2][code.slice(0,4)][code];
+
+
+        if(sep==undefined){
+            sep = ' ';
+        }
+        if(pro_text==undefined || pro_text=='请选择'){
+            return '';
+        }
+        else if(city_text==undefined || city_text=='请选择'){
+            return pro_text+sep;
+        }
+        else if(area_text==undefined || area_text=='请选择'){
+            return pro_text+sep+city_text;
+        }
+        else
+        return pro_text+sep+city_text+sep+area_text;
+
+    }
+
 
 }
 

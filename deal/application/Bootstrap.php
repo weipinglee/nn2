@@ -7,14 +7,22 @@
  * 这些方法, 都接受一个参数:Yaf_Dispatcher $dispatcher
  * 调用的次序, 和申明的次序相同
  */
+use \Library\views\wittyAdapter;
+use \Library\Session\Driver\Db;
 class Bootstrap extends \Yaf\Bootstrap_Abstract{
 
     public function _initConfig(Yaf\Dispatcher $dispatcher) {
 		//把配置保存起来
 		$this->config = Yaf\Application::app()->getConfig();
 		Yaf\Registry::set('config', $this->config);
-
+		session_start();
 		define('REQUEST_METHOD', strtoupper($dispatcher->getRequest()->getMethod()));
+		define('IS_GET',        REQUEST_METHOD =='GET' ? true : false);
+		define('IS_POST',       REQUEST_METHOD =='POST' ? true : false);
+		define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
+		define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
+		define('IS_AJAX',       ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) ? true : false);
+
 	}
 
 	public function _initPlugin(Yaf\Dispatcher $dispatcher) {
@@ -31,7 +39,7 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 	}
 	
 	public function _initView(Yaf\Dispatcher $dispatcher){
-		$view = new \views\wittyAdapter(\Yaf\Registry::get("config")->witty);
+		$view = new wittyAdapter(\Yaf\Registry::get("config")->witty);
 		$dispatcher->setView($view);
 	}
 }

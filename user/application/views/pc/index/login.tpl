@@ -41,7 +41,7 @@
         <br>
         <input type="hidden" name="callback" value="{$callback}" />
         <div class="cell">
-           <input type="text" name="mobile" id="js-mobile_ipt" class="text" maxlength="11" placeholder="用户名/手机号"/>
+           <input type="text" name="mobile" id="js-mobile_ipt" class="text" maxlength="20" placeholder="用户名/手机号"/>
         </div>
         <div class="cell">
           <input type="password" name="passwd" id="js-mobile_pwd_ipt" class="text" placeholder="密码"/>

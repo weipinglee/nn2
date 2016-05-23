@@ -12,6 +12,7 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 	private $confcredit;
 	public function init(){
 		$this->confcredit = new confcreditModel();
+		$this->confscaleOffer = new confscaleOfferModel();
 		$this->getView()->setLayout('admin');
 		//echo $this->getViewPath();
 	}
@@ -74,6 +75,27 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 		$res = $this->confcredit->creditDel($name);
 		die(JSON::encode($res));
 	}
+
+
+	/**
+	 * 修改交易费率配置
+	 */
+
+	public function scaleOfferOperAction(){
+		if(IS_AJAX){
+			$confscaleOfferData['free'] 	= safe::filterPost('free');
+			$confscaleOfferData['deposite'] = safe::filterPost('deposite');
+			$confscaleOfferData['fee']      = safe::filterPost('fee');
+			$confscaleOfferData['id']		= 1;
+			$res = $this->confscaleOffer->confscaleOfferUpdate($confscaleOfferData);
+			echo JSON::encode($res);
+			return false;
+		}else{
+			$confscaleOfferInfo = $this->confscaleOffer->getconfscaleOfferInfo(1);
+			$this->getView()->assign('info',$confscaleOfferInfo);
+		}
+	}
+
 
 }
  ?>

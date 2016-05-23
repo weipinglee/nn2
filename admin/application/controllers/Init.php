@@ -7,6 +7,8 @@ class InitController extends Yaf\Controller_Abstract{
 		
 	}
 
+
+
 }
 ?>
 

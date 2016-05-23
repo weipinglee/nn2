@@ -67,7 +67,7 @@ class RbacModel{
 				}
 				unset($data['id']);
 				$res = $this->role->where(array('id'=>$id))->data($data)->update();
-				$res = is_int($res) && $res>0 ? true : ($this->role->getError() ? $this->role->getError() : '未知错误,请重试');
+				$res = is_int($res) && $res>0 ? true : ($this->role->getError() ? $this->role->getError() : '数据未修改');
 			}else{
 				if($this->existRole(array('name'=>$data['name']))){
 					return tool::getSuccInfo(0,'用户名已注册');
@@ -334,6 +334,7 @@ class RbacModel{
 
 	/**
 	 * 获取节点树(三层)
+	 * TODO 将sql移出递归
 	 * @return array
 	 */
 	public function nodeTree($pid = 0,$level = 1,$role_id = 0){

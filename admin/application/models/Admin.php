@@ -32,13 +32,14 @@ class AdminModel{
 	 * @return array
 	 */
 	public function getList($page,$name){
+		$super_admin = tool::getConfig(array("rbac","super_admin"));
 		$Q = new Query('admin as a');
 		$Q->join = 'left join admin_role as r on a.role = r.id';
 		$Q->page = $page;
 		$Q->pagesize = 5;
 		$Q->fields = "a.*,r.name as role_name";
 		$Q->order = "a.create_time desc";
-		$Q->where = "a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
+		$Q->where = "a.name <> '$super_admin' and a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
 		$data = $Q->find();
 		$pageBar =  $Q->getPageBar();
 		return array('data'=>$data,'bar'=>$pageBar);
@@ -62,7 +63,7 @@ class AdminModel{
 				//编辑
 				unset($data['id']);
 				$res = $admin->where(array('id'=>$id))->data($data)->update();
-				$res = is_int($res) && $res>0 ? true : ($admin->getError() ? $admin->getError() : '未知错误,请重试');
+				$res = is_int($res) && $res>0 ? true : ($admin->getError() ? $admin->getError() : '数据未修改');
 			}else{
 				if($this->existAdmin(array('name'=>$data['name'])))
 					return tool::getSuccInfo(0,'用户名已注册');
@@ -110,6 +111,43 @@ class AdminModel{
 	public function getAdminInfo($id){
 		$info = $this->adminObj->where(array('id'=>$id))->getObj();
 		return $info ? $info : array();
+	}
+
+	//管理员操作记录 默认登陆
+	public function adminLog($admin_id,$ip,$type = 'login'){
+		if(intval($admin_id) > 0 && !empty($type)){
+			$admin_log = new M('admin_log');
+			return $admin_log->data(array('admin_id'=>$admin_id,'ip'=>$ip,'type'=>$type,'time'=>date('Y-m-d H:i:s',time())))->add();
+		}else{
+			return '参数错误';
+		}
+	}
+
+	//获取管理员操作记录
+	public function logList($page,$name='')
+	{
+		$Q = new Query('admin as a');
+		$Q->join = 'right join admin_log as l on a.id = l.admin_id';
+		$Q->page = $page;
+		$Q->pagesize = 5;
+		$Q->fields = "l.*,a.name";
+		$Q->order = "l.time desc";
+		$Q->where = "a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
+		$data = $Q->find();
+		foreach ($data as $key => &$value) {
+			switch ($value['type']) {
+				case 'login':
+					$type = '登录';
+					break;
+				
+				default:
+					$type = '登录';
+					break;
+			}
+			$value['type_txt'] = $type;
+		}
+		$pageBar =  $Q->getPageBar();
+		return array('data'=>$data,'bar'=>$pageBar);
 	}
 
 }
