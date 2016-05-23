@@ -12,7 +12,14 @@ class baseModel{
 
 	protected $pk  = 'id';
 	protected $table = '';
-	protected $rules = '';
+	protected $rules = array();
+	protected $where = '';
+	protected $model = '';
+
+	public function __construct($obj=''){
+		if($obj!='')
+			$this->$obj;
+	}
 	/**
 	 *
 	 * @param string $table
@@ -26,6 +33,15 @@ class baseModel{
 			return $this->table;
 		else return $this->table[$table];
 	}
+
+	public function setTable($table){
+		$this->table = $table;
+	}
+
+	public function where($where){
+		$this->where = $where;
+		return $this;
+	}
 	/**
 	 * [__call 默认或调用CRUD的操作，最好以add，get，update，delete开头的方法名称]
 	 * @param  [Array] $method [方法名称]
@@ -37,22 +53,31 @@ class baseModel{
 		if(!isset($methodArr[1])){
 			$methodArr[1] = '';
 		}
-		$tableName = $this->getTable(strtolower($methodArr[1]));
-		$model = new M($tableName);
+		if($this->model!=''){
+			$model = $this->model;
+		}
+		else{
+			$tableName = $this->getTable(strtolower($methodArr[1]));
+			$model = new M($tableName);
+		}
+
 		$rules = $this->getRules(strtolower($methodArr[1]));
 		$args = $args[0];
 		switch ($methodArr[0]) {
 			case 'add':
 				$res = null;
 				if ($model->validate($rules, $args)) {
-					$res = $model->data($args)->add();
+					$res = $model->data($args)->add() ? 1 : 0;
 				}else{
 					$res = $model->getError();
 				}
 			break;
 			case 'update':
 				if($model->validate($rules,$args)){
-					if(isset($args[$this->pk]) && $args[$this->pk]>0){//存在主键且大于0则更新
+					if($this->where!=''){
+						$res = $model->data($args)->where($this->where)->update() ;
+					}
+					else if(isset($args[$this->pk]) && $args[$this->pk]>0){//存在主键且大于0则更新
 						$id = $args[$this->pk];
 						unset($args[$this->pk]);
 						$res = $model->data($args)->where($this->pk . '=:id')->bind(array('id'=>$id))->update() ;
