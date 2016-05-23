@@ -50,17 +50,21 @@ class DepositController extends UcenterBaseController{
 
 	//卖家支付保证金
 	public function sellerDepositAction(){
-		$order_id = intval($this->_request->getParam('order_id'));
-		// $pay = safe::filter('pay');
-		$pay = true;
-		$order_id = 1;
-		$user_id = 45;//$this->user_id;
-		$res = $this->deposit->sellerDeposit($order_id,$pay,$user_id);
-		if($res['success'] == 1)
-			$this->redirect($_SERVER['HTTP_REFERER']);
-		else
-			echo $res['info'];
-		return false;
+		if(IS_POST){
+			$order_id = safe::filterPost('order_id','int');
+			// $pay = safe::filter('pay');
+			$pay = true;
+			$order_id = 1;
+			$user_id = 45;//$this->user_id;
+			$res = $this->deposit->sellerDeposit($order_id,$pay,$user_id);
+			if($res['success'] == 1)
+				$this->redirect($_SERVER['HTTP_REFERER']);
+			else
+				echo $res['info'];
+			return false;
+		}else{
+			$order_id = intval($this->_request->getParam('order_id'));
+		}
 	}
 
 	//买家支付尾款

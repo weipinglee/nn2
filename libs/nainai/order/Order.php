@@ -572,7 +572,7 @@ class Order{
 	 * @param  int $user_id 卖家id
 	 */
 	public function sellerContractList($user_id,$page,$where = array()){
-		$query = new Query('product_order as do');
+		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
 		$query->where = 'po.user_id = :user_id';
 		$query->fields = 'u.username,do.*,p.name as product_name,p.unit';
@@ -594,7 +594,7 @@ class Order{
 	 * @return array   结果数组
 	 */
 	public function sellerDetail($id){
-		$query = new Query('product_order as do');
+		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
 		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit';
 		$query->where = 'do.id=:id';
@@ -613,7 +613,7 @@ class Order{
 	 * @return array          列表数组
 	 */
 	public function buyerContractList($user_id,$page,$where = array()){
-		$query = new Query('product_order as do');
+		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
 		$query->where = 'do.user_id = :user_id';
 		// $bind = array();
@@ -643,7 +643,7 @@ class Order{
 	 * @return array   结果数组
 	 */
 	public function buyerDetail($id){
-		$query = new Query('product_order as do');
+		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
 		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit';
 		$query->where = 'do.id=:id';

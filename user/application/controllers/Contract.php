@@ -32,8 +32,8 @@ class ContractController extends UcenterBaseController{
 				array('url' => '', 'title' => '发布采购' ),
 			)),
 			array('name' => '合同管理', 'list' => array(
-				array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ,'action'=>array('depositlist')),
-				array('url' => '', 'title' => '购买合同' ),
+				array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ,'action'=>array('depositlist')),
+				array('url' => url::createUrl('/Contract/buyerList'), 'title' => '购买合同' ),
 			)),
             array('name' => '提货管理', 'list' => array(
                 array('url' => url::createUrl('/Delivery/buyerDeliveryList'), 'title' => '购买提单列表' ),
@@ -43,9 +43,18 @@ class ContractController extends UcenterBaseController{
     }
 
 	public function sellerListAction(){
-		$user_id = 42;
+		$user_id = 36;
 		$order = new \nainai\order\Order();
-		
+		// $page = $this->_request->getParam('page');
+		$page = safe::filterGet('page','int',1);
+		$name = safe::filterPost('name');
+		$where = array();
+		if(!empty($name)){
+			$where []= array(" and p.name = :name ",array('name'=>$name)); 
+		}
+		$list = $order->sellerContractList($user_id,$page,$where);
+		$this->getView()->assign('data',$list['data']);
+		$this->getView()->assign('page',$list['bar']);
 	}
 
 
@@ -89,7 +98,7 @@ class ContractController extends UcenterBaseController{
 
 	//购买合同列表
 	public function buyerListAction(){
-		$user_id = 49;
+		$user_id = 36;
 		$order = new \nainai\order\Order();
 		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);
