@@ -25,11 +25,7 @@ class IndexController extends \Yaf\Controller_Abstract {
      * 对于如下的例子, 当访问http://yourhost/yar-demo/index/index/index/name/root 的时候, 你就会发现不同
      */
 	public function indexAction() {
-		$reg = '/^[\x{4e00}-\x{9fa5}]{2,9}$/u';
-		$value = '点的';
-		if(preg_match($reg,$value))
-			echo 'ok';
-		else echo 'ng';
+		print_r($_SESSION);
 		//echo $a;
 
 	}

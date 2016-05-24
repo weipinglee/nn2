@@ -459,6 +459,109 @@ class UcenterController extends UcenterBaseController {
     }
 
 
+    //=================================================================================
+
+    //修改手机号码部分
+
+    //==================================================================================
+
+
+
+    /**
+     * [mobileEditAction 用户手机修改界面]
+     */
+    public function mobileEditAction(){
+        $userId=$this->user_id;
+        $userObj=new userModel();
+        $userInfo=$userObj::getUserInfo($userId);
+        $this->getView()->assign('userInfo',$userInfo);
+
+    }
+    //获取旧手机验证码
+    public function getOldMobileCodeAction(){
+        if(IS_AJAX||IS_POST){
+            $code=safe::filterPost('mobileCode');
+
+            $userObj=new userModel();
+            $res = $userObj->getOldMobileCode($this->user_id,$code);
+
+            die(JSON::encode($res));
+        }else{
+            return false;
+        }
+
+    }
+    //获取新手机验证码
+    public function getNewMobileCodeAction(){
+        if(IS_AJAX||IS_POST){
+
+            $userObj=new userModel();
+            $mobile=safe::filterPost('mobile','/^\d+$/');
+            $code=safe::filterPost('mobileCode');
+            $res=$userObj->getNewMobileCode($this->user_id,$code,$mobile);
+            die(JSON::encode($res));
+        }else{
+            return false;
+        }
+
+    }
+    //初次检查手机验证码
+    public function checkMobileCodeAction(){
+        if(IS_POST||IS_AJAX) {
+            $code = safe::filterPost('mobileCode', 'int');
+            $userObj = new userModel();
+            $res = $userObj->checkMobileFirst($this->user_id,$code);
+            die(JSON::encode($res));
+        }else{
+            return false;
+        }
+    }
+    //验证第一步是否通过
+    private function checkFirstStep(){
+        $userObj=new userModel();
+        return $userObj->checkFirst($this->user_id);
+    }
+    //更换新手机
+    public function MobileNewAction(){
+        $firstCheck = $this->checkFirstStep();
+        if($firstCheck){
+            $userId=$this->user_id;
+            $userObj=new userModel();
+            $userInfo=$userObj::getUserInfo($userId);
+            $this->getView()->assign('userInfo',$userInfo);
+        }else{
+            $this->redirect('mobileEdit');
+            return false;
+        }
+
+
+    }
+    //手机修改成功
+    public function MobileSuccessAction(){
+        if(IS_POST||IS_AJAX){
+            $userObj=new userModel();
+            $code=safe::filterPost('mobileCode');
+            $newMobile= safe::filterPost('mobile','/^\d+$/');
+            $res = $userObj->checkMobileSecond($this->user_id,$code,$newMobile);
+            die(json::encode($res));
+        }else{
+            $userObj=new userModel();
+            $userInfo=$userObj->getUserInfo($this->user_id);
+            $checkRes=\Library\session::get('mobileValidRes2');
+            if($checkRes['mobile']==$userInfo['mobile']&&time()-$checkRes['time']<1800){
+                //清除验证结果
+                \Library\session::clear('mobileValidRes2');
+                $this->getView()->assign('userInfo',$userInfo);
+            }else{
+                //var_dump($_SESSION);
+                $this->forward('mobileEdit');
+                return false;
+            }
+        }
+
+    }
+
+
 
 
 
