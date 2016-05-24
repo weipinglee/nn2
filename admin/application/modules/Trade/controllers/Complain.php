@@ -115,6 +115,7 @@ class ComplainController extends InitController{
 
 				case 3: //不通过
 					$complainData['status'] = \nainai\order\OrderComplain::DONTCOMPLAIN;
+					$res = array('success' => 1);
 					break;
 			}
 
