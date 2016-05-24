@@ -61,6 +61,9 @@ class ContractController extends UcenterBaseController{
 
 			$complainModel = new \nainai\order\OrderComplain();
 			$returnData = $complainModel->addOrderComplain($complainData);
+
+			$this->backUrl = url::createUrl('/Contract/complainList');
+			$this->goUrl = url::createUrl('/Contract/complainContract');
 			$this->HandlerHtml($returnData);
 		}
 		

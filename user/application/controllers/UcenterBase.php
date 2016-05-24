@@ -1,6 +1,5 @@
 <?php
 
-
 use \Library\checkRight;
 use \Library\PlUpload;
 use \Library\photoupload;
@@ -28,10 +27,24 @@ class UcenterBaseController extends \nainai\controller\Base{
 		'store'=>'storecert'
 	);
 
+	/**
+	 * 设置对话框中返回的url
+	 * @var [type]
+	 */
+	public $backUrl;
+	/**
+	 * 设置对话框中继续的url
+	 * @var [type]
+	 */
+	public $goUrl;
+
 
 	protected function init(){
-		parent::init();//继承父类的方法，检测是否登录和角色
+		// parent::init();//继承父类的方法，检测是否登录和角色
 		$this->getView()->setLayout('ucenter');
+		$this->user_id = 48;
+		$this->username = 'test1';
+		$this->cert['deal'] = 1;
 
 		//获取登录信息
 		if(isset($this->user_id) && $this->user_id>0){
@@ -124,15 +137,26 @@ class UcenterBaseController extends \nainai\controller\Base{
 					))
 				);
     				break;
+
+    			case 'Managerstore':
+    				break;
  
     		}
     		return $left;
     	}
 
+    	/**
+    	 * 设置处理成功后返回的结果
+    	 * @param [Array] $returnData [返回结果]
+    	 * @param string $type       [处理类型]
+    	 */
     	public function HandlerHtml( & $returnData, $type='default'){
     		switch ($type) {
     			case 'default':
-    				$url = url::createUrl('/UcenterBase/defaultHtml?success='.$returnData['success'].'&msg='.urlencode($returnData['info']));
+    				$returnData['url']['backUrl'] = $this->backUrl;
+    				$returnData['url']['goUrl'] = $this->goUrl; 
+
+    				$url = url::createUrl('/UcenterBase/defaultHtml') . '?' . http_build_query($returnData);
     				$this->redirect($url);
     				break;
     			
@@ -143,12 +167,17 @@ class UcenterBaseController extends \nainai\controller\Base{
     		exit();
     	}
 
-    	public function defaultHtmlAction(){
-    		$success = $this->getRequest()->getParam('success');
-    		$msg = urldecode($this->getRequest()->getParam('msg'));
+    	/**
+    	 * 默认的处理返回页面
+    	 */
+      	public function defaultHtmlAction(){
+    		$success = Safe::filterGet('success', 'int');
+    		$msg = Safe::filterGet('info');
+    		$Url = Safe::filterGet('url');
 
     		$this->getView()->assign('success', $success);
     		$this->getView()->assign('msg', $msg);
+    		$this->getView()->assign('url', $Url);
     	}
 
 }

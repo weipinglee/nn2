@@ -15,7 +15,8 @@
                                 <p><b class="b_size">您发布的信息提交失败,失败原因如下：</b></p>
                             <p>{$msg}</p>
                             {/if}
-							<p><a class="a_color" href="chp_list.html">查看已发布的信息</a>  <a class="a_color" href="chp_fb.html">继续发布新的信息</a></p>
+      
+							<p><a class="a_color" href="{$url['backUrl']}">查看已发布的信息</a>  <a class="a_color" href="{$url['goUrl']}">继续发布新的信息</a></p>
 						</div>
 						
 						
