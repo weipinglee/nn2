@@ -25,6 +25,12 @@ class ManagerDealController extends UcenterBaseController {
 
 
     /**
+     * 设置产品过期的天数
+     * @var integer
+     */
+    private $_expireDay = 5;
+
+    /**
      * 提示mode对应的类型
      * @var array
      */
@@ -35,47 +41,13 @@ class ManagerDealController extends UcenterBaseController {
         4 => '仓单报盘'
     );
 
+
     protected  $certType = 'deal';//需要的认证类型
 
     //买家不能操作的方法
     protected $sellerAction = array('productlist','indexoffer','freeOffer','dofreeoffer','depositoffer','dodepositoffer',
         'deputeoffer','dodeputeoffer','storeoffer','dostoreoffer');
 
-    /**
-     * 获取左侧菜单
-     * @return array
-     */
-    protected function  getLeftArray(){
-        $left = array();
-        $left[] = array('name' => '交易管理', 'list' => array());
-        if($this->user_type==1){
-            $left[] =  array('name' => '销售管理', 'list' => array(
-                array('url' => url::createUrl('/ManagerDeal/productlist'), 'title' => '销售列表','action'=>array('productlist') ),
-                array(
-                    'url' => url::createUrl('/ManagerDeal/indexOffer'),
-                    'title' => '发布产品' ,
-                    'action' => array('indexoffer','freeoffer','depositoffer','deputeoffer','storeoffer'),//action都用小写
-
-                ),
-            ));
-        }
-        $left[] =  array('name' => '仓单管理', 'list' => array(
-            array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单','action'=>array('storeproduct') ),
-            array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表','action'=>array('storeproductlist','storeproductdetail') ),
-        ));
-        $left[] =  array('name' => '采购管理', 'list' => array(
-            array('url' => '', 'title' => '采购列表' ),
-            array('url' => '', 'title' => '发布采购' ),
-        ));
-
-        $left[] = array('name' => '合同管理', 'list' => array(
-            array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ),
-            array('url' => '', 'title' => '购买合同' ),
-        ));
-       return $left;
-
-
-    }
     /**
      * 个人中心首页
      */
@@ -247,6 +219,7 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function storeOfferAction(){
         $storeModel = new \nainai\store();
+
         $storeList = $storeModel->getUserActiveStore($this->user_id);
 
         $this->getView()->assign('storeList', $storeList['list']);
@@ -263,6 +236,7 @@ class ManagerDealController extends UcenterBaseController {
 
 
 
+
     /**
      * Ajax获取仓单报盘页面的商品详情
      * @return 
@@ -274,7 +248,6 @@ class ManagerDealController extends UcenterBaseController {
         if (IS_AJAX && intval($pid) > 0) {
             $storeModel = new \nainai\store();
             $return_json = $storeModel->getUserStoreDetail($pid,$this->user_id);
-
         }
 
         echo JSON::encode($return_json);
@@ -315,13 +288,12 @@ class ManagerDealController extends UcenterBaseController {
         }
         $time = date('Y-m-d H:i:s', time());
 
-
         $detail = array(
             'name'         => Safe::filterPost('warename'),
             'cate_id'      => Safe::filterPost('cate_id', 'int'),
             'price'        => Safe::filterPost('price', 'float'),
             'quantity'     => Safe::filterPost('quantity', 'int'),
-            'attribute'    => serialize($attrs),
+            'attribute'    => empty($attrs) ? '' : serialize($attrs),
             'note'         => Safe::filterPost('note'),
             'produce_area' => Safe::filterPost('area'),
             'create_time'  => $time,
@@ -334,7 +306,6 @@ class ManagerDealController extends UcenterBaseController {
 
         $resImg = array();
         if(!empty($imgData)){
-
             foreach ($imgData as $imgUrl) {
                 if (!empty($imgUrl) && is_string($imgUrl)) {
                     array_push($resImg, array('img' => tool::setImgApp($imgUrl)));
@@ -344,7 +315,6 @@ class ManagerDealController extends UcenterBaseController {
 
         return array($detail,$resImg);
     }
-
 
     /**
      * 处理仓单报盘
@@ -378,6 +348,7 @@ class ManagerDealController extends UcenterBaseController {
 
         $this->redirect('indexoffer');
     }
+
 
     /**
      * 申请仓单处理
@@ -474,6 +445,36 @@ class ManagerDealController extends UcenterBaseController {
         return false;
     }
 
+    /**
+     * 产品列表页面
+     */
+    public function productListAction(){
+        $page = Safe::filterGet('page', 'int', 0);
+        $name = Safe::filterPost('name');
+        $status = Safe::filterPost('status', 'int', 9); 
+        $beginDate = Safe::filterPost('beginDate');
+        $endDate = Safe::filterPost('endDate');
+
+        //查询组装条件
+        $where = 'a.user_id=:uid';
+        $bind = array('uid' => $this->user_id);
+        
+        if (!empty($name)) {
+                $where .= ' AND a.name like"%'.$name.'%"';
+                $this->getView()->assign('name', $name); 
+        }
+
+        if (!empty($status) && $status != 9) {
+                $where .= ' AND c.status=:status';
+                $bind['status'] = $status;
+                $this->getView()->assign('status', $status);
+        }
+
+        if (!empty($beginDate)) {
+                $where .= ' AND apply_time>=:beginDate';
+                $bind['beginDate'] = $beginDate;
+                $this->getView()->assign('beginDate', $beginDate);
+        }
 
 
     /**
@@ -541,12 +542,38 @@ class ManagerDealController extends UcenterBaseController {
 
     }
 
+        $productModel = new \nainai\product();
+        $productList = $productModel->getOfferProductList($page, $this->pagesize,  $where, $bind);
+
+        $this->getView()->assign('mode', $this->_mode);
+        $this->getView()->assign('statusList', $productModel->getStatus());
+        $this->getView()->assign('productList', $productList['list']);
+        $this->getView()->assign('pageHtml', $productList['pageHtml']);
+    }
 
 
+    /**
+     * 产品详情页面
+     */
+    public function productDetailAction(){
+        $id = $this->getRequest()->getParam('id');
+        $id = Safe::filter($id, 'int', 0);
 
+        if (intval($id) > 0) {
+            $productModel = new \nainai\product();
+            $offerDetail = $productModel->getOfferProductDetail($id);
 
+            $offerDetail['attribute'] = unserialize($offerDetail['attribute']);
+            $attr_ids = array_keys($offerDetail['attribute'] );
 
-
+            $this->getView()->assign('detail', $offerDetail);
+            $this->getView()->assign('mode', $this->_mode);
+            $this->getView()->assign('statusList', $productModel->getStatus());
+            $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
+            $this->getView()->assign('photos', $productModel->getProductPhoto($offerDetail['pid']));
+        }
+        
+    }
 
 
 }

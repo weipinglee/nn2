@@ -12,20 +12,7 @@ use \Library\json;
 class ManagerStoreController extends UcenterBaseController{
 
 	protected  $certType = 'store';
-	/**
-	 * 获取左侧菜单数据
-	 * @var name [<菜单名称>]
-	 * @var url   [<菜单url>]
-	 * @var list [<子菜单的数据，key和父级菜单一致>]
-	 * @return [Array]
-	 */
-	protected function  getLeftArray(){
-	        return array(
-	            array('name' => '仓单管理', 'list' => array()),
-	            array('name' => '仓单管理', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=2'),  'list' => array()),
-	            array('name' => '仓单审核', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=1'),  'list' => array())
-	        );
-	    }
+
 
 	public function indexAction(){}
 
@@ -39,6 +26,7 @@ class ManagerStoreController extends UcenterBaseController{
 		$type = $this->getRequest()->getParam('type');
 		$type = Safe::filter($type,'int',1);
 		$store = new store();
+
 		if($type==1)
 			$data = $store->getManagerApplyStoreList($page,$this->user_id);
 		else
@@ -86,9 +74,7 @@ class ManagerStoreController extends UcenterBaseController{
 		        $productModel = new product();
 		        $attr_ids = array();
 		        $data['attribute'] = unserialize($data['attribute']);
-		        foreach ($data['attribute'] as $key => $value) {
-		        		$attr_ids[] = $key;
-		        }
+		        $attr_ids = array_keys($data['attribute']);
 
 		       $this->getView()->assign('detail', $data);
 	                $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));

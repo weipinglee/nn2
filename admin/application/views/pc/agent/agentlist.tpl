@@ -4,6 +4,7 @@
   <script language="javascript" type="text/javascript" src="{views:js/My97DatePicker/WdatePicker.js}"></script>
 
         <div id="content" class="white">
+
             <h1><img src="{views:img/icons/posts.png}" alt="" /> 代理商管理</h1>
 <div class="bloc">
     <div class="title">
@@ -19,6 +20,7 @@
 	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l">
 			 <a class="btn btn-primary radius" href="{url:member/agent/addAgent/}"><i class=" icon-plus"></i> 添加代理商</a> </span>
 	 </div>
+
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -53,18 +55,22 @@
 				{if:$item['status'] == 1}
 				<span class="label label-success radius">已启用</span>
 				{else:}
+
 					<span class="label label-error radius">停用</span>
+
 				{/if}
 				</td>
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
 				{if:$item['status'] == 1}
+
 				<a style="text-decoration:none" ajax_status=0  ajax_url="{url:member/agent/ajaxUpdateAgentStatus?id=$item['id']}"  href="javascript:;" title="停用"><i class="icon-pause"></i></a>
 				{else:}
 				<a style="text-decoration:none" ajax_status=1  ajax_url="{url:member/agent/ajaxUpdateAgentStatus?id=$item['id']}"  href="javascript:;" title="启用"><i class="icon-play"></i></a>
 				{/if}
 				<a title="编辑" href="{url:member/agent/addAgent?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
 				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:member/agent/deleteAgent?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+
 			</tr>
 		{/foreach}
 		</tbody>
