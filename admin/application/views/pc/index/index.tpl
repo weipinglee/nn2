@@ -139,7 +139,12 @@
                                 <li><a href="#" target="content">状态</a></li>
                             </ul>
                         </li>
-                        <li><a href="appeal-list.html" target="content">申诉管理</a></li>
+                        <li><a  target="content">申诉管理</a>
+                            <ul>
+                                <li><a href="{url:/trade/complain/complainList?=&status=0}" target="content">未处理申述列表</a></li>
+                                <li><a href="{url:/trade/complain/complainList?=&status=1}" target="content">已处理申述列表</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>

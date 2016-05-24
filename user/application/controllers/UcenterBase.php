@@ -89,7 +89,66 @@ class UcenterBaseController extends \nainai\controller\Base{
          * @return [Array]
          */
     	protected function getLeftArray(){
-    		return array();
+    		$left = array();
+    		$controller = $this->getRequest()->getControllerName();
+
+    		switch ($controller) {
+    			case 'Fund':
+    			case 'Managerdeal':
+    				$left = array(
+					array('name' => '交易管理', 'list' => array()),
+					array('name' => '销售管理', 'list' => array(
+						array('url' => url::createUrl('/ManagerDeal/productlist'), 'title' => '销售列表','action'=>array('productlist') ),
+						array(
+							'url' => url::createUrl('/ManagerDeal/indexOffer'),
+							'title' => '发布产品' ,
+							'action' => array('indexoffer','freeoffer','depositoffer','deputeoffer','storeoffer'),//action都用小写
+
+						),
+					)),
+					array('name' => '仓单管理', 'list' => array(
+						array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单','action'=>array('storeproduct') ),
+						array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表','action'=>array('storeproductlist','storeproductdetail') ),
+					)),
+					array('name' => '采购管理', 'list' => array(
+						array('url' => '', 'title' => '采购列表' ),
+						array('url' => '', 'title' => '发布采购' ),
+					)),
+					array('name' => '合同管理', 'list' => array(
+						array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ,'action'=>array('depositlist')),
+						array('url' => '', 'title' => '购买合同' ),
+					)),
+					array('name' => '申述管理', 'list' => array(
+						array('url' => url::createUrl('/Contract/complainContract'), 'title' => '申述合同' ,'action'=>array('depositlist')),
+						array('url' => url::createUrl('/Contract/complainList'), 'title' => '申述列表' ),
+					))
+				);
+    				break;
+ 
+    		}
+    		return $left;
+    	}
+
+    	public function HandlerHtml( & $returnData, $type='default'){
+    		switch ($type) {
+    			case 'default':
+    				$url = url::createUrl('/UcenterBase/defaultHtml?success='.$returnData['success'].'&msg='.urlencode($returnData['info']));
+    				$this->redirect($url);
+    				break;
+    			
+    			case 'json':
+    				echo json::encode($returnData);
+    				break;
+    		}
+    		exit();
+    	}
+
+    	public function defaultHtmlAction(){
+    		$success = $this->getRequest()->getParam('success');
+    		$msg = urldecode($this->getRequest()->getParam('msg'));
+
+    		$this->getView()->assign('success', $success);
+    		$this->getView()->assign('msg', $msg);
     	}
 
 }

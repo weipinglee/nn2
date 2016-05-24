@@ -55,7 +55,7 @@ class ContractController extends UcenterBaseController{
 				'detail' => Safe::filterPost('content'),
 				'proof' => serialize(Safe::filterPost('imgData')),
 				'apply_time' => \Library\Time::getDateTime(),
-				'type' => ($this->user_id == Safe::filterPost('userId', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN,
+				'type' => ($this->user_id == Safe::filterPost('userId', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
 				'status' => \nainai\order\OrderComplain::APPLYCOMPLAIN
 			);
 
@@ -108,6 +108,9 @@ class ContractController extends UcenterBaseController{
 		}else{
 			$this->redirect('complainList');
 		}
+	}
+
+	public function addsuccessAction(){
 	}
 
 }
