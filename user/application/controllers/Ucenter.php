@@ -459,32 +459,6 @@ class UcenterController extends UcenterBaseController {
     }
 
 
-    /**
-     * [开票信息管理]
-     */
-    public function invoiceAction(){
-
-            if (IS_POST) {
-                $invoiceData = array(
-                    'title' => urlencode(Safe::filterPost('title')),
-                    'tax_no' => urlencode(Safe::filterPost('tax_no')),
-                    'address' => urlencode(Safe::filterPost('address')),
-                    'phone' => Safe::filterPost('tel', 'int'),
-                    'bank_name' => urlencode(Safe::filterPost('bankName')),
-                    'bank_no' => urlencode(Safe::filterPost('bankAccount'))
-                );
-
-                $invoiceModel = new \nainai\user\UserInvoice();
-                $returnData = $invoiceModel->addUserInvoice($invoiceData);
-
-                if($returnData['success']==1){
-                        $this->redirect('addSuccess');
-                  }else{
-                        echo $returnData['info'];
-                  }
-                exit();
-            }
-    }   
 
 
 }

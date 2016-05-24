@@ -445,36 +445,6 @@ class ManagerDealController extends UcenterBaseController {
         return false;
     }
 
-    /**
-     * 产品列表页面
-     */
-    public function productListAction(){
-        $page = Safe::filterGet('page', 'int', 0);
-        $name = Safe::filterPost('name');
-        $status = Safe::filterPost('status', 'int', 9); 
-        $beginDate = Safe::filterPost('beginDate');
-        $endDate = Safe::filterPost('endDate');
-
-        //查询组装条件
-        $where = 'a.user_id=:uid';
-        $bind = array('uid' => $this->user_id);
-        
-        if (!empty($name)) {
-                $where .= ' AND a.name like"%'.$name.'%"';
-                $this->getView()->assign('name', $name); 
-        }
-
-        if (!empty($status) && $status != 9) {
-                $where .= ' AND c.status=:status';
-                $bind['status'] = $status;
-                $this->getView()->assign('status', $status);
-        }
-
-        if (!empty($beginDate)) {
-                $where .= ' AND apply_time>=:beginDate';
-                $bind['beginDate'] = $beginDate;
-                $this->getView()->assign('beginDate', $beginDate);
-        }
 
 
     /**
@@ -540,8 +510,6 @@ class ManagerDealController extends UcenterBaseController {
             $this->getView()->assign('product', $offerDetail[1]);
         }
 
-    }
-
         $productModel = new \nainai\product();
         $productList = $productModel->getOfferProductList($page, $this->pagesize,  $where, $bind);
 
@@ -552,28 +520,7 @@ class ManagerDealController extends UcenterBaseController {
     }
 
 
-    /**
-     * 产品详情页面
-     */
-    public function productDetailAction(){
-        $id = $this->getRequest()->getParam('id');
-        $id = Safe::filter($id, 'int', 0);
-
-        if (intval($id) > 0) {
-            $productModel = new \nainai\product();
-            $offerDetail = $productModel->getOfferProductDetail($id);
-
-            $offerDetail['attribute'] = unserialize($offerDetail['attribute']);
-            $attr_ids = array_keys($offerDetail['attribute'] );
-
-            $this->getView()->assign('detail', $offerDetail);
-            $this->getView()->assign('mode', $this->_mode);
-            $this->getView()->assign('statusList', $productModel->getStatus());
-            $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
-            $this->getView()->assign('photos', $productModel->getProductPhoto($offerDetail['pid']));
-        }
-        
-    }
+   
 
 
 }

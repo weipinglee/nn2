@@ -9,35 +9,9 @@ use \Library\url;
 use \Library\Safe;
 use \Library\Thumb;
 use \Library\tool;
+use \Library\PlUpload;
+
 class ContractController extends UcenterBaseController{
-
-	protected function  getLeftArray(){
-		return array(
-			array('name' => '交易管理', 'list' => array()),
-			array('name' => '销售管理', 'list' => array(
-				array('url' => url::createUrl('/ManagerDeal/productlist'), 'title' => '销售列表','action'=>array('productlist') ),
-				array(
-					'url' => url::createUrl('/ManagerDeal/indexOffer'),
-					'title' => '发布产品' ,
-					'action' => array('indexoffer','freeoffer','depositoffer','deputeoffer','storeoffer'),//action都用小写
-
-				),
-			)),
-			array('name' => '仓单管理', 'list' => array(
-				array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单','action'=>array('storeproduct') ),
-				array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表','action'=>array('storeproductlist','storeproductdetail') ),
-			)),
-			array('name' => '采购管理', 'list' => array(
-				array('url' => '', 'title' => '采购列表' ),
-				array('url' => '', 'title' => '发布采购' ),
-			)),
-			array('name' => '合同管理', 'list' => array(
-				array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ,'action'=>array('depositlist')),
-				array('url' => '', 'title' => '购买合同' ),
-			))
-		);
-	}
-
 
 	public function depositListAction(){
 		$user_id = $this->user_id;
@@ -49,7 +23,7 @@ class ContractController extends UcenterBaseController{
 		if(!empty($name)){
 			$where []= array(" and p.name = :name ",array('name'=>$name)); 
 		}
-		$list = $deposit->depositContractList($user_id,$page,$where);
+		// $list = $deposit->depositContractList($user_id,$page,$where);
 		$this->getView()->assign('data',$list['data']);
 		$this->getView()->assign('page',$list['bar']);
 	}
@@ -68,4 +42,72 @@ class ContractController extends UcenterBaseController{
 		$this->getView()->assign('data',$list['data']);
 		$this->getView()->assign('page',$list['bar']);
 	}
+
+	/**
+	 * 申述合同
+	 */
+	public function complainContractAction(){
+		if (IS_POST) {
+			$complainData = array(
+				'order_id' => Safe::filterPost('orderId', 'int'),
+				'user_id' => $this->user_id,
+				'title' => Safe::filterPost('title'),
+				'detail' => Safe::filterPost('content'),
+				'proof' => serialize(Safe::filterPost('imgData')),
+				'apply_time' => \Library\Time::getDateTime(),
+				'type' => ($this->user_id == Safe::filterPost('userId', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN,
+				'status' => \nainai\order\OrderComplain::APPLYCOMPLAIN
+			);
+
+			$complainModel = new \nainai\order\OrderComplain();
+			$returnData = $complainModel->addOrderComplain($complainData);
+			$this->HandlerHtml($returnData);
+		}
+		
+		$ContractData = array();
+		$ContractData['id'] = 1;
+		$ContractData['user_id'] = 21;
+		//上传图片插件
+	        $plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
+
+	        //注意，js要放到html的最后面，否则会无效
+	        $this->getView()->assign('plupload',$plupload->show());
+	        $this->getView()->assign('ContractData', $ContractData);
+	}
+
+	/**
+	 * 申述列表
+	 */
+	public function complainListAction(){
+		$page = Safe::filterGet('page', 'int', 0);
+
+		$condition = array(
+			'where' => 'a.user_id =:user_id',
+			'bind' => array('user_id' => $this->user_id)
+		);
+
+		$complainModel = new \nainai\order\OrderComplain();
+		$complainList = $complainModel->getComplainList($page, $this->pagesize, $condition);
+
+		$this->getView()->assign('complainList', $complainList['list']);
+		$this->getView()->assign('pageHtml', $complainList['pageHtml']);
+	}
+
+	/**
+	 * 申述详情
+	 */
+	public function ComplainDetailAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int', 0);
+
+		if (intval($id) > 0) {
+			$complainModel = new \nainai\order\OrderComplain();
+			$complainDetail = $complainModel->getComplainDetail($id);
+			
+			$this->getView()->assign('complainDetail', $complainDetail);
+		}else{
+			$this->redirect('complainList');
+		}
+	}
+
 }
