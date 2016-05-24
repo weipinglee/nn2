@@ -53,7 +53,7 @@ class Order{
 		$this->order_table = 'order_sell';
 		$this->order = new M($this->order_table);
 
-		$this->offer = new M('order_sell');
+		$this->offer = new M('product_offer');
 		$this->products = new M('products');
 		$this->paylog = new M('pay_log');
 		$this->account = new \nainai\fund\agentAccount();
@@ -193,6 +193,7 @@ class Order{
 					try {
 						$this->order->beginTrans();
 						$orderData['id'] = $order_id;
+						$payment = in_array($info['mode'],array(self::ORDER_ENTRUST,self::ORDER_FREE)) ? 'offline' : $payment;//自由与委托报盘只接受线下凭证
 						if($payment == 'online'){
 							//冻结买家帐户余额
 							$acc_res = $this->account->freeze($info['user_id'],$retainage);
@@ -252,7 +253,7 @@ class Order{
 	public function confirmProof($order_id,$user_id,$confirm = true){
 		$info = $this->orderInfo($order_id);
 		if(is_array($info) && isset($info['contract_status'])){
-			if($this->order_type != self::ORDER_FREE && $this->order_type != self::ORDER_ENTRUST && $info['contract_status'] != self::CONTRACT_BUYER_RETAINAGE){
+			if($info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST && $info['contract_status'] != self::CONTRACT_BUYER_RETAINAGE){
 				return tool::getSuccInfo(0,'合同状态有误');
 			}
 			$seller = $this->sellerUserid($order_id);//获取卖方帐户id
@@ -267,7 +268,7 @@ class Order{
 				//卖家确认收款
 				
 				//合同状态置为生效
-				$orderData['contract_status'] = $this->order_type != self::ORDER_FREE && $this->order_type != self::ORDER_ENTRUST ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
+				$orderData['contract_status'] = $info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
 				$log_res = $this->payLog($order_id,$user_id,1,'卖家确认线下支付凭证');
 			}elseif($confirm === false){
 				//删除之前上传proof
@@ -455,7 +456,7 @@ class Order{
 	 */
 	public function verifyQaulity($order_id){
 		$order = $this->orderInfo($order_id);
-		if($order && in_array($order['offer_type'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
+		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
 			if($order['contract_status'] == self::CONTRACT_EFFECT){
 				//查询提货表是否已经提货完毕
 				$delivery = new M('product_delivery');
@@ -512,7 +513,7 @@ class Order{
 	 */
 	public function contractComplete($order_id){
 		$order = $this->orderInfo($order_id);
-		if($order && in_array($order['offer_type'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
+		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
 			if($order['contract_status'] == self::CONTRACT_VERIFY_QAULITY){
 				$orderData['contract_status'] = self::CONTRACT_COMPLETE;
 				$orderData['id'] = $order_id;
@@ -525,7 +526,7 @@ class Order{
 						$buyer = $this->offer->where(array('id'=>$order['offer_id']))->getfield('user_id');
 
 						//判断是否为保证金订单
-						if($order['offer_type'] == self::ORDER_DEPOSIT){
+						if($order['mode'] == self::ORDER_DEPOSIT){
 							//如果是则需要将卖家的保证金解冻
 							$accf_res = $this->account->freezeRelease($buyer,floatval($order['seller_deposit']));
 						}else{
@@ -588,22 +589,23 @@ class Order{
 		return array('data'=>$data,'bar'=>$pageBar);
 	}
 
-	/**
-	 * 销售合同详情
-	 * @param  int $id 订单id
-	 * @return array   结果数组
-	 */
-	public function sellerDetail($id){
-		$query = new Query('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
-		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit';
-		$query->where = 'do.id=:id';
-		$query->bind = array('id'=>$id);
-		$res = array($query->getObj());
-		// var_dump($res);
-		$this->sellerContractStatus($res);
-		return $res[0];
-	}
+	// /**
+	//  * 合同详情
+	//  * @param  int $id 订单id
+	//  * @param  boolean $is_seller 默认为购买合同
+	//  * @return array   结果数组
+	//  */
+	// public function contractDetail($id,$is_seller = false){
+	// 	$query = new Query('order_sell as do');
+	// 	$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
+	// 	$query->fields = 'do.*,p.name,po.price,do.amount,p.unit';
+	// 	$query->where = 'do.id=:id';
+	// 	$query->bind = array('id'=>$id);
+	// 	$res = array($query->getObj());
+	// 	// var_dump($res);
+	// 	$this->sellerContractStatus($res);
+	// 	return $res[0];
+	// }
 
 	/**
 	 * 用户购买合同列表
@@ -623,13 +625,14 @@ class Order{
 		// 		$bind = array_merge($bind,$value[1]);
 		// 	}
 		// }
-		$query->fields = 'u.username,do.*,p.name as product_name,p.unit';
+		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,po.product_id';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 2;
 		// $query->order = "sort";
 		$data = $query->find();
+
 		$this->buyerContractStatus($data);
 		// tool::pre_dump($data);
 		$pageBar =  $query->getPageBar();
@@ -640,17 +643,33 @@ class Order{
 	/**
 	 * 购买合同详情
 	 * @param  int $id 订单id
+	 * @param  string $identity buyer为购买合同 seller 为销售
 	 * @return array   结果数组
 	 */
-	public function buyerDetail($id){
+	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
-		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit';
+		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit,po.product_id';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
-		$res = array($query->getObj());
-		// var_dump($res);
-		$this->buyerContractStatus($res);
+		$res = $query->getObj();
+		if($res['mode'] == self::ORDER_STORE){
+			$query = new Query('store_list as s');
+			$query->join = 'left join store_products as sp on s.id = sp.store_id';
+			$query->where = 'sp.product_id = :product_id';
+			$query->bind = array('product_id'=>$res['product_id']);
+			$query->fields = 's.name as store_name';
+			$data = $query->getObj();
+			$res['store_name'] = $data['store_name'];
+		}else{
+			$res['store_name'] = '-';
+		}
+		$res = array($res);
+		if($identity == 'seller'){
+			$this->sellerContractStatus($res);
+		}else{
+			$this->buyerContractStatus($res);
+		}
 		return $res[0];
 	}
 
@@ -682,7 +701,7 @@ class Order{
 						$title = '等待支付尾款';
 					}else{
 						$title = '确认线下凭证';
-						$href  = url::createUrl('/Deposit/confirmProof?order_id='.$value['id']);
+						$href  = url::createUrl('/Order/confirmProof?order_id='.$value['id']);
 					}
 					break;
 				case self::CONTRACT_COMPLETE:
@@ -717,7 +736,7 @@ class Order{
 				case self::CONTRACT_BUYER_RETAINAGE:
 					if(empty($value['proof'])){
 						$title = '支付尾款';
-						$href = url::createUrl("/Deposit/buyerRetainage?order_id={$value['id']}@user");
+						$href = url::createUrl("/Order/buyerRetainage?order_id={$value['id']}@user");
 					}else{
 						$title = '等待确认线下支付凭证';
 					}
@@ -727,7 +746,7 @@ class Order{
 					break;
 				case self::CONTRACT_EFFECT:
 					$title = '已生效,待提货';
-					switch ($value['offer_type']) {
+					switch ($value['mode']) {
 						case self::ORDER_DEPOSIT:
 							$url = url::createUrl('/depositDelivery/geneDelivery@user');//此处url均为临时，需要额外制作页面
 							break;

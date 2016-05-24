@@ -17,6 +17,7 @@ class DepositOrder extends Order{
 		parent::__construct(parent::ORDER_DEPOSIT);
 	}
 
+
 	/**
 	 * 买方预付定金(全款或定金)
 	 * @param array $info 订单信息数组
@@ -102,7 +103,6 @@ class DepositOrder extends Order{
 		if(is_array($info) && isset($info['contract_status'])){
 			$orderData['id'] = $order_id;
 			$seller = $this->sellerUserid($order_id);//获取卖方帐户id
-
 			if($info['contract_status'] != self::CONTRACT_SELLER_DEPOSIT)
 				return tool::getSuccInfo(0,'合同状态有误');
 			if($seller != $user_id)

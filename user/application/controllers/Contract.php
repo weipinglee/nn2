@@ -36,8 +36,8 @@ class ContractController extends UcenterBaseController{
 				array('url' => url::createUrl('/Contract/buyerList'), 'title' => '购买合同' ),
 			)),
             array('name' => '提货管理', 'list' => array(
-                array('url' => url::createUrl('/Delivery/buyerDeliveryList'), 'title' => '购买提单列表' ),
-                array('url' => url::createUrl('/Delivery/sellerDeliveryList'), 'title' => '销售提单列表' ),
+                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=0'), 'title' => '购买提单列表' ),
+                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=1'), 'title' => '销售提单列表' ),
             ))
 		);
     }
@@ -92,7 +92,7 @@ class ContractController extends UcenterBaseController{
 	public function sellerDetailAction(){
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
-		$info = $order->sellerDetail($id);
+		$info = $order->contractDetail($id,'seller');
 		$this->getView()->assign('info',$info);
 	}
 
@@ -116,7 +116,7 @@ class ContractController extends UcenterBaseController{
 	public function buyerDetailAction(){
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
-		$info = $order->buyerDetail($id);
+		$info = $order->contractDetail($id);
 		$this->getView()->assign('info',$info);
 	}
 

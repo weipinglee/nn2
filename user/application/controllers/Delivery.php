@@ -9,7 +9,7 @@ use \Library\JSON;
 use \Library\url;
 use \Library\checkRight;
 
-class DeliveryController extends \nainai\Abstruct\UcenterControllerAbstract{
+class DeliveryController extends UcenterBaseController {
 
 	protected function  getLeftArray(){
         return array(
@@ -41,7 +41,7 @@ class DeliveryController extends \nainai\Abstruct\UcenterControllerAbstract{
     public function newDeliveryAction(){
         $order_id = safe::filter($this->_request->getParam('order_id'));
         $store_name = safe::filter($this->_request->getParam('store'));
-        $num = safe::filter($this->_request->getParam('num'));
+        $num  = safe::filter($this->_request->getParam('num'));
         $unit = safe::filter($this->_request->getParam('unit'));
         $name = safe::filter($this->_request->getParam('name'));
 
@@ -91,8 +91,9 @@ class DeliveryController extends \nainai\Abstruct\UcenterControllerAbstract{
         $delivery = new \nainai\delivery\Delivery();
         $is_seller = safe::filter($this->_request->getParam('is_seller'),'int');
         $page = safe::filterGet('page','int',1);
-        $user = $is_seller ? 44 : 49;
+        $user = $is_seller ? 36 : 36;
         $list = $delivery->deliveryList($user,$page,$is_seller == 1 ? true : false);
+
         $this->getView()->assign('data',$list['data']);
         $this->getView()->assign('page',$list['bar']);
     }

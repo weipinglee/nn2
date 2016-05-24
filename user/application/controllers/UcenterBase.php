@@ -35,6 +35,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$this->user_id = 49;
 		$this->username = 'sdsd';
 		$this->cert['deal'] = 1;
+		$this->user_type = 1;
 		//获取登录信息
 		if(isset($this->user_id) && $this->user_id>0){
 			$this->getView()->assign('login',1);
