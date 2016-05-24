@@ -54,7 +54,7 @@
         <div class="bottom">
           <a id="js-mobile_btn" href="javascript:void(0);" class="button btn-green" onclick="double_submit()"> 立即登录</a>
         </div>
-		<div class="mm_reg"><a>忘记密码</a><a href="{url:/index/register}">注册>></a></div>
+		<div class="mm_reg"><a href="{url:/index/PasswordReset}">忘记密码</a><a href="{url:/index/register}">注册>></a></div>
       </div>
     </div>
   </div>

@@ -693,6 +693,22 @@ class UserModel{
 	}
 
 
+	//===============================================================================
+
+	//找回密码
+
+	//=================================================================================
+
+
+	public function checkMobileForget($code,$mobile){
+		return $this->checkMobileCode($code,$mobile,3);
+	}
+
+	public function getForgetMobileCode($mobile){
+		$res = $this->getMobileCode($mobile, 3);
+		return $res;
+	}
+
 
 
 

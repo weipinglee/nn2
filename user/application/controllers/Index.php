@@ -188,6 +188,68 @@ class IndexController extends \Yaf\Controller_Abstract {
 		return false;
 	}
 
+	//==========================================================================
+
+	//找回密码
+
+	//=========================================================================
+
+	/**
+	 *找回密码界面
+	 */
+	public function PasswordResetAction(){
+
+
+
+	}
+	/*
+	 * 修改密码
+	 * */
+	public function findPasswordAction(){
+		$mobile= safe::filterPost('registerPhone','/^\d+$/');
+		$code=safe::filterPost('usrCode','int');
+		$userModel=new userModel();
+		$res=$userModel->checkMobileForget($code,$mobile);
+		if($res['success']==0){
+			die(JSON::encode($res));
+		}
+
+		$userObj=new M('user');
+		$data=array(
+			'mobile'=>$mobile
+		);
+		$userInfo=$userObj->where($data)->getObj();
+		if(empty($userInfo)){
+			die(JSON::encode(\Library\tool::getSuccInfo(0,'手机号不存在')));
+		}
+		$password=trim($_POST['password']);
+		$password=sha1($password);
+		$data=array(
+			'id'=>$userInfo['id'],
+			'password'=>$password
+		);
+		$userModel->updateUserInfo($data);
+		die(JSON::encode(\Library\tool::getSuccInfo(1,'修改成功')));
+	}
+
+	/**
+	 *找回密码时获取手机验证码
+	 */
+	public function getMobileCodeAction(){
+		if (IS_POST || IS_AJAX) {
+			$mobile = safe::filterPost('mobile');
+			$code = safe::filterPost('code');
+			$captchaObj = new captcha();
+			if (!$captchaObj->check($code)) {
+				die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
+			}
+			$userObj = new userModel();
+			$res = $userObj->getForgetMobileCode($mobile);
+			//var_dump($_SESSION);
+			die(JSON::encode($res));
+		}
+	}
+
 
 
 
