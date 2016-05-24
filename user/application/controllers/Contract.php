@@ -110,7 +110,5 @@ class ContractController extends UcenterBaseController{
 		}
 	}
 
-	public function addsuccessAction(){
-	}
 
 }
