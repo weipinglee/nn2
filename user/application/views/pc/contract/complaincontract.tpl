@@ -1,4 +1,4 @@
-﻿
+﻿	
 			<!--end左侧导航-->	
 			<!--start中间内容-->	
 			<div class="user_c_list">
@@ -73,46 +73,60 @@
 									</td>
 								</tr>
 							</table>
-							<div class="plaint_com">
-								<form action="{url:/Contract/complainContract}" method="post">
-							 
-							  
-							  <span>申诉标题<i>*</i>： <input  type="text" name="title"></span>
 
-							   <span class="explain">申诉说明：<p>（0/200字）</p></span> 
-							   <textarea name="content" cols="" rows=""></textarea>
+							<div class="plaint_com">
+							<form action="{url:/Contract/complainContract}" id="signupForm"  method="post">
+						
+							<p>
+								<label for="title"><span>申诉标题<i>*</i>：</span></label>
+								<input  type="text" id="title" name="title">
+							</p>
+							<br />
+							<p>
+							   <label for="content"><span class="explain">申诉说明 ：<br />(0/200字)</span> </label>
+							   <textarea name="content" id="content" cols="30" rows="10"></textarea>
+							</p>
 
 									
 							  <span class="upload_img">上传凭证：</span>  
 								 <div class="choose_img">
-								 <span>
-                                        <div>
-
-                                            <input id="pickfiles"  type="button" value="选择文件">
-                                            <input type="button"  id='uploadfiles' class="tj" value="上传">
-                                        </div>
-                                        <div id="filelist"></div>
-                                        <pre id="console"></pre>
-                                    </span> 
-                                    <span class="zhs_img" id='imgContainer'>
-
-                                    </span>
-								   <div id="dd" class="upload_box"></div>
-								  </div>
-							  <input class="uplod_botn" name="upload" type="image" value="" src="../images/icon/upload_03.jpg">
-                                                                    <input type="hidden" name="orderId" value="{$ContractData['id']}" />
-                                                                     <input type="hidden" name="user_id" value="{$ContractData['user_id']}" />
-								<div class="subclear"><input name="" type="submit" value="提交申请">
+									 <span>
+						                                        <div>
+						                                            <input id="pickfiles"  type="button" value="选择文件">
+						                                            <input type="button"  id='uploadfiles' class="tj" value="上传">
+										</div>
+					                                        <div id="filelist"></div>
+					                                        <pre id="console"></pre>
+					                                    	</span> 
+					                                    	<span class="zhs_img" id='imgContainer'></span>
+									<div id="dd" class="upload_box"></div>
+								</div>
+							 
+                                                                    	<input type="hidden" name="orderId" value="{$ContractData['id']}" />
+                                                                     	<input type="hidden" name="user_id" value="{$ContractData['user_id']}" />
+								<div class="subclear"><input name="submit" type="submit" value="提交申请">
 									<a href="#">取消并返回</a>
-									</div>
-									 
-
-
-								</form>
-							 </div>
+								</div>
+							</form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		
             {$plupload}
+            
+            <script type="text/javascript">
+		$().ready(function() {
+			$("#signupForm").validate({
+				rules:{
+					title: "required",
+			      		content: "required"
+				},
+				messages:{
+					title: "请输入申述标题",
+			      		content: "请输入申述说明"
+				}
+			});
+		});
+            </script>
