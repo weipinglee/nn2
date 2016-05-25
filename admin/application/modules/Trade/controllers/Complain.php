@@ -62,6 +62,7 @@ class ComplainController extends InitController{
 				$checkAdminModel = new AdminModel();
 				$checkAdminData = $checkAdminModel->getAdminInfo($complainDetail['check_admin']);
 			}
+			
 			//如果审核人和处理人是同一个
 			if ($complainDetail['check_admin'] == $complainDetail['handle_admin']) {
 				$handlerAdminData = $checkAdminData;

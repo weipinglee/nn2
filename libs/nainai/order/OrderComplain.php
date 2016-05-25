@@ -77,6 +77,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 		$query = new Query('order_complain as a');
 		$query->fields = 'a.id, a.title, a.type, a.proof, a.status, a.apply_time, b.order_no, b.id as oid, c.username';
 		$query->join = 'LEFT JOIN order_sell as b ON a.order_id=b.id LEFT JOIN user as c ON a.user_id=c.id';
+		$query->order = 'apply_time desc';
 
 		if (!empty($condition)) {
 			$query->where = $condition['where'];
@@ -135,6 +136,42 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 		}
 
 		return array();
+	}
+
+	/**
+	 * 获取合同信息
+	 * @param  [Int] $orderId [合同id]
+	 * @return [Array] 
+	 */
+	public function getContract($orderId, $type=1){
+		$detail = array();
+		if (intval($orderId) > 0) {
+			$query = new  Query('order_sell as a ');
+			switch ($type) {
+				case 1:
+					$query->fields = 'a.id, a.order_no, a.user_id, a.amount, c.name as pname, c.attribute, c.quantity, c.user_id as sell_user, d.name as cname, b.product_id';
+					break;
+				case 2:
+					$query->fields = 'a.id, a.user_id, c.user_id as sell_user';
+					break;
+			}
+			
+			$query->join = 'LEFT JOIN product_offer as b ON a.offer_id=b.id LEFT JOIN products as c ON b.product_id=c.id LEFT JOIN product_category as d ON c.cate_id=d.id';
+			$query->where = 'a.id = :id';
+			$query->bind = array('id' => $orderId);
+			$detail = $query->getObj();
+
+			$detail['attribute'] = unserialize($detail['attribute']);
+			$attrIds = array_keys($detail['attribute']);
+
+			$productModel = new \nainai\offer\product();
+			$detail['photos'] = $productModel->getProductPhoto($detail['product_id']);
+			$detail['attrs'] = $productModel->getHTMLProductAttr($attrIds);
+
+			return $detail;
+		}
+
+		return $detail;
 	}
 
 }

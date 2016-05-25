@@ -24,22 +24,26 @@
 								</tr>
 								<tr class="title">
 								  <td colspan="6">
-									单号:<span class="col2517EF">140106199010</span>
+									单号:<span class="col2517EF">{$ContractData['order_no']}</span>
 									<!-- <span class="colaa0707 ht_padd">合同审核中</span> -->
-									<span><img class="middle_img" src="../images/center/ico_cj.jpg">生产厂家：北京东峰兴达耐火材料有线公司</span>
+									<span><img class="middle_img" src="../images/center/ico_cj.jpg">生产厂家：{$ContractData['sellcn']['username']}</span>
 									<span class="ht_padd">
-									  <img class="middle_img" src="../images/center/ico_kf.png">  客服
+									  <img class="middle_img" src="{view:/images/center/ico_kf.png}">  客服
 									</span>
 								  </td>
 								  
 								  <td colspan="3"></td>
 								</tr>
 								<tr>
-									<td><div class="div_heights">H2343424</div></td>
+									<td><div class="div_heights">{$ContractData['order_no']}</div></td>
 									<td>
 										<div class="div_heights">
-										<img class="middle_img" src="../images/banner/551b861eNe1c401dc.jpg" align="left" width="50px" style="position:relative;left:20px"/>
-										 <p style="line-height:50px">耐火材料</p>
+
+										{foreach: items=$ContractData['photos'] item=$val}
+										<img class="middle_img" src="{$val}" align="left" width="50px" style="position:relative;left:20px"/>
+										{/foreach}
+										
+										 <p style="line-height:50px">{$ContractData['pname']}</p>
 										</div>
 									</td>
 									<td>
@@ -50,12 +54,16 @@
 
 									</td>
 									<td>
-										<div class="div_heights">规格：230*114*65</div>
-										<div class="div_heights">材质：高铝质</div>
-										<div class="div_heights">数量：100吨</div>
+										<div class="div_heights">规格：{$ContractData['cname']}</div>
+										<div class="div_heights">材质：<br />
+											{foreach: items=$ContractData['attribute'] key=$k item=$attr}
+												{$ContractData['attrs'][$k]} : {$attr} <br />
+											{/foreach}
+										</div>
+										<div class="div_heights">数量：{$ContractData['quantity']}吨</div>
 									</td>
 									<td>
-										<div class="div_heights Place"><span>李三</span> 
+										<div class="div_heights Place"><span>{$ContractData['usercn']['username']}</span> 
 											<i class="icon-user-md "></i>
 											<div class="prompt-01 prompt-02" style="">
 		                        				<div class="pc">
