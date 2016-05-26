@@ -86,9 +86,9 @@
                                 </td>
                                  <td style="background-color: #F7F7F7;" width="100px">保证金比例</td>
                                 <td colspan="1" width="">
-                                        <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
+                                        <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;"></span>
                                         <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
-                                            10%
+                                            {$data['seller_percent']}%
                                         </span>   
                                 </td>
 
@@ -96,7 +96,7 @@
                                 <td colspan="1" width="">
                                         <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
                                         <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
-                                            5.00
+                                            {$data['seller_deposit']}
                                         </span>   
                                 </td>
                               </tr>
@@ -154,7 +154,7 @@
 
 
                   <div class="pay_bton">
-                    <h5>待支付金额：<i>5</i>元</h5>
+                    <h5>待支付金额：<i>{$data['seller_deposit']}</i>元</h5>
                     <a href="{url:/Deposit/sellerDeposit?order_id=$data['id']&pay=1}">立即缴纳保证金</a>
                   </div>
 

@@ -260,7 +260,7 @@
 					<td><?php echo isset($item['delivery_num'])?$item['delivery_num']:"";?><?php echo isset($item['unit'])?$item['unit']:"";?></td>
 					<td><?php echo isset($item['store_name'])?$item['store_name']:"";?></td>
 					<td><a href=""><?php echo isset($item['order_no'])?$item['order_no']:"";?></a></td>
-					<td><?php echo isset($item['create_time'])?$item['create_time']:"";?></td>
+					<td><?php echo isset($item['delivery_time'])?$item['delivery_time']:"";?></td>
 					<td style="color:#079207;"><?php echo isset($item['title'])?$item['title']:"";?></td>
 					<td>
 						<?php foreach($item['action'] as $key => $v){?>

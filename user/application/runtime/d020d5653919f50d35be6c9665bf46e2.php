@@ -322,9 +322,9 @@
                                 </td>
                                  <td style="background-color: #F7F7F7;" width="100px">保证金比例</td>
                                 <td colspan="1" width="">
-                                        <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
+                                        <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;"></span>
                                         <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
-                                            10%
+                                            <?php echo isset($data['seller_percent'])?$data['seller_percent']:"";?>%
                                         </span>   
                                 </td>
 
@@ -332,7 +332,7 @@
                                 <td colspan="1" width="">
                                         <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
                                         <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
-                                            5.00
+                                            <?php echo isset($data['seller_deposit'])?$data['seller_deposit']:"";?>
                                         </span>   
                                 </td>
                               </tr>
@@ -390,7 +390,7 @@
 
 
                   <div class="pay_bton">
-                    <h5>待支付金额：<i>5</i>元</h5>
+                    <h5>待支付金额：<i><?php echo isset($data['seller_deposit'])?$data['seller_deposit']:"";?></i>元</h5>
                     <a href="http://localhost/nn2/user/public/deposit/sellerdeposit/order_id/<?php echo $data['id'];?>/pay/1">立即缴纳保证金</a>
                   </div>
 

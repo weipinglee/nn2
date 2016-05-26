@@ -8,6 +8,7 @@ use \Library\tool;
 use \Library\JSON;
 use \Library\url;
 use \Library\checkRight;
+use \Library\M;
 
 class DepositController extends OrderController{
 
@@ -58,6 +59,18 @@ class DepositController extends OrderController{
 			return false;
 		}else{
 			$data = $this->deposit->contractDetail($order_id,'seller');
+			$sys_percent_obj = new M('scale_offer');//后台配置保证金基数比例
+			$sys_percent = $sys_percent_obj->where(array('id'=>1))->getField('deposite');
+			//获取当前用户等级保证金比例
+			$user = new \nainai\member();
+			$user_percent = $user->getUserGroup(36);//当前用户id
+			if($user_percent === false){
+				die('用户错误');
+			}
+
+			$percent = floatval($sys_percent) * floatval($user_percent['caution_fee']);
+			$data['seller_percent'] = $percent / 100;
+			$data['seller_deposit'] = number_format($data['amount'] * $percent / 10000,2);
 			$this->getView()->assign('data',$data);
 		}
 	}
@@ -65,17 +78,4 @@ class DepositController extends OrderController{
 	//支付保证金成功页面
 	public function sucAction(){}
 
-	//提货完成后买家确认订单货物质量
-	public function verifyQaulityAction(){
-		$order_id = 1;
-		$res = $this->deposit->verifyQaulity($order_id);
-		var_dump($res);exit;
-	}
-
-	//买家确认合同结束
-	public function contractCompleteAction(){
-		$order_id = 1;
-		$res = $this->deposit->contractComplete($order_id);
-		var_dump($res);exit;
-	}
 }

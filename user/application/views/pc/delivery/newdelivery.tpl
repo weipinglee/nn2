@@ -23,15 +23,15 @@
 								</tr>
 								<tr>
 									<td><img src="../images/banner/551b861eNe1c401dc.jpg"/></td>
-									<td>{$name}</td>
-									<td>{$num}{$unit}</td>
-									<td>{$left}{$unit}</td>
+									<td>{$data['name']}</td>
+									<td>{$data['num']}{$data['unit']}</td>
+									<td>{$data['left']}{$data['unit']}</td>
 									<!-- 判断系统参数是否支持多次开单 如果单次开单则不能修改开单数量-->
 									<td>
 										<input type="text" class="thjs_input" name='num'>
 
 									</td>
-									<td>{$store_name}</td>
+									<td>{$data['store_name']}</td>
 
 								</tr>
 							</tbody></table>
@@ -82,7 +82,7 @@
 
 						</ul>
 						<div class="zhxi_con">	
-							<input type="hidden" name="order_id" value="{$order_id}" />
+							<input type="hidden" name="order_id" value="{$data['id']}" />
 							<span><input class="submit_zz" type="submit" value="提交"></span>
 							<span><input class="submit_zz reset_zz" type="reset" value="返回"></span>
 						</div>

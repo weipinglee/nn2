@@ -98,7 +98,7 @@ class ContractController extends UcenterBaseController{
 
 	//购买合同列表
 	public function buyerListAction(){
-		$user_id = 36;
+		$user_id = 32;
 		$order = new \nainai\order\Order();
 		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);

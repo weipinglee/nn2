@@ -18,8 +18,10 @@ class Order{
 	const CONTRACT_CANCEL = 2;//卖家未按时支付保证金合同作废
 	const CONTRACT_BUYER_RETAINAGE = 3;//卖家支付保证金后等待接受尾款
 	const CONTRACT_EFFECT = 4;//支付完成合同生效
-	const CONTRACT_VERIFY_QAULITY = 5;//买家已确认货物质量（保证金/仓单） 提货
-	const CONTRACT_COMPLETE = 6;//提货完成 合同完成
+	const CONTRACT_DELIVERY_COMPLETE = 5; //提货量超过80%，提货完成
+	const CONTRACT_VERIFY_QAULITY = 6;//买家已确认货物质量（保证金/仓单） 提货
+	const CONTRACT_SELLER_VERIFY = 7; //卖家确认  包含买方扣减款项
+	const CONTRACT_COMPLETE = 8;//合同完成
 
 	//订单类型常量定义 
 	const ORDER_FREE = 1;//自由报盘订单
@@ -66,7 +68,7 @@ class Order{
 	 * @param  array $data  订单数据
 	 * @return array $res  返回结果信息
 	 */
-	protected function orderUpdate($data){
+	public function orderUpdate($data){
 		$order = $this->order;
 		if($order->data($data)->validate($this->orderRules)){
 			if(isset($data['id']) && $data['id']>0){
@@ -160,7 +162,7 @@ class Order{
 	}
 
 	//根据订单id获取订单内容	
-	protected function orderInfo($order_id){
+	public function orderInfo($order_id){
 		return empty($order_id) ? array() : $this->order->where(array('id'=>$order_id))->fields()->getObj();
 	}
 
@@ -213,7 +215,6 @@ class Order{
 								$res = $acc_res['info'];
 							}
 						}elseif($payment == 'offline'){
-							//买方上传支付凭证 TODO
 							$orderData['proof'] = $proof;
 							$upd_res = $this->orderUpdate($orderData);
 							if($upd_res['success'] == 1){
@@ -452,49 +453,83 @@ class Order{
 	/**
 	 * 买方确认货物质量
 	 * @param  int $order_id 订单id
+	 * @param  array $reduceData 扣减货款数据 默认为空
 	 * @return array  $res   返回结果
 	 */
-	public function verifyQaulity($order_id){
+	public function verifyQaulity($order_id,$reduceData = array()){
 		$order = $this->orderInfo($order_id);
 		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
-			if($order['contract_status'] == self::CONTRACT_EFFECT){
-				//查询提货表是否已经提货完毕
-				$delivery = new M('product_delivery');
-				$record = $delivery->where(array('order_id'=>$order_id,'status'=>\nainai\delivery\Delivery::DELIVERY_COMPLETE))->getfield('id');
+			if($order['contract_status'] == self::CONTRACT_DELIVERY_COMPLETE){
+				$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//状态置为买家已确认质量
+				$orderData['id'] = $order_id;
 
-				if(empty($record)){
-					$error = '无此订单或此订单尚未完成提货';
-				}else{
-					$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//买家已确认质量
-					$orderData['id'] = $order_id;
+				try {
+					$this->order->beginTrans();
+					if(!empty($reduceData)){
+						$orderData = array_merge($orderData,$reduceData);
+					}
+					$res = $this->orderUpdate($orderData);
+					//更新合同状态
+					if($res['success'] == 1){
+						$log_res = $this->payLog($order_id,$order['user_id'],0,'买家确认提货质量'.($reduceData['reduce_amount'] ? "（扣减款项：{$reduceData['reduce_amount']})" : ''));
+						if($log_res === true){
+							$this->order->commit();
+							return tool::getSuccInfo();
+						}else{
+							$error = $log_res;
+						}
+					}else{
+						$error = $res['info'];
+					}
+				}catch(PDOException $e) {
+					$this->order->rollBack();
+					$error = $e->getMessage();
+				}
+			}else{
+				$error = '合同状态有误';
+			}
+		}else{
+			$error = '无效订单';
+		}
 
-					try {
-						$this->order->beginTrans();
-						$res = $this->orderUpdate($orderData);
-						//更新合同状态
-						if($res['success'] == 1){
-							$buyer = $this->offer->where(array('id'=>$order['offer_id']))->getfield('user_id');
-							//将订单款60%支付给卖方
-							$amount = $order['amount'] * 0.6;
-							$acc_res = $this->account->freezePay($order['user_id'],$buyer,floatval($amount));
-							if($acc_res === true){
-								$log_res = $this->payLog($order_id,$order['user_id'],0,'买家确认提货质量');
-								if($log_res === true){
-									$this->order->commit();
-									return tool::getSuccInfo();
-								}else{
-									$error = $log_res;
-								}
+		return tool::getSuccInfo(0,$error);
+	}
+
+	/**
+	 * 卖家确认买家扣减货款信息
+	 * @param  int $order_id 订单Id
+	 * @return array 结果数组
+	 */
+	public function sellerVerify($order_id){
+		$order = $this->orderInfo($order_id);
+		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
+			if($order['contract_status'] == self::CONTRACT_VERIFY_QAULITY){
+				$orderData['contract_status'] = self::CONTRACT_SELLER_VERIFY;//状态置为卖家已确认质量
+				$orderData['id'] = $order_id;
+
+				try {
+					$this->order->beginTrans();
+					$res = $this->orderUpdate($orderData);
+						$buyer = $this->offer->where(array('id'=>$order['offer_id']))->getfield('user_id');
+						//将订单款 减去扣减款项 后的60%支付给卖方
+						$reduce_amount = floatval($order['reduce_amount']); 
+
+						$amount = ($order['amount'] - $reduce_amount) * 0.6;
+						$acc_res = $this->account->freezePay($order['user_id'],$buyer,floatval($amount));
+						if($acc_res === true){
+							$log_res = $this->payLog($order_id,$order['user_id'],0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
+							if($log_res === true){
+								$this->order->commit();
+								return tool::getSuccInfo();
 							}else{
-								$error = $acc_res['info'];
+								$error = $log_res;
 							}
 						}else{
-							$error = $res['info'];
+							$error = $acc_res;
 						}
-					}catch(PDOException $e) {
-						$this->order->rollBack();
-						$error = $e->getMessage();
-					}
+				}catch(PDOException $e) {
+					$this->order->rollBack();
+					$error = $e->getMessage();
 				}
 			}else{
 				$error = '合同状态有误';
@@ -514,7 +549,7 @@ class Order{
 	public function contractComplete($order_id){
 		$order = $this->orderInfo($order_id);
 		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
-			if($order['contract_status'] == self::CONTRACT_VERIFY_QAULITY){
+			if($order['contract_status'] == self::CONTRACT_SELLER_VERIFY){
 				$orderData['contract_status'] = self::CONTRACT_COMPLETE;
 				$orderData['id'] = $order_id;
 
@@ -534,22 +569,30 @@ class Order{
 						}
 						
 						if($accf_res === true){
-							//支付剩余的40%货款
-							$amount = $order['amount'] * 0.4;
+							//支付剩余货款 减去扣减款项 后的40%
+							$reduce_amount = floatval($order['reduce_amount']); 
+							$amount = ($order['amount'] - $reduce_amount) * 0.4;
 							$accp_res = $this->account->freezePay($order['user_id'],$buyer,floatval($amount));
 							if($accp_res === true){
-								$log_res = $this->payLog($order_id,$order['user_id'],0,'买家确认合同,合同结束');
+								//若$reduce_amount 大于0 则将此扣减项返还买方账户
+								$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($order['user_id'],$reduce_amount) : true;
+								$log_res = $this->payLog($order_id,$order['user_id'],0,'买家确认合同,合同结束'.($reduce_amount > 0 ? "(返还扣减项:$reduce_amount)" : ''));
 								if($log_res === true){
-									$this->order->commit();
-									return tool::getSuccInfo();
+									if($reduce_res === true){
+										$this->order->commit();
+										return tool::getSuccInfo();	
+									}else{
+										$error = $reduce_res;
+									}
+									
 								}else{
 									$error = $log_res;
 								}
 							}else{
-								$error = $accp_res['info'];
+								$error = $accp_res;
 							}
 						}else{
-							$error = $accf_res['info'];
+							$error = $accf_res;
 						}
 					}else{
 						$error = $res['info'];
@@ -704,6 +747,22 @@ class Order{
 						$href  = url::createUrl('/Order/confirmProof?order_id='.$value['id']);
 					}
 					break;
+				case self::CONTRACT_DELIVERY_COMPLETE:
+					$title = '提货已完成';
+					break;
+				case self::CONTRACT_VERIFY_QAULITY:
+					
+					if(empty($value['reduce_amount'])) {
+						$title = '确认质量';
+						$href = url::createUrl("/Order/sellerVerify?order_id={$value['id']}");
+					}else{
+						$title = '买家要求扣减货款';
+						$href = url::createUrl("/Order/sellerVerify?order_id={$value['id']}&reduce=1");
+					}
+					break;
+				case self::CONTRACT_SELLER_VERIFY:
+					$title = '等待买方确认合同';
+					break;
 				case self::CONTRACT_COMPLETE:
 					$title = '合同已完成';
 					break;
@@ -723,6 +782,7 @@ class Order{
 	 */
 	private function buyerContractStatus(&$data){
 		foreach ($data as $key => &$value) {
+			$action = array();
 			//根据合同状态得出对应操作
 			$contract_status = $value['contract_status'];
 			$href = '';
@@ -736,7 +796,8 @@ class Order{
 				case self::CONTRACT_BUYER_RETAINAGE:
 					if(empty($value['proof'])){
 						$title = '支付尾款';
-						$href = url::createUrl("/Order/buyerRetainage?order_id={$value['id']}@user");
+						$href = url::createUrl("/Order/buyerRetainage?order_id={$value['id']}");
+						$action []= array('action'=>$title,'url'=>$href);
 					}else{
 						$title = '等待确认线下支付凭证';
 					}
@@ -745,30 +806,41 @@ class Order{
 					$title = '合同已被卖家取消';
 					break;
 				case self::CONTRACT_EFFECT:
-					$title = '已生效,待提货';
-					switch ($value['mode']) {
-						case self::ORDER_DEPOSIT:
-							$url = url::createUrl('/depositDelivery/geneDelivery@user');//此处url均为临时，需要额外制作页面
-							break;
-						case self::ORDER_STORE:
-							$url = url::createUrl('/storeDelivery/geneDelivery@user');
-						default:
-							$url = '#';
-							break;
+					//判断是否可以提货
+					$delivery = new \nainai\delivery\Delivery;
+					$left = $delivery->orderNumLeft($value['id']);
+					if(is_float($left) && $left > 0.2){
+						$title = '已生效,待提货';
+						$href = url::createUrl("/delivery/newDelivery?order_id={$value['id']}");
+						$action []= array('action'=>$title,'url'=>$href);
+					}else{
+						$title = '提货列表';
+						$href = url::createUrl("/delivery/deliveryList?is_seller=0");
+						$action []= array('action'=>$title,'url'=>$href);
 					}
-					$href = $url;
 					break;
 				case self::CONTRACT_COMPLETE:
 					$title = '合同已完成';
 					break;
+				case self::CONTRACT_DELIVERY_COMPLETE:
+					$title = '确认提货质量';
+					$action []= array('action'=>'质量合格','url'=>url::createUrl("/Order/verifyQaulity?order_id={$value['id']}"));
+					$action []= array('action'=>'扣减货款','url'=>url::createUrl("/Order/verifyQaulityPage?order_id={$value['id']}"));
+					break;
 				case self::CONTRACT_VERIFY_QAULITY:
-					$title = '提货已完成,已确认质量';
+					$title = '等待卖方确认质量';
+					break;
+				case self::CONTRACT_SELLER_VERIFY:
+					$title = '确认合同结束';
+					$href = url::createUrl("/Order/contractComplete?order_id={$value['id']}");
+					$action []= array('action'=>$title,'url'=>$href);
 					break;
 				default:
 					$title = '未知状态';
 					break;
 			}
-			$value['action'] = $title;
+			$value['title'] = $title;
+			$value['action'] = $action;
 			$value['action_href'] = $href;
 		}
 	}

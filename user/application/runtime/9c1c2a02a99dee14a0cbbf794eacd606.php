@@ -259,15 +259,15 @@
 								</tr>
 								<tr>
 									<td><img src="../images/banner/551b861eNe1c401dc.jpg"/></td>
-									<td><?php echo isset($name)?$name:"";?></td>
-									<td><?php echo isset($num)?$num:"";?><?php echo isset($unit)?$unit:"";?></td>
-									<td><?php echo isset($left)?$left:"";?><?php echo isset($unit)?$unit:"";?></td>
+									<td><?php echo isset($data['name'])?$data['name']:"";?></td>
+									<td><?php echo isset($data['num'])?$data['num']:"";?><?php echo isset($data['unit'])?$data['unit']:"";?></td>
+									<td><?php echo isset($data['left'])?$data['left']:"";?><?php echo isset($data['unit'])?$data['unit']:"";?></td>
 									<!-- 判断系统参数是否支持多次开单 如果单次开单则不能修改开单数量-->
 									<td>
 										<input type="text" class="thjs_input" name='num'>
 
 									</td>
-									<td><?php echo isset($store_name)?$store_name:"";?></td>
+									<td><?php echo isset($data['store_name'])?$data['store_name']:"";?></td>
 
 								</tr>
 							</tbody></table>
@@ -318,7 +318,7 @@
 
 						</ul>
 						<div class="zhxi_con">	
-							<input type="hidden" name="order_id" value="<?php echo isset($order_id)?$order_id:"";?>" />
+							<input type="hidden" name="order_id" value="<?php echo isset($data['id'])?$data['id']:"";?>" />
 							<span><input class="submit_zz" type="submit" value="提交"></span>
 							<span><input class="submit_zz reset_zz" type="reset" value="返回"></span>
 						</div>

@@ -24,7 +24,7 @@
 					<td>{$item['delivery_num']}{$item['unit']}</td>
 					<td>{$item['store_name']}</td>
 					<td><a href="">{$item['order_no']}</a></td>
-					<td>{$item['create_time']}</td>
+					<td>{$item['delivery_time']}</td>
 					<td style="color:#079207;">{$item['title']}</td>
 					<td>
 						{foreach:items=$item['action'] item=$v}

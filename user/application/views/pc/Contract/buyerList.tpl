@@ -81,11 +81,12 @@
 										<td>
 											
 											<div class="div_heights">
-												{if:$item['action_href']}
-													<a href='{$item['action_href']}'><b>{$item['action']}<b></a>
-												{else:}
-													{$item['action']}
-												{/if}
+												<?php $i=0;?>
+												{foreach:items=$item['action'] item=$v}
+													<a href="{$v['url']}" style="color:blue">{$v['action']}</a>
+													<?php $i++;?>
+												{/foreach}
+												{if:!$i}{$item['title']}{/if}
 											</div>
 										</td>
 									</tr>

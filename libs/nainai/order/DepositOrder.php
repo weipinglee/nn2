@@ -127,7 +127,16 @@ class DepositOrder extends Order{
 					
 					if(is_int($seller)){
 						//获取卖方保证金数值 TODO
-						$seller_deposit = 1;
+						$sys_percent_obj = new M('scale_offer');//后台配置保证金基数比例
+						$sys_percent = $sys_percent_obj->where(array('id'=>1))->getField('deposite');
+
+						//获取当前用户等级保证金比例
+						$user = new \nainai\member();
+						$user_percent = $user->getUserGroup($seller);
+
+						if($user_percent === false) return tool::getSuccInfo(0,'用户等级未知');
+						$percent = (floatval($sys_percent) * floatval($user_percent['caution_fee'])) / 10000;
+						$seller_deposit = floatval($info['amount'] * $percent);
 						//冻结卖方帐户保证金
 						$acc_res = $this->account->freeze($seller,$seller_deposit);
 						$orderData['seller_deposit'] = $seller_deposit;
@@ -173,7 +182,7 @@ class DepositOrder extends Order{
 
 
 	/**
-	 * 获取用户所有合同信息(含商品信息与买家信息)
+	 * 获取用户所有合同信息(含商品信息与买家信息)  误*
 	 * @param  int $user_id 卖家id
 	 */
 	public function depositContractList($user_id,$page,$where = array()){

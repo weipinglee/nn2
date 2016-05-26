@@ -18,7 +18,7 @@
 							</div>
 							<div class="detail_chj">
 								<!-- <input class="qx_butt" type="button" value="取消订单"/> -->
-								{if:$info['action_href']}<input class="fk_butt" type="button" value="{$info['action']}"/>{/if}
+								{if:$info['action_href']}<input class="fk_butt" type="button" url="{$info['action_href']}" value="{$info['action']}"/>{/if}
 							</div>
 						</div>
 						<div class="sjxx">
@@ -83,5 +83,13 @@
 			</div>
 			<!--end中间内容-->	
 			<!--end右侧广告-->
+
+			<script type="text/javascript">
+				$(function(){
+					$('.fk_butt').click(function(){
+						window.location.href = $(this).attr('url');
+					});
+				})
+			</script>
 		</div>
 	</div>

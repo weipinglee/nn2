@@ -40,10 +40,6 @@ class DeliveryController extends UcenterBaseController {
     //提货页面
     public function newDeliveryAction(){
         $order_id = safe::filter($this->_request->getParam('order_id'));
-        $store_name = safe::filter($this->_request->getParam('store'));
-        $num  = safe::filter($this->_request->getParam('num'));
-        $unit = safe::filter($this->_request->getParam('unit'));
-        $name = safe::filter($this->_request->getParam('name'));
 
         $delivery = new \nainai\delivery\Delivery();
 
@@ -54,12 +50,9 @@ class DeliveryController extends UcenterBaseController {
             echo $left;exit;
         }
 
-        $this->getView()->assign('order_id',$order_id);
-        $this->getView()->assign('left',number_format($left,2));
-        $this->getView()->assign('store_name',$store_name);
-        $this->getView()->assign('num',$num);
-        $this->getView()->assign('unit',$unit);
-        $this->getView()->assign('name',$name);
+        $info = $delivery->deliveryStore($order_id);
+        $info['left'] = $left;
+        $this->getView()->assign('data',$info);
     }
 
     //生成提货表
@@ -73,7 +66,7 @@ class DeliveryController extends UcenterBaseController {
         $deliveryData['expect_time'] = date('Y-m-d H:i:s',strtotime(safe::filterPost('expect_time')));
         $deliveryData['remark'] = safe::filterPost('remark');
 
-        $deliveryData['user_id'] = 49;
+        $deliveryData['user_id'] = 36;
 
         $delivery = new \nainai\delivery\Delivery();
         $res = $delivery->geneDelivery($deliveryData);
@@ -84,7 +77,6 @@ class DeliveryController extends UcenterBaseController {
             die($res['info']);
         }
     }
-
 
 	//获取当前登陆用户的提货列表
     public function deliveryListAction(){

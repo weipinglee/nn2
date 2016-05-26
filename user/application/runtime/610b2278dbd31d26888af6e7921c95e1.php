@@ -254,7 +254,7 @@
 							</div>
 							<div class="detail_chj">
 								<!-- <input class="qx_butt" type="button" value="取消订单"/> -->
-								<?php if($info['action_href']){?><input class="fk_butt" type="button" value="<?php echo isset($info['action'])?$info['action']:"";?>"/><?php }?>
+								<?php if($info['action_href']){?><input class="fk_butt" type="button" url="<?php echo isset($info['action_href'])?$info['action_href']:"";?>" value="<?php echo isset($info['action'])?$info['action']:"";?>"/><?php }?>
 							</div>
 						</div>
 						<div class="sjxx">
@@ -319,6 +319,14 @@
 			</div>
 			<!--end中间内容-->	
 			<!--end右侧广告-->
+
+			<script type="text/javascript">
+				$(function(){
+					$('.fk_butt').click(function(){
+						window.location.href = $(this).attr('url');
+					});
+				})
+			</script>
 		</div>
 	</div>
             </div>

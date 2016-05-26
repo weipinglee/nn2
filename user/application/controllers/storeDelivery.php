@@ -11,25 +11,12 @@ use \Library\checkRight;
 
 class StoreDeliveryController extends DeliveryController{
 
-	//生成提货表
-	public function geneDeliveryAction(){
-		$order_id = 2;
-		$num = 1;
-
-		$deliveryData['order_id'] = $order_id;
-		$deliveryData['num'] = $num;
-		$deliveryData['user_id'] = 49;
-
-		$store = new \nainai\delivery\StoreDelivery();
-		$res = $store->geneDelivery($deliveryData);
-
-		var_dump($res);exit;
-	}
+	
 
 	//卖家支付仓库管理费用
 	public function storeFeesAction(){
 		$delivery_id = safe::filter($this->_request->getParam('id'));
-		$user_id = 44;//$this->user_id;
+		$user_id = 36;//$this->user_id;
 
 		$store = new \nainai\delivery\StoreDelivery();
 		$res = $store->storeFees($delivery_id,$user_id);

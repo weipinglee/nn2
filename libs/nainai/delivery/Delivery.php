@@ -70,15 +70,16 @@ class Delivery{
 		$t = $is_seller ? 'off' : 'po';
 		$query = new Query('order_sell as po');
 		$query->join = 'left join product_delivery as pd on po.id = pd.order_id left join product_offer as off on po.offer_id = off.id left join products as p on off.product_id = p.id left join store_products as sp on sp.product_id = off.product_id left join store_list as sl on sl.id = sp.store_id';
-		$query->where = $t.'.user_id=:user_id and po.mode in ('.order\Order::ORDER_DEPOSIT.','.order\Order::ORDER_STORE.') and po.contract_status in ('.order\Order::CONTRACT_COMPLETE.','.order\Order::CONTRACT_EFFECT.','.order\Order::CONTRACT_VERIFY_QAULITY.')';
+		$query->where = $t.'.user_id=:user_id and po.mode in ('.order\Order::ORDER_DEPOSIT.','.order\Order::ORDER_STORE.') and po.contract_status in ('.order\Order::CONTRACT_COMPLETE.','.order\Order::CONTRACT_EFFECT.','.order\Order::CONTRACT_VERIFY_QAULITY.','.order\Order::CONTRACT_DELIVERY_COMPLETE.')';
 		$query->fields = 'po.*,pd.num as delivery_num,pd.create_time as delivery_time,pd.status,pd.id as delivery_id,p.name,p.unit,sl.name as store_name';
-		$query->order = 'pd.create_time desc,pd.status desc';
+		$query->order = 'pd.create_time desc';
 		// $query->order = 'po.order_no,pd.status asc';
 		$query->bind = array('user_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
 		$data = $query->find();
 		$pageBar =  $query->getPageBar();
+		$arr = array();
 
 		foreach ($data as $key => &$value) {
 			$href = '';
@@ -92,8 +93,8 @@ class Delivery{
 			switch ($value['status']) {
 				case -1:
 					if(!$is_seller){
-						$title = '待提货';
-						$href = url::createUrl("/delivery/newDelivery?order_id={$value['id']}&store={$value['store_name']}&name={$value['name']}&num={$value['num']}&unit={$value['unit']}");
+						$title = '可提货';
+						$href = url::createUrl("/delivery/newDelivery?order_id={$value['id']}");
 						$action []= array('name'=>'提货','url'=>$href);
 					}else{
 						$title = '等待买家提货';
@@ -126,12 +127,7 @@ class Delivery{
 					break;
 				case self::DELIVERY_AGAIN:
 					$title = '本轮提货完成';
-					$tmp = $value;
-					$tmp['status'] = -1;
-					// $tmp['href'] = url::createUrl("/delivery/newDelivery?order_id={$value['id']}&store={$value['store_name']}&name={$value['name']}&num={$value['num']}&unit={$value['unit']}");
-					// $tmp['action'] = array(array('name'=>'提货','url'=>$href));
-					
-					// array_splice($data,$key+1,0,array($tmp));
+
 					break;
 				case self::DELIVERY_MANAGER_CHECKOUT:
 					$title = '等待仓库管理确认';
@@ -146,12 +142,63 @@ class Delivery{
 					$title = '未知状态';
 					break;
 			}
-			
+			// $this->addNewDelivery($value);
 			$value['action'] = $action;
 			$value['title'] = $title;
 			$value['href'] = $href;
 		}
+		foreach ($arr as $key => $v) {
+			array_splice($data, $key,0,array($v));
+		}
+		// var_dump($data);
 		return array('data'=>$data,'bar'=>$pageBar);
+	}
+
+	// private function addNewDelivery($value){
+	// 	static $arr;
+	// 	if($value['status'] != -1 && $value['status'] != self::DELIVERY_COMPLETE && !$is_seller){
+	// 		//判重
+	// 		$flag = true;
+	// 		foreach ($arr as $k => $v) {
+	// 			echo $v['order_no'].'/'.$value['order_no'].'---';
+	// 			if($value['id'] == $v['id']) {
+	// 				$flag = false;
+	// 				break;
+	// 			}
+	// 		}
+	// 		var_dump($flag);
+	// 		if($flag){
+	// 			//判断是否可以提货
+	// 			$left = $this->orderNumLeft($value['id']);
+	// 			if($left > 0.2){
+	// 				$tmp = $value;
+	// 				$tmp['delivery_id'] = '-';
+	// 				$tmp['delivery_num'] = '-';
+	// 				$tmp['unit'] = '';
+	// 				$tmp['create_time'] = '-';
+	// 				$tmp['status'] = -1;
+	// 				$tmp['title'] = '可提货';
+	// 				$tmp['action'] []= array('name'=>'提货','url'=>url::createUrl("/delivery/newDelivery?order_id={$value['id']}"));
+	// 				$arr [$key]= $tmp;
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	/**
+	 * 提货相关仓库信息
+	 * @param  int $order_id 订单id
+	 * @return array  结果数组
+	 */
+	public function deliveryStore($order_id){
+		$query = new Query('order_sell as os');
+		$query->join = 'left join product_offer as po on po.id = os.offer_id left join products as p on po.product_id = p.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sl.id = sp.store_id';
+		$query->where = 'os.id=:order_id';
+		$query->bind = array('order_id'=>$order_id);
+		$query->fields = 'os.id,p.name,sl.name as store_name,os.num,p.unit';
+
+		$res = $query->getObj();
+		return $res;
 	}
 
 	/**
@@ -268,9 +315,10 @@ class Delivery{
 	 * 检验订单未提货物量	
 	 * @param  int $order_id 订单id
 	 * @param  boolean  $percent 是否返回百分比格式
+	 * @param  boolean  $once_complete  是否只计提货单状态为 本轮或全部完成
 	 * @return mix $res      float:百分比或数量 string:错误信息
 	 */
-	public function orderNumLeft($order_id,$percent = true){
+	public function orderNumLeft($order_id,$percent = true,$once_complete = false){
 		if(empty(intval($order_id))) return '参数错误';
 
 		//查询订单商品总数
@@ -287,17 +335,27 @@ class Delivery{
 		}else{
 			$record_num = 0.0;
 			foreach ($record as $key => $value) {
+				if(!$once_complete){
+					$record_num += $value['num'];
+				}
 				switch ($value['status']) {
 					case self::DELIVERY_AGAIN:
-						$record_num += $value['num'];
+						if($once_complete){
+							$record_num += $value['num'];
+						}
 						break;
 					case self::DELIVERY_COMPLETE:
-						return '此订单已提货完毕';
+						if($once_complete){
+							$record_num += $value['num'];
+							break;
+						}else{
+							return '此订单已提货完毕';
+						}
 					default:
-						continue;
 						break;
 				}
 			}
+
 			return $percent ? ($total_num - $record_num) / $total_num : $total_num - $record_num;
 		}
 	}
