@@ -25,6 +25,9 @@ class OrderController extends UcenterBaseController{
 
 	//买家支付尾款
 	public function buyerRetainageAction(){
+		$this->success('xxxx','http://www.baidu.com');
+		// $this->error('快快快快快快');
+		exit;
 		if(IS_POST){
 			$order_id = safe::filterPost('order_id','int');
 			$type = safe::filterPost('payment');
