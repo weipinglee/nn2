@@ -55,8 +55,7 @@ class check
                 $rule = str_replace('{m,n}',substr(strtolower($rule),$pos),$validate[substr($rule,0,$pos)]);
             }
         }
-
-        return preg_match($rule,$value)===1;
+       return preg_match($rule,$value)===1;
     }
 
     /**

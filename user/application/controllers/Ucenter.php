@@ -423,40 +423,39 @@ class UcenterController extends UcenterBaseController {
                 $res = $userModel->subAccUpdate($data);
             }
 
-            if(isset($res['success']) && $res['success']==1){
-                $this->redirect('subAccList');
-            }
-            else echo $res['info'];
+            die(json::encode($res));
         }
         return false;
     }
 
-    /**
-     * [开票信息管理]
-     */
-    public function invoiceAction(){
 
-        if (IS_POST) {
-            $invoiceData = array(
-                'title' => urlencode(Safe::filterPost('title')),
-                'tax_no' => urlencode(Safe::filterPost('tax_no')),
-                'address' => urlencode(Safe::filterPost('address')),
-                'phone' => Safe::filterPost('tel', 'int'),
-                'bank_name' => urlencode(Safe::filterPost('bankName')),
-                'bank_no' => urlencode(Safe::filterPost('bankAccount'))
-            );
-
+        /**
+         * [开票信息管理]
+         */
+        public function invoiceAction(){
             $invoiceModel = new \nainai\user\UserInvoice();
-            $returnData = $invoiceModel->addUserInvoice($invoiceData);
+            if (IS_POST) {
+                $invoiceData = array(
+                    'user_id'=> $this->user_id,
+                    'title' => Safe::filterPost('title'),
+                    'tax_no' => Safe::filterPost('tax_no'),
+                    'address' => Safe::filterPost('address'),
+                    'phone' => Safe::filterPost('tel', 'int'),
+                    'bank_name' => Safe::filterPost('bankName'),
+                    'bank_no' => Safe::filterPost('bankAccount')
+                );
 
-            if($returnData['success']==1){
-                $this->redirect('addSuccess');
-            }else{
-                echo $returnData['info'];
+
+
+                $returnData = $invoiceModel->addUserInvoice($invoiceData);
+
+                die(json::encode($returnData));
             }
-            exit();
+            else{
+                $invoiceData = $invoiceModel->getUserInvoice($this->user_id);
+                $this->getView()->assign('data',$invoiceData);
+            }
         }
-    }
 
 
     //=================================================================================
