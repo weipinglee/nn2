@@ -6,7 +6,7 @@
  */
 use \Library\M;
 use \Library\Query;
-class messageModel{
+class message{
 	//用户id 
 	private $user_id="";
 	//通知类型
