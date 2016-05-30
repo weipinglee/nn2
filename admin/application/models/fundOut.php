@@ -25,7 +25,7 @@ class fundOutModel {
 		$fundOut = new Query('withdraw_request as w');
 		//线上
 		$fundOut->join = 'left join user as u on w.user_id = u.id';
-		$fundOut->fields = 'w.request_no,w.amount,w.acc_name,w.bank_name,w.status,w.create_time,u.username,u.mobile,u.type,w.id';
+		$fundOut->fields = 'w.request_no,w.amount,w.status,w.create_time,u.username,u.mobile,u.type,w.id';
 		$fundOut->where = 'is_del = 0';
 		$fundOut->page = $page;
 		$outInfo = $fundOut->find();
@@ -66,8 +66,8 @@ class fundOutModel {
 	//提现详情
 	public function fundOutDetail($rid) {
 		$fundOut = new Query('withdraw_request as w');
-		$fundOut->join = 'left join user as u on u.id=w.user_id';
-		$fundOut->fields = 'u.username,u.mobile,w.*';
+		$fundOut->join = 'left join user as u on u.id=w.user_id left join user_bank as b on u.id=b.user_id';
+		$fundOut->fields = 'u.username,u.mobile,w.*,b.true_name,b.bank_name,b.card_no,b.proof as bank_proof';
 		$fundOut->where = 'w.id= :id';
 		$fundOut->bind = array('id' => $rid);
 		$data = $fundOut->getObj();

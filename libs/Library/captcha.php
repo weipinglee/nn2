@@ -93,7 +93,10 @@ class Captcha
     public $im;
 
     public function __construct($config = array()) {
-
+        if(isset($config['width']))
+            $this->width = $config['width'];
+        if(isset($config['height']))
+            $this->height = $config['height'];
     }
 
     public function CreateImage() {
