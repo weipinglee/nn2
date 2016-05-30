@@ -17,6 +17,7 @@ class DepositOrder extends Order{
 		parent::__construct(parent::ORDER_DEPOSIT);
 	}
 
+
 	/**
 	 * 买方预付定金(全款或定金)
 	 * @param array $info 订单信息数组
@@ -102,7 +103,6 @@ class DepositOrder extends Order{
 		if(is_array($info) && isset($info['contract_status'])){
 			$orderData['id'] = $order_id;
 			$seller = $this->sellerUserid($order_id);//获取卖方帐户id
-
 			if($info['contract_status'] != self::CONTRACT_SELLER_DEPOSIT)
 				return tool::getSuccInfo(0,'合同状态有误');
 			if($seller != $user_id)
@@ -127,13 +127,22 @@ class DepositOrder extends Order{
 					
 					if(is_int($seller)){
 						//获取卖方保证金数值 TODO
-						$seller_deposit = 1;
+						$sys_percent_obj = new M('scale_offer');//后台配置保证金基数比例
+						$sys_percent = $sys_percent_obj->where(array('id'=>1))->getField('deposite');
+
+						//获取当前用户等级保证金比例
+						$user = new \nainai\member();
+						$user_percent = $user->getUserGroup($seller);
+
+						if($user_percent === false) return tool::getSuccInfo(0,'用户等级未知');
+						$percent = (floatval($sys_percent) * floatval($user_percent['caution_fee'])) / 10000;
+						$seller_deposit = floatval($info['amount'] * $percent);
 						//冻结卖方帐户保证金
 						$acc_res = $this->account->freeze($seller,$seller_deposit);
 						$orderData['seller_deposit'] = $seller_deposit;
 						//判断此订单是否支付全款
 						if($info['amount'] === $info['pay_deposit']){
-							//全款 合同生效 等待提货 生成提货表 TODO
+							//全款 合同生效 等待提货
 							$orderData['contract_status'] = self::CONTRACT_EFFECT;
 						}else{
 							//定金 等待支付尾款
@@ -173,7 +182,7 @@ class DepositOrder extends Order{
 
 
 	/**
-	 * 获取用户所有合同信息(含商品信息与买家信息)
+	 * 获取用户所有合同信息(含商品信息与买家信息)  误*
 	 * @param  int $user_id 卖家id
 	 */
 	public function depositContractList($user_id,$page,$where = array()){
@@ -235,7 +244,6 @@ class DepositOrder extends Order{
 		$pageBar =  $query->getPageBar();
 		return array('data'=>$data,'bar'=>$pageBar);
 	}
-
 }
 
 
