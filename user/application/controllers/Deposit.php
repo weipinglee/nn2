@@ -8,106 +8,74 @@ use \Library\tool;
 use \Library\JSON;
 use \Library\url;
 use \Library\checkRight;
+use \Library\M;
 
-class DepositController extends UcenterBaseController{
+class DepositController extends OrderController{
 
-	public function init(){
-        // $right = new checkRight();
-        // $right->checkLogin($this);//未登录自动跳到登录页
-        // $this->getView()->setLayout('ucenter');
-		$this->deposit = new \nainai\order\DepositOrder();
-	}
+	protected function  getLeftArray(){
+        return array(
+			array('name' => '交易管理', 'list' => array()),
+			array('name' => '销售管理', 'list' => array(
+				array('url' => url::createUrl('/ManagerDeal/productlist'), 'title' => '销售列表','action'=>array('productlist') ),
+				array(
+					'url' => url::createUrl('/ManagerDeal/indexOffer'),
+					'title' => '发布产品' ,
+					'action' => array('indexoffer','freeoffer','depositoffer','deputeoffer','storeoffer'),//action都用小写
 
-	// /**
-	//  * 生成订单
-	//  */
-	// public function geneOrderAction(){
-	// 	$orderData['offer_id'] = safe::filterPost('offer_id','int');
-	// 	$orderData['num'] = safe::filterPost('num');
-
-	// 	$orderData['offer_id'] = 1;
-	// 	$orderData['num'] = 100;
-	// 	$orderData['order_no'] = tool::create_uuid();
-	// 	$orderData['user_id'] = $this->user_id;//session
-	// 	$orderData['create_time'] = date('Y-m-d H:i:s',time());
-	// 	$res = $this->deposit->geneOrder($orderData);
-	// 	die(JSON::encode($res));
-	// }
-
-	// //买家支付定金
-	// public function buyerDepositAction(){
-	// 	$orderData['id'] = safe::filter('id','int');
-	// 	$orderData['type'] = safe::filter('type');//1:全款 0:定金
-
-
-	// 	$order_id = 22;
-	// 	$type = 0;//1:全款 0:定金		
-	// 	$user_id = $this->user_id;
-	// 	$res = $this->deposit->buyerDeposit($order_id,$type,$user_id);
-	// 	var_dump($res);
-	// 	return false;
-	// }
-
+				),
+			)),
+			array('name' => '仓单管理', 'list' => array(
+				array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单','action'=>array('storeproduct') ),
+				array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表','action'=>array('storeproductlist','storeproductdetail') ),
+			)),
+			array('name' => '采购管理', 'list' => array(
+				array('url' => '', 'title' => '采购列表' ),
+				array('url' => '', 'title' => '发布采购' ),
+			)),
+			array('name' => '合同管理', 'list' => array(
+				array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ,'action'=>array('depositlist')),
+				array('url' => url::createUrl('/Contract/buyerList'), 'title' => '购买合同' ),
+			)),
+            array('name' => '提货管理', 'list' => array(
+                array('url' => url::createUrl('/Delivery/buyerDeliveryList'), 'title' => '购买提单列表' ),
+                array('url' => url::createUrl('/Delivery/sellerDeliveryList'), 'title' => '销售提单列表' ),
+            ))
+		);
+    }
 
 	//卖家支付保证金
 	public function sellerDepositAction(){
-		if(IS_POST){
-			$order_id = safe::filterPost('order_id','int');
+		$pay = safe::filter($this->_request->getParam('pay'));
+		$order_id = intval($this->_request->getParam('order_id'));
+		if($pay){
 			// $pay = safe::filter('pay');
 			$pay = true;
-			$order_id = 1;
-			$user_id = 45;//$this->user_id;
+			$user_id = 36;//$this->user_id;
 			$res = $this->deposit->sellerDeposit($order_id,$pay,$user_id);
 			if($res['success'] == 1)
-				$this->redirect($_SERVER['HTTP_REFERER']);
+				$this->redirect(url::createUrl('/Deposit/suc'));
 			else
 				echo $res['info'];
 			return false;
 		}else{
-			$order_id = intval($this->_request->getParam('order_id'));
+			$data = $this->deposit->contractDetail($order_id,'seller');
+			$sys_percent_obj = new M('scale_offer');//后台配置保证金基数比例
+			$sys_percent = $sys_percent_obj->where(array('id'=>1))->getField('deposite');
+			//获取当前用户等级保证金比例
+			$user = new \nainai\member();
+			$user_percent = $user->getUserGroup(36);//当前用户id
+			if($user_percent === false){
+				die('用户错误');
+			}
+
+			$percent = floatval($sys_percent) * floatval($user_percent['caution_fee']);
+			$data['seller_percent'] = $percent / 100;
+			$data['seller_deposit'] = number_format($data['amount'] * $percent / 10000,2);
+			$this->getView()->assign('data',$data);
 		}
 	}
 
-	//买家支付尾款
-	public function buyerRetainageAction(){
-		$order_id = safe::filter('id','int');
-		$type = safe::filter('type');//online:线上 offline:线下
+	//支付保证金成功页面
+	public function sucAction(){}
 
-		$order_id = 1;
-		$type = 'online';
-		$user_id = 49;//$this->user_id;
-
-		$proof = 'xianxia.jpg';
-		$res = $this->deposit->buyerRetainage($order_id,$user_id,$type,$proof);
-		var_dump($res);
-		return false;
-	}
-
-	//卖家确认买方线下支付凭证
-	public function confirmProofAction(){
-		$order_id = intval($this->_request->getParam('order_id'));
-		$type = safe::filter('type');//0:未确认 1：确认
-		$type = true;
-		$user_id = 42;//$this->user_id;
-		$res = $this->deposit->confirmProof($order_id,$user_id,$type);
-		if($res['success'] == 1)
-			$this->redirect($_SERVER['HTTP_REFERER']);
-		else
-			echo $res['info'];
-		return false;
-	}
-
-	//提货完成后买家确认订单货物质量
-	public function verifyQaulityAction(){
-		$order_id = 1;
-		$res = $this->deposit->verifyQaulity($order_id);
-		var_dump($res);exit;
-	}
-
-	//买家确认合同结束
-	public function contractCompleteAction(){
-		$order_id = 1;
-		$res = $this->deposit->contractComplete($order_id);
-		var_dump($res);exit;
-	}
 }

@@ -7,7 +7,7 @@ function uploadImg(_this,uploadUrl){
     if(uploadUrl==undefined)
         var uploadUrl = $('input[name=uploadUrl]').val();
     var id = $(_this).attr('id');
-
+    console.log(id);
     var imgInput = $('input[name=img'+id+']');
     $.ajaxFileUpload
     (

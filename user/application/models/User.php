@@ -75,7 +75,6 @@ class UserModel{
 		array('cert_tax','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 		array('business','/.{1,100}/','请填写主营品种'),
 
-
 	);
 
 

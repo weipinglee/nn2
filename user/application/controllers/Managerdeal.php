@@ -69,11 +69,10 @@ class ManagerDealController extends UcenterBaseController {
         ));
 
         $left[] = array('name' => '合同管理', 'list' => array(
-            array('url' => url::createUrl('/Contract/depositList'), 'title' => '销售合同' ),
+            array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ),
             array('url' => '', 'title' => '购买合同' ),
         ));
        return $left;
-
 
     }
     /**

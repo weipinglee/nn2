@@ -41,4 +41,5 @@ class offersModel extends \nainai\offer\product{
 
 
     }
+
 }
