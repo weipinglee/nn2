@@ -36,7 +36,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$this->username = 'sdsd';
 		$this->cert['deal'] = 1;
 		$this->user_type = 1;
-		//获取登录信息
+		// 获取登录信息
 		if(isset($this->user_id) && $this->user_id>0){
 			$this->getView()->assign('login',1);
 			$this->getView()->assign('username',$this->username);
@@ -47,7 +47,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$this->getView()->assign('leftArray', $this->getLeftArray());
 		$action = $this->getRequest()->getActionName();
 
-		//判断该方法买家是否能操作，如果不能，跳转到用户中心首页
+		// 判断该方法买家是否能操作，如果不能，跳转到用户中心首页
 		if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
 			$this->redirect(url::createUrl('/ucenter/index'));
 		}

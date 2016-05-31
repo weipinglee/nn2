@@ -10,13 +10,13 @@ use \Library\url;
 use \Library\safe;
 use \Library\tool;
 use \nainai\order;
-class tradeController extends \nainai\controller\Base {
+class tradeController extends Yaf\Controller_Abstract{//\nainai\controller\Base {
 
 	private $offer;
 
 	protected $certType = 'deal';
 	public function init(){
-		parent::init();
+		// parent::init();
 		$this->offer = new OffersModel();
 	}
 
@@ -71,7 +71,7 @@ class tradeController extends \nainai\controller\Base {
 				break;
 		}
 
-		$user_id = $this->user_id;
+		$user_id = 32;//$this->user_id;
 		$orderData['offer_id'] = $id;
 		$orderData['num'] = $num;
 		$orderData['order_no'] = tool::create_uuid();
@@ -81,11 +81,15 @@ class tradeController extends \nainai\controller\Base {
 		$gen_res = $order_mode->geneOrder($orderData);
 
 		if($gen_res['success'] == 1){
-			$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
-			if($pay_res['success'] == 1){
-				$this->redirect(url::createUrl('/Offers/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
-			}else{
-				die('预付定金失败:'.$pay_res['info']);	
+			if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){
+				$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount=111&payed=0&info=等待上传线下支付凭证'));
+			}else{		
+				$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
+				if($pay_res['success'] == 1){
+					$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
+				}else{
+					die('预付定金失败:'.$pay_res['info']);	
+				}
 			}
 		}else{
 			die('生成订单失败:'.$gen_res['info']);
@@ -93,7 +97,18 @@ class tradeController extends \nainai\controller\Base {
 		return false;
 	}
 
+	//支付成功页面
+	public function paySuccessAction(){
+		$order_no = safe::filter($this->_request->getParam('order_no'));
+		$amount = safe::filter($this->_request->getParam('amount'));
+		$pay_deposit = safe::filter($this->_request->getParam('payed'));
+		$info = safe::filter($this->_request->getParam('info'));
 
+		$this->getView()->assign('order_no',$order_no);
+		$this->getView()->assign('amount',$amount);
+		$this->getView()->assign('info',$info);
+		$this->getView()->assign('pay_deposit',$pay_deposit);
+	}
 
 
 }

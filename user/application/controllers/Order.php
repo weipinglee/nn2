@@ -16,7 +16,7 @@ class OrderController extends UcenterBaseController{
         // $right = new checkRight();
         // $right->checkLogin($this);//未登录自动跳到登录页
         // $this->getView()->setLayout('ucenter');
-        $this->order = new \nainai\order\Order;
+        $this->order = new \nainai\order\Order(0);
         $this->free = new \nainai\order\FreeOrder();
 		$this->deposit = new \nainai\order\DepositOrder();
 		$this->store = new \nainai\order\StoreOrder();
@@ -25,14 +25,11 @@ class OrderController extends UcenterBaseController{
 
 	//买家支付尾款
 	public function buyerRetainageAction(){
-		$this->success('xxxx','http://www.baidu.com');
-		// $this->error('快快快快快快');
-		exit;
 		if(IS_POST){
 			$order_id = safe::filterPost('order_id','int');
 			$type = safe::filterPost('payment');
 			$proof = safe::filterPost('imgproof');
-			$user_id = 36;//$this->user_id;
+			$user_id = 32;//$this->user_id;
 			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof);
 			if($res['success'] == 1){
 				$title = $type == 'offline' ? '已上传支付凭证' : '已支付尾款';

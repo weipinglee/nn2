@@ -38,6 +38,7 @@ class Order{
 	protected $account;//用户资金类
 	protected $products;//商品表
 	protected $paylog;//日志
+	protected $mess;//消息表
 
 	/**
 	 * 规则
@@ -54,7 +55,6 @@ class Order{
 		$this->order_type = $order_type;
 		$this->order_table = 'order_sell';
 		$this->order = new M($this->order_table);
-
 		$this->offer = new M('product_offer');
 		$this->products = new M('products');
 		$this->paylog = new M('pay_log');
@@ -123,22 +123,32 @@ class Order{
 
 	//生成摘牌订单
 	public function geneOrder($orderData){
-		$orderData['contract_status'] = self::CONTRACT_NOTFORM;
+		if(in_array($orderData['mode'],array(self::ORDER_FREE,self::ORDER_ENTRUST))){
+			$orderData['contract_status'] = self::CONTRACT_BUYER_RETAINAGE;
+		}else{
+			$orderData['contract_status'] = self::CONTRACT_NOTFORM;	
+		}
+		
 		$offer_info = $this->offerInfo($orderData['offer_id']);
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
 			if($product_valid !== true)
 				return tool::getSuccInfo(0,$product_valid);
 			$orderData['amount'] = $offer_info['price'] * $orderData['num'];
-			if($orderData['payment'] == 1){
+			// if($orderData['payment'] == 1){
 				//代理账户,判断用户买家余额是否足够
 				$user_id = $orderData['user_id'];
 				$balance = $this->account->getActive($user_id);
 				if(floatval($balance) < $orderData['amount']){
 					$res = '代理账户余额不足';
 				}
+			// }
+			$upd_res = $this->orderUpdate($orderData);
+			if($offer_info['mode'] == self::ORDER_DEPOSIT){
+				$mess = new \nainai\message($offer_info['user_id']);
+				$mess->send('depositPay',$upd_res['order_id']);
 			}
-			$res = isset($res) ? tool::getSuccInfo(0,$res) : $this->orderUpdate($orderData);
+			$res = isset($res) ? tool::getSuccInfo(0,$res) : $upd_res;
 		}else{
 			$res = tool::getSuccInfo(0,'无效报盘');
 		}
@@ -206,6 +216,11 @@ class Order{
 								$upd_res = $this->orderUpdate($orderData);
 								if($upd_res['success'] == 1){
 									$log_res = $this->payLog($order_id,$user_id,0,'买家线上支付尾款');
+									$seller = $this->sellerUserid($order_id);
+									if(is_int($seller)){
+										$mess = new \nainai\message($seller);
+										$mess->send('buyerRetainage',$order_id);
+									}
 									$res = $log_res === true ? $this->order->commit() : $log_res;
 								}else{
 									$res = $upd_res['info'];
@@ -275,7 +290,9 @@ class Order{
 				//删除之前上传proof
 				$orderData['proof'] = null;
 				$log_res = $this->payLog($order_id,$user_id,1,'线下支付凭证无效');
-				//发送提示信息买家  TODO
+				//发送提示信息买家  
+				$mess = new \nainai\message($seller);
+				$mess->send('buyerProof',$order_id);
 			}else{
 				$res = '参数错误';
 			}

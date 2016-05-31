@@ -112,7 +112,9 @@ class DepositOrder extends Order{
 				if($pay === false){
 					//未支付 合同取消
 					
-					//扣除信誉值 TODO
+					//扣除信誉值
+					$configs_credit = new \nainai\CreditConfig();
+					$configs_credit->changeUserCredit($seller,'cancel_contract');
 					
 					//将买方冻结资金解冻
 					$acc_res = $this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']));
@@ -126,7 +128,7 @@ class DepositOrder extends Order{
 					//卖方支付保证金
 					
 					if(is_int($seller)){
-						//获取卖方保证金数值 TODO
+						//获取卖方保证金数值 
 						$sys_percent_obj = new M('scale_offer');//后台配置保证金基数比例
 						$sys_percent = $sys_percent_obj->where(array('id'=>1))->getField('deposite');
 
