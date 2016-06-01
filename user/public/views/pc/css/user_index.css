@@ -657,7 +657,7 @@ visibility: hidden;
     color: #FFF;
 }*/
 
-.center_tabl td a.button {
+.center_tabl td .button {
     font-size: 18px;
     color: #FFF;
     background: #d61515 none repeat scroll 0% 0%;
@@ -1312,6 +1312,15 @@ padding: 8px 15px;
 
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn a{
+  background:#d61515;
+  color: #fff;
+  border: 1px solid #d61515;
+  font-size: 20px;
+  padding: 8px 30px;
+  margin: 5px 10px;
+  cursor: pointer;
+}
+.center_tabl  .table2  .cg_fb,.center_tabl .btn input{
   background:#d61515;
   color: #fff;
   border: 1px solid #d61515;
