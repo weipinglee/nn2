@@ -7,9 +7,21 @@ use \Library\tool;
 use \Library\url;
 use \Library\Thumb;
 
+/**
+ * 申述的对应数据操作api
+ * @author maoyong <[<zengmaoyong@126.com>]>
+ * @copyright 2016-05-27
+ * @package  order
+ */
 class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 
+	/**
+	 * 买方角色
+	 */
 	const BUYCOMPLAIN = 1; 
+	/**
+	 * 卖方角色
+	 */
 	const SELLCOMPLAIN = 2;
 	/**
 	 * 申述角色
@@ -21,15 +33,34 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 	);
 
 	/**
-	 * 申述状态
+	 * 申述状态,申请
 	 */
-	const APPLYCOMPLAIN = 1; //申请
-	const DONTCOMPLAIN = 2; //不处理
-	const INTERVENECOMPLAIN = 3; //介入处理
-	const CONFERCOMPLAIN = 4; //介入处理完成
-	const BUYBREAKCOMPLAIN = 5; //买方违约
-	const SELLBREAKCOMPLAIN = 6; //卖方违约
+	const APPLYCOMPLAIN = 1; 
+	/**
+	 * 申述状态,不处理请
+	 */
+	const DONTCOMPLAIN = 2; 
+	/**
+	 * 申述状态,介入处理
+	 */
+	const INTERVENECOMPLAIN = 3;
+	/**
+	 * 申述状态,介入处理完成
+	 */
+	const CONFERCOMPLAIN = 4; 
+	/**
+	 * 申述状态,买方违约
+	 */
+	const BUYBREAKCOMPLAIN = 5; 
+	/**
+	 * 申述状态,卖方违约
+	 */
+	const SELLBREAKCOMPLAIN = 6;
 
+	/**
+	 * 申述状态对应的数组
+	 * @var array
+	 */
 	protected $complainStatus = array(
 		self::APPLYCOMPLAIN => '申请',
 		self::DONTCOMPLAIN => '不处理申述',
@@ -70,7 +101,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 	 * 获取申述列表
 	 * @param  [Int] $page   
 	 * @param  [Int] $pagesize  
-	 * @param  array  $condition [查询条件]
+	 * @param  array  $condition [查询条件,where是sql，bind对应的绑定数据]
 	 * @return [Array]            
 	 */
 	public function getComplainList($page, $pagesize, $condition = array()){
@@ -107,8 +138,8 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 
 	/**
 	 * 获取申述详情
-	 * @param  [type] $id [description]
-	 * @return [type]     [description]
+	 * @param  [Int] $id [申述id]
+	 * @return [Array]
 	 */
 	public function getComplainDetail($id){
 		if (intval($id) > 0) {
@@ -140,6 +171,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 
 	/**
 	 * 获取合同信息
+	 * @access public
 	 * @param  [Int] $orderId [合同id]
 	 * @return [Array] 
 	 */

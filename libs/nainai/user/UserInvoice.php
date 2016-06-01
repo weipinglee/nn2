@@ -7,6 +7,12 @@ use \Library\Query;
 use \Library\tool;
 use \Library\url;
 
+/**
+ * 开票信息的api
+ * @author zengmaoyong <zengmaoyong@126.com>
+ * @copyright 2016-05-27
+ * @package  user
+ */
 class UserInvoice extends \nainai\Abstruct\ModelAbstract {
 
 	public $pk = 'user_id';

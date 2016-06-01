@@ -48,7 +48,7 @@ class UcenterController extends UcenterBaseController {
 
 
     public function baseInfoAction(){
-        $userModel = new userModel();
+        $userModel = new UserModel();
         $userData = $userModel->getUserInfo($this->user_id);
         $this->getView()->assign('user',$userData);
     }

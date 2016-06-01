@@ -101,15 +101,28 @@ abstract class ModelAbstract{
 				break;
 
 			case 'update':
-				if (intval($args[1]) > 0 && $this->model->validate($this->Rules, $args[0])) {
-			    		return (bool)$this->model->data($args[0])->where($this->pk . '=:id')->bind(array('id'=>$args[1]))->update();
+			    	$res = null;
+			    	if (intval($args[1]) > 0 && $this->model->validate($this->Rules, $args[0]))  {
+			    		$res = $this->model->data($args[0])->where($this->pk . '=:id')->bind(array('id'=>$args[1]))->update();
+			    	}else{
+			    		$res = $this->model->getError();
 			    	}
+
+			    	if(intval($res) > 0 ){
+			          	return Tool::getSuccInfo();
+			         }
+			        else{
+			            	return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+			         }
 			    	return false;
 				break;
 
 			case 'delete':
 				if (intval($args[0]) > 0) {
 			    		return (bool)$this->model->where($this->pk . '=:id')->bind(array('id'=>$args[0]))->delete(0);
+			    	}elseif (is_array($args[0])) {
+			    		$condition = $args[0];
+			    		return (bool)$this->model->where($condition['where'])->bind($condition['bind'])->delete(0);
 			    	}
 			    	return false;
 				break;

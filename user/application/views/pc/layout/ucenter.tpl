@@ -25,7 +25,8 @@
 
      <script type="text/javascript" src="{root:js/form/validate/jquery.validate.min.js}" ></script>
      <script type="text/javascript" src="{root:js/form/validate/messages_zh.min.js}" ></script>
-    <link href="{root:js/form/validate/error.css}" rel="stylesheet" type="text/css">
+     <link href="{root:js/form/validate/error.css}" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <!--    公用头部控件 -->
@@ -166,7 +167,7 @@
                 <ul class="nav-list">
                     {foreach: items=$topArray item=$topList}
                         <li>
-                            <a href="{$topList['url']}" {if: $topList['isSelect']} class="cur" {/if}>{$topList['title']}</a>
+                            <a href="{$topList['url']}" {if: isset($topList['isSelect']) && $topList['isSelect'] == 1} class="cur" {/if}>{$topList['title']}</a>
                         </li>
                     {/foreach}
 
@@ -183,19 +184,18 @@
                     <ul>
 
                     	{foreach: items=$leftArray item=$leftList key=$k}
-
                     		{if: $k == 0}
-                    		<li class="let_nav_tit"><h3>{$leftList['name']}</h3></li>
+                    		<li class="let_nav_tit"><h3>{$leftList['title']}</h3></li>
                     		{else:}
                             <li class="btn1" id="btn{$k}">
-                                <a class="nav-first {if:isset($leftList['action']) && in_array($action,$leftList['action'])}cur{/if}" {if:isset($leftList['url'])} href="{$leftList['url']}"{/if} >
-                                    {$leftList['name']}
+                                <a class="nav-first {if:$action==$leftList['action']}cur{/if}" {if: !empty($leftList['url'])} href="{$leftList['url']}"{/if} >
+                                    {$leftList['title']}
                                     <i class="icon-caret-down"></i>
                                 </a>
                                 {if: !empty($leftList['list'])}
                                     <ul class="zj_zh" >
                                         {foreach: items=$leftList['list'] item=$list}
-                                            <li><a  href="{$list['url']}" {if:in_array($action,$list['action'])}class="cur"{/if} >{$list['title']}</a></li>
+                                            <li><a  href="{$list['url']}" {if:$action==$list['action']}class="cur"{/if} >{$list['title']}</a></li>
                                         {/foreach}
                                     </ul>
                                 {/if}

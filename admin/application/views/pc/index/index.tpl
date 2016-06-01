@@ -93,6 +93,13 @@
                         </li>
                         <li><a href="{url:member/usergroup/groupList}" target="content">角色分组</a></li>
                         <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
+                        <li><a href='javascript:voie(0)' target="content">菜单管理</a>
+                         <ul>
+                                <li><a href="{url:member/Menu/MenuList}" target="content"> 菜单列表</a></li>
+                                <li><a href="{url:member/Menu/addMenu}" target="content">菜单添加</a></li>
+                                <li><a href="{url:member/Menu/menuRoleList}" target="content">菜单角色列表</a></li>
+                            </ul>
+                            </li>
                         <li><a href='javascript:voie(0)' target="content">代理商管理</a>
                             <ul>
                                 <li><a href="{url:member/agent/agentList}" target="content">代理商列表</a></li>
