@@ -9,12 +9,13 @@
 namespace Library;
 return array(
     'http'=>'http',
-    'host'=>array(//各系统域名路�?
+    'host'=>array(//å„ç³»ç»ŸåŸŸåè·¯å¾?
         'deal'=>'http://deal.test.com',
-        'user'=>'http://user.test.com',
+        // 'user'=>'http://user.test.com',
+        'user'=>'/nn2/user/public',
         'admin'=>'http://admin.test.com'
     ),
-    'rootDir'=>array(//项目根目录绝对路�?
+    'rootDir'=>array(//é¡¹ç›®æ ¹ç›®å½•ç»å¯¹è·¯å¾?
         'user'=>'E:\wamp\www\nn2\user\public',
         'admin'=>'E:\wamp\www\nn2\admin\public'
 

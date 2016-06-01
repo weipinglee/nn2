@@ -8,7 +8,15 @@
 use \Library\M;
 use \Library\Query;
 use \Library\Time;
+use \Library\session;
+use \Library\tool;
 class UserModel{
+
+	//唯一字段
+	protected $uniqueFields = array(
+		'username'=>'用户名',
+		'mobile'=>'手机号'
+	);
 
 	/**
 	 * 验证规则：
@@ -67,7 +75,6 @@ class UserModel{
 		array('cert_tax','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
 		array('business','/.{1,100}/','请填写主营品种'),
 
-
 	);
 
 
@@ -105,11 +112,10 @@ class UserModel{
 
 		$user = self::$userObj;
 		if($user->data($data)->validate($this->userRules)){
-			if($this->existUser(array('username'=>$data['username'])))
-				return $this->getSuccInfo(0,'用户名已注册');
+			$exit = $this->existUser($data);
+			if($exit!==false)
+				return $exit;
 
-			if($this->existUser(array('mobile'=>$data['mobile'])))
-				return $this->getSuccInfo(0,'手机号码已注册');
 			unset($user->repassword);
 			unset($user->serial_no);
 			$user->password = $data['password'] = sha1($data['password']);
@@ -153,12 +159,12 @@ class UserModel{
 
 		if(false===$this->checkAgentPass($userData['agent'],$userData['serial_no']))
 			return $this->getSuccInfo(0,'代理商密码错误');
+		unset($userData['serial_no']);
 		$user = self::$userObj;
 		if($user->data($userData)->validate($this->userRules) && $user->validate($this->companyRules,$companyData)){
-			if($this->existUser(array('username'=>$userData['username'])))
-				return $this->getSuccInfo(0,'用户名已注册');
-			if($this->existUser(array('mobile'=>$userData['mobile'])))
-				return $this->getSuccInfo(0,'手机号码已注册');
+			$exit = $this->existUser($userData);
+			if($exit!==false)
+				return $exit;
 			unset($user->repassword);
 
 			$user->password = $userData['password'] = sha1($userData['password']);
@@ -191,11 +197,9 @@ class UserModel{
 	public function subAccReg($data){
 		$user = self::$userObj;
 		if($user->data($data)->validate($this->userRules)){
-			if($this->existUser(array('username'=>$data['username'])))
-				return $this->getSuccInfo(0,'用户名已注册');
-
-			if($this->existUser(array('mobile'=>$data['mobile'])))
-				return $this->getSuccInfo(0,'手机号码已注册');
+			$exit = $this->existUser($data);
+			if($exit!==false)
+				return $exit;
 			unset($user->repassword);
 			$user->password = $data['password'] = sha1($data['password']);
 
@@ -223,12 +227,9 @@ class UserModel{
 		$user = self::$userObj;
 		if($user->data($data)->validate($this->userRules)){
 			$user_id = $data['user_id'];
-			if($this->existUser(array('id'=>array('neq',$user_id),'username'=>$data['username']))){
-				return $this->getSuccInfo(0,'用户名已注册');
-			}
-
-			if($this->existUser(array('id'=>array('neq',$user_id),'mobile'=>$data['mobile'])))
-				return $this->getSuccInfo(0,'手机号码已注册');
+			$exit = $this->existUser($data);
+			if($exit!==false)
+				return $exit;
 			if(isset($data['password'])){
 				unset($user->repassword);
 				$user->password  = sha1($data['password']);
@@ -257,41 +258,56 @@ class UserModel{
 	 * @param $data
 	 */
 	public function updateUserInfo($data){
-		if($this->existUser(array('username'=>$data['username'],'id'=>array('neq'=>$data['id'])))){
-			return \Library\tool::getSuccInfo(0,'用户名已存在');
-		}
-		if($this->existUser(array('email'=>$data['email'],'id'=>array('neq'=>$data['id'])))){
-			return \Library\tool::getSuccInfo(0,'邮箱已存在');
-		}
+		$exit = $this->existUser($data);
+		if($exit!==false)
+			return $exit;
+
 		if(!is_object(self::$userObj)){
 			self::$userObj = new M('user');
 		}
 		$id = $data['id'];
 		unset($data['id']);
-		$res = self::$userObj->where(array('id'=>$id))->data($data)->update();
-		if($res!==false){
+		if(self::$userObj->validate($this->userRules,$data)){
+			$res = self::$userObj->where(array('id'=>$id))->data($data)->update();
+		}
+		else{
+			$res = self::$userObj->getError();
+		}
+
+		if(is_int($res)){
 			return \Library\tool::getSuccInfo();
 		}
 		else
-			return \Library\tool::getSuccInfo(0,'系统繁忙，稍后再试');
+			return \Library\tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，稍后再试');
 
 
 
 	}
 	/**验证用户是否已注册
 	 * @param array $userData 用户数据
-	 * @return bool  存在 true 否则 false
+	 * @return bool  存在 返回数组 否则 false
      */
-	public function existUser($userData){
-
+	public function existUser($data){
 		if(!is_object(self::$userObj)){
 			self::$userObj = new M('user');
 		}
 
-		$data = self::$userObj->fields('id')->where($userData)->getObj();
-		if(empty($data))
-			return false;
-		return true;
+		$where = array();
+		if(isset($data['id']))
+			$where['id'] = array('neq',$data['id']);
+		foreach($this->uniqueFields as $f=>$v){
+			if(isset($data[$f])){
+				$where[$f] = $data[$f];
+				$res = self::$userObj->fields('id')->where($where)->getObj();
+				if(!empty($res))
+					return tool::getSuccInfo(0,$v.'已存在');
+				else{
+					unset($where[$f]);
+				}
+
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -445,6 +461,16 @@ class UserModel{
 			return $this->getSuccInfo(0,$res);
 		}
 	}
+
+	private function checkPass($user_id,$pass){
+		$user = self::$userObj;
+		$data = $user->where(array('id'=>$user_id,'password'=>sha1($pass)))->getObj();
+		if(!empty($data)){
+			return true;
+		}
+		return false;
+
+	}
 	/**
 	 * 更改密码
 	 * @param array $userData 用户密码数据
@@ -452,7 +478,7 @@ class UserModel{
 	 * @return
 	 */
 	public function changePass($userData,$user_id){
-		if($this->existUser(array('id'=>$user_id,'password'=>sha1($userData['old_pass'])))){//原密码正确
+		if($this->checkPass($user_id,$userData['old_pass'])){//原密码正确
 			$user = self::$userObj;
 			unset($userData['old_pass']);
 			if($user->data($userData)->validate($this->userRules)){
@@ -475,7 +501,223 @@ class UserModel{
 	}
 
 
+	//=================================================================================
 
+	//修改手机号码部分
+
+	//==================================================================================
+
+	/**
+	 * [checkPhone 验证手机是否唯一]
+	 * @param     [type]      $phone [手机号]
+	 * @return    [type]             [description]
+	 */
+	public function checkPhone($phone){
+
+		$data=array(
+			'mobile'=>$phone,
+		);
+		if(!is_object(self::$userObj)){
+			self::$userObj=new M('user');
+		}
+		$user=self::$userObj;
+		$data=$user->where($data)->getObj();
+
+		if(!empty($data)){
+			return $this->getSuccInfo(0,'手机号码存在');
+		}
+		return $this->getSuccinfo(1,'手机号不存在');
+
+	}
+
+	/**
+	 * 验证第一步是否成功
+	 */
+	public function checkFirst($user_id){
+		//获取验证结果
+		$checkRes = session::get('mobileValidRes');
+		$userInfo=$this->getUserInfo($user_id);
+		if($checkRes && $userInfo['mobile']==$checkRes['mobile'] &&time()- $checkRes['time']<1800 ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	/**
+	 * [getMobileCode 获取手机验证码]
+	 * @param     [type]      $phone  [手机号]
+	 * @param     string      $type   [类型:空是旧手机,2:是新手机]
+	 * @return    [type]              [description]
+	 */
+	private function getMobileCode($phone,$type=''){
+		$validDate=session::get('mobileValidate');
+
+		if($type==2){//更换手机
+			$checkPhone=$this->checkPhone($phone);
+			if($checkPhone['success']==0){
+				return $checkPhone;
+			}
+		}
+
+		else if($type==3){//找回密码
+			$checkPhone=$this->checkPhone($phone);
+			if($checkPhone['success']==1){
+				return $checkPhone;
+			}
+
+		}
+
+		if($validDate!=null&&time()-$validDate['time']<60){
+			return $this->getSuccinfo(0,'已发送');
+		}
+		$code=rand(100000,999999);
+
+		//短信接口 TODO
+
+		//短信发送成功，保存验证信息
+		session::set('mobileValidate',array('code'=>$code,'time'=>time(),'mobile'=>$phone));
+		return $this->getSuccinfo(1,'发送成功');
+	}
+
+	/**
+	 * 获取旧手机号验证码
+	 * @param $user_id
+	 * @param $captcha
+	 * @return array
+	 */
+	public function getOldMobileCode($user_id,$captcha){
+		$captchaObj = new \Library\captcha();
+		if(!$captchaObj->check($captcha)){
+			return array('success'=>0,'info'=>'验证码不正确');
+		}
+		$userInfo=$this->getUserInfo($user_id);
+		$res=$this->getMobileCode($userInfo['mobile']);
+		return $res;
+	}
+	/**
+	 *获取新手机号验证码
+	 * @param $user_id
+	 * @param $captcha 图形验证码
+	 * @param $mobile 新手机号
+	 * @return array
+	 */
+	public function getNewMobileCode($user_id,$captcha,$mobile){
+		$firstCheck=$this->checkFirst($user_id);
+
+		if(!$firstCheck){
+			return tool::getSuccInfo(0,'原手机未验证或验证超时',\Library\url::createUrl('/ucenter/mobileedit'));
+		}
+
+		$captchaObj = new \Library\captcha();
+		if(!$captchaObj->check($captcha)){
+			return array('success'=>0,'info'=>'验证码不正确');
+		}
+		$res=$this->getMobileCode($mobile,2);
+		return $res;
+	}
+	/**
+	 * [checkMobileCode 检查验证码]
+	 * @param     [type]      $code  [验证码]
+	 * @param     [type]      $phone [手机号]
+	 * @param     [type]      $type []
+	 * @return    [type]             [description]
+	 */
+	private function checkMobileCode($code,$phone,$type=''){
+		$validDate=session::get('mobileValidate');
+		if($validDate!=null){
+			if(time()-$validDate['time']>1800){
+				return $this->getSuccinfo(0,'验证码超时');
+			}
+			if($validDate['mobile']!=$phone){
+				return $this->getSuccinfo(0,'非法操作');
+			}
+			if($code!=$validDate['code']){
+				return $this->getSuccinfo(0,'验证码错误');
+			}
+			//更换新手机号
+			if($type==2){
+				$checkPhone=$this->checkPhone($phone);
+				if($checkPhone['success']==0){
+					return $checkPhone;
+				}
+
+				session::clear('mobileValidate');
+				session::clear('mobileValidRes');
+				session::set('mobileValidRes2',array('mobile'=>$phone,'time'=>time()));
+				return $this->getSuccinfo(1,'验证成功');
+
+			}
+			else if($type==3){//找回密码
+				$checkPhone=$this->checkPhone($phone);
+				if($checkPhone['success']==1){
+					return $this->getSuccinfo(0,'手机号码不存在');
+				}else{
+					session::clear('mobileValidate');
+					return $this->getSuccinfo(1,'验证通过');
+				}
+			}
+			else{//更改手机号第一步验证
+				//清除验证信息
+				session::clear('mobileValidate');
+				//保存验证结果信息
+				session::set('mobileValidRes',array('mobile'=>$phone,'time'=>time()));
+				return $this->getSuccinfo(1,'验证成功');
+			}
+
+		}else{
+			return $this->getSuccinfo(0,'没有验证码');
+		}
+	}
+
+
+	/**
+	 * 第一步验证手机
+	 * @param $user_id
+	 * @param $code
+	 * @return array
+	 */
+	public function checkMobileFirst($user_id,$code){
+		$userInfo = $this->getUserInfo($user_id);
+		return $this->checkMobileCode($code,$userInfo['mobile']);
+	}
+	/**
+	 * 第二部验证新手机号，验证成功更新手机
+	 * @param $user_id 用户id
+	 * @param $code 验证码
+	 * @param $newMobile 新手机号
+	 */
+	public function checkMobileSecond($user_id,$code,$newMobile){
+		if($this->checkFirst($user_id)){//确认第一步验证通过
+			$res=$this->checkMobileCode($code,$newMobile,2);
+			if($res['success']==1) {
+				$data = array(
+					'id' => $user_id,
+					'mobile' => $newMobile
+				);
+				return $this->updateUserInfo($data);
+			}
+		}
+		else{//第一步未通过，直接验证第二部，弹出错误
+			return tool::getSuccInfo(0,'非法操作');
+		}
+	}
+
+
+	//===============================================================================
+
+	//找回密码
+
+	//=================================================================================
+
+
+	public function checkMobileForget($code,$mobile){
+		return $this->checkMobileCode($code,$mobile,3);
+	}
+
+	public function getForgetMobileCode($mobile){
+		$res = $this->getMobileCode($mobile, 3);
+		return $res;
+	}
 
 
 

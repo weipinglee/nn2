@@ -9,46 +9,35 @@ use \Library\JSON;
 use \Library\url;
 use \Library\checkRight;
 
-class DepositDeliveryController extends Yaf\Controller_Abstract{
-
-	public function init(){
-        // $right = new checkRight();
-        // $right->checkLogin($this);//未登录自动跳到登录页
-        // $this->getView()->setLayout('ucenter');
-		$this->deposit = new \nainai\delivery\DepositDelivery();
-	}
-
-	//生成提货表
-	public function geneDeliveryAction(){
-		$order_id = 1;
-		$num = 1;
-
-
-		$deliveryData['order_id'] = $order_id;
-		$deliveryData['num'] = $num;
-		$deliveryData['user_id'] = 49;
-
-		$res = $this->deposit->geneDelivery($deliveryData);
-
-		var_dump($res);exit;
-	}
+class DepositDeliveryController extends DeliveryController{
 
 	//卖家发货
 	public function sellerConsignmentAction(){
-		$delivery_id = 2;
-		$user_id = 45;//$this->user_id;
-		$res = $this->deposit->sellerConsignment($delivery_id,$user_id);
+		$delivery_id = safe::filter($this->_request->getParam('id'),'int');
+		$user_id = $this->user_id;
+		$deposit = new \nainai\delivery\DepositDelivery();
+		$res = $deposit->sellerConsignment($delivery_id,$user_id);
 
-		var_dump($res);exit;
+		if($res['success'] == 1){
+			$this->redirect(url::createUrl('/Delivery/deliveryList?is_seller=1'));
+		}else{
+			die($res['info']);
+		}
 	}
 
 	//买家确认收货
 	public function buyerConfirmAction(){
-		$delivery_id = 2;
-		$user_id = 49;
+		$delivery_id = safe::filter($this->_request->getParam('id'),'int');
+		$user_id = $this->user_id;
 
-		$res = $this->deposit->buyerConfirm($delivery_id,$user_id);
-		var_dump($res);exit;
+		$deposit = new \nainai\delivery\DepositDelivery();
+		$res = $deposit->buyerConfirm($delivery_id,$user_id);
+		
+		if($res['success'] == 1){
+			$this->redirect(url::createUrl('/Delivery/deliveryList'));
+		}else{
+			die($res['info']);
+		}
 
 	}
 }

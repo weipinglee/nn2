@@ -13,6 +13,7 @@ class IndexController extends Yaf\Controller_Abstract {
 
 
 	public function init(){
+
 		//echo $this->getViewPath();
 	}
 	/** 
@@ -25,8 +26,7 @@ class IndexController extends Yaf\Controller_Abstract {
 	}
 
 	public function showAction(){
-		print_r($_GET);
-		print_r($this->getRequest()->getParams());
+
 	}
 
 	public function urlAction(){

@@ -142,9 +142,15 @@ class productModel extends baseModel{
 			$res[$attr[$k]['id']] = $v;
 			$res[$attr[$k]['id']]['type'] = $this->getAttrType($v['type']);
 		}
-		$pageBar =  $m->getPageBar();
+		if($page!=0){
+			$pageBar =  $m->getPageBar();
+			return array($res,$pageBar);
+		}
+		else
+			return $res;
 
-		return array($res,$pageBar);
+
+
 	}
 
 

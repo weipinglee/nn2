@@ -108,6 +108,11 @@ class FundController extends UcenterBaseController {
 
 	//提现视图
 	public function txAction() {
+		$fund = new fundModel();
+		$bankData = $fund->getBankInfo();
+		if(empty($bankData)){
+			$this->redirect('bank');
+		}
 		$token =  \Library\safe::createToken();
 		$this->getView()->assign('token',$token);
 	}
@@ -122,10 +127,6 @@ class FundController extends UcenterBaseController {
 			'user_id' => $user_id,
 			'request_no' => self::createRefundNum(),
 			'amount' => safe::filterPost('amount', 'float'),
-			'acc_name' => safe::filterPost('acc_name'),
-			'bank_name' => safe::filterPost('bank_name'),
-			'bank_card' => safe::filterPost('bank_card'),
-
 			'note' => safe::filterPost('note'),
 			'create_time' => \Library\Time::getDateTime(),
 		);

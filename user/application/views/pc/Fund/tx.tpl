@@ -10,21 +10,7 @@
 						</p>
 					</div>
 					<div class="pay_cot">
-						
-						<div class="zhxi_con">
-							<span class="con_tit"><i>*</i>开户名：</span>
-							<span><input class="text" name="acc_name" datatype="s2-20" type="text"/></span>
-						</div>
-						<div class="zhxi_con">
-							<span class="con_tit"><i>*</i>银行：</span>
-							<span>
-								<input class="text" name="bank_name" datatype="s2-20" type="text"/>
-							</span>
-						</div>
-						<div class="zhxi_con">
-							<span class="con_tit"><i>*</i>银行卡号：</span>
-							<span><input class="text" type="text"  datatype="s8-30" name="bank_card"></span>
-						</div>
+
 						<div class="zhxi_con">
 							<span class="con_tit"><i>*</i>提现金额：</span>
 							<span><input class="text" type="text"  datatype="float" name="amount"/></span>

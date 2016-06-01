@@ -46,7 +46,7 @@
         <div class="row cl">
             <label class="form-label col-2">开户名：</label>
             <div class="formControls col-10">
-                {$outInfo['acc_name']}
+                {$outInfo['true_name']}
             </div>
         </div>
 
@@ -56,6 +56,13 @@
                 {$outInfo['bank_name']}
             </div>
             
+        </div>
+        <div class="row cl">
+            <label class="form-label col-2">银行卡号：</label>
+            <div class="formControls col-10">
+                {$outInfo['card_no']}
+            </div>
+
         </div>
              <div class="row cl">
             <label class="form-label col-2">订单号：</label>
@@ -69,6 +76,12 @@
                          {$outInfo['amount']}
                     </div>        
             </div>
+        <div class="row cl">
+            <label class="form-label col-2">开户凭证：</label>
+            <div class="formControls col-10">
+                <img id='image' src='{$outInfo["bank_proof"]}'>
+            </div>
+        </div>
             <div class="row cl">
                 <label class="form-label col-2">提现说明： </label>
                 <div class="formControls col-10">

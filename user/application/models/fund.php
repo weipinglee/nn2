@@ -14,9 +14,6 @@ class fundModel{
         array('user_id','number','',0,'regex'),
         array('request_no','require','不为空'),
         array('amount','currency','货币错误',0,'regex'),
-        array('acc_name','require','开户名必须填写',0,'regex'),
-        array('bank_name','require','银行名称必填',0,'regex'),
-        array('bank_card','require','请填写银行卡号',0,'regex'),
        // array('note','mobile','手机号码错误',2,'regex'),
     );
 

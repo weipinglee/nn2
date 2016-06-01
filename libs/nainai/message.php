@@ -4,15 +4,18 @@
  * author :wangzhande
  * Date :2015/5/12
  */
+
+namespace nainai;
 use \Library\M;
 use \Library\Query;
-class messageModel{
+class message{
 	//用户id 
 	private $user_id="";
 	//通知类型
 	private static $type=array(
 		'orderPay',
-		'fundOut'
+		'fundOut',
+		'depositPay'
 		);
 	/**
 	 * [__construct 构造方法]
@@ -44,11 +47,11 @@ class messageModel{
 				return $this->messCode['sendWrong'];
 			}
 
-
 		}else{
 			return $this->messCode['typeWrong'];
 		}
 	}
+
 	/**
 	 * [order_pay 支付通知]
 	 * @param     [type]      $order_id 
@@ -61,6 +64,31 @@ class messageModel{
 			'title'=>$title,
 			'content'=>$message);
 	}
+
+	public function depositPay($order_id){
+		$title="保证金支付";
+		$message="您的订单".$order_id."需支付保证金";
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+
+	public function buyerRetainage($order_id){
+		$title="尾款通知";
+		$message="您的订单".$order_id."买家已支付尾款";
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+
+	public function buyerProof($order_id){
+		$title="请确认支付凭证";
+		$message="您的订单".$order_id."买家已上传支付凭证";
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+
 	/**
 	 * [fundOut 提现通知]
 	 * @param     [type]      $order_id [订单id]

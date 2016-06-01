@@ -14,7 +14,7 @@
 						<div class="zhxi_con">
 							<span class="con_tit"><i></i>手机号码：</span>
 							<span><input class="text" disabled="disabled" value="{$user['mobile']}" type="text" name="mobile_no"/>
-							<a href="mobile_edit.html"><i class="icon-info-sign"></i>点击修改手机号码</a>
+							<a href="{url:/ucenter/mobileEdit}"><i class="icon-info-sign"></i>点击修改手机号码</a>
 							<!-- <input type="text" readonly="readonly" name="checkh" class="mobile_no"/></span> -->
 						</div>
 
