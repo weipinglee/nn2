@@ -147,9 +147,9 @@ class Delivery{
 			$value['title'] = $title;
 			$value['href'] = $href;
 		}
-		foreach ($arr as $key => $v) {
-			array_splice($data, $key,0,array($v));
-		}
+		// foreach ($arr as $key => $v) {
+		// 	array_splice($data, $key,0,array($v));
+		// }
 		// var_dump($data);
 		return array('data'=>$data,'bar'=>$pageBar);
 	}

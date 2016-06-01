@@ -1,8 +1,4 @@
-<?php
-/**
- * 订单控制器
- */
-
+<?php 
 use \Library\safe;
 use \Library\tool;
 use \Library\JSON;
@@ -16,7 +12,7 @@ class OrderController extends UcenterBaseController{
         // $right = new checkRight();
         // $right->checkLogin($this);//未登录自动跳到登录页
         // $this->getView()->setLayout('ucenter');
-        $this->order = new \nainai\order\Order(0);
+        $this->order = new \nainai\order\Order;
         $this->free = new \nainai\order\FreeOrder();
 		$this->deposit = new \nainai\order\DepositOrder();
 		$this->store = new \nainai\order\StoreOrder();
@@ -25,11 +21,13 @@ class OrderController extends UcenterBaseController{
 
 	//买家支付尾款
 	public function buyerRetainageAction(){
+
 		if(IS_POST){
 			$order_id = safe::filterPost('order_id','int');
 			$type = safe::filterPost('payment');
 			$proof = safe::filterPost('imgproof');
-			$user_id = 32;//$this->user_id;
+
+			$user_id = $this->user_id;
 			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof);
 			if($res['success'] == 1){
 				$title = $type == 'offline' ? '已上传支付凭证' : '已支付尾款';
@@ -37,7 +35,7 @@ class OrderController extends UcenterBaseController{
 
 				$this->redirect(url::createUrl('/Order/payRetainageSuc')."/title/$title/info/$info");
 			}else{
-				die($res['info']);
+				$this->error($res['info']);
 			}
 			return false;
 		}else{
@@ -55,17 +53,26 @@ class OrderController extends UcenterBaseController{
 		$this->getView()->assign('info',safe::filter($this->_request->getParam('info')));
 	}
 
+	//确认线下支付凭证页面
+	public function confirmProofPageAction(){
+		$order_id = intval($this->_request->getParam('order_id'));
+		$info = $this->order->contractDetail($order_id);
+		$info['proof_thumb'] = \Library\Thumb::get($info['proof'],400,400);
+		$this->getView()->assign('data',$info);
+	}
+
 	//卖家确认买方线下支付凭证
 	public function confirmProofAction(){
 		$order_id = intval($this->_request->getParam('order_id'));
 		$type = safe::filter('type');//0:未确认 1：确认
 		$type = true;
-		$user_id = 36;//$this->user_id;
+		$user_id = $this->user_id;
 		$res = $this->order->confirmProof($order_id,$user_id,$type);
 		if($res['success'] == 1)
-			$this->redirect($_SERVER['HTTP_REFERER']);
+			$this->success('操作成功',url::createUrl("/Contract/sellerlist"));
 		else
-			echo $res['info'];
+			$this->error($res['info']);
+
 		return false;
 	}
 
@@ -95,9 +102,9 @@ class OrderController extends UcenterBaseController{
 		}
 
 		if($res['success'] == 1)
-			$this->redirect(url::createUrl('/Contract/buyerlist'));
+			$this->success('已确认货物质量',url::createUrl('/Contract/buyerlist'));
 		else
-			echo $res['info'];
+			$this->error($res['info']);
 		return false;
 	}
 
@@ -109,9 +116,9 @@ class OrderController extends UcenterBaseController{
 		if(!$reduce){
 			$res = $this->order->sellerVerify($order_id);
 			if($res['success'] == 1)
-				$this->redirect(url::createUrl('/Contract/sellerlist'));
-			else
-				echo $res['info'];
+				$this->success('已确认货物质量',url::createUrl('/Contract/sellerlist'));
+			else 
+				$this->error($res['info']);
 			return false;
 		}else{
 			$info = $this->order->orderInfo($order_id);
@@ -124,9 +131,9 @@ class OrderController extends UcenterBaseController{
 		$order_id = safe::filter($this->_request->getParam('order_id'));
 		$res = $this->order->contractComplete($order_id);
 		if($res['success'] == 1)
-			$this->redirect($_SERVER['HTTP_REFERER']);
+			$this->success('合同已结束',url::createUrl("/Contract/buyerlist"));
 		else
-			echo $res['info'];
+			$this->error($res['info']);
 		return false;
 	}
 }

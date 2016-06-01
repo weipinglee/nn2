@@ -12,7 +12,7 @@
 </head>
 <body>
 <script type="text/javascript" >
-  var logPath = '{url:/index/doLog}';
+  var logPath = '{url:/login/doLog}';
 </script>
 
 <div class="wrap">
@@ -49,12 +49,12 @@
         <!-- !验证码 -->
         <div class="cell vcode">
           <input type="text" name="code" id="js-mobile_vcode_ipt" class="text" maxlength="4" placeholder="验证码"/>
-       <a id='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/index/getCaptcha}',$(this).find('img'))"><img src="{url:/index/getCaptcha}" /></a>
+       <a id='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}',$(this).find('img'))"><img src="{url:/login/getCaptcha}" /></a>
         </div>
         <div class="bottom">
           <a id="js-mobile_btn" href="javascript:void(0);" class="button btn-green" onclick="double_submit()"> 立即登录</a>
         </div>
-		<div class="mm_reg"><a href="{url:/index/PasswordReset}">忘记密码</a><a href="{url:/index/register}">注册>></a></div>
+		<div class="mm_reg"><a href="{url:/login/PasswordReset}">忘记密码</a><a href="{url:/login/register}">注册>></a></div>
       </div>
     </div>
   </div>

@@ -14,7 +14,7 @@ use \Library\url;
 use \Library\session;
 use \Library\swfupload;
 use \Library\safe;
-class IndexController extends \Yaf\Controller_Abstract {
+class LoginController extends \Yaf\Controller_Abstract {
 
 	public function init(){
 		//echo $this->getViewPath();
@@ -26,8 +26,6 @@ class IndexController extends \Yaf\Controller_Abstract {
      */
 	public function indexAction() {
 		echo $this->getViewPath();
-
-
 	}
 
 	public function captchaAction(){
@@ -85,7 +83,6 @@ class IndexController extends \Yaf\Controller_Abstract {
 			);
 			$res = $userModel->companyReg($userData,$companyData);
 		}else{
-
 			$res = $userModel->userInsert($userData);
 		}
 		if(isset($res['success']) && $res['success']==1){//注册成功
@@ -126,6 +123,7 @@ class IndexController extends \Yaf\Controller_Abstract {
 	 * 生成验证码
 	 */
 	public function getCaptchaAction(){
+		phpinfo();exit;
 		$ca = new captcha();
 		$ca->CreateImage();
 	}
@@ -155,12 +153,12 @@ class IndexController extends \Yaf\Controller_Abstract {
 			else if($password==''){
 				$data['errorCode'] = 2;
 			}
-			else if($captcha==''){
-				$data['errorCode'] = 3;
-			}
-			else if(!$captchaObj->check($captcha)){//验证码是否正确
-				$data['errorCode'] = 4;
-			}
+			// else if($captcha==''){
+			// 	$data['errorCode'] = 3;
+			// }
+			// else if(!$captchaObj->check($captcha)){//验证码是否正确
+			// 	$data['errorCode'] = 4;
+			// }
 			else{
 				$userModel = new UserModel();
 				$userData = $userModel->checkUser($account,$password);
@@ -198,8 +196,6 @@ class IndexController extends \Yaf\Controller_Abstract {
 	 *找回密码界面
 	 */
 	public function PasswordResetAction(){
-
-
 
 	}
 	/*

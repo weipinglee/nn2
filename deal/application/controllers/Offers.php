@@ -27,7 +27,7 @@ class OffersController extends \Yaf\Controller_Abstract {
 		$pageData = $this->offer->getList($page);
 
 		$this->getView()->assign('data',$pageData['data']);
-		$this->getView()->assign('bar',$pageData['bar']);
+		$this->getView()->assign('page',$pageData['bar']);
 	}
 
 	//支付页面

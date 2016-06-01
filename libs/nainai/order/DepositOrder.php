@@ -135,8 +135,7 @@ class DepositOrder extends Order{
 						//获取当前用户等级保证金比例
 						$user = new \nainai\member();
 						$user_percent = $user->getUserGroup($seller);
-
-						if($user_percent === false) return tool::getSuccInfo(0,'用户等级未知');
+						if($user_percent['caution_fee'] === false) return tool::getSuccInfo(0,'用户等级未知');
 						$percent = (floatval($sys_percent) * floatval($user_percent['caution_fee'])) / 10000;
 						$seller_deposit = floatval($info['amount'] * $percent);
 						//冻结卖方帐户保证金

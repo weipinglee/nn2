@@ -101,7 +101,6 @@ class Captcha
 
     public function CreateImage() {
         $ini = microtime(true);
-
         /** Initialization */
         $this->ImageAllocate();
 

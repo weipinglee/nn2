@@ -956,7 +956,7 @@ var aLis = $(".tlist_1 a")
             </ul>
         </div>
     {/foreach}
-
+    {$page}
     <!-- <div class="pro_cen">
         <ul class="main_centon">
             <li class="tit_left">

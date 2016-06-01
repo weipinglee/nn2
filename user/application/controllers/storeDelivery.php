@@ -16,7 +16,7 @@ class StoreDeliveryController extends DeliveryController{
 	//卖家支付仓库管理费用
 	public function storeFeesAction(){
 		$delivery_id = safe::filter($this->_request->getParam('id'));
-		$user_id = 36;//$this->user_id;
+		$user_id = $this->user_id;
 
 		$store = new \nainai\delivery\StoreDelivery();
 		$res = $store->storeFees($delivery_id,$user_id);
@@ -30,7 +30,7 @@ class StoreDeliveryController extends DeliveryController{
 
 	//模拟仓库管理员确认出货
 	public function managerCheckoutAction(){
-		$delivery_id = 5;
+		$delivery_id = 21;
 
 		$store = new \nainai\delivery\StoreDelivery();
 		$res = $store->managerCheckout($delivery_id);
@@ -40,7 +40,7 @@ class StoreDeliveryController extends DeliveryController{
 
 	//模拟后台管理员进行审核
 	public function adminCheckAction(){
-		$delivery_id = 5;
+		$delivery_id = 21;
 
 		$store = new \nainai\delivery\StoreDelivery();
 		$res = $store->adminCheck($delivery_id);

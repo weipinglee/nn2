@@ -36,15 +36,15 @@
     <div class="zhaohui">
         <div class="w1200">
             <h4>找回密码</h4>
-            <input type="hidden" value="{url:/index/login}" name="url" id="txtUrl">
-            <input type='hidden' value='{url:/index/getMobileCode}' id='codeUrl'>
-            <input type='hidden' value='{url:/index/findPassword}' id='findUrl'>
-<form action="{url:/index/findPassword}" method="post" id="647727080" auto_submit >                <ul>
+            <input type="hidden" value="{url:/login/login}" name="url" id="txtUrl">
+            <input type='hidden' value='{url:/login/getMobileCode}' id='codeUrl'>
+            <input type='hidden' value='{url:/login/findPassword}' id='findUrl'>
+<form action="{url:/login/findPassword}" method="post" id="647727080" auto_submit >                <ul>
                     <li><span class="error red"><span class="field-validation-valid" data-valmsg-for="txtMessage" data-valmsg-replace="true" id="txtMessage"></span></span></li>
                     <li><label>手机号：</label><input type="text" class="text1" id="txtMobile" name="mobile"> </li>
                     <li>
                         <label>验证码：</label><input type="text" class="text1 text1_yzm" id="inputCode" placeholder="请输入验证码"  name="inputCode">
-                        <img id="image"src="{url:/index/getCaptcha}" height="45" onclick="this.src='{url:/index/getCaptcha}?'+Math.random()"/>
+                        <img id="image"src="{url:/login/getCaptcha}" height="45" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()"/>
                     </li>
 
                     <li><label>验证码：</label><input type="text" class=" text1 text1_yzm" id="txtCode" name="code"> <input type="button" value="获取验证码" class="yzm"> </li>

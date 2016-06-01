@@ -27,7 +27,7 @@
     </div>
   </div> -->
   <div>
-    {url:/index/doReg}
+    {url:/login/doReg}
     <div class="register">
       <div class="reg_top">
       <div class="register_top">
@@ -38,8 +38,8 @@
       </div>
       <!--个人注册-->
       <div class="reg_cot gr_reg">
-        <input name="checkUrl" value="{url:/index/checkIsOne}" type="hidden" />
-        <form action="{url:/index/doReg}" method="post" auto_submit redirect_url="{url:/ucenter/baseinfo}">
+        <input name="checkUrl" value="{url:/login/checkIsOne}" type="hidden" />
+        <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/ucenter/baseinfo}">
           <input type="hidden" name="type" value="0"/>
           <div class="cot">
             <span class="cot_tit"><i>*</i>用户名：</span>
@@ -90,7 +90,7 @@
        <!--个人注册结束-->
         <!--企业注册-->
       <div class="reg_cot qy_reg">
-        <form action="{url:/index/doReg}" method="post" auto_submit redirect_url="{url:/ucenter/baseinfo}" >
+        <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/ucenter/baseinfo}" >
           <input type="hidden" name="type" value="1"/>
          <div class="cot">
             <span class="cot_tit"><i>*</i>用户名：</span>

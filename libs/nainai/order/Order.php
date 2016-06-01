@@ -140,7 +140,7 @@ class Order{
 				$user_id = $orderData['user_id'];
 				$balance = $this->account->getActive($user_id);
 				if(floatval($balance) < $orderData['amount']){
-					$res = '代理账户余额不足';
+					return tool::getSuccInfo(0,'代理账户余额不足');
 				}
 			// }
 			$upd_res = $this->orderUpdate($orderData);
@@ -761,7 +761,7 @@ class Order{
 						$title = '等待支付尾款';
 					}else{
 						$title = '确认线下凭证';
-						$href  = url::createUrl('/Order/confirmProof?order_id='.$value['id']);
+						$href  = url::createUrl('/Order/confirmProofPage?order_id='.$value['id']);
 					}
 					break;
 				case self::CONTRACT_DELIVERY_COMPLETE:

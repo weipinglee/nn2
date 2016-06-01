@@ -10,13 +10,13 @@ use \Library\url;
 use \Library\safe;
 use \Library\tool;
 use \nainai\order;
-class tradeController extends Yaf\Controller_Abstract{//\nainai\controller\Base {
+class tradeController extends \nainai\controller\Base {
 
 	private $offer;
 
 	protected $certType = 'deal';
 	public function init(){
-		// parent::init();
+		parent::init();
 		$this->offer = new OffersModel();
 	}
 
@@ -71,7 +71,7 @@ class tradeController extends Yaf\Controller_Abstract{//\nainai\controller\Base 
 				break;
 		}
 
-		$user_id = 32;//$this->user_id;
+		$user_id = $this->user_id;
 		$orderData['offer_id'] = $id;
 		$orderData['num'] = $num;
 		$orderData['order_no'] = tool::create_uuid();
