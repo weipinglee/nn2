@@ -123,7 +123,8 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function freeOfferAction(){
         $freeObj = new freeOffer();
-        $freeFee = $freeObj->getFee();
+        $freeFee = $freeObj->getFee($this->user_id);
+
         $this->getView()->assign('fee',$freeFee);
         $this->productAddAction();
     }

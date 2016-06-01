@@ -117,13 +117,7 @@
                                 <li><a href="{url:trade/product/attributeList}" target="content">属性列表</a></li>
                             </ul>
                         </li>
-                        <li><a target="content">交易费率设置</a>
-                            <ul>
-                                <li><a href="scale-bond.html" target="content">保证金收取比例</a></li>
-                                <li><a href="scale-hand.html" target="content">手续费收取比例</a></li>
-                                <li><a href="scale-offer.html" target="content">自由报盘收费设置</a></li>
-                            </ul>
-                        </li>
+
                         <li><a target="content">报盘管理</a>
                             <ul>
                                 <li><a href="{url:/trade/OfferManage/offerList}" target="content">报盘管理</a></li>

@@ -18,20 +18,22 @@ class freeOffer extends product{
      * 获取自由报盘费率
      *
      */
-    public function getFee(){
+    public function getFee($user_id){
 
         $m = new \nainai\member();
-        $group = $m->getUserGroup($this->user_id);
+        $group = $m->getUserGroup($user_id);
 
+        //获取费率
         if(empty($group)){
             $feeRate = 100;
         }
         else{
             $feeRate = $group['free_fee'];
         }
+
         //获取后台设置的自由报盘费用
         $obj = new M('scale_offer');
-        $fee = $obj->getField('fee');
+        $fee = $obj->getField('free');
         return bcmul(floatval($fee),$feeRate)/100;
     }
 
@@ -45,11 +47,8 @@ class freeOffer extends product{
         $user_id = $this->user_id;
         $acc_type = $offerData['acc_type'];
         $fund = fund::createFund($acc_type);
-        $active = $fund->getActive($this->user_id);//获取用户可用金额
-        $fee = $this->getFee();//获取自由报盘费用
-
-        $total = bcmul($productData[0]['quantity'],$offerData['price']);
-        $fee = bcmul($total,$fee)/100;
+        $active = $fund->getActive($user_id);//获取用户可用金额
+        $fee = $this->getFee($user_id);//获取自由报盘费用
 
         if($active >= $fee){
             $offerData['offer_fee'] = $fee;
