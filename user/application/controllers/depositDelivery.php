@@ -14,7 +14,7 @@ class DepositDeliveryController extends DeliveryController{
 	//卖家发货
 	public function sellerConsignmentAction(){
 		$delivery_id = safe::filter($this->_request->getParam('id'),'int');
-		$user_id = 36;//$this->user_id;
+		$user_id = $this->user_id;
 		$deposit = new \nainai\delivery\DepositDelivery();
 		$res = $deposit->sellerConsignment($delivery_id,$user_id);
 
@@ -28,7 +28,7 @@ class DepositDeliveryController extends DeliveryController{
 	//买家确认收货
 	public function buyerConfirmAction(){
 		$delivery_id = safe::filter($this->_request->getParam('id'),'int');
-		$user_id = 36;
+		$user_id = $this->user_id;
 
 		$deposit = new \nainai\delivery\DepositDelivery();
 		$res = $deposit->buyerConfirm($delivery_id,$user_id);

@@ -50,12 +50,12 @@ class DepositController extends OrderController{
 		if($pay){
 			// $pay = safe::filter('pay');
 			$pay = true;
-			$user_id = 36;//$this->user_id;
+			$user_id = $this->user_id;
 			$res = $this->deposit->sellerDeposit($order_id,$pay,$user_id);
 			if($res['success'] == 1)
 				$this->redirect(url::createUrl('/Deposit/suc'));
 			else
-				echo $res['info'];
+				$this->error($res['info']);
 			return false;
 		}else{
 			$data = $this->deposit->contractDetail($order_id,'seller');
@@ -63,9 +63,9 @@ class DepositController extends OrderController{
 			$sys_percent = $sys_percent_obj->where(array('id'=>1))->getField('deposite');
 			//获取当前用户等级保证金比例
 			$user = new \nainai\member();
-			$user_percent = $user->getUserGroup(36);//当前用户id
+			$user_percent = $user->getUserGroup($this->user_id);//当前用户id
 			if($user_percent === false){
-				die('用户错误');
+				$this->error('用户错误');
 			}
 
 			$percent = floatval($sys_percent) * floatval($user_percent['caution_fee']);

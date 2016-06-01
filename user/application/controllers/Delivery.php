@@ -47,7 +47,7 @@ class DeliveryController extends UcenterBaseController {
         $left = $delivery->orderNumLeft($order_id,false);//返回数值
         if(!is_float($left)){
             //报错
-            echo $left;exit;
+            $this->error($left);exit;
         }
 
         $info = $delivery->deliveryStore($order_id);
@@ -66,7 +66,7 @@ class DeliveryController extends UcenterBaseController {
         $deliveryData['expect_time'] = date('Y-m-d H:i:s',strtotime(safe::filterPost('expect_time')));
         $deliveryData['remark'] = safe::filterPost('remark');
 
-        $deliveryData['user_id'] = 36;
+        $deliveryData['user_id'] = $this->user_id;
 
         $delivery = new \nainai\delivery\Delivery();
         $res = $delivery->geneDelivery($deliveryData);
@@ -74,7 +74,7 @@ class DeliveryController extends UcenterBaseController {
         if($res['success'] == 1){
             $this->redirect(url::createUrl('/Delivery/deliveryList'));
         }else{
-            die($res['info']);
+            $this->error($res['info']);
         }
     }
 
@@ -83,7 +83,7 @@ class DeliveryController extends UcenterBaseController {
         $delivery = new \nainai\delivery\Delivery();
         $is_seller = safe::filter($this->_request->getParam('is_seller'),'int');
         $page = safe::filterGet('page','int',1);
-        $user = $is_seller ? 36 : 36;
+        $user = $this->user_id;
         $list = $delivery->deliveryList($user,$page,$is_seller == 1 ? true : false);
 
         $this->getView()->assign('data',$list['data']);

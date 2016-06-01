@@ -2,7 +2,11 @@
 /**
  * User: maoyong
  * Date: 2016/5/17 0017
+<<<<<<< HEAD
  * Time: ???? 5:05
+=======
+ * Time: ÏÂÎç 5:05
+>>>>>>> origin/pd_dev
  */
 
 use \Library\Query;
@@ -10,10 +14,45 @@ use \Library\M;
 class offersModel extends \nainai\offer\product{
 
 
-    private $offer ;
+    private $offer;
     public function __construct(){
         $this->offer = new M('product_offer');
     }
+    /**
+     * »ñÈ¡²úÆ·¶ÔÓ¦·ÖÀàÏÂµÄµÄ±¨ÅÌÐÅÏ¢ÁÐ±í
+     * @param  [Int] $cateId [·ÖÀàid]
+     * @return [Array]
+     */
+    /**
+     * ×Ô¶¨ÒåµÄmysqlº¯Êý
+
+     * getChildLists(rootId)
+     *  BEGIN
+        DECLARE sTemp VARCHAR(1000);
+        DECLARE sTempChd VARCHAR(1000);
+        SET sTemp = '$';
+        SET sTempChd =cast(rootId as CHAR);
+        WHILE sTempChd is not null DO
+        SET sTemp = concat(sTemp,',',sTempChd);
+        SELECT group_concat(id) INTO sTempChd FROM nn.product_category where FIND_IN_SET(pid,sTempChd)>0;
+        END WHILE;
+        RETURN sTemp;
+        END
+     */
+    public function getOfferCategoryList($cateId){
+        $query = new Query('product_offer as a');
+        $query->fields = 'a.id, accept_area, a.price, b.cate_id, b.name as pname, b.quantity, b.produce_area, c.name as cname';
+        $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN product_category as c ON b.cate_id=c.id';
+        $query->where = ' find_in_set(b.cate_id, getChildLists(:cid))';
+        $query->bind = array('cid' => $cateId);
+        $query->order = 'a.apply_time desc';
+        $query->limit = 5;
+
+        return $query->find();
+
+
+    }
+
 
     public function getList($page,$where =''){
         $query = new Query('product_offer as o');
@@ -65,41 +104,6 @@ class offersModel extends \nainai\offer\product{
     public function offerType($id){
         return intval($this->offer->where(array('id'=>$id))->getField('mode'));
     }
-    /**
-     * 首页获取分类报盘
-     * @param  [Int] $cateId 大类id
-     * @return [Array]
-     */
-    /**
-     * mysql函数
-     * getChildLists(rootId)
-     *  BEGIN
-        DECLARE sTemp VARCHAR(1000);
-        DECLARE sTempChd VARCHAR(1000);
-        SET sTemp = '$';
-        SET sTempChd =cast(rootId as CHAR);
-        WHILE sTempChd is not null DO
-        SET sTemp = concat(sTemp,',',sTempChd);
-        SELECT group_concat(id) INTO sTempChd FROM nn.product_category where FIND_IN_SET(pid,sTempChd)>0;
-        END WHILE;
-        RETURN sTemp;
-        END
-     */
-    public function getOfferCategoryList($cateId){
-        $query = new Query('product_offer as a');
-        $query->fields = 'a.id, accept_area, a.price, b.cate_id, b.name as pname, b.quantity, b.produce_area, c.name as cname';
-        $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN product_category as c ON b.cate_id=c.id';
-        $query->where = ' find_in_set(b.cate_id, getChildLists(:cid))';
-        $query->bind = array('cid' => $cateId);
-        $query->order = 'a.apply_time desc';
-        $query->limit = 5;
-
-        return $query->find();
-
-
-    }
-
-
 
 
 }

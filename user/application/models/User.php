@@ -159,6 +159,7 @@ class UserModel{
 
 		if(false===$this->checkAgentPass($userData['agent'],$userData['serial_no']))
 			return $this->getSuccInfo(0,'代理商密码错误');
+		unset($userData['serial_no']);
 		$user = self::$userObj;
 		if($user->data($userData)->validate($this->userRules) && $user->validate($this->companyRules,$companyData)){
 			$exit = $this->existUser($userData);
@@ -273,7 +274,7 @@ class UserModel{
 			$res = self::$userObj->getError();
 		}
 
-		if(is_int($res) && $res>0){
+		if(is_int($res)){
 			return \Library\tool::getSuccInfo();
 		}
 		else
@@ -460,6 +461,16 @@ class UserModel{
 			return $this->getSuccInfo(0,$res);
 		}
 	}
+
+	private function checkPass($user_id,$pass){
+		$user = self::$userObj;
+		$data = $user->where(array('id'=>$user_id,'password'=>sha1($pass)))->getObj();
+		if(!empty($data)){
+			return true;
+		}
+		return false;
+
+	}
 	/**
 	 * 更改密码
 	 * @param array $userData 用户密码数据
@@ -467,7 +478,7 @@ class UserModel{
 	 * @return
 	 */
 	public function changePass($userData,$user_id){
-		if($this->existUser(array('id'=>$user_id,'password'=>sha1($userData['old_pass'])))){//原密码正确
+		if($this->checkPass($user_id,$userData['old_pass'])){//原密码正确
 			$user = self::$userObj;
 			unset($userData['old_pass']);
 			if($user->data($userData)->validate($this->userRules)){

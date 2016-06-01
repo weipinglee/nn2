@@ -92,15 +92,15 @@ class StoreDelivery extends Delivery{
 	public function adminCheck($delivery_id){
 		//获取对应订单信息
 		$query = new Query('product_delivery as pd');
-		$query->join = 'left join product_order as po on pd.order_id = po.id';
-		$query->fields = 'pd.*,po.user_id,po.offer_type,po.id as order_id,po.num as total_num';
+		$query->join = 'left join order_sell as po on pd.order_id = po.id';
+		$query->fields = 'pd.*,po.user_id,po.mode,po.id as order_id,po.num as total_num';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 
 		$delivery = $query->getObj();
-		if($delivery && $delivery['status'] == parent::DELIVERY_ADMIN_CHECK && $delivery['offer_type'] == order\Order::ORDER_STORE){
+		if($delivery && $delivery['status'] == parent::DELIVERY_ADMIN_CHECK && $delivery['mode'] == order\Order::ORDER_STORE){
 			//计算货物余量
-			$left = $this->orderNumLeft($delivery['order_id']);
+			$left = $this->orderNumLeft($delivery['order_id'],true,true);
 			if(is_float($left)){
 				$left -= floatval($delivery['num']) / floatval($delivery['total_num']);
 				$deliveryData['id'] = $delivery_id;

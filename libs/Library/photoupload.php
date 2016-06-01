@@ -93,7 +93,6 @@ class photoupload{
 			$isArray = true;
 			else
 			$isArray = false;
-
 			foreach($rs as $innerKey => $val)
 			{
 				if($val['flag']==1)
