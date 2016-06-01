@@ -134,6 +134,7 @@ class ManagerDealController extends UcenterBaseController {
      *
      */
     public function doFreeOfferAction(){
+
         if(IS_POST){
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),

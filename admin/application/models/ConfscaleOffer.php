@@ -19,7 +19,7 @@ class ConfscaleOfferModel{
 	 * @var array
 	 */
 	protected $confscaleOfferRules = array(
-		array('free','/^(\d{1,2}(\.\d{0,2})?|100)$/','自由报盘收费格式错误',0,'regex'),
+		array('free','/^(\d{1,}(\.\d{0,2})?)$/','自由报盘收费格式错误',0,'regex'),
 		array('deposite','/^(\d{1,2}(\.\d{1,3})?|100)$/','保证金报盘收费格式错误',0,'regex'),
 		array('fee','/^(\d{1,2}(\.\d{1,3})?|100)$/','手续费格式错误',0,'regex'),
 	);

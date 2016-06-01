@@ -158,7 +158,7 @@ function bindRules(){
     },
         {
             ele:"input[name^=attribute]",
-            datatype:"s1-30",
+            datatype:"*1-20",
             nullmsg:"请填写规格！",
             errormsg:"请填写规格！"
         }
