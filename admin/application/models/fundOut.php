@@ -100,7 +100,7 @@ class fundOutModel {
 				$fundModel = \nainai\fund::createFund(1);
 				//获取冻结资金
 				$userFund = $fundModel->getFreeze($reInfo['user_id']);
-				if ($userFund != 0 && $userFund - $reInfo['amount'] > 0) {
+				if ($userFund != 0 && $userFund - $reInfo['amount'] >= 0) {
 					$data['status'] = self::FUNDOUT_FIRST_OK;
 				} else {
 					return $this->hintCode['freezeLess'];
@@ -138,7 +138,7 @@ class fundOutModel {
 				$fundModel = \nainai\fund::createFund(1);
 				//获取冻结资金
 				$userFund = $fundModel->getFreeze($reInfo['user_id']);
-				if ($userFund != 0 && $userFund - $reInfo['amount'] > 0) {
+				if ($userFund != 0 && $userFund - $reInfo['amount'] >= 0) {
 					$data['status'] = self::FUNDOUT_FINAL_OK;
 				} else {
 					return $this->hintCode['freezeLess'];

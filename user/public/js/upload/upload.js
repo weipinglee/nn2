@@ -7,7 +7,7 @@ function uploadImg(_this,uploadUrl){
     if(uploadUrl==undefined)
         var uploadUrl = $('input[name=uploadUrl]').val();
     var id = $(_this).attr('id');
-    console.log(id);
+
     var imgInput = $('input[name=img'+id+']');
     $.ajaxFileUpload
     (
@@ -34,7 +34,7 @@ function uploadImg(_this,uploadUrl){
             },
             error: function (data)//服务器响应失败处理函数
             {
-                alert(data);
+                alert(JSON.stringify(data));
             }
         }
     )

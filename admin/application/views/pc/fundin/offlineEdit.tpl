@@ -4,10 +4,7 @@
 <link rel="stylesheet" href="{views:content/settings/style.css}" />
 <link rel="stylesheet" type="text/css" href="{views:css/H-ui.admin.css}">
 
-          
-            
-                
-                
+
         <!--            
               CONTENT 
                         --> 

@@ -109,9 +109,10 @@ class FundController extends UcenterBaseController {
 	//提现视图
 	public function txAction() {
 		$fund = new fundModel();
-		$bankData = $fund->getBankInfo();
+		$bankData = $fund->getBankInfo($this->user_id);
 		if(empty($bankData)){
 			$this->redirect('bank');
+			exit;
 		}
 		$token =  \Library\safe::createToken();
 		$this->getView()->assign('token',$token);
@@ -193,9 +194,12 @@ class FundController extends UcenterBaseController {
 		{
 			$result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
 		}
-		echo JSON::encode($result);
+		echo json::encode($result);
 
 		return false;
+	}
+	public function aaAction(){
+		echo 9;exit;
 	}
 
 }

@@ -49,7 +49,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>打款凭证： </span>
 								<span>
-									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload@user}" />
+									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload}" />
                         			<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
 
 								</span>

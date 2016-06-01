@@ -30,7 +30,7 @@
         <div class="topnav_left">
             <div class="login_link" id="toploginbox">
                 {if:$login==0}
-                <a rel="external nofollow" href="{url:/index/login}" target="_blank" class="topnav_login">登录</a>
+                <a rel="external nofollow" href="{url:/login/login}" target="_blank" class="topnav_login">登录</a>
                 <div class="login_box" id="login_boxMain" style="display: none;">
                     <input name="gtxh_LoginMobile" type="text" id="gtxh_LoginMobile" class="txt_topnav" value="手机号码" maxlength="11">
                     <br>
@@ -49,7 +49,7 @@
                 </div>
                 {else:}
                     您好，{$username}
-                    <a rel="external nofollow" href="{url:/index/logout}" >退出</a>
+                    <a rel="external nofollow" href="{url:/login/logout}" >退出</a>
                 {/if}
             </div>
             <div class="topnav_login_in" id="userCenterbox" style="display: none;">

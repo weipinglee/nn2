@@ -152,7 +152,7 @@ class UcenterController extends UcenterBaseController {
             {
                 $result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
             }
-            echo JSON::encode($result);
+            echo json::encode($result);
 
         return false;
     }
