@@ -18,7 +18,7 @@ class baseModel{
 
 	public function __construct($obj=''){
 		if($obj!='')
-			$this->$obj;
+			$this->model = $obj;
 	}
 	/**
 	 *
