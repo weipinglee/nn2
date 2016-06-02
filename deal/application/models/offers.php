@@ -2,12 +2,17 @@
 /**
  * User: maoyong
  * Date: 2016/5/17 0017
+<<<<<<< HEAD
+ * Time: ???? 5:05
+=======
  * Time: ÏÂÎç 5:05
+>>>>>>> origin/pd_dev
  */
 
 use \Library\Query;
 use \Library\M;
 class offersModel extends \nainai\offer\product{
+
 
     private $offer;
     public function __construct(){
@@ -20,6 +25,7 @@ class offersModel extends \nainai\offer\product{
      */
     /**
      * ×Ô¶¨ÒåµÄmysqlº¯Êý
+
      * getChildLists(rootId)
      *  BEGIN
         DECLARE sTemp VARCHAR(1000);
@@ -46,7 +52,6 @@ class offersModel extends \nainai\offer\product{
 
 
     }
-
 
 
     public function getList($page,$where =''){
@@ -99,5 +104,6 @@ class offersModel extends \nainai\offer\product{
     public function offerType($id){
         return intval($this->offer->where(array('id'=>$id))->getField('mode'));
     }
+
 
 }

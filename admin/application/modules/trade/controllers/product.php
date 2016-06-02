@@ -36,6 +36,7 @@ class productController extends InitController{
 
 
         }else{
+
             $cate_id  = $this->getRequest()->getParam('cid',0);
             $cate_id = safe::filter($cate_id,'int');
             //获取所有属性

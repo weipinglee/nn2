@@ -123,8 +123,8 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 * 生成验证码
 	 */
 	public function getCaptchaAction(){
-		phpinfo();exit;
-		$ca = new captcha();
+
+		$ca = new \Library\captcha();
 		$ca->CreateImage();
 	}
 	/**
