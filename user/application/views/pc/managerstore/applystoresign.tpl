@@ -37,6 +37,12 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td nowrap="nowrap"><span></span>租库价格：</td>
+                                <td colspan="2">
+                                    <input name="store_price" class="text" value=""  type="text" />（/{$storeDetail['unit']}/天）
+                                </td>
+                            </tr>
+                            <tr>
                                 <td nowrap="nowrap"><span></span>入库日期：</td>
                                 <td colspan="2"> 
                                     <input name="inTime" value="{$storeDetail['in_time']}" datatype="date" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" type="text">
