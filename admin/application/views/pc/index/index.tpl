@@ -128,6 +128,7 @@
                         </li>
                         <li><a target="content">合同管理</a>
                             <ul>
+                                <li><a href="{url:trade/contract/storeOrderList}" target="content">仓单出库审核</a>
                                 <li><a href="#" target="content">审核</a></li>
                                 <li><a href="#" target="content">列表</a></li>
                                 <li><a href="#" target="content">状态</a></li>

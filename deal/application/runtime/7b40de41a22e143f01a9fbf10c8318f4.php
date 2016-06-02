@@ -304,7 +304,7 @@ body{_padding-top:30px;}
                          <div class="wor_clear">
 
                              <span class="goods">商品</span>
-                             <span class="number">数量(<?php echo isset($data['unit'])?$data['unit']:"";?>)</span>
+                             <span class="number">数量(<?php echo isset($data['unit'])?$data['unit']:"";?>&emsp;最小起订量：<?php echo isset($data['minimum'])?$data['minimum']:"";?>) </span>
                              <span class="amount">总额(元)</span>
                              <span class="price ">单价(元)</span>
                          </div>
@@ -315,7 +315,7 @@ body{_padding-top:30px;}
                              <a href="javascript:;"><div class="clear_word">
                                  <h5><?php echo isset($data['name'])?$data['name']:"";?></h5>
                              </div></a>
-                             <span class="shulag"> <?php echo isset($data['minimum'])?$data['minimum']:"";?> </span>
+                             <span class="shulag"> <input type="text" name="num" width="20px" style="width:100px" /></span>
                              <span class="danjia"><i><b>￥</b><?php echo isset($data['price'])?$data['price']:"";?></i></span>
                              <span class="jine"><i><b>￥</b><?php echo isset($data['amount'])?$data['amount']:"";?></i></span>
 
@@ -389,7 +389,7 @@ body{_padding-top:30px;}
             
             <span class="daizfji"><span class="zhifjin">待支付金额：</span><i>￥</i><b><?php echo isset($data['pay_deposit'])?$data['pay_deposit']:"";?></b></span>
                <input type="hidden" name="id" value="<?php echo isset($data['id'])?$data['id']:"";?>" />
-               <input type="hidden" name="num" value="<?php echo isset($data['minimum'])?$data['minimum']:"";?>" />
+               <!-- <input type="hidden" name="num" value="<?php echo isset($data['minimum'])?$data['minimum']:"";?>" /> -->
              <div class="order_comit"><a class="btoncomit" href="javascript:;" type="submit">确认支付</a></div>
             </form>
 

@@ -47,9 +47,9 @@
 											<input id="controlAll" type="checkbox">
 											单号:<a href="{url:/contract/buyerDetail?id=$item['id']}"><span class="col2517EF">{$item['order_no']}</span></a>
 											<span class="colaa0707 ht_padd"></span>
-											<span><img class="middle_img" src="{views:images/center/ico_cj.jpg}">生成厂家：北京东峰兴达耐火材料有线公司</span>
+											<span><img class="middle_img" src="{views:images/center/ico_cj.jpg}">生产企业：{$item['company_name']}</span>
 											<span class="ht_padd">
-												<img class="middle_img" src="{views:images/center/ico_kf.png}">  客服
+												<!-- <img class="middle_img" src="{views:images/center/ico_kf.png}">  客服 -->
 											</span>
 										</td>
 										
@@ -59,20 +59,22 @@
 										<td colspan="2">
 											<img class="middle_img" src="{views:images/banner/551b861eNe1c401dc.jpg}" align="left" width="100px"/>
 											<div class="div_height">&nbsp;{$item['product_name']}</div>
-											<div class="div_height">&nbsp;是否含税：是</div>
-											<div class="div_height">&nbsp;是否含保险：是</div>
-											<div class="div_height">&nbsp;所在地：耐耐网一号库</div>
+											<!-- <div class="div_height">&nbsp;是否含税：是</div>
+											<div class="div_height">&nbsp;是否含保险：是</div> -->
+											{if:isset($item['store_name']) && $item['mode'] == \nainai\order\Order::ORDER_STORE}
+											<div class="div_height">&nbsp;所在地：{$item['store_name']}</div>
+											{/if}
 										</td>
 										<td>
 											<div class="div_heights colaa0707">合同总额：￥{$item['amount']}</div>
-											<div class="div_heights colA39F9F">等级折扣：￥10.00</div>
+											<!-- <div class="div_heights colA39F9F">等级折扣：￥10.00</div> -->
 											<div class="hr"></div>
-											<div class="div_heights">保证金支付（30%）</div>
+											<div class="div_heights">保证金支付（{$item['percent']}%）</div>
 
 										</td>
 										<td>
-											<div class="div_heights">规格：230*114*65</div>
-											<div class="div_heights">材质：高铝质</div>
+											<!-- <div class="div_heights">规格：230*114*65</div>
+											<div class="div_heights">材质：高铝质</div> -->
 											<div class="div_heights">数量：{$item['num']}{$item['unit']}</div>
 										</td>
 										<td>

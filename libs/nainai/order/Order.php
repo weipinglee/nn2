@@ -634,13 +634,13 @@ class Order{
 	 */
 	public function sellerContractList($user_id,$page,$where = array()){
 		$query = new Query('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
 		$query->where = 'po.user_id = :user_id';
-		$query->fields = 'u.username,do.*,p.name as product_name,p.unit';
+		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id);
 		$query->page  = $page;
-		$query->pagesize = 2;
+		$query->pagesize = 5;
 		// $query->order = "sort";
 		$data = $query->find();
 		$this->sellerContractStatus($data);
@@ -676,20 +676,13 @@ class Order{
 	 */
 	public function buyerContractList($user_id,$page,$where = array()){
 		$query = new Query('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
 		$query->where = 'do.user_id = :user_id';
-		// $bind = array();
-		// if($where){
-		// 	foreach ($where as $key => $value) {
-		// 		$query->where .= $value[0];	
-		// 		$bind = array_merge($bind,$value[1]);
-		// 	}
-		// }
-		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,po.product_id';
+		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id);
 		$query->page  = $page;
-		$query->pagesize = 2;
+		$query->pagesize = 5;
 		// $query->order = "sort";
 		$data = $query->find();
 
@@ -701,7 +694,7 @@ class Order{
 	}
 
 	/**
-	 * 购买合同详情
+	 * 合同详情
 	 * @param  int $id 订单id
 	 * @param  string $identity buyer为购买合同 seller 为销售
 	 * @return array   结果数组
@@ -724,12 +717,17 @@ class Order{
 		}else{
 			$res['store_name'] = '-';
 		}
+
 		$res = array($res);
 		if($identity == 'seller'){
 			$this->sellerContractStatus($res);
+			$res[0]['userinfo'] = $this->contractUserInfo($res[0]['user_id'],1);
 		}else{
 			$this->buyerContractStatus($res);
+			$res[0]['userinfo'] = $this->contractUserInfo($res[0]['user_id']);
 		}
+		$res[0]['pay_log'] = $this->paylog->where(array('order_id'=>$id))->fields('remark,create_time')->order('create_time asc')->select();
+
 		return $res[0];
 	}
 
@@ -860,5 +858,27 @@ class Order{
 			$value['action'] = $action;
 			$value['action_href'] = $href;
 		}
+	}
+
+	/**
+	 * 获取用户详细信息
+	 * @param  int $user_id 用户id
+	 * @param  int $is_seller 0为买家 1为卖家 
+	 * @return array    信息数组
+	 */
+	public function contractUserInfo($user_id,$is_seller = 0){
+		$query = new Query('person_info as pi');
+		$query->join = 'left join company_info as ci on pi.user_id = ci.user_id';
+		$query->fields = 'pi.area,pi.address,pi.true_name,ci.company_name,ci.area as company_area,ci.address as company_address';
+		$query->where = 'pi.user_id = :id';
+		$query->bind = array('id'=>$user_id);
+		$res = $query->getObj();
+		if($is_seller){
+			$res['type'] = empty($res['company_name']) ? '个人' : '企业';
+			$res['true_name'] = empty($res['company_name']) ? $res['true_name'] : $res['company_name'];
+			$res['area'] = empty($res['company_area']) ? $res['area'] : $res['company_area'];
+			$res['address'] = empty($res['company_address']) ? $res['address'] : $res['company_address'];
+		}
+		return $res;
 	}
 }
