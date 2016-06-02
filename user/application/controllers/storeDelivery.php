@@ -38,13 +38,5 @@ class StoreDeliveryController extends DeliveryController{
 
 	}
 
-	//模拟后台管理员进行审核
-	public function adminCheckAction(){
-		$delivery_id = 21;
-
-		$store = new \nainai\delivery\StoreDelivery();
-		$res = $store->adminCheck($delivery_id);
-
-		var_dump($res);exit;
-	}
+	
 }

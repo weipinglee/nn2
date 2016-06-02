@@ -116,7 +116,7 @@ class StoreDelivery extends Delivery{
 				return tool::getSuccInfo(0,$left);
 			}
 		}else{
-			return tool::getSuccInfo(0,'无效订单');
+			return tool::getSuccInfo(0,'订单状态有误');
 		}
 	}
 }
