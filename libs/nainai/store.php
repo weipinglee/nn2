@@ -143,7 +143,7 @@ class store{
      */
     protected function getStoreProductList($page,$condition=array(),$pagesize=20){
         $query = new Query('store_list as b');
-        $query->fields = 'a.id,a.user_id,b.name as sname, a.status, c.name as pname,c.quantity,d.name as cname, c.attribute, a.package_unit, a.package_weight';
+        $query->fields = 'a.id,a.user_id,b.name as sname, a.status, c.name as pname,c.quantity,d.name as cname, c.attribute,c.unit, a.package_unit, a.package_weight';
         $query->join = ' RIGHT JOIN (store_products as a LEFT JOIN products as c ON a.product_id = c.id ) ON a.store_id=b.id LEFT JOIN product_category as d  ON c.cate_id=d.id';
         $query->page = $page;
         $query->pagesize = $pagesize;
@@ -300,7 +300,7 @@ class store{
         $condition['bind'] = array('user_id'=>$uid);
 
         return $this->getStoreProductList($page,$condition);
-        return $data;
+
     }
 
     /**

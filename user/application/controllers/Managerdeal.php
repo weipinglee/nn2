@@ -326,7 +326,7 @@ class ManagerDealController extends UcenterBaseController {
             'note'         => Safe::filterPost('note'),
             'produce_area' => Safe::filterPost('area'),
             'create_time'  => $time,
-            //'unit'         => Safe::filterPost('unit'),
+            'unit'         => Safe::filterPost('unit'),
             'user_id' => $this->user_id
         );
 
@@ -393,6 +393,7 @@ class ManagerDealController extends UcenterBaseController {
                 'package_unit' => Safe::filterPost('package_unit'),
                 'package_weight' => Safe::filterPost('package_weight'),
                 'apply_time'  => \Library\Time::getDateTime(),
+
                 'user_id' => $this->user_id
             );
             $storeObj = new store();
@@ -411,6 +412,7 @@ class ManagerDealController extends UcenterBaseController {
         $store = new store();
 
         $data = $store->getUserStoreList($page,$this->user_id);
+
         $this->getView()->assign('statuList', $store->getStatus());
         $this->getView()->assign('storeList', $data['list']);
         $this->getView()->assign('attrs', $data['attrs']);

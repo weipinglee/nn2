@@ -33,7 +33,7 @@
                                                                                                 		{/foreach}
                                                                                                 		</ul>
                                                                                                 </td>
-                                                                                                <td>{$list['package_weight']}({$list['package_unit']})</td>
+                                                                                                <td>{$list['quantity']}({$list['unit']})</td>
                                                                                                 <td>{$statuList[$list['status']]}</td>
                                                                                                 <td>{$list['sname']}</td>
 

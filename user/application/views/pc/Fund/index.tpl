@@ -16,7 +16,7 @@
 								<p class="state"></p>
 							</div>
 							<div class="zj_r">
-								<div class="zj_price">￥0.00</div>
+								<div class="zj_price"></div>
 								<div class="price">
 									<span class="price_l">
 										<i class="pr_l"></i>

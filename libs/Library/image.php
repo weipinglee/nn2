@@ -43,10 +43,8 @@ class Image
 		        $thumbFileName = $saveDir.'/'.basename($thumbBaseName);
 
 				$GD->save($thumbFileName);
-				
 				return $thumbFileName;
 			}
-
 			//直接输出浏览器
 			else
 			{

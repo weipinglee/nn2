@@ -96,6 +96,7 @@ function getCategory(){
             $('#productAdd').find('.attr').remove();
             if(data.cate){
                 $('#unit').text(data.unit);
+                $('input[name=unit]').val(data.unit);
                 $.each(data.cate,function(k,v){
 
                     var box = $('#cate_box').clone();

@@ -239,7 +239,7 @@
 
 				<!--end中间内容-->	
 			<!--start右侧广告-->			
-			<div class="user_r">
+		<!--	<div class="user_r">
 				<div class="wrap_con">
 					<div class="tit clearfix">
 						<h3>公告</h3>
@@ -252,7 +252,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			<!--end右侧广告-->
 		</div>
 	</div>
