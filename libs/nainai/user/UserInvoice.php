@@ -24,4 +24,6 @@ class UserInvoice extends \nainai\Abstruct\ModelAbstract {
 	    array('bank_no','s{6,20}','必须填写银行卡号')
 	);
 
+
+
 }
