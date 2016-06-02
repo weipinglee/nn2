@@ -69,9 +69,14 @@ class ManagerDealController extends UcenterBaseController {
         ));
 
         $left[] = array('name' => '合同管理', 'list' => array(
-            array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ),
-            array('url' => '', 'title' => '购买合同' ),
-        ));
+                array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ,'action'=>array('depositlist')),
+                array('url' => url::createUrl('/Contract/buyerList'), 'title' => '购买合同' ),
+            ));
+        $left[]=
+            array('name' => '提货管理', 'list' => array(
+                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=0'), 'title' => '购买提单列表' ),
+                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=1'), 'title' => '销售提单列表' ),
+            ));
        return $left;
 
     }
