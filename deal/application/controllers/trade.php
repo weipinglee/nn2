@@ -53,7 +53,7 @@ class tradeController extends \nainai\controller\Base {
 
 		
 		//判断用户账户类型
-		if(in_array($offer_type,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)){
+		if(in_array($offer_type,array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT))){
 			switch ($account) {
 				case 1:
 					//代理账户 直接余额扣款
