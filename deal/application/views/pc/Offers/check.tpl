@@ -315,7 +315,7 @@ body{_padding-top:30px;}
                              <a href="javascript:;"><div class="clear_word">
                                  <h5>{$data['name']}</h5>
                              </div></a>
-                             <span class="shulag"> <input type="text" name="num" width="20px" style="width:100px" /></span>
+                             <span class="shulag"> <input type="text" name="num" value="{$data['minimum']}" width="20px" style="width:100px" /></span>
                              <span class="danjia"><i><b>￥</b>{$data['price']}</i></span>
                              <span class="jine"><i><b>￥</b>{$data['amount']}</i></span>
 
@@ -330,7 +330,7 @@ body{_padding-top:30px;}
             </span>
                     <hr class="bottor" color="#c8c8c8" size="2px" />
                 </div>
-
+                {if:$data['show_payment']}
                 <!--清单结束-->
                 <span class="zhiffs">
                     <b>支付方式</b>
@@ -375,6 +375,7 @@ body{_padding-top:30px;}
                     </h3>
 
                  </span>
+                 {/if}
                 <!-------------------------- -->
              
         
@@ -384,10 +385,11 @@ body{_padding-top:30px;}
 
               
                 </div>
-            
+            {if:$data['show_payment']}
            <span class="jiesim"><b>结算信息</b><h3>  </h3> </span>
             
             <span class="daizfji"><span class="zhifjin">待支付金额：</span><i>￥</i><b>{$data['pay_deposit']}</b></span>
+            {/if}
                <input type="hidden" name="id" value="{$data['id']}" />
                <!-- <input type="hidden" name="num" value="{$data['minimum']}" /> -->
              <div class="order_comit"><a class="btoncomit" href="javascript:;" type="submit">确认支付</a></div>

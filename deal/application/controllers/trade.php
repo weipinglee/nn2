@@ -53,24 +53,25 @@ class tradeController extends \nainai\controller\Base {
 
 		
 		//判断用户账户类型
-		switch ($account) {
-			case 1:
-				//代理账户 直接余额扣款
-				$payment = 1;
-				break;
-			case 2:
-				die('票据账户支付暂时未开通，请选择代理账户');
-				//票据账户
-				break;
-			case 3:
-				die('签约账户支付暂时未开通，请选择代理账户');
-				//签约账户
-				break;
-			default:
-				die('无效账户类型');
-				break;
+		if(in_array($offer_type,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)){
+			switch ($account) {
+				case 1:
+					//代理账户 直接余额扣款
+					$payment = 1;
+					break;
+				case 2:
+					die('票据账户支付暂时未开通，请选择代理账户');
+					//票据账户
+					break;
+				case 3:
+					die('签约账户支付暂时未开通，请选择代理账户');
+					//签约账户
+					break;
+				default:
+					die('无效账户类型');
+					break;
+			}
 		}
-
 		$user_id = $this->user_id;
 		$orderData['offer_id'] = $id;
 		$orderData['num'] = $num;

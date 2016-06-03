@@ -141,6 +141,7 @@ class Query
 			$pagesize = isset($this->pagesize) ? intval($this->pagesize) : 20;
 			$pagelength = isset($this->pagelength) ? intval($this->pagelength) : 10;
 			$count = $this->getPageCount($sql);
+
 			$this->paging = new Page($count, $pagesize, $pagelength);
 			$this->paging->cache = $this->cache;
             $limit = $this->paging->getPageLimit($this->page, $p);

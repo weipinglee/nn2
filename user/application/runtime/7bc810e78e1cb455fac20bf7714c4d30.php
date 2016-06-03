@@ -380,9 +380,9 @@
                    <?php }?>
                    <div class="sty_offline" <?php if(!$show_online){?>style='display: block;'<?php }?>>
                         <ul>
-                        	<li>账户名称：XXXX科技有限公司</li>
-                        	<li>开户银行：XX银行XXXX支行</li>
-                        	<li>银行账号：100004454415113</li>
+                        	<li>账户名称：<?php echo isset($bankinfo['true_name'])?$bankinfo['true_name']:"";?></li>
+                        	<li>开户银行：<?php echo isset($bankinfo['bank_name'])?$bankinfo['bank_name']:"";?></li>
+                        	<li>银行账号：<?php echo isset($bankinfo['card_no'])?$bankinfo['card_no']:"";?></li>
                         	<li><span>上传支付凭证：</span>
                             <div id="preview"></div>
                           <div  class="up_img">

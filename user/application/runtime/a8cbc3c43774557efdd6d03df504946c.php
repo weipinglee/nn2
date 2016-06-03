@@ -305,7 +305,7 @@
 											<div class="div_heights colaa0707">合同总额：￥<?php echo isset($item['amount'])?$item['amount']:"";?></div>
 											<!-- <div class="div_heights colA39F9F">等级折扣：￥10.00</div> -->
 											<div class="hr"></div>
-											<div class="div_heights">保证金支付（<?php echo isset($item['percent'])?$item['percent']:"";?>%）</div>
+											<!-- <div class="div_heights">保证金支付（<?php echo isset($item['percent'])?$item['percent']:"";?>%）</div> -->
 
 										</td>
 										<td>

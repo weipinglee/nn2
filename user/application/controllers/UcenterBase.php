@@ -33,7 +33,8 @@ class UcenterBaseController extends \nainai\controller\Base{
 		parent::init();//继承父类的方法，检测是否登录和角色
 		$this->getView()->setLayout('ucenter');
 		$this->cert['deal'] = 1;
-		$this->user_type = 1;
+		$this->cert['store'] = 1;
+		// $this->user_type = 1;
 		// 获取登录信息
 		if(isset($this->user_id) && $this->user_id>0){
 			$this->getView()->assign('login',1);
@@ -96,7 +97,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 
     	protected function success($info = '操作成功！',$redirect = ''){
     		if(isset($redirect)){
-    			$redirect = str_replace('%','_',urlencode($redirect));
+    			$redirect = str_replace('%','||',urlencode($redirect));
     		}
     		
     		$this->redirect(url::createUrl("/Oper/success?info={$info}&redirect={$redirect}"));
@@ -105,7 +106,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     	protected function error($info = '操作失败！',$redirect = ''){
 
     		if(isset($redirect)){
-    			$redirect = str_replace('%','_',urlencode($redirect));
+    			$redirect = str_replace('%','||',urlencode($redirect));
     		}
     		$this->redirect(url::createUrl("/Oper/error?info={$info}&redirect={$redirect}"));
     	}

@@ -111,7 +111,7 @@ class Delivery{
 							$action []= array('name'=>'发货','url'=>$href);
 						}else{
 							//支付仓库费用（仓单提货）
-							$href = url::createUrl("/storeDelivery/storeFees?id={$value['delivery_id']}");
+							$href = url::createUrl("/storeDelivery/storeFeesPage?id={$value['delivery_id']}");
 							$action []= array('name'=>'支付仓库费用（余额）','url'=>$href);
 						}
 					}

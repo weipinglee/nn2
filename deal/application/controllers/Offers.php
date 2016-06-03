@@ -66,6 +66,7 @@ class OffersController extends \Yaf\Controller_Abstract {
 		// }else{
 		// 	die('生成订单失败:'.$gen_res['info']);
 		// }
+		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
 		$this->getView()->assign('data',$info);
 
 	}
