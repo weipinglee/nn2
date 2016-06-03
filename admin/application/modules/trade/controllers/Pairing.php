@@ -53,7 +53,7 @@ class PairingController extends Yaf\Controller_Abstract{
 		$admin = session::get('admin');
 		$page = safe::filterGet('id','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
-		$list = $this->pairing->contractList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',1);//$admin['id']);
+		$list = $this->pairing->contractList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',$admin['id']);
 		$this->getView()->assign('list',$list['data']);
 		$this->getView()->assign('name',$name);
 		$this->getView()->assign('page',$list['bar']);

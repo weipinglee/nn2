@@ -68,7 +68,7 @@
 		</tbody>
 
 	</table>
-		<?php echo isset($bar)?$bar:"";?>
+		<?php echo isset($page)?$page:"";?>
 	</div>
 </div>
 <script type="text/javascript">
