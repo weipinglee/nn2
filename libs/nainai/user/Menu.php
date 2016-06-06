@@ -125,7 +125,7 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 //			}
 			
 			//$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort desc')->select();
-			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->order('pid asc, sort desc')->select();
+			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->order('pid asc, sort asc')->select();
 
 		}
 

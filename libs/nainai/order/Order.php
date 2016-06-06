@@ -51,7 +51,7 @@ class Order{
 
 
 
-	public function __construct($order_type){
+	public function __construct($order_type=''){
 		$this->order_type = $order_type;
 		$this->order_table = 'order_sell';
 		$this->order = new M($this->order_table);
