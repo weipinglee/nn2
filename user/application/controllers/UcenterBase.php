@@ -31,6 +31,14 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 	protected function init(){
 		parent::init();//继承父类的方法，检测是否登录和角色
+		$action_confirm = $this->_request->getParam('action_confirm');
+		if(isset($action_confirm)){
+			$info = safe::filter($this->_request->getParam('info'));
+			$redirect = safe::filter($this->_request->getParam('redirect'));
+			$redirect = $redirect ? $redirect : str_replace('/action_confirm/1','','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+			$this->confirm($info ? $info : '确认此项操作？',$redirect);
+			exit;
+		}
 		$this->getView()->setLayout('ucenter');
 		$this->cert['deal'] = 1;
 		$this->cert['store'] = 1;
@@ -110,4 +118,15 @@ class UcenterBaseController extends \nainai\controller\Base{
     		}
     		$this->redirect(url::createUrl("/Oper/error?info={$info}&redirect={$redirect}"));
     	}
+
+    	protected function confirm($info = '确认此项操作？',$redirect = ''){
+
+    		if(isset($redirect)){
+    			$redirect = str_replace('%','||',urlencode($redirect));
+    		}
+    		$this->redirect(url::createUrl("/Oper/confirm?info={$info}&redirect={$redirect}"));
+    	}
+
+
+
 }

@@ -51,7 +51,7 @@ class Order{
 
 
 
-	public function __construct($order_type){
+	public function __construct($order_type = 0){
 		$this->order_type = $order_type;
 		$this->order_table = 'order_sell';
 		$this->order = new M($this->order_table);
@@ -61,6 +61,15 @@ class Order{
 		$this->account = new \nainai\fund\agentAccount();
 	}	
 
+	/**
+	 * 判断报盘是否存在或通过审核
+	 * @param  int $offer_id 报盘id
+	 * @return boolean  true:通过 false:未通过
+	 */
+	public function offerExist($offer_id){
+		$res = $this->offer->where(array('id'=>$offer_id))->fields('status,is_del')->getObj();
+		return !empty($res) && $res['status'] == 1 && $res['is_del'] == 0 ? true : false;
+	}
 
 	/**
 	 * 新增或更新订单数据
@@ -128,6 +137,9 @@ class Order{
 		}else{
 			$orderData['contract_status'] = self::CONTRACT_NOTFORM;	
 		}
+
+		$offer_exist = $this->offerExist($orderData['offer_id']);
+		if($offer_exist === false) return tool::getSuccInfo(0,'报盘不存在或未通过审核');
 		
 		$offer_info = $this->offerInfo($orderData['offer_id']);
 		if($offer_info['user_id'] == $orderData['user_id']){
@@ -395,21 +407,30 @@ class Order{
 	 * @return true:可以下单 string:错误信息
 	 */
 	public function productNumValid($num,$offer_info,$product=array()){
-		if(empty($product))
-			$product = $this->products->where(array('id'=>$offer_info['product_id']))->getObj();
-		$quantity = floatval($product['quantity']); //商品总数量
-		$sell = floatval($product['sell']); //商品已售数量
-		$freeze = floatval($product['freeze']);//商品已冻结数量
-		if($offer_info['divide'] == 1 && $num != $quantity)
+		$res = $this->productNumLeft($offer_info['product_id'],$product);
+		if($offer_info['divide'] == 1 && $num != $res['quantity'])
 			return '此商品不可拆分';
 
-		$product_left = $quantity-$sell-$freeze;//商品剩余数量
-		if($num > $product_left)
+		if($num > $res['left'])
 			return '商品存货不足';
 		if($num < $offer_info['minimum'])
 			return '小于最小起订量';
 
 		return true;
+	}
+
+	/**
+	 * 获取商品剩余可购数量
+	 * @param  int $product_id 商品id
+	 * @return array 
+	 */
+	public function productNumLeft($product_id,$product = array()){
+		$product = $product ? $product : $this->products->where(array('id'=>$product_id))->getObj();
+		$quantity = floatval($product['quantity']); //商品总数量
+		$sell = floatval($product['sell']); //商品已售数量
+		$freeze = floatval($product['freeze']);//商品已冻结数量
+		$product_left = $quantity-$sell-$freeze;//商品剩余数量
+		return array('quantity'=>$quantity,'sell'=>$sell,'freeze'=>$freeze,'left'=>$product_left);
 	}
 
 	/**

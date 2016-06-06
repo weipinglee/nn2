@@ -9,9 +9,6 @@ class OrderController extends UcenterBaseController{
 
 	public function init(){
 		parent::init();
-        // $right = new checkRight();
-        // $right->checkLogin($this);//未登录自动跳到登录页
-        // $this->getView()->setLayout('ucenter');
         $this->order = new \nainai\order\Order;
         $this->free = new \nainai\order\FreeOrder();
 		$this->deposit = new \nainai\order\DepositOrder();

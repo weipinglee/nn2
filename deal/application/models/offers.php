@@ -15,8 +15,10 @@ class offersModel extends \nainai\offer\product{
 
 
     private $offer;
+    private $order;
     public function __construct(){
         $this->offer = new M('product_offer');
+        $this->order = new \nainai\order\Order();
     }
     /**
      * »ñÈ¡²úÆ·¶ÔÓ¦·ÖÀàÏÂµÄµÄ±¨ÅÌÐÅÏ¢ÁÐ±í
@@ -84,18 +86,21 @@ class offersModel extends \nainai\offer\product{
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id = pp.products_id";
         $query->fields = "o.*,p.cate_id,p.name,pp.img,p.quantity,p.freeze,p.sell,p.unit";
-        $query->where = 'o.id = :id';
+        $query->where = 'o.id = :id and o.status = 1 and o.is_del = 0';
         $query->bind = array('id'=>$id);
         $res = $query->getObj();
+
+        //商品是否可以拆分
 
         if(!empty($res)){
             $res['mode_text'] = $this->offerMode($res['mode']);
             $res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
-            $res['left'] = number_format(floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']),2);
+            $res['left'] = floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']);
+            
             if($res['divide']==self::UNDIVIDE)
                 $res['minimum'] = $res['quantity'];
         }
-
+        
 
         return $res ? $res : array();
     }

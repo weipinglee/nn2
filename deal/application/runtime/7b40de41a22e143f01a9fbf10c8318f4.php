@@ -7,7 +7,7 @@
     <script src="http://localhost/nn2/deal/public/views/pc/js/jquery-1.7.2.min.js" type="text/javascript" language="javascript"></script>
     <script src="http://localhost/nn2/deal/public/views/pc/js/gtxh_formlogin.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="http://localhost/nn2/deal/public/views/pc/css/index20141027.css">
-    <script src="http://localhost/nn2/deal/public/views/pc/js/index20141027.js" type="text/javascript"></script>
+    <!-- <script src="http://localhost/nn2/deal/public/views/pc/js/index20141027.js" type="text/javascript"></script> -->
     <link rel="stylesheet" href="http://localhost/nn2/deal/public/views/pc/css/classify.css">
     <link rel="stylesheet" type="text/css" href="http://localhost/nn2/deal/public/views/pc/css/submit_order.css"/>
      <script type="text/javascript" src="http://localhost/nn2/deal/public/views/pc/js/submit_order.js"></script>
@@ -219,7 +219,7 @@ body{_padding-top:30px;}
                 </h1>
             </div>
 
-            <script type="text/javascript" src="http://localhost/nn2/deal/public/views/pc/js/search&floor.js"></script>
+            <!-- <script type="text/javascript" src="http://localhost/nn2/deal/public/views/pc/js/search&floor.js"></script> -->
             <div class="searchbox">
                 <ul class="border1">
                     <li><a href="#" class="style1">供应</a></li>
@@ -304,7 +304,7 @@ body{_padding-top:30px;}
                          <div class="wor_clear">
 
                              <span class="goods">商品</span>
-                             <span class="number">数量(<?php echo isset($data['unit'])?$data['unit']:"";?>&emsp;最小起订量：<?php echo isset($data['minimum'])?$data['minimum']:"";?>) </span>
+                             <span class="number">数量(<?php echo isset($data['unit'])?$data['unit']:"";?>&emsp;最小起订量：<?php echo isset($data['minimum'])?$data['minimum']:"";?> 剩余:<?php echo isset($data['left'])?$data['left']:"";?>) </span>
                              <span class="amount">总额(元)</span>
                              <span class="price ">单价(元)</span>
                          </div>
@@ -315,9 +315,16 @@ body{_padding-top:30px;}
                              <a href="javascript:;"><div class="clear_word">
                                  <h5><?php echo isset($data['name'])?$data['name']:"";?></h5>
                              </div></a>
-                             <span class="shulag"> <input type="text" name="num" value="<?php echo isset($data['minimum'])?$data['minimum']:"";?>" width="20px" style="width:100px" /></span>
+                             <span class="shulag">
+                                <?php if($data['divide'] == 1){?>
+                                    <?php echo isset($data['quantity'])?$data['quantity']:"";?>
+                                    <input type="hidden" name="num" value="<?php echo isset($data['quantity'])?$data['quantity']:"";?>"/>
+                                <?php }else{?>
+                                    <input type="text" name="num" value="<?php echo isset($data['minimum'])?$data['minimum']:"";?>" width="20px" style="width:100px" />
+                                <?php }?>
+                              </span>
                              <span class="danjia"><i><b>￥</b><?php echo isset($data['price'])?$data['price']:"";?></i></span>
-                             <span class="jine"><i><b>￥</b><?php echo isset($data['amount'])?$data['amount']:"";?></i></span>
+                             <span class="jine"><i><b>￥</b><b class='prod_amount'><?php echo isset($data['amount'])?$data['amount']:"";?></b></i></span>
 
                          </div>
 
@@ -346,17 +353,6 @@ body{_padding-top:30px;}
                             <input type="hidden" name="paytype" value="0" />
 
                         </div>
-                         <script type="text/javascript">
-                             $(function() {
-                                 $(".yListr ul li em").click(function() {
-                                     var paytype = $(this).attr('paytype');
-                                     var account = $(this).attr('account');
-                                     $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
-                                     $(this).parents('ul').siblings('input[name=paytype]').val(paytype);
-                                     $(this).parents('ul').siblings('input[name=account]').val(account);
-                                 })
-                             })
-                         </script>
                     </h3>
              
                 </span>
@@ -388,11 +384,24 @@ body{_padding-top:30px;}
             <?php if($data['show_payment']){?>
            <span class="jiesim"><b>结算信息</b><h3>  </h3> </span>
             
-            <span class="daizfji"><span class="zhifjin">待支付金额：</span><i>￥</i><b><?php echo isset($data['pay_deposit'])?$data['pay_deposit']:"";?></b></span>
+            <span class="daizfji"><span class="zhifjin">待支付金额：</span><i>￥</i><b class='pay_deposit'>
+            <?php if($data['divide'] == 1){?>
+                <?php echo isset($data['left_deposit'])?$data['left_deposit']:"";?>
+            <?php }else{?>
+                <?php echo isset($data['minimum_deposit'])?$data['minimum_deposit']:"";?>
+            <?php }?>
+            </b></span>
             <?php }?>
                <input type="hidden" name="id" value="<?php echo isset($data['id'])?$data['id']:"";?>" />
                <!-- <input type="hidden" name="num" value="<?php echo isset($data['minimum'])?$data['minimum']:"";?>" /> -->
-             <div class="order_comit"><a class="btoncomit" href="javascript:;" type="submit">确认支付</a></div>
+
+             <div class="order_comit">
+             <?php if($data['left'] == 0){?>
+                <a style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="javascript:;">暂时无货</a>
+             <?php }else{?>
+                <a class="btoncomit" href="javascript:;" >确认支付</a>
+             <?php }?>
+            </div>
             </form>
 
              </div>
@@ -401,9 +410,108 @@ body{_padding-top:30px;}
             <script type="text/javascript">
                 
                 $(function(){
-                    $('a.btoncomit').click(function(){
-                        $(this).parents('form').submit();
+                    var num_input = $('input[name=num]');
+                    var deposit_text = $('.pay_deposit');
+                    var prod_amount = $('.prod_amount');
+                    var left = parseFloat(<?php echo isset($data['left'])?$data['left']:"";?>);
+                    var quantity = parseFloat("<?php echo isset($data['quantity'])?$data['quantity']:"";?>");
+                    var minimum = parseFloat("<?php echo isset($data['minimum'])?$data['minimum']:"";?>");
+                    var divide = parseInt("<?php echo isset($data['divide'])?$data['divide']:"";?>");
+                    var price = <?php echo isset($data['price'])?$data['price']:"";?>;
+                    var minimum_deposit = <?php echo isset($data['minimum_deposit'])?$data['minimum_deposit']:"";?>;
+                    var left_deposit = <?php echo isset($data['left_deposit'])?$data['left_deposit']:"";?>;
+                    var temp_deposit = deposit_text.text();
+                    var paytype = 0;
+
+
+                    $('input[name=num]').blur(function(){
+                        var num = parseFloat(num_input.val());
+                        var id = $('input[name=id]').val();
+                        var flag = isnum_valid();
+                        if(flag){
+                            $.post("http://localhost/nn2/deal/public/offers/paydepositcom",{id:id,num:num,price:price},function(data){
+                                var data = JSON.parse(data);
+                                if(data.success == 1){
+                                    prod_amount.text(num*price);
+                                    deposit_text.text(paytype == 1 ? prod_amount.text(): data.info);
+                                    temp_deposit = data.info;
+
+                                }else{
+                                    alert(data.info);
+                                }
+                            });
+                        }
                     });
+
+
+                    $('.btoncomit').click(function(){
+                        
+                        var flag = isnum_valid();
+                        if(flag) {
+                            $(this).parents('form').submit();
+                        }
+
+                        // var num = $('input[name=num]').val();
+                        // var id = $('input[name=id]').val();
+                        // if(!num || !id){
+                        //     alert('请填写商品数量');
+                        // }
+                        // $.post("http://localhost/nn2/deal/public/offers/checknum",{id:id,num:num},function(data){
+                        //     var data = JSON.parse(data);
+                        //     if(data.success == 1){
+                        //         $(this).parents('form').submit();
+                        //     }else{
+
+                        //         alert(data.info);
+                        //     }
+                        // });
+                    });
+
+                    function isnum_valid(){
+                        var flag = false;
+                        var num = parseFloat(num_input.val());
+                        if(divide == 1){
+                            if(num != quantity){
+                                alert('此商品不可拆分');
+                            }else{
+                                flag = true;
+                            }
+                        }else{
+                            if(num<minimum){
+                                num_input.val(minimum);
+                                deposit_text.text(paytype == 1 ? minimum*price : minimum_deposit);
+                                temp_deposit = minimum_deposit;
+                                prod_amount.text(minimum*price);
+                                alert('小于最小起订量');
+                                
+                            }else if(num>left){
+                                num_input.val(left);
+                                deposit_text.text(paytype == 1 ? left*price : left_deposit);
+                                temp_deposit = left_deposit;
+                                prod_amount.text(left*price);
+                                alert('超出剩余数量');
+                            }else{
+                                flag = true;  
+                            }
+                        }
+                        return flag;
+                    }
+
+
+                    $(".yListr ul li em").click(function() {
+                         paytype = $(this).attr('paytype');
+                         var account = $(this).attr('account');
+                         $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+                         $(this).parents('ul').siblings('input[name=paytype]').val(paytype);
+                         $(this).parents('ul').siblings('input[name=account]').val(account);
+                         
+                         if(paytype == 1){
+                            //全款
+                            deposit_text.text(prod_amount.text());
+                         }else{
+                            deposit_text.text(temp_deposit);
+                         }
+                     })
                 })
             </script>
 
@@ -457,7 +565,7 @@ body{_padding-top:30px;}
             &nbsp; <a rel="external nofollow" href="https://online.unionpay.com/" target="_blank">
                 <img style="border: currentColor;" src="http://localhost/nn2/deal/public/views/pc/./head_files/indexBlankIco.gif"></a>
             &nbsp;
-            <script src="http://localhost/nn2/deal/public/views/pc/./head_files/seallogo.dll"></script><a href="https://ss.knet.cn/verifyseal.dll?sn=e1305144301004068157sj000000&ct=df&a=1&pa=0.9814090973231941" target="_blank" kx_type="缩放式" style="display:inline-block;position:relative;width:89px;height:32px;"><img src="{views:./head_files/cnnic.png" height="32" width="89" h="32" w="89" onmouseover="showFull(this)" onmouseout="showMin(this)" style="left:0;position:absolute;top:0;border:none;"></a>&nbsp;&nbsp; 
+            <!-- <script src="http://localhost/nn2/deal/public/views/pc/./head_files/seallogo.dll"></script> --><a href="https://ss.knet.cn/verifyseal.dll?sn=e1305144301004068157sj000000&ct=df&a=1&pa=0.9814090973231941" target="_blank" kx_type="缩放式" style="display:inline-block;position:relative;width:89px;height:32px;"><img src="{views:./head_files/cnnic.png" height="32" width="89" h="32" w="89" onmouseover="showFull(this)" onmouseout="showMin(this)" style="left:0;position:absolute;top:0;border:none;"></a>&nbsp;&nbsp; 
             <a rel="external nofollow" href="http://www.spdb.com.cn/" target="_blank">
                 <img style="border: currentColor;" src="http://localhost/nn2/deal/public/views/pc/./head_files/pufa.png"></a>&nbsp;&nbsp;
             <a rel="external nofollow" href="http://www.allinpay.com/" target="_blank">
@@ -480,7 +588,7 @@ body{_padding-top:30px;}
     <!--主要内容 结束-->
     
 <script type="text/javascript" src="http://localhost/nn2/deal/public/views/pc/js/jquery.fixed.js" charset="UTF-8"></script>
-<script type="text/javascript" src="http://localhost/nn2/deal/public/views/pc/js/init.fixed.js" charset="UTF-8"></script>
+<!-- <script type="text/javascript" src="http://localhost/nn2/deal/public/views/pc/js/init.fixed.js" charset="UTF-8"></script> -->
 <link href="http://localhost/nn2/deal/public/views/pc/css/fixed.css" rel="stylesheet" type="text/css"/>
 
 <!-- 页面侧边栏 -->

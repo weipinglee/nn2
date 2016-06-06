@@ -147,7 +147,7 @@
 
 
                   <div class="pay_bton">
-                  	<a href="{url:/Order/confirmProof?order_id=$data['id']}" id='pay_retainage'>确认凭证</a>
+                  	<a href="{url:/Order/confirmProof?order_id=$data['id']&action_confirm=1&info=确认此凭证}" id='pay_retainage'>确认凭证</a>
                   </div>
 
 

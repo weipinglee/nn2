@@ -238,7 +238,7 @@
 <div class="user_c">
 	<div class="user_zhxi">
 		<div class="zhxi_tit">
-			<p><a>交易管理</a>><a>订单管理</a></p>
+			<p>操作状态</p>
 		</div>
 		
        <div class="opera_suc">

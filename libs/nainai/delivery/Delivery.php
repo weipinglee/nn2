@@ -107,7 +107,7 @@ class Delivery{
 						$title = '买家申请提货';
 						if($value['mode'] == order\Order::ORDER_DEPOSIT){
 							//卖家发货（保证金提货）
-							$href = url::createUrl("/depositDelivery/sellerConsignment?id={$value['delivery_id']}");
+							$href = url::createUrl("/depositDelivery/sellerConsignment?id={$value['delivery_id']}&action_confirm=1&info=确认发货");
 							$action []= array('name'=>'发货','url'=>$href);
 						}else{
 							//支付仓库费用（仓单提货）
@@ -119,7 +119,7 @@ class Delivery{
 				case self::DELIVERY_BUYER_CONFIRM:
 					if(!$is_seller){
 						$title = '确认收货';
-						$href = url::createUrl('/depositDelivery/buyerConfirm?id='.$value['delivery_id']);
+						$href = url::createUrl('/depositDelivery/buyerConfirm?action_confirm=1&info=确认本轮收货&id='.$value['delivery_id']);
 						$action []= array('name'=>'确认本轮收货','url'=>$href);
 					}else{
 						$title = '等待买家收货';
@@ -324,7 +324,7 @@ class Delivery{
 		//查询订单商品总数
 		$total_num = $this->order->where(array('id'=>$order_id))->getfield('num');
 		$total_num = floatval($total_num);
-
+		
 		if(empty($total_num)) return '无效订单';
 
 		//查询对应订单id所有提货记录
