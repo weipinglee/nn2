@@ -130,6 +130,9 @@ class Order{
 		}
 		
 		$offer_info = $this->offerInfo($orderData['offer_id']);
+		if($offer_info['user_id'] == $orderData['user_id']){
+			return tool::getSuccInfo(0,'买方卖方为同一人');
+		}
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
 			if($product_valid !== true)
@@ -701,8 +704,8 @@ class Order{
 	 */
 	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id';
-		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit,po.product_id';
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id';
+		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit,po.product_id,pc.name as cate_name';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();
@@ -722,7 +725,7 @@ class Order{
 		if($identity == 'seller'){
 			$this->sellerContractStatus($res);
 			$res[0]['userinfo'] = $this->contractUserInfo($res[0]['user_id'],1);
-		}else{
+		}elseif($identity == 'buyer'){
 			$this->buyerContractStatus($res);
 			$res[0]['userinfo'] = $this->contractUserInfo($res[0]['user_id']);
 		}
@@ -880,5 +883,15 @@ class Order{
 			$res['address'] = empty($res['company_address']) ? $res['address'] : $res['company_address'];
 		}
 		return $res;
+	}
+
+	/**
+	 * 获取用户开户行信息
+	 * @param  int $user_id 用户id
+	 * @return array     信息数组
+	 */
+	public function userBankInfo($user_id){
+		$bank = new M('user_bank');
+		return $bank->where(array('user_id'=>$user_id))->getObj();
 	}
 }

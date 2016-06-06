@@ -8,7 +8,7 @@ class OperController extends UcenterBaseController{
 		$redirect = safe::filter($this->_request->getParam('redirect'));
 
 		$this->getView()->assign('info',$info);
-		$this->getView()->assign('redirect',urldecode(str_replace('_','%',$redirect)));
+		$this->getView()->assign('redirect',urldecode(str_replace('||','%',$redirect)));
 	}
 
 	public function errorAction(){
@@ -16,7 +16,7 @@ class OperController extends UcenterBaseController{
 		$redirect = safe::filter($this->_request->getParam('redirect'));
 
 		$this->getView()->assign('info',$info);
-		$this->getView()->assign('redirect',urldecode(str_replace('_','%',$redirect)));
+		$this->getView()->assign('redirect',urldecode(str_replace('||','%',$redirect)));
 	}
 }
  ?>

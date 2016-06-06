@@ -4,7 +4,7 @@
 	<title></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <script type="text/javascript" src="http://localhost/nn2/admin/public/views/pc/js/libs/jquery/1.6/jquery.min.js"></script>
-	<script type="text/javascript" src="http://localhost/nn2/admin/public/views/pc/js/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="http://localhost/nn2/admin/public/views/pc/js/libs/jquery/1.11/jquery.min.js"></script>
 
 	<link rel="stylesheet" href="http://localhost/nn2/admin/public/views/pc/css/min.css" />
 	<script type="text/javascript" src="http://localhost/nn2/admin/public/views/pc/js/validform/validform.js"></script>
@@ -150,10 +150,11 @@
                         </li>
                         <li><a target="content">合同管理</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/trade/contract/storeorderlist" target="content">仓单出库审核</a>
                                 <li><a href="#" target="content">审核</a></li>
                                 <li><a href="#" target="content">列表</a></li>
                                 <li><a href="#" target="content">状态</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/trade/pairing/contractList/" target="content">添加撮合人</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/trade/pairing/pairingContractList/" target="content">撮合合同列表</a></li>
                             </ul>
                         </li>
                         <li><a href="appeal-list.html" target="content">申诉管理</a></li>
@@ -202,6 +203,13 @@
                             <ul>
                                 <li><a target="content" href="http://localhost/nn2/admin/public/store/storeproduct/getlist">仓单列表</a></li>
                                 <li><a href="http://localhost/nn2/admin/public/store/storeproduct/reviewlist" target="content">仓单审核</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="" target="content">订单出库管理</a>
+                            <ul>
+                                <li><a target="content" href="http://localhost/nn2/admin/public/store/storeorder/checkedorderlist">已出库列表</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/store/storeorder/checkorderlist" target="content">待审核</a></li>
                             </ul>
                         </li>
 

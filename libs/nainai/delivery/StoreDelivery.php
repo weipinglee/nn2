@@ -10,6 +10,7 @@ use \Library\M;
 use \Library\Query;
 use \Library\tool;
 use \Library\url;
+use \Library\time;
 
 use nainai\order;
 class StoreDelivery extends Delivery{
@@ -19,12 +20,29 @@ class StoreDelivery extends Delivery{
 	}
 
 	/**
+	 * 获取卖方支付仓库管理费时的相关详情
+	 * @param  int $delivery_id 提货表id
+	 * @return array 结果
+	 */
+	public function storeFees($delivery_id){
+		$query = new Query('product_delivery as pd');
+		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_list as sl on sp.store_id = sl.id left join products as p on po.product_id = p.id left join order_sell as o on pd.order_id = o.id';
+		$query->fields = 'pd.num as delivery_num,sp.store_price,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num';
+		$query->where = 'pd.id=:id';
+		$query->bind = array('id'=>$delivery_id);
+		$res = $query->getObj();
+		$res['store_fee'] = number_format($res['store_price'] * abs(time::getDiffSec($res['rent_time'])) / 86400,2);
+		$res['now_time'] = time::getDateTime();
+		return $res;
+	}
+
+	/**
 	 * 卖方支付仓库管理费用
 	 * @param  int $delivery_id 提货表id	
 	 * @param  int $user_id     当前操作用户id
 	 * @return array $res       返回信息数组
 	 */
-	public function storeFees($delivery_id,$seller_id){
+	public function payStoreFees($delivery_id,$seller_id){
 		//获取提货id对应报盘信息
 		$query = new Query('product_delivery as pd');
 		$query->join = 'left join product_offer as po on pd.offer_id = po.id';
@@ -47,13 +65,18 @@ class StoreDelivery extends Delivery{
 				$upd_res = $this->deliveryUpdate($deliveryData);
 				if($upd_res['success'] == 1){
 					//卖方支付仓库费 TODO计算仓库费用
-					$store_fee = 22;
-					$acc_res = $this->account->freeze($res['user_id'],$store_fee);//?支付到市场？
-					if($acc_res === true){
-						$this->delivery->commit();
-						return tool::getSuccInfo();
+					$storeFees = $this->storeFees($delivery_id);
+					$store_fee = floatval($storeFees['store_fee']);
+					if(empty($store_fee)){
+						$error = '仓库费用计算错误';
 					}else{
-						$error = $acc_res['info'];
+						$acc_res = $this->account->freeze($res['user_id'],$store_fee);//?支付到市场？
+						if($acc_res === true){
+							$this->delivery->commit();
+							return tool::getSuccInfo();
+						}else{
+							$error = $acc_res['info'];
+						}
 					}
 				}else{
 					$error = $upd_res['info'];
@@ -66,6 +89,26 @@ class StoreDelivery extends Delivery{
 
 		return tool::getSuccInfo(0,$error);
 		
+	}
+
+	/**
+	 * 获取仓库管理员所有待审核提货订单
+	 * @param  int $page    当前页
+	 * @param  int $user_id 管理员id
+	 * @return array    列表
+	 */
+	public function storeCheckList($page,$user_id){
+		$query = new Query('product_delivery as pd');
+		$query->join = 'left join order_sell as o on pd.order_id = o.id left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_manager as sm on sm.store_id = sp.store_id left join store_list as sl on sl.id = sp.store_id';
+		$query->where = 'sm.user_id=:user_id and pd.status = '.\nainai\delivery\Delivery::DELIVERY_MANAGER_CHECKOUT.' and po.mode='.\nainai\order\Order::ORDER_STORE;
+		$query->fields = 'pd.id,o.order_no,pd.num as delivery_num,sl.name as store_name';
+		$query->bind = array('user_id'=>$user_id);
+		$query->order = 'pd.create_time desc';
+		$query->page = $page;
+		$query->pagesize = 10;
+		$res = $query->find();
+		$pageBar =  $query->getPageBar();
+		return array('data'=>$res,'bar'=>$pageBar);
 	}
 
 	/**
@@ -82,6 +125,39 @@ class StoreDelivery extends Delivery{
 		}else{
 			return tool::getSuccInfo(0,'无效订单');
 		}
+	}
+
+
+
+	/**
+	 * 后台管理员审核仓单摘牌订单列表
+	 * @param int $page 当前页
+	 * @param string $where 条件字符串
+	 * @param int $is_checked 0:未审核 1:已审核
+	 */
+	public function storeOrderList($page = 1,$where = '',$is_checked = 0){
+		$query = new Query('order_sell as o');
+		$query->join = 'left join product_offer as po on o.offer_id = po.id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id left join product_delivery as pd on pd.order_id = o.id left join store_products as sp on p.id = sp.product_id left join store_list as sl on sp.store_id = sl.id';
+		$query->fields = 'o.*,p.name as product_name,pc.name as cate_name,sl.name as store_name,pd.create_time as delivery_time,p.unit,pd.num as delivery_num,pd.id as delivery_id';
+		$relation = $is_checked ? '> ' : '= ';
+		$sql_where = 'o.mode='.\nainai\order\Order::ORDER_STORE.' and pd.status '.$relation.\nainai\delivery\Delivery::DELIVERY_ADMIN_CHECK;
+		if($where) $sql_where .= ' and '.$where;
+		$query->where = $sql_where;
+		$query->order = 'pd.create_time desc';
+		$query->page = $page;
+		$query->pagesize = 5;
+		$list = $query->find();
+		return array('data'=>$list,'bar'=>$query->getPageBar());
+	}	
+
+	/**
+	 * 获取后台审核订单详细信息
+	 * @param  int $delivery_id 提货单号
+	 * @return array  结果
+	 */
+	public function storeOrderDetail($delivery_id,$is_checked = 0){
+		$info = $this->storeOrderList(NULL,'pd.id='.$delivery_id,$is_checked);
+		return $info['data'][0];
 	}
 
 	/**

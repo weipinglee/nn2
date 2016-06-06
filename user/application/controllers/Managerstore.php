@@ -23,7 +23,8 @@ class ManagerStoreController extends UcenterBaseController{
 	        return array(
 	            array('name' => '仓单管理', 'list' => array()),
 	            array('name' => '仓单管理', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=2'),  'list' => array()),
-	            array('name' => '仓单审核', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=1'),  'list' => array())
+	            array('name' => '仓单审核', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=1'),  'list' => array()),
+	            array('name' => '仓单出库审核', 'url' => url::createUrl('/ManagerStore/storeCheckList'),  'list' => array()),
 	        );
 	    }
 
@@ -50,7 +51,42 @@ class ManagerStoreController extends UcenterBaseController{
 		$this->getView()->assign('pageHtml', $data['pageHtml']);
 	}
 
+	/**
+	 * 仓单提货出库审核列表
+	 */
+	public function storeCheckListAction(){
+		$store = new \nainai\delivery\StoreDelivery();
+		$page = safe::filterGet('page',int,1);
+		$list = $store->storeCheckList($page,$this->user_id);
+		$this->getView()->assign('data',$list['data']);
+        $this->getView()->assign('page',$list['bar']);
+	}
 
+	/**
+	 * 仓单提货详情
+	 */
+	public function storeCheckDetailAction(){
+		$store = new \nainai\delivery\StoreDelivery();
+		$id = safe::filter($this->_request->getParam('id'));
+		$info = $store->storeFees($id);
+		$this->getView()->assign('info',$info);
+	}
+
+	/**
+	 * 确认出库
+	 */
+	public function storeDeliveryCheckAction(){
+		$delivery_id = safe::filter($this->_request->getParam('id'));
+
+		$store = new \nainai\delivery\StoreDelivery();
+		$res = $store->managerCheckout($delivery_id);
+		if($res['success'] == 1){
+			$this->success('已确认出库',url::createUrl('/ManagerStore/storeCheckList'));
+		}else{
+			$this->error($res['info']);
+		}
+
+	}
 
 	/**
 	 * 审核仓单后，仓单签发的详情页面

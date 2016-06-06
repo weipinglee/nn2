@@ -128,10 +128,11 @@
                         </li>
                         <li><a target="content">合同管理</a>
                             <ul>
-                                <li><a href="{url:trade/contract/storeOrderList}" target="content">仓单出库审核</a>
                                 <li><a href="#" target="content">审核</a></li>
                                 <li><a href="#" target="content">列表</a></li>
                                 <li><a href="#" target="content">状态</a></li>
+                                <li><a href="{url:/trade/pairing/contractList}" target="content">添加撮合人</a></li>
+                                <li><a href="{url:/trade/pairing/pairingContractList}" target="content">撮合合同列表</a></li>
                             </ul>
                         </li>
                         <li><a href="appeal-list.html" target="content">申诉管理</a></li>
@@ -180,6 +181,13 @@
                             <ul>
                                 <li><a target="content" href="{url:store/storeProduct/getList}">仓单列表</a></li>
                                 <li><a href="{url:store/storeProduct/reviewList}" target="content">仓单审核</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="" target="content">订单出库管理</a>
+                            <ul>
+                                <li><a target="content" href="{url:store/storeOrder/checkedorderList}">已出库列表</a></li>
+                                <li><a href="{url:store/storeOrder/checkorderList}" target="content">待审核</a></li>
                             </ul>
                         </li>
 

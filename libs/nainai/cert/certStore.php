@@ -75,7 +75,7 @@ class certStore extends certificate{
             $certObj->beginTrans();
             if(!empty($reCertType))//若果重新认证的类型不为空，对其初始化
                 $this->certInit($reCertType);
-
+            
             $this->createCertApply(self::$certType,$accData,$certData);
 
             $this->chgCertStatus($this->user_id,$certObj);//更改用户表认证状态

@@ -42,7 +42,10 @@ class OrderController extends UcenterBaseController{
 			$order_id = safe::filter($this->_request->getParam('order_id'),'int');
 			$data = $this->order->contractDetail($order_id);
 			$data['pay_retainage'] = number_format(floatval($data['amount']) - floatval($data['pay_deposit']),2);
+			$bankinfo = $this->order->userBankInfo($data['user_id']);
+
 			$this->getView()->assign('show_online',$data['mode'] == \nainai\order\Order::ORDER_DEPOSIT || $data['mode'] == \nainai\order\Order::ORDER_STORE ? 1 : 0);
+			$this->getView()->assign('bankinfo',$bankinfo);
 			$this->getView()->assign('data',$data);
 		}
 	}

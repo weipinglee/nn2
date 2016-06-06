@@ -95,7 +95,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 
     	protected function success($info = '操作成功！',$redirect = ''){
     		if(isset($redirect)){
-    			$redirect = str_replace('%','_',urlencode($redirect));
+    			$redirect = str_replace('%','||',urlencode($redirect));
     		}
     		
     		$this->redirect(url::createUrl("/Oper/success?info={$info}&redirect={$redirect}"));
@@ -104,7 +104,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     	protected function error($info = '操作失败！',$redirect = ''){
 
     		if(isset($redirect)){
-    			$redirect = str_replace('%','_',urlencode($redirect));
+    			$redirect = str_replace('%','||',urlencode($redirect));
     		}
     		$this->redirect(url::createUrl("/Oper/error?info={$info}&redirect={$redirect}"));
     	}
