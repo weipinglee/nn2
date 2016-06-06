@@ -20,7 +20,7 @@
 								<span class="con_tit"><i>*</i>银行卡类型：</span>
 								<span><select class="text" type="text" name="card_type" datatype="n1-2" >
 										{foreach:items=$type}
-										<option value="{$key}" {if:$key==$bank['bank_type']}selected{/if}>{$item}</option>
+										<option value="{$key}" {if:$key==$bank['card_type']}selected{/if}>{$item}</option>
 										{/foreach}
 										</select>
 								</span>

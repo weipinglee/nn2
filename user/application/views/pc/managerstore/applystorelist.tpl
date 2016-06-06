@@ -28,9 +28,11 @@
                                                                                                 <td>{$list['cname']}</td>
                                                                                                 <td>
                                                                                                 		<ul>
+																											{if:!empty($list['attribute'])}
                                                                                                 		{foreach: items=$list['attribute'] key=$aid item=$attr}
                                                                                                 		<li>{$attrs[$aid]} : {$attr}</li>
                                                                                                 		{/foreach}
+																											{/if}
                                                                                                 		</ul>
                                                                                                 </td>
                                                                                                 <td>{$list['quantity']}({$list['unit']})</td>

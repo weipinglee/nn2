@@ -55,7 +55,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 		//获取菜单数据
 		$MenuModel = new \nainai\user\Menu();
-    		$menuList = $MenuModel->getUserMenuList($this->user_id);
+    		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert);
     		$this->createTreeMenu($menuList);
     		$menu = $this->createHtmlMenu();
 

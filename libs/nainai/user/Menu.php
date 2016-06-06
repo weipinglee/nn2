@@ -12,7 +12,9 @@ use \Library\url;
  * @copyright 2016年05月30日
  */
 class Menu extends \nainai\Abstruct\ModelAbstract {
-	
+
+	protected $menuTable = 'menu';
+	protected $menuRoleTable = 'menu_role';
 	/**
 	 * 添加菜单验证规程
 	 * @var array
@@ -21,6 +23,8 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	    array('menu_zn','require','必须菜单的中文名称'),
 	    array('menu_url','require','请正确填写url', 2)
 	);
+
+	protected $publicRole = 'public';
 
 	/**
 	 * 菜单的列表
@@ -103,29 +107,38 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	/**
 	 * 获取用户的菜单数据列表
 	 * @param  [Int] $uid [用户id]
+	 * @param array 用户认证数据
 	 * @return [Array]      [菜单数据列表]
 	 */
-	public function getUserMenuList($uid){
+	public function getUserMenuList($uid,$cert=array()){
 		$menuList = array();
 
-
 		if (intval($uid) > 0) {
-//			$userData = $this->model->table('user')->fields('id, gid')->where('id=:uid')->bind(array('uid' => $uid))->getObj();
-//			$userData['gid'] = unserialize($userData['gid']);
-//			$menuRole = $this->model->table('menu_role')->fields('id, purview')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userData['gid'])))->select();
-//
-//			$userPur = array(); //获取用户对应的菜单角色菜单列表
-//			foreach ($menuRole as  $list) {
-//				$list['purview'] = unserialize($list['purview']);
-//				foreach ($list['purview'] as $value) {
-//					if (!in_array($value, $userPur)) {
-//						$userPur[] = $value;
-//					}
-//				}
-//			}
+
+			//获取各个认证角色的角色id
+			$roleIds = array();
+			if(!empty($cert)){
+				$roleIds['public'] = $this->publicRole;
+				$where = 'cert in (:public';
+				foreach($cert as $key=>$val){
+					if($val==1){
+						$roleIds[$key] = $key;
+						$where .= ',:'.$key;
+					}
+
+				}
+				$where .= ')';
+
+				$right = $this->model->table($this->menuRoleTable)->where($where)->bind($roleIds)->getFields('purview');
+				$userPur = array();
+				foreach($right as $k=>$v){
+					$userPur = array_merge($userPur,unserialize($v));
+				}
+
+			}
+
 			
-			//$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort desc')->select();
-			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->order('pid asc, sort asc')->select();
+			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
 
 		}
 

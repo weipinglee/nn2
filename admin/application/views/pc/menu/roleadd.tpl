@@ -28,6 +28,7 @@
                      <label class="form-label col-2">认证角色：</label>
                      <div class="formControls col-10">
                          <select name="name_en" >
+                             <option value="public" >公共菜单</option>
                              {set:$cert = \nainai\cert\certificate::$certText }
                              {foreach:items=$cert}
                                  <option value="{$key}" >{$item}</option>
