@@ -58,7 +58,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     		$menuList = $MenuModel->getUserMenuList($this->user_id);
     		$this->createTreeMenu($menuList);
     		$menu = $this->createHtmlMenu();
-		
+
 		$this->getView()->assign('topArray', $menu['top']);
 		$this->getView()->assign('leftArray', $menu['left']);
 		$action = strtolower($this->getRequest()->getActionName());

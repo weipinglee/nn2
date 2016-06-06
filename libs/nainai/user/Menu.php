@@ -108,22 +108,25 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	public function getUserMenuList($uid){
 		$menuList = array();
 
-		if (intval($uid) > 0) {
-			$userData = $this->model->table('user')->fields('id, gid')->where('id=:uid')->bind(array('uid' => $uid))->getObj();
-			$userData['gid'] = unserialize($userData['gid']);	
-			$menuRole = $this->model->table('menu_role')->fields('id, purview')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userData['gid'])))->select();
 
-			$userPur = array(); //获取用户对应的菜单角色菜单列表
-			foreach ($menuRole as  $list) {
-				$list['purview'] = unserialize($list['purview']);
-				foreach ($list['purview'] as $value) {
-					if (!in_array($value, $userPur)) {
-						$userPur[] = $value;
-					}
-				}
-			}
+		if (intval($uid) > 0) {
+//			$userData = $this->model->table('user')->fields('id, gid')->where('id=:uid')->bind(array('uid' => $uid))->getObj();
+//			$userData['gid'] = unserialize($userData['gid']);
+//			$menuRole = $this->model->table('menu_role')->fields('id, purview')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userData['gid'])))->select();
+//
+//			$userPur = array(); //获取用户对应的菜单角色菜单列表
+//			foreach ($menuRole as  $list) {
+//				$list['purview'] = unserialize($list['purview']);
+//				foreach ($list['purview'] as $value) {
+//					if (!in_array($value, $userPur)) {
+//						$userPur[] = $value;
+//					}
+//				}
+//			}
 			
-			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort desc')->select();
+			//$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort desc')->select();
+			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->order('pid asc, sort desc')->select();
+
 		}
 
 		return $menuList;
