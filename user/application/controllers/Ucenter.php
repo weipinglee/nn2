@@ -12,8 +12,8 @@ use \Library\url;
 use \Library\safe;
 use \Library\Thumb;
 use \Library\tool;
-class UcenterController extends UcenterBaseController {
 
+class UcenterController extends UcenterBaseController {
 
 
     /**
@@ -48,7 +48,7 @@ class UcenterController extends UcenterBaseController {
 
 
     public function baseInfoAction(){
-        $userModel = new userModel();
+        $userModel = new UserModel();
         $userData = $userModel->getUserInfo($this->user_id);
         $this->getView()->assign('user',$userData);
     }
@@ -557,7 +557,6 @@ class UcenterController extends UcenterBaseController {
         }
 
     }
-
 
 
 

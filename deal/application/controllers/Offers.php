@@ -7,15 +7,19 @@
 use \tool\http;
 use \Library\url;
 use \Library\safe;
+use \Library\json;
 use \Library\tool;
 use \nainai\order\Order;
 use \Library\checkRight;
+use \nainai\offer\product;
+
 class OffersController extends \Yaf\Controller_Abstract {
 
 	private $offer;
 
 
 	public function init(){
+		$this->getView()->setLayout('header');
 		$this->offer = new OffersModel();
 	}
 
@@ -23,9 +27,15 @@ class OffersController extends \Yaf\Controller_Abstract {
 	//列表
 	public function offerListAction(){
 		$page = safe::filterGet('page','int');
+		$category = array();
+
+	        	//获取商品分类信息，默认取第一个分类信息
+	        	$productModel = new product();
+	        	$category = $productModel->getCategoryLevel();
 
 		$pageData = $this->offer->getList($page);
 
+        		$this->getView()->assign('categorys', $category['cate']);
 		$this->getView()->assign('data',$pageData['data']);
 		$this->getView()->assign('page',$pageData['bar']);
 	}
@@ -70,6 +80,29 @@ class OffersController extends \Yaf\Controller_Abstract {
 		$this->getView()->assign('data',$info);
 
 	}
+
+	 /**
+         * AJax获取产品分类信息
+         * @return [Json]
+         */
+        public function ajaxGetCategoryAction(){
+            $pid = Safe::filterPost('pid', 'int',0);
+            if($pid){
+                $productModel = new product();
+                $cate = $productModel->getCategoryLevel($pid);
+
+                //获取这个分类下对应的产品信息
+                $condition = array(
+                	'where' => 'FIND_IN_SET(cate_id, :ids)',
+                	'bind' => array('ids' => $pid)
+                );
+                $cate['product'] = $this->offer->getList($pid, $condition);
+                unset($cate['chain']);
+
+                echo json::encode($cate);
+            }
+            exit();
+        }
 
 
 }

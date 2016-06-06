@@ -38,6 +38,7 @@ class CreditConfig extends \nainai\Abstruct\ModelAbstract{
 					'user_id' => $userId,
 					'intro' => $note
 				);
+
 				//根据对应的表示做出对应的操作
 				switch (intval($configData['sign'])) {
 					case 0: //加

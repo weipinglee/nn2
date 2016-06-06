@@ -25,6 +25,12 @@ class ManagerDealController extends UcenterBaseController {
 
 
     /**
+     * 设置产品过期的天数
+     * @var integer
+     */
+    private $_expireDay = 5;
+
+    /**
      * 提示mode对应的类型
      * @var array
      */
@@ -35,6 +41,7 @@ class ManagerDealController extends UcenterBaseController {
         4 => '仓单报盘'
     );
 
+
     protected  $certType = 'deal';//需要的认证类型
 
     //买家不能操作的方法
@@ -42,6 +49,7 @@ class ManagerDealController extends UcenterBaseController {
         'deputeoffer','dodeputeoffer','storeoffer','dostoreoffer');
 
     /**
+
      * 获取左侧菜单
      * @return array
      */
@@ -253,6 +261,7 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function storeOfferAction(){
         $storeModel = new \nainai\store();
+
         $storeList = $storeModel->getUserActiveStore($this->user_id);
 
         $this->getView()->assign('storeList', $storeList['list']);
@@ -269,6 +278,7 @@ class ManagerDealController extends UcenterBaseController {
 
 
 
+
     /**
      * Ajax获取仓单报盘页面的商品详情
      * @return 
@@ -280,7 +290,6 @@ class ManagerDealController extends UcenterBaseController {
         if (IS_AJAX && intval($pid) > 0) {
             $storeModel = new \nainai\store();
             $return_json = $storeModel->getUserStoreDetail($pid,$this->user_id);
-
         }
 
         echo JSON::encode($return_json);
@@ -321,13 +330,12 @@ class ManagerDealController extends UcenterBaseController {
         }
         $time = date('Y-m-d H:i:s', time());
 
-
         $detail = array(
             'name'         => Safe::filterPost('warename'),
             'cate_id'      => Safe::filterPost('cate_id', 'int'),
             'price'        => Safe::filterPost('price', 'float'),
             'quantity'     => Safe::filterPost('quantity', 'int'),
-            'attribute'    => serialize($attrs),
+            'attribute'    => empty($attrs) ? '' : serialize($attrs),
             'note'         => Safe::filterPost('note'),
             'produce_area' => Safe::filterPost('area'),
             'create_time'  => $time,
@@ -340,7 +348,6 @@ class ManagerDealController extends UcenterBaseController {
 
         $resImg = array();
         if(!empty($imgData)){
-
             foreach ($imgData as $imgUrl) {
                 if (!empty($imgUrl) && is_string($imgUrl)) {
                     array_push($resImg, array('img' => tool::setImgApp($imgUrl)));
@@ -350,7 +357,6 @@ class ManagerDealController extends UcenterBaseController {
 
         return array($detail,$resImg);
     }
-
 
     /**
      * 处理仓单报盘
@@ -384,6 +390,7 @@ class ManagerDealController extends UcenterBaseController {
 
         $this->redirect('indexoffer');
     }
+
 
     /**
      * 申请仓单处理
@@ -547,14 +554,17 @@ class ManagerDealController extends UcenterBaseController {
             $this->getView()->assign('product', $offerDetail[1]);
         }
 
+        $productModel = new \nainai\product();
+        $productList = $productModel->getOfferProductList($page, $this->pagesize,  $where, $bind);
+
+        $this->getView()->assign('mode', $this->_mode);
+        $this->getView()->assign('statusList', $productModel->getStatus());
+        $this->getView()->assign('productList', $productList['list']);
+        $this->getView()->assign('pageHtml', $productList['pageHtml']);
     }
 
 
-
-
-
-
-
+   
 
 
 }

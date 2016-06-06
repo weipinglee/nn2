@@ -7,6 +7,14 @@ use \Library\Query;
 use \Library\tool;
 use \Library\url;
 
+
+/**
+ * 开票信息的api
+ * @author zengmaoyong <zengmaoyong@126.com>
+ * @copyright 2016-05-27
+ * @package  user
+ */
+
 class UserInvoice extends \nainai\Abstruct\ModelAbstract {
 
 	public $pk = 'user_id';
@@ -16,6 +24,7 @@ class UserInvoice extends \nainai\Abstruct\ModelAbstract {
 	 * @var array
 	 */
 	protected $Rules = array(
+
 	    array('title','s{2,30}','必须填写发票抬头'),
 	    array('tax_no','/^[a-zA-Z0-9_]{6,40}$/','必须填写纳税人识别号'),
 	    array('address','/^[\S]{2,40}$/','必须填写地址'),
