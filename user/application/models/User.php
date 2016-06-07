@@ -18,6 +18,11 @@ class UserModel{
 		'mobile'=>'手机号'
 	);
 
+	//注册时要初始化的数据表
+	protected $initTables = array(
+		'user_account'
+	);
+
 	/**
 	 * 验证规则：
 	 * array(字段，规则，错误信息，条件，附加规则，时间）
@@ -124,6 +129,9 @@ class UserModel{
 			if(is_numeric($uID) ){
 				$user->table('person_info')->data(array('user_id'=>$uID))->add();
 			}
+			foreach($this->initTables as $t){
+				$user->table($t)->data(array('user_id'=>$uID))->add();
+			}
 			$res = $user->commit();
 
 		}
@@ -149,6 +157,8 @@ class UserModel{
 		return array('success'=>$res,'info'=>$info);
 	}
 
+
+
 	/**
 	 * 公司注册
 	 * @param array $userData 用户数据
@@ -173,6 +183,9 @@ class UserModel{
 			$userData['id'] = $user_id;
 			$companyData['user_id'] = $user_id;
 			if($user_id)$user->table('company_info')->data($companyData)->add();
+			foreach($this->initTables as $t){
+				$user->table($t)->data(array('user_id'=>$user_id))->add();
+			}
 			$res = $user->commit();
 		}
 		else{

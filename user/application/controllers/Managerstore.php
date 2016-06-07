@@ -12,6 +12,7 @@ use \Library\json;
 class ManagerStoreController extends UcenterBaseController{
 
 	protected  $certType = 'store';
+
 	/**
 	 * 获取左侧菜单数据
 	 * @var name [<菜单名称>]
@@ -28,6 +29,7 @@ class ManagerStoreController extends UcenterBaseController{
 	        );
 	    }
 
+
 	public function indexAction(){}
 
 	public function addSuccessAction(){}
@@ -40,6 +42,7 @@ class ManagerStoreController extends UcenterBaseController{
 		$type = $this->getRequest()->getParam('type');
 		$type = Safe::filter($type,'int',1);
 		$store = new store();
+
 		if($type==1)
 			$data = $store->getManagerApplyStoreList($page,$this->user_id);
 		else
@@ -56,7 +59,7 @@ class ManagerStoreController extends UcenterBaseController{
 	 */
 	public function storeCheckListAction(){
 		$store = new \nainai\delivery\StoreDelivery();
-		$page = safe::filterGet('page',int,1);
+		$page = safe::filterGet('page','int',1);
 		$list = $store->storeCheckList($page,$this->user_id);
 		$this->getView()->assign('data',$list['data']);
         $this->getView()->assign('page',$list['bar']);
@@ -122,9 +125,7 @@ class ManagerStoreController extends UcenterBaseController{
 		        $productModel = new product();
 		        $attr_ids = array();
 		        $data['attribute'] = unserialize($data['attribute']);
-		        foreach ($data['attribute'] as $key => $value) {
-		        		$attr_ids[] = $key;
-		        }
+		        $attr_ids = array_keys($data['attribute']);
 
 		       $this->getView()->assign('detail', $data);
 	                $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
@@ -173,6 +174,7 @@ class ManagerStoreController extends UcenterBaseController{
 			$apply = array(
 				'store_pos' => safe::filterPost('pos'),
 				'cang_pos'  => safe::filterPost('cang'),
+				'store_price'=> safe::filterPost('store_price'),
 				'in_time' => safe::filterPost('inTime'),
 				'rent_time' => safe::filterPost('rentTime'),
 				'check_org' => safe::filterPost('check'),

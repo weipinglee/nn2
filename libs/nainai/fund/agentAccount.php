@@ -78,6 +78,7 @@ use \Library\Time;
         $this->agentModel = new M($this->agentTable);
         $this->flowModel  = new M($this->fundFlowTable);
      }
+
     /**
      * 获取可用余额
      * @param int $user_id

@@ -46,7 +46,6 @@
                             </div>
 							<div class="zhxi_con">	
 								<span><input class="submit_zz" type="submit" value="提交"></span>
-								<span><input class="submit_zz reset_zz" type="reset" value="重置"></span>
 							</div>
 						</form>
 					</div>

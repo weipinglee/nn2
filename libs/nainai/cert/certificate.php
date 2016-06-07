@@ -27,7 +27,10 @@ class certificate{
 
     );
 
-
+    public static $certText = array(
+        'deal'=>'交易商认证',
+        'store'=>'仓库管理员认证'
+    );
 
     protected static $certClass = array(
         'deal'=>'certDealer',

@@ -1,7 +1,7 @@
 /**
  * Created by weipinglee on 2016/4/18.
  */
-//��������������
+//给分类添加属性
 function addAttr(){
     var attr_id = $('#all_attr').val();
     var attr_text = $('#all_attr').find('option:selected').text();
@@ -19,7 +19,7 @@ function addAttr(){
     attr_input.find('a').bind('click',delAttr);
     $('#attr_box').append(attr_input);
 }
-//����ɾ��
+//属性删除
 function delAttr(){
     $(this).parent('div').remove();
 }
@@ -27,3 +27,20 @@ function delAttr(){
 $(function(){
     $('#attr_box').find('a').bind('click',delAttr);
 })
+
+/**
+ * 根据导航栏的类型来切换分类数据
+ * @param  {[Int]} type [导航栏类型]
+ * @param  {[Int]} url  [请求的地址]
+ */
+function changeGuideCategory(type, url){
+    $.ajax({
+             'url' :  url,
+            'type' : 'post',
+            'data' : {type : type},
+            'dataType': 'json',
+            success:function(data){
+                $('#pid').html('<option value="0" selected>顶级分类</option>' + data.info);
+            }
+        });
+}

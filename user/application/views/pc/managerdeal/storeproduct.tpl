@@ -105,14 +105,14 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>单位:</td>
                                 <td>
-                                    <span id="unit">{$unit}</span>
+                                    <span id="unit">{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
                                 </td>
                                 <!--  <td>
                                     请选择支付保证金比例：
                                     <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
 
                                 </td> -->
-
+                            </tr>
                             <tr>
                             <td>产地:</td>
                             <td colspan="2">

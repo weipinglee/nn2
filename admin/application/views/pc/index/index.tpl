@@ -93,6 +93,13 @@
                         </li>
                         <li><a href="{url:member/usergroup/groupList}" target="content">角色分组</a></li>
                         <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
+                        <li><a href='javascript:voie(0)' target="content">菜单管理</a>
+                         <ul>
+                                <li><a href="{url:member/Menu/MenuList}" target="content"> 菜单列表</a></li>
+                                <li><a href="{url:member/Menu/addMenu}" target="content">菜单添加</a></li>
+                                <li><a href="{url:member/Menu/menuRoleList}" target="content">菜单角色列表</a></li>
+                            </ul>
+                            </li>
                         <li><a href='javascript:voie(0)' target="content">代理商管理</a>
                             <ul>
                                 <li><a href="{url:member/agent/agentList}" target="content">代理商列表</a></li>
@@ -117,13 +124,7 @@
                                 <li><a href="{url:trade/product/attributeList}" target="content">属性列表</a></li>
                             </ul>
                         </li>
-                        <li><a target="content">交易费率设置</a>
-                            <ul>
-                                <li><a href="scale-bond.html" target="content">保证金收取比例</a></li>
-                                <li><a href="scale-hand.html" target="content">手续费收取比例</a></li>
-                                <li><a href="scale-offer.html" target="content">自由报盘收费设置</a></li>
-                            </ul>
-                        </li>
+
                         <li><a target="content">报盘管理</a>
                             <ul>
                                 <li><a href="{url:/trade/OfferManage/offerList}" target="content">报盘管理</a></li>
@@ -141,7 +142,12 @@
                                 <li><a href="{url:/trade/pairing/pairingContractList}" target="content">撮合合同列表</a></li>
                             </ul>
                         </li>
-                        <li><a href="appeal-list.html" target="content">申诉管理</a></li>
+                        <li><a  target="content">申诉管理</a>
+                            <ul>
+                                <li><a href="{url:/trade/complain/complainList?=&status=0}" target="content">未处理申述列表</a></li>
+                                <li><a href="{url:/trade/complain/complainList?=&status=1}" target="content">已处理申述列表</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>
@@ -197,6 +203,11 @@
                             </ul>
                         </li>
 
+                    </ul>
+                </li>
+                <li class="nosubmenu"><a href="javascript:void(0)" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 导航管理</a>
+                    <ul>
+                        <li><a target="content" href="{url:/guide/guideList}">导航列表</a></li>
                     </ul>
                 </li>
             </ul>

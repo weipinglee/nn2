@@ -37,6 +37,7 @@
 							<p class="of_title2">仓单报盘有什么吗</p>
 							<p class="of_title1">仓单报盘有什么吗</p>
 						</div>
+
 						<div class="offer">
 							<div class="offer_right">
 								<img src="{views:/images/center/weituo.png}">
@@ -47,7 +48,7 @@
 							<p class="of_title2">委托报盘有什么吗</p>
 							<p class="of_title1">委托报盘有什么吗</p>
 						</div>
-					
+
 						
 					</div>
 				</div>

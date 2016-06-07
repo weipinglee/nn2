@@ -92,7 +92,7 @@ class RbacController extends InitController{
 	 * @return [type] [description]
 	 */
 	public function nodeAddAction(){
-		if(IS_AJAX){
+		if(IS_POST){
 			//新增权限节点
 			$data['module_name'] = safe::filterPost('module');
 			if(safe::filterPost('controller'))

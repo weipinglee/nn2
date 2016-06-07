@@ -16,7 +16,12 @@
 								<p class="state"></p>
 							</div>
 							<div class="zj_r">
-								<div class="zj_price">￥0.00</div>
+								<div class="zj_price"></div>
+								<div class="zj_column">
+									<span class="column_yes" style="width:{echo:$freeze/($active+$freeze)*300}px;" title="{$active}"></span>
+									<span class="column_no" style="width:{echo:$active/($active+$freeze)*300}px;" title="{$freeze}"></span>
+									<div class="clear"></div>
+								</div>
 								<div class="price">
 									<span class="price_l">
 										<i class="pr_l"></i>

@@ -20,7 +20,7 @@
 								<span class="con_tit"><i>*</i>银行卡类型：</span>
 								<span><select class="text" type="text" name="card_type" datatype="n1-2" >
 										{foreach:items=$type}
-										<option value="{$key}" {if:$key==$bank['bank_type']}selected{/if}>{$item}</option>
+										<option value="{$key}" {if:$key==$bank['card_type']}selected{/if}>{$item}</option>
 										{/foreach}
 										</select>
 								</span>
@@ -49,7 +49,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>打款凭证： </span>
 								<span>
-									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload@user}" />
+									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload}" />
                         			<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
 
 								</span>

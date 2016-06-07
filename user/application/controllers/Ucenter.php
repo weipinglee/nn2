@@ -12,8 +12,8 @@ use \Library\url;
 use \Library\safe;
 use \Library\Thumb;
 use \Library\tool;
-class UcenterController extends UcenterBaseController {
 
+class UcenterController extends UcenterBaseController {
 
 
     /**
@@ -48,7 +48,7 @@ class UcenterController extends UcenterBaseController {
 
 
     public function baseInfoAction(){
-        $userModel = new userModel();
+        $userModel = new UserModel();
         $userData = $userModel->getUserInfo($this->user_id);
         $this->getView()->assign('user',$userData);
     }
@@ -152,7 +152,7 @@ class UcenterController extends UcenterBaseController {
             {
                 $result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
             }
-            echo JSON::encode($result);
+            echo json::encode($result);
 
         return false;
     }
@@ -445,9 +445,7 @@ class UcenterController extends UcenterBaseController {
                     'bank_no' => Safe::filterPost('bankAccount')
                 );
 
-
-
-                $returnData = $invoiceModel->addUserInvoice($invoiceData);
+                $returnData = $invoiceModel->insertupdateUserInvoice($invoiceData,$invoiceData);
 
                 die(json::encode($returnData));
             }
@@ -559,7 +557,6 @@ class UcenterController extends UcenterBaseController {
         }
 
     }
-
 
 
 

@@ -112,6 +112,7 @@ class OfferManageModel extends \nainai\offer\product{
 		if($offerData['status']!=self::OFFER_APPLY){
 			return tool::getSuccInfo(0,'该报盘已审核');
 		}
+
 		try {
 			$this->offer->beginTrans();
 			$status = $status==1 ? self::OFFER_OK : self::OFFER_NG;

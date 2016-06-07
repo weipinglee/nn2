@@ -9,23 +9,32 @@
 namespace nainai\offer;
 use nainai\fund;
 use \Library\tool;
+use \Library\M;
 class freeOffer extends product{
 
 
 
     /**
-     * 获取自由报盘费率 TODO
+     * 获取自由报盘费率
      *
      */
-    public function getFee(){
+    public function getFee($user_id){
+
         $m = new \nainai\member();
-        $group = $m->getUserGroup($this->user_id);
+        $group = $m->getUserGroup($user_id);
+
+        //获取费率
         if(empty($group)){
-            return 0;
+            $feeRate = 100;
         }
         else{
-            return $group['free_fee'];
+            $feeRate = $group['free_fee'];
         }
+
+        //获取后台设置的自由报盘费用
+        $obj = new M('scale_offer');
+        $fee = $obj->getField('free');
+        return bcmul(floatval($fee),$feeRate)/100;
     }
 
     /**
@@ -38,11 +47,9 @@ class freeOffer extends product{
         $user_id = $this->user_id;
         $acc_type = $offerData['acc_type'];
         $fund = fund::createFund($acc_type);
-        $active = $fund->getActive($this->user_id);//获取用户可用金额
-        $fee = $this->getFee();//获取自由报盘费用
+        $active = $fund->getActive($user_id);//获取用户可用金额
+        $fee = $this->getFee($user_id);//获取自由报盘费用
 
-        $total = bcmul($productData[0]['quantity'],$offerData['price']);
-        $fee = bcmul($total,$fee)/100;
         if($active >= $fee){
             $offerData['offer_fee'] = $fee;
             $offerData['user_id'] = $user_id;
@@ -65,7 +72,7 @@ class freeOffer extends product{
 
         }
         else{//资金不足
-            return tool::getSuccInfo(0,$this->errorCode['fundLess']);
+            return tool::getSuccInfo(0,$this->errorCode['fundLess']['info']);
         }
 
     }

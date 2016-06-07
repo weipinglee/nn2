@@ -52,7 +52,7 @@
 					{elseif:$item['status'] == 0}
 						<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:trade/product/setStatusAttr?id=$item['id']}"><i class="icon-play"></i></a>
 					{/if}
-					<a title="编辑" href="{url:/product/attributeAdd?aid=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
+					<a title="编辑" href="{url:trade/product/attributeAdd?aid=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
 					<a title="删除" href="javascript:;"  class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
 			</tr>
 		{/foreach}

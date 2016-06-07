@@ -36,9 +36,11 @@
                                                                                                 <td>{$list['package_weight']}({$list['package_unit']})</td>
                                                                                                 <td>{$statuList[$list['status']]}</td>
                                                                                                 <td>{$list['sname']}</td>
-
-																									<td><a href='{url:/Managerdeal/storeProductDetail?id=$list['id']}'>查看</a></td>
-
+                                                                                                {if: $list['status'] == 0}
+                                                                                                <td><a href='{url:/ManagerStore/ApplyStore?id=$list["id"]}'>审核</a></td>
+                                                                                                {elseif: $list['status'] == 1}
+                                                                                                <td><a href='{url:/ManagerStore/ApplyStoreDetails?id=$list["id"]}'>查看</a></td>
+                                                                                                {/if}
                                                                                         </tr>
                                                                                       {/foreach}
 							</table>

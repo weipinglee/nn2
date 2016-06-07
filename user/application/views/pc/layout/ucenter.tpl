@@ -22,6 +22,11 @@
     <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
     <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
     <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
+
+     <script type="text/javascript" src="{root:js/form/validate/jquery.validate.min.js}" ></script>
+     <script type="text/javascript" src="{root:js/form/validate/messages_zh.min.js}" ></script>
+     <link href="{root:js/form/validate/error.css}" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <!--    公用头部控件 -->
@@ -30,7 +35,7 @@
         <div class="topnav_left">
             <div class="login_link" id="toploginbox">
                 {if:$login==0}
-                <a rel="external nofollow" href="{url:/index/login}" target="_blank" class="topnav_login">登录</a>
+                <a rel="external nofollow" href="{url:/login/login}" target="_blank" class="topnav_login">登录</a>
                 <div class="login_box" id="login_boxMain" style="display: none;">
                     <input name="gtxh_LoginMobile" type="text" id="gtxh_LoginMobile" class="txt_topnav" value="手机号码" maxlength="11">
                     <br>
@@ -49,7 +54,7 @@
                 </div>
                 {else:}
                     您好，{$username}
-                    <a rel="external nofollow" href="{url:/index/logout}" >退出</a>
+                    <a rel="external nofollow" href="{url:/login/logout}" >退出</a>
                 {/if}
             </div>
             <div class="topnav_login_in" id="userCenterbox" style="display: none;">
@@ -162,7 +167,7 @@
                 <ul class="nav-list">
                     {foreach: items=$topArray item=$topList}
                         <li>
-                            <a href="{$topList['url']}" {if: $topList['isSelect']} class="cur" {/if}>{$topList['title']}</a>
+                            <a href="{$topList['url']}" {if: isset($topList['isSelect']) && $topList['isSelect'] == 1} class="cur" {/if}>{$topList['title']}</a>
                         </li>
                     {/foreach}
 
@@ -179,19 +184,18 @@
                     <ul>
 
                     	{foreach: items=$leftArray item=$leftList key=$k}
-
                     		{if: $k == 0}
-                    		<li class="let_nav_tit"><h3>{$leftList['name']}</h3></li>
+                    		<li class="let_nav_tit"><h3>{$leftList['title']}</h3></li>
                     		{else:}
                             <li class="btn1" id="btn{$k}">
-                                <a class="nav-first {if:isset($leftList['action']) && in_array($action,$leftList['action'])}cur{/if}" {if:isset($leftList['url'])} href="{$leftList['url']}"{/if} >
-                                    {$leftList['name']}
+                                <a class="nav-first {if:$action==$leftList['action']}cur{/if}" {if: !empty($leftList['url'])} href="{$leftList['url']}"{/if} >
+                                    {$leftList['title']}
                                     <i class="icon-caret-down"></i>
                                 </a>
                                 {if: !empty($leftList['list'])}
                                     <ul class="zj_zh" >
                                         {foreach: items=$leftList['list'] item=$list}
-                                            <li><a  href="{$list['url']}" {if:in_array($action,$list['action'])}class="cur"{/if} >{$list['title']}</a></li>
+                                            <li><a  href="{$list['url']}" {if:$action==$list['action']}class="cur"{/if} >{$list['title']}</a></li>
                                         {/foreach}
                                     </ul>
                                 {/if}
@@ -239,7 +243,7 @@
 
 				<!--end中间内容-->	
 			<!--start右侧广告-->			
-			<div class="user_r">
+		<!--	<div class="user_r">
 				<div class="wrap_con">
 					<div class="tit clearfix">
 						<h3>公告</h3>
@@ -252,7 +256,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			<!--end右侧广告-->
 		</div>
 	</div>

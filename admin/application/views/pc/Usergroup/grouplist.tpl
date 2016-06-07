@@ -40,7 +40,8 @@
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
 				<a title="编辑" href="{url:/member/usergroup/groupEdit}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a> 
-				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:/member/usergroup/groupDel}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+				<!--<a title="分配菜单" href="{url:/member/usergroup/allocationUserMenu}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
+				--><a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:/member/usergroup/groupDel}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>
