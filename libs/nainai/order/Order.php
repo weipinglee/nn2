@@ -72,6 +72,33 @@ class Order{
 	}
 
 	/**
+	 * 判断订单是否为申述状态
+	 */
+	public function orderComplain($order_id){
+		$complain = new M('order_complain');
+		$status = $complain->where(array('order_id'=>$order_id))->getfield('status');
+		
+	}
+
+	/**
+	 * 买方违约	
+	 * @param  int $order_id 订单id
+	 * @return boolean  状态
+	 */
+	public function buyerBreakContract($order_id){
+
+	}
+
+	/**
+	 * 卖方违约	
+	 * @param  int $order_id 订单id
+	 * @return boolean  状态
+	 */
+	public function sellerBreakContract($order_id){
+
+	}	
+
+	/**
 	 * 新增或更新订单数据
 	 * @param  object $order 订单表对象	
 	 * @param  array $data  订单数据
