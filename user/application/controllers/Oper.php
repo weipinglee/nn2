@@ -18,5 +18,13 @@ class OperController extends UcenterBaseController{
 		$this->getView()->assign('info',$info);
 		$this->getView()->assign('redirect',urldecode(str_replace('||','%',$redirect)));
 	}
+
+	public function confirmAction(){
+		$info = safe::filter($this->_request->getParam('info'));
+		$redirect = safe::filter($this->_request->getParam('redirect'));
+
+		$this->getView()->assign('info',$info);
+		$this->getView()->assign('redirect',urldecode(str_replace('||','%',$redirect)));
+	}
 }
  ?>

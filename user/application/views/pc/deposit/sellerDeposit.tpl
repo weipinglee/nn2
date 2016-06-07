@@ -155,7 +155,7 @@
 
                   <div class="pay_bton">
                     <h5>待支付金额：<i>{$data['seller_deposit']}</i>元</h5>
-                    <a href="{url:/Deposit/sellerDeposit?order_id=$data['id']&pay=1}">立即缴纳保证金</a>
+                    <a href="{url:/Deposit/sellerDeposit?order_id=$data['id']&pay=1&action_confirm=1&info=确认缴纳保证金}">立即缴纳保证金</a>
                   </div>
 
 

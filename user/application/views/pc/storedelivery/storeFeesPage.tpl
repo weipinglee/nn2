@@ -10,7 +10,7 @@
 						<div class="de_ce">
 							<div class="detail_chj" style="margin-top: 11px">
 								<!-- <input class="fk_butt" type="button" value="支付仓库管理费用"/> -->
-								<a href="{url:/storeDelivery/storeFees?id=$info[id]}" style="background: #FC7300;padding: 8px 15px;color:#fff;text-decoration: none">支付仓库管理费用</a>
+								<a href="{url:/storeDelivery/storeFees?id=$info[id]&action_confirm=1&info=支付仓库管理费用}" style="background: #FC7300;padding: 8px 15px;color:#fff;text-decoration: none">支付仓库管理费用</a>
 							</div>
 						</div>
 						<div class="sjxx">

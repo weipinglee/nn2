@@ -383,7 +383,7 @@
 
 
                   <div class="pay_bton">
-                  	<a href="http://localhost/nn2/user/public/order/confirmproof/order_id/<?php echo $data['id'];?>" id='pay_retainage'>确认凭证</a>
+                  	<a href="http://localhost/nn2/user/public/order/confirmproof/order_id/<?php echo $data['id'];?>/action_confirm/1/info/确认此凭证" id='pay_retainage'>确认凭证</a>
                   </div>
 
 

@@ -22,11 +22,13 @@ class Base extends \Yaf\Controller_Abstract{
 		$right->checkLogin($this);//未登录自动跳到登录页
 
 
+
 		  //需要认证的方法未认证则跳转到认证页面
 		  if($this->certType!==null  && (!isset($this->cert[$this->certType]) || $this->cert[$this->certType]==0))
 		  {
 			  $this->redirect(url::createUrl('/ucenter/'.self::$certPage[$this->certType].'@user'));exit;
 		  }
+
 
 
     }
