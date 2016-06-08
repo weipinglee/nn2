@@ -106,6 +106,13 @@
                                 <li><a href="{url:member/agent/addAgent}" target="content">代理商添加</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href='javascript:voie(0)' target="content">推荐商户</a>
+                            <ul>
+                                <li><a href="{url:member/companyRec/recList}" target="content" >推荐商户</a></li>
+                                <li><a href="{url:member/companyRec/recAdd}" target="content" >添加推荐</a></li>
+                            </ul>
+                        </li>
                         <li><a href="shop-list.html" target="content">商铺管理</a></li>
                         <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>
                     </ul>
