@@ -95,7 +95,7 @@ class checkRight{
                 $controller = $obj->getRequest()->getControllerName();
                 $action     = $obj->getRequest()->getActionName();
                 $callBack = url::createUrl('/'.$controller.'/'.$action);
-                $obj->redirect(url::createUrl('/login/login@user').'?callback='.$callBack);
+                $obj->redirect(url::createUrl('/login/login').'?callback='.$callBack);
                 exit;
             }
             else{//已登录则记录user_id
