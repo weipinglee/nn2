@@ -1,6 +1,6 @@
 
 /user/public/_thumb/*
-
+/user/application/runtime/*
 /user/public/upload/*
 /admin/public/_thumb/*
 /admin/application/runtime/*
