@@ -1,1 +1,11 @@
-application.ini
+
+/user/public/_thumb/*
+/user/application/runtime/*
+/user/public/upload/*
+/admin/public/_thumb/*
+/admin/public/application/runtime/*
+/admin/public/upload/*
+/deal/public/_thumb/*
+/deal/public/upload/*
+/deal/public/application/runtime/*
+/.idea
