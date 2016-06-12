@@ -74,6 +74,78 @@ class Order{
 	}
 
 	/**
+	 * 判断订单是否为申述状态
+	 */
+	public function orderComplain($order_id){
+		$complain = new M('order_complain');
+		$status = $complain->where(array('order_id'=>$order_id))->getfield('status');
+		return in_array($status,array(\nainai\order\OrderComplain::APPLYCOMPLAIN,\nainai\order\OrderComplain::INTERVENECOMPLAIN)) ? true : false;
+	}
+
+	/**
+	 * 买方违约	
+	 * @param  int $order_id 订单id
+	 * @return boolean  状态
+	 */
+	public function buyerBreakContract($order_id){
+		$info = $this->orderInfo($order_id);
+		$offerInfo = $this->offerInfo($info['offer_id']);
+		$delivery = new \nainai\delivery\Delivery();
+		if($info['pay_deposit'] < floatval($info['amount'] * 0.1)){
+			//定金小于总货款10%
+			$pay_break = $info['pay_deposit'];
+		}else{
+			$pay_break = floatval($info['amount']) * 0.1;
+		}
+
+		try {
+			$this->order->beginTrans();
+			//买方支付买方违约金
+			$this->account->freezePay($info['user_id'],$offerInfo['user_id'],$pay_break);
+			$product_left = $delivery->productNumLeft($order_id,false,true);
+			$this->productsFreezeRelease($offerInfo,$product_left);
+			$res = $this->order->commit();
+		} catch (\PDOException $e) {
+			$this->order->rollBack();
+			$res = $e->getMessage();
+		}
+		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res);
+	}
+
+	/**
+	 * 卖方违约	
+	 * @param  int $order_id 订单id
+	 * @return boolean  状态
+	 */
+	public function sellerBreakContract($order_id){
+		$info = $this->orderInfo($order_id);
+		$offerInfo = $this->offerInfo($info['offer_id']);
+		$delivery = new \nainai\delivery\Delivery();
+		try {
+			$this->order->beginTrans();
+			if($info['mode'] == self::ORDER_DEPOSIT){
+				$seller_deposit = floatval($info['seller_deposit']);
+				//将卖方保证金支付10%支付给买方 解冻货物
+				$this->account->freezePay($offerInfo['user_id'],$info['user_id'],$seller_deposit * 0.1);
+				//解冻卖方货款   线下支付？？？
+				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
+				//解冻未提货货物
+				$product_left = $delivery->productNumLeft($order_id,false,true);
+				$this->productsFreezeRelease($offerInfo,$product_left);
+				
+			}else{
+				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
+			}
+			$res = $this->order->commit();
+		} catch (\PDOException $e) {
+			$this->order->rollBack();
+			$res = $e->getMessage();
+		}
+
+		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res);
+	}	
+
+	/**
 	 * 新增或更新订单数据
 	 * @param  object $order 订单表对象	
 	 * @param  array $data  订单数据
@@ -500,6 +572,7 @@ class Order{
 	 * @return array  $res   返回结果
 	 */
 	public function verifyQaulity($order_id,$reduceData = array()){
+		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$order = $this->orderInfo($order_id);
 		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
 			if($order['contract_status'] == self::CONTRACT_DELIVERY_COMPLETE){
@@ -544,6 +617,7 @@ class Order{
 	 * @return array 结果数组
 	 */
 	public function sellerVerify($order_id){
+		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$order = $this->orderInfo($order_id);
 		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
 			if($order['contract_status'] == self::CONTRACT_VERIFY_QAULITY){
@@ -590,6 +664,7 @@ class Order{
 	 * @return array  $res   返回结果信息
 	 */
 	public function contractComplete($order_id){
+		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$order = $this->orderInfo($order_id);
 		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
 			if($order['contract_status'] == self::CONTRACT_SELLER_VERIFY){

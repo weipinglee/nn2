@@ -7,13 +7,15 @@
 use \tool\http;
 use \Library\url;
 use \Library\safe;
-use \Library\json;
 use \Library\tool;
 use \nainai\order\Order;
 use \Library\checkRight;
 
+
 use \nainai\offer\product;
 
+
+use \Library\JSON;
 
 class OffersController extends \Yaf\Controller_Abstract {
 
@@ -133,9 +135,6 @@ class OffersController extends \Yaf\Controller_Abstract {
             exit();
         }
 
-
-	// 	return false;
-	// }
 
 
 }
