@@ -81,6 +81,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 		array('proof', 'require','请上传申述凭证!')
 	);
 
+
 	/**
 	 * 获取申述角色
 	 * @return [Array] 
@@ -250,5 +251,91 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 
 		return $detail;
 	}
+
+	/**
+	 * 申诉第一次审核
+	 * @param array $complainData 申诉数据 status为1：介入处理，status为0：不通过
+	 */
+	public function firstCheck($complainData,$order_id){
+		if(!empty($complainData) ){
+			$obj = new M('order_complain');
+			$status = $obj->where(array('id'=>$complainData['id']))->getField('status');
+			if($status!=self::APPLYCOMPLAIN)
+				return tool::getSuccInfo(0,'该状态不能审核');
+			$order = new M('order_sell');
+			$obj->beginTrans();
+			if($complainData['status']==1){//介入处理
+				$complainData['status'] = self::INTERVENECOMPLAIN;
+				$order->data(array('is_lock'=>1))->where(array('id'=>$order_id))->update();
+			}
+			else{
+				$complainData['status'] = self::DONTCOMPLAIN;
+
+			}
+			if($obj->data($complainData)->validate($this->Rules)){
+				$id=$complainData['id'];
+				unset($complainData['id']);
+				$obj->data($complainData)->where(array('id'=>$id))->update();
+				$res = $obj->commit();
+			}
+			else{
+				$obj->rollBack();
+				$res = $obj->getError();
+			}
+
+			if($res===true){
+				return tool::getSuccInfo();
+			}
+			else
+				return tool::getSuccInfo(0,is_string($res)?$res : '系统繁忙');
+
+		}
+		return tool::getSuccInfo(0,'审核失败');
+	}
+
+	/**
+	 * 申诉第一次审核
+	 * @param array $complainData 申诉数据 status为1：介入处理，status为0：不通过
+	 */
+	public function secondCheck($complainData,$order_id){
+		if(!empty($complainData) ){
+			$obj = new M('order_complain');
+			$status = $obj->where(array('id'=>$complainData['id']))->getField('status');
+			if($status!=self::INTERVENECOMPLAIN)
+				return tool::getSuccInfo(0,'该状态不能审核');
+			$order = new M('order_sell');
+			$obj->beginTrans();
+			if($complainData['status']==self::CONFERCOMPLAIN){//协商通过
+				$order->data(array('is_lock'=>0))->where(array('id'=>$order_id))->update();
+			}
+			else if($complainData['status']==self::BUYBREAKCOMPLAIN){//买方违约
+
+
+			}
+			else{//卖方违约
+
+			}
+			if($obj->data($complainData)->validate($this->Rules)){
+				$id=$complainData['id'];
+				unset($complainData['id']);
+				$obj->data($complainData)->where(array('id'=>$id))->update();
+				$res = $obj->commit();
+			}
+			else{
+				$obj->rollBack();
+				$res = $obj->getError();
+			}
+
+			if($res===true){
+				return tool::getSuccInfo();
+			}
+			else
+				return tool::getSuccInfo(0,is_string($res)?$res : '系统繁忙');
+
+		}
+		return tool::getSuccInfo(0,'审核失败');
+	}
+
+
 
 }

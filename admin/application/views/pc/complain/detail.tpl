@@ -15,11 +15,11 @@
     </div>
      <div class="pd-20">
      {if: $handler==1}
-     <form action="{url:trade/complain/docheck}" method="POST">
+     <form action="{url:trade/complain/docheck}" method="POST" auto_submit redirect_url="{url:trade/complain/complainList?status=0}">
      {elseif: $handler == 2}
-     <form action="{url:trade/complain/dohandler}" method="POST">
+     <form action="{url:trade/complain/dohandler}" method="POST" auto_submit redirect_url="{url:trade/complain/complainList?status=0}">
      {/if}
-     
+
 	 	 <table class="table table-border table-bordered table-bg">
 
 	 		<tr>
@@ -104,10 +104,10 @@
                   <th scope="col" colspan="7">
                   <input  type="hidden" name="id" value="{$detail['id']}" />
                   {if: $handler == 1}
-                     <label><input type="radio" name="status" value="1"/>介入处理</label>
+                     <label><input type="radio" name="status" value="1" checked/>介入处理</label>
                       <label><input type="radio" name="status" value="0"/>不通过</label>
                   {elseif: $handler == 2}
-                      <label><input type="radio" name="status" value="1"/>介入后协商通过</label>
+                      <label><input type="radio" name="status" value="1" checked/>介入后协商通过</label>
                       <label><input type="radio" name="status" value="2"/>买方违约</label>
                       <label><input type="radio" name="status" value="3"/>卖方违约</label>
                   {/if}

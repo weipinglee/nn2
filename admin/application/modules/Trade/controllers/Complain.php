@@ -38,6 +38,7 @@ class ComplainController extends InitController{
 		}
 
 		$complainModel = new \nainai\order\OrderComplain();
+
 		$complainList = $complainModel->getComplainList($page, 10, $condition);
 
 		$this->getView()->assign('complainList', $complainList['list']);
@@ -101,29 +102,17 @@ class ComplainController extends InitController{
 		if (IS_POST && intval($id) > 0) {
 			$session = \Library\session::get('admin');
 			
-			$complainData = array('check_time' => \Library\Time::getDateTime(), 'check_msg' => Safe::filterPost('msg'),'check_admin'=>$session['id']);
-			$pass = Safe::filterPost('status');
+			$complainData = array('id'=>$id,'status'=>Safe::filterPost('status'),'check_time' => \Library\Time::getDateTime(), 'check_msg' => Safe::filterPost('msg'),'check_admin'=>$session['id']);
 
-			switch ($pass) {
-				case 1: //介入处理
-					$order_id = Safe::filterPost('oid');
+			$order_id = Safe::filterPost('oid');
 
-					$complainData['status'] = \nainai\order\OrderComplain::INTERVENECOMPLAIN;
-					$orderModel = new \nainai\order\Order('product_order');
-					$res = $orderModel->orderUpdate(array('id'=>$order_id, 'is_lock' => 1));
-	
-					break;
-
-				case 0: //不通过
-					$complainData['status'] = \nainai\order\OrderComplain::DONTCOMPLAIN;
-					$res = array('success' => 1);
-					break;
-			}
-
+			$complainModel = new \nainai\order\OrderComplain();
+			$res = $complainModel->firstCheck($complainData, $order_id);
 			die(json::encode($res));
+
 		}
 
-		return false;
+		$this->redirect('complainList');
 	}
 
 	/**
@@ -135,32 +124,28 @@ class ComplainController extends InitController{
 		if (IS_POST && intval($id) > 0) {
 			$session = \Library\session::get('admin');
 			
-			$complainData = array('handle_time' => \Library\Time::getDateTime(), 'handle_msg' => Safe::filterPost('msg'),'handle_admin'=>$session['id']);
-			$pass = Safe::filterPost('pass');
-
-			switch (mb_strlen($pass)) {
-				case 7: //介入处理申述协商通过
-					$order_no = Safe::filterPost('oid');
-
+			$complainData = array('id'=>$id,'handle_time' => \Library\Time::getDateTime(), 'handle_msg' => Safe::filterPost('msg'),'handle_admin'=>$session['id']);
+			$pass = Safe::filterPost('status','int');
+			$order_id = Safe::filterPost('oid');
+			switch ($pass) {
+				case 1: //介入处理申述协商通过
 					$complainData['status'] = \nainai\order\OrderComplain::CONFERCOMPLAIN;
-					$orderModel = new \nainai\order\Order('product_order');
-					$res = $orderModel->orderUpdate(array('id'=>$order_no, 'is_lock' => 0));
 					break;
 
-				case 4: //买方违约
+				case 2: //买方违约
 					$complainData['status'] = \nainai\order\OrderComplain::BUYBREAKCOMPLAIN;
 					//扣除定金操作
 					break;
 
-				case 5: //卖方违约
+				case 3: //卖方违约
 					$complainData['status'] = \nainai\order\OrderComplain::SELLBREAKCOMPLAIN;
 					break;
 			}
 
-			if ($res['success'] == 1) {
-				$complainModel = new \nainai\order\OrderComplain();
-				$complainModel->updateOrderComplain($complainData, $id);
-			}
+
+			$complainModel = new \nainai\order\OrderComplain();
+			$res = $complainModel->secondCheck($complainData, $order_id);
+			die(json::encode($res));
 			
 		}
 
