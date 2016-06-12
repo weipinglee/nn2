@@ -11,31 +11,6 @@ use \Library\checkRight;
 
 class DeliveryController extends UcenterBaseController {
 
-	protected function  getLeftArray(){
-        return array(
-            array('name' => '交易管理', 'list' => array()),
-            array('name' => '销售管理', 'list' => array(
-                array('url' => '', 'title' => '销售列表' ),
-                array('url' => url::createUrl('/ManagerDeal/indexOffer'), 'title' => '发布产品' ),
-            )),
-            array('name' => '仓单管理', 'list' => array(
-                array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单' ),
-                array('url' => '', 'title' => '仓单列表' ),
-            )),
-            array('name' => '采购管理', 'list' => array(
-                array('url' => '', 'title' => '采购列表' ),
-                array('url' => '', 'title' => '发布采购' ),
-            )),
-            array('name' => '合同管理', 'list' => array(
-                array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ),
-                array('url' => url::createUrl('/Contract/buyerList'), 'title' => '购买合同' ),
-            )),
-            array('name' => '提货管理', 'list' => array(
-                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=0'), 'title' => '购买提单列表' ),
-                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=1'), 'title' => '销售提单列表' ),
-            ))
-        );
-    }
 
     //提货页面
     public function newDeliveryAction(){
@@ -78,13 +53,23 @@ class DeliveryController extends UcenterBaseController {
         }
     }
 
-	//获取当前登陆用户的提货列表
-    public function deliveryListAction(){
+
+
+    public function deliBuyListAction(){
         $delivery = new \nainai\delivery\Delivery();
-        $is_seller = safe::filter($this->_request->getParam('is_seller'),'int');
         $page = safe::filterGet('page','int',1);
         $user = $this->user_id;
-        $list = $delivery->deliveryList($user,$page,$is_seller == 1 ? true : false);
+        $list = $delivery->deliveryList($user,$page,false);
+
+        $this->getView()->assign('data',$list['data']);
+        $this->getView()->assign('page',$list['bar']);
+    }
+
+    public function deliSellListAction(){
+        $delivery = new \nainai\delivery\Delivery();
+        $page = safe::filterGet('page','int',1);
+        $user = $this->user_id;
+        $list = $delivery->deliveryList($user,$page,true);
 
         $this->getView()->assign('data',$list['data']);
         $this->getView()->assign('page',$list['bar']);
