@@ -481,6 +481,24 @@ text-decoration: none;
 background-color: #fff;
 border: 1px solid #ddd;
 }
+.pages_bar a{
+position: relative;
+float: left;
+padding: 6px 12px;
+margin-left: -1px;
+line-height: 1.42857143;
+color: #428bca;
+text-decoration: none;
+background-color: #fff;
+border: 1px solid #ddd;
+}
+.pages_bar a.current_page{
+z-index: 2;
+color: #fff;
+cursor: default;
+background-color: #428bca;
+border-color: #428bca;
+}
 .page .paginations>li>a:hover{
 	background: #F5F3F3;
 }
