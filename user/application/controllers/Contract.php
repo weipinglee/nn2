@@ -68,6 +68,8 @@ class ContractController extends UcenterBaseController{
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id,'seller');
+		$info['complain'] = $order->canComplain($info);
+
 		$this->getView()->assign('info',$info);
 	}
 
@@ -92,6 +94,7 @@ class ContractController extends UcenterBaseController{
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id);
+		$info['complain'] = $order->canComplain($info);
 		$this->getView()->assign('info',$info);
 	}
 
@@ -147,7 +150,7 @@ class ContractController extends UcenterBaseController{
 
 		if (intval($id) > 0) {
 			$ContractData = array();
-			$ContractData = $complainModel->getContract($id);
+			$ContractData = $complainModel->getUcenterContract($id,$this->user_id);
 
 			if (empty($ContractData)) {//没有这合同直接跳转
 				$this->HandlerHtml(tool::getSuccInfo(0, '无效的合同！'));

@@ -102,10 +102,10 @@ class ComplainController extends InitController{
 			$session = \Library\session::get('admin');
 			
 			$complainData = array('check_time' => \Library\Time::getDateTime(), 'check_msg' => Safe::filterPost('msg'),'check_admin'=>$session['id']);
-			$pass = Safe::filterPost('pass');
+			$pass = Safe::filterPost('status');
 
-			switch (mb_strlen($pass)) {
-				case 4: //介入处理
+			switch ($pass) {
+				case 1: //介入处理
 					$order_id = Safe::filterPost('oid');
 
 					$complainData['status'] = \nainai\order\OrderComplain::INTERVENECOMPLAIN;
@@ -114,19 +114,16 @@ class ComplainController extends InitController{
 	
 					break;
 
-				case 3: //不通过
+				case 0: //不通过
 					$complainData['status'] = \nainai\order\OrderComplain::DONTCOMPLAIN;
 					$res = array('success' => 1);
 					break;
 			}
 
-			if ($res['success'] == 1) {
-				$complainModel = new \nainai\order\OrderComplain();
-				$complainModel->updateOrderComplain($complainData, $id);
-			}
+			die(json::encode($res));
 		}
 
-		$this->redirect('complainList');
+		return false;
 	}
 
 	/**

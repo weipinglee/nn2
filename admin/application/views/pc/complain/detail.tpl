@@ -87,33 +87,37 @@
              <tr>
              <th>填写审核意见</th>
              <td colspan="6">
-              <textarea name="msg" cols="" rows="" class="textarea"  onKeyUp="textarealength(this,1000)">
-              </textarea>
+              <textarea name="msg" cols="" rows="" class="textarea"  onKeyUp="textarealength(this,1000)"></textarea>
               </td>
               </tr>
              {elseif: $handler == 2}
               <tr>
              <th>填写处理意见</th>
              <td colspan="6">
-              <textarea name="msg" cols="" rows="" class="textarea"  onKeyUp="textarealength(this,1000)">
-              </textarea>
+              <textarea name="msg" cols="" rows="" class="textarea"  onKeyUp="textarealength(this,1000)"></textarea>
               </td>
               </tr>
              {/if}
-                 <th>操作</th>
+                 <th>处理结果</th>
                  <input type="hidden"  name='id' value="{$detail['id']}" />
                  <input type="hidden"  name='oid' value="{$detail['oid']}" />
                   <th scope="col" colspan="7">
                   <input  type="hidden" name="id" value="{$detail['id']}" />
                   {if: $handler == 1}
-                  <input class="btn btn-success radius" type="submit" name="pass" value="介入处理">
-                  <input class="btn btn-danger radius" type="submit" name="pass" value="不通过">
+                     <label><input type="radio" name="status" value="1"/>介入处理</label>
+                      <label><input type="radio" name="status" value="0"/>不通过</label>
                   {elseif: $handler == 2}
-                  <input class="btn btn-success radius" type="submit" name="pass" value="介入后协商通过">
-                  <input class="btn btn-danger radius" type="submit" name="pass" value="买方违约">
-                  <input class="btn btn-success radius" type="submit" name="pass" value="卖方违约&nbsp;">
+                      <label><input type="radio" name="status" value="1"/>介入后协商通过</label>
+                      <label><input type="radio" name="status" value="2"/>买方违约</label>
+                      <label><input type="radio" name="status" value="3"/>卖方违约</label>
                   {/if}
-                      
+
+                 </th>
+             </tr>
+             <tr>
+                 <th>操作</th>
+                 <th scope="col" colspan="7">
+                     <input type="submit" class="btn btn-primary radius" value="提交"/>
                      <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
                  </th>
              </tr>

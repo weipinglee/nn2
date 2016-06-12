@@ -27,7 +27,9 @@
 							</div>
 							<div class="detail_chj">
 								<!-- <input class="qx_butt" type="button" value="取消订单"/> -->
-								
+								{if:$info['complain']==1}
+									<a  href="{url:/contract/complainContract}?id={$info['id']}"><input class="fk_butt" type="button" value="我要申诉"/></a>
+								{/if}
 								{if:isset($info['action'][0]['url'])}<input class="fk_butt" type="button" url="{$info['action'][0]['url']}" onclick="window.location.href='{$info['action'][0]['url']}'" value="{$info['title']}"/>{/if}
 							</div>
 						</div>

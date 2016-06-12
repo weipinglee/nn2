@@ -189,10 +189,55 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 			}
 			
 			$query->join = 'LEFT JOIN product_offer as b ON a.offer_id=b.id LEFT JOIN products as c ON b.product_id=c.id LEFT JOIN product_category as d ON c.cate_id=d.id';
-			$query->where = 'a.id = :id';
+			$query->where = 'a.id = :id ';
+
 			$query->bind = array('id' => $orderId);
 			$detail = $query->getObj();
 
+			$detail['attribute'] = unserialize($detail['attribute']);
+			$attrIds = array_keys($detail['attribute']);
+
+			$productModel = new \nainai\offer\product();
+			$detail['photos'] = $productModel->getProductPhoto($detail['product_id']);
+			$detail['attrs'] = $productModel->getHTMLProductAttr($attrIds);
+
+			return $detail;
+		}
+
+		return $detail;
+	}
+
+	/**
+	 * 会员中心获取用户的合同
+	 * @param $orderId
+	 * @param $user_id
+	 * @return array
+	 */
+	public function getUcenterContract($orderId,$user_id){
+		$detail = array();
+		if (intval($orderId) > 0) {
+			$query = new  Query('order_sell as a ');
+			$query->fields = 'a.id, a.order_no,a.contract_status, a.user_id, a.amount, c.name as pname, c.attribute, c.quantity, c.user_id as sell_user, d.name as cname, b.product_id';
+
+
+			$query->join = 'LEFT JOIN product_offer as b ON a.offer_id=b.id LEFT JOIN products as c ON b.product_id=c.id LEFT JOIN product_category as d ON c.cate_id=d.id';
+			$query->where = 'a.id = :id AND a.user_id=:user_id';
+
+			$query->bind = array('id' => $orderId,'user_id'=>$user_id);
+			$detail = $query->getObj();
+			if(empty($detail)){
+				$query->where = 'a.id = :id AND b.user_id=:user_id';
+				$detail = $query->getObj();
+				if(!empty($detail))
+					$detail['type'] = 'sell';
+			}
+			else{
+				$detail['type'] = 'buy';
+			}
+
+			if(empty($detail)){
+				return array();
+			}
 			$detail['attribute'] = unserialize($detail['attribute']);
 			$attrIds = array_keys($detail['attribute']);
 

@@ -992,4 +992,19 @@ class Order{
 		$bank = new M('user_bank');
 		return $bank->where(array('user_id'=>$user_id))->getObj();
 	}
+
+	/**
+	 * 判断一个合同是否可申诉
+	 * @param $data 数组 包含mode和contract_status两个字段
+	 */
+	public function canComplain($data){
+		if(isset($data['mode']) && isset($data['contract_status'])){
+			if($data['mode']==self::ORDER_DEPOSIT || $data['mode']==self::ORDER_STORE){
+				if($data['contract_status']!=0 && $data['contract_status']!=8)
+					return 1;
+			}
+
+		}
+		return 0;
+	}
 }
