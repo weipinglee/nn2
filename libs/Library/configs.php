@@ -18,6 +18,6 @@ return array(
     'rootDir'=>array(//é¡¹ç›®æ ¹ç›®å½•ç»å¯¹è·¯å¾?
         'user'=>'E:\wamp\www\nn2\user\public',
         'admin'=>'E:\wamp\www\nn2\admin\public'
-
+            
     ),
 );
