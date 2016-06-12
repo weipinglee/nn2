@@ -20,6 +20,8 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 		//RBAC权限控制
 		$user_info = session::get(tool::getConfig('rbac')['user_session']);
 		if((!isset($user_info) || !$user_info) && (strtolower($request->controller) != 'login')){
+			echo '<script type="text/javascript" >window.parent.location.href="'.url::createUrl("/login/login").'"</script>';
+			exit;
 			$response->setRedirect(url::createUrl("/login/login"));
 		}
 		$rbac = new rbac($request);
