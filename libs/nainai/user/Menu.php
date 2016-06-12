@@ -141,7 +141,8 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
 
 			foreach($menuList as $k=>$v){
-				$menuList[$k]['menu_url'] = \Library\url::createUrl($menuList[$k]['menu_url']);
+				if($v['menu_url']!='')
+					$menuList[$k]['menu_url'] = \Library\url::createUrl($menuList[$k]['menu_url']);
 			}
 		}
 
