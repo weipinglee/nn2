@@ -5,12 +5,12 @@
             <p><a>申述管理</a>><a>申述列表</a></p>
         </div>
         <div class="chp_xx">
-            <form action="{url:contract/complainList}" method="POST">
+            <!--<form action="{url:contract/complainList}" method="POST">
                 <div class="text-c"> 订单号：
                     <input type="text" class="input-text" style="width:250px" placeholder="输入订单号" id="" name="order_no" value="{$order_no}">
                     <button type="submit" class="btn btn-success radius" id="" name="">搜申述</button>
                 </div>
-            </form>
+            </form>-->
             <br />
             <div class="xx_center">
 
