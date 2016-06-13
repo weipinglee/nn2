@@ -76,7 +76,12 @@ class UcenterBaseController extends \nainai\controller\Base{
 		if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
 			$this->redirect(url::createUrl('/ucenter/index'));
 		}
+
+
 		$this->getView()->assign('action', $action);
+		$mess=new \nainai\message($this->user_id);
+		$countNeedMess=$mess->getCountMessage();
+		$this->getView()->assign('mess',$countNeedMess);
 	}
 
 	/**

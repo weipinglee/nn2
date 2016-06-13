@@ -23,6 +23,35 @@ class UcenterIndexController extends UcenterBaseController {
         $this->getView()->assign('group',$groupData);
         $this->getView()->assign('creditGap',$creditGap);
 
+        $this->getView()->assign('cert',$this->cert);
+
+        //获取代理账户金额
+        $fundObj = \nainai\fund::createFund(1);
+        $active = $fundObj->getActive($this->user_id);
+        $freeze = $fundObj->getFreeze($this->user_id);
+        $total = $active + $freeze;
+        $this->getView()->assign('count',$total);
+
+        //获取销售合同
+        $order = new \nainai\order\Order();
+        $where = array();
+        $list = $order->sellerContractList($this->user_id,1,$where);
+
+        if(isset($list['data'][0]))
+            $contract1 = $list['data'][0];
+        else $contract1 = array();
+        $this->getView()->assign('contract1',$contract1);
+
+        //获取购买合同
+        $list = $order->buyerContractList($this->user_id,1,$where);
+
+        if(isset($list['data'][0]))
+            $contract2 = $list['data'][0];
+        else $contract2 = array();
+
+        $this->getView()->assign('contract2',$contract2);
+
+
     }
 
 
