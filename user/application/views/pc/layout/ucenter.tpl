@@ -179,7 +179,7 @@
 		<div class="user_b">
 			<!--start左侧导航--> 
             <div class="user_l">
-                {if:!empty($leftArray)}
+                {if:!empty($leftArray) && count($leftArray)>1}
                 <div class="left_navigation">
                     <ul>
 
@@ -219,9 +219,9 @@
                                 </a>
                             </div>
                             <div class="per_username">
-                                <p class="username_p"><b>上午好，{$username}</b></p>
+                                <p class="username_p"><b>您好，{$username}</b></p>
                                 <p class="username_p"><img src="{$group['icon']}">{$group['group_name']}</p>
-                                <p class="username_p">消息提醒：<b class="colaa0707">24</b></p>
+                                <p class="username_p">消息提醒：<a href="{url:/message/userMail}"><b class="colaa0707">24</b></a></p>
                                 <p class="username_p"><a class="padding_right" href="">去认证</a><a class="col1734b1" href="">仓储管理</a></p>
                             </div>
                             <div class="per_function">
