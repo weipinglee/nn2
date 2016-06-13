@@ -106,6 +106,13 @@
                                 <li><a href="{url:member/agent/addAgent}" target="content">代理商添加</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href='javascript:voie(0)' target="content">推荐商户</a>
+                            <ul>
+                                <li><a href="{url:member/companyRec/recList}" target="content" >推荐商户</a></li>
+                                <li><a href="{url:member/companyRec/recAdd}" target="content" >添加推荐</a></li>
+                            </ul>
+                        </li>
                         <li><a href="shop-list.html" target="content">商铺管理</a></li>
                         <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>
                     </ul>
@@ -163,16 +170,14 @@
                         </li>
                     </ul>
                 </li>
-                <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 信誉管理</a>
+                <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 统计管理</a>
                     <ul>
-                        <li><a target="content">算法设置</a>
+                        <li><a target="content">市场统计</a>
                             <ul>
-                                <li><a href="element-add.html" target="content">添加元素</a></li>
-                                <li><a href="set-scale.html" target="content">设置比例</a></li>
+                                <li><a href="{url:information/marketStats/cateList}" target="content">统计项列表</a></li>
+                                <li><a href="{url:information/marketStats/marketStatsList}" target="content">市场统计</a></li>
                             </ul>
                         </li>
-                        <li><a href="rank-list.html" target="content">等级管理</a></li>
-                        <li><a href="honor-list.html" target="content">信誉排名</a></li>
                     </ul>
                 </li>
                <!-- <li class="nosubmenu"><a href="modal.html" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 数据统计</a></li>
