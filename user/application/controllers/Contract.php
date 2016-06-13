@@ -113,7 +113,7 @@ class ContractController extends UcenterBaseController{
 
 			$ContractData = $complainModel->getContract($order_id, 2);
 			if (empty($ContractData)) {//没有这合同直接跳转
-				$this->HandlerHtml(tool::getSuccInfo(0, '无效的合同！'));
+				die(json::encode(tool::getSuccInfo(0,'无效的合同')));
 			}
 
 			$complainData = array(
@@ -123,7 +123,7 @@ class ContractController extends UcenterBaseController{
 				'detail' => Safe::filterPost('content'),
 				'proof' => serialize(Safe::filterPost('imgData')),
 				'apply_time' => \Library\Time::getDateTime(),
-				'type' => ($this->user_id == Safe::filterPost('userId', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
+				'type' => ($this->user_id == Safe::filterPost('user_id', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
 				'status' => \nainai\order\OrderComplain::APPLYCOMPLAIN
 			);
 
@@ -131,49 +131,51 @@ class ContractController extends UcenterBaseController{
 			switch ($complainData['type']) {
 				case \nainai\order\OrderComplain::BUYCOMPLAIN:
 					if ($this->user_id != $ContractData['user_id']) {
-						$this->HandlerHtml(tool::getSuccInfo(0, '请不要申请不是你购买的合同！'));
+						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你购买的合同')));
 					}
 					break;
 				case \nainai\order\OrderComplain::SELLCOMPLAIN:
 					if ($this->user_id != $ContractData['sell_user']) {
-						$this->HandlerHtml(tool::getSuccInfo(0, '请不要申请不是你销售的合同'));
+						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你销售的合同')));
 					}
 					break;
 			}
 
 			$returnData = $complainModel->addOrderComplain($complainData);
 
-			$this->HandlerHtml($returnData);
+			die(json::encode($returnData));
 		}
+		else{
+			$id = Safe::filterGet('id', 'int');
 
-		$id = Safe::filterGet('id', 'int');
+			if (intval($id) > 0) {
+				$ContractData = array();
+				$ContractData = $complainModel->getUcenterContract($id,$this->user_id);
 
-		if (intval($id) > 0) {
-			$ContractData = array();
-			$ContractData = $complainModel->getUcenterContract($id,$this->user_id);
+				if (empty($ContractData)) {//没有这合同直接跳转
+					$this->error('无效的合同！');
+				}
 
-			if (empty($ContractData)) {//没有这合同直接跳转
-				$this->HandlerHtml(tool::getSuccInfo(0, '无效的合同！'));
-			}
+				//获取卖方和卖方的中文名
+				$userModel = new \nainai\user\User();
+				$ContractData['usercn']  = $userModel->getUser($ContractData['user_id'], 'username');
+				if ($ContractData['user_id'] == $ContractData['sell_user']) {
+					$ContractData['sellcn'] = $ContractData['usercn'];
+				}else{
+					$ContractData['sellcn'] = $userModel->getUser($ContractData['sell_user'], 'username');
+				}
 
-			//获取卖方和卖方的中文名
-			$userModel = new \nainai\user\User();
-			$ContractData['usercn']  = $userModel->getUser($ContractData['user_id'], 'username');
-			if ($ContractData['user_id'] == $ContractData['sell_user']) {
-				$ContractData['sellcn'] = $ContractData['usercn'];
+				//上传图片插件
+				$plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
+
+				//注意，js要放到html的最后面，否则会无效
+				$this->getView()->assign('plupload',$plupload->show());
+				$this->getView()->assign('ContractData', $ContractData);
 			}else{
-				$ContractData['sellcn'] = $userModel->getUser($ContractData['sell_user'], 'username');
+				$this->error('无效的合同！');
 			}
-
-			//上传图片插件
-			$plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
-
-			//注意，js要放到html的最后面，否则会无效
-			$this->getView()->assign('plupload',$plupload->show());
-			$this->getView()->assign('ContractData', $ContractData);
-		}else{
-			$this->HandlerHtml(tool::getSuccInfo(0, '无效的合同！'));
 		}
+
 	}
 
 	/**

@@ -60,7 +60,7 @@
 							</table>
 
 							<div class="plaint_com">
-							<form action="{url:/Contract/complainContract}" id="signupForm"  method="post">
+							<form action="{url:/Contract/complainContract}" id="signupForm"  method="post" auto_submit redirect_url="{url:/contract/complainlist}">
 						
 							<p>
 								<label for="title"><span>申诉标题<i>*</i>：</span></label>
