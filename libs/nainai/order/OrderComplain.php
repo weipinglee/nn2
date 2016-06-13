@@ -306,16 +306,18 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 			$order = new M('order_sell');
 			$obj->beginTrans();
 			if($complainData['status']==self::CONFERCOMPLAIN){//协商通过
-				$order->data(array('is_lock'=>0))->where(array('id'=>$order_id))->update();
+				$order->data(array('is_lock'=>0))->where(array('id'=>$order_id))->update();//合同解锁
+				$res1=true;
 			}
 			else if($complainData['status']==self::BUYBREAKCOMPLAIN){//买方违约
-
-
+				$order = new Order();
+				$res1 = $order->buyerBreakContract($order_id);
 			}
 			else{//卖方违约
-
+				$order = new Order();
+				$res1 = $order->sellerBreakContract($order_id);
 			}
-			if($obj->data($complainData)->validate($this->Rules)){
+			if($res1===true && $obj->data($complainData)->validate($this->Rules)){
 				$id=$complainData['id'];
 				unset($complainData['id']);
 				$obj->data($complainData)->where(array('id'=>$id))->update();

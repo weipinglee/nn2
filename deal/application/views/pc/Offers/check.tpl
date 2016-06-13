@@ -291,7 +291,7 @@ body{_padding-top:30px;}
               <img src="{views:images/order/oder-2.jpg}" width="205" height="47" alt="第二步" />
               </div> 
                
-            <form method="post" action='{url:/trade/buyerPay}'>
+            <form method="post" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=33&pid=45@deal}'>
             <div class="checkim">
             <h2>填写并核对订单信息<a href="contract.html" style="color:blue;">合同预览</a></h2>
 

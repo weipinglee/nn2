@@ -99,17 +99,17 @@ class Order{
 		}
 
 		try {
-			$this->order->beginTrans();
+
 			//买方支付买方违约金
 			$this->account->freezePay($info['user_id'],$offerInfo['user_id'],$pay_break);
 			$product_left = $delivery->productNumLeft($order_id,false,true);
-			$this->productsFreezeRelease($offerInfo,$product_left);
-			$res = $this->order->commit();
+			$res = $this->productsFreezeRelease($offerInfo,$product_left);
+
 		} catch (\PDOException $e) {
-			$this->order->rollBack();
+
 			$res = $e->getMessage();
 		}
-		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res);
+		return $res ;
 	}
 
 	/**
@@ -122,7 +122,7 @@ class Order{
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		$delivery = new \nainai\delivery\Delivery();
 		try {
-			$this->order->beginTrans();
+
 			if($info['mode'] == self::ORDER_DEPOSIT){
 				$seller_deposit = floatval($info['seller_deposit']);
 				//将卖方保证金支付10%支付给买方 解冻货物
@@ -131,18 +131,18 @@ class Order{
 				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
 				//解冻未提货货物
 				$product_left = $delivery->productNumLeft($order_id,false,true);
-				$this->productsFreezeRelease($offerInfo,$product_left);
+				$res = $this->productsFreezeRelease($offerInfo,$product_left);
 				
 			}else{
-				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
+				$res = $this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
 			}
-			$res = $this->order->commit();
+
 		} catch (\PDOException $e) {
-			$this->order->rollBack();
+
 			$res = $e->getMessage();
 		}
 
-		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res);
+		return $res;
 	}	
 
 	/**
@@ -1007,4 +1007,6 @@ class Order{
 		}
 		return 0;
 	}
+
+
 }
