@@ -27,7 +27,7 @@ class companyRecController extends Yaf\Controller_Abstract {
 	推荐商户编辑
      */
     public function recEditAction(){
-        if(IS_POST&&IS_AJAX){
+        if(IS_POST){
             $data=array(
                 'id'=>safe::filterPost('id','int'),
                 'user_id'=>safe::filterPost('user_id','int'),
@@ -36,14 +36,21 @@ class companyRecController extends Yaf\Controller_Abstract {
                 'start_time'=>safe::filterPost('start_time'),
                 'end_time'=>safe::filterPost('end_time')
             );
+
             $recModel=new \nainai\companyRec();
             $result=$recModel->editRec($data);
             echo json::encode($result);
             return false;
         }
-        $id=\Library\safe::filterGet('id','int');
-        $res=\nainai\companyRec::getRecDetail($id);
-        $this->getView()->assign('recInfo',$res);
+		else{
+			$id=\Library\safe::filterGet('id','int');
+			if($id>0){
+				$res=\nainai\companyRec::getRecDetail($id);
+				$this->getView()->assign('data',$res);
+			}
+
+		}
+
 
     }
     /*
@@ -64,6 +71,7 @@ class companyRecController extends Yaf\Controller_Abstract {
 			return false;
 
     	}
+
     	$cInfoModel=new \Library\Query('company_info as i');
     	$cInfoModel->fields='i.user_id,i.company_name';
     	$res=$cInfoModel->find();
@@ -109,44 +117,58 @@ class companyRecController extends Yaf\Controller_Abstract {
    	批量添加
      */
     public function recBatchAddAction(){
-    	if(IS_POST&&IS_AJAX){
-            //var_dump($_POST);
-    		$userId=safe::filterPost('user_id','int');
-    		$type=safe::filterPost('type','int');
-    		$status=safe::filterPost('type','int');
-    		$start_time=safe::filterPost('start_time','int');
-    		$end_time=safe::filterPost('end_time');
-    		$companyName=safe::filterPost('company_name');
-    		$error=array();
-    		$recModel=new \nainai\companyRec();
-    		foreach($userId as $key=>$v){
-    				$data=array(
-    					'user_id'=>$userId[$key],
-    					'type'=>$type[$key],
-    					'status'=>$status[$key],
-    					'start_time'=>$start_time[$key],
-    					'end_time'=>$end_time[$key]
-    					);
-    			$res=$recModel->addRec($data);
-    			if($res['success']==0){
-    				$error[]=$userId[$key];
+		if(IS_POST&&IS_AJAX){
+			//var_dump($_POST);
+			$userId=safe::filterPost('user_id','int');
+			$type=safe::filterPost('type','int');
+			$status=safe::filterPost('type','int');
+			$start_time=safe::filterPost('start_time');
+			$end_time=safe::filterPost('end_time');
+			$error=array();
+			$recModel=new \nainai\companyRec();
+			$recObj=new \Library\M('company_rec');
+			$recObj->beginTrans();
+			foreach($userId as $key=>$v){
+				$data=array(
+					'user_id'=>$userId[$key],
+					'type'=>$type[$key],
+					'status'=>$status[$key],
+					'start_time'=>$start_time[$key],
+					'end_time'=>$end_time[$key]
+				);
+				$res=$recModel->addRec($data);
+				if($res['success']==0){
+					$error[]=$userId[$key];
 
-    				//continue;
-    			}
+				}
+			}
+			if(empty($error)){
+				$recObj->commit();
+				die(JSON::encode(\Library\tool::getSuccInfo(1,'添加成功')));
+			}else{
+				$recObj->rollBack();
+				$cInfo=$recModel->getCompanyInfo($error);
+				$error=implode(',',$cInfo);
 
-    		}
-    		if(empty($error)){
-    			die(JSON::encode(\Library\tool::getSuccInfo(1,'添加成功')));
-    		}else{
-                $cInfo=$recModel->getCompanyInfo($error);
-                $error=implode(',',$cInfo);
+				die(JSON::encode(\Library\tool::getSuccInfo(0,'以下商户添加失败:'.$error)));
+			}
 
-    			die(JSON::encode(\Library\tool::getSuccInfo(0,'以下商户添加失败:'.$error)));
-    		}
+		}
 
-    	}
-
-    	return false;
+		return false;
 
     }
+
+	public function setStatusAction(){
+		if(IS_AJAX){
+			$recModel=new \nainai\companyRec();
+			$data['status'] = intval(safe::filterPost('status'));
+			$data['id'] = intval($this->_request->getParam('id'));
+			$res = $recModel->setStatus($data['id'],$data['status']);
+
+			echo JSON::encode($res);
+			return false;
+		}
+		return false;
+	}
 }

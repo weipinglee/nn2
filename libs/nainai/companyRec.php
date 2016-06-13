@@ -106,7 +106,10 @@ class companyRec{
         if($crecModel->data($data)->validate($this->recRules)){
             $where=array('id'=>$data['id']);
             unset($data['id']);
-            if($crecModel->data($data)->update()){
+            $crecModel->beginTrans();
+            $crecModel->data($data)->update();
+            $res = $crecModel->commit();
+            if($res===true){
                 return tool::getSuccInfo(1,'修改成功');
             }else{
                 return tool::getSuccInfo(0,'修改失败');
@@ -281,6 +284,22 @@ class companyRec{
             $res= $cInfoModel->where($where)->getField('company_name');
         }
         return $res;
+    }
+
+    /**
+     * 设置状态
+     * @param $id
+     * @param $status
+     */
+    public function setStatus($id,$status){
+        $this->cRecModel->beginTrans();
+        $this->cRecModel->where(array('id'=>$id))->data(array('status'=>$status))->update();
+        $res = $this->cRecModel->commit();
+        if($res===true)
+            return tool::getSuccInfo();
+        else
+            return tool::getSuccInfo(0,'操作错误');
+
     }
 
 }

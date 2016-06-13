@@ -5,107 +5,84 @@
 <script type="text/javascript" src="{views:content/settings/main.js}"></script>
 <link rel="stylesheet" href="{views:content/settings/style.css}" />
 <link rel="stylesheet" type="text/css" href="{views:css/H-ui.admin.css}">
-
+<script type="text/javascript" src="{views:js/My97DatePicker/WdatePicker.js}"></script>
 <!--
       CONTENT
                 -->
 <div id="content" class="white">
+
     <h1><img src="{views:img/icons/dashboard.png}" alt="" />推荐管理
+
     </h1>
 
     <div class="bloc">
         <div class="title">
-            推荐信息
+            添加推荐
         </div>
         <div class="pd-20">
-            <table class="table table-border table-bordered table-bg">
-                <tr>
 
-                    <th>推荐类型</th>
+            <form action="{url:member/companyRec/recEdit}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:member/companyRec/recList}">
+                <input type="hidden" name="id" value="{$data['id']}" />
+                <input type="hidden" name="user_id" value="{$data['user_id']}" />
+                <div class="row cl">
+                    <label class="form-label col-3"><span class="c-red">*</span>企业名称：</label>
+                    <div class="formControls col-5">
+                        {$data['company_name']}
+                    </div>
+                    <div class="col-4"> </div>
+                </div>
+
+                <div class="row cl">
+                    <label class="form-label col-3"><span class="c-red">*</span>推荐类型：</label>
                     {set: $type=\nainai\companyRec::getRecType()}
-                    <td>
+                    <div class="formControls col-5">
                         <select name="type" id="type">
-                            {foreach:items=$type}
-                                <option value="{$key}"
-                                {if: $key=$recInfo['type']==$key}"selected"{/if}
-                                >{$item}</option>
+                            {foreach: items=$type}
+                                <option value="{$key}" {if:$data['type']==$key}checked=true{/if}>{$item}</option>
                             {/foreach}
                         </select>
-                    </td>
-                    <th>用户名</th>
-                        <td>{$recInfo['username']}</td>
-                </tr>
-                <tr>
-                    <th>企业名称</th>
-                    <td>{$recInfo['company_name']}</td>
-                    <th>手机号</th>
-                    <td>{$recInfo['mobile']}</td>
+                    </div>
+                    <div class="col-4"> </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-3"><span class="c-red">*</span>开始时间：</label>
+                    <div class="formControls col-5">
+                        <input type="text" name="start_time" value="{$data['start_time']}" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});">
+                    </div>
+                    <div class="col-4"> </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-3"><span class="c-red">*</span>结束时间：</label>
+                    <div class="formControls col-5">
+                        <input type="text" name="end_time" value="{$data['end_time']}" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" >
+                    </div>
+                    <div class="col-4"> </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-3"><span class="c-red">*</span>是否开启：</label>
+                    <div class="formControls col-5">
+                        {if:isset($data)}
+                            <input type="radio" name="status" value='1' {if:$data['status'] == 1}checked='1'{/if} id="">是
+                            <input type="radio" name="status" value='0' {if:$data['status'] == 0}checked='1'{/if} id="">否
+                        {else:}
+                            <input type="radio" name="status" value='1' checked='1' id="">是
+                            <input type="radio" name="status" value='0' id="">否
+                        {/if}
 
-                </tr>
-                <tr>
+                    </div>
+                    <div class="col-4"> </div>
+                </div>
 
-                    <th>分类</th>
-                    <td>{$recInfo['pname']}</td>
-                    <th>状态</th>
-                    <td>开启
-                        <input type="radio" name="status"value="1" {if:$recInfo['status']==1}checked="checked"{/if}/>
-                        关闭
-                        <input type="radio" name="status" value="0"{if:$recInfo['status']==0}checked="checked"{/if}/>
-                    </td>
-
-                </tr>
-                <tr>
-                    <th>开始时间：</th>
-                    <td>
-                        <input type="text" name="start_time" value="{$recInfo['start_time']}" />
-                    <th>结束：</th>
-                    <td><input type="text" name='end_time' value="{$recInfo['end_time']}" /></td>
-
-                </tr>
-                    <tr>
-                        <th scope="col" colspan="6">
-                            <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok"></i> 保存</a>
-                            <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
-
-                        </th>
-
-                    </tr>
-
-
-            </table>
+                <div class="row cl">
+                    <div class="col-9 col-offset-3">
+                        <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<script type="text/javascript">
-    $(function(){
-        var formacc = new nn_panduo.formacc();
+</div>
 
 
-        $('a.pass').click(function(){
-            //$(this).unbind('click');
-            var data={
-                id:"{$recInfo['id']}",
-                status:$("input[name='status']:checked").val(),
-                type:$('#type').val(),
-                start_time:$("input[name='start_time']").val(),
-                end_time:$('input[name="end_time"]').val(),
-                user_id:"{$recInfo['user_id']}"
-            };
-            msg = '已保存';
-            setStatus(data,msg);
-        })
-        function setStatus(data,msg){
-            formacc.ajax_post("{url:member/companyRec/recEdit}",data,function(){
-                layer.msg(msg+"稍后自动跳转");
-               /* setTimeout(function(){
-                    window.location.href = "{url:balance/fundIn/offlineList}";
-                },1500);*/
-            });
-        }
-    })
-
-</script>
-
-</body>
-</html>

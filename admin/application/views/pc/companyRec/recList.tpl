@@ -36,9 +36,21 @@
                                 <td>{echo: \nainai\companyRec::getRecType($item['type'])}</td>
                                 <td>{$item['start_time']}</td>
                                 <td>{$item['end_time']}</td>
-                                <td>{if:$item['status']==1}开启{else:}关闭{/if}</td>
+                                <td class="td-status">
+                                    {if:$item['status'] == 1}
+
+                                        <span class="label label-success radius">已启用</span>
+                                    {else:}
+                                        <span class="label label-error radius">停用</span>
+                                    {/if}
+                                </td>
                                 <td class="td-manage">
-                                    <a title="审核" href="{url:/member/companyRec/recEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
+                                    {if:$item['status'] == 1}
+                                        <a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=0 ajax_url="{url:member/companyRec/setStatus?id=$item['id']}"><i class="icon-pause"></i></a>
+                                    {elseif:$item['status'] == 0}
+                                        <a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:member/companyRec/setStatus?id=$item['id']}"><i class="icon-play"></i></a>
+                                    {/if}
+                                    <a title="审核" href="{url:member/companyRec/recEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
                                     <a title="删除" href="javascript:void(0);" onclick="delRec({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
                             </tr>
                         {/foreach}
