@@ -40,13 +40,31 @@ class marketStatsController extends Yaf\Controller_Abstract{
         $this->getView()->assign('cateTree', $cateTree);
         $this->getView()->assign('statsType', $statsType);
     }
-    public function delAction(){
-        if(IS_GET&&IS_AJAX){
-           /* $id=safe::filterGet('id','int');
-            $res=\nainai\statistics::delStats($id);*/
-            die(JSON::encode(array('success'=>0,'info'=>'删除失败')));
+
+    /**
+     * 统计项列表
+     */
+    public function cateListAction(){
+        $statsModel=new \nainai\statistics();
+        $data = $statsModel->getStatCateList();
+
+        $this->getView()->assign('data',$data);
+    }
+    //删除统计分类
+    public function delCateAction(){
+        if(IS_POST&&IS_AJAX){
+            $id=safe::filterGet('id','int');
+            $res=\nainai\statistics::delStatsCate($id);
+            die(json::encode($res));
         }
         return false;
 
+    }
+
+    public function createStaticAction(){
+        $statsModel=new \nainai\statistics();
+        $data = $statsModel->createStatistics();
+        print_r($data);
+        return false;
     }
 }

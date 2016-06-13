@@ -28,6 +28,8 @@ class statistics{
         array('days','number','统计时间不能为空')
 
     );
+
+
     /**
      * 添加分类
      * @param $cateId 分类id
@@ -74,53 +76,66 @@ class statistics{
      * @return array
      */
     public function  createStatistics(){
-        $marketObj=new M('static_market as m');
-        $marketObj->fields('m.create_time');
-        $marketObj->where('datediff(NOW(),m.create_time)>'.$this->interval);
-        $marketObj->order('id desc');
-        $createTime=$marketObj->getObj();
-        //如果最后一条插入数据的时间小于间隔时间
-        if(!$createTime){
+        $marketObj=new M('static_market');
+        $createTime = $marketObj->order('id desc')->getField('create_time');
+
+        if($createTime!==false && $this->interval>\Library\time::getDiffDays($createTime,\Library\time::getDateTime())){
             return tool::getSuccInfo(0,'统计时间还没到');
         }
-        $catList=$this->getAllCat();
-        if(!isset($catList[self::MAKET_STATIC])){
-            return tool::getSuccInfo(0,'市场统计分类不存在');
-        }
-        $marketCatList=array();
-        foreach($catList[self::MAKET_STATIC] as $k=>$v){
-            $marketCatList[]=$v['cate_id'];
-        }
+
+        $catList=$this->getStatCateList();
+
+
         $offerObj=new Query('product_offer as f');
         $offerObj->join='left join products as p on f.product_id=p.id';
-        $offerObj->group='p.cate_id';
-        $offerObj->where='datediff(NOW(),f.apply_time)<'.$this->interval;
-        $offerObj->fields='AVG(f.price) as "平均价",p.cate_id';
-        $res=$offerObj->find();
+        $offerObj->fields='AVG(f.price) as "avg"';
+
+
         $data=array(
-            'type'=>self::MAKET_STATIC,
             'create_time'=>date('Y-m-d H:i:s',time()),
             'days'=>$this->interval
         );
         $error=array();
-        foreach($res as $k=>$v){
-            if(in_array($v['cate_id'],$marketCatList)){
-                $data['cate_id']=$v['cate_id'];
-                $data['ave_price']=$v['平均价'];
-                if($marketObj->data($data)->validate($this->marketRules)){
-                    $marketObj->data($data)->add();
-                }else{
-                    $error[]=$marketObj->getError();
-                }
 
-
+        foreach($catList as $key=>$cate){
+            $cate_childs = $this->getChildCate($cate['cate_id']);
+            $cate_childs[] =$cate['cate_id'];
+            $cate_childs = join(',',$cate_childs);
+            $offerObj->where='p.cate_id in ('.$cate_childs.') and datediff(NOW(),f.apply_time)<'.$this->interval;
+            $res = $offerObj->find();
+            if(empty($res)){
+                $data['ave_price'] = 0;
             }
+            else
+                $data['ave_price']=$res[0]['avg'];
+            $data['cate_id']=$cate['cate_id'];
+            $data['type'] = $cate['type'];
+            if($marketObj->data($data)->validate($this->marketRules)){
+                    $marketObj->data($data)->add();
+            }else{
+                    $error[]=$marketObj->getError();
+            }
+
         }
+
         if(empty($error)){
             return tool::getSuccInfo(1,'添加成功');
         }else{
             return tool::getSuccInfo(0,count($error).'条插入失败');
         }
+    }
+
+    protected function getChildCate($id){
+        $obj = new M('product_category');
+        static $arr = array();
+        $data = $obj->where(array('pid'=>$id))->fields('id')->select();
+        if(!empty($data)){
+            foreach($data as $k=>$v){
+                $arr[] = $v['id'];
+                $this->getChildCate($v['id']);
+            }
+        }
+        return $arr;
     }
     /**
      * 获取所有的统计分类
@@ -135,6 +150,17 @@ class statistics{
             $result[$v['type']][]=$v;
         }
         return $result;
+    }
+
+    public function getStatCateList(){
+        $catObj=new Query('static_category as s');
+        $catObj->join = 'left join product_category as c on s.cate_id=c.id';
+        $catObj->fields = 's.id as stat_id,s.cate_id,s.type,s.status as static_status,c.*';
+        $catList=$catObj->find();
+        foreach($catList as $k=>$v){
+            $catList[$k]['type_text'] = $this->getStatsType($v['type']);
+        }
+        return $catList;
     }
 
     /**
@@ -214,5 +240,12 @@ class statistics{
         $res=$statsModel->where($where)->delete();
         return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
 
+    }
+
+    public static function delStatsCate($id){
+        $statsModel=new M('static_category');
+        $where=array('id'=>$id);
+        $res=$statsModel->where($where)->delete();
+        return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
     }
 }
