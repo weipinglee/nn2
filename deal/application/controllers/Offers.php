@@ -23,7 +23,7 @@ class OffersController extends \Yaf\Controller_Abstract {
 	private $order;
 
 	public function init(){
-		$this->getView()->setLayout('header');
+		//$this->getView()->setLayout('header');
 		$this->offer = new OffersModel();
 		$this->order = new \nainai\order\Order();
 	}
@@ -59,29 +59,7 @@ class OffersController extends \Yaf\Controller_Abstract {
 		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
 		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));
 
-		// $user_id = 49;//$this->user_id;
-		// $orderData['offer_id'] = $id;
-		// $orderData['num'] = $num;
-		// $orderData['order_no'] = tool::create_uuid();
-		// $orderData['user_id'] = $user_id;
-		// $orderData['create_time'] = date('Y-m-d H:i:s',time());
-		// $orderData['offer_type'] = $offer_type;
-		// $orderData['payment'] = $payment;
-		// $gen_res = $order_mode->geneOrder($orderData);
-		// if($gen_res['success'] == 1){
-		// 	if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){
-		// 		$this->redirect(url::createUrl('/Offers/paySuccess?order_no='.$orderData['order_no'].'&amount=111&payed=0&info=等待上传线下支付凭证'));
-		// 	}else{
-		// 		$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
-		// 		if($pay_res['success'] == 1){
-		// 			$this->redirect(url::createUrl('/Offers/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
-		// 		}else{
-		// 			die('预付定金失败:'.$pay_res['info']);
-		// 		}
-		// 	}
-		// }else{
-		// 	die('生成订单失败:'.$gen_res['info']);
-		// }
+
 		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
 		//商品剩余数量
 		

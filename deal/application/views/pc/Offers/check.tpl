@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="{views:css/classify.css}">
     <link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
      <script type="text/javascript" src="{views:js/submit_order.js}"></script>
-    
+
     <style type="text/css">
         /*临时顶部图片style 要remove的*/
-        body{behavior:url(css/csshover.htc);} 
+        body{behavior:url(css/csshover.htc);}
         #close_banner
         {
             font-size: 30px;
@@ -34,15 +34,15 @@
             margin-top: 1px;
         }
         #banner_bar
-        {            
+        {
             text-align: center;
             position: relative;
             height:153px;
             background:url(images/top_index_bg1.jpg) no-repeat center #fff;
         }
     </style>
-    
-    
+
+
     <!--[if lte IE 6]>
 <script>
 $(function(){
@@ -59,13 +59,13 @@ $(function(){
 	 });
 
 });
-</script>    
+</script>
 <![endif]-->
 
 </head>
 <body>
-    
-    
+
+
 
 
 
@@ -140,32 +140,32 @@ body{_padding-top:30px;}
                     <div class="popuePanel" id="quickPanel" style="display: none;">
                         <div class="quick_market">
                             <b>钢铁超市</b><br>
-                            <span>板材 </span>&nbsp; 
+                            <span>板材 </span>&nbsp;
                             <a href="http://market.nainaiwang.com/#sortId=2394&nsortId=2411" target="_blank">低合金板</a>
                             <a href="http://market.nainaiwang.com/#sortId=2394&nsortId=2414" target="_blank">容器板</a>
                             <a href="http://market.nainaiwang.com/#sortId=2394&nsortId=2406" target="_blank">热轧开平板</a>
                             <a href="http://market.nainaiwang.com/#sortId=2394&nsortId=2410" target="_blank">中厚板</a><br>
-                            <span>卷材 </span>&nbsp; 
+                            <span>卷材 </span>&nbsp;
                             <a href="http://market.nainaiwang.com/#sortId=2403&nsortId=2405" target="_blank">热轧卷板</a>
                             <a href="http://market.nainaiwang.com/#sortId=2403&nsortId=2592" target="_blank">镀锌带钢</a>
                             <a href="http://market.nainaiwang.com/#sortId=2403&nsortId=2415" target="_blank">冷轧卷板</a>
                             <a href="http://market.nainaiwang.com/#sortId=2403&nsortId=2603" target="_blank">低合金卷</a><br>
-                            <span>型材 </span>&nbsp; 
+                            <span>型材 </span>&nbsp;
                             <a href="http://market.nainaiwang.com/#sortId=2395&nsortId=2475" target="_blank">等边角钢</a>
                             <a href="http://market.nainaiwang.com/#sortId=2395&nsortId=2423" target="_blank">H型钢</a>
                             <a href="http://market.nainaiwang.com/#sortId=2395&nsortId=2421" target="_blank">槽钢</a>
                             <a href="http://market.nainaiwang.com/#sortId=2395&nsortId=2422" target="_blank">工字钢</a><br>
-                            <span>管材 </span>&nbsp; 
+                            <span>管材 </span>&nbsp;
                             <a href="http://market.nainaiwang.com/#sortId=2397&nsortId=2434" target="_blank">无缝管</a>
                             <a href="http://market.nainaiwang.com/#sortId=2397&nsortId=2435" target="_blank">方管</a>
                             <a href="http://market.nainaiwang.com/#sortId=2397&nsortId=2433" target="_blank">镀锌管</a>
                             <a href="http://market.nainaiwang.com/#sortId=2397&nsortId=2432" target="_blank">焊管</a><br>
-                            <span>建材 </span>&nbsp; 
+                            <span>建材 </span>&nbsp;
                             <a href="http://market.nainaiwang.com/#sortId=2396&nsortId=2427" target="_blank">螺纹钢</a>
                             <a href="http://market.nainaiwang.com/#sortId=2396&nsortId=2429" target="_blank">圆钢</a>
                             <a href="http://market.nainaiwang.com/#sortId=2396&nsortId=2430" target="_blank">高线</a>
                             <a href="http://market.nainaiwang.com/#sortId=2396&nsortId=2522" target="_blank">盘螺</a><br>
-                            <span>优钢 </span>&nbsp; 
+                            <span>优钢 </span>&nbsp;
                             <a href="http://market.nainaiwang.com/#sortId=2398&nsortId=2440" target="_blank">合结圆</a>
                             <a href="http://market.nainaiwang.com/#sortId=2398&nsortId=2439" target="_blank">碳结圆</a>
                             <a href="http://market.nainaiwang.com/#sortId=2398&nsortId=2631" target="_blank">合金钢</a>
@@ -229,7 +229,7 @@ body{_padding-top:30px;}
                     <p class="keyword_0"><input type="text" onblur="if (this.value == '') {this.value = '高铝砖 乙醇 PP';}" onfocus="if (this.value == '高铝砖 乙醇 PP') {this.value = '';}" value="高铝砖 乙醇 PP" id=""  /><button class="one1">搜索</button></p>
                     <p class="keyword_1"><input type="text" onblur="if (this.value == '') {this.value = '乙醇 PP 高铝砖';}" onfocus="if (this.value == '乙醇 PP 高铝砖') {this.value = '';}"  value="乙醇 PP 高铝砖" id=""  /><button class="two2">搜索</button></p>
                 </div>
-            </div>  
+            </div>
             <div class="index_phone">
                 全国服务热线：<span>400-6738-086</span></div>
         </div>
@@ -291,7 +291,7 @@ body{_padding-top:30px;}
               <img src="{views:images/order/oder-2.jpg}" width="205" height="47" alt="第二步" />
               </div> 
                
-            <form method="post" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=33&pid=45@deal}'>
+            <form method="post" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
             <div class="checkim">
             <h2>填写并核对订单信息<a href="contract.html" style="color:blue;">合同预览</a></h2>
 
@@ -518,34 +518,34 @@ body{_padding-top:30px;}
        
 
 
-                  
+
                 <div class="div_flink">
                     <img src="{views:Images/icon/icon_news_img.png}">
-                    
+
                             <a href="http://www.gt123.cn/link/link.asp" target="_blank">钢铁123网</a>
-                                                                    
-                </div>                
-           
+
+                </div>
+
             <!--公用底部控件 开始-->
             <div class="page_width" style="_margin-top: -15px; position: static;">
                 <!--样式待改善-->
-                
+
 <!--公用底部控件 开始-->
 
 
 <!--公用底部控件 开始-->
 <link href="{views:css/footer.css}" rel="stylesheet" type="text/css">
 <div id="footer">
-    
+
     <div class="footer_link">
         <div>
             <a href="http://corp.nainaiwang.com/aboutUs.aspx" target="_blank">关于我们</a>&nbsp;&nbsp;|
             &nbsp;&nbsp; <a href="http://help.nainaiwang.com/" target="_blank">
                 帮助中心</a>&nbsp;&nbsp;| &nbsp; &nbsp;
-            
+
             <a href="http://corp.nainaiwang.com/job/Default.aspx" target="_blank">
-                人才招聘</a>&nbsp;&nbsp; | &nbsp;&nbsp; <a href="http://corp.nainaiwang.com/Contact.aspx" target="_blank">联系我们</a>&nbsp;&nbsp; | &nbsp;&nbsp; <a href="http://union.nainaiwang.com/" target="_blank">联盟网站</a>&nbsp;&nbsp; 
-            
+                人才招聘</a>&nbsp;&nbsp; | &nbsp;&nbsp; <a href="http://corp.nainaiwang.com/Contact.aspx" target="_blank">联系我们</a>&nbsp;&nbsp; | &nbsp;&nbsp; <a href="http://union.nainaiwang.com/" target="_blank">联盟网站</a>&nbsp;&nbsp;
+
         </div>
     </div>
     <div>

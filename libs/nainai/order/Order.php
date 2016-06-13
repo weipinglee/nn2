@@ -102,7 +102,7 @@ class Order{
 
 			//买方支付买方违约金
 			$this->account->freezePay($info['user_id'],$offerInfo['user_id'],$pay_break);
-			$product_left = $delivery->productNumLeft($order_id,false,true);
+			$product_left = $delivery->orderNumLeft($order_id,false,true);
 			$res = $this->productsFreezeRelease($offerInfo,$product_left);
 
 		} catch (\PDOException $e) {
@@ -130,7 +130,7 @@ class Order{
 				//解冻卖方货款   线下支付？？？
 				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
 				//解冻未提货货物
-				$product_left = $delivery->productNumLeft($order_id,false,true);
+				$product_left = $delivery->orderNumLeft($order_id,false,true);
 				$res = $this->productsFreezeRelease($offerInfo,$product_left);
 				
 			}else{
