@@ -149,7 +149,7 @@ class ComplainController extends InitController{
 					$orderModel = new \nainai\order\Order('product_order');
 					$res = $orderModel->orderUpdate(array('id'=>$order_no, 'is_lock' => 0));
 					break;
-
+					
 				case 4: //买方违约
 					$complainData['status'] = \nainai\order\OrderComplain::BUYBREAKCOMPLAIN;
 					//扣除定金操作

@@ -114,7 +114,7 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 		$menuList = array();
 
 		if (intval($uid) > 0) {
-
+			$userPur = array();
 			//获取各个认证角色的角色id
 			$roleIds = array();
 			if(!empty($cert)){
@@ -128,9 +128,9 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 
 				}
 				$where .= ')';
-
+				
 				$right = $this->model->table($this->menuRoleTable)->where($where)->bind($roleIds)->getFields('purview');
-				$userPur = array();
+				
 				foreach($right as $k=>$v){
 					$userPur = array_merge($userPur,unserialize($v));
 				}
@@ -139,7 +139,7 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 
 			
 			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
-
+			
 		}
 
 		return $menuList;

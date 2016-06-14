@@ -40,6 +40,10 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 
 	protected function init(){
+        $a = new \nainai\subAccount();
+        $res = $a->AccessDecision();
+        var_dump($res);exit;
+
 		parent::init();//继承父类的方法，检测是否登录和角色
 		$action_confirm = $this->_request->getParam('action_confirm');
 		if(isset($action_confirm)){
