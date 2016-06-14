@@ -103,3 +103,5 @@ button{cursor:pointer;}
 }
 
 .regis_reg_total {border-width:0px;color:red;width: 360px;font-size: 12px; cursor: default;}
+
+.Validform_wrong{color:red;}
