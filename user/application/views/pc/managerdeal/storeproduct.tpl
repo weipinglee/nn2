@@ -79,42 +79,42 @@
                             </td>
                         </tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>商品单价:</td>
+                                <td nowrap="nowrap"><span></span>商品单价：</td>
                                 <td> 
                                     <input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="price">
                                     
                                 </td>
 <!--                                 <td> 
-    请选择付款方式：
+    请选择付款方式:
     <input type ="radio" name ="safe" checked="checked" style="width:auto;height:auto;"> 线上
     <input type ="radio" name ="safe" style="width:auto;height:auto;"> 线下
 </td> -->
                             </tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>数量:</td>
+                                <td nowrap="nowrap"><span></span>数量：</td>
                                 <td> 
                                     <input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="quantity">
                                 </td>
                                <!--  <td> 
-                                   请选择支付保证金比例：
+                                   请选择支付保证金比例:
                                    <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
                                            
                                </td> -->
 
                                 <tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>单位:</td>
+                                <td nowrap="nowrap"><span></span>单位：</td>
                                 <td>
                                     <span id="unit">{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
                                 </td>
                                 <!--  <td>
-                                    请选择支付保证金比例：
+                                    请选择支付保证金比例:
                                     <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
 
                                 </td> -->
                             </tr>
                             <tr>
-                            <td>产地:</td>
+                            <td>产地：</td>
                             <td colspan="2">
                                 {area:data=getAreaData()}
                             </td>

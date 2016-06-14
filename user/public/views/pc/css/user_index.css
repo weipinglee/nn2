@@ -667,7 +667,6 @@ visibility: hidden;
     padding: 10px 50px;
 }
 .center_tabl table tr td textarea{
-	margin-left: 10px;
     width: 95%;
     margin-top: 12px;
 }
@@ -823,14 +822,17 @@ color: #fff;
 .page_num{
 	text-align: center;
 }
+.page_num .pages_bar{
+  margin-top: 10px;
+}
 .page_num a:link, .page_num a:visited, .page_num a:active {
-padding: 2px 6px;
+padding: 6px 12px;
 border: #FFC3AC 1px solid;
 background: #FEE9E0;
 color: #000;
+margin:;
 }
 .page_num a:hover {
-padding: 2px 6px;
 border: #666 1px solid;
 background: #fff;
 color: #333;
@@ -1305,6 +1307,15 @@ padding: 8px 15px;
 
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn a{
+  background:#d61515;
+  color: #fff;
+  border: 1px solid #d61515;
+  font-size: 20px;
+  padding: 8px 30px;
+  margin: 5px 10px;
+  cursor: pointer;
+}
+.center_tabl  .table2  .cg_fb,.center_tabl .btn input{
   background:#d61515;
   color: #fff;
   border: 1px solid #d61515;
