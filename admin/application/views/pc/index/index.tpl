@@ -112,18 +112,13 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />交易管理</a>
                     <ul>
-                        <li><a href="{url:trade/product/categoryAdd}" target="content">产品分类设置</a>
+                        <li><a href="{url:trade/product/categoryAdd}" target="content">产品设置</a>
                             <ul>
-                                <li><a href="{url:trade/product/categoryAdd}" target="content">分类添加</a></li>
                                 <li><a href="{url:trade/product/categoryList}" target="content">分类列表</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="{url:trade/product/attributeAdd}" target="content">产品属性设置</a>
-                            <ul>
-                                <li><a href="{url:trade/product/attributeAdd}" target="content">属性添加</a></li>
                                 <li><a href="{url:trade/product/attributeList}" target="content">属性列表</a></li>
                             </ul>
                         </li>
+
 
                         <li><a target="content">报盘管理</a>
                             <ul>
@@ -180,8 +175,9 @@
                         <li><a href="honor-list.html" target="content">信誉排名</a></li>
                     </ul>
                 </li>
-                <li class="nosubmenu"><a href="modal.html" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 数据统计</a></li>
-                <li class="nosubmenu"><a href="javascript:void(0)" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 仓库管理</a>
+               <!-- <li class="nosubmenu"><a href="modal.html" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 数据统计</a></li>
+               -->
+                <li><a   target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 仓库管理</a>
                     <ul>
                         <li><a href="" target="content">仓库管理</a>
                             <ul>

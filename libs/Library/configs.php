@@ -10,10 +10,10 @@ namespace Library;
 return array(
     'http'=>'http',
     'host'=>array(//å„ç³»ç»ŸåŸŸåè·¯å¾?
-        'deal'=>'http://deal.test.com',
+        'deal'=>'http://124.166.246.120:8000/user/public',
         // 'user'=>'http://user.test.com',
-        'user'=>'/nn2/user/public',
-        'admin'=>'http://admin.test.com'
+        'user'=>'http://124.166.246.120:8000/user/public',
+        'admin'=>'http://124.166.246.120:8000/user/public'
     ),
     'rootDir'=>array(//é¡¹ç›®æ ¹ç›®å½•ç»å¯¹è·¯å¾?
         'user'=>'E:\wamp\www\nn2\user\public',

@@ -130,5 +130,8 @@ class OffersController extends \Yaf\Controller_Abstract {
             exit();
         }
 
+	// 	return false;
+	// }
+
 
 }

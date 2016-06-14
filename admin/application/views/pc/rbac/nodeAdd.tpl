@@ -30,7 +30,7 @@
        添加权限节点
     </div>
    <div class="pd-20">
-  <form action="{url:system/rbac/nodeAdd}" method="post" class="form form-horizontal" id="form-node-add" >
+  <form action="{url:system/rbac/nodeAdd}" method="post" class="form form-horizontal" id="form-node-add" auto_submit>
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>模块名：</label>
       <div class="formControls col-5">

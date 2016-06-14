@@ -28,7 +28,6 @@ class Base extends \Yaf\Controller_Abstract{
 		  $this->redirect(url::createUrl('/ucenter/'.self::$certPage[$this->certType].'@user'));exit;
 	    }
 
-
     }
 
 
