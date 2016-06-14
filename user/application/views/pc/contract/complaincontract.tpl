@@ -90,7 +90,7 @@
                                                                     	<input type="hidden" name="orderId" value="{$ContractData['id']}" />
                                                                      	<input type="hidden" name="user_id" value="{$ContractData['user_id']}" />
 								<div class="subclear"><input name="submit" type="submit" value="提交申请">
-									<a href="#">取消并返回</a>
+									
 								</div>
 							</form>
 							</div>
