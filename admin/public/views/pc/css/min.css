@@ -484,10 +484,10 @@ border: 1px solid #ddd;
 
 .pages_bar{
 	text-align: center;
+	margin-top: 10px;
 }
 .pages_bar a{
 position: relative;
-float: left;
 padding: 6px 12px;
 margin-left: -1px;
 line-height: 1.42857143;
@@ -504,6 +504,7 @@ background-color: #428bca;
 border-color: #428bca;
 }
 .pages_bar span{
+	margin-top: 10px;
 	display: block;
 
 }
