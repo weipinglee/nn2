@@ -824,6 +824,7 @@ color: #fff;
 }
 .page_num .pages_bar{
   margin-top: 10px;
+  height:24px;
 }
 .page_num a:link, .page_num a:visited, .page_num a:active {
 padding: 6px 12px;

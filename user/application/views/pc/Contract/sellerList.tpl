@@ -31,10 +31,10 @@
 									<td width="80px"><input onclick="selectAll1();" name="controlAll" style="controlAll" id="controlAll" type="checkbox">全选
 									</td>
 									<td width="180px">产品详情</td>
-									<th width="260px">金额及付款方式</th>
-									<th width="200px">主要指标</td>
-									<th>买家信息</th>
-									<th>交易操作</th>
+									<td width="260px">金额及付款方式</td>
+									<td width="200px">主要指标</td>
+									<td>买家信息</td>
+									<td>交易操作</td>
 								</tr>
                                 <tr>
 									<td colspan="6">&nbsp;</td>
