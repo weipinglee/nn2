@@ -14,7 +14,7 @@
 			<!-- start 暂不认证 -->	
 				<div class="user_zbrz noshow">
 					<div class="user_nrz">
-						<div class="nrz_tit"><span>账户信息</span><a class="gengduo" href="user_dd.html">更多>></a></div>
+						<div class="nrz_tit"><span>账户信息</span><a class="gengduo" href="user_dd.html"></a></div>
 						<div class="nrz_dd">
 							<table class="hy_info" width="100%">
 								<tr>
@@ -35,25 +35,27 @@
 									</td>
 									<td rowspan="2" width="280px">
 										<div class="icon_rz">
-											<span><img src="../images/center/icon_yrz.jpg">交易商已认证</span>
-											<span><img src="../images/center/icon_waz.jpg">仓库未认证</span>
-											<span><img src="../images/center/icon_ybd.jpg">车辆已认证</span>
+											{foreach:items=$cert}
+												{if:$cert[$key]==1}
+											<span><img src="{views:/images/center/icon_yrz.jpg}">{echo:\nainai\cert\certificate::$certRoleText[$key]}已认证</span>
+												{/if}
+											{/foreach}
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<span>结算账号资金总额</span>
-										<span class="colaa0707"><b class="font-size ">￥0.00</b><br/>
-											<span style="line-height: 30px;padding-left: 120px;">该账户被挂起</span>
+										<span class="colaa0707"><b class="font-size ">￥{$count}</b><br/>
+											<span style="line-height: 30px;padding-left: 120px;"></span>
 										</span>
 										
 										
 									</td>
 									<td>
 										<span class="rz_an_index">
-											<a href="zj_cz.html" class="zj_a cz">充值</a>
-											<a href="zj_tx.html" class="zj_a tx">提现</a>
+											<a href="{url:/fund/cz}" class="zj_a cz">充值</a>
+											<a href="{url:/fund/tx}" class="zj_a tx">提现</a>
 										</span>
 									</td>
 								</tr>
@@ -63,90 +65,58 @@
 						</div>
 					</div>
 					<div class="user_nrz">
-						<div class="nrz_tit"><span>最近购买合同</span><a class="gengduo" href="user_gz.html">更多>></a></div>
+						<div class="nrz_tit"><span>最新购买合同</span><a class="gengduo" href="{url:/contract/buyerList}">更多>></a></div>
 						<div class="nrz_gz">
 							<table width="100%">
 								<tr>
-									<td width="270px">
+									<td width="220px">
 										<div style="padding:5px 10px;">
-											<img class="middle_img" src="../images/banner/551b861eNe1c401dc.jpg" align="left" width="100px">
-											<div class="div_height">&nbsp;供应一级高铝砖</div>
-											<div class="div_height">&nbsp;是否含税：是</div>
-											<div class="div_height">&nbsp;是否含保险：是</div>
-											<div class="div_height">&nbsp;所在地：耐耐网一号库</div>
+											<div class="div_height">&nbsp;{$contract2['product_name']}</div>
+											<div class="div_height">&nbsp;所在地：{$contract2['store_name']}</div>
 										</div>
-										
-									</td>
-									<td width="200px">
-										<div class="div_heights colaa0707">合同总额：￥100.00</div>
-										<div class="div_heights colA39F9F">等级折扣：￥10.00</div>
-										<div class="hr"></div>
-										<div class="div_heights">保证金支付（30%）</div>
 
 									</td>
 									<td>
-										<div class="div_heights Place"><span>李三</span> 
-											<i class="icon-user-md "></i>
-											<div class="prompt-01 prompt-02">
-		                        				<div class="pc">
-		                           				 <strong>李三</strong>
-	                                	          <p>山西阳泉市郊区开发区义白路耐材质量检验中心</p>
-	                                	          <p>187****3539</p>
-		                        				</div>
-		                       					 <div class="p-arrow p-arrow-left"></div>
-		                    				</div>
-										</div>
-										
+										<a href="{url:/contract/buyerdetail?id=$contract1['id']}">{$contract2['order_no']}</a>
 									</td>
-									
+									<td width="200px">
+										<div class="div_heights colaa0707">合同总额：￥{$contract2['amount']}</div>
+
+									</td>
+
+
 									<td>
-										<div class="div_heights"><a><b>确认合同<b></b></b></a></div><b><b>
-									</b></b></td>
+										<div class="div_heights"><a><b>{$contract2['title']}<b></b></b></a></div><b><b>
+											</b></b></td>
 								</tr>
 							</table>
-							
+
 						</div>
 					</div>
 					<!-- 最新销售合同 -->
 					<div class="user_nrz">
-						<div class="nrz_tit"><span>最新销售合同</span><a class="gengduo" href="user_gz.html">更多>></a></div>
+						<div class="nrz_tit"><span>最新销售合同</span><a class="gengduo" href="{url:/contract/sellerList}">更多>></a></div>
 						<div class="nrz_gz">
 							<table width="100%">
 								<tr>
-									<td width="270px">
+									<td width="220px">
 										<div style="padding:5px 10px;">
-											<img class="middle_img" src="../images/banner/551b861eNe1c401dc.jpg" align="left" width="100px">
-											<div class="div_height">&nbsp;供应一级高铝砖</div>
-											<div class="div_height">&nbsp;是否含税：是</div>
-											<div class="div_height">&nbsp;是否含保险：是</div>
-											<div class="div_height">&nbsp;所在地：耐耐网一号库</div>
+											<div class="div_height">&nbsp;{$contract1['product_name']}</div>
+											<div class="div_height">&nbsp;所在地：{$contract1['store_name']}</div>
 										</div>
 										
+									</td>
+									<td>
+										<a href="{url:/contract/sellerdetail?id=$contract1['id']}">{$contract1['order_no']}</a>
 									</td>
 									<td width="200px">
-										<div class="div_heights colaa0707">合同总额：￥100.00</div>
-										<div class="div_heights colA39F9F">等级折扣：￥10.00</div>
-										<div class="hr"></div>
-										<div class="div_heights">保证金支付（30%）</div>
+										<div class="div_heights colaa0707">合同总额：￥{$contract1['amount']}</div>
 
 									</td>
-									<td>
-										<div class="div_heights Place"><span>李三</span> 
-											<i class="icon-user-md "></i>
-											<div class="prompt-01 prompt-02">
-		                        				<div class="pc">
-		                           				 <strong>李三</strong>
-	                                	          <p>山西阳泉市郊区开发区义白路耐材质量检验中心</p>
-	                                	          <p>187****3539</p>
-		                        				</div>
-		                       					 <div class="p-arrow p-arrow-left"></div>
-		                    				</div>
-										</div>
-										
-									</td>
+
 									
 									<td>
-										<div class="div_heights"><a><b>确认合同<b></b></b></a></div><b><b>
+										<div class="div_heights"><a><b>{$contract1['action']}<b></b></b></a></div><b><b>
 									</b></b></td>
 								</tr>
 							</table>
@@ -154,7 +124,7 @@
 						</div>
 					</div>
 					<!-- 最新销售合同end -->
-					<!-- 关注推荐 start-->
+					<!-- 关注推荐 start
 					<div class="user_nrz chp_xx">
 						<div class="nrz_tit"><span>关注推荐</span><a class="gengduo" href="user_gz.html">更多>></a></div>
 						<div class="xx_center">
@@ -214,7 +184,7 @@
 							
 						</div>
 					</div>
-					<!-- 关注推荐 end -->
+					关注推荐 end -->
 				</div>
 			<!-- end 暂不认证 -->	
 			</div>

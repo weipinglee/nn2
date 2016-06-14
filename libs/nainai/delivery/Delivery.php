@@ -48,6 +48,7 @@ class Delivery{
 		$this->delivery = new M('product_delivery');
 		$this->offer = new M('product_offer');
 		$this->account = new \nainai\fund\agentAccount();
+		$this->order_model = new \nainai\order\Order();
 	}	
 
 	/**
@@ -211,11 +212,14 @@ class Delivery{
 		if($delivery->data($data)->validate($this->deliveryRules)){
 			if(isset($data['id']) && $data['id']>0){
 				$id = $data['id'];
+				$info = $this->deliveryInfo($id);
+				if($info && $this->order_model->orderComplain($info['order_id'])) return tool::getSuccInfo(0,'申述处理中');
 				//编辑
 				unset($data['id']);
 				$res = $delivery->where(array('id'=>$id))->data($data)->update();
 				$res = $res>0 ? true : ($delivery->getError() ? $delivery->getError() : '数据未修改');
 			}else{
+				if($this->order_model->orderComplain($data['order_id'])) return tool::getSuccInfo(0,'申述处理中');
 				try {
 					$delivery->beginTrans();
 					$delivery_id = $delivery->data($data)->add();

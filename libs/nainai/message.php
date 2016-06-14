@@ -4,7 +4,6 @@
  * author :wangzhande
  * Date :2015/5/12
  */
-
 namespace nainai;
 use \Library\M;
 use \Library\Query;
@@ -16,7 +15,7 @@ class message{
 		'orderPay',
 		'fundOut',
 		'depositPay'
-		);
+	);
 	/**
 	 * [__construct 构造方法]
 	 * @param     [type]      $user_id 用户id
@@ -47,11 +46,11 @@ class message{
 				return $this->messCode['sendWrong'];
 			}
 
+
 		}else{
 			return $this->messCode['typeWrong'];
 		}
 	}
-
 	/**
 	 * [order_pay 支付通知]
 	 * @param     [type]      $order_id 
@@ -64,7 +63,6 @@ class message{
 			'title'=>$title,
 			'content'=>$message);
 	}
-
 	public function depositPay($order_id){
 		$title="保证金支付";
 		$message="您的订单".$order_id."需支付保证金";
@@ -72,7 +70,6 @@ class message{
 			'title'=>$title,
 			'content'=>$message);
 	}
-
 	public function buyerRetainage($order_id){
 		$title="尾款通知";
 		$message="您的订单".$order_id."买家已支付尾款";
@@ -80,7 +77,6 @@ class message{
 			'title'=>$title,
 			'content'=>$message);
 	}
-
 	public function buyerProof($order_id){
 		$title="请确认支付凭证";
 		$message="您的订单".$order_id."买家已上传支付凭证";
@@ -88,7 +84,6 @@ class message{
 			'title'=>$title,
 			'content'=>$message);
 	}
-
 	/**
 	 * [fundOut 提现通知]
 	 * @param     [type]      $order_id [订单id]
@@ -125,6 +120,12 @@ class message{
 		$messObj->bind=array('user_id'=>$this->user_id);
 		return $messObj->find();
 	}
+	//获取未读消息的总数
+	public function getCountMessage(){
+		$res=$this->getNeedMessage();
+		return count($res);
+
+	}
 	/**
 	 * [writeMess 写入阅读时间]
 	 * @param     [type]      $message_id [消息id]
@@ -134,9 +135,46 @@ class message{
 		$messObj=new M('message');
 		$where=array('id'=>$message_id);
 		$data['write_time']=\Library\Time::getDateTime();
-		$messObj->where($where)->data($data)->update();
+		return $messObj->where($where)->data($data)->update();
 	}
 
+	/**
+	 * 获得所有消息
+	 * @param int $page
+	 * @return array
+     */
+	public function getAllMessage($page=1){
+		$messObj=new Query('message');
+		$messObj->where='user_id= :user_id';
+		$messObj->bind=array('user_id'=>$this->user_id);
+		$messObj->order='send_time desc';
+		$messObj->page=$page;
+		$messInfo=$messObj->find();
+		$bar=$messObj->getPageBar();
+		return array($messInfo,$bar);
+	}
+
+	/**
+	 * 批量删除消息
+	 * @param $ids
+     */
+	public function batchDel($ids){
+		$messObj=new M('message');
+		$where='id in ('.$ids.')';
+		return $messObj->where($where)->delete();
+	}
+
+	/**
+	 * 单个删除消息
+	 * @param $id
+	 * @return mixed
+     */
+	public function delMessage($id){
+		$messObj=new M('message');
+		$where=array('id'=>$id);
+		return $messObj->where($where)->delete();
+
+	}
 }
 
 ?>

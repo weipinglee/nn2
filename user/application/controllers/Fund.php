@@ -30,18 +30,6 @@ class FundController extends UcenterBaseController {
 	}
 
 
-	protected function  getLeftArray(){
-		return array(
-
-			array('name' => '资金管理', 'list' => array()),
-			array('name'=>'开户信息管理','url'=>\Library\url::createUrl('/Fund/bank'),'action'=>array('bank')),
-			array('name' => '资金账户管理', 'list' => array(
-				array('url' => \Library\url::createUrl('/Fund/index'), 'title' => '市场代理账户' ,'action'=>array('tx','cz')),
-				array('url' => '', 'title' => '票据账户' ),
-			)),
-
-		);
-	}
 	//处理充值操作
 	public function doFundInAction() {
 
@@ -198,9 +186,7 @@ class FundController extends UcenterBaseController {
 
 		return false;
 	}
-	public function aaAction(){
-		echo 9;exit;
-	}
+
 
 }
 ?>

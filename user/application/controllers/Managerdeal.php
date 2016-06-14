@@ -553,14 +553,11 @@ class ManagerDealController extends UcenterBaseController {
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
         }
+        else{
+            $this->redirect('productList');
+        }
 
-        $productModel = new \nainai\product();
-        $productList = $productModel->getOfferProductList($page, $this->pagesize,  $where, $bind);
 
-        $this->getView()->assign('mode', $this->_mode);
-        $this->getView()->assign('statusList', $productModel->getStatus());
-        $this->getView()->assign('productList', $productList['list']);
-        $this->getView()->assign('pageHtml', $productList['pageHtml']);
     }
 
 

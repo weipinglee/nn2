@@ -92,10 +92,15 @@ class checkRight{
         if($obj!==null){
             if($isLogin == false){//如果未登录或超时，登出操作，跳转到登录页
                 //$this->logOut();
-                $controller = $obj->getRequest()->getControllerName();
-                $action     = $obj->getRequest()->getActionName();
-                $callBack = url::createUrl('/'.$controller.'/'.$action);
-                $obj->redirect(url::createUrl('/login/login').'?callback='.$callBack);
+                if(isset($_GET['callback']))
+                    $callBack = $_GET['callback'];
+                else{
+                    $controller = $obj->getRequest()->getControllerName();
+                    $action     = $obj->getRequest()->getActionName();
+                    $callBack = url::createUrl('/'.$controller.'/'.$action);
+                }
+
+                $obj->redirect(url::createUrl('/login/login@user').'?callback='.$callBack);
                 exit;
             }
             else{//已登录则记录user_id
