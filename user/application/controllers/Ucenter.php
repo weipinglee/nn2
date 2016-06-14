@@ -23,28 +23,7 @@ class UcenterController extends UcenterBaseController {
 		header('Location:'.url::createUrl('/ucenterindex/index'));
     }
 
-    protected function  getLeftArray(){
-        return array(
-            array('name' => '账户管理', 'list' =>'' ),
-            array('name' => '账户管理', 'list' => array(
-                array(
-                    'url' => url::createUrl('/ucenter/baseinfo'),
-                    'title' => '基本信息' ,
-                    'action'=>array('info','baseinfo','baseedit')
-                ),
-                array('url' => url::createUrl('/ucenter/password'), 'title' => '修改密码' ,'action'=>array('password')),
-            )),
-            array('name' => '资质认证', 'list' => array(
-                array('url' => url::createUrl('/ucenter/dealCert'), 'title' => '交易商','action'=>array('dealcert') ),
-                array('url' => url::createUrl('/ucenter/storeCert'), 'title' => '仓库管理员','action'=>array('storecert')  ),
-            )),
-            array('name' => '子账户管理', 'list' => array(
-                array('url' => url::createUrl('/ucenter/subAcc'), 'title' => '添加子账户' ),
-            )),
 
-            array('name' => '开票信息管理', 'url' => url::createUrl('/ucenter/invoice'),'action'=>array('invoice')),
-        );
-    }
 
 
     public function baseInfoAction(){
