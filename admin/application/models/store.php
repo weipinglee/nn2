@@ -56,6 +56,7 @@ class StoreModel extends \baseModel{
 	 */
 	public function getStoreList($page){
 		$Q = new Query('store_list');
+		$Q->where = 'is_del = 0';
 		$Q->page = $page;
 		$Q->pagesize = 5;
 		$data = $Q->find();
