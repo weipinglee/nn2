@@ -135,8 +135,7 @@
                 <div class="">
                 <label class="form-label col-2"><span class="c-red">*</span>打款凭证：</label>
                 <div class="">
-                    <input type="hidden" name="uploadUrl"  value="{url:balance/fundOut/upload@admin}" />
-                        <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
+                        <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
                 </div>
                     <div>
                     <img name="file2" />
