@@ -2436,3 +2436,18 @@ INSERT INTO `withdraw_request` (`id`, `user_id`, `request_no`, `amount`, `acc_na
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+create table `slide`(
+  `name` varchar(25) not null default '' comment '幻灯片名称',
+  `img` varchar(100) not null default '' comment '图片',
+  `link` varchar(100) not null default '' comment '链接地址',
+  `status` tinyint(2) not null default 1 comment '1开启 0关闭',
+  `order` int(5) not null default 100 comment '排序',
+  primary key(`name`)
+)engine=innodb charset=utf8;
+create table `friendly_link`(
+  `name` varchar(25) not null default '' comment '名称',
+  `link` varchar(100) not null default '' comment '链接地址',
+  `order` int(5) not null default 100 comment '排序',
+  `status` tinyint(2) not null default 1 comment '1开启，0关闭',
+  primary key(`name`)
+)engine=innodb charset=utf8;

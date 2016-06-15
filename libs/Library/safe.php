@@ -2,7 +2,7 @@
 /**
  * User: weipinglee
  * Date: 2016/3/8 0008
- * Time: ÉÏÎç 9:26
+ * Time: ï¿½ï¿½ï¿½ï¿½ 9:26
  */
 namespace Library;
 class safe
@@ -11,7 +11,7 @@ class safe
 
     protected static $defalut = 'string';
 
-    //php filterÀàÐÍ³£Á¿
+    //php filterï¿½ï¿½ï¿½Í³ï¿½ï¿½ï¿½
     private static $filterVars = array(
         'int'     => FILTER_VALIDATE_INT,
         'float'   => FILTER_VALIDATE_FLOAT,
@@ -30,52 +30,52 @@ class safe
 
     );
     /**
-     * »ñÈ¡postÊý¾ÝÇÐ½øÐÐ¹ýÂË
-     * @param string $name ±äÁ¿µÄÃû³Æ Ö§³ÖÖ¸¶¨ÀàÐÍ
-     * @param string $filter ²ÎÊý¹ýÂË·½·¨
-     * @param mixed $default ²»´æÔÚµÄÊ±ºòÄ¬ÈÏÖµ
-     * @param mixed $datas Òª»ñÈ¡µÄ¶îÍâÊý¾ÝÔ´
+     * ï¿½ï¿½È¡postï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½
+     * @param string $name ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ö§ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param string $filter ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½
+     * @param mixed $default ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ê±ï¿½ï¿½Ä¬ï¿½ï¿½Öµ
+     * @param mixed $datas Òªï¿½ï¿½È¡ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
      */
     public static function filterPost($name='',$filter='string',$default=''){
        return self::filterRequest($_POST,$name,$filter,$default);
     }
     /**
-     * »ñÈ¡getÊý¾ÝÇÐ½øÐÐ¹ýÂË
-     * @param string $name ±äÁ¿µÄÃû³Æ Ö§³ÖÖ¸¶¨ÀàÐÍ
-     * @param string $filter ²ÎÊý¹ýÂË·½·¨
-     * @param mixed $default ²»´æÔÚµÄÊ±ºòÄ¬ÈÏÖµ
-     * @param mixed $datas Òª»ñÈ¡µÄ¶îÍâÊý¾ÝÔ´
+     * ï¿½ï¿½È¡getï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½
+     * @param string $name ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ö§ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param string $filter ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½
+     * @param mixed $default ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ê±ï¿½ï¿½Ä¬ï¿½ï¿½Öµ
+     * @param mixed $datas Òªï¿½ï¿½È¡ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
      */
     public static function filterGet($name='',$filter='string',$default=''){
         return self::filterRequest($_GET,$name,$filter,$default);
     }
     /**
-     * ¶ÔÊý¾Ý½øÐÐ¹ýÂË
-     * param array ÔªÊý¾Ý
-     * @param string $name ±äÁ¿µÄÃû³Æ Ö§³ÖÖ¸¶¨ÀàÐÍ
-     * @param string $filter ²ÎÊý¹ýÂË·½·¨
-     * @param mixed $default ²»´æÔÚµÄÊ±ºòÄ¬ÈÏÖµ
-     * @param mixed $datas Òª»ñÈ¡µÄ¶îÍâÊý¾ÝÔ´
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½
+     * param array Ôªï¿½ï¿½ï¿½ï¿½
+     * @param string $name ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ö§ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param string $filter ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½
+     * @param mixed $default ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ê±ï¿½ï¿½Ä¬ï¿½ï¿½Öµ
+     * @param mixed $datas Òªï¿½ï¿½È¡ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
      */
     public static function filterRequest(&$souceData,$name='',$filter='string',$default=''){
         $input = $souceData;
         $result = array();
         $filter    =   isset($filter) && is_string($filter) ? $filter:self::$defalut;
-        if(''==$name) { // »ñÈ¡È«²¿±äÁ¿
+        if(''==$name) { // ï¿½ï¿½È¡È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             foreach ($input as $key => $val) {
                 $result[$key] = self::filter(trim($val),$filter,$default);
             }
             return $result;
-        }elseif(isset($input[$name]) && is_array($input[$name])) { // È¡Öµ²Ù×÷
+        }elseif(isset($input[$name]) && is_array($input[$name])) { // È¡Öµï¿½ï¿½ï¿½ï¿½
             foreach($input[$name] as $key =>$v){
                 $result[$key] = self::filter(trim($v),$filter,$default);
             }
             return $result;
         }
-        elseif(isset($input[$name])) { // È¡Öµ²Ù×÷
+        elseif(isset($input[$name])) { // È¡Öµï¿½ï¿½ï¿½ï¿½
             return self::filter(trim($input[$name]),$filter,$default);
         }
-        else{ // ±äÁ¿Ä¬ÈÏÖµ
+        else{ // ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Öµ
             return $default;
         }
 
@@ -83,16 +83,16 @@ class safe
 
 
     /**
-     * µ¥Ìõ¹æÔò¹ýÂËµ¥Ìõ¹ýÂËÊý¾Ý
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param string $filter
      * @param mixed $data
      */
     public static function filter($data,$filter='string',$default=''){
         $filter = trim($filter);
-        if(method_exists(__CLASS__,$filter)){//µ÷ÓÃ±¾ÀàµÄ·½·¨
+        if(method_exists(__CLASS__,$filter)){//ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
             return  call_user_func(array(__CLASS__,$filter),$data);
         }
-        else if(isset(self::$filterVars[$filter])){//µ÷ÓÃfilter_varº¯Êý
+        else if(isset(self::$filterVars[$filter])){//ï¿½ï¿½ï¿½ï¿½filter_varï¿½ï¿½ï¿½ï¿½
             $res = filter_var($data,self::$filterVars[$filter]);
             return $res===false ? $default : $res;
         }
@@ -100,7 +100,7 @@ class safe
             $res = preg_match(self::$filterRegex,(string)$data);
             return $res ==0 ? $default : $res;
         }
-        else if(function_exists($filter)){//µ÷ÓÃphpº¯Êý
+        else if(function_exists($filter)){//ï¿½ï¿½ï¿½ï¿½phpï¿½ï¿½ï¿½ï¿½
             return call_user_func($filter,$data);
         }
         else if(0 === strpos($filter,'/')){
@@ -115,9 +115,9 @@ class safe
 
 
     /**
-     * @brief Ôö¼Ó×ªÒåÐ±Ïß
-     * @param string $str Òª×ªÒåµÄ×Ö·û´®
-     * @return string ×ªÒåºóµÄ×Ö·û´®
+     * @brief ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Ð±ï¿½ï¿½
+     * @param string $str Òª×ªï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+     * @return string ×ªï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
      */
     public static function addSlash($str)
     {
@@ -137,9 +137,9 @@ class safe
     }
 
     /**
-     * @brief È¥µô×ªÒåÐ±Ïß
-     * @param string $str Òª×ªÒåµÄ×Ö·û´®
-     * @return string È¥µô×ªÒåµÄ×Ö·û´®
+     * @brief È¥ï¿½ï¿½×ªï¿½ï¿½Ð±ï¿½ï¿½
+     * @param string $str Òª×ªï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+     * @return string È¥ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
      */
     public static function stripSlash($str)
     {
@@ -159,31 +159,31 @@ class safe
     }
 
     /**
-     * @brief ¼ì²âÎÄ¼þÊÇ·ñÓÐ¿ÉÖ´ÐÐµÄ´úÂë
-     * @param string  $file Òª¼ì²éµÄÎÄ¼þÂ·¾¶
-     * @return boolean ¼ì²â½á¹û
+     * @brief ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ç·ï¿½ï¿½Ð¿ï¿½Ö´ï¿½ÐµÄ´ï¿½ï¿½ï¿½
+     * @param string  $file Òªï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+     * @return boolean ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static function checkHex($file)
     {
         $resource = fopen($file, 'rb');
         $fileSize = filesize($file);
         fseek($resource, 0);
-        // ¶ÁÈ¡ÎÄ¼þµÄÍ·²¿ºÍÎ²²¿
+        // ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½Î²ï¿½ï¿½
         if ($fileSize > 512)
         {
             $hexCode = bin2hex(fread($resource, 512));
             fseek($resource, $fileSize - 512);
             $hexCode .= bin2hex(fread($resource, 512));
         }
-        // ¶ÁÈ¡ÎÄ¼þµÄÈ«²¿ÄÚÈÝ
+        // ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         else
         {
             $hexCode = bin2hex(fread($resource, $fileSize));
         }
         fclose($resource);
-        /* Æ¥Åä16½øÖÆÖÐµÄ <% (  ) %> */
-        /* Æ¥Åä16½øÖÆÖÐµÄ <? (  ) ?> */
-        /* Æ¥Åä16½øÖÆÖÐµÄ <script  /script>  */
+        /* Æ¥ï¿½ï¿½16ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ <% (  ) %> */
+        /* Æ¥ï¿½ï¿½16ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ <? (  ) ?> */
+        /* Æ¥ï¿½ï¿½16ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ <script  /script>  */
         if (preg_match("/(3c25.*?28.*?29.*?253e)|(3c3f.*?28.*?29.*?3f3e)|(3C534352495054.*?2F5343524950543E)|(3C736372697074.*?2F7363726970743E)/is", $hexCode))
         {
             return false;
@@ -195,7 +195,7 @@ class safe
     }
 
     /**
-     * ÇåÀíURLµØÖ·À¸ÖÐµÄÎ£ÏÕ×Ö·û£¬·ÀÖ¹XSS×¢Èë¹¥»÷
+     * ï¿½ï¿½ï¿½ï¿½URLï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ðµï¿½Î£ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹XSS×¢ï¿½ë¹¥ï¿½ï¿½
      * @param string $url
      * @return string
      */
@@ -205,8 +205,8 @@ class safe
     }
 
     /**
-     * @brief ¹ýÂËÎÄ¼þÃû³Æ
-     * @param string $string ²ÎÊý×Ö·û´®
+     * @brief ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param string $string ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
      * @return string
      */
     public static function fileName($string)
@@ -215,10 +215,10 @@ class safe
     }
 
     /**
-     * @brief ¹ýÂË×Ö·û´®µÄ³¤¶È
-     * @param string $str ±»ÏÞÖÆµÄ×Ö·û´®
-     * @param int $length ÏÞÖÆµÄ×Ö½ÚÊý
-     * @return string ¿Õ:³¬³öÏÞÖÆÖµ; $str:Ô­×Ö·û´®;
+     * @brief ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
+     * @param string $str ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+     * @param int $length ï¿½ï¿½ï¿½Æµï¿½ï¿½Ö½ï¿½ï¿½ï¿½
+     * @return string ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ; $str:Ô­ï¿½Ö·ï¿½ï¿½ï¿½;
      */
     public static function limitLen($str,$length)
     {
@@ -238,11 +238,11 @@ class safe
     }
 
     /**
-     * @brief  ¶Ô×Ö·û´®½øÐÐÑÏ¸ñµÄ¹ýÂË´¦Àí
-     * @param  string  $str      ±»¹ýÂËµÄ×Ö·û´®
-     * @param  int     $limitLen ±»ÊäÈëµÄ×î´ó³¤¶È
-     * @return string ±»¹ýÂËºóµÄ×Ö·û´®
-     * @note ¹ýÂËËùÓÐhtml±êÇ©ºÍphp±êÇ©ÒÔ¼°²¿·ÖÌØÊâ·ûºÅ
+     * @brief  ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½Ä¹ï¿½ï¿½Ë´ï¿½ï¿½ï¿½
+     * @param  string  $str      ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+     * @param  int     $limitLen ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó³¤¶ï¿½
+     * @return string ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+     * @note ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½htmlï¿½ï¿½Ç©ï¿½ï¿½phpï¿½ï¿½Ç©ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static function string($str,$limitLen = false)
     {
@@ -254,11 +254,11 @@ class safe
     }
 
     /**
-     * @brief ¶Ô×Ö·û´®½øÐÐÆÕÍ¨µÄ¹ýÂË´¦Àí
-     * @param string $str      ±»¹ýÂËµÄ×Ö·û´®
-     * @param int    $limitLen ÏÞ¶¨×Ö·û´®µÄ×Ö½ÚÊý
-     * @return string ±»¹ýÂËºóµÄ×Ö·û´®
-     * @note ½ö¶ÔÓÚ²¿·ÖÈç:<script,<iframeµÈ±êÇ©½øÐÐ¹ýÂË
+     * @brief ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ä¹ï¿½ï¿½Ë´ï¿½ï¿½ï¿½
+     * @param string $str      ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+     * @param int    $limitLen ï¿½Þ¶ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½
+     * @return string ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+     * @note ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½:<script,<iframeï¿½È±ï¿½Ç©ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½
      */
     public static function text($str,$limitLen = false)
     {
@@ -274,26 +274,26 @@ class safe
         }
         $config = \HTMLPurifier_Config::createDefault();
 
-        //ÅäÖÃ ÔÊÐíflash
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½flash
         $config->set('HTML.SafeEmbed',true);
         $config->set('HTML.SafeObject',true);
         $config->set('Output.FlashCompat',true);
 
-        //ÅäÖÃ »º´æÄ¿Â¼
-        //$config->set('Cache.SerializerPath',$cache_dir); //ÉèÖÃcacheÄ¿Â¼
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¿Â¼
+        //$config->set('Cache.SerializerPath',$cache_dir); //ï¿½ï¿½ï¿½ï¿½cacheÄ¿Â¼
 
-        //ÔÊÐí<a>µÄtargetÊôÐÔ
+        //ï¿½ï¿½ï¿½ï¿½<a>ï¿½ï¿½targetï¿½ï¿½ï¿½ï¿½
         $def = $config->getHTMLDefinition(true);
         $def->addAttribute('a', 'target', 'Enum#_blank,_self,_target,_top');
 
-        //¹ýÂÔµôËùÓÐ<script>£¬<i?frame>±êÇ©µÄonÊÂ¼þ,cssµÄjs-expression¡¢importµÈjsÐÐÎª£¬aµÄjs-href
+        //ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½ï¿½<script>ï¿½ï¿½<i?frame>ï¿½ï¿½Ç©ï¿½ï¿½onï¿½Â¼ï¿½,cssï¿½ï¿½js-expressionï¿½ï¿½importï¿½ï¿½jsï¿½ï¿½Îªï¿½ï¿½aï¿½ï¿½js-href
         $purifier = new \HTMLPurifier($config);
         return self::addSlash($purifier->purify($str));
     }
 
 
     /**
-     * »ñÈ¡
+     * ï¿½ï¿½È¡
      */
     public static function createToken(){
         $token = sha1(mt_rand(1,999999).Client::getIp().time());
@@ -302,7 +302,7 @@ class safe
     }
 
     /**
-     * ¼ìÑétokenÕýÈ·Óë·ñ
+     * ï¿½ï¿½ï¿½ï¿½tokenï¿½ï¿½È·ï¿½ï¿½ï¿½
      */
     public static function checkToken($token){
         $sessToken = \Library\session::get('token');

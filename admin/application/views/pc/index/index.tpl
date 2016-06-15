@@ -72,7 +72,12 @@
                                 <li><a href="{url:/system/admin/logList}" target="content">管理员操作记录</a></li>
                             </ul>
                         </li>
-                        <li><a href="system-base.html" target="content">系统设置</a></li>
+                        <li><a href="system-base.html" target="content">系统设置</a>
+                            <ul>
+                                <li><a href="{url:/system/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
+                                <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
+                            </ul>
+                        </li>
                         <li><a href="table.html" target="content">导航栏目管理</a></li>
                         <li><a href="gallery.html" target="content">客服添加</a></li>
                     </ul>
