@@ -21,7 +21,8 @@
         <script type="text/javascript" src="{views:content/settings/main.js}"></script>
 		  <script type="text/javascript">
 		  $(function(){
-		  var h = window.screen.height -40;
+		  var h = document.body.scrollHeight -40;
+		
 				$('iframe').attr('height',h+'px');
 		  })
 				
