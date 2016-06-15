@@ -284,7 +284,7 @@ class product{
                 $v['unit'] = $items[$key]['unit'] =='' ? $unit : $items[$key]['unit'] ;
 
                 $tree[$item['id']] = $v;
-                unset($items[$key]);
+               // unset($items[$key]);
                 $tree[$item['id']]['child'] = $this->generateTree($items,$item['id'],$v['unit']);
 
             }

@@ -48,46 +48,6 @@ class ManagerDealController extends UcenterBaseController {
     protected $sellerAction = array('productlist','indexoffer','freeOffer','dofreeoffer','depositoffer','dodepositoffer',
         'deputeoffer','dodeputeoffer','storeoffer','dostoreoffer');
 
-//    /**
-//
-//     * 获取左侧菜单
-//     * @return array
-//     */
-//    protected function  getLeftArray(){
-//        $left = array();
-//        $left[] = array('name' => '交易管理', 'list' => array());
-//        if($this->user_type==1){
-//            $left[] =  array('name' => '销售管理', 'list' => array(
-//                array('url' => url::createUrl('/ManagerDeal/productlist'), 'title' => '销售列表','action'=>array('productlist') ),
-//                array(
-//                    'url' => url::createUrl('/ManagerDeal/indexOffer'),
-//                    'title' => '发布产品' ,
-//                    'action' => array('indexoffer','freeoffer','depositoffer','deputeoffer','storeoffer'),//action都用小写
-//
-//                ),
-//            ));
-//        }
-//        $left[] =  array('name' => '仓单管理', 'list' => array(
-//            array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单','action'=>array('storeproduct') ),
-//            array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表','action'=>array('storeproductlist','storeproductdetail') ),
-//        ));
-//        $left[] =  array('name' => '采购管理', 'list' => array(
-//            array('url' => '', 'title' => '采购列表' ),
-//            array('url' => '', 'title' => '发布采购' ),
-//        ));
-//
-//        $left[] = array('name' => '合同管理', 'list' => array(
-//                array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ,'action'=>array('depositlist')),
-//                array('url' => url::createUrl('/Contract/buyerList'), 'title' => '购买合同' ),
-//            ));
-//        $left[]=
-//            array('name' => '提货管理', 'list' => array(
-//                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=0'), 'title' => '购买提单列表' ),
-//                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=1'), 'title' => '销售提单列表' ),
-//            ));
-//       return $left;
-//
-//    }
     /**
      * 个人中心首页
      */
