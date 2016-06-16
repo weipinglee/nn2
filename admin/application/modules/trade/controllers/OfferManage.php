@@ -47,6 +47,7 @@ class OfferManageController extends Yaf\Controller_Abstract{
 		$user = $this->_request->getParam('user');//委托人
 		$info = $this->offer->getofferInfo($id);
 		$info['user'] = $user;
+
 		$this->getView()->assign('info',$info);
 	}
 

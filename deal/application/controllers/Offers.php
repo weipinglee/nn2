@@ -34,9 +34,9 @@ class OffersController extends \Yaf\Controller_Abstract {
 		$page = safe::filterGet('page','int');
 		$category = array();
 
-	        	//获取商品分类信息，默认取第一个分类信息
-	        	$productModel = new product();
-	        	$category = $productModel->getCategoryLevel();
+		//获取商品分类信息，默认取第一个分类信息
+		$productModel = new product();
+		$category = $productModel->getCategoryLevel();
 
 		$pageData = $this->offer->getList($page);
 
@@ -91,27 +91,47 @@ class OffersController extends \Yaf\Controller_Abstract {
 
 
 	 /**
-         * AJax获取产品分类信息
-         * @return [Json]
-         */
-        public function ajaxGetCategoryAction(){
-            $pid = Safe::filterPost('pid', 'int',0);
-            if($pid){
-                $productModel = new product();
-                $cate = $productModel->getCategoryLevel($pid);
+	 * AJax获取产品分类信息
+* @return [Json]
+*/
+	public function ajaxGetCategoryAction(){
+		$pid = Safe::filterPost('pid', 'int',0);
+		if($pid){
+			$productModel = new product();
+			$cate = $productModel->getCategoryLevel($pid);
 
-                //获取这个分类下对应的产品信息
-                $condition = array(
-                	'where' => 'FIND_IN_SET(cate_id, :ids)',
-                	'bind' => array('ids' => $pid)
-                );
-                $cate['product'] = $this->offer->getList($pid, $condition);
-                unset($cate['chain']);
+			//获取这个分类下对应的产品信息
+			$condition = array(
+				'where' => 'FIND_IN_SET(cate_id, :ids)',
+				'bind' => array('ids' => $pid)
+			);
+			$cate['product'] = $this->offer->getList($pid, $condition);
+			unset($cate['chain']);
 
-                echo json::encode($cate);
-            }
-            exit();
-        }
+			echo json::encode($cate);
+		}
+		exit();
+	}
+
+
+	public function reportAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'id');
+		$id = 7;
+
+		if (intval($id) > 0) {
+			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
+			$offerDetail = $PurchaseOfferModel->getOfferProductDetail($id);
+
+			$this->getView()->assign('offer', $offerDetail[0]);
+			$this->getView()->assign('product', $offerDetail[1]);
+		}else{
+			$this->error('未知的采购报盘!');
+		}
+
+	}
+
+
 
 
 

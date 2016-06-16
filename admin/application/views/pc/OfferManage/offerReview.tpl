@@ -46,7 +46,7 @@
                     <td>{$item['type_txt']}</td>
                     <td>{$item['mode_txt']}</td>
                     <td>{if:$item['divide'] == 0}可拆分{else:}否{/if}</td>
-                    <td>{$item['quantity']}</td>
+                    <td>{$item['quantity']}({$item['unit']})</td>
                     <td>{$item['price']}</td>
                     <td>{$item['status_txt']}</td>
 
