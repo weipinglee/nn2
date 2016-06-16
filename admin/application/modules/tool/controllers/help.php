@@ -63,7 +63,7 @@ class helpController extends Yaf\Controller_Abstract{
             die(\Library\json::encode($res));
         }
         $catList=$helpModel->getAllCat();
-        $this->getView()->assign('catList',$catList[0]);
+        $this->getView()->assign('catList',$catList);
 
     }
 
