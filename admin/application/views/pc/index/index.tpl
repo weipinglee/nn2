@@ -74,8 +74,20 @@
                         </li>
                         <li><a href="system-base.html" target="content">系统设置</a>
                             <ul>
-                                <li><a href="{url:/system/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
-                                <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
+                                <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
+                                    <ul>
+                                        <li><a href="{url:/system/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
+                                        <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li><a href="{url:/system/slide/slideList}" target="content">幻灯片管理</a>
+                                    <ul>
+                                        <li><a href="{url:/system/slide/addSlide}" target="content">新增幻灯片</a></li>
+                                        <li><a href="{url:/system/slide/slideList}" target="content">幻灯片列表</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         <li><a href="table.html" target="content">导航栏目管理</a></li>
@@ -214,6 +226,16 @@
                 <li class="nosubmenu"><a href="javascript:void(0)" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 导航管理</a>
                     <ul>
                         <li><a target="content" href="{url:/guide/guideList}">导航列表</a></li>
+                    </ul>
+                </li>
+                <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 工具管理</a>
+                    <ul>
+                        <li><a target="content">帮助管理</a>
+                            <ul>
+                                <li><a href="{url:tool/help/helpCatList}" target="content">帮助分类</a></li>
+                                <li><a href="{url:tool/help/helpList}" target="content">帮助列表</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
             </ul>

@@ -35,14 +35,15 @@ class friendlyLinkController extends Yaf\Controller_Abstract{
     }
     public function delAction(){
         if(IS_AJAX&&IS_GET){
-            $name=safe::filterGet('name');
-            $res=$this->frdLinkModel->delLink($name);
+            $id=safe::filterGet('id','int');
+            $res=$this->frdLinkModel->delLink($id);
             die(json::encode($res));
         }
         return false;
     }
     public function editLinkAction(){
         if(IS_AJAX&&IS_POST){
+            $date['id']=safe::filterPost('id','int');
             $date['name']=safe::filterPost('name');
             $date['order']=safe::filterPost('order','int');
             $date['link']=safe::filterPost('link','url');
@@ -50,8 +51,8 @@ class friendlyLinkController extends Yaf\Controller_Abstract{
             $res=$this->frdLinkModel->editLink($date);
             die(json::encode($res));
         }
-        $name=safe::filterGet('name');
-        $linkInfo=$this->frdLinkModel->checkName(['name'=>$name]);
+        $id=safe::filterGet('id','int');
+        $linkInfo=$this->frdLinkModel->getLinkInfo($id);
         if($linkInfo){
             $this->getView()->assign('linkInfo',$linkInfo);
         }else{
@@ -62,11 +63,10 @@ class friendlyLinkController extends Yaf\Controller_Abstract{
     public function setStatusAction()
     {
         if (IS_AJAX) {
-            $name=$this->_request->getParams('name')['name'];
-            $name = safe::filter($name);
+            $id=intval($this->_request->getParam('id'));
             $status = safe::filterPost('status', 'int');
             $data = [
-                'name' => $name,
+                'id' => $id,
                 'status' => $status
             ];
             $res = $this->frdLinkModel->setLinkStatus($data);

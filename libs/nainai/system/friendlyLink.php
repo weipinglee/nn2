@@ -21,6 +21,12 @@ class friendlyLink{
     public function __construct(){
         $this->frdLinkObj=new M('friendly_link');
     }
+
+    /**
+     * 添加链接
+     * @param array $params
+     * @return array
+     */
     public function addLink($params=array()){
         $frdLinkObj=$this->frdLinkObj;
         if($frdLinkObj->data($params)->validate($this->linkRules)){
@@ -34,11 +40,21 @@ class friendlyLink{
             return \Library\tool::getSUccInfo(0,'添加失败，原因为:'.$error);
         }
     }
+
+    /**
+     * 修改链接
+     * @param array $params
+     * @return array
+     */
     public function editLink($params=array()){
         $frdLinkObj=$this->frdLinkObj;
         if($frdLinkObj->data($params)->validate($this->linkRules)){
             $where=['name'=>$params['name']];
-            unset($params['name']);
+            if($res=$this->checkName($where)){
+                if($res['id']!=$params['id']) {
+                    return \Library\tool::getSuccInfo(0, '名称已经存在');
+                }
+            }
             if($frdLinkObj->where($where)->data($params)->update()){
                 return \Library\tool::getSuccInfo(1,'修改成功');
             }else{
@@ -50,37 +66,65 @@ class friendlyLink{
         }
 
     }
+
+    /**
+     * 获取链接列表
+     * @param int $page
+     * @return array
+     */
     public function getfrdLinkList($page=1){
         $frdLinkObj=new \Library\Query('friendly_link');
         $frdLinkObj->page=$page;
+        $frdLinkObj->order='`order` ASC';
         $res=$frdLinkObj->find();
         $pageBar=$frdLinkObj->getPageBar();
         return array($res,$pageBar);
     }
+
+    /**
+     * 更改链接状态
+     * @param array $params
+     * @return array
+     */
     public function setLinkStatus($params=array()){
         $frdLinkObj=$this->frdLinkObj;
-        $where=['name'=>$params['name']];
-        if($this->checkName($where)){
+        $where=['id'=>$params['id']];
+
             $data['status']=$params['status'];
             if($frdLinkObj->where($where)->data($data)->update()){
                 return \Library\tool::getSuccInfo(1,'修改成功');
             }else{
                 return \Library\tool::getSuccInfo(0,'修改失败');
             }
-        }else{
-            return \Library\tool::getSuccInfo(0,'要关闭的链接不存在');
-        }
+
 
     }
-    public function checkName($data){
+
+    /**
+     * 检查名称是否存在
+     * @param array $data
+     * @return mixed
+     */
+    public function checkName($data=array()){
         $frdLinkObj=$this->frdLinkObj;
         $res=$frdLinkObj->where($data)->getObj();
         return $res;
     }
-    public function delLink($name){
-        $where=['name'=>$name];
+
+    /**
+     * 删除链接
+     * @param $name
+     * @return array
+     */
+    public function delLink($id){
+        $where=['id'=>$id];
         $frdLinkObj=$this->frdLinkObj;
         $res=$frdLinkObj->where($where)->delete();
         return $res ? tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
+    }
+    public function getLinkInfo($id){
+        $where=['id'=>$id];
+        return $this->frdLinkObj->where($where)->getObj();
+
     }
 }

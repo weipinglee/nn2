@@ -23,41 +23,47 @@
         </div>
         <div class="content">
             <div class="pd-20">
-                <form action="{url:system/friendlyLink/editLink}" method="post"  class="form form-horizontal"
-                      id="adPositionAdd" auto_submit redirect_url="{url:system/friendlyLink/frdLinkList}">
+                <form action="{url:system/slide/editSlide}" method="post"  class="form form-horizontal"
+                      id="adPositionAdd" auto_submit redirect_url="{url:system/slide/slideList}">
 
                     <div class="row cl">
                         <label class="form-label col-2">名称：</label>
                         <div class="formControls col-10">
-                            <input type="text" name="name" value="{$linkInfo['name']}" />
+                            <input type="text" name="name" value="{$slideInfo['name']}" />
                         </div>
                     </div>
                     <div class="row cl">
                         <label class="form-label col-2">上传图片就替换原图片：</label>
                         <div class="formControls col-10">
-                            <input type="text" name="link"  value="{$linkInfo['link']}"  size="80"/>
+                            <input type="hidden" name="uploadUrl"  value="{url:system/slide/upload@admin}" />
+                            <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
+                        </div>
+                        <div>
+                            <img name="file2" src="{echo: \Library\Thumb::get($slideInfo['img'])}"  />
+                            <input type="hidden" name="imgfile2" value="{$slideInfo['img']}" />
+
                         </div>
                     </div>
 
                     <div class="row cl">
                         <label class="form-label col-2">排序：</label>
                         <div class="formControls col-10">
-                            <input type="text" name="order" value="{$linkInfo['order']}" /> 数字越小，排列越靠前
+                            <input type="text" name="order" value="{$slideInfo['order']}" /> 数字越小，排列越靠前
                         </div>
                     </div>
                     <div class="row cl">
                         <label class="form-label col-3"><span class="c-red">*</span>是否开启：</label>
                         <div class="formControls col-5">
 
-                            <input type="radio" name="status" value='1' {if:$linkInfo['status']==1}checked="checked"{/if} id="">是
-                            <input type="radio" name="status" value='0'{if:$linkInfo['status']==0}checked="checked"{/if} id="">否
+                            <input type="radio" name="status" value='1' {if:$slideInfo['status']==1}checked="checked"{/if} id="">是
+                            <input type="radio" name="status" value='0'{if:$slideInfo['status']==0}checked="checked"{/if} id="">否
 
                         </div>
                         <div class="col-4"> </div>
                     </div>
                     <div class="row cl">
                         <div class="col-10 col-offset-2">
-                            <input type="hidden" value="{$linkInfo['id']}" name="id">
+                            <input type="hidden" value="{$slideInfo['id']}" name="id">
                             <button type="submit" class="btn btn-success radius" id="offline-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
                         </div>
                     </div>
