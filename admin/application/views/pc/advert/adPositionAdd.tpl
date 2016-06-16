@@ -21,21 +21,21 @@
         <div class="title">
             广告位添加
         </div>
-        <div class="content">
+        <div >
             <div class="pd-20">
                 <form action="{url:tool/advert/adPositionAdd}" method="post"  class="form form-horizontal"
-                      id="adPositionAdd" auto_submit redirect_url="{url:advert/advert/adPositionList}">
+                      id="adPositionAdd" auto_submit redirect_url="{url:tool/advert/adPositionList}">
 
                     <div class="row cl">
                         <label class="form-label col-2">名称：</label>
-                        <div class="formControls col-10">
-                            <input type="text" name="name" />
+                        <div class="formControls col-2">
+                            <input type="text" class="input-text" name="name" />
                         </div>
                     </div>
                     <div class="row cl">
                         <label class="form-label col-2">宽x高：</label>
-                        <div class="formControls col-10">
-                            <input type="text" name="width" />x<input type="text" name="height"/>
+                        <div class="formControls col-2">
+                            <input type="text" name="width"  />x<input type="text" name="height" />
                         </div>
                     </div>
                     <div class="row cl">

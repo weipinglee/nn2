@@ -10,6 +10,8 @@
         </div>
         <div class="content">
             <div class="pd-20">
+                <div class="cl pd-5 bg-1 bk-gray"> <span class="l"><a class="btn btn-primary radius" href="{url:tool/advert/adPositionAdd}"><i class=" icon-plus"></i> 添加广告位</a> </span>  </div>
+
                 <div class="mt-20">
                     <table class="table table-border table-bordered table-hover table-bg table-sort">
                         <thead>
@@ -37,32 +39,11 @@
                             </td>
                             <td class="td-manage">
                                 <a title="编辑" href="{url:tool/advert/adPositionEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
-                                <a title="删除" href="javascript:void(0);" onclick="delOnline({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+                                <a title="删除" href="javascript:void(0);" ajax_status=-1 ajax_url="{url:tool/advert/delPosition?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
                         </tr>
                         {/foreach}
                         </tbody>
-                        <script type="text/javascript">
-                            function delOnline(id,obj){
-                                var obj=$(obj);
-                                var url="{url:}";
-                                if(confirm("确定要删除吗?")){
-                                    $.ajax({
-                                        type:'get',
-                                        cache:false,
-                                        data:{id:id},
-                                        url:url,
-                                        success:function(msg){
-                                            if(msg==1){
-                                                alert('删除成功');
-                                                obj.parents("tr").remove();
-                                            }else{
-                                                alert('删除失败');
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-                        </script>
+
                     </table>
                     {$reBar}
                 </div>
