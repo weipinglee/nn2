@@ -98,7 +98,7 @@ class PurchaseOffer extends product {
 	 */
 	public function getOfferProductDetail($id,$user_id=0){
 		$query = new M('product_offer');
-		$where = array('id'=>$id, 'type' => self::PURCHASE_OFFER);
+		$where = array('id'=>$id, 'type' => self::OFFER_TYPE);
 		if (intval($user_id) > 0) {
 			$where['user_id'] = $user_id;
 		}

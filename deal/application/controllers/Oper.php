@@ -1,7 +1,7 @@
 <?php 
 
 use \Library\Safe;
-class OperController extends InitController{
+class OperController extends \Yaf\Controller_Abstract{
 
      public function successAction(){
           $info = safe::filter($this->_request->getParam('info'));

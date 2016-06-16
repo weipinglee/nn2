@@ -17,7 +17,7 @@ use \nainai\offer\product;
 
 use \Library\JSON;
 
-class OffersController extends \Yaf\Controller_Abstract {
+class OffersController extends PublicController {
 
 	private $offer;
 	private $order;
@@ -116,8 +116,7 @@ class OffersController extends \Yaf\Controller_Abstract {
 
 	public function reportAction(){
 		$id = $this->getRequest()->getParam('id');
-		$id = Safe::filter($id, 'id');
-		$id = 7;
+		$id = safe::filter($id, 'id');
 
 		if (intval($id) > 0) {
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
