@@ -127,7 +127,7 @@ class Log
 				}
 			}
 			$status_text = isset($args['check_text'])? $args['check_text'] : '';
-			$content = $this->typeText[$args['type']].$pk_text.$this->tableName[$args['table']].$status_text;
+			$content = $this->typeText[$args['type']].$pk_text.$this->getTableName($args['table']).$status_text;
 
 			$logs['content'] = $content;
 		}
@@ -136,10 +136,17 @@ class Log
 
 	}
 
-	protected $tableName = array(
-		'dealer'=>'交易商认证',
-		'store_manager'=>'仓库管理员认证'
-	);
+	/**
+	 * 获取表名
+	 * @param $table
+	 * @return array
+	 */
+	protected function getTableName($table){
+		$data = \Library\log\table::get();
+		if(isset($data[$table]))
+			return $data[$table];
+		return $table;
+	}
 
 	protected $typeText = array(
 		'add'=>'新增了',

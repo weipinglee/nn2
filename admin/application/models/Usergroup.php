@@ -11,8 +11,10 @@ class UsergroupModel{
 
 	//模型对象实例
 	private $usergroup;
+
+	protected $table = 'user_group';
 	public function __construct(){
-		$this->usergroup = new M('user_group');
+		$this->usergroup = new M($this->table);
 	}
 	/**
 	 * 会员分组规则
@@ -54,6 +56,7 @@ class UsergroupModel{
 	 */
 	public function usergroupUpdate($data){
 		$usergroup = $this->usergroup;
+		$log = new \Library\log();
 		if($usergroup->data($data)->validate($this->usergroupRules)){
 			if(isset($data['id']) && $data['id']>0){
 				$id = $data['id'];
@@ -64,11 +67,16 @@ class UsergroupModel{
 				unset($data['id']);
 				$res = $usergroup->where(array('id'=>$id))->data($data)->update();
 				$res = is_int($res) && $res>0 ? true : ($usergroup->getError() ? $usergroup->getError() : '数据未修改');
+				$log->addLog(array('id'=>$id,'type'=>'update','table'=>$this->table));
 			}else{
 				if($this->existUsergroup(array('group_name'=>$data['group_name'])))
 					return tool::getSuccInfo(0,'分组名已存在');
 				$usergroup->beginTrans();
 				$aid = $usergroup->add();
+
+
+				$log->addLog(array('id'=>$aid,'type'=>'add','table'=>$this->table));
+
 				//权限添加TODO
 				$res = $usergroup->commit();
 			}
