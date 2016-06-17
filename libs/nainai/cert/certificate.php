@@ -156,8 +156,8 @@ class certificate{
 
         $this->chgCertStatus($user_id,$certModel);
         $log = new log();
-        $logs = array('admin','处理了一个申请认证','用户id:'.$user_id);
-        $log->write('operation',$logs);
+        $log->addLog(array('id'=>$user_id,'pk'=>'user_id','type'=>'check','check_text'=>self::$status_text[$status],'table'=>$table));
+
 
         $res = $certModel->commit();
         if($res===true){
