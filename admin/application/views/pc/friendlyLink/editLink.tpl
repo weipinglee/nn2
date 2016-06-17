@@ -24,26 +24,29 @@
         <div class="content">
             <div class="pd-20">
                 <form action="{url:system/friendlyLink/editLink}" method="post"  class="form form-horizontal"
-                      id="adPositionAdd" auto_submit redirect_url="{url:system/friendlyLink/frdLinkList}">
+                      id="" auto_submit redirect_url="{url:system/friendlyLink/frdLinkList}">
 
                     <div class="row cl">
                         <label class="form-label col-2">名称：</label>
-                        <div class="formControls col-10">
-                            <input type="text" name="name" value="{$linkInfo['name']}" />
+                        <div class="formControls col-5">
+                            <input type="text" name="name" class="input-text" value="{$linkInfo['name']}" datatype="s2-50" nullmsg="名称不能为空"  />
                         </div>
+                        <div class="col-4"> </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-2">上传图片就替换原图片：</label>
-                        <div class="formControls col-10">
-                            <input type="text" name="link"  value="{$linkInfo['link']}"  size="80"/>
+                        <label class="form-label col-2">链接：</label>
+                        <div class="formControls col-5">
+                            <input type="text" name="link" class="input-text"  value="{$linkInfo['link']}" datatype="s2-50" nullmsg="链接不能为空" />
                         </div>
+                        <div class="col-4"> </div>
                     </div>
 
                     <div class="row cl">
                         <label class="form-label col-2">排序：</label>
-                        <div class="formControls col-10">
-                            <input type="text" name="order" value="{$linkInfo['order']}" /> 数字越小，排列越靠前
+                        <div class="formControls col-5">
+                            <input type="text" name="order"  class="input-text" value="{$linkInfo['order']}"  datatype="n2-20"  errormsg="请填写排序" /> 数字越小，排列越靠前
                         </div>
+                        <div class="col-4"> </div>
                     </div>
                     <div class="row cl">
                         <label class="form-label col-3"><span class="c-red">*</span>是否开启：</label>

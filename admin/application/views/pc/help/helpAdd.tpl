@@ -5,9 +5,9 @@
 <script type="text/javascript" src="{views:content/settings/main.js}"></script>
 <link rel="stylesheet" href="{views:content/settings/style.css}" />
 <link rel="stylesheet" type="text/css" href="{views:css/H-ui.admin.css}">
-<script type="text/javascript" src="{views:js/My97DatePicker/WdatePicker.js}"></script>
-<script type="text/javascript" src='{root:js/upload/ajaxfileupload.js}'></script>
-<script type="text/javascript" src='{root:js/upload/upload.js}'></script>
+<script type="text/javascript" charset="utf-8" src="{views:js/ueditor/ueditor.config.js}"></script>
+<script type="text/javascript" charset="UTF-8" src="{views:js/ueditor/ueditor.all.min.js}"></script>
+<script type="text/javascript" charset="UTF-8" src="{views:js/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <!--
       CONTENT
                 -->
@@ -23,21 +23,27 @@
         </div>
         <div class="pd-20">
 
-            <form action="{url:tool/help/helpAdd}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:tool/help/helpCatList}">
+            <form action="{url:tool/help/helpAdd}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:tool/help/helpList}">
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span> 名称：</label>
                     <div class="formControls col-5">
-                        <input type="text" name="name" />
+                        <input type="text" name="name" value="{if:isset($helpInfo)}{$helpInfo['name']}{/if}" class="input-text" datatype="s2-50" nullmsg="名称不能为空" />
                     </div>
                     <div class="col-4"> </div>
                 </div>
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span> 分类：</label>
                     <div class="formControls col-5">
-                        <select name="cat_id">
-                            <option value="0">请选择分类</option>
+                        <select name="cat_id" datatype="*" nullmsg="请选择所在城市！">
+                            <option value="">请选择分类</option>
                             {foreach: $items=$catList}
-                            <option value="{$item['id']}">{$item['name']}</option>
+                            <option value="{$item['id']}"
+                            {if:isset($helpInfo)}
+                                {if:$helpInfo['cat_id']==$item['id']}
+                            selected="selected"
+                                    {/if}
+                            {/if}
+                            >{$item['name']}</option>
                             {/foreach}
                         </select>
                     </div>
@@ -46,7 +52,7 @@
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span> 排序：</label>
                     <div class="formControls col-5">
-                        <input type="text" name="sort"  value="100"/>
+                        <input type="text" name="sort"  value="{if:isset($helpInfo)}{$helpInfo['sort']}{else:}100{/if}" class="input-text" datatype="n2-50" nullmsg="排序不能为空" errormsg='排序为数字'/>
                     </div>
                     <div class="col-4"> </div>
                 </div>
@@ -54,7 +60,7 @@
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span> 指向链接：</label>
                     <div class="formControls col-5">
-                        <input type="text" name="link" />若填此项，将直接跳转到该地址
+                        <input type="text" name="link" value="{if:isset($helpInfo)}{$helpInfo['link']}{/if}"/>若填此项，将直接跳转到该地址
                     </div>
                     <div class="col-4"> </div>
                 </div>
@@ -63,13 +69,32 @@
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span>内容：</label>
                     <div class="formControls col-5">
-                        <textarea name="content" ></textarea>
+                        <!--ueditor JS代码引入-->
+
+                            <script language='JavaScript'>
+                            var ue=UE.getEditor('introduce',{ toolbars: [[
+                                'fullscreen', 'undo', 'redo', '|',
+                                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                                'directionalityltr', 'directionalityrtl', 'indent', '|',
+                                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                                'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'webapp', 'pagebreak', 'template', 'background', '|',
+                                'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+                                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+                                'print', 'preview', 'searchreplace', 'help', 'drafts'
+                            ]],
+                                elementPathEnabled:false,maximumWords:100,initialFrameHeight:200,initialFrameWidth:1000});
+                        </script>
+                        <textarea name="introduce" style="width:1000px;height:500px" id="introduce">{if:isset($helpInfo)}{$helpInfo['content']}{/if}</textarea>
                     </div>
                     <div class="col-4"> </div>
                 </div>
 
                 <div class="row cl">
                     <div class="col-9 col-offset-3">
+                        <input type="hidden" name="id" value="{if:isset($helpInfo)}{$helpInfo['id']}{/if}">
                         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
                     </div>
                 </div>
@@ -79,5 +104,6 @@
 </div>
 
 </div>
+
 
 

@@ -31,8 +31,8 @@
                                 <td class="text-primary" >{$item['cname']}</td>
                                 <td>{$item['sort']}</td>
                                 <td class="td-manage">
-                                    <a title="编辑" href="{url:/tool/help/helpEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
-                                    <a title="删除" href="javascript:void(0);" onclick="delFundOut('{$item['id']}',this)" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+                                    <a title="编辑" href="{url:/tool/help/helpAdd}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
+                                    <a title="删除" href="javascript:void(0);"  ajax_status=-1 ajax_url="{url:tool/help/delHelp?id=$item['id']}"  class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
                             </tr>
                         {/foreach}
                         </tbody>

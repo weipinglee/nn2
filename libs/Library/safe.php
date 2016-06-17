@@ -312,6 +312,5 @@ class safe
         return true;
     }
 
-
 }
 

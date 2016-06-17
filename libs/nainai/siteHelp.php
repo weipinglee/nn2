@@ -8,6 +8,7 @@
  */
 namespace nainai;
 use Library\Query;
+use Library\tool;
 
 class SiteHelp
 {
@@ -19,8 +20,7 @@ class SiteHelp
     protected $helpCatRules=array(
         array('name','require','名称必须存在'),
         array('sort','number','排序为数字'),
-        array('position_left','number','显示位置不能为空'),
-        array('position_foot','number','显示位置不能为空')
+        array('status','number','状态不能为空'),
     );
     private $helpObj='';
     private $helpCatObj='';
@@ -152,19 +152,10 @@ class SiteHelp
         $res=$helpCatObj->where($where)->getObj();
         return $res?$res:false;
     }
-
-    public static function mod_cat_position($id,$position,$value)
-    {
-        $id = intval($id);
-        $value = intval($value)==1?1:0;
-
-        if($position!='left' && $position!='foot')
-            return array('flag'=>false,'data'=>'错误的位置');
-
-        $tb_help_category = new IModel("help_category");
-        $tb_help_category->setData( array("position_{$position}"=>$value) );
-        $tb_help_category->update("id={$id}");
-        return array('flag'=>true);
+    public function setCatStatus($data){
+        $helpCatObj=$this->helpCatObj;
+        $res=$helpCatObj->data($data)->where(['id'=>$data['id']])->update();
+        return $res?tool::getSuccInfo(1,'修改成功'):tool::getSuccInfo(0,'修改失败');
     }
     public function getAllCat(){
         $helpCatObj=new Query('help_category');

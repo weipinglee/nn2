@@ -50,8 +50,7 @@ class helpController extends Yaf\Controller_Abstract{
             $data['time']=date('Y-m-d H:i:s',time());
             $data['sort']=\Library\safe::filterPost('sort','int');
             $data['link']=\Library\safe::filterPost('link');
-            $data['content']=\Library\safe::filterPost('content');
-
+            $data['content']=$_POST['introduce'];
             $id=\Library\safe::filterPost('id','int');
             if($id){
                 $data['id']=$id;
@@ -61,46 +60,50 @@ class helpController extends Yaf\Controller_Abstract{
                 $res=$helpModel->addhelp($data);
             }
             die(\Library\json::encode($res));
+        }else{
+            $id=\Library\safe::filterGet('id','int');
+            if($id){
+                $res=$helpModel->getHelpById($id);
+                $this->getView()->assign('helpInfo',$res);
+            }
+            $catList=$helpModel->getAllCat();
+            $this->getView()->assign('catList',$catList);
+
         }
-        $catList=$helpModel->getAllCat();
-        $this->getView()->assign('catList',$catList);
+
 
     }
 
     /**
-     *添加帮助分类
+     *添加编辑帮助分类
      */
     public function helpCatAddAction(){
         $helpCatModel=new siteHelp();
         if(IS_AJAX&&IS_POST){
             $data['name']=\Library\safe::filterPost('name');
             $data['sort']=\Library\safe::filterPost('sort','int');
-            $data['position_left']=\Library\safe::filterPost('position_left','int');
-            $data['position_foot']=\Library\safe::filterPost('position_foot','int');
-            $id=\Library\safe::filterPost('id','int');
-            if($id){
+            $data['status']=\Library\safe::filterPost('status','int');
+            $id=\Library\safe::filterPost('id','int',0);
+            if($id!=0){
                 $data['id']=$id;
                 $res=$helpCatModel->helpCatEdit($data);
             }else{
                 $res=$helpCatModel->addhelpCat($data);
             }
             die(\Library\json::encode($res));
+        }else{
+            $id=\Library\safe::filterGet('id','int');
+            if($id){
+                $res=$helpCatModel->getHelpCatById($id);
+                $this->getView()->assign('helpCatInfo',$res);
+            }
+
         }
 
     }
 
 
 
-    /**
-     *编辑帮助分类
-     */
-    public function helpCatEditAction(){
-            $helpCatModel=new siteHelp();
-            $id=\Library\safe::filterGet('id','int');
-            $res=$helpCatModel->getHelpCatById($id);
-            $this->getView()->assign('helpCatInfo',$res);
-
-    }
 
     /**
      *编辑帮助
@@ -120,7 +123,7 @@ class helpController extends Yaf\Controller_Abstract{
      */
     public function delHelpAction(){
         if(IS_AJAX){
-            $id=\Library\safe::filterGet('id','int');
+            $id=intval($this->_request->getParam('id'));
             $helpModel=new siteHelp();
             $res=$helpModel->helpDel($id);
             die(\Library\json::encode($res));
@@ -134,11 +137,33 @@ class helpController extends Yaf\Controller_Abstract{
      */
     public function delHelpCatAction(){
         if(IS_AJAX){
-            $id=\Library\safe::filterGet('id','int');
+            $id=intval($this->_request->getParam('id'));
+
             $helpModel=new siteHelp();
             $res=$helpModel->helpCatDel($id);
             die(\Library\json::encode($res));
         }
         return false;
+    }
+
+    /**
+     * 更改分类状态
+     * @return bool
+     */
+    public function setCatStatusAction(){
+        if(IS_AJAX){
+            $id=intval($this->_request->getParam('id'));
+            $status=\Library\safe::filterPost('status','int');
+            $data=[
+                'id'=>$id,
+                'status'=>$status
+            ];
+            $helpModel=new siteHelp();
+            $res=$helpModel->setCatStatus($data);
+            die(\Library\json::encode($res));
+
+        }
+        return false;
+
     }
 }

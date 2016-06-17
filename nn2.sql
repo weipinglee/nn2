@@ -2458,12 +2458,9 @@ CREATE TABLE IF NOT EXISTS `help_category` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(10) NOT NULL COMMENT '标题',
   `sort` smallint(5) NOT NULL COMMENT '顺序',
-  `position_left` tinyint(1) NOT NULL COMMENT '是否在帮助内容、列表页面的左侧显示',
-  `position_foot` tinyint(1) NOT NULL COMMENT '是否在整站页面下方显示',
+  `status` tinyint(2) not null default 1 comment '0关闭 1开启',
   PRIMARY KEY (`id`),
-  KEY `sort` (`sort`),
-  KEY `position_left` (`position_left`),
-  KEY `position_foot` (`position_foot`)
+  KEY `sort` (`sort`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='帮助分类' ;
 CREATE TABLE IF NOT EXISTS `help` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

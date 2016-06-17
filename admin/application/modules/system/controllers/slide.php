@@ -48,9 +48,10 @@ class slideController extends Yaf\Controller_Abstract{
      * @return bool
      */
     public function delAction(){
-        if(IS_AJAX&&IS_GET){
-            $name=safe::filterGet('name');
-            $res=$this->slideModel->delSlide($name);
+        if(IS_AJAX){
+
+            $id=intval($this->_request->getParam('name'));
+            $res=$this->slideModel->delSlide($id);
             die(json::encode($res));
         }
         return false;

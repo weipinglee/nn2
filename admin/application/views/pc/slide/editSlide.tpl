@@ -29,7 +29,7 @@
                     <div class="row cl">
                         <label class="form-label col-2">名称：</label>
                         <div class="formControls col-10">
-                            <input type="text" name="name" value="{$slideInfo['name']}" />
+                            <input type="text" name="name" value="{$slideInfo['name']}" datatype="s2-50" nullmsg="名称不能为空" />
                         </div>
                     </div>
                     <div class="row cl">
@@ -48,7 +48,7 @@
                     <div class="row cl">
                         <label class="form-label col-2">排序：</label>
                         <div class="formControls col-10">
-                            <input type="text" name="order" value="{$slideInfo['order']}" /> 数字越小，排列越靠前
+                            <input type="text" name="order" value="{$slideInfo['order']}" class="input-text" datatype="n1-100" nullmsg="排序字段不能为空" /> 数字越小，排列越靠前
                         </div>
                     </div>
                     <div class="row cl">

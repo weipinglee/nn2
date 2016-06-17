@@ -10,7 +10,7 @@
         </div>
         <div class="content">
             <div class="pd-20">
-
+                <div class="cl pd-5 bg-1 bk-gray"> <a class="btn btn-primary radius" href="{url:/system/friendlyLink/addFrdLink}"><i class=" icon-plus"></i> 添加链接</a> </span>  </div>
                 <div class="mt-20">
                     <table class="table table-border table-bordered table-hover table-bg table-sort">
                         <thead>
