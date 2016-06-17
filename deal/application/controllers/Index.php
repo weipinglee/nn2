@@ -9,6 +9,7 @@ use \DB\M;
 use \tool\http;
 use \common\url;
 use \common\tool;
+use \nainai\offer\product;
 class IndexController extends PublicController {
 
 
@@ -19,7 +20,9 @@ class IndexController extends PublicController {
      * 对于如下的例子, 当访问http://yourhost/yar-demo/index/index/index/name/root 的时候, 你就会发现不同
      */
 	public function indexAction() {
-
+		$productModel=new product();
+		$res=$productModel->getCategoryLevel();
+		$slideObj=new
 	}
 
 	public function showAction(){
