@@ -71,5 +71,18 @@ class Time
 		return $difference;
 	}
 
+	/**
+	 *
+	 * @param $first_time
+	 * @param string $second_time
+	 */
+	public static function getDiffDays($first_time,$second_time){
+		$datetime1 = new \DateTime($first_time);
+		$datetime2 = new \DateTime($second_time);
+		$interval = $datetime1->diff($datetime2);
+		return $interval->days;
+
+	}
+
 
 }

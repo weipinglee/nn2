@@ -274,7 +274,6 @@ class UserModel{
 		$exit = $this->existUser($data);
 		if($exit!==false)
 			return $exit;
-
 		if(!is_object(self::$userObj)){
 			self::$userObj = new M('user');
 		}
@@ -307,7 +306,7 @@ class UserModel{
 
 		$where = array();
 		if(isset($data['id']))
-			$where['id'] = array('neq',$data['id']);
+			$where['id'] = array('neq'=>$data['id']);
 		foreach($this->uniqueFields as $f=>$v){
 			if(isset($data[$f])){
 				$where[$f] = $data[$f];

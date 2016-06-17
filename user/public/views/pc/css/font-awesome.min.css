@@ -1262,3 +1262,5 @@ ul.icons li [class^="icon-"],ul.icons li [class*=" icon-"] {
 .icon-folder-open-alt:before {
     content: "\f115"
 }
+
+.Validform_wrong{color:red;}

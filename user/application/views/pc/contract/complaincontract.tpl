@@ -15,27 +15,25 @@
 								  <th>合同编号</th>
 								  <th width="180px">产品名</th>
 								  <th>价格</th>
-								  <th>规格/数量</td>
 								  <th>用户</th>
-								  <th>合同状态</th>
 								</tr>
 								<tr>
 								  <td colspan="6">&nbsp;</td>
 								</tr>
-								<tr class="title">
-								  <td colspan="6">
-									单号:<span class="col2517EF">{$ContractData['order_no']}</span>
-									<!-- <span class="colaa0707 ht_padd">合同审核中</span> -->
-									<span><img class="middle_img" src="../images/center/ico_cj.jpg">生产厂家：{$ContractData['sellcn']['username']}</span>
-									<span class="ht_padd">
-									  <img class="middle_img" src="{view:/images/center/ico_kf.png}">  客服
-									</span>
-								  </td>
-								  
-								  <td colspan="3"></td>
-								</tr>
+
 								<tr>
-									<td><div class="div_heights">{$ContractData['order_no']}</div></td>
+									<td><div class="div_heights">
+											{if:$ContractData=='sell'}
+											<a href="{url:/contract/sellerdetail?id=$ContractData['id']}">
+												{$ContractData['order_no']}
+											</a>
+											{else:}
+												<a href="{url:/contract/buyerdetail?id=$ContractData['id']}">
+													{$ContractData['order_no']}
+												</a>
+											{/if}
+										</div>
+									</td>
 									<td>
 										<div class="div_heights">
 
@@ -47,43 +45,22 @@
 										</div>
 									</td>
 									<td>
-										<div class="div_heights colaa0707">合同总额：￥100.00</div>
-										<div class="div_heights colA39F9F">等级折扣：￥10.00</div>
-										<div class="hr"></div>
-										<div class="div_heights">保证金支付（30%）</div>
+										<div class="div_heights colaa0707">合同总额：￥{$ContractData['amount']}</div>
 
 									</td>
-									<td>
-										<div class="div_heights">规格：{$ContractData['cname']}</div>
-										<div class="div_heights">材质：<br />
-											{foreach: items=$ContractData['attribute'] key=$k item=$attr}
-												{$ContractData['attrs'][$k]} : {$attr} <br />
-											{/foreach}
-										</div>
-										<div class="div_heights">数量：{$ContractData['quantity']}吨</div>
-									</td>
+
 									<td>
 										<div class="div_heights Place"><span>{$ContractData['usercn']['username']}</span> 
-											<i class="icon-user-md "></i>
-											<div class="prompt-01 prompt-02" style="">
-		                        				<div class="pc">
-		                           				 <strong>李三</strong>
-                                        	                                	          <p>山西阳泉市郊区开发区义白路耐材质量检验中心</p>
-                                        	                                	          <p>187****3539</p>
-		                        				</div>
-		                       					 <div class="p-arrow p-arrow-left"></div>
-		                    				</div>
+
 										</div>
 										
 									</td>
-									<td>
-										<div class="div_heights"><a><b>买家提货中(剩余80%)<b></a></div>
-									</td>
+
 								</tr>
 							</table>
 
 							<div class="plaint_com">
-							<form action="{url:/Contract/complainContract}" id="signupForm"  method="post">
+							<form action="{url:/Contract/complainContract}" id="signupForm"  method="post" auto_submit redirect_url="{url:/contract/complainlist}">
 						
 							<p>
 								<label for="title"><span>申诉标题<i>*</i>：</span></label>
@@ -113,7 +90,7 @@
                                                                     	<input type="hidden" name="orderId" value="{$ContractData['id']}" />
                                                                      	<input type="hidden" name="user_id" value="{$ContractData['user_id']}" />
 								<div class="subclear"><input name="submit" type="submit" value="提交申请">
-									<a href="#">取消并返回</a>
+									
 								</div>
 							</form>
 							</div>

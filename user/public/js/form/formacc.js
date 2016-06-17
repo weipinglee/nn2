@@ -53,6 +53,7 @@ nn_panduo.formacc.prototype = {
 		      ajaxPost:false,
 		      showAllError:false,
 		      postonce:true,
+			 
 			  datatype : {
 				  'float' : /^\d+\.?\d*$/i,
 				  "zh" : /^[\u4E00-\u9FA5\uf900-\ufa2d]$/,
@@ -192,6 +193,7 @@ $(function(){
 	formacc.bind_status_handle();
 
 	formacc.form_init();
+
 
 })
 

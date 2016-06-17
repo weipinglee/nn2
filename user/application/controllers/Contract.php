@@ -13,36 +13,7 @@ use \Library\PlUpload;
 
 class ContractController extends UcenterBaseController{
 
-	protected function  getLeftArray(){
-        return array(
-			array('name' => '交易管理', 'list' => array()),
-			array('name' => '销售管理', 'list' => array(
-				array('url' => url::createUrl('/ManagerDeal/productlist'), 'title' => '销售列表','action'=>array('productlist') ),
-				array(
-					'url' => url::createUrl('/ManagerDeal/indexOffer'),
-					'title' => '发布产品' ,
-					'action' => array('indexoffer','freeoffer','depositoffer','deputeoffer','storeoffer'),//action都用小写
 
-				),
-			)),
-			array('name' => '仓单管理', 'list' => array(
-				array('url' => url::createUrl('/ManagerDeal/storeProduct'), 'title' => '申请仓单','action'=>array('storeproduct') ),
-				array('url' => url::createUrl('/ManagerDeal/storeProductList'), 'title' => '仓单列表','action'=>array('storeproductlist','storeproductdetail') ),
-			)),
-			array('name' => '采购管理', 'list' => array(
-				array('url' => '', 'title' => '采购列表' ),
-				array('url' => '', 'title' => '发布采购' ),
-			)),
-			array('name' => '合同管理', 'list' => array(
-				array('url' => url::createUrl('/Contract/sellerList'), 'title' => '销售合同' ,'action'=>array('depositlist')),
-				array('url' => url::createUrl('/Contract/buyerList'), 'title' => '购买合同' ),
-			)),
-            array('name' => '提货管理', 'list' => array(
-                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=0'), 'title' => '购买提单列表' ),
-                array('url' => url::createUrl('/Delivery/deliveryList?is_seller=1'), 'title' => '销售提单列表' ),
-            ))
-		);
-    }
 
 	public function sellerListAction(){
 		$user_id = $this->user_id;
@@ -97,6 +68,8 @@ class ContractController extends UcenterBaseController{
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id,'seller');
+		$info['complain'] = $order->canComplain($info);
+
 		$this->getView()->assign('info',$info);
 	}
 
@@ -121,6 +94,7 @@ class ContractController extends UcenterBaseController{
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id);
+		$info['complain'] = $order->canComplain($info);
 		$this->getView()->assign('info',$info);
 	}
 
@@ -139,7 +113,7 @@ class ContractController extends UcenterBaseController{
 
 			$ContractData = $complainModel->getContract($order_id, 2);
 			if (empty($ContractData)) {//没有这合同直接跳转
-				$this->HandlerHtml(tool::getSuccInfo(0, '无效的合同！'));
+				die(json::encode(tool::getSuccInfo(0,'无效的合同')));
 			}
 
 			$complainData = array(
@@ -149,7 +123,7 @@ class ContractController extends UcenterBaseController{
 				'detail' => Safe::filterPost('content'),
 				'proof' => serialize(Safe::filterPost('imgData')),
 				'apply_time' => \Library\Time::getDateTime(),
-				'type' => ($this->user_id == Safe::filterPost('userId', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
+				'type' => ($this->user_id == Safe::filterPost('user_id', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
 				'status' => \nainai\order\OrderComplain::APPLYCOMPLAIN
 			);
 
@@ -157,49 +131,51 @@ class ContractController extends UcenterBaseController{
 			switch ($complainData['type']) {
 				case \nainai\order\OrderComplain::BUYCOMPLAIN:
 					if ($this->user_id != $ContractData['user_id']) {
-						$this->HandlerHtml(tool::getSuccInfo(0, '请不要申请不是你购买的合同！'));
+						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你购买的合同')));
 					}
 					break;
 				case \nainai\order\OrderComplain::SELLCOMPLAIN:
 					if ($this->user_id != $ContractData['sell_user']) {
-						$this->HandlerHtml(tool::getSuccInfo(0, '请不要申请不是你销售的合同'));
+						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你销售的合同')));
 					}
 					break;
 			}
 
 			$returnData = $complainModel->addOrderComplain($complainData);
 
-			$this->HandlerHtml($returnData);
+			die(json::encode($returnData));
 		}
+		else{
+			$id = Safe::filterGet('id', 'int');
 
-		$id = Safe::filterGet('id', 'int');
+			if (intval($id) > 0) {
+				$ContractData = array();
+				$ContractData = $complainModel->getUcenterContract($id,$this->user_id);
 
-		if (intval($id) > 0) {
-			$ContractData = array();
-			$ContractData = $complainModel->getContract($id);
+				if (empty($ContractData)) {//没有这合同直接跳转
+					$this->error('无效的合同！');
+				}
 
-			if (empty($ContractData)) {//没有这合同直接跳转
-				$this->HandlerHtml(tool::getSuccInfo(0, '无效的合同！'));
-			}
+				//获取卖方和卖方的中文名
+				$userModel = new \nainai\user\User();
+				$ContractData['usercn']  = $userModel->getUser($ContractData['user_id'], 'username');
+				if ($ContractData['user_id'] == $ContractData['sell_user']) {
+					$ContractData['sellcn'] = $ContractData['usercn'];
+				}else{
+					$ContractData['sellcn'] = $userModel->getUser($ContractData['sell_user'], 'username');
+				}
 
-			//获取卖方和卖方的中文名
-			$userModel = new \nainai\user\User();
-			$ContractData['usercn']  = $userModel->getUser($ContractData['user_id'], 'username');
-			if ($ContractData['user_id'] == $ContractData['sell_user']) {
-				$ContractData['sellcn'] = $ContractData['usercn'];
+				//上传图片插件
+				$plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
+
+				//注意，js要放到html的最后面，否则会无效
+				$this->getView()->assign('plupload',$plupload->show());
+				$this->getView()->assign('ContractData', $ContractData);
 			}else{
-				$ContractData['sellcn'] = $userModel->getUser($ContractData['sell_user'], 'username');
+				$this->error('无效的合同！');
 			}
-
-			//上传图片插件
-			$plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
-
-			//注意，js要放到html的最后面，否则会无效
-			$this->getView()->assign('plupload',$plupload->show());
-			$this->getView()->assign('ContractData', $ContractData);
-		}else{
-			$this->HandlerHtml(tool::getSuccInfo(0, '无效的合同！'));
 		}
+
 	}
 
 	/**

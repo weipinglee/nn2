@@ -81,6 +81,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 		array('proof', 'require','请上传申述凭证!')
 	);
 
+
 	/**
 	 * 获取申述角色
 	 * @return [Array] 
@@ -189,7 +190,8 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 			}
 			
 			$query->join = 'LEFT JOIN product_offer as b ON a.offer_id=b.id LEFT JOIN products as c ON b.product_id=c.id LEFT JOIN product_category as d ON c.cate_id=d.id';
-			$query->where = 'a.id = :id';
+			$query->where = 'a.id = :id ';
+
 			$query->bind = array('id' => $orderId);
 			$detail = $query->getObj();
 
@@ -205,5 +207,137 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 
 		return $detail;
 	}
+
+	/**
+	 * 会员中心获取用户的合同
+	 * @param $orderId
+	 * @param $user_id
+	 * @return array
+	 */
+	public function getUcenterContract($orderId,$user_id){
+		$detail = array();
+		if (intval($orderId) > 0) {
+			$query = new  Query('order_sell as a ');
+			$query->fields = 'a.id, a.order_no,a.contract_status, a.user_id, a.amount, c.name as pname, c.attribute, c.quantity, c.user_id as sell_user, d.name as cname, b.product_id';
+
+
+			$query->join = 'LEFT JOIN product_offer as b ON a.offer_id=b.id LEFT JOIN products as c ON b.product_id=c.id LEFT JOIN product_category as d ON c.cate_id=d.id';
+			$query->where = 'a.id = :id AND a.user_id=:user_id';
+
+			$query->bind = array('id' => $orderId,'user_id'=>$user_id);
+			$detail = $query->getObj();
+			if(empty($detail)){
+				$query->where = 'a.id = :id AND b.user_id=:user_id';
+				$detail = $query->getObj();
+				if(!empty($detail))
+					$detail['type'] = 'sell';
+			}
+			else{
+				$detail['type'] = 'buy';
+			}
+
+			if(empty($detail)){
+				return array();
+			}
+			$detail['attribute'] = unserialize($detail['attribute']);
+			$attrIds = array_keys($detail['attribute']);
+
+			$productModel = new \nainai\offer\product();
+			$detail['photos'] = $productModel->getProductPhoto($detail['product_id']);
+			$detail['attrs'] = $productModel->getHTMLProductAttr($attrIds);
+
+			return $detail;
+		}
+
+		return $detail;
+	}
+
+	/**
+	 * 申诉第一次审核
+	 * @param array $complainData 申诉数据 status为1：介入处理，status为0：不通过
+	 */
+	public function firstCheck($complainData,$order_id){
+		if(!empty($complainData) ){
+			$obj = new M('order_complain');
+			$status = $obj->where(array('id'=>$complainData['id']))->getField('status');
+			if($status!=self::APPLYCOMPLAIN)
+				return tool::getSuccInfo(0,'该状态不能审核');
+			$order = new M('order_sell');
+			$obj->beginTrans();
+			if($complainData['status']==1){//介入处理
+				$complainData['status'] = self::INTERVENECOMPLAIN;
+				$order->data(array('is_lock'=>1))->where(array('id'=>$order_id))->update();
+			}
+			else{
+				$complainData['status'] = self::DONTCOMPLAIN;
+
+			}
+			if($obj->data($complainData)->validate($this->Rules)){
+				$id=$complainData['id'];
+				unset($complainData['id']);
+				$obj->data($complainData)->where(array('id'=>$id))->update();
+				$res = $obj->commit();
+			}
+			else{
+				$obj->rollBack();
+				$res = $obj->getError();
+			}
+
+			if($res===true){
+				return tool::getSuccInfo();
+			}
+			else
+				return tool::getSuccInfo(0,is_string($res)?$res : '系统繁忙');
+
+		}
+		return tool::getSuccInfo(0,'审核失败');
+	}
+
+	/**
+	 * 申诉第一次审核
+	 * @param array $complainData 申诉数据 status为1：介入处理，status为0：不通过
+	 */
+	public function secondCheck($complainData,$order_id){
+		if(!empty($complainData) ){
+			$obj = new M('order_complain');
+			$status = $obj->where(array('id'=>$complainData['id']))->getField('status');
+			if($status!=self::INTERVENECOMPLAIN)
+				return tool::getSuccInfo(0,'该状态不能审核');
+			$order = new M('order_sell');
+			$obj->beginTrans();
+			if($complainData['status']==self::CONFERCOMPLAIN){//协商通过
+				$order->data(array('is_lock'=>0))->where(array('id'=>$order_id))->update();//合同解锁
+				$res1=true;
+			}
+			else if($complainData['status']==self::BUYBREAKCOMPLAIN){//买方违约
+				$order = new Order();
+				$res1 = $order->buyerBreakContract($order_id);
+			}
+			else{//卖方违约
+				$order = new Order();
+				$res1 = $order->sellerBreakContract($order_id);
+			}
+			if($res1===true && $obj->data($complainData)->validate($this->Rules)){
+				$id=$complainData['id'];
+				unset($complainData['id']);
+				$obj->data($complainData)->where(array('id'=>$id))->update();
+				$res = $obj->commit();
+			}
+			else{
+				$obj->rollBack();
+				$res = $obj->getError();
+			}
+
+			if($res===true){
+				return tool::getSuccInfo();
+			}
+			else
+				return tool::getSuccInfo(0,is_string($res)?$res : '系统繁忙');
+
+		}
+		return tool::getSuccInfo(0,'审核失败');
+	}
+
+
 
 }
