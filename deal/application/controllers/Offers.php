@@ -23,6 +23,7 @@ class OffersController extends PublicController {
 	private $order;
 
 	public function init(){
+		parent::init();
 		//$this->getView()->setLayout('header');
 		$this->offer = new OffersModel();
 		$this->order = new \nainai\order\Order();
@@ -114,6 +115,9 @@ class OffersController extends PublicController {
 	}
 
 
+	/**
+	 * 报价页面
+	 */
 	public function reportAction(){
 		$id = $this->getRequest()->getParam('id');
 		$id = safe::filter($id, 'id');
@@ -121,7 +125,14 @@ class OffersController extends PublicController {
 		if (intval($id) > 0) {
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
 			$offerDetail = $PurchaseOfferModel->getOfferProductDetail($id);
+			$user = new \Library\M('user');
+			$username = $user->where(array('id'=>$offerDetail[0]['user_id']))->getField('username');
 
+			$attrText = array_keys($offerDetail[1]['attr_arr']);
+			$attrs = array_keys($offerDetail[1]['attribute']);
+			$this->getView()->assign('attr', $attrs);
+			$this->getView()->assign('attrtext', $attrText);
+			$this->getView()->assign('username', $username);
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
 		}else{

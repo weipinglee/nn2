@@ -3,6 +3,9 @@
 use \Library\Safe;
 class OperController extends \Yaf\Controller_Abstract{
 
+     public function init(){
+          $this->getView()->setLayout('layout');
+     }
      public function successAction(){
           $info = safe::filter($this->_request->getParam('info'));
           $redirect = safe::filter($this->_request->getParam('redirect'));

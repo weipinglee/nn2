@@ -1,4 +1,5 @@
- <!--主要内容 开始-->
+
+<!--主要内容 开始-->
     <div id="mainContent">
         <div class="page_width">
         <div class="mainRow1">
@@ -25,14 +26,6 @@
   $(function(){
     var redirect = "{$redirect}";
     console.log(redirect);
-    if(redirect){
-      setTimeout(function(){
-        window.location.href = redirect;
-      },2000);
-    }else{
-      setTimeout(function(){
-        history.back();
-      },2000);
-    }
+
   })
 </script>

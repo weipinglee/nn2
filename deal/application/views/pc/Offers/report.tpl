@@ -83,12 +83,14 @@
              </div>
               
              <div class="module">
-             <input name="sub" type="checkbox" value="" />
+
              
              <a href="javascript:;"> 
                                      {foreach: items=$product['photos'] item=$v}
-                                    <img src="{$v}" width="80" height="80" alt="产品" /> 
-                                    {/foreah}</a>
+                                         {if:$key==0}
+                                    <img src="{$v}" width="80" height="80" alt="产品" />
+                                         {/if}
+                                    {/foreach}</a>
              <a href="javascript:;">
                  <div class="module_word">
                  <h5> {foreach:items=$product['cate']}
@@ -101,33 +103,33 @@
                                         {/if}
                                    {/foreach}</h5>
                  <p>商品名：{$product['product_name']}</p>
-                 <p>规格/纯度：{$product['attrs']}</p>
+                 <p>规格：{$product['attrs']}</p>
+                     <p>产地：<span id="area">{areatext:data=$product['produce_area'] id=area}</span></p>
                  </div>
              </a>
-             
-           <span class="danjia">￥<b>{set: echo str_replace(',', '到', $offer['price'])}</b><span> 元/吨</span></span>  
-           <span class="jine"><i>100</i></span>  
-           <span class="shangjia"><a href="#"><i class="delet">买房商家A</i></a></span>
-           <div class="accont_total">
-               商品总价：<b>￥</b><i>12000.0</i> 元
-           </div>
+           <span class="danjia">￥<b>{$offer['price']}-{$offer['price_r']}</b><span> 元/{$product['unit']}</span></span>
+           <span class="jine"><i>{$product['quantity']}({$product['unit']})</i></span>
+           <span class="shangjia"><a href="#"><i class="delet">{$username}</i></a></span>
+
            </div>
                   
                   
                 
           <div class="qujies">
-          <span><a href="#"><i>需求规格</i></a></span>
-         
-          
-          
-          
+          <span><a href="#"><i>报价信息</i></a></span>
+
           </div>      
            <div class="input_box">
-               <label for="">规格/纯度</label><input type="text" name="attrs" id="attrs" />
-               <label for="">产地</label><select name="produce" id="produce">
-                 <option id="areat" value="{$product['produce_area']}">{areatext: data=$product['produce_area'] id=areat }</option>
-               </select>
-               <label for="">价格</label><input type="text" name="price" id="price" /><span>元/吨</span>
+
+               <label for="">产地</label>
+               {area:}
+               </br>
+               <label for="">价格</label><input type="text" name="price" id="price" /><span>元/{$product['unit']}</span>
+               </br>
+
+               {foreach:items=$attr}
+                   <label for="">{$attrtext[$key]}</label><input type="text" name="attr['{$item}']"  />
+               {/foreach}
            </div>
 <!--            <div class="baoxian">
                <span>保险</span>
