@@ -153,6 +153,4 @@ class productModel extends baseModel{
 
 	}
 
-
-
 }

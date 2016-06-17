@@ -42,34 +42,34 @@
             <!--所有分类 Start-->
             <div class="wrap">
                 <div class="all-sort-list">
-                    <div class="item" id="3">
+                    {foreach: items=$catList}
+                    <div class="item" id="{$item['id']}">
                         <div class="icon-nh3">&nbsp;</div>
 
                         <h3>
-                            <p class="fenlei-h1">耐火市场</p><p class="fenlei"><a href="">图书</a>&nbsp;<a href="">音像</a>&nbsp;<a href="">数字商品</a></p></h3>
+
+                            <p class="fenlei-h1">{$item['name']}</p><p class="fenlei">
+
+                                {for:from=0 upto=2 item=$num}
+                                    <a href="">{$item['nested'][$num]['name']}</a>&nbsp;
+                                {/for}
+
+                               </p>
+                        </h3>
                         <div class="item-list clearfix" style="top: 62px; display: none;">
 
                             <div class="subitem">
+                                {foreach: items=$item['nested']}
                                 <dl class="fore1">
-                                    <dt><a href="#">电子书2</a></dt>
-                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
+                                    <dt><a href="#">{$item['name']}</a></dt>
+
+                                    <dd>
+                                        {foreach:items=$item['nested']}
+                                        <em><a href="#">{$item['name']}</a></em>
+                                    {/foreach}
+                                    </dd>
                                 </dl>
-                                <dl class="fore2">
-                                    <dt><a href="#">数字音乐</a></dt>
-                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="#">音像</a></dt>
-                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
-                                </dl>
-                                <dl class="fore5">
-                                    <dt>人文社科</dt>
-                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
-                                </dl>
+                                {/foreach}
                             </div>
                             <div class="cat-right">
                                 <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-
+            {/foreach}
                     <div class="item item-sp" id="9">
                         <div class="icon-nh9">&nbsp;</div>
                         <h3>
@@ -210,11 +210,15 @@
                     <div id="inner">
                         <div class="hot-event">
                             <!-- <div class="switch-nav"><a href="#" onclick="return false;" class="prev"><i class="ico i-prev"></i><span class="hide-clip">上一个</span></a><a href="#" onclick="return false;" class="next"><i class="ico i-next"></i><span class="hide-clip">下一个</span></a></div> -->
+                            {foreach: items=$indexSlide}
                             <div class="event-item" style="display: block;">
-                                <a target="_blank" href="http://www.lanrentuku.com/">
-                                    <img src="{views:images/1.jpg}" class="photo" style="width: 763px; height: 433px;" alt="测试用图片" />
+                                <a target="_blank" href="{$item['link']}">
+
+                                    <img src="{$item['img']}" class="photo" style="width: 763px; height: 433px;" alt="测试用图片" />
                                 </a>
+
                             </div>
+                            {/foreach}
                             <div class="switch-tab">
                                 <a href="#" onclick="return false;" class="current">1</a>
                                 <a href="#" onclick="return false;">2</a>
@@ -1349,13 +1353,12 @@
                         <div class="i_leftTit clearfix">
                             <div class="i_left_title" name="1" id="item3">推荐商家</div>
                             <ul>
-                                <li class="li_select"><a href="javascript:void(0)"><em></em><span></span>耐材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>钢铁</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>建材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>设备</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>冶金化工</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>其他</a></li>
+                                {foreach:items=$topCat}
+                                <li id="com{$item['id']}" onclick="companyRec({$item['id']})"><a href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+
+                                {/foreach}
                             </ul>
+
                             <span class="i_more"><a href="http://www.nainaiwang.com/supply/?category_id=1">更多 &gt;</a></span>
                         </div>
 

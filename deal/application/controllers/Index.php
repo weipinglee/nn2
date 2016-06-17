@@ -21,12 +21,26 @@ class IndexController extends PublicController {
      */
 	public function indexAction() {
 		$productModel=new product();
-		$res=$productModel->getCategoryLevel();
-		$slideObj=new
+		$res=$productModel->getAllCat();
+		$this->getView()->assign('catList',$res);
+		$indexSlide=\nainai\system\slide::getIndexSlide();
+		foreach($indexSlide as $k=>$v){
+			$indexSlide[$k]['img']=\Library\Thumb::get($v['img']);
+		}
+		$company=\nainai\companyRec::getRecType();
+		$topCat=$productModel->getTopCate();
+		$this->getView()->assign('topCat',$topCat);
+		$this->getView()->assign('indexSlide',$indexSlide);
 	}
 
 	public function showAction(){
 
+	}
+	public function getCompanyRecAction(){
+		$id=\Library\safe::filterGet('id','int');
+		$companyModel=new \nainai\companyRec();
+		$companyInfo=$companyModel->getFirstTwoRec($id);
+		die(\Library\json::encode($companyInfo));
 	}
 
 	public function urlAction(){
