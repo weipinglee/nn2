@@ -7,9 +7,11 @@
  */
 use \DB\M;
 use \tool\http;
-use \common\url;
+//use \common\url;
 use \common\tool;
 use \nainai\offer\product;
+use \Library\url;
+use \Library\views\wittyAdapter;
 class IndexController extends PublicController {
 
 
@@ -26,8 +28,11 @@ class IndexController extends PublicController {
 		$indexSlide=\nainai\system\slide::getIndexSlide();
 		foreach($indexSlide as $k=>$v){
 			$indexSlide[$k]['img']=\Library\Thumb::get($v['img']);
+			//echo \Library\Thumb::get($v['img']);
 		}
-		$company=\nainai\companyRec::getRecType();
+		
+		$company=\nainai\companyRec::getAllCompany();
+		$this->getView()->assign('company',$company);
 		$topCat=$productModel->getTopCate();
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
@@ -36,13 +41,6 @@ class IndexController extends PublicController {
 	public function showAction(){
 
 	}
-	public function getCompanyRecAction(){
-		$id=\Library\safe::filterGet('id','int');
-		$companyModel=new \nainai\companyRec();
-		$companyInfo=$companyModel->getFirstTwoRec($id);
-		die(\Library\json::encode($companyInfo));
-	}
-
 	public function urlAction(){
 		$url = '  cli/test/index   name =45   address = shanxi';
 		$createUrl = url::createUrl($url);

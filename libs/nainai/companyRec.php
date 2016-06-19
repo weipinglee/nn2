@@ -301,5 +301,41 @@ class companyRec{
             return tool::getSuccInfo(0,'操作错误');
 
     }
+    //返回所有的推荐信息，
+    public static function getAllCompany(){
+        $cRecModel        = new \Library\Query('company_rec as r');
+        $cRecModel->join  = 'left join company_info as i on r.user_id=i.user_id';
+        $cRecModel->where = 'NOW() between r.start_time and r.end_time and r.status=1';
+        $allCompany=$cRecModel->find();
+       // var_dump($allCompany);
+        $result=array();
+        foreach($allCompany as $k=>$v){
+            $result[$v['category']][]=$v;
+
+        }
+        $res=array();
+        foreach($result as $k=>$v){
+                foreach($v as $kk=>$vv){
+                    if($vv['type']==self::FIREST_REC){
+                            $res[$k][$vv['type']][]=$vv;
+                    }
+                    if($vv['type']==self::SECOND_REC){
+                        $res[$k][$vv['type']][]=$vv;
+                    }
+                    if($vv['type']==self::THIRD_REC){
+                        
+                            
+                            $provinceCode=substr($vv['area'],0,2);
+                            $res[$k][$vv['type']][$provinceCode][]=$vv;
+                      
+
+                    }
+                }
+
+        }
+       /* echo "<pre>";
+        print_r($res);*/
+      return $res;
+    }
 
 }

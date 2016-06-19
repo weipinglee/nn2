@@ -66,7 +66,7 @@ class ad
                 $result = array
                 (
                     'type' => 1,
-                    'data' => '<img src="'.Thumb::get($adData['content']."@admin",180,180).'" style="cursor:pointer;'.$size.'" '.$linkHtml.' />'
+                    'data' => '<img src="'.Thumb::get($adData['content']."@admin",$adData['width'],$adData['height']).'" style="cursor:pointer;'.$size.'" '.$linkHtml.' />'
                 );
 
         return $result;

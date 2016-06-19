@@ -287,7 +287,7 @@
             <!--搜索条件 结束-->
 
             <!-- 广告条 -->
-            <div class="ad_line"><img src="{views:images/49b1OOOPIC6b.jpg}" width=943px height=93px></div>
+            <div class="ad_line">{echo: \Library\Ad::show("111")}</div>
             <!-- 广告条 结束 -->
 
             <!--最新数据 开始-->
@@ -1350,590 +1350,84 @@
                     <div class="i_market_left" id="retail_market">
                         <div id="floor-3" class="item"></div>
 
-                        <div class="i_leftTit clearfix">
+                        <div class="i_leftTit clearfix" id='item4'>
                             <div class="i_left_title" name="1" id="item3">推荐商家</div>
                             <ul>
                                 {foreach:items=$topCat}
-                                <li id="com{$item['id']}" onclick="companyRec({$item['id']})"><a href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+                                <li id="com{$item['id']}" attr='{$item['id']}' onclick="companyRec({$item['id']},this)" class=""><a href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
 
                                 {/foreach}
                             </ul>
 
                             <span class="i_more"><a href="http://www.nainaiwang.com/supply/?category_id=1">更多 &gt;</a></span>
                         </div>
-
-                        <div class="i_leftCon">
+                        {foreach:items=$company}
+                        <div class="i_leftCon" id="rec{$key}" style="display:none">
 
                             <div class="i_proList show">
 
                                 <div class="i_tuijian_com">
                                     <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
+                                    {if: isset($item[2])}
+                                    <?php foreach ($item[2] as $k => $v) {
+                                        # code...
+                                     ?>                                        <li class="tuijian_1_1"><a href=""><img src="{views:images/angang.png}" class="tui_img"></a></li>
+                                    
+                                    <?php } ?>
+                                    {/if}
                                     </ul>
-
+                                
                                 </div>
+                                {if:isset($item[1])}
+                                
                                 <DIV class="i_main_tuijian">
-
+                                    <?php foreach($item[1] as $k=>$v){?>
                                     <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
+                                        <img src="{views:images/bg/20160121190011.png}" class="tuijian_bg">
                                         <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
+                                            <p class="content_1"><span class="left"><img src="{views:images/ag_logo.png}" class="com_logo">{$v['company_name']}</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
 
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
+                                            <p class="content_2">主营：<span class="main_content">{$v['business']}等</span></p>
                                             <p class="connect">
 
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
+                                                <span>地址：{$v['address']}</span>
+                                                <span>联系电话：{$v['contact_phone']}</span>
+                                                <span>联系人：{$v['contact']}</span>
                                             </p>
 
                                         </div>
                                     </div>
+                                                             <?php }  ?>
 
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
+                                    
 
 
-
-
-
-                                </DIV>
+                            </DIV>
+                                {/if}
                             </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-
+                           
+                            
                             <!--地区推荐-->
+                            
                             <div class="i_recommend clearfix">
                                 <div class="i_region">
+                                {if:isset($item[3])}
+                                    <?php foreach($item[3] as $k=>$v){  ?>
                                     <ul>
                                         <li class="i_regionTit">山东地区<span style="display: none">累计撮合1809单</span></li>
                                         <li class="i_regionTit2">推荐商家</li>
-                                        <li><a href="http://www.nainaiwang.com/shop/100283_100283.html">- 临沂飞扬塑料有限公司</a></li><li><a href="http://www.nainaiwang.com/shop/100356_100258.html">- 浙江前程石化股份有限公司</a></li>
+                                        <?php foreach($v as $kk=>$vv){ ?>
+                                        <li><a href="http://www.nainaiwang.com/shop/100283_100283.html">- {$vv['company_name']}</a></li><?php }  ?>
                                     </ul>
-                                    <ul>
-                                        <li class="i_regionTit">上海地区<span style="display: none">累计撮合1809单</span></li>
-                                        <li class="i_regionTit2">推荐商家</li>
-                                        <li><a href="http://www.nainaiwang.com/shop/100512_100512.html">- 上海中晨塑料有限公司</a></li><li><a href="http://www.nainaiwang.com/shop/228142_226716.html">- 上海三美实业有限公司</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li class="i_regionTit">江苏地区<span style="display: none">累计撮合1809单</span></li>
-                                        <li class="i_regionTit2">推荐商家</li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202711_200266.html">- 苏州天则化工有限公司</a></li><li><a href="http://www.nainaiwang.com/shop/200298_200298.html">- 苏州市友生塑胶有限公司</a></li>
-                                    </ul>
-                                    <ul class="margin0">
-                                        <li class="i_regionTit">浙江地区<span style="display: none">累计撮合1809单</span></li>
-                                        <li class="i_regionTit2">推荐商家</li>
-                                        <li><a href="http://www.nainaiwang.com/shop/100346_100346.html">- 浙江特产石化有限公司</a></li><li><a href="http://www.nainaiwang.com/shop/200350_100526.html">- 宁波市高兆进出口有限公司</a></li>
-                                    </ul>
+                                    <?php  }?>
+                                    {/if}
                                 </div>
-
+                                
+                            
                             </div>
-
+                            
                         </div>
+                       {/foreach}
 
                     </div>
 
@@ -2032,7 +1526,7 @@
                     </div>
 
                 </div>
-
+            
                 <!--耐耐网服务-->
                 <div class="i_service clearfix">
                     <span>耐耐网服务</span>
@@ -2097,7 +1591,25 @@
 
         </div>
         <!----五大类  结束---->
+    <script type="text/javascript">
+    $('document').ready(function(){
+        var obj=$('#item3').next().children().first();
+        var id=obj.attr('attr');
+        alert(id);
+        obj.addClass('li_select');
+        var recObj=$('#rec'+id);
+        recObj.css('display','block');
 
+    });
+    function companyRec(id,obj){
+         $(obj).siblings().removeClass('li_select');
+         $(obj).addClass('li_select');
+         var recObj=$('#rec'+id);
+        $('#item4').nextAll().css('display','none');
+        recObj.css('display','block');
+
+    }
+    </script>
 
 
 

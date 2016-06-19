@@ -10,14 +10,14 @@ namespace Library;
 return array(
     'http'=>'http',
     'host'=>array(//å„ç³»ç»ŸåŸŸåè·¯å¾?
-        'deal'=>'/dev_qiandao/deal/public',
+        'deal'=>'/dev_qiantao/deal/public',
         // 'user'=>'http://user.test.com',
-        'user'=>'/dev_qiandao/user/public',
-        'admin'=>'/dev_qiandao/admin/public/',
+        'user'=>'/dev_qiantao/user/public',
+        'admin'=>'/dev_qiantao/admin/public/',
     ),
     'rootDir'=>array(//é¡¹ç›®æ ¹ç›®å½•ç»å¯¹è·¯å¾?
-        'user'=>'E:\wamp\wamp\www\dev_qiandao\user\public',
-        'admin'=>'E:\wamp\wamp\www\dev_qiandao\admin\public',
-        'deal'=>'E:\wamp\wamp\www\dev_qiandao\deal\public'
+        'user'=>'E:\wamp\www\dev_qiantao\user\public',
+        'admin'=>'E:\wamp\www\dev_qiantao\admin\public',
+        'deal'=>'E:\wamp\www\dev_qiantao\deal\public'
     ),
 );
