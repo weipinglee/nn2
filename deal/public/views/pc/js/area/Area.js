@@ -85,7 +85,7 @@ function Area(){
             }
         }
         this.removeOptions(g); g[0] = new Option("请选择 ", 0);
-        if ( f == 31 || f == 71 || f == 50 || f == 81 || f == 82) {
+        if (  f == 71 || f == 81 || f == 82) {
             if ($("#" + d + "_div"))
             { $("#" + d + "_div").hide(); }
         }
