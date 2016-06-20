@@ -127,20 +127,32 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 					}
 
 				}
+
 				$where .= ')';
 				
 				$right = $this->model->table($this->menuRoleTable)->where($where)->bind($roleIds)->getFields('purview');
-				
-				foreach($right as $k=>$v){
-					$userPur = array_merge($userPur,unserialize($v));
+
+			}else{
+				//子账户权限
+				$user = $this->model->table('user')->where(array('id'=>$uid))->fields('gid,pid')->getObj();
+				if($user['pid']){
+					$gid = unserialize($user['gid']);
+					$right = $this->model->table($this->menuRoleTable)->where('FIND_IN_SET(id, :ids)')->bind(array('ids'=>implode(',',$gid)))->getFields('purview');
+				}else{
+					return true;
 				}
 
 			}
 
+			foreach($right as $k=>$v){
+				$userPur = array_merge($userPur,unserialize($v));
+			}
 			
 			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
 
 			foreach($menuList as $k=>$v){
+				$menuList[$k]['url'] = $menuList[$k]['menu_url'];
+				// if(!$v['menu_url'])
 				$menuList[$k]['menu_url'] = \Library\url::createUrl($menuList[$k]['menu_url']);
 			}
 		}

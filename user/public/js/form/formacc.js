@@ -24,6 +24,7 @@ nn_panduo.formacc.prototype = {
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
 			_this.bind_select();
 			_this.validform();
+			_this.validPaymentPassword();
 		});
 	},
 	/**
@@ -48,6 +49,7 @@ nn_panduo.formacc.prototype = {
 	validform:function(){
         var _this = this;
         if(this.form){
+
 			this.validObj = $(this.form).Validform({
 		      tiptype : 2,
 		      ajaxPost:false,
@@ -68,24 +70,68 @@ nn_panduo.formacc.prototype = {
 		      beforeSubmit:function(curform){
 		        var url = $(curform).attr('action');
 		        var data = $(curform).serialize();
-		        _this.ajax_post(url,data,function(){
-		          if(!_this.no_redirect){
-		          	  layer.msg("操作成功!稍后自动跳转");
-		              setTimeout(function(){
-		              	if(_this.redirect_url){
-			                window.location.href=_this.redirect_url;
-			            }else{
-			            	window.location.reload();
-			            }
-		              },1000);
-		          }else{
-		          	layer.msg('操作成功！');
-		          }
-		        });
+		        var pay_secret = $(curform).attr('pay_secret');
+		        if(pay_secret){
+		        	layer.config({
+					    extend: 'extend/layer.ext.js'
+					});
+		        	layer.prompt({title:'请输入支付密码',formType:1},function(pass){
+		        		
+	        			layer.closeAll();
+        				data += '&pay_secret=' + pass;
+        				// console.log(data);
+        				_this.ajax_post(url,data,function(){
+					        if(!_this.no_redirect){
+					       	    layer.msg("操作成功!稍后自动跳转");
+					            setTimeout(function(){
+					              	if(_this.redirect_url){
+						                window.location.href=_this.redirect_url;
+						            }else{
+						            	window.location.reload();
+						            }
+					            },1000);
+					        }else{
+					          	layer.msg('操作成功！');
+					        }
+				        });
+		        	});
+		        }else{
+			        _this.ajax_post(url,data,function(){
+				        if(!_this.no_redirect){
+				       	    layer.msg("操作成功!稍后自动跳转");
+				            setTimeout(function(){
+				              	if(_this.redirect_url){
+					                window.location.href=_this.redirect_url;
+					            }else{
+					            	window.location.reload();
+					            }
+				            },1000);
+				        }else{
+				          	layer.msg('操作成功！');
+				        }
+			        });
+			    }
 		        return false;
 		      }
 	      });
 	    }
+	},
+	//为a标签绑定认证支付密码事件
+	validPaymentPassword:function(){
+		$('a[pay_secret]').each(function(){
+			$(this).click(function(){
+				var href = $(this).attr('href');
+				layer.prompt({title:'请输入支付密码',formType:1},function(pass){
+        		
+	    			layer.closeAll();
+	    			href += '/pay_secret/'+pass;
+				    window.location.href = href;
+	        	});	
+
+	        	return false;
+			});
+			
+		});
 	},
 
 	check:function(bool){

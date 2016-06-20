@@ -8,7 +8,7 @@
  * 调用的次序, 和申明的次序相同
  */
 use \Library\views\wittyAdapter;
-
+use \Library\tool;
 class Bootstrap extends \Yaf\Bootstrap_Abstract{
 
     public function _initConfig(Yaf\Dispatcher $dispatcher) {
@@ -41,7 +41,8 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 	}
 	
 	public function _initView(Yaf\Dispatcher $dispatcher){
-		$view = new wittyAdapter(\Yaf\Registry::get("config")->witty);
+		$res = tool::getConfig()['witty'];
+		$view = new wittyAdapter($res);
 		$dispatcher->setView($view);
 	}
 }

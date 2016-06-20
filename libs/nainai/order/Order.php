@@ -802,7 +802,7 @@ class Order{
 	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id';
-		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit,po.product_id,pc.name as cate_name';
+		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit,po.product_id,pc.name as cate_name,po.user_id as seller_id';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();
@@ -918,7 +918,7 @@ class Order{
 					}
 					break;
 				case self::CONTRACT_CANCEL:
-					$title = '合同已被卖家取消';
+					$title = '合同已被取消';
 					break;
 				case self::CONTRACT_EFFECT:
 					//判断是否可以提货
@@ -957,6 +957,49 @@ class Order{
 			$value['title'] = $title;
 			$value['action'] = $action;
 			$value['action_href'] = $href;
+		}
+	}
+
+	/**
+	 * 获取管理员合同状态
+	 * @param  array &$data 购买合同订单数组
+	 */
+	public function adminContractStatus(&$data){
+		foreach($data as $key => &$value) {
+			$contract_status = $value['contract_status'];
+			switch ($contract_status) {
+				case self::CONTRACT_NOTFORM:
+					$title = '买方未支付定金';
+					break;
+				case self::CONTRACT_SELLER_DEPOSIT:
+					$title = '等待卖方支付保证金';
+					break;
+				case self::CONTRACT_BUYER_RETAINAGE:
+					$title = '等待买方支付尾款';
+					break;
+				case self::CONTRACT_CANCEL:
+					$title = '合同已被取消';
+					break;
+				case self::CONTRACT_EFFECT:
+					$title = '合同已生效';
+					break;
+				case self::CONTRACT_DELIVERY_COMPLETE:
+					$title = '提货完成,待买方确认质量';
+					break;
+				case self::CONTRACT_VERIFY_QAULITY:
+					$title = '等待卖方确认质量';
+					break;
+				case self::CONTRACT_SELLER_VERIFY:
+					$title = '等待买方确认合同';
+					break;
+				case self::CONTRACT_COMPLETE:
+					$title = '合同已完成';
+					break;
+				default:
+					$title = '未知状态';
+					break;
+			}
+			$value['title'] = $title;
 		}
 	}
 

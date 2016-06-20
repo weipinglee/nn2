@@ -22,6 +22,12 @@
     <script type="text/javascript" src="http://localhost/nn2/user/public/js/form/validform.js" ></script>
     <script type="text/javascript" src="http://localhost/nn2/user/public/js/form/formacc.js" ></script>
     <script type="text/javascript" src="http://localhost/nn2/user/public/js/layer/layer.js"></script>
+    <script type="text/javascript" src="http://localhost/nn2/user/public/js/layer/extend/layer.ext.js"></script>
+
+     <script type="text/javascript" src="http://localhost/nn2/user/public/js/form/validate/jquery.validate.min.js" ></script>
+     <script type="text/javascript" src="http://localhost/nn2/user/public/js/form/validate/messages_zh.min.js" ></script>
+     <link href="http://localhost/nn2/user/public/js/form/validate/error.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <!--    公用头部控件 -->
@@ -30,7 +36,7 @@
         <div class="topnav_left">
             <div class="login_link" id="toploginbox">
                 <?php if($login==0){?>
-                <a rel="external nofollow" href="http://localhost/nn2/user/public/index/login" target="_blank" class="topnav_login">登录</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/login" target="_blank" class="topnav_login">登录</a>
                 <div class="login_box" id="login_boxMain" style="display: none;">
                     <input name="gtxh_LoginMobile" type="text" id="gtxh_LoginMobile" class="txt_topnav" value="手机号码" maxlength="11">
                     <br>
@@ -49,7 +55,7 @@
                 </div>
                 <?php }else{?>
                     您好，<?php echo isset($username)?$username:"";?>
-                    <a rel="external nofollow" href="http://localhost/nn2/user/public/index/logout" >退出</a>
+                    <a rel="external nofollow" href="http://localhost/nn2/user/public/login/logout" >退出</a>
                 <?php }?>
             </div>
             <div class="topnav_login_in" id="userCenterbox" style="display: none;">
@@ -162,7 +168,7 @@
                 <ul class="nav-list">
                     <?php foreach($topArray as $key => $topList){?>
                         <li>
-                            <a href="<?php echo isset($topList['url'])?$topList['url']:"";?>" <?php if( $topList['isSelect']){?> class="cur" <?php }?>><?php echo isset($topList['title'])?$topList['title']:"";?></a>
+                            <a href="<?php echo isset($topList['url'])?$topList['url']:"";?>" <?php if( isset($topList['isSelect']) && $topList['isSelect'] == 1){?> class="cur" <?php }?>><?php echo isset($topList['title'])?$topList['title']:"";?></a>
                         </li>
                     <?php }?>
 
@@ -179,19 +185,18 @@
                     <ul>
 
                     	<?php foreach($leftArray as $k => $leftList){?>
-
                     		<?php if( $k == 0){?>
-                    		<li class="let_nav_tit"><h3><?php echo isset($leftList['name'])?$leftList['name']:"";?></h3></li>
+                    		<li class="let_nav_tit"><h3><?php echo isset($leftList['title'])?$leftList['title']:"";?></h3></li>
                     		<?php }else{?>
                             <li class="btn1" id="btn<?php echo isset($k)?$k:"";?>">
-                                <a class="nav-first <?php if(isset($leftList['action']) && in_array($action,$leftList['action'])){?>cur<?php }?>" <?php if(isset($leftList['url'])){?> href="<?php echo isset($leftList['url'])?$leftList['url']:"";?>"<?php }?> >
-                                    <?php echo isset($leftList['name'])?$leftList['name']:"";?>
+                                <a class="nav-first <?php if($action==$leftList['action']){?>cur<?php }?>" <?php if( !empty($leftList['url'])){?> href="<?php echo isset($leftList['url'])?$leftList['url']:"";?>"<?php }?> >
+                                    <?php echo isset($leftList['title'])?$leftList['title']:"";?>
                                     <i class="icon-caret-down"></i>
                                 </a>
                                 <?php if( !empty($leftList['list'])){?>
                                     <ul class="zj_zh" >
                                         <?php foreach($leftList['list'] as $key => $list){?>
-                                            <li><a  href="<?php echo isset($list['url'])?$list['url']:"";?>" <?php if(in_array($action,$list['action'])){?>class="cur"<?php }?> ><?php echo isset($list['title'])?$list['title']:"";?></a></li>
+                                            <li><a  href="<?php echo isset($list['url'])?$list['url']:"";?>" <?php if($action==$list['action']){?>class="cur"<?php }?> ><?php echo isset($list['title'])?$list['title']:"";?></a></li>
                                         <?php }?>
                                     </ul>
                                 <?php }?>
@@ -376,11 +381,21 @@
 			</div>
 
 
+
+			<form action="http://localhost/nn2/user/public/ucenter/index" auto_submit pay_secret=1 onsubmit="return false;">
+				<input type="hidden" name='name' value="panduo"/>
+				<input type="hidden" name='name1' value="panduo"/>
+				<input type="submit"/>
+			</form>
+
+			<a href="http://localhost/nn2/user/public/ucenter/index" pay_secret>cesss</a>
+
+
             </div>
 
 				<!--end中间内容-->	
 			<!--start右侧广告-->			
-			<div class="user_r">
+		<!--	<div class="user_r">
 				<div class="wrap_con">
 					<div class="tit clearfix">
 						<h3>公告</h3>
@@ -393,7 +408,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			<!--end右侧广告-->
 		</div>
 	</div>

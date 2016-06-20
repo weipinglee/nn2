@@ -21,16 +21,14 @@ class wittyAdapter implements \Yaf\View_Interface {
 	public function __construct($config) {
 		// set template path
 		$this->witty = new witty();
-
 		//³õÊ¼»¯Ä¿Â¼
 		$client = client::getDevice();
 		$tpl_dir = $client=='pc' ?  $config['tpl_dir'].'/pc/' : $config['tpl_dir'].'/mobile/' ;
-
+		
 		$this->witty->setTplDir($tpl_dir);
 		$this->witty->setLayoutDir($tpl_dir.'/layout/');
 		$this->witty->setCompileDir($config['compile_dir']);
 		$this->witty->setCacheDir($config['cache_dir']);
-
 
 		//$this->_options = $options;
 	}

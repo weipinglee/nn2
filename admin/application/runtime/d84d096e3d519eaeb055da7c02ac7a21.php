@@ -16,7 +16,7 @@
 <body>
 <script type="text/javascript" src="http://localhost/nn2/admin/public/views/pc/js/libs/jquery/1.11/jquery.min.js"></script>
 <div id="content" class="white">
-<h1><img src="http://localhost/nn2/admin/public/views/pc/img/icons/posts.png" alt="" /> 仓库管理</h1>
+<h1><img src="http://localhost/nn2/admin/public/views/pc/img/icons/posts.png" alt="" /> 合同管理</h1>
 <div class="bloc">
     <div class="title">
         添加撮合人
@@ -35,6 +35,7 @@
 				<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
 				<th width="80">ID</th>
 				<th width="100">订单号</th>
+				<th width="100">合同状态</th>
 				<th width="100">商品名称</th>
 				<th width="100">商品数量</th>
 				<th width="100">订单金额</th>
@@ -47,6 +48,7 @@
 				<!-- <td><input type="checkbox" value="" name=""></td> -->
 				<td><?php echo isset($item['id'])?$item['id']:"";?></td>
 				<td><?php echo isset($item['order_no'])?$item['order_no']:"";?></td>
+				<td><?php echo isset($item['title'])?$item['title']:"";?></td>
 				<td><?php echo isset($item['product_name'])?$item['product_name']:"";?></td>
 				<td><?php echo isset($item['num'])?$item['num']:"";?><?php echo isset($item['unit'])?$item['unit']:"";?></td>
 				<td><?php echo isset($item['amount'])?$item['amount']:"";?></td>

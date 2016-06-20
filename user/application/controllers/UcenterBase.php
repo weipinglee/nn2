@@ -40,11 +40,41 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 
 	protected function init(){
-        $a = new \nainai\subAccount();
-        $res = $a->AccessDecision();
-        var_dump($res);exit;
 
+        $this->cert = array(
+            'public'=>1,
+            'deal'=>1,
+            'store'=>1
+        );
+
+        $controllerName = $this->_request->getControllerName();
+        $actionName = $this->_request->getActionName();
+        $a = new \nainai\subAccount();
+        $res = $a->AccessDecision($controllerName,$actionName);
+        if(!$res){
+            //子账户无权限则跳转到首页
+            $this->error('无权限',url::createUrl('/Ucenter/index'));
+        }
+
+        $user = new \nainai\user\User();
+        $secret_url = $user->getSecretUrl();
+
+        //判断是否需要支付密码
+        if(in_array(strtolower($controllerName).'/'.strtolower($actionName),$secret_url)){
+            $pay_secret = safe::filterPost('pay_secret') ? safe::filterPost('pay_secret') : safe::filter($this->_request->getParam('pay_secret'));
+            if(!$pay_secret){
+                IS_POST ? die(json::encode(tool::getSuccInfo(0,'请认证支付密码'))) : $this->error('请认证支付密码');die;
+            }
+            $sec = $user->validPaymentPassword($pay_secret);
+            if(!$sec){
+                IS_POST ? die(json::encode(tool::getSuccInfo(0,'支付密码错误'))) : $this->error('支付密码错误'); die; 
+            }
+        }
+        
+        
 		parent::init();//继承父类的方法，检测是否登录和角色
+
+        //确认操作
 		$action_confirm = $this->_request->getParam('action_confirm');
 		if(isset($action_confirm)){
 			$info = safe::filter($this->_request->getParam('info'));
@@ -65,9 +95,9 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 		//获取菜单数据
 		$MenuModel = new \nainai\user\Menu();
-    		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert);
-    		$this->createTreeMenu($menuList);
-    		$menu = $this->createHtmlMenu();
+		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert);
+		$this->createTreeMenu($menuList);
+		$menu = $this->createHtmlMenu();
 
 		$this->getView()->assign('topArray', $menu['top']);
 		$this->getView()->assign('leftArray', $menu['left']);
@@ -230,7 +260,18 @@ class UcenterBaseController extends \nainai\controller\Base{
     		$this->redirect(url::createUrl("/Oper/confirm?info={$info}&redirect={$redirect}"));
     	}
 
+        /**
+         * 验证用户支付密码
+         */
+        public function validPaymentPasswordAction(){
+            $pay_secret = safe::filterPost('pay_secret');
+            $user = new \nainai\user\User();
+            $valid = $user->validPaymentPassword($pay_secret);
+            $res = $valid === true ? tool::getSuccInfo() : tool::getSuccInfo(0,'支付密码错误');
 
+            echo JSON::encode($res);
+            return false;
+        }
 
 }
 

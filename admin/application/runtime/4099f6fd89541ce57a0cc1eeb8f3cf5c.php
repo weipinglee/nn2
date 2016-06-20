@@ -109,6 +109,13 @@
                         </li>
                         <li><a href="http://localhost/nn2/admin/public/member/usergroup/grouplist" target="content">角色分组</a></li>
                         <li><a href="http://localhost/nn2/admin/public/member/member/memberlist" target="content">会员列表</a></li>
+                        <li><a href='javascript:voie(0)' target="content">菜单管理</a>
+                         <ul>
+                                <li><a href="http://localhost/nn2/admin/public/member/menu/menulist" target="content"> 菜单列表</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/member/menu/addmenu" target="content">菜单添加</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/member/menu/menurolelist" target="content">菜单角色列表</a></li>
+                            </ul>
+                            </li>
                         <li><a href='javascript:voie(0)' target="content">代理商管理</a>
                             <ul>
                                 <li><a href="http://localhost/nn2/admin/public/member/agent/agentlist" target="content">代理商列表</a></li>
@@ -121,25 +128,14 @@
                 </li>
                 <li><a target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/brush.png" alt="" />交易管理</a>
                     <ul>
-                        <li><a href="http://localhost/nn2/admin/public/trade/product/categoryadd" target="content">产品分类设置</a>
+                        <li><a href="http://localhost/nn2/admin/public/trade/product/categoryadd" target="content">产品设置</a>
                             <ul>
-                                <li><a href="http://localhost/nn2/admin/public/trade/product/categoryadd" target="content">分类添加</a></li>
                                 <li><a href="http://localhost/nn2/admin/public/trade/product/categorylist" target="content">分类列表</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="http://localhost/nn2/admin/public/trade/product/attributeadd" target="content">产品属性设置</a>
-                            <ul>
-                                <li><a href="http://localhost/nn2/admin/public/trade/product/attributeadd" target="content">属性添加</a></li>
                                 <li><a href="http://localhost/nn2/admin/public/trade/product/attributelist" target="content">属性列表</a></li>
                             </ul>
                         </li>
-                        <li><a target="content">交易费率设置</a>
-                            <ul>
-                                <li><a href="scale-bond.html" target="content">保证金收取比例</a></li>
-                                <li><a href="scale-hand.html" target="content">手续费收取比例</a></li>
-                                <li><a href="scale-offer.html" target="content">自由报盘收费设置</a></li>
-                            </ul>
-                        </li>
+
+
                         <li><a target="content">报盘管理</a>
                             <ul>
                                 <li><a href="http://localhost/nn2/admin/public/trade/offermanage/offerList/" target="content">报盘管理</a></li>
@@ -157,7 +153,12 @@
                                 <li><a href="http://localhost/nn2/admin/public/trade/pairing/pairingContractList/" target="content">撮合合同列表</a></li>
                             </ul>
                         </li>
-                        <li><a href="appeal-list.html" target="content">申诉管理</a></li>
+                        <li><a  target="content">申诉管理</a>
+                            <ul>
+                                <li><a href="http://localhost/nn2/admin/public/trade/complain/complainList//status/0" target="content">未处理申述列表</a></li>
+                                <li><a href="http://localhost/nn2/admin/public/trade/complain/complainList//status/1" target="content">已处理申述列表</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/lab.png" alt="" /> 结算管理</a>
@@ -190,8 +191,9 @@
                         <li><a href="honor-list.html" target="content">信誉排名</a></li>
                     </ul>
                 </li>
-                <li class="nosubmenu"><a href="modal.html" class="zoombox w450 h700" target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/comment.png" alt="" /> 数据统计</a></li>
-                <li class="nosubmenu"><a href="javascript:void(0)" class="zoombox w450 h700" target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/comment.png" alt="" /> 仓库管理</a>
+               <!-- <li class="nosubmenu"><a href="modal.html" class="zoombox w450 h700" target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/comment.png" alt="" /> 数据统计</a></li>
+               -->
+                <li><a   target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/comment.png" alt="" /> 仓库管理</a>
                     <ul>
                         <li><a href="" target="content">仓库管理</a>
                             <ul>
@@ -213,6 +215,11 @@
                             </ul>
                         </li>
 
+                    </ul>
+                </li>
+                <li class="nosubmenu"><a href="javascript:void(0)" class="zoombox w450 h700" target="content"><img src="http://localhost/nn2/admin/public/views/pc/img/icons/menu/comment.png" alt="" /> 导航管理</a>
+                    <ul>
+                        <li><a target="content" href="http://localhost/nn2/admin/public/guide/guidelist">导航列表</a></li>
                     </ul>
                 </li>
             </ul>
