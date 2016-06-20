@@ -30,18 +30,18 @@ class IndexController extends PublicController {
 			$indexSlide[$k]['img']=\Library\Thumb::get($v['img']);
 		}
 		$statcModel=new \nainai\statistics();
-		$statcCatList=$statcModel->getNewCatStatc(1);
+		$statcCatList=$statcModel->getNewStatcList(1);
+
 		$topCat=$productModel->getTopCate();
 		$company=\nainai\companyRec::getAllCompany();
 		$this->getView()->assign('statcCatList',$statcCatList);
 		$this->getView()->assign('company',$company);
-
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
 	}
 
 	public function showAction(){
-
+		
 	}
 	public function urlAction(){
 		$url = '  cli/test/index   name =45   address = shanxi';

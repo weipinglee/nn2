@@ -245,55 +245,24 @@ class statistics{
         return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
 
     }
-
     public static function delStatsCate($id){
         $statsModel=new M('static_category');
         $where=array('id'=>$id);
         $res=$statsModel->where($where)->delete();
         return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
     }
-    private function layer($cate,$id){
-
-        foreach($cate as $v){
-            if($v['pid']==$id){
-                $v['cate']=$this->layer($cate,$v['id']);
-                self::$childCat[]=$v['id'];
-            }
-        }
-
-        return self::$childCat;
-    }
-    public function getChildCat(){
-        $m_category = new Query('product_category');
-        $m_category->where='status= :status';
-        $m_category->bind=array('status'=>1);
-        $c_list = $m_category->find();
+    public function getNewStatcList($type){
         $productModel=new product();
         $topCat=$productModel->getTopCate();
-        $result=array();
-        foreach($topCat as $k=>$value){
+        $marketObj=new Query('static_market as m');
+        $marketObj->join='left join product_category as c on m.cate_id=c.id';
+        $marketObj->fields='c.name,m.*';
+        $marketObj->where='m.type= :type and datediff(NOW(),m.create_time)<'.$this->interval.' and find_in_set(m.cate_id,getChildLists(:cid))';
+        foreach($topCat as $k=>$v) {
+            $marketObj->bind = array('cid' => $v['id'], 'type' => $type);
+            $newStatcList[$v['id']]=$marketObj->find();
+        }
+        return $newStatcList;
+    }
 
-            $result[$value['id']]= $this->layer($c_list, $value['id']);
-            self::$childCat=null;
-        }
-        return $result;
-    }
-    public function getNewCatStatc($type){
-        $childCat=$this->getChildCat();
-        $statcList=$this->getNewStatistics($type);
-        $statcCatList=array();
-        foreach($childCat as $k=>$v){
-            if(isset($statcList[$k])) {
-                $statcCatList[$k][]= $statcList[$k];
-                if(is_array($v)){
-                    foreach($v as $kk=>$vv) {
-                        if (isset($statcList[$vv])) {
-                            $statcCatList[$k][] = $statcList[$vv];
-                        }
-                    }
-                }
-            }
-        }
-        return $statcCatList;
-    }
 }

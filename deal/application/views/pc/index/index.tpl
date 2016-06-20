@@ -944,12 +944,12 @@
                                                 <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
                                             </div>
                                <div class="price i_TextGreen">
-                                   <span class="now_price">{$vv['data']['ave_price']}↑</span>
-                                                {set: $oldTime=strtotime($vv['data']['create_time']);
-                                                    $oldTime=$oldTime-$vv['data']['days']*24*60*60;
+                                   <span class="now_price">{$vv['ave_price']}↑</span>
+                                                {set: $oldTime=strtotime($vv['create_time']);
+                                                    $oldTime=$oldTime-$vv['days']*24*60*60;
                                                     $oldTime=date('Y',$oldTime);
                                                 }
-                                                <p><span>{$oldTime}&nbsp;~&nbsp;{echo: date('Y',strtotime($vv['data']['create_time']))}</span></p>
+                                                <p><span>{$oldTime}&nbsp;~&nbsp;{echo: date('Y',strtotime($vv['create_time']))}</span></p>
                                             </div>
                                         </div>
                                     </li>
