@@ -39,7 +39,7 @@ class PurchaseOffer extends product {
 
 			$pId = $this->_productObj->table('products')->data($productData[0])->add();
 			$offerData['product_id'] = $pId;
-
+			$offerData['type'] = self::PURCHASE_OFFER;
 			if (intval($pId) < 0) {
 				$this->_productObj->rollBack();
 				return tool::getSuccInfo(0, $this->_productObj->getError());

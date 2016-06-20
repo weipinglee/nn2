@@ -100,7 +100,7 @@ class PurchaseController extends UcenterBaseController{
 
 		//查询组装条件
 		$where = 'type=:type AND c.user_id=:uid';
-		$bind = array('type'=>PurchaseOffer::OFFER_TYPE, 'uid' => $this->user_id);
+		$bind = array('type'=>PurchaseOffer::PURCHASE_OFFER, 'uid' => $this->user_id);
 
 		if (!empty($name)) {
 		    $where .= ' AND a.name like"%'.$name.'%"';
