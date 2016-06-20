@@ -94,11 +94,16 @@ class offersModel extends \nainai\offer\product{
             $bind['mode'] = $condition['mode'];
         }
 
+        //获取地区条件
+        if(isset($condition['area']) && $condition['area']!=0){
+            $where .= ' and left(p.produce_area,2) = :area ';
+            $bind['area'] = $condition['area'];
+        }
         $query->where = $where;
         $query->bind = $bind;
 
         $query->page = $page;
-        $query->pagesize = 5;
+        $query->pagesize = 20;
         if($order=='')
             $query->order = "o.apply_time desc";
         else {

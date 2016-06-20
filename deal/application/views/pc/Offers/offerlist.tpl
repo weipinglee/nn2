@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="{views:css/product.css}">
     <link rel="stylesheet" type="text/css" href="{views:css/style_main.css}">
-            
+
  <!------------------导航 开始-------------------->
                 <form method="post" action="" id="form1">
                     <div class="aspNetHidden">
@@ -127,17 +127,14 @@
         <div class="hit_point">
             <ul>
                 <li>
-                    <b>华北</b><a href="">北京</a><a href="">天津</a><a href="">河北</a><a href="">山西</a><a
-                    href="">内蒙古</a>
+                    <b>华北</b><a href="javascript:void(0)" title="0">不限</a><a href="javascript:void(0)" title="11">北京</a><a href="javascript:void(0)" title="12">天津</a><a href="javascript:void(0)" title="13">河北</a><a href="javascript:void(0)" title="14">山西</a><a
+                    href="javascript:void(0)" title="15" >内蒙古</a>
                 </li>
                 <li>
-                    <b>华北</b><a href="">北京</a><a href="">天津</a><a href="">河北</a><a href="">山西</a><a
-                    href="">内蒙古</a>
+                    <b>华东</b><a href="javascript:void(0)" title="0">不限</a><a href="javascript:void(0)" title="31">上海</a><a href="javascript:void(0)" title="33">浙江</a><a href="javascript:void(0)" title="32" >江苏</a><a href="javascript:void(0)" title="34" >安徽</a>
+
                 </li>
-                <li>
-                    <b>华北</b><a href="">北京</a><a href="">天津</a><a href="">河北</a><a href="">山西</a><a
-                    href="">内蒙古</a>
-                </li>
+
             </ul>
         </div>
         <script type="text/javascript">
@@ -184,7 +181,7 @@
             <div class="gg_img">
                 <div class="gg_cen">
                     <textarea class="text" Placeholder="写下您的真实需求，包括规格、材质等，收到后我们会立即给您回电确认，剩下的交给我们吧。"></textarea><i
-                    class="icon_type icon-search"></i><input class="sumit" tyle="submit" value="帮我找"/>
+                    class="icon_type icon-search"></i><input class="sumit" type="submit" value="帮我找"/>
                 </div>
             </div>
         </div>
@@ -223,7 +220,7 @@
                            <div class="cz">
                                <div class="xd">
                                    <% if (data[i].type==1){ %>
-                                   <a href="{url:/Offers/check}/id=<%=data[i].id%>/pid=<%=data[i].product_id%>" class="cz_wz prod_xd">下单</a><i class="icon_color icon-angle-down"></i>
+                                   <a href="{url:/Offers/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" class="cz_wz prod_xd">下单</a><i class="icon_color icon-angle-down"></i>
                                     <% } else { %>
                                    <a href="{url:/Offers/report}/id=<%=data[i].id%> class="cz_wz prod_xd">报价</a><i class="icon_color icon-angle-down"></i>
 

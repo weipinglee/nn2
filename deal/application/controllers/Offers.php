@@ -103,6 +103,8 @@ class OffersController extends PublicController {
 		$mode = safe::filterPost('mode', 'int',0);
 		$page = safe::filterPost('page','int',1);
 		$order = safe::filterPost('sort');
+		$area = safe::filterPost('area','int',0);
+
 
 		//获取这个分类下对应的产品信息
 		$condition = array();
@@ -114,6 +116,9 @@ class OffersController extends PublicController {
 		}
 		if($mode!=0){
 			$condition['mode'] = $mode;
+		}
+		if($area!=0){
+			$condition['area'] = $area;
 		}
 
 		if($order!=''){
