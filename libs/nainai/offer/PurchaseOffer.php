@@ -111,6 +111,28 @@ class PurchaseOffer extends product {
 		return array($offerData,$productData);
 	}
 
-	
+	/**
+	 * 获取对应id的报盘和产品详情数据[报价页面]
+	 * @param  [Int] $id [报盘id]
+	 * @return [Array]     [报盘和产品数据]
+	 */
+	public function getOfferProductDetailDeal($id)
+	{
+		$query = new M('product_offer');
+		$where = array('id' => $id, 'type' => self::PURCHASE_OFFER, 'status' => self::OFFER_OK);
+
+		$offerData = $query->where($where)->getObj();
+		if (empty($offerData)) {
+			return array();
+		}
+
+		$userModel = new \nainai\user\User();
+		$offerData['username'] = $userModel->getUser($offerData['user_id'], 'username');
+
+		$offerData['status_txt'] = $this->getStatus($offerData['status']);
+		$productData = $this->getProductDetails($offerData['product_id']);
+		return array($offerData, $productData);
+
+	}
 
 }

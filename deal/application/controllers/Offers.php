@@ -124,7 +124,10 @@ class OffersController extends PublicController {
 
 		if (intval($id) > 0) {
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
-			$offerDetail = $PurchaseOfferModel->getOfferProductDetail($id);
+			$offerDetail = $PurchaseOfferModel->getOfferProductDetailDeal($id);
+			if(empty($offerDetail)){
+				$this->error('采购不存在');exit;
+			}
 
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
