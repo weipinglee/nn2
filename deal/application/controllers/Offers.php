@@ -120,19 +120,12 @@ class OffersController extends PublicController {
 	 */
 	public function reportAction(){
 		$id = $this->getRequest()->getParam('id');
-		$id = safe::filter($id, 'id');
+		$id = Safe::filter($id, 'id');
 
 		if (intval($id) > 0) {
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
 			$offerDetail = $PurchaseOfferModel->getOfferProductDetail($id);
-			$user = new \Library\M('user');
-			$username = $user->where(array('id'=>$offerDetail[0]['user_id']))->getField('username');
 
-			$attrText = array_keys($offerDetail[1]['attr_arr']);
-			$attrs = array_keys($offerDetail[1]['attribute']);
-			$this->getView()->assign('attr', $attrs);
-			$this->getView()->assign('attrtext', $attrText);
-			$this->getView()->assign('username', $username);
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
 		}else{
@@ -140,6 +133,8 @@ class OffersController extends PublicController {
 		}
 
 	}
+
+
 
 
 

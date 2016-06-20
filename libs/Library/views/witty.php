@@ -246,7 +246,7 @@ class witty{
                 break;
                 case 'area:' : {
                     $attr = $this->getAttrs($matches[4]);
-                    if(!isset($attr['data'])) $attr['data'] = '000000';
+                    if(!isset($attr['data'])) $attr['data'] = '';
                      if(!isset($attr['provinceID'])) $attr['provinceID'] = 'seachprov';
                     if(!isset($attr['cityID']))$attr['cityID'] = 'seachcity';
                     if(!isset($attr['districtID']))$attr['districtID'] = 'seachdistrict';
@@ -276,7 +276,7 @@ OEF;
 
                 case 'areatext:' : {
                     $attr = $this->getAttrs($matches[4]);
-                    if(!isset($attr['data'])) $attr['data'] = '000000';
+                    if(!isset($attr['data'])) $attr['data'] = '';
                     if(!isset($attr['id'])) $attr['id'] = 'areaText';
                     if(!isset($attr['delimiter'])) $attr['delimiter'] = ' ';
                     if(substr($attr['data'],0,1) == '$')

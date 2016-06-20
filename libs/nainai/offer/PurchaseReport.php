@@ -12,6 +12,8 @@ use \Library\url;
  * @copyright 2016年06月15日
  */
 class PurchaseReport extends \nainai\Abstruct\ModelAbstract {
+
+     protected $table = 'purchase_report';
      /**
      * 报盘验证规则
      * @var array
@@ -89,5 +91,6 @@ class PurchaseReport extends \nainai\Abstruct\ModelAbstract {
           }
           return array('list' => $list, 'pageHtml' => $query->getPageBar());
      }
+
 
 }
