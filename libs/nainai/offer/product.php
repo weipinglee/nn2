@@ -487,7 +487,6 @@ class product{
 
         foreach ($list as $v) {
             if ($v['pid'] == $pid) {
-
                 $tem = $this->getNestedList($list, $v['id']);
                 //判断是否存在子数组
                 $v['nested'] = $tem;
@@ -495,7 +494,6 @@ class product{
             }
         }
         return $arr;
-
     }
     //获取分类列表
     public function getAllCat() {
@@ -506,7 +504,6 @@ class product{
         $result = $this->getNestedList($c_list);
         return $result;
     }
-
 
 
 

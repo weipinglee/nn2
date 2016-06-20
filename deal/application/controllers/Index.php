@@ -28,12 +28,14 @@ class IndexController extends PublicController {
 		$indexSlide=\nainai\system\slide::getIndexSlide();
 		foreach($indexSlide as $k=>$v){
 			$indexSlide[$k]['img']=\Library\Thumb::get($v['img']);
-			//echo \Library\Thumb::get($v['img']);
 		}
-		
-		$company=\nainai\companyRec::getAllCompany();
-		$this->getView()->assign('company',$company);
+		$statcModel=new \nainai\statistics();
+		$statcCatList=$statcModel->getNewCatStatc(1);
 		$topCat=$productModel->getTopCate();
+		$company=\nainai\companyRec::getAllCompany();
+		$this->getView()->assign('statcCatList',$statcCatList);
+		$this->getView()->assign('company',$company);
+
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
 	}

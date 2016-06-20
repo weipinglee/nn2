@@ -918,332 +918,46 @@
                         <div id="floor-2" class="item"></div>
 
                         <div class="i_leftTit clearfix">
-                            <div class="i_left_title" name="1" id="item2">市场指数</div>
+                            <div  class="i_left_title" name="1" id="item2">市场指数</div>
                             <ul>
-                                <li class="li_select"><a href="javascript:void(0)"><em></em><span></span>耐材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>钢铁</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>建材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>设备</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>冶金化工</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>其他</a></li>
+                                {foreach:items=$topCat}
+                                <li  onclick="statistics({$item['id']},this)" ><a attr="{$item['id']}"href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+
+                                {/foreach}
                             </ul>
 
                         </div>
 
-                        <div class="i_leftCon" style="margin:0px;">
-
-                            <div class="i_proList show i_proList_zhishu">
+                        <div class="i_leftCon" style="margin:0px;" id="item5">
+                            {foreach: items=$statcCatList}
+                            <div class="i_proList  i_proList_zhishu" id="statc{$key}">
                                 <div class="i_zhishu">
                                     <div src="" class="zhishu_img"></div>
-
                                     <div src="" class="zhishu_img"></div>
                                 </div>
+                                {foreach: items=$item key=$kk item=$vv}
                                 <ul style="width:200px;height:300px;float:left;">
                                     <li class="i_zhishuList">
                                         <div class="i_w_12">
                                             <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                                                <p><span><a href="#">{$vv['name']}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
                                                 <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
                                             </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2000↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
+                               <div class="price i_TextGreen">
+                                   <span class="now_price">{$vv['data']['ave_price']}↑</span>
+                                                {set: $oldTime=strtotime($vv['data']['create_time']);
+                                                    $oldTime=$oldTime-$vv['data']['days']*24*60*60;
+                                                    $oldTime=date('Y',$oldTime);
+                                                }
+                                                <p><span>{$oldTime}&nbsp;~&nbsp;{echo: date('Y',strtotime($vv['data']['create_time']))}</span></p>
                                             </div>
                                         </div>
                                     </li>
 
                                 </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2000↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2000↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
+                               {/foreach}
                             </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2001↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2001↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2001↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2002↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2002↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2002↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2003↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2003↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2003↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2004↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2004↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2004↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2005↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2005↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2005↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
+                            {/foreach}
 
                             <!--明星点评-->
                             <div class="i_recommend clearfix" style="margin:20px 0 0 15px;">
@@ -1369,11 +1083,10 @@
                                 <div class="i_tuijian_com">
                                     <ul class="tuijian_com">
                                     {if: isset($item[2])}
-                                    <?php foreach ($item[2] as $k => $v) {
-                                        # code...
-                                     ?>                                        <li class="tuijian_1_1"><a href=""><img src="{views:images/angang.png}" class="tui_img"></a></li>
+                                        {foreach: items=$item[2] key=$k item=$v}
+                                                                    <li class="tuijian_1_1"><a href=""><img src="{views:images/angang.png}" class="tui_img"></a></li>
                                     
-                                    <?php } ?>
+                                    {/foreach}
                                     {/if}
                                     </ul>
                                 
@@ -1381,7 +1094,8 @@
                                 {if:isset($item[1])}
                                 
                                 <DIV class="i_main_tuijian">
-                                    <?php foreach($item[1] as $k=>$v){?>
+
+                                    {foreach: items=$item[1] key=$k item=$v}
                                     <div class="i_w_13">
                                         <img src="{views:images/bg/20160121190011.png}" class="tuijian_bg">
                                         <div class="com_content">
@@ -1397,7 +1111,7 @@
 
                                         </div>
                                     </div>
-                                                             <?php }  ?>
+                    {/foreach}
 
                                     
 
@@ -1412,14 +1126,15 @@
                             <div class="i_recommend clearfix">
                                 <div class="i_region">
                                 {if:isset($item[3])}
-                                    <?php foreach($item[3] as $k=>$v){  ?>
+
+                                    {foreach: items=$item[3] key=$k item=$v}
                                     <ul>
                                         <li class="i_regionTit">山东地区<span style="display: none">累计撮合1809单</span></li>
                                         <li class="i_regionTit2">推荐商家</li>
                                         <?php foreach($v as $kk=>$vv){ ?>
                                         <li><a href="http://www.nainaiwang.com/shop/100283_100283.html">- {$vv['company_name']}</a></li><?php }  ?>
                                     </ul>
-                                    <?php  }?>
+                                    {/foreach}
                                     {/if}
                                 </div>
                                 
@@ -1595,9 +1310,13 @@
     $('document').ready(function(){
         var obj=$('#item3').next().children().first();
         var id=obj.attr('attr');
-        alert(id);
+        var obj2=$('#item2').next().children().first();;
+        var id2=obj.attr('attr');
+        obj2.addClass('li_select');
         obj.addClass('li_select');
         var recObj=$('#rec'+id);
+        var recObj2=$('#statc'+id2);
+        recObj2.css('display','block');
         recObj.css('display','block');
 
     });
@@ -1606,6 +1325,14 @@
          $(obj).addClass('li_select');
          var recObj=$('#rec'+id);
         $('#item4').nextAll().css('display','none');
+        recObj.css('display','block');
+
+    }
+    function statistics(id,obj){
+         $(obj).siblings().removeClass('li_select');
+         $(obj).addClass('li_select');
+         var recObj=$('#statc'+id);
+        $('#item5').children().css('display','none');
         recObj.css('display','block');
 
     }

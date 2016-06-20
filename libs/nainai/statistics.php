@@ -10,8 +10,10 @@ namespace nainai;
 use Library\M;
 use Library\Query;
 use Library\tool;
+use \nainai\offer\product;
 
 class statistics{
+    static $childCat=array();
     const MAKET_STATIC=1;//市场统计
     const COMMODITY_STATIC=2;//商品统计
     public $interval=5;//间隔时间
@@ -103,7 +105,9 @@ class statistics{
             $cate_childs = join(',',$cate_childs);
             $offerObj->where='p.cate_id in ('.$cate_childs.') and datediff(NOW(),f.apply_time)<'.$this->interval;
             $res = $offerObj->find();
-            if(empty($res)){
+
+            if(empty($res)||$res[0]['avg']==null){
+
                 $data['ave_price'] = 0;
             }
             else
@@ -247,5 +251,49 @@ class statistics{
         $where=array('id'=>$id);
         $res=$statsModel->where($where)->delete();
         return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
+    }
+    private function layer($cate,$id){
+
+        foreach($cate as $v){
+            if($v['pid']==$id){
+                $v['cate']=$this->layer($cate,$v['id']);
+                self::$childCat[]=$v['id'];
+            }
+        }
+
+        return self::$childCat;
+    }
+    public function getChildCat(){
+        $m_category = new Query('product_category');
+        $m_category->where='status= :status';
+        $m_category->bind=array('status'=>1);
+        $c_list = $m_category->find();
+        $productModel=new product();
+        $topCat=$productModel->getTopCate();
+        $result=array();
+        foreach($topCat as $k=>$value){
+
+            $result[$value['id']]= $this->layer($c_list, $value['id']);
+            self::$childCat=null;
+        }
+        return $result;
+    }
+    public function getNewCatStatc($type){
+        $childCat=$this->getChildCat();
+        $statcList=$this->getNewStatistics($type);
+        $statcCatList=array();
+        foreach($childCat as $k=>$v){
+            if(isset($statcList[$k])) {
+                $statcCatList[$k][]= $statcList[$k];
+                if(is_array($v)){
+                    foreach($v as $kk=>$vv) {
+                        if (isset($statcList[$vv])) {
+                            $statcCatList[$k][] = $statcList[$vv];
+                        }
+                    }
+                }
+            }
+        }
+        return $statcCatList;
     }
 }
