@@ -48,26 +48,70 @@ class offersModel extends \nainai\offer\product{
     }
 
 
+    /**
+     * 获取所有子分类
+     */
+    private function getChildCate($pid){
+        static $cate = array();
+        $obj = new M('product_category');
+        $cates = $obj->where(array('pid'=>$pid))->fields('id,name')->select();
 
-    public function getList($page,$condition = array()){
+        foreach($cates as $k=>$v){
+            $this->getChildCate($v);
+        }
+        $cate = array_merge($cate,$cates);
+        return $cate;
+    }
+
+    public function getList($page,$condition = array(),$order=''){
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id LEFT JOIN product_category as c ON p.cate_id=c.id";
         $query->fields = "o.*,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,o.price,o.accept_area,p.produce_area,p.id as product_id, c.name as cname";
-        if(!empty($condition['where'])) {
-            $query->where = $condition['where'];
-            $query->bind = $condition['bind'];
+        $where = 'o.status=:status and p.quantity>p.sell+p.freeze ';
+        $bind = array('status'=>self::OFFER_OK);
+        //获取分类条件
+        $cates = array();
+        if(isset($condition['pid']) && $condition['pid']>0) {
+            $cates = $this->getChildCate($condition['pid']);
+            $cate_ids = array();
+            $cate_ids[] = $condition['pid'];
+            foreach($cates as $v){
+                $cate_ids[] = $v['id'];
+            }
+            $cate_ids = join(',',$cate_ids);
+            $where .= ' and c.id in ('.$cate_ids.')';
         }
+
+        //获取报盘类型条件
+        if(isset($condition['type']) && $condition['type']!=0){
+            $where .= ' and o.type=:type';
+            $bind['type'] = $condition['type'];
+        }
+
+        //获取报盘类型
+        if(isset($condition['mode']) && $condition['mode']!=0){
+            $where .= ' and o.mode=:mode';
+            $bind['mode'] = $condition['mode'];
+        }
+
+        $query->where = $where;
+        $query->bind = $bind;
+
         $query->page = $page;
         $query->pagesize = 5;
-        $query->order = "apply_time desc";
+        if($order=='')
+            $query->order = "o.apply_time desc";
+        else {
+            $query->order = $order;
+        }
         $data = $query->find();
         foreach ($data as $key => &$value) {
             $value['mode_txt'] = $this->offerMode($value['mode']);
             $value['img'] = empty($value['img']) ? 'no_picture.jpg' : $value['img'];//获取缩略图
-            $value['left'] = number_format(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']),2);
+            $value['left'] = number_format(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']));
         }
         $pageBar =  $query->getPageBar();
-        return array('data'=>$data,'bar'=>$pageBar);
+        return array('data'=>$data,'bar'=>$pageBar,'cate'=>$cates);
     }
 
     //获取报盘类型

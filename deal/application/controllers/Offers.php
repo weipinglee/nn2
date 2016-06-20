@@ -32,18 +32,20 @@ class OffersController extends PublicController {
 
 	//列表
 	public function offerListAction(){
-		$page = safe::filterGet('page','int');
-		$category = array();
+		$page = safe::filterGet('page','int',1);
 
-		//获取商品分类信息，默认取第一个分类信息
+		//获取商品顶级分类
 		$productModel = new product();
-		$category = $productModel->getCategoryLevel();
+		$category = $productModel->getTopCate();
+		//获取报盘类型
+		$type = $productModel->getTypeArray();
+		//获取报盘模式
+		$mode = $productModel->getModelArray();
 
-		$pageData = $this->offer->getList($page);
 
-        		$this->getView()->assign('categorys', $category['cate']);
-		$this->getView()->assign('data',$pageData['data']);
-		$this->getView()->assign('page',$pageData['bar']);
+		$this->getView()->assign('cate', $category);
+		$this->getView()->assign('type', $type);
+		$this->getView()->assign('mode', $mode);
 	}
 
 	//支付页面
@@ -93,24 +95,52 @@ class OffersController extends PublicController {
 
 	 /**
 	 * AJax获取产品分类信息
-* @return [Json]
-*/
+	* @return [Json]
+	*/
 	public function ajaxGetCategoryAction(){
-		$pid = Safe::filterPost('pid', 'int',0);
-		if($pid){
-			$productModel = new product();
-			$cate = $productModel->getCategoryLevel($pid);
+		$pid = safe::filterPost('pid', 'int',0);
+		$type = safe::filterPost('type', 'int',0);
+		$mode = safe::filterPost('mode', 'int',0);
+		$page = safe::filterPost('page','int',1);
+		$order = safe::filterPost('sort');
 
-			//获取这个分类下对应的产品信息
-			$condition = array(
-				'where' => 'FIND_IN_SET(cate_id, :ids)',
-				'bind' => array('ids' => $pid)
-			);
-			$cate['product'] = $this->offer->getList($pid, $condition);
-			unset($cate['chain']);
-
-			echo json::encode($cate);
+		//获取这个分类下对应的产品信息
+		$condition = array();
+		$cate = array();
+		if($pid!=0)
+			$condition['pid'] = $pid;
+		if($type!=0){
+			$condition['type'] = $type;
 		}
+		if($mode!=0){
+			$condition['mode'] = $mode;
+		}
+
+		if($order!=''){
+			$orderArr = explode('_',$order);
+			switch($orderArr[0]){
+				case 'price' : {
+					if(isset($orderArr[1]) && $orderArr[1]=='asc')
+						$order = 'o.price asc';
+					else $order = 'o.price desc';
+				}
+					break;
+				case 'time' : {
+					if(isset($orderArr[1]) && $orderArr[1]=='asc')
+						$order = 'o.apply_time asc';
+					else $order = 'o.apply_time desc';
+				}
+					break;
+				default : {
+					$order = 'o.apply_time desc';
+				}
+			}
+		}
+		else $order = '';
+
+		$data = $this->offer->getList($page, $condition,$order);
+
+		echo json::encode($data);
 		exit();
 	}
 
