@@ -20,6 +20,7 @@ class UcenterController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
+
 		header('Location:'.url::createUrl('/ucenterindex/index'));
     }
 
@@ -36,6 +37,44 @@ class UcenterController extends UcenterBaseController {
         $userModel = new userModel();
         $userData = $userModel->getUserInfo($this->user_id);
         $this->getView()->assign('user',$userData);
+    }
+
+    /**
+     * 支付密码管理
+     */
+    public function paysecretAction(){
+        $userModel = new userModel();
+        $userInfo = $userModel->getUserInfo($this->user_id);
+        if(IS_POST){
+            $oper = safe::filterPost('oper','trim');
+            $userData['id'] = $this->user_id;
+            $error = '';
+            switch ($oper) {
+                case 'add':
+                    $pay_secret = safe::filterPost('pay_secret');
+                    if(!$pay_secret || !ctype_alnum($pay_secret))
+                        $error = '密码格式有误';
+                    $userData['pay_secret'] = md5($pay_secret);
+                    break;
+                case 'edit':
+                    $ori_secret = safe::filterPost('ori_secret');
+                    $new_secret = safe::filterPost('new_secret');
+                    $re_secret = safe::filterPost('re_secret');
+                    if($re_secret != $new_secret)
+                        $error = '两次输入的密码不一致';
+                    if($userInfo['pay_secret'] != md5($ori_secret))
+                        $error = '原始密码错误';
+                    $userData['pay_secret'] = md5($new_secret);
+                    break;
+                default:
+                    $error = '未知操作';
+                    break;
+            }
+            $res = empty($error) ? $userModel->updateUserInfo($userData) : tool::getSuccInfo(0,$error);
+            die(JSON::encode($res));
+        }else{
+            $this->getView()->assign('pay_secret',$userInfo['pay_secret']);
+        }
     }
 
     public function dobaseAction(){
@@ -105,8 +144,6 @@ class UcenterController extends UcenterBaseController {
        echo JSON::encode($res);
         return false;
     }
-
-
 
     /**
      * ajax上传图片

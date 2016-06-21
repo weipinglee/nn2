@@ -1,6 +1,9 @@
 <script type="text/javascript" src="{views:js/area/Area.js}" ></script>
      <script type="text/javascript" src="{views:js/area/AreaData_min.js}" ></script>
 
+     <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
+    <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
+<script type="text/javascript" src="{root:js/layer/layer.js}" ></script>
      <link rel="stylesheet" href="{views:css/submit_baojia.css}">
     <!------------------导航 开始-------------------->
     <form method="post" action="" id="form1">
@@ -56,18 +59,10 @@
             <div class="submit">
              
              <div class="submit_word">
-             <span>我的报价单</span>
-             <span>提交订单</span>
-             <span>支付货款</span>
-             <span>交易完成</span>
-             </div>  
-            <div class="submit_photo">
-              <img src="{views:images/order/oder-1.jpg}" width="209" height="47" alt="第一步" /> 
-              <img src="{views:images/order/oder-2.jpg}" width="203" height="47" alt="第步" />
-              <img src="{views:images/order/oder-3.jpg}" width="205" height="47" alt="第一步" />
-              <img src="{views:images/order/oder-4.jpg}" width="211" height="47" alt="第一步" />
-              </div> 
-            <form action="{url:/Offers/doreport}" id="signupForm" method="post">
+
+             </div>
+
+            <form action="{url:/trade/doreport}?callback={url:/offers/report?id=$offer['id']}" id="signupForm" method="post"  >
              <div class="order_form">
              <h2>我的报价单</h2>
              
@@ -104,13 +99,15 @@
                                    {/foreach}</h5>
                  <p>商品名：{$product['product_name']}</p>
                  <p>规格：{$product['attrs']}</p>
-                     <p>产地：<span id="area">{areatext:data=$product['produce_area'] id=area}</span></p>
+                 <p>需求产地：<span id="area">{areatext: data=$product['produce_area'] id=area }</span></p>
                  </div>
              </a>
-           <span class="danjia">￥<b>{$offer['price']}-{$offer['price_r']}</b><span> 元/{$product['unit']}</span></span>
-           <span class="jine"><i>{$product['quantity']}({$product['unit']})</i></span>
-           <span class="shangjia"><a href="#"><i class="delet">{$username}</i></a></span>
-
+             
+           <span class="danjia">￥<b>{$offer['price']}到{$offer['price_r']}</b><span> 元/{$product['unit']}</span></span>
+           <span class="jine"><i>{$product['quantity']} {$product['unit']}</i></span>  
+           <span class="shangjia"><a href="#"><i class="delet">{$offer['username']['username']}</i></a></span>
+           <div class="accont_total">
+           </div>
            </div>
                   
                   
@@ -120,16 +117,33 @@
 
           </div>      
            <div class="input_box">
-
                <label for="">产地</label>
-               {area:}
-               </br>
-               <label for="">价格</label><input type="text" name="price" id="price" /><span>元/{$product['unit']}</span>
-               </br>
+               <span>
+                    {area:}
+               </span>
+               <span></span>
+              <br />
 
-               {foreach:items=$attr}
-                   <label for="">{$attrtext[$key]}</label><input type="text" name="attr['{$item}']"  />
+               <label for="">价格</label>
+               <span>
+                   <input type="text" name="price" id="price" datatype="float" class="required" /><span>元/{$product['unit']}</span>
+               </span>
+               <span></span>
+
+              <p>
+                  {set:$attrs=array_keys($product['attribute'])}
+                  {set:$i=0;}
+               {foreach: items=$product['attr_arr']}
+               <label for=""> {$key}</label>
+               <span>
+                <input type="text" id="attr_value{$item}" datatype="*" name="attribute[{$attrs[$i]}]" class="required" />
+
+                </span>
+                <span></span>
+                     </br>
+                     {set:$i=$i+1;}
                {/foreach}
+                </p>
            </div>
 <!--            <div class="baoxian">
                <span>保险</span>
@@ -138,9 +152,8 @@
            </div> -->
         
  
-           <div clss="anniu_boxs">
+           <div class="anniu_boxs">
             <input type="hidden" name="id" value="{$offer['id']}">
-               <a class="accounts_fale" href="#" onclick="history.go(-1)">返回</a>
                <a class="accounts_to" href="#" id="submit">提交报价</a>
            </div>
              </div>
@@ -151,19 +164,21 @@
 
             <script type="text/javascript">
               $().ready(function() {
-                $("#signupForm").validate({
-                  rules:{
-                    attrs: "required",
-                    price: "required"
-                  },
-                  messages:{
-                    attrs: "请输入规格",
-                    price: "请输入价格"
-                  }
-                });
                 $("#submit").click(function(){
                     $("#signupForm").submit();
                 })
+
+                  var validObj = formacc;
+
+
+                  //为地址选择框添加验证规则
+                  var rules = [{
+                      ele:"input[name=area]",
+                      datatype:"n6-6",
+                      nullmsg:"请选择地址！",
+                      errormsg:"请选择地址！"
+                  }];
+                  validObj.addRule(rules);
               });
             </script>
              </div>

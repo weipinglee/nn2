@@ -41,6 +41,43 @@ class product{
     const OFFER_NG    = 2;
     const OFFER_EXPIRE = 3;//过期
 
+
+    public function getModelArray(){
+        return array(
+            self::FREE_OFFER => $this->getMode(self::FREE_OFFER),
+            self::DEPOSIT_OFFER => $this->getMode(self::DEPOSIT_OFFER),
+            self::STORE_OFFER => $this->getMode(self::STORE_OFFER),
+            self::DEPUTE_OFFER => $this->getMode(self::DEPUTE_OFFER),
+        );
+    }
+
+    const TYPE_BUY = 2;
+    const TYPE_SELL = 1;
+    //获取交易方式
+    public function getType($type){
+        switch ($type) {
+            case self::TYPE_SELL:
+                $tp = '卖盘';
+                break;
+            case self::TYPE_BUY:
+                $tp = '买盘';
+                break;
+
+            default:
+                $tp = '未知';
+                break;
+        }
+        return $tp;
+    }
+
+    public function getTypeArray(){
+        return array(
+            self::TYPE_SELL => $this->getType(self::TYPE_SELL),
+            self::TYPE_BUY => $this->getType(self::TYPE_BUY)
+        );
+    }
+
+
     //获取状态信息
     public function getStatus($status){
         switch ($status) {
@@ -85,22 +122,7 @@ class product{
         return $mode_txt;
     }
 
-    //获取交易方式
-    public function getType($type){
-        switch ($type) {
-            case 1:
-                $tp = '卖盘';
-                break;
-            case 2:
-                $tp = '买盘';
-                break;
 
-            default:
-                $tp = '未知';
-                break;
-        }
-        return $tp;
-    }
     /**
      * 商品验证规则
      * @var array

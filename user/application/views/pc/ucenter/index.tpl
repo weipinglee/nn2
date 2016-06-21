@@ -139,3 +139,13 @@
 			<!-- end 暂不认证 -->	
 			</div>
 
+
+
+			<form action="{url:/ucenter/index}" auto_submit pay_secret=1 onsubmit="return false;">
+				<input type="hidden" name='name' value="panduo"/>
+				<input type="hidden" name='name1' value="panduo"/>
+				<input type="submit"/>
+			</form>
+
+			<a href="{url:/ucenter/index}" pay_secret>cesss</a>
+

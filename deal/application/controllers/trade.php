@@ -10,6 +10,7 @@ use \Library\url;
 use \Library\safe;
 use \Library\tool;
 use \nainai\order;
+use \Library\json;
 class tradeController extends \nainai\controller\Base {
 
 	private $offer;
@@ -89,11 +90,11 @@ class tradeController extends \nainai\controller\Base {
 				if($pay_res['success'] == 1){
 					$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
 				}else{
-					die('预付定金失败:'.$pay_res['info']);	
+					$this->error('预付定金失败:'.$pay_res['info']);
 				}
 			}
 		}else{
-			die('生成订单失败:'.$gen_res['info']);
+			$this->error('生成订单失败:'.$gen_res['info']);
 		}
 		return false;
 	}
@@ -118,18 +119,23 @@ class tradeController extends \nainai\controller\Base {
 	public function doreportAction(){
 		if (IS_POST) {
 			$Model = new \nainai\offer\PurchaseReport();
-			$offer_id = Safe::filterPost('id', 'int');
-
+			$offer_id = safe::filterPost('id', 'int');
+			$obj = new \nainai\offer\PurchaseOffer();
+			$data = $obj->getPurchaseOffer(array('id'=>$offer_id,'status'=>$obj::OFFER_OK),'id');
+			if(empty($data)){
+				$this->error('采购不存在!');exit();
+			}
 			//判断是否已经添加过报价
 			$res = $Model->getPurchaseReport(array('seller_id'=>$this->user_id, 'offer_id'=>$offer_id), 'id');
 			if (!empty($res)) {
 				$this->error('已经报价过了，不能在报价!');exit();
 			}
+			$attrs = Safe::filterPost('attribute');
 
 			$reportData = array(
 				'offer_id' => $offer_id,
-				'attr' => Safe::filterPost('attrs', 'string'),
-				'price' => Safe::filterPost('price', 'int'),
+				'attr' => empty($attrs) ? '' : serialize($attrs),
+				'price' => Safe::filterPost('price', 'float'),
 				'create_time' => \Library\Time::getDateTime(),
 				'seller_id' => $this->user_id,
 				'status' => $Model::STATUS_APPLY

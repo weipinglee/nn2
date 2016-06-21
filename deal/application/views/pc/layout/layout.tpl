@@ -41,6 +41,8 @@
             height:153px;
             background:url(images/top_index_bg1.jpg) no-repeat center #fff;
         }
+
+        .Validform_wrong{color:red;}
     </style>
     <style type="text/css">
     #index_nav .nav {

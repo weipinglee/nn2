@@ -134,11 +134,13 @@ abstract class ModelAbstract{
 				break;
 
 			case 'get':
-				if (intval($args[0]) > 0) {
-					$fields = isset($args[1]) ? $args[1] : '*';
-
+				$fields = isset($args[1]) ? $args[1] : '*';
+				if (!is_array($args[0]) && intval($args[0]) > 0) {
 					return $this->model->fields($fields)->where($this->pk . '=:id')->bind(array('id'=>$args[0]))->getObj();
 			    }
+				elseif (is_array($args[0])) {
+					return $this->model->fields($fields)->where($args[0])->getObj();
+				}
 			    	return array();
 				break;
 

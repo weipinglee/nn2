@@ -35,7 +35,7 @@ class loginModel{
 					$this->admin->where(array('id'=>$user['id']))->data($data)->update();
 						
 					//写入管理员登录日志
-					$this->admin_log->adminLog($user['id'],$ip);
+					//$this->admin_log->adminLog($user['id'],$ip);
 
 					$resInfo = tool::getSuccInfo();
 					//获取用户分组

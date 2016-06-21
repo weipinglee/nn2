@@ -2436,3 +2436,41 @@ INSERT INTO `withdraw_request` (`id`, `user_id`, `request_no`, `amount`, `acc_na
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+create table `slide`(
+  `id` int(11) unsigned not null auto_increment,
+  `name` varchar(25) not null default '' comment '幻灯片名称',
+  `img` varchar(100) not null default '' comment '图片',
+  `link` varchar(100) not null default '' comment '链接地址',
+  `status` tinyint(2) not null default 1 comment '1开启 0关闭',
+  `order` int(5) not null default 100 comment '排序',
+  primary key(`id`)
+)engine=innodb charset=utf8;
+create table `friendly_link`(
+  `id` int(11) unsigned not null auto_increment,
+  `name` varchar(25) not null default '' comment '名称',
+  `link` varchar(100) not null default '' comment '链接地址',
+  `order` int(5) not null default 100 comment '排序',
+  `status` tinyint(2) not null default 1 comment '1开启，0关闭',
+  primary key(`id`)
+)engine=innodb charset=utf8;
+
+CREATE TABLE IF NOT EXISTS `help_category` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) NOT NULL COMMENT '标题',
+  `sort` smallint(5) NOT NULL COMMENT '顺序',
+  `status` tinyint(2) not null default 1 comment '0关闭 1开启',
+  PRIMARY KEY (`id`),
+  KEY `sort` (`sort`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='帮助分类' ;
+CREATE TABLE IF NOT EXISTS `help` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cat_id` int(11) unsigned NOT NULL COMMENT '帮助分类，如果为0则代表着是下面的帮助单页',
+  `sort` smallint(5) NOT NULL DEFAULT '99' COMMENT '顺序',
+  `name` varchar(50) NOT NULL COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容',
+  `time` datetime  NOT NULL default NOW()  comment '发布时间',
+  `link` varchar(100) NOT NULL default '',
+  PRIMARY KEY (`id`),
+  KEY `cat_id` (`cat_id`),
+  KEY `sort` (`sort`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='帮助内容' ;

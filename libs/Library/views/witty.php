@@ -63,6 +63,7 @@ class witty{
     public function setCompileDir($dir){
         if ($this->isAbsoluteDir($dir)) {//判断是否是绝对路径
             $this->_compile_dir = $dir;
+            // error_log($this->_compile_dir,3,'/Users/panduo/Sites/log/1.log');
             if(!file_exists($this->_compile_dir) && !mkdir($this->_compile_dir)){
                 exit('编译目录不存在');
             }
@@ -77,6 +78,7 @@ class witty{
     public function setCacheDir($dir){
         if ($this->isAbsoluteDir($dir)) {//判断是否是绝对路径
             $this->_cache_dir = $dir;
+            
             if(!file_exists($this->_cache_dir) && !mkdir($this->_cache_dir)){
                 exit('缓存目录不存在');
             }
@@ -246,7 +248,7 @@ class witty{
                 break;
                 case 'area:' : {
                     $attr = $this->getAttrs($matches[4]);
-                    if(!isset($attr['data'])) $attr['data'] = '000000';
+                    if(!isset($attr['data'])) $attr['data'] = '';
                      if(!isset($attr['provinceID'])) $attr['provinceID'] = 'seachprov';
                     if(!isset($attr['cityID']))$attr['cityID'] = 'seachcity';
                     if(!isset($attr['districtID']))$attr['districtID'] = 'seachdistrict';
@@ -276,7 +278,7 @@ OEF;
 
                 case 'areatext:' : {
                     $attr = $this->getAttrs($matches[4]);
-                    if(!isset($attr['data'])) $attr['data'] = '000000';
+                    if(!isset($attr['data'])) $attr['data'] = '';
                     if(!isset($attr['id'])) $attr['id'] = 'areaText';
                     if(!isset($attr['delimiter'])) $attr['delimiter'] = ' ';
                     if(substr($attr['data'],0,1) == '$')

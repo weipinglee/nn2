@@ -13,8 +13,8 @@ use \Library\url;
  */
 class PurchaseOffer extends product {
 
-	CONST OFFER_TYPE =  2;
 
+	CONST PURCHASE_OFFER = 2;
 	/**
 	* 报盘验证规则
 	* @var array
@@ -39,7 +39,7 @@ class PurchaseOffer extends product {
 
 			$pId = $this->_productObj->table('products')->data($productData[0])->add();
 			$offerData['product_id'] = $pId;
-			$offerData['type'] = self::OFFER_TYPE;
+			$offerData['type'] = self::PURCHASE_OFFER;
 			if (intval($pId) < 0) {
 				$this->_productObj->rollBack();
 				return tool::getSuccInfo(0, $this->_productObj->getError());
@@ -75,7 +75,7 @@ class PurchaseOffer extends product {
 	 */
 	public function getOfferProductList($page, $pagesize, $where='', $bind=array()){
 		$query = new Query('product_offer as c');
-		$query->fields = 'c.id, c.price,c.price_r,a.name, b.name as cname, a.quantity,a.unit, a.expire_time, c.status, a.user_id, c.apply_time';
+		$query->fields = 'c.id, a.name, b.name as cname, a.quantity, a.price, a.expire_time, c.status, a.user_id, c.apply_time';
 		$query->join = '  LEFT JOIN products as a ON c.product_id=a.id LEFT JOIN product_category as b ON a.cate_id=b.id ';
 		$query->page = $page;
 		$query->pagesize = $pagesize;
@@ -98,16 +98,41 @@ class PurchaseOffer extends product {
 	 */
 	public function getOfferProductDetail($id,$user_id=0){
 		$query = new M('product_offer');
-		$where = array('id'=>$id, 'type' => self::OFFER_TYPE);
+		$where = array('id'=>$id, 'type' => self::PURCHASE_OFFER);
 		if (intval($user_id) > 0) {
 			$where['user_id'] = $user_id;
 		}
 		$offerData = $query->where($where)->getObj();
+		$userModel = new \nainai\user\User();
+		$offerData['username'] = $userModel->getUser($offerData['user_id'], 'username');
+		
 		$offerData['status_txt'] = $this->getStatus($offerData['status']);
 		$productData = $this->getProductDetails($offerData['product_id']);
 		return array($offerData,$productData);
 	}
 
-	
+	/**
+	 * 获取对应id的报盘和产品详情数据[报价页面]
+	 * @param  [Int] $id [报盘id]
+	 * @return [Array]     [报盘和产品数据]
+	 */
+	public function getOfferProductDetailDeal($id)
+	{
+		$query = new M('product_offer');
+		$where = array('id' => $id, 'type' => self::PURCHASE_OFFER, 'status' => self::OFFER_OK);
+
+		$offerData = $query->where($where)->getObj();
+		if (empty($offerData)) {
+			return array();
+		}
+
+		$userModel = new \nainai\user\User();
+		$offerData['username'] = $userModel->getUser($offerData['user_id'], 'username');
+
+		$offerData['status_txt'] = $this->getStatus($offerData['status']);
+		$productData = $this->getProductDetails($offerData['product_id']);
+		return array($offerData, $productData);
+
+	}
 
 }

@@ -100,6 +100,9 @@ class checkRight{
                     $callBack = url::createUrl('/'.$controller.'/'.$action);
                 }
 
+                if(IS_AJAX){
+                    die(json::encode(tool::getSuccInfo(0,'请登录',url::createUrl('/login/login@user').'?callback='.$callBack)));
+                }
                 $obj->redirect(url::createUrl('/login/login@user').'?callback='.$callBack);
                 exit;
             }

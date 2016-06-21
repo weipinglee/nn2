@@ -47,6 +47,9 @@ class pairingModel{
 		$res = $query->find();
 		$bar = $query->getPageBar();
 
+		$order = new \nainai\order\Order();
+		$order->adminContractStatus($res);
+
 		return array('data'=>$res,'bar'=>$bar);
 	}
 
@@ -57,13 +60,17 @@ class pairingModel{
 	public function contractDetail($order_id){
 		
 		$order = new \nainai\order\Order(0);
+		$user = new M('user');
 		$info = $order->contractDetail($order_id);
 		$admin_id = $this->pairing->where(array('order_id'=>$order_id))->getField('admin_id');
 		if($admin_id){
 			$admin_name = $this->admin->where(array('id'=>$admin_id))->getField('name');
 			$info['admin_name'] = $admin_name;
 			$info['admin_id'] = $admin_id;
+			
 		}
+		$info['buyer'] = $user->where(array('id'=>$info['user_id']))->fields('username,mobile,email')->getObj();
+		$info['seller'] = $user->where(array('id'=>$info['seller_id']))->fields('username,mobile,email')->getObj();
 		return $info;
 	}
 
