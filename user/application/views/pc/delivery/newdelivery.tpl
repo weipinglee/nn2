@@ -75,7 +75,7 @@
 				                        	<li class="clearfix">
 				                        		<label>备注：</label>
 				                        		<div>
-								         <textarea name="remark" cols="" rows="" id="REMARK" class="bz" maxlength="200">gaegag</textarea>最多输入200个字符
+								         <textarea name="remark" cols="" rows="" id="REMARK" class="bz" maxlength="200"></textarea>最多输入200个字符
 								     
 								</div>
 				                        	</li>
