@@ -100,8 +100,8 @@ class FundController extends UcenterBaseController {
 	//提现视图
 	public function txAction() {
 		$fund = new fundModel();
-		$bankData = $fund->getBankInfo($this->user_id);
-		if(empty($bankData)){
+		$res = $fund->checkBank($this->user_id);
+		if(!$res){
 			$this->redirect('bank');
 			exit;
 		}

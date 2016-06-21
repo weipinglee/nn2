@@ -51,4 +51,24 @@ class UserBank
         );
     }
 
+    /**
+     * 获取用户开户信息
+     * @param $user_id
+     * @return mixed
+     */
+    public function getBankInfo($user_id){
+        $userBank=new M('user_bank');
+        return $userBank->where(array('user_id'=>$user_id))->getObj();
+    }
+    /**
+     * 判断用户开户信息是否审核通过
+     */
+    public function checkBank($user_id){
+        $data = $this->getBankInfo($user_id);
+        if(!empty($data) && $data['status']==self::BANK_OK){
+            return true;//审核通过
+        }
+        return false;
+    }
+
 }

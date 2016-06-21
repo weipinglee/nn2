@@ -71,8 +71,5 @@ class fundModel extends \nainai\user\UserBank{
         }
     }
 
-    public function getBankInfo($user_id){
-        $userBank=new M('user_bank');
-        return $userBank->where(array('user_id'=>$user_id))->getObj();
-    }
+
 }
