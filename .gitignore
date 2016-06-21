@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 /user/public/_thumb/*
 /user/application/runtime/*
@@ -9,3 +10,7 @@
 /deal/public/upload/*
 /deal/application/runtime/*
 /.idea
+=======
+*.ini
+/Users/panduo/Sites/nn2/libs/Library/configs.php
+>>>>>>> origin/pd_dev

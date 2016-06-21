@@ -22,6 +22,7 @@
     <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
     <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
     <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
+    <script type="text/javascript" src="{root:js/layer/extend/layer.ext.js}"></script>
 
      <script type="text/javascript" src="{root:js/form/validate/jquery.validate.min.js}" ></script>
      <script type="text/javascript" src="{root:js/form/validate/messages_zh.min.js}" ></script>

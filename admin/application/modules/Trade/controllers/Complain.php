@@ -131,8 +131,8 @@ class ComplainController extends InitController{
 				case 1: //介入处理申述协商通过
 					$complainData['status'] = \nainai\order\OrderComplain::CONFERCOMPLAIN;
 					break;
-
 				case 2: //买方违约
+
 					$complainData['status'] = \nainai\order\OrderComplain::BUYBREAKCOMPLAIN;
 					//扣除定金操作
 					break;

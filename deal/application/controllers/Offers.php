@@ -14,10 +14,10 @@ use \Library\checkRight;
 
 use \nainai\offer\product;
 
-
 use \Library\JSON;
 
 class OffersController extends PublicController {
+
 
 	private $offer;
 	private $order;
@@ -91,6 +91,7 @@ class OffersController extends PublicController {
 	// 		$res = $order->productNumValid($num,$info);
 	// 		die(JSON::encode($res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res)));
 	// 	}
+
 
 
 	 /**
@@ -171,10 +172,6 @@ class OffersController extends PublicController {
 		}
 
 	}
-
-
-
-
 
 
 

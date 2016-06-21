@@ -370,7 +370,7 @@ class UserModel{
 	public function getUserInfo($user_id,$pid=0){
 		$um = self::$userObj;
 		$where = $pid!=0 ? array('id'=>$user_id,'pid'=>$pid) : array('id'=>$user_id);
-		return $um->fields('id,username,email,mobile,head_photo,status')->where($where)->getObj();
+		return $um->fields('id,username,email,mobile,head_photo,status,pay_secret')->where($where)->getObj();
 	}
 	/**
 	 * 获取个人用户信息

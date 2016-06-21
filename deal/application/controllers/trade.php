@@ -90,11 +90,11 @@ class tradeController extends \nainai\controller\Base {
 				if($pay_res['success'] == 1){
 					$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
 				}else{
-					die('预付定金失败:'.$pay_res['info']);	
+					$this->error('预付定金失败:'.$pay_res['info']);
 				}
 			}
 		}else{
-			die('生成订单失败:'.$gen_res['info']);
+			$this->error('生成订单失败:'.$gen_res['info']);
 		}
 		return false;
 	}

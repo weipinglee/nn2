@@ -443,7 +443,9 @@ class M{
 	public function getFields($field){
 		$this->fields($field);
 		$sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->limit ;
+
 		$res =  $this->db->exec($sql,$this->whereParam,'SELECT');
+		
 		if(!empty($res)){
 			$arr = array();
 			foreach($res as $key=>$val){

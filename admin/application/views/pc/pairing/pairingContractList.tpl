@@ -1,6 +1,6 @@
 <script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
 <div id="content" class="white">
-<h1><img src="{views:img/icons/posts.png}" alt="" /> 仓库管理</h1>
+<h1><img src="{views:img/icons/posts.png}" alt="" /> 合同管理</h1>
 <div class="bloc">
     <div class="title">
         撮合合同列表

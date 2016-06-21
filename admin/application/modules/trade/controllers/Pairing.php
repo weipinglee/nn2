@@ -19,9 +19,11 @@ class PairingController extends Yaf\Controller_Abstract{
 
 	//获取所有状态为已生效及之后状态的合同
 	public function contractListAction(){
-		$page = safe::filterGet('id','int',1);
+		$page = safe::filterGet('page','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
+
 		$list = $this->pairing->contractList($page,$name ? 'o.order_no like "%'.$name.'%"' : '');
+
 		$this->getView()->assign('list',$list['data']);
 		$this->getView()->assign('name',$name);
 		$this->getView()->assign('page',$list['bar']);
@@ -51,7 +53,7 @@ class PairingController extends Yaf\Controller_Abstract{
 	//撮合人员合同列表
 	public function pairingContractListAction(){
 		$admin = session::get('admin');
-		$page = safe::filterGet('id','int',1);
+		$page = safe::filterGet('page','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
 		$list = $this->pairing->contractList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',$admin['id']);
 		$this->getView()->assign('list',$list['data']);
