@@ -78,7 +78,7 @@ class offersModel extends \nainai\offer\product{
         $where = 'o.status=:status and p.quantity>p.sell+p.freeze ';
         $bind = array('status'=>self::OFFER_OK);
         //获取分类条件
-        $cates = array();
+        $childcates = array();
         $childname = '';
         if(isset($condition['pid']) && $condition['pid']>0) {
             $cates = $this->getChildCate($condition['pid'],0);
