@@ -101,7 +101,7 @@
 
                <script  type='text/html' id='cateTemplate'>
                    <div class="class_jy" id="level1" >
-                       <span class="jy_title">商品类型：</span>
+                       <span class="jy_title"><%=childname%>：</span>
                        <ul>
                            <li value="0"  class="a_choose" ><a title="cate">不限</a></li>
                            <%for (var i=0;i<data.length;i++) { %>

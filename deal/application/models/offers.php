@@ -51,16 +51,24 @@ class offersModel extends \nainai\offer\product{
     /**
      * 获取所有子分类
      */
-    private function getChildCate($pid){
+    private function getChildCate($pid,$level=1){
         static $cate = array();
         $obj = new M('product_category');
         $cates = $obj->where(array('pid'=>$pid))->fields('id,name')->select();
-
+        static $childCates = array();
+        static $childName = '';
+        if($level==0){
+            //获取下级分类统称
+            $childName = $obj->where(array('id'=>$pid))->getField('childname');
+            if(!$childName)
+                $childName = '商品分类';
+            $childCates = $cates;
+        }
         foreach($cates as $k=>$v){
-            $this->getChildCate($v);
+            $this->getChildCate($v['id']);
         }
         $cate = array_merge($cate,$cates);
-        return $cate;
+        return array($cate,$childCates,$childName);
     }
 
     public function getList($page,$condition = array(),$order=''){
@@ -71,15 +79,20 @@ class offersModel extends \nainai\offer\product{
         $bind = array('status'=>self::OFFER_OK);
         //获取分类条件
         $cates = array();
+        $childname = '';
         if(isset($condition['pid']) && $condition['pid']>0) {
-            $cates = $this->getChildCate($condition['pid']);
+            $cates = $this->getChildCate($condition['pid'],0);
+            $childname = $cates[2];
             $cate_ids = array();
             $cate_ids[] = $condition['pid'];
-            foreach($cates as $v){
+            foreach($cates[0] as $v){
                 $cate_ids[] = $v['id'];
             }
             $cate_ids = join(',',$cate_ids);
             $where .= ' and c.id in ('.$cate_ids.')';
+
+            $childcates = $cates[1];
+
         }
 
         //获取报盘类型条件
@@ -116,7 +129,7 @@ class offersModel extends \nainai\offer\product{
             $value['left'] = number_format(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']));
         }
         $pageBar =  $query->getPageBar();
-        return array('data'=>$data,'bar'=>$pageBar,'cate'=>$cates);
+        return array('data'=>$data,'bar'=>$pageBar,'cate'=>$childcates,'childname'=>$childname);
     }
 
     //获取报盘类型

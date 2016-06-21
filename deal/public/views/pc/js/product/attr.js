@@ -38,6 +38,7 @@ function getCategory(cond){
         if(temp!=0)
             cate_id = temp;
     })
+
     var type = $('#offer_type').find('li.a_choose').find('a').attr('rel');
     var mode = $('#offer_mode').find('li.a_choose').find('a').attr('rel');
 
@@ -52,7 +53,7 @@ function getCategory(cond){
         'async':false,
         'data' : {pid : cate_id, type:type, mode:mode,sort:sort,page:page,area:area},
         'dataType': 'json',
-        success:function(data){//alert(JSON.stringify(data.data));
+        success:function(data){//alert(JSON.stringify(data.childname));
             if(title=='cate'){//如果点击的是分类，将下级所有分类先移除
                 _this.parents('.class_jy').nextAll('.class_jy').remove();
             }
@@ -60,7 +61,7 @@ function getCategory(cond){
             if(cate_id!=0 && data.cate.length>0){//
                 var cate_div = $('[id^=level]').find('li[value='+cate_id+']').parents('.class_jy');
                 cate_div.nextAll('.class_jy').remove();
-                var priceHtml = template.render('cateTemplate',{data:data.cate});
+                var priceHtml = template.render('cateTemplate',{data:data.cate,childname:data.childname});
                 cate_div.after(priceHtml);
                 $('[id^=level]').find('li').on('click',getCategory);
 
