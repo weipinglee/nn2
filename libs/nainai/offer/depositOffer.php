@@ -13,7 +13,9 @@ class depositOffer extends product{
      * 获取保证金收取比例 TODO
      */
     public function getDepositRate($user_id){
-        return 10;
+        $obj = new \nainai\member();
+        $res=$obj->getUserGroup($user_id);
+        return $res['caution_fee'];
     }
 
     /**
