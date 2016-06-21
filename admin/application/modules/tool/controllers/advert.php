@@ -149,36 +149,9 @@ class advertController extends Yaf\Controller_Abstract{
         $this->getView()->assign('adPositionList',$data[0]);
         $this->getView()->assign('resBar',$data[1]);
     }
-    /**
-     * ajax上传图片
-     * @return bool
-     */
-    public function uploadAction(){
 
-        //调用文件上传类
-        $photoObj = new \Library\photoupload();
-        $photoObj->setThumbParams(array(180,180));
-        $photo = current($photoObj->uploadPhoto());
-
-        if($photo['flag'] == 1)
-        {
-            $result = array(
-                'flag'=> 1,
-                'img' => $photo['img'],
-                'thumb'=> $photo['thumb'][1]
-            );
-        }
-        else
-        {
-            $result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
-        }
-        echo JSON::encode($result);
-
-        return false;
-    }
     public function testAction(){
-        Ad::show('测试');
-        return false;
+
     }
 
     /**
@@ -187,7 +160,8 @@ class advertController extends Yaf\Controller_Abstract{
      */
     public function delManageAction(){
         if(IS_AJAX&&IS_POST){
-            $id=safe::filterPost('id','int');
+            $id = $this->getRequest()->getParam('id','int');
+            $id=safe::filter($id,'int');
             $adModel=new advertModel();
             $res=$adModel->delAdManage($id);
             die(JSON::encode($res));
@@ -201,7 +175,8 @@ class advertController extends Yaf\Controller_Abstract{
      */
     public function delPositionAction(){
         if(IS_AJAX&&IS_POST){
-            $id=safe::filterPost('id','int');
+            $id = $this->getRequest()->getParam('id','int');
+            $id=safe::filter($id,'int');
             $adModel=new advertModel();
             $res=$adModel->delAdPosition($id);
             die(JSON::encode($res));

@@ -149,14 +149,14 @@
                                 <li><a href="#" target="content">审核</a></li>
                                 <li><a href="#" target="content">列表</a></li>
                                 <li><a href="#" target="content">状态</a></li>
-                                <li><a href="{url:/trade/pairing/contractList}" target="content">添加撮合人</a></li>
-                                <li><a href="{url:/trade/pairing/pairingContractList}" target="content">撮合合同列表</a></li>
+                                <li><a href="{url:trade/pairing/contractList}" target="content">添加撮合人</a></li>
+                                <li><a href="{url:trade/pairing/pairingContractList}" target="content">撮合合同列表</a></li>
                             </ul>
                         </li>
                         <li><a  target="content">申诉管理</a>
                             <ul>
-                                <li><a href="{url:/trade/complain/complainList?=&status=0}" target="content">未处理申述列表</a></li>
-                                <li><a href="{url:/trade/complain/complainList?=&status=1}" target="content">已处理申述列表</a></li>
+                                <li><a href="{url:trade/complain/complainList?=&status=0}" target="content">未处理申述列表</a></li>
+                                <li><a href="{url:trade/complain/complainList?=&status=1}" target="content">已处理申述列表</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -174,7 +174,6 @@
                             <ul>
                                 <li><a href="{url:balance/accManage/userAccList}" target="content">会员账户</a></li>
                                 <li><a href="account-market.html" target="content">市场账户</a></li>
-                                <li><a href="account-agent.html" target="content">经纪人账户</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -193,20 +192,20 @@
                -->
                 <li><a   target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 仓库管理</a>
                     <ul>
-                        <li><a href="" target="content">仓库管理</a>
+                        <li><a  target="content">仓库管理</a>
                             <ul>
                                 <li><a target="content" href="{url:store/store/storeList}">仓库列表</a></li>
                                 <li><a href="{url:store/store/storeAdd}" target="content">仓库添加</a></li>
                             </ul>
                         </li>
-                        <li><a href="" target="content">仓单管理</a>
+                        <li><a  target="content">仓单管理</a>
                             <ul>
                                 <li><a target="content" href="{url:store/storeProduct/getList}">仓单列表</a></li>
                                 <li><a href="{url:store/storeProduct/reviewList}" target="content">仓单审核</a></li>
                             </ul>
                         </li>
 
-                        <li><a href="" target="content">订单出库管理</a>
+                        <li><a  target="content">订单出库管理</a>
                             <ul>
                                 <li><a target="content" href="{url:store/storeOrder/checkedorderList}">已出库列表</a></li>
                                 <li><a href="{url:store/storeOrder/checkorderList}" target="content">待审核</a></li>
@@ -215,11 +214,20 @@
 
                     </ul>
                 </li>
-                <li class="nosubmenu"><a href="javascript:void(0)" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 导航管理</a>
+
+                <li><a   target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 工具管理</a>
                     <ul>
-                        <li><a target="content" href="{url:/guide/guideList}">导航列表</a></li>
+                        <li><a  target="content">广告管理</a>
+                            <ul>
+                                <li><a target="content" href="{url:tool/advert/adPositionList}">广告位列表</a></li>
+                                <li><a href="{url:tool/advert/adManageList}" target="content">广告列表</a></li>
+                            </ul>
+                        </li>
+
+
                     </ul>
                 </li>
+
             </ul>
 
 

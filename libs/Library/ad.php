@@ -121,9 +121,7 @@ class ad
                 $loadJs = IJSPackage::load('admanage');
                 self::$isLoadJs = true;
             }*/
-            $fileName=url::getViewDir().'js/adloader.js';
-            $juery=url::getViewDir().'js/libs/jquery/1.11/jquery.min.js';
-           $loadJs='</script><script type="text/javascript" charset="utf8" src="'.$fileName.'"></script>';
+
             $adPositionJsId = md5("AD_{$position}");
             //生成HTML代码
             $htmlOutput =

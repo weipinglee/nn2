@@ -112,4 +112,39 @@ class tradeController extends \nainai\controller\Base {
 	}
 
 
+	/**
+	 * 处理添加报价
+	 */
+	public function doreportAction(){
+		if (IS_POST) {
+			$Model = new \nainai\offer\PurchaseReport();
+			$offer_id = Safe::filterPost('id', 'int');
+
+			//判断是否已经添加过报价
+			$res = $Model->getPurchaseReport(array('seller_id'=>$this->user_id, 'offer_id'=>$offer_id), 'id');
+			if (!empty($res)) {
+				$this->error('已经报价过了，不能在报价!');exit();
+			}
+
+			$reportData = array(
+				'offer_id' => $offer_id,
+				'attr' => Safe::filterPost('attrs', 'string'),
+				'price' => Safe::filterPost('price', 'int'),
+				'create_time' => \Library\Time::getDateTime(),
+				'seller_id' => $this->user_id,
+				'status' => $Model::STATUS_APPLY
+			);
+
+			$res = $Model->addPurchaseReport($reportData);
+			if ($res['success'] == 1) {
+				$this->success('报价成功!');
+			}else{
+				$this->error('报价失败!');
+			}
+		}else{
+			$this->error('错误的操作!');
+		}
+	}
+
+
 }

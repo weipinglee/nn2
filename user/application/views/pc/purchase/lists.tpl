@@ -1,0 +1,69 @@
+
+			<!--start中间内容-->	
+			<div class="user_c">
+				<div class="user_zhxi">
+					<div class="zhxi_tit">
+						<p><a>产品管理</a>><a>产品列表</a></p>
+					</div>
+					<div class="chp_xx">
+						<div class="xx_top">
+							<form action="{url:/Purchase/lists}" method="GET" name="">
+								<ul>
+									<li>名称：<input id="warename" name="name" type="text" value="{$name}"></li>
+								
+			
+									</select></li>
+									<li>时间：<input class="Wdate" type="text" name="beginDate" value="{$beginData}" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="{$endDate}" onclick="WdatePicker()">
+									</li>
+									<li> <a class="chaz"><input type="submit" value="查找"> </a></li>
+								</ul>
+							</form>
+							<div style="clear:both;"></div>
+						</div>
+						<div class="xx_center">
+							<table border="0"  cellpadding="" cellspacing="">
+								<tr class="title">
+									
+									<td>序号</td>
+									<td>名称</td>
+									<td>市场分类</td>
+									<td>总量</td>
+									<td>单位</td>
+									<td>单价(元)</td>
+									<!-- <td>保险</td> -->
+									<td>发布状态</td>
+									<td>时间</td>
+									<td>操作</td>
+								</tr>
+								{foreach: items=$productList item=$list }
+								{set: $key++}
+								<tr>
+									<td>{$key}</td>
+									<td><p>{$list['name']}</p></td>
+									<td>{$list['cname']}</td>
+									<td>{$list['quantity']}</td>
+									<td>{$list['unit']}</td>
+									<td>{$list['price']}-{$list['price_r']}</td>
+									<!-- <td>已投保</td> -->
+									<td><span class="col000000">{$list['status']}</span></td>
+									<td>{$list['apply_time']}</td>
+									<td><a href="{url:/Purchase/detail?id=$list['id']}">查看</a><a href="{url:/Purchase/doApply?id=$list['id']}">审核</a></td>
+								</tr>
+								{/foreach}
+								
+							</table>
+
+						</div>
+						
+
+						</div>
+						<div class="page_num">
+							{$pageHtml}
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+
+		

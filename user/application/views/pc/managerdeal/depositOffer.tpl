@@ -12,9 +12,9 @@
         <li value=""   class="a_choose"  ><a></a></li>
 
     </ul>
-    <div class="sl_ext">
+    <!--<div class="sl_ext">
         <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-    </div>
+    </div>-->
 
 </div>
 
@@ -47,9 +47,9 @@
                                         <li value="{$cate['id']}"  ><a>{$cate['name']}</a></li>
                                         {/foreach}
                                     </ul>
-                                        <div class="sl_ext">
+                                       <!-- <div class="sl_ext">
                                         <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-                                        </div>
+                                        </div>-->
                                     {/if}
                             </div>
                         {/foreach}

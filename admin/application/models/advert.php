@@ -197,7 +197,7 @@ class advertModel
     public function delAdManage($id){
         $adMaModel=$this->adMaModel;
         $where=array('id'=>$id);
-        if($adMaModel->data(array('is_del'=>1))->where($where)->update()){
+        if($adMaModel->where($where)->delete()){
             return tool::getSuccInfo(1,'删除成功');
         }else{
             return tool::getSuccInfo(0,'删除失败');

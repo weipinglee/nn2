@@ -89,11 +89,11 @@ class storeController extends Yaf\Controller_Abstract{
      */
     public function logicDelAction(){
         if(IS_AJAX){
-            $data['is_del'] = intval(safe::filterPost('status'));
+            $data['is_del'] = 1;
             $data['id'] = intval($this->_request->getParam('id'));
             $storeModel = new storeModel();
 
-            $res = $storeModel->storeAdd($data);
+            $res = $storeModel->update($data);
 
             echo JSON::encode($res);
             return false;

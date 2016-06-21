@@ -17,12 +17,13 @@ use \nainai\offer\product;
 
 use \Library\JSON;
 
-class OffersController extends \Yaf\Controller_Abstract {
+class OffersController extends PublicController {
 
 	private $offer;
 	private $order;
 
 	public function init(){
+		parent::init();
 		//$this->getView()->setLayout('header');
 		$this->offer = new OffersModel();
 		$this->order = new \nainai\order\Order();
@@ -34,9 +35,9 @@ class OffersController extends \Yaf\Controller_Abstract {
 		$page = safe::filterGet('page','int');
 		$category = array();
 
-	        	//获取商品分类信息，默认取第一个分类信息
-	        	$productModel = new product();
-	        	$category = $productModel->getCategoryLevel();
+		//获取商品分类信息，默认取第一个分类信息
+		$productModel = new product();
+		$category = $productModel->getCategoryLevel();
 
 		$pageData = $this->offer->getList($page);
 
@@ -91,27 +92,56 @@ class OffersController extends \Yaf\Controller_Abstract {
 
 
 	 /**
-         * AJax获取产品分类信息
-         * @return [Json]
-         */
-        public function ajaxGetCategoryAction(){
-            $pid = Safe::filterPost('pid', 'int',0);
-            if($pid){
-                $productModel = new product();
-                $cate = $productModel->getCategoryLevel($pid);
+	 * AJax获取产品分类信息
+* @return [Json]
+*/
+	public function ajaxGetCategoryAction(){
+		$pid = Safe::filterPost('pid', 'int',0);
+		if($pid){
+			$productModel = new product();
+			$cate = $productModel->getCategoryLevel($pid);
 
-                //获取这个分类下对应的产品信息
-                $condition = array(
-                	'where' => 'FIND_IN_SET(cate_id, :ids)',
-                	'bind' => array('ids' => $pid)
-                );
-                $cate['product'] = $this->offer->getList($pid, $condition);
-                unset($cate['chain']);
+			//获取这个分类下对应的产品信息
+			$condition = array(
+				'where' => 'FIND_IN_SET(cate_id, :ids)',
+				'bind' => array('ids' => $pid)
+			);
+			$cate['product'] = $this->offer->getList($pid, $condition);
+			unset($cate['chain']);
 
-                echo json::encode($cate);
-            }
-            exit();
-        }
+			echo json::encode($cate);
+		}
+		exit();
+	}
+
+
+	/**
+	 * 报价页面
+	 */
+	public function reportAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = safe::filter($id, 'id');
+
+		if (intval($id) > 0) {
+			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
+			$offerDetail = $PurchaseOfferModel->getOfferProductDetail($id);
+			$user = new \Library\M('user');
+			$username = $user->where(array('id'=>$offerDetail[0]['user_id']))->getField('username');
+
+			$attrText = array_keys($offerDetail[1]['attr_arr']);
+			$attrs = array_keys($offerDetail[1]['attribute']);
+			$this->getView()->assign('attr', $attrs);
+			$this->getView()->assign('attrtext', $attrText);
+			$this->getView()->assign('username', $username);
+			$this->getView()->assign('offer', $offerDetail[0]);
+			$this->getView()->assign('product', $offerDetail[1]);
+		}else{
+			$this->error('未知的采购报盘!');
+		}
+
+	}
+
+
 
 
 

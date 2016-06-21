@@ -26,7 +26,7 @@ class OfferManageModel extends \nainai\offer\product{
 	private function getList($page,$where =''){
 		$Q = new Query('product_offer as o');
 		$Q->join = "left join products as p on o.product_id = p.id left join user as u on o.user_id = u.id";
-		$Q->fields = "o.*,u.username,p.quantity";
+		$Q->fields = "o.*,u.username,p.quantity,p.unit";
 		if($where) $Q->where = $where;
 		$Q->page = $page;
 		$Q->pagesize = 20;
@@ -38,8 +38,10 @@ class OfferManageModel extends \nainai\offer\product{
 		foreach ($data as $key => &$value){
 			$value['quantity'] = $this->floatForm($value['quantity']);
 			$value['mode_txt'] = $this->getMode($value['mode']);
+			$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
 			$value['status_txt'] = $this->getStatus($value['status']);
-			$value['type_txt'] = $this->getType($value['type']);
+
+				$value['type_txt'] = $this->getType($value['type']);
 		}
 
 		$pageBar =  $Q->getPageBar();
@@ -92,6 +94,7 @@ class OfferManageModel extends \nainai\offer\product{
 		}
 		$info['type'] = $info['type'] == 1 ? "卖盘" : "买盘";
 		$info['mode_txt'] = $this->getMode($info['mode']);
+		$info['mode_txt'] = $info['mode_txt'] == '未知' ? '--' : $info['mode_txt'];
 		$info['quantity'] = $this->floatForm($info['quantity']);
 		$info['status_txt'] = $this->getStatus($info['status']);
 		$info['parent_cates'] = implode('/', array_reverse($parents));

@@ -55,7 +55,7 @@
 					{/if}
 					<a title="编辑" href="{url:store/store/storeAdd?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i>
 
-					<a title="删除" href="javascript:;"  ajax_status=1 ajax_url="{url:store/store/logicDel?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+					<a title="删除" href="javascript:;"  ajax_status=-1 ajax_url="{url:store/store/logicDel?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>

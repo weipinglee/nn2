@@ -43,9 +43,14 @@
 
              </tr>
              <tr>
+                 {if:$info['type']=='买盘'}
+                     <th>价格区间</th>
+                     <td>{$info['price']}--{$info['price_r']}</td>
+                     {else:}
+                     <th>挂牌价</th>
+                     <td>{$info['price']}</td>
+                 {/if}
 
-                 <th>挂牌价</th>
-                 <td>{$info['price']}</td>
                  <th>状态</th>
                  <td>{$info['status_txt']}</td>
                  <th></th>

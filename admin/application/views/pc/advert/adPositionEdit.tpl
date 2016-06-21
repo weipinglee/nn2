@@ -20,14 +20,14 @@
         <div class="title">
             广告位修改
         </div>
-        <div class="content">
+        <div >
             <div class="pd-20">
                 <form action="{url:tool/advert/adPositionEdit}" method="post"  class="form form-horizontal"
                       id="adPositionAdd" auto_submit redirect_url="{url:tool/advert/adPositionList}">
                     <div class="row cl">
                         <label class="form-label col-2">名称：</label>
                         <div class="formControls col-10">
-                            <input type="text" name="name" value="{$info['name']}"/>
+                            <input type="text" class="input-text" name="name" value="{$info['name']}"/>
                         </div>
                     </div>
                     <div class="row cl">
@@ -48,7 +48,7 @@
                         <div class="formControls col-10">
                             将以下代码Copy到你想放置广告的任何地方<br />
                             <code style="font-weight:normal;font-family:'Courier New';font-size:16px;display:block;background:#333;color:#fff;padding:5px;margin-right:30px;">
-                                &#123;set&#58; \Library\Ad::show("{$info['name']}")&#125;						</code>
+                                &#123;echo&#58; \Library\Ad::show("{$info['name']}")&#125;						</code>
                         </div>
                     </div>
                     <div class="row cl">

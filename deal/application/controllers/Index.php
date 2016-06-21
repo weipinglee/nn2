@@ -9,13 +9,10 @@ use \DB\M;
 use \tool\http;
 use \common\url;
 use \common\tool;
-class IndexController extends Yaf\Controller_Abstract {
+class IndexController extends PublicController {
 
 
-	public function init(){
 
-		//echo $this->getViewPath();
-	}
 	/** 
      * 默认动作
      * Yaf支持直接把Yaf_Request_Abstract::getParam()得到的同名参数作为Action的形参

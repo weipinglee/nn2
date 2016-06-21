@@ -12,7 +12,7 @@
 					<div class="pay_cot">
 						<div class="zhxi_con font_set">
 							<span class="con_tit">账户余额：</span>
-							<span><i>￥</i><i class="bold">10.00</i></span>
+							<span><i>￥</i><i class="bold">{$total}</i></span>
 						</div>
 						<div class="zhxi_con font_set">
 							<span class="con_tit">充值金额：</span>
