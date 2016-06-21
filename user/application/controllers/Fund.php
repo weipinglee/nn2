@@ -155,9 +155,15 @@ class FundController extends UcenterBaseController {
 		}
 		else{//获取数据
 			$data = $fundModel->getbankInfo($this->user_id);
-			$data['proof_thumb'] = \Library\thumb::get($data['proof'],180,180);
+			if(!empty($data)){
+				$data['proof_thumb'] = \Library\thumb::get($data['proof'],180,180);
+				$this->getView()->assign('bank',$data);
+				$status = fundModel::$status_text[$data['status']];
+			}
+			else
+				$status = '未申请';
+			$this->getView()->assign('status',$status);
 			$type = $fundModel->getCardType();
-			$this->getView()->assign('bank',$data);
 			$this->getView()->assign('type',$type);
 		}
 	}

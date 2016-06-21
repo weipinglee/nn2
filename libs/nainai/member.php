@@ -14,7 +14,7 @@ class member{
         1=>'企业'
     );
 
-
+    protected $table = 'user';
 
     /**
      * 获取会员类型
@@ -97,6 +97,34 @@ class member{
     public function getAgentList(){
         $agent = new M('agent');
         return $agent->where(array('status'=>1))->fields('id,company_name')->select();
+    }
+
+    /**
+     * 获取会员详情
+     * @param int $user_id 用户id
+     */
+    public function getUserDetail($user_id){
+        $userObj = new M($this->table);
+        $detail = $userObj->where(array('id'=>$user_id))->getObj();
+        $product = new \nainai\offer\product();
+
+        if(!empty($detail)){
+            $detail['user_type'] = self::getType($detail['type']);
+            if($detail['type']==1){
+                $comObj = new M('company_info');
+                $data = $comObj->where(array('user_id'=>$user_id))->getObj();
+                $nature = $this->getComNature();
+                $data['nature_text'] = $nature[$data['nature']];
+                $data['category'] =  $product->getCateName($data['category']);
+            }
+            else{
+                $comObj = new M('person_info');
+                $data = $comObj->where(array('id'=>$user_id))->getObj();
+            }
+            return array_merge($detail,$data);
+        }
+        return array();
+
     }
 
 

@@ -11,6 +11,12 @@
 					<div>
 						<form action="{url:/fund/bank}" enctype="multipart/form-data" method='post' auto_submit>
 							<div class="zhxi_con">
+								<span class="con_tit"><i>*</i>开户状态：</span>
+								<span>{$status}</span>
+
+
+							</div>
+							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>开户银行：</span>
 								<span><input class="text" type="text" datatype="s2-10" nullmsg="填写开户行" name="bank_name" value="{$bank['bank_name']}"></span>
 								<span></span>
