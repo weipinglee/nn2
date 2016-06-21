@@ -114,12 +114,12 @@ class member{
                 $comObj = new M('company_info');
                 $data = $comObj->where(array('user_id'=>$user_id))->getObj();
                 $nature = $this->getComNature();
-                $data['nature_text'] = $nature[$data['nature']];
+                $data['nature_text'] = isset($nature[$data['nature']]) ? $nature[$data['nature']] : '未知';
                 $data['category'] =  $product->getCateName($data['category']);
             }
             else{
                 $comObj = new M('person_info');
-                $data = $comObj->where(array('id'=>$user_id))->getObj();
+                $data = $comObj->where(array('user_id'=>$user_id))->getObj();
             }
             return array_merge($detail,$data);
         }
