@@ -44,3 +44,41 @@ function changeGuideCategory(type, url){
             }
         });
 }
+
+/**
+ * 分类列表展开合并
+ */
+$(function() {
+    $('p.he').on('click', function() {
+        var level = parseInt($(this).parents('tr').attr('title'));
+
+        if($(this).hasClass('cateopen')){//合住
+            $(this).addClass('cateclose').removeClass('cateopen');
+            $(this).parents('tr').nextAll('tr').each(function(index){
+                if($(this).attr('title')>=level+1){
+                    $(this).addClass('hide');
+                }
+                else if($(this).attr('title') <= level){
+                    return false;
+                }
+            })
+
+        }
+        else{//打开
+            $(this).addClass('cateopen').removeClass('cateclose');
+            $(this).parents('tr').nextAll('tr').each(function(index){
+                if($(this).attr('title')==level+1){
+                    $(this).removeClass('hide');
+                }
+                else if($(this).attr('title') < level+1){
+                    return false;
+                }
+            })
+        }
+
+
+    });
+
+
+
+})
