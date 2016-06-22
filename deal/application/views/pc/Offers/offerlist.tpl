@@ -209,7 +209,7 @@
                        <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>--<%}%></li>
 
                        <li style="width:120px;"><%=data[i].produce_area%></li>
-                       <li><%=data[i].accept_area%></li>
+                       <li style="width:120px;"><%=data[i].accept_area%></li>
                        <li><%=data[i].left%> (<%=data[i].unit%>)</li>
                        <li><i class="qian_blue">￥<%=data[i].price%></i></li>
                        <li>
