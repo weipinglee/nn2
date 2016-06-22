@@ -122,6 +122,15 @@ class product{
         return $mode_txt;
     }
 
+    public function getStatusArray(){
+        return array(
+            self::OFFER_APPLY => $this->getStatus(self::OFFER_APPLY),
+            self::OFFER_OK => $this->getStatus(self::OFFER_OK),
+            self::OFFER_NG => $this->getStatus(self::OFFER_NG),
+            self::OFFER_EXPIRE => $this->getStatus(self::OFFER_EXPIRE)
+        );
+    }
+
 
     /**
      * 商品验证规则

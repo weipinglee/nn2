@@ -83,7 +83,7 @@ class OfferManageModel extends \nainai\offer\product{
 	public function getofferInfo($id){
 		$query = new Query("product_offer as o");
 		$query->join = 'left join products as p on o.product_id = p.id';
-		$query->fields = 'o.*,p.name,p.cate_id,p.unit,p.quantity';
+		$query->fields = 'o.*,p.name,p.cate_id,p.unit,p.quantity, p.name as product_name, p.produce_area';
 		$query->where = 'o.id = '.$id;
 		$info = $query->getobj();
 		$parent_cates = $this->getParents($info['cate_id']);

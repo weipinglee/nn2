@@ -12,6 +12,11 @@
 									<li>名称：<input id="warename" name="name" type="text" value="{$name}"></li>
 								
 			
+									<li>状态：<select name="status">
+									<option value="9">全部</option>
+										{foreach: items=$status}
+											<option value="{$key}" {if: isset($s) && $key===$s}selected{/if}>{$item}</option>
+										{/foreach}
 									</select></li>
 									<li>时间：<input class="Wdate" type="text" name="beginDate" value="{$beginData}" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="{$endDate}" onclick="WdatePicker()">
 									</li>
