@@ -456,7 +456,7 @@ class UcenterController extends UcenterBaseController {
                     'title' => Safe::filterPost('title'),
                     'tax_no' => Safe::filterPost('tax_no'),
                     'address' => Safe::filterPost('address'),
-                    'phone' => Safe::filterPost('tel', 'int'),
+                    'phone' => Safe::filterPost('tel'),
                     'bank_name' => Safe::filterPost('bankName'),
                     'bank_no' => Safe::filterPost('bankAccount')
                 );
