@@ -17,7 +17,7 @@
                               <div>
 
                                 <input id="inputCode" placeholder="请输入验证码" type="text" class="gradient">
-                                <img id='image' width="" height="45" src="{url:/index/getCaptcha}" onclick="this.src='{url:/index/getCaptcha}?'+Math.random()" />
+                                <img id='image' width="" height="45" src="{url:/login/getCaptcha}" onclick="this.src='{url:/index/getCaptcha}?'+Math.random()" />
                               <!--   <input type="button" class="yzm_submit" value="确定" id="submit"> -->
                             </div>
                         </div>

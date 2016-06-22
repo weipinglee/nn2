@@ -9,33 +9,38 @@
 					</div>
 					<input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 
-				<form method="post" action="{url:/ucenter/doSubAcc}" >
+				<form method="post" auto_submit action="{url:/ucenter/doSubAcc}" >
 					<div style="float:left">
 
 						<input type="hidden" name="id" value="{$user['id']}"/>
 						<div class="zhxi_con">
 							<span class="con_tit"><i>*</i>用户名：</span>
-							<span><input class="text" type="text" name="username" pattern="/^[a-zA-Z0-9_]{3,30}$/" value="{$user['username']}" /></span>
+							<span><input class="text" type="text" name="username" datatype="/^[a-zA-Z0-9_]{3,30}$/" errormsg="请填写3-30位字母数字下划线的组合" value="{$user['username']}" /></span>
+						<span></span>
 						</div>
 
 						<div class="zhxi_con">
 							<span class="con_tit"><i>*</i>手机号：</span>
-							<span><input class="text" type="text" name="mobile" pattern="mobile" value="{$user['mobile']}" /></span>
+							<span><input class="text" type="text" name="mobile" datatype="mobile" value="{$user['mobile']}" /></span>
+							<span></span>
 						</div>
 
 						<div class="zhxi_con">
 							<span class="con_tit">邮箱：</span>
-							<span><input class="text" type="text" name="email" empty pattern="email" value="{$user['email']}" /></span>
+							<span><input class="text" type="text" name="email"  datatype="e" value="{$user['email']}" /></span>
+							<span></span>
 						</div>
 
 						<div class="zhxi_con">
 							<span class="con_tit">密码：</span>
-							<span><input class="text" type="password" name="password" empty bind="repassword" pattern="/^\S{6,20}$/" alt="6-20位非空字符" /></span>
+							<span><input class="text" type="password" name="password"   datatype="/^\S{6,20}$/" errormsg="6-20位非空字符" /></span>
+							<span></span>
 						</div>
 
 						<div class="zhxi_con">
 							<span class="con_tit">重复密码：</span>
-							<span><input class="text" type="password" name="repassword" empty bind="password"  pattern="/^\S{6,20}$/" alt="6-20位非空字符"  /></span>
+							<span><input class="text" type="password" name="repassword"    datatype="*" errormsg="两次密码输入不一致" recheck="password"   /></span>
+							<span></span>
 						</div>
 						<div class="zhxi_con">
 							<span class="con_tit">状态：</span>
@@ -57,6 +62,7 @@
 
 
 					</div>
+					<!--
 					<div class="zhxi_upimg">
 						<div id="dd" class="up_img"><img name="file1" src="{if:isset($user['head_photo_thumb'])}{$user['head_photo_thumb']}{else:}{views:/images/icon/wt.jpg}{/if}"/></div>
 						<div>
@@ -64,6 +70,7 @@
 							<input type="hidden" name="imgfile1" value="{$user['head_photo']}"/>
 						</div>
 					</div>
+					-->
 				</form>
 
 					<div style="clear:both;"></div>
