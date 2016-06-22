@@ -1,5 +1,4 @@
-﻿<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
-<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
+﻿
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" /> 交易商认证信息</h1>
                 

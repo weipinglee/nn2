@@ -180,6 +180,12 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>
                     <ul>
+                        <li><a  target="content">会员开户管理</a>
+                            <ul>
+                                <li><a href="{url:balance/accManage/checkbankList}" target="content">待审核</a></li>
+                                <li><a href="{url:balance/accManage/checkedbankList}" target="content">已审核</a></li>
+                            </ul>
+                        </li>
                         <li><a href="" target="content">入金审核</a>
                             <ul>
                                 <li><a href="{url:balance/fundIn/onlineList}" target="content">线上入金</a></li>

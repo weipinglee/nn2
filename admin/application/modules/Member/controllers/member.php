@@ -9,6 +9,7 @@ use \nainai\certificate;
 use \Library\Thumb;
 use \nainai\subRight;
 use \Library\url;
+use \nainai\member;
 class MemberController extends Yaf\Controller_Abstract {
 
 
@@ -28,6 +29,18 @@ class MemberController extends Yaf\Controller_Abstract {
 		$pageData = $m->getList($page);
 		$this->getView()->assign('member',$pageData['data']);
 		$this->getView()->assign('bar',$pageData['bar']);
+	}
+
+	public function detailAction(){
+		$user_id = $this->getRequest()->getParam('id');
+		$user_id = safe::filter($user_id,'int',0);
+		if($user_id){
+			$mem = new member();
+			$user = $mem->getUserDetail($user_id);
+
+			$this->getView()->assign('user',$user);
+
+		}
 	}
 
 

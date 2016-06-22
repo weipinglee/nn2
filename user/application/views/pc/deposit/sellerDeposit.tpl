@@ -121,7 +121,7 @@
                         </script>
                        
                    <div id="bain_bo">
-                   <form action="" method="post">
+                   <form action="" method="post" pay_secret=1>
                    <!-- <div class="sty_online" style="display:block;">
                         
                            <label for=""><input name="abc" type="radio" value="" />余额支付</label>

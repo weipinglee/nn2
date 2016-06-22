@@ -504,6 +504,16 @@ class product{
         return $parents;
     }
 
+    /**
+     * 获取某个分类名称
+     * @param int $cate_id 分类id
+     */
+    public function getCateName($cate_id){
+        $m = new M('product_category');
+        return $m->where(array('id'=>$cate_id))->getField('name');
+
+    }
+
 
 
 

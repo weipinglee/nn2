@@ -7,36 +7,8 @@
  */
 use \Library\M;
 use \Library\tool;
-class fundModel{
+class fundModel extends \nainai\user\UserBank{
 
-    private $outFundRules = array(
-        array('id','number','id错误',0,'regex'),
-        array('user_id','number','',0,'regex'),
-        array('request_no','require','不为空'),
-        array('amount','currency','货币错误',0,'regex'),
-       // array('note','mobile','手机号码错误',2,'regex'),
-    );
-
-    //开户信息规则
-    protected $bankRules = array(
-        array('user_id','number',''),
-        array('bank_name','/\S{2,20}/i','请填写开户银行'),
-        array('card_type',array(1,2),'卡类型错误',0,'in'),
-        array('card_no','/[0-9a-zA-Z]{15,22}/','请填写银行账号'),
-        array('true_name','/.{2,20}/','请填写开户名'),
-        array('identify_no','/^\d{14,17}(\d|x)$/i','身份证号码错误'),
-        array('proof','/^[a-zA-Z0-9_@\.\/]+$/','请上传打款凭证')
-
-    );
-
-
-
-    public function getCardType(){
-        return  array(
-            1=>'借记卡',
-            2=>'信用卡'
-        );
-    }
     /**
      *
      * @param $user_id
@@ -83,6 +55,7 @@ class fundModel{
      */
     public function bankUpdate($data){
         $userBank=new M('user_bank');
+        $data['status'] = self::BANK_APPLY;
         if($userBank->validate($this->bankRules,$data)){
             $res = $userBank->insertUPdate($data,$data);
         }
@@ -98,8 +71,5 @@ class fundModel{
         }
     }
 
-    public function getBankInfo($user_id){
-        $userBank=new M('user_bank');
-        return $userBank->where(array('user_id'=>$user_id))->getObj();
-    }
+
 }

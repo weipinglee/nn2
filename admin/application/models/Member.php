@@ -14,7 +14,7 @@ class MemberModel{
 	public function getList($page){
 		$Q = new Query('user');
 		$Q->page = $page;
-		$Q->pagesize = 5;
+		$Q->pagesize = 18;
 		$data = $Q->find();
 		$pageBar =  $Q->getPageBar();
 		return array('data'=>$data,'bar'=>$pageBar);

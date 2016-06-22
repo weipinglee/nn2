@@ -6,6 +6,7 @@ Date:2016/5/10
  */
 use Library\Query;
 use Library\Safe;
+use Library\json;
 
 class accManageController extends Yaf\Controller_Abstract {
 	//会用账户列表
@@ -46,6 +47,70 @@ class accManageController extends Yaf\Controller_Abstract {
 		$this->getView()->assign('userAccBar', $userAccBar);
 		$this->getView()->assign('userAccInfo', $userAccInfo);
 
+	}
+
+	/**
+	 * 会员待审核开户列表
+	 *
+	 */
+	public function checkbankListAction()
+	{
+		$obj = new fundBankModel();
+		$page = safe::filterGet('page', 'int', 1);
+		$where = 'b.status = 0';
+		$data = $obj->getBankList($page, $where);
+		$this->getView()->assign('data', $data[0]);
+		$this->getView()->assign('bar', $data[1]);
+
+	}
+
+	/**
+	 * 开户信息审核页面
+	 */
+	public function checkBankDetailAction(){
+		$obj = new fundBankModel();
+		if(IS_POST){
+			$user_id = safe::filterPost('id','int');
+			$status = safe::filterPost('status','int');
+			$res = $obj->bankVerify($user_id,$status);
+			die(json::encode($res));
+
+		}
+		else{
+			$user_id = safe::filterGet('user_id','int',0);
+
+			$data = $obj->getBankDetail($user_id);
+			$this->getView()->assign('bank',$data[0]);
+			$this->getView()->assign('user',$data[1]);
+
+		}
+	}
+
+	/**
+	 * 开户信息审核页面
+	 */
+	public function checkedBankDetailAction(){
+		$obj = new fundBankModel();
+
+		$user_id = safe::filterGet('user_id','int',0);
+
+		$data = $obj->getBankDetail($user_id);
+		$this->getView()->assign('bank',$data[0]);
+		$this->getView()->assign('user',$data[1]);
+
+	}
+
+	/**
+	 * 会员已审核开户列表
+	 *
+	 */
+	public function checkedbankListAction(){
+		$obj = new fundBankModel();
+		$page = safe::filterGet('page','int',1);
+		$where = 'b.status != 0';
+		$data = $obj->getBankList($page,$where);
+		$this->getView()->assign('data',$data[0]);
+		$this->getView()->assign('bar',$data[1]);
 	}
 }
 

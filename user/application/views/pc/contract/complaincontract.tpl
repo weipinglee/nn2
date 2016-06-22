@@ -37,9 +37,6 @@
 									<td>
 										<div class="div_heights">
 
-										{foreach: items=$ContractData['photos'] item=$val}
-										<img class="middle_img" src="{$val}" align="left" width="50px" style="position:relative;left:20px"/>
-										{/foreach}
 										
 										 <p style="line-height:50px">{$ContractData['pname']}</p>
 										</div>

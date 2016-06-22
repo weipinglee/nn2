@@ -15,6 +15,7 @@ class table{
             'dealer'=>'交易商认证',
             'store_manager'=>'仓库管理员认证',
             'user_group'=>'用户组',
+            'user_bank' => '开户信息',
         );
     }
 
