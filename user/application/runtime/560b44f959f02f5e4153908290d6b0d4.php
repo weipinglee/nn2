@@ -22,6 +22,12 @@
     <script type="text/javascript" src="http://localhost/nn2/user/public/js/form/validform.js" ></script>
     <script type="text/javascript" src="http://localhost/nn2/user/public/js/form/formacc.js" ></script>
     <script type="text/javascript" src="http://localhost/nn2/user/public/js/layer/layer.js"></script>
+    <script type="text/javascript" src="http://localhost/nn2/user/public/js/layer/extend/layer.ext.js"></script>
+
+     <script type="text/javascript" src="http://localhost/nn2/user/public/js/form/validate/jquery.validate.min.js" ></script>
+     <script type="text/javascript" src="http://localhost/nn2/user/public/js/form/validate/messages_zh.min.js" ></script>
+     <link href="http://localhost/nn2/user/public/js/form/validate/error.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <!--    公用头部控件 -->
@@ -30,7 +36,7 @@
         <div class="topnav_left">
             <div class="login_link" id="toploginbox">
                 <?php if($login==0){?>
-                <a rel="external nofollow" href="http://localhost/nn2/user/public/index/login" target="_blank" class="topnav_login">登录</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/index.php/login/login" target="_blank" class="topnav_login">登录</a>
                 <div class="login_box" id="login_boxMain" style="display: none;">
                     <input name="gtxh_LoginMobile" type="text" id="gtxh_LoginMobile" class="txt_topnav" value="手机号码" maxlength="11">
                     <br>
@@ -42,14 +48,14 @@
                     <input name="gtxh_autoLogin" type="checkbox" id="gtxh_autoLogin" style="vertical-align: middle" checked="checked">
                     <label for="checkbox">两周内自动登录</label>
                     <br>
-                    <a href="PasswordReset.html" target="_blank">忘记密码</a> <a href="http://localhost/nn2/user/public/index/register" target="_blank">立即注册</a>
+                    <a href="PasswordReset.html" target="_blank">忘记密码</a> <a href="http://localhost/nn2/user/public/index.php/index/register" target="_blank">立即注册</a>
                 </div>
                 <div class="topnav_regsiter" style=" float:right;">
                     <a rel="external nofollow" href="register.html" target="_blank">免费注册</a>
                 </div>
                 <?php }else{?>
                     您好，<?php echo isset($username)?$username:"";?>
-                    <a rel="external nofollow" href="http://localhost/nn2/user/public/index/logout" >退出</a>
+                    <a rel="external nofollow" href="http://localhost/nn2/user/public/index.php/login/logout" >退出</a>
                 <?php }?>
             </div>
             <div class="topnav_login_in" id="userCenterbox" style="display: none;">
@@ -162,7 +168,7 @@
                 <ul class="nav-list">
                     <?php foreach($topArray as $key => $topList){?>
                         <li>
-                            <a href="<?php echo isset($topList['url'])?$topList['url']:"";?>" <?php if( $topList['isSelect']){?> class="cur" <?php }?>><?php echo isset($topList['title'])?$topList['title']:"";?></a>
+                            <a href="<?php echo isset($topList['url'])?$topList['url']:"";?>" <?php if( isset($topList['isSelect']) && $topList['isSelect'] == 1){?> class="cur" <?php }?>><?php echo isset($topList['title'])?$topList['title']:"";?></a>
                         </li>
                     <?php }?>
 
@@ -174,24 +180,23 @@
 		<div class="user_b">
 			<!--start左侧导航--> 
             <div class="user_l">
-                <?php if(!empty($leftArray)){?>
+                <?php if(!empty($leftArray) && count($leftArray)>1){?>
                 <div class="left_navigation">
                     <ul>
 
                     	<?php foreach($leftArray as $k => $leftList){?>
-
                     		<?php if( $k == 0){?>
-                    		<li class="let_nav_tit"><h3><?php echo isset($leftList['name'])?$leftList['name']:"";?></h3></li>
+                    		<li class="let_nav_tit"><h3><?php echo isset($leftList['title'])?$leftList['title']:"";?></h3></li>
                     		<?php }else{?>
                             <li class="btn1" id="btn<?php echo isset($k)?$k:"";?>">
-                                <a class="nav-first <?php if(isset($leftList['action']) && in_array($action,$leftList['action'])){?>cur<?php }?>" <?php if(isset($leftList['url'])){?> href="<?php echo isset($leftList['url'])?$leftList['url']:"";?>"<?php }?> >
-                                    <?php echo isset($leftList['name'])?$leftList['name']:"";?>
+                                <a class="nav-first <?php if($action==$leftList['action']){?>cur<?php }?>" <?php if( !empty($leftList['url'])){?> href="<?php echo isset($leftList['url'])?$leftList['url']:"";?>"<?php }?> >
+                                    <?php echo isset($leftList['title'])?$leftList['title']:"";?>
                                     <i class="icon-caret-down"></i>
                                 </a>
                                 <?php if( !empty($leftList['list'])){?>
                                     <ul class="zj_zh" >
                                         <?php foreach($leftList['list'] as $key => $list){?>
-                                            <li><a  href="<?php echo isset($list['url'])?$list['url']:"";?>" <?php if(in_array($action,$list['action'])){?>class="cur"<?php }?> ><?php echo isset($list['title'])?$list['title']:"";?></a></li>
+                                            <li><a  href="<?php echo isset($list['url'])?$list['url']:"";?>" <?php if($action==$list['action']){?>class="cur"<?php }?> ><?php echo isset($list['title'])?$list['title']:"";?></a></li>
                                         <?php }?>
                                     </ul>
                                 <?php }?>
@@ -215,19 +220,15 @@
                                 </a>
                             </div>
                             <div class="per_username">
-                                <p class="username_p"><b>上午好，<?php echo isset($username)?$username:"";?></b></p>
+                                <p class="username_p"><b>您好，<?php echo isset($username)?$username:"";?></b></p>
                                 <p class="username_p"><img src="<?php echo isset($group['icon'])?$group['icon']:"";?>"><?php echo isset($group['group_name'])?$group['group_name']:"";?></p>
-                                <p class="username_p">消息提醒：<b class="colaa0707">24</b></p>
-                                <p class="username_p"><a class="padding_right" href="">去认证</a><a class="col1734b1" href="">仓储管理</a></p>
+                                <p class="username_p">消息提醒：<a href="http://localhost/nn2/user/public/index.php/message/usermail"><b class="colaa0707"><?php echo isset($mess)?$mess:"";?></b></a></p>
                             </div>
                             <div class="per_function">
-                                <a href="user_zh.html">基本信息设置</a>
-                                <a href="zh_mm.html">修改密码</a>
+                                <a href="http://localhost/nn2/user/public/index.php/ucenter/baseinfo">基本信息设置</a>
+                                <a href="http://localhost/nn2/user/public/index.php/ucenter/password">修改密码</a>
                             </div>
-                            <div class="per_collection">
-                                <p class="collection_padding col1734b1">信誉保证金有什么好处</p>
-                                <p class="collection_padding colaa0707">已缴纳信誉保证金</p>
-                            </div>
+
                         </div>
                     </div>
                 <?php }?>
@@ -256,6 +257,7 @@
                                                                                 <td>所在库</td>
                                                                                 <td>操作</td>
 								</tr>
+								<?php if(!empty($storeList)){?>
                                                                                         <?php foreach($storeList as $key => $list){?>
                                                                                         <?php $key++; ?>
                                                                                         <tr>
@@ -264,19 +266,22 @@
                                                                                                 <td><?php echo isset($list['cname'])?$list['cname']:"";?></td>
                                                                                                 <td>
                                                                                                 		<ul>
+																											<?php if(!empty($list['attribute'])){?>
                                                                                                 		<?php foreach($list['attribute'] as $aid => $attr){?>
                                                                                                 		<li><?php echo isset($attrs[$aid])?$attrs[$aid]:"";?> : <?php echo isset($attr)?$attr:"";?></li>
                                                                                                 		<?php }?>
+																											<?php }?>
                                                                                                 		</ul>
                                                                                                 </td>
                                                                                                 <td><?php echo isset($list['package_weight'])?$list['package_weight']:"";?>(<?php echo isset($list['package_unit'])?$list['package_unit']:"";?>)</td>
                                                                                                 <td><?php echo isset($statuList[$list['status']])?$statuList[$list['status']]:"";?></td>
                                                                                                 <td><?php echo isset($list['sname'])?$list['sname']:"";?></td>
 
-																									<td><a href='http://localhost/nn2/user/public/managerdeal/storeproductdetail/id/<?php echo $list['id'];?>'>查看</a></td>
+																									<td><a href='http://localhost/nn2/user/public/index.php/managerdeal/storeproductdetail/id/<?php echo $list['id'];?>'>查看</a></td>
 
                                                                                         </tr>
                                                                                       <?php }?>
+                                                                             <?php }?>
 							</table>
 
 						</div>
@@ -308,7 +313,7 @@
 
 				<!--end中间内容-->	
 			<!--start右侧广告-->			
-			<div class="user_r">
+		<!--	<div class="user_r">
 				<div class="wrap_con">
 					<div class="tit clearfix">
 						<h3>公告</h3>
@@ -321,7 +326,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			<!--end右侧广告-->
 		</div>
 	</div>
