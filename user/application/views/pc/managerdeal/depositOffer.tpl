@@ -62,6 +62,7 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
+                                <input type="hidden" name="token" value="{$token}" />
                                 <input  type="submit"  value="提交审核" />
                                 <span class="color">买方付首款后需缴纳{$rate}%的保证金，合同完成后退还</span>
                             </td>

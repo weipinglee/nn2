@@ -205,7 +205,7 @@
                                 <textarea name="note"></textarea>
                             </td>
                         </tr>
-
+                        <input type="hidden" name="token" value="{$token}" />
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">

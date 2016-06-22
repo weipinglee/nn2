@@ -95,6 +95,9 @@ class ManagerDealController extends UcenterBaseController {
      *
      */
     public function freeOfferAction(){
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
+
         $freeObj = new freeOffer();
         $freeFee = $freeObj->getFee($this->user_id);
 
@@ -110,6 +113,9 @@ class ManagerDealController extends UcenterBaseController {
     public function doFreeOfferAction(){
 
         if(IS_POST){
+            $token = safe::filterPost('token');
+            if(!safe::checkToken($token))
+                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
@@ -137,6 +143,9 @@ class ManagerDealController extends UcenterBaseController {
      *
      */
     public function depositOfferAction(){
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
+
         $depositObj = new \nainai\offer\depositOffer();
         $rate = $depositObj->getDepositRate($this->user_id);
         $this->getView()->assign('rate',$rate);
@@ -149,6 +158,10 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function doDepositOfferAction(){
         if(IS_POST){
+            $token = safe::filterPost('token');
+            if(!safe::checkToken($token))
+                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => safe::filterPost('divide', 'int'),
@@ -180,6 +193,8 @@ class ManagerDealController extends UcenterBaseController {
      *
      */
     public function deputeOfferAction(){
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
         $Obj = new \nainai\offer\deputeOffer();
         $rate = $Obj->getFeeRate($this->user_id);
         $this->getView()->assign('rate',$rate);
@@ -192,6 +207,10 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function doDeputeOfferAction(){
         if(IS_POST){
+            $token = safe::filterPost('token');
+            if(!safe::checkToken($token))
+                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
@@ -220,6 +239,8 @@ class ManagerDealController extends UcenterBaseController {
      * @return 
      */
     public function storeOfferAction(){
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
         $storeModel = new \nainai\store();
 
         $storeList = $storeModel->getUserActiveStore($this->user_id);
@@ -232,8 +253,12 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function storeProductAction(){
         $store_list = store::getStoretList();
+
         $this->getView()->assign('storeList',$store_list);
         $this->productAddAction();
+
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
     }
 
 
@@ -324,6 +349,11 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function doStoreOfferAction(){
         if (IS_POST) {
+
+            $token = safe::filterPost('token');
+            if(!safe::checkToken($token))
+                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
             $storeObj = new \nainai\store();
 
@@ -357,6 +387,9 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function doStoreProductAction(){
         if(IS_POST){
+            $token = safe::filterPost('token');
+            if(!safe::checkToken($token))
+                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $productData = $this->getProductData();//获取商品数据
             $storeList = array(
                 'store_id' => Safe::filterPost('store_id', 'int'),
@@ -365,7 +398,6 @@ class ManagerDealController extends UcenterBaseController {
                 'package_unit' => Safe::filterPost('package_unit'),
                 'package_weight' => Safe::filterPost('package_weight'),
                 'apply_time'  => \Library\Time::getDateTime(),
-
                 'user_id' => $this->user_id
             );
             $storeObj = new store();
