@@ -29,7 +29,7 @@
       </div>
       <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>仓库地区：</label>
-          <div class="formControls col-5">
+          <div class="formControls col-5" id="areabox">
               {if:isset($store)}
                  {area:data=$store['area']}
                {else:}

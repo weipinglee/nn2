@@ -37,7 +37,7 @@ class storeController extends Yaf\Controller_Abstract{
             $store['id']              = safe::filterPost('id','int',0);
             $store['name']            = safe::filterPost('name');
             $store['short_name']      = safe::filterPost('short_name');
-            $store['area']            = safe::filterPost('area','/^\d{6}$/');
+            $store['area']            = safe::filterPost('area','/^\d{4,6}$/');
             $store['address']         = safe::filterPost('address');
             $store['service_phone']   = safe::filterPost('service_phone','/^[\d\-]{6,15}$/');
             $store['service_address'] = safe::filterPost('service_address');

@@ -31,6 +31,8 @@ function Area(){
                 d = parseInt(area.substring(0,2));
                 if(area.length>3) b = parseInt(area.substring(0,4));
                 if(area.length>5) l = parseInt(area.substring(0,6));
+                if(l==0)
+                    n.style.display='none';
              }
             o[0] = new Option("请选择", 0);
             n[0] = new Option("请选择 ", 0);
