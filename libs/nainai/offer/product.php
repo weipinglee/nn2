@@ -460,7 +460,7 @@ class product{
      * @param float $float 小数
      *
      */
-    public function floatForm($float){
+    public static function floatForm($float){
         $float = strval($float);
         if(strpos($float,'.')===false){//如果是整数，直接返回
             return intval($float);
