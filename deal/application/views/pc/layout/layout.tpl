@@ -269,7 +269,7 @@ body{_padding-top:30px;}
   
 
     <div id="index_nav">
-        <div class="page_width">
+        <div class="page_width">   
 
 
             <ul class="nav n_nav">

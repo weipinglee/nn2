@@ -1397,9 +1397,9 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">耐火原料供应商</div>
                                     <ul>
-                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="./main_files/20151124013651571.jpg" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" alt="群星集团" src="./main_files/20151117094047658.jpg" title="群星集团"></a></li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" alt="远大物产集团有限公司" src="./main_files/20151117094122237.jpg" title="远大物产集团有限公司"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" height="60px" alt="江苏省海安石油化工厂" src="./main_files/20151124013651571.jpg" title="江苏省海安石油化工厂"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" height="60px" alt="群星集团" src="./main_files/20151117094047658.jpg" title="群星集团"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" height="60px" alt="远大物产集团有限公司" src="./main_files/20151117094122237.jpg" title="远大物产集团有限公司"></a></li>
                                     </ul>
                                 </div>
 
@@ -1776,9 +1776,9 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">化工原料供应商</div>
                                     <ul>
-                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="./main_files/20151124013651571.jpg" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" alt="群星集团" src="./main_files/20151117094047658.jpg" title="群星集团"></a></li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" alt="远大物产集团有限公司" src="./main_files/20151117094122237.jpg" title="远大物产集团有限公司"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" height="60px" alt="江苏省海安石油化工厂" src="./main_files/20151124013651571.jpg" title="江苏省海安石油化工厂"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" height="60px" alt="群星集团" src="./main_files/20151117094047658.jpg" title="群星集团"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" height="60px" alt="远大物产集团有限公司" src="./main_files/20151117094122237.jpg" title="远大物产集团有限公司"></a></li>
                                     </ul>
                                 </div>
 
