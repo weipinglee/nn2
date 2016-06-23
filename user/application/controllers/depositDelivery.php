@@ -19,9 +19,9 @@ class DepositDeliveryController extends DeliveryController{
 		$res = $deposit->sellerConsignment($delivery_id,$user_id);
 
 		if($res['success'] == 1){
-			$this->redirect(url::createUrl('/Delivery/deliveryList?is_seller=1'));
+			$this->redirect(url::createUrl('/Delivery/deliSellList'));
 		}else{
-			die($res['info']);
+			$this->error($res['info']);
 		}
 	}
 
@@ -34,9 +34,9 @@ class DepositDeliveryController extends DeliveryController{
 		$res = $deposit->buyerConfirm($delivery_id,$user_id);
 		
 		if($res['success'] == 1){
-			$this->redirect(url::createUrl('/Delivery/deliveryList'));
+			$this->redirect(url::createUrl('/Delivery/deliBuyList'));
 		}else{
-			die($res['info']);
+			$this->error($res['info']);
 		}
 
 	}

@@ -84,7 +84,7 @@
 						<div class="zhxi_con">	
 							<input type="hidden" name="order_id" value="{$data['id']}" />
 							<span><input class="submit_zz" type="submit" value="提交"></span>
-							<span><input class="submit_zz reset_zz" type="reset" value="返回"></span>
+							<span><input class="submit_zz reset_zz" type="reset" onclick="javascript:history.back();" value="返回"></span>
 						</div>
 						<!-- <div class="sjxx">
 							<p>支付配送</p>

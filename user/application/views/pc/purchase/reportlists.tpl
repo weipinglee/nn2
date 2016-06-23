@@ -50,7 +50,11 @@
 									<!-- <td>已投保</td> -->
 									<td><span class="col000000">{$list['status_zn']}</span></td>
 									<td>{$list['create_time']}</td>
-									<td><a href="{url:/Purchase/doApplyReport?id=$list['id']}">审核</a></td>
+									<td>
+										<a href="{url:/Purchase/doApplyReport?id=$list['id']}">审核</a>
+									
+										<a href="{url:/PurchaseOrder/geneOrder?id=$list['id']&offer_id=$list['offer_id']}">选择</a>
+									</td>
 								</tr>
 								{/foreach}
 								
