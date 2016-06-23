@@ -27,6 +27,7 @@ class statistics{
         array('cate_id','number','分类id不能为空'),
         array('type','number','类型不能为空'),
         array('ave_price','double','价格不能为空'),
+        array('prev_price','double','价格不能为空'),
         array('days','number','统计时间不能为空')
 
     );
@@ -48,6 +49,8 @@ class statistics{
             return tool::getSuccInfo(0,'该分类的统计类型已经存在');
         }
         if($catObj->data($data)->validate($this->catStaticRules)){
+            $pro = new \nainai\offer\product();
+            $data['top_cate'] = $pro->getcateTop($cateId);
             if($catObj->data($data)->add()){
                 return tool::getSuccInfo(1,'添加成功');
             }else {
@@ -100,18 +103,25 @@ class statistics{
         $error=array();
 
         foreach($catList as $key=>$cate){
+            $prev_price = $marketObj->where(array('cate_id'=>$cate['cate_id'],'type'=>$cate['type']))->order('id desc')->getField('ave_price');
+            if(!$prev_price)
+                $prev_price = 0;
             $cate_childs = $this->getChildCate($cate['cate_id']);
             $cate_childs[] =$cate['cate_id'];
             $cate_childs = join(',',$cate_childs);
-            $offerObj->where='p.cate_id in ('.$cate_childs.') and datediff(NOW(),f.apply_time)<'.$this->interval;
+            $offerObj->where='f.type=1 and p.cate_id in ('.$cate_childs.') and datediff(NOW(),f.apply_time)<'.$this->interval;
+            $offerObj->order = 'f.price asc';
             $res = $offerObj->find();
 
             if(empty($res)||$res[0]['avg']==null){
-
                 $data['ave_price'] = 0;
             }
-            else
+            else{
                 $data['ave_price']=$res[0]['avg'];
+            }
+
+
+            $data['prev_price'] = $prev_price;
             $data['cate_id']=$cate['cate_id'];
             $data['type'] = $cate['type'];
             if($marketObj->data($data)->validate($this->marketRules)){
@@ -251,6 +261,12 @@ class statistics{
         $res=$statsModel->where($where)->delete();
         return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
     }
+
+    /**
+     * 获取最新的统计数据
+     * @param $type
+     * @return mixed
+     */
     public function getNewStatcList($type){
         $productModel=new product();
         $topCat=$productModel->getTopCate();

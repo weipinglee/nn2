@@ -307,12 +307,13 @@ class companyRec{
         $cRecModel->join  = 'left join company_info as i on r.user_id=i.user_id';
         $cRecModel->where = 'NOW() between r.start_time and r.end_time and r.status=1';
         $allCompany=$cRecModel->find();
-       // var_dump($allCompany);
+
         $result=array();
         foreach($allCompany as $k=>$v){
             $result[$v['category']][]=$v;
 
         }
+
         $res=array();
         foreach($result as $k=>$v){
                 foreach($v as $kk=>$vv){

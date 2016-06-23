@@ -208,6 +208,24 @@ class product{
         return $category;
     }
 
+    /**
+     * 获取某一个分类的顶级分类
+     * @param $cate
+     * @return mixed
+     */
+    public function getcateTop($cate){
+        if(intval($cate)>0){
+            $cate = intval($cate);
+            $obj = new M('product_category');
+            $pid = $obj->where(array('id'=>$cate))->getField('pid');
+            while($pid!=0){
+                $cate = $pid;
+                $pid = $obj->where(array('id'=>$pid))->getField('pid');
+            }
+        }
+        return $cate;
+    }
+
 
     /**
      * 获取下级所有分类，以及分类链

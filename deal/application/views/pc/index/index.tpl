@@ -1,4 +1,5 @@
-
+<script type="text/javascript" src="{views:js/area/Area.js}" ></script>
+<script type="text/javascript" src="{views:js/area/AreaData_min.js}" ></script>
 <!------------------导航 开始-------------------->
 <form method="post" action="" id="form1">
     <div class="aspNetHidden">
@@ -71,6 +72,7 @@
                                 </dl>
                                 {/foreach}
                             </div>
+                            <!--
                             <div class="cat-right">
                                 <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
                                     <dt>推荐品牌出版商</dt>
@@ -85,7 +87,7 @@
                                         </ul>
                                     </dd>
                                 </dl>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
             {/foreach}
@@ -210,20 +212,21 @@
                     <div id="inner">
                         <div class="hot-event">
                             <!-- <div class="switch-nav"><a href="#" onclick="return false;" class="prev"><i class="ico i-prev"></i><span class="hide-clip">上一个</span></a><a href="#" onclick="return false;" class="next"><i class="ico i-next"></i><span class="hide-clip">下一个</span></a></div> -->
+                           {set:$num=0;}
                             {foreach: items=$indexSlide}
                             <div class="event-item" style="display: block;">
                                 <a target="_blank" href="{$item['link']}">
 
-                                    <img src="{$item['img']}" class="photo" style="width: 763px; height: 433px;" alt="测试用图片" />
+                                    <img src="{$item['img']}" class="photo" style="width: 763px; height: 433px;" alt="" />
                                 </a>
 
                             </div>
+                                {set:$num +=1;}
                             {/foreach}
                             <div class="switch-tab">
-                                <a href="#" onclick="return false;" class="current">1</a>
-                                <a href="#" onclick="return false;">2</a>
-                                <a href="#" onclick="return false;">3</a>
-                                <a href="#" onclick="return false;">4</a>
+                                {for:from=0 upto=$num-1}
+                                <a href="#" onclick="return false;" class="{if:$i==0}current{/if}">{$i}</a>
+                                {/for}
                             </div>
                         </div>
                     </div>
@@ -941,16 +944,21 @@
                                         <div class="i_w_12">
                                             <div class="type">
                                                 <p><span><a href="#">{$vv['name']}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
+
                                             </div>
-                               <div class="price i_TextGreen">
-                                   <span class="now_price">{$vv['ave_price']}↑</span>
-                                                {set: $oldTime=strtotime($vv['create_time']);
-                                                    $oldTime=$oldTime-$vv['days']*24*60*60;
-                                                    $oldTime=date('Y',$oldTime);
-                                                }
-                                                <p><span>{$oldTime}&nbsp;~&nbsp;{echo: date('Y',strtotime($vv['create_time']))}</span></p>
+                                            {if:$vv['ave_price']-$vv['prev_price']<0}
+                                              <div class="price i_TextGreen">
+                                             <span class="now_price">{$vv['ave_price']}↓</span>
+
+                                                <p><span>{$vv['ave_price']}&nbsp;~&nbsp;{$vv['prev_price']}</span></p>
                                             </div>
+                                            {else:}
+                                                <div class="price price i_TextRed">
+                                                    <span class="now_price">{$vv['ave_price']}↑</span>
+
+                                                    <p><span>{$vv['prev_price']}&nbsp;~&nbsp;{$vv['ave_price']}</span></p>
+                                                </div>
+                                            {/if}
                                         </div>
                                     </li>
 
@@ -1084,9 +1092,8 @@
                                     <ul class="tuijian_com">
                                     {if: isset($item[2])}
                                         {foreach: items=$item[2] key=$k item=$v}
-                                                                    <li class="tuijian_1_1"><a href=""><img src="{views:images/angang.png}" class="tui_img"></a></li>
-                                    
-                                    {/foreach}
+                                            <li class="tuijian_1_1"><a href=""><img src="{views:images/angang.png}" class="tui_img"></a></li>
+                                        {/foreach}
                                     {/if}
                                     </ul>
                                 
@@ -1101,7 +1108,7 @@
                                         <div class="com_content">
                                             <p class="content_1"><span class="left"><img src="{views:images/ag_logo.png}" class="com_logo">{$v['company_name']}</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
 
-                                            <p class="content_2">主营：<span class="main_content">{$v['business']}等</span></p>
+                                            <p class="content_2">主营：<span class="main_content">{$v['business']}</span></p>
                                             <p class="connect">
 
                                                 <span>地址：{$v['address']}</span>
@@ -1111,28 +1118,25 @@
 
                                         </div>
                                     </div>
-                    {/foreach}
+                                     {/foreach}
 
-                                    
-
-
-                            </DIV>
+                                </DIV>
                                 {/if}
                             </div>
-                           
-                            
+
+
                             <!--地区推荐-->
-                            
+
                             <div class="i_recommend clearfix">
                                 <div class="i_region">
                                 {if:isset($item[3])}
 
                                     {foreach: items=$item[3] key=$k item=$v}
                                     <ul>
-                                        <li class="i_regionTit">山东地区<span style="display: none">累计撮合1809单</span></li>
+                                        <li class="i_regionTit" id="area">{areatext:data=14 id=area delimiter=地区}<span style="display: none">累计撮合1809单</span></li>
                                         <li class="i_regionTit2">推荐商家</li>
                                         <?php foreach($v as $kk=>$vv){ ?>
-                                        <li><a href="http://www.nainaiwang.com/shop/100283_100283.html">- {$vv['company_name']}</a></li><?php }  ?>
+                                        <li><a href="">- {$vv['company_name']}</a></li><?php }  ?>
                                     </ul>
                                     {/foreach}
                                     {/if}

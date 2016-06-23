@@ -143,8 +143,10 @@ function Area(){
     this.getAreaText = function (code,sep){
         var areaData= getAreaData();
         var pro_text = areaData[0][code.slice(0,2)];
-        var city_text = areaData[1][code.slice(0,2)][code.slice(0,4)];
-        var area_text = areaData[2][code.slice(0,4)][code];
+        if(code.length>3)
+            var city_text = areaData[1][code.slice(0,2)][code.slice(0,4)];
+        if(code.length>5)
+            var area_text = areaData[2][code.slice(0,4)][code];
 
 
         if(sep==undefined){

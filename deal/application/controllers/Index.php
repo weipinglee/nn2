@@ -24,7 +24,7 @@ class IndexController extends PublicController {
 	public function indexAction() {
 
 		//获取所有分类
-		$productModel=new product();
+		$productModel=new product();echo $productModel->getcateTop(7);
 		$res=$productModel->getAllCat();
 		$this->getView()->assign('catList',$res);
 
@@ -40,6 +40,8 @@ class IndexController extends PublicController {
 
 		$topCat=$productModel->getTopCate();
 		$company=\nainai\companyRec::getAllCompany();
+
+
 		$this->getView()->assign('statcCatList',$statcCatList);
 		$this->getView()->assign('company',$company);
 		$this->getView()->assign('topCat',$topCat);
