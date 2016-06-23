@@ -322,7 +322,7 @@ class store{
      */
     public function getUserStoreDetail($id,$user_id=0){
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as id,a.status,a.user_id,a.product_id, d.name as store_name, a.store_pos, a.in_time, a.rent_time,a.manager_time,a.user_time,a.sign_time,a.market_time';
+        $query->fields = 'a.*, d.name as store_name';
         $query->join = '  LEFT JOIN store_list as d ON a.store_id=d.id';
 
         if($user_id){
