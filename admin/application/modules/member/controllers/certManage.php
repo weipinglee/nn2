@@ -46,6 +46,22 @@ class certManageController extends Yaf\Controller_Abstract {
      }
 
      /**
+      *交易商认证列表页
+      */
+     public function dealerCertedAction(){
+          $m = new certDealer();
+
+          $page = safe::filterGet('page','int',1);
+          $pageData = $m->certedList($page);
+
+          $this->getView()->assign('certData',$pageData['data']);
+          $this->getView()->assign('bar',$pageData['bar']);
+
+     }
+
+
+
+     /**
       * 交易商申请认证详情页
       */
      public function dealercertDetailAction(){
@@ -104,12 +120,25 @@ class certManageController extends Yaf\Controller_Abstract {
      }
 
      /**
+      *仓库管理员认证列表页
+      */
+     public function storeCertedAction(){
+          $m = new certStore();
+
+          $page = safe::filterGet('page','int',1);
+          $pageData = $m->certedList($page);
+
+          $this->getView()->assign('certData',$pageData['data']);
+          $this->getView()->assign('bar',$pageData['bar']);
+
+     }
+
+     /**
       * 仓库管理员认证详情
       */
      public function storecertDetailAction(){
           $id = $this->getRequest()->getParam('uid',0);
           $id = safe::filter($id,'int',0);
-          $id = 1;
           if($id){
                $certObj = new certStore();
 

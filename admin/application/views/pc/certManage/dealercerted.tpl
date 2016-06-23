@@ -3,7 +3,7 @@
               CONTENT 
                         --> 
         <div id="content" class="white">
-            <h1><img src="{views:img/icons/posts.png}" alt="" /> 交易商认证</h1>
+            <h1><img src="{views:img/icons/posts.png}" alt="" /> 交易商已认证</h1>
 <div class="bloc">
     <div class="title">
         会员认证
@@ -50,8 +50,8 @@
 
         </tbody>
     </table>
-        </div>        
-       {$bar}
+        </div>
+        {$bar}
     </div>
 </div>
 

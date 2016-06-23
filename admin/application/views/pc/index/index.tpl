@@ -107,8 +107,18 @@
                     <ul>
                         <li><a href="" target="content">会员认证</a>
                             <ul>
-                                <li><a href="{url:member/certManage/dealerCert}" target="content">交易商认证</a></li>
-                                <li><a href="{url:member/certManage/storeCert}" target="content">仓库认证</a></li>
+                                <li><a href="{url:member/certManage/dealerCert}" target="content">交易商认证</a>
+                                    <ul>
+                                        <li><a href="{url:member/certManage/dealerCert}" target="content">待审核</a></li>
+                                        <li><a href="{url:member/certManage/dealerCerted}" target="content">已审核</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{url:member/certManage/storeCert}" target="content">仓库认证</a>
+                                    <ul>
+                                        <li><a href="{url:member/certManage/storeCert}" target="content">待审核</a></li>
+                                        <li><a href="{url:member/certManage/storeCerted}" target="content">已审核</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         <li><a href='' target="content">子账户权限管理</a>
