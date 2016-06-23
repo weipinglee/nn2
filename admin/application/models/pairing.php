@@ -79,7 +79,12 @@ class pairingModel{
 	 * @return array 结果
 	 */
 	public function managerList(){
-		$admin_list = $this->admin->where(array('status'=>0))->select();
+		$cuoheTag = 'cuohe';
+		$admin = new Query('admin as a');
+		$admin->join = 'left join admin_role as r on a.role = r.id';
+		$admin->where = 'a.status = 0 and r.tag = "'.$cuoheTag.'"';
+		$admin->fields = 'a.*';
+		$admin_list = $admin->find();
 		$options = '<option value=-1>请选择</option>';
 		foreach ($admin_list as $key => $value) {
 			$options .= "<option value={$value['id']}>{$value['name']}</option>";

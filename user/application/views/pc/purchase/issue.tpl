@@ -12,9 +12,7 @@
         <li value=""   class="a_choose"  ><a></a></li>
 
     </ul>
-    <div class="sl_ext">
-        <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-    </div>
+
 
 </div>
 
@@ -40,17 +38,6 @@
                                     <li value="{$cate['id']}"  {if: $key==0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
                                     {/foreach}
                                 </ul>
-
-                                    {if: !empty($category['hide'])}
-                                    <ul class="infoslider" style="display: none;">
-                                        {foreach: items=$category['hide'] item=$cate}
-                                        <li value="{$cate['id']}"  ><a>{$cate['name']}</a></li>
-                                        {/foreach}
-                                    </ul>
-                                        <div class="sl_ext">
-                                        <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-                                        </div>
-                                    {/if}
                             </div>
                         {/foreach}
                         {/if}

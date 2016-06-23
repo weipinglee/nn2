@@ -8,12 +8,12 @@
               CONTENT 
                         -->
         <div id="content" class="white">
-            <h1><img src="{views:img/icons/dashboard.png}" alt="" />申述管理
+            <h1><img src="{views:img/icons/dashboard.png}" alt="" />合同管理
 </h1>
 
 <div class="bloc">
     <div class="title">
-       申述信息
+        合同信息
     </div>
      <div class="pd-20">
      <form action="{url:trade/pairing/addPairing}" method="POST" auto_submit redirect_url="{url:store/storeorder/checkorderList}">
