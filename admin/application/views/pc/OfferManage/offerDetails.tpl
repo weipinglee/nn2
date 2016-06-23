@@ -24,6 +24,15 @@
                  <th></th>
                  <td></td>
              </tr>
+                          <tr>
+                 <th>商品名称</th>
+                 <td>{$info['product_name']}</td>
+                 <th>商品产地</th>
+                 <td id="area">{areatext: data=$info['produce_area'] id="area"}</td>
+                 <th>申请时间</th>
+                 <td>{$info['apply_time']}</td>
+
+             </tr>
              <tr>
                  <th>商品大类</th>
                  <td>{$info['topcate_name']}</td>
@@ -33,13 +42,20 @@
                  <td>{if:$info['divide'] == 0}可拆分{else:}否{/if}</td>
 
              </tr>
+
              <tr>
                  <th>报盘数量</th>
                  <td>{$info['quantity']}</td>
                  <th>计量单位</th>
                  <td>{$info['unit']}</td>
-                 <th></th>
+                 {if: $info['divide'] == 1}
+                 <th>最小起订量</th>
+                 <td>{$info['minimum']}</td>
+                 {else:}
+                      <th></th>
                  <td></td>
+             {/if}
+            
 
              </tr>
              <tr>

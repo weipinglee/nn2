@@ -126,8 +126,8 @@
 			<label class="form-label col-3">状态：</label>
 			<div class="formControls col-5">
 				<input type="hidden" name="user_id" value="{$cert['user_id']}" />
-				<label><input name="result" type="radio" value="1" />通过 </label>
-				<label><input name="result" type="radio" value="0" />不通过 </label>
+				<label><input name="result" type="radio" value="1"  checked />通过 </label>
+				<label><input name="result" type="radio" value="0"  />不通过 </label>
 			</div>
 			<div class="col-4"> </div>
 		</div>
