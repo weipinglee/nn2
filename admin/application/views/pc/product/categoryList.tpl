@@ -1,4 +1,5 @@
-﻿
+﻿<link rel="stylesheet" href="{views:css/cate.css}" />
+<script type="text/javascript" src="{views:js/product/cate.js}"></script>
         <div id="content" class="white">
             <h1><img src="{views:img/icons/posts.png}" alt="" /> 分类管理</h1>
 <div class="bloc">
@@ -21,7 +22,7 @@
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="25" align="center"></th>
 				<th width="100">名称</th>
 				<th width="90">属性</th>
 				<th width="150">排序</th>
@@ -31,8 +32,11 @@
 		</thead>
 		<tbody>
 		{foreach:items=$cate}
-			<tr class="text-c">
-				<td><input type="checkbox" value="" name=""></td>
+			{set:$class=''}
+			{if:$item['level']!=0}{set:$class='hide'}{/if}
+
+			<tr class="text-c {$class}"  title="{$item['level']}">
+				<td><p class="cateclose he" style="width:10px;height:10px;margin-left:{echo:$item['level']*15}px" ></p></td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
 
 				<td>{$item['attrs']}</td>
@@ -53,6 +57,7 @@
 
 					<a title="删除" href="javascript:;"  class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
 			</tr>
+
 		{/foreach}
 		</tbody>
 
@@ -60,3 +65,4 @@
 		{$bar}
 	</div>
 </div>
+

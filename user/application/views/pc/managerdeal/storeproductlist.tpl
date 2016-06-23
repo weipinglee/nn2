@@ -36,7 +36,7 @@
 																											{/if}
                                                                                                 		</ul>
                                                                                                 </td>
-                                                                                                <td>{$list['package_weight']}({$list['package_unit']})</td>
+                                                                                                <td>{echo:\nainai\offer\product::floatForm($list['quantity'])}({$list['unit']})</td>
                                                                                                 <td>{$statuList[$list['status']]}</td>
                                                                                                 <td>{$list['sname']}</td>
 

@@ -97,6 +97,7 @@ class PurchaseController extends UcenterBaseController{
 		$name = Safe::filterGet('name');
 		$beginDate = Safe::filterGet('beginDate');
 		$endDate = Safe::filterGet('endDate');
+		$status = Safe::filterGet('status', 'int', 9);
 
 		//查询组装条件
 		$where = 'type=:type AND c.user_id=:uid';
@@ -105,6 +106,12 @@ class PurchaseController extends UcenterBaseController{
 		if (!empty($name)) {
 		    $where .= ' AND a.name like"%'.$name.'%"';
 		    $this->getView()->assign('name', $name);
+		}
+
+		if ($status != 9) {
+		    $where .= ' AND c.status=:status';
+		    $bind['status'] = $status;
+		    $this->getView()->assign('s', $status);
 		}
 
 		if (!empty($beginDate)) {
@@ -117,11 +124,11 @@ class PurchaseController extends UcenterBaseController{
 		    $where .= ' AND apply_time<=:endDate';
 		    $bind['endDate'] = $endDate;
 		    $this->getView()->assign('endDate', $endDate);
-		}
-
+		}	
 		$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
 		$productList = $PurchaseOfferModel->getOfferProductList($page, $this->pagesize,  $where, $bind);
 
+		$this->getView()->assign('status', $PurchaseOfferModel->getStatusArray());
 		$this->getView()->assign('productList', $productList['list']);
 		$this->getView()->assign('pageHtml', $productList['pageHtml']);
 	}
@@ -187,6 +194,7 @@ class PurchaseController extends UcenterBaseController{
 		$endDate = Safe::filterGet('endDate');
 		//查询组装条件
 		$where = ' 1 ';
+		$bind = array();
 
 		if (!empty($name)) {
 		    $where .= ' AND u.username like"%'.$name.'%"';

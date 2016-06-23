@@ -196,6 +196,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$controllerName = strtolower($controllerName);
 
 		foreach ($this->menu as $controller => $list) {
+                         $list['isSelect'] = 0;
 			//判断当前访问的控制器是否是这个头菜单，或者对应的子菜单的链接
 			if (!empty($list['controller']) && in_array($controllerName, $list['controller'])) {
 				$list['isSelect'] = 1;

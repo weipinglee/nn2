@@ -31,9 +31,12 @@ function Area(){
                 d = parseInt(area.substring(0,2));
                 if(area.length>3) b = parseInt(area.substring(0,4));
                 if(area.length>5) l = parseInt(area.substring(0,6));
+                if(area!='' && l==0)
+                    document.getElementById(h+'_div').style.display='none';
              }
 
-            n[0] = new Option("请选择 ", 0);
+            o[0] = new Option("请选择", 0);
+            n[0] = new Option("请选择", 0);
             for (e = 0; e < p.length; e++) {
                 if (p[e] == undefined) {
                     continue;
@@ -85,7 +88,7 @@ function Area(){
             }
         }
         this.removeOptions(g); g[0] = new Option("请选择 ", 0);
-        if ( f == 12 || f == 31 || f == 71 || f == 50 || f == 81 || f == 82) {
+        if (  f == 71 || f == 81 || f == 82) {
             if ($("#" + d + "_div"))
             { $("#" + d + "_div").hide(); }
         }

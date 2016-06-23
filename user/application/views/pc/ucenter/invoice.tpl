@@ -16,7 +16,7 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>纳税人识别号：</span>
-								<span><input class="text" type="text" name="tax_no" value="{$data['tax_no']}" datatype="/^[a-zA-Z0-9_]{6,40}$/" errormsg="格式错误">
+								<span><input class="text" type="text" name="tax_no" value="{$data['tax_no']}" datatype="/^[a-zA-Z0-9_]{15,20}$/" errormsg="格式错误">
 								</span>
                                 <span></span>
 							</div>
@@ -40,7 +40,7 @@
 							</div>
                             <div class="zhxi_con">
                                 <span class="con_tit"><i>*</i>银行账号：</span>
-								<span><input class="text" type="text" name="bankAccount" value="{$data['bank_no']}" datatype="s6-20" errormsg="格式错误">
+								<span><input class="text" type="text" name="bankAccount" value="{$data['bank_no']}" datatype="s16-20" errormsg="格式错误">
 								</span>
                                 <span></span>
                             </div>

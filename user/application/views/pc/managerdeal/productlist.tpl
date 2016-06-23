@@ -49,7 +49,7 @@
 									<td>{$mode[$list['mode']]}</td>
 									<td><p>{$list['name']}</p></td>
 									<td>{$list['cname']}</td>
-									<td>{$list['quantity']}</td>
+									<td>{echo:\nainai\offer\product::floatForm($list['quantity'])}</td>
 									<td>{echo:$list['quantity']-$list['freeze']-$list['sell']}</td>
 									<td>{$list['unit']}</td>
 									<td>{$list['price']}</td>

@@ -26,6 +26,17 @@ $(function(){
         }
     })
 
+    $('#areabox').find('select:first').on('change',function(){
+        var num = $('#areabox').find('select:visible').length;
+        var rules = [{
+            ele:"input[name=area]",
+            datatype:"n"+num*2+"-6",
+            nullmsg:"请选择地址！",
+            errormsg:"请选择地址！"
+        }];
+        validObj.addRule(rules);
+
+    })
     //为地址选择框添加验证规则
     var rules = [{
         ele:"input[name=area]",

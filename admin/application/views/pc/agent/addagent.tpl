@@ -50,7 +50,7 @@
     </div>
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>地区：</label>
-      <div class="formControls col-5">
+      <div class="formControls col-5" id="areabox">
         {if:isset($agentData['area'])}
         {area:data=$agentData['area']}
         {else:}

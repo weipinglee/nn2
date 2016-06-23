@@ -123,7 +123,7 @@
     </tr>
     <td>交收时间：</td>
     <td colspan="2">
-        <span><input type="text" class='text' name="accept_day"></span>
+        <span>T+<input type="text" class='text' name="accept_day" style="width:50px;">天</span>
         <span></span>
     </td>
     </tr>

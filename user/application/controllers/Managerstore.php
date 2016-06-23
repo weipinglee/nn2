@@ -13,21 +13,6 @@ class ManagerStoreController extends UcenterBaseController{
 
 	protected  $certType = 'store';
 
-	/**
-	 * 获取左侧菜单数据
-	 * @var name [<菜单名称>]
-	 * @var url   [<菜单url>]
-	 * @var list [<子菜单的数据，key和父级菜单一致>]
-	 * @return [Array]
-	 */
-	protected function  getLeftArray(){
-	        return array(
-	            array('name' => '仓单管理', 'list' => array()),
-	            array('name' => '仓单管理', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=2'),  'list' => array()),
-	            array('name' => '仓单审核', 'url' => url::createUrl('/ManagerStore/applyStoreList?type=1'),  'list' => array()),
-	            array('name' => '仓单出库审核', 'url' => url::createUrl('/ManagerStore/storeCheckList'),  'list' => array()),
-	        );
-	    }
 
 
 	public function indexAction(){}

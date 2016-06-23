@@ -21,7 +21,7 @@ class StoreModel extends \baseModel{
 	protected $rules = array(
 		array('id','number','id错误',0,'regex'),
 		array('name','require','仓库名必填'),
-		array('area','number','地区错误'),
+		array('area','number','地区误'),
 		array('address','require','填写详细地址'),
 		array('service_phone','/[\d\-]{6,15}/','电话号码错误'),
 		array('service_address','require','请填写服务点地址'),

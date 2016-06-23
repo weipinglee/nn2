@@ -34,6 +34,7 @@
                 <td>{$detail['rent_time']}</td>
 
             </tr>
+
       	 		<tr>
                     <th>商品名称</th>
                     <td>{$detail['product_name']}</td>
@@ -64,12 +65,24 @@
 
               <th>状态</th>
               <td>{$detail['status']}</td>
-                <th></th>
-                <td></td>
+                <th>是否打包:</th>
+                <td>     {if: $detail['package'] == 1}是{else:}否{/if}</td>
                 <th></th>
                 <td></td>
             </tr>
              <tr>
+              {if: $detail['package'] == 1}
+                            <tr>
+                            <th>包装重量</th>
+              <td>   {$detail['package_weight']} ({$detail['package_unit']} )</td>
+                <th>包装数量:</th>
+                <td>   {$detail['package_num']} </td>
+                <th></th>
+                <td></td>
+
+                            </tr>
+                            {/if}
+                           
 
                  <th>图片</th>
                  <td>

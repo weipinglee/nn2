@@ -122,6 +122,15 @@ class product{
         return $mode_txt;
     }
 
+    public function getStatusArray(){
+        return array(
+            self::OFFER_APPLY => $this->getStatus(self::OFFER_APPLY),
+            self::OFFER_OK => $this->getStatus(self::OFFER_OK),
+            self::OFFER_NG => $this->getStatus(self::OFFER_NG),
+            self::OFFER_EXPIRE => $this->getStatus(self::OFFER_EXPIRE)
+        );
+    }
+
 
     /**
      * 商品验证规则
@@ -460,7 +469,7 @@ class product{
      * @param float $float 小数
      *
      */
-    public function floatForm($float){
+    public static function floatForm($float){
         $float = strval($float);
         if(strpos($float,'.')===false){//如果是整数，直接返回
             return intval($float);
