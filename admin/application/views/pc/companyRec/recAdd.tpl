@@ -21,11 +21,11 @@
     </div>
     <div class="pd-20">
 
-      <form action="{url:member/companyRec/recBatchAdd}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:member/companyRec/recList}">
+      <form action="{url:member/companyRec/recAdd}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:member/companyRec/recList}">
         <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>选择企业：</label>
           <div class="formControls col-5">
-            <select name="user_id[]" id="user_id">
+            <select name="user_id" id="user_id">
               {foreach: items=$cInfo}
                 <option value="{$item['user_id']}">
                   {$item['company_name']}
@@ -40,7 +40,7 @@
           <label class="form-label col-3"><span class="c-red">*</span>推荐类型：</label>
           {set: $type=\nainai\companyRec::getRecType()}
           <div class="formControls col-5">
-            <select name="type[]" id="type">
+            <select name="type" id="type">
               {foreach: items=$type}
                 <option value="{$key}">{$item}</option>
               {/foreach}
@@ -51,14 +51,14 @@
         <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>开始时间：</label>
           <div class="formControls col-5">
-            <input type="text" name="start_time[]" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});">
+            <input type="text" name="start_time" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});">
           </div>
           <div class="col-4"> </div>
         </div>
         <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>结束时间：</label>
           <div class="formControls col-5">
-            <input type="text" name="end_time[]" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" >
+            <input type="text" name="end_time" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" >
           </div>
           <div class="col-4"> </div>
         </div>
