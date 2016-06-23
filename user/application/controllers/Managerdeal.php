@@ -522,7 +522,8 @@ class ManagerDealController extends UcenterBaseController {
 
         $productModel = new productModel();
         $productList = $productModel->getOfferProductList($page, $this->pagesize,  $where, $bind);
-
+        $statusList = $productModel->getStatusArray();
+        $this->getView()->assign('statusList', $statusList);
         $this->getView()->assign('status', $status);
         $this->getView()->assign('mode', $this->_mode);
         $this->getView()->assign('productList', $productList['list']);
