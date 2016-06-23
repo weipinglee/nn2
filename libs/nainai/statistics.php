@@ -10,8 +10,10 @@ namespace nainai;
 use Library\M;
 use Library\Query;
 use Library\tool;
+use \nainai\offer\product;
 
 class statistics{
+    static $childCat=array();
     const MAKET_STATIC=1;//市场统计
     const COMMODITY_STATIC=2;//商品统计
     public $interval=5;//间隔时间
@@ -103,7 +105,9 @@ class statistics{
             $cate_childs = join(',',$cate_childs);
             $offerObj->where='p.cate_id in ('.$cate_childs.') and datediff(NOW(),f.apply_time)<'.$this->interval;
             $res = $offerObj->find();
-            if(empty($res)){
+
+            if(empty($res)||$res[0]['avg']==null){
+
                 $data['ave_price'] = 0;
             }
             else
@@ -241,11 +245,24 @@ class statistics{
         return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
 
     }
-
     public static function delStatsCate($id){
         $statsModel=new M('static_category');
         $where=array('id'=>$id);
         $res=$statsModel->where($where)->delete();
         return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
     }
+    public function getNewStatcList($type){
+        $productModel=new product();
+        $topCat=$productModel->getTopCate();
+        $marketObj=new Query('static_market as m');
+        $marketObj->join='left join product_category as c on m.cate_id=c.id';
+        $marketObj->fields='c.name,m.*';
+        $marketObj->where='m.type= :type and datediff(NOW(),m.create_time)<'.$this->interval.' and find_in_set(m.cate_id,getChildLists(:cid))';
+        foreach($topCat as $k=>$v) {
+            $marketObj->bind = array('cid' => $v['id'], 'type' => $type);
+            $newStatcList[$v['id']]=$marketObj->find();
+        }
+        return $newStatcList;
+    }
+
 }

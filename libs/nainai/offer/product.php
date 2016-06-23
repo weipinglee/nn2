@@ -513,6 +513,7 @@ class product{
         return $parents;
     }
 
+
     /**
      * 获取某个分类名称
      * @param int $cate_id 分类id
@@ -521,6 +522,31 @@ class product{
         $m = new M('product_category');
         return $m->where(array('id'=>$cate_id))->getField('name');
 
+    }
+
+
+    private function getNestedList($list, $pid = 0) {
+        $arr = array();
+        $tem = array();
+
+        foreach ($list as $v) {
+            if ($v['pid'] == $pid) {
+                $tem = $this->getNestedList($list, $v['id']);
+                //判断是否存在子数组
+                $v['nested'] = $tem;
+                $arr[] = $v;
+            }
+        }
+        return $arr;
+    }
+    //获取分类列表
+    public function getAllCat() {
+        $m_category = new Query('product_category');
+        $m_category->where='status= :status';
+        $m_category->bind=array('status'=>1);
+        $c_list = $m_category->find();
+        $result = $this->getNestedList($c_list);
+        return $result;
     }
 
 

@@ -1788,6 +1788,7 @@ CREATE TABLE IF NOT EXISTS `static_category` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键Id',
   `cate_id` int(11) NOT NULL DEFAULT '0' COMMENT '分类Id',
   `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '时间统计',
+  `status` tinyint(2) not null default 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

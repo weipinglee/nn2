@@ -42,187 +42,34 @@
             <!--所有分类 Start-->
             <div class="wrap">
                 <div class="all-sort-list">
-                    <div class="item" id="1">
-                        <div class="icon-nh1">&nbsp;</div>
-
-                        <h3>
-                            <p class="fenlei-h1">耐火市场</p><p class="fenlei"><a href="">高铝质</a>&nbsp;<a href="">非氧化物</a></p></h3>
-                        <div class="item-list clearfix">
-
-                            <div class="subitem">
-                                <dl class="fore1">
-                                    <dt><a href="#">电子书0</a></dt>
-                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
-                                </dl>
-                                <dl class="fore2">
-                                    <dt><a href="#">数字音乐</a></dt>
-                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="#">音像</a></dt>
-                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
-                                </dl>
-                                <dl class="fore5">
-                                    <dt>人文社科</dt>
-                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
-                                </dl>
-                                <dl class="fore6">
-                                    <dt>经管励志</dt>
-                                    <dd><em><a href="#">经济</a></em><em><a href="#">金融与投资</a></em><em><a href="#">管理</a></em><em><a href="#">励志与成功</a></em></dd>
-                                </dl>
-                                <dl class="fore7">
-                                    <dt>生活</dt>
-                                    <dd><em><a href="#">家庭与育儿</a></em><em><a href="#">旅游/地图</a></em><em><a href="#">烹饪/美食</a></em><em><a href="#">时尚/美妆</a></em><em><a href="#">家居</a></em><em><a href="#">婚恋与两性</a></em><em><a href="#">娱乐/休闲</a></em><em><a href="#">健身与保健</a></em><em><a href="#">动漫/幽默</a></em><em><a href="#">体育/运动</a></em></dd>
-                                </dl>
-                                <dl class="fore8">
-                                    <dt>科技</dt>
-                                    <dd><em><a href="#">科普</a></em><em><a href="#">IT</a></em><em><a href="#">建筑</a></em><em><a href="#">医学</a></em><em><a href="#">工业技术</a></em><em><a href="#">电子/通信</a></em><em><a href="#">农林</a></em><em><a href="#">科学与自然</a></em></dd>
-                                </dl>
-                                <dl class="fore9">
-                                    <dt>少儿</dt>
-                                    <dd><em><a href="#">少儿</a></em><em><a href="#">0-2岁</a></em><em><a href="#">3-6岁</a></em><em><a href="#">7-10岁</a></em><em><a href="#">11-14岁</a></em></dd>
-                                </dl>
-                                <dl class="fore10">
-                                    <dt>教育</dt>
-                                    <dd><em><a href="#">教材教辅</a></em><em><a href="#">考试</a></em><em><a href="#">外语学习</a></em></dd>
-                                </dl>
-                                <dl class="fore11">
-                                    <dt>其它</dt>
-                                    <dd><em><a href="#">英文原版书</a></em><em><a href="#">港台图书</a></em><em><a href="#">工具书</a></em><em><a href="#">套装书</a></em><em><a href="#">杂志/期刊</a></em></dd>
-                                </dl>
-                            </div>
-                            <div class="cat-right">
-                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhVlJTyt8IAAAAAAAiq1D-0D8AAD7_gIE2KUAACLD102.jpg" width="194" height="70" title="重磅独家"></a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
-                                    <dt>推荐品牌出版商</dt>
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank">中华书局</a></li>
-                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
-                                            <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
-                                            <li><a href="#" target="_blank">电子工业出版社</a></li>
-                                            <li><a href="#" target="_blank">三联书店</a></li>
-                                            <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
-                                            <li><a href="#" target="_blank">人民文学出版社</a></li>
-                                            <li><a href="#" target="_blank">外语教学与研究出版社</a></li>
-                                            <li><a href="#" target="_blank">中信出版社</a></li>
-                                            <li><a href="#" target="_blank">化学工业出版社</a></li>
-                                            <li><a href="#" target="_blank">北京大学出版社</a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item" id="2">
-                        <div class="icon-nh2">&nbsp;</div>
-
-                        <h3>
-                            <p class="fenlei-h1">耐火市场</p><p class="fenlei"><a href="">图书</a>&nbsp;<a href="">音像</a>&nbsp;<a href="">数字商品</a></p></h3>
-                        <div class="item-list clearfix" style="top: 0px; display: none;">
-
-                            <div class="subitem">
-                                <dl class="fore1">
-                                    <dt><a href="#">电子书1</a></dt>
-                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
-                                </dl>
-                                <dl class="fore2">
-                                    <dt><a href="#">数字音乐</a></dt>
-                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="#">音像</a></dt>
-                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
-                                </dl>
-                                <dl class="fore5">
-                                    <dt>人文社科</dt>
-                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
-                                </dl>
-                                <dl class="fore6">
-                                    <dt>经管励志</dt>
-                                    <dd><em><a href="#">经济</a></em><em><a href="#">金融与投资</a></em><em><a href="#">管理</a></em><em><a href="#">励志与成功</a></em></dd>
-                                </dl>
-                                <dl class="fore7">
-                                    <dt>生活</dt>
-                                    <dd><em><a href="#">家庭与育儿</a></em><em><a href="#">旅游/地图</a></em><em><a href="#">烹饪/美食</a></em><em><a href="#">时尚/美妆</a></em><em><a href="#">家居</a></em><em><a href="#">婚恋与两性</a></em><em><a href="#">娱乐/休闲</a></em><em><a href="#">健身与保健</a></em><em><a href="#">动漫/幽默</a></em><em><a href="#">体育/运动</a></em></dd>
-                                </dl>
-                                <dl class="fore8">
-                                    <dt>科技</dt>
-                                    <dd><em><a href="#">科普</a></em><em><a href="#">IT</a></em><em><a href="#">建筑</a></em><em><a href="#">医学</a></em><em><a href="#">工业技术</a></em><em><a href="#">电子/通信</a></em><em><a href="#">农林</a></em><em><a href="#">科学与自然</a></em></dd>
-                                </dl>
-                                <dl class="fore9">
-                                    <dt>少儿</dt>
-                                    <dd><em><a href="#">少儿</a></em><em><a href="#">0-2岁</a></em><em><a href="#">3-6岁</a></em><em><a href="#">7-10岁</a></em><em><a href="#">11-14岁</a></em></dd>
-                                </dl>
-                            </div>
-                            <div class="cat-right">
-                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhVlJTyt8IAAAAAAAiq1D-0D8AAD7_gIE2KUAACLD102.jpg" width="194" height="70" title="重磅独家"></a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
-                                    <dt>推荐品牌出版商</dt>
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank">中华书局</a></li>
-                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
-                                            <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
-                                            <li><a href="#" target="_blank">电子工业出版社</a></li>
-                                            <li><a href="#" target="_blank">三联书店</a></li>
-                                            <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item" id="3">
+                    {foreach: items=$catList}
+                    <div class="item" id="{$item['id']}">
                         <div class="icon-nh3">&nbsp;</div>
 
                         <h3>
-                            <p class="fenlei-h1">耐火市场</p><p class="fenlei"><a href="">图书</a>&nbsp;<a href="">音像</a>&nbsp;<a href="">数字商品</a></p></h3>
+
+                            <p class="fenlei-h1">{$item['name']}</p><p class="fenlei">
+
+                                {for:from=0 upto=2 item=$num}
+                                    <a href="">{$item['nested'][$num]['name']}</a>&nbsp;
+                                {/for}
+
+                               </p>
+                        </h3>
                         <div class="item-list clearfix" style="top: 62px; display: none;">
 
                             <div class="subitem">
+                                {foreach: items=$item['nested']}
                                 <dl class="fore1">
-                                    <dt><a href="#">电子书2</a></dt>
-                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
+                                    <dt><a href="#">{$item['name']}</a></dt>
+
+                                    <dd>
+                                        {foreach:items=$item['nested']}
+                                        <em><a href="#">{$item['name']}</a></em>
+                                    {/foreach}
+                                    </dd>
                                 </dl>
-                                <dl class="fore2">
-                                    <dt><a href="#">数字音乐</a></dt>
-                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="#">音像</a></dt>
-                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
-                                </dl>
-                                <dl class="fore5">
-                                    <dt>人文社科</dt>
-                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
-                                </dl>
+                                {/foreach}
                             </div>
                             <div class="cat-right">
                                 <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
@@ -241,355 +88,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item" id="4">
-                        <div class="icon-nh4">&nbsp;</div>
-
-                        <h3>
-                            <p class="fenlei-h1">耐火市场</p><p class="fenlei"><a href="">图书</a>&nbsp;<a href="">音像</a>&nbsp;<a href="">数字商品</a></p></h3>
-                        <div class="item-list clearfix" style="top: 0px; display: none;">
-
-                            <div class="subitem">
-                                <dl class="fore1">
-                                    <dt><a href="#">电子书3</a></dt>
-                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
-                                </dl>
-                                <dl class="fore2">
-                                    <dt><a href="#">数字音乐</a></dt>
-                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="#">音像</a></dt>
-                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
-                                </dl>
-                                <dl class="fore5">
-                                    <dt>人文社科</dt>
-                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
-                                </dl>
-                                <dl class="fore6">
-                                    <dt>经管励志</dt>
-                                    <dd><em><a href="#">经济</a></em><em><a href="#">金融与投资</a></em><em><a href="#">管理</a></em><em><a href="#">励志与成功</a></em></dd>
-                                </dl>
-                                <dl class="fore7">
-                                    <dt>生活</dt>
-                                    <dd><em><a href="#">家庭与育儿</a></em><em><a href="#">旅游/地图</a></em><em><a href="#">烹饪/美食</a></em><em><a href="#">时尚/美妆</a></em><em><a href="#">家居</a></em><em><a href="#">婚恋与两性</a></em><em><a href="#">娱乐/休闲</a></em><em><a href="#">健身与保健</a></em><em><a href="#">动漫/幽默</a></em><em><a href="#">体育/运动</a></em></dd>
-                                </dl>
-                                <dl class="fore8">
-                                    <dt>科技</dt>
-                                    <dd><em><a href="#">科普</a></em><em><a href="#">IT</a></em><em><a href="#">建筑</a></em><em><a href="#">医学</a></em><em><a href="#">工业技术</a></em><em><a href="#">电子/通信</a></em><em><a href="#">农林</a></em><em><a href="#">科学与自然</a></em></dd>
-                                </dl>
-                                <dl class="fore9">
-                                    <dt>少儿</dt>
-                                    <dd><em><a href="#">少儿</a></em><em><a href="#">0-2岁</a></em><em><a href="#">3-6岁</a></em><em><a href="#">7-10岁</a></em><em><a href="#">11-14岁</a></em></dd>
-                                </dl>
-                                <dl class="fore10">
-                                    <dt>教育</dt>
-                                    <dd><em><a href="#">教材教辅</a></em><em><a href="#">考试</a></em><em><a href="#">外语学习</a></em></dd>
-                                </dl>
-                                <dl class="fore11">
-                                    <dt>其它</dt>
-                                    <dd><em><a href="#">英文原版书</a></em><em><a href="#">港台图书</a></em><em><a href="#">工具书</a></em><em><a href="#">套装书</a></em><em><a href="#">杂志/期刊</a></em></dd>
-                                </dl>
-                            </div>
-                            <div class="cat-right">
-                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhVlJTyt8IAAAAAAAiq1D-0D8AAD7_gIE2KUAACLD102.jpg" width="194" height="70" title="重磅独家"></a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
-                                    <dt>推荐品牌出版商</dt>
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank">中华书局</a></li>
-                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
-                                            <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
-                                            <li><a href="#" target="_blank">电子工业出版社</a></li>
-                                            <li><a href="#" target="_blank">三联书店</a></li>
-                                            <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
-                                            <li><a href="#" target="_blank">人民文学出版社</a></li>
-                                            <li><a href="#" target="_blank">外语教学与研究出版社</a></li>
-                                            <li><a href="#" target="_blank">中信出版社</a></li>
-                                            <li><a href="#" target="_blank">化学工业出版社</a></li>
-                                            <li><a href="#" target="_blank">北京大学出版社</a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item" id="5">
-                        <div class="icon-nh5">&nbsp;</div>
-
-                        <h3>
-                            <p class="fenlei-h1">耐火市场</p><p class="fenlei"><a href="">图书</a>&nbsp;<a href="">音像</a>&nbsp;<a href="">数字商品</a></p></h3>
-                        <div class="item-list clearfix" style="top: 0px; display: none;">
-
-                            <div class="subitem">
-                                <dl class="fore1">
-                                    <dt><a href="#">电子书4</a></dt>
-                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
-                                </dl>
-                                <dl class="fore2">
-                                    <dt><a href="#">数字音乐</a></dt>
-                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="#">音像</a></dt>
-                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
-                                </dl>
-                                <dl class="fore5">
-                                    <dt>人文社科</dt>
-                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
-                                </dl>
-                                <dl class="fore6">
-                                    <dt>经管励志</dt>
-                                    <dd><em><a href="#">经济</a></em><em><a href="#">金融与投资</a></em><em><a href="#">管理</a></em><em><a href="#">励志与成功</a></em></dd>
-                                </dl>
-                                <dl class="fore7">
-                                    <dt>生活</dt>
-                                    <dd><em><a href="#">家庭与育儿</a></em><em><a href="#">旅游/地图</a></em><em><a href="#">烹饪/美食</a></em><em><a href="#">时尚/美妆</a></em><em><a href="#">家居</a></em><em><a href="#">婚恋与两性</a></em><em><a href="#">娱乐/休闲</a></em><em><a href="#">健身与保健</a></em><em><a href="#">动漫/幽默</a></em><em><a href="#">体育/运动</a></em></dd>
-                                </dl>
-                                <dl class="fore8">
-                                    <dt>科技</dt>
-                                    <dd><em><a href="#">科普</a></em><em><a href="#">IT</a></em><em><a href="#">建筑</a></em><em><a href="#">医学</a></em><em><a href="#">工业技术</a></em><em><a href="#">电子/通信</a></em><em><a href="#">农林</a></em><em><a href="#">科学与自然</a></em></dd>
-                                </dl>
-                                <dl class="fore9">
-                                    <dt>少儿</dt>
-                                    <dd><em><a href="#">少儿</a></em><em><a href="#">0-2岁</a></em><em><a href="#">3-6岁</a></em><em><a href="#">7-10岁</a></em><em><a href="#">11-14岁</a></em></dd>
-                                </dl>
-                            </div>
-                            <div class="cat-right">
-                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhVlJTyt8IAAAAAAAiq1D-0D8AAD7_gIE2KUAACLD102.jpg" width="194" height="70" title="重磅独家"></a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
-                                    <dt>推荐品牌出版商</dt>
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank">中华书局</a></li>
-                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
-                                            <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
-                                            <li><a href="#" target="_blank">电子工业出版社</a></li>
-                                            <li><a href="#" target="_blank">三联书店</a></li>
-                                            <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
-                                            <li><a href="#" target="_blank">人民文学出版社</a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item" id="6">
-                        <div class="icon-nh6">&nbsp;</div>
-                        <h3>
-                            <p class="fenlei-h1">耐火市场</p><p class="fenlei"><a href="">图书</a>&nbsp;<a href="">音像</a>&nbsp;<a href="">数字商品</a></p></h3>
-                        <div class="item-list clearfix" style="top: 0px; display: none;">
-
-                            <div class="subitem">
-                                <dl class="fore1">
-                                    <dt><a href="#">电子书5</a></dt>
-                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
-                                </dl>
-                                <dl class="fore2">
-                                    <dt><a href="#">数字音乐</a></dt>
-                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="#">音像</a></dt>
-                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
-                                </dl>
-                                <dl class="fore5">
-                                    <dt>人文社科</dt>
-                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
-                                </dl>
-                                <dl class="fore6">
-                                    <dt>经管励志</dt>
-                                    <dd><em><a href="#">经济</a></em><em><a href="#">金融与投资</a></em><em><a href="#">管理</a></em><em><a href="#">励志与成功</a></em></dd>
-                                </dl>
-                                <dl class="fore7">
-                                    <dt>生活</dt>
-                                    <dd><em><a href="#">家庭与育儿</a></em><em><a href="#">旅游/地图</a></em><em><a href="#">烹饪/美食</a></em><em><a href="#">时尚/美妆</a></em><em><a href="#">家居</a></em><em><a href="#">婚恋与两性</a></em><em><a href="#">娱乐/休闲</a></em><em><a href="#">健身与保健</a></em><em><a href="#">动漫/幽默</a></em><em><a href="#">体育/运动</a></em></dd>
-                                </dl>
-                                <dl class="fore8">
-                                    <dt>科技</dt>
-                                    <dd><em><a href="#">科普</a></em><em><a href="#">IT</a></em><em><a href="#">建筑</a></em><em><a href="#">医学</a></em><em><a href="#">工业技术</a></em><em><a href="#">电子/通信</a></em><em><a href="#">农林</a></em><em><a href="#">科学与自然</a></em></dd>
-                                </dl>
-                            </div>
-                            <div class="cat-right">
-                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhVlJTyt8IAAAAAAAiq1D-0D8AAD7_gIE2KUAACLD102.jpg" width="194" height="70" title="重磅独家"></a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
-                                    <dt>推荐品牌出版商</dt>
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank">中华书局</a></li>
-                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
-                                            <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
-                                            <li><a href="#" target="_blank">电子工业出版社</a></li>
-                                            <li><a href="#" target="_blank">三联书店</a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item item-sp" id="7">
-                        <div class="icon-nh7">&nbsp;</div>
-                        <h3>
-                            <p class="fenlei-h2">核心企业</p></h3>
-                        <div class="item-list clearfix" style="top: 0px; display: none;">
-
-                            <div class="subitem">
-                                <dl class="fore1">
-                                    <dt><a href="#">电子书6</a></dt>
-                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
-                                </dl>
-                                <dl class="fore2">
-                                    <dt><a href="#">数字音乐</a></dt>
-                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="#">音像</a></dt>
-                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
-                                </dl>
-                                <dl class="fore5">
-                                    <dt>人文社科</dt>
-                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
-                                </dl>
-                                <dl class="fore6">
-                                    <dt>经管励志</dt>
-                                    <dd><em><a href="#">经济</a></em><em><a href="#">金融与投资</a></em><em><a href="#">管理</a></em><em><a href="#">励志与成功</a></em></dd>
-                                </dl>
-                                <dl class="fore7">
-                                    <dt>生活</dt>
-                                    <dd><em><a href="#">家庭与育儿</a></em><em><a href="#">旅游/地图</a></em><em><a href="#">烹饪/美食</a></em><em><a href="#">时尚/美妆</a></em><em><a href="#">家居</a></em><em><a href="#">婚恋与两性</a></em><em><a href="#">娱乐/休闲</a></em><em><a href="#">健身与保健</a></em><em><a href="#">动漫/幽默</a></em><em><a href="#">体育/运动</a></em></dd>
-                                </dl>
-                                <dl class="fore8">
-                                    <dt>科技</dt>
-                                    <dd><em><a href="#">科普</a></em><em><a href="#">IT</a></em><em><a href="#">建筑</a></em><em><a href="#">医学</a></em><em><a href="#">工业技术</a></em><em><a href="#">电子/通信</a></em><em><a href="#">农林</a></em><em><a href="#">科学与自然</a></em></dd>
-                                </dl>
-                                <dl class="fore9">
-                                    <dt>少儿</dt>
-                                    <dd><em><a href="#">少儿</a></em><em><a href="#">0-2岁</a></em><em><a href="#">3-6岁</a></em><em><a href="#">7-10岁</a></em><em><a href="#">11-14岁</a></em></dd>
-                                </dl>
-                                <dl class="fore10">
-                                    <dt>教育</dt>
-                                    <dd><em><a href="#">教材教辅</a></em><em><a href="#">考试</a></em><em><a href="#">外语学习</a></em></dd>
-                                </dl>
-                                <dl class="fore11">
-                                    <dt>其它</dt>
-                                    <dd><em><a href="#">英文原版书</a></em><em><a href="#">港台图书</a></em><em><a href="#">工具书</a></em><em><a href="#">套装书</a></em><em><a href="#">杂志/期刊</a></em></dd>
-                                </dl>
-                            </div>
-                            <div class="cat-right">
-                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhVlJTyt8IAAAAAAAiq1D-0D8AAD7_gIE2KUAACLD102.jpg" width="194" height="70" title="重磅独家"></a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
-                                    <dt>推荐品牌出版商</dt>
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank">中华书局</a></li>
-                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
-                                            <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
-                                            <li><a href="#" target="_blank">电子工业出版社</a></li>
-                                            <li><a href="#" target="_blank">三联书店</a></li>
-                                            <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
-                                            <li><a href="#" target="_blank">人民文学出版社</a></li>
-                                            <li><a href="#" target="_blank">外语教学与研究出版社</a></li>
-                                            <li><a href="#" target="_blank">中信出版社</a></li>
-                                            <li><a href="#" target="_blank">化学工业出版社</a></li>
-                                            <li><a href="#" target="_blank">北京大学出版社</a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item item-sp" id="8">
-                        <div class="icon-nh8">&nbsp;</div>
-                        <h3>
-                            <p class="fenlei-h2">核心企业</p></h3>
-                        <div class="item-list clearfix" style="top: 217px; display: none;">
-
-                            <div class="subitem">
-                                <dl class="fore1">
-                                    <dt><a href="#">电子书7</a></dt>
-                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
-                                </dl>
-                                <dl class="fore2">
-                                    <dt><a href="#">数字音乐</a></dt>
-                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
-                                </dl>
-                                <dl class="fore3">
-                                    <dt><a href="#">音像</a></dt>
-                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
-                                </dl>
-                                <dl class="fore4">
-                                    <dt>文艺</dt>
-                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
-                                </dl>
-
-
-                            </div>
-                            <div class="cat-right">
-                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
-                                    <dt>推荐品牌出版商</dt>
-                                    <dd>
-                                        <ul>
-                                            <li><a href="#" target="_blank">中华书局</a></li>
-                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-
-
-
+            {/foreach}
                     <div class="item item-sp" id="9">
                         <div class="icon-nh9">&nbsp;</div>
                         <h3>
@@ -711,27 +210,15 @@
                     <div id="inner">
                         <div class="hot-event">
                             <!-- <div class="switch-nav"><a href="#" onclick="return false;" class="prev"><i class="ico i-prev"></i><span class="hide-clip">上一个</span></a><a href="#" onclick="return false;" class="next"><i class="ico i-next"></i><span class="hide-clip">下一个</span></a></div> -->
+                            {foreach: items=$indexSlide}
                             <div class="event-item" style="display: block;">
-                                <a target="_blank" href="http://www.lanrentuku.com/">
-                                    <img src="{views:images/1.jpg}" class="photo" style="width: 763px; height: 433px;" alt="测试用图片" />
-                                </a>
-                            </div>
-                            <div class="event-item" style="display: none;">
-                                <a target="_blank" href="http://www.lanrentuku.com/">
-                                    <img src="{views:images/2.jpg}" class="photo" style="width: 763px; height: 433px;" alt="测试用图片" />
-                                </a>
-                            </div>
-                            <div class="event-item" style="display: none;">
-                                <a target="_blank" href="http://www.lanrentuku.com/">
-                                    <img src="{views:images/3.jpg}" class="photo" style="width: 763px; height: 433px;" alt="测试用图片" />
-                                </a>
-                            </div>
-                            <div class="event-item" style="display: none;">
-                                <a target="_blank" href="http://www.lanrentuku.com/">
-                                    <img src="{views:images/4.jpg}" class="photo" style="width: 763px; height: 433px;" alt="测试用图片" />
-                                </a>
-                            </div>
+                                <a target="_blank" href="{$item['link']}">
 
+                                    <img src="{$item['img']}" class="photo" style="width: 763px; height: 433px;" alt="测试用图片" />
+                                </a>
+
+                            </div>
+                            {/foreach}
                             <div class="switch-tab">
                                 <a href="#" onclick="return false;" class="current">1</a>
                                 <a href="#" onclick="return false;">2</a>
@@ -800,7 +287,7 @@
             <!--搜索条件 结束-->
 
             <!-- 广告条 -->
-            <div class="ad_line"><img src="{views:images/49b1OOOPIC6b.jpg}" width=943px height=93px></div>
+            <div class="ad_line">{echo: \Library\Ad::show("111")}</div>
             <!-- 广告条 结束 -->
 
             <!--最新数据 开始-->
@@ -1431,332 +918,46 @@
                         <div id="floor-2" class="item"></div>
 
                         <div class="i_leftTit clearfix">
-                            <div class="i_left_title" name="1" id="item2">市场指数</div>
+                            <div  class="i_left_title" name="1" id="item2">市场指数</div>
                             <ul>
-                                <li class="li_select"><a href="javascript:void(0)"><em></em><span></span>耐材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>钢铁</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>建材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>设备</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>冶金化工</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>其他</a></li>
+                                {foreach:items=$topCat}
+                                <li  onclick="statistics({$item['id']},this)" ><a attr="{$item['id']}"href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+
+                                {/foreach}
                             </ul>
 
                         </div>
 
-                        <div class="i_leftCon" style="margin:0px;">
-
-                            <div class="i_proList show i_proList_zhishu">
+                        <div class="i_leftCon" style="margin:0px;" id="item5">
+                            {foreach: items=$statcCatList}
+                            <div class="i_proList  i_proList_zhishu" id="statc{$key}">
                                 <div class="i_zhishu">
                                     <div src="" class="zhishu_img"></div>
-
                                     <div src="" class="zhishu_img"></div>
                                 </div>
+                                {foreach: items=$item key=$kk item=$vv}
                                 <ul style="width:200px;height:300px;float:left;">
                                     <li class="i_zhishuList">
                                         <div class="i_w_12">
                                             <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                                                <p><span><a href="#">{$vv['name']}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
                                                 <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
                                             </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2000↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
+                               <div class="price i_TextGreen">
+                                   <span class="now_price">{$vv['ave_price']}↑</span>
+                                                {set: $oldTime=strtotime($vv['create_time']);
+                                                    $oldTime=$oldTime-$vv['days']*24*60*60;
+                                                    $oldTime=date('Y',$oldTime);
+                                                }
+                                                <p><span>{$oldTime}&nbsp;~&nbsp;{echo: date('Y',strtotime($vv['create_time']))}</span></p>
                                             </div>
                                         </div>
                                     </li>
 
                                 </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2000↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2000↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
+                               {/foreach}
                             </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2001↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2001↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2001↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2002↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2002↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2002↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2003↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2003↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2003↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2004↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2004↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2004↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="i_proList i_proList_zhishu">
-                                <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-
-                                    <div src="" class="zhishu_img"></div>
-                                </div>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2005↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextRed">
-                                                <span class="now_price">2005↑</span>
-                                                <p><span>1900&nbsp;~&nbsp;2011</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <ul style="width:200px;height:300px;float:left;">
-                                    <li class="i_zhishuList">
-                                        <div class="i_w_12">
-                                            <div class="type">
-                                                <p><span><a href="#">高铝砖</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                                                <p><span>AL2O3</span>&nbsp;<span>90%</span></p>
-                                            </div>
-                                            <div class="price i_TextGreen">
-                                                <span class="now_price">2005↓</span>
-                                                <p><span>2011&nbsp;~&nbsp;1900</span></p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
+                            {/foreach}
 
                             <!--明星点评-->
                             <div class="i_recommend clearfix" style="margin:20px 0 0 15px;">
@@ -1863,591 +1064,85 @@
                     <div class="i_market_left" id="retail_market">
                         <div id="floor-3" class="item"></div>
 
-                        <div class="i_leftTit clearfix">
+                        <div class="i_leftTit clearfix" id='item4'>
                             <div class="i_left_title" name="1" id="item3">推荐商家</div>
                             <ul>
-                                <li class="li_select"><a href="javascript:void(0)"><em></em><span></span>耐材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>钢铁</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>建材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>设备</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>冶金化工</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>其他</a></li>
+                                {foreach:items=$topCat}
+                                <li id="com{$item['id']}" attr='{$item['id']}' onclick="companyRec({$item['id']},this)" class=""><a href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+
+                                {/foreach}
                             </ul>
+
                             <span class="i_more"><a href="http://www.nainaiwang.com/supply/?category_id=1">更多 &gt;</a></span>
                         </div>
-
-                        <div class="i_leftCon">
+                        {foreach:items=$company}
+                        <div class="i_leftCon" id="rec{$key}" style="display:none">
 
                             <div class="i_proList show">
 
                                 <div class="i_tuijian_com">
                                     <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
+                                    {if: isset($item[2])}
+                                        {foreach: items=$item[2] key=$k item=$v}
+                                                                    <li class="tuijian_1_1"><a href=""><img src="{views:images/angang.png}" class="tui_img"></a></li>
+                                    
+                                    {/foreach}
+                                    {/if}
                                     </ul>
-
+                                
                                 </div>
+                                {if:isset($item[1])}
+                                
                                 <DIV class="i_main_tuijian">
 
+                                    {foreach: items=$item[1] key=$k item=$v}
                                     <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
+                                        <img src="{views:images/bg/20160121190011.png}" class="tuijian_bg">
                                         <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
+                                            <p class="content_1"><span class="left"><img src="{views:images/ag_logo.png}" class="com_logo">{$v['company_name']}</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
 
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
+                                            <p class="content_2">主营：<span class="main_content">{$v['business']}等</span></p>
                                             <p class="connect">
 
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
+                                                <span>地址：{$v['address']}</span>
+                                                <span>联系电话：{$v['contact_phone']}</span>
+                                                <span>联系人：{$v['contact']}</span>
                                             </p>
 
                                         </div>
                                     </div>
+                    {/foreach}
 
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
+                                    
 
 
-
-
-
-                                </DIV>
+                            </DIV>
+                                {/if}
                             </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian_com">
-                                    <ul class="tuijian_com">
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/xiwang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                        <li class="tuijian_1_1"><a href=""><img src="images/angang.png" class="tui_img"></a></li>
-                                    </ul>
-
-                                </div>
-                                <DIV class="i_main_tuijian">
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="i_w_13">
-                                        <img src="images/bg/20160121190011.png" class="tuijian_bg">
-                                        <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="images/ag_logo.png" class="com_logo">华岭耐火</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
-
-                                            <p class="content_2">主营：<span class="main_content">高铝砖、不定型耐火砖、各种耐火砖等</span></p>
-                                            <p class="connect">
-
-                                                <span>地址：山西省阳泉市郊区华岭耐火</span>
-                                                <span>联系电话：0353-1234567</span>
-                                                <span>联系人：高老师</span>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </DIV>
-                            </div>
-
+                           
+                            
                             <!--地区推荐-->
+                            
                             <div class="i_recommend clearfix">
                                 <div class="i_region">
+                                {if:isset($item[3])}
+
+                                    {foreach: items=$item[3] key=$k item=$v}
                                     <ul>
                                         <li class="i_regionTit">山东地区<span style="display: none">累计撮合1809单</span></li>
                                         <li class="i_regionTit2">推荐商家</li>
-                                        <li><a href="http://www.nainaiwang.com/shop/100283_100283.html">- 临沂飞扬塑料有限公司</a></li><li><a href="http://www.nainaiwang.com/shop/100356_100258.html">- 浙江前程石化股份有限公司</a></li>
+                                        <?php foreach($v as $kk=>$vv){ ?>
+                                        <li><a href="http://www.nainaiwang.com/shop/100283_100283.html">- {$vv['company_name']}</a></li><?php }  ?>
                                     </ul>
-                                    <ul>
-                                        <li class="i_regionTit">上海地区<span style="display: none">累计撮合1809单</span></li>
-                                        <li class="i_regionTit2">推荐商家</li>
-                                        <li><a href="http://www.nainaiwang.com/shop/100512_100512.html">- 上海中晨塑料有限公司</a></li><li><a href="http://www.nainaiwang.com/shop/228142_226716.html">- 上海三美实业有限公司</a></li>
-                                    </ul>
-                                    <ul>
-                                        <li class="i_regionTit">江苏地区<span style="display: none">累计撮合1809单</span></li>
-                                        <li class="i_regionTit2">推荐商家</li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202711_200266.html">- 苏州天则化工有限公司</a></li><li><a href="http://www.nainaiwang.com/shop/200298_200298.html">- 苏州市友生塑胶有限公司</a></li>
-                                    </ul>
-                                    <ul class="margin0">
-                                        <li class="i_regionTit">浙江地区<span style="display: none">累计撮合1809单</span></li>
-                                        <li class="i_regionTit2">推荐商家</li>
-                                        <li><a href="http://www.nainaiwang.com/shop/100346_100346.html">- 浙江特产石化有限公司</a></li><li><a href="http://www.nainaiwang.com/shop/200350_100526.html">- 宁波市高兆进出口有限公司</a></li>
-                                    </ul>
+                                    {/foreach}
+                                    {/if}
                                 </div>
-
+                                
+                            
                             </div>
-
+                            
                         </div>
+                       {/foreach}
 
                     </div>
 
@@ -2546,7 +1241,7 @@
                     </div>
 
                 </div>
-
+            
                 <!--耐耐网服务-->
                 <div class="i_service clearfix">
                     <span>耐耐网服务</span>
@@ -2611,7 +1306,37 @@
 
         </div>
         <!----五大类  结束---->
+    <script type="text/javascript">
+    $('document').ready(function(){
+        var obj=$('#item3').next().children().first();
+        var id=obj.attr('attr');
+        var obj2=$('#item2').next().children().first();;
+        var id2=obj.attr('attr');
+        obj2.addClass('li_select');
+        obj.addClass('li_select');
+        var recObj=$('#rec'+id);
+        var recObj2=$('#statc'+id2);
+        recObj2.css('display','block');
+        recObj.css('display','block');
 
+    });
+    function companyRec(id,obj){
+         $(obj).siblings().removeClass('li_select');
+         $(obj).addClass('li_select');
+         var recObj=$('#rec'+id);
+        $('#item4').nextAll().css('display','none');
+        recObj.css('display','block');
+
+    }
+    function statistics(id,obj){
+         $(obj).siblings().removeClass('li_select');
+         $(obj).addClass('li_select');
+         var recObj=$('#statc'+id);
+        $('#item5').children().css('display','none');
+        recObj.css('display','block');
+
+    }
+    </script>
 
 
 

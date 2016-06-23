@@ -12,6 +12,8 @@ namespace Library;
 
 class ad
 {
+    //是否加载过js
+    private static $isLoadJs = false;
     /**
      * @获取广告数据
      *
@@ -64,7 +66,7 @@ class ad
                 $result = array
                 (
                     'type' => 1,
-                    'data' => '<img src="'.Thumb::get($adData['content'],180,180).'" style="cursor:pointer;'.$size.'" '.$linkHtml.' />'
+                    'data' => '<img src="'.Thumb::get($adData['content']."@admin").'" style="cursor:pointer;'.$size.'" '.$linkHtml.' />'
                 );
 
         return $result;
@@ -97,6 +99,7 @@ class ad
         $positionObject = self::getPositionInfo($position);
         if($positionObject)
         {
+
             $adList = self::getAdList($positionObject['id'],$goods_cat_id);
            $width=$positionObject['width'];
             $height=$positionObject['height'];
@@ -111,16 +114,22 @@ class ad
         //有广告内容数据
         if($adArray)
         {
+
             $positionJson = JSON::encode($positionObject);
             $adJson       = JSON::encode($adArray);
 
+
             //引入 adloader js类库
             $loadJs = '';
-      /*      if(self::$isLoadJs == false)
-            {
-                $loadJs = IJSPackage::load('admanage');
-                self::$isLoadJs = true;
-            }*/
+
+                  if(self::$isLoadJs == false)
+                  {
+                      $fileName=url::getViewDir().'js/admanage/adloader.js';
+                      $juery=url::getViewDir().'js/jquery.min.js';
+                      $loadJs=$loadJs='<script type="text/javascript" charset="utf8" src="'.$juery.'"></script>';
+                      $loadJs.='<script type="text/javascript" charset="utf8" src="'.$fileName.'"></script>';
+                      self::$isLoadJs=true;
+                  }
 
             $adPositionJsId = md5("AD_{$position}");
             //生成HTML代码
@@ -139,5 +148,7 @@ OEF;
         }
 
     }
+
+
 
 }

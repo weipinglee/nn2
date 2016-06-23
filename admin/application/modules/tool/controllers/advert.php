@@ -125,8 +125,8 @@ class advertController extends Yaf\Controller_Abstract{
             $data=array(
                 'id'=>safe::filterPost('id','int'),
                 'name'=>safe::filterPost('name'),
-                'width'=>safe::filterPost('height','int'),
-                'height'=>safe::filterPost('width','int'),
+                'width'=>safe::filterPost('width','int'),
+                'height'=>safe::filterPost('height','int'),
                 'status'=>safe::filterPost('status','int')
             );
             $res=$adPoModel->adPositionEdit($data);

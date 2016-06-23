@@ -7,8 +7,11 @@
  */
 use \DB\M;
 use \tool\http;
-use \common\url;
+//use \common\url;
 use \common\tool;
+use \nainai\offer\product;
+use \Library\url;
+use \Library\views\wittyAdapter;
 class IndexController extends PublicController {
 
 
@@ -20,17 +23,29 @@ class IndexController extends PublicController {
      */
 	public function indexAction() {
 
+		//获取所有分类
+		$productModel=new product();
+		$res=$productModel->getAllCat();
+		$this->getView()->assign('catList',$res);
+
+		//获取幻灯片
+		$indexSlide=\nainai\system\slide::getIndexSlide();
+		foreach($indexSlide as $k=>$v){
+			$indexSlide[$k]['img']=\Library\Thumb::get($v['img']);
+		}
+
+		//获取统计数据
+		$statcModel=new \nainai\statistics();
+		$statcCatList=$statcModel->getNewStatcList(1);
+
+		$topCat=$productModel->getTopCate();
+		$company=\nainai\companyRec::getAllCompany();
+		$this->getView()->assign('statcCatList',$statcCatList);
+		$this->getView()->assign('company',$company);
+		$this->getView()->assign('topCat',$topCat);
+		$this->getView()->assign('indexSlide',$indexSlide);
 	}
 
-	public function showAction(){
 
-	}
 
-	public function urlAction(){
-		$url = '  cli/test/index   name =45   address = shanxi';
-		$createUrl = url::createUrl($url);
-		echo url::getUri();
-		return false;
-
-	}
 }

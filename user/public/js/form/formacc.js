@@ -239,7 +239,28 @@ $(function(){
 	formacc.bind_status_handle();
 
 	formacc.form_init();
+	//地址验证，根据是两级或三级动态调整验证规则
+	if($('#areabox').length && $('#areabox').length>0){
+		$('#areabox').find('select:first').on('change',function(){
+			var num = $('#areabox').find('select:visible').length;
+			var rules = [{
+				ele:"input[name=area]",
+				datatype:"n"+num*2+"-6",
+				nullmsg:"请选择地址！",
+				errormsg:"请选择地址！"
+			}];
+			formacc.addRule(rules);
 
+		})
+		//为地址选择框添加验证规则
+		var rules = [{
+			ele:"input[name=area]",
+			datatype:"n6-6",
+			nullmsg:"请选择地址！",
+			errormsg:"请选择地址！"
+		}];
+		formacc.addRule(rules);
+	}
 
 })
 
