@@ -135,4 +135,15 @@ class PurchaseOffer extends product {
 
 	}
 
+	/**
+	 * 判断某条offer_id的采购报盘是否存在且通过审核
+	 * @param $offer_id
+	 * @return bool
+	 */
+	public function getPurchaseOffer($offer_id){
+		$query = new M('product_offer');
+		$data = $query->where(array('id'=>$offer_id,'type'=>self::PURCHASE_OFFER,'status'=>self::OFFER_OK))->getObj();
+		return $data;
+	}
+
 }

@@ -12,7 +12,7 @@ use \Library\Query;
 use \Library\Thumb;
 use \Library\log;
 use \Library\tool;
-class product{
+class product {
 
     private $product_limit = 5;
 
