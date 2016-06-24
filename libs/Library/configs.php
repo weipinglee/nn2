@@ -4,7 +4,11 @@
  * User: Administrator
  * Date: 2016/3/10 0010
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Time: ???? 4:43
+=======
+ * Time: ÏÂÎç 4:43
+>>>>>>> origin/pd_dev
  */
 namespace Library;
 return array(
@@ -17,6 +21,7 @@ return array(
     'rootDir'=>array(//é¡¹ç›®æ ¹ç›®å½•ç»å¯¹è·¯å¾?
         'user'=>'E:\wamp\www\nn2\user\public',
         'admin'=>'E:\wamp\www\nn2\admin\public'
+
 
     ),
 );

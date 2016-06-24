@@ -80,22 +80,32 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['user_id'] = $user_id;
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
-		$gen_res = $order_mode->geneOrder($orderData);
+		try {
+			$this->offer->beginTrans();
+			$gen_res = $order_mode->geneOrder($orderData);
 
-		if($gen_res['success'] == 1){
-			if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){
-				$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount=111&payed=0&info=等待上传线下支付凭证'));
-			}else{		
-				$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
-				if($pay_res['success'] == 1){
-					$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
-				}else{
-					$this->error('预付定金失败:'.$pay_res['info']);
+			if($gen_res['success'] == 1){
+				if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){
+					$this->offer->commit();
+					$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount=111&payed=0&info=等待上传线下支付凭证'));
+				}else{		
+					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
+					if($pay_res['success'] == 1){
+						$this->offer->commit();
+						$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
+					}else{
+						$this->offer->rollBack();
+						$this->error('预付定金失败:'.$pay_res['info']);
+					}
 				}
+			}else{
+				$this->error('生成订单失败:'.$gen_res['info']);
 			}
-		}else{
-			$this->error('生成订单失败:'.$gen_res['info']);
+		} catch (\PDOException $e) {
+			$this->offer->rollBack();
+			$this->error($e->getMessage());
 		}
+		
 		return false;
 	}
 

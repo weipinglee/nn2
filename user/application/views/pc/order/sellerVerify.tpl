@@ -8,5 +8,5 @@
 	<p>扣减金额：&emsp;{$data['reduce_amount']}</p>
 	<p>说明&emsp;&emsp;：&emsp;{$data['reduce_remark']}</p>
 
-	<a href="{url:/Order/sellerVerify?order_id=$data['id']}">确认</a>	
+	<a href="{url:/Order/sellerVerify?order_id=$data['id']&action_confirm=1&info=确认扣减}">确认</a>	
 </div>   

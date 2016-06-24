@@ -5,7 +5,7 @@ use \Library\M;
 use \Library\Query;
 use \Library\tool;
 use \Library\url;
-
+use \Library\JSON;
 /**
  * 采购报价操作对应的api
  * @author maoyong.zeng <zengmaoyong@126.com>
@@ -63,6 +63,37 @@ class PurchaseReport extends \nainai\Abstruct\ModelAbstract {
                self::STATUS_ADOPT => $this->getStatus(self::STATUS_ADOPT),
                self::STATUS_REPLUSE => $this->getStatus(self::STATUS_REPLUSE)
           );
+     }
+
+     /**
+      * 获取采购信息（用于生成订单）
+      * @param  int $purchase_id 采购id
+      * @return array  返回信息
+      */
+     public function purchaseDetail($purchase_id){
+          $query = new Query('purchase_report as pr');
+          $query->join = 'left join user as u on pr.seller_id = u.id left join product_offer as po on pr.offer_id = po.id left join products as p on p.id = po.product_id';
+          $query->where = 'pr.id = :purchase_id';
+          $query->fields = 'pr.*,u.username,p.name as product_name,p.quantity,p.cate_id';
+          $query->bind = array('purchase_id'=>$purchase_id);
+          $res = $query->getObj();
+          $attr = unserialize($res['attr']);
+
+          $product = new \nainai\offer\product();
+          $order = new \nainai\order\Order();
+          $attr_arr = $product->getHTMLProductAttr(array_keys($attr));
+          foreach ($attr as $key => $value) {
+             $res['attr_txt'] .= $attr_arr[$key].':'.$value.',';
+          }
+          $cates = array_reverse($product->getParents($res['cate_id']));
+          foreach ($cates as $key => $value) {
+             $res['cate'] .= $value['name'].'/';
+          }
+          $res['quantity'] = number_format($res['quantity'],2);
+          $amount = floatval($res['quantity']) * floatval($res['price']);
+          $res['amount'] = number_format($amount,2); 
+          $res['deposit'] = number_format((floatval(($order->getCatePercent($res['cate_id']))) / 100) * $amount,2);
+          return $res;
      }
 
      /**

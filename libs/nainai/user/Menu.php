@@ -154,8 +154,8 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 				if($v['menu_url']!='')
 					$menuList[$k]['menu_url'] = \Library\url::createUrl($menuList[$k]['menu_url']);
 				$menuList[$k]['url'] = $menuList[$k]['menu_url'];
-
 			}
+
 		}
 
 		return $menuList;

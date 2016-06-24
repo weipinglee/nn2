@@ -69,13 +69,14 @@ class Delivery{
 	 */
 	public function deliveryList($user_id,$page,$is_seller = false){
 		$t = $is_seller ? 'off' : 'po';
+		$t2 = $is_seller ? 'po' : 'off';
 		$query = new Query('order_sell as po');
 		$query->join = 'left join product_delivery as pd on po.id = pd.order_id left join product_offer as off on po.offer_id = off.id left join products as p on off.product_id = p.id left join store_products as sp on sp.product_id = off.product_id left join store_list as sl on sl.id = sp.store_id';
-		$query->where = $t.'.user_id=:user_id and po.mode in ('.order\Order::ORDER_DEPOSIT.','.order\Order::ORDER_STORE.') and po.contract_status in ('.order\Order::CONTRACT_COMPLETE.','.order\Order::CONTRACT_EFFECT.','.order\Order::CONTRACT_VERIFY_QAULITY.','.order\Order::CONTRACT_DELIVERY_COMPLETE.')';
+		$query->where = '(('.$t.'.user_id=:user_id and off.type=1) or ('.$t2.'.user_id = :tmp_id and off.type=2)) and po.mode in ('.order\Order::ORDER_DEPOSIT.','.order\Order::ORDER_STORE.','.order\Order::ORDER_PURCHASE.') and po.contract_status in ('.order\Order::CONTRACT_COMPLETE.','.order\Order::CONTRACT_EFFECT.','.order\Order::CONTRACT_VERIFY_QAULITY.','.order\Order::CONTRACT_DELIVERY_COMPLETE.')';
 		$query->fields = 'po.*,pd.num as delivery_num,pd.create_time as delivery_time,pd.status,pd.id as delivery_id,p.name,p.unit,sl.name as store_name';
 		$query->order = 'pd.create_time desc';
 		// $query->order = 'po.order_no,pd.status asc';
-		$query->bind = array('user_id'=>$user_id);
+		$query->bind = array('user_id'=>$user_id,'tmp_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
 		$data = $query->find();
@@ -89,7 +90,7 @@ class Delivery{
 			$value['delivery_id'] = empty($value['delivery_id']) ? '-' : $value['delivery_id'];
 			$value['delivery_num'] = number_format($value['delivery_num'],2);
 			$value['num'] = number_format($value['num'],2);
-			$value['store_name'] = $value['mode'] == order\Order::ORDER_DEPOSIT ? '-' : (empty($value['store_name']) ? '无效仓库' : $value['store_name']);
+			$value['store_name'] = $value['mode'] == order\Order::ORDER_STORE ? (empty($value['store_name']) ? '无效仓库' : $value['store_name']) : '-';
 
 			switch ($value['status']) {
 				case -1:
@@ -106,7 +107,7 @@ class Delivery{
 						$title = '已申请提货';
 					}else{
 						$title = '买家申请提货';
-						if($value['mode'] == order\Order::ORDER_DEPOSIT){
+						if($value['mode'] != order\Order::ORDER_STORE){
 							//卖家发货（保证金提货）
 							$href = url::createUrl("/depositDelivery/sellerConsignment?id={$value['delivery_id']}&action_confirm=1&info=确认发货");
 							$action []= array('name'=>'发货','url'=>$href);
@@ -263,10 +264,12 @@ class Delivery{
 		$deliveryData['status'] = self::DELIVERY_APPLY;
 		$order_info = $this->order->where(array('id'=>$deliveryData['order_id']))->fields('contract_status,mode,user_id,offer_id')->getObj();
 		if(!empty($order_info)){
-			if($order_info['user_id'] == $deliveryData['user_id']){
+			$offerInfo = $this->order_model->offerInfo($order_info['offer_id']);
+			$buyer = $offerInfo['type'] == 1 ? $order_info['user_id'] : $offerInfo['user_id'];
+			if($buyer == $deliveryData['user_id']){
 				$contract_status = $order_info['contract_status'];
 				//订单合同状态须为已生效,订单类型须为保证金或者仓单
-				if(isset($contract_status) && $contract_status == order\Order::CONTRACT_EFFECT && in_array($order_info['mode'],array(order\Order::ORDER_DEPOSIT,order\Order::ORDER_STORE))){
+				if(isset($contract_status) && $contract_status == order\Order::CONTRACT_EFFECT && in_array($order_info['mode'],array(order\Order::ORDER_DEPOSIT,order\Order::ORDER_STORE,order\Order::ORDER_PURCHASE))){
 					$product_valid = $this->orderNumValid($deliveryData['order_id'],$deliveryData['num']);
 					if($product_valid !== true){
 						$error = '提货数量有误';

@@ -41,7 +41,7 @@ class OrderController extends UcenterBaseController{
 			$data['pay_retainage'] = number_format(floatval($data['amount']) - floatval($data['pay_deposit']),2);
 			$bankinfo = $this->order->userBankInfo($data['user_id']);
 
-			$this->getView()->assign('show_online',$data['mode'] == \nainai\order\Order::ORDER_DEPOSIT || $data['mode'] == \nainai\order\Order::ORDER_STORE ? 1 : 0);
+			$this->getView()->assign('show_online',$data['mode'] == \nainai\order\Order::ORDER_DEPOSIT || $data['mode'] == \nainai\order\Order::ORDER_STORE || $data['mode'] == \nainai\order\Order::ORDER_PURCHASE ? 1 : 0);
 			$this->getView()->assign('bankinfo',$bankinfo);
 			$this->getView()->assign('data',$data);
 		}
@@ -95,10 +95,10 @@ class OrderController extends UcenterBaseController{
 			}
 			$reduceData['reduce_amount'] = $reduce_amount;
 			$reduceData['reduce_remark'] = safe::filterPost('remark');
-			$res = $this->order->verifyQaulity($order_id,$reduceData);
+			$res = $this->order->verifyQaulity($order_id,$this->user_id,$reduceData);
 		}else{
 			$order_id = safe::filter($this->_request->getParam('order_id'));
-			$res = $this->order->verifyQaulity($order_id);
+			$res = $this->order->verifyQaulity($order_id,$this->user_id);
 		}
 
 		if($res['success'] == 1)
@@ -114,7 +114,7 @@ class OrderController extends UcenterBaseController{
 		$order_id = safe::filter($this->_request->getParam('order_id'));
 
 		if(!$reduce){
-			$res = $this->order->sellerVerify($order_id);
+			$res = $this->order->sellerVerify($order_id,$this->user_id);
 			if($res['success'] == 1)
 				$this->success('已确认货物质量',url::createUrl('/Contract/sellerlist'));
 			else 
@@ -129,7 +129,7 @@ class OrderController extends UcenterBaseController{
 	//买家确认合同结束
 	public function contractCompleteAction(){
 		$order_id = safe::filter($this->_request->getParam('order_id'));
-		$res = $this->order->contractComplete($order_id);
+		$res = $this->order->contractComplete($order_id,$this->user_id);
 		if($res['success'] == 1)
 			$this->success('合同已结束',url::createUrl("/Contract/buyerlist"));
 		else

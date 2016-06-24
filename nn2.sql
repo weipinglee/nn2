@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-06-08 12:29:14
+-- Generation Time: 2016-06-24 03:12:13
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -59,14 +59,14 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态0:正常1:锁定',
   `session_id` varchar(255) NOT NULL COMMENT 'sessionID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='后台管理员表' AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='后台管理员表' AUTO_INCREMENT=21 ;
 
 --
 -- 转存表中的数据 `admin`
 --
 
 INSERT INTO `admin` (`id`, `name`, `password`, `role`, `create_time`, `email`, `last_ip`, `last_time`, `status`, `session_id`) VALUES
-(1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, '2016-04-01 00:00:00', '', '127.0.0.1', '0000-00-00 00:00:00', 0, '78dnng6qmfdf07u9i7rb1n7qe4'),
+(1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, '2016-04-01 00:00:00', '', '127.0.0.1', '0000-00-00 00:00:00', 0, '7jrs318bc7q4v1d5t8f32g4a66'),
 (2, 'admin12223', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, '2016-04-07 14:55:10', '48888@qq.com34', '::1', '2016-04-07 14:55:10', -1, ''),
 (3, 'admin21', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, '2016-04-07 15:33:22', '1234567@qq.com', '::1', '2016-04-07 15:33:22', -1, ''),
 (4, 'admin2', '7c4a8d09ca3762af61e59520943dc26494f8941b', 0, '2016-04-07 15:35:09', '1234562@qq.com', '::1', '2016-04-07 15:35:09', -1, '6tkenqd045pg6likt33p14h9j2'),
@@ -84,7 +84,8 @@ INSERT INTO `admin` (`id`, `name`, `password`, `role`, `create_time`, `email`, `
 (16, 'admin998', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, '2016-04-07 16:28:49', '123459986@qq.com', '::1', '2016-04-07 16:28:49', -1, ''),
 (17, 'admin0099812', '7c4a8d09ca3762af61e59520943dc26494f8941b', 4, '2016-04-07 18:10:32', '123456zzz@qq.com', '::1', '2016-04-07 18:10:32', -1, ''),
 (18, 'admin111', '1edd072aad695cf469832e2d473dca2eec0d5ef9', 1, '2016-04-08 09:57:28', '123456@qq.com', '::1', '2016-04-08 09:57:28', -1, ''),
-(19, 'test_admin1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 9, '2016-04-12 11:00:52', 'test_admin@qq.com', '::1', '2016-04-12 11:00:52', -1, '');
+(19, 'test_admin1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 9, '2016-04-12 11:00:52', 'test_admin@qq.com', '::1', '2016-04-12 11:00:52', -1, ''),
+(20, 'cuohe1', '05fe7461c607c33229772d402505601016a7d0ea', 10, '2016-06-23 11:03:15', 'sdfdsf@163.ciom', '127.0.0.1', '2016-06-23 11:03:15', 0, '');
 
 -- --------------------------------------------------------
 
@@ -212,7 +213,11 @@ INSERT INTO `admin_access` (`role_id`, `node_id`, `level`, `module`) VALUES
 (2, 71, NULL, NULL),
 (2, 72, NULL, NULL),
 (2, 73, NULL, NULL),
-(2, 74, NULL, NULL);
+(2, 74, NULL, NULL),
+(10, 105, NULL, NULL),
+(10, 124, NULL, NULL),
+(10, 125, NULL, NULL),
+(10, 126, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -222,31 +227,47 @@ INSERT INTO `admin_access` (`role_id`, `node_id`, `level`, `module`) VALUES
 
 CREATE TABLE IF NOT EXISTS `admin_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `admin_id` int(11) NOT NULL,
-  `ip` varchar(50) NOT NULL,
-  `time` datetime NOT NULL,
-  `type` varchar(20) NOT NULL COMMENT '操作类型 默认login',
+  `author` varchar(80) NOT NULL COMMENT '管理员',
+  `action` varchar(200) NOT NULL COMMENT '动作',
+  `content` text NOT NULL COMMENT '详情',
+  `datetime` datetime NOT NULL COMMENT '时间',
+  `ip` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='管理员操作记录' AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
 
 --
 -- 转存表中的数据 `admin_log`
 --
 
-INSERT INTO `admin_log` (`id`, `admin_id`, `ip`, `time`, `type`) VALUES
-(2, 4, '127.0.0.1', '2016-05-04 15:48:15', 'login'),
-(3, 17, '127.0.0.1', '2016-05-04 15:48:36', 'login'),
-(4, 4, '127.0.0.1', '2016-05-04 15:57:09', 'login'),
-(5, 1, '127.0.0.1', '2016-06-07 15:23:28', 'login'),
-(6, 1, '127.0.0.1', '2016-06-07 15:23:43', 'login'),
-(7, 1, '127.0.0.1', '2016-06-07 15:23:46', 'login'),
-(8, 1, '127.0.0.1', '2016-06-07 16:05:17', 'login'),
-(9, 1, '127.0.0.1', '2016-06-07 17:16:58', 'login'),
-(10, 1, '127.0.0.1', '2016-06-07 17:30:09', 'login'),
-(11, 1, '127.0.0.1', '2016-06-07 17:30:16', 'login'),
-(12, 1, '127.0.0.1', '2016-06-07 17:30:39', 'login'),
-(13, 1, '127.0.0.1', '2016-06-08 16:46:36', 'login'),
-(14, 1, '127.0.0.1', '2016-06-08 17:21:01', 'login');
+INSERT INTO `admin_log` (`id`, `author`, `action`, `content`, `datetime`, `ip`) VALUES
+(47, '1', 'certManage_doDealerCert', '', '2016-06-17 16:19:34', '127.0.0.1'),
+(48, '1', 'certmanage_dodealercert', '审核id为36的交易商认证认证成功', '2016-06-17 17:36:36', '127.0.0.1'),
+(49, '1', 'certmanage_dodealercert', '审核user_id为36的交易商认证认证成功', '2016-06-17 17:37:59', '127.0.0.1'),
+(50, '1', 'certmanage_dostorecert', '审核user_id为36的仓库管理员认证后台审核驳回', '2016-06-17 17:40:15', '127.0.0.1'),
+(51, '1', 'certmanage_dostorecert', '审核user_id为36的认证成功', '2016-06-17 17:55:58', '127.0.0.1'),
+(52, '1', 'certmanage_dostorecert', '审核user_id为36的Array认证成功', '2016-06-17 17:56:43', '127.0.0.1'),
+(53, '1', 'certmanage_dostorecert', '审核user_id为36的Array认证成功', '2016-06-17 17:57:59', '127.0.0.1'),
+(54, '1', 'certmanage_dostorecert', '审核user_id为36的store_manager认证成功', '2016-06-17 17:59:21', '127.0.0.1'),
+(55, '1', 'certmanage_dostorecert', '审核user_id为36的', '2016-06-17 18:00:14', '127.0.0.1'),
+(56, '1', 'certmanage_dodealercert', '审核user_id为36的', '2016-06-17 18:02:50', '127.0.0.1'),
+(57, '1', 'certmanage_dodealercert', '审核user_id为36的交易商认证认证成功', '2016-06-17 18:05:12', '127.0.0.1'),
+(58, '1', 'usergroup_groupedit', '更新了id为5的用户组', '2016-06-17 18:10:55', '127.0.0.1'),
+(59, '1', 'accmanage_checkbankdetail', '审核user_id为36的user_bank审核通过', '2016-06-21 17:51:48', '127.0.0.1'),
+(60, '1', 'accmanage_checkbankdetail', '审核user_id为36的user_bank审核通过', '2016-06-21 17:52:38', '127.0.0.1'),
+(61, '1', 'accmanage_checkbankdetail', '审核user_id为36的开户信息审核驳回', '2016-06-21 17:56:08', '127.0.0.1'),
+(62, '1', 'accmanage_checkbankdetail', '审核user_id为36的开户信息审核通过', '2016-06-21 17:57:10', '127.0.0.1'),
+(63, '1', 'accmanage_checkbankdetail', '审核user_id为36的开户信息审核通过', '2016-06-21 18:01:29', '127.0.0.1'),
+(64, '1', 'accmanage_checkbankdetail', '审核user_id为36的开户信息审核通过', '2016-06-21 18:03:18', '127.0.0.1'),
+(65, '1', 'accmanage_checkbankdetail', '审核user_id为36的开户信息审核通过', '2016-06-21 18:03:26', '127.0.0.1'),
+(66, '1', 'accmanage_checkbankdetail', '审核user_id为36的开户信息审核通过', '2016-06-21 18:03:34', '127.0.0.1'),
+(67, '1', 'certmanage_dodealercert', '审核user_id为36的交易商认证认证成功', '2016-06-22 12:01:28', '127.0.0.1'),
+(68, '1', 'certmanage_dodealercert', '审核user_id为63的交易商认证认证成功', '2016-06-22 17:49:11', '127.0.0.1'),
+(69, '1', 'certmanage_dostorecert', '审核user_id为0的仓库管理员认证认证成功', '2016-06-23 08:22:44', '127.0.0.1'),
+(70, '1', 'certmanage_dodealercert', '审核user_id为36的交易商认证认证成功', '2016-06-23 09:33:39', '127.0.0.1'),
+(71, '1', 'certmanage_dostorecert', '审核user_id为63的仓库管理员认证认证成功', '2016-06-23 11:23:07', '127.0.0.1'),
+(72, '1', 'certmanage_dodealercert', '审核user_id为36的交易商认证后台审核驳回', '2016-06-23 11:42:54', '127.0.0.1'),
+(73, '1', 'certmanage_dodealercert', '审核user_id为36的交易商认证认证成功', '2016-06-23 11:43:31', '127.0.0.1'),
+(74, '1', 'certmanage_dostorecert', '审核user_id为36的仓库管理员认证认证成功', '2016-06-23 12:28:24', '127.0.0.1');
 
 -- --------------------------------------------------------
 
@@ -384,22 +405,24 @@ INSERT INTO `admin_node` (`id`, `name`, `title`, `status`, `remark`, `sort`, `pi
 CREATE TABLE IF NOT EXISTS `admin_role` (
   `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
+  `tag` varchar(20) NOT NULL COMMENT '角色标签',
   `pid` smallint(6) DEFAULT NULL,
   `status` tinyint(1) unsigned DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- 转存表中的数据 `admin_role`
 --
 
-INSERT INTO `admin_role` (`id`, `name`, `pid`, `status`, `remark`) VALUES
-(2, '商品管理员', NULL, 0, '商品管理'),
-(4, '会计', NULL, 1, '资金管理'),
-(5, '测试管理员', NULL, 0, '测试'),
-(8, '管理员', NULL, 1, '管理员1理员12312312312321312312312'),
-(9, '运维', NULL, 0, '运维');
+INSERT INTO `admin_role` (`id`, `name`, `tag`, `pid`, `status`, `remark`) VALUES
+(2, '商品管理员', '', NULL, 0, '商品管理'),
+(4, '会计', '', NULL, 1, '资金管理'),
+(5, '测试管理员', '', NULL, 0, '测试'),
+(8, '管理员', '', NULL, 0, '管理员1理员12312312312321312312312'),
+(9, '运维', '', NULL, 0, '运维'),
+(10, '撮合人', 'cuohe', NULL, 0, '撮合人');
 
 -- --------------------------------------------------------
 
@@ -430,7 +453,62 @@ CREATE TABLE IF NOT EXISTS `admin_session` (
 --
 
 INSERT INTO `admin_session` (`session_id`, `session_expire`, `session_data`) VALUES
-('78dnng6qmfdf07u9i7rb1n7qe4', 1465379495, 'nn_dde10c11f5e72ab98f182471a0ffc2f4|b:0;nn_admin|a:3:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:4:"role";s:15:"超级管理员";}');
+('7jrs318bc7q4v1d5t8f32g4a66', 1466730518, 'nn_admin|a:3:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:4:"role";s:15:"超级管理员";}');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ad_manage`
+--
+
+CREATE TABLE IF NOT EXISTS `ad_manage` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '广告ID',
+  `name` varchar(50) NOT NULL COMMENT '广告名称',
+  `position_id` int(11) unsigned NOT NULL COMMENT '广告位ID',
+  `link` varchar(255) DEFAULT NULL COMMENT '链接地址',
+  `order` smallint(5) NOT NULL DEFAULT '0' COMMENT '排列顺序',
+  `start_time` datetime DEFAULT NULL COMMENT '开始时间',
+  `end_time` datetime DEFAULT NULL COMMENT '结束时间',
+  `content` text COMMENT '图片、flash路径，文字，code等',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述',
+  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1 删除，0未删除',
+  PRIMARY KEY (`id`),
+  KEY `position_id` (`position_id`),
+  KEY `order` (`order`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='广告记录表' AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `ad_manage`
+--
+
+INSERT INTO `ad_manage` (`id`, `name`, `position_id`, `link`, `order`, `start_time`, `end_time`, `content`, `description`, `is_del`) VALUES
+(2, '123', 2, '', 1, '2016-06-15 13:58:53', '2016-06-24 13:58:56', 'upload/2016/06/16/20160616135847360.jpg@admin', '', 0),
+(3, '456', 2, '12', 1, '2016-06-15 13:59:31', '2016-06-24 13:59:33', 'upload/2016/06/16/20160616135925786.jpg@admin', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ad_position`
+--
+
+CREATE TABLE IF NOT EXISTS `ad_position` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '广告位ID',
+  `name` varchar(30) NOT NULL COMMENT '广告位名称',
+  `width` smallint(5) NOT NULL COMMENT '广告位宽度',
+  `height` smallint(5) NOT NULL COMMENT '广告位高度',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1:开启; 0: 关闭',
+  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1删除，0未删除',
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`,`status`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='广告位记录表' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `ad_position`
+--
+
+INSERT INTO `ad_position` (`id`, `name`, `width`, `height`, `status`, `is_del`) VALUES
+(1, '首页', 50, 1000, 1, 1),
+(2, '123', 100, 100, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -459,8 +537,8 @@ CREATE TABLE IF NOT EXISTS `agent` (
 --
 
 INSERT INTO `agent` (`id`, `username`, `mobile`, `email`, `company_name`, `area`, `contact`, `contact_phone`, `address`, `serial_no`, `status`, `create_time`) VALUES
-(2, 'test1', '18810194461', 'zengmaoyong@126.com', 'ceshi', '150303', '71112', '14444444', 'ttttttttt', '', 1, '2016-05-10 00:00:00'),
-(3, 'wer', '14232323232', 'weiping.lee@163.com', 'sdfsdfsdf', '110102', '213', '14343434347', 'sdfsdfsdf', '', 0, '2016-05-20 16:47:26');
+(2, 'test1', '18810194461', 'zengmaoyong@126.com', 'ceshi', '410303', '71112', '14444444', 'ttttttttt', '', 1, '2016-06-22 11:50:35'),
+(3, 'wer', '14232323232', 'weiping.lee@163.com', 'sdfsdfsdf', '7102', '213', '14343434347', 'sdfsdfsdf', '', 0, '2016-06-22 11:27:10');
 
 -- --------------------------------------------------------
 
@@ -596,16 +674,16 @@ CREATE TABLE IF NOT EXISTS `company_info` (
 INSERT INTO `company_info` (`user_id`, `area`, `address`, `company_name`, `legal_person`, `reg_fund`, `category`, `nature`, `business`, `contact`, `contact_phone`, `contact_duty`, `check_taker`, `check_taker_phone`, `check_taker_add`, `deposit_bank`, `bank_acc`, `tax_no`, `cert_oc`, `cert_bl`, `cert_tax`, `qq`) VALUES
 (8, '1202', NULL, '123324', 'SDFSDF', '44.00', 0, 0, '', '234234', '145343434', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (15, '210303', NULL, '23423', '的方法', '123.00', 0, 0, '', '多大的', '1423343434', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, '130102', NULL, '耐耐', '玩儿', '23.00', 0, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(26, '130102', NULL, '耐耐', '玩儿', '23.00', 0, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, '130102', NULL, '耐耐', '玩儿', '23.00', 0, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, '130102', NULL, '耐耐', '玩儿', '23.00', 0, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, '130102', NULL, '耐耐', '玩儿', '23.00', 0, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(30, '130102', NULL, '耐耐', '玩儿', '23.00', 0, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(31, '130102', NULL, '耐耐', '玩儿', '23.00', 0, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, '130102', NULL, '耐耐', '玩儿', '23.00', 1, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, '130102', NULL, '耐耐', '玩儿', '23.00', 1, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, '130102', NULL, '耐耐', '玩儿', '23.00', 1, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, '130102', NULL, '耐耐', '玩儿', '23.00', 1, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, '130102', NULL, '耐耐', '玩儿', '23.00', 1, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, '130102', NULL, '耐耐', '玩儿', '23.00', 1, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, '130102', NULL, '耐耐', '玩儿', '23.00', 1, 0, '', '快快快', '234234', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (34, '140311', NULL, '白泉耐火', '赵总', '100.00', 1, 2, '', '张', '14323232323', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (35, '140303', 'sdfsdf', 'weqwe', '张小j', '100.00', 1, 1, '', '王', '123123123', 1, '张张', '13534343434', '水电费水电费水电费', '了看见了看见', '112342342234234234', '1234234234234', 'filefromuser/2016/03/11/20160311071634276.jpg@user@user@user@user@user@user@user@user@user@user@user', 'filefromuser/2016/03/11/20160311071631414.jpg@user@user@user@user@user@user@user@user@user@user@user', 'filefromuser/2016/03/11/20160311071637894.jpg@user@user@user@user@user@user@user@user@user@user@user', ''),
-(36, '130102', 'sdfsdf', '一二十', '赵看', '200.00', 1, 1, '水电费', '果果', '15288888888', 1, 'asdasd', '13123123123', '13123', '123123123', '123123123123', '123123123', 'upload/2016/05/03/20160503153032859.jpg@user', 'upload/2016/05/03/20160503153028151.jpg@user', 'upload/2016/05/03/20160503153030911.jpg@user', '123123'),
+(36, '370205', 'sdfsdf', '一二十', '赵看', '200.00', 1, 1, '水电费', '果果', '15288888888', 1, 'asdasd', '13123123123', '13123', '123123123', '123123123123', '123123123', 'upload/2016/05/03/20160503153032859.jpg@user', 'upload/2016/05/03/20160503153028151.jpg@user', 'upload/2016/05/03/20160503153030911.jpg@user', '123123'),
 (51, '220102', NULL, '的多大的的', '水电费', '111.00', 10, 1, '', '水电费', '15234343434', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (52, '130102', '而微软sdfsdfds', '的多大的的', '丰东股份', '100.00', 2, 1, 'dffddffd', '威尔而', '14523232323', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'upload/2016/06/01/20160601143108291.jpg@user', 'upload/2016/06/01/20160601143104761.jpg@user', 'upload/2016/06/01/20160601143106748.jpg@user', NULL),
 (53, '130202', NULL, 'sdfdf', '快快快', '100.00', 3, 1, '', '的方法', '15323232323', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -614,7 +692,8 @@ INSERT INTO `company_info` (`user_id`, `area`, `address`, `company_name`, `legal
 (56, '130202', 'sdfsdf', '的多大的的', '水电费', '100.00', 2, 1, 'sdfsdf', '李卫平', '14523232323', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'upload/2016/06/01/20160601150929808.jpg@user', 'upload/2016/06/01/20160601150924222.jpg@user', 'upload/2016/06/01/20160601150926825.jpg@user', NULL),
 (57, '140411', 'sdfffdf', '多大的', '水电费', '100.00', 2, 2, '对方答复', '水电费', '14334343434', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'upload/2016/06/02/20160602145201431.jpg@user', 'upload/2016/06/02/20160602145158664.jpg@user', 'upload/2016/06/02/20160602145200121.jpg@user', NULL),
 (59, '220203', '白泉', '白泉耐火', '李卫平', '10.00', 2, 1, '耐火材料', '李卫平', '15296631253', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'upload/2016/06/03/20160603102703867.jpg@user', 'upload/2016/06/03/20160603102700591.jpg@user', 'upload/2016/06/03/20160603102702673.jpg@user', NULL),
-(60, '220303', '看见看见姐姐姐姐', '仓库', '赵伟胜', '100.00', 2, 1, 'sdf', '赵赵', '15296631253', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'upload/2016/06/06/20160606091601316.jpg@user', 'upload/2016/06/06/20160606091557985.jpg@user', 'upload/2016/06/06/20160606091559865.jpg@user', NULL);
+(60, '220303', '看见看见姐姐姐姐', '仓库', '赵伟胜', '100.00', 2, 1, 'sdf', '赵赵', '15296631253', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'upload/2016/06/06/20160606091601316.jpg@user', 'upload/2016/06/06/20160606091557985.jpg@user', 'upload/2016/06/06/20160606091559865.jpg@user', NULL),
+(63, '370205', 'werwer', '顶顶顶顶顶顶顶顶顶大大大', '水电费', '133.00', 2, 1, 'werwer', '水电费', '15323232323', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'upload/2016/06/22/20160622172705892.jpg@user', 'upload/2016/06/22/20160622172701195.jpg@user', 'upload/2016/06/22/20160622172703338.jpg@user', NULL);
 
 -- --------------------------------------------------------
 
@@ -630,7 +709,17 @@ CREATE TABLE IF NOT EXISTS `company_rec` (
   `end_time` datetime DEFAULT NULL COMMENT '推荐结束时间',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态:0:关闭,1:正常',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- 转存表中的数据 `company_rec`
+--
+
+INSERT INTO `company_rec` (`id`, `user_id`, `type`, `start_time`, `end_time`, `status`) VALUES
+(2, 28, 1, '2016-06-13 13:29:19', '2016-06-30 13:29:23', 1),
+(3, 59, 1, '2016-06-13 13:39:15', '2016-06-29 13:39:16', 1),
+(7, 28, 2, '2016-06-16 15:54:26', '2016-06-30 15:54:28', 1),
+(8, 27, 3, '2016-06-22 15:54:47', '2016-06-30 15:54:49', 1);
 
 -- --------------------------------------------------------
 
@@ -714,7 +803,7 @@ CREATE TABLE IF NOT EXISTS `dealer` (
 --
 
 INSERT INTO `dealer` (`user_id`, `status`, `apply_time`, `verify_time`, `admin_id`, `message`) VALUES
-(36, 2, '2016-06-02 14:47:28', '2016-06-02 14:48:15', NULL, ''),
+(36, 2, '2016-06-23 11:42:45', '2016-06-23 11:43:31', NULL, ''),
 (42, 2, '2016-04-13 15:20:48', '2016-05-12 12:32:15', NULL, ''),
 (48, 2, '2016-05-17 12:44:54', '2016-05-18 09:36:18', NULL, ''),
 (52, 2, '2016-06-01 14:31:10', '2016-06-01 14:32:27', NULL, ''),
@@ -722,7 +811,10 @@ INSERT INTO `dealer` (`user_id`, `status`, `apply_time`, `verify_time`, `admin_i
 (57, 2, '2016-06-02 14:52:03', '2016-06-02 14:52:14', NULL, ''),
 (58, 2, '2016-06-02 17:45:44', '2016-06-02 17:46:05', NULL, ''),
 (59, 2, '2016-06-03 10:27:05', '2016-06-03 10:28:17', NULL, ''),
-(60, 2, '2016-06-06 09:16:02', '2016-06-06 09:16:40', NULL, '');
+(60, 2, '2016-06-06 09:16:02', '2016-06-06 09:16:40', NULL, ''),
+(61, 2, '2016-06-15 11:40:28', '2016-06-15 11:40:50', NULL, ''),
+(62, 2, '2016-06-15 14:29:55', '2016-06-15 14:30:12', NULL, ''),
+(63, 2, '2016-06-22 17:27:06', '2016-06-22 17:49:11', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -804,65 +896,76 @@ CREATE TABLE IF NOT EXISTS `free_order` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `log_operation`
+-- 表的结构 `friendly_link`
 --
 
-CREATE TABLE IF NOT EXISTS `log_operation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author` varchar(80) NOT NULL COMMENT '管理员',
-  `action` varchar(200) NOT NULL COMMENT '动作',
-  `content` text NOT NULL COMMENT '详情',
-  `datetime` datetime NOT NULL COMMENT '时间',
+CREATE TABLE IF NOT EXISTS `friendly_link` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) NOT NULL DEFAULT '' COMMENT '名称',
+  `link` varchar(100) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `order` int(5) NOT NULL DEFAULT '100' COMMENT '排序',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1开启，0关闭',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- 转存表中的数据 `log_operation`
+-- 转存表中的数据 `friendly_link`
 --
 
-INSERT INTO `log_operation` (`id`, `author`, `action`, `content`, `datetime`) VALUES
-(1, 'admin', '处理了一个申请认证', '用户id:42', '2016-03-27 17:00:58'),
-(2, 'admin', '处理了一个申请认证', '用户id:42', '2016-03-27 17:01:19'),
-(3, 'admin', '处理了一个申请认证', '用户id:42', '2016-03-27 17:05:55'),
-(4, 'admin', '处理了一个申请认证', '用户id:42', '2016-03-27 17:06:10'),
-(5, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-04 10:31:00'),
-(6, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-04 10:34:45'),
-(7, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-04 14:26:45'),
-(8, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-10 11:27:32'),
-(9, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-10 11:32:20'),
-(10, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-10 12:38:34'),
-(11, 'admin', '处理了一个申请认证', '用户id:42', '2016-05-12 12:32:15'),
-(12, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-13 16:28:10'),
-(13, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-13 16:31:31'),
-(14, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-13 16:38:58'),
-(15, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-13 16:39:35'),
-(16, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-13 16:39:36'),
-(17, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-13 16:43:45'),
-(18, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-13 16:44:55'),
-(19, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-13 16:47:09'),
-(20, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-13 16:47:40'),
-(21, 'admin', '处理了一个申请认证', '用户id:48', '2016-05-17 12:35:27'),
-(22, 'admin', '处理了一个申请认证', '用户id:48', '2016-05-18 09:36:18'),
-(23, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-19 15:35:30'),
-(24, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-19 15:35:49'),
-(25, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-19 15:37:03'),
-(26, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-19 15:50:14'),
-(27, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-19 15:57:46'),
-(28, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-19 15:58:23'),
-(29, 'admin', '处理了一个申请认证', '用户id:36', '2016-05-20 17:24:22'),
-(30, 'admin', '处理了一个申请认证', '用户id:52', '2016-06-01 14:32:27'),
-(31, 'admin', '处理了一个申请认证', '用户id:52', '2016-06-01 14:35:33'),
-(32, 'admin', '处理了一个申请认证', '用户id:36', '2016-06-01 14:36:24'),
-(33, 'admin', '处理了一个申请认证', '用户id:56', '2016-06-01 15:09:44'),
-(34, 'admin', '处理了一个申请认证', '用户id:36', '2016-06-02 14:48:16'),
-(35, 'admin', '处理了一个申请认证', '用户id:57', '2016-06-02 14:52:14'),
-(36, 'admin', '处理了一个申请认证', '用户id:58', '2016-06-02 17:46:05'),
-(37, 'admin', '处理了一个申请认证', '用户id:59', '2016-06-03 10:28:17'),
-(38, 'admin', '处理了一个申请认证', '用户id:60', '2016-06-03 10:42:35'),
-(39, 'admin', '处理了一个申请认证', '用户id:60', '2016-06-03 10:44:11'),
-(40, 'admin', '处理了一个申请认证', '用户id:60', '2016-06-06 09:16:40'),
-(41, 'admin', '处理了一个申请认证', '用户id:36', '2016-06-06 17:30:55'),
-(42, 'admin', '处理了一个申请认证', '用户id:36', '2016-06-06 17:31:20');
+INSERT INTO `friendly_link` (`id`, `name`, `link`, `order`, `status`) VALUES
+(1, '的徐耐火', 'http://www.baidu.com', 100, 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `help`
+--
+
+CREATE TABLE IF NOT EXISTS `help` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cat_id` int(11) unsigned NOT NULL COMMENT '帮助分类，如果为0则代表着是下面的帮助单页',
+  `sort` smallint(5) NOT NULL DEFAULT '99' COMMENT '顺序',
+  `name` varchar(50) NOT NULL COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容',
+  `time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发布时间',
+  `link` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `cat_id` (`cat_id`),
+  KEY `sort` (`sort`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='帮助内容' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `help`
+--
+
+INSERT INTO `help` (`id`, `cat_id`, `sort`, `name`, `content`, `time`, `link`) VALUES
+(1, 1, 100, '的徐耐火', '<p><strong>水电费水电费</strong></p>', '2016-06-20 13:02:10', '');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `help_category`
+--
+
+CREATE TABLE IF NOT EXISTS `help_category` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) NOT NULL COMMENT '标题',
+  `sort` smallint(5) NOT NULL COMMENT '顺序',
+  `position_left` tinyint(1) NOT NULL COMMENT '是否在帮助内容、列表页面的左侧显示',
+  `position_foot` tinyint(1) NOT NULL COMMENT '是否在整站页面下方显示',
+  `status` int(2) NOT NULL COMMENT '0:关闭，1：开启',
+  PRIMARY KEY (`id`),
+  KEY `sort` (`sort`),
+  KEY `position_left` (`position_left`),
+  KEY `position_foot` (`position_foot`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='帮助分类' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `help_category`
+--
+
+INSERT INTO `help_category` (`id`, `name`, `sort`, `position_left`, `position_foot`, `status`) VALUES
+(1, '帮助7', 100, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -873,61 +976,60 @@ INSERT INTO `log_operation` (`id`, `author`, `action`, `content`, `datetime`) VA
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `menu_zn` varchar(255) NOT NULL,
-  `menu_cert` varchar(20) NOT NULL COMMENT '需要的认证角色，公共菜单留空',
   `menu_url` varchar(255) DEFAULT NULL COMMENT '菜单表',
   `pid` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
   `sort` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
 
 --
 -- 转存表中的数据 `menu`
 --
 
-INSERT INTO `menu` (`id`, `menu_zn`, `menu_cert`, `menu_url`, `pid`, `create_time`, `sort`) VALUES
-(3, '账户信息', '0', '/ucenter/baseinfo', 0, '2016-05-27 15:30:38', 2),
-(4, '交易管理', 'deal', '/managerdeal/storeProductList', 0, '2016-05-27 15:30:50', 4),
-(5, '资金管理', 'deal', '/fund/index', 0, '2016-05-27 15:31:02', 3),
-(8, '申请仓单', '', 'http://market.nainaiwang.com/#sortId=2395&amp;amp;nsortId=2423', 7, '2016-05-27 15:38:52', 5),
-(9, '仓单列表', '', 'http://market.nainaiwang.com/#sortId=2395&amp;amp;nsortId=2423\\"', 7, '2016-05-27 15:39:04', 2),
-(10, '账户管理', '0', '', 3, '2016-05-27 15:48:41', 0),
-(11, '基本信息', '', '/ucenter/baseinfo', 10, '2016-05-27 15:48:55', 0),
-(12, '修改密码', '', '/ucenter/password', 10, '2016-05-27 15:49:08', 11),
-(16, '关注中心', '', '', 0, '2016-05-27 17:18:25', 6),
-(17, '首页', '0', '/ucenterindex/index', 0, '2016-05-27 17:32:08', 1),
-(20, '仓单管理', '', '/managerdeal/storeproductlist', 4, '2016-05-31 16:09:07', 0),
-(21, '仓库管理', 'store', '/ManagerStore/applystorelist', 0, '2016-06-02 13:48:24', 5),
-(22, '资质认证', '', '', 3, '2016-06-06 14:59:29', 2),
-(23, '交易商', '', '/ucenter/dealcert', 22, '2016-06-06 15:00:14', 1),
-(24, '仓库管理员', '', '/ucenter/storecert', 22, '2016-06-06 15:00:52', 2),
-(25, '子账户管理', '', '/ucenter/subacc', 3, '2016-06-06 15:03:21', 3),
-(26, '添加子账户', '', '/ucenter/subacc', 25, '2016-06-06 15:04:33', 0),
-(27, '开票信息管理', '', '/ucenter/invoice', 3, '2016-06-06 15:05:06', 6),
-(28, '开户信息管理', '', '/fund/bank', 5, '2016-06-06 15:10:37', 1),
-(29, '资金账户管理', '', '', 5, '2016-06-06 15:11:09', 2),
-(30, '市场代理账户', '', '/fund/index', 29, '2016-06-06 15:11:41', 1),
-(31, '票据账户', '', '', 29, '2016-06-06 15:11:59', 2),
-(32, '销售管理', '', '', 4, '2016-06-06 15:13:18', 1),
-(33, '销售列表', '', '/managerdeal/productlist', 32, '2016-06-06 15:14:09', 1),
-(34, '发布产品', '', '/managerdeal/indexoffer', 32, '2016-06-06 15:15:20', 2),
-(35, '申请仓单', '', '/managerdeal/storeproduct', 20, '2016-06-06 15:16:54', 1),
-(36, '仓单列表', '', '/managerdeal/storeproductlist', 20, '2016-06-06 15:17:23', 2),
-(37, '采购管理', '', '', 4, '2016-06-06 15:17:50', 3),
-(38, '采购列表', '', '', 37, '2016-06-06 15:18:09', 1),
-(39, '采购添加', '', '', 37, '2016-06-06 15:18:23', 2),
-(40, '合同管理', '', '', 4, '2016-06-06 15:19:16', 4),
-(41, '销售合同', '', '/contract/sellerlist', 40, '2016-06-06 15:19:57', 1),
-(42, '购买合同', '', '/contract/buyerlist', 40, '2016-06-06 15:20:35', 2),
-(43, '提单管理', '', '', 4, '2016-06-06 15:21:06', 6),
-(44, '购买提单', '', '/delivery/deliverylist?is_seller=0', 43, '2016-06-06 15:22:09', 1),
-(45, '销售提单', '', '/delivery/deliverylist?is_seller=1', 43, '2016-06-06 15:22:44', 2),
-(46, '仓单管理', '', '/managerstore/applystorelist/type/2', 21, '2016-06-06 15:23:56', 1),
-(47, '仓单审核', '', '/managerstore/applystorelist/type/1', 21, '2016-06-06 15:24:33', 2),
-(48, '仓单出库审核', '', '/managerstore/storechecklist', 21, '2016-06-06 15:25:02', 3),
-(49, '申诉管理', '', '', 4, '2016-06-06 17:38:37', 8),
-(50, '申诉添加', '', '/contract/complainContract', 49, '2016-06-06 17:38:59', 1),
-(51, '申诉列表', '', '/contract/complainList', 49, '2016-06-06 17:39:34', 2);
+INSERT INTO `menu` (`id`, `menu_zn`, `menu_url`, `pid`, `create_time`, `sort`) VALUES
+(3, '账户信息', '/ucenter/baseinfo', 0, '2016-05-27 15:30:38', 2),
+(4, '交易管理', '/managerdeal/storeProductList', 0, '2016-05-27 15:30:50', 4),
+(5, '资金管理', '/fund/index', 0, '2016-05-27 15:31:02', 3),
+(8, '申请仓单', 'http://market.nainaiwang.com/#sortId=2395&amp;amp;nsortId=2423', 7, '2016-05-27 15:38:52', 5),
+(9, '仓单列表', 'http://market.nainaiwang.com/#sortId=2395&amp;amp;nsortId=2423\\"', 7, '2016-05-27 15:39:04', 2),
+(10, '账户管理', '', 3, '2016-05-27 15:48:41', 0),
+(11, '基本信息', '/ucenter/baseinfo', 10, '2016-05-27 15:48:55', 0),
+(12, '修改密码', '/ucenter/password', 10, '2016-05-27 15:49:08', 11),
+(16, '关注中心', '/Message/userMail', 0, '2016-05-27 17:18:25', 6),
+(17, '首页', '/ucenterindex/index', 0, '2016-05-27 17:32:08', 1),
+(20, '仓单管理', '/managerdeal/storeproductlist', 4, '2016-05-31 16:09:07', 0),
+(21, '仓库管理', '/ManagerStore/applystorelist', 0, '2016-06-02 13:48:24', 5),
+(22, '资质认证', '', 3, '2016-06-06 14:59:29', 2),
+(23, '交易商', '/ucenter/dealcert', 22, '2016-06-06 15:00:14', 1),
+(24, '仓库管理员', '/ucenter/storecert', 22, '2016-06-06 15:00:52', 2),
+(25, '子账户管理', '/ucenter/subacc', 3, '2016-06-06 15:03:21', 3),
+(26, '添加子账户', '/ucenter/subacc', 25, '2016-06-06 15:04:33', 0),
+(27, '开票信息管理', '/ucenter/invoice', 3, '2016-06-06 15:05:06', 6),
+(28, '开户信息管理', '/fund/bank', 5, '2016-06-06 15:10:37', 1),
+(29, '资金账户管理', '', 5, '2016-06-06 15:11:09', 2),
+(30, '市场代理账户', '/fund/index', 29, '2016-06-06 15:11:41', 1),
+(31, '票据账户', '', 29, '2016-06-06 15:11:59', 2),
+(32, '销售管理', '', 4, '2016-06-06 15:13:18', 1),
+(33, '销售列表', '/managerdeal/productlist', 32, '2016-06-06 15:14:09', 1),
+(34, '发布产品', '/managerdeal/indexoffer', 32, '2016-06-06 15:15:20', 2),
+(35, '申请仓单', '/managerdeal/storeproduct', 20, '2016-06-06 15:16:54', 1),
+(36, '仓单列表', '/managerdeal/storeproductlist', 20, '2016-06-06 15:17:23', 2),
+(37, '采购管理', '', 4, '2016-06-06 15:17:50', 3),
+(38, '采购列表', '/Purchase/lists', 37, '2016-06-06 15:18:09', 1),
+(39, '采购添加', '/Purchase/issue', 37, '2016-06-06 15:18:23', 2),
+(40, '合同管理', '', 4, '2016-06-06 15:19:16', 4),
+(41, '销售合同', '/contract/sellerlist', 40, '2016-06-06 15:19:57', 1),
+(42, '购买合同', '/contract/buyerlist', 40, '2016-06-06 15:20:35', 2),
+(43, '提单管理', '', 4, '2016-06-06 15:21:06', 6),
+(44, '购买提单', '/delivery/deliBuyList', 43, '2016-06-06 15:22:09', 1),
+(45, '销售提单', '/delivery/deliSellList', 43, '2016-06-06 15:22:44', 2),
+(46, '仓单管理', '/managerstore/applystorelist?type=2', 21, '2016-06-06 15:23:56', 1),
+(47, '仓单审核', '/managerstore/applystorelist/type/1', 21, '2016-06-06 15:24:33', 2),
+(48, '仓单出库审核', '/managerstore/storechecklist', 21, '2016-06-06 15:25:02', 3),
+(49, '申诉管理', '', 4, '2016-06-06 17:38:37', 8),
+(51, '申诉列表', '/contract/complainList', 49, '2016-06-06 17:39:34', 2),
+(52, '站内消息', '/message/userMail', 16, '2016-06-13 15:38:32', 2);
 
 -- --------------------------------------------------------
 
@@ -951,7 +1053,7 @@ CREATE TABLE IF NOT EXISTS `menu_role` (
 INSERT INTO `menu_role` (`id`, `cert`, `name`, `purview`, `explanation`) VALUES
 (3, 'deal', '交易商', 'a:24:{i:0;i:5;i:1;i:28;i:2;i:29;i:3;i:30;i:4;i:31;i:5;i:4;i:6;i:20;i:7;i:35;i:8;i:36;i:9;i:32;i:10;i:33;i:11;i:34;i:12;i:37;i:13;i:38;i:14;i:39;i:15;i:40;i:16;i:41;i:17;i:42;i:18;i:43;i:19;i:44;i:20;i:45;i:21;i:49;i:22;i:50;i:23;i:51;}', ''),
 (4, 'store', '仓库管理', 'a:4:{i:0;i:21;i:1;i:46;i:2;i:47;i:3;i:48;}', ''),
-(5, 'public', '公共', 'a:12:{i:0;i:17;i:1;i:3;i:2;i:10;i:3;i:11;i:4;i:12;i:5;i:22;i:6;i:23;i:7;i:24;i:8;i:25;i:9;i:26;i:10;i:27;i:11;i:16;}', '');
+(5, 'public', '公共', 'a:14:{i:0;i:17;i:1;i:3;i:2;i:10;i:3;i:11;i:4;i:12;i:5;i:22;i:6;i:23;i:7;i:24;i:8;i:25;i:9;i:26;i:10;i:27;i:11;i:16;i:12;i:52;i:13;i:53;}', '');
 
 -- --------------------------------------------------------
 
@@ -967,7 +1069,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   `send_time` datetime DEFAULT NULL COMMENT '发送时间',
   `write_time` datetime DEFAULT NULL COMMENT '阅读时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- 转存表中的数据 `message`
@@ -975,8 +1077,17 @@ CREATE TABLE IF NOT EXISTS `message` (
 
 INSERT INTO `message` (`id`, `user_id`, `title`, `content`, `send_time`, `write_time`) VALUES
 (1, 56, '保证金支付', '您的订单7需支付保证金', '2016-06-02 15:28:36', NULL),
-(2, 36, '保证金支付', '您的订单8需支付保证金', '2016-06-02 15:35:50', NULL),
-(3, 59, '保证金支付', '您的订单13需支付保证金', '2016-06-03 10:50:26', NULL);
+(3, 59, '保证金支付', '您的订单13需支付保证金', '2016-06-03 10:50:26', NULL),
+(6, 36, '保证金支付', '您的订单21需支付保证金', '2016-06-13 09:06:03', '2016-06-13 15:55:34'),
+(8, 36, '保证金支付', '您的订单23需支付保证金', '2016-06-13 09:11:03', '2016-06-13 15:54:55'),
+(9, 57, '保证金支付', '您的订单25需支付保证金', '2016-06-21 10:00:31', NULL),
+(10, 57, '保证金支付', '您的订单26需支付保证金', '2016-06-21 10:14:38', NULL),
+(11, 57, '保证金支付', '您的订单27需支付保证金', '2016-06-21 10:51:35', NULL),
+(12, 57, '保证金支付', '您的订单28需支付保证金', '2016-06-21 11:37:01', NULL),
+(13, 57, '保证金支付', '您的订单29需支付保证金', '2016-06-21 11:50:41', NULL),
+(14, 57, '保证金支付', '您的订单30需支付保证金', '2016-06-22 12:01:34', NULL),
+(15, 57, '保证金支付', '您的订单31需支付保证金', '2016-06-22 12:09:49', NULL),
+(16, 57, '保证金支付', '您的订单32需支付保证金', '2016-06-23 09:29:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -1047,7 +1158,7 @@ CREATE TABLE IF NOT EXISTS `order_complain` (
   `handle_time` datetime DEFAULT NULL COMMENT '处理时间',
   `handle_msg` varchar(255) NOT NULL COMMENT '处理意见',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='申述' AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='申述' AUTO_INCREMENT=42 ;
 
 --
 -- 转存表中的数据 `order_complain`
@@ -1068,13 +1179,22 @@ INSERT INTO `order_complain` (`id`, `user_id`, `type`, `order_id`, `title`, `det
 (23, 48, '2', 1, 'ccccccccccccccc', 'ssssssssssss', 's:0:"";', 1, '2016-05-25 16:14:48', 0, NULL, '', '', NULL, ''),
 (24, 48, '2', 1, 'cccccccccccccccccccc', 'sssssssssssssssssssssss', 's:0:"";', 1, '2016-05-25 16:17:51', 0, NULL, '', '', NULL, ''),
 (25, 48, '2', 1, 'ccc', 'sssss', 's:0:"";', 1, '2016-05-26 11:25:36', 0, NULL, '', '', NULL, ''),
-(26, 48, '2', 1, 'cccccc', 'sssssssss', 's:0:"";', 1, '2016-05-26 14:51:40', 0, NULL, '', '', NULL, ''),
+(26, 48, '2', 1, 'cccccc', 'sssssssss', 's:0:"";', 5, '2016-05-26 14:51:40', 1, '2016-06-12 18:24:09', '', '1', '2016-06-12 18:24:16', ''),
 (27, 48, '2', 1, 'cccccccccccccccccc', 'sssssssssssssssss', 's:0:"";', 1, '2016-05-26 15:11:15', 0, NULL, '', '', NULL, ''),
-(28, 48, '2', 1, 'ssssss', 'aaaaaaaaaaaa', 's:0:"";', 1, '2016-05-26 15:18:10', 0, NULL, '', '', NULL, ''),
+(28, 48, '2', 1, 'ssssss', 'aaaaaaaaaaaa', 's:0:"";', 4, '2016-05-26 15:18:10', 1, '2016-06-12 18:23:10', '', '1', '2016-06-12 18:23:15', ''),
 (29, 48, '2', 1, 'ssssss', 'aaaaaaaaaaaa', 's:0:"";', 1, '2016-05-26 15:18:26', 0, NULL, '', '', NULL, ''),
-(30, 48, '2', 1, 'ssssssssssssssssss', 'aaaaaaaaaaaaaaaaaaaaa', 's:0:"";', 1, '2016-05-26 15:18:43', 0, NULL, '', '', NULL, ''),
-(31, 48, '2', 1, 'sssssssss', 'aaaaaaaaaaaaa', 's:0:"";', 1, '2016-05-26 15:20:42', 0, NULL, '', '', NULL, ''),
-(32, 48, '2', 1, 'gggggggggggggggg', 'sssssssssssssssssssssssssssssssssssssssss', 's:0:"";', 1, '2016-05-26 15:31:48', 0, NULL, '', '', NULL, '');
+(30, 48, '2', 1, 'ssssssssssssssssss', 'aaaaaaaaaaaaaaaaaaaaa', 's:0:"";', 2, '2016-05-26 15:18:43', 1, '2016-06-12 18:22:48', '', '', NULL, ''),
+(31, 48, '2', 1, 'sssssssss', 'aaaaaaaaaaaaa', 's:0:"";', 4, '2016-05-26 15:20:42', 1, '2016-06-12 17:58:59', '', '1', '2016-06-12 18:22:55', ''),
+(32, 48, '2', 1, 'gggggggggggggggg', 'sssssssssssssssssssssssssssssssssssssssss', 's:0:"";', 4, '2016-05-26 15:31:48', 1, '2016-06-12 18:21:22', '', '1', '2016-06-12 18:21:40', ''),
+(33, 36, '2', 1, '123', 'qweqwe', 's:0:"";', 4, '2016-06-12 16:07:37', 1, '2016-06-12 18:18:45', '', '1', '2016-06-12 18:18:49', ''),
+(34, 36, '2', 3, '未支付为空', '水电费水电费', 's:0:"";', 4, '2016-06-12 16:27:51', 1, '2016-06-12 18:18:30', '', '1', '2016-06-12 18:18:35', ''),
+(35, 36, '2', 19, '未支付尾款', '水电费水电费等身份第三方', 's:0:"";', 4, '2016-06-13 08:30:05', 1, '2016-06-13 08:31:09', '', '1', '2016-06-13 08:36:13', ''),
+(36, 36, '2', 23, '123', '123123', 's:0:"";', 5, '2016-06-13 09:11:27', 1, '2016-06-13 09:12:04', '', '1', '2016-06-13 09:13:36', ''),
+(37, 36, '2', 24, '卖方申诉', '水电费', 's:0:"";', 5, '2016-06-13 09:34:25', 1, '2016-06-13 09:34:33', '', '1', '2016-06-13 09:34:42', ''),
+(38, 57, '1', 24, '123', '123', 's:0:"";', 1, '2016-06-13 09:55:04', 0, NULL, '', '', NULL, ''),
+(39, 57, '1', 7, '水电费', '地方', 's:0:"";', 1, '2016-06-13 09:59:12', 0, NULL, '', '', NULL, ''),
+(40, 57, '1', 7, '水电费', '地方', 's:0:"";', 1, '2016-06-13 09:59:30', 0, NULL, '', '', NULL, ''),
+(41, 57, '1', 7, '水电费', '第三方', 's:0:"";', 1, '2016-06-13 10:01:50', 0, NULL, '', '', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -1088,14 +1208,18 @@ CREATE TABLE IF NOT EXISTS `order_pairing` (
   `order_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_id` (`order_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `order_pairing`
 --
 
 INSERT INTO `order_pairing` (`id`, `admin_id`, `order_id`) VALUES
-(3, 1, 1);
+(3, 1, 1),
+(4, 13, 2),
+(5, 1, 8),
+(6, 13, 6),
+(7, 20, 10);
 
 -- --------------------------------------------------------
 
@@ -1120,32 +1244,47 @@ CREATE TABLE IF NOT EXISTS `order_sell` (
   `reduce_amount` decimal(15,5) DEFAULT NULL COMMENT '买方扣减货款数',
   `reduce_remark` varchar(200) NOT NULL COMMENT '扣减货款说明',
   `create_time` datetime NOT NULL COMMENT '创建时间',
+  `is_lock` int(2) DEFAULT '0' COMMENT '是否锁定',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='保证金摘牌' AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='保证金摘牌' AUTO_INCREMENT=33 ;
 
 --
 -- 转存表中的数据 `order_sell`
 --
 
-INSERT INTO `order_sell` (`id`, `offer_id`, `mode`, `order_no`, `num`, `amount`, `user_id`, `pay_deposit`, `pay_retainage`, `payment`, `contract_status`, `seller_deposit`, `proof`, `reduce_amount`, `reduce_remark`, `create_time`) VALUES
-(1, 5, 0, '{0A4F6E0C-E443-408C-8089-5183734ABC07}', '10.00', '1230.00', 32, '12.30', '1217.70', NULL, 4, '1.00', NULL, NULL, '', '2016-04-29 09:52:20'),
-(2, 8, 0, '{9BD946AD-398E-4CBF-A2A9-0DED189652A9}', '100.00', '1200.00', 36, '360.00', NULL, NULL, 3, NULL, NULL, NULL, '', '2016-05-11 13:28:15'),
-(3, 8, 4, '{3855878B-567B-4E16-BD47-811F6095087C}', '100.00', '1200.00', 36, '360.00', NULL, NULL, 3, NULL, NULL, NULL, '', '2016-05-11 13:36:10'),
-(4, 9, 2, '{E0427250-F1FA-4E18-AEE1-571A3AE36C55}', '23.00', '529.00', 36, NULL, NULL, NULL, 0, NULL, NULL, NULL, '', '2016-05-16 09:22:49'),
-(5, 9, 2, '{0AADF874-3CDD-4343-95EE-6B82E39AB769}', '23.00', '529.00', 36, '105.80', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-05-16 09:25:09'),
-(6, 22, 1, '{CAEF00D9-E04C-4157-94F2-C2AA26095B27}', '190.00', '22800.00', 57, NULL, NULL, NULL, 8, NULL, 'upload/2016/06/02/20160602151105287.jpg', NULL, '', '2016-06-02 15:08:31'),
-(7, 19, 2, '{23685A03-C84C-45CD-A593-112B2120CECD}', '12.00', '1200.00', 57, '24.00', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-02 15:28:36'),
-(8, 24, 2, '{597701FC-5503-4CCD-9C64-2D622AE4DEA4}', '15.00', '150.00', 57, '3.00', '147.00', NULL, 8, '14.94', NULL, '100.00000', '567567', '2016-06-02 15:35:50'),
-(9, 22, 1, '{AA391062-44E4-4105-BEAC-73DF85DE7725}', '190.00', '22800.00', 57, NULL, NULL, NULL, 3, NULL, NULL, NULL, '', '2016-06-02 15:41:29'),
-(10, 23, 4, '{D530DD0E-25FB-4ACB-9FEA-EA25F594F126}', '10.00', '1900.00', 57, '38.00', '1862.00', NULL, 4, NULL, NULL, NULL, '', '2016-06-03 08:21:32'),
-(11, 25, 1, '{FA15E2DC-A880-46E8-A981-DB7EF92818EE}', '15.00', '150.00', 57, NULL, NULL, NULL, 8, NULL, 'upload/2016/06/03/20160603091221758.jpg', NULL, '', '2016-06-03 08:35:55'),
-(12, 20, 3, '{2E6B09D5-6FF0-45E6-BA93-D589958F24F4}', '100.00', '19000.00', 57, NULL, NULL, NULL, 3, NULL, 'upload/2016/06/03/20160603091741787.jpg', NULL, '', '2016-06-03 09:16:31'),
-(13, 28, 2, '{A15451F8-B02C-4975-B116-4FD1D935D109}', '10.00', '1000.00', 57, '20.00', '980.00', NULL, 8, '39.84', NULL, NULL, '', '2016-06-03 10:50:26'),
-(14, 29, 1, '{68916A74-6237-48C5-BC32-2E25E2B6E54A}', '10.00', '100.00', 57, NULL, NULL, NULL, 8, NULL, 'upload/2016/06/03/20160603110213945.jpg', NULL, '', '2016-06-03 11:01:37'),
-(15, 30, 3, '{9B83A60D-06B8-4517-B841-17BAAC2ED8B3}', '10.00', '1000.00', 57, NULL, NULL, NULL, 8, NULL, 'upload/2016/06/03/20160603110408714.jpg', NULL, '', '2016-06-03 11:03:49'),
-(16, 31, 4, '{694B7BCA-B312-46C2-806B-C0C3D5915E34}', '10.00', '1000.00', 57, '20.00', '980.00', NULL, 4, NULL, NULL, NULL, '', '2016-06-03 11:06:04'),
-(17, 29, 1, '{E45F7601-CEB1-4783-B06C-A9655A0AD36D}', '11.00', '110.00', 36, NULL, NULL, NULL, 3, NULL, 'upload/2016/06/06/20160606085928277.jpg', NULL, '', '2016-06-06 08:58:48'),
-(18, 32, 4, '{D7CB7291-E7A4-4516-8D30-8AC6E1D582CA}', '100.00', '2000.00', 36, '40.00', '1960.00', NULL, 4, NULL, NULL, NULL, '', '2016-06-06 09:31:45');
+INSERT INTO `order_sell` (`id`, `offer_id`, `mode`, `order_no`, `num`, `amount`, `user_id`, `pay_deposit`, `pay_retainage`, `payment`, `contract_status`, `seller_deposit`, `proof`, `reduce_amount`, `reduce_remark`, `create_time`, `is_lock`) VALUES
+(1, 5, 0, '{0A4F6E0C-E443-408C-8089-5183734ABC07}', '10.00', '1230.00', 32, '12.30', '1217.70', NULL, 4, '1.00', NULL, NULL, '', '2016-04-29 09:52:20', 1),
+(2, 8, 0, '{9BD946AD-398E-4CBF-A2A9-0DED189652A9}', '100.00', '1200.00', 36, '360.00', NULL, NULL, 4, NULL, 'upload/2016/06/21/20160621093006381.jpg', NULL, '', '2016-05-11 13:28:15', 0),
+(3, 8, 4, '{3855878B-567B-4E16-BD47-811F6095087C}', '100.00', '1200.00', 36, '360.00', NULL, NULL, 3, NULL, 'upload/2016/06/21/20160621093254270.jpg', NULL, '', '2016-05-11 13:36:10', 0),
+(4, 9, 2, '{E0427250-F1FA-4E18-AEE1-571A3AE36C55}', '23.00', '529.00', 36, NULL, NULL, NULL, 0, NULL, NULL, NULL, '', '2016-05-16 09:22:49', 0),
+(5, 9, 2, '{0AADF874-3CDD-4343-95EE-6B82E39AB769}', '23.00', '529.00', 36, '105.80', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-05-16 09:25:09', 0),
+(6, 22, 1, '{CAEF00D9-E04C-4157-94F2-C2AA26095B27}', '190.00', '22800.00', 57, NULL, NULL, NULL, 8, NULL, 'upload/2016/06/02/20160602151105287.jpg', NULL, '', '2016-06-02 15:08:31', 0),
+(7, 19, 2, '{23685A03-C84C-45CD-A593-112B2120CECD}', '12.00', '1200.00', 57, '24.00', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-02 15:28:36', 0),
+(8, 24, 2, '{597701FC-5503-4CCD-9C64-2D622AE4DEA4}', '15.00', '150.00', 57, '3.00', '147.00', NULL, 8, '14.94', NULL, '100.00000', '567567', '2016-06-02 15:35:50', 0),
+(9, 22, 1, '{AA391062-44E4-4105-BEAC-73DF85DE7725}', '190.00', '22800.00', 57, NULL, NULL, NULL, 3, NULL, NULL, NULL, '', '2016-06-02 15:41:29', 0),
+(10, 23, 4, '{D530DD0E-25FB-4ACB-9FEA-EA25F594F126}', '10.00', '1900.00', 57, '38.00', '1862.00', NULL, 4, NULL, NULL, NULL, '', '2016-06-03 08:21:32', 0),
+(11, 25, 1, '{FA15E2DC-A880-46E8-A981-DB7EF92818EE}', '15.00', '150.00', 57, NULL, NULL, NULL, 8, NULL, 'upload/2016/06/03/20160603091221758.jpg', NULL, '', '2016-06-03 08:35:55', 0),
+(12, 20, 3, '{2E6B09D5-6FF0-45E6-BA93-D589958F24F4}', '100.00', '19000.00', 57, NULL, NULL, NULL, 3, NULL, 'upload/2016/06/03/20160603091741787.jpg', NULL, '', '2016-06-03 09:16:31', 0),
+(13, 28, 2, '{A15451F8-B02C-4975-B116-4FD1D935D109}', '10.00', '1000.00', 57, '20.00', '980.00', NULL, 8, '39.84', NULL, NULL, '', '2016-06-03 10:50:26', 0),
+(14, 29, 1, '{68916A74-6237-48C5-BC32-2E25E2B6E54A}', '10.00', '100.00', 57, NULL, NULL, NULL, 8, NULL, 'upload/2016/06/03/20160603110213945.jpg', NULL, '', '2016-06-03 11:01:37', 0),
+(15, 30, 3, '{9B83A60D-06B8-4517-B841-17BAAC2ED8B3}', '10.00', '1000.00', 57, NULL, NULL, NULL, 8, NULL, 'upload/2016/06/03/20160603110408714.jpg', NULL, '', '2016-06-03 11:03:49', 0),
+(16, 31, 4, '{694B7BCA-B312-46C2-806B-C0C3D5915E34}', '10.00', '1000.00', 57, '20.00', '980.00', NULL, 4, NULL, NULL, NULL, '', '2016-06-03 11:06:04', 0),
+(17, 29, 1, '{E45F7601-CEB1-4783-B06C-A9655A0AD36D}', '11.00', '110.00', 36, NULL, NULL, NULL, 3, NULL, 'upload/2016/06/06/20160606085928277.jpg', NULL, '', '2016-06-06 08:58:48', 0),
+(18, 32, 4, '{D7CB7291-E7A4-4516-8D30-8AC6E1D582CA}', '100.00', '2000.00', 36, '40.00', '1960.00', NULL, 4, NULL, NULL, NULL, '', '2016-06-06 09:31:45', 0),
+(19, 33, 2, '{ABA659C2-1A42-4524-9429-EE6985CD8744}', '100.00', '500.00', 57, '10.00', NULL, NULL, 3, '49.80', NULL, NULL, '', '2016-06-13 08:28:09', 0),
+(20, 34, 2, '{195B193D-8A2C-45AF-8415-EC90C01A0C21}', '10.00', '10.00', 57, '0.10', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-13 09:05:12', 0),
+(21, 34, 2, '{6582FCA9-3BBA-48FD-8DF5-DC06FC4D147A}', '10.00', '10.00', 57, '0.10', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-13 09:06:03', 0),
+(22, 34, 2, '{442F3F85-40D3-4797-8845-BF1ECD4384FF}', '10.00', '10.00', 57, '0.10', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-13 09:10:19', 0),
+(23, 34, 2, '{A095B229-0B19-42AE-9890-C06F7D5FE768}', '10.00', '10.00', 57, '0.10', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-13 09:11:03', 1),
+(24, 34, 2, '{1AA38C13-D00A-4EC3-9B79-5BCFA4327E2D}', '10.00', '10.00', 57, '1.00', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-13 09:25:43', 1),
+(25, 42, 2, '{BE253F76-C4A9-49CF-AB26-83A4B6B876E6}', '9.00', '90.00', 36, '1.80', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-21 10:00:31', 0),
+(26, 42, 2, '{FFEB5716-E49F-480E-98C0-4FA582B30B7C}', '9.00', '90.00', 36, '1.80', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-21 10:14:38', 0),
+(27, 42, 2, '{6B2296BE-3B95-4337-9F37-899CB4C8D70B}', '9.00', '90.00', 36, '1.80', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-21 10:51:35', 0),
+(28, 42, 2, '{E3156A8C-4CC1-4234-9A65-869B4741C519}', '9.00', '90.00', 36, '1.80', '88.20', NULL, 4, '4.18', NULL, NULL, '', '2016-06-21 11:37:01', 0),
+(29, 42, 2, '{B45BC12D-81F7-427A-9137-202072334D67}', '9.00', '90.00', 36, '1.80', '88.20', NULL, 4, '4.18', NULL, NULL, '', '2016-06-21 11:50:41', 0),
+(30, 42, 2, '{E9A583B5-66F9-4FB5-A37D-01C6D7CE1C32}', '9.00', '90.00', 36, '1.80', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-22 12:01:34', 0),
+(31, 42, 2, '{5E0B039E-E257-4FEF-B6E2-A6190CF6191D}', '9.00', '90.00', 36, '1.80', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-22 12:09:49', 0),
+(32, 42, 2, '{251AF789-03E3-4DA6-9C97-AB38B8C363B0}', '9.00', '90.00', 36, '1.80', NULL, NULL, 1, NULL, NULL, NULL, '', '2016-06-23 09:29:03', 0);
 
 -- --------------------------------------------------------
 
@@ -1192,7 +1331,7 @@ CREATE TABLE IF NOT EXISTS `pay_log` (
   `remark` varchar(50) NOT NULL COMMENT '备注',
   `create_time` datetime NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='支付纪录' AUTO_INCREMENT=53 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='支付纪录' AUTO_INCREMENT=89 ;
 
 --
 -- 转存表中的数据 `pay_log`
@@ -1250,7 +1389,43 @@ INSERT INTO `pay_log` (`id`, `pay_type`, `order_id`, `user_type`, `user_id`, `re
 (49, 'order_sell', 17, 0, 36, '买家上传线下支付凭证', '2016-06-06 08:59:29'),
 (50, 'order_sell', 18, 0, 36, '买方下单', '2016-06-06 09:31:45'),
 (51, 'order_sell', 18, 0, 36, '定金', '2016-06-06 09:31:45'),
-(52, 'order_sell', 18, 0, 36, '买家线上支付尾款', '2016-06-06 09:33:57');
+(52, 'order_sell', 18, 0, 36, '买家线上支付尾款', '2016-06-06 09:33:57'),
+(53, 'order_sell', 19, 0, 57, '买方下单', '2016-06-13 08:28:09'),
+(54, 'order_sell', 19, 0, 57, '定金', '2016-06-13 08:28:09'),
+(55, 'order_sell', 19, 1, 36, '卖方支付保证金', '2016-06-13 08:29:37'),
+(56, 'order_sell', 20, 0, 57, '买方下单', '2016-06-13 09:05:12'),
+(57, 'order_sell', 20, 0, 57, '定金', '2016-06-13 09:05:12'),
+(58, 'order_sell', 21, 0, 57, '买方下单', '2016-06-13 09:06:03'),
+(59, 'order_sell', 21, 0, 57, '定金', '2016-06-13 09:06:04'),
+(60, 'order_sell', 22, 0, 57, '买方下单', '2016-06-13 09:10:19'),
+(61, 'order_sell', 22, 0, 57, '定金', '2016-06-13 09:10:20'),
+(62, 'order_sell', 23, 0, 57, '买方下单', '2016-06-13 09:11:03'),
+(63, 'order_sell', 23, 0, 57, '定金', '2016-06-13 09:11:03'),
+(64, 'order_sell', 24, 0, 57, '买方下单', '2016-06-13 09:25:43'),
+(65, 'order_sell', 24, 0, 57, '定金', '2016-06-13 09:25:43'),
+(66, 'order_sell', 2, 0, 36, '买家上传线下支付凭证', '2016-06-21 09:30:07'),
+(67, 'order_sell', 3, 0, 36, '买家上传线下支付凭证', '2016-06-21 09:32:55'),
+(68, 'order_sell', 25, 0, 36, '买方下单', '2016-06-21 10:00:31'),
+(69, 'order_sell', 25, 0, 36, '定金', '2016-06-21 10:00:31'),
+(70, 'order_sell', 26, 0, 36, '买方下单', '2016-06-21 10:14:38'),
+(71, 'order_sell', 26, 0, 36, '定金', '2016-06-21 10:14:38'),
+(72, 'order_sell', 27, 0, 36, '买方下单', '2016-06-21 10:51:35'),
+(73, 'order_sell', 27, 0, 36, '定金', '2016-06-21 10:51:35'),
+(74, 'order_sell', 28, 0, 36, '买方下单', '2016-06-21 11:37:01'),
+(75, 'order_sell', 28, 0, 36, '定金', '2016-06-21 11:37:01'),
+(76, 'order_sell', 28, 1, 57, '卖方支付保证金', '2016-06-21 11:45:46'),
+(77, 'order_sell', 28, 0, 36, '买家线上支付尾款', '2016-06-21 11:49:10'),
+(78, 'order_sell', 29, 0, 36, '买方下单', '2016-06-21 11:50:41'),
+(79, 'order_sell', 29, 0, 36, '定金', '2016-06-21 11:50:41'),
+(80, 'order_sell', 29, 1, 57, '卖方支付保证金', '2016-06-21 11:51:49'),
+(81, 'order_sell', 29, 0, 36, '买家线上支付尾款', '2016-06-21 11:53:01'),
+(82, 'order_sell', 30, 0, 36, '买方下单', '2016-06-22 12:01:34'),
+(83, 'order_sell', 30, 0, 36, '定金', '2016-06-22 12:01:34'),
+(84, 'order_sell', 31, 0, 36, '买方下单', '2016-06-22 12:09:49'),
+(85, 'order_sell', 31, 0, 36, '定金', '2016-06-22 12:09:49'),
+(86, 'order_sell', 2, 1, 36, '卖家确认线下支付凭证', '2016-06-22 17:50:54'),
+(87, 'order_sell', 32, 0, 36, '买方下单', '2016-06-23 09:29:03'),
+(88, 'order_sell', 32, 0, 36, '定金', '2016-06-23 09:29:03');
 
 -- --------------------------------------------------------
 
@@ -1289,7 +1464,9 @@ INSERT INTO `person_info` (`user_id`, `true_name`, `area`, `address`, `sex`, `id
 (48, '李卫平', '130103', 'dsfsdf', NULL, '12334234234', 'upload/2016/05/17/20160517123434685.jpg@user', 'upload/2016/05/17/20160517123436391.jpg@user', NULL, NULL, NULL, ''),
 (49, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
 (50, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(58, '李卫平', '150203', '收到了快放假了深刻的减肥', NULL, '140311198301272118', 'upload/2016/06/02/20160602174538115.jpg@user', 'upload/2016/06/02/20160602174540427.jpg@user', NULL, NULL, NULL, '');
+(58, '李卫平', '150203', '收到了快放假了深刻的减肥', NULL, '140311198301272118', 'upload/2016/06/02/20160602174538115.jpg@user', 'upload/2016/06/02/20160602174540427.jpg@user', NULL, NULL, NULL, ''),
+(61, '李卫平', '130103', '是大方的说法', NULL, '140311198301272118', 'upload/2016/06/15/20160615114024429.jpg@user', 'upload/2016/06/15/20160615114026925.jpg@user', NULL, NULL, NULL, ''),
+(62, '李卫平', '140105', '是大方的说法', NULL, '140311198301272118', 'upload/2016/06/15/20160615142952384.jpg@user', 'upload/2016/06/15/20160615142954800.jpg@user', NULL, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -1315,7 +1492,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `sort` int(11) NOT NULL COMMENT '排序',
   `note` varchar(255) NOT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=73 ;
 
 --
 -- 转存表中的数据 `products`
@@ -1363,7 +1540,35 @@ INSERT INTO `products` (`id`, `user_id`, `name`, `cate_id`, `attribute`, `unit`,
 (41, 59, '自由报盘1', 9, 'a:3:{i:4;s:3:"200";i:3;s:3:"100";i:2;s:2:"90";}', 'gd', '10.00', '211303', 1, '100.00000', '0.00000', '0.00000', '2016-06-03 10:34:16', NULL, 0, ''),
 (42, 59, '委托报盘1', 8, 'a:2:{i:2;s:2:"20";i:3;s:2:"20";}', '500g', '100.00', '320202', 1, '10.00000', '0.00000', '0.00000', '2016-06-03 10:36:16', NULL, 0, ''),
 (43, 59, '仓单商品3', 8, 'a:2:{i:2;s:2:"90";i:3;s:2:"12";}', '500g', '100.00', '350205', 1, '10.00000', '10.00000', '0.00000', '2016-06-03 10:37:45', NULL, 0, ''),
-(44, 60, '仓单产品2', 8, 'a:2:{i:2;s:2:"12";i:3;s:2:"11";}', '500g', '10.00', '330205', 1, '100.00000', '100.00000', '0.00000', '2016-06-06 09:20:38', NULL, 0, '');
+(44, 60, '仓单产品2', 8, 'a:2:{i:2;s:2:"12";i:3;s:2:"11";}', '500g', '10.00', '330205', 1, '100.00000', '100.00000', '0.00000', '2016-06-06 09:20:38', NULL, 0, ''),
+(45, 36, '申诉测试', 8, 'a:2:{i:2;s:2:"90";i:3;s:2:"89";}', '500g', '5.00', '130205', 1, '100.00000', '100.00000', '0.00000', '2016-06-13 08:13:58', NULL, 0, ''),
+(46, 36, '申诉测试2', 9, 'a:3:{i:4;s:2:"12";i:3;s:2:"13";i:2;s:2:"14";}', 'gd', '1.00', '150204', 1, '100.00000', '30.00000', '0.00000', '2016-06-13 08:53:58', NULL, 0, ''),
+(47, 36, '新商品', 17, 'a:4:{i:5;s:2:"90";i:3;s:1:"9";i:2;s:1:"9";i:1;s:3:"80%";}', '吨', '90.00', '130103', 1, '100.00000', '0.00000', '0.00000', '2016-06-15 15:11:39', NULL, 0, ''),
+(48, 36, '23', 8, 'a:2:{i:2;s:2:"23";i:3;s:2:"23";}', '500g', '23.00', '130205', 1, '23.00000', '0.00000', '0.00000', '2016-06-15 15:12:48', NULL, 0, ''),
+(49, 36, '34二', 8, 'a:2:{i:2;s:2:"34";i:3;s:2:"34";}', '500g', '23.00', '130203', 1, '23.00000', '0.00000', '0.00000', '2016-06-15 15:26:50', NULL, 0, ''),
+(50, 36, '铝矾土', 8, 'a:2:{i:2;s:2:"23";i:3;s:2:"23";}', '吨', '90.00', '130203', 1, '100.00000', '0.00000', '0.00000', '2016-06-16 16:40:48', NULL, 0, ''),
+(51, 36, '234', 8, 'a:2:{i:2;s:2:"34";i:3;s:2:"34";}', '吨', '12.00', '130204', 1, '12.00000', '0.00000', '0.00000', '2016-06-16 17:00:34', NULL, 0, ''),
+(52, 36, 'dfdfdf', 8, 'a:2:{i:2;s:2:"34";i:3;s:3:"234";}', '吨', '12.00', '110101', 1, '111.00000', '0.00000', '0.00000', '2016-06-20 11:52:02', NULL, 0, ''),
+(53, 36, '发个非官方个', 9, 'a:3:{i:4;s:2:"34";i:3;s:2:"34";i:2;s:1:"2";}', '吨', '15.00', '110101', 1, '13.00000', '0.00000', '0.00000', '2016-06-20 11:55:09', NULL, 0, ''),
+(54, 57, '保证金报盘621', 8, 'a:2:{i:2;s:1:"3";i:3;s:2:"23";}', '500g', '10.00', '210502', 1, '121.00000', '72.00000', '0.00000', '2016-06-21 09:54:27', NULL, 0, ''),
+(55, 57, '采购621', 8, 'a:2:{i:3;s:2:"12";i:2;s:2:"12";}', '吨', '12.00', '140203', 1, '100.00000', '0.00000', '0.00000', '2016-06-21 10:16:00', NULL, 0, ''),
+(56, 36, '保证金6219', 8, 'a:2:{i:2;s:3:"234";i:3;s:2:"34";}', '500g', '12.00', '110228', 1, '23.00000', '0.00000', '0.00000', '2016-06-21 11:34:49', NULL, 0, ''),
+(57, 36, '水电费水电费', 8, 'a:2:{i:3;s:2:"12";i:2;s:2:"23";}', '500g', '12.98', '110102', 1, '0.00000', '0.00000', '0.00000', '2016-06-22 09:04:31', NULL, 0, ''),
+(58, 36, '规划', 8, 'a:2:{i:2;s:2:"56";i:3;s:2:"56";}', '500g', '34.00', '110101', 1, '0.00000', '0.00000', '0.00000', '2016-06-22 09:22:17', NULL, 0, '3'),
+(59, 36, '更符合法规和', 8, 'a:2:{i:2;s:2:"45";i:3;s:2:"34";}', '500g', '23.89', '110104', 1, '123.98700', '0.00000', '0.00000', '2016-06-22 09:25:10', NULL, 0, ''),
+(60, 36, '123324', 8, 'a:2:{i:2;s:3:"123";i:3;s:3:"123";}', '500g', '123.00', '7107', 1, '123.00000', '0.00000', '0.00000', '2016-06-22 09:40:43', NULL, 0, ''),
+(61, 36, 'rtert', 8, 'a:2:{i:2;s:3:"345";i:3;s:3:"345";}', '500g', '345.00', '1101', 1, '345.00000', '0.00000', '0.00000', '2016-06-22 09:41:05', NULL, 0, ''),
+(62, 36, 'rtert', 8, 'a:2:{i:2;s:3:"345";i:3;s:3:"345";}', '500g', '345.00', '1101', 1, '345.00000', '0.00000', '0.00000', '2016-06-22 09:41:06', NULL, 0, ''),
+(63, 36, 'werwe', 8, 'a:2:{i:2;s:2:"34";i:3;s:3:"234";}', '500g', '123.00', '110101', 1, '234.00000', '0.00000', '0.00000', '2016-06-22 09:48:31', NULL, 0, ''),
+(64, 36, 'werwe', 8, 'a:2:{i:2;s:2:"34";i:3;s:3:"234";}', '500g', '123.00', '110101', 1, '234.00000', '0.00000', '0.00000', '2016-06-22 09:48:31', NULL, 0, ''),
+(65, 36, 'sdfsdf', 8, 'a:2:{i:2;s:3:"234";i:3;s:3:"234";}', '500g', '324.00', '110101', 1, '234.00000', '0.00000', '0.00000', '2016-06-22 09:49:19', NULL, 0, ''),
+(66, 36, '哈哈哈仓单', 8, 'a:2:{i:2;s:2:"23";i:3;s:3:"343";}', '500g', '120.00', '110101', 1, '230.00000', '0.00000', '0.00000', '2016-06-23 12:04:24', NULL, 0, ''),
+(67, 36, '仓单123', 8, 'a:2:{i:2;s:2:"23";i:3;s:2:"12";}', '500g', '908.00', '210103', 1, '122.00000', '0.00000', '0.00000', '2016-06-23 12:38:05', NULL, 0, ''),
+(68, 36, '水电费', 8, 'a:2:{i:2;s:3:"345";i:3;s:3:"324";}', '500g', '34.00', '150204', 1, '234.00000', '0.00000', '0.00000', '2016-06-23 12:43:11', NULL, 0, ''),
+(69, 36, '玩儿', 8, 'a:2:{i:2;s:3:"234";i:3;s:3:"234";}', '500g', '34.00', '8103', 1, '34.00000', '0.00000', '0.00000', '2016-06-23 15:15:12', NULL, 0, ''),
+(70, 36, '玩儿', 8, 'a:2:{i:2;s:2:"34";i:3;s:2:"34";}', '500g', '34.00', '1305', 1, '34.00000', '0.00000', '0.00000', '2016-06-23 15:22:54', NULL, 0, ''),
+(71, 36, '玩儿', 8, 'a:2:{i:2;s:3:"234";i:3;s:3:"234";}', '500g', '234.00', '130604', 1, '234.00000', '0.00000', '0.00000', '2016-06-23 15:26:33', NULL, 0, ''),
+(72, 36, '哈哈哈', 9, 'a:3:{i:4;s:2:"23";i:3;s:5:"23423";i:2;s:2:"23";}', 'gd', '121.00', '130203', 1, '23.00000', '0.00000', '0.00000', '2016-06-23 18:17:37', NULL, 0, '');
 
 -- --------------------------------------------------------
 
@@ -1416,30 +1621,37 @@ CREATE TABLE IF NOT EXISTS `product_category` (
   `status` int(2) NOT NULL DEFAULT '1' COMMENT '0：关闭，1：开启',
   `note` varchar(255) NOT NULL COMMENT '备注',
   `is_del` int(2) NOT NULL COMMENT '0:正常，1：删除',
+  `img` varchar(255) NOT NULL COMMENT '图片链接',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
 -- 转存表中的数据 `product_category`
 --
 
-INSERT INTO `product_category` (`id`, `name`, `childname`, `unit`, `percent`, `pid`, `attrs`, `sort`, `status`, `note`, `is_del`) VALUES
-(1, '钢材', '种类', '顿', 20, 0, '2,3', 1, 1, '', 1),
-(2, '耐材', '种类', '吨', 30, 0, '3,4', 1, 1, '', 0),
-(3, '建材', '种类', '吨', 20, 0, '', 1, 1, '', 0),
-(4, '热卷', '种类', 'kg', 20, 3, '', 1, 1, '', 0),
-(5, '普卷', '种类', '', 0, 4, '', 1, 1, '', 0),
-(6, '薄卷', '种类', '', 0, 4, '', 1, 1, '', 0),
-(7, 'dsfd', '', '', 0, 1, '', 2, 1, '', 0),
-(8, 'ddd', 'ddff', '500g', 2, 7, '', 4, 1, '', 0),
-(9, '普卷', '种类', 'gd', 1, 7, '2,4', 1, 1, '', 0),
-(10, '干干dd', '商品分类', 'g', 12, 0, '3', 3, 1, '', 0),
-(11, '嘎嘎嘎', '商品分类', 'kg', 25, 2, '1,4,5', 4, 1, '', 0),
-(12, 'sdf', '商品分类', 'dsf', 12, 0, '', 0, 1, '', 0),
-(13, 'dfg', '商品分类', '23', 23, 0, '', 3, 1, '', 0),
-(14, 'dfg', '商品分类', '23', 23, 0, '', 3, 1, '', 0),
-(15, 'dfg', '商品分类', '23', 23, 0, '', 3, 1, '', 0),
-(16, 'diyi', 'ok', '都', 10, 0, '1,4', 1, 1, '', 0);
+INSERT INTO `product_category` (`id`, `name`, `childname`, `unit`, `percent`, `pid`, `attrs`, `sort`, `status`, `note`, `is_del`, `img`) VALUES
+(1, '钢材', '种类', '顿', 20, 0, '2,3', 1, 1, '', 1, ''),
+(2, '耐材', '种类', '吨', 30, 0, '3,4', 1, 1, '', 0, ''),
+(3, '建材', '种类', '吨', 20, 0, '', 1, 1, '', 0, ''),
+(4, '热卷', '种类', 'kg', 20, 3, '', 1, 1, '', 0, ''),
+(5, '普卷', '种类', '', 0, 4, '', 1, 1, '', 0, ''),
+(6, '薄卷', '种类', '', 0, 4, '', 1, 1, '', 0, ''),
+(7, 'dsfd', '', '', 0, 1, '', 2, 1, '', 0, ''),
+(8, 'ddd', 'ddff', '500g', 2, 7, '', 4, 1, '', 0, ''),
+(9, '普卷', '种类', 'gd', 10, 1, '2,4', 1, 1, '', 0, ''),
+(10, '干干dd', '商品分类', 'g', 12, 0, '3', 3, 1, '', 0, ''),
+(11, '嘎嘎嘎', '商品分类', 'kg', 25, 1, '1,4,5', 4, 1, '', 0, ''),
+(12, 'sdf', '商品分类', 'dsf', 12, 0, '', 0, 1, '', 0, ''),
+(13, 'dfg', '商品分类', '23', 23, 0, '', 3, 1, '', 0, ''),
+(14, 'dfg', '商品分类', '23', 23, 0, '', 3, 1, '', 0, ''),
+(15, 'dfg', '商品分类', '23', 23, 0, '', 3, 1, '', 0, ''),
+(16, 'diyi', 'ok', '都', 10, 0, '1,4', 1, 1, '', 0, ''),
+(17, '新分类', '分类', '吨', 20, 1, '1,5', 2, 1, '', 0, ''),
+(18, '快快快快快快', '商品分类', 'g', 15, 1, '', 0, 1, '', 0, ''),
+(19, '水电费水电费水电费', '商品分类', '额', 16, 1, '', 0, 1, '', 0, ''),
+(20, '水电费水电费水电费水电费', '商品分类', '额', 16, 1, '', 0, 1, '', 0, ''),
+(21, '水电费水电费', '商品分类', '地方', 45, 1, '', 0, 1, '', 0, ''),
+(22, '家具', '商品分类', '建', 12, 0, '1,4', 0, 1, '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -1491,6 +1703,7 @@ CREATE TABLE IF NOT EXISTS `product_offer` (
   `mode` int(2) NOT NULL COMMENT '报盘模式：1：自由，2：保证金，3，委托，4:仓单',
   `product_id` int(11) NOT NULL COMMENT '商品iD',
   `price` decimal(8,2) NOT NULL COMMENT '商品单价',
+  `price_r` decimal(13,2) NOT NULL COMMENT '采购的最高价',
   `divide` int(2) NOT NULL COMMENT '是否拆分，0：可以，1：不可',
   `minimum` decimal(15,2) NOT NULL COMMENT '最小起订量',
   `accept_area` varchar(100) NOT NULL COMMENT '交收地点',
@@ -1503,45 +1716,58 @@ CREATE TABLE IF NOT EXISTS `product_offer` (
   `apply_time` datetime DEFAULT NULL COMMENT '申请时间',
   `finish_time` datetime DEFAULT NULL COMMENT '审核时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 --
 -- 转存表中的数据 `product_offer`
 --
 
-INSERT INTO `product_offer` (`id`, `user_id`, `type`, `mode`, `product_id`, `price`, `divide`, `minimum`, `accept_area`, `accept_day`, `acc_type`, `offer_fee`, `sign`, `status`, `is_del`, `apply_time`, `finish_time`) VALUES
-(1, 0, 1, 1, 1, '123.00', 1, '0.00', '当时发生的', 3, '', '0.00', '', 0, 0, '2016-04-19 17:22:39', NULL),
-(2, 0, 1, 1, 2, '12.00', 1, '0.00', '123', 2, '', '0.00', '', 0, 0, '2016-04-19 17:29:29', NULL),
-(3, 0, 1, 1, 0, '23.00', 1, '0.00', '213', 2, '', '0.00', '', 0, 0, '2016-04-21 12:05:54', NULL),
-(4, 0, 1, 2, 0, '89.90', 0, '2.00', '23', 6, '', '0.00', '', 1, 1, '2016-04-21 12:08:29', NULL),
-(5, 36, 1, 3, 15, '12.00', 1, '0.00', 'sdfsdf', 2, '', '0.00', '', 2, 0, '2016-04-26 15:54:02', NULL),
-(6, 0, 1, 4, 15, '12.00', 1, '0.00', '123', 2, '', '0.00', '', 2, 0, '2016-04-29 09:24:38', NULL),
-(7, 0, 1, 4, 17, '800.00', 0, '123.00', '山西阳泉', 4, '', '0.00', '', 1, 0, '2016-04-29 09:37:05', NULL),
-(8, 36, 1, 4, 17, '12.00', 0, '100.00', '河北', 4, '', '0.00', '', 1, 1, '2016-05-09 16:11:51', NULL),
-(9, 36, 1, 2, 19, '23.00', 1, '0.00', '123', 23, '', '0.00', '', 1, 0, '2016-05-13 17:24:58', NULL),
-(10, 36, 1, 1, 20, '12.00', 1, '0.00', '324', 234, '1', '100.00', '', 0, 0, '2016-05-20 17:26:45', NULL),
-(11, 36, 1, 1, 21, '12.00', 1, '0.00', '324', 234, '1', '100.00', '', 0, 0, '2016-05-20 17:26:51', NULL),
-(12, 36, 1, 1, 22, '12.00', 1, '0.00', '324', 234, '1', '100.00', '', 0, 0, '2016-05-20 17:26:52', NULL),
-(13, 36, 1, 1, 23, '12.00', 1, '0.00', '324', 234, '1', '100.00', '', 0, 0, '2016-05-20 17:26:53', NULL),
-(14, 36, 1, 1, 24, '12.00', 1, '0.00', '324', 234, '1', '100.00', '', 0, 0, '2016-05-20 17:31:45', NULL),
-(15, 36, 1, 1, 25, '12.00', 1, '0.00', '324', 3, '1', '0.00', '', 0, 0, '2016-05-20 17:49:17', NULL),
-(16, 36, 1, 1, 26, '10.00', 1, '0.00', '123', 12, '1', '0.00', '', 1, 0, '2016-05-20 17:50:46', NULL),
-(17, 36, 1, 1, 27, '12.00', 1, '0.00', '12', 1, '1', '24.00', '', 1, 0, '2016-05-20 17:54:41', NULL),
-(18, 36, 1, 3, 28, '2.00', 1, '0.00', '123', 1, '', '0.00', 'upload/2016/05/20/20160520180916632.jpg@user', 0, 0, '2016-05-20 18:09:47', NULL),
-(19, 56, 1, 2, 29, '100.00', 1, '0.00', '阳泉', 1, '', '0.00', '', 2, 0, '2016-06-01 15:40:40', NULL),
-(20, 56, 1, 3, 30, '190.00', 1, '0.00', '123', 1, '', '0.00', 'upload/2016/06/01/20160601160434821.jpg@user', 1, 0, '2016-06-01 16:04:36', NULL),
-(21, 36, 1, 1, 31, '120.00', 1, '0.00', '阳泉', 1, '1', '20.00', '', 1, 0, '2016-06-01 17:22:04', NULL),
-(22, 36, 1, 1, 32, '120.00', 1, '0.00', '阳泉', 123, '1', '20.00', '', 2, 0, '2016-06-01 17:23:26', NULL),
-(23, 36, 1, 4, 33, '190.00', 0, '10.00', '阳泉', 3, '', '0.00', '', 1, 0, '2016-06-01 17:34:16', NULL),
-(24, 36, 1, 2, 34, '10.00', 1, '0.00', '水电费', 12, '', '0.00', '', 1, 0, '2016-06-02 15:35:00', NULL),
-(25, 36, 1, 1, 37, '10.00', 1, '0.00', '水电费', 2, '1', '20.00', '', 0, 0, '2016-06-02 16:31:33', NULL),
-(26, 36, 1, 2, 38, '12.00', 1, '0.00', '12', 2, '', '0.00', '', 0, 0, '2016-06-02 18:32:33', NULL),
-(27, 36, 1, 2, 39, '12.00', 1, '0.00', '请问', 2, '', '0.00', '', 0, 0, '2016-06-02 18:34:17', NULL),
-(28, 59, 1, 2, 40, '100.00', 1, '0.00', '阳泉', 3, '', '0.00', '', 1, 0, '2016-06-03 10:32:17', NULL),
-(29, 59, 1, 1, 41, '10.00', 0, '10.00', '辽宁', 2, '1', '14.00', '', 1, 0, '2016-06-03 10:34:16', NULL),
-(30, 59, 1, 3, 42, '100.00', 1, '0.00', '江苏', 2, '', '0.00', 'upload/2016/06/03/20160603103614405.jpg@user', 1, 0, '2016-06-03 10:36:16', NULL),
-(31, 59, 1, 4, 43, '100.00', 0, '10.00', '阳泉', 2, '', '0.00', '', 1, 0, '2016-06-03 10:48:24', NULL),
-(32, 60, 1, 4, 44, '20.00', 1, '0.00', '会计', 2, '', '0.00', '', 1, 0, '2016-06-06 09:23:02', NULL);
+INSERT INTO `product_offer` (`id`, `user_id`, `type`, `mode`, `product_id`, `price`, `price_r`, `divide`, `minimum`, `accept_area`, `accept_day`, `acc_type`, `offer_fee`, `sign`, `status`, `is_del`, `apply_time`, `finish_time`) VALUES
+(1, 0, 1, 1, 1, '123.00', '0.00', 1, '0.00', '当时发生的', 3, '', '0.00', '', 0, 0, '2016-04-19 17:22:39', NULL),
+(2, 0, 1, 1, 2, '12.00', '0.00', 1, '0.00', '123', 2, '', '0.00', '', 0, 0, '2016-04-19 17:29:29', NULL),
+(3, 0, 1, 1, 0, '23.00', '0.00', 1, '0.00', '213', 2, '', '0.00', '', 0, 0, '2016-04-21 12:05:54', NULL),
+(4, 0, 1, 2, 0, '89.90', '0.00', 0, '2.00', '23', 6, '', '0.00', '', 1, 1, '2016-04-21 12:08:29', NULL),
+(5, 36, 1, 3, 15, '12.00', '0.00', 1, '0.00', 'sdfsdf', 2, '', '0.00', '', 2, 0, '2016-04-26 15:54:02', NULL),
+(6, 0, 1, 4, 15, '12.00', '0.00', 1, '0.00', '123', 2, '', '0.00', '', 2, 0, '2016-04-29 09:24:38', NULL),
+(7, 0, 1, 4, 17, '800.00', '0.00', 0, '123.00', '山西阳泉', 4, '', '0.00', '', 1, 0, '2016-04-29 09:37:05', NULL),
+(8, 36, 1, 4, 17, '12.00', '0.00', 0, '100.00', '河北', 4, '', '0.00', '', 1, 1, '2016-05-09 16:11:51', NULL),
+(9, 36, 1, 2, 19, '23.00', '0.00', 1, '0.00', '123', 23, '', '0.00', '', 1, 0, '2016-05-13 17:24:58', NULL),
+(10, 36, 1, 1, 20, '12.00', '0.00', 1, '0.00', '324', 234, '1', '100.00', '', 0, 0, '2016-05-20 17:26:45', NULL),
+(11, 36, 1, 1, 21, '12.00', '0.00', 1, '0.00', '324', 234, '1', '100.00', '', 0, 0, '2016-05-20 17:26:51', NULL),
+(12, 36, 1, 1, 22, '12.00', '0.00', 1, '0.00', '324', 234, '1', '100.00', '', 1, 0, '2016-05-20 17:26:52', NULL),
+(13, 36, 1, 1, 23, '12.00', '0.00', 1, '0.00', '324', 234, '1', '100.00', '', 0, 0, '2016-05-20 17:26:53', NULL),
+(14, 36, 1, 1, 24, '12.00', '0.00', 1, '0.00', '324', 234, '1', '100.00', '', 0, 0, '2016-05-20 17:31:45', NULL),
+(15, 36, 1, 1, 25, '12.00', '0.00', 1, '0.00', '324', 3, '1', '0.00', '', 0, 0, '2016-05-20 17:49:17', NULL),
+(16, 36, 1, 1, 26, '10.00', '0.00', 1, '0.00', '123', 12, '1', '0.00', '', 1, 0, '2016-05-20 17:50:46', NULL),
+(17, 36, 1, 1, 27, '12.00', '0.00', 1, '0.00', '12', 1, '1', '24.00', '', 1, 0, '2016-05-20 17:54:41', NULL),
+(18, 36, 1, 3, 28, '2.00', '0.00', 1, '0.00', '123', 1, '', '0.00', 'upload/2016/05/20/20160520180916632.jpg@user', 0, 0, '2016-05-20 18:09:47', NULL),
+(19, 56, 1, 2, 29, '100.00', '0.00', 1, '0.00', '阳泉', 1, '', '0.00', '', 2, 0, '2016-06-01 15:40:40', NULL),
+(20, 56, 1, 3, 30, '190.00', '0.00', 1, '0.00', '123', 1, '', '0.00', 'upload/2016/06/01/20160601160434821.jpg@user', 1, 0, '2016-06-01 16:04:36', NULL),
+(21, 36, 1, 1, 31, '120.00', '0.00', 1, '0.00', '阳泉', 1, '1', '20.00', '', 1, 0, '2016-06-01 17:22:04', NULL),
+(22, 36, 1, 1, 32, '120.00', '0.00', 1, '0.00', '阳泉', 123, '1', '20.00', '', 2, 0, '2016-06-01 17:23:26', NULL),
+(23, 36, 1, 4, 33, '190.00', '0.00', 0, '10.00', '阳泉', 3, '', '0.00', '', 1, 0, '2016-06-01 17:34:16', NULL),
+(24, 36, 1, 2, 34, '10.00', '0.00', 1, '0.00', '水电费', 12, '', '0.00', '', 1, 0, '2016-06-02 15:35:00', NULL),
+(25, 36, 1, 1, 37, '10.00', '0.00', 1, '0.00', '水电费', 2, '1', '20.00', '', 0, 0, '2016-06-02 16:31:33', NULL),
+(26, 36, 1, 2, 38, '12.00', '0.00', 1, '0.00', '12', 2, '', '0.00', '', 0, 0, '2016-06-02 18:32:33', NULL),
+(27, 36, 1, 2, 39, '12.00', '0.00', 1, '0.00', '请问', 2, '', '0.00', '', 0, 0, '2016-06-02 18:34:17', NULL),
+(28, 59, 1, 2, 40, '100.00', '0.00', 1, '0.00', '阳泉', 3, '', '0.00', '', 1, 0, '2016-06-03 10:32:17', NULL),
+(29, 59, 1, 1, 41, '10.00', '0.00', 0, '10.00', '辽宁', 2, '1', '14.00', '', 1, 0, '2016-06-03 10:34:16', NULL),
+(30, 59, 1, 3, 42, '100.00', '0.00', 1, '0.00', '江苏', 2, '', '0.00', 'upload/2016/06/03/20160603103614405.jpg@user', 1, 0, '2016-06-03 10:36:16', NULL),
+(31, 59, 1, 4, 43, '100.00', '0.00', 0, '10.00', '阳泉', 2, '', '0.00', '', 1, 0, '2016-06-03 10:48:24', NULL),
+(32, 60, 1, 4, 44, '20.00', '0.00', 1, '0.00', '会计', 2, '', '0.00', '', 1, 0, '2016-06-06 09:23:02', NULL),
+(33, 36, 1, 2, 45, '5.00', '0.00', 1, '0.00', '123', 1, '', '0.00', '', 1, 0, '2016-06-13 08:13:58', NULL),
+(34, 36, 1, 2, 46, '1.00', '0.00', 0, '10.00', '123', 1, '', '0.00', '', 1, 0, '2016-06-13 08:53:58', NULL),
+(35, 36, 1, 2, 47, '90.00', '0.00', 1, '0.00', '位', 2, '', '0.00', '', 0, 0, '2016-06-15 15:11:39', NULL),
+(36, 36, 1, 1, 48, '23.00', '0.00', 1, '0.00', '23', 2, '1', '20.20', '', 0, 0, '2016-06-15 15:12:48', NULL),
+(37, 36, 1, 1, 49, '23.00', '0.00', 0, '12.00', '213', 3, '1', '20.20', '', 0, 0, '2016-06-15 15:26:50', NULL),
+(38, 36, 2, 0, 50, '100.00', '100.00', 0, '0.00', '山西阳泉', 4, '', '0.00', '', 0, 0, '2016-06-16 16:40:48', NULL),
+(39, 36, 2, 0, 51, '56.00', '56.00', 0, '0.00', '213', 2, '', '0.00', '', 1, 0, '2016-06-16 17:00:34', NULL),
+(40, 36, 1, 0, 52, '12.00', '17.00', 1, '0.00', '山西阳泉', 3, '', '0.00', '', 0, 0, '2016-06-20 11:52:02', NULL),
+(41, 36, 2, 0, 53, '15.00', '20.00', 1, '0.00', '123', 2, '', '0.00', '', 0, 0, '2016-06-20 11:55:09', NULL),
+(42, 57, 1, 2, 54, '10.00', '0.00', 0, '9.00', '水电费', 2, '', '0.00', '', 1, 0, '2016-06-21 09:54:27', NULL),
+(43, 57, 2, 0, 55, '12.00', '16.00', 1, '0.00', '水电费', 2, '', '0.00', '', 1, 0, '2016-06-21 10:16:00', NULL),
+(44, 36, 1, 2, 56, '12.00', '0.00', 1, '0.00', '34', 34, '', '0.00', '', 0, 0, '2016-06-21 11:34:49', NULL),
+(45, 36, 1, 2, 72, '121.00', '0.00', 1, '0.00', '23', 2, '', '0.00', '', 0, 0, '2016-06-23 18:17:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -1554,7 +1780,7 @@ CREATE TABLE IF NOT EXISTS `product_photos` (
   `img` varchar(100) DEFAULT NULL,
   `products_id` int(11) NOT NULL,
   PRIMARY KEY (`id`,`products_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
 
 --
 -- 转存表中的数据 `product_photos`
@@ -1611,7 +1837,56 @@ INSERT INTO `product_photos` (`id`, `img`, `products_id`) VALUES
 (48, 'upload/2016/06/03/20160603103557706.jpg@user', 42),
 (49, 'upload/2016/06/03/20160603103557588.jpg@user', 42),
 (50, 'upload/2016/06/03/20160603103726117.jpg@user', 43),
-(51, 'upload/2016/06/06/20160606092028467.jpg@user', 44);
+(51, 'upload/2016/06/06/20160606092028467.jpg@user', 44),
+(52, 'upload/2016/06/13/20160613081344228.jpg@user', 45),
+(53, 'upload/2016/06/13/20160613085311253.jpg@user', 46),
+(54, 'upload/2016/06/15/20160615151130674.jpg@user', 47),
+(55, 'upload/2016/06/15/20160615151234232.jpg@user', 48),
+(56, 'upload/2016/06/15/20160615152531227.jpg@user', 49),
+(57, 'upload/2016/06/16/20160616164038783.jpg@user', 50),
+(58, 'upload/2016/06/16/20160616170030381.jpg@user', 51),
+(59, 'upload/2016/06/20/20160620115158871.jpg@user', 52),
+(60, 'upload/2016/06/20/20160620115506626.jpg@user', 53),
+(61, 'upload/2016/06/21/20160621095359326.jpg@user', 54),
+(62, 'upload/2016/06/21/20160621101554799.jpg@user', 55),
+(63, 'upload/2016/06/21/20160621113446538.jpg@user', 56),
+(64, 'upload/2016/06/22/20160622090421712.jpg@user', 57),
+(65, 'upload/2016/06/22/20160622092210861.jpg@user', 58),
+(66, 'upload/2016/06/22/20160622092506269.jpg@user', 59),
+(67, 'upload/2016/06/22/20160622094826506.jpg@user', 63),
+(68, 'upload/2016/06/22/20160622094826506.jpg@user', 64),
+(69, 'upload/2016/06/22/20160622094915671.jpg@user', 65),
+(70, 'upload/2016/06/23/20160623120412953.jpg@user', 66),
+(71, 'upload/2016/06/23/20160623123754101.jpg@user', 67),
+(72, 'upload/2016/06/23/20160623123754369.jpg@user', 67),
+(73, 'upload/2016/06/23/20160623124302952.jpg@user', 68),
+(74, 'upload/2016/06/23/20160623181732775.jpg@user', 72);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `purchase_report`
+--
+
+CREATE TABLE IF NOT EXISTS `purchase_report` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `offer_id` int(11) NOT NULL COMMENT '采购报盘id',
+  `seller_id` int(11) NOT NULL COMMENT '报价用户id，卖方id',
+  `attr` text COMMENT '报价规格',
+  `price` decimal(13,2) NOT NULL COMMENT '单价',
+  `status` tinyint(1) NOT NULL COMMENT '0,申请 1：被采纳 2：被拒绝',
+  `create_time` datetime DEFAULT NULL,
+  `handle_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='报价表' AUTO_INCREMENT=19 ;
+
+--
+-- 转存表中的数据 `purchase_report`
+--
+
+INSERT INTO `purchase_report` (`id`, `offer_id`, `seller_id`, `attr`, `price`, `status`, `create_time`, `handle_time`) VALUES
+(17, 39, 36, 'a:2:{i:2;s:2:"12";i:3;s:3:"123";}', '123.00', 0, '2016-06-20 10:59:45', NULL),
+(18, 38, 36, 'a:2:{i:2;s:2:"12";i:3;s:2:"12";}', '123.00', 0, '2016-06-20 11:25:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -1665,7 +1940,7 @@ CREATE TABLE IF NOT EXISTS `recharge_order` (
   `final_message` text NOT NULL COMMENT '终审意见',
   `is_del` int(2) NOT NULL DEFAULT '0' COMMENT '是否删除，0：否，1：是',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- 转存表中的数据 `recharge_order`
@@ -1695,7 +1970,8 @@ INSERT INTO `recharge_order` (`id`, `user_id`, `order_no`, `amount`, `pay_type`,
 (22, 59, 'recharge20160603103029408880', '1000.00', 1, 'upload/2016/06/03/20160603103027603.jpg@user', 1, '2016-06-03 10:30:29', '2016-06-03 10:30:50', '', '2016-06-03 10:30:57', '', 0),
 (23, 36, 'recharge20160606093113306433', '2000.00', 1, 'upload/2016/06/06/20160606093112491.jpg@user', 1, '2016-06-06 09:31:13', '2016-06-06 09:31:25', '', '2016-06-06 09:31:41', '', 0),
 (24, 60, 'recharge20160606093944868878', '1000.00', 1, 'upload/2016/06/06/20160606093943103.jpg@user', 1, '2016-06-06 09:39:44', '2016-06-06 09:39:56', '', '2016-06-06 09:40:00', '', 0),
-(25, 36, 'recharge20160606165702129141', '100.00', 1, 'upload/2016/06/06/20160606165701683.jpg@user', 0, '2016-06-06 16:57:02', NULL, '', NULL, '', 0);
+(25, 36, 'recharge20160606165702129141', '100.00', 1, 'upload/2016/06/06/20160606165701683.jpg@user', 0, '2016-06-06 16:57:02', NULL, '', NULL, '', 0),
+(26, 62, 'recharge20160615143222380563', '100.00', 1, 'upload/2016/06/15/20160615143220393.jpg@user', 1, '2016-06-15 14:32:22', '2016-06-15 14:32:41', '', '2016-06-15 14:32:45', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1781,16 +2057,52 @@ CREATE TABLE IF NOT EXISTS `ship_order_trucks` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `slide`
+--
+
+CREATE TABLE IF NOT EXISTS `slide` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) NOT NULL DEFAULT '' COMMENT '幻灯片名称',
+  `img` varchar(100) NOT NULL DEFAULT '' COMMENT '图片',
+  `link` varchar(100) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1开启 0关闭',
+  `order` int(5) NOT NULL DEFAULT '100' COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `slide`
+--
+
+INSERT INTO `slide` (`id`, `name`, `img`, `link`, `status`, `order`) VALUES
+(1, '123', 'upload/2016/06/23/20160623153725882.jpg@admin', '', 1, 100),
+(2, '456', 'upload/2016/06/23/20160623153753861.jpg@admin', '', 1, 100);
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `static_category`
 --
 
 CREATE TABLE IF NOT EXISTS `static_category` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键Id',
+  `top_cate` int(6) NOT NULL,
   `cate_id` int(11) NOT NULL DEFAULT '0' COMMENT '分类Id',
   `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '时间统计',
-  `status` tinyint(2) not null default 1,
+  `status` int(2) NOT NULL DEFAULT '1' COMMENT '0:关闭，1：开启',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+
+--
+-- 转存表中的数据 `static_category`
+--
+
+INSERT INTO `static_category` (`id`, `top_cate`, `cate_id`, `type`, `status`) VALUES
+(14, 1, 1, 1, 1),
+(18, 1, 7, 1, 1),
+(19, 1, 8, 1, 1),
+(20, 1, 9, 1, 1),
+(21, 2, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1803,10 +2115,30 @@ CREATE TABLE IF NOT EXISTS `static_market` (
   `cate_id` int(11) NOT NULL DEFAULT '0' COMMENT '分类id',
   `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '类型',
   `ave_price` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '平均价',
+  `prev_price` decimal(13,2) NOT NULL COMMENT '上一次统计的平均价格',
+  `low_price` decimal(13,2) NOT NULL COMMENT '最低价',
+  `high_price` decimal(13,2) NOT NULL COMMENT '最高价',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `days` int(5) NOT NULL DEFAULT '0' COMMENT '间隔天数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50 ;
+
+--
+-- 转存表中的数据 `static_market`
+--
+
+INSERT INTO `static_market` (`id`, `cate_id`, `type`, `ave_price`, `prev_price`, `low_price`, `high_price`, `create_time`, `days`) VALUES
+(18, 9, 2, '1.00', '0.00', '0.00', '0.00', '2016-06-13 13:21:31', 5),
+(19, 1, 1, '3.00', '0.00', '0.00', '0.00', '2016-06-13 13:21:31', 5),
+(20, 2, 1, '3.00', '0.00', '0.00', '0.00', '2016-06-13 13:21:31', 5),
+(24, 9, 2, '15.00', '0.00', '0.00', '0.00', '2016-05-23 17:18:03', 5),
+(25, 1, 1, '12.20', '0.00', '0.00', '0.00', '2016-05-23 17:18:03', 5),
+(26, 2, 1, '12.20', '0.00', '0.00', '0.00', '2016-05-23 17:18:03', 5),
+(45, 1, 1, '38.75', '12.20', '0.00', '0.00', '2016-06-23 18:22:08', 5),
+(46, 7, 1, '38.75', '0.00', '0.00', '0.00', '2016-06-23 18:22:08', 5),
+(47, 8, 1, '38.75', '0.00', '0.00', '0.00', '2016-06-23 18:22:08', 5),
+(48, 9, 1, '38.75', '0.00', '0.00', '0.00', '2016-06-23 18:22:08', 5),
+(49, 2, 1, '38.75', '12.20', '0.00', '0.00', '2016-06-23 18:22:08', 5);
 
 -- --------------------------------------------------------
 
@@ -1848,7 +2180,7 @@ CREATE TABLE IF NOT EXISTS `store_list` (
   `img` varchar(255) NOT NULL COMMENT '仓库图片',
   `is_del` int(2) NOT NULL COMMENT '0:正常，1：删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `store_list`
@@ -1856,7 +2188,10 @@ CREATE TABLE IF NOT EXISTS `store_list` (
 
 INSERT INTO `store_list` (`id`, `name`, `short_name`, `area`, `address`, `service_phone`, `service_address`, `contact`, `contact_phone`, `type`, `note`, `status`, `img`, `is_del`) VALUES
 (1, '一号店', 'yi', '230303', '点开看看7', '123234545', 'dfgdfgdfg', '赵看看', '13434343439', 1, '水电费水电费水电费法国恢复供货', 1, '', 1),
-(2, '地方', '二 分', '130202', '第三方士大夫的', '2323232', '2的孙菲菲', '3多少', '1434343434', 0, '', 1, '', 0);
+(2, '地方', '二 分', '130202', '第三方士大夫的', '2323232', '2的孙菲菲', '3多少', '1434343434', 0, '', 1, '', 1),
+(3, '水电费水电费', '水电费', '110101', '水电费水电费', '234234234', '234234234', '234234', '234234234', 0, '', 1, '', 1),
+(4, '水电费水电费', '水电费', '7101', '水电费水电费', '234234234', '234234234', '234234', '234234234', 0, '', 0, '', 0),
+(5, '123', '12', '110229', '水电费水电费', '23423423', '234234', '是我认识对方', '123232323', 0, '', 1, '', 0);
 
 -- --------------------------------------------------------
 
@@ -1880,10 +2215,11 @@ CREATE TABLE IF NOT EXISTS `store_manager` (
 --
 
 INSERT INTO `store_manager` (`user_id`, `status`, `apply_time`, `verify_time`, `admin_id`, `store_id`, `message`) VALUES
-(36, 2, '2016-06-06 17:31:10', '2016-06-06 17:31:20', NULL, 1, ''),
+(36, 1, '2016-06-23 14:56:31', '2016-06-23 12:28:22', NULL, 1, ''),
 (42, 0, '2016-03-12 23:05:44', NULL, NULL, 1, ''),
 (52, 2, '2016-06-01 14:35:21', '2016-06-01 14:35:33', NULL, NULL, ''),
-(60, 2, '2016-06-03 10:44:00', '2016-06-03 10:44:11', NULL, NULL, '');
+(60, 2, '2016-06-03 10:44:00', '2016-06-03 10:44:11', NULL, NULL, ''),
+(63, 2, '2016-06-22 17:34:00', '2016-06-23 11:23:07', NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -1950,7 +2286,7 @@ CREATE TABLE IF NOT EXISTS `store_products` (
   `check_org` varchar(50) NOT NULL COMMENT '检测机构',
   `check_no` varchar(100) NOT NULL COMMENT '证书编号',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 --
 -- 转存表中的数据 `store_products`
@@ -1973,7 +2309,22 @@ INSERT INTO `store_products` (`id`, `user_id`, `store_id`, `product_id`, `store_
 (14, 36, 2, 35, '', '', '0.00', 0, '', 0, '0.00000', 10, 0, '2016-06-02 16:24:21', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
 (15, 36, 1, 36, 'qwe', '234', '10.00', 0, '', 0, '0.00000', 23, 0, '2016-06-02 16:29:46', '2016-06-02 16:40:35', '2016-06-02 16:51:59', NULL, NULL, '2016-06-02 00:00:00', '2016-06-03 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'dsfdsf', 'sdfsdfsdfsdf'),
 (16, 59, 1, 43, '1', 'a', '10.00', 1, '', 0, '0.00000', 31, 1, '2016-06-03 10:37:45', '2016-06-03 10:45:32', '2016-06-03 10:46:23', '2016-06-03 10:47:26', '2016-06-03 10:47:50', '2016-06-03 00:00:00', '2016-06-03 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '1111111111111', '123123123123'),
-(17, 60, 1, 44, '12', 'ab', '10.00', 1, '', 0, '0.00000', 31, 1, '2016-06-06 09:20:38', '2016-06-06 09:20:58', '2016-06-06 09:21:27', '2016-06-06 09:21:43', '2016-06-06 09:22:17', '2016-06-06 00:00:00', '2016-06-07 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'sdfsdf', '1231231231');
+(17, 60, 1, 44, '12', 'ab', '10.00', 1, '', 0, '0.00000', 31, 1, '2016-06-06 09:20:38', '2016-06-06 09:20:58', '2016-06-06 09:21:27', '2016-06-06 09:21:43', '2016-06-06 09:22:17', '2016-06-06 00:00:00', '2016-06-07 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'sdfsdf', '1231231231'),
+(18, 36, 1, 57, '', '', '0.00', 1, '', 0, '0.00000', 10, 0, '2016-06-22 09:04:31', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(19, 36, 2, 58, '', '', '0.00', 0, '', 0, '0.00000', 10, 0, '2016-06-22 09:22:17', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(20, 36, 1, 59, '', '', '0.00', 0, '', 0, '0.00000', 10, 0, '2016-06-22 09:25:10', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(21, 36, 1, 60, '', '', '0.00', 1, '', 0, '0.00000', 10, 0, '2016-06-22 09:40:43', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(22, 36, 1, 61, '', '', '0.00', 1, '', 0, '0.00000', 10, 0, '2016-06-22 09:41:05', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(23, 36, 1, 62, '', '', '0.00', 1, '', 0, '0.00000', 10, 0, '2016-06-22 09:41:06', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(24, 36, 2, 63, '', '', '0.00', 0, '', 0, '0.00000', 10, 0, '2016-06-22 09:48:31', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(25, 36, 2, 64, '', '', '0.00', 0, '', 0, '0.00000', 10, 0, '2016-06-22 09:48:31', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(26, 36, 1, 65, '', '', '0.00', 0, '', 0, '0.00000', 10, 0, '2016-06-22 09:49:19', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(27, 36, 1, 66, '', '', '0.00', 1, '', 0, '0.00000', 21, 0, '2016-06-23 12:04:24', '2016-06-23 12:28:38', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(28, 36, 1, 67, '', '', '0.00', 1, '', 0, '0.00000', 10, 0, '2016-06-23 12:38:05', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(29, 36, 1, 68, '', '', '0.00', 1, '地方', 342, '123.00000', 10, 0, '2016-06-23 12:43:11', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(30, 36, 1, 69, '', '', '0.00', 1, '', 0, '0.00000', 10, 0, '2016-06-23 15:15:12', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(31, 36, 1, 70, '', '', '0.00', 1, '', 0, '0.00000', 10, 0, '2016-06-23 15:22:54', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', ''),
+(32, 36, 1, 71, '', '', '0.00', 1, '', 0, '0.00000', 10, 0, '2016-06-23 15:26:33', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -2101,45 +2452,49 @@ CREATE TABLE IF NOT EXISTS `user` (
   `session_id` varchar(255) NOT NULL COMMENT '用户登录后的sessionID',
   `cert_status` int(2) NOT NULL DEFAULT '0' COMMENT '0:认证未改变，1：认证发生改变',
   `gid` varchar(100) NOT NULL,
+  `pay_secret` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=64 ;
 
 --
 -- 转存表中的数据 `user`
 --
 
-INSERT INTO `user` (`id`, `type`, `username`, `password`, `credit`, `mobile`, `email`, `head_photo`, `pid`, `roles`, `status`, `agent`, `agent_pass`, `create_time`, `login_time`, `session_id`, `cert_status`, `gid`) VALUES
-(28, 1, 'fgertertert', '601f1889667efaebb33b8c12572835da3f027f78', '0.00', '456345345345', '', NULL, NULL, NULL, NULL, 3, '12334234234', NULL, NULL, '', 0, ''),
-(29, 1, 'bnfghfghfh', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '567456456', '', NULL, NULL, NULL, NULL, 3, '12334234234', NULL, NULL, '', 0, ''),
-(31, 1, 'weipinglee33', '601f1889667efaebb33b8c12572835da3f027f78', '0.00', '456456456', '', NULL, NULL, NULL, NULL, 3, '12334234234', NULL, NULL, '285dnb0demflhc3n7sca0n95m2', 0, ''),
-(32, 0, 'adminkkk', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '12323232323', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, '4odd8sfrcfacopn2j72c88qf64', 0, ''),
-(33, 0, 'wplee', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '12323232328', '', '@user', NULL, NULL, NULL, 0, '0', NULL, NULL, '5buhd54rqajbajsfumkgr9ijb4', 0, ''),
-(34, 1, 'wplee127', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '14523232323', '', NULL, NULL, NULL, NULL, 3, '123123', NULL, NULL, '8qgb5uv4h90s5vlsu1ddr8pr22', 0, ''),
-(35, 1, '123qwe', 'c53255317bb11707d0f614696b3ce6f221d0e2f2', '0.00', '13434343434', '', 'filefromuser/2016/03/11/20160311074729915.jpg@user@user', NULL, NULL, NULL, 4, 'sdfsdfsdf', NULL, NULL, 'd6dr0opqrvgejc72khn3qoli91', 0, ''),
-(36, 1, 'weipinglee', '05fe7461c607c33229772d402505601016a7d0ea', '350.00', '16767676767', '123123d@13.com', 'filefromuser/2016/03/19/20160319100358393.jpg@user', 0, NULL, NULL, 4, '1233124', NULL, NULL, 'nufu375e4778rm15k9mtug6gr2', 0, ''),
-(37, 0, 'geren', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '14334343434', '', '', NULL, NULL, NULL, 0, '0', NULL, NULL, '', 0, ''),
-(39, 0, 'kljklj', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15454545454', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, 'ekp720eh5rqapk3ftfp87o3is5', 0, ''),
-(40, 0, 'kljlkjlkji', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '14454545454', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, '', 0, ''),
-(41, 0, 'weimama', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '12323232329', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, '', 0, ''),
-(42, 0, 'gerenyonghu', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0.00', '16767676760', '', 'filefromuser/2016/03/12/20160312193238190.png@user', 0, NULL, NULL, 0, '0', NULL, NULL, 'fhhhacsj5rihilp4d8tu3anca2', 1, ''),
-(43, 0, 'weipine12', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15323232323', 'weeer@133.com', NULL, 36, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(44, 0, 'weiping12', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '12345678945', '123@1234.com', NULL, 36, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(45, 0, 'weiping17', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '17878654325', '123@1234.com', NULL, 36, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(46, 0, 'weipinglee1234', '601f1889667efaebb33b8c12572835da3f027f78', '0.00', '13423564589', 'werewr@153.cid', NULL, 36, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(47, 0, 'weiping987', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0.00', '12398765439', 'werewr@153.cid', 'filefromuser/2016/03/19/20160319112602131.jpg@user', 36, NULL, 1, 0, '', NULL, NULL, '', 0, ''),
-(48, 0, 'weipinglee111', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631253', '', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(49, 0, 'weipingleeqe', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631254', 'weipoing@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(50, 0, 'wplee123', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0.00', '15234343434', '', NULL, 0, NULL, NULL, 1, '', NULL, NULL, '', 0, ''),
-(51, 1, 'weipinglee567', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631218', 'weipoing@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'otcgk5n1jm3fgar084rd3p5tk1', 0, ''),
-(52, 1, 'wwwppp5', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631543', 'weiping.lee@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(53, 1, 'wwppp123', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15233343433', '123123ee@13.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'ksnubed6u6j8oc461v4juh76c6', 0, ''),
-(54, 1, 'wwppp1236', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15233343432', '123123ee@13.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(55, 1, 'wwwpppqwe', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631219', '123123ee@13.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(56, 1, 'wwwppprty', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631213', '123123ee@13.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'mq9s5ld8v9jpv11s444rmv1252', 0, ''),
-(57, 1, 'wplll', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15234561890', 'werfddf@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'hr2iq1nvc31nc6t34ct92f8rv4', 0, ''),
-(58, 0, 'wplll1289', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '14234343434', 'sdf@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, ''),
-(59, 1, 'wplll23456', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15230987689', 'weiping@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '9f7ugduin3ie4upddb66s7ll71', 0, ''),
-(60, 1, 'wplee123456', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15298765674', '', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'fcja1l8i2or3fj0ra5osjvtrc4', 0, '');
+INSERT INTO `user` (`id`, `type`, `username`, `password`, `credit`, `mobile`, `email`, `head_photo`, `pid`, `roles`, `status`, `agent`, `agent_pass`, `create_time`, `login_time`, `session_id`, `cert_status`, `gid`, `pay_secret`) VALUES
+(28, 1, 'fgertertert', '601f1889667efaebb33b8c12572835da3f027f78', '0.00', '456345345345', '', NULL, NULL, NULL, NULL, 3, '12334234234', NULL, NULL, '', 0, '', ''),
+(29, 1, 'bnfghfghfh', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '567456456', '', NULL, NULL, NULL, NULL, 3, '12334234234', NULL, NULL, '', 0, '', ''),
+(31, 1, 'weipinglee33', '601f1889667efaebb33b8c12572835da3f027f78', '0.00', '456456456', '', NULL, NULL, NULL, NULL, 3, '12334234234', NULL, NULL, '285dnb0demflhc3n7sca0n95m2', 0, '', ''),
+(32, 0, 'adminkkk', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '12323232323', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, '4odd8sfrcfacopn2j72c88qf64', 0, '', ''),
+(33, 0, 'wplee', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '12323232328', '', '@user', NULL, NULL, NULL, 0, '0', NULL, NULL, '', 0, '', ''),
+(34, 1, 'wplee127', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '14523232323', '', NULL, NULL, NULL, NULL, 3, '123123', NULL, NULL, '8qgb5uv4h90s5vlsu1ddr8pr22', 0, '', ''),
+(35, 1, '123qwe', 'c53255317bb11707d0f614696b3ce6f221d0e2f2', '0.00', '13434343434', '', 'filefromuser/2016/03/11/20160311074729915.jpg@user@user', NULL, NULL, NULL, 4, 'sdfsdfsdf', NULL, NULL, 'd6dr0opqrvgejc72khn3qoli91', 0, '', ''),
+(36, 1, 'weipinglee', '05fe7461c607c33229772d402505601016a7d0ea', '350.00', '16767676767', '123123d@13.com', 'filefromuser/2016/03/19/20160319100358393.jpg@user', 0, NULL, NULL, 4, '1233124', NULL, NULL, '7jrs318bc7q4v1d5t8f32g4a66', 0, '', ''),
+(37, 0, 'geren', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '14334343434', '', '', NULL, NULL, NULL, 0, '0', NULL, NULL, '', 0, '', ''),
+(39, 0, 'kljklj', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15454545454', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, 'ekp720eh5rqapk3ftfp87o3is5', 0, '', ''),
+(40, 0, 'kljlkjlkji', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '14454545454', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, '', 0, '', ''),
+(41, 0, 'weimama', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '12323232329', '', NULL, NULL, NULL, NULL, 0, '0', NULL, NULL, '', 0, '', ''),
+(42, 0, 'gerenyonghu', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0.00', '16767676760', '', 'filefromuser/2016/03/12/20160312193238190.png@user', 0, NULL, NULL, 0, '0', NULL, NULL, 'fhhhacsj5rihilp4d8tu3anca2', 1, '', ''),
+(43, 0, 'weipine12', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15323232323', 'weeer@133.com', NULL, 36, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(44, 0, 'weiping12', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '12345678945', '123@1234.com', NULL, 36, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(45, 0, 'weiping17', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '17878654325', '123@1234.com', NULL, 36, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(46, 0, 'weipinglee1234', '601f1889667efaebb33b8c12572835da3f027f78', '0.00', '13423564589', 'werewr@153.cid', NULL, 36, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(47, 0, 'weiping987', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0.00', '12398765439', 'werewr@153.cid', 'filefromuser/2016/03/19/20160319112602131.jpg@user', 36, NULL, 1, 0, '', NULL, NULL, '', 0, '', ''),
+(48, 0, 'weipinglee111', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631253', '', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(49, 0, 'weipingleeqe', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631254', 'weipoing@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(50, 0, 'wplee123', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0.00', '15234343434', '', NULL, 0, NULL, NULL, 1, '', NULL, NULL, '', 0, '', ''),
+(51, 1, 'weipinglee567', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631218', 'weipoing@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'otcgk5n1jm3fgar084rd3p5tk1', 0, '', ''),
+(52, 1, 'wwwppp5', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631543', 'weiping.lee@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(53, 1, 'wwppp123', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15233343433', '123123ee@13.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'ksnubed6u6j8oc461v4juh76c6', 0, '', ''),
+(54, 1, 'wwppp1236', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15233343432', '123123ee@13.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(55, 1, 'wwwpppqwe', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631219', '123123ee@13.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(56, 1, 'wwwppprty', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15296631213', '123123ee@13.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'mq9s5ld8v9jpv11s444rmv1252', 0, '', ''),
+(57, 1, 'wplll', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15234561890', 'werfddf@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '8s28it77br34brp72te2ihjgt1', 0, '', ''),
+(58, 0, 'wplll1289', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '14234343434', 'sdf@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(59, 1, 'wplll23456', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15230987689', 'weiping@163.com', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '9f7ugduin3ie4upddb66s7ll71', 0, '', ''),
+(60, 1, 'wplee123456', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15298765674', '', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'fcja1l8i2or3fj0ra5osjvtrc4', 0, '', ''),
+(61, 0, 'geren123', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15323232329', '', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'k2o5dr10fhjunbe4vme5r10t15', 0, '', ''),
+(62, 0, 'geren321', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '15398765238', '', NULL, 0, NULL, NULL, 0, '', NULL, NULL, '', 0, '', ''),
+(63, 1, 'wplerre', '05fe7461c607c33229772d402505601016a7d0ea', '0.00', '18976564532', '', NULL, 0, NULL, NULL, 0, '', NULL, NULL, 'stgih0s84cnc12qjoem6lh5r83', 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -2164,12 +2519,15 @@ CREATE TABLE IF NOT EXISTS `user_account` (
 INSERT INTO `user_account` (`user_id`, `fund`, `freeze`, `ticket`, `ticket_freeze`, `credit`) VALUES
 (28, '140.00', '0.00', '0.00', '0.00', '0.00'),
 (32, '8783.00', '1235.00', '0.00', '0.00', '0.00'),
-(36, '528.20', '4568.80', '0.00', '0.00', '0.00'),
+(36, '148.20', '4849.80', '0.00', '0.00', '0.00'),
 (56, '390.00', '0.00', '0.00', '0.00', '0.00'),
-(57, '997016.00', '2924.00', '0.00', '0.00', '0.00'),
+(57, '996996.24', '2942.76', '0.00', '0.00', '0.00'),
 (58, '990.00', '0.00', '0.00', '0.00', '0.00'),
 (59, '1164.00', '22.00', '0.00', '0.00', '0.00'),
-(60, '994.03', '5.97', '0.00', '0.00', '0.00');
+(60, '994.03', '5.97', '0.00', '0.00', '0.00'),
+(61, '0.00', '0.00', '0.00', '0.00', '0.00'),
+(62, '100.00', '0.00', '0.00', '0.00', '0.00'),
+(63, '0.00', '0.00', '0.00', '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -2185,6 +2543,10 @@ CREATE TABLE IF NOT EXISTS `user_bank` (
   `true_name` varchar(20) NOT NULL COMMENT '姓名',
   `identify_no` varchar(25) NOT NULL COMMENT '身份证号',
   `proof` varchar(100) NOT NULL COMMENT '打款凭证',
+  `status` int(2) NOT NULL DEFAULT '0' COMMENT '0:申请，1：通过，2：驳回',
+  `apply_time` datetime NOT NULL,
+  `check_time` datetime NOT NULL,
+  `check_admin` int(11) NOT NULL COMMENT '审核管理员',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -2192,12 +2554,11 @@ CREATE TABLE IF NOT EXISTS `user_bank` (
 -- 转存表中的数据 `user_bank`
 --
 
-INSERT INTO `user_bank` (`user_id`, `bank_name`, `card_type`, `card_no`, `true_name`, `identify_no`, `proof`) VALUES
-(36, '中国银行', 1, '12312312312312313', '赵 看二', '123324234234234', 'upload/2016/05/16/20160516164002531.jpg@user'),
-(56, '中国银行', 1, '123123423423423432', '第三方', '140311198301272118', 'upload/2016/06/01/20160601152502947.jpg@user'),
-(57, '中国', 1, '12342343424234234234', '第三方', '14234343434343434', 'upload/2016/06/02/20160602145553172.jpg@user'),
-(58, '建设银行', 1, '34234242342424234234', '李卫平', '140311198301272118', 'upload/2016/06/02/20160602174741458.jpg@user'),
-(59, '中国银行', 1, '1232222222222222222222', '李卫平', '140311198301272118', 'upload/2016/06/03/20160603110933496.jpg@user');
+INSERT INTO `user_bank` (`user_id`, `bank_name`, `card_type`, `card_no`, `true_name`, `identify_no`, `proof`, `status`, `apply_time`, `check_time`, `check_admin`) VALUES
+(36, '中国银行', 1, '1111111111111111111', '赵 看二', '199999999999999999', 'upload/2016/05/16/20160516164002531.jpg@user', 0, '0000-00-00 00:00:00', '2016-06-21 18:03:34', 1),
+(56, '中国银行', 1, '123123423423423432', '第三方', '140311198301272118', 'upload/2016/06/01/20160601152502947.jpg@user', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(58, '建设银行', 1, '34234242342424234234', '李卫平', '140311198301272118', 'upload/2016/06/02/20160602174741458.jpg@user', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(59, '中国银行', 1, '1232222222222222222222', '李卫平', '140311198301272118', 'upload/2016/06/03/20160603110933496.jpg@user', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -2218,7 +2579,7 @@ CREATE TABLE IF NOT EXISTS `user_fund_flow` (
   `note` varchar(255) NOT NULL COMMENT '摘要',
   `time` datetime NOT NULL COMMENT '交易时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=147 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=179 ;
 
 --
 -- 转存表中的数据 `user_fund_flow`
@@ -2317,7 +2678,33 @@ INSERT INTO `user_fund_flow` (`id`, `user_id`, `acc_type`, `flow_no`, `fund_in`,
 (143, 36, 1, '20160606093145129580', '0.00', '0.00', '40.00', '5097.00', '2488.20', '', '2016-06-06 09:31:45'),
 (144, 36, 1, '20160606093357901782', '0.00', '0.00', '1960.00', '5097.00', '528.20', '', '2016-06-06 09:33:57'),
 (145, 60, 1, '20160606094000646295', '1000.00', '0.00', '0.00', '1000.00', '1000.00', '', '2016-06-06 09:40:00'),
-(146, 60, 1, '20160606094022657693', '0.00', '0.00', '5.97', '1000.00', '994.03', '', '2016-06-06 09:40:22');
+(146, 60, 1, '20160606094022657693', '0.00', '0.00', '5.97', '1000.00', '994.03', '', '2016-06-06 09:40:22'),
+(147, 57, 1, '20160613082809109777', '0.00', '0.00', '10.00', '999940.00', '997006.00', '', '2016-06-13 08:28:09'),
+(148, 36, 1, '20160613082937512756', '0.00', '0.00', '49.80', '5097.00', '478.40', '', '2016-06-13 08:29:37'),
+(155, 57, 1, '20160613090512981433', '0.00', '0.00', '0.10', '999940.00', '997005.90', '', '2016-06-13 09:05:12'),
+(156, 57, 1, '20160613090604703836', '0.00', '0.00', '0.10', '999940.00', '997005.80', '', '2016-06-13 09:06:04'),
+(157, 57, 1, '20160613091020555081', '0.00', '0.00', '0.10', '999940.00', '997005.70', '', '2016-06-13 09:10:20'),
+(158, 57, 1, '20160613091103635198', '0.00', '0.00', '0.10', '999940.00', '997005.60', '', '2016-06-13 09:11:03'),
+(159, 57, 1, '20160613092543549615', '0.00', '0.00', '1.00', '999940.00', '997004.60', '', '2016-06-13 09:25:43'),
+(160, 36, 1, '20160613093442378366', '1.00', '0.00', '0.00', '5098.00', '479.40', '', '2016-06-13 09:34:42'),
+(161, 57, 1, '20160613093442195031', '0.00', '1.00', '-1.00', '999939.00', '997004.60', '', '2016-06-13 09:34:42'),
+(162, 36, 1, '20160615142204335821', '0.00', '0.00', '100.00', '5098.00', '379.40', '', '2016-06-15 14:22:04'),
+(163, 62, 1, '20160615143245527532', '100.00', '0.00', '0.00', '100.00', '100.00', '', '2016-06-15 14:32:45'),
+(164, 36, 1, '20160615151248585183', '0.00', '0.00', '20.20', '5098.00', '359.20', '', '2016-06-15 15:12:48'),
+(165, 36, 1, '20160615152650493997', '0.00', '0.00', '20.20', '5098.00', '339.00', '', '2016-06-15 15:26:50'),
+(166, 36, 1, '20160621100031243948', '0.00', '0.00', '1.80', '5098.00', '337.20', '', '2016-06-21 10:00:31'),
+(167, 36, 1, '20160621101438413714', '0.00', '0.00', '1.80', '5098.00', '335.40', '', '2016-06-21 10:14:38'),
+(168, 36, 1, '20160621105135325247', '0.00', '0.00', '1.80', '5098.00', '333.60', '', '2016-06-21 10:51:35'),
+(169, 36, 1, '20160621113701706747', '0.00', '0.00', '1.80', '5098.00', '331.80', '', '2016-06-21 11:37:01'),
+(170, 57, 1, '20160621114546726632', '0.00', '0.00', '4.18', '999939.00', '997000.42', '', '2016-06-21 11:45:46'),
+(171, 36, 1, '20160621114910280065', '0.00', '0.00', '88.20', '5098.00', '243.60', '', '2016-06-21 11:49:10'),
+(172, 36, 1, '20160621115041949517', '0.00', '0.00', '1.80', '5098.00', '241.80', '', '2016-06-21 11:50:41'),
+(173, 57, 1, '20160621115149965667', '0.00', '0.00', '4.18', '999939.00', '996996.24', '', '2016-06-21 11:51:49'),
+(174, 36, 1, '20160621115301753082', '0.00', '0.00', '88.20', '5098.00', '153.60', '', '2016-06-21 11:53:01'),
+(175, 36, 1, '20160622120134523303', '0.00', '0.00', '1.80', '5098.00', '151.80', '', '2016-06-22 12:01:34'),
+(176, 36, 1, '20160622120949982614', '0.00', '0.00', '1.80', '5098.00', '150.00', '', '2016-06-22 12:09:49'),
+(177, 36, 1, '20160623092903791067', '0.00', '0.00', '1.80', '5098.00', '148.20', '', '2016-06-23 09:29:03'),
+(178, 36, 1, '20160623144812689224', '0.00', '100.00', '-100.00', '4998.00', '148.20', '', '2016-06-23 14:48:12');
 
 -- --------------------------------------------------------
 
@@ -2346,7 +2733,7 @@ INSERT INTO `user_group` (`id`, `group_name`, `credit`, `icon`, `caution_fee`, `
 (2, '银牌会员', 400, 'upload/2016/05/18/20160518100649209.jpg@admin', 50, 30, 10, '2016-05-18 10:07:02'),
 (3, '铜牌', 300, 'upload/2016/05/18/20160518100724258.jpg@admin', 30, 20, 17, '2016-05-18 10:07:34'),
 (4, '铁牌会员', 200, 'upload/2016/05/18/20160518100757961.jpg@admin', 20, 18, 15, '2016-05-18 10:08:03'),
-(5, '普通会员', 0, 'upload/2016/05/18/20160518100827881.jpg@admin', 12, 14, 14, '2016-05-18 10:08:31');
+(5, '普通会员', 0, 'upload/2016/05/18/20160518100827881.jpg@admin', 14, 14, 14, '2016-05-18 10:08:31');
 
 -- --------------------------------------------------------
 
@@ -2371,7 +2758,7 @@ CREATE TABLE IF NOT EXISTS `user_invoice` (
 
 INSERT INTO `user_invoice` (`user_id`, `title`, `tax_no`, `address`, `phone`, `bank_name`, `bank_no`) VALUES
 (9, '水电费', '1234234', '123123', '1231324234', '123123', '123123'),
-(36, '水电费df', '2132134', '234234', '234234', '234234', '234234234');
+(36, '水电费df', '2132134', '234234', '0353-1245236', '234234', '234234234');
 
 -- --------------------------------------------------------
 
@@ -2391,7 +2778,8 @@ CREATE TABLE IF NOT EXISTS `user_session` (
 --
 
 INSERT INTO `user_session` (`session_id`, `session_expire`, `session_data`) VALUES
-('nufu375e4778rm15k9mtug6gr2', 1465353204, 'a:4:{s:7:"user_id";s:2:"36";s:8:"username";s:10:"weipinglee";s:6:"mobile";s:11:"16767676767";s:9:"user_type";s:1:"1";}');
+('7jrs318bc7q4v1d5t8f32g4a66', 1466735456, 'a:4:{s:7:"user_id";s:2:"36";s:8:"username";s:10:"weipinglee";s:6:"mobile";s:11:"16767676767";s:9:"user_type";s:1:"1";}'),
+('c3pgdkgat5d9aoojljm7416281', 1466735455, 'a:4:{s:7:"user_id";s:2:"36";s:8:"username";s:10:"weipinglee";s:6:"mobile";s:11:"16767676767";s:9:"user_type";s:1:"1";}');
 
 -- --------------------------------------------------------
 
@@ -2417,7 +2805,7 @@ CREATE TABLE IF NOT EXISTS `withdraw_request` (
   `proot` varchar(100) NOT NULL DEFAULT '' COMMENT '后台打款凭证',
   `is_del` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0:未删除，1：删除,默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- 转存表中的数据 `withdraw_request`
@@ -2432,46 +2820,9 @@ INSERT INTO `withdraw_request` (`id`, `user_id`, `request_no`, `amount`, `acc_na
 (6, 56, 'gold_20160601152905882858', '10.00', '', '', '', '看看', 1, '2016-06-01 15:29:05', '2016-06-01 15:32:29', '', '2016-06-01 15:32:48', '', 'upload/2016/06/01/20160601153312702.jpg@admin', 0),
 (7, 57, 'gold_20160602145613795104', '10.00', '', '', '', '', 1, '2016-06-02 14:56:13', '2016-06-02 14:56:22', '', '2016-06-02 14:56:33', '', 'upload/2016/06/02/20160602145643463.jpg@admin', 0),
 (8, 58, 'gold_20160602174806736218', '10.00', '', '', '', '', 1, '2016-06-02 17:48:06', '2016-06-02 17:48:17', '', '2016-06-02 17:48:23', '', 'upload/2016/06/02/20160602174834380.jpg@admin', 0),
-(9, 59, 'gold_20160603111031895547', '800.00', '', '', '', '', 1, '2016-06-03 11:10:31', '2016-06-03 11:10:45', '', '2016-06-03 11:10:52', '', 'upload/2016/06/03/20160603111104705.jpg@admin', 0);
+(9, 59, 'gold_20160603111031895547', '800.00', '', '', '', '', 1, '2016-06-03 11:10:31', '2016-06-03 11:10:45', '', '2016-06-03 11:10:52', '', 'upload/2016/06/03/20160603111104705.jpg@admin', 0),
+(10, 36, 'gold_20160615142204212197', '100.00', '', '', '', '', 5, '2016-06-15 14:22:04', '2016-06-15 14:22:23', '', '2016-06-15 14:22:30', '', '', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-create table `slide`(
-  `id` int(11) unsigned not null auto_increment,
-  `name` varchar(25) not null default '' comment '幻灯片名称',
-  `img` varchar(100) not null default '' comment '图片',
-  `link` varchar(100) not null default '' comment '链接地址',
-  `status` tinyint(2) not null default 1 comment '1开启 0关闭',
-  `order` int(5) not null default 100 comment '排序',
-  primary key(`id`)
-)engine=innodb charset=utf8;
-create table `friendly_link`(
-  `id` int(11) unsigned not null auto_increment,
-  `name` varchar(25) not null default '' comment '名称',
-  `link` varchar(100) not null default '' comment '链接地址',
-  `order` int(5) not null default 100 comment '排序',
-  `status` tinyint(2) not null default 1 comment '1开启，0关闭',
-  primary key(`id`)
-)engine=innodb charset=utf8;
-
-CREATE TABLE IF NOT EXISTS `help_category` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(10) NOT NULL COMMENT '标题',
-  `sort` smallint(5) NOT NULL COMMENT '顺序',
-  `status` tinyint(2) not null default 1 comment '0关闭 1开启',
-  PRIMARY KEY (`id`),
-  KEY `sort` (`sort`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='帮助分类' ;
-CREATE TABLE IF NOT EXISTS `help` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `cat_id` int(11) unsigned NOT NULL COMMENT '帮助分类，如果为0则代表着是下面的帮助单页',
-  `sort` smallint(5) NOT NULL DEFAULT '99' COMMENT '顺序',
-  `name` varchar(50) NOT NULL COMMENT '标题',
-  `content` text NOT NULL COMMENT '内容',
-  `time` datetime  NOT NULL default NOW()  comment '发布时间',
-  `link` varchar(100) NOT NULL default '',
-  PRIMARY KEY (`id`),
-  KEY `cat_id` (`cat_id`),
-  KEY `sort` (`sort`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='帮助内容' ;
