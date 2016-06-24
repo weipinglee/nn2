@@ -45,7 +45,8 @@ class OfferManageController extends Yaf\Controller_Abstract{
 	public function offerDetailsAction(){
 		$id = intval($this->_request->getParam('id'));
 		$user = $this->_request->getParam('user');//委托人
-		$info = $this->offer->getofferInfo($id);
+		$info = $this->offer->getofferDetail($id);
+
 		$info['user'] = $user;
 
 		$this->getView()->assign('info',$info);
@@ -74,7 +75,7 @@ class OfferManageController extends Yaf\Controller_Abstract{
 	public function reviewDetailsAction(){
 		$id = intval($this->_request->getParam('id'));
 		$user = $this->_request->getParam('user');//委托人
-		$info = $this->offer->getofferInfo($id);
+		$info = $this->offer->getofferDetail($id);
 		$info['user'] = $user;
 		$this->getView()->assign('info',$info);
 	}

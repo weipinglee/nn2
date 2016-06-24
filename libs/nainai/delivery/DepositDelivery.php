@@ -29,15 +29,14 @@ class DepositDelivery extends Delivery{
 	public function sellerConsignment($delivery_id,$seller_id){
 		//获取提货id对应报盘信息
 		$query = new Query('product_delivery as pd');
-		$query->join = 'left join product_offer as po on pd.offer_id = po.id';
-		$query->fields = 'pd.*,po.user_id,po.mode';
+		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join order_sell as o on o.offer_id = po.id';
+		$query->fields = 'pd.*,po.user_id,po.mode,po.type,o.user_id as tmp_id';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
-
-		if($res['user_id'] != $seller_id) $error = '当前操作用户有误';
-
-		if($res['mode'] != order\Order::ORDER_DEPOSIT) $error = '订单类型须为保证金订单';
+		$seller = $res['type'] == 1 ? $res['user_id'] : $res['tmp_id'];
+		if($seller != $seller_id) $error = '当前操作用户有误';
+		if(!in_array($res['mode'],array(order\Order::ORDER_DEPOSIT,order\Order::ORDER_PURCHASE))) $error = '订单类型错误';
 
 		if($res['status'] != parent::DELIVERY_APPLY) $error =  '提货状态错误';
 
@@ -60,15 +59,16 @@ class DepositDelivery extends Delivery{
 	public function buyerConfirm($delivery_id,$buyer_id){
 		//获取对应订单信息
 		$query = new Query('product_delivery as pd');
-		$query->join = 'left join order_sell as po on pd.order_id = po.id';
-		$query->fields = 'pd.*,po.user_id,po.mode,po.id as order_id,po.num as total_num';
+		$query->join = 'left join order_sell as o on pd.order_id = o.id left join product_offer as po on po.id = o.offer_id';
+		$query->fields = 'pd.*,o.user_id,o.mode,o.id as order_id,o.num as total_num,po.user_id as tmp_id,po.type';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 
 		$res = $query->getObj();
-		if($res['user_id'] != $buyer_id) $error = '当前操作用户有误';
+		$buyer = $res['type'] == 1 ? $res['user_id'] : $res['tmp_id'];
+		if($buyer != $buyer_id) $error = '当前操作用户有误';
 
-		if($res['mode'] != order\Order::ORDER_DEPOSIT) $error =  '订单类型须为保证金订单';
+		if(!in_array($res['mode'],array(order\Order::ORDER_DEPOSIT,order\Order::ORDER_PURCHASE))) $error = '订单类型错误';
 
 		if($res['status'] != parent::DELIVERY_BUYER_CONFIRM) $error =  '提货状态错误';
 

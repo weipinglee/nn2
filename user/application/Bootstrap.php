@@ -44,5 +44,6 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 		$res = tool::getConfig()['witty'];
 		$view = new wittyAdapter($res);
 		$dispatcher->setView($view);
+
 	}
 }

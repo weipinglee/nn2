@@ -127,21 +127,29 @@ class certStore extends certificate{
         return $this->certVerify($user_id,$result,$info,self::$certType);
     }
 
-    /**
-     * 获取申请认证用户列表
-     * @param int $page 页码
-     */
-    public function certList($page){
+    private function getList($page,$status){
         $type = self::$certType;
         $table = self::getCertTable($type);
         $Q = new Query('user as u');
         $Q->join = 'left join '.$table.' as c on u.id = c.user_id left join store_list as s on c.store_id = s.id';
         $Q->fields = 'u.id,u.type,u.username,u.mobile,u.email,u.status as user_status,u.create_time,c.*,s.name as store_name';
         $Q->page = $page;
-        $Q->where = 'c.status='.self::CERT_APPLY;
+        $Q->where = 'c.status in('.$status.')';
         $data = $Q->find();
         $pageBar =  $Q->getPageBar();
         return array('data'=>$data,'bar'=>$pageBar);
+    }
+    /**
+     * 获取申请认证用户列表
+     * @param int $page 页码
+     */
+    public function certList($page){
+        return $this->getList($page,self::CERT_APPLY);
+    }
+
+    //获取交易商已认证列表
+    public function certedList($page){
+        return $this->getList($page,self::CERT_INIT.','.self::CERT_SUCCESS.','.self::CERT_FAIL);
     }
 
     /**

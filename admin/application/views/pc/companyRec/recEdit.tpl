@@ -21,7 +21,7 @@
         </div>
         <div class="pd-20">
 
-            <form action="{url:member/companyRec/recEdit}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:member/companyRec/recList}">
+            <form action="{url:member/companyRec/recAdd}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:member/companyRec/recList}">
                 <input type="hidden" name="id" value="{$data['id']}" />
                 <input type="hidden" name="user_id" value="{$data['user_id']}" />
                 <div class="row cl">

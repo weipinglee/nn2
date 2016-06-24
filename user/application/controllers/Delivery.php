@@ -47,7 +47,7 @@ class DeliveryController extends UcenterBaseController {
         $res = $delivery->geneDelivery($deliveryData);
 
         if($res['success'] == 1){
-            $this->redirect(url::createUrl('/Delivery/deliveryList'));
+            $this->success('已申请提货',url::createUrl('/Delivery/deliBuyList'));
         }else{
             $this->error($res['info']);
         }

@@ -50,7 +50,9 @@ class storeProductController extends Yaf\Controller_Abstract{
             $detail = $obj->getUserStoreDetail($id);
 
             $detail['status'] = $obj->getStatusText($detail['status']);
-
+            $mem = new \nainai\member();
+            $userData = $mem->getUserDetail($detail['user_id']);
+            $this->getView()->assign('user',$userData);
             $this->getView()->assign('detail',$detail);
 
         }
@@ -65,10 +67,12 @@ class storeProductController extends Yaf\Controller_Abstract{
         if($id){
             $obj = new storeProductModel();
             $detail = $obj->getUserStoreDetail($id);
-
+            $mem = new \nainai\member();
+            $userData = $mem->getUserDetail($detail['user_id']);
             $detail['status'] = $obj->getStatusText($detail['status']);
 
             $this->getView()->assign('detail',$detail);
+            $this->getView()->assign('user',$userData);
 
         }
     }

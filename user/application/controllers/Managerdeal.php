@@ -394,9 +394,9 @@ class ManagerDealController extends UcenterBaseController {
             $storeList = array(
                 'store_id' => Safe::filterPost('store_id', 'int'),
                 'package'  => Safe::filterPost('package','int'),
-                'package_num' => Safe::filterPost('package_num'),
-                'package_unit' => Safe::filterPost('package_unit'),
-                'package_weight' => Safe::filterPost('package_weight'),
+                'package_num' => Safe::filterPost('packNumber'),
+                'package_unit' => Safe::filterPost('packUnit'),
+                'package_weight' => Safe::filterPost('packWeight'),
                 'apply_time'  => \Library\Time::getDateTime(),
                 'user_id' => $this->user_id
             );
@@ -522,7 +522,8 @@ class ManagerDealController extends UcenterBaseController {
 
         $productModel = new productModel();
         $productList = $productModel->getOfferProductList($page, $this->pagesize,  $where, $bind);
-
+        $statusList = $productModel->getStatusArray();
+        $this->getView()->assign('statusList', $statusList);
         $this->getView()->assign('status', $status);
         $this->getView()->assign('mode', $this->_mode);
         $this->getView()->assign('productList', $productList['list']);

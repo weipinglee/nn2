@@ -65,7 +65,7 @@ nn_panduo.formacc.prototype = {
 				  'mobile':/^1[2|3|4|5|6|7|8|9][0-9]\d{8}$/,
 				  'date':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/i,
 			      'datetime':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29) (?:(?:[0-1][0-9])|(?:2[0-3])):(?:[0-5][0-9]):(?:[0-5][0-9])$/i,
-				  'identify' : /^\d{14,17}(\d|x)$/i
+				  'identify' : /^\d{17}(\d|x)$/i
 
 		},
 		      beforeSubmit:function(curform){
@@ -239,7 +239,28 @@ $(function(){
 	formacc.bind_status_handle();
 
 	formacc.form_init();
+	//地址验证，根据是两级或三级动态调整验证规则
+	if($('#areabox').length && $('#areabox').length>0){
+		$('#areabox').find('select:first').on('change',function(){
+			var num = $('#areabox').find('select:visible').length;
+			var rules = [{
+				ele:"input[name=area]",
+				datatype:"n"+num*2+"-6",
+				nullmsg:"请选择地址！",
+				errormsg:"请选择地址！"
+			}];
+			formacc.addRule(rules);
 
+		})
+		//为地址选择框添加验证规则
+		var rules = [{
+			ele:"input[name=area]",
+			datatype:"n6-6",
+			nullmsg:"请选择地址！",
+			errormsg:"请选择地址！"
+		}];
+		formacc.addRule(rules);
+	}
 
 })
 

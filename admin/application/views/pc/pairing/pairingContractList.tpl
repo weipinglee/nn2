@@ -19,6 +19,7 @@
 				<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
 				<th width="80">ID</th>
 				<th width="100">订单号</th>
+				<th width="100">合同状态</th>
 				<th width="100">商品名称</th>
 				<th width="100">商品数量</th>
 				<th width="100">订单金额</th>
@@ -31,12 +32,13 @@
 				<!-- <td><input type="checkbox" value="" name=""></td> -->
 				<td>{$item['id']}</td>
 				<td>{$item['order_no']}</td>
+				<td>{$item['title']}</td>
 				<td>{$item['product_name']}</td>
 				<td>{$item['num']}{$item['unit']}</td>
 				<td>{$item['amount']}</td>
 				
 				<td class="td-manage">
-				 <a title="详情" href="{url:/trade/pairing/contractDetail}id/{$item['id']}" class="ml-5" style="text-decoration:none">详情</a></td>
+				 <a title="详情" href="{url:/trade/pairing/contractDetail}id/{$item['id']}/pairing_id/{$item['pairing_id']}" class="ml-5" style="text-decoration:none">详情</a></td>
 			</tr>
 		{/foreach}
 		</tbody>

@@ -52,7 +52,7 @@
 									<!-- <td>已投保</td> -->
 									<td><span class="col000000">{$list['status']}</span></td>
 									<td>{$list['apply_time']}</td>
-									<td><a href="{url:/Purchase/detail?id=$list['id']}">查看</a><a href="{url:/Purchase/doApply?id=$list['id']}">审核</a></td>
+									<td><a href="{url:/Purchase/detail?id=$list['id']}">查看</a><!-- <a href="{url:/Purchase/doApply?id=$list['id']}">审核</a> --></td>
 								</tr>
 								{/foreach}
 								

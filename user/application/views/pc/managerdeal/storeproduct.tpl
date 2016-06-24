@@ -41,16 +41,7 @@
                                     {/foreach}
                                 </ul>
 
-                                    {if: !empty($category['hide'])}
-                                    <ul class="infoslider" style="display: none;">
-                                        {foreach: items=$category['hide'] item=$cate}
-                                        <li value="{$cate['id']}"  ><a>{$cate['name']}</a></li>
-                                        {/foreach}
-                                    </ul>
-                                        <div class="sl_ext">
-                                        <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-                                        </div>
-                                    {/if}
+
                             </div>
                         {/foreach}
                         {/if}
@@ -115,8 +106,9 @@
                             </tr>
                             <tr>
                             <td>产地：</td>
-                            <td colspan="2">
-                                {area:data=getAreaData()}
+                            <td colspan="2" >
+                                <span id="areabox">{area:data=getAreaData()}</span>
+                                <span></span>
                             </td>
                          
                         </tr>
@@ -154,11 +146,15 @@
                                     <tr>
                                         <td><span>*</span>选择仓库：</td>
                                         <td>
-                                            <select name="store_id" id="store_id">
-                                            {foreach: items=$storeList item=$list}
-                                                <option value="{$list['id']}" {if: $key==0} selected {/if} >{$list['name']}</option>
-                                            {/foreach}
-                                            </select>
+                                           <span>
+                                               <select name="store_id" id="store_id" datatype="/[1-9]\d{0,10}/">
+                                                   <option value="0" >请选择</option>
+                                                   {foreach: items=$storeList item=$list}
+                                                       <option value="{$list['id']}" >{$list['name']}</option>
+                                                   {/foreach}
+                                               </select>
+                                           </span>
+                                            <span></span>
                                         </td>
                                         </tr>
                                    <tr>

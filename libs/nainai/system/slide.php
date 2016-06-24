@@ -9,13 +9,18 @@
 namespace nainai\system;
 use Library\M;
 
+use Library\Query;
+
+
 class slide{
     private $slideObj='';
     protected $slideRules=array(
         array('name','require','名称不能为空'),
         array('img','require','图片不能为空'),
         array('status','number','状态不能为空')
-        );
+
+    );
+
     public function __construct(){
         $this->slideObj=new M('slide');
     }
@@ -113,15 +118,25 @@ class slide{
         $slideObj=$this->slideObj;
         $where=['id'=>$params['id']];
 
-            $data['status']=$params['status'];
-            if($slideObj->where($where)->data($data)->update()){
-                return \Library\tool::getSuccInfo(1,'修改成功');
-            }else{
-                return \Library\tool::getSuccInfo(0,'修改失败');
-            }
+
+        $data['status']=$params['status'];
+        if($slideObj->where($where)->data($data)->update()){
+            return \Library\tool::getSuccInfo(1,'修改成功');
+        }else{
+            return \Library\tool::getSuccInfo(0,'修改失败');
+        }
+
     }
     public function getSlideInfo($id){
         return $this->slideObj->where(['id'=>$id])->getObj();
     }
+
+    public static function getIndexSlide(){
+        $slideObj=new Query('slide');
+        $slideObj->order='`order` ASC';
+        $slideObj->limit=4;
+        return $slideObj->find();
+    }
+
 
 }

@@ -3,7 +3,7 @@
 <h1><img src="{views:img/icons/posts.png}" alt="" /> 合同管理</h1>
 <div class="bloc">
     <div class="title">
-        添加撮合人
+        合同列表
     </div>
     <div class="content">
         <div class="pd-20">

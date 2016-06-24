@@ -57,12 +57,12 @@ class companyRecController extends Yaf\Controller_Abstract {
     推荐商户添加
      */
     public function recAddAction(){
-    	if(IS_POST&&IS_AJAX){
+    	if(IS_POST){
 			$data=array(
 				'user_id'=>safe::filterPost('user_id','int'),
 				'type'=>safe::filterPost('type','int'),
 				'status'=>safe::filterPost('status','int'),
-				'start_time'=>safe::filterPost('start_time','int'),
+				'start_time'=>safe::filterPost('start_time'),
 				'end_time'=>safe::filterPost('end_time')
 				);    		
 			$recModel=new \nainai\companyRec();
@@ -98,7 +98,7 @@ class companyRecController extends Yaf\Controller_Abstract {
     删除推荐
      */
     public function recDelAction(){
-    	if(IS_GET&&IS_AJAX){
+    	if(IS_POST&&IS_AJAX){
     		$id=safe::filterGet('id','int');
     		$recModel=new \Library\M('company_rec');
     		$where=array('id'=>$id);

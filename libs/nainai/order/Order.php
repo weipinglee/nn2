@@ -24,6 +24,7 @@ class Order{
 	const CONTRACT_COMPLETE = 8;//合同完成
 
 	//订单类型常量定义 
+	const ORDER_PURCHASE = 0;//采购报盘
 	const ORDER_FREE = 1;//自由报盘订单
 	const ORDER_DEPOSIT = 2;//保证金报盘订单
 
@@ -164,16 +165,9 @@ class Order{
 				while($this->existOrderData($order,array('order_no'=>$data['order_no']))){
 					$data['order_no'] = tool::create_uuid();
 				}
-				try {
-					$order->beginTrans();
-					$order_id = $order->data($data)->add();
-					$this->payLog($order_id,$data['user_id'],0,'买方下单');
-					
-					$res = $order->commit();	
-				} catch (\PDOException $e) {
-					$order->rollBack();
-					$res = $e->getMessage();
-				}
+				$order_id = $order->data($data)->add();
+				$this->payLog($order_id,$data['user_id'],0,'买方下单');
+				$res = true;
 			}
 		}else{
 			$res = $order->getError();
@@ -266,7 +260,7 @@ class Order{
 	}
 
 	//根据报盘id获取相应信息
-	protected function offerInfo($offer_id){
+	public function offerInfo($offer_id){
 		$query = new Query('product_offer as po');
 		$query->join = 'left join user as u on po.user_id = u.id';
 		$query->where = " po.id = :id";
@@ -281,9 +275,11 @@ class Order{
 	//买家支付尾款
 	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = ''){
 		$info = $this->orderInfo(intval($order_id));
+		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
+			$buyer = $offerInfo['type'] == 1 ? intval($info['user_id']) : $this->sellerUserid($order_id);
 			if($info['contract_status'] == self::CONTRACT_BUYER_RETAINAGE || $info['contract_status'] == self::CONTRACT_NOTFORM){
-				if($info['user_id'] != $user_id)
+				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'订单买家信息有误');
 
 				$amount = floatval($info['amount']);
@@ -297,7 +293,7 @@ class Order{
 						$payment = in_array($info['mode'],array(self::ORDER_ENTRUST,self::ORDER_FREE)) ? 'offline' : $payment;//自由与委托报盘只接受线下凭证
 						if($payment == 'online'){
 							//冻结买家帐户余额
-							$acc_res = $this->account->freeze($info['user_id'],$retainage);
+							$acc_res = $this->account->freeze($buyer,$retainage);
 
 							if($acc_res === true){
 								$orderData['pay_retainage'] = $retainage;
@@ -357,11 +353,12 @@ class Order{
 	 */
 	public function confirmProof($order_id,$user_id,$confirm = true){
 		$info = $this->orderInfo($order_id);
+		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
 			if($info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST && $info['contract_status'] != self::CONTRACT_BUYER_RETAINAGE){
 				return tool::getSuccInfo(0,'合同状态有误');
 			}
-			$seller = $this->sellerUserid($order_id);//获取卖方帐户id
+			$seller = $offerInfo['type'] == 1 ? $this->sellerUserid($order_id) : intval($info['user_id']);//获取卖方帐户id
 			if($seller != $user_id)
 				return tool::getSuccInfo(0,'订单卖家信息有误');
 
@@ -460,7 +457,7 @@ class Order{
 	/**
 	 * 获取分类首付款比率
 	 */
-	private function getCatePercent($id,$obj=null){
+	public function getCatePercent($id,$obj=null){
 		if($obj==null)
 			$obj = new M('product_category');
 		static $percent = 0;
@@ -560,7 +557,7 @@ class Order{
 	 * @return array $res     返回结果信息
 	 */
 	final protected function payLog($order_id,$user_id,$user_type,$remark){
-		$res = $this->paylog->data(array('pay_type'=>$this->order_table,'order_id'=>$order_id,'user_id'=>$user_id,'user_type'=>$user_type,'remark'=>$remark,'create_time'=>date('Y-m-d H:i:s',time())))->add();
+		$res = $this->paylog->data(array('pay_type'=>$this->order_table,'order_id'=>intval($order_id),'user_id'=>intval($user_id),'user_type'=>$user_type,'remark'=>$remark,'create_time'=>date('Y-m-d H:i:s',time())))->add();
 		$err = $this->paylog->getError();
 		return  intval($res) > 0 ? true : (!empty($err) ? $err : '日志记录失败');
 	}
@@ -568,14 +565,19 @@ class Order{
 	/**
 	 * 买方确认货物质量
 	 * @param  int $order_id 订单id
+	 * @param  int $user_id 当前用户id
 	 * @param  array $reduceData 扣减货款数据 默认为空
 	 * @return array  $res   返回结果
 	 */
-	public function verifyQaulity($order_id,$reduceData = array()){
+	public function verifyQaulity($order_id,$user_id,$reduceData = array()){
 		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$order = $this->orderInfo($order_id);
-		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
+		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE,self::ORDER_PURCHASE))){
 			if($order['contract_status'] == self::CONTRACT_DELIVERY_COMPLETE){
+				$offerInfo = $this->offerInfo($order['offer_id']);
+				$buyer = $offerInfo['type'] == 1 ? $order['user_id'] : $offerInfo['user_id'];
+				if($buyer != $user_id)
+					return tool::getSuccInfo(0,'操作用户错误');
 				$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//状态置为买家已确认质量
 				$orderData['id'] = $order_id;
 
@@ -587,7 +589,7 @@ class Order{
 					$res = $this->orderUpdate($orderData);
 					//更新合同状态
 					if($res['success'] == 1){
-						$log_res = $this->payLog($order_id,$order['user_id'],0,'买家确认提货质量'.($reduceData['reduce_amount'] ? "（扣减款项：{$reduceData['reduce_amount']})" : ''));
+						$log_res = $this->payLog($order_id,$user_id,0,'买家确认提货质量'.($reduceData['reduce_amount'] ? "（扣减款项：{$reduceData['reduce_amount']})" : ''));
 						if($log_res === true){
 							$this->order->commit();
 							return tool::getSuccInfo();
@@ -614,27 +616,34 @@ class Order{
 	/**
 	 * 卖家确认买家扣减货款信息
 	 * @param  int $order_id 订单Id
+	 * @param  int $user_id  当前用户
 	 * @return array 结果数组
 	 */
-	public function sellerVerify($order_id){
+	public function sellerVerify($order_id,$user_id){
 		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$order = $this->orderInfo($order_id);
-		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
+		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE,self::ORDER_PURCHASE))){
 			if($order['contract_status'] == self::CONTRACT_VERIFY_QAULITY){
+				$offerInfo = $this->offerInfo($order['offer_id']);
+				$buyer  = $offerInfo['type'] == 1 ? $order['user_id'] : $offerInfo['user_id'];
+				$seller = $offerInfo['type'] == 1 ? $offerInfo['user_id'] : $order['user_id'];
+				if($seller != $user_id)
+					return tool::getSuccInfo(0,'操作用户错误');
+
 				$orderData['contract_status'] = self::CONTRACT_SELLER_VERIFY;//状态置为卖家已确认质量
 				$orderData['id'] = $order_id;
 
 				try {
 					$this->order->beginTrans();
 					$res = $this->orderUpdate($orderData);
-						$buyer = $this->offer->where(array('id'=>$order['offer_id']))->getfield('user_id');
+						
 						//将订单款 减去扣减款项 后的60%支付给卖方
 						$reduce_amount = floatval($order['reduce_amount']); 
 
 						$amount = ($order['amount'] - $reduce_amount) * 0.6;
-						$acc_res = $this->account->freezePay($order['user_id'],$buyer,floatval($amount));
+						$acc_res = $this->account->freezePay($buyer,$seller,floatval($amount));
 						if($acc_res === true){
-							$log_res = $this->payLog($order_id,$order['user_id'],0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
+							$log_res = $this->payLog($order_id,$user_id,0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
 							if($log_res === true){
 								$this->order->commit();
 								return tool::getSuccInfo();
@@ -661,13 +670,20 @@ class Order{
 	/**
 	 * 买方确认合同完成
 	 * @param  int $order_id 订单id
+	 * @param  int $user_id 当前用户
 	 * @return array  $res   返回结果信息
 	 */
-	public function contractComplete($order_id){
+	public function contractComplete($order_id,$user_id){
 		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$order = $this->orderInfo($order_id);
-		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE))){
+		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE,self::ORDER_PURCHASE))){
 			if($order['contract_status'] == self::CONTRACT_SELLER_VERIFY){
+				$offerInfo = $this->offerInfo($order['offer_id']);
+				$buyer  = $offerInfo['type'] == 1 ? $order['user_id'] : $offerInfo['user_id'];
+				$seller = $offerInfo['type'] == 1 ? $offerInfo['user_id'] : $order['user_id'];
+				if($buyer != $user_id)
+					return tool::getSuccInfo(0,'操作用户错误');
+
 				$orderData['contract_status'] = self::CONTRACT_COMPLETE;
 				$orderData['id'] = $order_id;
 
@@ -675,13 +691,10 @@ class Order{
 					$this->order->beginTrans();
 					$res = $this->orderUpdate($orderData);
 					if($res['success'] == 1){
-						//释放卖家保证金
-						$buyer = $this->offer->where(array('id'=>$order['offer_id']))->getfield('user_id');
-
 						//判断是否为保证金订单
 						if($order['mode'] == self::ORDER_DEPOSIT){
 							//如果是则需要将卖家的保证金解冻
-							$accf_res = $this->account->freezeRelease($buyer,floatval($order['seller_deposit']));
+							$accf_res = $this->account->freezeRelease($seller,floatval($order['seller_deposit']));
 						}else{
 							$accf_res = true;
 						}
@@ -690,11 +703,11 @@ class Order{
 							//支付剩余货款 减去扣减款项 后的40%
 							$reduce_amount = floatval($order['reduce_amount']); 
 							$amount = ($order['amount'] - $reduce_amount) * 0.4;
-							$accp_res = $this->account->freezePay($order['user_id'],$buyer,floatval($amount));
+							$accp_res = $this->account->freezePay($buyer,$seller,floatval($amount));
 							if($accp_res === true){
 								//若$reduce_amount 大于0 则将此扣减项返还买方账户
-								$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($order['user_id'],$reduce_amount) : true;
-								$log_res = $this->payLog($order_id,$order['user_id'],0,'买家确认合同,合同结束'.($reduce_amount > 0 ? "(返还扣减项:$reduce_amount)" : ''));
+								$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($buyer,$reduce_amount) : true;
+								$log_res = $this->payLog($order_id,$user_id,0,'买家确认合同,合同结束'.($reduce_amount > 0 ? "(返还扣减项:$reduce_amount)" : ''));
 								if($log_res === true){
 									if($reduce_res === true){
 										$this->order->commit();
@@ -736,10 +749,10 @@ class Order{
 	public function sellerContractList($user_id,$page,$where = array()){
 		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
-		$query->where = 'po.user_id = :user_id';
+		$query->where = '(po.user_id = :user_id and po.type = 1) or (do.user_id = :seller_id and po.type = 2)';
 		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
-		$query->bind  = array('user_id'=>$user_id);
+		$query->bind  = array('user_id'=>$user_id,'seller_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
 		// $query->order = "sort";
@@ -778,10 +791,10 @@ class Order{
 	public function buyerContractList($user_id,$page,$where = array()){
 		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
-		$query->where = 'do.user_id = :user_id';
+		$query->where = '(do.user_id = :user_id and po.type = 1) or (po.user_id = :buyer_id and po.type = 2)';
 		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
-		$query->bind  = array('user_id'=>$user_id);
+		$query->bind  = array('user_id'=>$user_id,'buyer_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
 		// $query->order = "sort";
@@ -803,7 +816,7 @@ class Order{
 	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id';
-		$query->fields = 'do.*,p.name,po.price,do.amount,p.unit,po.product_id,pc.name as cate_name,po.user_id as seller_id';
+		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,pc.name as cate_name,po.user_id as seller_id';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();
@@ -820,12 +833,13 @@ class Order{
 		}
 
 		$res = array($res);
+		$user_id = $res[0]['type'] == 1 ? $res[0]['user_id'] : $res[0]['seller_id'];
 		if($identity == 'seller'){
 			$this->sellerContractStatus($res);
-			$res[0]['userinfo'] = $this->contractUserInfo($res[0]['user_id'],1);
+			$res[0]['userinfo'] = $this->contractUserInfo($user_id,1);
 		}elseif($identity == 'buyer'){
 			$this->buyerContractStatus($res);
-			$res[0]['userinfo'] = $this->contractUserInfo($res[0]['user_id']);
+			$res[0]['userinfo'] = $this->contractUserInfo($user_id);
 		}
 		$res[0]['pay_log'] = $this->paylog->where(array('order_id'=>$id))->fields('remark,create_time')->order('create_time asc')->select();
 
@@ -931,7 +945,7 @@ class Order{
 						$action []= array('action'=>$title,'url'=>$href);
 					}else{
 						$title = '提货列表';
-						$href = url::createUrl("/delivery/deliveryList?is_seller=0");
+						$href = url::createUrl("/delivery/deliBuyList");
 						$action []= array('action'=>$title,'url'=>$href);
 					}
 					break;
@@ -948,7 +962,7 @@ class Order{
 					break;
 				case self::CONTRACT_SELLER_VERIFY:
 					$title = '确认合同结束';
-					$href = url::createUrl("/Order/contractComplete?order_id={$value['id']}");
+					$href = url::createUrl("/Order/contractComplete?order_id={$value['id']}&action_confirm=1&info=确认合同结束");
 					$action []= array('action'=>$title,'url'=>$href);
 					break;
 				default:

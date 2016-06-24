@@ -80,26 +80,22 @@ class OfferManageModel extends \nainai\offer\product{
 	 * @param  int $id 
 	 * @return array  信息
 	 */
-	public function getofferInfo($id){
-		$query = new Query("product_offer as o");
-		$query->join = 'left join products as p on o.product_id = p.id';
-		$query->fields = 'o.*,p.name,p.cate_id,p.unit,p.quantity, p.name as product_name, p.produce_area';
-		$query->where = 'o.id = '.$id;
-		$info = $query->getobj();
-		$parent_cates = $this->getParents($info['cate_id']);
-		$info['topcate_name'] = array_pop($parent_cates)['name'];
-		$parents = array();
-		foreach ($parent_cates as $value) {
-			$parents []= $value['name'];
+	public function getofferDetail($id){
+		$obj = new M('product_offer');
+		$info = $obj->where(array('id'=>$id))->getObj();
+		if(!empty($info)){
+			$info['type'] = $this->getType($info['type']);
+			$info['mode_txt'] = $this->getMode($info['mode']);
+			$info['mode_txt'] = $info['mode_txt'] == '未知' ? '--' : $info['mode_txt'];
+			$info['status_txt'] = $this->getStatus($info['status']);
+			$product = $this->getProductDetails($info['product_id']);
+			$info = array_merge($info,$product);
+
+
 		}
-		$info['type'] = $info['type'] == 1 ? "卖盘" : "买盘";
-		$info['mode_txt'] = $this->getMode($info['mode']);
-		$info['mode_txt'] = $info['mode_txt'] == '未知' ? '--' : $info['mode_txt'];
-		$info['quantity'] = $this->floatForm($info['quantity']);
-		$info['status_txt'] = $this->getStatus($info['status']);
-		$info['parent_cates'] = implode('/', array_reverse($parents));
 		return $info ? $info : array();
 	}
+
 
 	/**
 	 * 更新审核状态

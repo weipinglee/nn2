@@ -42,16 +42,6 @@
                                     {/foreach}
                                 </ul>
 
-                                    {if: !empty($category['hide'])}
-                                    <ul class="infoslider" style="display: none;">
-                                        {foreach: items=$category['hide'] item=$cate}
-                                        <li value="{$cate['id']}"  ><a>{$cate['name']}</a></li>
-                                        {/foreach}
-                                    </ul>
-                                        <div class="sl_ext">
-                                        <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-                                        </div>
-                                    {/if}
                             </div>
                         {/foreach}
                         {/if}

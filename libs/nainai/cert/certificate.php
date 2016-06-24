@@ -199,15 +199,16 @@ class certificate{
      * 获取申请认证用户列表
      * @param string $type 认证类型
      * @param int $page 页码
+     * @param string $status 狀態
      */
-    public function certApplyList($type,$page){
+    public function certApplyList($type,$page,$status=1){
         if(!isset($type))return array();
         $table = self::getCertTable($type);
         $Q = new Query('user as u');
         $Q->join = 'left join '.$table.' as c on u.id = c.user_id';
         $Q->fields = 'u.id,u.type,u.username,u.mobile,u.email,u.status as user_status,u.create_time,c.*';
         $Q->page = $page;
-        $Q->where = 'c.status='.self::CERT_APPLY;
+        $Q->where = 'c.status in('.$status.')';
         $data = $Q->find();
         $pageBar =  $Q->getPageBar();
         return array('data'=>$data,'bar'=>$pageBar);

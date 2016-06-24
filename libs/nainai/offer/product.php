@@ -208,6 +208,24 @@ class product{
         return $category;
     }
 
+    /**
+     * 获取某一个分类的顶级分类
+     * @param $cate
+     * @return mixed
+     */
+    public function getcateTop($cate){
+        if(intval($cate)>0){
+            $cate = intval($cate);
+            $obj = new M('product_category');
+            $pid = $obj->where(array('id'=>$cate))->getField('pid');
+            while($pid!=0){
+                $cate = $pid;
+                $pid = $obj->where(array('id'=>$pid))->getField('pid');
+            }
+        }
+        return $cate;
+    }
+
 
     /**
      * 获取下级所有分类，以及分类链
@@ -367,7 +385,7 @@ class product{
         if(!$product_id)
             return array();
         $obj = new M('products');
-        $obj->fields('name as product_name,  attribute, produce_area, create_time, quantity,cate_id, unit, id as product_id, price, note');
+        $obj->fields('name as product_name,  attribute, produce_area, create_time, quantity,freeze,sell,cate_id, unit, id as product_id, price, note');
         $obj->where(array('id'=>$product_id));
         $detail = $obj->getObj();
 
@@ -513,6 +531,7 @@ class product{
         return $parents;
     }
 
+
     /**
      * 获取某个分类名称
      * @param int $cate_id 分类id
@@ -521,6 +540,31 @@ class product{
         $m = new M('product_category');
         return $m->where(array('id'=>$cate_id))->getField('name');
 
+    }
+
+
+    private function getNestedList($list, $pid = 0) {
+        $arr = array();
+        $tem = array();
+
+        foreach ($list as $v) {
+            if ($v['pid'] == $pid) {
+                $tem = $this->getNestedList($list, $v['id']);
+                //判断是否存在子数组
+                $v['nested'] = $tem;
+                $arr[] = $v;
+            }
+        }
+        return $arr;
+    }
+    //获取分类列表
+    public function getAllCat() {
+        $m_category = new Query('product_category');
+        $m_category->where='status= :status';
+        $m_category->bind=array('status'=>1);
+        $c_list = $m_category->find();
+        $result = $this->getNestedList($c_list);
+        return $result;
     }
 
 
