@@ -32,7 +32,12 @@ class pairingModel{
 	}
 
 	/**
-	 * 获取合同状态为已生效及之后的列表
+	 * 获取合同状态为已生效及之后的列表	
+	 * @param  int  $page   分页数
+	 * @param  string  $where   附加条件
+	 * @param  int $pairing  撮合人员id 为0获取未绑定合同列表
+	 * @param  boolean $is_complete 合同是否为已完成状态
+	 * @return array   结果
 	 */
 	public function contractList($page,$where = '',$pairing = 0,$is_complete = false){
 		$query = new Query('order_sell as o ');

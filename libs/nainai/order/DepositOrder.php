@@ -61,22 +61,14 @@ class DepositOrder extends Order{
 					$pro_res = $this->productsFreeze($this->offerInfo($info['offer_id']),$info['num']);
 					if($pro_res === true){
 						$log_res = $this->payLog($order_id,$buyer,0,'买方预付定金--'.$type == 0 ? '定金' : '全款');
-						if($log_res === true){
-							$res = $this->order->commit();
-						}else{
-							$this->order->rollBack();
-							$res = $log_res;
-						}
+						$res = $log_res === true ? true : $log_res;
 					}else{
-						$this->order->rollBack();
 						$res = $pro_res;
 					}
 				}else{
-					$this->order->rollBack();
 					$res = $acc_res['info'];
 				}	
 			}else{
-				$this->order->rollBack();
 				$res = $upd_res['info'];
 			}
 

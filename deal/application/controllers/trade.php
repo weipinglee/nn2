@@ -11,6 +11,7 @@ use \Library\safe;
 use \Library\tool;
 use \nainai\order;
 use \Library\json;
+use \Library\M;
 class tradeController extends \nainai\controller\Base {
 
 	private $offer;
@@ -80,21 +81,25 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['user_id'] = $user_id;
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
-		try {
-			$this->offer->beginTrans();
-			$gen_res = $order_mode->geneOrder($orderData);
 
+		$order = new M('order_sell');
+		try {
+			$order->beginTrans();
+			$gen_res = $order_mode->geneOrder($orderData);
+			
 			if($gen_res['success'] == 1){
 				if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){
-					$this->offer->commit();
-					$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount=111&payed=0&info=等待上传线下支付凭证'));
+					$order->commit();
+					$order_id = $gen_res['order_id'];
+					$amount = $order->where(array('id'=>$order_id))->getfield('amount');
+					$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证'));
 				}else{		
 					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
 					if($pay_res['success'] == 1){
-						$this->offer->commit();
+						$order->commit();
 						$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
 					}else{
-						$this->offer->rollBack();
+						$order->rollBack();
 						$this->error('预付定金失败:'.$pay_res['info']);
 					}
 				}
@@ -102,7 +107,7 @@ class tradeController extends \nainai\controller\Base {
 				$this->error('生成订单失败:'.$gen_res['info']);
 			}
 		} catch (\PDOException $e) {
-			$this->offer->rollBack();
+			$order->rollBack();
 			$this->error($e->getMessage());
 		}
 		

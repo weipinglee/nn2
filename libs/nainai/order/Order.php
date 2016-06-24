@@ -881,12 +881,11 @@ class Order{
 					$title = '提货已完成';
 					break;
 				case self::CONTRACT_VERIFY_QAULITY:
-					
 					if(empty($value['reduce_amount'])) {
-						$title = '确认质量';
+						$title = '质量合格';
 						$href = url::createUrl("/Order/sellerVerify?order_id={$value['id']}");
 					}else{
-						$title = '买家要求扣减货款';
+						$title = '扣减货款';
 						$href = url::createUrl("/Order/sellerVerify?order_id={$value['id']}&reduce=1");
 					}
 					break;
@@ -958,7 +957,7 @@ class Order{
 					$action []= array('action'=>'扣减货款','url'=>url::createUrl("/Order/verifyQaulityPage?order_id={$value['id']}"));
 					break;
 				case self::CONTRACT_VERIFY_QAULITY:
-					$title = '等待卖方确认质量';
+					$title = $value['reduce_amount'] ? '扣减货款' : '质量合格';
 					break;
 				case self::CONTRACT_SELLER_VERIFY:
 					$title = '确认合同结束';

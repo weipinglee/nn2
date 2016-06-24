@@ -180,13 +180,23 @@ class PurchaseController extends UcenterBaseController{
 	 */
 	public function reportlistsAction(){
 		$page = Safe::filterGet('page', 'int', 0);
-
+		$id = safe::filterGet('id','int',0);
 		$name = Safe::filterGet('name');
 		$status = Safe::filterGet('status', 'int', 9);
 		$beginDate = Safe::filterGet('beginDate');
 		$endDate = Safe::filterGet('endDate');
 		//查询组装条件
 		$where = ' 1 ';
+
+		if (empty($id)) {
+		    $where .= ' AND p.seller_id =36';//.$this->user_id;
+		    $this->getView()->assign('user_id', $this->user_id);
+		}
+
+		if (!empty($id)) {
+		    $where .= ' AND p.offer_id ='.$id;
+		    $this->getView()->assign('id', $id);
+		}
 
 		if (!empty($name)) {
 		    $where .= ' AND u.username like"%'.$name.'%"';

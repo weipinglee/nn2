@@ -3,14 +3,15 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>产品管理</a>><a>产品列表</a></p>
+						<p><a>采购管理</a>><a>报价列表</a></p>
 					</div>
 					<div class="chp_xx">
 						<div class="xx_top">
 							<form action="{url:/Purchase/reportlists}" method="GET" name="">
 								<ul>
+									{if:!isset($user_id)}
 									<li>用户名：<input id="warename" name="name" type="text" value="{$name}"></li>
-									
+									{/if}
 								
 									<li>状态：<select name="status">
 									<option value="9">全部</option>
@@ -20,6 +21,7 @@
 									</select></li>
 									<li>申请时间：<input class="Wdate" type="text" name="beginDate" value="{$beginData}" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="{$endDate}" onclick="WdatePicker()">
 									</li>
+									<input type="hidden" name="id" value="{$id}">
 									<li> <a class="chaz"><input type="submit" value="查找"> </a></li>
 								</ul>
 							</form>
@@ -51,9 +53,9 @@
 									<td><span class="col000000">{$list['status_zn']}</span></td>
 									<td>{$list['create_time']}</td>
 									<td>
-										<a href="{url:/Purchase/doApplyReport?id=$list['id']}">审核</a>
-									
+										{if:!isset($user_id)}
 										<a href="{url:/PurchaseOrder/geneOrder?id=$list['id']&offer_id=$list['offer_id']}">选择</a>
+										{/if}
 									</td>
 								</tr>
 								{/foreach}

@@ -3,7 +3,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>产品管理</a>><a>产品列表</a></p>
+						<p><a>采购管理</a>><a>采购列表</a></p>
 					</div>
 					<div class="chp_xx">
 						<div class="xx_top">
@@ -45,9 +45,15 @@
 									<td>{$list['unit']}</td>
 									<td>{$list['price']}-{$list['price_r']}</td>
 									<!-- <td>已投保</td> -->
-									<td><span class="col000000">{$list['status']}</span></td>
+									<td><span class="col000000">{$list['status_txt']}</span></td>
 									<td>{$list['apply_time']}</td>
-									<td><a href="{url:/Purchase/detail?id=$list['id']}">查看</a><!-- <a href="{url:/Purchase/doApply?id=$list['id']}">审核</a> --></td>
+									<td>
+										<a href="{url:/Purchase/detail?id=$list['id']}">查看</a>
+										{if:$list['status'] == \nainai\offer\product::OFFER_OK}
+											<a href="{url:/Purchase/reportlists}?id={$list['id']}">报价列表</a>
+										{/if}
+										<!-- <a href="{url:/Purchase/doApply?id=$list['id']}">审核</a> -->
+									</td>
 								</tr>
 								{/foreach}
 								
