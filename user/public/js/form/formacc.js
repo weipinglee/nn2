@@ -24,8 +24,9 @@ nn_panduo.formacc.prototype = {
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
 			_this.bind_select();
 			_this.validform();
-			_this.validPaymentPassword();
+
 		});
+		_this.validPaymentPassword();
 	},
 	/**
 	 * 自动绑定select选中项

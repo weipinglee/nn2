@@ -109,10 +109,10 @@
         <td>
             <input name="minimum" id="" type="text" class="text"  />
         </td>
-        <td>
+       <!-- <td>
             <span>*</span>
             最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
-        </td>
+        </td>-->
     </tr>
     <tr>
         <td>交收地点：</td>

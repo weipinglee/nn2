@@ -38,7 +38,7 @@ class User extends \nainai\Abstruct\ModelAbstract {
 	 */
 	public function getSecretUrl(){
 		return $secret_url = array(
-            'ucenter/ind1ex','ucenter/xxxx'
+            'ucenter/ind1ex','ucenter/xxxx','order/buyerRetainage'
         );
 	}
 

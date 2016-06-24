@@ -13,6 +13,17 @@ class offersModel extends \nainai\offer\product{
     public function __construct(){
         $this->offer = new M('product_offer');
     }
+
+    public function beginTrans(){
+        $this->offer->beginTrans();
+    }
+
+    public function commit(){
+        $this->offer->commit();
+    }
+    public function rollBack(){
+        $this->offer->rollBack();
+    }
     /**
      * »ñÈ¡²úÆ·¶ÔÓ¦·ÖÀàÏÂµÄµÄ±¨ÅÌÐÅÏ¢ÁÐ±í
      * @param  [Int] $cateId [·ÖÀàid]

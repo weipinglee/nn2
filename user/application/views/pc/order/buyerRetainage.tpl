@@ -132,7 +132,7 @@
                         </script>
                        
                    <div id="bain_bo">
-                   <form action="{url:/Order/buyerRetainage}" pay_secret=1 method="post" payenctype="multipart/form-data">
+                   <form action="{url:/Order/buyerRetainage}" pay_secret="1" method="post" auto_submit enctype="multipart/form-data">
                    {if:$show_online}
                    <div class="sty_online" style="display:block;">
                         
