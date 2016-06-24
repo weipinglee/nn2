@@ -55,18 +55,18 @@ class UcenterBaseController extends \nainai\controller\Base{
             $this->error('无权限',url::createUrl('/Ucenter/index'));
         }
 
-        $user = new \nainai\user\User();
+        $user = new \nainai\member();
         $secret_url = $user->getSecretUrl();
 
         //判断是否需要支付密码
-        if(in_array(strtolower($controllerName).'/'.strtolower($actionName),$secret_url)){
+        if(IS_POST && in_array(strtolower($controllerName).'/'.strtolower($actionName),$secret_url)){
             $pay_secret = safe::filterPost('pay_secret') ? safe::filterPost('pay_secret') : safe::filter($this->_request->getParam('pay_secret'));
             if(!$pay_secret){
-                IS_POST ? die(json::encode(tool::getSuccInfo(0,'请认证支付密码'))) : $this->error('请认证支付密码');die;
+                IS_AJAX ? die(json::encode(tool::getSuccInfo(0,'请认证支付密码'))) : $this->error('请认证支付密码');die;
             }
             $sec = $user->validPaymentPassword($pay_secret);
             if(!$sec){
-                IS_POST ? die(json::encode(tool::getSuccInfo(0,'支付密码错误'))) : $this->error('支付密码错误'); die; 
+				IS_AJAX ? die(json::encode(tool::getSuccInfo(0,'支付密码错误'))) : $this->error('支付密码错误'); die;
             }
         }
         
@@ -275,6 +275,11 @@ class UcenterBaseController extends \nainai\controller\Base{
          */
         public function validPaymentPasswordAction(){
             $pay_secret = safe::filterPost('pay_secret');
+			if(!$pay_secret)
+				$pay_secret = safe::filterGet('pay_secret');
+			if(!$pay_secret)
+				$pay_secret = $this->getRequst()->getParam('pay_secret');
+
             $user = new \nainai\user\User();
             $valid = $user->validPaymentPassword($pay_secret);
             $res = $valid === true ? tool::getSuccInfo() : tool::getSuccInfo(0,'支付密码错误');

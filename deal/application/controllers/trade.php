@@ -88,18 +88,25 @@ class tradeController extends \nainai\controller\Base {
 				if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){
 					$this->offer->commit();
 					$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount=111&payed=0&info=等待上传线下支付凭证'));
-				}else{		
+				}else{
+					$zhi = new \nainai\member();
+					$pay_secret = safe::filterPost('pay_secret');
+					if(!$zhi->validPaymentPassword($pay_secret,$this->user_id)){
+						die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
+					}
 					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
 					if($pay_res['success'] == 1){
 						$this->offer->commit();
-						$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']));
+						$url = url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']);
+						die(json::encode(tool::getSuccInfo(1,'支付成功,稍后跳转',$url)));
+
 					}else{
 						$this->offer->rollBack();
-						$this->error('预付定金失败:'.$pay_res['info']);
+						die(json::encode(tool::getSuccInfo(0,'预付定金失败:'.$pay_res['info'])));
 					}
 				}
 			}else{
-				$this->error('生成订单失败:'.$gen_res['info']);
+				die(json::encode(tool::getSuccInfo(0,'生成订单失败:'.$gen_res['info'])));
 			}
 		} catch (\PDOException $e) {
 			$this->offer->rollBack();

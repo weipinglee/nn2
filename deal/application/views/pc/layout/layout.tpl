@@ -9,10 +9,12 @@
     <link rel="stylesheet" type="text/css" href="{views:css/index20141027.css}">
     <script src="{views:js/index20141027.js}" type="text/javascript"></script>
     <link rel="stylesheet" href="{views:css/classify.css}">
-         <script type="text/javascript" src="{views:js/validate/jquery.validate.min.js}" ></script>
-     <script type="text/javascript" src="{views:js/validate/messages_zh.min.js}" ></script>
-     <link href="{views:js/validate/error.css}" rel="stylesheet" type="text/css">
-    
+
+    <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
+    <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
+    <script type="text/javascript" src="{root:js/layer/layer.js}" ></script>
+
+
     <style type="text/css">
         /*临时顶部图片style 要remove的*/
         body{behavior:url(css/csshover.htc);} 

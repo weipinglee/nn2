@@ -209,28 +209,49 @@ nn_panduo.formacc.prototype = {
 	ajax_post:function(url,ajax_data,suc_callback,err_callback){
 		var _this = this;
 		$.ajax({
-          type:'post',
-          url:url,
-          data:ajax_data,
-          dataType:'json',
-          success:function(data){
-            if(data.success == 1){
-              _this.ajax_return_data = data;
-              if(typeof(eval(suc_callback)) == 'function'){
-	              suc_callback();
-	          }
-              _this.ajax_return_data = '';
-            }else{
-              if(typeof(eval(err_callback)) == 'function'){
-	              err_callback();
-	          }
-              layer.msg(data.info);
-            }
-          },
-          error:function(data){
-            layer.msg("服务器错误,请重试");
-          }
-        });
+			type:'post',
+			url:url,
+			data:ajax_data,
+			dataType:'json',
+			success:function(data){
+				if(data.success == 1){
+					if(data.return){
+						layer.msg(data.info);
+						setTimeout(function(){
+							window.location.href=data.return;
+						},1000);
+					}
+					else{
+						_this.ajax_return_data = data;
+						if(typeof(eval(suc_callback)) == 'function'){
+							suc_callback();
+						}
+						_this.ajax_return_data = '';
+					}
+
+
+				}else{
+					if(data.return){
+						if(data.return){
+							layer.msg(data.info);
+							setTimeout(function(){
+								window.location.href=data.return;
+							},1000);
+						}
+					}
+					else{
+						if(typeof(eval(err_callback)) == 'function'){
+							err_callback();
+						}
+						layer.msg(data.info);
+					}
+
+				}
+			},
+			error:function(data){
+				layer.msg("服务器错误,请重试");
+			}
+		});
 	}
 }
 

@@ -1,9 +1,7 @@
 <script type="text/javascript" src="{views:js/area/Area.js}" ></script>
      <script type="text/javascript" src="{views:js/area/AreaData_min.js}" ></script>
 
-     <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
-    <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
-<script type="text/javascript" src="{root:js/layer/layer.js}" ></script>
+
      <link rel="stylesheet" href="{views:css/submit_baojia.css}">
     <!------------------导航 开始-------------------->
     <form method="post" action="" id="form1">
