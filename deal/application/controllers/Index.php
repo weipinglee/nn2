@@ -24,7 +24,7 @@ class IndexController extends PublicController {
 	public function indexAction() {
 
 		//获取所有分类
-		$productModel=new product();echo $productModel->getcateTop(7);
+		$productModel=new product();
 		$res=$productModel->getAllCat();
 		$this->getView()->assign('catList',$res);
 
