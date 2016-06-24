@@ -136,7 +136,7 @@
                    {if:$show_online}
                    <div class="sty_online" style="display:block;">
                         
-						      <label for=""><input name="account" type="radio" value="1" />市场代理账户</label>
+						      <label for=""><input name="account" type="radio" value="1" checked="true"/>市场代理账户</label>
 						      <label for=""><input name="account" type="radio" value="2" />银行签约账户</label>
 						      <label for=""><input name="account" type="radio" value="3" />票据账户</label>
 
@@ -195,7 +195,6 @@
               return false;
             }
             $('form').submit();
-            $(this).unbind('click');
           });
         });
       </script>

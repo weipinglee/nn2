@@ -40,11 +40,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 
 	protected function init(){
-        $this->cert = array(
-            'public'=>1,
-            'deal'=>1,
-            'store'=>1
-        );
+		parent::init();//继承父类的方法，检测是否登录和角色
 
         $controllerName = $this->_request->getControllerName();
         $actionName = $this->_request->getActionName();
@@ -62,19 +58,15 @@ class UcenterBaseController extends \nainai\controller\Base{
         if(IS_POST && in_array(strtolower($controllerName).'/'.strtolower($actionName),$secret_url)){
             $pay_secret = safe::filterPost('pay_secret') ? safe::filterPost('pay_secret') : safe::filter($this->_request->getParam('pay_secret'));
             if(!$pay_secret){
-                IS_AJAX ? die(json::encode(tool::getSuccInfo(0,'请认证支付密码'))) : $this->error('请认证支付密码');die;
+                IS_AJAX ? die(json::encode(tool::getSuccInfo(0,'请输入支付密码'))) : $this->error('请输入支付密码');die;
             }
             $sec = $user->validPaymentPassword($pay_secret);
             if(!$sec){
 				IS_AJAX ? die(json::encode(tool::getSuccInfo(0,'支付密码错误'))) : $this->error('支付密码错误'); die;
             }
         }
-        
-        
-		parent::init();//继承父类的方法，检测是否登录和角色
 
         //确认操作
-
 		$action_confirm = $this->_request->getParam('action_confirm');
 		if(isset($action_confirm)){
 			$info = safe::filter($this->_request->getParam('info'));

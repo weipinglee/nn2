@@ -25,15 +25,16 @@ class OrderController extends UcenterBaseController{
 			$proof = safe::filterPost('imgproof');
 
 			$user_id = $this->user_id;
-			//$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof);
-			$res = array('success'=>1);
+			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof);
+
 			if($res['success'] == 1){
 				$title = $type == 'offline' ? '已上传支付凭证' : '已支付尾款';
 				$info = $type == 'offline' ? '请等待卖家确认凭证' : '合同已生效，可申请提货';
 
-				$this->redirect(url::createUrl('/Order/payRetainageSuc')."/title/$title/info/$info");
+				die(json::encode(tool::getSuccInfo(1,$title,url::createUrl('/contract/buyerdetail?id='.$order_id))));
+				//$this->redirect(url::createUrl('/Order/payRetainageSuc')."/title/$title/info/$info");
 			}else{
-				$this->error($res['info']);
+				die(json::encode($res));
 			}
 			return false;
 		}else{

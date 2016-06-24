@@ -152,7 +152,7 @@ class member{
      */
     public function getSecretUrl(){
         return $secret_url = array(
-            'ucenter/ind1ex','ucenter/xxxx','order/buyerRetainage','test/form'
+            'ucenter/ind1ex','ucenter/xxxx','order/buyerretainage','test/form','deposit/sellerdeposit'
         );
     }
 

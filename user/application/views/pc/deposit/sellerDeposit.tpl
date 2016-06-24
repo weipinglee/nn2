@@ -120,45 +120,20 @@
                             });
                         </script>
                        
-                   <div id="bain_bo">
-                   <form action="" method="post" pay_secret=1>
-                   <!-- <div class="sty_online" style="display:block;">
-                        
-                           <label for=""><input name="abc" type="radio" value="" />余额支付</label>
-                            <label for=""><input name="abc" type="radio" value="" />支付宝</label>
-                             <label for=""><input name="abc" type="radio" value="" />银联在线</label>
 
-                   </div>
-                   <div class="sty_offline">
-                        <ul>
-                            <li>账户名称：XX科技有限公司</li>
-                            <li>开户银行：XX银行XXXX支行</li>
-                            <li>银行账号：100004454415113</li>
-                            <li>请您将贷款转到此账户，我们将为您审核，联系卖家发货！</li>
-                            <li><span>上传凭证：</span>
-                            <div id="preview"></div>
-    
-                            <input class="uplod" type="file" onchange="previewImage(this)" />
-
-
-                            </li>
-                        </ul>
-                      
-                    
-                    </div> -->
-                   </form> 
-                  </div>  
                             
                        </h3> 
                          </div>
 
 
-                  <div class="pay_bton">
-                    <h5>待支付金额：<i>{$data['seller_deposit']}</i>元</h5>
-                    <a pay_secret="1" href="{url:/Deposit/sellerDeposit?order_id=$data['id']&pay=1&info=确认缴纳保证金}">立即缴纳保证金</a>
-                  </div>
+                       <form action="{url:/Deposit/sellerDeposit}" auto_submit pay_secret="1" method="post">
+                           <input type="hidden" name="order_id" value="{$data['id']}" />
+                           <div class="pay_bton">
+                               <h5>待支付金额：<i>{$data['seller_deposit']}</i>元</h5>
+                               <input type="submit" value="立即缴纳保证金" />
+                           </div>
 
-
+                       </form>
                            </div>
 
 

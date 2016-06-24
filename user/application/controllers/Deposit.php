@@ -14,19 +14,18 @@ class DepositController extends OrderController{
 
 	//卖家支付保证金
 	public function sellerDepositAction(){
-		$pay = safe::filter($this->_request->getParam('pay'));
-		$order_id = intval($this->_request->getParam('order_id'));
-		if($pay){
-			// $pay = safe::filter('pay');
-			$pay = true;
+		if(IS_POST){
+			$order_id = safe::filterPost('order_id','int');
 			$user_id = $this->user_id;
+			$pay = true;
 			$res = $this->deposit->sellerDeposit($order_id,$pay,$user_id);
 			if($res['success'] == 1)
-				$this->redirect(url::createUrl('/Deposit/suc'));
+				die(json::encode(tool::getSuccInfo(1,'保证金支付成功',url::createUrl('/contract/sellerdetail?id='.$order_id))));
 			else
-				$this->error($res['info']);
+				die(json::encode(tool::getSuccInfo(0,$res['info'])));
 			return false;
 		}else{
+			$order_id = safe::filter($this->getRequest()->getParam('order_id'),'int');
 			$data = $this->deposit->contractDetail($order_id,'seller');
 			$sys_percent_obj = new M('scale_offer');//后台配置保证金基数比例
 			$sys_percent = $sys_percent_obj->where(array('id'=>1))->getField('deposite');
