@@ -55,15 +55,17 @@ body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4
 }
 .wor_list .amount{
     float: right;
-    margin-right: 110px;
+    margin-right: 70px;
 }
 .wor_list .price{
     float: left;
-    margin-left: 360px;
+    margin-left: 135px;
 }
 .wor_list span{ float:left;}
 .wor_list .goods{margin-left: 48px;}
-.wor_list .number{margin-left: 240px;}
+.wor_list .norms{margin-left: 300px;}
+.wor_list .number{margin-left: 135px;}
+.wor_list .numunit{margin-left: 120px;}
 
 .module {
     padding: 20px;
@@ -94,7 +96,7 @@ body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4
 }
 .module img{ float:left; width:80px; height:80px; margin-right:15px;}
 .module_word{
-    width: 265px;
+    width: 205px;
     float: left;
 }
 .module_word h5{
@@ -103,13 +105,21 @@ body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4
     margin-bottom: 10px;
 }
 .module_word p{ color:#666;}
-
+.module .guige {
+    text-align: center;
+    font-size: 14px;
+    display: block;
+    width: 155px;
+    height: 35px;
+    float: left;
+    margin: 0 10px 0 10px;
+}
 .module .danjia {
 	text-align: center;
     font-size: 14px;
     color: #ff0000;
     display: block;
-    width: 150px;
+    width: 165px;
     height: 35px;
     float: left;
     margin: 0 10px 0 10px;
@@ -124,11 +134,20 @@ body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4
     font-size: 15px;
     font-style: normal;
     color: #626262;
-    width: 105px;
+    width: 115px;
     display: block;
     float: left;
     text-align: center;
-    margin-left: 136px;
+    margin-left: 30px;
+}
+.module .danwei {
+    text-align: center;
+    font-size: 14px;
+    display: block;
+    width: 165px;
+    height: 35px;
+    float: left;
+    margin: 0 10px 0 10px;
 }
 .module .shanchu{
     width: 18px;
@@ -140,9 +159,9 @@ body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4
     color: #626262;
     font-size: 13px;
     display: block;
-    width: 220px;
+    width: 155px;
     float: left;
-    margin-left: 136px;
+    margin-left: 10px;
     text-align: center;
 }
 .module a:hover{text-decoration:none;}
@@ -157,6 +176,7 @@ body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4
     clear: both;
 	line-height:42px;
 	float:left;
+    margin-bottom: 15px;
 }
 .qujies .saunchu{
     margin: 13px 3px 0 15px;
@@ -173,16 +193,29 @@ body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4
 .qujies i{ font-style:normal; color:#7e7e7e;margin-left: 20px;}
 .bezel .input_box{ color: #818181;
     clear: both;
-    padding-left: 25px;
+    padding-left: 42px;
+    position: relative;
 }
+.bezel .input_box span select{
+    height: 28px;
+}
+
 .bezel .input_box.price{
     margin-top: 35px;
     padding-left: 26px;
 }
 .bezel .input_box label{
     color: #818181;
-    margin:0 5px 0 0px;
+    margin: 0 3px 0 0px;
+    display: block;
+    float: left;
+    line-height: 28px;
+    width: 68px;
+    height: 28px;
+    position: relative;
+    top:17px;
 }
+.bezel .input_box label.positon{top:0px;}
 .bezel .baoxian span i{
         margin-left: 6px;
     line-height: 17px;
@@ -210,7 +243,8 @@ body, div, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4
 }
 
 .bezel .input_box input{
-    height: 28px;margin: 15px 3px;
+    height: 28px;
+    margin: 15px 3px 15px 0px;
     width: 230px;
 }
 .qujies .jijian{

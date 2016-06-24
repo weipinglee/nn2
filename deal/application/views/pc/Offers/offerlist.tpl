@@ -158,7 +158,7 @@
             <li>供求</li>
             <li>类型</li>
             <li style="width:120px;">产地</li>
-            <li style="width:120px;">交货地</li>
+            <li>交货地</li>
             <li>剩余</li>
             <li>
                 <!-- <a class="main_mr">默认</a><a class="main_px">从低到高<i class="arrow_color icon-arrow-up"></i></a> -->
@@ -209,7 +209,7 @@
                        <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>--<%}%></li>
 
                        <li style="width:120px;"><%=data[i].produce_area%></li>
-                       <li style="width:120px;"><%=data[i].accept_area%></li>
+                       <li><%=data[i].accept_area%></li>
                        <li><%=data[i].left%> (<%=data[i].unit%>)</li>
                        <li><i class="qian_blue">￥<%=data[i].price%></i></li>
                        <li>

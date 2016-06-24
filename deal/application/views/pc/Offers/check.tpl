@@ -304,7 +304,9 @@ body{_padding-top:30px;}
                          <div class="wor_clear">
 
                              <span class="goods">商品</span>
+                             <span class="norms">规格</span>
                              <span class="number">数量({$data['unit']}&emsp;最小起订量：{$data['minimum']} 剩余:{$data['left']}) </span>
+                            <span class="numunit">单位</span> 
                              <span class="amount">总额(元)</span>
                              <span class="price ">单价(元)</span>
                          </div>
@@ -315,6 +317,7 @@ body{_padding-top:30px;}
                              <a href="javascript:;"><div class="clear_word">
                                  <h5>{$data['name']}</h5>
                              </div></a>
+                             <span class="guige">90900*1000</span>
                              <span class="shulag">
                                 {if:$data['divide'] == 1}
                                     {$data['quantity']}
@@ -323,7 +326,8 @@ body{_padding-top:30px;}
                                     <input type="text" name="num" value="{$data['minimum']}" width="20px" style="width:100px" />
                                 {/if}
                               </span>
-                             <span class="danjia"><i><b>￥</b>{$data['price']}</i></span>
+                             <span class="danwei">吨/千克</span>
+                             <span class="danjia"><b>￥</b>{$data['price']}</span>
                              <span class="jine"><i><b>￥</b><b class='prod_amount'>{$data['amount']}</b></i></span>
 
                          </div>
