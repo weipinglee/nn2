@@ -1,28 +1,15 @@
- <!--主要内容 开始-->
-    <div id="mainContent">
-        <div class="page_width">
-        <div class="mainRow1">
-<!--start中间内容-->	
-<div class="user_c">
-	<div class="user_zhxi">
-		<div class="zhxi_tit">
-			<p>操作状态</p>
-			<!-- <p><a>交易管理</a>><a>订单管理</a></p> -->
-		</div>
-		
-       <div class="opera_suc">
-       	<div class="oprsuc_img"><img src="{views:images/icon/suc_scs.jpg}" alt="正确"></div>
-       	<h3>{$info}</h3>
-         <h5><a href="javascript:history.back()">返回上个页面&gt;&gt;</a> <a href="user_index.html">返回个人中心&gt;&gt;</a></h5>
-       </div>
+﻿
+
+
+<link rel="stylesheet" type="text/css"  href="{views:css/404.css}"/>
+<div class="bg">
+	<div class="cont">
+		<div class="c1"><img src="{views:images/err/succ.png}" class="img1" /></div>
+		<h2>{$info}</h2>
+		<div class="c2"><a href="javascript:history.back()" class="re">返回上一页</a><a href="{url:/ucenterindex/index@user}" class="home">返回个人中心</a><!-- <a href="" class="sr">搜索一下页面相关信息</a> --></div>
+		<!-- <div class="c3"><a href="http://www.nainaiwang.com" class="c3">耐耐</a>提醒您 - 您可能输入了错误的网址，或者该网页已删除或移动</div> -->
 	</div>
 </div>
-<!--end中间内容-->	
-                </div>
-
-
-
-
 
 <script type="text/javascript">
 	$(function(){

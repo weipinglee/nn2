@@ -118,7 +118,7 @@
           </div>      
            <div class="input_box">
                <label for="">产地</label>
-               <span>
+               <span id="areabox">
                     {area:}
                </span>
                <span></span>
@@ -168,17 +168,6 @@
                     $("#signupForm").submit();
                 })
 
-                  var validObj = formacc;
-
-
-                  //为地址选择框添加验证规则
-                  var rules = [{
-                      ele:"input[name=area]",
-                      datatype:"n6-6",
-                      nullmsg:"请选择地址！",
-                      errormsg:"请选择地址！"
-                  }];
-                  validObj.addRule(rules);
               });
             </script>
              </div>
