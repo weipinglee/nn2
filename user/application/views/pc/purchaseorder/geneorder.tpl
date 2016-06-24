@@ -1,15 +1,11 @@
-<link href="{views:css/user_index.css}" rel="stylesheet" type="text/css" />
-<link href="{views:css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
-<link href="{views:css/pay_ment.css}" rel="stylesheet" type="text/css" /> 
+
+<link href="{views:css/pay_ment.css}" rel="stylesheet" type="text/css" />
 <script src="{views:js/pay_ment.js}" type="text/javascript"></script>
 <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{views:js/upload.js}"></script>
 			<!--start中间内容-->	
 			<div class="user_c_list no_bor">
 				<div class="user_zhxi">
-
-
-					
                    <div class="checkim">
                        <h2>支付采购定金</h2>
 

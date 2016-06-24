@@ -133,9 +133,14 @@ class tradeController extends \nainai\controller\Base {
 			$obj = new \nainai\offer\PurchaseOffer();
 			$data = $obj->getPurchaseOffer($offer_id);
 
-			if(!$data){
+
+			if(empty($data)){
 				$this->error('采购不存在!');exit();
 			}
+			else if($data['user_id']==$this->user_id){
+				$this->error('不能给自己的采购报价!');exit();
+			}
+
 
 
 			//判断是否已经添加过报价

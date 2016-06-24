@@ -19,6 +19,7 @@ class PurchaseOrderController extends OrderController{
 		$this->getView()->assign('data',$info);
 	}
 
+
 	public function geneOrderHandleAction(){
 		if(IS_POST){
 			$id = safe::filterPost('id','int');

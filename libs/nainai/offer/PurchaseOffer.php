@@ -143,11 +143,7 @@ class PurchaseOffer extends product {
 	public function getPurchaseOffer($offer_id){
 		$query = new M('product_offer');
 		$data = $query->where(array('id'=>$offer_id,'type'=>self::PURCHASE_OFFER,'status'=>self::OFFER_OK))->getObj();
-		if(!empty($data)){
-			return true;
-
-		}
-		return false;
+		return $data;
 	}
 
 }
