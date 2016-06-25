@@ -132,7 +132,7 @@ class M{
      */
 	public function table($tableName=''){
 		if($tableName==''){
-			return $this->tableName;
+			return $this->tablePre.$this->tableName;
 		}else{
 			$this->tableName = $this->tablePre.$tableName;
 			$this->clear();

@@ -118,8 +118,8 @@ class Log
 			$logs['content'] = $args['content'];
 		else{
 			$pk = isset($args['pk'])?$args['pk']:'id';
-			$pk_text = $pk.'为'.$args['id'].'的';
-			if(isset($args['field']) && $args['field']!=''){//存在映射字段
+			$pk_text = isset($args['id']) && $args['id']>0 ? $pk.'为'.$args['id'].'的' : '';
+			if(isset($args['id']) && isset($args['field']) && $args['field']!=''){//存在映射字段
 				$obj = new M($args['table']);
 				$f = $obj->where(array($pk=>$args['id']))->getField($args['field']);
 				if($f){

@@ -16,7 +16,10 @@ class baseModel{
 	protected $where = '';
 	protected $model = '';
 
+	protected $log = '';
+
 	public function __construct($obj=''){
+		$this->log = new \Library\log();
 		if($obj!='')
 			$this->model = $obj;
 	}
@@ -55,11 +58,15 @@ class baseModel{
 		}
 		if($this->model!=''){
 			$model = $this->model;
+			$tableName = $model->table();
 		}
 		else{
 			$tableName = $this->getTable(strtolower($methodArr[1]));
 			$model = new M($tableName);
 		}
+
+		$log  = array();
+		$log['table'] = $tableName;
 
 		$rules = $this->getRules(strtolower($methodArr[1]));
 		$args = $args[0];
@@ -67,7 +74,10 @@ class baseModel{
 			case 'add':
 				$res = null;
 				if ($model->validate($rules, $args)) {
-					$res = $model->data($args)->add() ? 1 : 0;
+					$new_id = $model->data($args)->add();
+					$res = $new_id ? 1 : 0;
+					$log['type'] = 'add';
+					$log['id'] = $new_id;
 				}else{
 					$res = $model->getError();
 				}
@@ -75,16 +85,21 @@ class baseModel{
 			case 'update':
 				if($model->validate($rules,$args)){
 					if($this->where!=''){
+						$log['content'] = '更新了数据表'.$tableName;
 						$res = $model->data($args)->where($this->where)->update() ;
 					}
 					else if(isset($args[$this->pk]) && $args[$this->pk]>0){//存在主键且大于0则更新
 						$id = $args[$this->pk];
 						unset($args[$this->pk]);
 						$res = $model->data($args)->where($this->pk . '=:id')->bind(array('id'=>$id))->update() ;
-
+						$log['type'] = 'update';
+						$log['id'] = $id;
 					}
 					else{
-						$res = $model->data($args)->add() ? 1:0;
+						$new_id =  $model->data($args)->add();
+						$res = $new_id ? 1:0;
+						$log['type'] = 'add';
+						$log['id'] = $new_id;
 					}
 				}else{
 					$res = $model->getError();
@@ -92,7 +107,10 @@ class baseModel{
 			break;
 
 			case 'delete'://删除数据
+				$log['type'] = 'delete';
+
 				if(!is_array($args)){
+					$log['id'] = $args;
 					$res =  $model->where($this->pk . '=:id')->bind(array('id'=>$args))->delete();
 				}
 				else{
@@ -114,7 +132,9 @@ class baseModel{
 
 		//插入更新删除返回提示
 		if(is_int($res)){
-				return tool::getSuccInfo();
+			$logObj = new \Library\log();
+			$logObj->addLog($log);
+			return tool::getSuccInfo();
 		}
 		else{
 			return tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
