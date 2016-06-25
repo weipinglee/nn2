@@ -293,7 +293,8 @@ class Order{
 						$payment = in_array($info['mode'],array(self::ORDER_ENTRUST,self::ORDER_FREE)) ? 'offline' : $payment;//自由与委托报盘只接受线下凭证
 						if($payment == 'online'){
 							//冻结买家帐户余额
-							$acc_res = $this->account->freeze($buyer,$retainage);
+							$note = '支付合同'.$info['order_no'].'尾款';
+							$acc_res = $this->account->freeze($buyer,$retainage,$note);
 
 							if($acc_res === true){
 								$orderData['pay_retainage'] = $retainage;

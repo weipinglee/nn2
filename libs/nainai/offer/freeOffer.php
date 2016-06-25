@@ -58,7 +58,8 @@ class freeOffer extends product{
             $insert = $this->insertOffer($productData,$offerData);
 
             if($insert===true){
-                $fund->freeze($user_id,$fee);
+                $note = '自由报盘冻结报盘费';
+                $fund->freeze($user_id,$fee,$note);
                 if($this->_productObj->commit()){
                     return tool::getSuccInfo();
                 }

@@ -369,9 +369,13 @@ class UcenterController extends UcenterBaseController {
             }
 
             $cert = new \nainai\cert\certStore($user_id,$this->user_type);
+            $certData = array('store_id'=>safe::filterPost('store_id','int',0));
+            if($certData['store_id']){
+                $res = $cert->certStoreApply($accData,$certData);
+                echo JSON::encode($res);
+            }
 
-            $res = $cert->certStoreApply($accData);
-            echo JSON::encode($res);
+
 
         }
         return false;

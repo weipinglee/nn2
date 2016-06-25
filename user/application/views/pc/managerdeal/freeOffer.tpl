@@ -56,7 +56,7 @@
                         {/if}
 
 
-                    <form action="{url:/ManagerDeal/doFreeOffer}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
+                    <form action="{url:/ManagerDeal/doFreeOffer}" method="POST" pay_secret="1" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
                         {include:/layout/product.tpl}
                         <tr>
                             <td></td>

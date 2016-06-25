@@ -51,7 +51,7 @@ class StoreOrder extends Order{
 			}
 
 			try {
-				$this->order->beginTrans();
+				//$this->order->beginTrans();
 				$upd_res = $this->orderUpdate($orderData);
 				if($upd_res['success'] == 1){
 					//冻结买方帐户资金  payment=1 余额支付

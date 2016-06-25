@@ -76,7 +76,7 @@
 							<td>{$item['freeze']}</td>
 							<td>{$item['total']}</td>
 							<td>{$item['active']}</td>
-							<td>{$item['note']}</td>
+							<td style="font-size:8px;">{$item['note']}</td>
 
 						</tr>
 						{/foreach}

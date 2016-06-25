@@ -70,7 +70,7 @@ class StoreDelivery extends Delivery{
 					if(empty($store_fee)){
 						$error = '仓库费用计算错误';
 					}else{
-						$acc_res = $this->account->freeze($res['user_id'],$store_fee);//?支付到市场？
+						$acc_res = $this->account->payMarket($res['user_id'],$store_fee,'支付提单'.$delivery_id.'仓库费用');//?支付到市场？
 						if($acc_res === true){
 							$this->delivery->commit();
 							return tool::getSuccInfo();

@@ -56,7 +56,10 @@ class DepositOrder extends Order{
 			$upd_res = $this->orderUpdate($orderData);
 			if($upd_res['success'] == 1){
 				//冻结买方帐户资金  payment=1 余额支付
-				$acc_res = $this->account->freeze($buyer,$orderData['pay_deposit']);
+				$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
+				$note_type = $type==0 ? '订金' : '全款';
+				$note = '合同'.$note_id.$note_type.'支付';
+				$acc_res = $this->account->freeze($buyer,$orderData['pay_deposit'],$note);
 				if($acc_res === true){
 					$pro_res = $this->productsFreeze($this->offerInfo($info['offer_id']),$info['num']);
 					if($pro_res === true){
@@ -121,7 +124,8 @@ class DepositOrder extends Order{
 					$configs_credit->changeUserCredit($seller,'cancel_contract');
 					
 					//将买方冻结资金解冻
-					$acc_res = $this->account->freezeRelease($buyer,floatval($info['pay_deposit']));
+					$note = '卖方未支付合同'.$info['order_no'].'保证金退还定金';
+					$acc_res = $this->account->freezeRelease($buyer,floatval($info['pay_deposit']),$note);
 					//将商品数量解冻
 					$pro_res = $this->productsFreezeRelease($this->offerInfo($info['offer_id']),$info['num']);
 
@@ -143,7 +147,8 @@ class DepositOrder extends Order{
 						$percent = (floatval($sys_percent) * floatval($user_percent['caution_fee'])) / 10000;
 						$seller_deposit = floatval($info['amount'] * $percent);
 						//冻结卖方帐户保证金
-						$acc_res = $this->account->freeze($seller,$seller_deposit);
+						$note = '支付合同'.$info['order_no'].'保证金';
+						$acc_res = $this->account->freeze($seller,$seller_deposit,$note);
 						$orderData['seller_deposit'] = $seller_deposit;
 						//判断此订单是否支付全款
 						if($info['amount'] === $info['pay_deposit']){

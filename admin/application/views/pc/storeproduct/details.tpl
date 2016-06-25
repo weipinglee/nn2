@@ -63,7 +63,7 @@
                  <th>用户类型</th>
                  <td>{$user['user_type']}</td>
                  <th>租库价格</th>
-                 <td>{$detail['store_price']}/天</td>
+                 <td>{$detail['store_price']}/{$detail['unit']}/天</td>
 
 
              </tr>
@@ -80,7 +80,7 @@
               {if: $detail['package'] == 1}
                             <tr>
                             <th>包装重量</th>
-              <td>   {$detail['package_weight']} ({$detail['package_unit']} )</td>
+              <td>   {$detail['package_weight']} ({$detail['unit']} )</td>
                 <th>包装数量:</th>
                 <td>   {$detail['package_num']} </td>
                 <th></th>
