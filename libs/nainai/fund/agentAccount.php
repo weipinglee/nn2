@@ -107,13 +107,35 @@ use \Library\Time;
      /**
       * 获取资金流水表
       * @param int $user_id
-      * @param int $day 天数
+      * @param int $where 查询条件 ‘begin'开始时间，’end'结束时间，'no'序列号
       */
-     public function getFundFlow($user_id=0,$day=7){
+     public function getFundFlow($user_id=0,$cond=array()){
          if($user_id){
-             $time = Time::getDateTime('',time() - $day*24*3600);
-              $where = array('user_id'=>$user_id,'time'=>array('gt'=>$time));
-             return $this->flowModel->where($where)->order('time DESC')->select();
+             $where = 'user_id = :user_id ';
+             $cond['user_id'] = $user_id;
+             if(isset($cond['begin'])&& $cond['begin']!=''){
+                 $where .= ' AND time > :begin';
+             }
+             else{
+                 unset($cond['begin']);
+             }
+             if(isset($cond['end'])&& $cond['end']!=''){
+                 $where  .= ' AND time < :end';
+             }
+             else{
+                 unset($cond['end']);
+             }
+
+             if(isset($cond['no']) && $cond['no']!=''){
+                 $where  .= ' AND flow_no = :no';
+             }
+             else{
+                 unset($cond['no']);
+             }
+
+             $this->flowModel->bind($cond);
+
+             return $this->flowModel->where($where)->bind($cond)->order('time DESC')->select();
          }
      }
     /**

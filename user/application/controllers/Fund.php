@@ -17,15 +17,32 @@ class FundController extends UcenterBaseController {
 	protected  $certType = 'deal';
 	public function indexAction() {
 
+		$where = array();
+		$cond['begin'] = safe::filterGet('begin');
+		$cond['end'] = safe::filterGet('end');
+		$cond['day'] = safe::filterGet('day','int',7);
+		$cond['no'] = safe::filterGet('Sn');
+
+		if($cond['begin'] || $cond['end']){
+			$where = array('begin'=>$cond['begin'],'end'=>$cond['end']);
+		}
+		else if($cond['day']){
+			$where['begin'] = \Library\time::getDateTime('',time()-$cond['day']*24*3600);
+		}
+
+		if($cond['no'])
+			$where['no'] = $cond['no'];
+
 		$fundObj = \nainai\fund::createFund(1);
 
 		$active = $fundObj->getActive($this->user_id);
 		$freeze = $fundObj->getFreeze($this->user_id);
-		$flowData = $fundObj->getFundFlow($this->user_id);
+		$flowData = $fundObj->getFundFlow($this->user_id,$where);
 
 		$this->getView()->assign('freeze',$freeze);
 		$this->getView()->assign('active',$active);
 		$this->getView()->assign('flow',$flowData);
+		$this->getView()->assign('cond',$cond);
 		//$obj = new \nainai\fund();
 	}
 
