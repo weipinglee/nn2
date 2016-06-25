@@ -133,6 +133,9 @@ class OfferManageModel extends \nainai\offer\product{
 			if($res===true){
 				$base = new baseModel($this->offer);
 				$base->where(array('id'=>$id))->update(array('status'=>$status));
+				$log = new \Library\log();
+				$log->addLog(array('table'=>'报盘','type'=>'check','id'=>$id,'check_text'=>$this->getStatus($status)));
+
 			}
 			else{//付款发生错误
 				$this->offer->rollBack();

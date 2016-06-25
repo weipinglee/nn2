@@ -163,6 +163,8 @@ class fundInModel{
             $data['first_message'] = $mess;
             $reModel->beginTrans();
             $reModel->where($where)->data($data)->update();
+            $log = new \Library\log();
+            $log->addLog(array('table'=>'recharge_order','id'=>$rid,'field'=>'order_no','type'=>'check','check_text'=>$this->getOffLineStatustext($data['status'])));
             $res = $reModel->commit();
 
             if($res===true){
@@ -207,6 +209,8 @@ class fundInModel{
             if($fundRes===true){
                 $reModel->where($where)->data($data)->update();
             }
+            $log = new \Library\log();
+            $log->addLog(array('table'=>'recharge_order','id'=>$rid,'field'=>'order_no','type'=>'check','check_text'=>$this->getOffLineStatustext($data['status'])));
 
             $res = $reModel->commit();
             if($res===true){

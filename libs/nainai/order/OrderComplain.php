@@ -276,6 +276,8 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 				$id=$complainData['id'];
 				unset($complainData['id']);
 				$obj->data($complainData)->where(array('id'=>$id))->update();
+				$log = new \Library\log();
+				$log->addLog(array('table'=>'order_complain','id'=>$id,'type'=>'check','check_text'=>$this->complainStatus[$complainData['status']]));
 				$res = $obj->commit();
 			}
 			else{
@@ -321,6 +323,9 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 				$id=$complainData['id'];
 				unset($complainData['id']);
 				$obj->data($complainData)->where(array('id'=>$id))->update();
+				$log = new \Library\log();
+				$log->addLog(array('table'=>'order_complain','id'=>$id,'type'=>'check','check_text'=>$this->complainStatus[$complainData['status']]));
+
 				$res = $obj->commit();
 			}
 			else{

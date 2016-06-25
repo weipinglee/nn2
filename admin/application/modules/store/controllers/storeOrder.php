@@ -37,6 +37,10 @@ class storeOrderController extends Yaf\Controller_Abstract{
 		$delivery_id = safe::filterPost('id');
 		$store = new \nainai\delivery\StoreDelivery();
 		$res = $store->adminCheck($delivery_id);
+		if($res['success']==1){
+			$log = new \Library\log();
+			$log->addLog(array('content'=>'提货单'.$delivery_id.'出库审核'));
+		}
 		die(JSON::encode($res));
 	}
 

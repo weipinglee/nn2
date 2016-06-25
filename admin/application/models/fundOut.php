@@ -111,9 +111,17 @@ class fundOutModel {
 			}
 			$data['first_time'] = \Library\Time::getDateTime();
 			$data['first_message'] = $mess;
-
+			$fundOut->beginTrans();
 			if ($fundOut->where($where)->data($data)->update()) {
-				return $this->hintCode['outOk'];
+				$log = new \Library\log();
+				$log->addLog(array('table'=>'withdraw_request','type'=>'check','field'=>'request_no','id'=>$wid,'check_text'=>$this->getFundOutStatustext($data['status'])));
+				if($fundOut->commit()){
+					return $this->hintCode['outOk'];
+				}
+				else{
+					return $this->hintCode['outWrong'];
+				}
+
 			} else {
 
 				return $this->hintCode['outWrong'];
@@ -147,9 +155,16 @@ class fundOutModel {
 			} else {
 				$data['status'] = self::FUNDOUT_FINAL_NG;
 			}
-
+			$fundOut->beginTrans();
 			if ($fundOut->where($where)->data($data)->update()) {
-				return $this->hintCode['outOk'];
+				$log = new \Library\log();
+				$log->addLog(array('table'=>'withdraw_request','type'=>'check','field'=>'request_no','id'=>$wid,'check_text'=>$this->getFundOutStatustext($data['status'])));
+				if($fundOut->commit()){
+					return $this->hintCode['outOk'];
+				}
+				else
+					return $this->hintCode['outWrong'];
+
 			} else {
 				return $this->hintCode['outWrong'];
 			}
@@ -183,6 +198,8 @@ class fundOutModel {
 
 				$fund = \nainai\fund::createFund(1);
 				$fund->out($userData['user_id'],floatval($userData['amount']));
+				$log = new \Library\log();
+				$log->addLog(array('table'=>'withdraw_request','type'=>'check','field'=>'request_no','id'=>$wid,'check_text'=>$this->getFundOutStatustext($data['status'])));
 
 				if(true===$fundOut->commit()){
 					return $this->hintCode['outOk'];

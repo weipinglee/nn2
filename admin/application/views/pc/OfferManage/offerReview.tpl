@@ -14,11 +14,10 @@
     <div class="content">
         <div class="pd-20">
 			 <div class="text-c"> 
-			<input type="text" class="input-text" style="width:250px" placeholder="输入标号" id="" name="">
+			<!--<input type="text" class="input-text" style="width:250px" placeholder="输入标号" id="" name="">
 			<button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜标号</button>
-		</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i> 批量删除</a> </span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
-    <table class="table table-border table-bordered table-hover table-bg">
+		--></div>
+	 <table class="table table-border table-bordered table-hover table-bg">
         <thead>
             <tr>
                 <th scope="col" colspan="12">报盘信息</th>

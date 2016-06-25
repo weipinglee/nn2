@@ -62,6 +62,9 @@ class storeProductModel extends \nainai\store{
             else{
 
             }
+            $log = new \Library\log();
+            $log->addLog(array('table'=>'store_product','type'=>'check','id'=>$id,'check_text'=>$this->getStatusText($store['status'])));
+
             $res = $obj->commit();
             if($res){
                 return tool::getSuccInfo();

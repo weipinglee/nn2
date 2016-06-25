@@ -22,7 +22,6 @@
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="25" align="center"></th>
 				<th width="100">名称</th>
 				<th width="90">属性</th>
 				<th width="150">排序</th>
@@ -36,8 +35,8 @@
 			{if:$item['level']!=0}{set:$class='hide'}{/if}
 
 			<tr class="text-c {$class}"  title="{$item['level']}">
-				<td><p class="cateclose he" style="width:10px;height:10px;margin-left:{echo:$item['level']*15}px" ></p></td>
-				<td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
+
+				<td><u style="cursor:pointer" class="text-primary" ><p class="cateclose he" style="width:80px;margin-left:{echo:$item['level']*15}px" ></p>{$item['name']}</u></td>
 
 				<td>{$item['attrs']}</td>
 				<td>{$item['sort']}</td>

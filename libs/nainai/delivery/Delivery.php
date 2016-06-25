@@ -226,7 +226,7 @@ class Delivery{
 					$delivery_id = $delivery->data($data)->add();
 					
 					$res = $delivery->commit();	
-				} catch (PDOException $e) {
+				} catch (\PDOException $e) {
 					$delivery->rollBack();
 					$res = $e->getMessage();
 				}
