@@ -21,6 +21,7 @@
 				<th width="80">ID</th>
 				<th width="100">用户名</th>
 				<th width="130">时间</th>
+				<th width="100">ip</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -30,10 +31,13 @@
 				<!-- <td><input type="checkbox" value="" name=""></td> -->
 				<td>{$item['id']}</td>
 				<td>{$item['name']}</td>
-				<td>{$item['time']}</td>
+				<td>{$item['datetime']}</td>
 				<td class="td-manage">
-					{$item['type_txt']}
+					{$item['ip']}
 				 </td>
+				<td class="td-manage">
+					{$item['content']}
+				</td>
 			</tr>
 		{/foreach}
 		</tbody>

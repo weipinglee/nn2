@@ -52,6 +52,7 @@ class AdminModel{
 	 */
 	public function adminUpdate($data){
 		$admin = $this->adminObj;
+		$log = new \Library\log();
 		if($admin->data($data)->validate($this->adminRules)){
 			if(isset($data['id']) && $data['id']>0){
 				$id = $data['id'];
@@ -64,6 +65,9 @@ class AdminModel{
 				unset($data['id']);
 				$res = $admin->where(array('id'=>$id))->data($data)->update();
 				$res = is_int($res) && $res>0 ? true : ($admin->getError() ? $admin->getError() : '数据未修改');
+				if($res){
+					$log->addLog(array('table'=>'admin','type'=>'update','field'=>'name','id'=>$id,'pk'=>'id'));
+				}
 			}else{
 				if($this->existAdmin(array('name'=>$data['name'])))
 					return tool::getSuccInfo(0,'用户名已注册');
@@ -74,6 +78,10 @@ class AdminModel{
 				$admin->beginTrans();
 				$aid = $admin->add();
 				//权限添加TODO
+
+				if($aid){
+					$log->addLog(array('table'=>'admin','type'=>'add','id'=>$aid,'pk'=>'id','field'=>'name'));
+				}
 				$res = $admin->commit();
 			}
 		}else{
@@ -127,25 +135,14 @@ class AdminModel{
 	public function logList($page,$name='')
 	{
 		$Q = new Query('admin as a');
-		$Q->join = 'right join admin_log as l on a.id = l.admin_id';
+		$Q->join = 'right join admin_log as l on a.id = l.author';
 		$Q->page = $page;
-		$Q->pagesize = 5;
+		$Q->pagesize = 18;
 		$Q->fields = "l.*,a.name";
-		$Q->order = "l.time desc";
+		$Q->order = "l.datetime desc";
 		$Q->where = "a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
 		$data = $Q->find();
-		foreach ($data as $key => &$value) {
-			switch ($value['type']) {
-				case 'login':
-					$type = '登录';
-					break;
-				
-				default:
-					$type = '登录';
-					break;
-			}
-			$value['type_txt'] = $type;
-		}
+
 		$pageBar =  $Q->getPageBar();
 		return array('data'=>$data,'bar'=>$pageBar);
 	}

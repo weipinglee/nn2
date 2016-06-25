@@ -26,7 +26,7 @@
        {$oper}信誉值配置
     </div>
    <div class="pd-20">
-  <form action="{url:/system/Confsystem/creditOper}" method="post" class="form form-horizontal" id="form-credit-add" auto_submit redirect_url = "{url:/system/Confsystem/creditList}">
+  <form action="{url:system/Confsystem/creditOper}" method="post" class="form form-horizontal" id="form-credit-add" auto_submit redirect_url = "{url:/system/Confsystem/creditList}">
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>参数名：</label>
       <div class="formControls col-5">

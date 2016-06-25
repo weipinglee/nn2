@@ -12,7 +12,7 @@
 	.node_tree .v3{padding-left: 50px;}
 	.node_tree .ins{margin-left:-35px;}
 </style>
-<form action="{url:/system/rbac/accessAdd}" method="post" class="form form-horizontal" id="form-access-add" no_redirect="1" auto_submit>
+<form action="{url:system/rbac/accessAdd}" method="post" class="form form-horizontal" id="form-access-add" no_redirect="1" auto_submit>
 <div class="bloc" style="margin-top: 20px;">
     <div class="title">
         权限节点列表

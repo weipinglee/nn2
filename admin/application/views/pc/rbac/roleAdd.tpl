@@ -30,7 +30,7 @@
        添加分组
     </div>
    <div class="pd-20">
-  <form action="{url:/system/rbac/roleAdd}" method="post" class="form form-horizontal" id="form-role-add" auto_submit redirect_url="{url:/system/rbac/roleList}">
+  <form action="{url:system/rbac/roleAdd}" method="post" class="form form-horizontal" id="form-role-add" auto_submit redirect_url="{url:/system/rbac/roleList}">
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>分组名：</label>
       <div class="formControls col-5">

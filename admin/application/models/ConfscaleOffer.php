@@ -49,6 +49,8 @@ class ConfscaleOfferModel{
 	
 		
 		if($res===true){
+			$log = new \Library\log();
+			$log->addLog(array('content'=>'更新了报盘费率'));
 			$resInfo = tool::getSuccInfo();
 		}
 		else{

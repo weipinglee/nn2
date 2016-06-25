@@ -16,7 +16,7 @@
     </div>
     <div class="content dashboard">
         <div>
-            <form action="{url:/system/Confsystem/scaleOfferOper}" method="post" class="form form-horizontal" id="form-scaleoffer-add" auto_submit no_redirect='1'>
+            <form action="{url:system/Confsystem/scaleOfferOper}" method="post" class="form form-horizontal" id="form-scaleoffer-add" auto_submit no_redirect='1'>
         <div id="tab-system" class="HuiTab">
             
             <div class="tabCon" style="display: block;">

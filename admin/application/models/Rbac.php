@@ -73,12 +73,21 @@ class RbacModel{
 					return tool::getSuccInfo(0,'用户名已注册');
 				}
 				$res = $this->role->add();
+				$new_id = $res;
 				$res = intval($res)>0 ? true : $this->role->getError();
 			}	
 		}else{
 			$res = $this->role->getError();
 		}
 		if($res === true){
+			$log = new \Library\log();
+
+			if(isset($id)){
+				$log->addLog(array('table'=>'admin_role','type'=>'update','id'=>$id));
+			}
+			if(isset($new_id)){
+				$log->addLog(array('table'=>'admin_role','type'=>'add','id'=>$new_id));
+			}
 			$resInfo = tool::getSuccInfo();
 		}
 		else{
@@ -120,7 +129,8 @@ class RbacModel{
 
 				$role->where(array('id'=>$id))->delete();
 				$this->admin->where(array('role'=>$id))->data(array('role'=>0))->update();
-
+				$log = new \Library\log();
+				$log->addLog(array('table'=>'管理员角色','type'=>'delete','id'=>$id));
 				$res = $role->commit();
 			} catch (PDOException $e) {
 				$role->rollBack();
@@ -328,7 +338,10 @@ class RbacModel{
 			}
 			
 		}
-
+		if($res==true){
+			$log = new \Library\log();
+			$log->addLog(array('添加了一个权限节点'));
+		}
 		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res && is_string($res) ? $res : '未知错误,请重试');
 	}
 
@@ -411,6 +424,8 @@ class RbacModel{
 			$res = '参数错误';
 		}
 		if($res === true){
+			$log = new Library\log();
+			$log->addLog(array('content'=>'为id为'.$role_id.'的角色分配权限'));
 			$resInfo = tool::getSuccInfo();
 		}else{
 			$resInfo = tool::getSuccInfo(0,is_string($res) && $res ? $res : '未知错误,请重试');
