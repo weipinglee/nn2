@@ -25,11 +25,7 @@ class PurchaseOrderController extends OrderController{
 			$id = safe::filterPost('id','int');
 			$order = new \nainai\order\PurchaseOrder();
 			$res = $order->purchaseOrder($id);
-			if($res['success'] == 1){
-				$this->success('已支付定金',url::createUrl('/purchase/reportlists'));
-			}else{
-				$this->error($res['info']);
-			}
+			die(json::encode($res));
 		}
 		return false;
 	}

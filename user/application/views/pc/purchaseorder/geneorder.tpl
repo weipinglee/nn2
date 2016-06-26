@@ -117,7 +117,7 @@
                         </script>
                        
                    <div id="bain_bo">
-                   <form action="{url:/PurchaseOrder/geneOrderHandle}" method="post" enctype="multipart/form-data">
+                   <form action="{url:/PurchaseOrder/geneOrderHandle}" auto_submit pay_secret="1" method="post" enctype="multipart/form-data">
                    <div class="sty_online" style="display:block;">
                         
 						      <label for=""><input name="account" type="radio" value="1" />市场代理账户</label>
@@ -157,7 +157,6 @@
               return false;
             }
             $('form').submit();
-            $(this).unbind('click');
           });
         });
       </script>

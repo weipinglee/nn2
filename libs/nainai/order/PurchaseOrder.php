@@ -58,6 +58,7 @@ class PurchaseOrder extends Order{
 					if($dep_res['success'] != 1){
 						$error = $dep_res['info'];
 					}
+
 				}else{
 					$error = $gen_res['info'];
 				}
