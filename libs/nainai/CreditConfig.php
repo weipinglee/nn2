@@ -36,8 +36,13 @@ class CreditConfig extends \nainai\Abstruct\ModelAbstract{
 				//日志数据
 				$logData = array(
 					'user_id' => $userId,
-					'intro' => $note
 				);
+				if($note){
+					$logData['intro'] = $note;
+				}
+				else{
+					$logData['intro'] = isset($this->creditNote[$operateName]) ? $this->creditNote[$operateName] : '';
+				}
 
 				//根据对应的表示做出对应的操作
 				switch (intval($configData['sign'])) {
@@ -72,5 +77,23 @@ class CreditConfig extends \nainai\Abstruct\ModelAbstract{
 
 		return (bool)$this->model->table('credit_log')->data($logData)->add(0);
 	}
+
+	/**
+	 * @var array 各种类型的信誉变动备注
+	 */
+	protected $creditNote = array(
+		'cert_dealer' => '认证交易商成功',
+		'cert_store'  => '认证仓库管理员成功',
+		'cert_ship'   => '认证物流',
+		'cancel_contract' => '取消合同',
+		'cancel_offer' => '取消报盘',
+		'contract'    => '完成合同',
+		'credit_money' => '缴纳信用保证金',
+		'pay'         => "支付",
+		'product'     => '发布报盘成功',
+		'register'    => '注册成功',
+		'cancel_cert_dealer' => '交易商重新认证',
+		'cancel_cert_store' => '取消仓库认证'
+	);
 
 }

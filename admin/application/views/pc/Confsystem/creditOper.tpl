@@ -30,7 +30,7 @@
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>参数名：</label>
       <div class="formControls col-5">
-        <input type="text" class="input-text" value="{$info['name']}" placeholder="" id="name" name="name" datatype="*2-16" nullmsg="参数名不能为空">
+        <input type="text" class="input-text" value="{$info['name']}" placeholder="" id="name" name="name" datatype="*2-30" nullmsg="参数名不能为空">
       </div>
       <div class="col-4"> </div>
     </div>
@@ -68,7 +68,7 @@
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>参数值：</label>
       <div class="formControls col-5">
-        <input type="text" class="input-text"  value="{$info['value']}" name="value" id="value" datatype="/^([1-9]{1,3}|0)([.][0-9]{1,5})?$/" nullmsg="请输入参数值！">
+        <input type="text" class="input-text"  value="{$info['value']}" name="value" id="value" datatype="float" nullmsg="请输入参数值！">
       </div>
       <div class="col-4"> </div>
     </div>

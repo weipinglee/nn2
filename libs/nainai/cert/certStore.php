@@ -76,10 +76,16 @@ class certStore extends certificate{
             if(!empty($reCertType))//若果重新认证的类型不为空，对其初始化
                 $this->certInit($reCertType);
             
-            $this->createCertApply(self::$certType,$accData,$certData);
+            if($this->createCertApply(self::$certType,$accData,$certData)){
+                $this->chgCertStatus($this->user_id,$certObj);//更改用户表认证状态
+                $res = $certObj->commit();
+            }
+            else{
+                $certObj->rollBack();
+                return \Library\Tool::getSuccInfo(0,'未修改数据');
+            }
 
-            $this->chgCertStatus($this->user_id,$certObj);//更改用户表认证状态
-            $res = $certObj->commit();
+
         }
         else{
             $res = $check;

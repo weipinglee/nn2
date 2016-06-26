@@ -42,6 +42,22 @@ class certificate{
         'store'=>'certStore'
     );
 
+    /**
+     * @var array 认证类型对应信誉操作类型
+     */
+    protected static $creditConf = array(
+        'deal' => 'cert_dealer',
+        'store'=> 'cert_store'
+    );
+
+    /**
+     * @var array 重新认证操做信誉参数类型
+     */
+    protected static $creditCancelConf = array(
+        'deal' => 'cancel_cert_dealer',
+        'store' => 'cancel_cert_store'
+    );
+
     protected static $status_text = array(
         self::CERT_BEFORE => '未申请认证',
         self::CERT_INIT => '认证失效,需重新认证',
@@ -123,20 +139,48 @@ class certificate{
     public function createCertApply($certType,$accData,$certData){
         $user_id = $this->user_id;
         $certModel = new M(self::$certTable[$certType]);
-        $update = $certData;
+
         $status = self::CERT_APPLY;
-        $certData['status'] = $status;
-        $certData['user_id'] = $this->user_id;
-        $certData['apply_time'] = Time::getDateTime();
+        $update = $insert = $certData;
+        $prev_cert = $certModel->where(array('user_id'=>$user_id))->getObj();
+
+        $up = false;//是否更新了认证数据
+        if(!empty($prev_cert)){//如果之前认证过
+            if(!empty($certData)){
+                foreach($certData as $k=>$v){
+                    if($prev_cert[$k]!=$certData[$k]){
+                        $up = true;
+                    }
+                }
+            }
+        }
+        else{
+            $up = true;
+            $insert['apply_time'] = Time::getDateTime();
+        }
 
 
-        $certModel->insertUpdate($certData,$certData);//更新或插入认证数据
+        $insert['status'] = $status;
+        $insert['user_id'] = $user_id;
+        $update['status'] = $status;
+        $update['user_id'] = $user_id;
+        $certModel->insertUpdate($insert,$update);//更新或插入认证数据
+
 
         if($this->user_type==1)
             $accTable = 'company_info';
         else $accTable = 'person_info';
 
-        $certModel->table($accTable)->data($accData)->where(array('user_id'=>$user_id))->update();
+        $accRes = $certModel->table($accTable)->data($accData)->where(array('user_id'=>$user_id))->update();
+
+        if($up==false  && $accRes==0){//未更新数据
+            return false;
+        }else{
+            $credit = new \nainai\CreditConfig();
+            $credit->changeUserCredit($user_id,self::$creditCancelConf[$certType]);
+
+            return true;
+        }
 
     }
 
@@ -147,7 +191,7 @@ class certificate{
      * @param string $info 驳回原因或成功提示信息
      * @param string $type 认证类型
      */
-    protected function certVerify($user_id,$result=1,$info='',$type='deal',$log=''){
+    protected function certVerify($user_id,$result=1,$info='',$type='deal'){
         $table = self::getCertTable($type);
         $certModel = new M($table);
         $certModel->beginTrans();
@@ -158,6 +202,10 @@ class certificate{
         $log = new log();
         $log->addLog(array('id'=>$user_id,'pk'=>'user_id','type'=>'check','check_text'=>self::$status_text[$status],'table'=>$table));
 
+        if($status==self::CERT_SUCCESS){//增加信誉值
+            $credit = new \nainai\CreditConfig();
+            $credit->changeUserCredit($user_id,self::$creditConf[$type]);
+        }
 
         $res = $certModel->commit();
         if($res===true){

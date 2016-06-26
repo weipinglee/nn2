@@ -23,7 +23,7 @@ class ConfcreditModel{
 		array('name_zh','/^[\x{4e00}-\x{9fa5}]+$/u','中文配置名格式错误',0,'regex'),
 		array('type','/^[0|1]$/','配置类型格式错误',0,'regex'),
 		array('sign','/^[0|1]$/','处理方式格式错误',0,'regex'),
-		array('value','/^([1-9]{1,3}|0)([.][0-9]{1,5})?$/','参数值格式错误',0,'regex'),
+		array('value','double','参数值格式错误',0,'regex'),
 		array('note','/^\S{0,50}$/','配置解释格式错误',0,'regex'),
 		// array('create_time','date','创建时间格式错误',1,'regex'),
 	);
