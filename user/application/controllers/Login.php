@@ -88,6 +88,8 @@ class LoginController extends \Yaf\Controller_Abstract {
 		if(isset($res['success']) && $res['success']==1){//注册成功
 			$login = new CheckRight();
 			$login->loginAfter($userData);
+			$credit = new \nainai\CreditConfig();
+			$credit->changeUserCredit($userData['id'],'register');
 			//$this->redirect('index');
 		}
 

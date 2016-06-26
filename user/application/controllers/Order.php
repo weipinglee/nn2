@@ -132,8 +132,13 @@ class OrderController extends UcenterBaseController{
 	public function contractCompleteAction(){
 		$order_id = safe::filter($this->_request->getParam('order_id'));
 		$res = $this->order->contractComplete($order_id,$this->user_id);
-		if($res['success'] == 1)
+		if($res['success'] == 1){
+			$credit = new \nainai\CreditConfig();
+			$order = new \nainai\order\Order();
+			$orderInfo = $order->orderInfo($order_id);
+			$credit->changeUserCredit($orderInfo['user_id'],'contract',$orderInfo['amount']);
 			$this->success('合同已结束',url::createUrl("/Contract/buyerlist"));
+		}
 		else
 			$this->error($res['info']);
 		return false;

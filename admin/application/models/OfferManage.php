@@ -136,6 +136,10 @@ class OfferManageModel extends \nainai\offer\product{
 				$log = new \Library\log();
 				$log->addLog(array('table'=>'报盘','type'=>'check','id'=>$id,'check_text'=>$this->getStatus($status)));
 
+				if($status==1){//审核通过增加信誉值
+					$credit = new \nainai\CreditConfig();
+					$credit->changeUserCredit($offerData['user_id'],'product');
+				}
 			}
 			else{//付款发生错误
 				$this->offer->rollBack();
