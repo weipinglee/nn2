@@ -11,7 +11,7 @@ use \Library\tool;
 class AdminModel{
 
 	//模型对象实例
-	private $adminObj;
+	protected $adminObj;
 	public function __construct(){
 		$this->adminObj = new M('admin');
 	}
@@ -77,6 +77,7 @@ class AdminModel{
 				$admin->password = $data['password'] = sha1($data['password']);
 				$admin->beginTrans();
 				$aid = $admin->add();
+				$id = $aid;
 				//权限添加TODO
 
 				if($aid){
@@ -93,7 +94,8 @@ class AdminModel{
 			$resInfo = tool::getSuccInfo();
 		}
 		else{
-			$resInfo = tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+			$id = isset($id) ? $id : 0;
+			$resInfo = tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试','',$id);
 		}
 		return $resInfo;
 	}

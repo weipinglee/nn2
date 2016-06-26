@@ -100,7 +100,7 @@
                             </ul>
                         </li>
                         <li><a href="table.html" target="content">导航栏目管理</a></li>
-                        <li><a href="gallery.html" target="content">客服添加</a></li>
+                        <li><a href="{url:system/kefu/kefuList}" target="content">客服管理</a></li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>

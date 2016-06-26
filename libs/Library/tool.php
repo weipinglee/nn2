@@ -79,8 +79,8 @@ class tool{
         }
     }
 
-    public static function getSuccInfo($res=1,$info='',$url=''){
-        return array('success'=>$res,'info'=>$info,'return'=>$url);
+    public static function getSuccInfo($res=1,$info='',$url='',$id=''){
+        return array('success'=>$res,'info'=>$info,'return'=>$url,'id'=>$id);
     }
 
     //uuid
