@@ -311,28 +311,28 @@
                             <p class="data_title">当前在线报盘</p>
                             <p class="data_content">144384吨</p>
                         </div>
-                        <img class="data_img" src="images/icon/data-img_03.png"/>
+                        <img class="data_img" src="{views:images/icon/data-img_03.png}"/>
                     </div>
                     <div class="data-tit">
                         <div class="data">
                             <p class="data_title">当前成交量</p>
                             <p class="data_content">144384吨</p>
                         </div>
-                        <img class="data_img" src="images/icon/data-img_06.png"/>
+                        <img class="data_img" src="{views:images/icon/data-img_06.png}"/>
                     </div>
                     <div class="data-tit">
                         <div class="data">
                             <p class="data_title">昨日成交量</p>
                             <p class="data_content">144384吨</p>
                         </div>
-                        <img class="data_img" src="images/icon/data-img_08.png"/>
+                        <img class="data_img" src="{views:images/icon/data-img_08.png}"/>
                     </div>
                     <div class="data-tit">
                         <div class="data">
                             <p class="data_title">当前入驻商家</p>
                             <p class="data_content">1443位</p>
                         </div>
-                        <img class="data_img" src="images/icon/data-img_10.png"/>
+                        <img class="data_img" src="{views:images/icon/data-img_10.png}"/>
                     </div>
                 </div>
             </div>
@@ -375,22 +375,20 @@
                         <div class="i_leftTit clearfix">
                             <div class="i_left_title" name="1" id="item1">交易市场</div>
                             <ul>
-                                <li class="li_select"><a href="javascript:void(0)"><em></em><span></span>耐材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>钢铁</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>建材</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>设备</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>冶金化工</a></li>
-                                <li><a href="javascript:void(0)"><em></em><span></span>其他</a></li>
+                                {foreach:items=$topCat}
+                                <li class="{if:$key==0}li_select{/if}" onclick="showOffers({$item['id']},$(this))"><a href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+
+                                {/foreach}
                             </ul>
-                            <span class="i_more"><a href="http://www.nainaiwang.com/supply/?category_id=1">更多商品 &gt;</a></span>
+                            <span class="i_more"><a href="{url:/offers/offerlist}">更多商品 &gt;</a></span>
                         </div>
 
-                        <div class="i_leftCon">
-
-                            <div class="i_proList show">
+                        <div class="i_leftCon" id="offer_list">{set:$i=0}
+                        {foreach:items=$offerData}
+                            <div class="i_proList {if:$i==0}show{/if}" id="offer{$key}">{set:$i=$i+1;}
                                 <div class="i_tuijian">
                                     <img src="" class="ad_img">
-
+<!--
                                     <ul class="tuijian">
                                         <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
                                         <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
@@ -407,17 +405,16 @@
                                         <li class="tuijian_2_1">乙醇</li>
                                         <li class="tuijian_2_1 i_TextRed">丙醇</li>
                                         <li class="tuijian_2_1">丁醇</li>
-                                    </ul>
+                                    </ul>-->
                                 </div>
                                 <ul>
                                     <li class="i_ListTit">
                                         <span class="i_w_1">编号</span>
                                         <span class="i_w_2">供求</span>
                                         <span class="i_w_3">品名</span>
-                                        <span class="i_w_4">服务</span>
-                                        <span class="i_w_5">规格</span>
-                                        <span class="i_w_6">数量(吨)</span>
-                                        <span class="i_w_7">剩余(吨)</span>
+                                        <span class="i_w_6">数量</span>
+                                        <span class="i_w_7">剩余</span>
+                                        <span class="i_w_5">单位</span>
                                         <span class="i_w_8">价格(元)</span>
                                         <span class="i_w_9">产地</span>
                                         <span class="i_w_10">交货地</span>
@@ -426,455 +423,46 @@
 
 
 
+                                    {foreach:items=$item $key=$pid item=$pro}
+                                        <li>
+                                            <span class="i_w_1 ">{$pro['id']}</span>
+                                            <span class="i_w_2 i_TextGreen">
+                                               {if:$pro['type']==1}供{else:}求{/if}
+                                            </span>
+                                            <span class="i_w_3">
+                                                  {$pro['pname']}
+                                            </span>
 
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                        <span class="i_w_2 i_TextGreen">
-                                                                            供
-                                                                        </span>
-                                                                        <span class="i_w_3">                                                
-                                                                              高铝砖
-                                                                        </span>
-                                        <span class="i_w_4 "><img src="images/icon/bao.png" class="ser_img" alt="已投保"/><img src="images/icon/chai.png" class="ser_img" alt="可拆分购买"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="images/icon/ico_sc1.png" class="ser_img" alt="查看详情"/><img src="images/icon/ico_sc3.png" class="ser_img" alt="下单购买"/><img src="images/icon/QQ16X16.png" class="ser_img" alt="联系客服"/></span>
-                                    </li>
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                        <span class="i_w_2 i_TextRed">
-                                                                            求
-                                                                        </span>
-                                                                        <span class="i_w_3">                                                
-                                                                              高铝砖
-                                                                        </span>
-                                        <span class="i_w_4 "><img src="images/icon/bao.png" class="ser_img"/><img src="images/icon/chai.png" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextRed">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="images/icon/bg_ycj.png" class="ser_img_1"/></span>
-                                    </li>
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                        <span class="i_w_2 i_TextRed">
-                                                                            求
-                                                                        </span>
-                                                                        <span class="i_w_3">                                                
-                                                                              高铝砖
-                                                                        </span>
-                                        <span class="i_w_4 "><img src="images/icon/bao.png" class="ser_img"/><img src="images/icon/chai.png" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="images/icon/ico_sc1.png" class="ser_img"/><img src="images/icon/ico_sc3.png" class="ser_img"/><img src="images/icon/QQ16X16.png" class="ser_img"/></span>
-                                    </li>
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                        <span class="i_w_2 i_TextGreen">
-                                                                            供
-                                                                        </span>
-                                                                        <span class="i_w_3">                                                
-                                                                              高铝砖
-                                                                        </span>
-                                        <span class="i_w_4 "><img src="images/icon/bao.png" class="ser_img"/><img src="images/icon/chai.png" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextRed">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="images/icon/bg_ycj.png" class="ser_img_1"/></span>
-                                    </li>
+                                            <span class="i_w_6">{$pro['quantity']}</span>
+                                            <span class="i_w_7">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
+                                            <span class="i_w_7">{$pro['unit']}</span>
+                                            <span class="i_w_8">￥{$pro['price']}</span>
+                                            <span class="i_w_9" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
+                                            <span class="i_w_10">{$pro['accept_area']}</span>
+                                            <span class="i_w_11">
+                                                {if:$pro['type']==1}
+                                                <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
+                                                    <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                </a>
+                                                {else:}
+                                                    <a href="{url:/offers/report?id=$pro['id']}">
+                                                    <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                </a>
+                                                {/if}
+
+                                                <img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
+                                        </li>
+                                    {/foreach}
 
                                 </ul>
                             </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian">
-                                    <img src="" class="ad_img">
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                    </ul>
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_2_1">甲醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">乙醇</li>
-                                        <li class="tuijian_2_1">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">甲醇</li>
-                                        <li class="tuijian_2_1">乙醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                    </ul>
-                                </div>
-                                <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">编号</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">品名</span>
-                                        <span class="i_w_4">服务</span>
-                                        <span class="i_w_5">规格</span>
-                                        <span class="i_w_6">数量(吨)</span>
-                                        <span class="i_w_7">剩余(吨)</span>
-                                        <span class="i_w_8">价格(元)</span>
-                                        <span class="i_w_9">产地</span>
-                                        <span class="i_w_10">交货地</span>
-                                        <span class="i_w_11">操作</span>
-                                    </li>
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                            <span class="i_w_2 i_TextGreen">
-                                                                                供
-                                                                            </span>
-                                                                            <span class="i_w_3">                                                
-                                                                                  高铝砖
-                                                                            </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian">
-                                    <img src="" class="ad_img">
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                    </ul>
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_2_1">甲醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">乙醇</li>
-                                        <li class="tuijian_2_1">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">甲醇</li>
-                                        <li class="tuijian_2_1">乙醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                    </ul>
-                                </div>
-                                <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">编号</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">品名</span>
-                                        <span class="i_w_4">服务</span>
-                                        <span class="i_w_5">规格</span>
-                                        <span class="i_w_6">数量(吨)</span>
-                                        <span class="i_w_7">剩余(吨)</span>
-                                        <span class="i_w_8">价格(元)</span>
-                                        <span class="i_w_9">产地</span>
-                                        <span class="i_w_10">交货地</span>
-                                        <span class="i_w_11">操作</span>
-                                    </li>
-
-
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                            <span class="i_w_2 i_TextGreen">
-                                                                                供
-                                                                            </span>
-                                                                            <span class="i_w_3">                                                
-                                                                                  高铝砖
-                                                                            </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextGreen"><em class="priceText">低于昨日成交均价172元</em>￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                            <span class="i_w_2 i_TextGreen">
-                                                                                供
-                                                                            </span>
-                                                                            <span class="i_w_3">                                                
-                                                                                  高铝砖
-                                                                            </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextRed">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                            <span class="i_w_2 i_TextGreen">
-                                                                                供
-                                                                            </span>
-                                                                            <span class="i_w_3">                                                
-                                                                                  高铝砖
-                                                                            </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian">
-                                    <img src="" class="ad_img">
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                    </ul>
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_2_1">甲醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">乙醇</li>
-                                        <li class="tuijian_2_1">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">甲醇</li>
-                                        <li class="tuijian_2_1">乙醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                    </ul>
-                                </div>
-                                <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">编号</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">品名</span>
-                                        <span class="i_w_4">服务</span>
-                                        <span class="i_w_5">规格</span>
-                                        <span class="i_w_6">数量(吨)</span>
-                                        <span class="i_w_7">剩余(吨)</span>
-                                        <span class="i_w_8">价格(元)</span>
-                                        <span class="i_w_9">产地</span>
-                                        <span class="i_w_10">交货地</span>
-                                        <span class="i_w_11">操作</span>
-                                    </li>
-
-
-
-
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                        <span class="i_w_2 i_TextGreen">
-                                                                            供
-                                                                        </span>
-                                                                        <span class="i_w_3">                                                
-                                                                              高铝砖
-                                                                        </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextRed">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                        <span class="i_w_2 i_TextGreen">
-                                                                            供
-                                                                        </span>
-                                                                        <span class="i_w_3">                                                
-                                                                              高铝砖
-                                                                        </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextRed">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian">
-                                    <img src="" class="ad_img">
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                    </ul>
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_2_1">甲醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">乙醇</li>
-                                        <li class="tuijian_2_1">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">甲醇</li>
-                                        <li class="tuijian_2_1">乙醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                    </ul>
-                                </div>
-                                <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">编号</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">品名</span>
-                                        <span class="i_w_4">服务</span>
-                                        <span class="i_w_5">规格</span>
-                                        <span class="i_w_6">数量(吨)</span>
-                                        <span class="i_w_7">剩余(吨)</span>
-                                        <span class="i_w_8">价格(元)</span>
-                                        <span class="i_w_9">产地</span>
-                                        <span class="i_w_10">交货地</span>
-                                        <span class="i_w_11">操作</span>
-                                    </li>
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                            <span class="i_w_2 i_TextGreen">
-                                                                                供
-                                                                            </span>
-                                                                            <span class="i_w_3">                                                
-                                                                                  高铝砖
-                                                                            </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextRed">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="i_proList">
-                                <div class="i_tuijian">
-                                    <img src="" class="ad_img">
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                    </ul>
-
-                                    <ul class="tuijian">
-                                        <li class="tuijian_2_1">甲醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">乙醇</li>
-                                        <li class="tuijian_2_1">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">甲醇</li>
-                                        <li class="tuijian_2_1">乙醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                    </ul>
-                                </div>
-                                <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">编号</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">品名</span>
-                                        <span class="i_w_4">服务</span>
-                                        <span class="i_w_5">规格</span>
-                                        <span class="i_w_6">数量(吨)</span>
-                                        <span class="i_w_7">剩余(吨)</span>
-                                        <span class="i_w_8">价格(元)</span>
-                                        <span class="i_w_9">产地</span>
-                                        <span class="i_w_10">交货地</span>
-                                        <span class="i_w_11">操作</span>
-                                    </li>
-
-
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                            <span class="i_w_2 i_TextGreen">
-                                                                                供
-                                                                            </span>
-                                                                            <span class="i_w_3">                                                
-                                                                                  高铝砖
-                                                                            </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextGreen"><em class="priceText">低于昨日成交均价172元</em>￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                            <span class="i_w_2 i_TextGreen">
-                                                                                供
-                                                                            </span>
-                                                                            <span class="i_w_3">                                                
-                                                                                  高铝砖
-                                                                            </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextRed">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-
-                                    <li>
-                                        <span class="i_w_1 ">GF0000001</span>
-                                                                            <span class="i_w_2 i_TextGreen">
-                                                                                供
-                                                                            </span>
-                                                                            <span class="i_w_3">                                                
-                                                                                  高铝砖
-                                                                            </span>
-                                        <span class="i_w_4 "><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                        <span class="i_w_5">95%</span>
-                                        <span class="i_w_6">200</span>
-                                        <span class="i_w_7">200</span>
-                                        <span class="i_w_8 i_TextRed">￥1780</span>
-                                        <span class="i_w_9">山西</span>
-                                        <span class="i_w_10">耐耐网一号库</span>
-                                        <span class="i_w_11"><img src="" class="ser_img"/><img src="" class="ser_img"/><img src="" class="ser_img"/></span>
-                                    </li>
-                                </ul>
-                            </div>
+                         {/foreach}
                             <!--明星点评-->
                             <div class="i_recommend clearfix">
 
                                 <div class="i_star">
                                     <div class="i_starLeft">
-                                        <span class="i_starImg"><img alt="交易点评" src="./main_files/20150421104605162_03.png"></span>
+                                        <span class="i_starImg"><img alt="交易点评" src="{views:images/main_file/20150421104605162_03.png}"></span>
                                         <span>&nbsp;&nbsp;&nbsp;交易点评</span>
                                     </div>
                                     <div class="i_starCon">
@@ -887,9 +475,9 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">耐火原料供应商</div>
                                     <ul>
-                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="./main_files/20151124013651571.jpg" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" alt="群星集团" src="./main_files/20151117094047658.jpg" title="群星集团"></a></li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" alt="远大物产集团有限公司" src="./main_files/20151117094122237.jpg" title="远大物产集团有限公司"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
                                     </ul>
                                 </div>
 
@@ -905,8 +493,15 @@
                         <div class="iConWrap index_height">
                             <div class="iConTitle">最新交易</div>
                             <div class="items_container yichi">
-                                <ul style="top: 0px;"><li style="opacity: 1.0000000000000007;">市***公司<em class="red">成功采购</em>LLDPE10.000吨</li><li style="opacity: 1.0000000000000007;">塑***公司<em class="red">成功采购</em>LLDPE10.000吨</li><li style="opacity: 1.0000000000000007;">塑***公司<em class="red">成功采购</em>PP30.000吨</li><li style="opacity: 1.0000000000000007;">港***公司<em class="red">成功采购</em>甲醇60.000吨</li><li style="opacity: 1.0000000000000007;">华***公司<em class="red">成功采购</em>HDPE99.000吨</li><li style="opacity: 1.0000000000000007;">巨***公司<em class="red">成功采购</em>苯乙烯30.000吨</li><li style="opacity: 1.0000000000000007;">拓***公司<em class="red">成功采购</em>PP30.000吨</li><li style="opacity: 1.0000000000000007;">众***公司<em class="red">成功采购</em>甲醇10.000吨</li><li style="opacity: 0.9950000000000008;">塑***公司<em class="red">成功采购</em>ABS1.000吨</li><li style="opacity: 0.9400000000000007;">孚***公司<em class="red">成功采购</em>二甘醇100.000吨</li><li style="opacity: 0.9150000000000007;">资***公司<em class="red">成功采购</em>HDPE495.000吨</li><li style="opacity: 0.9500000000000007;">昊***公司<em class="red">成功采购</em>LLDPE11.000吨</li><li style="opacity: 0.9300000000000007;">勇***公司<em class="red">成功采购</em>HDPE13.750吨</li><li style="opacity: 0.9600000000000007;">塑***公司<em class="red">成功采购</em>PP10.000吨</li><li style="opacity: 0.9900000000000008;">荣***公司<em class="red">成功采购</em>HDPE160.000吨</li><li style="opacity: 0.9250000000000007;">（***公司<em class="red">成功采购</em>甲醇600.000吨</li><li style="opacity: 0.9850000000000008;">索***公司<em class="red">成功采购</em>甲醇1000.000吨</li><li style="opacity: 0.9050000000000007;">荣***公司<em class="red">成功采购</em>LLDPE158.000吨</li><li style="opacity: 0.9750000000000008;">塑***公司<em class="red">成功采购</em>二甘醇100.000吨</li><li style="opacity: 1.0000000000000007;">港***公司<em class="red">成功采购</em>苯乙烯50.000吨</li><li style="opacity: 0.9550000000000007;">岛***公司<em class="red">成功采购</em>LLDPE20.000吨</li><li style="opacity: 0.9100000000000007;">塑***公司<em class="red">成功采购</em>MLDPE12.375吨</li><li style="opacity: 0.9000000000000007;">大***公司<em class="red">成功采购</em>甲醇63.000吨</li><li style="opacity: 0.9800000000000008;">新***公司<em class="red">成功采购</em>LLDPE15.000吨</li><li style="opacity: 0.9450000000000007;">睿***公司<em class="red">成功采购</em>甲醇1000.000吨</li><li style="opacity: 0.9200000000000007;">创***公司<em class="red">成功采购</em>LLDPE10.000吨</li><li style="opacity: 0.9700000000000008;">市***公司<em class="red">成功采购</em>LDPE5.500吨</li><li style="opacity: 0.9350000000000007;">吴***公司<em class="red">成功采购</em>甲醇1000.000吨</li><li style="opacity: 0.9650000000000007;">能***公司<em class="red">成功采购</em>甲醇30.000吨</li><li style="opacity: 0.8500000000000006;">市***公司<em class="red">成功采购</em>甲醇210.000吨</li><li style="opacity: 0.8550000000000006;">得***公司<em class="red">成功采购</em>苯乙烯31.000吨</li><li style="opacity: 0.8600000000000007;">岛***公司<em class="red">成功采购</em>LDPE13.750吨</li><li style="opacity: 0.8650000000000007;">博***公司<em class="red">成功采购</em>甲苯300.000吨</li><li style="opacity: 0.8700000000000007;">联***公司<em class="red">成功采购</em>甲醇33.000吨</li><li style="opacity: 0.8750000000000007;">新***公司<em class="red">成功采购</em>HDPE35.750吨</li><li style="opacity: 0.8800000000000007;">云***公司<em class="red">成功采购</em>LLDPE6.000吨</li><li style="opacity: 0.8850000000000007;">明***公司<em class="red">成功采购</em>MLDPE12.375吨</li><li style="opacity: 0.8900000000000007;">鑫***公司<em class="red">成功采购</em>LLDPE30.000吨</li><li style="opacity: 0.8950000000000007;">报***公司<em class="red">成功采购</em>甲苯300.000吨</li><li style="opacity: 0.9000000000000007;">塑***公司<em class="red">成功采购</em>LDPE5.500吨</li><li style="opacity: 0.9050000000000007;">市***公司<em class="red">成功采购</em>甲醇1000.000吨</li><li style="opacity: 0.9100000000000007;">塑***公司<em class="red">成功采购</em>HDPE99.000吨</li><li style="opacity: 0.9150000000000007;">荣***公司<em class="red">成功采购</em>PP80.000吨</li><li style="opacity: 0.9200000000000007;">赛***公司<em class="red">成功采购</em>苯乙烯30.000吨</li><li style="opacity: 0.9250000000000007;">市***公司<em class="red">成功采购</em>二甘醇100.000吨</li><li style="opacity: 0.8600000000000007;">瑞***公司<em class="red">成功采购</em>LLDPE1.375吨</li><li style="opacity: 0.8650000000000007;">塑***公司<em class="red">成功采购</em>LDPE0.125吨</li><li style="opacity: 0.8600000000000007;">吴***公司<em class="red">成功采购</em>甲醇1000.000吨</li><li style="opacity: 0.8650000000000007;">塑***公司<em class="red">成功采购</em>二甘醇50.000吨</li><li style="opacity: 1.0000000000000007;">工***公司<em class="red">成功采购</em>HDPE99.000吨</li>
-                                </ul>
+                                <ul style="top: 0px;">
+                                    {if:!empty($newTrade)}
+                                        {foreach:items=$newTrade}
+                                    <li style="opacity: 1.0000000000000007;">{$item['username']}
+                                        <em class="red">成功{if:$item['type']==1}销售{else:}采购{/if}</em>{$item['name']}{$item['num']}{$item['unit']}
+                                    </li>
+                                        {/foreach}
+                                    {/if}
+                                 </ul>
                             </div>
                         </div>
 
@@ -972,7 +567,7 @@
 
                                 <div class="i_star">
                                     <div class="i_starLeft">
-                                        <span class="i_starImg"><img alt="行情分析" src="./main_files/20150421104605162_03.png"></span>
+                                        <span class="i_starImg"><img alt="行情分析" src="{views:images/main_file/20150421104605162_03.png}"></span>
                                         <span>&nbsp;&nbsp;&nbsp;行情分析</span>
                                     </div>
                                     <div class="i_starCon">
@@ -985,9 +580,9 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">化工原料供应商</div>
                                     <ul>
-                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="./main_files/20151124013651571.jpg" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" alt="群星集团" src="./main_files/20151117094047658.jpg" title="群星集团"></a></li>
-                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" alt="远大物产集团有限公司" src="./main_files/20151117094122237.jpg" title="远大物产集团有限公司"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
                                     </ul>
                                 </div>
 
@@ -1009,56 +604,18 @@
                                 </ul>
                             </div>
                             <div class="ShopPro_Con">
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">PMMA/CN-211</a></span>
-                                    <span class="ShopPro_change i_TextRed">+1500</span>
-                                    <span class="ShopPro_price i_TextRed">￥14000.00</span>
-                                </div>
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">POM/K300</a></span>
-                                    <span class="ShopPro_change i_TextGreen">-300</span>
-                                    <span class="ShopPro_price i_TextGreen">￥9800.00</span>
-                                </div>
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">PC/SC-1220R</a></span>
-                                    <span class="ShopPro_change i_TextRed">0</span>
-                                    <span class="ShopPro_price i_TextRed">￥16500.00</span>
-                                </div>
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">ABS/8391</a></span>
-                                    <span class="ShopPro_change i_TextGreen">-100</span>
-                                    <span class="ShopPro_price i_TextGreen">￥9500.00</span>
-                                </div>
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">ABS/920-555</a></span>
-                                    <span class="ShopPro_change i_TextRed">+500</span>
-                                    <span class="ShopPro_price i_TextRed">￥14500.00</span>
-                                </div>
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">EVA/7470M</a></span>
-                                    <span class="ShopPro_change i_TextGreen">-400</span>
-                                    <span class="ShopPro_price i_TextGreen">￥12400.00</span>
-                                </div>
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">EVA/7470K</a></span>
-                                    <span class="ShopPro_change i_TextRed">+900</span>
-                                    <span class="ShopPro_price i_TextRed">￥12900.00</span>
-                                </div>
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">PMMA/CM205</a></span>
-                                    <span class="ShopPro_change i_TextGreen">-300</span>
-                                    <span class="ShopPro_price i_TextGreen">￥13300.00</span>
-                                </div>
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">PC/SABIC 1000R</a></span>
-                                    <span class="ShopPro_change i_TextRed">+800</span>
-                                    <span class="ShopPro_price i_TextRed">￥15800.00</span>
-                                </div>
-                                <div class="ShopPro_item clearfix">
-                                    <span class="ShopPro_text"><a href="#">ABS</a></span>
-                                    <span class="ShopPro_change i_TextGreen">-500</span>
-                                    <span class="ShopPro_price i_TextGreen">￥9500.00</span>
-                                </div>
+                                {if:!empty($statcProList)}
+                                    {foreach:items=$statcProList}
+                                        <div class="ShopPro_item clearfix">
+                                            {set:$gap = $item['ave_price']- $item['prev_price']}
+                                            {if:$gap>0}{set:$fuhao='+'}{else:}{set:$fuhao='-'}{/if}
+                                            <span class="ShopPro_text"><a href="#">{$item['name']}</a></span>
+                                            <span class="ShopPro_change {if:$gap>0}i_TextRed{else:}i_TextGreen{/if}">{$fuhao}{echo:abs($item['ave_price']-$item['prev_price'])}</span>
+                                            <span class="ShopPro_price {if:$gap>0}i_TextRed{else:}i_TextGreen{/if}">￥{$item['ave_price']}</span>
+                                        </div>
+                                    {/foreach}
+                                {/if}
+
                             </div>
                         </div>
 
@@ -1164,80 +721,19 @@
                                     <li class="rank_tit">
                                         <span class="i_r_1">排名</span>
                                         <span class="i_r_2">商户简称</span>
-                                        <span class="i_r_3">认证</span>
                                         <span class="i_r_4">等级</span>
                                         <span class="i_r_5">信誉值</span>
                                     </li>
-                                    <li class="rank_list">
-                                        <span class="i_r_1"><img src="images/rank_06.png"></span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
-                                    <li class="rank_list">
-                                        <span class="i_r_1"><img src="images/rank_13.png"></span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
-                                    <li class="rank_list">
-                                        <span class="i_r_1"><img src="images/rank_16.png"></span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
-                                    <li class="rank_list">
-                                        <span class="i_r_1">4</span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
-                                    <li class="rank_list">
-                                        <span class="i_r_1">5</span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
-                                    <li class="rank_list">
-                                        <span class="i_r_1">6</span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
-                                    <li class="rank_list">
-                                        <span class="i_r_1">7</span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
-                                    <li class="rank_list">
-                                        <span class="i_r_1">8</span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
-                                    <li class="rank_list">
-                                        <span class="i_r_1">9</span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
-                                    <li class="rank_list" style="border:0;height:48px;height:40px\0;">
-                                        <span class="i_r_1">10</span>
-                                        <span class="i_r_2">华岭耐火</span>
-                                        <span class="i_r_3"><img src="images/rank_08.png"></span>
-                                        <span class="i_r_4"><img src="images/rank_03.png"></span>
-                                        <span class="i_r_5">10000</span>
-                                    </li>
+                                    {foreach:items=$creditMember}
+                                        <li class="rank_list">
+                                            <span class="i_r_1">{echo:$key+1}</span>
+                                            <span class="i_r_2">{$item['company_name']}</span>
+                                            <span class="i_r_4"><img src="{$item['icon']}"></span>
+                                            <span class="i_r_5">{$item['credit']}</span>
+                                        </li>
+                                    {/foreach}
+
+
                                 </ul>
                             </div>
                         </div>
@@ -1340,6 +836,14 @@
         recObj.css('display','block');
 
     }
+
+
+        function showOffers(id,obj){
+            obj.siblings().removeClass('li_select');
+            obj.addClass('li_select');
+            $('[id^=offer]').removeClass('show');
+            $('#offer'+id).addClass('show');
+        }
     </script>
 
 

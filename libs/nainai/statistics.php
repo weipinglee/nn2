@@ -190,6 +190,7 @@ class statistics{
             $marketObj->where='m.type= :type and datediff(NOW(),m.create_time)<'.$this->interval;
             $marketObj->bind=array('type'=>$type);
             $mRes=$marketObj->find();
+
             $result=array();
             foreach($mRes as $k=>$v){
                 $result[$v['cate_id']]['name']=$v['name'];
@@ -279,6 +280,19 @@ class statistics{
             $newStatcList[$v['id']]=$marketObj->find();
         }
         return $newStatcList;
+    }
+
+    /**
+     * 获取最新统计数据（不分类）
+     */
+    public function getNewStaticListNocate($type){
+        $marketObj=new Query('static_market as m');
+        $marketObj->join='left join product_category as c on m.cate_id=c.id';
+        $marketObj->fields='c.name,m.*';
+        $marketObj->where='m.type= :type and datediff(NOW(),m.create_time)<'.$this->interval;
+        $marketObj->bind = array('type'=>$type);
+        $data = $marketObj->find();
+        return $data;
     }
 
 }

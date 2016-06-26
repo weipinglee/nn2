@@ -275,8 +275,8 @@ body{_padding-top:30px;}
 
 
             <ul class="nav n_nav">
-                <li class="current"><a href="http://www.nainaiwang.com/">首页</a></li>
-                <li><a href="http://market.nainaiwang.com/" target="_blank">交易中心</a></li>
+                <li class="current"><a href="{url:/index/index}">首页</a></li>
+                <li><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
                 <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">数据中心</a></li>
                 <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">竞价招投标</a></li>
                 <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">品牌商户</a></li>

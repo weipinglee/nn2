@@ -37,15 +37,34 @@ class IndexController extends PublicController {
 		//获取统计数据
 		$statcModel=new \nainai\statistics();
 		$statcCatList=$statcModel->getNewStatcList(1);
+		$statcProList=$statcModel->getNewStaticListNocate(2);
 
 		$topCat=$productModel->getTopCate();
 		$company=\nainai\companyRec::getAllCompany();
 
+		//获取信誉排行企业用户
+		$indexModel = new indexModel();
+		$creditMember = $indexModel->getCreditMemberList(10);
 
+		//获取首页最新完成的交易
+		$obj = new \nainai\order\Order();
+		$newTrade = $obj->getNewComplateTrade(10);
+
+		$offer = new offersModel();
+		$offerCateData = array();
+		foreach($topCat as $k=>$v){
+			$offerCateData[$v['id']] = $offer->getOfferCategoryList($v['id']);
+		}
+
+
+		$this->getView()->assign('creditMember',$creditMember);
 		$this->getView()->assign('statcCatList',$statcCatList);
+		$this->getView()->assign('statcProList',$statcProList);
 		$this->getView()->assign('company',$company);
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
+		$this->getView()->assign('newTrade',$newTrade);
+		$this->getView()->assign('offerData',$offerCateData);
 	}
 
 

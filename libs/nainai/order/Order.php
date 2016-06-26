@@ -33,6 +33,8 @@ class Order{
 
 
 	protected $order_table;//订单表名
+	protected $offer_table;//报盘表
+	protected $product_table = 'products';//商品表
 	protected $order;//订单表M对象
 	protected $order_type;//订单表类型
 	protected $offer;//报盘表
@@ -57,6 +59,7 @@ class Order{
 
 		$this->order_type = $order_type;
 		$this->order_table = 'order_sell';
+		$this->offer_table = 'product_offer';
 		$this->order = new M($this->order_table);
 		$this->offer = new M('product_offer');
 		$this->products = new M('products');
@@ -1063,6 +1066,24 @@ class Order{
 
 		}
 		return 0;
+	}
+
+	/**
+	 * 获取最新完成的交易合同(首页数据）
+	 * @param $num
+	 */
+	public function getNewComplateTrade($num){
+		$Q = new Query($this->order_table .' as o');
+		$Q->join = ' left join '.$this->offer_table.' as of on o.offer_id=of.id
+					 left join '.'products'.' as p on of.product_id = p.id
+					 left join user as u on u.id = of.user_id';
+		$Q->fields = 'u.username,of.type,p.name,p.unit,o.num';
+		$Q->where = 'o.contract_status='.self::CONTRACT_COMPLETE;
+		$Q->limit = $num;
+		$data = $Q->find();
+		return $data;
+
+
 	}
 
 
