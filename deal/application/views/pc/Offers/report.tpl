@@ -60,7 +60,7 @@
 
              </div>
 
-            <form action="{url:/trade/doreport}?callback={url:/offers/report?id=$offer['id']}" id="signupForm" method="post"  >
+            <form action="{url:/trade/doreport}?callback={url:/offers/report?id=$offer['id']}" auto_submit redirect_url="{url:/offers/offerlist}" id="signupForm" method="post"  >
              <div class="order_form">
              <h2>我的报价单</h2>
              
@@ -101,7 +101,7 @@
                  </div>
              </a>
              
-           <span class="danjia">￥<b>{$offer['price']}到{$offer['price_r']}</b><span> 元/{$product['unit']}</span></span>
+           <span class="danjia">￥<b>{$offer['price_l']}到{$offer['price_r']}</b><span> 元/{$product['unit']}</span></span>
            <span class="jine"><i>{$product['quantity']} {$product['unit']}</i></span>  
            <span class="shangjia"><a href="#"><i class="delet">{$offer['username']['username']}</i></a></span>
            <div class="accont_total">

@@ -118,6 +118,7 @@ class PurchaseReport extends \nainai\Abstruct\ModelAbstract {
 
           $list = $query->find();
           foreach($list as $k=> &$v){
+               $v['attr'] = unserialize($v['attr']);
                $v['status_zn'] = $this->getStatus($v['status']);
           }
           return array('list' => $list, 'pageHtml' => $query->getPageBar());

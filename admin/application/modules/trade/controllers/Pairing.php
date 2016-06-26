@@ -52,12 +52,23 @@ class PairingController extends Yaf\Controller_Abstract{
 		die(JSON::encode($res));
 	}
 
-	//撮合人员合同列表
+	//撮合人员未完成合同列表
 	public function pairingContractListAction(){
 		$admin = session::get('admin');
 		$page = safe::filterGet('page','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
 		$list = $this->pairing->contractList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',$admin['id']);
+		$this->getView()->assign('list',$list['data']);
+		$this->getView()->assign('name',$name);
+		$this->getView()->assign('page',$list['bar']);
+	}
+
+	//撮合人员已完成合同列表
+	public function pairingContractComListAction(){
+		$admin = session::get('admin');
+		$page = safe::filterGet('page','int',1);
+		$name = safe::filter($this->_request->getParam('name'));
+		$list = $this->pairing->contractList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',$admin['id'],true);
 		$this->getView()->assign('list',$list['data']);
 		$this->getView()->assign('name',$name);
 		$this->getView()->assign('page',$list['bar']);

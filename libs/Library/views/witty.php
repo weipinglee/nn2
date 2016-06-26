@@ -283,6 +283,8 @@ OEF;
                     if(!isset($attr['delimiter'])) $attr['delimiter'] = ' ';
                     if(substr($attr['data'],0,1) == '$')
                         $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
+                    if(substr($attr['id'],0,1) == '$')
+                        $attr['id'] = '<?php echo '.$attr['id'].' ; ?>';
                     return   <<< OEF
                 <script type="text/javascript">
                  {$attr['id']}Obj = new Area();

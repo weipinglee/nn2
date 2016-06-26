@@ -299,8 +299,8 @@ body{_padding-top:30px;}
                <p>订单号<i class="spsce">：</i>{$order_no}</p>
                <p>订单总额<i>：</i>￥{$amount}</p>
                <p>已支付<i>：</i>￥{$pay_deposit}</p>
-
-               <p>交货地点<i>:</i>4</p>
+<!-- 
+               <p>交货地点<i>:</i>4</p> -->
 
                <div class="od_buton">
                 <a class="fanhod" href="{url:/Offers/offerList}">返回报盘列表</a>

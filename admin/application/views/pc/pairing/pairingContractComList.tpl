@@ -3,7 +3,7 @@
 <h1><img src="{views:img/icons/posts.png}" alt="" /> 合同管理</h1>
 <div class="bloc">
     <div class="title">
-        撮合未完成合同列表
+        撮合已完成合同列表
     </div>
     <div class="content">
         <div class="pd-20">
@@ -51,7 +51,7 @@
 	;$(function(){
 		$('.search-admin').click(function(){
 			var name = $(this).siblings('input').val();
-			window.location.href = "{url:/trade/pairing/pairingContractList}"+"/name/"+name;
+			window.location.href = "{url:/trade/pairing/pairingContractComList}"+"/name/"+name;
 		});
 	})
 </script>

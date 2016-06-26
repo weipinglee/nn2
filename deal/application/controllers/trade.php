@@ -11,6 +11,7 @@ use \Library\safe;
 use \Library\tool;
 use \nainai\order;
 use \Library\json;
+use \Library\M;
 class tradeController extends \nainai\controller\Base {
 
 	private $offer;
@@ -80,14 +81,25 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['user_id'] = $user_id;
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
-		try {
-			$this->offer->beginTrans();
-			$gen_res = $order_mode->geneOrder($orderData);
 
+		$order = new M('order_sell');
+		try {
+			$order->beginTrans();
+			$gen_res = $order_mode->geneOrder($orderData);
+			
 			if($gen_res['success'] == 1){
 				if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){
-					$this->offer->commit();
-					$this->redirect(url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount=111&payed=0&info=等待上传线下支付凭证'));
+
+					$zhi = new \nainai\member();
+					$pay_secret = safe::filterPost('pay_secret');
+					if(!$zhi->validPaymentPassword($pay_secret,$this->user_id)){
+						die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
+					}
+					$order->commit();
+					$order_id = $gen_res['order_id'];
+					$amount = $order->where(array('id'=>$order_id))->getfield('amount');
+					$url = url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证');
+					die(json::encode(tool::getSuccInfo(1,'操作成功,稍后跳转',$url)));
 				}else{
 					$zhi = new \nainai\member();
 					$pay_secret = safe::filterPost('pay_secret');
@@ -103,13 +115,14 @@ class tradeController extends \nainai\controller\Base {
 					}else{
 						$this->offer->rollBack();
 						die(json::encode(tool::getSuccInfo(0,'预付定金失败:'.$pay_res['info'])));
+
 					}
 				}
 			}else{
 				die(json::encode(tool::getSuccInfo(0,'生成订单失败:'.$gen_res['info'])));
 			}
 		} catch (\PDOException $e) {
-			$this->offer->rollBack();
+			$order->rollBack();
 			$this->error($e->getMessage());
 		}
 		
@@ -142,10 +155,11 @@ class tradeController extends \nainai\controller\Base {
 
 
 			if(empty($data)){
-				$this->error('采购不存在!');exit();
+				die(json::encode(tool::getSuccInfo(0,'采购不存在!')));
+				exit();
 			}
 			else if($data['user_id']==$this->user_id){
-				$this->error('不能给自己的采购报价!');exit();
+				die(json::encode(tool::getSuccInfo(0,'不能给自己的采购报价!')));exit();
 			}
 
 
@@ -153,13 +167,15 @@ class tradeController extends \nainai\controller\Base {
 			//判断是否已经添加过报价
 			$res = $Model->getPurchaseReport(array('seller_id'=>$this->user_id, 'offer_id'=>$offer_id), 'id');
 			if (!empty($res)) {
-				$this->error('已经报价过了，不能在报价!');exit();
+				die(json::encode(tool::getSuccInfo(0,'已报价，不要重复报价!')));
+				exit();
 			}
 			$attrs = Safe::filterPost('attribute');
 
 			$reportData = array(
 				'offer_id' => $offer_id,
 				'attr' => empty($attrs) ? '' : serialize($attrs),
+				'produce_area' => safe::filterPost('area','int'),
 				'price' => Safe::filterPost('price', 'float'),
 				'create_time' => \Library\Time::getDateTime(),
 				'seller_id' => $this->user_id,
@@ -167,11 +183,7 @@ class tradeController extends \nainai\controller\Base {
 			);
 
 			$res = $Model->addPurchaseReport($reportData);
-			if ($res['success'] == 1) {
-				$this->success('报价成功!');
-			}else{
-				$this->error('报价失败!');
-			}
+			die(json::encode($res));
 		}else{
 			$this->error('错误的操作!');
 		}

@@ -50,8 +50,7 @@ class StoreOrder extends Order{
 				}
 			}
 
-			try {
-				//$this->order->beginTrans();
+
 				$upd_res = $this->orderUpdate($orderData);
 				if($upd_res['success'] == 1){
 					//冻结买方帐户资金  payment=1 余额支付
@@ -60,28 +59,16 @@ class StoreOrder extends Order{
 						$pro_res = $this->productsFreeze($this->offerInfo($info['offer_id']),$info['num']);
 						if($pro_res === true){
 							$log_res = $this->payLog($order_id,$user_id,0,'买方预付定金--'.$type == 0 ? '定金' : '全款');
-							if($log_res === true){
-								$res = $this->order->commit();
-							}else{
-								$this->order->rollBack();
-								$res = $log_res;
-							}
+							$res = $log_res === true ? true : $log_res;
 						}else{
-							$this->order->rollBack();
 							$res = $pro_res;
 						}
 					}else{
-						$this->order->rollBack();
 						$res = $acc_res['info'];
 					}	
 				}else{
-					$this->order->rollBack();
 					$res = $upd_res['info'];
 				}
-			} catch (\PDOException $e) {
-				$this->order->rollBack();
-				$res = $e->getMessage();
-			}
 		}else{
 			$res = '无效订单id';
 		}

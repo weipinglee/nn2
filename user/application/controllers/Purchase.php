@@ -187,7 +187,7 @@ class PurchaseController extends UcenterBaseController{
 	 */
 	public function reportlistsAction(){
 		$page = Safe::filterGet('page', 'int', 0);
-
+		$id = safe::filterGet('id','int',0);
 		$name = Safe::filterGet('name');
 		$status = Safe::filterGet('status', 'int', 9);
 		$beginDate = Safe::filterGet('beginDate');
@@ -195,6 +195,16 @@ class PurchaseController extends UcenterBaseController{
 		//查询组装条件
 		$where = ' 1 ';
 		$bind = array();
+
+		if (empty($id)) {
+		    $where .= ' AND p.seller_id ='.$this->user_id;//.$this->user_id;
+		    $this->getView()->assign('user_id', $this->user_id);
+		}
+
+		if (!empty($id)) {
+		    $where .= ' AND p.offer_id ='.$id;
+		    $this->getView()->assign('id', $id);
+		}
 
 		if (!empty($name)) {
 		    $where .= ' AND u.username like"%'.$name.'%"';
@@ -221,67 +231,12 @@ class PurchaseController extends UcenterBaseController{
 
 		$Model = new \nainai\offer\PurchaseReport();
 		$reportLists = $Model->getLists($page, $this->pagesize, $where, $bind);
-		
+
 		$this->getView()->assign('status', $Model->getStatusArray());
 		$this->getView()->assign('reportLists', $reportLists['list']);
 		$this->getView()->assign('pageHtml', $reportLists['pageHtml']);
 	}
 
-		/**
-	 * 处理审核
-	 */
-	public function doApplyReportAction(){
-		if (IS_POST) {
-			$id = Safe::filterPost('id', 'int', 0);
-			$status = Safe::filterPost('apply', 'int', 0) ;
 
-			if ($status == 1) {
-				$buyData = array(
-					'offer_id' => Safe::filterPost('offer_id', 'int', 0),
-					'seller_id' => Safe::filterPost('seller_id', 'int', 0),
-					'buyer_id' => Safe::filterPost('buy_id', 'int', 0),
-					'price' => Safe::filterPost('price', 'double', 0),
-					'num' => Safe::filterPost('num', 'double', 0),
-					'create_time' => \Library\Time::getDateTime()
-				);
-				//先创建报价订单，后更改报价状态
-				$buyData['amount'] = round($buyData['price'] * $buyData['num'], 2);
-				$buyData['order_no'] = tool::create_uuid();
-				$Model = new \nainai\order\OrderBuy();
-				$res = $Model->addOrderBuy($buyData);
-			}else{
-				$res = array('success' => 1); //如果是拒绝，模拟成功创建
-			}
-
-			if ($res['success'] == 1) {
-				$apply = array();
-				$Model = new \nainai\offer\PurchaseReport();
-				$apply['status'] = ($status== 1) ? $Model::STATUS_ADOPT : $Model::STATUS_REPLUSE;//获取审核状态
-				$apply['handle_time'] = \Library\Time::getDateTime();
-				$res = $Model->updatePurchaseReport($apply, $id);
-			}
-			die(json::encode($res)) ;
-		}
-
-		$id = $this->getRequest()->getParam('id');
-		$id = Safe::filter($id, 'int', 0);
-
-		if (intval($id) > 0) {
-			$Model = new \nainai\offer\PurchaseReport();
-			$data = $Model->getPurchaseReport($id);
-
-			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
-			$offerDetail = $PurchaseOfferModel->getOfferProductDetail($data['offer_id']);
-			$user = new \nainai\user\User();
-			$data['username'] = $user->getUser((int)$data['seller_id'], 'username');
-
-			$this->getView()->assign('report', $data);
-			$this->getView()->assign('detail', $offerDetail[0]);
-			$this->getView()->assign('product', $offerDetail[1]);
-		}else{
-			$this->redirect('lists');
-		}
-
-	}
 
 }

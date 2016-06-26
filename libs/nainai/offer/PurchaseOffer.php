@@ -86,7 +86,7 @@ class PurchaseOffer extends product {
 
 		$list = $query->find();
 		foreach($list as $k=>$v){
-			$list[$k]['status'] = $this->getStatus($list[$k]['status']);
+			$list[$k]['status_txt'] = $this->getStatus($list[$k]['status']);
 		}
 		return array('list' => $list, 'pageHtml' => $query->getPageBar());
 	}

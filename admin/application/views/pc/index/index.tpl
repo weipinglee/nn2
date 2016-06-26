@@ -177,7 +177,8 @@
                                 <li><a href="#" target="content">列表</a></li>
                                 <li><a href="#" target="content">状态</a></li>
                                 <li><a href="{url:trade/pairing/contractList}" target="content">添加撮合人</a></li>
-                                <li><a href="{url:trade/pairing/pairingContractList}" target="content">撮合合同列表</a></li>
+                                <li><a href="{url:trade/pairing/pairingContractList}" target="content">未完成撮合合同列表</a></li>
+                                <li><a href="{url:trade/pairing/pairingContractComList}" target="content">已完成撮合合同列表</a></li>
                             </ul>
                         </li>
                         <li><a  target="content">申诉管理</a>
