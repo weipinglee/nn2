@@ -242,7 +242,7 @@ body{_padding-top:30px;}
         <div class="page_width">
             <div class="index_logo">
                 <h1>
-                    <a href="http://www.nainaiwang.com/"></a>
+                    <a href="{url:/index/index}"></a>
                 </h1>
             </div>
 
@@ -277,11 +277,7 @@ body{_padding-top:30px;}
             <ul class="nav n_nav">
                 <li class="current"><a href="{url:/index/index}">首页</a></li>
                 <li><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
-                <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">数据中心</a></li>
-                <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">竞价招投标</a></li>
-                <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">品牌商户</a></li>
-                <li style="border-right: none"><a href="http://bbs.nainaiwang.com/" target="_blank">耐耐朋友圈</a></li>
-            </ul>
+           </ul>
         </div>
     </div>
     <!------------------导航 开始-------------------->
@@ -292,9 +288,12 @@ body{_padding-top:30px;}
                   
                 <div class="div_flink">
                     <img src="{views:images/icon/icon_news_i}mg.png">
-                    
-                            <a href="http://www.gt123.cn/link/link.asp" target="_blank">钢铁123网</a>
-                                                                    
+                    {if:!empty($frdData)}
+                        {foreach:items=$frdData}
+                            <a href="{$item['link']}" target="_blank">{$item['name']}</a>
+
+                        {/foreach}
+                              {/if}
                 </div>                
            
             <!--公用底部控件 开始-->

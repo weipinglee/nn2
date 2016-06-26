@@ -47,8 +47,8 @@ class IndexController extends PublicController {
 		$creditMember = $indexModel->getCreditMemberList(10);
 
 		//获取首页最新完成的交易
-		$obj = new \nainai\order\Order();
-		$newTrade = $obj->getNewComplateTrade(10);
+		$order = new \nainai\order\Order();
+		$newTrade = $order->getNewComplateTrade(10);
 
 		$offer = new offersModel();
 		$offerCateData = array();
@@ -56,6 +56,15 @@ class IndexController extends PublicController {
 			$offerCateData[$v['id']] = $offer->getOfferCategoryList($v['id']);
 		}
 
+		//获取报盘总数
+		$offer_num = $offer->getOfferNum();
+		$this->getView()->assign('offer_num',$offer_num['num']);
+		//获取企业总数
+		$company_num = $indexModel->getTotalCompany();
+		$this->getView()->assign('company_num',$company_num['num']);
+		//获取当前和昨日成交量
+		$order_num = $order->getOrderTotal();
+		$order_num_yes = $order->getOrderTotal('yesterday');
 
 		$this->getView()->assign('creditMember',$creditMember);
 		$this->getView()->assign('statcCatList',$statcCatList);
@@ -65,6 +74,8 @@ class IndexController extends PublicController {
 		$this->getView()->assign('indexSlide',$indexSlide);
 		$this->getView()->assign('newTrade',$newTrade);
 		$this->getView()->assign('offerData',$offerCateData);
+		$this->getView()->assign('order_num',$order_num['num']);
+		$this->getView()->assign('order_num_yes',$order_num_yes['num']);
 	}
 
 

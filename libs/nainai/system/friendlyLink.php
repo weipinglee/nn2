@@ -82,6 +82,15 @@ class friendlyLink{
     }
 
     /**
+     * 获取前台显示友情链接
+     * @param $num
+     */
+    public function getFrdLink($num){
+        $frdObj = $this->frdLinkObj;
+        return $frdObj->where(array('status'=>1))->order('`order` asc')->limit($num)->select();
+    }
+
+    /**
      * 更改链接状态
      * @param array $params
      * @return array

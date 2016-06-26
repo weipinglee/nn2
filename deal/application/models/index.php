@@ -30,6 +30,15 @@ class indexModel {
        return $data;
    }
 
+    /**
+     * 获取注册的企业量
+     * @return Array.num 企业量
+     */
+    public function getTotalCompany(){
+        $mem = new M('user');
+        return $mem->fields(' COUNT(id) as num')->where(array('type'=>1))->getObj();
+    }
+
 
 
 }

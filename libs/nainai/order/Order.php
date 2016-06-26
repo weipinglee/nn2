@@ -1086,5 +1086,34 @@ class Order{
 
 	}
 
+	/**
+	 * 获取规定之间内的成交量
+	 * @param  String $date 选择获取的时间，now，yesterday
+	 * @return Array.num       成交量
+	 */
+	public function getOrderTotal($date='all'){
+		$model = new M('order_sell');
+		$where = ' contract_status IN (' .implode(',', array(self::CONTRACT_EFFECT, self::CONTRACT_DELIVERY_COMPLETE, self::CONTRACT_VERIFY_QAULITY, self::CONTRACT_SELLER_VERIFY, self::CONTRACT_COMPLETE)). ')';
+		$bind = array();
+
+		switch ($date) {
+			case 'today':
+				$where .= ' AND create_time>=:date';
+				$bind['date'] = \Library\Time::getDateTime('Y-m-d') . ' 00:00:00';
+				break;
+			case 'yesterday':
+				$where .= ' AND create_time BETWEEN :starDate AND :endDate';
+				$date = \Library\Time::getDateTime('Y-m-d', strtotime('-1 Days'));
+				$bind['starDate'] = $date . ' 00:00:00';
+				$bind['endDate'] = $date . ' 23:59:59';
+				break;
+			case 'all' :
+			default:
+				break;
+		}
+
+		return $model->fields('count(id) as num')->where($where)->bind($bind)->getObj();
+	}
+
 
 }

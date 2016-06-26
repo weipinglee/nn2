@@ -16,6 +16,8 @@ class product {
 
     private $product_limit = 5;
 
+    protected $offer_table = 'product_offer';
+
     protected $errorCode = array(
         'fundLess' => array('code'=>-1,'info'=>'账户余额不足'),
         'dataWrong' => array('code'=>1,'info'=>''),

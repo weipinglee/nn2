@@ -8,6 +8,10 @@ class PublicController extends \Yaf\Controller_Abstract{
 
      public function init(){
           $this->getView()->setLayout('layout');
+          $frdLink = new \nainai\system\friendlyLink();
+          $frdData = $frdLink->getFrdLink(10);
+          $this->getView()->assign('frdData',$frdData);
+
      }
 
 

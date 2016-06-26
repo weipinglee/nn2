@@ -181,4 +181,12 @@ class offersModel extends \nainai\offer\product{
         return intval($this->offer->where(array('id'=>$id))->getField('mode'));
     }
 
+    /**
+     * 获取统计报盘的数量
+     * @return Int
+     */
+    public function getOfferNum(){
+        return $this->offer->table('products')->fields('COUNT(id) as num ')->where('quantity-sell > 0')->getObj();
+    }
+
 }

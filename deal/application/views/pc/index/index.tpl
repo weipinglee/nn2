@@ -1,14 +1,7 @@
 <script type="text/javascript" src="{views:js/area/Area.js}" ></script>
 <script type="text/javascript" src="{views:js/area/AreaData_min.js}" ></script>
 <!------------------导航 开始-------------------->
-<form method="post" action="" id="form1">
-    <div class="aspNetHidden">
-        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="b7kHdN58Jsi2cPaAmmpEqXjSD5M7lilMmnUNdKzTkgYwpBrDsYEml4gvo/iOj8sf">
-    </div>
-</form>
 
-
-<input type="hidden" id="UserID">
 <!--主要内容 开始-->
 <div id="mainContent">
     <div class="page_width">
@@ -309,28 +302,28 @@
                     <div class="data-tit">
                         <div class="data">
                             <p class="data_title">当前在线报盘</p>
-                            <p class="data_content">144384吨</p>
+                            <p class="data_content">{$offer_num}</p>
                         </div>
                         <img class="data_img" src="{views:images/icon/data-img_03.png}"/>
                     </div>
                     <div class="data-tit">
                         <div class="data">
                             <p class="data_title">当前成交量</p>
-                            <p class="data_content">144384吨</p>
+                            <p class="data_content">{$order_num}</p>
                         </div>
                         <img class="data_img" src="{views:images/icon/data-img_06.png}"/>
                     </div>
                     <div class="data-tit">
                         <div class="data">
                             <p class="data_title">昨日成交量</p>
-                            <p class="data_content">144384吨</p>
+                            <p class="data_content">{$order_num_yes}</p>
                         </div>
                         <img class="data_img" src="{views:images/icon/data-img_08.png}"/>
                     </div>
                     <div class="data-tit">
                         <div class="data">
                             <p class="data_title">当前入驻商家</p>
-                            <p class="data_content">1443位</p>
+                            <p class="data_content">{$company_num}位</p>
                         </div>
                         <img class="data_img" src="{views:images/icon/data-img_10.png}"/>
                     </div>
