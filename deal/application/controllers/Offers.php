@@ -166,6 +166,9 @@ class OffersController extends PublicController {
 			if(empty($offerDetail)){
 				$this->error('采购不存在');exit;
 			}
+			if(time() > strtotime($offerDetail['expire_time'])){
+				$this->error('报盘不存在或已过期');
+			}
 
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
