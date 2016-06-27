@@ -39,7 +39,7 @@ class IndexController extends PublicController {
 		$statcCatList=$statcModel->getNewStatcList(1);
 		$statcProList=$statcModel->getNewStaticListNocate(2);
 
-		$topCat=$productModel->getTopCate();
+		$topCat=$productModel->getTopCate(8);
 		$company=\nainai\companyRec::getAllCompany();
 
 		//获取信誉排行企业用户

@@ -204,9 +204,14 @@ class product {
     /**
      * 获取所有顶级分类
      */
-    public function getTopCate(){
+    public function getTopCate($num=''){
         $where  = array('status' => 1,'pid'=>0);
-        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs')->where($where)->select();
+        if($num)
+            $this->_productObj->table('product_category')->limit($num);
+        else{
+            $this->_productObj->table('product_category');
+        }
+        $category = $this->_productObj->fields('id,pid, name, unit, childname, attrs')->where($where)->select();
         return $category;
     }
 
