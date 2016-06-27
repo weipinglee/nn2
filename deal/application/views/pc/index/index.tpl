@@ -234,6 +234,7 @@
 
             <script type="text/javascript">
 
+
                 $('.all-sort-list > .item').hover(function () {
                     var eq = $('.all-sort-list > .item').index(this),               //获取当前滑过是第几个元素
                             h = $('.all-sort-list').offset().top,                       //获取当前下拉菜单距离窗口多少像素
@@ -279,8 +280,10 @@
                 function Aa(a, b) {var c = a.getElementsByTagName("*");var d = [];for (var i = 0; i < c.length; i++) {if (c[i].className == b) {d.push(c[i]);}};return d;}
                 var item;
 
+
             </script>
             <!--搜索条件 结束-->
+
 
             <!-- 广告条 -->
             <div class="ad_line">{echo: \Library\Ad::show("111")}</div>

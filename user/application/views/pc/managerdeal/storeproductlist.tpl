@@ -1,6 +1,6 @@
 ﻿
 			<!--start中间内容-->	
-			<div class="user_c">
+			<div class="user_c_list">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
 						<p><a>仓单管理</a>><a>仓单列表</a></p>

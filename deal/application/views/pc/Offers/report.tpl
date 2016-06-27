@@ -69,8 +69,10 @@
              
              <span></span>
              <span class="goods">商品信息</span>
+             <span class="norms">规格</span>
              <span class="price ">意向价格</span>
-             <span class="number">需求数量</span> 
+             <span class="number">需求数量</span>
+             <span class="numunit">单位</span>  
              <span class="amount">买方名</span>
              
              </div>
@@ -96,13 +98,20 @@
                                         {/if}
                                    {/foreach}</h5>
                  <p>商品名：{$product['product_name']}</p>
-                 <p>规格：{$product['attrs']}</p>
+
                  <p>需求产地：<span id="area">{areatext: data=$product['produce_area'] id=area }</span></p>
                  </div>
              </a>
-             
-           <span class="danjia">￥<b>{$offer['price_l']}到{$offer['price_r']}</b><span> 元/{$product['unit']}</span></span>
-           <span class="jine"><i>{$product['quantity']} {$product['unit']}</i></span>  
+
+           <span class="guige">
+               {foreach:items=$product['attr_arr']}
+                    {$key}:{$item}</br>
+               {/foreach}
+           </span>
+           <span class="danjia">￥<b>{$offer['price_l']}到{$offer['price_r']}</b><span> 元</span></span>
+           <span class="jine"><i>{$product['quantity']} </i></span>
+           <span class="danwei">{$product['unit']}</span>
+
            <span class="shangjia"><a href="#"><i class="delet">{$offer['username']['username']}</i></a></span>
            <div class="accont_total">
            </div>
@@ -115,8 +124,8 @@
 
           </div>      
            <div class="input_box">
-               <label for="">产地</label>
-               <span id="areabox">
+               <label for="" class="positon">产地</label>
+               <span>
                     {area:}
                </span>
                <span></span>
@@ -166,6 +175,17 @@
                     $("#signupForm").submit();
                 })
 
+                  var validObj = formacc;
+
+
+                  //为地址选择框添加验证规则
+                  var rules = [{
+                      ele:"input[name=area]",
+                      datatype:"n6-6",
+                      nullmsg:"请选择地址！",
+                      errormsg:"请选择地址！"
+                  }];
+                  validObj.addRule(rules);
               });
             </script>
              </div>
