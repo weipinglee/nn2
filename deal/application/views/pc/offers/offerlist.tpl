@@ -9,6 +9,11 @@
 
     <link rel="stylesheet" type="text/css" href="{views:css/product.css}">
     <link rel="stylesheet" type="text/css" href="{views:css/style_main.css}">
+        <style>
+    .page_num {
+      margin-top:  12px;
+    }
+  </style>
 
  <!------------------导航 开始-------------------->
                 <form method="post" action="" id="form1">

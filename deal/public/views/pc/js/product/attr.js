@@ -78,6 +78,7 @@ function getCategory(cond){
 
                 var proHtml = template.render('productTemplate',{data:data.data});
                 data.bar = data.bar.replace(/<span>.*<\/span>/i,'');
+                data.bar = '<div class="page_num">' + data.bar + '</div>';
                 proHtml += data.bar;
                 $('.pro_cen').eq(0).after(proHtml);
                 $('.pages_bar').find('a').each(function(){
