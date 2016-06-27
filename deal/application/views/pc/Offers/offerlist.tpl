@@ -204,7 +204,7 @@
                <div class="pro_cen">
                    <ul class="main_centon">
                        <li class="tit_left">
-                           <a href="" title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>
+                           <!--<a href="" title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
                            <span><%=data[i].name%></span>
                        </li>
                        <li><% if(data[i].type == 1){ %><i class="red">供</i><% }else { %><i class="green">求</i> <%}%></li>
