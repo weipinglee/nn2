@@ -21,8 +21,8 @@
         <script type="text/javascript" src="{views:content/settings/main.js}"></script>
 		  <script type="text/javascript">
 		  $(function(){
-		  var h = document.body.scrollHeight -40;
-		
+		  var h = $(window).height() -42;
+
 				$('iframe').attr('height',h+'px');
 		  })
 				
@@ -168,15 +168,12 @@
                                 <li><a href="{url:/trade/OfferManage/kefuOfferList}" target="content">客服报盘列表</a></li>
                                 <li><a href="{url:/trade/OfferManage/offerList}" target="content">报盘管理</a></li>
                                 <li><a href="{url:/trade/OfferManage/offerReview}" target="content">报盘审核</a></li>
-                                <li><a href="#" target="content">历史报盘信息查询</a></li>
+                                <li><a href="{url:/trade/OfferManage/expireOfferList}" target="content">历史报盘信息查询</a></li>
                                 <li><a href="{url:/trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
                             </ul>
                         </li>
                         <li><a target="content">合同管理</a>
                             <ul>
-                                <li><a href="#" target="content">审核</a></li>
-                                <li><a href="#" target="content">列表</a></li>
-                                <li><a href="#" target="content">状态</a></li>
                                 <li><a href="{url:trade/pairing/contractList}" target="content">添加撮合人</a></li>
                                 <li><a href="{url:trade/pairing/pairingContractList}" target="content">未完成撮合合同列表</a></li>
                                 <li><a href="{url:trade/pairing/pairingContractComList}" target="content">已完成撮合合同列表</a></li>

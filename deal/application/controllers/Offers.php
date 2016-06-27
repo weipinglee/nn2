@@ -54,7 +54,10 @@ class OffersController extends PublicController {
 		$info = $this->offer->offerDetail($id);
 
 		if(empty($info)){
-			die(JSON::encode(tool::getSuccInfo(0,'报盘不存在或未通过审核')));
+			$this->error('报盘不存在或未通过审核');
+		}
+		if(time() > strtotime($info['expire_time'])){
+			$this->error('报盘不存在或已过期');
 		}
 		$info['amount'] = $info['minimum'] * $info['price'];
 		$order_mode = new Order($info['mode']);

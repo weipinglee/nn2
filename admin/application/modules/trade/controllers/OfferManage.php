@@ -153,7 +153,7 @@ class OfferManageController extends Yaf\Controller_Abstract{
 	public function kefuOfferListAction(){
 		$page = safe::filterGet('page','int',1);
 		$list = $this->offer->getKefuOfferList($page);
-
+		$this->getView()->assign('bar',$list['bar']);
 		$this->getView()->assign('data',$list['data']);
 	}
 
@@ -161,6 +161,28 @@ class OfferManageController extends Yaf\Controller_Abstract{
 	 * 客服查看的报盘详情
 	 */
 	public function kefuOfferDetailAction(){
+		$id = intval($this->_request->getParam('id'));
+		$user = $this->_request->getParam('user');//委托人
+		$info = $this->offer->getofferDetail($id);
+
+		$info['user'] = $user;
+
+
+		$this->getView()->assign('info',$info);
+	}
+
+	/**
+	 * 过期的报盘列表
+	 */
+	public function expireOfferListAction(){
+		$page = safe::filterGet('page','int',1);
+		$list = $this->offer->getExpireOfferList($page);
+
+		$this->getView()->assign('bar',$list['bar']);
+		$this->getView()->assign('data',$list['data']);
+	}
+
+	public function expireOfferDetailsAction(){
 		$id = intval($this->_request->getParam('id'));
 		$user = $this->_request->getParam('user');//委托人
 		$info = $this->offer->getofferDetail($id);
