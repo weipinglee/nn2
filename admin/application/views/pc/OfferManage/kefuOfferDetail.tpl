@@ -116,17 +116,6 @@
                  <th>操作</th>
 
                  <th scope="col" colspan="7">
-                     <form action="{url:trade/OfferManage/kefuAdd}" method="post" auto_submit redirect_url="{url:trade/OfferManage/offerList}">
-                         <input type="hidden" name="offer_id" value="{$info['id']}" />
-                         <select name="kefu" >
-                             <option value="0">请选择客服</option>
-                             {foreach:items=$kefu}
-                                 <option value="{$item['admin_id']}" {if:$info['kefu']==$item['admin_id']}selected="true"{/if}>{$item['ser_name']}</option>
-                             {/foreach}
-                         </select>
-
-                         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;绑定客服&nbsp;&nbsp;">
-                     </form>
 
                      <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
                  </th>

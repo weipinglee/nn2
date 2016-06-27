@@ -152,5 +152,17 @@ class KefuModel extends AdminModel{
 		}
 	}
 
+	/**
+	 * 获取所有客服
+	 * @return array
+	 */
+	public function getAllkefu(){
+		$Q = new Query($this->table.' as ke');
+		$Q->join = 'left join admin as a on ke.admin_id=a.id';
+		$Q->fields = 'ke.*,a.name';
+		$data = $Q->find();
+		return $data;
+	}
+
 
 }

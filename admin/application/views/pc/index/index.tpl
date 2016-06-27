@@ -165,6 +165,7 @@
 
                         <li><a target="content">报盘管理</a>
                             <ul>
+                                <li><a href="{url:/trade/OfferManage/kefuOfferList}" target="content">客服报盘列表</a></li>
                                 <li><a href="{url:/trade/OfferManage/offerList}" target="content">报盘管理</a></li>
                                 <li><a href="{url:/trade/OfferManage/offerReview}" target="content">报盘审核</a></li>
                                 <li><a href="#" target="content">历史报盘信息查询</a></li>

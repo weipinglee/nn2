@@ -49,7 +49,12 @@ class OfferManageController extends Yaf\Controller_Abstract{
 
 		$info['user'] = $user;
 
+		//获取客服人员列表
+		$kefu = new KefuModel();
+		$kefuData = $kefu->getAllkefu();
+
 		$this->getView()->assign('info',$info);
+		$this->getView()->assign('kefu',$kefuData);
 	}
 
 	/**
@@ -127,6 +132,43 @@ class OfferManageController extends Yaf\Controller_Abstract{
 			die(JSON::encode($res));
 		}
 		return false;
+	}
+
+	/**
+	 * 给报盘添加客服
+	 */
+	public function kefuAddAction(){
+		if(IS_POST){
+			$offer_id = safe::filterPost('offer_id','int',0);
+			$kefu = safe::filterPost('kefu','int',0);
+			$res = $this->offer->addKefu($offer_id,$kefu);
+			die(json::encode($res));
+		}
+		return false;
+	}
+
+	/**
+	 * 获取客服查看的报盘
+	 */
+	public function kefuOfferListAction(){
+		$page = safe::filterGet('page','int',1);
+		$list = $this->offer->getKefuOfferList($page);
+
+		$this->getView()->assign('data',$list['data']);
+	}
+
+	/**
+	 * 客服查看的报盘详情
+	 */
+	public function kefuOfferDetailAction(){
+		$id = intval($this->_request->getParam('id'));
+		$user = $this->_request->getParam('user');//委托人
+		$info = $this->offer->getofferDetail($id);
+
+		$info['user'] = $user;
+
+
+		$this->getView()->assign('info',$info);
 	}
 }
  ?>
