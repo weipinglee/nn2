@@ -120,9 +120,10 @@ body{_padding-top:30px;}
 <div class="bg_topnav">
     <div class="topnav_width">
         <div class="topnav_left">
+            {if:$login==0}
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://iv.nainaiwang.com/?go=http://market.nainaiwang.com/UnifyIdentityValidate.aspx?go=http://market.nainaiwang.com/Manage/Todo/" target="_blank" class="topnav_login">登录</a>
-                <div class="login_box" id="login_boxMain" style="display: none;">
+                <a rel="external nofollow" href="{url:/login/login@user}" target="_blank" class="topnav_login">登录</a>
+                <!--<div class="login_box" id="login_boxMain" style="display: none;">
                     <input name="gtxh_LoginMobile" type="text" id="gtxh_LoginMobile" class="txt_topnav" value="手机号码" maxlength="11">
                     <br>
                     <input type="text" id="gtxh_importpwd" class="txt_topnav" value="登录密码" maxlength="11">
@@ -134,17 +135,19 @@ body{_padding-top:30px;}
                     <label for="checkbox">两周内自动登录</label>
                     <br>
                     <a href="http://iv.nainaiwang.com/ForgetPassword.aspx" target="_blank">忘记密码</a> <a href="http://iv.nainaiwang.com/RegStep1.aspx" target="_blank">立即注册</a>
-                </div>
+                </div>-->
                 <div class="topnav_regsiter" style=" float:right;">
-                    <a rel="external nofollow" href="http://iv.nainaiwang.com/RegStep1.aspx" target="_blank">免费注册</a>
+                    <a rel="external nofollow" href="{url:/login/register@user}" target="_blank">免费注册</a>
                 </div>
             </div>
+            {else:}
             <div class="topnav_login_in" id="userCenterbox" style="display: none;">
-                您好，<label class="icon_topnav_loginin" id="gtxh_uame"></label>
-                <a id="userCenter" href="http://market.nainaiwang.com/Manage/Todo/" target="_blank" ru="http://www.nainaiwang.com">会员中心</a>
-                <a id="loginOut" href="javascript:">退出</a>
-                <iframe id="iframe_loginOut" frameborder="0" height="1" width="1" scrolling="no"></iframe>
+                您好，<label class="icon_topnav_loginin" id="gtxh_uame">{$username}</label>
+                <a id="userCenter" href="{url:/ucenterindex/index}" target="_blank" >会员中心</a>
+                <a id="loginOut" href="{url:/login/logout@user}">退出</a>
+
             </div>
+            {/if}
         </div>
         <div class="topnav_right">
             <ul>
