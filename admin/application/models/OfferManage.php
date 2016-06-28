@@ -219,5 +219,53 @@ class OfferManageModel extends \nainai\offer\product{
 		return $resInfo;
 	}
 
+	/**
+	 *
+	 * @param $offer_id
+	 * @param $kefu_id
+	 */
+	public function addKefu($offer_id,$kefu_id){
+		if($offer_id && $kefu_id){
+			$this->offer->beginTrans();
+			$this->offer->where(array('id'=>$offer_id))->data(array('kefu'=>$kefu_id))->update();
+			$log  = new \Library\log();
+			$log->addLog(array('content'=>'为报盘'.$offer_id.'绑定客服'.$kefu_id));
+			$res = $this->offer->commit();
+			if($res===true){
+				return tool::getSuccInfo();
+			}
+			return tool::getSuccInfo(0,'绑定失败');
+		}
+		else{
+			return tool::getSuccInfo(0,'操作错误');
+		}
+	}
+
+	/**
+	 * 获取当前登录客服的报盘
+	 * @param $page
+	 * @return array
+	 */
+	public function getKefuOfferList($page){
+		$admin = \Library\session::get('admin');
+		$admin_id = $admin['id'];
+		if($admin_id>0){
+			$data = $this->getList($page,'o.kefu='.$admin_id);
+			return $data;
+		}
+		return array();
+	}
+
+	/**
+	 * 获取过期的报盘
+	 */
+	public function getExpireOfferList($page){
+		return $this->getList($page,'now()>o.expire_time');
+	}
+
+	public function expireOfferDetailsAction(){
+
+	}
+
 	
 }

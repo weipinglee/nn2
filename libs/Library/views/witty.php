@@ -63,7 +63,6 @@ class witty{
     public function setCompileDir($dir){
         if ($this->isAbsoluteDir($dir)) {//判断是否是绝对路径
             $this->_compile_dir = $dir;
-            // error_log($this->_compile_dir,3,'/Users/panduo/Sites/log/1.log');
             if(!file_exists($this->_compile_dir) && !mkdir($this->_compile_dir)){
                 exit('编译目录不存在');
             }
@@ -208,7 +207,7 @@ class witty{
                     if(!isset($attr['key'])) $attr['key'] = '$key';
                     if(!isset($attr['item'])) $attr['item'] = '$item';
 
-                    return '<?php foreach('.$attr['items'].' as '.$attr['key'].' => '.$attr['item'].'){?>';
+                    return '<?php if(!empty('.$attr['items'].')) foreach('.$attr['items'].' as '.$attr['key'].' => '.$attr['item'].'){?>';
                 }
                 case 'for:':
                 {

@@ -27,6 +27,7 @@ class storeOffer extends product{
         $fee = $this->getFee();//获取自由报盘费用
         if($active >= $fee){
             $offerData['offer_fee'] = $fee;
+            $offerData['expire_time'] = $this->getExpireTime();
             $offerData['user_id'] = $user_id;
             $offerData['mode'] = self::FREE_OFFER;
             $this->_productObj->beginTrans();

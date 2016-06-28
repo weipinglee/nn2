@@ -18,6 +18,8 @@ class product {
 
     protected $offer_table = 'product_offer';
 
+    protected $expire_days = 30;//过期天数
+
     protected $errorCode = array(
         'fundLess' => array('code'=>-1,'info'=>'账户余额不足'),
         'dataWrong' => array('code'=>1,'info'=>''),
@@ -41,7 +43,6 @@ class product {
     const OFFER_APPLY = 0;
     const OFFER_OK    = 1;
     const OFFER_NG    = 2;
-    const OFFER_EXPIRE = 3;//过期
 
 
     public function getModelArray(){
@@ -129,7 +130,6 @@ class product {
             self::OFFER_APPLY => $this->getStatus(self::OFFER_APPLY),
             self::OFFER_OK => $this->getStatus(self::OFFER_OK),
             self::OFFER_NG => $this->getStatus(self::OFFER_NG),
-            self::OFFER_EXPIRE => $this->getStatus(self::OFFER_EXPIRE)
         );
     }
 
@@ -573,6 +573,14 @@ class product {
         $result = $this->getNestedList($c_list);
         return $result;
     }
+
+    //获取过期时间
+    public function getExpireTime(){
+        $days = $this->expire_days;
+        return time::getDateTime('Y-m-d',time()+$days*24*3600);
+    }
+
+
 
 
 
