@@ -120,9 +120,10 @@ body{_padding-top:30px;}
 <div class="bg_topnav">
     <div class="topnav_width">
         <div class="topnav_left">
+            {if:$login==0}
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://iv.nainaiwang.com/?go=http://market.nainaiwang.com/UnifyIdentityValidate.aspx?go=http://market.nainaiwang.com/Manage/Todo/" target="_blank" class="topnav_login">登录</a>
-                <div class="login_box" id="login_boxMain" style="display: none;">
+                <a rel="external nofollow" href="{url:/login/login@user}" target="_blank" class="topnav_login">登录</a>
+                <!--<div class="login_box" id="login_boxMain" style="display: none;">
                     <input name="gtxh_LoginMobile" type="text" id="gtxh_LoginMobile" class="txt_topnav" value="手机号码" maxlength="11">
                     <br>
                     <input type="text" id="gtxh_importpwd" class="txt_topnav" value="登录密码" maxlength="11">
@@ -134,24 +135,25 @@ body{_padding-top:30px;}
                     <label for="checkbox">两周内自动登录</label>
                     <br>
                     <a href="http://iv.nainaiwang.com/ForgetPassword.aspx" target="_blank">忘记密码</a> <a href="http://iv.nainaiwang.com/RegStep1.aspx" target="_blank">立即注册</a>
-                </div>
+                </div>-->
                 <div class="topnav_regsiter" style=" float:right;">
-                    <a rel="external nofollow" href="http://iv.nainaiwang.com/RegStep1.aspx" target="_blank">免费注册</a>
+                    <a rel="external nofollow" href="{url:/login/register@user}" target="_blank">免费注册</a>
                 </div>
             </div>
-            <div class="topnav_login_in" id="userCenterbox" style="display: none;">
-                您好，<label class="icon_topnav_loginin" id="gtxh_uame"></label>
-                <a id="userCenter" href="http://market.nainaiwang.com/Manage/Todo/" target="_blank" ru="http://www.nainaiwang.com">会员中心</a>
-                <a id="loginOut" href="javascript:">退出</a>
-                <iframe id="iframe_loginOut" frameborder="0" height="1" width="1" scrolling="no"></iframe>
+            {else:}
+            <div class="topnav_login_in"  >
+                您好，<label class="icon_topnav_loginin" id="gtxh_uame">{$username}</label>
+                <a id="userCenter" href="{url:/ucenterindex/index@user}" target="_blank" >会员中心</a>
+                <a id="loginOut" href="{url:/login/logout@user}">退出</a>
+
             </div>
+            {/if}
         </div>
         <div class="topnav_right">
             <ul>
                 <li>
                     <div class="top_app" id="topPhone">
                         <a href="javascript:;"><em class="icons iphone"></em><span>手机APP</span></a>
-                        <a rel="external nofollow" href="http://app.nainaiwang.com/" class="top_a" target="_blank" style="display:none !important;visibility: hidden"><!--<em class="icons zz"></em>--><i style="font-size:14px;">▪</i><span>掌中耐耐APP</span></a>
                     </div>
                 </li>
                 <li>
@@ -159,7 +161,7 @@ body{_padding-top:30px;}
                         <a href="javascript:window.external.AddFavorite('http://www.nainaiwang.com', '耐耐网——大宗商品交易中心')">加入收藏</a>
                     </div>
                 </li>
-                <li>
+                <!--<li>
                     <div class="popueButton">
                         <div id="popue_quick">
                             网站导航<b> </b></div>
@@ -228,7 +230,7 @@ body{_padding-top:30px;}
                             </div>
                         </div>
                     </div>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
@@ -253,9 +255,16 @@ body{_padding-top:30px;}
                     <li><a href="#">求购</a></li>
                 </ul>
                 <div class="bodys">
-                    <p class="keyword_0"><input type="text" onblur="if (this.value == '') {this.value = '高铝砖 乙醇 PP';}" onfocus="if (this.value == '高铝砖 乙醇 PP') {this.value = '';}" value="高铝砖 乙醇 PP" id=""  /><button class="one1">搜索</button></p>
-                    <p class="keyword_1"><input type="text" onblur="if (this.value == '') {this.value = '乙醇 PP 高铝砖';}" onfocus="if (this.value == '乙醇 PP 高铝砖') {this.value = '';}"  value="乙醇 PP 高铝砖" id=""  /><button class="two2">搜索</button></p>
+                    <p class="keyword_0"><input type="text" name="gong" onblur="if (this.value == '') {this.value = '高铝砖 乙醇 PP';}" onfocus="if (this.value == '高铝砖 乙醇 PP') {this.value = '';}" value="高铝砖 乙醇 PP" id=""  /><button class="one1" onclick="searchGoods(this)">搜索</button></p>
+                    <p class="keyword_1"><input type="text" name="qiu" onblur="if (this.value == '') {this.value = '乙醇 PP 高铝砖';}" onfocus="if (this.value == '乙醇 PP 高铝砖') {this.value = '';}"  value="乙醇 PP 高铝砖" id=""  /><button class="two2" onclick="searchGoods(this)">搜索</button></p>
                 </div>
+                <script type="text/javascript">
+                   function searchGoods(_this){
+                       var type = $(_this).parents('p').find('input').attr('name');
+                       var content = $(_this).parents('p').find('input').val();
+                       window.location.href='{url:/offers/offerList}/type/'+type+'/content/'+content;
+                   }
+                </script>
             </div>  
             <div class="index_phone">
                 全国服务热线：<span>400-6738-086</span></div>
@@ -364,11 +373,11 @@ body{_padding-top:30px;}
 <!-- 页面侧边栏 -->
 <div id="fixed">
     <dl>
-        <dd><a href="http://www.nainaiwang.com/" class="web">个人中心</a></dd>
-        <dd><a href="http:/www.nainaiwang.com/" class="mb">在线客服</a></dd>
-        <dd><a href="http://www.nainaiwang.com/" target="_blank" class="dj">常见问题</a></dd>
-        <dd><a href="http://www.nainaiwang.com/" target="_blank" class="mh">用户反馈</a></dd>
-        <dd><a href="http://www.nainaiwang.com/" target="_blank" class="dh">耐耐社区</a></dd>
+        <dd><a href="{url:/ucenterindex/index@user}" class="web">个人中心</a></dd>
+        <dd><a href="" class="mb">在线客服</a></dd>
+        <dd><a href="" target="_blank" class="dj">常见问题</a></dd>
+        <dd><a href="" target="_blank" class="mh">用户反馈</a></dd>
+        <dd><a href="" target="_blank" class="dh">耐耐社区</a></dd>
     </dl>
 </div>
 

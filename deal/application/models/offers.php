@@ -123,6 +123,11 @@ class offersModel extends \nainai\offer\product{
             $where .= ' and left(p.produce_area,2) = :area ';
             $bind['area'] = $condition['area'];
         }
+
+        //获取搜索条件
+        if(isset($condition['search']) && $condition['search']!=''){
+            $where .= ' and p.name like "%'.$condition['search'].'%" ';
+        }
         $query->where = $where;
         $query->bind = $bind;
 
@@ -187,6 +192,28 @@ class offersModel extends \nainai\offer\product{
      */
     public function getOfferNum(){
         return $this->offer->table('products')->fields('COUNT(id) as num ')->where('quantity-sell > 0')->getObj();
+    }
+
+    /**
+     * 获取某一分类的所有祖先分类
+     * @param
+     */
+    public function getCateTopList($cate){
+        if(intval($cate)>0){
+            $cate = intval($cate);
+            $parent = array();
+            $obj = new M('product_category');
+            $pid = $obj->where(array('id'=>$cate))->getField('pid');
+            if($pid==0)
+                $parent[] = $cate;
+            while($pid!=0){
+                $parent[] = $pid;
+                $pid = $obj->where(array('id'=>$pid))->getField('pid');
+            }
+            return array_reverse($parent);
+        }
+        return array();
+
     }
 
 }

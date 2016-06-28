@@ -215,10 +215,10 @@ nn_panduo.formacc.prototype = {
 			dataType:'json',
 			success:function(data){
 				if(data.success == 1){
-					if(data.return){
+					if(data.returnUrl){
 						layer.msg(data.info);
 						setTimeout(function(){
-							window.location.href=data.return;
+							window.location.href=data.returnUrl;
 						},1000);
 					}
 					else{
@@ -231,11 +231,11 @@ nn_panduo.formacc.prototype = {
 
 
 				}else{
-					if(data.return){
-						if(data.return){
+					if(data.returnUrl){
+						if(data.returnUrl){
 							layer.msg(data.info);
 							setTimeout(function(){
-								window.location.href=data.return;
+								window.location.href=data.returnUrl;
 							},1000);
 						}
 					}

@@ -12,6 +12,14 @@ class PublicController extends \Yaf\Controller_Abstract{
           $frdData = $frdLink->getFrdLink(10);
           $this->getView()->assign('frdData',$frdData);
 
+          $login = \Library\session::get('login');
+          if($login){
+               $this->getView()->assign('login',1);
+               $this->getView()->assign('username',$login['username']);
+          }
+          else
+               $this->getView()->assign('login',0);
+
      }
 
 

@@ -81,7 +81,7 @@
                                 <li><a href="{url:/system/admin/logList}" target="content">管理员操作记录</a></li>
                             </ul>
                         </li>
-                        <li><a href="system-base.html" target="content">系统设置</a>
+                        <li><a  target="content">系统设置</a>
                             <ul>
                                 <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
                                     <ul>
@@ -99,13 +99,13 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="table.html" target="content">导航栏目管理</a></li>
+
                         <li><a href="{url:system/kefu/kefuList}" target="content">客服管理</a></li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
                     <ul>
-                        <li><a href="" target="content">会员认证</a>
+                        <li><a target="content">会员认证</a>
                             <ul>
                                 <li><a href="{url:member/certManage/dealerCert}" target="content">交易商认证</a>
                                     <ul>
@@ -121,12 +121,13 @@
                                 </li>
                             </ul>
                         </li>
+                        <!--
                         <li><a href='' target="content">子账户权限管理</a>
                             <ul>
                                 <li><a href="{url:/member/subRoleList}" target="content">角色列表</a></li>
                                 <li><a href="{url:/member/roleAdd}" target="content">添加角色</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                         <li><a href="{url:member/usergroup/groupList}" target="content">角色分组</a></li>
                         <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
                         <li><a href='javascript:voie(0)' target="content">菜单管理</a>
@@ -149,8 +150,8 @@
                                 <li><a href="{url:member/companyRec/recAdd}" target="content" >添加推荐</a></li>
                             </ul>
                         </li>
-                        <li><a href="shop-list.html" target="content">商铺管理</a></li>
-                        <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>
+                        <!--<li><a href="shop-list.html" target="content">商铺管理</a></li>-->
+                       <!-- <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>-->
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />交易管理</a>
@@ -195,7 +196,7 @@
                                 <li><a href="{url:balance/accManage/checkedbankList}" target="content">已审核</a></li>
                             </ul>
                         </li>
-                        <li><a href="" target="content">入金审核</a>
+                        <li><a  target="content">入金审核</a>
                             <ul>
                                 <li><a href="{url:balance/fundIn/onlineList}" target="content">线上入金</a></li>
                                 <li><a href="{url:balance/fundIn/offlineList}" target="content">线下入金</a></li>
@@ -205,7 +206,7 @@
                         <li><a target="content">账户管理</a>
                             <ul>
                                 <li><a href="{url:balance/accManage/userAccList}" target="content">会员账户</a></li>
-                                <li><a href="account-market.html" target="content">市场账户</a></li>
+                                <!--<li><a href="account-market.html" target="content">市场账户</a></li>-->
                             </ul>
                         </li>
                     </ul>

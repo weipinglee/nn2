@@ -26,8 +26,12 @@ class IndexController extends PublicController {
 		//获取所有分类
 		$productModel=new product();
 		$res=$productModel->getAllCat();
+		$res = array_slice($res,0,6);
 		$this->getView()->assign('catList',$res);
 
+		$year = date('Y');
+		$month = date('m');
+		$day = date('d');
 		//获取幻灯片
 		$indexSlide=\nainai\system\slide::getIndexSlide();
 		foreach($indexSlide as $k=>$v){
@@ -76,6 +80,9 @@ class IndexController extends PublicController {
 		$this->getView()->assign('offerData',$offerCateData);
 		$this->getView()->assign('order_num',$order_num['num']);
 		$this->getView()->assign('order_num_yes',$order_num_yes['num']);
+		$this->getView()->assign('year',$year);
+		$this->getView()->assign('month',$month);
+		$this->getView()->assign('day',$day);
 	}
 
 
