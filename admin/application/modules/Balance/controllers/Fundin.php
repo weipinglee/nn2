@@ -13,7 +13,7 @@ use nainai\fund;
 use \Library\url;
 use \Library\tool;
 
-class fundInController extends Yaf\Controller_Abstract {
+class FundinController extends Yaf\Controller_Abstract {
 
 
 	public function init() {

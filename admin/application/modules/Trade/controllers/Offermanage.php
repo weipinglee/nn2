@@ -7,7 +7,7 @@ use \Library\safe;
 use \Library\tool;
 use \Library\JSON;
 use \Library\url;
-class OfferManageController extends Yaf\Controller_Abstract{
+class OffermanageController extends Yaf\Controller_Abstract{
 
 	private $offer;
 	public function init(){
