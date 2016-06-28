@@ -293,8 +293,8 @@
             <div id="row1_clinch" class="row1_clinch">
                 <div class="clinch_tit">
                     <div class="tit_time">
-                        <p id="time_year" class="time_year">2016<br><span class="time_month">01</span></p>
-                        <p id="time_day" class="time_day">11</p>
+                        <p id="time_year" class="time_year">{$year}<br><span class="time_month">{$month}</span></p>
+                        <p id="time_day" class="time_day">{$day}</p>
                     </div>
                     <div class="tit_font">
                         <b>最新<span>数据</span></b>

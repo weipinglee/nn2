@@ -141,9 +141,9 @@ body{_padding-top:30px;}
                 </div>
             </div>
             {else:}
-            <div class="topnav_login_in" id="userCenterbox" style="display: none;">
+            <div class="topnav_login_in"  >
                 您好，<label class="icon_topnav_loginin" id="gtxh_uame">{$username}</label>
-                <a id="userCenter" href="{url:/ucenterindex/index}" target="_blank" >会员中心</a>
+                <a id="userCenter" href="{url:/ucenterindex/index@user}" target="_blank" >会员中心</a>
                 <a id="loginOut" href="{url:/login/logout@user}">退出</a>
 
             </div>
@@ -367,11 +367,11 @@ body{_padding-top:30px;}
 <!-- 页面侧边栏 -->
 <div id="fixed">
     <dl>
-        <dd><a href="http://www.nainaiwang.com/" class="web">个人中心</a></dd>
-        <dd><a href="http:/www.nainaiwang.com/" class="mb">在线客服</a></dd>
-        <dd><a href="http://www.nainaiwang.com/" target="_blank" class="dj">常见问题</a></dd>
-        <dd><a href="http://www.nainaiwang.com/" target="_blank" class="mh">用户反馈</a></dd>
-        <dd><a href="http://www.nainaiwang.com/" target="_blank" class="dh">耐耐社区</a></dd>
+        <dd><a href="{url:/ucenterindex/index@user}" class="web">个人中心</a></dd>
+        <dd><a href="" class="mb">在线客服</a></dd>
+        <dd><a href="" target="_blank" class="dj">常见问题</a></dd>
+        <dd><a href="" target="_blank" class="mh">用户反馈</a></dd>
+        <dd><a href="" target="_blank" class="dh">耐耐社区</a></dd>
     </dl>
 </div>
 
