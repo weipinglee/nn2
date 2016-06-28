@@ -394,7 +394,7 @@ body{_padding-top:30px;}
 <i class="left_iconfont "><img src="{views:images/floor_03.png}" >推荐商家</i>
 <em class="two_line"><img src="{views:images/floor_cur_03.png}">推荐商家</em>
 </a>
-<a href="#UniSwfStore_uniswfstore_0" data="#toTop" rel="toTop">
+<a href="" data="#toTop" rel="toTop">
 <i class="left_iconfont "><img src="{views:images/floor_08.png}">返回顶部</i>
 <em class="two_line"><img src="{views:images/floor_cur_08.png}">返回顶部</em>
 </a>
