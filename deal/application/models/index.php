@@ -22,11 +22,14 @@ class indexModel {
        $obj->limit = $num;
        $data = $obj->find();
        $mem = new \nainai\member();
-        foreach($data as $k=>$v){
-            $group = $mem->getUserGroup($v['id']);
-            $data[$k]['group_name'] = $group['group_name'];
-            $data[$k]['icon'] = $group['icon'];
-        }
+       if(!empty($data)){
+           foreach($data as $k=>$v){
+               $group = $mem->getUserGroup($v['id']);
+               $data[$k]['group_name'] = $group['group_name'];
+               $data[$k]['icon'] = $group['icon'];
+           }
+       }
+
        return $data;
    }
 
