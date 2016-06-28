@@ -50,6 +50,25 @@ class accManageController extends Yaf\Controller_Abstract {
 	}
 
 	/**
+	 * 信誉保证金账户列表
+	 */
+	public function userCreditListAction(){
+		$page = safe::filterGet('page','int');
+		$list = $this->account->userCreditList($page);
+		$this->getView()->assign('data',$list['data']);
+		$this->getView()->assign('page',$list['bar']);
+	}
+
+	/**
+	 * 信誉保证金详情
+	 */
+	public function userCreditDetailAction(){
+		$user_id = safe::filterGet('user_id','int');
+		$info = $this->account->userCreditDetail($user_id);
+		$this->getView()->assign('info',$info);
+	}
+	
+	/**
 	 * 会员待审核开户列表
 	 *
 	 */
