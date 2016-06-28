@@ -107,6 +107,7 @@
                  <td></td>
                  <th>商品属性</th>
                  <td >
+
                      {foreach:items=$info['attr_arr']}
                          {$key}:{$item}</br>
                      {/foreach}

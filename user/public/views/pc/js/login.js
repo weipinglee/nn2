@@ -152,7 +152,7 @@
          complete:function(){
              button_recover();
          },
-         timeout:1000,
+         timeout:1000
      })
 
 

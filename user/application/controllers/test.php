@@ -13,8 +13,7 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-		$pro = new \nainai\offer\product();
-		$pro->expireSet();
+
 	}
 
 	public function formAction(){

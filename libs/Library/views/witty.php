@@ -208,7 +208,7 @@ class witty{
                     if(!isset($attr['key'])) $attr['key'] = '$key';
                     if(!isset($attr['item'])) $attr['item'] = '$item';
 
-                    return '<?php foreach('.$attr['items'].' as '.$attr['key'].' => '.$attr['item'].'){?>';
+                    return '<?php if(!empty('.$attr['items'].')) foreach('.$attr['items'].' as '.$attr['key'].' => '.$attr['item'].'){?>';
                 }
                 case 'for:':
                 {

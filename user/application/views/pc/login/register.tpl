@@ -62,8 +62,8 @@
               <span></span>
           </div>
           <div class="cot">
-            <span class="cot_tit"><i></i>邮箱：</span>
-            <span><input class="text" type="text" name="email" ignore="ignore" datatype="e" errormsg="邮箱格式错误"/></span>
+            <span class="cot_tit"><i>*</i>邮箱：</span>
+            <span><input class="text" type="text" name="email"  datatype="e" errormsg="邮箱格式错误"/></span>
               <span></span>
           </div>
             <div class="cot">
@@ -113,8 +113,8 @@
 			<span></span>
           </div>
           <div class="cot">
-            <span class="cot_tit"><i></i>邮箱：</span>
-            <span><input class="text" type="text" name="email" ignore="ignore" datatype="e" errormsg="邮箱格式错误"/ /></span>
+            <span class="cot_tit"><i>*</i>邮箱：</span>
+            <span><input class="text" type="text" name="email"  datatype="e" errormsg="邮箱格式错误"/ /></span>
 			<span></span>
           </div>
           <div class="cot">
