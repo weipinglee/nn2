@@ -12,7 +12,7 @@
     </div>
      <div class="pd-20">
 
-     <form action="" method="POST"  >
+
 
 
 	 	 <table class="table table-border table-bordered table-bg">
@@ -70,12 +70,23 @@
              <tr>
                  <th>操作</th>
                  <th scope="col" colspan="7">
+                     <form action="{url:member/member/yewuAdd}" method="post" auto_submit redirect_url="{url:member/member/memberlist}">
+                         <input type="hidden" name="id" value="{$user['id']}" />
+                         <select name="yewu" datatype="/[1-9][\d]{0,}/">
+                             <option value="0">请选择业务员</option>
+                             {foreach:items=$yewu}
+                                 <option value="{$item['admin_id']}" {if:$user['yewu']==$item['admin_id']}selected="true"{/if}>{$item['ser_name']}</option>
+                             {/foreach}
+                         </select>
+
+                         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;绑定业务员&nbsp;&nbsp;">
+                     </form>
                      <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
                  </th>
              </tr>
 
 	 	</table>
-    </form>
+
  	</div>
 </div>
 </div>
