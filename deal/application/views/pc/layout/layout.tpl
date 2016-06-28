@@ -154,7 +154,6 @@ body{_padding-top:30px;}
                 <li>
                     <div class="top_app" id="topPhone">
                         <a href="javascript:;"><em class="icons iphone"></em><span>手机APP</span></a>
-                        <a rel="external nofollow" href="http://app.nainaiwang.com/" class="top_a" target="_blank" style="display:none !important;visibility: hidden"><!--<em class="icons zz"></em>--><i style="font-size:14px;">▪</i><span>掌中耐耐APP</span></a>
                     </div>
                 </li>
                 <li>
@@ -162,7 +161,7 @@ body{_padding-top:30px;}
                         <a href="javascript:window.external.AddFavorite('http://www.nainaiwang.com', '耐耐网——大宗商品交易中心')">加入收藏</a>
                     </div>
                 </li>
-                <li>
+                <!--<li>
                     <div class="popueButton">
                         <div id="popue_quick">
                             网站导航<b> </b></div>
@@ -231,7 +230,7 @@ body{_padding-top:30px;}
                             </div>
                         </div>
                     </div>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
@@ -256,9 +255,16 @@ body{_padding-top:30px;}
                     <li><a href="#">求购</a></li>
                 </ul>
                 <div class="bodys">
-                    <p class="keyword_0"><input type="text" onblur="if (this.value == '') {this.value = '高铝砖 乙醇 PP';}" onfocus="if (this.value == '高铝砖 乙醇 PP') {this.value = '';}" value="高铝砖 乙醇 PP" id=""  /><button class="one1">搜索</button></p>
-                    <p class="keyword_1"><input type="text" onblur="if (this.value == '') {this.value = '乙醇 PP 高铝砖';}" onfocus="if (this.value == '乙醇 PP 高铝砖') {this.value = '';}"  value="乙醇 PP 高铝砖" id=""  /><button class="two2">搜索</button></p>
+                    <p class="keyword_0"><input type="text" name="gong" onblur="if (this.value == '') {this.value = '高铝砖 乙醇 PP';}" onfocus="if (this.value == '高铝砖 乙醇 PP') {this.value = '';}" value="高铝砖 乙醇 PP" id=""  /><button class="one1" onclick="searchGoods(this)">搜索</button></p>
+                    <p class="keyword_1"><input type="text" name="qiu" onblur="if (this.value == '') {this.value = '乙醇 PP 高铝砖';}" onfocus="if (this.value == '乙醇 PP 高铝砖') {this.value = '';}"  value="乙醇 PP 高铝砖" id=""  /><button class="two2" onclick="searchGoods(this)">搜索</button></p>
                 </div>
+                <script type="text/javascript">
+                   function searchGoods(_this){
+                       var type = $(_this).parents('p').find('input').attr('name');
+                       var content = $(_this).parents('p').find('input').val();
+                       window.location.href='{url:/offers/offerList}/type/'+type+'/content/'+content;
+                   }
+                </script>
             </div>  
             <div class="index_phone">
                 全国服务热线：<span>400-6738-086</span></div>

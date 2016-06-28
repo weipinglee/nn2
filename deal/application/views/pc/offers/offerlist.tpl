@@ -247,3 +247,24 @@
                </div>
                <% } %>
             </script>
+
+
+    <script type="text/javascript">
+        $(function(){
+            {if:isset($cate_list) && !empty($cate_list)}
+                 {foreach:items=$cate_list}
+                    $('[id^=level]').find('li[value={$item}]').trigger('click');
+                  {/foreach}
+
+            {else:}
+            var offer_type = '{$searchtype}';
+            if(offer_type!=0){
+                $('#offer_type').find('.a_choose').removeClass('a_choose');
+                $('#offer_type').find('a[rel='+offer_type+']').parent('li').addClass('a_choose');
+            }
+            var content = '{$search}';
+                 getCategory({'offertype':offer_type,'search':content});
+            {/if}
+        })
+    </script>
+

@@ -45,7 +45,9 @@
                             <p class="fenlei-h1">{$item['name']}</p><p class="fenlei">
 
                                 {for:from=0 upto=2 item=$num}
-                                    <a href="">{$item['nested'][$num]['name']}</a>&nbsp;
+                                    {if:isset($item['nested'][$num]['id'])}
+                                    <a href="{url:/offers/offerlist?cate=$item['nested'][$num]['id']}">{$item['nested'][$num]['name']}</a>&nbsp;
+                                    {/if}
                                 {/for}
 
                                </p>
@@ -55,11 +57,11 @@
                             <div class="subitem">
                                 {foreach: items=$item['nested']}
                                 <dl class="fore1">
-                                    <dt><a href="#">{$item['name']}</a></dt>
+                                    <dt><a href="{url:/offers/offerlist?cate=$item['id']}">{$item['name']}</a></dt>
 
                                     <dd>
                                         {foreach:items=$item['nested']}
-                                        <em><a href="#">{$item['name']}</a></em>
+                                        <em><a href="{url:/offers/offerlist?cate=$item['id']}">{$item['name']}</a></em>
                                     {/foreach}
                                     </dd>
                                 </dl>
@@ -91,16 +93,16 @@
                         <div class="item-list clearfix" style="top: 0px; display: none;">
 
                             <!-- 帮我找找找找找找找找找找找 -->
-                            <link rel="stylesheet" href="css/lanrenzhijia.css" type="text/css">
-                            <script src="js/lanrenzhijia.js"></script>
+                            <link rel="stylesheet" href="{views:css/lanrenzhijia.css}" type="text/css">
+                            <script src="{views:js/lanrenzhijia.js}"></script>
 
                             <div class="lanrenzhijia">
                                 <div class="title cf">
                                     <ul class="title-list fl cf ">
-                                        <li class="on"><h2><img src="images/icon/mod_tit_solgn_06.png">&nbsp;找现货</h2></li>
-                                        <li><h2><img src="images/icon/mod_tit_solgn_07.png">&nbsp;找物流</h2></li>
-                                        <li><h2><img src="images/icon/mod_tit_solgn_08.png">&nbsp;找加工</h2></li>
-                                        <li><h2><img src="images/icon/mod_tit_solgn_05.png">&nbsp;找资金</h2></li>
+                                        <li class="on"><h2><img src="{views:images/icon/mod_tit_solgn_06.png}">&nbsp;找现货</h2></li>
+                                        <li><h2><img src="{views:images/icon/mod_tit_solgn_07.png}">&nbsp;找物流</h2></li>
+                                        <li><h2><img src="{views:images/icon/mod_tit_solgn_08.png}">&nbsp;找加工</h2></li>
+                                        <li><h2><img src="{views:images/icon/mod_tit_solgn_05.png}">&nbsp;找资金</h2></li>
                                         <p><b></b></p>
                                     </ul>
                                 </div>
