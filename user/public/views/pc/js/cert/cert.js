@@ -17,34 +17,17 @@ function nextTab(step){
 }
 
 $(function(){
-    var validObj = formacc;
+    //var validObj = formacc;
+	
     $('#next_step').on('click',function(){
-        validObj.ignore('.yz_img input');
-        if(validObj.check()){
+        formacc.ignore('.yz_img input');
+        if(formacc.check()){
             nextTab();
-            validObj.unignore();
+            formacc.unignore();
         }
     })
 
-    $('#areabox').find('select:first').on('change',function(){
-        var num = $('#areabox').find('select:visible').length;
-        var rules = [{
-            ele:"input[name=area]",
-            datatype:"n"+num*2+"-6",
-            nullmsg:"请选择地址！",
-            errormsg:"请选择地址！"
-        }];
-        validObj.addRule(rules);
-
-    })
-    //为地址选择框添加验证规则
-    var rules = [{
-        ele:"input[name=area]",
-        datatype:"n6-6",
-        nullmsg:"请选择地址！",
-        errormsg:"请选择地址！"
-    }];
-    validObj.addRule(rules);
+   
 
 
 })
