@@ -1,17 +1,14 @@
-        <script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
-        <script type="text/javascript" src="{views:js/validform/validform.js}"></script>
-        <script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
-        <script type="text/javascript" src="{views:js/layer/layer.js}"></script>
+
         <!--            
               CONTENT 
                         --> 
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" />报盘管理
 </h1>
-
+                
 <div class="bloc">
     <div class="title">
-       报盘信息
+       过期报盘信息
     </div>
      <div class="pd-20">
 	 	 <table class="table table-border table-bordered table-bg">
@@ -72,13 +69,13 @@
                  <th>计量单位</th>
                  <td>{$info['unit']}</td>
                  {if: $info['divide'] == 1}
-                     <th>最小起订量</th>
-                     <td>{$info['minimum']}</td>
+                 <th>最小起订量</th>
+                 <td>{$info['minimum']}</td>
                  {else:}
                      <th>申请时间</th>
                      <td>{$info['apply_time']}</td>
-                 {/if}
-
+             {/if}
+            
 
              </tr>
              <tr>
@@ -107,7 +104,6 @@
                  <td></td>
                  <th>商品属性</th>
                  <td >
-
                      {foreach:items=$info['attr_arr']}
                          {$key}:{$item}</br>
                      {/foreach}
@@ -116,45 +112,22 @@
                  <td>{$info['note']}</td>
              </tr>
 
+             <tr>
+                 <th>操作</th>
 
-            <tr>
-              <th scope="col" colspan="6">
-                 <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok"></i> 通过</a> 
-                 <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove"></i> 不通过</a>
-                 <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
-              </th>
+                 <th scope="col" colspan="7">
+
+
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                 </th>
+
             </tr>
 	 	</table>
  	</div>
 </div>
+
 </div>
-      <script type="text/javascript">
-        $(function(){
-          var formacc = new nn_panduo.formacc();
-          var status = '';
-          $('a.pass').click(function(){
-            $(this).unbind('click');
-            msg = '已通过';
-            setStatus(1,msg);
-          })
-
-          $('a.ref').click(function(){
-            $(this).unbind('click');
-            msg = '已驳回';
-            setStatus(0,msg);
-          })
-
-          function setStatus(status,msg){
-            formacc.ajax_post("{url:trade/OfferManage/setStatus}",{status:status,id:{$info['id']}},function(){
-              layer.msg(msg+"稍后自动跳转");
-                  setTimeout(function(){
-                      window.location.href = "{url:trade/OfferManage/offerReview}";
-                  },1500);
-            });
-          }
-        })
-
-      </script>
+        
         
     </body>
 </html>
