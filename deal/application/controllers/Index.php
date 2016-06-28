@@ -26,6 +26,7 @@ class IndexController extends PublicController {
 		//获取所有分类
 		$productModel=new product();
 		$res=$productModel->getAllCat();
+		$res = array_slice($res,0,6);
 		$this->getView()->assign('catList',$res);
 
 		//获取幻灯片

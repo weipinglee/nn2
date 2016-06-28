@@ -34,7 +34,9 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 	public function _initRoute(Yaf\Dispatcher $dispatcher) {
 		//注册路由
 		$router = Yaf\Dispatcher::getInstance()->getRouter();
-		$router->addConfig(Yaf\Registry::get("config")->routes);
+		$config_routes = Yaf\Registry::get("config")->routes;
+		if(!empty($config_routes))
+			$router->addConfig(Yaf\Registry::get("config")->routes);
 
 	}
 	
