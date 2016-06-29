@@ -16,13 +16,14 @@
 	document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
 	}
 
-	function uploadSuccess(up, file, serverData) {
+	function uploadSuccess(up, file, serverData, obj, saveImg) {
+                    if (saveImg == undefined) {saveImg = 'imgData'}
 		var imgObj = $.parseJSON(serverData.response);
 		if (imgObj.flag == 1)
 		{
 			var newElement = "<img src='" + imgObj.thumb + "' >";
-			newElement += "<input type='hidden' name='imgData[]' value=' " + imgObj.img + "' />";
-			$("#imgContainer").append(newElement);
+			newElement += "<input type='hidden' name='" + saveImg+ "[]' value=' " + imgObj.img + "' />";
+			obj.append(newElement);
 		}else{
 			var newElement = "<span>" +file.name+ "上传失败：失败信息: " + imgObj.error + "</span>";
 		}
