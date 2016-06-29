@@ -375,7 +375,6 @@ class M{
 			$sql = rtrim($sql,',');
 
 			$sql .= $this->whereStr;
-
 			$res =  $this->db->exec($sql,array_merge($this->tableData,$this->whereParam),'UPDATE');
 		}
 		return $res;

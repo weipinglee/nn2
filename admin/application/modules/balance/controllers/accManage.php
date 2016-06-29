@@ -7,12 +7,12 @@ Date:2016/5/10
 use Library\Query;
 use Library\Safe;
 use Library\json;
-
+use Library\tool;
 class accManageController extends Yaf\Controller_Abstract {
 	//会用账户列表
 	public function init() {
 		$this->getView()->setLayOut('admin');
-
+		$this->account = new userAccountModel();
 	}
 	public function userAccListAction() {
 		$page = safe::filterGet('page', 'int');
@@ -65,9 +65,30 @@ class accManageController extends Yaf\Controller_Abstract {
 	public function userCreditDetailAction(){
 		$user_id = safe::filterGet('user_id','int');
 		$info = $this->account->userCreditDetail($user_id);
+		// tool::pre_dump($info);
 		$this->getView()->assign('info',$info);
 	}
 	
+	/**
+	 * 后台增加或减少用户信誉值保证金
+	 */
+	public function userCreditAddAction()
+	{
+		if(IS_POST){
+			$credit = safe::filterPost('credit','floatval');
+			$user_id = safe::filterPost('user_id','int');
+			$credit_config = new \nainai\CreditConfig();
+			$res = $credit_config->changeUserCredit($user_id,'credit_money',$credit);
+			if($res){
+				$log = new \Library\log();
+				$log->addLog(array('content'=>$user_id.'充值信誉保证金'.$credit.'元'));
+				//报错：SQLSTATE[42S22]: Column not found: 1054 Unknown column 'datetime' in 'field list'
+			}
+			die(JSON::encode($res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,'操作失败')));
+		}else{
+			die('error');
+		}
+	}
 	/**
 	 * 会员待审核开户列表
 	 *
@@ -80,7 +101,6 @@ class accManageController extends Yaf\Controller_Abstract {
 		$data = $obj->getBankList($page, $where);
 		$this->getView()->assign('data', $data[0]);
 		$this->getView()->assign('bar', $data[1]);
-
 	}
 
 	/**
