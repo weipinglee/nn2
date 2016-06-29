@@ -48,7 +48,7 @@ class offersModel extends \nainai\offer\product{
         $query = new Query('product_offer as a');
         $query->fields = 'a.id, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area, c.name as cname';
         $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN product_category as c ON b.cate_id=c.id';
-        $query->where = ' find_in_set(b.cate_id, getChildLists(:cid))';
+        $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
         $query->bind = array('cid' => $cateId);
         $query->order = 'a.apply_time desc';
         $query->limit = 5;
