@@ -106,13 +106,16 @@ function Area(){
         $("#" + a).unbind("change");
         c = parseInt(c);
         var _d = this.district_arr[c];
-        var str = "";
-        str += "<option value='0' >请选择</option>";
-        for (var i = c * 100; i < _d.length; i++) {
-            if (_d[i] == undefined) continue;
-            str += "<option value='" + i + "' >" + _d[i] + "</option>";
+        if(_d){
+            var str = "";
+            str += "<option value='0' >请选择</option>";
+            for (var i = c * 100; i < _d.length; i++) {
+                if (_d[i] == undefined) continue;
+                str += "<option value='" + i + "' >" + _d[i] + "</option>";
+            }
+            $("#" + a).html(str);
         }
-        $("#" + a).html(str);
+
 
     }
 
