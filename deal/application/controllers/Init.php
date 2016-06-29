@@ -5,6 +5,14 @@ class InitController extends \nainai\controller\Base{
 
      public function init(){
           $this->getView()->setLayout('layout');
+
+          $login = \Library\session::get('login');
+          if($login){
+               $this->getView()->assign('login',1);
+               $this->getView()->assign('username',$login['username']);
+          }
+          else
+               $this->getView()->assign('login',0);
      }
 
 

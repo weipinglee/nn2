@@ -142,6 +142,7 @@ class KefuModel extends AdminModel{
 		$log = new \Library\log();
 		$m->beginTrans();
 		$m->where(array('admin_id'=>$id))->delete();
+		$this->adminObj->where(array('id'=>$id))->delete();
 		$log->addLog(array('table'=>'客服','type'=>'delete','id'=>$id));
 		$res = $m->commit();
 		if($res){

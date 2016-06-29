@@ -100,8 +100,8 @@
             <div class="row cl">
                 <label class="form-label col-2"><span class="c-red">*</span>状态：</label>
                 <div class="formControls col-10">
-                    <input type="radio" class="input-text" value="1"   name="status" checked>通过
-                    <input type="radio" class="input-text"  value="0" name="status" >驳回
+                    <input type="radio"  value="1"   name="status" checked>通过
+                    <input type="radio"  value="0" name="status" >驳回
                 </div>
             </div>
             <div class="row cl">

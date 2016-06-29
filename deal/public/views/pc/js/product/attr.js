@@ -20,14 +20,22 @@ $(document).ready(function(){
     });
 
 
-    getCategory();
+
 })
 
 //异步获取商品信息
 function getCategory(cond){
     var area = 0;
-    if(cond)
-        area = cond.area;
+    var search = '';
+    var offertype = 0;
+    var mode = 0;
+    if(cond){
+        area = cond.area ? cond.area : 0;
+        search = cond.search ? cond.search : '';
+        offertype = cond.offertype ? cond.offertype : 0;
+        mode = cond.mode ? cond.mode : 0;
+    }
+
     var _this = $(this);
     _this.parents('.class_jy').find('li').removeClass('a_choose');
     _this.addClass('a_choose');
@@ -39,8 +47,10 @@ function getCategory(cond){
             cate_id = temp;
     })
 
-    var type = $('#offer_type').find('li.a_choose').find('a').attr('rel');
-    var mode = $('#offer_mode').find('li.a_choose').find('a').attr('rel');
+    if(offertype==0)
+        offertype = $('#offer_type').find('li.a_choose').find('a').attr('rel');
+    if(mode==0)
+     mode =  $('#offer_mode').find('li.a_choose').find('a').attr('rel');
 
     //获取排序方式
     var sort = $('.sort_list').find('.curr').find('input').val();
@@ -51,7 +61,7 @@ function getCategory(cond){
         'url' :  attr_url,
         'type' : 'post',
         'async':false,
-        'data' : {pid : cate_id, type:type, mode:mode,sort:sort,page:page,area:area},
+        'data' : {pid : cate_id, type:offertype, mode:mode,sort:sort,page:page,area:area,search:search},
         'dataType': 'json',
         success:function(data){//alert(JSON.stringify(data.childname));
             if(title=='cate'){//如果点击的是分类，将下级所有分类先移除
@@ -78,6 +88,7 @@ function getCategory(cond){
 
                 var proHtml = template.render('productTemplate',{data:data.data});
                 data.bar = data.bar.replace(/<span>.*<\/span>/i,'');
+                data.bar = '<div class="page_num">' + data.bar + '</div>';
                 proHtml += data.bar;
                 $('.pro_cen').eq(0).after(proHtml);
                 $('.pages_bar').find('a').each(function(){

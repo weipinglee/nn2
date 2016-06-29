@@ -79,12 +79,8 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$this->getView()->setLayout('ucenter');
 
 
-		// 获取登录信息
 
-		if(isset($this->user_id) && $this->user_id>0){
-			$this->getView()->assign('login',1);
-			$this->getView()->assign('username',$this->username);
-		}else $this->getView()->assign('login',0);
+
         
 		//获取菜单数据
 		$MenuModel = new \nainai\user\Menu();

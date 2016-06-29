@@ -77,7 +77,7 @@ class PlUpload{
 					uploadProgress(up, file);
 				},
 
-				FileUploaded(up, file, serverData){
+				FileUploaded:function(up, file, serverData){
 					uploadSuccess(up, file, serverData);
 				},
 

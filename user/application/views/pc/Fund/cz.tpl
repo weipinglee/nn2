@@ -35,7 +35,7 @@
             				</div>
             				<div class="zhxi_con">
             					<span class="con_tit"><i></i></span>
-            					<label><input name="payment_id" type="radio" value="2" /> 
+            					<label><input name="" type="radio" value="2" />
             						<img src="{views:images/center/zhifu.jpg}">
             					</label> 
             					<p class="zf_an"><input class="zf_button" type="submit" value="立即支付"/></p>
@@ -50,8 +50,8 @@
             				<div class="zhxi_con">
             					<span class="con_tit">选择银行类型：</span>
             					<span>
-            						<input name="payment_id" type="radio" value="3"  />  个人网上银行支付
-            						<input name="payment_id" type="radio" value="" /> 企业网上银行支付
+            						<input name="" type="radio" value="3"  />  个人网上银行支付
+            						<input name="" type="radio" value="" /> 企业网上银行支付
             					</span>
             				</div>
             				<div class="zhxi_con">
