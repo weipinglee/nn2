@@ -3,7 +3,7 @@
               CONTENT 
                         --> 
         <div id="content" class="white">
-            <h1><img src="{views:img/icons/posts.png}" alt="" /> 已审核开户信息</h1>
+            <h1><img src="{views:img/icons/posts.png}" alt="" /> 待审核开户信息</h1>
 <div class="bloc">
     <div class="title">
         开户列表

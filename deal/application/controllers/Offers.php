@@ -34,6 +34,35 @@ class OffersController extends PublicController {
 	public function offerListAction(){
 		$page = safe::filterGet('page','int',1);
 
+		//获取分类信息
+		$cate = $this->getRequest()->getParam('cate');
+		$cate = safe::filter($cate,'int',0);
+		if($cate){
+			$model = new offersModel();
+			$cate_list = $model->getCateTopList($cate);
+			$this->getView()->assign('cate_list',$cate_list);
+
+		}
+
+		//获取报盘类型信息
+		$offertype = $this->getRequest()->getParam('type');
+		$offertype = safe::filter($offertype);
+		if($offertype=='gong'){
+			$this->getView()->assign('searchtype',1);
+		}
+		else if($offertype=='qiu'){
+			$this->getView()->assign('searchtype',2);
+		}
+		else{
+			$this->getView()->assign('searchtype',0);
+		}
+
+		//获取搜索信息
+		$search = $this->getRequest()->getParam('content');
+		$search = safe::filter($search);
+		$this->getView()->assign('search',$search);
+
+
 		//获取商品顶级分类
 		$productModel = new product();
 		$category = $productModel->getTopCate();
@@ -52,7 +81,6 @@ class OffersController extends PublicController {
 
 		$id = safe::filter($this->_request->getParam('id'),'int',1);
 		$info = $this->offer->offerDetail($id);
-
 		if(empty($info)){
 			$this->error('报盘不存在或未通过审核');
 		}
@@ -107,6 +135,7 @@ class OffersController extends PublicController {
 		$page = safe::filterPost('page','int',1);
 		$order = safe::filterPost('sort');
 		$area = safe::filterPost('area','int',0);
+		$search = safe::filterPost('search');
 
 
 		//获取这个分类下对应的产品信息
@@ -122,6 +151,9 @@ class OffersController extends PublicController {
 		}
 		if($area!=0){
 			$condition['area'] = $area;
+		}
+		if($search!=''){
+			$condition['search'] = $search;
 		}
 
 		if($order!=''){

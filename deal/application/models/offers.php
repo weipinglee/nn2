@@ -47,11 +47,12 @@ class offersModel extends \nainai\offer\product{
     public function getOfferCategoryList($cateId){
         $query = new Query('product_offer as a');
         $query->fields = 'a.id, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area, c.name as cname';
-        $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN product_category as c ON b.cate_id=c.id';
-        $query->where = ' find_in_set(b.cate_id, getChildLists(:cid))';
+        $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN product_category as c ON b.cate_id=c.id LEFT JOIN admin_kefu as kefu on a.kefu = kefu.admin_id';
+        $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
         $query->bind = array('cid' => $cateId);
         $query->order = 'a.apply_time desc';
         $query->limit = 5;
+        $query->fields = 'a.id,a.type,a.accept_area,a.price,b.name as pname,b.id as product_id,b.quantity,b.sell,b.freeze,b.unit,b.produce_area,kefu.ser_name,kefu.qq';
 
         return $query->find();
 
@@ -82,6 +83,13 @@ class offersModel extends \nainai\offer\product{
         return array($cate,$childCates,$childName);
     }
 
+    /**
+     * 交易网页列表
+     * @param $page
+     * @param array $condition
+     * @param string $order
+     * @return array
+     */
     public function getList($page,$condition = array(),$order=''){
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id LEFT JOIN product_category as c ON p.cate_id=c.id";
@@ -122,6 +130,11 @@ class offersModel extends \nainai\offer\product{
         if(isset($condition['area']) && $condition['area']!=0){
             $where .= ' and left(p.produce_area,2) = :area ';
             $bind['area'] = $condition['area'];
+        }
+
+        //获取搜索条件
+        if(isset($condition['search']) && $condition['search']!=''){
+            $where .= ' and p.name like "%'.$condition['search'].'%" ';
         }
         $query->where = $where;
         $query->bind = $bind;
@@ -187,6 +200,28 @@ class offersModel extends \nainai\offer\product{
      */
     public function getOfferNum(){
         return $this->offer->table('products')->fields('COUNT(id) as num ')->where('quantity-sell > 0')->getObj();
+    }
+
+    /**
+     * 获取某一分类的所有祖先分类
+     * @param
+     */
+    public function getCateTopList($cate){
+        if(intval($cate)>0){
+            $cate = intval($cate);
+            $parent = array();
+            $obj = new M('product_category');
+            $pid = $obj->where(array('id'=>$cate))->getField('pid');
+            if($pid==0)
+                $parent[] = $cate;
+            while($pid!=0){
+                $parent[] = $pid;
+                $pid = $obj->where(array('id'=>$pid))->getField('pid');
+            }
+            return array_reverse($parent);
+        }
+        return array();
+
     }
 
 }

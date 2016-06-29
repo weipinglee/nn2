@@ -41,7 +41,6 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 	protected function init(){
 		parent::init();//继承父类的方法，检测是否登录和角色
-
         $controllerName = $this->_request->getControllerName();
         $actionName = $this->_request->getActionName();
         $a = new \nainai\subAccount();
@@ -79,12 +78,8 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$this->getView()->setLayout('ucenter');
 
 
-		// 获取登录信息
 
-		if(isset($this->user_id) && $this->user_id>0){
-			$this->getView()->assign('login',1);
-			$this->getView()->assign('username',$this->username);
-		}else $this->getView()->assign('login',0);
+
         
 		//获取菜单数据
 		$MenuModel = new \nainai\user\Menu();
@@ -94,7 +89,6 @@ class UcenterBaseController extends \nainai\controller\Base{
     		$this->createTreeMenu($menuList);
     		$menu = $this->createHtmlMenu();
 
-            
 		$this->getView()->assign('topArray', $menu['top']);
 		$this->getView()->assign('leftArray', $menu['left']);
 		$action = strtolower($this->getRequest()->getActionName());
@@ -103,7 +97,6 @@ class UcenterBaseController extends \nainai\controller\Base{
 		// if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
 		// 	$this->redirect(url::createUrl('/ucenter/index'));
 		// }
-
 
 		$this->getView()->assign('action', $action);
 		$mess=new \nainai\message($this->user_id);

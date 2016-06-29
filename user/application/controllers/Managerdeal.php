@@ -554,7 +554,5 @@ class ManagerDealController extends UcenterBaseController {
     }
 
 
-   
-
 
 }

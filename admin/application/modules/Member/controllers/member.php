@@ -38,7 +38,12 @@ class MemberController extends Yaf\Controller_Abstract {
 			$mem = new member();
 			$user = $mem->getUserDetail($user_id);
 
+			//获取客服人员列表
+			$yewu = new YewuModel();
+			$yewuData = $yewu->getAllkefu();
+
 			$this->getView()->assign('user',$user);
+			$this->getView()->assign('yewu',$yewuData);
 
 		}
 	}
@@ -182,6 +187,20 @@ class MemberController extends Yaf\Controller_Abstract {
 
 	public function allocationUsergroupAction(){
 
+	}
+
+	/**
+	 * 给报盘添加业务员
+	 */
+	public function yewuAddAction(){
+		if(IS_POST){
+			$user_id = safe::filterPost('id','int',0);
+			$yewu = safe::filterPost('yewu','int',0);
+			$mem = new MemberModel();
+			$res = $mem->addYewu($user_id,$yewu);
+			die(\Library\json::encode($res));
+		}
+		return false;
 	}
 
 

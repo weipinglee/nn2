@@ -125,7 +125,7 @@
             dataType:'json',
             success:function(ms){
                 getNeedMessage();
-                layer.msg('修改成功',{time:2000,btn:['明白了']});
+                layer.msg('修改成功',{time:2000});
             }
         });
     }

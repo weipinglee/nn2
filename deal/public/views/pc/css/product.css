@@ -42,6 +42,7 @@ a{cursor: pointer;text-decoration: none;}
 	padding: 0px 15px;
 border-bottom: 1px solid #e3e3e3;
 position: relative;
+overflow: hidden;
 }
 .pro_classify .class_jy .jy_title{
 	font-weight: 700;
@@ -52,8 +53,9 @@ text-align: right;
 }
 .pro_classify .class_jy ul {
 	width:92%;
-	height: 30px;
+	float: left;
 	line-height: 30px;
+	overflow: hidden; 
 }
 .pro_classify .class_jy .infoslider{
     display: block;
