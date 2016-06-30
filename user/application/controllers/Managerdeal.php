@@ -111,7 +111,6 @@ class ManagerDealController extends UcenterBaseController {
      *
      */
     public function doFreeOfferAction(){
-
         if(IS_POST){
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
@@ -119,7 +118,7 @@ class ManagerDealController extends UcenterBaseController {
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
-                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+                'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'int') : 0,
 
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
@@ -165,7 +164,7 @@ class ManagerDealController extends UcenterBaseController {
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => safe::filterPost('divide', 'int'),
-                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? safe::filterPost('minimum', 'int') : 0,
+                'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? safe::filterPost('minimum', 'int') : 0,
 
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
@@ -214,7 +213,7 @@ class ManagerDealController extends UcenterBaseController {
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
-                'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+                'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'int') : 0,
 
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
@@ -520,7 +519,7 @@ class ManagerDealController extends UcenterBaseController {
             $this->getView()->assign('endDate', $endDate);
         }
 
-        $productModel = new productModel();
+        $productModel = new ProductModel();
         $productList = $productModel->getOfferProductList($page, $this->pagesize,  $where, $bind);
         $statusList = $productModel->getStatusArray();
         $this->getView()->assign('statusList', $statusList);
@@ -540,7 +539,7 @@ class ManagerDealController extends UcenterBaseController {
         $id = Safe::filter($id, 'int', 0);
 
         if (intval($id) > 0) {
-            $productModel = new productModel();
+            $productModel = new ProductModel();
             $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
 
             $this->getView()->assign('offer', $offerDetail[0]);
