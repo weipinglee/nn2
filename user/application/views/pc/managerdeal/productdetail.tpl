@@ -55,7 +55,7 @@
                                 <td colspan="6">{$product['create_time']}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">产品数量</td>
+                                <td colspan="2">产品数量(单位)</td>
                                 <td colspan="6"class="end_td">{set: echo round($product['quantity'], 2)}({$product['unit']})</td>
                             </tr>
                             <tr>
@@ -91,7 +91,7 @@
                                 <td colspan="6">{if:$offer['divide'] == 1}是{else:}否{/if}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">报盘数量</td>
+                                <td colspan="2">报盘数量(单位)</td>
                                 <td colspan="6">{set: echo round($product['quantity'], 2)}({$product['unit']})</td>
                             </tr>
                             <tr>
