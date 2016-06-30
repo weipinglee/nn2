@@ -94,7 +94,7 @@ class offersModel extends \nainai\offer\product{
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id LEFT JOIN product_category as c ON p.cate_id=c.id";
         $query->fields = "o.*,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,o.price,o.accept_area,p.produce_area,p.id as product_id, c.name as cname";
-        $where = 'o.status=:status and p.quantity>p.sell+p.freeze and o.expire_time > now()';
+        $where = 'o.status=:status and o.is_del = 0 and p.quantity>p.sell+p.freeze and o.expire_time > now()';
         $bind = array('status'=>self::OFFER_OK);
         //获取分类条件
         $childcates = array();

@@ -89,12 +89,13 @@ function getCategory(){
         'type' : 'post',
         'data' : {pid : cate_id},
         'dataType': 'json',
-        success:function(data){
+        success:function(data){//alert(JSON.stringify(data));
             var this_div =  _this.parents('.class_jy');
             this_div.nextAll('.class_jy').remove();
             var pro_add = $('#productAdd');
             pro_add.find('input[name=cate_id]').val(data.defaultCate);
             pro_add.find('.attr').remove();
+
             if(data.cate){
                 $('.unit').text(data.unit);
                 $('input[name=unit]').val(data.unit);

@@ -164,6 +164,7 @@ class FundController extends UcenterBaseController {
 				'card_no'=>safe::filterPost('card_no'),
 				'true_name'=>safe::filterPost('true_name'),
 				'identify_no'=>safe::filterPost('identify'),
+				'apply_time' => \Library\time::getDateTime(),
 				'proof'=>\Library\tool::setImgApp(safe::filterPost('imgfile2'))
 			);
 
