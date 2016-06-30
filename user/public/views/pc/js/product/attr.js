@@ -75,7 +75,7 @@ $(document).ready(function(){
 
     $('#storeList').trigger('change');
 
-})
+});
 
 //异步获取分类
 function getCategory(){
@@ -92,8 +92,10 @@ function getCategory(){
         success:function(data){//alert(JSON.stringify(data));
             var this_div =  _this.parents('.class_jy');
             this_div.nextAll('.class_jy').remove();
-            $('#productAdd').find('input[name=cate_id]').val(data.default);
-            $('#productAdd').find('.attr').remove();
+            var pro_add = $('#productAdd');
+            pro_add.find('input[name=cate_id]').val(data.defaultCate);
+            pro_add.find('.attr').remove();
+
             if(data.cate){
                 $('.unit').text(data.unit);
                 $('input[name=unit]').val(data.unit);
@@ -119,7 +121,7 @@ function getCategory(){
                     box.find('li').on('click',getCategory);
                     this_div = box;
                 })
-            }
+            };
 
             if(data.attr){
                 $.each(data.attr,function(k,v){
@@ -133,15 +135,15 @@ function getCategory(){
                         var radio_text = '';
                         $.each(radio,function(i,val){
                             radio_text += '<label style="margin-right:5px;"><input type="radio" name="attribute['+ v.id+']" value="'+val+'" />'+val+'</label>' ;
-                        })
+                        });
                         attr_box = '<tr class="attr"  ><td nowrap="nowrap"><span></span>'+ v.name+'</td><td colspan="2"> '+radio_text+' </td> </tr>';
 
                     }
 
                     $('#productAdd').prepend(attr_box);
-                })
+                });
                 bindRules();
-            }
+            };
 
 
 
@@ -157,18 +159,13 @@ function AddProductCategory(data){
 
 $(function(){
 bindRules();
-})
+});
 
 function bindRules(){
-    var validObj = formacc;
+
 
     //为地址选择框添加验证规则
-    var rules = [{
-        ele:"input[name=area]",
-        datatype:"n4-6",
-        nullmsg:"请选择地址！",
-        errormsg:"请选择地址！"
-    },
+    var rules = [
         {
             ele:"input[name^=attribute]",
             datatype:"*1-20",
@@ -176,5 +173,5 @@ function bindRules(){
             errormsg:"请填写规格！"
         }
     ];
-    validObj.addRule(rules);
+    formacc.addRule(rules);
 }

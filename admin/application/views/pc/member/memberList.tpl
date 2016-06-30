@@ -22,6 +22,7 @@
 				<th width="150">邮箱</th>
 				<th width="130">加入时间</th>
 				<th width="130">代理商</th>
+				<th width="130">业务员</th>
 				<th width="70">状态</th>
 				<th width="100">操作</th>
 			</tr>
@@ -36,7 +37,8 @@
 				<td>{$item['mobile']}</td>
 				<td>{$item['email']}</td>
 				<td>{$item['create_time']}</td>
-				<td>{$item['agent']}</td>
+				<td>{$item['agent_name']}</td>
+				<td>{$item['ser_name']}</td>
 				<td class="td-status"><span class="label label-success radius">已启用</span></td>
 				<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="icon-pause"></i></a> <a title="编辑" href="{url:member/member/detail?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i> </td>
 			</tr>

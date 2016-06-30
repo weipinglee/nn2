@@ -124,6 +124,9 @@ class RbacModel{
 	public function roleDel($id){
 		$role = $this->role;
 		if(($id = intval($id))>0){
+			$tag = $role->where(array('id'=>$id))->getField('tag');
+			if($tag!='')
+				return tool::getSuccInfo(0,'该角色不可删除');
 			try {
 				$role->beginTrans();
 

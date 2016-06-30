@@ -261,13 +261,13 @@ class product {
                     if(empty($cate)){
                         $res['chain'] = $pidChain;
                         $res['cate']  = array();
-                        $res['default'] = $pid;
+                        $res['defaultCate'] = $pid;
                         $res['unit'] = $v['unit'];
                     }
                     else{
                         $res['chain'] = array_merge($pidChain,$cate[1]);
                         $res['cate']  = $cate[0];
-                        $res['default'] = $cate[1][count($cate[1])-1];
+                        $res['defaultCate'] = $cate[1][count($cate[1])-1];
                         $res['unit'] = $cate[2];
                     }
 
