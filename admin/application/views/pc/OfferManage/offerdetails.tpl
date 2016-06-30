@@ -101,7 +101,11 @@
              </tr>
              <tr>
                  <th>图片</th>
-                 <td></td>
+                 <td>
+                     {foreach:items=$info['photos']}
+                         <img src="{$item}"  />
+                     {/foreach}
+                 </td>
                  <th>商品属性</th>
                  <td >
                      {foreach:items=$info['attr_arr']}

@@ -176,7 +176,7 @@ class ManagerDealController extends UcenterBaseController {
             $depositObj = new depositOffer($this->user_id);
             $productData = $this->getProductData();
             $res = $depositObj->doOffer($productData,$offerData);
-
+            
             echo json::encode($res);
             exit;
         }
