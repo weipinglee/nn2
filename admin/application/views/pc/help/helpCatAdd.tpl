@@ -21,7 +21,7 @@
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span>排序：</label>
                     <div class="formControls col-5">
-                        <input type="text" class="input-text" value="{if:isset($helpCatInfo)}{$helpCatInfo['sort']}{else:}100{/if}" placeholder="" datatype="n2-20" name="sort" errormsg="排序为数字" >
+                        <input type="text" class="input-text" value="{if:isset($helpCatInfo)}{$helpCatInfo['sort']}{else:}100{/if}" placeholder="" datatype="n1-20" name="sort" errormsg="排序为数字" >
                     </div>
                     <div class="col-4"> </div>
                 </div>

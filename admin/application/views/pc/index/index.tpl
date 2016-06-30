@@ -101,6 +101,7 @@
                         </li>
 
                         <li><a href="{url:system/kefu/kefuList}" target="content">客服管理</a></li>
+                        <li><a href="{url:system/yewu/kefuList}" target="content">业务员管理</a></li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
