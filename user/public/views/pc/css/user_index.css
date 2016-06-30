@@ -597,6 +597,8 @@ visibility: hidden;
     width: auto;
     text-align: center;
     margin-left: 15px;
+    overflow: hidden;
+    white-space: nowrap;
 }
  .class_jy .sl_ext {
     position: absolute;
