@@ -412,7 +412,7 @@
                                         <span class="i_w_3">品名</span>
                                         <span class="i_w_6">数量</span>
                                         <span class="i_w_7">剩余</span>
-                                        <span class="i_w_5">单位</span>
+                                        <span class="i_w_6">单位</span>
                                         <span class="i_w_8">价格(元)</span>
                                         <span class="i_w_9">产地</span>
                                         <span class="i_w_10">交货地</span>
@@ -501,7 +501,7 @@
                                 <ul style="top: 0px;">
                                     {if:!empty($newTrade)}
                                         {foreach:items=$newTrade}
-                                    <li style="opacity: 1.0000000000000007;">{$item['username']}
+                                    <li style="opacity: 1.0000000000000007;"><i>{$item['username']}</i>
                                         <em class="red">成功{if:$item['type']==1}销售{else:}采购{/if}</em>{$item['name']}{$item['num']}{$item['unit']}
                                     </li>
                                         {/foreach}
