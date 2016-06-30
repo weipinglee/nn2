@@ -726,6 +726,7 @@
                                     <li class="rank_tit">
                                         <span class="i_r_1">排名</span>
                                         <span class="i_r_2">商户简称</span>
+                                        <span class="i_r_3">认证</span>
                                         <span class="i_r_4">等级</span>
                                         <span class="i_r_5">信誉值</span>
                                     </li>
@@ -733,6 +734,7 @@
                                         <li class="rank_list">
                                             <span class="i_r_1">{echo:$key+1}</span>
                                             <span class="i_r_2">{$item['company_name']}</span>
+                                            <span class="i_r_3"><img src="images/rank_08.png"></span>
                                             <span class="i_r_4"><img src="{$item['icon']}"></span>
                                             <span class="i_r_5">{$item['credit']}</span>
                                         </li>
