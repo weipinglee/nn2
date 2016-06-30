@@ -30,7 +30,7 @@
         {foreach:items=$data}
             {if:$item['status']==0}{set:$status=0}{else:}{set:$status=$item['status']}{/if}
             <tr class="text-c">
-                <td><input type="checkbox" value="" name="">{$item['status']}</td>
+                <td><input type="checkbox" value="" name=""></td>
                 <td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
                 <td>{$item['bank_name']}</td>
                 <td>{echo:$card_type[$item['card_type']]}</td>
