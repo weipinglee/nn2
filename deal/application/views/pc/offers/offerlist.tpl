@@ -161,6 +161,7 @@
     <div class="pro_cen">
         <ul class="main_title">
             <li class="tit_left">品名</li>
+            <li>图片</li>
             <li>供求</li>
             <li>类型</li>
             <li style="width:200px;">产地</li>
@@ -214,6 +215,7 @@
                            <!--<a href="" title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
                            <span><%=data[i].name%></span>
                        </li>
+                       <li><a class="cz_wz pro_img"><img src="images/icon/icons_pic.png" class="icon_img"></a></li>
                        <li><% if(data[i].type == 1){ %><i class="red">供</i><% }else { %><i class="green">求</i> <%}%></li>
                        <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>--<%}%></li>
 
