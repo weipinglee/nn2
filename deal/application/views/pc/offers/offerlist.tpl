@@ -231,9 +231,9 @@
                            <div class="">
                                <div class="xd">
                                    <% if (data[i].type==1){ %>
-                                   <a href="{url:/Offers/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" class="cz_wz prod_xd">下单</a><i class="icon_color icon-angle-down"></i>
+                                   <a href="{url:/Offers/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" class="cz_wz prod_xd">下单</a>//<i class="icon_color icon-angle-down"></i>
                                     <% } else { %>
-                                   <a href="{url:/Offers/report}/id/<%=data[i].id%>" class="cz_wz prod_xd">报价</a><i class="icon_color icon-angle-down"></i>
+                                   <a href="{url:/Offers/report}/id/<%=data[i].id%>" class="cz_wz prod_xd">报价</a>//<i class="icon_color icon-angle-down"></i>
 
                                    <% }%>
                                </div>
