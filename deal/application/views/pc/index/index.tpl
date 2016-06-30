@@ -353,7 +353,7 @@
                             <div class="i_proList {if:$i==0}show{/if}" id="offer{$key}">{set:$i=$i+1;}
                                 <div class="i_tuijian">
                                     <img src="" class="ad_img">
-<!--
+                                    <!--
                                     <ul class="tuijian">
                                         <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
                                         <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
