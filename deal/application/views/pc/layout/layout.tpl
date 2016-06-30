@@ -57,7 +57,7 @@
     }
     #index_nav .nav li {
         float: left;
-        width: 155px;
+        width: 115px;
         text-align: center;
         border-left: 1px solid #e53f30;
         border-right: 1px solid #9e2324;
@@ -281,11 +281,11 @@ body{_padding-top:30px;}
 
     <div id="index_nav">
         <div class="page_width">   
-
+            <div class="all_steel">全部产品分类</div>
 
             <ul class="nav n_nav">
                 <li class="current"><a href="{url:/index/index}">首页</a></li>
-                <li><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
+                <li style="border-right:none;"><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
            </ul>
         </div>
     </div>

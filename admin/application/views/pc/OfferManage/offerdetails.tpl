@@ -53,7 +53,7 @@
                      {/foreach}
                  </td>
                  <th>可否拆分</th>
-                 <td>{if:$info['divide'] == 0}可拆分{else:}否{/if}</td>
+                 <td>{if:$info['divide'] == 1}可拆分{else:}否{/if}</td>
 
              </tr>
 
@@ -102,9 +102,12 @@
              <tr>
                  <th>图片</th>
                  <td>
+
                      {foreach:items=$info['photos']}
                          <img src="{$item}"  />
                      {/foreach}
+
+
                  </td>
                  <th>商品属性</th>
                  <td >

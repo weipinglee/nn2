@@ -142,54 +142,21 @@
 
                                     <!--案例2-->
                                     <div class="product">
-                                        <ul class="cf">
-                                            <li class="ml0"> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/2.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/2.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/2.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                        </ul>
+                                                  <div class="cf">
+                                                      <img src="images/jsz.png" width="700px" height="300px">
+                                                  </div>
                                     </div>
                                     <!--案例3-->
                                     <div class="product">
-                                        <ul class="cf">
-                                            <li class="ml0"> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/3.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/3.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/3.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                        </ul>
+                                                  <div class="cf">
+                                                      <img src="images/jsz.png" width="700px" height="300px">
+                                                  </div>
                                     </div>
                                     <!--案例4-->
                                     <div class="product">
-                                        <ul class="cf">
-                                            <li class="ml0"> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/4.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/4.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/4.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                        </ul>
+                                                  <div class="cf">
+                                                      <img src="images/jsz.png" width="700px" height="300px">
+                                                  </div>
                                     </div>
                                 </div>
                             </div>
@@ -289,7 +256,7 @@
 
 
             <!-- 广告条 -->
-            <div class="ad_line">{echo: \Library\Ad::show("首页1")}</div>
+            <div class="ad_line">{echo: \Library\Ad::show("111")}</div>
             <!-- 广告条 结束 -->
 
             <!--最新数据 开始-->
@@ -379,7 +346,7 @@
 
                                 {/foreach}
                             </ul>
-                            <span class="i_more"><a href="{url:/offers/offerlist}">更多商品 &gt;</a></span>
+                            <span class="i_more"><a rel="{url:}" href="{url:/offers/offerlist}">更多商品 &gt;</a></span>
                         </div>
 
                         <div class="i_leftCon" id="offer_list">{set:$i=0}
@@ -413,7 +380,7 @@
                                         <span class="i_w_3">品名</span>
                                         <span class="i_w_6">数量</span>
                                         <span class="i_w_7">剩余</span>
-                                        <span class="i_w_5">单位</span>
+                                        <span class="i_w_6">单位</span>
                                         <span class="i_w_8">价格(元)</span>
                                         <span class="i_w_9">产地</span>
                                         <span class="i_w_10">交货地</span>
@@ -483,9 +450,7 @@
                                     </div>
                                     <div class="i_starCon">
                                         <ul>
-                                            <li><a target="_blank" >- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li>
-                                            <li><a target="_blank">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li>
-                                            <li><a target="_blank" >- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
+                                            <li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9522.html">- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-9-9507.html">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9504.html">- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -493,9 +458,11 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">耐火原料供应商</div>
                                     <ul>
+
                                         <li>{echo: \Library\Ad::show('供应1')}</li>
                                         <li>{echo: \Library\Ad::show('供应2')}</li>
                                         <li>{echo: \Library\Ad::show('供应3')}</li>
+
                                     </ul>
                                 </div>
 
@@ -514,7 +481,7 @@
                                 <ul style="top: 0px;">
                                     {if:!empty($newTrade)}
                                         {foreach:items=$newTrade}
-                                    <li style="opacity: 1.0000000000000007;">{$item['username']}
+                                    <li style="opacity: 1.0000000000000007;"><i>{$item['username']}</i>
                                         <em class="red">成功{if:$item['type']==1}销售{else:}采购{/if}</em>{$item['name']}{$item['num']}{$item['unit']}
                                     </li>
                                         {/foreach}
@@ -590,7 +557,7 @@
                                     </div>
                                     <div class="i_starCon">
                                         <ul>
-                                            <li><a target="_blank" >- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" >- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" >- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
+                                            <li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9522.html">- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-9-9507.html">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9504.html">- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -598,7 +565,13 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">化工原料供应商</div>
                                     <ul>
+<<<<<<< HEAD
                                         <li>{echo: \Library\Ad::show('化工1')}</li>
+=======
+                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
+>>>>>>> ee00b7371039bf798269231eb058665f46f59dc9
                                     </ul>
                                 </div>
 
@@ -737,13 +710,19 @@
                                     <li class="rank_tit">
                                         <span class="i_r_1">排名</span>
                                         <span class="i_r_2">商户简称</span>
+                                        <span class="i_r_3">认证</span>
                                         <span class="i_r_4">等级</span>
                                         <span class="i_r_5">信誉值</span>
                                     </li>
                                     {foreach:items=$creditMember}
                                         <li class="rank_list">
                                             <span class="i_r_1">{echo:$key+1}</span>
+<<<<<<< HEAD
                                             <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
+=======
+                                            <span class="i_r_2">{$item['company_name']}</span>
+                                            <span class="i_r_3"><img src="images/rank_08.png"></span>
+>>>>>>> ee00b7371039bf798269231eb058665f46f59dc9
                                             <span class="i_r_4"><img src="{$item['icon']}"></span>
                                             <span class="i_r_5">{$item['credit']}</span>
                                         </li>
@@ -778,15 +757,15 @@
                         <ul class="HomeService_other">
                             <li class="iServiceTit">新手指南</li>
                             <li class="iServiceText">
-                                <p><a  rel="nofollow"><b>【订单管理】</b>管理我的订单及邀请我的好友</a></p>
-                                <p><a  rel="nofollow"><b>【完善信息】</b>注册成功后尽快完善公司信息 </a></p>
-                                <p><a  rel="nofollow"><b>【站内消息】</b>管理我的站内消息</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-92.html" rel="nofollow"><b>【订单管理】</b>管理我的订单及邀请我的好友</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-89.html" rel="nofollow"><b>【完善信息】</b>注册成功后尽快完善公司信息 </a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-94.html" rel="nofollow"><b>【站内消息】</b>管理我的站内消息</a></p>
                             </li>
                             <li class="iServiceTit">常见问题</li>
                             <li class="iServiceText">
-                                <p><a  rel="nofollow"><b>【发布供求】</b>注册成功后，如何发布供求？</a></p>
-                                <p><a  rel="nofollow"><b>【批量发布】</b>供求信息多，可否批量发布呢？</a></p>
-                                <p><a  rel="nofollow"><b>【公司认证】</b>如何进行公司认证？</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-42.html" rel="nofollow"><b>【发布供求】</b>注册成功后，如何发布供求？</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-90.html" rel="nofollow"><b>【批量发布】</b>供求信息多，可否批量发布呢？</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-93.html" rel="nofollow"><b>【公司认证】</b>如何进行公司认证？</a></p>
                             </li>
                         </ul>
                         <ul class="i_Contact">
@@ -796,7 +775,7 @@
                             <li><s class="i_ContactImg_3"></s>13603560985</li>
                             <li><s class="i_ContactImg_4"></s>service＃nainaiwang.com</li>
                             <li><s class="i_ContactImg_6"></s><a href="http://weibo.com/u/5150621125" rel="nofollow">关注耐耐网微博</a></li>
-                            <li><s class="i_ContactImg_5"></s><img src="{views:images/main_file/weixin.jpg}" alt="耐耐网微信二维码"></li>
+                            <li><s class="i_ContactImg_5"></s><img src="./main_files/weixin.jpg" alt="耐耐网微信二维码"></li>
                         </ul>
                     </div>
                 </div>

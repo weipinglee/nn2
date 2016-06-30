@@ -16,7 +16,7 @@ class fundBankModel extends \nainai\user\UserBank{
         $reModel = new Query($this->table.' as b');
         //线上
         $reModel->join = 'left join user as u on b.user_id = u.id';
-        $reModel->fields = 'u.*,b.*';
+        $reModel->fields = 'b.*, u.username';
         $reModel->where = $where;
         $reModel->page = $page;
         $onlineInfo = $reModel->find();

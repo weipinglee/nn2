@@ -539,7 +539,8 @@ visibility: hidden;
     width: 92%;
     overflow: hidden;
     float: left;
-    line-height: 30px;word-wrap: break-word;
+    line-height: 30px;
+    word-wrap: break-word;
 }
 .class_jy ul li {
     float: left;
@@ -739,17 +740,31 @@ color: #fff;
 .page_num{
 	text-align: center;
 }
-.page_num a:link, .page_num a:visited, .page_num a:active {
+/* .page_num a:link, .page_num a:visited, .page_num a:active {
 padding: 2px 6px;
 border: #FFC3AC 1px solid;
 background: #FEE9E0;
 color: #000;
+} */
+.pages_bar a,.page_num a {
+    cursor: pointer;
+    margin: 0 3px;
+    background: #f5f5f5;
+    border: 1px #e5e5e5 solid;
+    color: #8c8a8b;
+    display: block;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    padding: 0px 10px;
 }
+.pages_bar,.page_num {
+    display: inline-block;
+}
+
 .page_num a:hover {
-padding: 2px 6px;
-border: #666 1px solid;
-background: #fff;
-color: #333;
+      background: #c91224;
+      color: #fff;
 }
 .marg{
 	margin: 40px 0 20px 0px;
