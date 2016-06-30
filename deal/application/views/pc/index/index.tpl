@@ -288,7 +288,7 @@
 
 
             <!-- 广告条 -->
-            <div class="ad_line">{echo: \Library\Ad::show("首页1")}</div>
+            <div class="ad_line">{echo: \Library\Ad::show("111")}</div>
             <!-- 广告条 结束 -->
 
             <!--最新数据 开始-->
@@ -472,9 +472,7 @@
                                     </div>
                                     <div class="i_starCon">
                                         <ul>
-                                            <li><a target="_blank" >- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li>
-                                            <li><a target="_blank">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li>
-                                            <li><a target="_blank" >- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
+                                            <li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9522.html">- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-9-9507.html">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9504.html">- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -482,9 +480,9 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">耐火原料供应商</div>
                                     <ul>
-                                        <li><a ><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a ><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
-                                        <li><a ><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
                                     </ul>
                                 </div>
 
@@ -579,7 +577,7 @@
                                     </div>
                                     <div class="i_starCon">
                                         <ul>
-                                            <li><a target="_blank" >- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" >- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" >- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
+                                            <li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9522.html">- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-9-9507.html">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9504.html">- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -587,9 +585,9 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">化工原料供应商</div>
                                     <ul>
-                                        <li><a  target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a  target="_blank"><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
-                                        <li><a  target="_blank"><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/228588_213258.html" target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202799_202799.html" target="_blank"><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
+                                        <li><a href="http://www.nainaiwang.com/shop/202128_100255.html" target="_blank"><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
                                     </ul>
                                 </div>
 
@@ -769,15 +767,15 @@
                         <ul class="HomeService_other">
                             <li class="iServiceTit">新手指南</li>
                             <li class="iServiceText">
-                                <p><a  rel="nofollow"><b>【订单管理】</b>管理我的订单及邀请我的好友</a></p>
-                                <p><a  rel="nofollow"><b>【完善信息】</b>注册成功后尽快完善公司信息 </a></p>
-                                <p><a  rel="nofollow"><b>【站内消息】</b>管理我的站内消息</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-92.html" rel="nofollow"><b>【订单管理】</b>管理我的订单及邀请我的好友</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-89.html" rel="nofollow"><b>【完善信息】</b>注册成功后尽快完善公司信息 </a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-94.html" rel="nofollow"><b>【站内消息】</b>管理我的站内消息</a></p>
                             </li>
                             <li class="iServiceTit">常见问题</li>
                             <li class="iServiceText">
-                                <p><a  rel="nofollow"><b>【发布供求】</b>注册成功后，如何发布供求？</a></p>
-                                <p><a  rel="nofollow"><b>【批量发布】</b>供求信息多，可否批量发布呢？</a></p>
-                                <p><a  rel="nofollow"><b>【公司认证】</b>如何进行公司认证？</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-42.html" rel="nofollow"><b>【发布供求】</b>注册成功后，如何发布供求？</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-90.html" rel="nofollow"><b>【批量发布】</b>供求信息多，可否批量发布呢？</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-93.html" rel="nofollow"><b>【公司认证】</b>如何进行公司认证？</a></p>
                             </li>
                         </ul>
                         <ul class="i_Contact">
@@ -787,7 +785,7 @@
                             <li><s class="i_ContactImg_3"></s>13603560985</li>
                             <li><s class="i_ContactImg_4"></s>service＃nainaiwang.com</li>
                             <li><s class="i_ContactImg_6"></s><a href="http://weibo.com/u/5150621125" rel="nofollow">关注耐耐网微博</a></li>
-                            <li><s class="i_ContactImg_5"></s><img src="{views:images/main_file/weixin.jpg}" alt="耐耐网微信二维码"></li>
+                            <li><s class="i_ContactImg_5"></s><img src="./main_files/weixin.jpg" alt="耐耐网微信二维码"></li>
                         </ul>
                     </div>
                 </div>
