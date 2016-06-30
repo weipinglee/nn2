@@ -231,6 +231,8 @@ class Order{
 				}
 			// }
 			$upd_res = $this->orderUpdate($orderData);
+			$pro_res = $this->productsFreeze($offer_info,$orderData['num']);
+			if($pro_res != true) return tool::getSuccInfo(0,$pro_res);
 			if($offer_info['mode'] == self::ORDER_DEPOSIT){
 				$mess = new \nainai\message($offer_info['user_id']);
 				$mess->send('depositPay',$upd_res['order_id']);
