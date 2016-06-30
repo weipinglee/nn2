@@ -116,12 +116,19 @@ class ContractController extends UcenterBaseController{
 				die(json::encode(tool::getSuccInfo(0,'无效的合同')));
 			}
 
+			$img = Safe::filterPost('imgData');
+			if(!empty($img)){
+				foreach($img as $k=>$v){
+					$img[$k] = tool::setImgApp($v);
+				}
+			}
+
 			$complainData = array(
 				'order_id' => $order_id ,
 				'user_id' => $this->user_id,
 				'title' => Safe::filterPost('title'),
 				'detail' => Safe::filterPost('content'),
-				'proof' => serialize(Safe::filterPost('imgData')),
+				'proof' => serialize($img),
 				'apply_time' => \Library\Time::getDateTime(),
 				'type' => ($this->user_id == Safe::filterPost('user_id', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
 				'status' => \nainai\order\OrderComplain::APPLYCOMPLAIN
