@@ -141,54 +141,21 @@
 
                                     <!--案例2-->
                                     <div class="product">
-                                        <ul class="cf">
-                                            <li class="ml0"> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/2.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/2.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/2.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                        </ul>
+                                                  <div class="cf">
+                                                      <img src="images/jsz.png" width="700px" height="300px">
+                                                  </div>
                                     </div>
                                     <!--案例3-->
                                     <div class="product">
-                                        <ul class="cf">
-                                            <li class="ml0"> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/3.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/3.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/3.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                        </ul>
+                                                  <div class="cf">
+                                                      <img src="images/jsz.png" width="700px" height="300px">
+                                                  </div>
                                     </div>
                                     <!--案例4-->
                                     <div class="product">
-                                        <ul class="cf">
-                                            <li class="ml0"> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/4.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/4.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/4.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                        </ul>
+                                                  <div class="cf">
+                                                      <img src="images/jsz.png" width="700px" height="300px">
+                                                  </div>
                                     </div>
                                 </div>
                             </div>
