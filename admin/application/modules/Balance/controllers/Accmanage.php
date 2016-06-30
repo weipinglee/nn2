@@ -8,7 +8,7 @@ use Library\Query;
 use Library\Safe;
 use Library\json;
 
-class accManageController extends Yaf\Controller_Abstract {
+class AccmanageController extends Yaf\Controller_Abstract {
 	//会用账户列表
 	public function init() {
 		$this->getView()->setLayOut('admin');

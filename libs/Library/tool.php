@@ -80,7 +80,7 @@ class tool{
     }
 
     public static function getSuccInfo($res=1,$info='',$url='',$id=''){
-        return array('success'=>$res,'info'=>$info,'returnUrl'=>$url,'id'=>$id);
+        return array('success'=>$res,'info'=>$info,'return'=>$url,'id'=>$id);
     }
 
     //uuid

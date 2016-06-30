@@ -378,7 +378,7 @@
 
                                 {/foreach}
                             </ul>
-                            <span class="i_more"><a href="{url:/offers/offerlist}">更多商品 &gt;</a></span>
+                            <span class="i_more"><a rel="{url:}" href="{url:/offers/offerlist}">更多商品 &gt;</a></span>
                         </div>
 
                         <div class="i_leftCon" id="offer_list">{set:$i=0}
