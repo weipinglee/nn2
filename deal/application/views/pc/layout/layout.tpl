@@ -52,12 +52,12 @@
         line-height: 43px;
         float: left;
         position: absolute;
-        left: 0px;
+        left: 180px;
         top: 0px;
     }
     #index_nav .nav li {
         float: left;
-        width: 115px;
+        width: 155px;
         text-align: center;
         border-left: 1px solid #e53f30;
         border-right: 1px solid #9e2324;
