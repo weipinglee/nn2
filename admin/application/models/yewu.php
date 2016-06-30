@@ -8,9 +8,9 @@
 use \Library\M;
 use \Library\Query;
 use \Library\tool;
-class KefuModel extends AdminModel{
+class YewuModel extends AdminModel{
 
-	protected $table = 'admin_kefu';
+	protected $table = 'admin_yewu';
 
 	protected $rules = array(
 		array('id','number','id错误',0,'regex'),
@@ -23,7 +23,7 @@ class KefuModel extends AdminModel{
 	private $kefuObj;
 	public function __construct(){
 		parent::__construct();
-		$this->kefuObj = new M('admin_kefu');
+		$this->kefuObj = new M($this->table);
 	}
 
 	/**
@@ -70,7 +70,7 @@ class KefuModel extends AdminModel{
 				$kefu['admin_id'] = $id;
 				$this->kefuObj->insertUpdate($kefu,$kefu);
 				$type = isset($adminData['id']) && $adminData['id']>0 ? 'update' : 'add';
-				$log->addLog(array('table'=>'客服','type'=>$type,'id'=>$id));
+				$log->addLog(array('table'=>'业务员','type'=>$type,'id'=>$id));
 				$res = $this->kefuObj->commit();
 			}
 			else{
@@ -95,7 +95,7 @@ class KefuModel extends AdminModel{
 	 */
 	public function getKefuRole(){
 		$obj = new M('admin_role');
-		$id = $obj->where(array('tag'=>'kefu'))->getField('id');
+		$id = $obj->where(array('tag'=>'yewu'))->getField('id');
 		if(!$id)
 			return 0;
 		return $id;
@@ -143,7 +143,7 @@ class KefuModel extends AdminModel{
 		$m->beginTrans();
 		$m->where(array('admin_id'=>$id))->delete();
 		$this->adminObj->where(array('id'=>$id))->delete();
-		$log->addLog(array('table'=>'客服','type'=>'delete','id'=>$id));
+		$log->addLog(array('table'=>'业务员','type'=>'delete','id'=>$id));
 		$res = $m->commit();
 		if($res){
 			return tool::getSuccInfo();

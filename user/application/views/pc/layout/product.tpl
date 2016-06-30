@@ -60,7 +60,7 @@
     <tr>
         <td>产地:</td>
         <td colspan="2">
-            <span>{area:data=getAreaData()}</span>
+            <span id="areabox">{area:data=getAreaData()}</span>
             <span></span>
         </td>
 

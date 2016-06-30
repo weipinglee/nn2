@@ -537,7 +537,8 @@ visibility: hidden;
 }
 .class_jy ul {
     width: 92%;
-    height: 30px;
+    overflow: hidden;
+    float: left;
     line-height: 30px;word-wrap: break-word;
 }
 .class_jy ul li {

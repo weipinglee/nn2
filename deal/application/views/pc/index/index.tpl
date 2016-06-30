@@ -447,8 +447,15 @@
                                                     <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                                                 </a>
                                                 {/if}
+                                                {if:$pro['qq']!=''}
 
-                                                <img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
+                                                <a href="{$pro['qq']}"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                </a>
+                                                    {else:}
+                                                    <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                </a>
+
+                                                {/if}
                                         </li>
                                     {/foreach}
 
