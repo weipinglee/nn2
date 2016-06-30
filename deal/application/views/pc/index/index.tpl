@@ -679,7 +679,7 @@
                                     <div class="i_w_13">
                                         <img src="{views:images/bg/20160121190011.png}" class="tuijian_bg">
                                         <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="{views:images/ag_logo.png}" class="com_logo">{$v['company_name']}</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
+                                            <p class="content_1"><span class="left"><img src="{views:images/ag_logo.png}" class="com_logo">{$v['company_name']}</span><span class="right"><!--<a href="">进入商铺 &gt; &gt;</a>--></span></p>
 
                                             <p class="content_2">主营：<span class="main_content">{$v['business']}</span></p>
                                             <p class="connect">
@@ -706,7 +706,7 @@
 
                                     {foreach: items=$item[3] key=$k item=$v}
                                     <ul>
-                                        <li class="i_regionTit" id="area">{areatext:data=14 id=area delimiter=地区}<span style="display: none">累计撮合1809单</span></li>
+                                        <li class="i_regionTit" id="area">{areatext:data=14 id=area delimiter=地区}<span style="display: none"></span></li>
                                         <li class="i_regionTit2">推荐商家</li>
                                         <?php foreach($v as $kk=>$vv){ ?>
                                         <li><a href="">- {$vv['company_name']}</a></li><?php }  ?>
@@ -864,3 +864,24 @@
 
 
 
+        <!--楼层电梯 -->
+        <div class="floor_left_box" id="floornav" data-tpa="YHD_HOMEPAGE_FLOORNAV" style="display:none;">
+
+            <a href="#floor-1" data="#floor-1" rel="floor-1" class="cur">
+                <i class="left_iconfont "><img src="{views:images/floor_07.png}">交易市场</i>
+                <em class="two_line"><img src="{views:images/floor_cur_07.png}">交易市场</em>
+            </a>
+            <a href="#floor-2" data="#floor-2" rel="floor-2">
+                <i class="left_iconfont "><img src="{views:images/floor_09.png}">市场指数</i>
+                <em class="two_line"><img src="{views:images/floor_cur_09.png}">市场指数</em>
+            </a>
+            <a href="#floor-3" data="#floor-3" rel="floor-3">
+                <i class="left_iconfont "><img src="{views:images/floor_03.png}" >推荐商家</i>
+                <em class="two_line"><img src="{views:images/floor_cur_03.png}">推荐商家</em>
+            </a>
+            <a href="" data="#toTop" rel="toTop">
+                <i class="left_iconfont "><img src="{views:images/floor_08.png}">返回顶部</i>
+                <em class="two_line"><img src="{views:images/floor_cur_08.png}">返回顶部</em>
+            </a>
+
+        </div>

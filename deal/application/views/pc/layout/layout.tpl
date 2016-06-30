@@ -388,27 +388,7 @@ body{_padding-top:30px;}
 <link type="text/css" rel="stylesheet" href="{views:css/global_site_index_new.css}">
 
 
-<!--楼层电梯 -->
-<div class="floor_left_box" id="floornav" data-tpa="YHD_HOMEPAGE_FLOORNAV" style="display:none;">
 
-<a href="#floor-1" data="#floor-1" rel="floor-1" class="cur">
-<i class="left_iconfont "><img src="{views:images/floor_07.png}">交易市场</i>
-<em class="two_line"><img src="{views:images/floor_cur_07.png}">交易市场</em>
-</a>
-<a href="#floor-2" data="#floor-2" rel="floor-2">
-<i class="left_iconfont "><img src="{views:images/floor_09.png}">市场指数</i>
-<em class="two_line"><img src="{views:images/floor_cur_09.png}">市场指数</em>
-</a>
-<a href="#floor-3" data="#floor-3" rel="floor-3">
-<i class="left_iconfont "><img src="{views:images/floor_03.png}" >推荐商家</i>
-<em class="two_line"><img src="{views:images/floor_cur_03.png}">推荐商家</em>
-</a>
-<a href="" data="#toTop" rel="toTop">
-<i class="left_iconfont "><img src="{views:images/floor_08.png}">返回顶部</i>
-<em class="two_line"><img src="{views:images/floor_cur_08.png}">返回顶部</em>
-</a>
-
-</div> 
 
 
 
