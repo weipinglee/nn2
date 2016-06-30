@@ -22,7 +22,7 @@
 									<th>仓库</th>
 								</tr>
 								<tr>
-									<td><img src="../images/banner/551b861eNe1c401dc.jpg"/></td>
+									<td><img src="{$data['img']}"/></td>
 									<td>{$data['name']}</td>
 									<td>{$data['num']}{$data['unit']}</td>
 									<td>{$data['left']}{$data['unit']}</td>

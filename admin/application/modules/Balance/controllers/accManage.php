@@ -85,7 +85,7 @@ class accManageController extends Yaf\Controller_Abstract {
 
 		}
 	}
-
+	
 	/**
 	 * 开户信息审核页面
 	 */
