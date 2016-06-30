@@ -67,7 +67,7 @@ class member{
         if($credit!==false){
             $group = $userObj->table('user_group')->where('credit <=:credit')->bind(array('credit'=>$credit))->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit DESC')->getObj();
            if(empty($group)){
-               $group = $userObj->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit asc')->getObj();
+               $group = $userObj->table('user_group')->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit asc')->getObj();
 
            }
             $group['icon'] = \Library\thumb::get($group['icon'],25,25);
