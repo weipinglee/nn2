@@ -58,6 +58,7 @@ class IndexController extends PublicController {
 		$offerCateData = array();
 		foreach($topCat as $k=>$v){
 			$offerCateData[$v['id']] = $offer->getOfferCategoryList($v['id']);
+
 		}
 
 		//获取报盘总数

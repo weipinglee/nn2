@@ -13,7 +13,7 @@ return array(
         // 'user'=>'http://user.test.com',
         // 'user'=>'http://124.166.246.120:8000/user/public',
         'user'=>'http://localhost/nn2/user/public',
-        'admin'=>'http://124.166.246.120:8000/user/public'
+        'admin'=>'http://admin.test.com'
     ),
     'rootDir'=>array(//é¡¹ç›®æ ¹ç›®å½•ç»å¯¹è·¯å¾?
         'user'=>'E:\wamp\www\nn2\user\public',

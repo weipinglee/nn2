@@ -36,9 +36,10 @@
             <!--所有分类 Start-->
             <div class="wrap">
                 <div class="all-sort-list">
+                    {set:$i=1;}
                     {foreach: items=$catList}
-                    <div class="item" id="{$item['id']}">
-                        <div class="icon-nh3">&nbsp;</div>
+                    <div class="item" id="{$i}">
+                        <div class="icon-nh{$i}">&nbsp;</div>{set:$i = $i +1;}
 
                         <h3>
 
@@ -424,9 +425,15 @@
                                     {foreach:items=$item $key=$pid item=$pro}
                                         <li>
                                             <span class="i_w_1 ">{$pro['id']}</span>
-                                            <span class="i_w_2 i_TextGreen">
-                                               {if:$pro['type']==1}供{else:}求{/if}
-                                            </span>
+                                            {if:$pro['type']==1}
+                                                <span class="i_w_2 i_TextGreen">
+                                                   供
+                                                </span>
+                                            {else:}
+                                                <span class="i_w_2 i_TextRed">
+                                                   求
+                                                </span>
+                                            {/if}
                                             <span class="i_w_3">
                                                   {$pro['pname']}
                                             </span>
@@ -438,23 +445,27 @@
                                             <span class="i_w_9" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
                                             <span class="i_w_10">{$pro['accept_area']}</span>
                                             <span class="i_w_11">
-                                                {if:$pro['type']==1}
-                                                <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
-                                                    <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                                                </a>
-                                                {else:}
-                                                    <a href="{url:/offers/report?id=$pro['id']}">
-                                                    <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                                                </a>
-                                                {/if}
-                                                {if:$pro['qq']!=''}
-
-                                                <a href="{$pro['qq']}"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
-                                                </a>
+                                                {if:$pro['quantity']-$pro['sell']-$pro['freeze']>0}
+                                                    {if:$pro['type']==1}
+                                                    <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
+                                                        <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                    </a>
                                                     {else:}
-                                                    <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
-                                                </a>
+                                                        <a href="{url:/offers/report?id=$pro['id']}">
+                                                        <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                    </a>
+                                                    {/if}
+                                                    {if:$pro['qq']!=''}
 
+                                                    <a href="{$pro['qq']}"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                    </a>
+                                                        {else:}
+                                                        <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                    </a>
+
+                                                {/if}
+                                                {else:}
+                                                        <img src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
                                                 {/if}
                                         </li>
                                     {/foreach}
@@ -482,9 +493,9 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">耐火原料供应商</div>
                                     <ul>
-                                        <li><a ><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a ><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
-                                        <li><a ><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
+                                        <li>{echo: \Library\Ad::show('供应1')}</li>
+                                        <li>{echo: \Library\Ad::show('供应2')}</li>
+                                        <li>{echo: \Library\Ad::show('供应3')}</li>
                                     </ul>
                                 </div>
 
@@ -587,9 +598,7 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">化工原料供应商</div>
                                     <ul>
-                                        <li><a  target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a  target="_blank"><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
-                                        <li><a  target="_blank"><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
+                                        <li>{echo: \Library\Ad::show('化工1')}</li>
                                     </ul>
                                 </div>
 
@@ -734,7 +743,7 @@
                                     {foreach:items=$creditMember}
                                         <li class="rank_list">
                                             <span class="i_r_1">{echo:$key+1}</span>
-                                            <span class="i_r_2">{$item['company_name']}</span>
+                                            <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
                                             <span class="i_r_4"><img src="{$item['icon']}"></span>
                                             <span class="i_r_5">{$item['credit']}</span>
                                         </li>

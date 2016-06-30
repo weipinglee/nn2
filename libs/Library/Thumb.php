@@ -55,5 +55,22 @@ class Thumb
 		return url::getBaseUrl().'/'.$webThumbDir.$thumbFileName;
     }
 
+	/**
+	 * 获取原图地址
+	 * @param $imgSrc
+	 * @return string
+	 */
+	public static function getOrigImg($imgSrc){
+		$imgArr = explode('@',$imgSrc);
+		if(count($imgArr)>1){
+			$sourcePath = tool::getGlobalConfig(array('host',$imgArr[1])).'/'.trim($imgArr[0],'/');
+
+		}else{
+			$sourcePath = url::getBaseUrl().'/'.trim($imgSrc,'/');
+		}
+
+		return $sourcePath;
+	}
+
 }
 ?>

@@ -10,7 +10,7 @@
     <div class="title">
        用户信息
     </div>
-    <form action="{url:/balance/accManage/userCreditAdd}" method="post" auto_submit redirect_url='{url:/balance/accManage/userCreditList}'>
+    <form action="{url:balance/accManage/userCreditAdd}" method="post"  redirect_url='{url:/balance/accManage/userCreditList}'>
          <div class="pd-20">
              <table class="table table-border table-bordered table-bg">
                  <tr>
