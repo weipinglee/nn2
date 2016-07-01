@@ -35,7 +35,7 @@ class IndexController extends PublicController {
 		//获取幻灯片
 		$indexSlide=\nainai\system\slide::getIndexSlide();
 		foreach($indexSlide as $k=>$v){
-			$indexSlide[$k]['img']=\Library\Thumb::get($v['img']);
+			$indexSlide[$k]['img']=\Library\Thumb::getOrigImg($v['img']);
 		}
 
 		//获取统计数据
