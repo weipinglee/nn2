@@ -77,6 +77,7 @@ class IndexController extends PublicController {
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
 		$this->getView()->assign('newTrade',$newTrade);
+
 		$this->getView()->assign('offerData',$offerCateData);
 		$this->getView()->assign('order_num',$order_num['num']);
 		$this->getView()->assign('order_num_yes',$order_num_yes['num']);
