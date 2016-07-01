@@ -255,8 +255,8 @@ body{_padding-top:30px;}
                     <li><a href="#">求购</a></li>
                 </ul>
                 <div class="bodys">
-                    <p class="keyword_0"><input type="text" name="gong" onblur="if (this.value == '') {this.value = '高铝砖 乙醇 PP';}" onfocus="if (this.value == '高铝砖 乙醇 PP') {this.value = '';}" value="高铝砖 乙醇 PP" id=""  /><button class="one1" onclick="searchGoods(this)">搜索</button></p>
-                    <p class="keyword_1"><input type="text" name="qiu" onblur="if (this.value == '') {this.value = '乙醇 PP 高铝砖';}" onfocus="if (this.value == '乙醇 PP 高铝砖') {this.value = '';}"  value="乙醇 PP 高铝砖" id=""  /><button class="two2" onclick="searchGoods(this)">搜索</button></p>
+                    <p class="keyword_0"><input type="text" name="gong"  placeholder="高铝砖 乙醇 PP" value="" id=""  /><button class="one1" onclick="searchGoods(this)">搜索</button></p>
+                    <p class="keyword_1"><input type="text" name="qiu"  placeholder="高铝砖 乙醇 PP" value="" id=""  /><button class="two2" onclick="searchGoods(this)">搜索</button></p>
                 </div>
                 <script type="text/javascript">
                    function searchGoods(_this){
