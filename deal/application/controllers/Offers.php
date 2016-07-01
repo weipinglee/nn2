@@ -96,6 +96,9 @@ class OffersController extends PublicController {
 		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
 		//商品剩余数量
 
+		$pro = new \nainai\offer\product();
+		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
 		$this->getView()->assign('data',$info);
 
 	}
