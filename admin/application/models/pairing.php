@@ -85,6 +85,7 @@ class pairingModel{
 		}
 		$info['buyer'] = $user->where(array('id'=>$info['user_id']))->fields('username,mobile,email')->getObj();
 		$info['seller'] = $user->where(array('id'=>$info['seller_id']))->fields('username,mobile,email')->getObj();
+
 		return $info;
 	}
 

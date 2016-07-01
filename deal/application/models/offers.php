@@ -160,7 +160,7 @@ class offersModel extends \nainai\offer\product{
     public function offerDetail($id){
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id = pp.products_id";
-        $query->fields = "o.*,p.cate_id,p.name,pp.img,p.quantity,p.freeze,p.sell,p.unit, p.expire_time";
+        $query->fields = "o.*,p.cate_id,p.name,pp.img,p.quantity,p.freeze,p.sell,p.unit, o.expire_time";
         $query->where = 'o.id = :id';
         $query->bind = array('id'=>$id);
         $res = $query->getObj();
