@@ -155,12 +155,12 @@ class LoginController extends \Yaf\Controller_Abstract {
 			else if($password==''){
 				$data['errorCode'] = 2;
 			}
-			 else if($captcha==''){
-			 	$data['errorCode'] = 3;
-			 }
-			 else if(!$captchaObj->check($captcha)){//验证码是否正确
-			 	$data['errorCode'] = 4;
-			 }
+			 // else if($captcha==''){
+			 // 	$data['errorCode'] = 3;
+			 // }
+			 // else if(!$captchaObj->check($captcha)){//验证码是否正确
+			 // 	$data['errorCode'] = 4;
+			 // }
 			else{
 				$userModel = new UserModel();
 				$userData = $userModel->checkUser($account,$password);
@@ -173,8 +173,9 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 				}
 			}
-			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/ucenter/baseinfo');
 
+			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/ucenter/baseinfo');
+			// var_dump($data);exit;
 			echo JSON::encode($data);
 		}
 
