@@ -123,7 +123,7 @@
 	float: right;
 }
 .sub_item span a.A_more:hover{
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 /*焦点图*/
@@ -359,6 +359,9 @@
 	overflow: hidden;
 	text-overflow:ellipsis ;
 	white-space: nowrap;
+}
+.ShopPro_item span.ShopPro_text a{
+	text-decoration: none;
 }
 .ShopPro_item span.ShopPro_label{
 	height: 20px;
@@ -635,6 +638,7 @@
 	line-height: 21px;
 	text-align: center;
 	padding: 0 10px;
+	text-decoration: none;
 }
 .i_leftTit ul li.li_select a{
 	background: #c81623;
@@ -688,7 +692,7 @@
 	color: #c81623;
 }
 .i_leftTit span.i_more a:hover{
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 /*产品列表*/
@@ -840,6 +844,9 @@
 }
 .i_w_11{
 	width: 60px;
+}
+.i_w_11 a{
+	text-decoration: none;
 }
 .i_w_12{
 	width: 199px;

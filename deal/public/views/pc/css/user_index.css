@@ -1059,7 +1059,7 @@ line-height: 25px;
     border-bottom: 1px #999 dashed;
     line-height: 32px;
 }
-.user_zhxi .opera_suc h5 a:hover{color: #224abe; text-decoration:underline;}
+.user_zhxi .opera_suc h5 a:hover{color: #224abe; text-decoration:none;}
 .user_zhxi .opera_suc h5 a{ margin-right: 15px;}
 
 /* 申诉CSS */
@@ -1143,7 +1143,7 @@ line-height: 25px;
     font-family: 微软雅黑;
     font-weight: normal;
 }
-.user_zhxi .plaint_com .subclear a:hover{text-decoration: underline;}
+.user_zhxi .plaint_com .subclear a:hover{text-decoration: none;}
 /*报盘首页样式*/
 .offer{
   float: left;
