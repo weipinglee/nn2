@@ -19,13 +19,16 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 	public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
 		//RBAC权限控制
 		$user_info = session::get(tool::getConfig('rbac')['user_session']);
+
 		if((!isset($user_info) || !$user_info) && (strtolower($request->controller) != 'login')){
 			echo '<script type="text/javascript" >window.parent.location.href="'.url::createUrl("/login/login").'"</script>';
 			exit;
 			$response->setRedirect(url::createUrl("/login/login"));
 		}
 		$rbac = new rbac($request);
+
 		$auth = rbac::AccessDecision($request->module,$request->controller,$request->action);
+		
 		if($auth === false){
 			// if($request->isXmlHttpRequest())
 			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){

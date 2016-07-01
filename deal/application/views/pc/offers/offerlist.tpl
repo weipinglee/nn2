@@ -187,6 +187,7 @@
             </div>
         </div>
     {/if}
+    <!--
         <div class="pro_gg">
             <div class="gg_img">
                 <div class="gg_cen">
@@ -194,9 +195,10 @@
                     class="icon_type icon-search"></i><input class="sumit" type="submit" value="帮我找"/>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- 广告 end -->
         <!-- 温馨提示 -->
+
         <div class="pro_gg">
             <hr style="border:1px dashed #ccc;border-bottom:0;border-right:0;
             border-left:0;">
@@ -215,8 +217,8 @@
                            <!--<a href="" title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
                            <span><%=data[i].name%></span>
                        </li>
-                       <li><a class="cz_wz pro_img"><img src="{views:images/icon/icons_pic.png}" class="icon_img"></a></li>
-                       <li><% if(data[i].type == 1){ %><i class="red">供</i><% }else { %><i class="green">求</i> <%}%></li>
+                       <li><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>no_picture.jpg<% }else { %><%=data[i].img%> <%}%>" class="icon_img"></a></li>
+                       <li><% if(data[i].type == 1){ %><i class="green">供</i><% }else { %><i class="red">求</i> <%}%></li>
                        <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>--<%}%></li>
 
                        <li style="width:200px;"><%=data[i].produce_area%></li>

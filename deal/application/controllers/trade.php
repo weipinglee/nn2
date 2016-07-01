@@ -28,6 +28,7 @@ class tradeController extends \nainai\controller\Base {
 		$num = safe::filterPost('num');
 		$paytype = safe::filterPost('paytype');
 		$account = safe::filterPost('account');
+		$invoice = safe::filterPost('invoice');
 
 		$offer_type = $this->offer->offerType($id);
 
@@ -81,7 +82,8 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['user_id'] = $user_id;
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
-
+		//判断是否需要开具发票
+		$orderData['invoice'] = $invoice == 1 ? 1 : 0;
 		$order = new M('order_sell');
 		try {
 			$order->beginTrans();

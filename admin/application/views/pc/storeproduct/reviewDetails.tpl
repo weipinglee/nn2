@@ -77,8 +77,8 @@
                  <td>{$detail['status']}</td>
                  <th>是否打包:</th>
                  <td>     {if: $detail['package'] == 1}是{else:}否{/if}</td>
-                 <th></th>
-                 <td></td>
+                 <th>商品单价</th>
+                 <td>{$detail['price']}</td>
              </tr>
 
                  {if: $detail['package'] == 1}

@@ -102,9 +102,12 @@
              <tr>
                  <th>图片</th>
                  <td>
-                      {foreach: items=$info['photos'] item=$v}
-                                    <img src="{$v}">
-                                    {/foreah}
+
+                     {foreach:items=$info['photos']}
+                         <img src="{$item}"  />
+                     {/foreach}
+
+
                  </td>
                  <th>商品属性</th>
                  <td >

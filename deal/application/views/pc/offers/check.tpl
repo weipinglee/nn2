@@ -72,7 +72,11 @@
                              <a href="javascript:;"><div class="clear_word">
                                  <h5>{$data['name']}</h5>
                              </div></a>
-                             <span class="guige">90900*1000</span>
+                             <span class="guige">
+                                 {foreach:items=$data['attr_arr']}
+                                     {$key}:{$item}</br>
+                                 {/foreach}
+                             </span>
                              <span class="shulag">
                                 {if:$data['divide'] == 1}
                                     {$data['quantity']}
@@ -81,7 +85,7 @@
                                     <input type="text" name="num" value="{$data['minimum']}" width="20px" style="width:100px" />
                                 {/if}
                               </span>
-                             <span class="danwei">吨/千克</span>
+                             <span class="danwei">{$data['unit']}</span>
                              <span class="danjia"><b>￥</b>{$data['price']}</span>
                              <span class="jine"><i><b>￥</b><b class='prod_amount'>{$data['amount']}</b></i></span>
 
@@ -131,6 +135,21 @@
 
                  </span>
                  {/if}
+
+                 <span class="zhiffs">
+                    <b>是否开具发票</b>
+                    <h3 class="addwidth">
+
+                        <div class="yListr">
+
+                            <ul>
+                                <li><em  invoice='1'>开发票<i></i></em> <em invoice='2' class="yListrclickem">不开发票<i></i></em></li>
+                            </ul>
+                            <input type="hidden" name="invoice" value="2" />
+                        </div>
+                    </h3>
+
+                 </span>
                 <!-------------------------- -->
              
         
@@ -260,9 +279,11 @@
                     $(".yListr ul li em").click(function() {
                          paytype = $(this).attr('paytype');
                          var account = $(this).attr('account');
+                         var invoice = $(this).attr('invoice');
                          $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
                          $(this).parents('ul').siblings('input[name=paytype]').val(paytype);
                          $(this).parents('ul').siblings('input[name=account]').val(account);
+                         $(this).parents('ul').siblings('input[name=invoice]').val(invoice);
                          
                          if(paytype == 1){
                             //全款

@@ -92,9 +92,11 @@ class offersModel extends \nainai\offer\product{
      */
     public function getList($page,$condition = array(),$order=''){
         $query = new Query('product_offer as o');
-        $query->join = "left join products as p on o.product_id = p.id LEFT JOIN product_category as c ON p.cate_id=c.id";
-        $query->fields = "o.*,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,o.price,o.accept_area,p.produce_area,p.id as product_id, c.name as cname";
-        $where = 'o.status=:status and p.quantity>p.sell+p.freeze and o.expire_time > now()';
+        $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id=pp.products_id LEFT JOIN product_category as c ON p.cate_id=c.id ";
+        $query->fields = "o.*,pp.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname";
+        $query->group = 'o.id';
+        $where = 'o.status=:status and o.is_del = 0 and p.quantity>p.sell+p.freeze and o.expire_time > now()';
+
         $bind = array('status'=>self::OFFER_OK);
         //获取分类条件
         $childcates = array();
@@ -149,7 +151,7 @@ class offersModel extends \nainai\offer\product{
         $data = $query->find();
         foreach ($data as $key => &$value) {
             $value['mode_txt'] = $this->offerMode($value['mode']);
-            $value['img'] = empty($value['img']) ? 'no_picture.jpg' : $value['img'];//获取缩略图
+            $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
             $value['left'] = number_format(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']));
         }
         $pageBar =  $query->getPageBar();
@@ -167,7 +169,8 @@ class offersModel extends \nainai\offer\product{
     public function offerDetail($id){
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id = pp.products_id";
-        $query->fields = "o.*,p.cate_id,p.name,pp.img,p.quantity,p.freeze,p.sell,p.unit";
+        $query->fields = "o.*,p.cate_id,p.name,pp.img,p.quantity,p.freeze,p.sell,p.unit, o.expire_time";
+
         $query->where = 'o.id = :id';
         $query->bind = array('id'=>$id);
         $res = $query->getObj();
@@ -175,11 +178,8 @@ class offersModel extends \nainai\offer\product{
         if(!empty($res)){
             $res['mode_text'] = $this->offerMode($res['mode']);
 
-
             $res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
             $res['left'] = floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']);
-            
-
 
             if($res['divide']==self::UNDIVIDE)
                 $res['minimum'] = $res['quantity'];
@@ -212,8 +212,8 @@ class offersModel extends \nainai\offer\product{
             $parent = array();
             $obj = new M('product_category');
             $pid = $obj->where(array('id'=>$cate))->getField('pid');
-            if($pid==0)
-                $parent[] = $cate;
+
+            $parent[] = $cate;
             while($pid!=0){
                 $parent[] = $pid;
                 $pid = $obj->where(array('id'=>$pid))->getField('pid');

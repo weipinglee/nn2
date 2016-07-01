@@ -122,6 +122,7 @@ class OfferManageModel extends \nainai\offer\product{
 				$fund = \nainai\fund::createFund($offerData['acc_type']);
 				if($status==self::OFFER_OK){//通过扣费
 					$note = '扣除id为'.$id.'的自由报盘报盘费用';
+					
 					$res = $fund->freezePay($offerData['user_id'],0,floatval($offerData['offer_fee']),$note);
 				}
 				else{
@@ -129,7 +130,6 @@ class OfferManageModel extends \nainai\offer\product{
 					$res = $fund->freezeRelease($offerData['user_id'],floatval($offerData['offer_fee']),$note);
 				}
 			}
-
 			if($res===true){
 				$base = new baseModel($this->offer);
 				$base->where(array('id'=>$id))->update(array('status'=>$status));

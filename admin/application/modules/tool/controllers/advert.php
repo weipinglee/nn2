@@ -51,7 +51,7 @@ class advertController extends Yaf\Controller_Abstract{
                'order'=>safe::filterPost('order','int'),
                'start_time'=>safe::filterPost('start_time'),
                'end_time'=>safe::filterPost('end_time'),
-               'content'=>$content,
+               'content'=>tool::setImgApp($content),
                'description'=>safe::filterPost('description')
            );
            $res=$adObj->adManageAdd($date);
@@ -83,7 +83,7 @@ class advertController extends Yaf\Controller_Abstract{
                 'description'=>safe::filterPost('description')
             );
             if($content!=""){
-                $data['content']=$content;
+                $data['content']=tool::setImgApp($content);
             }
             $res=$adModel->adManageEdit($data);
             die(JSON::encode($res));

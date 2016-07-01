@@ -27,7 +27,7 @@
 				<th width="100">申述用户</th>
 				<th width="90">申述类型</th>
 				<th width="150">申述标题</th>
-				<th width="130">凭证图片</th>
+
 				<th width="130">申请时间</th>
 				<th width="130">状态</th>
 				<th width="100">操作</th>
@@ -41,13 +41,7 @@
 				<td>{$item['username']}</td>
 				<td>{$item['type']}</td>
 				<td>{$item['title']}</td>
-				<td>                                                                  <ul>
-				{if: !empty($item['proof'])}
-                                                                                                		{foreach: items=$item['proof']  item=$img}
-                                                                                                		<li><img src="{$img}"></li>
-                                                                                                		{/foreach}
-                                      {/if}
-                                                                                                		</ul></td>
+
 				<td>{$item['apply_time']}</td>
 				<td class="td-status">
 					{$item['status']}

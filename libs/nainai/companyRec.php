@@ -32,8 +32,8 @@ class companyRec{
     protected $recRules=array(
         array('user_id','number','用户id不能为空'),
         array('type','number','推荐类型不能为空'),
-          array('start_time','datetime','开始时间不能为空'),
-          array('end_time','datetime','结束时间不能为空')
+          array('start_time','date','开始时间不能为空'),
+          array('end_time','date','结束时间不能为空')
     );
     /**
      * 添加推荐

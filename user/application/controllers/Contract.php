@@ -68,9 +68,11 @@ class ContractController extends UcenterBaseController{
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id,'seller');
+		$invoice = $order->orderInvoiceInfo($info);
 		$info['complain'] = $order->canComplain($info);
 
 		$this->getView()->assign('info',$info);
+		$this->getView()->assign('invoice',$invoice);
 	}
 
 	//购买合同列表
@@ -95,9 +97,37 @@ class ContractController extends UcenterBaseController{
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id);
 		$info['complain'] = $order->canComplain($info);
+
 		$this->getView()->assign('info',$info);
 	}
+	//开具订单发票
+	public function geneOrderInvoiceAction(){
+		$user_invoice = new \nainai\user\UserInvoice();
 
+		$invoiceData['order_id'] = safe::filterPost('order_id','int');
+		$invoiceData['post_company'] = safe::filterPost('post_company');
+		$invoiceData['post_no'] = safe::filterPost('post_no');
+		$invoiceData['image'] = safe::filterPost('imgimage').'@user';
+		$invoiceData['create_time'] = date('Y-m-d H:i:s',time());
+		$res = $user_invoice->geneInvoice($invoiceData);
+		die(JSON::encode($res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,'开具发票失败')));
+	}
+
+	//合同详情
+	public function contractAction(){
+		$this->getView()->setLayout('');
+		$order = new \nainai\order\Order();
+		$product = new \nainai\offer\product();
+		$order_id = safe::filter($this->_request->getParam('order_id'));
+
+		$order_info = $order->contractDetail($order_id);
+		$product_cate = array_reverse($product->getParents($order_info['cate_id']));
+		foreach ($product_cate as $key => $value) {
+			$tmp .= $value['name'].'/';
+		}
+		$order_info['product_cate'] = rtrim($tmp,'/');
+		$this->getView()->assign('info',$order_info);
+	}
 
 	/**
 	 * 申述合同
@@ -116,12 +146,19 @@ class ContractController extends UcenterBaseController{
 				die(json::encode(tool::getSuccInfo(0,'无效的合同')));
 			}
 
+			$img = Safe::filterPost('imgData');
+			if(!empty($img)){
+				foreach($img as $k=>$v){
+					$img[$k] = tool::setImgApp($v);
+				}
+			}
+
 			$complainData = array(
 				'order_id' => $order_id ,
 				'user_id' => $this->user_id,
 				'title' => Safe::filterPost('title'),
 				'detail' => Safe::filterPost('content'),
-				'proof' => serialize(Safe::filterPost('imgData')),
+				'proof' => serialize($img),
 				'apply_time' => \Library\Time::getDateTime(),
 				'type' => ($this->user_id == Safe::filterPost('user_id', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
 				'status' => \nainai\order\OrderComplain::APPLYCOMPLAIN

@@ -22,7 +22,7 @@
 									<th>仓库</th>
 								</tr>
 								<tr>
-									<td><img src="../images/banner/551b861eNe1c401dc.jpg"/></td>
+									<td><img src="{$data['img']}"/></td>
 									<td>{$data['name']}</td>
 									<td>{$data['num']}{$data['unit']}</td>
 									<td>{$data['left']}{$data['unit']}</td>
@@ -42,7 +42,7 @@
 					                        <div>
 					                        
 					                        
-					                        <input name="expect_time" id="date_start" type="text" class="Wdate gyctht_input" value="2016-04-01">
+					                        <input name="expect_time" id="date_start" type="text" datatype="date" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});">
 						                        	
 						                        	记重方式：过磅  
 						                             <input type="hidden" id="weight_type" value="A">
@@ -55,19 +55,19 @@
 				                        		<label>提货人：</label>
 				                        		<div>
 				                        			<p>
-				                        				<b> ● </b>
+
 				                        				提货人：<span id="man"><input type="text" name="delivery_man"></span>
 				                        			</p>
 				                        			<p>
-				                        				<b> ● </b>
+
 				                        				联系电话：<span id="tel"><input type="text" name="phone"></span>
 				                        			</p>
 				                        			<p>
-				                        				<b> ● </b>
+
 				                        				身份证号码：<span id="code"><input type="text" name="idcard"/></span>
 				                        			</p>
 				                        			<p>
-				                        				<b> ● </b>
+
 				                        				车牌号：<input type="text" name="plate_number" placeholder="多个以逗号分隔"/>
 				                        			</p>
 				                        		</div>
