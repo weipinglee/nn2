@@ -212,8 +212,8 @@ class offersModel extends \nainai\offer\product{
             $parent = array();
             $obj = new M('product_category');
             $pid = $obj->where(array('id'=>$cate))->getField('pid');
-            if($pid==0)
-                $parent[] = $cate;
+
+            $parent[] = $cate;
             while($pid!=0){
                 $parent[] = $pid;
                 $pid = $obj->where(array('id'=>$pid))->getField('pid');
