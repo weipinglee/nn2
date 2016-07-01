@@ -81,7 +81,7 @@
                                     <input type="text" name="num" value="{$data['minimum']}" width="20px" style="width:100px" />
                                 {/if}
                               </span>
-                             <span class="danwei">吨/千克</span>
+                             <span class="danwei">{$data['unit']}</span>
                              <span class="danjia"><b>￥</b>{$data['price']}</span>
                              <span class="jine"><i><b>￥</b><b class='prod_amount'>{$data['amount']}</b></i></span>
 
