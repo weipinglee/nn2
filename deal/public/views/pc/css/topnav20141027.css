@@ -22,7 +22,7 @@ a:hover{text-decoration:none}
 /******登录******/
 .topnav_left{ float:left; width:220px; height:30px; position:relative; z-index:10}
 .topnav_left a{ color:#737373}
-.topnav_left .login_link{ float:left;position:relative}
+.topnav_left .login_link{ float:left;position:relative; line-height: 29px;}
 .topnav_left .login_link .topnav_login{ padding-left:15px; padding-right:15px}
 .topnav_left .login_link .topnav_login_in{ position:absolute;left:5px;top:0px;  width:420px; height:30px}
 .topnav_left .login_link .topnav_login_d{ background-color:#ececec; height:30px; text-align:center; line-height:30px; display:block; float:left}
@@ -33,7 +33,7 @@ a:hover{text-decoration:none}
 .topnav_left .login_link .login_box .btn_topnav_login{ background-color:#ff8500; border:none; color:#ffffff; width:55px; height:25px; line-height:25px}
 .topnav_left .login_link .login_box a{ color:#d78c3b; margin-right:20px;_margin-right:10px}
 
-.topnav_left .topnav_regsiter{ float:right; position:absolute;top:0px; width:100px; left:60px; padding-left:15px; padding-right:15px}
+.topnav_left .topnav_regsiter{ float:right; position:absolute;top:0px; width:100px; left:60px; padding-left:15px; padding-right:15px; line-height: 29px;}
 
 
 /******快捷导航******/
@@ -47,8 +47,8 @@ a:hover{text-decoration:none}
 .topnav_right ul li .topnav_phone{ background:url(../Images/icon/icon_phone18.gif) no-repeat left center; padding-left:15px; height:29px; float:left; width:80px}
 .topnav_right ul li .topnav_phone a{ color:#ff5500}
 .topnav_right ul li .topnav_phone a:hover{text-decoration:none;}
-.bg_topnav .top_app{margin-left: -94px; position: absolute; width: 100px;border:1px solid #f5f5f5;border-top:0;border-bottom:0;}
-.bg_topnav .top_app:hover{border:1px solid #ccc;border-top:0;background:#fff;}
+.bg_topnav .top_app{margin-left: -94px; position: absolute; /*width: 100px;*/border:1px solid #f5f5f5;border-top:0;border-bottom:0; line-height: 29px;}
+.bg_topnav .top_app:hover{border:1px solid #ccc;border-top:0;border-bottom:0;background:#fff;}
 .bg_topnav .top_app a{display:block;padding:0 5px;color:#ff5500;cursor:pointer;}
 .bg_topnav .top_app a{text-decoration:none;}
 .bg_topnav .top_app .top_a:hover{text-decoration:none !important;background:#f1f1f1;}
@@ -61,7 +61,7 @@ a:hover{text-decoration:none}
 .bg_topnav .popueButton b{ background:url(../Images/icon/icon_aorrow_down9.gif) no-repeat 1px 3px; padding:5px;}
 .bg_topnav .popueButton:hover{ cursor:pointer;}
 .bg_topnav .popueButton:hover b{ background:url(../Images/icon/icon_aorrow_down10.gif) no-repeat 1px 3px; padding:5px;}
-.bg_topnav .hover{border-left:1px solid #e1e1e1;border-right:2px solid #e1e1e1;height:30px; line-height:30px; background-color:#ffffff; cursor:pointer; width:72px;padding-left: 6px;}
+.bg_topnav .hover{border-left:1px solid #e1e1e1;border-right:2px solid #e1e1e1;height:30px; line-height:30px; background-color:#ffffff; cursor:pointer; width:72px;padding-left: 5px;}
 .bg_topnav .hover b{color:#ff8400;}
 .bg_topnav .popuePanel{display:none;text-align:left;position:absolute;background-color:#fff;z-index:10000;top:30px;_top:31px;right:0px;border-left:1px solid #e1e1e1;border-right:2px solid #e1e1e1;border-bottom:2px solid #e1e1e1; padding:10px;line-height:28px;color:#5a5a5a; letter-spacing:1px;color:#737373}
 .bg_topnav .popuePanel a{color:#737373; margin-right:5px}
