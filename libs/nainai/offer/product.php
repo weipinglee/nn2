@@ -452,7 +452,7 @@ class product {
                 $photos = $imgObj->fields('id, img')->where(array('products_id'=>$pid))->select();
 
                 foreach ($photos as $key => $value) {
-                    $photos[$key] = Thumb::get($value['img'],180,180);
+                    $photos[$key] = Thumb::getOrigImg($value['img']);
                 }
 
             }

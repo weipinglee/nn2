@@ -529,15 +529,19 @@
                                             <span class="i_w_11">
                                                 {if:$pro['quantity']-$pro['sell']-$pro['freeze']>0}
                                                     {if:$pro['type']==1}
-                                                    <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
-                                                        <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                                                        <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
-                                                    </a>
+                                                        <a href="{url:/offers/offerdetails?id=$pro['id']&pid=$pro['product_id']}">
+                                                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                        </a>
+                                                     <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
+                                                         <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
+                                                     </a>
                                                     {else:}
                                                         <a href="{url:/offers/report?id=$pro['id']}">
-                                                        <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                                                        <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
-                                                    </a>
+                                                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                        </a>
+                                                         <a href="{url:/offers/report?id=$pro['id']}">
+                                                              <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
+                                                        </a>
                                                     {/if}
                                                     {if:$pro['qq']!=''}
 
@@ -848,7 +852,7 @@
                                             </span>
                                             <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
                                             <span class="i_r_3">{if:$item['credit_money']>0}<img src="{views:images/rank_08.png}">{/if}</span>
-                                            <span class="i_r_4"><img src="{$item['icon']}"></span>
+                                            <span class="i_r_4"><img style="margin-bottom:5px;" src="{$item['icon']}"></span>
                                             <span class="i_r_5">{$item['credit']}</span>
                                         </li>
                                     {/foreach}

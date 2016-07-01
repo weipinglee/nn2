@@ -187,6 +187,7 @@
             </div>
         </div>
     {/if}
+    <!--
         <div class="pro_gg">
             <div class="gg_img">
                 <div class="gg_cen">
@@ -194,9 +195,10 @@
                     class="icon_type icon-search"></i><input class="sumit" type="submit" value="帮我找"/>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- 广告 end -->
         <!-- 温馨提示 -->
+
         <div class="pro_gg">
             <hr style="border:1px dashed #ccc;border-bottom:0;border-right:0;
             border-left:0;">
