@@ -23,6 +23,7 @@ class IndexController extends PublicController {
      */
 	public function indexAction() {
 
+		$this->getView()->assign('index',1);
 		//获取所有分类
 		$productModel=new product();
 		$res=$productModel->getAllCat();

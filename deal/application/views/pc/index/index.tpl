@@ -531,10 +531,12 @@
                                                     {if:$pro['type']==1}
                                                     <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
                                                         <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                        <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                                                     </a>
                                                     {else:}
                                                         <a href="{url:/offers/report?id=$pro['id']}">
                                                         <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                        <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                                                     </a>
                                                     {/if}
                                                     {if:$pro['qq']!=''}
@@ -712,7 +714,7 @@
                                             {set:$gap = $item['ave_price']- $item['prev_price']}
                                             {if:$gap>0}{set:$fuhao='+'}{else:}{set:$fuhao='-'}{/if}
                                             <span class="ShopPro_text"><a href="#">{$item['name']}</a></span>
-                                            <span class="ShopPro_change {if:$gap>0}i_TextRed{else:}i_TextGreen{/if}">{$fuhao}{echo:abs($item['ave_price']-$item['prev_price'])}</span>
+                                            <span style="margin-right:8px;" class="ShopPro_change {if:$gap>0}i_TextRed{else:}i_TextGreen{/if}">{$fuhao}{echo:abs($item['ave_price']-$item['prev_price'])}</span>
                                             <span class="ShopPro_price {if:$gap>0}i_TextRed{else:}i_TextGreen{/if}">￥{$item['ave_price']}</span>
                                         </div>
                                     {/foreach}
@@ -829,8 +831,23 @@
                                     </li>
                                     {foreach:items=$creditMember}
                                         <li class="rank_list">
-                                            <span class="i_r_1">{echo:$key+1}</span>
+                                            <span class="i_r_1">{if:$key==0}
+                                                    <img src="{views:images/rank_06.png}">
+
+                                                                {elseif:$key==1}
+                                                    <img src="{views:images/rank_13.png}">
+
+                                                                {elseif:$key==2}
+                                                    <img src="{views:images/rank_16.png}">
+
+                                                                {else:}
+                                                    {echo:$key+1}
+                                                                {/if}
+
+
+                                            </span>
                                             <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
+                                            <span class="i_r_3">{if:$item['credit_money']>0}<img src="{views:images/rank_08.png}">{/if}</span>
                                             <span class="i_r_4"><img src="{$item['icon']}"></span>
                                             <span class="i_r_5">{$item['credit']}</span>
                                         </li>

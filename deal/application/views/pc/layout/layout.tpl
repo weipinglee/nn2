@@ -280,9 +280,10 @@ body{_padding-top:30px;}
   
 
     <div id="index_nav">
-        <div class="page_width">   
+        <div class="page_width">
+            {if:isset($index)}
             <div class="all_steel">全部产品分类</div>
-
+            {/if}
             <ul class="nav n_nav">
                 <li class="current"><a href="{url:/index/index}">首页</a></li>
                 <li style="border-right:none;"><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
