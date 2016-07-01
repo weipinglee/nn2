@@ -87,79 +87,96 @@
                         </div>
                     </div>
             {/foreach}
+                    <div class="item item-sp" id="7">
+                        <div class="icon-nh7">&nbsp;</div>
+                        <h3>
+                            <p class="fenlei-h2">核心企业</p></h3>
+                        <div class="item-list clearfix" style="top: 0px; display: none;">
+                            <img src="{views:images/jsz.png}" width="700px" height="300px">
+                            <!--
+                            <div class="subitem">
+                                <dl class="fore1">
+                                    <dt><a href="#">电子书6</a></dt>
+                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
+                                </dl>
+                                <dl class="fore2">
+                                    <dt><a href="#">数字音乐</a></dt>
+                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
+                                </dl>
+                                <dl class="fore3">
+                                    <dt><a href="#">音像</a></dt>
+                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
+                                </dl>
+                                <dl class="fore4">
+                                    <dt>文艺</dt>
+                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
+                                </dl>
+                                <dl class="fore5">
+                                    <dt>人文社科</dt>
+                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
+                                </dl>
+                                <dl class="fore6">
+                                    <dt>经管励志</dt>
+                                    <dd><em><a href="#">经济</a></em><em><a href="#">金融与投资</a></em><em><a href="#">管理</a></em><em><a href="#">励志与成功</a></em></dd>
+                                </dl>
+                                <dl class="fore7">
+                                    <dt>生活</dt>
+                                    <dd><em><a href="#">家庭与育儿</a></em><em><a href="#">旅游/地图</a></em><em><a href="#">烹饪/美食</a></em><em><a href="#">时尚/美妆</a></em><em><a href="#">家居</a></em><em><a href="#">婚恋与两性</a></em><em><a href="#">娱乐/休闲</a></em><em><a href="#">健身与保健</a></em><em><a href="#">动漫/幽默</a></em><em><a href="#">体育/运动</a></em></dd>
+                                </dl>
+                                <dl class="fore8">
+                                    <dt>科技</dt>
+                                    <dd><em><a href="#">科普</a></em><em><a href="#">IT</a></em><em><a href="#">建筑</a></em><em><a href="#">医学</a></em><em><a href="#">工业技术</a></em><em><a href="#">电子/通信</a></em><em><a href="#">农林</a></em><em><a href="#">科学与自然</a></em></dd>
+                                </dl>
+                                <dl class="fore9">
+                                    <dt>少儿</dt>
+                                    <dd><em><a href="#">少儿</a></em><em><a href="#">0-2岁</a></em><em><a href="#">3-6岁</a></em><em><a href="#">7-10岁</a></em><em><a href="#">11-14岁</a></em></dd>
+                                </dl>
+                                <dl class="fore10">
+                                    <dt>教育</dt>
+                                    <dd><em><a href="#">教材教辅</a></em><em><a href="#">考试</a></em><em><a href="#">外语学习</a></em></dd>
+                                </dl>
+                                <dl class="fore11">
+                                    <dt>其它</dt>
+                                    <dd><em><a href="#">英文原版书</a></em><em><a href="#">港台图书</a></em><em><a href="#">工具书</a></em><em><a href="#">套装书</a></em><em><a href="#">杂志/期刊</a></em></dd>
+                                </dl>
+                            </div>
+                            <div class="cat-right">
+                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
+                                    <dd>
+                                        <ul>
+                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
+                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhVlJTyt8IAAAAAAAiq1D-0D8AAD7_gIE2KUAACLD102.jpg" width="194" height="70" title="重磅独家"></a></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
+                                    <dt>推荐品牌出版商</dt>
+                                    <dd>
+                                        <ul>
+                                            <li><a href="#" target="_blank">中华书局</a></li>
+                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
+                                            <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
+                                            <li><a href="#" target="_blank">电子工业出版社</a></li>
+                                            <li><a href="#" target="_blank">三联书店</a></li>
+                                            <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
+                                            <li><a href="#" target="_blank">人民文学出版社</a></li>
+                                            <li><a href="#" target="_blank">外语教学与研究出版社</a></li>
+                                            <li><a href="#" target="_blank">中信出版社</a></li>
+                                            <li><a href="#" target="_blank">化学工业出版社</a></li>
+                                            <li><a href="#" target="_blank">北京大学出版社</a></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>-->
+                        </div>
+                    </div>
                     <div class="item item-sp" id="9">
                         <div class="icon-nh9">&nbsp;</div>
                         <h3>
                             <p class="fenlei-h2">帮我找</p></h3>
                         <div class="item-list clearfix" style="top: 0px; display: none;">
 
-                            <!-- 帮我找找找找找找找找找找找 -->
-                            <link rel="stylesheet" href="{views:css/lanrenzhijia.css}" type="text/css">
-                            <script src="{views:js/lanrenzhijia.js}"></script>
-
-                            <div class="lanrenzhijia">
-                                <div class="title cf">
-                                    <ul class="title-list fl cf ">
-                                        <li class="on"><h2><img src="{views:images/icon/mod_tit_solgn_06.png}">&nbsp;找现货</h2></li>
-                                        <li><h2><img src="{views:images/icon/mod_tit_solgn_07.png}">&nbsp;找物流</h2></li>
-                                        <li><h2><img src="{views:images/icon/mod_tit_solgn_08.png}">&nbsp;找加工</h2></li>
-                                        <li><h2><img src="{views:images/icon/mod_tit_solgn_05.png}">&nbsp;找资金</h2></li>
-                                        <p><b></b></p>
-                                    </ul>
-                                </div>
-                                <div class="product-wrap">
-                                    <!--案例1-->
-                                    <div class="product show">
-                                        <div class="s_group">
-                                            <div class="s_item">
-                                                大类：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item">
-                                                品名：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item last_item">
-                                                交货地：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item">
-                                                规格：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item last_item">
-                                                材质：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item">
-                                                <a href="product.html" class="button">搜素</a>
-                                            </div>
-                                        </div>
-                                        <div class="div_choose">
-                                            <div class="div_Iam">
-                                                我是<label><input  name="rad_buy_role" type="radio" value="耐材生产商" checked>耐材生产商</label><label><input  name="rad_buy_role" type="radio" value="下游企业">下游企业</label>
-                                            </div>
-                                            <div class="div_phone">
-                                                <span>*</span>联系电话：<input name="txt_Buy_Phone" type="text" id="txt_Buy_Phone" class="txt_phone"><span>(必填)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--案例2-->
-                                    <div class="product">
-                                                  <div class="cf">
-                                                      <img src="images/jsz.png" width="700px" height="300px">
-                                                  </div>
-                                    </div>
-                                    <!--案例3-->
-                                    <div class="product">
-                                                  <div class="cf">
-                                                      <img src="images/jsz.png" width="700px" height="300px">
-                                                  </div>
-                                    </div>
-                                    <!--案例4-->
-                                    <div class="product">
-                                                  <div class="cf">
-                                                      <img src="images/jsz.png" width="700px" height="300px">
-                                                  </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <img src="{views:images/jsz.png}" width="700px" height="300px">
 
 
                         </div>
@@ -256,7 +273,7 @@
 
 
             <!-- 广告条 -->
-            <div class="ad_line">{echo: \Library\Ad::show("111")}</div>
+            <div class="ad_line">{echo: \Library\Ad::show("首页1")}</div>
             <!-- 广告条 结束 -->
 
             <!--最新数据 开始-->
