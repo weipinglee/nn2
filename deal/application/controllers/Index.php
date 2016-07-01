@@ -37,7 +37,6 @@ class IndexController extends PublicController {
 		foreach($indexSlide as $k=>$v){
 			$indexSlide[$k]['img']=\Library\Thumb::getOrigImg($v['img']);
 		}
-
 		//获取统计数据
 		$statcModel=new \nainai\statistics();
 		$statcCatList=$statcModel->getNewStatcList(1);
@@ -77,7 +76,6 @@ class IndexController extends PublicController {
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
 		$this->getView()->assign('newTrade',$newTrade);
-
 		$this->getView()->assign('offerData',$offerCateData);
 		$this->getView()->assign('order_num',$order_num['num']);
 		$this->getView()->assign('order_num_yes',$order_num_yes['num']);
