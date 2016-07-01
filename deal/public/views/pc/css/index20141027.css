@@ -4,7 +4,7 @@
 /*******************
 基本
 ********************/
-body{margin:0px;padding:0px; font-size:12px; font-family:Arial,"宋体","华文细黑"; color:#333333; background-color:#d8dedb; }
+body{margin:0px;padding:0px; font-size:12px; font-family:Arial,"宋体","华文细黑"; color:#333333; background-color:#ffffff; }
 body{behavior:url(css/csshover.htc);} 
 ol,ul,li{list-style:none;margin:0px;padding:0px;}
 img{vertical-align:top;border:0px}

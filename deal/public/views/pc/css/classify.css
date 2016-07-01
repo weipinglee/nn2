@@ -46,8 +46,8 @@ a:hover,a:active { text-decoration:underline; }
 .all-sort-list { position:relative; width:179px; border:1px solid #c81623; border-top:none; padding:0px; z-index: 3; background: #fff;}
 .all-sort-list .item { height:46px; width:179px;border-top:1px solid #eb4c3f; border-bottom: 1px solid #ba2e22;color: #fff;background:#c81623;}
 .all-sort-list .item-sp{background:#fb8901;}
-.all-sort-list .item .fenlei-h1{font-size: 18px; font-weight: normal;}
-.all-sort-list .item .fenlei-h2{font-size: 18px; font-weight: normal; line-height: 45px;}
+.all-sort-list .item .fenlei-h1{font-size: 16px; font-weight: normal;}
+.all-sort-list .item .fenlei-h2{font-size: 16px; font-weight: normal; line-height: 45px;}
 .all-sort-list  .item:hover{color:red;background:none;font-weight: bolder;}
 
 .all-sort-list .item .icon-nh1{width:43px;height: 46px;background: url(../Images/icon/icon_index_searchl.png) no-repeat 10px 12px;_background:none;float: left;}

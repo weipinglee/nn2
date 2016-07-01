@@ -172,7 +172,7 @@
 			<span></span>
           </div>
           <div class="cot">
-            <span class="cot_tit"><i>*</i>电话：</span>
+            <span class="cot_tit"><i>*</i>联系人电话：</span>
             <span><input class="text" type="text" name="contact_phone" datatype="m" errormsg="请填写联系人电话"/></span>
 			<span></span>
           </div>

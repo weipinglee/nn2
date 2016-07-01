@@ -371,7 +371,7 @@
                             <div class="i_proList {if:$i==0}show{/if}" id="offer{$key}">{set:$i=$i+1;}
                                 <div class="i_tuijian">
                                     <img src="" class="ad_img">
-<!--
+                                    <!--
                                     <ul class="tuijian">
                                         <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
                                         <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
@@ -441,7 +441,7 @@
                                                     {/if}
                                                     {if:$pro['qq']!=''}
 
-                                                    <a href="{$pro['qq']}"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                    <a href="tencent://message/?uin={$pro['qq']}&Site=qq&Menu=yes"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
                                                     </a>
                                                         {else:}
                                                         <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
@@ -532,8 +532,8 @@
                             {foreach: items=$statcCatList}
                             <div class="i_proList  i_proList_zhishu" id="statc{$key}">
                                 <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-                                    <div src="" class="zhishu_img"></div>
+                                    <div src="" class="zhishu_img"><img src="{views:images/zhex_2.jpg}"></div>
+                                    <div src="" class="zhishu_img"><img src="{views:images/zhex_2.jpg}"></div>
                                 </div>
                                 {foreach: items=$item key=$kk item=$vv}
                                 <ul style="width:200px;height:300px;float:left;">
@@ -731,9 +731,7 @@
                                     {foreach:items=$creditMember}
                                         <li class="rank_list">
                                             <span class="i_r_1">{echo:$key+1}</span>
-
                                             <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
-
                                             <span class="i_r_4"><img src="{$item['icon']}"></span>
                                             <span class="i_r_5">{$item['credit']}</span>
                                         </li>

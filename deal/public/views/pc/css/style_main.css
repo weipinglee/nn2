@@ -605,7 +605,7 @@
 }
 /*人民币市场*/
 .i_leftTit{
-	padding: 15px 25px 5px 25px;
+	padding: 15px 0px 5px 15px;
 	border-bottom: 2px solid #ccc;
 	height: 24px;
 	line-height: 24px;
@@ -736,8 +736,8 @@
 }
 .i_zhishu .zhishu_img{
 	width:280px;height: 143px;
-	margin:0 auto;display: block; 
-	margin-bottom: 10px;border:1px solid #aaa;
+	margin:5px auto;display: block; 
+	margin-bottom: 5px;
 }
 .i_leftCon .i_proList_zhishu{
 	width:890px;

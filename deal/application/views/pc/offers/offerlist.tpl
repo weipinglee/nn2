@@ -215,7 +215,7 @@
                            <!--<a href="" title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
                            <span><%=data[i].name%></span>
                        </li>
-                       <li><a class="cz_wz pro_img"><img src="images/icon/icons_pic.png" class="icon_img"></a></li>
+                       <li><a class="cz_wz pro_img"><img src="{views:images/icon/icons_pic.png}" class="icon_img"></a></li>
                        <li><% if(data[i].type == 1){ %><i class="red">供</i><% }else { %><i class="green">求</i> <%}%></li>
                        <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>--<%}%></li>
 
@@ -231,9 +231,9 @@
                            <div class="">
                                <div class="xd">
                                    <% if (data[i].type==1){ %>
-                                   <a href="{url:/Offers/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" class="cz_wz prod_xd">下单</a>//<i class="icon_color icon-angle-down"></i>
+                                   <a href="{url:/Offers/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" class="cz_wz prod_xd">下单</a>
                                     <% } else { %>
-                                   <a href="{url:/Offers/report}/id/<%=data[i].id%>" class="cz_wz prod_xd">报价</a>//<i class="icon_color icon-angle-down"></i>
+                                   <a href="{url:/Offers/report}/id/<%=data[i].id%>" class="cz_wz prod_xd">报价</a>
 
                                    <% }%>
                                </div>
