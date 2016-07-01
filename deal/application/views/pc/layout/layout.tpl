@@ -270,24 +270,18 @@ body{_padding-top:30px;}
                 </script>
             </div>  
             <div class="index_phone">
-                全国服务热线：<span>400-6738-086</span></div>
+                全国服务热线：<span>400-6238-086</span></div>
         </div>
     </div>
     <!------------------logo 结束-------------------->
     <!------------------导航 开始-------------------->
-
-
-
-
-
-  
 
     <div id="index_nav">
         <div class="page_width">
             {if:isset($index)}
             <div class="all_steel">全部产品分类</div>
             {/if}
-            <ul class="nav n_nav">
+            <ul class="nav n_nav" {if:!isset($index)}style="left:0" {/if}>
                 <li class="current"><a href="{url:/index/index}">首页</a></li>
                 <li style="border-right:none;"><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
            </ul>

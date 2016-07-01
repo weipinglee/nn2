@@ -852,7 +852,7 @@
                                             </span>
                                             <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
                                             <span class="i_r_3">{if:$item['credit_money']>0}<img src="{views:images/rank_08.png}">{/if}</span>
-                                            <span class="i_r_4"><img src="{$item['icon']}"></span>
+                                            <span class="i_r_4"><img style="margin-bottom:5px;" src="{$item['icon']}"></span>
                                             <span class="i_r_5">{$item['credit']}</span>
                                         </li>
                                     {/foreach}
