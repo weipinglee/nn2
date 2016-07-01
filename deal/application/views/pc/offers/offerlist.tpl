@@ -130,7 +130,7 @@
             <a href="javascript:void(0)" class="" id="Place">商品产地</a>
         </div>
         <!-- 商品产地筛选 -->
-        <div class="hit_point">
+        <div class="hit_point" style="text-align:left;">
             <ul>
                 <li>
                     <b>华北</b><a href="javascript:void(0)" title="0">不限</a><a href="javascript:void(0)" title="11">北京</a><a href="javascript:void(0)" title="12">天津</a><a href="javascript:void(0)" title="13">河北</a><a href="javascript:void(0)" title="14">山西</a><a

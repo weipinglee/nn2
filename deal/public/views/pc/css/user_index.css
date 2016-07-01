@@ -739,7 +739,13 @@ color: #fff;
 /*分页*/
 .page_num{
 	text-align: center;
+  width: 100%;
 }
+.pages_bar a, .page_num a.current_page {
+    background: #c91224;
+    color: #fff;
+}
+
 /* .page_num a:link, .page_num a:visited, .page_num a:active {
 padding: 2px 6px;
 border: #FFC3AC 1px solid;
