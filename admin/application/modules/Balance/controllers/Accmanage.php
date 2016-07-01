@@ -8,7 +8,8 @@ use Library\Query;
 use Library\Safe;
 use Library\json;
 
-class accManageController extends Yaf\Controller_Abstract {
+
+class AccmanageController extends Yaf\Controller_Abstract {
 
 	protected $account = '';
 	//会用账户列表

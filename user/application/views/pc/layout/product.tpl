@@ -99,8 +99,8 @@
         <td><span>*</span>是否可拆分：</td>
         <td>
             <select name="divide" id="divide">
-                <option value="0" selected >可以</option>
-                <option value="1" selected >不可以</option>
+                <option value="1" selected >是</option>
+                <option value="0" selected >否</option>
             </select>
         </td>
     </tr>

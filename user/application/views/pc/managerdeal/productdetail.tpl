@@ -55,8 +55,10 @@
                                 <td colspan="6">{$product['create_time']}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">产品数量</td>
-                                <td colspan="6"class="end_td">{$product['quantity']}（{$product['unit']}）</td>
+
+                                <td colspan="2">产品数量(单位)</td>
+                                <td colspan="6" class="end_td">{$product['quantity']}（{$product['unit']}）</td>
+
                             </tr>
                             <tr>
                                 <td class="spmx_title" colspan="8">报盘详情</td>
@@ -91,8 +93,13 @@
                                 <td colspan="6">{if:$offer['divide'] == 0}是{else:}否{/if}</td>
                             </tr>
                             <tr>
+<<<<<<< HEAD
                                 <td colspan="2">报盘数量</td>
                                 <td colspan="6">{$product['quantity']}</td>
+=======
+                                <td colspan="2">报盘数量(单位)</td>
+                                <td colspan="6">{set: echo round($product['quantity'], 2)}({$product['unit']})</td>
+>>>>>>> ee00b7371039bf798269231eb058665f46f59dc9
                             </tr>
                            <tr>
                                <td colspan="2">单位</td>
@@ -114,6 +121,10 @@
                                <td colspan="2">交收时间</td>
                                <td colspan="6">T+{$offer['accept_day']}天</td>
                            </tr>
+                            <tr>
+                                <td colspan="2">交货时间</td>
+                                <td colspan="6">T + {$offer['accept_day']}天</td>
+                            </tr>
                             <tr>
                                 <td colspan="2">产品描述</td>
                                 <td colspan="6">{$product['note']}</td>

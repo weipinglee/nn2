@@ -53,7 +53,7 @@
                                 <td></td>
                                 <td>
                                     <span>
-                                        <div>请您下载<a href="{root:down/耐耐网自由报盘委托协议书.docx}" style="color:#1852ca;font-size:14px;">《耐耐网自由报盘委托协议书》</a>，并签字扫描上传
+                                        <div>请您下载<a href="{url:/oper/down}?{set:echo http_build_query(array('name' => '耐耐网自由报盘委托协议书.docx'))}" style="color:#1852ca;font-size:14px;">《耐耐网自由报盘委托协议书》</a>，并签字扫描上传
                                          </div>
                                        <div class="zhxi_con">
 
