@@ -108,7 +108,7 @@
                     {$key}:{$item}</br>
                {/foreach}
            </span>
-           <span class="danjia">￥<b>{set: echo str_replace(',', '-', $offer['price'])}</b><span> 元</span></span>
+           <span class="danjia">￥<b>{$offer['price_l']}-{$offer['price_r']}</b><span> 元</span></span>
            <span class="jine"><i>{$product['quantity']} </i></span>
            <span class="danwei">{$product['unit']}</span>
 

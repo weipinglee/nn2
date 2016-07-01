@@ -121,7 +121,7 @@ class PurchaseOffer extends product {
 	{
 		$query = new M('product_offer');
 		$where = array('id' => $id, 'type' => self::PURCHASE_OFFER, 'status' => self::OFFER_OK);
-
+		$where['_string'] = 'now() < expire_time';
 		$offerData = $query->where($where)->getObj();
 		if (empty($offerData)) {
 			return array();

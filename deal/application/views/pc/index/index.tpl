@@ -578,31 +578,32 @@
                             </div>
                             {/foreach}
 
-                            <!--明星点评-->
-                            <div class="i_recommend clearfix" style="margin:20px 0 0 15px;">
 
-                                <div class="i_star">
-                                    <div class="i_starLeft">
-                                        <span class="i_starImg"><img alt="行情分析" src="{views:images/main_file/20150421104605162_03.png}"></span>
-                                        <span>&nbsp;&nbsp;&nbsp;行情分析</span>
-                                    </div>
-                                    <div class="i_starCon">
-                                        <ul>
-                                            <li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9522.html">- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-9-9507.html">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9504.html">- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
-                                        </ul>
-                                    </div>
+
+                        </div>
+                        <!--明星点评-->
+                        <div class="i_recommend clearfix" style="margin:20px 0 0 15px;">
+
+                            <div class="i_star">
+                                <div class="i_starLeft">
+                                    <span class="i_starImg"><img alt="行情分析" src="{views:images/main_file/20150421104605162_03.png}"></span>
+                                    <span>&nbsp;&nbsp;&nbsp;行情分析</span>
                                 </div>
-
-                                <div class="i_Rlist">
-                                    <div class="iConTitle">化工原料供应商</div>
+                                <div class="i_starCon">
                                     <ul>
-
-                                        <li>{echo: \Library\Ad::show('化工1')}</li>
-
-
+                                        <li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9522.html">- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-9-9507.html">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9504.html">- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
                                     </ul>
                                 </div>
+                            </div>
 
+                            <div class="i_Rlist">
+                                <div class="iConTitle">化工原料供应商</div>
+                                <ul>
+
+                                    <li>{echo: \Library\Ad::show('化工1')}</li>
+
+
+                                </ul>
                             </div>
 
                         </div>
