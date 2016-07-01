@@ -647,7 +647,8 @@ class Order{
 						//将订单款 减去扣减款项 后的60%支付给卖方
 						$reduce_amount = floatval($order['reduce_amount']); 
 
-						$amount = ($order['amount'] - $reduce_amount) * 0.6;
+						$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.6);
+
 						$acc_res = $this->account->freezePay($buyer,$seller,floatval($amount));
 						if($acc_res === true){
 							$log_res = $this->payLog($order_id,$user_id,0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
@@ -709,7 +710,7 @@ class Order{
 						if($accf_res === true){
 							//支付剩余货款 减去扣减款项 后的40%
 							$reduce_amount = floatval($order['reduce_amount']); 
-							$amount = ($order['amount'] - $reduce_amount) * 0.4;
+							$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.4);
 							$accp_res = $this->account->freezePay($buyer,$seller,floatval($amount));
 							if($accp_res === true){
 								//若$reduce_amount 大于0 则将此扣减项返还买方账户
