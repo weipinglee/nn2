@@ -122,7 +122,7 @@ body{_padding-top:30px;}
         <div class="topnav_left">
             {if:$login==0}
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="{url:/login/login@user}" target="_blank" class="topnav_login">登录</a>
+                <a rel="external nofollow" href="{url:/login/login@user}?callback=http://{url:public/index/index@deal}" target="_blank" class="topnav_login">登录</a>
                 <!--<div class="login_box" id="login_boxMain" style="display: none;">
                     <input name="gtxh_LoginMobile" type="text" id="gtxh_LoginMobile" class="txt_topnav" value="手机号码" maxlength="11">
                     <br>
@@ -373,7 +373,7 @@ body{_padding-top:30px;}
 <!-- 页面侧边栏 -->
 <div id="fixed">
     <dl>
-        <dd><a href="{url:/ucenterindex/index@user}" class="web">个人中心</a></dd>
+        <dd><a href="{url:/ucenterindex/index@user}" target="_blank" class="web">个人中心</a></dd>
         <dd><a href="" class="mb">在线客服</a></dd>
         <dd><a href="" target="_blank" class="dj">常见问题</a></dd>
         <dd><a href="" target="_blank" class="mh">用户反馈</a></dd>

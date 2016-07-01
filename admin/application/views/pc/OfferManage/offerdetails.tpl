@@ -1,6 +1,6 @@
 
         <!--            
-              CONTENT 
+              CONTENT
                         --> 
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" />报盘管理

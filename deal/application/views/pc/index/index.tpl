@@ -546,8 +546,8 @@
                             {foreach: items=$statcCatList}
                             <div class="i_proList  i_proList_zhishu" id="statc{$key}">
                                 <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"><img src="{views:images/zhex_2.jpg}"></div>
-                                    <div src="" class="zhishu_img"><img src="{views:images/zhex_2.jpg}"></div>
+                                    <div src="" class="zhishu_img"><img src="{views:images/zhex_2.jpg}" width="280px" height="143px"></div>
+                                    <div src="" class="zhishu_img"><img src="{views:images/zhex_2.jpg}" width="280px" height="143px"></div>
                                 </div>
                                 {foreach: items=$item key=$kk item=$vv}
                                 <ul style="width:200px;height:300px;float:left;">
