@@ -80,6 +80,7 @@ class OffersController extends PublicController {
 	public function checkAction(){
 
 		$id = safe::filter($this->_request->getParam('id'),'int',1);
+
 		$info = $this->offer->offerDetail($id);
 		if(empty($info)){
 			$this->error('报盘不存在或未通过审核');
@@ -91,7 +92,6 @@ class OffersController extends PublicController {
 		$order_mode = new Order($info['mode']);
 		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
 		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));
-
 
 		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
 		//商品剩余数量
