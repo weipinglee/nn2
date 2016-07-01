@@ -48,7 +48,7 @@ a:hover{text-decoration:none}
 .topnav_right ul li .topnav_phone a{ color:#ff5500}
 .topnav_right ul li .topnav_phone a:hover{text-decoration:none;}
 .bg_topnav .top_app{margin-left: -94px; position: absolute; width: 100px; border:1px solid #f5f5f5;border-top:0;border-bottom:0; line-height: 29px;}
-.bg_topnav .top_app:hover{border:1px solid #ccc;border-top:0;border-bottom:0;background:#fff;}
+.bg_topnav .top_app:hover{border:1px solid #ccc;border-top:0;border-bottom:0;background:#fff; line-height: 29px;}
 .bg_topnav .top_app a{display:block;padding:0 5px;color:#ff5500;cursor:pointer;}
 .bg_topnav .top_app a{text-decoration:none;}
 .bg_topnav .top_app .top_a:hover{text-decoration:none !important;background:#f1f1f1;}
