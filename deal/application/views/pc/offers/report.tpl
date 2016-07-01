@@ -1,6 +1,3 @@
-<script type="text/javascript" src="{views:js/area/Area.js}" ></script>
-     <script type="text/javascript" src="{views:js/area/AreaData_min.js}" ></script>
-
 
      <link rel="stylesheet" href="{views:css/submit_baojia.css}">
     <!------------------导航 开始-------------------->
