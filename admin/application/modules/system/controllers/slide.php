@@ -66,7 +66,8 @@ class slideController extends Yaf\Controller_Abstract{
             $date['id']=safe::filterPost('id','int');
             $date['name']=safe::filterPost('name');
             $date['order']=safe::filterPost('order','int');
-            $date['img']=safe::filterPost('imgfile2');
+            $img=safe::filterPost('imgfile2');
+            $date['img']=\Library\tool::setImgApp($img);
             $date['status']=safe::filterPost('status','int');
             $res=$this->slideModel->editSlide($date);
             die(json::encode($res));

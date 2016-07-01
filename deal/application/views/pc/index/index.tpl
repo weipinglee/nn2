@@ -368,27 +368,41 @@
 
                         <div class="i_leftCon" id="offer_list">{set:$i=0}
                         {foreach:items=$offerData}
-                            <div class="i_proList {if:$i==0}show{/if}" id="offer{$key}">{set:$i=$i+1;}
-                                <div class="i_tuijian">
-                                    <img src="" class="ad_img">
-                                    <!--
-                                    <ul class="tuijian">
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                    </ul>
 
+                            <div class="i_proList {if:$i==0}show{/if}" id="offer{$key}">
+                                <div class="i_tuijian" >
+                                    {foreach:items=$topCat key=$catKey item=$cat}
+                                        {if:$cat['id']==$key}
+                                            <div id="offerAd{$key}">{echo: \Library\Ad::show($cat['name'])}</div>
+                                        {/if}
+                                    {/foreach}
+
+                                    {foreach:items=$catList key=$kk item=$vv}
+                                        {if:$vv['id']==$key}
+
+
+                                        <ul class="tuijian">
+                                            {foreach:items=$vv['nested'] key=$kkk item=$vvv}
+                                                {if:$kkk<=3}
+                                        <li class="tuijian_1_1">  · <a href="{url:/offers/offerlist?cate=$vvv['id']}">{$vvv['name']}</a></li>
+                                                {/if}
+                                            {/foreach }
+
+                                    </ul>
+                                        {/if}
+                                    {/foreach}
+                                    {foreach: items=$catList key=$kk item=$vv}
+                                        {if:$vv['id']==$key}
                                     <ul class="tuijian">
-                                        <li class="tuijian_2_1">甲醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">乙醇</li>
-                                        <li class="tuijian_2_1">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">甲醇</li>
-                                        <li class="tuijian_2_1">乙醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                    </ul>-->
+                                        {foreach: items=$vv['nested'] key=$kkk item=$vvv}
+                                            {if:$kkk>3&&$kkk<=7}
+                                        <li class="tuijian_2_1"><a href="{url:/offers/offerlist?cate=$vvv['id']}">{echo:mb_substr($vvv['name'],0,2,'utf-8')}</a></li>
+                                            {/if}
+                                       {/foreach}
+                                    </ul>
+                                        {/if}
+                                    {/foreach}
+                                    {set:$i=$i+1;}
                                 </div>
                                 <ul>
                                     <li class="i_ListTit">
@@ -847,6 +861,7 @@
             obj.addClass('li_select');
             $('[id^=offer]').removeClass('show');
             $('#offer'+id).addClass('show');
+
         }
     </script>
 
