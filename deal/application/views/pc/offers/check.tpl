@@ -72,7 +72,11 @@
                              <a href="javascript:;"><div class="clear_word">
                                  <h5>{$data['name']}</h5>
                              </div></a>
-                             <span class="guige">90900*1000</span>
+                             <span class="guige">
+                                 {foreach:items=$data['attr_arr']}
+                                     {$key}:{$item}</br>
+                                 {/foreach}
+                             </span>
                              <span class="shulag">
                                 {if:$data['divide'] == 1}
                                     {$data['quantity']}
