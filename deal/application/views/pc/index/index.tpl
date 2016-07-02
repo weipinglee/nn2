@@ -536,7 +536,7 @@
                                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                                                      </a>
                                                     {else:}
-                                                        <a href="{url:/offers/report?id=$pro['id']}">
+                                                        <a href="{url:/offers/purchasedetails?id=$pro['id']}">
                                                             <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                                                         </a>
                                                          <a href="{url:/offers/report?id=$pro['id']}">
@@ -852,7 +852,7 @@
                                             </span>
                                             <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
                                             <span class="i_r_3">{if:$item['credit_money']>0}<img src="{views:images/rank_08.png}">{/if}</span>
-                                            <span class="i_r_4"><img style="margin-bottom:5px;" src="{$item['icon']}"></span>
+                                            <span class="i_r_4"><img style="margin-top: -17px;" src="{$item['icon']}"></span>
                                             <span class="i_r_5">{$item['credit']}</span>
                                         </li>
                                     {/foreach}

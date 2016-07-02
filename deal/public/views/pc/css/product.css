@@ -179,6 +179,18 @@ text-align: right;
 	color: #333;
 	position: relative;
 }
+.pro_main .pro_sort .sort_list a:hover{
+	float: left;
+	padding: 0 15px;
+	height: 23px;
+	border: 1px solid #CCC;
+	line-height: 23px;
+	padding-left: 10px;
+	background: #FFF;
+	color: #333;
+	position: relative;
+	text-decoration: none;
+}
 .pro_main .pro_sort .sort_list a.curr{
 	background-color: #e4393c;
 	color: #fff;

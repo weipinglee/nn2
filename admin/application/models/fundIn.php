@@ -112,7 +112,7 @@ class fundInModel{
         $reModel->where = 'pay_type = '.self::OFFLINE.'  AND is_del = 0';
         $reModel->page = $page;
         $offlineInfo = $reModel->find();
-        d($offlineInfo);exit();
+     
         $reBar = $reModel->getPageBar();
         return array($offlineInfo,$reBar);
     }

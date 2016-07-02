@@ -135,7 +135,7 @@
                     </table>
 
                     <h5 class="tit"><i><img src="{views:images/pro_show_04.jpg}"></i><span>质量标准</span></h5>
-                    <table>
+                    <table style="width:100%;">
 
                         <tr>
                             <td>质量标准</td>
