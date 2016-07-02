@@ -208,8 +208,8 @@
                             <ul>
                                 <li><a href="{url:balance/accManage/userAccList}" target="content">会员账户</a></li>
 
-                               <!-- <li><a href="{url:balance/accManage/userCreditList}" target="content">信誉保证金账户</a></li>
--->
+                                <li><a href="{url:balance/accManage/userCreditList}" target="content">信誉保证金账户</a></li>
+
                             </ul>
                         </li>
                     </ul>
