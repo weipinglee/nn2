@@ -60,7 +60,7 @@ function getCategory(cond){
     $.ajax({
         'url' :  attr_url,
         'type' : 'post',
-        'async':false,
+        'async':true,
         'data' : {pid : cate_id, type:offertype, mode:mode,sort:sort,page:page,area:area,search:search},
         'dataType': 'json',
         success:function(data){//alert(JSON.stringify(data));
