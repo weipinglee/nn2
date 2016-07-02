@@ -231,13 +231,21 @@
                        </li>
                        <li class="but_left">
                            <div class="">
-                               <div class="xd">
+                               <div >
                                    <% if (data[i].type==1){ %>
-                                   <a href="{url:/Offers/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" class="cz_wz prod_xd">下单</a>
+								    
+                                   <a href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+								   <a href="{url:/Offers/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
                                     <% } else { %>
-                                   <a href="{url:/Offers/report}/id/<%=data[i].id%>" class="cz_wz prod_xd">报价</a>
+									<a href="{url:/Offers/purchaseDetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+								   <a href="{url:/Offers/report}/id/<%=data[i].id%>" ><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="报价"/></a>
+                                 
 
                                    <% }%>
+								    <% if (data[i].qq){ %>
+								   <a href="tencent://message/?uin=<%=data[i].qq%>&Site=qq&Menu=yes"><img style="vertical-align:middle;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                   </a>
+								     <% }%>
                                </div>
                                <ul>
                                    <li class="sele"><a class="cz_wz pro_img">图片</a></li>
