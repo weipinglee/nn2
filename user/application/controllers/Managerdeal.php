@@ -80,7 +80,7 @@ class ManagerDealController extends UcenterBaseController {
 
         $attr = $productModel->getProductAttr($category['chain']);
         //上传图片插件
-        $plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
+        $plupload = new \Library\swfupload();
 
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('plupload',$plupload->show());

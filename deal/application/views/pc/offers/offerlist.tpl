@@ -232,6 +232,7 @@
                        <li class="but_left">
                            <div class="">
                                <div >
+                               <% if (data[i].jiao==0){ %>
                                    <% if (data[i].type==1){ %>
 								    
                                    <a href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
@@ -246,6 +247,9 @@
 								   <a href="tencent://message/?uin=<%=data[i].qq%>&Site=qq&Menu=yes"><img style="vertical-align:middle;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
                                    </a>
 								     <% }%>
+                                   <% } else { %>
+                                   <img style="vertical-align:middle;" src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
+                                   <% }%>
                                </div>
                                <ul>
                                    <li class="sele"><a class="cz_wz pro_img">图片</a></li>
