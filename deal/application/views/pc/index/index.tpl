@@ -798,7 +798,8 @@
 
                                     {foreach: items=$item[3] key=$k item=$v}
                                     <ul>
-                                        <li class="i_regionTit" id="area">{areatext:data=14 id=area delimiter=地区}<span style="display: none"></span></li>
+                                        {set:$area_id='area'.$k;}
+                                        <li class="i_regionTit" id="area{$k}">{areatext:data=$k id=area_id delimiter=地区}<span style="display: none"></span></li>
                                         <li class="i_regionTit2">推荐商家</li>
                                         <?php foreach($v as $kk=>$vv){ ?>
                                         <li><a href="">- {$vv['company_name']}</a></li><?php }  ?>
