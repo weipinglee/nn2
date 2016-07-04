@@ -42,6 +42,7 @@ class Order{
 	protected $products;//商品表
 	protected $paylog;//日志
 	protected $mess;//消息表
+	protected $user_invoice;//用户发票类
 
 	/**
 	 * 规则
@@ -65,6 +66,7 @@ class Order{
 		$this->products = new M('products');
 		$this->paylog = new M('pay_log');
 		$this->account = new \nainai\fund\agentAccount();
+		$this->user_invoice = new \nainai\user\UserInvoice();
 	}	
 
 	/**
@@ -645,7 +647,8 @@ class Order{
 						//将订单款 减去扣减款项 后的60%支付给卖方
 						$reduce_amount = floatval($order['reduce_amount']); 
 
-						$amount = ($order['amount'] - $reduce_amount) * 0.6;
+						$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.6);
+
 						$acc_res = $this->account->freezePay($buyer,$seller,floatval($amount));
 						if($acc_res === true){
 							$log_res = $this->payLog($order_id,$user_id,0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
@@ -707,7 +710,7 @@ class Order{
 						if($accf_res === true){
 							//支付剩余货款 减去扣减款项 后的40%
 							$reduce_amount = floatval($order['reduce_amount']); 
-							$amount = ($order['amount'] - $reduce_amount) * 0.4;
+							$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.4);
 							$accp_res = $this->account->freezePay($buyer,$seller,floatval($amount));
 							if($accp_res === true){
 								//若$reduce_amount 大于0 则将此扣减项返还买方账户
@@ -821,10 +824,11 @@ class Order{
 	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id';
-		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,pc.name as cate_name,po.user_id as seller_id';
+		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,p.cate_id,p.produce_area,pc.name as cate_name,po.user_id as seller_id';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();
+		// var_dump($res);exit;
 		if($res['mode'] == self::ORDER_STORE){
 			$query = new Query('store_list as s');
 			$query->join = 'left join store_products as sp on s.id = sp.store_id';
@@ -849,6 +853,23 @@ class Order{
 		$res[0]['pay_log'] = $this->paylog->where(array('order_id'=>$id))->fields('remark,create_time')->order('create_time asc')->select();
 
 		return $res[0];
+	}
+
+	/**
+	 * 获取订单对应的发票信息
+	 * @param  array $orderInfo 订单信息数组
+	 * @return array 发票信息数组
+	 */
+	public function orderInvoiceInfo($orderInfo){
+		if($orderInfo['invoice'] == 1){
+			$offerInfo = $this->offerInfo($orderInfo['offer_id']);
+			$seller = $offerInfo['type'] == 1 ? $offerInfo['user_id'] : $orderInfo['user_id'];
+			$invoice_info = $this->user_invoice->userInvoiceInfo($seller);
+			$invoice_info['order_invoice'] = $this->user_invoice->orderInvoiceInfo($orderInfo['id']);
+			return $invoice_info;
+		}else{
+			return array();
+		}
 	}
 
 	/**
