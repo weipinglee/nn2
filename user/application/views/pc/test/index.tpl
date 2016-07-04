@@ -89,10 +89,16 @@
         });
 
         // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-        uploader.on( 'uploadSuccess', function( file ,resporse) {
-
+        uploader.on( 'uploadSuccess', function( file ,response) {
             $( '#'+file.id).find('.progress').remove();
-            $( '#'+file.id).find('.res').css('display','block').addClass('success');
+            if(response && response.flag==1){
+                $( '#'+file.id).append('<input type="hidden" name="imgData[]" value="'+response.img+'" />');
+                $( '#'+file.id).find('.res').css('display','block').addClass('success');
+            }
+            else{
+                $( '#'+file.id).find('.res').css('display','block').addClass('error').text('上传失败');
+            }
+
         });
 
         // 文件上传失败，显示上传出错。

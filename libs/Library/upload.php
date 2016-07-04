@@ -46,7 +46,7 @@ class Upload
     	$iniMaxSize    = $this->getIniPostMaxSize();
     	$uploadMaxSize = $size << 10;
     	$this->maxsize = ($uploadMaxSize <= $iniMaxSize) ? $uploadMaxSize : $iniMaxSize;
-    }
+	}
     /**
      * @brief 设置上传文件存放目录
      * @param String $dir 文件存放目录
