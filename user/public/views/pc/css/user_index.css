@@ -373,9 +373,16 @@ div.zhxi_con.font_set span i.bold{
   margin-left: 0px;
 }
 .zj_a{
-    padding: 8px 20px;
-    margin: 0 10px;
+    margin: 10px 10px;
     color: #fff;
+    display: inline-block;
+    width: 64px;
+    height: 31px;
+    line-height: 31px;
+    text-align: center;
+}
+.rz_an_index{
+    float: right;
 }
 /*充值按钮*/
 .cz{
