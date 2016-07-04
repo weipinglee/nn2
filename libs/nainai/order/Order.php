@@ -851,8 +851,39 @@ class Order{
 			$res[0]['userinfo'] = $this->contractUserInfo($user_id);
 		}
 		$res[0]['pay_log'] = $this->paylog->where(array('order_id'=>$id))->fields('remark,create_time')->order('create_time asc')->select();
-
+		$res[0]['delivery_status'] = $this->deliveryStatus($id);
 		return $res[0];
+	}
+
+	/**
+	 * 获取某一订单当前提货配送状态
+	 * @param  int $order_id 订单id
+	 * @return string  状态文字
+	 */
+	public function deliveryStatus($order_id){
+		$delivery = new \nainai\delivery\Delivery();
+		$query = new Query('order_sell as o');
+		$query->join = 'left join product_delivery as pd on o.id = pd.order_id';
+		$query->where = 'o.id = :id';
+		$query->bind = array('id'=>$order_id);
+		$query->fields = 'pd.status';
+		$res = $query->find();
+
+		$status_txt = '未提货';
+		foreach ($res as $key => $value) {
+			switch ($value['status']) {
+				case $delivery::DELIVERY_AGAIN:
+					$status_txt = '提货中';
+					break;
+				case $delivery::DELIVERY_COMPLETE:
+					$status_txt = '提货完成';
+					break;
+				default:
+					break;
+			}
+		}
+
+		return $status_txt;
 	}
 
 	/**
