@@ -286,6 +286,7 @@ body{_padding-top:30px;}
             <ul class="nav n_nav">
                 <li class="current"><a href="{url:/index/index}">首页</a></li>
                 <li><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
+                <li><a href="{url:/Shop/shopinfo}" >企业简介</a></li>
            </ul>
         </div>
     </div>
