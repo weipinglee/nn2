@@ -1,5 +1,3 @@
-
-
 <script type="text/javascript" src="{root:/js/webuploader/webuploader.js}"></script>
 <script type="text/javascript" src="{root:/js/webuploader/upload.js}"></script>
 <link href="{root:/js/webuploader/webuploader.css}" rel="stylesheet" type="text/css" />
@@ -14,8 +12,7 @@
     </ul>
     <div class="btns">
 
-
-        <div id="picker">选择文件</div>
+        <div id="picker" style="line-height:15px;">选择文件</div>
         <div class="totalprogress" style="display:none;">
             <span class="text">0%</span>
             <span class="percentage"></span>

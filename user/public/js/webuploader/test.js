@@ -1,5 +1,5 @@
 /**
- * Created by lenovo on 2016/7/3.
+ * Created by Administrator on 2016/7/4 0004.
  */
 jQuery(function() {
     var $ = jQuery,    // just in case. Make sure it's not an other libaray.
