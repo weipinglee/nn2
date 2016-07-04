@@ -417,7 +417,9 @@ class product {
             }
         }
         //获取图片
-        $detail['photos'] = $this->getProductPhoto($product_id);
+        $photos = $this->getProductPhoto($product_id);
+        $detail['photos'] = $photos[1];
+        $detail['origphotos'] = $photos[0];
         return $detail;
 
     }
@@ -443,21 +445,22 @@ class product {
         /**
          * 根据产品id获取图片
          * @param  [type] $pid [description]
-         * @return [type]      [description]
+         * @return [type]      [description] 第一个原图，第二个缩略
          */
         public function getProductPhoto($pid = 0){
             $photos = array();
+            $thumbs = array();
             if (intval($pid) > 0) {
                 $imgObj = new M('product_photos');
                 $photos = $imgObj->fields('id, img')->where(array('products_id'=>$pid))->select();
 
                 foreach ($photos as $key => $value) {
+                    $thumbs[$key] = Thumb::get($value['img'],150,150);
                     $photos[$key] = Thumb::getOrigImg($value['img']);
                 }
 
             }
-
-            return $photos;
+            return array($photos,$thumbs);
         }
 
         /**
