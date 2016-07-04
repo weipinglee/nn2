@@ -30,7 +30,7 @@
 				<td>{$item['explanation']}</td>
 				<td class="td-manage">
 				<a title="编辑" href="{url:/member/Menu/RoleEdit}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a> 
-				<a title="分配菜单" href="{url:/member/Menu/allocationUserMenu}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a> 
+				<a title="分配菜单" href="{url:/member/Menu/allocationUserMenu}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-list-alt"></i></a> 
 				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:/member/Menu/RoleDel}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
 			</tr>
 		{/foreach}
