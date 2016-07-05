@@ -120,26 +120,11 @@
 
 
 
-    <tr>
-        <td>图片预览：</td>
-        <td colspan="2">
-                                    <span class="zhs_img" id='imgContainer'>
 
-                                    </span>
-        </td>
-    </tr>
     <tr>
         <td>上传图片：</td>
         <td>
-                                    <span>
-                                        <div>
-
-                                            <input id="pickfiles"  type="button" value="选择文件">
-                                            <input type="button"  id='uploadfiles' class="tj" value="上传">
-                                        </div>
-                                        <div id="filelist"></div>
-                                        <pre id="console"></pre>
-                                    </span>
+                                   {include:layout/webuploader.tpl}
         </td>
     </tr>
     <tr>
@@ -190,7 +175,7 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
-                                <input  type="submit" onclick="checkform()" value="提交审核"></input>
+                                <input  type="submit" onclick="checkform()" value="提交审核" />
                         </tr>
                          
                  </table>
@@ -200,7 +185,7 @@
                 </div>
             </div>
 
-            {$plupload}
+
 
 
 

@@ -844,12 +844,14 @@ class Order{
 		}
 
 		$res = array($res);
-		$user_id = $res[0]['type'] == 1 ? $res[0]['user_id'] : $res[0]['seller_id'];
+
 		if($identity == 'seller'){
 			$this->sellerContractStatus($res);
+			$user_id = $res[0]['type'] == 1 ? $res[0]['user_id'] : $res[0]['seller_id'];
 			$res[0]['userinfo'] = $this->contractUserInfo($user_id,1);
 		}elseif($identity == 'buyer'){
 			$this->buyerContractStatus($res);
+			$user_id = $res[0]['type'] == 2 ? $res[0]['user_id'] : $res[0]['seller_id'];
 			$res[0]['userinfo'] = $this->contractUserInfo($user_id);
 		}
 		$res[0]['pay_log'] = $this->paylog->where(array('order_id'=>$id))->fields('remark,create_time')->order('create_time asc')->select();
@@ -1083,19 +1085,8 @@ class Order{
 	 * @return array    信息数组
 	 */
 	public function contractUserInfo($user_id,$is_seller = 0){
-		$query = new Query('person_info as pi');
-		$query->join = 'left join company_info as ci on pi.user_id = ci.user_id';
-		$query->fields = 'pi.area,pi.address,pi.true_name,ci.company_name,ci.area as company_area,ci.address as company_address';
-		$query->where = 'pi.user_id = :id';
-		$query->bind = array('id'=>$user_id);
-		$res = $query->getObj();
-		if($is_seller){
-			$res['type'] = empty($res['company_name']) ? '个人' : '企业';
-			$res['true_name'] = empty($res['company_name']) ? $res['true_name'] : $res['company_name'];
-			$res['area'] = empty($res['company_area']) ? $res['area'] : $res['company_area'];
-			$res['address'] = empty($res['company_address']) ? $res['address'] : $res['company_address'];
-		}
-		return $res;
+		$mem = new \nainai\member();
+		return $mem->getUserDetail($user_id);
 	}
 
 	/**

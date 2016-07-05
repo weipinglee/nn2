@@ -42,7 +42,7 @@
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">地址：</b>
-								<span id='area'>&nbsp;{areatext:data=$info['userinfo']['company_area'] id=area}</span>&nbsp;{$info['userinfo']['company_address']}
+								<span id='area'>&nbsp;{areatext:data=$info['userinfo']['area'] id=area}</span>&nbsp;{$info['userinfo']['address']}
 							</div>
 						</div>
 						<div class="xx_center">

@@ -38,14 +38,14 @@
 							</div>
 						</div>
 						<div class="sjxx">
-							<p>收件人信息</p>
+							<p>买方信息</p>
 							<div class="sj_detal">
 								<b class="sj_de_tit">类型：</b>
-								<span>&nbsp;{$info['userinfo']['type']}</span>
+								<span>&nbsp;{$info['userinfo']['user_type']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">名称：</b>
-								<span>&nbsp;{$info['userinfo']['true_name']}</span>
+								<span>&nbsp;{$info['userinfo']['true_name']}{$info['userinfo']['company_name']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">地址：</b>

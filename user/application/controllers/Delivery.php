@@ -46,11 +46,7 @@ class DeliveryController extends UcenterBaseController {
         $delivery = new \nainai\delivery\Delivery();
         $res = $delivery->geneDelivery($deliveryData);
 
-        if($res['success'] == 1){
-            $this->success('已申请提货',url::createUrl('/Delivery/deliBuyList'));
-        }else{
-            $this->error($res['info']);
-        }
+        die(json::encode($res));
     }
 
 
