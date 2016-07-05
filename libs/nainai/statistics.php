@@ -141,12 +141,12 @@ class statistics{
 
     protected function getChildCate($id){
         $obj = new M('product_category');
-        static $arr = array();
+        $arr = array();
         $data = $obj->where(array('pid'=>$id))->fields('id')->select();
         if(!empty($data)){
             foreach($data as $k=>$v){
                 $arr[] = $v['id'];
-                $this->getChildCate($v['id']);
+                $arr = array_merge($arr,$this->getChildCate($v['id']));
             }
         }
         return $arr;

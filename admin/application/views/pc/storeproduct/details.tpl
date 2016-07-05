@@ -19,7 +19,7 @@
 	 			<th>库位</th>
 	 			<td>{$detail['store_pos']}</td>
 	 			<th>仓位</th>
-	 			<td>{$detail['cang_id']}</td>
+	 			<td>{$detail['cang_pos']}</td>
 	 		</tr>
             <tr>
                 <th>申请日期</th>
@@ -118,6 +118,8 @@
              <tr>
                  <th>市场审核时间</th>
                  <td>{$detail['market_time']}</td>
+                 <th>签字入库单</th>
+                 <td><img src="{$detail['confirm_thumb']}" /></td>
                  <th scope="col" colspan="6">
                      <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
                  </th>

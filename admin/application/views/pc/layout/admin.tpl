@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="{views:css/H-ui.min.css}">
 	<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 	<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
+	<script type="text/javascript" src="{views:js/My97DatePicker/WdatePicker.js}"></script>
 </head>
 <body>
 {content}

@@ -69,7 +69,7 @@ class store{
     public function getManagerStoreDetail($id,$user_id){
         $store_id = $this->getManagerStoreId($user_id);//根据$user_id获取
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid,a.cang_pos,a.check_org,a.check_no,a.product_id,a.status, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
+        $query->fields = 'a.id as sid,a.cang_pos,a.check_org,a.check_no,a.product_id,a.status,a.confirm, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
         $query->where = ' a.id=:id AND a.store_id=:store_id';
         $query->bind = array('id' => $id,'store_id'=>$store_id);
@@ -78,6 +78,8 @@ class store{
             return false;
         }
         $data['status_txt'] = $this->getStatusText($data['status']);
+        $data['confirm_thumb'] = \Library\thumb::get($data['confirm'],180,180);
+        $data['confirm_orig'] = \Library\thumb::getOrigImg($data['confirm']);
         $productModel = new product();
 
         $product = $productModel->getProductDetails($data['product_id']);
@@ -341,6 +343,8 @@ class store{
         }
 
         $detail['status_txt'] = $this->getStatusText($detail['status']);
+        $detail['confirm_thumb'] = \Library\thumb::get($detail['confirm'],180,180);
+        $detail['confirm_orig'] = \Library\thumb::getOrigImg($detail['confirm']);
         //获取商品信息
         $productModel = new product();
 

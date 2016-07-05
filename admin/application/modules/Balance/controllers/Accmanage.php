@@ -144,12 +144,17 @@ class AccmanageController extends Yaf\Controller_Abstract {
 		if(IS_POST){
 			$credit = safe::filterPost('credit','floatval');
 			$user_id = safe::filterPost('user_id','int');
+			$obj = new \Library\M('user_account');
+			$obj->beginTrans();
+			$obj->where(array('user_id'=>$user_id))->setInc('credit',$credit);
+
 			$credit_config = new \nainai\CreditConfig();
-			$res = $credit_config->changeUserCredit($user_id,'credit_money',$credit);
-			if($res){
-				$log = new \Library\log();
-				$log->addLog(array('content'=>$user_id.'充值信誉保证金'.$credit.'元'));
-			}
+			$credit_config->changeUserCredit($user_id,'credit_money',$credit);
+
+			$log = new \Library\log();
+			$log->addLog(array('content'=>'为用户'.$user_id.'充值信誉保证金'.$credit.'元'));
+
+			$res = $obj->commit();
 			die(JSON::encode($res === true ? \Library\tool::getSuccInfo() : \Library\tool::getSuccInfo(0,'操作失败')));
 		}else{
 			die('error');

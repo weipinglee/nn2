@@ -104,8 +104,8 @@
                      </td>
                      <th>商品说明</th>
                      <td>{$detail['note']}</td>
-                     <th></th>
-                     <td></td>
+                    <th>签字入库单</th>
+                    <td><img src="{$detail['confirm_thumb']}" /></td>
              </tr>
              <tr>
 

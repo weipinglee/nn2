@@ -283,7 +283,9 @@ body{_padding-top:30px;}
             {/if}
             <ul class="nav n_nav" {if:!isset($index)}style="left:0" {/if}>
                 <li class="current"><a href="{url:/index/index}">首页</a></li>
+
                 <li style="border-right:none;"><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
+
            </ul>
         </div>
     </div>

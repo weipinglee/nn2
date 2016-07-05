@@ -132,10 +132,9 @@ class slide{
     }
 
     public static function getIndexSlide(){
-        $slideObj=new Query('slide');
-        $slideObj->order='`order` ASC';
-        $slideObj->limit=5;
-        return $slideObj->find();
+        $slideObj=new M('slide');
+        return $slideObj->where(array('status'=>1))->order('`order` asc')->limit(5)->select();
+
     }
 
 

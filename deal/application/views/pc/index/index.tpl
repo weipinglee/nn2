@@ -536,7 +536,7 @@
                                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                                                      </a>
                                                     {else:}
-                                                        <a href="{url:/offers/report?id=$pro['id']}">
+                                                        <a href="{url:/offers/purchasedetails?id=$pro['id']}">
                                                             <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                                                         </a>
                                                          <a href="{url:/offers/report?id=$pro['id']}">
@@ -798,7 +798,8 @@
 
                                     {foreach: items=$item[3] key=$k item=$v}
                                     <ul>
-                                        <li class="i_regionTit" id="area">{areatext:data=14 id=area delimiter=地区}<span style="display: none"></span></li>
+                                        {set:$area_id='area'.$k;}
+                                        <li class="i_regionTit" id="area{$k}">{areatext:data=$k id=area_id delimiter=地区}<span style="display: none"></span></li>
                                         <li class="i_regionTit2">推荐商家</li>
                                         <?php foreach($v as $kk=>$vv){ ?>
                                         <li><a href="">- {$vv['company_name']}</a></li><?php }  ?>

@@ -42,7 +42,7 @@
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">地址：</b>
-								<span id='area'>&nbsp;{areatext:data=$info['userinfo']['company_area'] id=area}</span>&nbsp;{$info['userinfo']['company_address']}
+								<span id='area'>&nbsp;{areatext:data=$info['userinfo']['area'] id=area}</span>&nbsp;{$info['userinfo']['address']}
 							</div>
 						</div>
 						<div class="xx_center">
@@ -57,7 +57,7 @@
 									<th>商品价格</th>
 									<th>商品数量</th>
 									<th>小计</th>
-									<th>配送</th>
+									<th>提货</th>
 								</tr>
 								<tr>
 									<td><img src="{views:images/banner/551b861eNe1c401dc.jpg}"/></td>
@@ -65,7 +65,7 @@
 									<td>{$info['price']}</td>
 									<td>{$info['num']}{$info['unit']}</td>
 									<td>{$info['amount']}</td>
-									<td>未发货</td>
+									<td>{$info['delivery_status']}</td>
 
 								</tr>
 							</tbody></table>

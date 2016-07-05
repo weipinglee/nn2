@@ -2,7 +2,7 @@
 /**
  * User: weipinglee
  * Date: 2016/3/8 0008
- * Time: ���� 9:26
+ * Time: ???? 9:26
  */
 namespace Library;
 class safe
@@ -11,7 +11,7 @@ class safe
 
     protected static $defalut = 'string';
 
-    //php filter���ͳ���
+    //php filter???????
     private static $filterVars = array(
         'int'     => FILTER_VALIDATE_INT,
         'float'   => FILTER_VALIDATE_FLOAT,
@@ -30,52 +30,52 @@ class safe
 
     );
     /**
-     * ��ȡpost�����н��й���
-     * @param string $name ���������� ֧��ָ������
-     * @param string $filter �������˷���
-     * @param mixed $default �����ڵ�ʱ��Ĭ��ֵ
-     * @param mixed $datas Ҫ��ȡ�Ķ�������Դ
+     * ???post?????н??й???
+     * @param string $name ?????????? ??????????
+     * @param string $filter ???????????
+     * @param mixed $default ??????????????
+     * @param mixed $datas ??????????????
      */
     public static function filterPost($name='',$filter='string',$default=''){
        return self::filterRequest($_POST,$name,$filter,$default);
     }
     /**
-     * ��ȡget�����н��й���
-     * @param string $name ���������� ֧��ָ������
-     * @param string $filter �������˷���
-     * @param mixed $default �����ڵ�ʱ��Ĭ��ֵ
-     * @param mixed $datas Ҫ��ȡ�Ķ�������Դ
+     * ???get?????н??й???
+     * @param string $name ?????????? ??????????
+     * @param string $filter ???????????
+     * @param mixed $default ??????????????
+     * @param mixed $datas ??????????????
      */
     public static function filterGet($name='',$filter='string',$default=''){
         return self::filterRequest($_GET,$name,$filter,$default);
     }
     /**
-     * �����ݽ��й���
-     * param array Ԫ����
-     * @param string $name ���������� ֧��ָ������
-     * @param string $filter �������˷���
-     * @param mixed $default �����ڵ�ʱ��Ĭ��ֵ
-     * @param mixed $datas Ҫ��ȡ�Ķ�������Դ
+     * ????????й???
+     * param array ?????
+     * @param string $name ?????????? ??????????
+     * @param string $filter ???????????
+     * @param mixed $default ??????????????
+     * @param mixed $datas ??????????????
      */
     public static function filterRequest(&$souceData,$name='',$filter='string',$default=''){
         $input = $souceData;
         $result = array();
         $filter    =   isset($filter) && is_string($filter) ? $filter:self::$defalut;
-        if(''==$name) { // ��ȡȫ������
+        if(''==$name) { // ??????????
             foreach ($input as $key => $val) {
                 $result[$key] = self::filter(trim($val),$filter,$default);
             }
             return $result;
-        }elseif(isset($input[$name]) && is_array($input[$name])) { // ȡֵ����
+        }elseif(isset($input[$name]) && is_array($input[$name])) { // ??????
             foreach($input[$name] as $key =>$v){
                 $result[$key] = self::filter(trim($v),$filter,$default);
             }
             return $result;
         }
-        elseif(isset($input[$name])) { // ȡֵ����
+        elseif(isset($input[$name])) { // ??????
             return self::filter(trim($input[$name]),$filter,$default);
         }
-        else{ // ����Ĭ��ֵ
+        else{ // ????????
             return $default;
         }
 
@@ -83,24 +83,24 @@ class safe
 
 
     /**
-     * ����������˵�����������
+     * ??????????????????????
      * @param string $filter
      * @param mixed $data
      */
     public static function filter($data,$filter='string',$default=''){
         $filter = trim($filter);
-        if(method_exists(__CLASS__,$filter)){//���ñ���ķ���
+        if(method_exists(__CLASS__,$filter)){//???????????
             return  call_user_func(array(__CLASS__,$filter),$data);
         }
-        else if(isset(self::$filterVars[$filter])){//����filter_var����
+        else if(isset(self::$filterVars[$filter])){//????filter_var????
             $res = filter_var($data,self::$filterVars[$filter]);
             return $res===false ? $default : $res;
         }
         else if(isset(self::$filterRegex[$filter])){
-            $res = preg_match(self::$filterRegex,(string)$data);
+            $res = preg_match(self::$filterRegex[$filter],(string)$data);
             return $res ==0 ? $default : $res;
         }
-        else if(function_exists($filter)){//����php����
+        else if(function_exists($filter)){//????php????
             return call_user_func($filter,$data);
         }
         else if(0 === strpos($filter,'/')){
@@ -115,9 +115,9 @@ class safe
 
 
     /**
-     * @brief ����ת��б��
-     * @param string $str Ҫת����ַ���
-     * @return string ת�����ַ���
+     * @brief ???????б??
+     * @param string $str ??????????
+     * @return string ??????????
      */
     public static function addSlash($str)
     {
@@ -137,9 +137,9 @@ class safe
     }
 
     /**
-     * @brief ȥ��ת��б��
-     * @param string $str Ҫת����ַ���
-     * @return string ȥ��ת����ַ���
+     * @brief ??????б??
+     * @param string $str ??????????
+     * @return string ????????????
      */
     public static function stripSlash($str)
     {
@@ -159,31 +159,31 @@ class safe
     }
 
     /**
-     * @brief ����ļ��Ƿ��п�ִ�еĴ���
-     * @param string  $file Ҫ�����ļ�·��
-     * @return boolean �����
+     * @brief ??????????п???е????
+     * @param string  $file ????????·??
+     * @return boolean ?????
      */
     public static function checkHex($file)
     {
         $resource = fopen($file, 'rb');
         $fileSize = filesize($file);
         fseek($resource, 0);
-        // ��ȡ�ļ���ͷ����β��
+        // ?????????????β??
         if ($fileSize > 512)
         {
             $hexCode = bin2hex(fread($resource, 512));
             fseek($resource, $fileSize - 512);
             $hexCode .= bin2hex(fread($resource, 512));
         }
-        // ��ȡ�ļ���ȫ������
+        // ???????????????
         else
         {
             $hexCode = bin2hex(fread($resource, $fileSize));
         }
         fclose($resource);
-        /* ƥ��16�����е� <% (  ) %> */
-        /* ƥ��16�����е� <? (  ) ?> */
-        /* ƥ��16�����е� <script  /script>  */
+        /* ???16?????е? <% (  ) %> */
+        /* ???16?????е? <? (  ) ?> */
+        /* ???16?????е? <script  /script>  */
         if (preg_match("/(3c25.*?28.*?29.*?253e)|(3c3f.*?28.*?29.*?3f3e)|(3C534352495054.*?2F5343524950543E)|(3C736372697074.*?2F7363726970743E)/is", $hexCode))
         {
             return false;
@@ -195,7 +195,7 @@ class safe
     }
 
     /**
-     * ����URL��ַ���е�Σ���ַ�����ֹXSSע�빥��
+     * ????URL??????е?Σ??????????XSS?????
      * @param string $url
      * @return string
      */
@@ -205,8 +205,8 @@ class safe
     }
 
     /**
-     * @brief �����ļ�����
-     * @param string $string �����ַ���
+     * @brief ???????????
+     * @param string $string ?????????
      * @return string
      */
     public static function fileName($string)
@@ -215,10 +215,10 @@ class safe
     }
 
     /**
-     * @brief �����ַ����ĳ���
-     * @param string $str �����Ƶ��ַ���
-     * @param int $length ���Ƶ��ֽ���
-     * @return string ��:��������ֵ; $str:ԭ�ַ���;
+     * @brief ??????????????
+     * @param string $str ????????????
+     * @param int $length ??????????
+     * @return string ??:?????????; $str:??????;
      */
     public static function limitLen($str,$length)
     {
@@ -238,11 +238,11 @@ class safe
     }
 
     /**
-     * @brief  ���ַ��������ϸ�Ĺ��˴���
-     * @param  string  $str      �����˵��ַ���
-     * @param  int     $limitLen ���������󳤶�
-     * @return string �����˺���ַ���
-     * @note ��������html��ǩ��php��ǩ�Լ������������
+     * @brief  ?????????????????????
+     * @param  string  $str      ????????????
+     * @param  int     $limitLen ???????????
+     * @return string ?????????????
+     * @note ????????html?????php?????????????????
      */
     public static function string($str,$limitLen = false)
     {
@@ -254,11 +254,11 @@ class safe
     }
 
     /**
-     * @brief ���ַ���������ͨ�Ĺ��˴���
-     * @param string $str      �����˵��ַ���
-     * @param int    $limitLen �޶��ַ������ֽ���
-     * @return string �����˺���ַ���
-     * @note �����ڲ�����:<script,<iframe�ȱ�ǩ���й���
+     * @brief ??????????????????????
+     * @param string $str      ????????????
+     * @param int    $limitLen ???????????????
+     * @return string ?????????????
+     * @note ???????????:<script,<iframe???????й???
      */
     public static function text($str,$limitLen = false)
     {
@@ -274,26 +274,26 @@ class safe
         }
         $config = \HTMLPurifier_Config::createDefault();
 
-        //���� ����flash
+        //???? ????flash
         $config->set('HTML.SafeEmbed',true);
         $config->set('HTML.SafeObject',true);
         $config->set('Output.FlashCompat',true);
 
-        //���� ����Ŀ¼
-        //$config->set('Cache.SerializerPath',$cache_dir); //����cacheĿ¼
+        //???? ??????
+        //$config->set('Cache.SerializerPath',$cache_dir); //????cache??
 
-        //����<a>��target����
+        //????<a>??target????
         $def = $config->getHTMLDefinition(true);
         $def->addAttribute('a', 'target', 'Enum#_blank,_self,_target,_top');
 
-        //���Ե�����<script>��<i?frame>��ǩ��on�¼�,css��js-expression��import��js��Ϊ��a��js-href
+        //?????????<script>??<i?frame>?????on???,css??js-expression??import??js?????a??js-href
         $purifier = new \HTMLPurifier($config);
         return self::addSlash($purifier->purify($str));
     }
 
 
     /**
-     * ��ȡ
+     * ???
      */
     public static function createToken(){
         $token = sha1(mt_rand(1,999999).Client::getIp().time());
@@ -302,7 +302,7 @@ class safe
     }
 
     /**
-     * ����token��ȷ���
+     * ????token??????
      */
     public static function checkToken($token){
         $sessToken = \Library\session::get('token');

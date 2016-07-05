@@ -16,6 +16,10 @@ class testController extends  UcenterBaseController{
 
 	}
 
+	public function uploadAction(){
+
+	}
+
 	public function formAction(){
 		if(IS_POST){
 			die(json::encode(tool::getSuccInfo()));

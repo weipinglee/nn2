@@ -140,7 +140,7 @@
 
                     <h5 class="tit"><i><img src="{views:images/pro_show_04.jpg}"></i><span>质量标准</span></h5>
                     <table>
-
+						
                         <tr>
                             <td>质量标准</td>
                             <td>{$data['note']}</td>
@@ -151,7 +151,7 @@
                         .pro_pic{float: left;margin-right: 20px;}
                     </style>
                     <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
-                    {foreach:items=$data['photos']}
+                    {foreach:items=$data['origphotos']}
                     <p class="pro_pic" >
                         <a name='fff' href='javascript:void(0);' onclick='picBig(this);'>
                             <img src="{$item}" width="80px"height="80px" style="margin:20px;float:left;" class="pro_apic"></a>

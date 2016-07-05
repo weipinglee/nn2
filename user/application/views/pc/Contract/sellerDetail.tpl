@@ -38,14 +38,14 @@
 							</div>
 						</div>
 						<div class="sjxx">
-							<p>收件人信息</p>
+							<p>买方信息</p>
 							<div class="sj_detal">
 								<b class="sj_de_tit">类型：</b>
-								<span>&nbsp;{$info['userinfo']['type']}</span>
+								<span>&nbsp;{$info['userinfo']['user_type']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">名称：</b>
-								<span>&nbsp;{$info['userinfo']['true_name']}</span>
+								<span>&nbsp;{$info['userinfo']['true_name']}{$info['userinfo']['company_name']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">地址：</b>
@@ -114,7 +114,7 @@
 								</div>
 								{if:!$invoice['order_invoice']}
 									<div class="sj_detal">
-										<b class="sj_de_tit">邮寄单号：</b>
+										<b class="sj_de_tit">操作：</b>
 										<span><input type="submit" value="开发票"></span>
 									</div>
 									<input type="hidden" name="order_id" value="{$info['id']}" />
@@ -140,7 +140,7 @@
 									<th>商品价格</th>
 									<th>商品数量</th>
 									<th>小计</th>
-									<th>配送</th>
+									<th>提货</th>
 								</tr>
 								<tr>
 									<td><img src="{views:images/banner/551b861eNe1c401dc.jpg}"/></td>
@@ -148,7 +148,7 @@
 									<td>{$info['price']}</td>
 									<td>{$info['num']}{$info['unit']}</td>
 									<td>{$info['amount']}</td>
-									<td>未发货</td>
+									<td>{$info['delivery_status']}</td>
 
 								</tr>
 							</tbody></table>

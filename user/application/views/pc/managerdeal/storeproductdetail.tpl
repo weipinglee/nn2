@@ -113,6 +113,14 @@
                                     </td>
                                 </tr>
                             {/if}
+                            {if:$detail['confirm_thumb']}
+                            <tr>
+                                <td nowrap="nowrap"><span></span>入库签字单：</td>
+                                <td colspan="2">
+                                    <img src="{$detail['confirm_thumb']}" />
+                                </td>
+                            </tr>
+                            {/if}
                         <tr>
                             <th colspan="3">商品类型和规格</th>
                             </tr>

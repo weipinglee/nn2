@@ -20,6 +20,8 @@ class storeProductController extends Yaf\Controller_Abstract{
      */
    public function getListAction(){
        $page = safe::filterGet('page','int',1);
+      
+
         $obj = new storeProductModel();
        $data = $obj->getList($page);
        $this->getView()->assign('list',$data['list']);

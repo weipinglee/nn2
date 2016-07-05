@@ -1,4 +1,4 @@
-		<form method="post" action="{url:/Delivery/geneDelivery}">
+		<form method="post" action="{url:/Delivery/geneDelivery}" auto_submit redirect_url="{url:delivery/delibuylist}">
 			<!--start中间内容-->	
 			<div class="user_c_list">
 				<div class="user_zhxi">
@@ -28,7 +28,7 @@
 									<td>{$data['left']}{$data['unit']}</td>
 									<!-- 判断系统参数是否支持多次开单 如果单次开单则不能修改开单数量-->
 									<td>
-										<input type="text" class="thjs_input" name='num'>
+										<input type="text" class="thjs_input" name='num' datatype="float">
 
 									</td>
 									<td>{$data['store_name']}</td>
@@ -50,11 +50,13 @@
 						                        	
 					                        
 					                        </div>
+
 				                        	</li>
 				                        	<li class="clearfix">
 				                        		<!-- <label>提货人：</label> -->
 				                        		<div>
 				                        			<p>
+<<<<<<< HEAD
 				                        				<b> ● </b>
 				                        				<label for="">提货人：</label><span id="man"><input type="text" name="delivery_man"></span>
 				                        			</p>
@@ -69,6 +71,22 @@
 				                        			<p>
 				                        				<b> ● </b>
 				                        				<label for="">车牌号：</label><input type="text" name="plate_number" placeholder="多个以逗号分隔"/>
+=======
+
+				                        				提货人：<span id="man"><input type="text" name="delivery_man" datatype="*"></span>
+				                        			</p>
+				                        			<p>
+
+				                        				联系电话：<span id="tel"><input type="text" name="phone" datatype="mobile"></span>
+				                        			</p>
+				                        			<p>
+
+				                        				身份证号码：<span id="code"><input type="text" name="idcard" datatype="identify"/></span>
+				                        			</p>
+				                        			<p>
+
+				                        				车牌号：<input type="text" name="plate_number" datatype="*" placeholder="多个以逗号分隔"/>
+>>>>>>> origin/dev-li
 				                        			</p>
 				                        		</div>
 				                        	</li>

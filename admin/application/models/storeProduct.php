@@ -8,15 +8,39 @@
 use \Library\Query;
 use \Library\M;
 use \Library\tool;
+use \Library\safe;
 class storeProductModel extends \nainai\store{
 
 
+    private function getCond(){
+        $begin = safe::filterGet('begin');
+        $end = safe::filterGet('end');
+        $pname = safe::filterGet('product_name');
+        $cond  = array();
+        $cond['where'] = 1;
+        if($begin){
+            $cond['where'] .= " AND a.apply_time >= :begin";
+            $cond['bind']['begin'] = $begin;
+        }
+        if($end){
+            $cond['where'] .= " AND a.apply_time <= :end";
+            $cond['bind']['end'] = $end;
+        }
+        if($pname){
+            $cond['where'] .= " AND c.name like :pname";
+            $cond['bind']['pname'] = "%{$pname}%";
+        }
+        return $cond;
+    }
     /**
      *
      * @param $page
      */
     public function getList($page){
-       $data =  $this->getStoreProductList($page);
+
+        $cond = $this->getCond();
+       $data =  $this->getStoreProductList($page,$cond);
+
        foreach($data['list'] as $k=>$v){
            $data['list'][$k]['status_txt'] = $this->getStatusText($v['status']);
        }
@@ -30,9 +54,9 @@ class storeProductModel extends \nainai\store{
      */
     public function getApplyList($page){
         $obj = new storeProductModel();
-        $con = array();
-        $con['where'] = 'a.status = '.self::USER_AGREE;
-        $data = $obj->getStoreProductList($page,$con);
+        $cond = $this->getCond();
+        $cond['where'] .= ' AND a.status = '.self::USER_AGREE;
+        $data = $obj->getStoreProductList($page,$cond);
         foreach($data['list'] as $k=>$v){
             $data['list'][$k]['status_txt'] = $this->getStatusText($v['status']);
         }

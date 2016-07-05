@@ -13,10 +13,7 @@
                             <tr>
                                 <td class="spmx_title" colspan="8">商品明细</td>
                             </tr>
-                            <tr>
-                                <td colspan="2">商品编号</td>
-                                <td colspan="6">{$detail['pid']}</td>
-                            </tr>
+
                            <tr>
                                <td colspan="2">商品标题</td>
                                <td colspan="6">{$product['product_name']}</td>

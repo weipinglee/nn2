@@ -36,7 +36,7 @@
                     <div class="row cl">
                         <label class="form-label col-2">链接：</label>
                         <div class="formControls col-5">
-                            <input type="text" name="link" class="input-text"  value="{$linkInfo['link']}" datatype="s2-50" nullmsg="链接不能为空" />
+                            <input type="text" name="link" class="input-text"  value="{$linkInfo['link']}" datatype="*" nullmsg="链接不能为空" />
                         </div>
                         <div class="col-4"> </div>
                     </div>
@@ -44,7 +44,7 @@
                     <div class="row cl">
                         <label class="form-label col-2">排序：</label>
                         <div class="formControls col-5">
-                            <input type="text" name="order"  class="input-text" value="{$linkInfo['order']}"  datatype="n2-20"  errormsg="请填写排序" /> 数字越小，排列越靠前
+                            <input type="text" name="order"  class="input-text" value="{$linkInfo['order']}"  datatype="n1-20"  errormsg="请填写排序" /> 数字越小，排列越靠前
                         </div>
                         <div class="col-4"> </div>
                     </div>

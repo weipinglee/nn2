@@ -92,10 +92,10 @@ class offersModel extends \nainai\offer\product{
      */
     public function getList($page,$condition = array(),$order=''){
         $query = new Query('product_offer as o');
-        $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id=pp.products_id LEFT JOIN product_category as c ON p.cate_id=c.id ";
-        $query->fields = "o.*,pp.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname";
+        $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id=pp.products_id LEFT JOIN product_category as c ON p.cate_id=c.id left join admin_kefu as ke on o.kefu=ke.admin_id";
+        $query->fields = "o.*,pp.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze>0,0,1) as jiao";
         $query->group = 'o.id';
-        $where = 'o.status=:status and o.is_del = 0 and p.quantity>p.sell+p.freeze and o.expire_time > now()';
+        $where = 'o.status=:status and o.is_del = 0  and o.expire_time > now()';
 
         $bind = array('status'=>self::OFFER_OK);
         //获取分类条件
