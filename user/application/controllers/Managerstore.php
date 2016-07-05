@@ -86,10 +86,8 @@ class ManagerStoreController extends UcenterBaseController{
 			$store = new store();
 			$data = $store->getManagerStoreDetail($id,$this->user_id);
 
-			$productModel = new product();
 
 			$this->getView()->assign('storeDetail', $data);
-			$this->getView()->assign('photos', $productModel->getProductPhoto($data['pid']));
 		}else{
 			$this->redirect('/ManagerStore/ApplyStoreList');
 		}
