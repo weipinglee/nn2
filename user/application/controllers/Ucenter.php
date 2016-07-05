@@ -12,6 +12,7 @@ use \Library\url;
 use \Library\safe;
 use \Library\Thumb;
 use \Library\tool;
+use \Library\PlUpload;
 
 class UcenterController extends UcenterBaseController {
 
@@ -22,9 +23,6 @@ class UcenterController extends UcenterBaseController {
     public function indexAction(){
 		header('Location:'.url::createUrl('/ucenterindex/index'));
     }
-
-
-
 
     public function baseInfoAction(){
         $userModel = new UserModel();
@@ -577,6 +575,53 @@ class UcenterController extends UcenterBaseController {
 
     }
 
+
+    public function shopinfoAction(){
+        if (IS_POST) {
+                $logoData = Safe::filterPost('imgData');
+                $mapData = Safe::filterPost('map');
+
+                $shopData = array(
+                    'company_id' => $this->user_id,
+                    'products' => Safe::filterPost('type'),
+                    'tel' => Safe::filterPost('tel'),
+                    'info' => Safe::filterPost('info'),
+                    'logo_url' => $logoData[0],
+                    'map_url' => $mapData[0],
+                    'create_time' => \Library\Time::getDateTime()
+                );
+                $qaData = Safe::filterPost('qa');
+                $imData = Safe::filterPost('im');
+
+                $model = new \nainai\user\ShopInfo();
+                $res = $model->insertShopInfo($shopData, $qaData, $imData);
+
+                echo JSON::encode($res);exit();
+        }
+
+        $shopModel = new \nainai\user\ShopInfo();
+        $shopData = $shopModel->getShopInfo($this->user_id);
+        $shopData['logo_url'] = \Library\Thumb::get($shopData['logo_url'], 180, 180);
+        $shopData['map_url'] = \Library\Thumb::get($shopData['map_url'], 180, 180);
+        $companyModel = new \nainai\user\CompanyInfo();
+        $companyInfo = $companyModel->getCompanyInfo($this->user_id);
+        $photoModel = new \nainai\user\ShopPhotos();
+        $photosList = $photoModel->getPhotosLists($this->user_id);
+
+
+         $logoPlupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'), array('multi_selection'=>false));
+         $qaPlupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'), array('browse_button'=>'pickfiles1', 'imgContainer'=>'showimg', 'uploadfiles'=>'uploadfiles1', 'save'=>'qa'));
+         $imPlupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'), array('browse_button'=>'pickfiles2', 'imgContainer'=>'showimgs', 'uploadfiles'=>'uploadfiles2', 'save' => 'im'));
+         $mapPlupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'), array('browse_button'=>'pickfiles3', 'imgContainer'=>'showimg1', 'uploadfiles'=>'uploadfiles3', 'save' => 'map', 'multi_selection'=>false));
+
+        $this->getView()->assign('shopData',$shopData);
+        $this->getView()->assign('companyInfo',$companyInfo);
+        $this->getView()->assign('photosList',$photosList);
+        $this->getView()->assign('logoplupload',$logoPlupload->show());
+        $this->getView()->assign('qaPlupload',$qaPlupload->show());
+        $this->getView()->assign('imPlupload',$imPlupload->show());
+        $this->getView()->assign('mapPlupload',$mapPlupload->show());
+    }
 
 
 
