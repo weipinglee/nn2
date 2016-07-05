@@ -144,6 +144,12 @@
     				</span>
                                 </td>
                             </tr>
+                            <tr>
+                                <td nowrap="nowrap"><span></span>入库签字单：</td>
+                                <td colspan="2">
+                                   <img src="{$storeDetail['confirm_thumb']}" />
+                                </td>
+                            </tr>
 
 
 

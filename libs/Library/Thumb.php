@@ -61,6 +61,8 @@ class Thumb
 	 * @return string
 	 */
 	public static function getOrigImg($imgSrc){
+		if($imgSrc=='')
+			return '';
 		$imgArr = explode('@',$imgSrc);
 		if(count($imgArr)>1){
 			$sourcePath = tool::getGlobalConfig(array('host',$imgArr[1])).'/'.trim($imgArr[0],'/');

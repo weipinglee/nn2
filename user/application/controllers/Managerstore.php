@@ -163,7 +163,8 @@ class ManagerStoreController extends UcenterBaseController{
 				'in_time' => safe::filterPost('inTime'),
 				'rent_time' => safe::filterPost('rentTime'),
 				'check_org' => safe::filterPost('check'),
-				'check_no'  => safe::filterPost('check_no')
+				'check_no'  => safe::filterPost('check_no'),
+				'confirm'   => \Library\tool::setImgApp(safe::filterPost('imgfile1'))
 			);
 
 			if (!empty(safe::filterPost('packNumber'))) {
