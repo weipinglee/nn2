@@ -19,7 +19,7 @@
 	 			<th>库位</th>
 	 			<td>{$detail['store_pos']}</td>
 	 			<th>仓位</th>
-	 			<td>{$detail['cang_id']}</td>
+	 			<td>{$detail['cang_pos']}</td>
 	 		</tr>
             <tr>
                 <th>申请日期</th>
