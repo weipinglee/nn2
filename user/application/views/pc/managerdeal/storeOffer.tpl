@@ -8,9 +8,7 @@
 						<p><a>产品管理</a>><a>商品分类</a></p>
 					</div>
 					<div class="center_tabl">
-                    {if: empty($storeList)}
-                        请先申请仓单
-                    {else:}
+
                     <input type="hidden" id='ajaxGetStoreUrl' value="{url:/Managerdeal/ajaxGetStore}">
                     <form action="{url:/Managerdeal/doStoreOffer}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
 						<table border="0">
@@ -20,7 +18,8 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>可选仓单:</td>
                                 <td colspan="2"> 
-                                    <select id="storeList" name="storeproduct">
+                                    <select id="storeList" name="storeproduct" datatype="/[1-9][\d]{0,}/">
+                                        <option value="0">请选择仓单</option>
                                        {foreach: items=$storeList item=$list}
                                         <option value="{$list['id']}">{$list['sname']}-{$list['pname']}</option>
                                        {/foreach}
@@ -142,7 +141,7 @@
                          
                  </table>
             	</form>
-                {/if}
+
 						
 					</div>
 				</div>
