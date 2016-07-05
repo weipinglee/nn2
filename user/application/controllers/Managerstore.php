@@ -106,6 +106,7 @@ class ManagerStoreController extends UcenterBaseController{
 		if (intval($id) > 0) {
 			$store = new store();
 			$data = $store->getManagerStoreDetail($id,$this->user_id);
+
 			//获取商品分类信息，默认取第一个分类信息
 		        $productModel = new product();
 		        $attr_ids = array();
@@ -113,8 +114,7 @@ class ManagerStoreController extends UcenterBaseController{
 		        $attr_ids = array_keys($data['attribute']);
 
 		       $this->getView()->assign('detail', $data);
-	                $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
-	               $this->getView()->assign('photos', $productModel->getProductPhoto($data['pid']));
+	         $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
 		}
 	        
 	}

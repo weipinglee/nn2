@@ -86,7 +86,7 @@ class FundController extends UcenterBaseController {
 					'order_no' => Payment::createOrderNum(),
 					//资金
 					'amount' => $recharge,
-					'create_time' => Payment::getDateTime(),
+					'create_time' => \Library\time::getDateTime(),
 					'proot' => \Library\Tool::setImgApp($proof),
 					'status' => '0',
 					//支付方式

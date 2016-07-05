@@ -69,8 +69,8 @@
                                 <td>图片预览：</td>
                                 <td colspan="2">
     								<span class="zhs_img">
-    								  {foreach: items=$photos item=$photo}
-                                                                            <img src="{$photo}"/>
+    								  {foreach: items=$detail['photos'] }
+                                                                            <img src="{$item}"/>
                                                                         
                                                                         {/foreach}  
     							</span>
