@@ -373,16 +373,9 @@ div.zhxi_con.font_set span i.bold{
   margin-left: 0px;
 }
 .zj_a{
-    margin: 10px 10px;
+    padding: 8px 20px;
+    margin: 0 10px;
     color: #fff;
-    display: inline-block;
-    width: 64px;
-    height: 31px;
-    line-height: 31px;
-    text-align: center;
-}
-.rz_an_index{
-    float: right;
 }
 /*充值按钮*/
 .cz{
@@ -604,8 +597,6 @@ visibility: hidden;
     width: auto;
     text-align: center;
     margin-left: 15px;
-    overflow: hidden;
-    white-space: nowrap;
 }
  .class_jy .sl_ext {
     position: absolute;
@@ -726,6 +717,18 @@ visibility: hidden;
 .chp_xx .methed li{
     min-height: 60px;
 }
+
+.chp_xx .methed.too li{
+    min-height: 32px;
+}
+.chp_xx .methed li div input {
+    height: 25px;
+    width: 200px;
+}
+.chp_xx .methed li div p {
+    margin: 10px 0;
+}
+
 .chp_xx .methed li div{
     float: left;
     line-height: 32px;
