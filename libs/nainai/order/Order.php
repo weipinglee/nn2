@@ -818,6 +818,26 @@ class Order{
 	}
 
 	/**
+	 * 合同预览
+	 * @param  int $offer_id 报盘id
+	 * @param  float $num  商品数量
+	 * @return array  信息数组
+	 */
+	public function contractReview($offer_id,$num){
+		$query = new Query('product_offer as po');
+		$query->join = 'left join products as p on po.product_id = p.id';
+		$query->fields = 'po.price,p.name,p.cate_id,p.produce_area';
+		$query->where = 'po.id = :id';
+		$query->bind = array('id'=>$offer_id);
+		$res = $query->getObj();
+
+		$res['num'] = $num;
+		$res['amount'] = $res['price']*$num;
+
+		return $res;
+	}
+
+	/**
 	 * 合同详情
 	 * @param  int $id 订单id
 	 * @param  string $identity buyer为购买合同 seller 为销售

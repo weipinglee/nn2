@@ -48,8 +48,8 @@
                
             <form method="post" pay_secret=1 auto_submit action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
             <div class="checkim">
-            <h2>填写并核对订单信息<a href="contract.html" style="color:blue;">合同预览</a></h2>
-
+            <h2>填写并核对订单信息<a id='contract_review' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:blue;">合同预览</a></h2>
+                
                 <!--清单开始-->
                 <div class="clrarorder">
                  <span class="qingorder"><b class="shangpqd">商品信息</b><h3>
@@ -213,7 +213,7 @@
                                     prod_amount.text(num*price);
                                     deposit_text.text(paytype == 1 ? prod_amount.text(): data.info);
                                     temp_deposit = data.info;
-
+                                    $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
                                 }else{
                                     alert(data.info);
                                 }

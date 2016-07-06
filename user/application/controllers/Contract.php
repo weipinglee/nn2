@@ -120,7 +120,13 @@ class ContractController extends UcenterBaseController{
 		$product = new \nainai\offer\product();
 		$order_id = safe::filter($this->_request->getParam('order_id'));
 
-		$order_info = $order->contractDetail($order_id);
+		if($order_id){
+			$order_info = $order->contractDetail($order_id);			
+		}else{
+			$offer_id = safe::filter($this->_request->getParam('offer_id'));
+			$num = safe::filter($this->_request->getParam('num'));
+			$order_info = $order->contractReview($offer_id,$num);
+		}
 		$product_cate = array_reverse($product->getParents($order_info['cate_id']));
 		foreach ($product_cate as $key => $value) {
 			$tmp .= $value['name'].'/';
