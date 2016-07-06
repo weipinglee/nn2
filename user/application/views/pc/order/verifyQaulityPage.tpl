@@ -1,14 +1,30 @@
-<style type="text/css">
-	form>div{width: 50%;height: 200px;margin:0 auto;padding: 50px;}
-	form>div>input{display: block;margin-bottom: 30px;}
-	form>div>textarea{width: 200px;height: 80px;margin-bottom: 30px;}
-</style>
 
-<form action="{url:/Order/verifyQaulity}" method="post">
-	<div>
-		<input type="text" name='amount' placeholder="扣减金额" />
-		<textarea name="remark" placeholder="扣减原因"></textarea>
-		<input type="hidden" name="order_id" value="{$order_id}"/>
-		<input type="submit" value="提交"/>
+
+
+<div class="user_c">
+	<div class="user_zhxi">
+		<div class="zhxi_tit">
+			<p><a>合同管理</a>><a>质量确认</a></p>
+		</div>
+		<div style="float:left">
+			<form method="post" action="{url:/Order/verifyQaulity}" auto_submit redirect_url="{url:/contract/buyerlist}">
+				<input type="hidden" name="order_id" value="{$order_id}"/>
+				<div class="zhxi_con">
+					<span class="con_tit"><i>*</i>扣减金额：</span>
+					<span><input class="text" type="text"  name='amount' datatype="float" nullmsg="请填写扣减金额"  /></span>
+					<span></span>
+				</div>
+				<div class="zhxi_con">
+					<span class="con_tit"><i></i>扣减原因：</span>
+					<span><textarea name="remark" datatype="*"></textarea></span>
+					<span></span>
+
+				</div>
+				<div class="zhxi_con">
+					<span><input class="submit" type="submit" value="提交"/></span>
+				</div>
+			</form>
+		</div>
+		<div style="clear:both;"></div>
 	</div>
-</form>
+</div>

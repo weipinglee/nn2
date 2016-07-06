@@ -47,14 +47,14 @@
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span>开始时间：</label>
                     <div class="formControls col-5">
-                        <input type="text" name="start_time" value="{$data['start_time']}" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});">
+                        <input type="text" name="start_time" value="{$data['start_time']}" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});">
                     </div>
                     <div class="col-4"> </div>
                 </div>
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span>结束时间：</label>
                     <div class="formControls col-5">
-                        <input type="text" name="end_time" value="{$data['end_time']}" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" >
+                        <input type="text" name="end_time" value="{$data['end_time']}" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" >
                     </div>
                     <div class="col-4"> </div>
                 </div>
