@@ -53,7 +53,8 @@ class PiccSecure extends Secures {
      public function insure(){
           $this->request['interfaceN'] = '001001';
           $this->request['datas'] = $this->getInsureXml( $data);
-          var_dump($this->request);
+          
+          $this->commonOperate();
      }
 
      public function getInsureXml(& $data){
@@ -97,8 +98,10 @@ class PiccSecure extends Secures {
 
      public function commonOperate(){
           try {
-               $client = new SoapClient($this->insure);
+               $client = new \SoapClient($this->insure);
                print_r($client->__getFunctions());
+               $res = $client->insureService($this->request);
+                print_r($res);
           } catch (SOAPFault $e) {
                var_dump($e);exit();
           }
