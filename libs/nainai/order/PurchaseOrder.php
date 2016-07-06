@@ -47,16 +47,23 @@ class PurchaseOrder extends Order{
 				$orderData['create_time'] = date('Y-m-d H:i:s',time());
 				$orderData['mode'] = self::ORDER_PURCHASE;
 				$gen_res = $this->geneOrder($orderData);
+
 				if($gen_res['success'] == 1){
 					//将其他的报价状态置为被拒绝 选中报价置为已采纳
 					$purchase->where(array('id'=>$purchase_id))->data(array('status'=>\nainai\offer\PurchaseReport::STATUS_ADOPT))->update();
+
 					$purchase->where(array('offer_id'=>$purchase_info['offer_id'],'id'=>array('neq',$purchase_id)))->data(array('status'=>\nainai\offer\PurchaseReport::STATUS_REPLUSE))->update();
-					$this->payLog($order_id,$data['user_id'],0,'买方下单');
+
+					$res = $this->payLog($order_id,$data['user_id'],0,'买方下单');
+
 					//支付定金
 					$deposit = new \nainai\order\DepositOrder();
 					$dep_res = $deposit->buyerDeposit($gen_res['order_id'],$type,$purchase_info['buyer_id']);
+
 					if($dep_res['success'] != 1){
 						$error = $dep_res['info'];
+					}else{
+						$this->offer->commit();
 					}
 
 				}else{
@@ -64,7 +71,7 @@ class PurchaseOrder extends Order{
 				}
 			} catch (\PDOException $e) {
 				$this->offer->rollBack();
-				$error = $e->getMessage();
+				$error = $e->getMessage() ? $e->getMessage() : '未知错误';
 			}
 		}else{
 			$error = '此报价已生成订单';

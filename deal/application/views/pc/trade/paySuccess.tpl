@@ -240,12 +240,8 @@ body{_padding-top:30px;}
 
 
             <ul class="nav n_nav">
-                <li class="current"><a href="http://www.nainaiwang.com/">首页</a></li>
-                <li><a href="http://market.nainaiwang.com/" target="_blank">交易中心</a></li>
-                <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">数据中心</a></li>
-                <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">竞价招投标</a></li>
-                <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">品牌商户</a></li>
-                <li style="border-right: none"><a href="http://bbs.nainaiwang.com/" target="_blank">耐耐朋友圈</a></li>
+                <li class="current"><a href="http://{url:public/index/index@deal}">首页</a></li>
+                <li><a href="http://{url:public/offers/offerList@deal}" target="_blank">交易中心</a></li>
             </ul>
         </div>
     </div>
