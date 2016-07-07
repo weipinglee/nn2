@@ -100,7 +100,7 @@
         </div>
         <div class="row cl">
             <div class="col-10 col-offset-2">
-                <button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+                <button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok fa-ok"></i> 确定</button>
             </div>
         </div>
     </form>

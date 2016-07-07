@@ -30,7 +30,7 @@
                 <td>{$item['mobile']}</td>
                 <td>{$item['credit']}</td>
                 <td class="td-manage">
-                    <a title="查看明细" href="{url:/balance/accManage/userCreditDetail}?user_id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
+                    <a title="查看明细" href="{url:/balance/accManage/userCreditDetail}?user_id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
             </tr>
         {/foreach}
         </tbody>

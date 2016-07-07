@@ -123,9 +123,9 @@
 
             <tr>
               <th scope="col" colspan="6">
-                 <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok"></i> 通过</a> 
-                 <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove"></i> 不通过</a>
-                 <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                 <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok fa-ok"></i> 通过</a> 
+                 <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove fa-remove"></i> 不通过</a>
+                 <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
               </th>
             </tr>
 	 	</table>

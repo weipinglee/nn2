@@ -84,7 +84,7 @@
 
                   
                     <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;{if:empty($info['pairing_id'])}添加{else:}更新{/if}&nbsp;&nbsp;">
-                  <a class="btn btn-default radius" type="" onclick="javascript:history.back();"><i class="icon-remove"></i>&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
+                  <a class="btn btn-default radius" type="" onclick="javascript:history.back();"><i class="icon-remove fa-remove"></i>&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
                   
                  </th>
              </tr>

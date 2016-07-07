@@ -31,9 +31,9 @@
         </td>
         <td class="td-manage">
           <a title="编辑" href="{url: member/Menu/updateMenu?id=$list['id']}" class="ml-5" style="text-decoration:none">
-            <i class="icon-edit"></i>
+            <i class="icon-edit fa-edit"></i>
           </a>
-          <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:member/Menu/deleteMenu?id=$list['id']}"class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a>
+          <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:member/Menu/deleteMenu?id=$list['id']}"class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
           </a>
 
         </td>

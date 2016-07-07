@@ -18,7 +18,7 @@
         <div class="pd-20">
 			 <div class="text-c"> 
 			<input type="text" class="input-text" style="width:250px" placeholder="输入标号" id="" name="">
-			<button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜标号</button>
+			<button type="submit" class="btn btn-success" id="" name=""><i class="icon-search fa-search"></i> 搜标号</button>
 		</div>
 	 <table class="table table-border table-bordered table-hover table-bg">
         <thead>
@@ -52,7 +52,7 @@
                     <td>{$item['price']}</td>
                     <td>{$item['status_txt']}</td>
                     <td>{if:$item['is_del']==1}已删除{else:}正常{/if}</td>
-                     <td class="td-manage"> <a title="查看" href="{url:trade/OfferManage/kefuOfferDetail?id=$item['id']&user=$item['username']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open"></i></a></td>
+                     <td class="td-manage"> <a title="查看" href="{url:trade/OfferManage/kefuOfferDetail?id=$item['id']&user=$item['username']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open fa-eye-open"></i></a></td>
                 </tr>
            {/foreach}
         </tbody>
