@@ -77,6 +77,8 @@ class PurchaseController extends UcenterBaseController{
 	    if(!empty($imgData)){
 	        foreach ($imgData as $imgUrl) {
 	            if (!empty($imgUrl) && is_string($imgUrl)) {
+					if(!isset($detail['img']) || $detail['img']=='')
+						$detail['img'] = tool::setImgApp($imgUrl);
 	                array_push($resImg, array('img' => tool::setImgApp($imgUrl)));
 	            }
 	        }
