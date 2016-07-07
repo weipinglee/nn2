@@ -47,7 +47,7 @@
                     <td>{if:$item['divide'] == 0}可拆分{else:}否{/if}</td>
                     <td>{$item['quantity']}</td>
                     <td>{$item['price']}</td>
-                    <td>{$item['status_txt']}</td><td class="td-manage"> <a title="查看" href="{url:trade/OfferManage/offerDetails?id=$item['id']&user=$item['username']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open"></i></a> <a title="恢复" href="javascript:;" ajax_status=1 ajax_url="{url:trade/OfferManage/logicRec?id=$item['id']}" to_list=1 class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+                    <td>{$item['status_txt']}</td><td class="td-manage"> <a title="查看" href="{url:trade/OfferManage/offerDetails?id=$item['id']&user=$item['username']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open"></i></a> <a title="删除" href="javascript:;" ajax_status=1 ajax_url="{url:trade/OfferManage/logicRec?id=$item['id']}" to_list=1 class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
                 </tr>
            {/foreach}
            
