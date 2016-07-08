@@ -72,7 +72,11 @@
                              <a href="javascript:;"><div class="clear_word">
                                  <h5>{$data['name']}</h5>
                              </div></a>
-                             <span class="guige">90900*1000</span>
+                             <span class="guige">
+                                 {foreach:items=$data['attr_arr']}
+                                     {$key}:{$item}</br>
+                                 {/foreach}
+                             </span>
                              <span class="shulag">
                                 {if:$data['divide'] == 1}
                                     {$data['quantity']}
@@ -81,7 +85,7 @@
                                     <input type="text" name="num" value="{$data['minimum']}" width="20px" style="width:100px" />
                                 {/if}
                               </span>
-                             <span class="danwei">吨/千克</span>
+                             <span class="danwei">{$data['unit']}</span>
                              <span class="danjia"><b>￥</b>{$data['price']}</span>
                              <span class="jine"><i><b>￥</b><b class='prod_amount'>{$data['amount']}</b></i></span>
 

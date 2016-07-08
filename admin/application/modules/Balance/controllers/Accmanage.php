@@ -8,9 +8,13 @@ use Library\Query;
 use Library\Safe;
 use Library\json;
 
+
 class AccmanageController extends Yaf\Controller_Abstract {
+
+	protected $account = '';
 	//会用账户列表
 	public function init() {
+		$this->account = new userAccountModel();
 		$this->getView()->setLayOut('admin');
 
 	}
@@ -85,7 +89,7 @@ class AccmanageController extends Yaf\Controller_Abstract {
 
 		}
 	}
-
+	
 	/**
 	 * 开户信息审核页面
 	 */
@@ -111,6 +115,50 @@ class AccmanageController extends Yaf\Controller_Abstract {
 		$data = $obj->getBankList($page,$where);
 		$this->getView()->assign('data',$data[0]);
 		$this->getView()->assign('bar',$data[1]);
+	}
+
+	/**
+	 * 信誉保证金账户列表
+	 */
+	public function userCreditListAction(){
+		$page = safe::filterGet('page','int');
+		$list = $this->account->userCreditList($page);
+		$this->getView()->assign('data',$list['data']);
+		$this->getView()->assign('page',$list['bar']);
+	}
+
+	/**
+	 * 信誉保证金详情
+	 */
+	public function userCreditDetailAction(){
+		$user_id = safe::filterGet('user_id','int');
+		$info = $this->account->userCreditDetail($user_id);
+		$this->getView()->assign('info',$info);
+	}
+
+	/**
+	 * 后台增加用户信誉值保证金
+	 */
+	public function userCreditAddAction()
+	{
+		if(IS_POST){
+			$credit = safe::filterPost('credit','floatval');
+			$user_id = safe::filterPost('user_id','int');
+			$obj = new \Library\M('user_account');
+			$obj->beginTrans();
+			$obj->where(array('user_id'=>$user_id))->setInc('credit',$credit);
+
+			$credit_config = new \nainai\CreditConfig();
+			$credit_config->changeUserCredit($user_id,'credit_money',$credit);
+
+			$log = new \Library\log();
+			$log->addLog(array('content'=>'为用户'.$user_id.'充值信誉保证金'.$credit.'元'));
+
+			$res = $obj->commit();
+			die(JSON::encode($res === true ? \Library\tool::getSuccInfo() : \Library\tool::getSuccInfo(0,'操作失败')));
+		}else{
+			die('error');
+		}
 	}
 }
 

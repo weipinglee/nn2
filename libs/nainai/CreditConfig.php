@@ -56,7 +56,6 @@ class CreditConfig extends \nainai\Abstruct\ModelAbstract{
 						$logData['value'] = '-' . $configData['value'];
 						break;
 				}
-
 				$res = (bool)$this->model->data(array('credit' => $userData['credit']))->where('id=:id')->bind(array('id' => $userId))->update();
 				if ($res === TRUE) {
 					$this->addCreditLog($logData);

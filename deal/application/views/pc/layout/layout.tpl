@@ -13,6 +13,9 @@
     <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
     <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
     <script type="text/javascript" src="{root:js/layer/layer.js}" ></script>
+    <script type="text/javascript" src="{views:js/area/Area.js}" ></script>
+    <script type="text/javascript" src="{views:js/area/AreaData_min.js}" ></script>
+
 
 
     <style type="text/css">
@@ -52,7 +55,7 @@
         line-height: 43px;
         float: left;
         position: absolute;
-        left: 0px;
+        left: 180px;
         top: 0px;
     }
     #index_nav .nav li {
@@ -255,8 +258,8 @@ body{_padding-top:30px;}
                     <li><a href="#">求购</a></li>
                 </ul>
                 <div class="bodys">
-                    <p class="keyword_0"><input type="text" name="gong" onblur="if (this.value == '') {this.value = '高铝砖 乙醇 PP';}" onfocus="if (this.value == '高铝砖 乙醇 PP') {this.value = '';}" value="高铝砖 乙醇 PP" id=""  /><button class="one1" onclick="searchGoods(this)">搜索</button></p>
-                    <p class="keyword_1"><input type="text" name="qiu" onblur="if (this.value == '') {this.value = '乙醇 PP 高铝砖';}" onfocus="if (this.value == '乙醇 PP 高铝砖') {this.value = '';}"  value="乙醇 PP 高铝砖" id=""  /><button class="two2" onclick="searchGoods(this)">搜索</button></p>
+                    <p class="keyword_0"><input type="text" name="gong"  placeholder="高铝砖 乙醇 PP" value="" id=""  /><button class="one1" onclick="searchGoods(this)">搜索</button></p>
+                    <p class="keyword_1"><input type="text" name="qiu"  placeholder="高铝砖 乙醇 PP" value="" id=""  /><button class="two2" onclick="searchGoods(this)">搜索</button></p>
                 </div>
                 <script type="text/javascript">
                    function searchGoods(_this){
@@ -267,26 +270,22 @@ body{_padding-top:30px;}
                 </script>
             </div>  
             <div class="index_phone">
-                全国服务热线：<span>400-6738-086</span></div>
+                全国服务热线：<span>400-6238-086</span></div>
         </div>
     </div>
     <!------------------logo 结束-------------------->
     <!------------------导航 开始-------------------->
 
-
-
-
-
-  
-
     <div id="index_nav">
-        <div class="page_width">   
-
-
-            <ul class="nav n_nav">
+        <div class="page_width">
+            {if:isset($index)}
+            <div class="all_steel">全部产品分类</div>
+            {/if}
+            <ul class="nav n_nav" {if:!isset($index)}style="left:0" {/if}>
                 <li class="current"><a href="{url:/index/index}">首页</a></li>
-                <li><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
-                <li><a href="{url:/Shop/shopinfo}" >企业简介</a></li>
+
+                <li style="border-right:none;"><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
+
            </ul>
         </div>
     </div>
@@ -389,27 +388,7 @@ body{_padding-top:30px;}
 <link type="text/css" rel="stylesheet" href="{views:css/global_site_index_new.css}">
 
 
-<!--楼层电梯 -->
-<div class="floor_left_box" id="floornav" data-tpa="YHD_HOMEPAGE_FLOORNAV" style="display:none;">
 
-<a href="#floor-1" data="#floor-1" rel="floor-1" class="cur">
-<i class="left_iconfont "><img src="{views:images/floor_07.png}">交易市场</i>
-<em class="two_line"><img src="{views:images/floor_cur_07.png}">交易市场</em>
-</a>
-<a href="#floor-2" data="#floor-2" rel="floor-2">
-<i class="left_iconfont "><img src="{views:images/floor_09.png}">市场指数</i>
-<em class="two_line"><img src="{views:images/floor_cur_09.png}">市场指数</em>
-</a>
-<a href="#floor-3" data="#floor-3" rel="floor-3">
-<i class="left_iconfont "><img src="{views:images/floor_03.png}" >推荐商家</i>
-<em class="two_line"><img src="{views:images/floor_cur_03.png}">推荐商家</em>
-</a>
-<a href="" data="#toTop" rel="toTop">
-<i class="left_iconfont "><img src="{views:images/floor_08.png}">返回顶部</i>
-<em class="two_line"><img src="{views:images/floor_cur_08.png}">返回顶部</em>
-</a>
-
-</div> 
 
 
 

@@ -162,7 +162,7 @@
 <div class="header">
 		<div class="nav">
             <div class="logo-box zn-l">
-                <a href="../index.html" alt="返回耐耐首页"><img src="{views:/images/icon/nainaiwang.png}"/></a></dd>
+                <a href="http://124.166.246.120:8000/nn2/deal/public/index/index" alt="返回耐耐首页"><img src="{views:/images/icon/nainaiwang.png}"/></a></dd>
             </div>
 			<div class="nav-tit">
                 <ul class="nav-list">

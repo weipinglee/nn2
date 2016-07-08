@@ -54,9 +54,11 @@
                 <td colspan="5">
                         <ul>
                         {if: !empty($detail['proof'])}
+                            <li>
                         {foreach: items=$detail['proof']  item=$img}
-                        <li><img src="{$img}"></li>
+                        <img src="{$img}">
                         {/foreach}
+                            </li>
                         {/if}
                         </ul>
                 </td>

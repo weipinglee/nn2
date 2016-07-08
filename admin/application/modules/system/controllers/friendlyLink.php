@@ -18,7 +18,7 @@ class friendlyLinkController extends Yaf\Controller_Abstract{
     public function addFrdLinkAction(){
         if(IS_AJAX &&IS_POST){
             $data['name']=safe::filterPost('name');
-            $data['link']=safe::filterPost('link','url');
+            $data['link']=safe::filterPost('link');
             $data['status']=safe::filterPost('status','int');
             $data['order']=safe::filterPost('order','int');
             $frdLinkModel=$this->frdLinkModel;
@@ -46,7 +46,7 @@ class friendlyLinkController extends Yaf\Controller_Abstract{
             $date['id']=safe::filterPost('id','int');
             $date['name']=safe::filterPost('name');
             $date['order']=safe::filterPost('order','int');
-            $date['link']=safe::filterPost('link','url');
+            $date['link']=safe::filterPost('link');
             $date['status']=safe::filterPost('status','int');
             $res=$this->frdLinkModel->editLink($date);
             die(json::encode($res));

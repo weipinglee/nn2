@@ -36,9 +36,10 @@
             <!--所有分类 Start-->
             <div class="wrap">
                 <div class="all-sort-list">
+                    {set:$i=1;}
                     {foreach: items=$catList}
-                    <div class="item" id="{$item['id']}">
-                        <div class="icon-nh3">&nbsp;</div>
+                    <div class="item" id="{$i}">
+                        <div class="icon-nh{$i}">&nbsp;</div>{set:$i = $i +1;}
 
                         <h3>
 
@@ -86,112 +87,179 @@
                         </div>
                     </div>
             {/foreach}
+                    <div class="item item-sp" id="7">
+                        <div class="icon-nh7">&nbsp;</div>
+                        <h3>
+                            <p class="fenlei-h2">核心企业</p></h3>
+                        <div class="item-list clearfix" style="top: 0px; display: none;">
+                            <img src="{views:images/jsz.png}" width="700px" height="300px">
+                            <!--
+                            <div class="subitem">
+                                <dl class="fore1">
+                                    <dt><a href="#">电子书6</a></dt>
+                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
+                                </dl>
+                                <dl class="fore2">
+                                    <dt><a href="#">数字音乐</a></dt>
+                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
+                                </dl>
+                                <dl class="fore3">
+                                    <dt><a href="#">音像</a></dt>
+                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
+                                </dl>
+                                <dl class="fore4">
+                                    <dt>文艺</dt>
+                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
+                                </dl>
+                                <dl class="fore5">
+                                    <dt>人文社科</dt>
+                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
+                                </dl>
+                                <dl class="fore6">
+                                    <dt>经管励志</dt>
+                                    <dd><em><a href="#">经济</a></em><em><a href="#">金融与投资</a></em><em><a href="#">管理</a></em><em><a href="#">励志与成功</a></em></dd>
+                                </dl>
+                                <dl class="fore7">
+                                    <dt>生活</dt>
+                                    <dd><em><a href="#">家庭与育儿</a></em><em><a href="#">旅游/地图</a></em><em><a href="#">烹饪/美食</a></em><em><a href="#">时尚/美妆</a></em><em><a href="#">家居</a></em><em><a href="#">婚恋与两性</a></em><em><a href="#">娱乐/休闲</a></em><em><a href="#">健身与保健</a></em><em><a href="#">动漫/幽默</a></em><em><a href="#">体育/运动</a></em></dd>
+                                </dl>
+                                <dl class="fore8">
+                                    <dt>科技</dt>
+                                    <dd><em><a href="#">科普</a></em><em><a href="#">IT</a></em><em><a href="#">建筑</a></em><em><a href="#">医学</a></em><em><a href="#">工业技术</a></em><em><a href="#">电子/通信</a></em><em><a href="#">农林</a></em><em><a href="#">科学与自然</a></em></dd>
+                                </dl>
+                                <dl class="fore9">
+                                    <dt>少儿</dt>
+                                    <dd><em><a href="#">少儿</a></em><em><a href="#">0-2岁</a></em><em><a href="#">3-6岁</a></em><em><a href="#">7-10岁</a></em><em><a href="#">11-14岁</a></em></dd>
+                                </dl>
+                                <dl class="fore10">
+                                    <dt>教育</dt>
+                                    <dd><em><a href="#">教材教辅</a></em><em><a href="#">考试</a></em><em><a href="#">外语学习</a></em></dd>
+                                </dl>
+                                <dl class="fore11">
+                                    <dt>其它</dt>
+                                    <dd><em><a href="#">英文原版书</a></em><em><a href="#">港台图书</a></em><em><a href="#">工具书</a></em><em><a href="#">套装书</a></em><em><a href="#">杂志/期刊</a></em></dd>
+                                </dl>
+                            </div>
+                            <div class="cat-right">
+                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
+                                    <dd>
+                                        <ul>
+                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
+                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhVlJTyt8IAAAAAAAiq1D-0D8AAD7_gIE2KUAACLD102.jpg" width="194" height="70" title="重磅独家"></a></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
+                                    <dt>推荐品牌出版商</dt>
+                                    <dd>
+                                        <ul>
+                                            <li><a href="#" target="_blank">中华书局</a></li>
+                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
+                                            <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
+                                            <li><a href="#" target="_blank">电子工业出版社</a></li>
+                                            <li><a href="#" target="_blank">三联书店</a></li>
+                                            <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
+                                            <li><a href="#" target="_blank">人民文学出版社</a></li>
+                                            <li><a href="#" target="_blank">外语教学与研究出版社</a></li>
+                                            <li><a href="#" target="_blank">中信出版社</a></li>
+                                            <li><a href="#" target="_blank">化学工业出版社</a></li>
+                                            <li><a href="#" target="_blank">北京大学出版社</a></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="item item-sp" id="7">
+                        <div class="icon-nh7">&nbsp;</div>
+                        <h3>
+                            <p class="fenlei-h2">仓储专区</p></h3>
+                        <div class="item-list clearfix" style="top: 0px; display: none;">
+                            <img src="{views:images/jsz.png}" width="700px" height="300px">
+                            <!--
+                            <div class="subitem">
+                                <dl class="fore1">
+                                    <dt><a href="#">电子书6</a></dt>
+                                    <dd><em><a href="#">免费</a></em><em><a href="#">小说</a></em><em><a href="#">励志与成功</a></em><em><a href="#">婚恋/两性</a></em><em><a href="#">文学</a></em><em><a href="#">经管</a></em><em><a href="#">畅读VIP</a></em></dd>
+                                </dl>
+                                <dl class="fore2">
+                                    <dt><a href="#">数字音乐</a></dt>
+                                    <dd><em><a href="#">通俗流行</a></em><em><a href="#">古典音乐</a></em><em><a href="#">摇滚说唱</a></em><em><a href="#">爵士蓝调</a></em><em><a href="#">乡村民谣</a></em><em><a href="#">有声读物</a></em></dd>
+                                </dl>
+                                <dl class="fore3">
+                                    <dt><a href="#">音像</a></dt>
+                                    <dd><em><a href="#">音乐</a></em><em><a href="#">影视</a></em><em><a href="#">教育音像</a></em><em><a href="#">游戏</a></em></dd>
+                                </dl>
+                                <dl class="fore4">
+                                    <dt>文艺</dt>
+                                    <dd><em><a href="#">小说</a></em><em><a href="#">文学</a></em><em><a href="#">青春文学</a></em><em><a href="#">传记</a></em><em><a href="#">艺术</a></em></dd>
+                                </dl>
+                                <dl class="fore5">
+                                    <dt>人文社科</dt>
+                                    <dd><em><a href="#">历史</a></em><em><a href="#">心理学</a></em><em><a href="#">政治/军事</a></em><em><a href="#">国学/古籍</a></em><em><a href="#">哲学/宗教</a></em><em><a href="#">社会科学</a></em></dd>
+                                </dl>
+                                <dl class="fore6">
+                                    <dt>经管励志</dt>
+                                    <dd><em><a href="#">经济</a></em><em><a href="#">金融与投资</a></em><em><a href="#">管理</a></em><em><a href="#">励志与成功</a></em></dd>
+                                </dl>
+                                <dl class="fore7">
+                                    <dt>生活</dt>
+                                    <dd><em><a href="#">家庭与育儿</a></em><em><a href="#">旅游/地图</a></em><em><a href="#">烹饪/美食</a></em><em><a href="#">时尚/美妆</a></em><em><a href="#">家居</a></em><em><a href="#">婚恋与两性</a></em><em><a href="#">娱乐/休闲</a></em><em><a href="#">健身与保健</a></em><em><a href="#">动漫/幽默</a></em><em><a href="#">体育/运动</a></em></dd>
+                                </dl>
+                                <dl class="fore8">
+                                    <dt>科技</dt>
+                                    <dd><em><a href="#">科普</a></em><em><a href="#">IT</a></em><em><a href="#">建筑</a></em><em><a href="#">医学</a></em><em><a href="#">工业技术</a></em><em><a href="#">电子/通信</a></em><em><a href="#">农林</a></em><em><a href="#">科学与自然</a></em></dd>
+                                </dl>
+                                <dl class="fore9">
+                                    <dt>少儿</dt>
+                                    <dd><em><a href="#">少儿</a></em><em><a href="#">0-2岁</a></em><em><a href="#">3-6岁</a></em><em><a href="#">7-10岁</a></em><em><a href="#">11-14岁</a></em></dd>
+                                </dl>
+                                <dl class="fore10">
+                                    <dt>教育</dt>
+                                    <dd><em><a href="#">教材教辅</a></em><em><a href="#">考试</a></em><em><a href="#">外语学习</a></em></dd>
+                                </dl>
+                                <dl class="fore11">
+                                    <dt>其它</dt>
+                                    <dd><em><a href="#">英文原版书</a></em><em><a href="#">港台图书</a></em><em><a href="#">工具书</a></em><em><a href="#">套装书</a></em><em><a href="#">杂志/期刊</a></em></dd>
+                                </dl>
+                            </div>
+                            <div class="cat-right">
+                                <dl class="categorys-promotions" clstag="homepage|keycount|home2013|0601c">
+                                    <dd>
+                                        <ul>
+                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhWFJTydgIAAAAAAAiD8_1J3AAAD5mAMC0SYAACIn230.jpg" width="194" height="70" title="特价书满减"></a></li>
+                                            <li><a href="#" target="_blank"><img src="./京东新版商品分类导航代码 - 源码之家_files/rBEhVlJTyt8IAAAAAAAiq1D-0D8AAD7_gIE2KUAACLD102.jpg" width="194" height="70" title="重磅独家"></a></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
+                                    <dt>推荐品牌出版商</dt>
+                                    <dd>
+                                        <ul>
+                                            <li><a href="#" target="_blank">中华书局</a></li>
+                                            <li><a href="#" target="_blank">人民邮电出版社</a></li>
+                                            <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
+                                            <li><a href="#" target="_blank">电子工业出版社</a></li>
+                                            <li><a href="#" target="_blank">三联书店</a></li>
+                                            <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
+                                            <li><a href="#" target="_blank">人民文学出版社</a></li>
+                                            <li><a href="#" target="_blank">外语教学与研究出版社</a></li>
+                                            <li><a href="#" target="_blank">中信出版社</a></li>
+                                            <li><a href="#" target="_blank">化学工业出版社</a></li>
+                                            <li><a href="#" target="_blank">北京大学出版社</a></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>-->
+                        </div>
+                    </div>
                     <div class="item item-sp" id="9">
                         <div class="icon-nh9">&nbsp;</div>
                         <h3>
                             <p class="fenlei-h2">帮我找</p></h3>
                         <div class="item-list clearfix" style="top: 0px; display: none;">
 
-                            <!-- 帮我找找找找找找找找找找找 -->
-                            <link rel="stylesheet" href="{views:css/lanrenzhijia.css}" type="text/css">
-                            <script src="{views:js/lanrenzhijia.js}"></script>
-
-                            <div class="lanrenzhijia">
-                                <div class="title cf">
-                                    <ul class="title-list fl cf ">
-                                        <li class="on"><h2><img src="{views:images/icon/mod_tit_solgn_06.png}">&nbsp;找现货</h2></li>
-                                        <li><h2><img src="{views:images/icon/mod_tit_solgn_07.png}">&nbsp;找物流</h2></li>
-                                        <li><h2><img src="{views:images/icon/mod_tit_solgn_08.png}">&nbsp;找加工</h2></li>
-                                        <li><h2><img src="{views:images/icon/mod_tit_solgn_05.png}">&nbsp;找资金</h2></li>
-                                        <p><b></b></p>
-                                    </ul>
-                                </div>
-                                <div class="product-wrap">
-                                    <!--案例1-->
-                                    <div class="product show">
-                                        <div class="s_group">
-                                            <div class="s_item">
-                                                大类：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item">
-                                                品名：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item last_item">
-                                                交货地：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item">
-                                                规格：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item last_item">
-                                                材质：<div class="s_item_box"><input type="text" value class="inputSel" placeholder="全国" autocomplete="off"></div>
-                                            </div>
-                                            <div class="s_item">
-                                                <a href="product.html" class="button">搜素</a>
-                                            </div>
-                                        </div>
-                                        <div class="div_choose">
-                                            <div class="div_Iam">
-                                                我是<label><input  name="rad_buy_role" type="radio" value="耐材生产商" checked>耐材生产商</label><label><input  name="rad_buy_role" type="radio" value="下游企业">下游企业</label>
-                                            </div>
-                                            <div class="div_phone">
-                                                <span>*</span>联系电话：<input name="txt_Buy_Phone" type="text" id="txt_Buy_Phone" class="txt_phone"><span>(必填)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--案例2-->
-                                    <div class="product">
-                                        <ul class="cf">
-                                            <li class="ml0"> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/2.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/2.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/2.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!--案例3-->
-                                    <div class="product">
-                                        <ul class="cf">
-                                            <li class="ml0"> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/3.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/3.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/3.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!--案例4-->
-                                    <div class="product">
-                                        <ul class="cf">
-                                            <li class="ml0"> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/4.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/4.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                            <li> <a href="http://www.lanrenzhijia.com" class="imgwrap"> <img src="images/4.jpg"> </a>
-                                                <p class="mt10"> <a href="http://www.lanrenzhijia.com"> 深圳达文影视传媒有限公司logo... </a></p>
-                                                <p class="pb10">行业类别：艺术摄影,文化体育</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            <img src="{views:images/jsz.png}" width="700px" height="300px">
 
 
                         </div>
@@ -383,27 +451,42 @@
 
                         <div class="i_leftCon" id="offer_list">{set:$i=0}
                         {foreach:items=$offerData}
-                            <div class="i_proList {if:$i==0}show{/if}" id="offer{$key}">{set:$i=$i+1;}
-                                <div class="i_tuijian">
-                                    <img src="" class="ad_img">
-<!--
-                                    <ul class="tuijian">
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1 i_TextRed"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                        <li class="tuijian_1_1"><img src="" class="tui_img">化工原料</li>
-                                    </ul>
 
+                            <div class="i_proList {if:$i==0}show{/if}" id="offer{$key}">
+                                <div class="i_tuijian" >
+
+                                    {foreach:items=$topCat key=$catKey item=$cat}
+                                        {if:$cat['id']==$key}
+                                            <div id="offerAd{$key}" style="height:175px;">{echo: \Library\Ad::show($cat['name'])}</div>
+                                        {/if}
+                                    {/foreach}
+
+                                    {foreach:items=$catList key=$kk item=$vv}
+                                        {if:$vv['id']==$key}
+
+
+                                        <ul class="tuijian">
+                                            {foreach:items=$vv['nested'] key=$kkk item=$vvv}
+                                                {if:$kkk<=3}
+                                        <li class="tuijian_1_1">  · <a href="{url:/offers/offerlist?cate=$vvv['id']}">{$vvv['name']}</a></li>
+                                                {/if}
+                                            {/foreach }
+
+                                    </ul>
+                                        {/if}
+                                    {/foreach}
+                                    {foreach: items=$catList key=$kk item=$vv}
+                                        {if:$vv['id']==$key}
                                     <ul class="tuijian">
-                                        <li class="tuijian_2_1">甲醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">乙醇</li>
-                                        <li class="tuijian_2_1">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">甲醇</li>
-                                        <li class="tuijian_2_1">乙醇</li>
-                                        <li class="tuijian_2_1 i_TextRed">丙醇</li>
-                                        <li class="tuijian_2_1">丁醇</li>
-                                    </ul>-->
+                                        {foreach: items=$vv['nested'] key=$kkk item=$vvv}
+                                            {if:$kkk>3&&$kkk<=7}
+                                        <li class="tuijian_2_1"><a href="{url:/offers/offerlist?cate=$vvv['id']}">{echo:mb_substr($vvv['name'],0,2,'utf-8')}</a></li>
+                                            {/if}
+                                       {/foreach}
+                                    </ul>
+                                        {/if}
+                                    {/foreach}
+                                    {set:$i=$i+1;}
                                 </div>
                                 <ul>
                                     <li class="i_ListTit">
@@ -412,7 +495,7 @@
                                         <span class="i_w_3">品名</span>
                                         <span class="i_w_6">数量</span>
                                         <span class="i_w_7">剩余</span>
-                                        <span class="i_w_5">单位</span>
+                                        <span class="i_w_6">单位</span>
                                         <span class="i_w_8">价格(元)</span>
                                         <span class="i_w_9">产地</span>
                                         <span class="i_w_10">交货地</span>
@@ -424,9 +507,15 @@
                                     {foreach:items=$item $key=$pid item=$pro}
                                         <li>
                                             <span class="i_w_1 ">{$pro['id']}</span>
-                                            <span class="i_w_2 i_TextGreen">
-                                               {if:$pro['type']==1}供{else:}求{/if}
-                                            </span>
+                                            {if:$pro['type']==1}
+                                                <span class="i_w_2 i_TextGreen">
+                                                   供
+                                                </span>
+                                            {else:}
+                                                <span class="i_w_2 i_TextRed">
+                                                   求
+                                                </span>
+                                            {/if}
                                             <span class="i_w_3">
                                                   {$pro['pname']}
                                             </span>
@@ -438,23 +527,33 @@
                                             <span class="i_w_9" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
                                             <span class="i_w_10">{$pro['accept_area']}</span>
                                             <span class="i_w_11">
-                                                {if:$pro['type']==1}
-                                                <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
-                                                    <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                                                </a>
-                                                {else:}
-                                                    <a href="{url:/offers/report?id=$pro['id']}">
-                                                    <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                                                </a>
-                                                {/if}
-                                                {if:$pro['qq']!=''}
-
-                                                <a href="{$pro['qq']}"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
-                                                </a>
+                                                {if:$pro['quantity']-$pro['sell']-$pro['freeze']>0}
+                                                    {if:$pro['type']==1}
+                                                        <a href="{url:/offers/offerdetails?id=$pro['id']&pid=$pro['product_id']}">
+                                                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                        </a>
+                                                     <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
+                                                         <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
+                                                     </a>
                                                     {else:}
-                                                    <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
-                                                </a>
+                                                        <a href="{url:/offers/purchasedetails?id=$pro['id']}">
+                                                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                        </a>
+                                                         <a href="{url:/offers/report?id=$pro['id']}">
+                                                              <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
+                                                        </a>
+                                                    {/if}
+                                                    {if:$pro['qq']!=''}
 
+                                                    <a href="tencent://message/?uin={$pro['qq']}&Site=qq&Menu=yes"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                    </a>
+                                                        {else:}
+                                                        <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                    </a>
+
+                                                {/if}
+                                                {else:}
+                                                        <img src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
                                                 {/if}
                                         </li>
                                     {/foreach}
@@ -472,9 +571,7 @@
                                     </div>
                                     <div class="i_starCon">
                                         <ul>
-                                            <li><a target="_blank" >- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li>
-                                            <li><a target="_blank">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li>
-                                            <li><a target="_blank" >- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
+                                            <li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9522.html">- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-9-9507.html">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9504.html">- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -482,9 +579,11 @@
                                 <div class="i_Rlist">
                                     <div class="iConTitle">耐火原料供应商</div>
                                     <ul>
-                                        <li><a ><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a ><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
-                                        <li><a ><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
+
+                                        <li>{echo: \Library\Ad::show('供应1')}</li>
+                                        <li>{echo: \Library\Ad::show('供应2')}</li>
+                                        <li>{echo: \Library\Ad::show('供应3')}</li>
+
                                     </ul>
                                 </div>
 
@@ -503,7 +602,7 @@
                                 <ul style="top: 0px;">
                                     {if:!empty($newTrade)}
                                         {foreach:items=$newTrade}
-                                    <li style="opacity: 1.0000000000000007;">{$item['username']}
+                                    <li style="opacity: 1.0000000000000007;"><i>{$item['username']}</i>
                                         <em class="red">成功{if:$item['type']==1}销售{else:}采购{/if}</em>{$item['name']}{$item['num']}{$item['unit']}
                                     </li>
                                         {/foreach}
@@ -537,8 +636,8 @@
                             {foreach: items=$statcCatList}
                             <div class="i_proList  i_proList_zhishu" id="statc{$key}">
                                 <div class="i_zhishu">
-                                    <div src="" class="zhishu_img"></div>
-                                    <div src="" class="zhishu_img"></div>
+                                    <div src="" class="zhishu_img"><img src="{views:images/zhex_2.jpg}" width="280px" height="143px"></div>
+                                    <div src="" class="zhishu_img"><img src="{views:images/zhex_2.jpg}" width="280px" height="143px"></div>
                                 </div>
                                 {foreach: items=$item key=$kk item=$vv}
                                 <ul style="width:200px;height:300px;float:left;">
@@ -569,30 +668,32 @@
                             </div>
                             {/foreach}
 
-                            <!--明星点评-->
-                            <div class="i_recommend clearfix" style="margin:20px 0 0 15px;">
 
-                                <div class="i_star">
-                                    <div class="i_starLeft">
-                                        <span class="i_starImg"><img alt="行情分析" src="{views:images/main_file/20150421104605162_03.png}"></span>
-                                        <span>&nbsp;&nbsp;&nbsp;行情分析</span>
-                                    </div>
-                                    <div class="i_starCon">
-                                        <ul>
-                                            <li><a target="_blank" >- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" >- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" >- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
-                                        </ul>
-                                    </div>
+
+                        </div>
+                        <!--明星点评-->
+                        <div class="i_recommend clearfix" style="margin:20px 0 0 15px;">
+
+                            <div class="i_star">
+                                <div class="i_starLeft">
+                                    <span class="i_starImg"><img alt="行情分析" src="{views:images/main_file/20150421104605162_03.png}"></span>
+                                    <span>&nbsp;&nbsp;&nbsp;行情分析</span>
                                 </div>
-
-                                <div class="i_Rlist">
-                                    <div class="iConTitle">化工原料供应商</div>
+                                <div class="i_starCon">
                                     <ul>
-                                        <li><a  target="_blank"><img width="148px" alt="江苏省海安石油化工厂" src="{views:images/main_file/20151124013651571.jpg}" title="江苏省海安石油化工厂"></a></li>
-                                        <li><a  target="_blank"><img width="148px" alt="群星集团" src="{views:images/main_file/20151117094047658.jpg}" title="群星集团"></a></li>
-                                        <li><a  target="_blank"><img width="148px" alt="远大物产集团有限公司" src="{views:images/main_file/20151117094122237.jpg}" title="远大物产集团有限公司"></a></li>
+                                        <li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9522.html">- 黄渊熙：钛白粉今年“减量提质”向高端产品</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-9-9507.html">- 黄渊熙：煤炭行业亟需整合煤电资源以及发展</a></li><li><a target="_blank" href="http://www.nainaiwang.com/news/article/show-13-9504.html">- 黄渊熙：2015年12月化学原料和制品业增加值</a></li>
                                     </ul>
                                 </div>
+                            </div>
 
+                            <div class="i_Rlist">
+                                <div class="iConTitle">化工原料供应商</div>
+                                <ul>
+
+                                    <li>{echo: \Library\Ad::show('化工1')}</li>
+
+
+                                </ul>
                             </div>
 
                         </div>
@@ -617,7 +718,7 @@
                                             {set:$gap = $item['ave_price']- $item['prev_price']}
                                             {if:$gap>0}{set:$fuhao='+'}{else:}{set:$fuhao='-'}{/if}
                                             <span class="ShopPro_text"><a href="#">{$item['name']}</a></span>
-                                            <span class="ShopPro_change {if:$gap>0}i_TextRed{else:}i_TextGreen{/if}">{$fuhao}{echo:abs($item['ave_price']-$item['prev_price'])}</span>
+                                            <span style="margin-right:8px;" class="ShopPro_change {if:$gap>0}i_TextRed{else:}i_TextGreen{/if}">{$fuhao}{echo:abs($item['ave_price']-$item['prev_price'])}</span>
                                             <span class="ShopPro_price {if:$gap>0}i_TextRed{else:}i_TextGreen{/if}">￥{$item['ave_price']}</span>
                                         </div>
                                     {/foreach}
@@ -670,7 +771,7 @@
                                     <div class="i_w_13">
                                         <img src="{views:images/bg/20160121190011.png}" class="tuijian_bg">
                                         <div class="com_content">
-                                            <p class="content_1"><span class="left"><img src="{views:images/ag_logo.png}" class="com_logo">{$v['company_name']}</span><span class="right"><a href="">进入商铺 &gt; &gt;</a></span></p>
+                                            <p class="content_1"><span class="left"><img src="{views:images/ag_logo.png}" class="com_logo">{$v['company_name']}</span><span class="right"><!--<a href="">进入商铺 &gt; &gt;</a>--></span></p>
 
                                             <p class="content_2">主营：<span class="main_content">{$v['business']}</span></p>
                                             <p class="connect">
@@ -697,7 +798,8 @@
 
                                     {foreach: items=$item[3] key=$k item=$v}
                                     <ul>
-                                        <li class="i_regionTit" id="area">{areatext:data=14 id=area delimiter=地区}<span style="display: none">累计撮合1809单</span></li>
+                                        {set:$area_id='area'.$k;}
+                                        <li class="i_regionTit" id="area{$k}">{areatext:data=$k id=area_id delimiter=地区}<span style="display: none"></span></li>
                                         <li class="i_regionTit2">推荐商家</li>
                                         <?php foreach($v as $kk=>$vv){ ?>
                                         <li><a href="">- {$vv['company_name']}</a></li><?php }  ?>
@@ -728,14 +830,30 @@
                                     <li class="rank_tit">
                                         <span class="i_r_1">排名</span>
                                         <span class="i_r_2">商户简称</span>
+                                        <span class="i_r_3">认证</span>
                                         <span class="i_r_4">等级</span>
                                         <span class="i_r_5">信誉值</span>
                                     </li>
                                     {foreach:items=$creditMember}
                                         <li class="rank_list">
-                                            <span class="i_r_1">{echo:$key+1}</span>
-                                            <span class="i_r_2">{$item['company_name']}</span>
-                                            <span class="i_r_4"><img src="{$item['icon']}"></span>
+                                            <span class="i_r_1">{if:$key==0}
+                                                    <img src="{views:images/rank_06.png}">
+
+                                                                {elseif:$key==1}
+                                                    <img src="{views:images/rank_13.png}">
+
+                                                                {elseif:$key==2}
+                                                    <img src="{views:images/rank_16.png}">
+
+                                                                {else:}
+                                                    {echo:$key+1}
+                                                                {/if}
+
+
+                                            </span>
+                                            <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
+                                            <span class="i_r_3">{if:$item['credit_money']>0}<img src="{views:images/rank_08.png}">{/if}</span>
+                                            <span class="i_r_4"><img style="margin-top: -17px;" src="{$item['icon']}"></span>
                                             <span class="i_r_5">{$item['credit']}</span>
                                         </li>
                                     {/foreach}
@@ -769,15 +887,15 @@
                         <ul class="HomeService_other">
                             <li class="iServiceTit">新手指南</li>
                             <li class="iServiceText">
-                                <p><a  rel="nofollow"><b>【订单管理】</b>管理我的订单及邀请我的好友</a></p>
-                                <p><a  rel="nofollow"><b>【完善信息】</b>注册成功后尽快完善公司信息 </a></p>
-                                <p><a  rel="nofollow"><b>【站内消息】</b>管理我的站内消息</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-92.html" rel="nofollow"><b>【订单管理】</b>管理我的订单及邀请我的好友</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-89.html" rel="nofollow"><b>【完善信息】</b>注册成功后尽快完善公司信息 </a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-94.html" rel="nofollow"><b>【站内消息】</b>管理我的站内消息</a></p>
                             </li>
                             <li class="iServiceTit">常见问题</li>
                             <li class="iServiceText">
-                                <p><a  rel="nofollow"><b>【发布供求】</b>注册成功后，如何发布供求？</a></p>
-                                <p><a  rel="nofollow"><b>【批量发布】</b>供求信息多，可否批量发布呢？</a></p>
-                                <p><a  rel="nofollow"><b>【公司认证】</b>如何进行公司认证？</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-42.html" rel="nofollow"><b>【发布供求】</b>注册成功后，如何发布供求？</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-90.html" rel="nofollow"><b>【批量发布】</b>供求信息多，可否批量发布呢？</a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-93.html" rel="nofollow"><b>【公司认证】</b>如何进行公司认证？</a></p>
                             </li>
                         </ul>
                         <ul class="i_Contact">
@@ -850,8 +968,30 @@
             obj.addClass('li_select');
             $('[id^=offer]').removeClass('show');
             $('#offer'+id).addClass('show');
+
         }
     </script>
 
 
 
+        <!--楼层电梯 -->
+        <div class="floor_left_box" id="floornav" data-tpa="YHD_HOMEPAGE_FLOORNAV" style="display:none;">
+
+            <a href="#floor-1" data="#floor-1" rel="floor-1" class="cur">
+                <i class="left_iconfont "><img src="{views:images/floor_07.png}">交易市场</i>
+                <em class="two_line"><img src="{views:images/floor_cur_07.png}">交易市场</em>
+            </a>
+            <a href="#floor-2" data="#floor-2" rel="floor-2">
+                <i class="left_iconfont "><img src="{views:images/floor_09.png}">市场指数</i>
+                <em class="two_line"><img src="{views:images/floor_cur_09.png}">市场指数</em>
+            </a>
+            <a href="#floor-3" data="#floor-3" rel="floor-3">
+                <i class="left_iconfont "><img src="{views:images/floor_03.png}" >推荐商家</i>
+                <em class="two_line"><img src="{views:images/floor_cur_03.png}">推荐商家</em>
+            </a>
+            <a href="" data="#toTop" rel="toTop">
+                <i class="left_iconfont "><img src="{views:images/floor_08.png}">返回顶部</i>
+                <em class="two_line"><img src="{views:images/floor_cur_08.png}">返回顶部</em>
+            </a>
+
+        </div>

@@ -1,4 +1,4 @@
-		<form method="post" action="{url:/Delivery/geneDelivery}">
+		<form method="post" action="{url:/Delivery/geneDelivery}" auto_submit redirect_url="{url:delivery/delibuylist}">
 			<!--start中间内容-->	
 			<div class="user_c_list">
 				<div class="user_zhxi">
@@ -22,13 +22,13 @@
 									<th>仓库</th>
 								</tr>
 								<tr>
-									<td><img src="../images/banner/551b861eNe1c401dc.jpg"/></td>
+									<td><img src="{$data['img']}"/></td>
 									<td>{$data['name']}</td>
 									<td>{$data['num']}{$data['unit']}</td>
 									<td>{$data['left']}{$data['unit']}</td>
 									<!-- 判断系统参数是否支持多次开单 如果单次开单则不能修改开单数量-->
 									<td>
-										<input type="text" class="thjs_input" name='num'>
+										<input type="text" class="thjs_input" name='num' datatype="float">
 
 									</td>
 									<td>{$data['store_name']}</td>
@@ -42,7 +42,7 @@
 					                        <div>
 					                        
 					                        
-					                        <input name="expect_time" id="date_start" type="text" class="Wdate gyctht_input" value="2016-04-01">
+					                        <input name="expect_time" id="date_start" type="text" datatype="date" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});">
 						                        	
 						                        	记重方式：过磅  
 						                             <input type="hidden" id="weight_type" value="A">
@@ -50,25 +50,26 @@
 						                        	
 					                        
 					                        </div>
+
 				                        	</li>
 				                        	<li class="clearfix">
 				                        		<label>提货人：</label>
 				                        		<div>
 				                        			<p>
-				                        				<b> ● </b>
-				                        				提货人：<span id="man"><input type="text" name="delivery_man"></span>
+
+				                        				提货人：<span id="man"><input type="text" name="delivery_man" datatype="*"></span>
 				                        			</p>
 				                        			<p>
-				                        				<b> ● </b>
-				                        				联系电话：<span id="tel"><input type="text" name="phone"></span>
+
+				                        				联系电话：<span id="tel"><input type="text" name="phone" datatype="mobile"></span>
 				                        			</p>
 				                        			<p>
-				                        				<b> ● </b>
-				                        				身份证号码：<span id="code"><input type="text" name="idcard"/></span>
+
+				                        				身份证号码：<span id="code"><input type="text" name="idcard" datatype="identify"/></span>
 				                        			</p>
 				                        			<p>
-				                        				<b> ● </b>
-				                        				车牌号：<input type="text" name="plate_number" placeholder="多个以逗号分隔"/>
+
+				                        				车牌号：<input type="text" name="plate_number" datatype="*" placeholder="多个以逗号分隔"/>
 				                        			</p>
 				                        		</div>
 				                        	</li>

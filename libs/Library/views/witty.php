@@ -242,7 +242,7 @@ class witty{
                 }
                 break;
                 case 'root:' : {//根目录
-                    return url::getHost().url::getScriptDir().'/'.trim(trim($matches[4]),'/');
+                    return url::getScriptDir().'/'.trim(trim($matches[4]),'/');
                 }
                 break;
                 case 'area:' : {

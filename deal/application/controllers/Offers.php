@@ -96,6 +96,9 @@ class OffersController extends PublicController {
 		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
 		//商品剩余数量
 
+		$pro = new \nainai\offer\product();
+		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
 		$this->getView()->assign('data',$info);
 
 	}
@@ -190,17 +193,16 @@ class OffersController extends PublicController {
 	 */
 	public function reportAction(){
 		$id = $this->getRequest()->getParam('id');
-		$id = Safe::filter($id, 'id');
+		$id = Safe::filter($id, 'int');
 
 		if (intval($id) > 0) {
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
 			$offerDetail = $PurchaseOfferModel->getOfferProductDetailDeal($id);
+
 			if(empty($offerDetail)){
 				$this->error('采购不存在');exit;
 			}
-			if(time() > strtotime($offerDetail[1]['expire_time'])){
-				$this->error('报盘不存在或已过期');
-			}
+
 
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
@@ -210,6 +212,67 @@ class OffersController extends PublicController {
 
 	}
 
+	public function offerDetailsAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int');
+
+		if($id){
+			$info = $this->offer->offerDetail($id);
+			if(empty($info)){
+				$this->error('报盘不存在或未通过审核');
+			}
+			if(time() > strtotime($info['expire_time'])){
+				$this->error('报盘不存在或已过期');
+			}
+
+			$pro = new \nainai\offer\product();
+			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+			$kefuData = array();
+			if($info['kefu']){
+				$kefu = new \Library\M('admin_kefu');
+				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
+			}
+
+			$mem = new \nainai\member();
+
+			$userData = $mem->getUserDetail($info['user_id']);
+
+			$this->getView()->assign('data',$info);
+			$this->getView()->assign('user',$userData);
+			$this->getView()->assign('kefu',$kefuData);
+		}
+	}
+
+	public function purchaseDetailsAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int');
+
+		if($id){
+			$info = $this->offer->offerDetail($id);
+			if(empty($info)){
+				$this->error('报盘不存在或未通过审核');
+			}
+			if(time() > strtotime($info['expire_time'])){
+				$this->error('报盘不存在或已过期');
+			}
+
+			$pro = new \nainai\offer\product();
+			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+			$kefuData = array();
+			if($info['kefu']){
+				$kefu = new \Library\M('admin_kefu');
+				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
+			}
+
+			$mem = new \nainai\member();
+
+			$userData = $mem->getUserDetail($info['user_id']);
+
+			$this->getView()->assign('data',$info);
+			$this->getView()->assign('user',$userData);
+			$this->getView()->assign('kefu',$kefuData);
+		}
+	}
 
 
 }

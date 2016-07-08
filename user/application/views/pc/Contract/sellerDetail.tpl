@@ -38,14 +38,14 @@
 							</div>
 						</div>
 						<div class="sjxx">
-							<p>收件人信息</p>
+							<p>买方信息</p>
 							<div class="sj_detal">
 								<b class="sj_de_tit">类型：</b>
-								<span>&nbsp;{$info['userinfo']['type']}</span>
+								<span>&nbsp;{$info['userinfo']['user_type']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">名称：</b>
-								<span>&nbsp;{$info['userinfo']['true_name']}</span>
+								<span>&nbsp;{$info['userinfo']['true_name']}{$info['userinfo']['company_name']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">地址：</b>
@@ -87,7 +87,7 @@
 								<b class="sj_de_tit">银行卡号：</b>
 								<span>&nbsp;{$invoice['bank_no']}</span>
 							</div>
-							<form action="{url:/Contract/geneOrderInvoice}" method="post" auto_submit rediret_url="{url:/Contract/sellerDetail?id=$info['id']}">
+							<form action="{url:/Contract/geneOrderInvoice}" method="post"  rediret_url="{url:/Contract/sellerDetail?id=$info['id']}">
 								<div class="sj_detal">
 									<b class="sj_de_tit">发票照片：</b>
 									<span>&nbsp;{if:$invoice['order_invoice']['image']}<img src="{$invoice['order_invoice']['image']}">{else:}

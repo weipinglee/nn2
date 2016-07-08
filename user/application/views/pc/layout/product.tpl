@@ -67,27 +67,32 @@
     </tr>
 
 
-
-    <tr>
-        <td>图片预览：</td>
-        <td colspan="2">
-                                    <span class="zhs_img" id='imgContainer'>
-
-                                    </span>
-        </td>
-    </tr>
     <tr>
         <td>上传图片：</td>
         <td>
-                                    <span>
-                                        <div>
 
-                                            <input id="pickfiles"  type="button" value="选择文件">
-                                            <input type="button"  id='uploadfiles' class="tj" value="上传">
-                                        </div>
-                                        <div id="filelist"></div>
-                                        <pre id="console"></pre>
-                                    </span>
+            <script type="text/javascript" src="{root:/js/webuploader/webuploader.js}"></script>
+            <script type="text/javascript" src="{root:/js/webuploader/upload.js}"></script>
+            <link href="{root:/js/webuploader/webuploader.css}" rel="stylesheet" type="text/css" />
+            <link href="{root:/js/webuploader/demo.css}" rel="stylesheet" type="text/css" />
+
+
+            <div id="uploader" class="wu-example">
+                <input type="hidden" name="uploadUrl" value="{url:/ucenter/upload}" />
+                <input type="hidden" name="swfUrl" value="{root:/js/webuploader/Uploader.swf}" />
+                <!--用来存放文件信息-->
+                <ul id="filelist" class="filelist">
+                </ul>
+                <div class="btns">
+
+                    <div id="picker" style="line-height:15px;">选择文件</div>
+                    <div class="totalprogress" style="display:none;">
+                        <span class="text">0%</span>
+                        <span class="percentage"></span>
+                    </div>
+                    <div class="info"></div>
+                </div>
+            </div>
         </td>
     </tr>
     <tr>

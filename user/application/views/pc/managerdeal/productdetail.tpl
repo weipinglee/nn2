@@ -55,8 +55,10 @@
                                 <td colspan="6">{$product['create_time']}</td>
                             </tr>
                             <tr>
+
                                 <td colspan="2">产品数量(单位)</td>
-                                <td colspan="6"class="end_td">{set: echo round($product['quantity'], 2)}({$product['unit']})</td>
+                                <td colspan="6" class="end_td">{$product['quantity']}（{$product['unit']}）</td>
+
                             </tr>
                             <tr>
                                 <td class="spmx_title" colspan="8">报盘详情</td>
@@ -88,24 +90,34 @@
                           </tr> -->
                             <tr>
                                 <td colspan="2">可否拆分</td>
-                                <td colspan="6">{if:$offer['divide'] == 1}是{else:}否{/if}</td>
+                                <td colspan="6">{if:$offer['divide'] == 0}是{else:}否{/if}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">报盘数量(单位)</td>
-                                <td colspan="6">{set: echo round($product['quantity'], 2)}({$product['unit']})</td>
+
+                                <td colspan="2">报盘数量</td>
+                                <td colspan="6">{$product['quantity']}</td>
+
                             </tr>
+                           <tr>
+                               <td colspan="2">单位</td>
+                               <td colspan="6">{$product['unit']}</td>
+                           </tr>
                             <tr>
                                 <td colspan="2">起订量</td>
-                                <td colspan="6">{$offer['minimum']}吨</td>
+                                <td colspan="6">{$offer['minimum']}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">商品单价</td>
-                                <td colspan="6">{$offer['price']}元/吨</td>
+                                <td colspan="6">{$offer['price']}元</td>
                             </tr>
                             <tr>
                                 <td colspan="2">交货地址</td>
                                 <td colspan="6">{$offer['accept_area']}</td>
                             </tr>
+                           <tr>
+                               <td colspan="2">交收时间</td>
+                               <td colspan="6">T+{$offer['accept_day']}天</td>
+                           </tr>
                             <tr>
                                 <td colspan="2">交货时间</td>
                                 <td colspan="6">T + {$offer['accept_day']}天</td>

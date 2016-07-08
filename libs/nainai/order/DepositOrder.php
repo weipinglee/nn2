@@ -61,13 +61,8 @@ class DepositOrder extends Order{
 				$note = '合同'.$note_id.$note_type.'支付';
 				$acc_res = $this->account->freeze($buyer,$orderData['pay_deposit'],$note);
 				if($acc_res === true){
-					$pro_res = $this->productsFreeze($this->offerInfo($info['offer_id']),$info['num']);
-					if($pro_res === true){
-						$log_res = $this->payLog($order_id,$buyer,0,'买方预付定金--'.$type == 0 ? '定金' : '全款');
-						$res = $log_res === true ? true : $log_res;
-					}else{
-						$res = $pro_res;
-					}
+					$log_res = $this->payLog($order_id,$buyer,0,'买方预付定金--'.$type == 0 ? '定金' : '全款');
+					$res = $log_res === true ? true : $log_res;
 				}else{
 					$res = $acc_res['info'];
 				}	
