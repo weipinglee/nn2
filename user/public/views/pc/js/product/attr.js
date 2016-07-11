@@ -102,14 +102,16 @@ function getCategory(){
                 $.each(data.cate,function(k,v){
 
                     var box = $('#cate_box').clone();
-
-                    if(v.childname){
-                        box.find('.jy_title').text(v.childname+'：');
-                    }
-                    else
-                        box.find('.jy_title').text('商品分类：');
+                    
                     if(v.show){
                         $.each(v.show,function(key,value){
+                            if (key == 0) {
+                                if(value.childname){
+                                    box.find('.jy_title').text(value.childname+'：');
+                                }
+                                else
+                                    box.find('.jy_title').text('商品分类：');
+                            }
                             if(key==0)
                                 box.find('ul').eq(0).append('<li class="a_choose" value="'+ value.id+'"><a href="javascript:void(0)">'+ value.name+'</a></li>');
                             else
