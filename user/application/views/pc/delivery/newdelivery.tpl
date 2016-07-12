@@ -22,7 +22,7 @@
 									<th>仓库</th>
 								</tr>
 								<tr>
-									<td><img src="{$data['img']}"/></td>
+									<td><img src="../images/banner/551b861eNe1c401dc.jpg"/></td>
 									<td>{$data['name']}</td>
 									<td>{$data['num']}{$data['unit']}</td>
 									<td>{$data['left']}{$data['unit']}</td>
@@ -42,7 +42,7 @@
 					                        <div>
 					                        
 					                        
-					                        <input name="expect_time" id="date_start" type="text" datatype="date" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});">
+					                        <input name="expect_time" id="date_start" type="text" class="Wdate gyctht_input" value="2016-04-01">
 						                        	
 						                        	记重方式：过磅  
 						                             <input type="hidden" id="weight_type" value="A">
@@ -53,9 +53,25 @@
 
 				                        	</li>
 				                        	<li class="clearfix">
-				                        		<label>提货人：</label>
+				                        		<!-- <label>提货人：</label> -->
 				                        		<div>
 				                        			<p>
+<<<<<<< HEAD
+				                        				<b> ● </b>
+				                        				<label for="">提货人：</label><span id="man"><input type="text" name="delivery_man"></span>
+				                        			</p>
+				                        			<p>
+				                        				<b> ● </b>
+				                        				<label for="">联系电话：</label><span id="tel"><input type="text" name="phone"></span>
+				                        			</p>
+				                        			<p>
+				                        				<b> ● </b>
+				                        				<label for="">身份证号码：</label><span id="code"><input type="text" name="idcard"/></span>
+				                        			</p>
+				                        			<p>
+				                        				<b> ● </b>
+				                        				<label for="">车牌号：</label><input type="text" name="plate_number" placeholder="多个以逗号分隔"/>
+=======
 
 				                        				提货人：<span id="man"><input type="text" name="delivery_man" datatype="*"></span>
 				                        			</p>
@@ -70,6 +86,7 @@
 				                        			<p>
 
 				                        				车牌号：<input type="text" name="plate_number" datatype="*" placeholder="多个以逗号分隔"/>
+>>>>>>> origin/dev-li
 				                        			</p>
 				                        		</div>
 				                        	</li>

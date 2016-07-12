@@ -37,7 +37,7 @@
 				<td>{$item['create_time']}</td>
 				<td>{$item['days']}</td>
 				<td class="td-manage">
-					<a title="删除" href="javascript:void(0);" onclick="delFundOut({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+					<a title="删除" href="javascript:void(0);" onclick="delFundOut({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>

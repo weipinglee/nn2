@@ -13,7 +13,7 @@
             <div class="text-c">
                <!-- <form class="Huiform" method="post" action="" target="_self">
                     <input type="text" class="input-text" style="width:250px" placeholder="会员名称" id="" name="">
-                    <button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i>  搜会员</button>
+                    <button type="submit" class="btn btn-success" id="" name=""><i class="icon-search fa-search"></i>  搜会员</button>
                 </form>-->
             </div>
            <table class="table table-border table-bordered table-hover table-bg">
@@ -43,7 +43,7 @@
 				<td>{echo:\nainai\cert\certDealer::getStatusText($item['status'])}</td>
 				<td>{$item['apply_time']}</td>
 
-                <td class="f-14"><a title="编辑" href="{url:member/certManage/dealercertDetail?uid=$item['id']}"  style="text-decoration:none"><i class=" icon-edit"></i></a> </td>
+                <td class="f-14"><a title="编辑" href="{url:member/certManage/dealercertDetail?uid=$item['id']}"  style="text-decoration:none"><i class=" icon-edit fa-edit"></i></a> </td>
 				
             </tr>
         {/foreach}

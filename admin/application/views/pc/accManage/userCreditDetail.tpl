@@ -46,8 +46,8 @@
                 <tr>
                   <th scope="col" colspan="6">
                     <input type="hidden" name="user_id" value="{$info['user_id']}">
-                     <a onclick="javascript:$('form').submit();" class="btn btn-success radius"><i class="icon-remove"></i> 确认</a>
-                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                     <a onclick="javascript:$('form').submit();" class="btn btn-success radius"><i class="icon-ok fa-ok"></i> 确认</a>
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                   </th>
                 </tr>
             </table>

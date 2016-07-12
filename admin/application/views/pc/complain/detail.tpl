@@ -120,7 +120,7 @@
                  <th>操作</th>
                  <th scope="col" colspan="7">
                      <input type="submit" class="btn btn-primary radius" value="提交"/>
-                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>
              </tr>
 
