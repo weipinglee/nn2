@@ -18,6 +18,14 @@
 
 
 
+<link href="{views:css/topnav20141027.css}" rel="stylesheet" type="text/css">
+<script src="{views:js/topnav20141027.js}" type="text/javascript"></script>
+
+<script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
+
+
+            <script type="text/javascript" src="{views:js/search&floor.js}"></script>
+
     <style type="text/css">
         /*临时顶部图片style 要remove的*/
         body{behavior:url(css/csshover.htc);} 
@@ -98,11 +106,6 @@ $(function(){
     
 
 
-
-<link href="{views:css/topnav20141027.css}" rel="stylesheet" type="text/css">
-<script src="{views:js/topnav20141027.js}" type="text/javascript"></script>
-
-<script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
 
 
 <!--[if lte IE 6]>
@@ -251,7 +254,6 @@ body{_padding-top:30px;}
                 </h1>
             </div>
 
-            <script type="text/javascript" src="{views:js/search&floor.js}"></script>
             <div class="searchbox">
                 <ul class="border1">
                     <li><a href="#" class="style1">供应</a></li>
@@ -259,7 +261,7 @@ body{_padding-top:30px;}
                 </ul>
                 <div class="bodys">
                     <p class="keyword_0"><input type="text" name="gong"  placeholder="高铝砖 乙醇 PP" value="" id=""  /><button class="one1" onclick="searchGoods(this)">搜索</button></p>
-                    <p class="keyword_1"><input type="text" name="qiu"  placeholder="高铝砖 乙醇 PP" value="" id=""  /><button class="two2" onclick="searchGoods(this)">搜索</button></p>
+                    <p class="keyword_1" style="display:none"><input type="text" name="qiu"  placeholder="高铝砖 乙醇 PP" value="" id=""  /><button class="two2" onclick="searchGoods(this)">搜索</button></p>
                 </div>
                 <script type="text/javascript">
                    function searchGoods(_this){

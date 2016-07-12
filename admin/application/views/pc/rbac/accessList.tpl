@@ -19,7 +19,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a class="btn btn-primary radius node-add" href="{url:/system/rbac/nodeAdd}"><i class=" icon-plus"></i>添加节点 </a> </span>  
+	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a class="btn btn-primary radius node-add" href="{url:/system/rbac/nodeAdd}"><i class=" icon-plus fa-plus"></i>添加节点 </a> </span>  
 	 <div class=" cl">
       <!-- <label class="form-label col-3"><span class="c-red">*</span>模块名：</label> -->
 

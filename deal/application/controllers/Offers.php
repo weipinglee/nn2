@@ -141,6 +141,7 @@ class OffersController extends PublicController {
 		$search = safe::filterPost('search');
 
 
+
 		//获取这个分类下对应的产品信息
 		$condition = array();
 		$cate = array();
@@ -164,18 +165,18 @@ class OffersController extends PublicController {
 			switch($orderArr[0]){
 				case 'price' : {
 					if(isset($orderArr[1]) && $orderArr[1]=='asc')
-						$order = 'o.price asc';
-					else $order = 'o.price desc';
+						$order = 'price asc';
+					else $order = 'price desc';
 				}
 					break;
 				case 'time' : {
 					if(isset($orderArr[1]) && $orderArr[1]=='asc')
-						$order = 'o.apply_time asc';
-					else $order = 'o.apply_time desc';
+						$order = 'apply_time asc';
+					else $order = 'apply_time desc';
 				}
 					break;
 				default : {
-					$order = 'o.apply_time desc';
+					$order = 'apply_time desc';
 				}
 			}
 		}

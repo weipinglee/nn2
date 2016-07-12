@@ -14,7 +14,7 @@
  <form action="{url:trade/complain/complainList}" method="POST">
 	<div class="text-c"> 订单号：
 		<input type="text" class="input-text" style="width:250px" placeholder="输入订单号" id="" name="order_no" value="{$order_no}">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search"></i> 搜申述</button>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜申述</button>
 	</div>
 </form>
  </div>
@@ -48,7 +48,7 @@
 				</td>
 				
 				<td class="td-manage">
-				<a title="查看详情" href="{url:trade/Complain/detail?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
+				<a title="查看详情" href="{url:trade/Complain/detail?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
 				</td>
 			</tr>
 		{/foreach}

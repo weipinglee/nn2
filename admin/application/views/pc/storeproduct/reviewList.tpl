@@ -13,7 +13,7 @@
 		-
 		<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" name="end" style="width:120px;">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入商品名称"  name="product_name" id="" >
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search"></i> 搜会员</button>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜会员</button>
 	</div>
 				</form>
 	 <div class="mt-20">
@@ -51,9 +51,9 @@
 				<td>{$item['status_txt']}</td>
 				<td class="td-manage">
 					<a title="编辑" href="{url:store/storeProduct/reviewDetails?id=$item['id']}" class="ml-5" style="text-decoration:none">
-						<i class="icon-edit"></i>
+						<i class="icon-edit fa-edit"></i>
 					</a>
-					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i>
+					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i>
 					</a>
 
 				</td>

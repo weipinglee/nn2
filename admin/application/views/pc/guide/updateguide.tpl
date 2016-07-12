@@ -61,7 +61,7 @@
                 <input type="hidden" name="id" value="{$guideData['id']}">
                 <div class="row cl">
                     <div class="col-10 col-offset-2">
-                        <button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 提交</button>
+                        <button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok fa-ok"></i> 提交</button>
                     </div>
                 </div>
             </form>

@@ -38,6 +38,7 @@
                 <a href="#">{$info['name']}</a>
                 |
                 <a href="{url:/login/logout}">退出</a>
+                <a href="">返回网站首页</a>
             </div>
             <div class="right">
                 <form action="#" id="search" class="search placeholder">

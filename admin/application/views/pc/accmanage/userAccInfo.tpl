@@ -41,7 +41,7 @@
                 <td>{$item['note']}</td>
                 <td>{$item['time']}</td>
 <!--                 <td class="td-manage">
-    <a title="查看明细" href="{url:/balance/accManage/userAccInfo}?user_id={$item['user_id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
+    <a title="查看明细" href="{url:/balance/accManage/userAccInfo}?user_id={$item['user_id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
             </tr> -->
         {/foreach}
         </tbody>
