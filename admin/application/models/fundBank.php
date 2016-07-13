@@ -14,13 +14,31 @@ use \Library\safe;
 class fundBankModel extends \nainai\user\UserBank{
 
 
+    private $listData = array(
+        'search' => array('time'=>'申请时间','like'=>'用户名，身份证号'),
+        'listTitle' => array('username'=>'用户名','bank_name'=>'开户行','card_type'=>'银行卡类型','true_name'=>'姓名','identify_no'=>'身份证号','status'=>'状态'),
+
+    );
+    private $condArr = array(
+        'time'=>'b.apply_time',
+        'like' => 'u.username,b.identify_no',
+        'status' => 'b.status'
+    );
+    /**
+     * 获取搜索条件
+     * @return array
+     */
+    private function getCond($obj = null,$where){
+        return \admintool\admin::getWhereCond($this->condArr,$obj,$where);
+    }
+
 
     public function getBankList($page,$where){
         $reModel = new Query($this->table.' as b');
         //线上
         $reModel->join = 'left join user as u on b.user_id = u.id';
         $reModel->fields = 'b.*, u.username';
-        $reModel->where = $where;
+        $this->getCond($reModel,$where);
         $reModel->page = $page;
         $onlineInfo = $reModel->find();
         $reBar = $reModel->getPageBar();

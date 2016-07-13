@@ -123,12 +123,8 @@ xml;
 
 
 	public function formAction(){
-		if(IS_POST){
-			die(json::encode(tool::getSuccInfo()));
-		}
-		else{
-
-		}
+		$a = 'abcdddd';
+		echo substr($a,0,-2);exit;
 
 	}
 

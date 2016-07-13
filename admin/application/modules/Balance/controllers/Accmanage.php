@@ -18,6 +18,15 @@ class AccmanageController extends Yaf\Controller_Abstract {
 		$this->getView()->setLayOut('admin');
 
 	}
+
+	protected function getBankListPage(){
+		$pageData = array();
+		$pageData['search'] = array('time'=>'申请时间','like'=>'用户名，身份证号');
+		$pageData['listTitle'] = array('username'=>'用户名','bank_name'=>'开户行','card_type'=>'银行卡类型','true_name'=>'姓名','identify_no'=>'身份证号','status'=>'状态');
+		$this->getView()->assign('pageData',$pageData);
+	}
+
+
 	public function userAccListAction() {
 		$page = safe::filterGet('page', 'int');
 		$accObj = new Query('user_account as a');
@@ -59,6 +68,7 @@ class AccmanageController extends Yaf\Controller_Abstract {
 	 */
 	public function checkbankListAction()
 	{
+		$this->getBankListPage();
 		$obj = new fundBankModel();
 		$page = safe::filterGet('page', 'int', 1);
 		$where = 'b.status = 0';

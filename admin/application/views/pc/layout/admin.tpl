@@ -17,6 +17,9 @@
 	<script type="text/javascript" src="{views:js/My97DatePicker/WdatePicker.js}"></script>
 </head>
 <body>
+{set:$begin=\Library\safe::filterGet('begin');}
+{set:$end=\Library\safe::filterGet('end');}
+{set:$name=\Library\safe::filterGet('name');}
 {content}
 </body>
 </html>
