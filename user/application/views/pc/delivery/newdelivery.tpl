@@ -22,7 +22,7 @@
 									<th>仓库</th>
 								</tr>
 								<tr>
-									<td><img src="../images/banner/551b861eNe1c401dc.jpg"/></td>
+									<td><img src="{$data['img']}"/></td>
 									<td>{$data['name']}</td>
 									<td>{$data['num']}{$data['unit']}</td>
 									<td>{$data['left']}{$data['unit']}</td>
@@ -56,37 +56,22 @@
 				                        		<!-- <label>提货人：</label> -->
 				                        		<div>
 				                        			<p>
-<<<<<<< HEAD
-				                        				<b> ● </b>
+
+				                        				<b>  </b>
 				                        				<label for="">提货人：</label><span id="man"><input type="text" name="delivery_man"></span>
 				                        			</p>
 				                        			<p>
-				                        				<b> ● </b>
+				                        				<b>  </b>
 				                        				<label for="">联系电话：</label><span id="tel"><input type="text" name="phone"></span>
 				                        			</p>
 				                        			<p>
-				                        				<b> ● </b>
+				                        				<b>  </b>
 				                        				<label for="">身份证号码：</label><span id="code"><input type="text" name="idcard"/></span>
 				                        			</p>
 				                        			<p>
-				                        				<b> ● </b>
+				                        				<b>  </b>
 				                        				<label for="">车牌号：</label><input type="text" name="plate_number" placeholder="多个以逗号分隔"/>
-=======
 
-				                        				提货人：<span id="man"><input type="text" name="delivery_man" datatype="*"></span>
-				                        			</p>
-				                        			<p>
-
-				                        				联系电话：<span id="tel"><input type="text" name="phone" datatype="mobile"></span>
-				                        			</p>
-				                        			<p>
-
-				                        				身份证号码：<span id="code"><input type="text" name="idcard" datatype="identify"/></span>
-				                        			</p>
-				                        			<p>
-
-				                        				车牌号：<input type="text" name="plate_number" datatype="*" placeholder="多个以逗号分隔"/>
->>>>>>> origin/dev-li
 				                        			</p>
 				                        		</div>
 				                        	</li>

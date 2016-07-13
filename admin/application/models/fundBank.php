@@ -10,7 +10,10 @@ use \Library\M;
 use \Library\Query;
 use \nainai\fund;
 use \Library\tool;
+use \Library\safe;
 class fundBankModel extends \nainai\user\UserBank{
+
+
 
     public function getBankList($page,$where){
         $reModel = new Query($this->table.' as b');

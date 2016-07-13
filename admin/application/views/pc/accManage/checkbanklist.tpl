@@ -10,7 +10,18 @@
     </div>
     <div class="content">
         <div class="pd-20">
+            <form action="" method="get" >
+                <div class="text-c"> 日期范围：
 
+                    <input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" name="begin" style="width:120px;">
+                    -
+                    <input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" name="end" style="width:120px;">
+                    <input type="text" class="input-text" style="width:250px" placeholder="输入商品名称" id="" name="product_name">
+                    <button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜仓单</button>
+
+
+                </div>
+            </form>
     <div class="mt-20">
     <table class="table table-border table-bordered table-hover table-bg table-sort">
         <thead>
