@@ -24,6 +24,15 @@ $(document).ready(function(){
         }
     });
 
+
+    $('input[name=insurance]').on('click', function(){
+        if ($(this).val() == 1){
+            $('#riskdata').show();
+        }else{
+            $('#riskdata').hide();
+        }
+    });
+
     $('[id^=level]').find('li').on('click',getCategory);
 
     $('#storeList').change(function(){
@@ -69,6 +78,24 @@ $(document).ready(function(){
                     insertHtml += '<img src="' + value + '" />';
                 });
                 $('#photos').html(insertHtml);
+                
+                $('#riskdata').children('td').eq(1).remove();
+                if (data.risk_data) {
+                    var check_box = '<td><span>';
+                    $.each(data.risk_data, function(k, v){
+                        check_box += '<input type="checkbox" name="risk[]" value="' +v.risk_id+ '">' + v.name;
+                        if (v.mode == 1) {
+                            check_box += '比例';
+                        }else{
+                            check_box += '定额';
+                        }
+                        check_box += '('+v.fee+')&nbsp;&nbsp;';
+                    });
+                    check_box += '</sapn></td>';
+                    $('#riskdata').append(check_box);
+                }else{
+                    $('#riskdata').append('<td>该分类没有设置保险，请配置保险</td>');
+                }
             }
         });
     });
@@ -80,7 +107,8 @@ $(document).ready(function(){
 //异步获取分类
 function getCategory(){
    var cate_id = parseInt($(this).attr('value'));
-
+   $('#cid').val(cate_id);
+   if ($('#cid').val() == cate_id) {return;}
     var _this = $(this);
     _this.parents('.class_jy').find('li').removeClass('a_choose');
     _this.addClass('a_choose');
@@ -147,8 +175,23 @@ function getCategory(){
                 bindRules();
             };
 
-
-
+            $('#riskdata').children('td').eq(1).remove();
+            if (data.risk_data) {
+                var check_box = '<td><span>';
+                $.each(data.risk_data, function(k, v){
+                    check_box += '<input type="checkbox" name="risk[]" value="' +v.risk_id+ '">' + v.name;
+                    if (v.mode == 1) {
+                        check_box += '比例';
+                    }else{
+                        check_box += '定额';
+                    }
+                    check_box += '('+v.fee+')&nbsp;&nbsp;';
+                });
+                check_box += '</sapn></td>';
+                $('#riskdata').append(check_box);
+            }else{
+                $('#riskdata').append('<td>该分类没有设置保险，请配置保险</td>');
+            }
         }
     });
 }

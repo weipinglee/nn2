@@ -90,6 +90,19 @@
                                    <input type ="radio" name ="safe" style="width:auto;height:auto;"> 线下
                                </td> -->
                             </tr>
+                              <tr>
+        <td nowrap="nowrap"><span></span>是否投保:</td>
+        <td>
+            <span> <input type="radio" name="insurance" value="1"  >是 <input type="radio" name="insurance" value="0"  checked="true">否</span>
+        </td>
+    </tr>
+    <tr id="riskdata" style="display:none;">
+        <td ><span></span>投保：</td>
+        <td>
+            <span> 
+            </span>
+        </td>
+    </tr>
                            <tr>
                             <td><span>*</span>是否可拆分：</td>
                             <td>

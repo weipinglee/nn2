@@ -193,7 +193,7 @@ class product {
      */
     public function getCategoryLevel($pid = 0){
         $where  = array('status' => 1);
-        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs')->where($where)->select();
+        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
 
         $res = $this->generateTree($category);
 
@@ -338,7 +338,7 @@ class product {
             if($item['pid']==$pid){
                 $v = $items[$key];
                 $v['unit'] = $items[$key]['unit'] =='' ? $unit : $items[$key]['unit'] ;
-
+                $v['risk_data'] = unserialize($item['risk_data']);
                 $tree[$item['id']] = $v;
                // unset($items[$key]);
                 $tree[$item['id']]['child'] = $this->generateTree($items,$item['id'],$v['unit']);
@@ -546,9 +546,9 @@ class product {
      * 获取某个分类名称
      * @param int $cate_id 分类id
      */
-    public function getCateName($cate_id){
+    public function getCateName($cate_id, $fields='name'){
         $m = new M('product_category');
-        return $m->where(array('id'=>$cate_id))->getField('name');
+        return $m->where(array('id'=>$cate_id))->getField($fields);
 
     }
 

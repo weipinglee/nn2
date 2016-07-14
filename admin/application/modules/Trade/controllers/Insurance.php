@@ -157,13 +157,19 @@ class InsuranceController extends InitController{
           die(JSON::encode($cateData));
      }
 
-
+     /**
+      * 费率添加修改
+      */
      public function rateAddAction(){
           $productModel = new productModel();
 
           if (IS_POST) {
+              $cate_id = Safe::filterPost('id', 'int');
+              if (intval($cate_id) <= 0) {
+                die(JSON::encode(tool::getSuccInfo(0, '请选择分类!')));
+              }
                $data = array(
-                    'id' => Safe::filterPost('id', 'int')
+                    'id' => $cate_id
                );
                
                $ids = Safe::filterPost('bid', 'int');
@@ -180,7 +186,7 @@ class InsuranceController extends InitController{
           $cate_id  = $this->getRequest()->getParam('cid',0);
           $cate_id = safe::filter($cate_id,'int');
 
-          if (intval($cate_id) > 0) {
+          if (intval($cate_id) > 0) { //修改
                $cateData = $productModel->getCateInfo($cate_id);
                 if (!empty($cateData['risk_data'])) {
                         
@@ -194,7 +200,7 @@ class InsuranceController extends InitController{
                     $this->getView()->assign('fee',$fee);
                     $this->getView()->assign('ids',$ids);
                     $this->getView()->assign('cate',$cateData);
-          }else{
+          }else{ //add
                $cateTree = $productModel->getCateTree();//获取分类树
                $this->getView()->assign('tree',$cateTree);
           }

@@ -78,9 +78,33 @@ class ManagerDealController extends UcenterBaseController {
         $productModel = new product();
         $category = $productModel->getCategoryLevel();
 
+        //获取保险
+        $key = count($category['cate']);
+        $risk = new \nainai\insurance\Risk();
+        $list = $risk->getRiskList(-1, array('status' => 1));
+        $company = $risk->getCompany();
+        $insurance = $risk_data = array();
+        foreach ($list['lists'] as $key => $value) {
+            $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode']);
+        }
+        //获取默认的分类设置的保险， 如果最下级默认没有保险，用父级的。
+        do{
+            $risk_data = $category['cate'][$key]['show'][0]['risk_data'];
+            if (!empty($risk_data)) {
+                foreach ($risk_data as &$value) {
+                    $value['name'] = $insurance[$value['risk_id']]['name'];
+                    $value['company'] = $insurance[$value['risk_id']]['company'];
+                    $value['mode'] = $insurance[$value['risk_id']]['mode'];
+                }
+                break;
+            }
+            $key --;
+        }while($key > 0);
+        
         $attr = $productModel->getProductAttr($category['chain']);
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('categorys', $category['cate']);
+        $this->getView()->assign('risk_data', $risk_data);
         $this->getView()->assign('attrs', $attr);
         $this->getView()->assign('unit', $category['unit']);
         $this->getView()->assign('cate_id', $category['default']);
@@ -120,6 +144,8 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
                 'acc_type'   => 1,//现在写死了，就是代理账户
+                 'insurance' => Safe::filterPost('insurance', 'int'),
+               'risk' =>implode(',', Safe::filterPost('risk', 'int'))
             );
 
             $offerObj = new freeOffer($this->user_id);
@@ -165,6 +191,8 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
                 'price'        => safe::filterPost('price', 'float'),
+                 'insurance' => Safe::filterPost('insurance', 'int'),
+                 'risk' =>implode(',', Safe::filterPost('risk', 'int'))
                // 'acc_type'   => 1,
             );
 
@@ -215,6 +243,8 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
                 'sign'        => Tool::setImgApp(Safe::filterPost('imgfile1')),//委托书照片
+                'insurance' => Safe::filterPost('insurance', 'int'),
+               'risk' =>implode(',', Safe::filterPost('risk', 'int'))
                 // 'acc_type'   => 1,
             );
 
@@ -266,12 +296,38 @@ class ManagerDealController extends UcenterBaseController {
     public function ajaxGetStoreAction(){
         $return_json = array();
         $pid = Safe::filterPost('pid', 'int');
-
-        if (IS_AJAX && intval($pid) > 0) {
+        if (intval($pid) > 0) {
             $storeModel = new \nainai\store();
             $return_json = $storeModel->getUserStoreDetail($pid,$this->user_id);
-        }
 
+            $productModel = new product();
+            $insurance = $risk_data = array();
+            //获取保险产品信息
+            $risk = new \nainai\insurance\Risk();
+            $list = $risk->getRiskList(-1, array('status' => 1));
+            $company = $risk->getCompany();
+            foreach ($list['lists'] as $key => $value) {
+                $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode']);
+            }
+
+            if (!empty($return_json['cate'])) {
+                $cate = array_reverse($return_json['cate']);
+                foreach ($cate as $key => $value) {
+                    $risk_data = $productModel->getCateName($value['id'], 'risk_data');
+                    if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置
+                        $risk_data = unserialize($risk_data);
+                        foreach ($risk_data as &$value) {
+                            $value['name'] = $insurance[$value['risk_id']]['name'];
+                            $value['company'] = $insurance[$value['risk_id']]['company'];
+                            $value['mode'] = $insurance[$value['risk_id']]['mode'];
+                        }
+                        break;
+                    }
+                }
+            }
+            
+        }
+        $return_json['risk_data'] = $risk_data;
         echo JSON::encode($return_json);
         return false;
     }
@@ -282,12 +338,62 @@ class ManagerDealController extends UcenterBaseController {
          */
         public function ajaxGetCategoryAction(){
             $pid = Safe::filterPost('pid', 'int',0);
-
             if($pid){
                 $productModel = new product();
                 $cate = $productModel->getCategoryLevel($pid);
 
                 $cate['attr'] = $productModel->getProductAttr($cate['chain']);
+                $insurance = $risk_data = array();
+                //获取保险产品信息
+                $risk = new \nainai\insurance\Risk();
+                $list = $risk->getRiskList(-1, array('status' => 1));
+                $company = $risk->getCompany();
+                foreach ($list['lists'] as $key => $value) {
+                    $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode']);
+                }
+
+                //获取子类的保险配置
+                 if (!empty($cate['cate'])) {
+                            $key  = count($cate['cate']);
+                            do{
+                                $risk_data = $cate['cate'][$key]['show'][0]['risk_data'];
+                                if (!empty($risk_data)) {
+                                    break;
+                                }
+                            $key --;
+                        }while($key > 0);
+                 }
+                //如果子类没有配置保险，获取当前分类的
+                if (empty($risk_data)) {
+                    $risk_data = $productModel->getCateName($pid, 'risk_data');
+                    $risk_data = unserialize($risk_data);
+                }
+
+                //当前分类没有配置保险，获取父类的保险配置
+                if (empty($risk_data)) {
+                    $cates = $productModel->getParents($pid);
+                    foreach ($cates as $key => $value) {
+                        if ($value['id'] == $pid) { //当前分类已经获取过，没有保险
+                            continue;
+                        }
+
+                        $risk_data = $productModel->getCateName($value['id'], 'risk_data');
+                        if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置
+                            $risk_data = unserialize($risk_data);
+                            break;
+                        }
+                    }
+                }
+
+                 //获取分类设置的保险
+                if (!empty($risk_data)) {
+                    foreach ($risk_data as &$value) {
+                        $value['name'] = $insurance[$value['risk_id']]['name'];
+                        $value['company'] = $insurance[$value['risk_id']]['company'];
+                        $value['mode'] = $insurance[$value['risk_id']]['mode'];
+                    }
+                }
+                $cate['risk_data'] = $risk_data;
                 unset($cate['chain']);
                 echo JSON::encode($cate);
             }
@@ -322,7 +428,6 @@ class ManagerDealController extends UcenterBaseController {
             'unit'         => Safe::filterPost('unit'),
             'user_id' => $this->user_id
         );
-
         //图片数据
         $imgData = Safe::filterPost('imgData');
 
@@ -365,11 +470,13 @@ class ManagerDealController extends UcenterBaseController {
                     'accept_day' => Safe::filterPost('accept_day', 'int'),
                     'price'        => Safe::filterPost('price', 'float'),
                     'user_id'     => $this->user_id,
+                    'insurance' => Safe::filterPost('insurance', 'int'),
+                    'risk' =>implode(',', Safe::filterPost('risk', 'int'))
                 );
                 
                 $offerObj = new \nainai\offer\storeOffer($this->user_id);
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');
-                $res = $offerObj->insertStoreOffer($id,$offerData);
+                $res = $offerObj->insertStoreOffer($id,$offerData, $product);
                 die(json::encode($res)) ;
             }
             die(json::encode(tool::getSuccInfo(0,'仓单不存在'))) ;
