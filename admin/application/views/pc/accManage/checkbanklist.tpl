@@ -11,7 +11,7 @@
     <div class="content">
         <div class="pd-20">
             {include:layout/search.tpl}
-            </form>
+
     <div class="mt-20">
     <table class="table table-border table-bordered table-hover table-bg table-sort">
         <thead>
@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         {set:$bankObj = new \nainai\user\userBank();$card_type = $bankObj->getCardType()}
-        {foreach:items=$data}
+        {foreach:items=$data['list']}
             {if:$item['status']==0}{set:$status=0}{else:}{set:$status=$item['status']}{/if}
             <tr class="text-c">
                 <td><input type="checkbox" value="" name=""></td>
@@ -45,6 +45,6 @@
         </tbody>
 
     </table>
-        {$bar}
+        {$data['bar']}
     </div>
 </div>

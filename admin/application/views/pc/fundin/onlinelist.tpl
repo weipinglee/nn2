@@ -10,7 +10,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-
+			{include:layout/search.tpl}
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -27,7 +27,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$onlineInfo}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 				<td><input type="checkbox" value="" name=""></td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
@@ -66,7 +66,7 @@
 	}
 </script>
 	</table>
-		{$reBar}
+		{$data['bar']}
 	</div>
 </div>
 

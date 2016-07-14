@@ -343,7 +343,7 @@ class RbacModel{
 		}
 		if($res==true){
 			$log = new \Library\log();
-			$log->addLog(array('添加了一个权限节点'));
+			$log->addLog(array('content'=>'添加了一个权限节点'));
 		}
 		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res && is_string($res) ? $res : '未知错误,请重试');
 	}

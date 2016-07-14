@@ -19,28 +19,21 @@ class AccmanageController extends Yaf\Controller_Abstract {
 
 	}
 
-	protected function getBankListPage(){
-		$pageData = array();
-		$pageData['search'] = array('time'=>'申请时间','like'=>'用户名，身份证号');
-		$pageData['listTitle'] = array('username'=>'用户名','bank_name'=>'开户行','card_type'=>'银行卡类型','true_name'=>'姓名','identify_no'=>'身份证号','status'=>'状态');
-		$this->getView()->assign('pageData',$pageData);
-	}
 
 
+	//开户信息表
 	public function userAccListAction() {
 		$page = safe::filterGet('page', 'int');
-		$accObj = new Query('user_account as a');
+		$accObj = new \admintool\adminQuery('user_account as a');
 		$accObj->join = 'left join user as u on a.user_id = u.id';
 		$accObj->fields = 'a.*,u.username,u.mobile,u.create_time';
 		$accObj->page = $page;
 		$accInfo = $accObj->find();
-		$accBar = $accObj->getPageBar();
-		foreach ($accInfo as $k => $v) {
-			$accInfo[$k]['amount'] = $v['fund']+$v['freeze'];
+		foreach ($accInfo['list'] as $k => $v) {
+			$accInfo['list'][$k]['amount'] = $v['fund']+$v['freeze'];
 		}
 		//$accInfo['amount'] = $accInfo['fund']+$accInfo['freeze'];
-		$this->getView()->assign('accInfo', $accInfo);
-		$this->getView()->assign('accBar', $accBar);
+		$this->getView()->assign('data', $accInfo);
 
 	}
 	public function userAccInfoAction() {
@@ -68,13 +61,11 @@ class AccmanageController extends Yaf\Controller_Abstract {
 	 */
 	public function checkbankListAction()
 	{
-		$this->getBankListPage();
 		$obj = new fundBankModel();
 		$page = safe::filterGet('page', 'int', 1);
 		$where = 'b.status = 0';
 		$data = $obj->getBankList($page, $where);
-		$this->getView()->assign('data', $data[0]);
-		$this->getView()->assign('bar', $data[1]);
+		$this->getView()->assign('data', $data);
 
 	}
 
@@ -123,8 +114,7 @@ class AccmanageController extends Yaf\Controller_Abstract {
 		$page = safe::filterGet('page','int',1);
 		$where = 'b.status != 0';
 		$data = $obj->getBankList($page,$where);
-		$this->getView()->assign('data',$data[0]);
-		$this->getView()->assign('bar',$data[1]);
+		$this->getView()->assign('data',$data);
 	}
 
 	/**
@@ -133,8 +123,7 @@ class AccmanageController extends Yaf\Controller_Abstract {
 	public function userCreditListAction(){
 		$page = safe::filterGet('page','int');
 		$list = $this->account->userCreditList($page);
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['bar']);
+		$this->getView()->assign('data',$list);
 	}
 
 	/**

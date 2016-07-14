@@ -21,13 +21,13 @@ class FundinController extends Yaf\Controller_Abstract {
 	}
 	//线上列表
 	public function onlineListAction() {
+
 		$page = safe::filterGet('page', 'int');
 		$fundObj = new fundInModel();
 		$data = $fundObj->getOnlineList($page);
 
 		//分配数据
-		$this->getView()->assign('onlineInfo', $data[0]);
-		$this->getView()->assign('reBar', $data[1]);
+		$this->getView()->assign('data', $data);
 		//
 	}
 	//线下列表
@@ -36,8 +36,7 @@ class FundinController extends Yaf\Controller_Abstract {
 		$fundObj = new fundInModel();
 		$data = $fundObj->getOffLineList($page);
 		//分配数据
-		$this->getView()->assign('offlineInfo', $data[0]);
-		$this->getView()->assign('reBar', $data[1]);
+		$this->getView()->assign('data', $data);
 
 	}
 	//线下详情页
