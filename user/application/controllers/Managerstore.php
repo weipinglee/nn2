@@ -98,21 +98,17 @@ class ManagerStoreController extends UcenterBaseController{
 	 * 仓单审核页面
 	 */
 	public function applyStoreCheckAction(){
-		$category = array();
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
 			$data = $store->getManagerStoreDetail($id,$this->user_id);
+			$userObj = new \nainai\member();
 
-			//获取商品分类信息，默认取第一个分类信息
-		        $productModel = new product();
-		        $attr_ids = array();
-		        $data['attribute'] = unserialize($data['attribute']);
-		        $attr_ids = array_keys($data['attribute']);
+			$userData = $userObj->getUserDetail($data['user_id']);
 
-		       $this->getView()->assign('detail', $data);
-	         $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
+		    $this->getView()->assign('detail', $data);
+			$this->getView()->assign('user', $userData);
 		}
 	        
 	}

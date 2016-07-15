@@ -1,5 +1,4 @@
-﻿<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
-<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
+﻿
 
 <div class="class_jy" id="cate_box" style="display:none;">
     <span class="jy_title"></span>
@@ -153,7 +152,7 @@
                                              </tr>
 
                                             <tr id="packUnit" >
-                                                 <td>计量单位：</td>
+                                                 <td>包装单位：</td>
                                             <td colspan="2">
                                                 <input type="text" class='text' name="packUnit">
                                             </td>

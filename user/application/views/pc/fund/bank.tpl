@@ -18,7 +18,7 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>开户银行：</span>
-								<span><input class="text" type="text" datatype="s2-10" nullmsg="填写开户行" name="bank_name" value="{$bank['bank_name']}"></span>
+								<span><input class="text" type="text" datatype="s2-50" nullmsg="填写开户行" name="bank_name" value="{$bank['bank_name']}"></span>
 								<span></span>
 
 							</div>

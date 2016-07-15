@@ -37,7 +37,7 @@
 				<td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
 
 				<td>{$item['short_name']}</td>
-				<td> <span id="areaText">{areatext:data=$item['area']}</span></td>
+				<td> {areatext:data=$item['area'] id=$key}</td>
 				<td>{echo:$store_type[$item['type']]}</td>
 				<td class="td-status">
 					{if:$item['status'] == 1}
