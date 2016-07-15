@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/admin/application/library/admintool/adminQuery.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin/application/library/admintool/searchConfig.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin/application/models/config/configs.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin/application/models/storeProduct.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/deal/application/models/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/deal/application/models/offers.php" charset="UTF-8" />
