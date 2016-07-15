@@ -4,6 +4,7 @@
     {set:$like=\Library\safe::filterGet('like');}
     {set:$min=\Library\safe::filterGet('min');}
     {set:$max=\Library\safe::filterGet('max');}
+    {set:$select=\Library\safe::filterGet('select');}
     <form action="" method="get" >
         <div class="text-c">
             {if:isset($data['search']['time'])}
@@ -27,7 +28,7 @@
                 <select name="select" >
                     <option value="0">所有</option>
                     {foreach:items=$data['search']['selectData']}
-                        <option value="{$key}">{$item}</option>
+                        <option value="{$key}" {if:$select==$key}selected=true{/if}>{$item}</option>
                     {/foreach}
                 </select>
             {/if}

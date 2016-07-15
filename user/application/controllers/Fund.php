@@ -110,6 +110,9 @@ class FundController extends UcenterBaseController {
 	public function czAction() {
 		$fund = \nainai\fund::createFund(1);
 		$total = $fund->getActive($this->user_id) + $fund->getFreeze($this->user_id);
+
+		$configs = \nainai\configs::getConfigsByType('jiesuan');
+		$this->getView()->assign('acc',$configs);
 		$this->getView()->assign('total',$total);
 
 	}

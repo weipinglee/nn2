@@ -112,7 +112,7 @@ class adminQuery extends \Library\Query{
         if($select && isset($condArr['select'])){
             if($cond['where']!='')
                 $temp = ' AND ';
-            $cond['where'] .= $temp." {$condArr['select']} <= :select";
+            $cond['where'] .= $temp." {$condArr['select']} = :select";
             $cond['bind']['select'] = $select;
         }
 

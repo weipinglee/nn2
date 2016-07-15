@@ -26,7 +26,8 @@ class configsModel extends \baseModel{
     );
 
     protected $type = array(
-        'jiesuan' => '结算'
+        'jiesuan' => '结算',
+        'qita' => '其他'
     );
 
     /**

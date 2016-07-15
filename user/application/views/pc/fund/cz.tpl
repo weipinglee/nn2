@@ -84,9 +84,10 @@
             					<span>转账汇款</span>
             				</div>
             				<div class="zhxi_con">
-            					<p class="zf_an">开户名：xxx科技有限公司</p>
-            					<p class="zf_an">开户银行：中国建设银行</p>
-            					<p class="zf_an">账户：2902 20222 2200 4433 6767</p>
+								{foreach:items=$acc}
+									<p class="zf_an">{$item['name_zh']}：{$item['value']}</p>
+								{/foreach}
+
             				</div>
 
             				<!-- 单据上传start -->
