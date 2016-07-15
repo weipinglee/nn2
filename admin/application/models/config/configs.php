@@ -43,7 +43,7 @@ class configsModel extends \baseModel{
     public function getConfigList($page=1){
         $obj = new adminQuery($this->table .' as c');
         $obj->page = $page;
-        return $obj->find();
+        return $obj->find($this->getType());
 
     }
 

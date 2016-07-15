@@ -22,6 +22,15 @@
                 <input type="text" class="input-text" style="width:100px"  id="" name="min" value="{$min}">-
                 <input type="text" class="input-text" style="width:100px"  id="" name="max" value="{$max}">
             {/if}
+            {if:isset($data['search']['select'])}
+                {$data['search']['select']}：
+                <select name="select" >
+                    <option value="0">所有</option>
+                    {foreach:items=$data['search']['selectData']}
+                        <option value="{$key}">{$item}</option>
+                    {/foreach}
+                </select>
+            {/if}
             <button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜索</button>
 
 

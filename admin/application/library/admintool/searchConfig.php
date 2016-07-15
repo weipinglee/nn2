@@ -28,7 +28,7 @@ class searchConfig {
         ),
         'configs_general' => array(
             'like'=>array('c.name,c.name_zh','英文名，中文名'),
-            //'select'=> array('c.type','配置类型')
+            'select'=> array('c.type','配置类型')
         ),
     );
 

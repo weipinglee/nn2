@@ -10,7 +10,12 @@ use \Library\safe;
 class adminQuery extends \Library\Query{
 
 
-    public function find(){
+    /**
+     * 获取列表数据，返回页面显示信息
+     * @param array $selectData 查询选择框的数据
+     * @return array list:列表数据，bar:分页条,search:搜索区显示内容
+     */
+    public function find($selectData=array()){
         $table = ltrim($this->table,' ');
         $table = explode(' ',$table);
         $table = $table[0];
@@ -26,6 +31,9 @@ class adminQuery extends \Library\Query{
             }
 
             $search = $cond[1];
+            if(isset($search['select'])){
+                $search['selectData'] = $selectData;
+            }
         }
 
         $list = parent::find();
@@ -43,11 +51,9 @@ class adminQuery extends \Library\Query{
     'like' => 'u.username,b.identify_no',
     'status' => 'b.status'
     );
-     * @$query 查询的对象
-     * @param string $where 字符串条件，直接拼接
      * @return array
      */
-    public static function getWhereCond($tableName,$where=''){
+    public static function getWhereCond($tableName){
         if(!$tableName)
             return array();
         $configArr = searchConfig::config($tableName);
@@ -63,13 +69,15 @@ class adminQuery extends \Library\Query{
         $end = safe::filterGet('end');
         $name = safe::filterGet('like');
         $status = safe::filterGet('status');
+        //选择查询
+        $select = safe::filterGet('select');
+
         //区间查询
         $min = safe::filterGet('min','float',0);
         $max = safe::filterGet('max','float',0);
         $cond  = array();
         $cond['where'] =  $temp = '';$cond['bind'] = array();
-        if($where)
-            $cond['where'] = $where;
+
         if($begin && isset($condArr['time'])){
             if($cond['where']!='')
                 $temp = ' AND ';
@@ -99,6 +107,13 @@ class adminQuery extends \Library\Query{
             $likeWhere = substr($likeWhere,0,-3);
             $cond['where'] .= $temp." ( {$likeWhere} )";
             $cond['bind']['like'] = "%{$name}%";
+        }
+
+        if($select && isset($condArr['select'])){
+            if($cond['where']!='')
+                $temp = ' AND ';
+            $cond['where'] .= $temp." {$condArr['select']} <= :select";
+            $cond['bind']['select'] = $select;
         }
 
         //区间查询条件，只能是数字
