@@ -107,8 +107,8 @@ $(document).ready(function(){
 //异步获取分类
 function getCategory(){
    var cate_id = parseInt($(this).attr('value'));
-   $('#cid').val(cate_id);
    if ($('#cid').val() == cate_id) {return;}
+   $('#cid').val(cate_id);
     var _this = $(this);
     _this.parents('.class_jy').find('li').removeClass('a_choose');
     _this.addClass('a_choose');
