@@ -166,7 +166,7 @@
                             </tr>
                              <tr>
                                 <td nowrap="nowrap"><span></span>商品产地:</td>
-                                <td id="areat">{areatext: data=$product['produce_area'] id=areat }</td>
+                                <td >{areatext: data=$detail['produce_area']  }</td>
                                 <td> 
                                     
                                 </td>
