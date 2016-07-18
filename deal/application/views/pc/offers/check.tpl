@@ -60,7 +60,7 @@
 
                              <span class="goods">商品</span>
                              <span class="norms">规格</span>
-                             <span class="number">数量({$data['unit']}&emsp;最小起订量：{$data['minimum']} 剩余:{$data['left']}) </span>
+                             <span class="number">数量(最小起订量：{$data['minimum']} 剩余:{$data['left']}) </span>
                             <span class="numunit">单位</span> 
                              <span class="amount">总额(元)</span>
                              <span class="price ">单价(元)</span>
@@ -179,6 +179,7 @@
              {else:}
                 <a class="btoncomit" href="javascript:;" >确认支付</a>
              {/if}
+
             </div>
             </form>
 
@@ -223,26 +224,12 @@
 
 
                     $('.btoncomit').click(function(){
-                        
                         var flag = isnum_valid();
                         if(flag) {
                             $(this).parents('form').submit();
                         }
 
-                        // var num = $('input[name=num]').val();
-                        // var id = $('input[name=id]').val();
-                        // if(!num || !id){
-                        //     alert('请填写商品数量');
-                        // }
-                        // $.post("{url:/Offers/checkNum}",{id:id,num:num},function(data){
-                        //     var data = JSON.parse(data);
-                        //     if(data.success == 1){
-                        //         $(this).parents('form').submit();
-                        //     }else{
 
-                        //         alert(data.info);
-                        //     }
-                        // });
                     });
 
                     function isnum_valid(){
@@ -292,6 +279,7 @@
                             deposit_text.text(temp_deposit);
                          }
                      })
+
                 })
             </script>
 

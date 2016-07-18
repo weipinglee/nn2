@@ -87,7 +87,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 
 	//设置审核状态
 	public function setStatusAction(){
-		if(IS_AJAX){
+		if(IS_POST){
 			$id = safe::filterPost("id","int");
 			if(!$id) $id = intval($this->_request->getParam('id'));
 			$status = safe::filterPost("status","int");

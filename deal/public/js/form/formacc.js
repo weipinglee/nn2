@@ -97,6 +97,7 @@ nn_panduo.formacc.prototype = {
 								}
 							});
 						});
+
 					}else{
 						_this.ajax_post(url,data,function(){
 							if(!_this.no_redirect){

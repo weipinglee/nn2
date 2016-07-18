@@ -131,12 +131,11 @@ class OfferManageModel extends \nainai\offer\product{
 				}
 			}
 			if($res===true){
-				$base = new baseModel($this->offer);
-				$base->where(array('id'=>$id))->update(array('status'=>$status));
+				$this->offer->where(array('id'=>$id))->data(array('status'=>$status))->update();
 				$log = new \Library\log();
 				$log->addLog(array('table'=>'报盘','type'=>'check','id'=>$id,'check_text'=>$this->getStatus($status)));
 
-				if($status==1){//审核通过增加信誉值
+				if($status==self::OFFER_OK){//审核通过增加信誉值
 					$credit = new \nainai\CreditConfig();
 					$credit->changeUserCredit($offerData['user_id'],'product');
 				}
