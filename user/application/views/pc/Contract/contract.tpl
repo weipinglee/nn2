@@ -5,9 +5,10 @@
   <meta name="keywords"/>
   <meta name="description"/>
   <meta charset="utf-8">
-  <link href="css/home.css?v=2" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-  <script type="text/javascript" src='{root:js/area/Area.js}'></script>
+    <script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
+
+
+    <script type="text/javascript" src='{root:js/area/Area.js}'></script>
 <script type="text/javascript" src='{root:js/area/AreaData_min.js}'></script>
 </head>
 <body>
@@ -27,26 +28,21 @@
                 style="border:1px #000 solid; border-collapse:collapse;">
                 <tbody>
                     <tr>
-                        <td style=" font-size:16px;" width="110px">商品明细</td>
-                        
-                   
-
+                    <td style=" font-size:16px;" width="110px">商品明细</td>
                     <td style=" font-size:16px;" width="130px">产地</td>
-                    <td style=" font-size:16px;" width="70px">数量</td>
                     <td style=" font-size:16px;" width="70px">重量</td>
+                    <td style=" font-size:16px;" width="70px">单位</td>
                     <td style=" font-size:16px;" width="120px">含税单价(元)</td>
                     <td style=" font-size:16px;" width="100px">金额(元)</td>
                 </tr>
                 <tr>
                     <td style=" font-size:16px;">{$info['product_cate']}/{$info['name']}</td>
 
-                    <td style=" font-size:16px;" id='area'>
-                        {areatext:data=$info['produce_area'] id=area}&nbsp;
-                    </td>
-                    <td style=" font-size:16px;">
-                        -
+                    <td style=" font-size:16px;" >
+                        {areatext:data=$info['produce_area']}&nbsp;
                     </td>
                     <td style=" font-size:16px;"> {$info['num']}</td>
+                    <td style=" font-size:16px;"> {$info['unit']}</td>
                     <td style=" font-size:16px;">{$info['price']}</td>
                     <td style=" font-size:16px;" id="totalPrice">{$info['amount']}</td>
                 </tr>

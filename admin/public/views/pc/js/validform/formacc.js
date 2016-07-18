@@ -192,7 +192,7 @@ $(function(){
 
 	//地址验证，根据是两级或三级动态调整验证规则
 	if($('#areabox').length && $('#areabox').length>0){
-		$('#areabox').find('select:first').on('change',function(){
+		$('#areabox').find('select').on('change',function(){
 			var num = $('#areabox').find('select:visible').length;
 			var rules = [{
 				ele:"input[name=area]",

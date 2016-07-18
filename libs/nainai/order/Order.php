@@ -826,7 +826,7 @@ class Order{
 	public function contractReview($offer_id,$num){
 		$query = new Query('product_offer as po');
 		$query->join = 'left join products as p on po.product_id = p.id';
-		$query->fields = 'po.price,p.name,p.cate_id,p.produce_area';
+		$query->fields = 'po.price,p.name,p.cate_id,p.produce_area,p.unit';
 		$query->where = 'po.id = :id';
 		$query->bind = array('id'=>$offer_id);
 		$res = $query->getObj();
