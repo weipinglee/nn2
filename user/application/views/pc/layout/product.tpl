@@ -24,7 +24,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>商品单价:</td>
         <td>
-            <span> <input class="text" type="text" datatype="float" errormsg="填写正确填写单价" name="price"></span>
+            <span> <input class="text" type="text" datatype="money" errormsg="请正确填写单价" name="price"></span>
             <span></span>
         </td>
         <!--                                 <td>
@@ -36,7 +36,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>数量:</td>
         <td>
-            <span><input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="quantity"></span>
+            <span><input class="text" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity"></span>
             <span></span>
         </td>
         <span></span>
@@ -128,7 +128,7 @@
     </tr>
     <td>交收时间：</td>
     <td colspan="2">
-        <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,11}/" name="accept_day" style="width:50px;">天</span>
+        <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,5}/" name="accept_day" style="width:50px;">天</span>
         <span></span>
     </td>
     </tr>

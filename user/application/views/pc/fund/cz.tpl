@@ -16,7 +16,8 @@
 						</div>
 						<div class="zhxi_con font_set">
 							<span class="con_tit">充值金额：</span>
-							<span><input class="text potwt" type="text" datatype="float" name='recharge'/>元</span>
+							<span><input class="text potwt" type="text" errormsg="金额填写错误" datatype="money" name='recharge'/>元</span>
+							<span></span>
 						</div>
 		<!--TAB切换start  -->
             <div class="tabs_total">

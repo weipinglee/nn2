@@ -65,15 +65,19 @@
                             <tr>
                             <td nowrap="nowrap"><span></span>商品标题：</td>
                             <td colspan="2"> 
-                                <input class="text" type="text" datatype="s1-30" errormsg="填写商品标题" name="warename">
+                                <span><input class="text" type="text" datatype="s1-30" errormsg="填写商品标题" name="warename">
+                                    </span>
+                                <span></span>
                             </td>
                         </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>商品单价：</td>
                                 <td> 
-                                    <input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="price">
-                                    
+                                    <span><input class="text" type="text" datatype="money" errormsg="请正确填写价格" name="price">
+                                    </span>
+                                    <span></span>
                                 </td>
+
 <!--                                 <td> 
     请选择付款方式:
     <input type ="radio" name ="safe" checked="checked" style="width:auto;height:auto;"> 线上
@@ -82,9 +86,12 @@
                             </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>数量：</td>
-                                <td> 
-                                    <input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="quantity">
-                                </td>
+                                <td> <span>
+                                         <input class="text" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity">
+
+                                    </span>
+                                    <span></span>
+                                      </td>
                                <!--  <td> 
                                    请选择支付保证金比例:
                                    <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
