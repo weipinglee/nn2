@@ -300,34 +300,10 @@ class ManagerDealController extends UcenterBaseController {
             $storeModel = new \nainai\store();
             $return_json = $storeModel->getUserStoreDetail($pid,$this->user_id);
 
-            $productModel = new product();
-            $insurance = $risk_data = array();
             //获取保险产品信息
             $risk = new \nainai\insurance\Risk();
-            $list = $risk->getRiskList(-1, array('status' => 1));
-            $company = $risk->getCompany();
-            foreach ($list['lists'] as $key => $value) {
-                $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode']);
-            }
-
-            if (!empty($return_json['cate'])) {
-                $cate = array_reverse($return_json['cate']);
-                foreach ($cate as $key => $value) {
-                    $risk_data = $productModel->getCateName($value['id'], 'risk_data');
-                    if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置
-                        $risk_data = unserialize($risk_data);
-                        foreach ($risk_data as &$value) {
-                            $value['name'] = $insurance[$value['risk_id']]['name'];
-                            $value['company'] = $insurance[$value['risk_id']]['company'];
-                            $value['mode'] = $insurance[$value['risk_id']]['mode'];
-                        }
-                        break;
-                    }
-                }
-            }
-            
+            $return_json['risk_data'] = $risk->getCategoryRisk($return_json['cate']);
         }
-        $return_json['risk_data'] = $risk_data;
         echo JSON::encode($return_json);
         return false;
     }

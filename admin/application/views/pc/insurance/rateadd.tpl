@@ -78,7 +78,7 @@ $(document).ready(function(){
      $('#cate_id').on('change', function(){
           var cate_id = $(this).val();
           $('#id').val(cate_id);
-          if (cate_id <= 0) {return false;}
+          if (cate_id <= 0) {return;}
           $.ajax({
                'url' :  $('#ajax_url').val(),
                'type' : 'post',
@@ -86,11 +86,15 @@ $(document).ready(function(){
                'data' : {cate_id : cate_id},
                'dataType': 'json',
                success:function(data){//alert(JSON.stringify(data));
+                    for (var i = 0; i < $('.bid').length; i++) {
+                        $('.bid').eq(i).removeAttr('checked');
+                        $('.input-text').eq(i).val('');
+                    }
                     if (data.risk_data != undefined) {
                          $.each(data.risk_data, function(k, val){
                               for (var i = 0; i < $('.bid').length; i++) {
                                    if ($('.bid').eq(i).val() == val.risk_id) {
-                                        $('.bid').eq(i).attr('checked', 'true');
+                                        $('.bid').eq(i).prop('checked', 'checked');
                                         $('.input-text').eq(i).val(val.fee);
                                    }
                               }

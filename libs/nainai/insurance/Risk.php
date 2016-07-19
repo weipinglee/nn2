@@ -7,7 +7,7 @@ use \Library\Query;
 use \Library\Tool;
 
 /**
- * 代理商的数据处理
+ * 保险的数据处理
  */
 class Risk extends \nainai\Abstruct\ModelAbstract{
 
@@ -42,6 +42,40 @@ class Risk extends \nainai\Abstruct\ModelAbstract{
             }
             
             return $res;
+     }
+
+     /**
+      * 获取分类对应能够买的保险,能够追溯上级分类
+      * @param  Int $cid 分类id
+      * @return Array      
+      */
+     public function getCategoryRisk($cid){
+            $insurance = $risk_data = array();
+           //获取保险产品信息
+           $list = $this->getRiskList(-1, array('status' => 1));
+           $company = $this->getCompany();
+           foreach ($list['lists'] as $key => $value) {
+                $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode']);
+           }
+
+           $model = new \nainai\offer\product();
+           $cates = $model->getParents($cid);
+           if (!empty($cates)) {
+                foreach ($cates as $key => $value) {
+                     $risk_data = $model->getCateName($value['id'], 'risk_data');
+                     $risk_data = unserialize($risk_data);
+                     if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置
+                          foreach ($risk_data as &$value) {
+                               $value['name'] = $insurance[$value['risk_id']]['name'];
+                               $value['company'] = $insurance[$value['risk_id']]['company'];
+                               $value['mode'] = $insurance[$value['risk_id']]['mode'];
+                          }
+                          break;
+                     }
+                }
+           }
+
+           return $risk_data;
      }
 
 }

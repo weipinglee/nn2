@@ -177,6 +177,7 @@
              {if:$data['left'] == 0}
                 <a style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="javascript:;">暂时无货</a>
              {else:}
+                <a class="btoncomit" href="{url: /Insurance/apply}?{set: echo http_build_query(array('id' => $data['id']))}" >申请保险</a>
                 <a class="btoncomit" href="javascript:;" >确认支付</a>
              {/if}
             </div>

@@ -6,16 +6,18 @@ use \Library\url;
 
 class PublicController extends \Yaf\Controller_Abstract{
 
+     public $login;
+
      public function init(){
           $this->getView()->setLayout('layout');
           $frdLink = new \nainai\system\friendlyLink();
           $frdData = $frdLink->getFrdLink(10);
           $this->getView()->assign('frdData',$frdData);
 
-          $login = \Library\session::get('login');
-          if($login){
+          $this->login = \Library\session::get('login');
+          if($this->login){
                $this->getView()->assign('login',1);
-               $this->getView()->assign('username',$login['username']);
+               $this->getView()->assign('username',$this->login['username']);
           }
           else
                $this->getView()->assign('login',0);
