@@ -25,7 +25,7 @@ class OffersController extends PublicController {
 	public function init(){
 		parent::init();
 		//$this->getView()->setLayout('header');
-		$this->offer = new OffersModel();
+		$this->offer = new offersModel();
 		$this->order = new \nainai\order\Order();
 	}
 
@@ -228,6 +228,12 @@ class OffersController extends PublicController {
 
 			$pro = new \nainai\offer\product();
 			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+			if ($info['insurance'] == 1) {
+				$risk = new \nainai\insurance\Risk();
+				$riskData = $risk->getProductRisk($info['risk'], $info['cate_id']);
+				$this->getView()->assign('riskData',$riskData);
+			}
+
 			$kefuData = array();
 			if($info['kefu']){
 				$kefu = new \Library\M('admin_kefu');

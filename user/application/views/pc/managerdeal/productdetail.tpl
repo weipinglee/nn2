@@ -88,6 +88,20 @@
                               <td colspan="2">支付方式</td>
                               <td colspan="6">现汇</td>
                           </tr> -->
+                          <tr>
+                                <td colspan="2">是否投保</td>
+                                <td colspan="6">{if: $offer['insurance'] == 1}是{else:}否{/if}</td>
+                            </tr>
+                             {if: $offer['insurance'] == 1}
+                            <tr>
+                                <td colspan="2">投保产品</td>
+                                <td colspan="6">
+                                     {foreach: items=$riskData}
+                                      保险公司：{$item['company']} - 保险产品：{$item['name']} {if:$item['mode']==1}比例 : ({$item['fee']}){else:}定额 : ({$item['fee']}){/if}<br />
+                                     {/foreach}
+                                </td>
+                            </tr>
+                            {/if}
                             <tr>
                                 <td colspan="2">可否拆分</td>
                                 <td colspan="6">{if:$offer['divide'] == 0}是{else:}否{/if}</td>

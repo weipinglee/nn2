@@ -622,6 +622,11 @@ class ManagerDealController extends UcenterBaseController {
         if (intval($id) > 0) {
             $productModel = new ProductModel();
             $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
+            if ($offerDetail[0]['insurance'] == 1) {
+                $risk = new \nainai\insurance\Risk();
+                $riskData = $risk->getProductRisk($offerDetail[0]['risk'], $offerDetail[1]['cate_id']);
+                $this->getView()->assign('riskData',$riskData);
+            }
 
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);

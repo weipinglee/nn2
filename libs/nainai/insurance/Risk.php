@@ -78,4 +78,27 @@ class Risk extends \nainai\Abstruct\ModelAbstract{
            return $risk_data;
      }
 
+     /**
+      * 获取产品对应的保险产品
+      * @param  String $risk 报盘的保险id
+      * @param Int $cid 分类id
+      * @return Array              
+      */
+     public function getProductRisk($risk, $cid){
+        $riskData = array();
+
+        if (!empty($risk) && intval($cid) > 0 ) {
+          $riskData = $this->getCategoryRisk($cid);
+
+          $risk = explode(',', $risk);
+            foreach ($riskData as $key => $value) {
+              if (!in_array($value['risk_id'], $risk)) {
+                unset($riskData[$key]);
+              }
+            }
+        }
+
+        return $riskData;
+     }
+
 }

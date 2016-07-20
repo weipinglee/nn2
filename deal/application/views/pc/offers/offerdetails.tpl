@@ -98,8 +98,18 @@
                         </tr>
                         <tr>
                             <td>是否投保</td>
-                            <td>是</td>
+                            <td>{if: $data['insurance'] == 1}是{else:}否{/if}</td>
                         </tr>
+                        {if: $data['insurance'] == 1}
+                        <tr>
+                            <td>投保产品</td>
+                            <td>
+                                 {foreach: items=$riskData}
+                                    保险公司：{$item['company']} - 保险产品：{$item['name']} {if:$item['mode']==1}比例 : ({$item['fee']}){else:}定额 : ({$item['fee']}){/if}<br />
+                                   {/foreach}
+                            </td>
+                        </tr>
+                        {/if}
                         <tr>
                             <td>计重方式</td>
                             <td>理论计值</td>
