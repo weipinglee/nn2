@@ -88,7 +88,22 @@ class OffersController extends PublicController {
 		if(time() > strtotime($info['expire_time'])){
 			$this->error('报盘不存在或已过期');
 		}
-		$info['amount'] = $info['minimum'] * $info['price'];
+
+		if($info['divide']==\nainai\offer\product::UNDIVIDE ){//不可拆分
+			$info['fixed'] = true;
+			$info['minimum'] = $info['quantity'];
+			$info['amount'] = $info['quantity'] * $info['price'];
+		}
+		else if($info['left'] <= $info['minimum']){//余量不够最小起订量
+			$info['fixed'] = true;
+			$info['minimum'] = $info['left'];
+			$info['amount'] = $info['left'] * $info['price'];
+		}
+		else{//可拆分且余量大于起订量
+			$info['fixed'] = false;
+			$info['amount'] = $info['minimum'] * $info['price'];
+		}
+
 		$order_mode = new Order($info['mode']);
 		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
 		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));

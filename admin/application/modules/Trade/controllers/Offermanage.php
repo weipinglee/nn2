@@ -24,9 +24,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 		// $no = $this->_request->getParam('no');
 		$page = safe::filterGet('page','int');
 		$pageData = $this->offer->getActiveList($page);
-		$this->getView()->assign('data',$pageData['data']);
-		$this->getView()->assign('bar',$pageData['bar']);
-		$this->getView()->assign('count',$pageData['count']);
+		$this->getView()->assign('data',$pageData);
 	}
 
 	//报盘审核

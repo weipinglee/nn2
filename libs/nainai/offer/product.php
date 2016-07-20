@@ -27,8 +27,8 @@ class product {
     );
 
     //是否可拆分
-    const DIVIDE = 0;//可拆分
-    const UNDIVIDE = 1;//不可拆分
+    const DIVIDE = 1;//可拆分
+    const UNDIVIDE = 0;//不可拆分
     //报盘类型
     const FREE_OFFER  = 1;
     const DEPOSIT_OFFER = 2;
@@ -93,9 +93,6 @@ class product {
             case self::OFFER_NG:
                 $st = '未通过';
                 break;
-            case self::OFFER_EXPIRE:
-                $st = '已过期';
-                break;
             default:
                 $st = '未知';
                 break;
@@ -103,6 +100,17 @@ class product {
         return $st;
     }
 
+    //获取是否可拆分
+    public function getDivide($div){
+        $divide = array(
+            self::UNDIVIDE=>'不可',
+            self::DIVIDE=>'可以'
+        );
+        if($div==1 || $div==0){
+            return $divide[$div];
+        }
+        return $divide[0];
+    }
     //获取报盘模式文本
     public function getMode($mode){
         switch ($mode) {

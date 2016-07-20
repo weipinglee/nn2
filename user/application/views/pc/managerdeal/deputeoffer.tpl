@@ -53,7 +53,7 @@
                                 <td></td>
                                 <td>
                                     <span>
-                                        <div>请您下载<a href="{url:/oper/down}?{set:echo http_build_query(array('name' => '耐耐网自由报盘委托协议书.docx'))}" style="color:#1852ca;font-size:14px;">《耐耐网自由报盘委托协议书》</a>，并签字扫描上传
+                                        <div>请您下载<a href="{root:down/耐耐网自由报盘委托协议书.docx}" style="color:#1852ca;font-size:14px;">《耐耐网自由报盘委托协议书》</a>，并签字扫描上传
                                          </div>
                                        <div class="zhxi_con">
 
@@ -77,7 +77,7 @@
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
                                 <input type="hidden" name="token" value="{$token}" />
                                 <input  type="submit"  value="提交审核" />
-                                <span class="color">委托金比例：{$rate}%</span>
+                                <span class="color">需在线下支付总金额的{$rate}%的委托金</span>
                             </td>
                         </tr>
                          

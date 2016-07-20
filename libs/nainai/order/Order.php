@@ -488,14 +488,21 @@ class Order{
 	 */
 	public function productNumValid($num,$offer_info,$product=array()){
 		$res = $this->productNumLeft($offer_info['product_id'],$product);
-		if($offer_info['divide'] == 1 && $num != $res['quantity'])
+		if($offer_info['divide'] == \nainai\offer\product::UNDIVIDE && $num != $res['quantity'])
 			return '此商品不可拆分';
 
-		if($num > $res['left'])
+		if(bccomp($num,$res['left'],2) > 0){//精确比较到小数点后两位，
 			return '商品存货不足';
-		if($num < $offer_info['minimum'])
-			return '小于最小起订量';
+		}
 
+		if(bccomp($offer_info['minimum'],$res['left'],2) < 0 && bccomp($num,$offer_info['minimum'],2) <0){
+			return '小于最小起订量';
+		}
+		//剩余量小于等于最小起订量且购买量不等于剩余量
+		if(bccomp($offer_info['minimum'],$res['left'],2) >= 0 && bccomp($num,$res['left'],2) != 0){
+			return '剩余量已不足最小起订量，购买量必须等于剩余量';
+		}
+		
 		return true;
 	}
 

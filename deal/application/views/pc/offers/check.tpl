@@ -78,9 +78,9 @@
                                  {/foreach}
                              </span>
                              <span class="shulag">
-                                {if:$data['divide'] == 1}
-                                    {$data['quantity']}
-                                    <input type="hidden" name="num" value="{$data['quantity']}"/>
+                                {if:$data['fixed']}
+                                    {$data['minimum']}
+                                    <input type="hidden" name="num" value="{$data['minimum']}"/>
                                 {else:}
                                     <input type="text" name="num" value="{$data['minimum']}" width="20px" style="width:100px" />
                                 {/if}
@@ -163,19 +163,15 @@
            <span class="jiesim"><b>结算信息</b><h3>  </h3> </span>
             
             <span class="daizfji"><span class="zhifjin">待支付金额：</span><i>￥</i><b class='pay_deposit'>
-            {if:$data['divide'] == 1}
-                {$data['left_deposit']}
-            {else:}
-                {$data['minimum_deposit']}
-            {/if}
+               {$data['minimum_deposit']}
+
             </b></span>
             {/if}
                <input type="hidden" name="id" value="{$data['id']}" />
-               <!-- <input type="hidden" name="num" value="{$data['minimum']}" /> -->
 
              <div class="order_comit">
              {if:$data['left'] == 0}
-                <a style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="javascript:;">暂时无货</a>
+                <a style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="javascript:;">已成交</a>
              {else:}
                 <a class="btoncomit" href="javascript:;" >确认支付</a>
              {/if}
@@ -235,28 +231,33 @@
                     function isnum_valid(){
                         var flag = false;
                         var num = parseFloat(num_input.val());
-                        if(divide == 1){
+                        if(divide == 0){
                             if(num != quantity){
                                 alert('此商品不可拆分');
                             }else{
                                 flag = true;
                             }
                         }else{
-                            if(num<minimum){
-                                num_input.val(minimum);
-                                deposit_text.text(paytype == 1 ? minimum*price : minimum_deposit);
-                                temp_deposit = minimum_deposit;
-                                prod_amount.text(minimum*price);
-                                alert('小于最小起订量');
-                                
-                            }else if(num>left){
-                                num_input.val(left);
-                                deposit_text.text(paytype == 1 ? left*price : left_deposit);
-                                temp_deposit = left_deposit;
-                                prod_amount.text(left*price);
-                                alert('超出剩余数量');
-                            }else{
-                                flag = true;  
+                            if(left>minimum) { //剩余量大于最小起订量
+                                if (num < minimum) {
+                                    num_input.val(minimum);
+                                    deposit_text.text(paytype == 1 ? minimum * price : minimum_deposit);
+                                    temp_deposit = minimum_deposit;
+                                    prod_amount.text(minimum * price);
+                                    alert('小于最小起订量');
+                                }
+                                else if (num > left) {
+                                    num_input.val(left);
+                                    deposit_text.text(paytype == 1 ? left * price : left_deposit);
+                                    temp_deposit = left_deposit;
+                                    prod_amount.text(left * price);
+                                    alert('超出剩余数量');
+                                } else {
+                                    flag = true;
+                                }
+                            }
+                            else if(num==left){
+                                flag = true;
                             }
                         }
                         return flag;

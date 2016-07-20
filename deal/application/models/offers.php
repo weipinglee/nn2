@@ -252,6 +252,7 @@ class offersModel extends \nainai\offer\product{
             $res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
             $res['left'] = floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']);
 
+            $res['divide_txt'] = $this->getDivide($res['divide']);
             if($res['divide']==self::UNDIVIDE)
                 $res['minimum'] = $res['quantity'];
         }

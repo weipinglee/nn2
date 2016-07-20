@@ -14,7 +14,7 @@
        报盘信息
     </div>
      <div class="pd-20">
-         <form action="{url:trade/Offermanage/setStatus}" method="post"  redirect_url="{url:trade/Offermanage/offerReview}">
+         <form action="{url:trade/Offermanage/setStatus}" method="post" auto_submit redirect_url="{url:trade/Offermanage/offerReview}">
 
 
 	 	 <table class="table table-border table-bordered table-bg">

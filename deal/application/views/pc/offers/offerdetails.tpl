@@ -42,7 +42,7 @@
                     <ul>
                         <li>参考价：<b> {$data['price']}</b>元/吨 <span class="qianse">（含税）</span></li>
                         <li>总数量： <i>{$data['quantity']}</i>  {$data['unit']}</li>
-                        <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
+                      <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
                     </ul>
 
                   <!--  <div class="counter">
@@ -106,7 +106,7 @@
                         </tr>
                         <tr>
                             <td>可否拆分</td>
-                            <td>{if:$data['divide']==0}可{else:}不可{/if}</td>
+                            <td>{$data['divide_txt']}</td>
                         </tr>
                         <tr>
                             <td>报盘数量</td>
