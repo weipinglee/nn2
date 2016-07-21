@@ -146,9 +146,9 @@ class store{
      * @param array $condition 条件
      */
     protected function getStoreProductList($page,$condition=array(),$pagesize=20){
-        $query = new Query('store_list as b');
+        $query = new \Library\searchQuery('store_products as a');
         $query->fields = 'a.id,a.user_id,b.name as sname, a.status, c.name as pname,c.quantity,d.name as cname, c.attribute,c.unit, a.package_unit, a.package_weight';
-        $query->join = ' RIGHT JOIN (store_products as a LEFT JOIN products as c ON a.product_id = c.id ) ON a.store_id=b.id LEFT JOIN product_category as d  ON c.cate_id=d.id';
+        $query->join = ' LEFT JOIN store_list as b ON a.store_id=b.id LEFT JOIN products as c ON a.product_id = c.id   LEFT JOIN product_category as d  ON c.cate_id=d.id';
         $query->page = $page;
         $query->pagesize = $pagesize;
         if(!empty($condition)){
@@ -156,13 +156,13 @@ class store{
             $query->bind  = isset($condition['bind']) ? $condition['bind'] : array();
         }
 
-        $storeList = $query->find();
+        $storeList = $query->find(self::getStatus());
 
         $attrs = $attr_id = array();
-        foreach ($storeList as $key => $value) {
+        foreach ($storeList['list'] as $key => $value) {
 
             $attrs = unserialize($value['attribute']);
-            $storeList[$key]['attribute'] = $attrs;
+            $storeList['list'][$key]['attribute'] = $attrs;
             if(!empty($attrs)){
                 foreach ($attrs as $aid => $name) {
                     if (!in_array($aid, $attr_id)) {
@@ -173,7 +173,8 @@ class store{
 
         }
         $obj = new product();
-        return array('list' => $storeList, 'pageHtml' => $query->getPageBar(), 'attrs' => $obj->getHTMLProductAttr($attr_id));
+        $storeList['attrs'] =  $obj->getHTMLProductAttr($attr_id);
+        return $storeList;
     }
 
     /**

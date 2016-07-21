@@ -5,9 +5,8 @@
  * Date: 2016/7/14 0014
  * Time: 下午 12:42
  */
-namespace search;
-use \Library\safe;
-class adminQuery extends \Library\Query{
+namespace Library;
+class searchQuery extends Query{
 
 
     /**
@@ -56,7 +55,7 @@ class adminQuery extends \Library\Query{
     public static function getWhereCond($tableName){
         if(!$tableName)
             return array();
-        $configArr = searchConfig::config($tableName);
+        $configArr = \conf\searchConfig::config($tableName);
         if(empty($configArr))
             return array();
         $condArr = $search = array();

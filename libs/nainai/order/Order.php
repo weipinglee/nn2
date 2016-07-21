@@ -765,7 +765,7 @@ class Order{
 	 * @param  int $user_id 卖家id
 	 */
 	public function sellerContractList($user_id,$page){
-		$query = new adminQuery('order_sell as do');
+		$query = new \Library\searchQuery('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
 		$query->where = '((po.user_id = :user_id and po.type = 1) or (do.user_id = :seller_id and po.type = 2))';
 		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
@@ -806,7 +806,7 @@ class Order{
 	 * @return array          列表数组
 	 */
 	public function buyerContractList($user_id,$page){
-		$query = new adminQuery('order_sell as do');
+		$query = new \Library\searchQuery('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
 		$query->where = '((do.user_id = :user_id and po.type = 1) or (po.user_id = :buyer_id and po.type = 2))';
 		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';

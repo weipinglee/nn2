@@ -415,9 +415,7 @@ class ManagerDealController extends UcenterBaseController {
         $data = $store->getUserStoreList($page,$this->user_id);
 
         $this->getView()->assign('statuList', $store->getStatus());
-        $this->getView()->assign('storeList', $data['list']);
-        $this->getView()->assign('attrs', $data['attrs']);
-        $this->getView()->assign('pageHtml', $data['pageHtml']);
+        $this->getView()->assign('data', $data);
 
     }
 

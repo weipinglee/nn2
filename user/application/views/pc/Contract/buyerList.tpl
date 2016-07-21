@@ -6,10 +6,9 @@
 						<p><a>合同管理</a>><a>购买合同</a></p>
 					</div>
 					<div class="chp_xx">
-						<div class="xx_top">
+
 							{include:layout/search.tpl}
-							<div style="clear:both;"></div>
-						</div>
+
 						<div class="xx_center">
 							<table class="sales_table" border="0"  cellpadding="0" cellspacing="0">
 								<tr class="first_tr">

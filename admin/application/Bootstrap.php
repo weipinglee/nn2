@@ -38,7 +38,7 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 	//注册本地类 所有相同前缀的类会加载到本地library路径
 	public function _initLoader(Yaf\Dispatcher $dispatcher) {
 		$loader = Yaf\Loader::getInstance();
-        $loader->registerLocalNamespace(array('admintool'));
+        $loader->registerLocalNamespace(array('admintool','conf'));
 	}
 	public function _initPlugin(Yaf\Dispatcher $dispatcher) {
 		//注册一个插件
