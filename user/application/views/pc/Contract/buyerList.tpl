@@ -7,7 +7,7 @@
 					</div>
 					<div class="chp_xx">
 						<div class="xx_top">
-							<form action="{url:/Contract/depositList}" method="post" name="">
+							<form action="{url:/Contract/buyerlist}" method="post" name="">
 								<ul>
 									<li>名称：<input id="warename" name="name" value="" type="text"></li>
 									<li>发布状态：

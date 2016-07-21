@@ -68,7 +68,7 @@ class ContractController extends UcenterBaseController{
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id,'seller');
-		$invoice = $order->orderInvoiceInfo($info);
+		$invoice = $order->orderInvoiceInfo($info);print_r($invoice);
 		$info['complain'] = $order->canComplain($info);
 
 		$this->getView()->assign('info',$info);

@@ -24,6 +24,11 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 		define('IS_AJAX',       ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) ? true : false);
 	}
 
+	//注册本地类 所有相同前缀的类会加载到本地library路径
+	public function _initLoader(Yaf\Dispatcher $dispatcher) {
+		$loader = Yaf\Loader::getInstance();
+		$loader->registerLocalNamespace(array('search'));
+	}
 	public function _initPlugin(Yaf\Dispatcher $dispatcher) {
 		//注册一个插件
 		$objSamplePlugin = new SamplePlugin();

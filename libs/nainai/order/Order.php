@@ -488,7 +488,7 @@ class Order{
 	 */
 	public function productNumValid($num,$offer_info,$product=array()){
 		$res = $this->productNumLeft($offer_info['product_id'],$product);
-		if($offer_info['divide'] == \nainai\offer\product::UNDIVIDE && $num != $res['quantity'])
+		if($offer_info['divide'] == \nainai\offer\product::UNDIVIDE && bccomp($num,$res['quantity'],2) != 0)
 			return '此商品不可拆分';
 
 		if(bccomp($num,$res['left'],2) > 0){//精确比较到小数点后两位，
@@ -502,7 +502,7 @@ class Order{
 		if(bccomp($offer_info['minimum'],$res['left'],2) >= 0 && bccomp($num,$res['left'],2) != 0){
 			return '剩余量已不足最小起订量，购买量必须等于剩余量';
 		}
-		
+
 		return true;
 	}
 
@@ -772,7 +772,7 @@ class Order{
 		$query->bind  = array('user_id'=>$user_id,'seller_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
-		// $query->order = "sort";
+		 $query->order = "do.id desc";
 		$data = $query->find();
 		$this->sellerContractStatus($data);
 		// tool::pre_dump($data);
@@ -814,7 +814,7 @@ class Order{
 		$query->bind  = array('user_id'=>$user_id,'buyer_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
-		// $query->order = "sort";
+		 $query->order = "do.id desc ";
 		$data = $query->find();
 
 		$this->buyerContractStatus($data);
