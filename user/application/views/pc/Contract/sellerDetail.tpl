@@ -11,7 +11,7 @@
 					<div class="chp_xx">
 						<div class="de_ce">
 							<div class="detail_chj">
-								<span>{$info['create_time']}</span>
+								&nbsp;&nbsp;<span>{$info['create_time']}</span>
 								<span>订单创建</span>
 							</div>
 							<div class="" style="line-height: 25px">
@@ -87,7 +87,7 @@
 								<b class="sj_de_tit">银行卡号：</b>
 								<span>&nbsp;{$invoice['bank_no']}</span>
 							</div>
-							<form action="{url:/Contract/geneOrderInvoice}" method="post"  rediret_url="{url:/Contract/sellerDetail?id=$info['id']}">
+							<form action="{url:/Contract/geneOrderInvoice}" method="post"  auto_submit="1" >
 								<div class="sj_detal">
 									<b class="sj_de_tit">发票照片：</b>
 									<span>&nbsp;{if:$invoice['order_invoice']['image']}<img src="{$invoice['order_invoice']['image']}">{else:}
@@ -143,7 +143,7 @@
 									<th>提货</th>
 								</tr>
 								<tr>
-									<td><img src="{views:images/banner/551b861eNe1c401dc.jpg}"/></td>
+									<td><img src="{$info['img_thumb']}"/></td>
 									<td>{$info['name']}</td>
 									<td>{$info['price']}</td>
 									<td>{$info['num']}{$info['unit']}</td>

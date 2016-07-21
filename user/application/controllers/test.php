@@ -17,7 +17,7 @@ class testController extends  UcenterBaseController{
 <?xml version="1.0" encoding="GB2312" standalone="yes"?>
 <ApplyInfo>
 	<GeneralInfo>
-		<UUID>nuoya20150506144140511</UUID>
+		<UUID>nnw</UUID>
 		<PlateformCode>CPI000001</PlateformCode>
 		<Md5Value>5b328774b08a56abf9b069bbe15796c2</Md5Value>
 	</GeneralInfo>

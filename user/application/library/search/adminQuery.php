@@ -7,7 +7,7 @@
  */
 namespace search;
 use \Library\safe;
-class userQuery extends \Library\Query{
+class adminQuery extends \Library\Query{
 
 
     /**

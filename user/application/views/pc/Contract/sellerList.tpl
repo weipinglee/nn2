@@ -7,22 +7,7 @@
 					</div>
 					<div class="chp_xx">
 						<div class="xx_top">
-							<form action="{url:/Contract/depositList}" method="post" name="">
-								<ul>
-									<li>名称：<input id="warename" name="name" value="" type="text"></li>
-									<li>发布状态：
-									<select id="classcode" name="classcode">
-									<option value="">--全部--</option>
-									<option value="">审核中</option>
-									<option value="">发布成功</option>
-									<option value="">被驳回</option>
-									<option value="">已过期</option>
-									</select></li>
-									<li>时间：<input class="Wdate" type="text" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" onclick="WdatePicker()">
-									</li>
-									<li> <a class="chaz" onclick="javascript:$('form').submit();">查找</a></li>
-								</ul>
-							</form>
+							{include:layout/search.tpl}
 							<div style="clear:both;"></div>
 						</div>
 						<div class="xx_center">
@@ -41,7 +26,7 @@
 								</tr>
                                 
 								
-                                {foreach:items=$data}
+                                {foreach:items=$data['list']}
 									<tr class="title">
 										<td colspan="6">
 											<input id="controlAll" type="checkbox">
@@ -57,7 +42,7 @@
 									</tr>
 									<tr>
 										<td colspan="2">
-											<img class="middle_img" src="{views:images/banner/551b861eNe1c401dc.jpg}" align="left" width="100px"/>
+											<img class="middle_img" src="{echo:\Library\thumb::get($item['img'],100,100)}" align="left" width="100px"/>
 											<div class="div_height">&nbsp;{$item['product_name']}</div>
 											<!-- <div class="div_height">&nbsp;是否含税：是</div>
 											<div class="div_height">&nbsp;是否含保险：是</div> -->
@@ -106,7 +91,7 @@
 							跳转到第 <input name="pagefind" id="pagefind" type="text" style="width:20px;font-size: 12px;" maxlength="5" value="1"> 页 
 							<a><span class="style1">确定</span></a> -->
 
-							{$page}
+							{$data['bar']}
 						</div>
 
 					</div>
