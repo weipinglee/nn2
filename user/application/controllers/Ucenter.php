@@ -461,7 +461,7 @@ class UcenterController extends UcenterBaseController {
                     'bank_name' => Safe::filterPost('bankName'),
                     'bank_no' => Safe::filterPost('bankAccount')
                 );
-
+                
                 $returnData = $invoiceModel->insertupdateUserInvoice($invoiceData,$invoiceData);
 
                 die(json::encode($returnData));

@@ -203,7 +203,7 @@
                         var num = parseFloat(num_input.val());
                         var id = $('input[name=id]').val();
                         var flag = isnum_valid();
-                        if(flag){
+                        if(flag && {$data['show_payment']}){
                             $.post("{url:/Offers/payDepositCom}",{id:id,num:num,price:price},function(data){
                                 var data = JSON.parse(data);
                                 if(data.success == 1){
@@ -215,6 +215,9 @@
                                     alert(data.info);
                                 }
                             });
+                        }else{
+                            prod_amount.text(num*price);
+                            $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
                         }
                     });
 

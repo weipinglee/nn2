@@ -54,7 +54,8 @@
 									<td><span class="col000000">{$list['status_zn']}</span></td>
 									<td>{$list['create_time']}</td>
 									<td>
-										{if:!isset($user_id) && $list['status'] == \nainai\offer\product::OFFER_OK}
+
+										{if:!isset($user_id) && $list['status'] == \nainai\offer\product::OFFER_APPLY}
 										<a href="{url:/PurchaseOrder/geneOrder?id=$list['id']&offer_id=$list['offer_id']}">选择</a>
 										{/if}
 									</td>

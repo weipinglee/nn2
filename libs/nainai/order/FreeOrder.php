@@ -23,7 +23,7 @@ class FreeOrder extends Order{
 		}else{
 			return tool::getSuccInfo(0,'生成订单错误');
 		}
-
+		
 		$offer_exist = $this->offerExist($orderData['offer_id']);
 		if($offer_exist === false) return tool::getSuccInfo(0,'报盘不存在或未通过审核');
 
