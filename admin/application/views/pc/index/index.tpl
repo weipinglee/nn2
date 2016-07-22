@@ -38,6 +38,7 @@
                 <a href="#">{$info['name']}</a>
                 |
                 <a href="{url:/login/logout}">退出</a>
+                <a href="">返回网站首页</a>
             </div>
             <div class="right">
                 <form action="#" id="search" class="search placeholder">
@@ -72,6 +73,7 @@
                             <ul>
                                 <li><a href="{url:/system/Confsystem/creditList}" target="content">信誉值配置列表</a></li>
                                 <li><a href="{url:/system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
+                                <li><a href="{url:/system/Confsystem/generalList}" target="content">一般设置</a></li>
                             </ul>
                         </li>
                         <li><a target="content">管理员信息</a>

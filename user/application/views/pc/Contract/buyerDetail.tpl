@@ -9,7 +9,7 @@
 					<div class="chp_xx">
 						<div class="de_ce">
 							<div class="detail_chj">
-								<span>{$info['create_time']}</span>
+								&nbsp;&nbsp;<span>{$info['create_time']}</span>
 								<span>订单创建</span>
 							</div>
 							<div class="" style="line-height: 25px">
@@ -44,6 +44,60 @@
 								<b class="sj_de_tit">地址：</b>
 								<span id='area'>&nbsp;{areatext:data=$info['userinfo']['area'] id=area}</span>&nbsp;{$info['userinfo']['address']}
 							</div>
+
+							<p>开票信息</p>
+
+							{if:$info['invoice']==1}
+							<div class="sj_detal">
+								<b class="sj_de_tit">是否开票：</b>&nbsp;
+									是
+							</div>
+								{if:!empty($invoice['order_invoice'])}
+
+									<div class="sj_detal">
+										<b class="sj_de_tit">开票状态：</b>
+										&nbsp;<span>已开票</span>
+
+									</div>
+									<div class="sj_detal">
+										<b class="sj_de_tit">快递公司：</b>
+										&nbsp;<span>{$invoice['order_invoice']['post_company']}</span>
+
+									</div>
+									<div class="sj_detal">
+										<b class="sj_de_tit">快递单号：</b>
+										&nbsp;<span>{$invoice['order_invoice']['post_no']}</span>
+
+									</div>
+									<div class="sj_detal">
+										<b class="sj_de_tit">开票时间：</b>
+										&nbsp;<span>{$invoice['order_invoice']['create_time']}</span>
+
+									</div>
+									<div class="sj_detal">
+										<b class="sj_de_tit">发票图片：</b>
+										&nbsp;<img src="{$invoice['order_invoice']['image']}" />
+
+									</div>
+								{else:}
+									<div class="sj_detal">
+										<b class="sj_de_tit">开票状态：</b>
+										&nbsp;<span>待开票</span>
+
+									</div>
+								{/if}
+
+
+							{else:}
+								<div class="sj_detal">
+									<b class="sj_de_tit">是否开票：</b>&nbsp;
+									否
+								</div>
+							{/if}
+
+
+
+
 						</div>
 						<div class="xx_center">
 							<table border="0" cellpadding="" cellspacing="">
@@ -60,7 +114,7 @@
 									<th>提货</th>
 								</tr>
 								<tr>
-									<td><img src="{views:images/banner/551b861eNe1c401dc.jpg}"/></td>
+									<td><img src="{$info['img_thumb']}"/></td>
 									<td>{$info['name']}</td>
 									<td>{$info['price']}</td>
 									<td>{$info['num']}{$info['unit']}</td>

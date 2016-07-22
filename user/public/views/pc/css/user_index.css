@@ -597,8 +597,6 @@ visibility: hidden;
     width: auto;
     text-align: center;
     margin-left: 15px;
-    overflow: hidden;
-    white-space: nowrap;
 }
  .class_jy .sl_ext {
     position: absolute;
@@ -719,6 +717,18 @@ visibility: hidden;
 .chp_xx .methed li{
     min-height: 60px;
 }
+
+.chp_xx .methed.too li{
+    min-height: 32px;
+}
+.chp_xx .methed li div input {
+    height: 25px;
+    width: 200px;
+}
+.chp_xx .methed li div p {
+    margin: 10px 0;
+}
+
 .chp_xx .methed li div{
     float: left;
     line-height: 32px;

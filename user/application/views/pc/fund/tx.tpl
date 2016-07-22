@@ -13,7 +13,8 @@
 
 						<div class="zhxi_con">
 							<span class="con_tit"><i>*</i>提现金额：</span>
-							<span><input class="text" type="text"  datatype="float" name="amount"/></span>
+							<span><input class="text" type="text" errormsg="金额填写错误" datatype="money" name="amount"/></span>
+							<span></span>
 						</div>
 
 						<div class="zhxi_con">

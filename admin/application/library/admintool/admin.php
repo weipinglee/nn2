@@ -4,6 +4,7 @@
  * 管理员常用方法
  */
 namespace admintool;
+use \Library\safe;
 class admin{
 
 	/**
@@ -29,6 +30,8 @@ class admin{
 	public static function sessionInfo(){
 		return \Library\Session::get(isset(\Library\tool::getConfig('rbac')['user_session']) ? \Library\tool::getConfig('rbac')['user_session'] : '');
 	}
+
+
 
 }
  ?>

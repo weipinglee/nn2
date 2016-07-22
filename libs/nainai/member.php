@@ -109,7 +109,7 @@ class member{
      */
     public function getUserDetail($user_id){
         $userObj = new M($this->table);
-        $detail = $userObj->where(array('id'=>$user_id))->getObj();
+        $detail = $userObj->fields('id,type,username,credit,mobile,email,head_photo,pid,roles,status,agent,create_time,yewu')->where(array('id'=>$user_id))->getObj();
         $product = new \nainai\offer\product();
 
         if(!empty($detail)){

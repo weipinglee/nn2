@@ -67,7 +67,7 @@ class baseModel{
 
 		$log  = array();
 		$log['table'] = $tableName;
-
+		$model->beginTrans();
 		$rules = $this->getRules(strtolower($methodArr[1]));
 		$args = $args[0];
 		switch ($methodArr[0]) {
@@ -120,7 +120,7 @@ class baseModel{
 
 			case 'get'://获取一条数据
 				if (intval($args) > 0) {
-					return $model->where($this->pk . '=:id')->bind(array('id'=>$args[0]))->getObj();
+					return $model->where($this->pk . '=:id')->bind(array('id'=>$args))->getObj();
 				}
 				return array();
 				break;
@@ -134,13 +134,22 @@ class baseModel{
 		if(is_int($res)){
 			$logObj = new \Library\log();
 			$logObj->addLog($log);
-			return tool::getSuccInfo();
+			$res = $model->commit();
+			if($res===true){
+				return tool::getSuccInfo();
+			}
+			else
+				return tool::getSuccInfo(0,'操作失败');
+
 		}
 		else{
+			$model->rollBack();
 			return tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
 		}
 
 	}
+
+
 
 
 

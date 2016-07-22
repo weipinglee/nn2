@@ -42,7 +42,7 @@
 					                        <div>
 					                        
 					                        
-					                        <input name="expect_time" id="date_start" type="text" datatype="date" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});">
+					                        <input name="expect_time" id="date_start" type="text" class="Wdate gyctht_input" value="2016-04-01">
 						                        	
 						                        	记重方式：过磅  
 						                             <input type="hidden" id="weight_type" value="A">
@@ -53,23 +53,25 @@
 
 				                        	</li>
 				                        	<li class="clearfix">
-				                        		<label>提货人：</label>
+				                        		<!-- <label>提货人：</label> -->
 				                        		<div>
 				                        			<p>
 
-				                        				提货人：<span id="man"><input type="text" name="delivery_man" datatype="*"></span>
+				                        				<b>  </b>
+				                        				<label for="">提货人：</label><span id="man"><input type="text" name="delivery_man"></span>
 				                        			</p>
 				                        			<p>
-
-				                        				联系电话：<span id="tel"><input type="text" name="phone" datatype="mobile"></span>
+				                        				<b>  </b>
+				                        				<label for="">联系电话：</label><span id="tel"><input type="text" name="phone"></span>
 				                        			</p>
 				                        			<p>
-
-				                        				身份证号码：<span id="code"><input type="text" name="idcard" datatype="identify"/></span>
+				                        				<b>  </b>
+				                        				<label for="">身份证号码：</label><span id="code"><input type="text" name="idcard"/></span>
 				                        			</p>
 				                        			<p>
+				                        				<b>  </b>
+				                        				<label for="">车牌号：</label><input type="text" name="plate_number" placeholder="多个以逗号分隔"/>
 
-				                        				车牌号：<input type="text" name="plate_number" datatype="*" placeholder="多个以逗号分隔"/>
 				                        			</p>
 				                        		</div>
 				                        	</li>

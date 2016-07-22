@@ -18,16 +18,11 @@ class ContractController extends UcenterBaseController{
 	public function sellerListAction(){
 		$user_id = $this->user_id;
 		$order = new \nainai\order\Order();
-		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);
-		$name = safe::filterPost('name');
-		$where = array();
-		if(!empty($name)){
-			$where []= array(" and p.name = :name ",array('name'=>$name)); 
-		}
-		$list = $order->sellerContractList($user_id,$page,$where);
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['bar']);
+
+
+		$list = $order->sellerContractList($user_id,$page);
+		$this->getView()->assign('data',$list);
 	}
 
 	public function depositListAction(){
@@ -68,6 +63,7 @@ class ContractController extends UcenterBaseController{
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id,'seller');
+
 		$invoice = $order->orderInvoiceInfo($info);
 		$info['complain'] = $order->canComplain($info);
 
@@ -81,14 +77,9 @@ class ContractController extends UcenterBaseController{
 		$order = new \nainai\order\Order();
 		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);
-		$name = safe::filterPost('name');
-		$where = array();
-		if(!empty($name)){
-			$where []= array(" and p.name = :name ",array('name'=>$name));
-		}
-		$list = $order->buyerContractList($user_id,$page,$where);
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['bar']);
+
+		$list = $order->buyerContractList($user_id,$page);
+		$this->getView()->assign('data',$list);
 	}
 
 	//购买合同详情
@@ -98,6 +89,8 @@ class ContractController extends UcenterBaseController{
 		$info = $order->contractDetail($id);
 		$info['complain'] = $order->canComplain($info);
 
+		$invoice = $order->orderInvoiceInfo($info);
+		$this->getView()->assign('invoice',$invoice);
 		$this->getView()->assign('info',$info);
 	}
 	//开具订单发票
@@ -107,7 +100,7 @@ class ContractController extends UcenterBaseController{
 		$invoiceData['order_id'] = safe::filterPost('order_id','int');
 		$invoiceData['post_company'] = safe::filterPost('post_company');
 		$invoiceData['post_no'] = safe::filterPost('post_no');
-		$invoiceData['image'] = safe::filterPost('imgimage').'@user';
+		$invoiceData['image'] = tool::setImgApp(safe::filterPost('imgimage'));
 		$invoiceData['create_time'] = date('Y-m-d H:i:s',time());
 		$res = $user_invoice->geneInvoice($invoiceData);
 		die(JSON::encode($res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,'开具发票失败')));

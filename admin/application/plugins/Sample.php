@@ -18,7 +18,7 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 
 	public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
 		//RBAC权限控制
-		$user_info = session::get(tool::getConfig('rbac')['user_session']);
+		$user_info = session::get(tool::getConfig(array('rbac','user_session')));
 
 		if((!isset($user_info) || !$user_info) && (strtolower($request->controller) != 'login')){
 			echo '<script type="text/javascript" >window.parent.location.href="'.url::createUrl("/login/login").'"</script>';

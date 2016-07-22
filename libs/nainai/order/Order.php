@@ -10,6 +10,7 @@ use \Library\M;
 use \Library\Query;
 use \Library\tool;
 use \Library\url;
+use \search\adminQuery;
 class Order{
 
 	//合同制状态常量
@@ -489,13 +490,20 @@ class Order{
 	 */
 	public function productNumValid($num,$offer_info,$product=array()){
 		$res = $this->productNumLeft($offer_info['product_id'],$product);
-		if($offer_info['divide'] == 1 && $num != $res['quantity'])
+		if($offer_info['divide'] == \nainai\offer\product::UNDIVIDE && bccomp($num,$res['quantity'],2) != 0)
 			return '此商品不可拆分';
 
-		if($num > $res['left'])
+		if(bccomp($num,$res['left'],2) > 0){//精确比较到小数点后两位，
 			return '商品存货不足';
-		if($num < $offer_info['minimum'])
+		}
+
+		if(bccomp($offer_info['minimum'],$res['left'],2) < 0 && bccomp($num,$offer_info['minimum'],2) <0){
 			return '小于最小起订量';
+		}
+		//剩余量小于等于最小起订量且购买量不等于剩余量
+		if(bccomp($offer_info['minimum'],$res['left'],2) >= 0 && bccomp($num,$res['left'],2) != 0){
+			return '剩余量已不足最小起订量，购买量必须等于剩余量';
+		}
 
 		return true;
 	}
@@ -757,21 +765,20 @@ class Order{
 	 * 获取用户所有销售合同信息(含商品信息与买家信息)
 	 * @param  int $user_id 卖家id
 	 */
-	public function sellerContractList($user_id,$page,$where = array()){
-		$query = new Query('order_sell as do');
+	public function sellerContractList($user_id,$page){
+		$query = new \Library\searchQuery('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
-		$query->where = '(po.user_id = :user_id and po.type = 1) or (do.user_id = :seller_id and po.type = 2)';
-		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
+		$query->where = '((po.user_id = :user_id and po.type = 1) or (do.user_id = :seller_id and po.type = 2))';
+		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id,'seller_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
-		// $query->order = "sort";
+		 $query->order = "do.id desc";
 		$data = $query->find();
-		$this->sellerContractStatus($data);
+		$this->sellerContractStatus($data['list']);
 		// tool::pre_dump($data);
-		$pageBar =  $query->getPageBar();
-		return array('data'=>$data,'bar'=>$pageBar);
+		return $data;
 	}
 
 	// /**
@@ -799,22 +806,20 @@ class Order{
 	 * @param  array  $where  条件数组
 	 * @return array          列表数组
 	 */
-	public function buyerContractList($user_id,$page,$where = array()){
-		$query = new Query('order_sell as do');
+	public function buyerContractList($user_id,$page){
+		$query = new \Library\searchQuery('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
-		$query->where = '(do.user_id = :user_id and po.type = 1) or (po.user_id = :buyer_id and po.type = 2)';
-		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
+		$query->where = '((do.user_id = :user_id and po.type = 1) or (po.user_id = :buyer_id and po.type = 2))';
+		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id,'buyer_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
-		// $query->order = "sort";
+		 $query->order = "do.id desc ";
 		$data = $query->find();
 
-		$this->buyerContractStatus($data);
-		// tool::pre_dump($data);
-		$pageBar =  $query->getPageBar();
-		return array('data'=>$data,'bar'=>$pageBar);
+		$this->buyerContractStatus($data['list']);
+		return $data;
 
 	}
 
@@ -827,7 +832,7 @@ class Order{
 	public function contractReview($offer_id,$num){
 		$query = new Query('product_offer as po');
 		$query->join = 'left join products as p on po.product_id = p.id';
-		$query->fields = 'po.price,p.name,p.cate_id,p.produce_area';
+		$query->fields = 'po.price,p.name,p.cate_id,p.produce_area,p.unit';
 		$query->where = 'po.id = :id';
 		$query->bind = array('id'=>$offer_id);
 		$res = $query->getObj();
@@ -847,10 +852,15 @@ class Order{
 	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id';
-		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,p.cate_id,p.produce_area,pc.name as cate_name,po.user_id as seller_id';
+		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,p.cate_id,p.img,p.produce_area,pc.name as cate_name,po.user_id as seller_id';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();
+		if(empty($res)){
+			return array();
+		}
+
+		$res['img_thumb'] = \Library\thumb::get($res['img'],50,50);
 		// var_dump($res);exit;
 		if($res['mode'] == self::ORDER_STORE){
 			$query = new Query('store_list as s');
@@ -919,7 +929,7 @@ class Order{
 	public function orderInvoiceInfo($orderInfo){
 		if($orderInfo['invoice'] == 1){
 			$offerInfo = $this->offerInfo($orderInfo['offer_id']);
-			$seller = $offerInfo['type'] == 1 ? $offerInfo['user_id'] : $orderInfo['user_id'];
+			$seller = $offerInfo['type'] == 1 ? $orderInfo['user_id'] : $offerInfo['user_id']  ;
 			$invoice_info = $this->user_invoice->userInvoiceInfo($seller);
 			$invoice_info['order_invoice'] = $this->user_invoice->orderInvoiceInfo($orderInfo['id']);
 			return $invoice_info;

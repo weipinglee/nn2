@@ -88,7 +88,22 @@ class OffersController extends PublicController {
 		if(time() > strtotime($info['expire_time'])){
 			$this->error('报盘不存在或已过期');
 		}
-		$info['amount'] = $info['minimum'] * $info['price'];
+
+		if($info['divide']==\nainai\offer\product::UNDIVIDE ){//不可拆分
+			$info['fixed'] = true;
+			$info['minimum'] = $info['quantity'];
+			$info['amount'] = $info['quantity'] * $info['price'];
+		}
+		else if($info['left'] <= $info['minimum']){//余量不够最小起订量
+			$info['fixed'] = true;
+			$info['minimum'] = $info['left'];
+			$info['amount'] = $info['left'] * $info['price'];
+		}
+		else{//可拆分且余量大于起订量
+			$info['fixed'] = false;
+			$info['amount'] = $info['minimum'] * $info['price'];
+		}
+
 		$order_mode = new Order($info['mode']);
 		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
 		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));
@@ -141,6 +156,7 @@ class OffersController extends PublicController {
 		$search = safe::filterPost('search');
 
 
+
 		//获取这个分类下对应的产品信息
 		$condition = array();
 		$cate = array();
@@ -164,18 +180,18 @@ class OffersController extends PublicController {
 			switch($orderArr[0]){
 				case 'price' : {
 					if(isset($orderArr[1]) && $orderArr[1]=='asc')
-						$order = 'o.price asc';
-					else $order = 'o.price desc';
+						$order = 'price asc';
+					else $order = 'price desc';
 				}
 					break;
 				case 'time' : {
 					if(isset($orderArr[1]) && $orderArr[1]=='asc')
-						$order = 'o.apply_time asc';
-					else $order = 'o.apply_time desc';
+						$order = 'apply_time asc';
+					else $order = 'apply_time desc';
 				}
 					break;
 				default : {
-					$order = 'o.apply_time desc';
+					$order = 'apply_time desc';
 				}
 			}
 		}

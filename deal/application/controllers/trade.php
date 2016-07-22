@@ -54,6 +54,8 @@ class tradeController extends \nainai\controller\Base {
 				break;
 		}
 
+
+
 		
 		//判断用户账户类型
 		if(in_array($offer_type,array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT))){
@@ -88,9 +90,8 @@ class tradeController extends \nainai\controller\Base {
 		try {
 			$order->beginTrans();
 			$gen_res = $order_mode->geneOrder($orderData);
-			
 			if($gen_res['success'] == 1){
-				if($order_mode instanceof order\FreeOrder || $order_mode instanceof order\EntrustOrder){
+				if($offer_type == order\Order::ORDER_FREE || $offer_type == order\Order::ORDER_ENTRUST){
 
 					$zhi = new \nainai\member();
 					$pay_secret = safe::filterPost('pay_secret');

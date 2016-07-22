@@ -90,7 +90,7 @@
                           </tr> -->
                             <tr>
                                 <td colspan="2">可否拆分</td>
-                                <td colspan="6">{if:$offer['divide'] == 0}是{else:}否{/if}</td>
+                                <td colspan="6">{$offer['divide_txt']}</td>
                             </tr>
                             <tr>
 
@@ -102,10 +102,12 @@
                                <td colspan="2">单位</td>
                                <td colspan="6">{$product['unit']}</td>
                            </tr>
+                           {if:$offer['divide']==1}
                             <tr>
                                 <td colspan="2">起订量</td>
                                 <td colspan="6">{$offer['minimum']}</td>
                             </tr>
+                           {/if}
                             <tr>
                                 <td colspan="2">商品单价</td>
                                 <td colspan="6">{$offer['price']}元</td>
@@ -118,10 +120,7 @@
                                <td colspan="2">交收时间</td>
                                <td colspan="6">T+{$offer['accept_day']}天</td>
                            </tr>
-                            <tr>
-                                <td colspan="2">交货时间</td>
-                                <td colspan="6">T + {$offer['accept_day']}天</td>
-                            </tr>
+
                             <tr>
                                 <td colspan="2">产品描述</td>
                                 <td colspan="6">{$product['note']}</td>

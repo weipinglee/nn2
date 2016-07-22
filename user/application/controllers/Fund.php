@@ -73,7 +73,7 @@ class FundController extends UcenterBaseController {
 			//处理图片
 			$proof = safe::filterPost('imgfile1');
 
-			if (!isset($recharge) || $recharge <= 0) {
+			if (!isset($recharge) || $recharge <= 0  || $recharge > 99999999) {
 				die(json::encode(0,'金额不正确'))  ;
 			}
 			//var_dump($_FILES);
@@ -110,6 +110,9 @@ class FundController extends UcenterBaseController {
 	public function czAction() {
 		$fund = \nainai\fund::createFund(1);
 		$total = $fund->getActive($this->user_id) + $fund->getFreeze($this->user_id);
+
+		$configs = \nainai\configs::getConfigsByType('jiesuan');
+		$this->getView()->assign('acc',$configs);
 		$this->getView()->assign('total',$total);
 
 	}

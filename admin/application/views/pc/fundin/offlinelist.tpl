@@ -10,7 +10,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-
+			{include:layout/search.tpl}
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -25,7 +25,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$offlineInfo}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 				<td><input type="checkbox" value="" name=""></td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
@@ -36,8 +36,8 @@
 				<td>{echo:\fundInModel::getOffLineStatustext($item['status'])}</td>
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
-					<a title="审核" href="{url:/balance/fundin/offlineEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
-					<a title="删除" href="javascript:void(0);" onclick="delOffline({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+					<a title="审核" href="{url:/balance/fundin/offlineEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+					<a title="删除" href="javascript:void(0);" onclick="delOffline({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>
@@ -63,6 +63,6 @@
 	}
 </script>
 	</table>
-		{$reBar}
+		{$data['bar']}
 	</div>
 </div>

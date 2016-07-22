@@ -10,7 +10,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-
+            {include:layout/search.tpl}
     <div class="mt-20">
     <table class="table table-border table-bordered table-hover table-bg table-sort">
         <thead>
@@ -25,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-        {foreach:items=$accInfo}
+        {foreach:items=$data['list']}
             <tr class="text-c">
                 <td><input type="checkbox" value="" name=""></td>
                 <td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
@@ -34,7 +34,7 @@
                 <td>{$item['fund']}</td>
                 <td>{$item['freeze']}</td>
                 <td class="td-manage">
-                    <a title="查看明细" href="{url:/balance/accManage/userAccInfo}?user_id={$item['user_id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
+                    <a title="查看明细" href="{url:/balance/accManage/userAccInfo}?user_id={$item['user_id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
             </tr>
         {/foreach}
         </tbody>
@@ -62,6 +62,6 @@
     }
 </script>
     </table>
-        {$reBar}
+        {$data['bar']}
     </div>
 </div>

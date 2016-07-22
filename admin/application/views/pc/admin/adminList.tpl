@@ -11,9 +11,9 @@
         <div class="pd-20">
 	<div class="text-c">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="" value="{$name}">
-		<button type="submit" class="btn btn-success radius search-admin" id="" name=""><i class="icon-search"></i> 搜管理员</button>
+		<button type="submit" class="btn btn-success radius search-admin" id="" name=""><i class="icon-search fa-search"></i> 搜管理员</button>
 	</div>
-	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i>批量删除</a>  --><a class="btn btn-primary radius" href="{url:/system/admin/adminAdd}"><i class=" icon-plus"></i> 添加管理员</a> </span>  </div>
+	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a>  --><a class="btn btn-primary radius" href="{url:/system/admin/adminAdd}"><i class=" icon-plus fa-plus"></i> 添加管理员</a> </span>  </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -47,13 +47,13 @@
 				</td>
 				<td class="td-manage">
 					{if:$item['status'] == 0}
-					<a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=1 ajax_url="{url:system/admin/setStatus?id=$item['id']}"><i class="icon-pause"></i></a>
+					<a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=1 ajax_url="{url:system/admin/setStatus?id=$item['id']}"><i class="icon-pause fa-pause"></i></a>
 					{elseif:$item['status'] == 1}
-					<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=0 ajax_url="{url:system/admin/setStatus?id=$item['id']}"><i class="icon-play"></i></a>
+					<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=0 ajax_url="{url:system/admin/setStatus?id=$item['id']}"><i class="icon-play fa-play"></i></a>
 					{/if}
-				 <a title="编辑" href="{url:/system/admin/adminUpdate}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a> 
-				 <a style="text-decoration:none" class="ml-5" href="{url:/system/admin/adminPwd}id/{$item['id']}" title="修改密码"><i class="icon-unlock"></i></a> 
-				 <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:/system/admin/setStatus}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+				 <a title="编辑" href="{url:/system/admin/adminUpdate}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a> 
+				 <a style="text-decoration:none" class="ml-5" href="{url:/system/admin/adminPwd}id/{$item['id']}" title="修改密码"><i class="icon-unlock fa-unlock"></i></a> 
+				 <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:/system/admin/setStatus}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>

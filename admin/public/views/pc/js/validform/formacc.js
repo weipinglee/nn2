@@ -128,7 +128,7 @@ nn_panduo.formacc.prototype = {
 			}else{
 				$(_this.event_obj).attr("title","");//$(_this.event_obj).attr("title") == "启用" ? "停用" : "启用");
 				$(_this.event_obj).attr("ajax_status",$(_this.event_obj).attr("ajax_status") == 1 ? 0 : 1);
-				$(_this.event_obj).find('i').attr("class",$(_this.event_obj).find('i').attr("class") == "icon-pause" ? "icon-play" : "icon-pause");
+				$(_this.event_obj).find('i').attr("class",$(_this.event_obj).find('i').attr("class") == "icon-pause fa-pause" ? "icon-play fa-play" : "icon-pause fa-pause");
 				var td_status = $(_this.event_obj).parents("td").siblings(".td-status").find('span.label');
 				if(td_status.hasClass('label-success')){
 					td_status.removeClass('label-success').addClass('label-error').html("停用");
@@ -192,7 +192,7 @@ $(function(){
 
 	//地址验证，根据是两级或三级动态调整验证规则
 	if($('#areabox').length && $('#areabox').length>0){
-		$('#areabox').find('select:first').on('change',function(){
+		$('#areabox').find('select').on('change',function(){
 			var num = $('#areabox').find('select:visible').length;
 			var rules = [{
 				ele:"input[name=area]",

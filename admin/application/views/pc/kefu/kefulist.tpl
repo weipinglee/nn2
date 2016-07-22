@@ -9,7 +9,7 @@
             客服列表
         </div>
         <div class="content">
-            <div class="cl pd-5 bg-1 bk-gray"> <a class="btn btn-primary radius" href="{url:system/kefu/kefuAdd}"><i class=" icon-plus"></i> 添加客服</a> </span>  </div>
+            <div class="cl pd-5 bg-1 bk-gray"> <a class="btn btn-primary radius" href="{url:system/kefu/kefuAdd}"><i class=" icon-plus fa-plus"></i> 添加客服</a> </span>  </div>
             <div class="pd-20">
 
                 <div class="mt-20">
@@ -31,8 +31,8 @@
                                 <td class="text-primary" >{$item['phone']}</td>
                                 <td>{$item['qq']}</td>
                                 <td class="td-manage">
-                                    <a title="编辑" href="{url:system/kefu/kefuAdd?id=$item['admin_id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
-                                    <a title="删除" href="javascript:void(0);"  ajax_status=-1 ajax_url="{url:system/kefu/del?id=$item['admin_id']}"  class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+                                    <a title="编辑" href="{url:system/kefu/kefuAdd?id=$item['admin_id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+                                    <a title="删除" href="javascript:void(0);"  ajax_status=-1 ajax_url="{url:system/kefu/del?id=$item['admin_id']}"  class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
                             </tr>
                         {/foreach}
                         </tbody>

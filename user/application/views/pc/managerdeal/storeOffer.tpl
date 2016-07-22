@@ -122,7 +122,7 @@
                             </tr>
                             <td>交收时间：</td>
                             <td colspan="2">
-                                <input type="text" class='text' datatype="n" errormsg="请填写交收时间" name="accept_day">
+                                <input type="text" class='text' datatype="/[1-9]\d{0,5}/" errormsg="请填写交收时间" name="accept_day">
                             </td>
                             </tr>
               			                      

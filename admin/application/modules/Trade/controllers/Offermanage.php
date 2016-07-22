@@ -24,9 +24,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 		// $no = $this->_request->getParam('no');
 		$page = safe::filterGet('page','int');
 		$pageData = $this->offer->getActiveList($page);
-		$this->getView()->assign('data',$pageData['data']);
-		$this->getView()->assign('bar',$pageData['bar']);
-		$this->getView()->assign('count',$pageData['count']);
+		$this->getView()->assign('data',$pageData);
 	}
 
 	//报盘审核
@@ -87,7 +85,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 
 	//设置审核状态
 	public function setStatusAction(){
-		if(IS_AJAX){
+		if(IS_POST){
 			$id = safe::filterPost("id","int");
 			if(!$id) $id = intval($this->_request->getParam('id'));
 			$status = safe::filterPost("status","int");

@@ -19,8 +19,7 @@ class fundOutController extends Yaf\Controller_Abstract {
 		$data = $fundOutModel->getFundOutList($page);
 
 		//分配数据
-		$this->getView()->assign('outInfo', $data[0]);
-		$this->getView()->assign('outBar', $data[1]);
+		$this->getView()->assign('data', $data);
 
 	}
 	//出金详情页

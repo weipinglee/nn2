@@ -14,6 +14,9 @@
        报盘信息
     </div>
      <div class="pd-20">
+         <form action="{url:trade/Offermanage/setStatus}" method="post" auto_submit redirect_url="{url:trade/Offermanage/offerReview}">
+
+
 	 	 <table class="table table-border table-bordered table-bg">
              <tr>
                  <th>委托方</th>
@@ -121,46 +124,30 @@
                  <th>描述</th>
                  <td>{$info['note']}</td>
              </tr>
+             <tr>
+                 <th>审核结果</th><input type="hidden" name="id" value="{$info['id']}" />
+                 <td> <label><input type="radio" name="status" value="1" checked/>通过</label>
+                     <label><input type="radio" name="status" value="0"/>不通过</label>
+                 </td>
+                 <th></th>
+                 <td></td>
+                 <th></th>
+                 <td></td>
+             </tr>
 
 
             <tr>
               <th scope="col" colspan="6">
-                 <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok"></i> 通过</a> 
-                 <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove"></i> 不通过</a>
-                 <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                  <input type="submit" class="btn btn-primary radius" value="提交"/>
+                  <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
               </th>
             </tr>
 	 	</table>
+         </form>
  	</div>
 </div>
 </div>
-      <script type="text/javascript">
-        $(function(){
-          var formacc = new nn_panduo.formacc();
-          var status = '';
-          $('a.pass').click(function(){
-            $(this).unbind('click');
-            msg = '已通过';
-            setStatus(1,msg);
-          })
 
-          $('a.ref').click(function(){
-            $(this).unbind('click');
-            msg = '已驳回';
-            setStatus(0,msg);
-          })
-
-          function setStatus(status,msg){
-            formacc.ajax_post("{url:trade/OfferManage/setStatus}",{status:status,id:{$info['id']}},function(){
-              layer.msg(msg+"稍后自动跳转");
-                  setTimeout(function(){
-                      window.location.href = "{url:trade/OfferManage/offerReview}";
-                  },1500);
-            });
-          }
-        })
-
-      </script>
         
     </body>
 </html>

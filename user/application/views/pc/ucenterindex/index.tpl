@@ -44,7 +44,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td>
+									<td colspan="2">
 										<span>结算账号资金总额</span>
 										<span class="colaa0707"><b class="font-size ">￥{$count}</b><br/>
 											<span style="line-height: 30px;padding-left: 120px;"></span>
@@ -52,7 +52,9 @@
 										
 										
 									</td>
-									<td>
+								</tr>
+								<tr>
+									<td colspan="2">
 										<span class="rz_an_index">
 											<a href="{url:/fund/cz}" class="zj_a cz">充值</a>
 											<a href="{url:/fund/tx}" class="zj_a tx">提现</a>

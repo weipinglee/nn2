@@ -16,7 +16,8 @@
 						</div>
 						<div class="zhxi_con font_set">
 							<span class="con_tit">充值金额：</span>
-							<span><input class="text potwt" type="text" datatype="float" name='recharge'/>元</span>
+							<span><input class="text potwt" type="text" errormsg="金额填写错误" datatype="money" name='recharge'/>元</span>
+							<span></span>
 						</div>
 		<!--TAB切换start  -->
             <div class="tabs_total">
@@ -84,9 +85,10 @@
             					<span>转账汇款</span>
             				</div>
             				<div class="zhxi_con">
-            					<p class="zf_an">开户名：xxx科技有限公司</p>
-            					<p class="zf_an">开户银行：中国建设银行</p>
-            					<p class="zf_an">账户：2902 20222 2200 4433 6767</p>
+								{foreach:items=$acc}
+									<p class="zf_an">{$item['name_zh']}：{$item['value']}</p>
+								{/foreach}
+
             				</div>
 
             				<!-- 单据上传start -->

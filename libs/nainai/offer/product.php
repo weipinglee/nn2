@@ -27,8 +27,8 @@ class product {
     );
 
     //是否可拆分
-    const DIVIDE = 0;//可拆分
-    const UNDIVIDE = 1;//不可拆分
+    const DIVIDE = 1;//可拆分
+    const UNDIVIDE = 0;//不可拆分
     //报盘类型
     const FREE_OFFER  = 1;
     const DEPOSIT_OFFER = 2;
@@ -93,9 +93,6 @@ class product {
             case self::OFFER_NG:
                 $st = '未通过';
                 break;
-            case self::OFFER_EXPIRE:
-                $st = '已过期';
-                break;
             default:
                 $st = '未知';
                 break;
@@ -103,6 +100,17 @@ class product {
         return $st;
     }
 
+    //获取是否可拆分
+    public function getDivide($div){
+        $divide = array(
+            self::UNDIVIDE=>'不可',
+            self::DIVIDE=>'可以'
+        );
+        if($div==1 || $div==0){
+            return $divide[$div];
+        }
+        return $divide[0];
+    }
     //获取报盘模式文本
     public function getMode($mode){
         switch ($mode) {
@@ -141,7 +149,7 @@ class product {
     protected $productRules = array(
         array('name','require','商品名称必须填写'),
         array('cate_id','number','商品类型id错误'),
-        array('price','double','商品价格必须是数字'),
+        array('price','currency','商品价格必须是数字'),
         array('quantity','double','供货总量必须是整数'),
         array('attribute', 'require', '请选择商品属性'),
         array('note', 'require', '商品描述必须填写')
@@ -155,8 +163,10 @@ class product {
         array('product_id', 'number', '必须有商品id'),
         array('mode', 'number', '必须有报盘类型'),
         array('divide', 'number','是否可拆分的id错误'),
+        array('price','currency','商品价格必须是数字'),
+        array('price_l','currency','商品价格必须是数字'),
+        array('price_r','currency','商品价格必须是数字'),
         array('acc_type','/^[\d+,?]+$/','账户类型错误'),
-        array('offer_fee','currency','金额错误'),
         array('sign','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
         array('accept_area', 'require', '交收地点必须填写'),
         array('accept_day', 'number', '交收时间必须填写')

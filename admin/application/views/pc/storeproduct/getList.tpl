@@ -10,11 +10,11 @@
 			<form action="{url:store/storeproduct/getList}" method="get" >
 	<div class="text-c"> 日期范围：
 
-			<input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" name="begin" style="width:120px;">
+			<input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" name="begin" style="width:120px;" value="{$_GET['begin']}">
 			-
-			<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" name="end" style="width:120px;">
-			<input type="text" class="input-text" style="width:250px" placeholder="输入商品名称" id="" name="product_name">
-			<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search"></i> 搜仓单</button>
+			<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" name="end" style="width:120px;" value="{$_GET['end']}">
+			<input type="text" class="input-text" style="width:250px" placeholder="输入商品名称" id="" name="product_name" value="{$_GET['product_name']}">
+			<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜仓单</button>
 
 
 	</div>
@@ -35,7 +35,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$list}
+		{foreach:items=$list['list']}
 			<tr class="text-c">
 				<td><input type="checkbox" value="" name=""></td>
 				<td>{$item['id']}</td>
@@ -44,7 +44,7 @@
 
 				<td>{if:!empty($item['attribute'])}
 					{foreach:items=$item['attribute'] key=$k item=$v}
-						{$attr[$k]}:{$v}</br>
+						{$list['attrs'][$k]}:{$v}</br>
 					{/foreach}
 					{/if}
 
@@ -54,9 +54,9 @@
 				<td>{$item['status_txt']}</td>
 				<td class="td-manage">
 					<a title="编辑" href="{url:store/storeProduct/details?id=$item['id']}" class="ml-5" style="text-decoration:none">
-						<i class="icon-edit"></i>
+						<i class="icon-edit fa-edit"></i>
 					</a>
-					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i>
+					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i>
 					</a>
 
 				</td>
@@ -65,6 +65,6 @@
 		</tbody>
 
 	</table>
-		{$bar}
+		{$list['bar']}
 	</div>
 </div>

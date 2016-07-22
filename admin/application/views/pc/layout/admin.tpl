@@ -17,6 +17,7 @@
 	<script type="text/javascript" src="{views:js/My97DatePicker/WdatePicker.js}"></script>
 </head>
 <body>
+
 {content}
 </body>
 </html>

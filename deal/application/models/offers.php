@@ -84,6 +84,77 @@ class offersModel extends \nainai\offer\product{
     }
 
     /**
+     * 根据视图获取报盘列表（还有问题）
+     * @param $page
+     * @param array $condition
+     * @param string $order
+     * @return array
+     */
+    public function getOfferList($page,$condition = array(),$order=''){
+        $query = new Query('offersort');
+        $where = 'status=:status and is_del = 0  and expire_time > now()';
+
+        $bind = array('status'=>self::OFFER_OK);
+        //获取分类条件
+        $childcates = array();
+        $childname = '';
+        if(isset($condition['pid']) && $condition['pid']>0) {
+            $cates = $this->getChildCate($condition['pid'],0);
+            $childname = $cates[2];
+            $cate_ids = array();
+            $cate_ids[] = $condition['pid'];
+            foreach($cates[0] as $v){
+                $cate_ids[] = $v['id'];
+            }
+            $cate_ids = join(',',$cate_ids);
+            $where .= ' and cate_id in ('.$cate_ids.')';
+
+            $childcates = $cates[1];
+
+        }
+
+        //获取报盘类型条件
+        if(isset($condition['type']) && $condition['type']!=0){
+            $where .= ' and type=:type';
+            $bind['type'] = $condition['type'];
+        }
+
+        //获取报盘类型
+        if(isset($condition['mode']) && $condition['mode']!=0){
+            $where .= ' and mode=:mode';
+            $bind['mode'] = $condition['mode'];
+        }
+
+        //获取地区条件
+        if(isset($condition['area']) && $condition['area']!=0){
+            $where .= ' and left(produce_area,2) = :area ';
+            $bind['area'] = $condition['area'];
+        }
+
+        //获取搜索条件
+        if(isset($condition['search']) && $condition['search']!=''){
+            $where .= ' and name like "%'.$condition['search'].'%" ';
+        }
+        $query->where = $where;
+        $query->bind = $bind;
+
+        $query->page = $page;
+        $query->pagesize = 20;
+        if($order=='')
+            $query->order = "apply_time desc";
+        else {
+            $query->order = $order;
+        }
+        $data = $query->find();
+        foreach ($data as $key => &$value) {
+            $value['mode_txt'] = $this->offerMode($value['mode']);
+         //   $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
+            $value['left'] = number_format(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']));
+        }
+        $pageBar =  $query->getPageBar();
+        return array('data'=>$data,'bar'=>$pageBar,'cate'=>$childcates,'childname'=>$childname);
+    }
+    /**
      * 交易网页列表
      * @param $page
      * @param array $condition
@@ -92,8 +163,8 @@ class offersModel extends \nainai\offer\product{
      */
     public function getList($page,$condition = array(),$order=''){
         $query = new Query('product_offer as o');
-        $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id=pp.products_id LEFT JOIN product_category as c ON p.cate_id=c.id left join admin_kefu as ke on o.kefu=ke.admin_id";
-        $query->fields = "o.*,pp.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze>0,0,1) as jiao";
+        $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id left join admin_kefu as ke on o.kefu=ke.admin_id";
+        $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze>0,0,1) as jiao";
         $query->group = 'o.id';
         $where = 'o.status=:status and o.is_del = 0  and o.expire_time > now()';
 
@@ -181,6 +252,7 @@ class offersModel extends \nainai\offer\product{
             $res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
             $res['left'] = floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']);
 
+            $res['divide_txt'] = $this->getDivide($res['divide']);
             if($res['divide']==self::UNDIVIDE)
                 $res['minimum'] = $res['quantity'];
         }

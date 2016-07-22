@@ -2,7 +2,7 @@
 /**
  * 信誉值配置项模型
  */
-
+namespace config;
 use \Library\M;
 use \Library\Query;
 use \Library\tool;

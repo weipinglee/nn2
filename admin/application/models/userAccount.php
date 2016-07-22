@@ -7,6 +7,7 @@
 use \Library\Query;
 use \Library\M;
 use \Library\tool;
+use \admintool\adminQuery;
 class userAccountModel {
 
 	/**
@@ -15,15 +16,15 @@ class userAccountModel {
 	 * @return array   列表数组
 	 */
 	public function userCreditList($page){
-		$query = new Query('user_account as ua');
-		$query->join = 'left join user as u on ua.user_id = u.id';
-		$query->fields = 'u.username,ua.credit,u.mobile,u.id';
+		$query = new adminQuery('user_account as a');
+		$query->join = 'left join user as u on a.user_id = u.id';
+		$query->fields = 'u.username,a.credit,u.mobile,u.id';
 		$query->where = 'u.type=1';
 		$query->page = $page;
-		$query->pagesize = 5;
+		$query->pagesize = 20;
 
 		$res = $query->find();
-		return array('data'=>$res,'bar'=>$query->getPageBar());
+		return $res;
 	}
 
 	/**

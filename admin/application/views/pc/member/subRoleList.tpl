@@ -31,9 +31,9 @@
 				<td>{$item['status']}</td>
 				<td>{$item['note']}</td>
 				<td class="td-manage">
-					<a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="icon-pause"></i></a>
-					<a title="编辑" href="{url:/member/roleAdd?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
-					<a title="删除" href="{url:/member/subRoleDel?id=$item['id']}" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+					<a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a>
+					<a title="编辑" href="{url:/member/roleAdd?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+					<a title="删除" href="{url:/member/subRoleDel?id=$item['id']}" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>
