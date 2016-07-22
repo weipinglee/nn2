@@ -52,7 +52,7 @@
       </div>
 
             <div class="row cl" id="rate" {if: $data['mode'] == 2} style="display:none;" {/if}>
-          <label class="form-label col-2"><span class="c-red"></span>保险费率：</label>
+          <label class="form-label col-2"><span class="c-red"></span>保险费率(‰)：</label>
           <div class="formControls col-5">
           <input type="text" class="input-text" ignore="ignore" datatype="s1-20"  value="{$data['rate']}" placeholder="" name="rate">
           </div>

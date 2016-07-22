@@ -38,7 +38,7 @@
 
                 <td>{if: !empty($item['risk_data'])}
                     {foreach: items=$item['risk_data'] item=$value}
-                    {$value['company']} / {$value['name']}/ {if: $value['mode'] == 1}比例（{$value['fee']}%）<br />{else:}定额（{$value['fee']}）<br />{/if}
+                    {$value['company']} / {$value['name']}/ {if: $value['mode'] == 1}比例（{$value['fee']}‰）<br />{else:}定额（{$value['fee']}）<br />{/if}
                     {/foreach}
                 {/if}</td>
                 <td class="td-manage">

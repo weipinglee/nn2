@@ -44,7 +44,7 @@
       </div>
 
             <div class="row cl" id="rate">
-          <label class="form-label col-2"><span class="c-red"></span>保险费率(百分比)：</label>
+          <label class="form-label col-2"><span class="c-red"></span>保险费率(‰)：</label>
           <div class="formControls col-5">
           <input type="text" class="input-text" ignore="ignore" datatype="s1-20"   value="{if:isset($attr)}{$attr['value']}{/if}" placeholder="" name="rate">
           </div>

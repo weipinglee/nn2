@@ -28,7 +28,7 @@
                             <tr class="text-c">
                                 <td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
                                <td><u style="cursor:pointer" class="text-primary" >{$company[$item['company']]}</u></td>
-                                <td class="text-primary" >{if:$item['mode']==1}比例 : ({$item['rate']}) 
+                                <td class="text-primary" >{if:$item['mode']==1}比例 : {$item['rate']}(‰)
                                 {else:}定额 : ({$item['fee']}){/if}</td>
                                 <td class="td-status">
                                     {if:$item['status'] == 1}

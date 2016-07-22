@@ -38,7 +38,7 @@
                <label class="form-label col-3"></label>
                <div class="formControls col-5">
                     <label><input type="checkbox" name="bid[{$key}]" class="bid" value="{$item['id']}"{if: !empty($cate['risk_data']) && in_array($item['id'], $cate['risk_data'])}checked='true'{/if} /> 险种： {$item['name']} ({$item['company']}) 保险方式： </label>
-                    <label>{if:$item['mode']==1}比例 : {$item['fee']}(%)
+                    <label>{if:$item['mode']==1}比例 : {$item['fee']}(‰)
                                 {else:}定额 : ({$item['fee']}){/if}</label> 
                     <span>提示: {$item['note']}</span>
                </div>
