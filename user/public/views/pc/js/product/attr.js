@@ -86,10 +86,11 @@ $(document).ready(function(){
                         check_box += '<input type="checkbox" name="risk[]" value="' +v.risk_id+ '">' + v.name;
                         if (v.mode == 1) {
                             check_box += '比例';
+                            check_box += '('+v.fee+'%)&nbsp;&nbsp;';
                         }else{
                             check_box += '定额';
+                            check_box += '('+v.fee+')&nbsp;&nbsp;';
                         }
-                        check_box += '('+v.fee+')&nbsp;&nbsp;';
                     });
                     check_box += '</sapn></td>';
                     $('#riskdata').append(check_box);
@@ -182,10 +183,12 @@ function getCategory(){
                     check_box += '<input type="checkbox" name="risk[]" value="' +v.risk_id+ '">' + v.name;
                     if (v.mode == 1) {
                         check_box += '比例';
+                        check_box += '('+v.fee+'%)&nbsp;&nbsp;';
                     }else{
                         check_box += '定额';
+                        check_box += '('+v.fee+')&nbsp;&nbsp;';
                     }
-                    check_box += '('+v.fee+')&nbsp;&nbsp;';
+                    
                 });
                 check_box += '</sapn></td>';
                 $('#riskdata').append(check_box);

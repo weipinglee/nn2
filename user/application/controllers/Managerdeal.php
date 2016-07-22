@@ -83,28 +83,28 @@ class ManagerDealController extends UcenterBaseController {
         $risk = new \nainai\insurance\Risk();
         $list = $risk->getRiskList(-1, array('status' => 1));
         $company = $risk->getCompany();
-        $insurance = $risk_data = array();
-        foreach ($list['lists'] as $key => $value) {
-            $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode']);
-        }
+         $risk_data = array();
         //获取默认的分类设置的保险， 如果最下级默认没有保险，用父级的。
         do{
             $risk_data = $category['cate'][$key]['show'][0]['risk_data'];
+            $risk = array();
             if (!empty($risk_data)) {
                 foreach ($risk_data as &$value) {
-                    $value['name'] = $insurance[$value['risk_id']]['name'];
-                    $value['company'] = $insurance[$value['risk_id']]['company'];
-                    $value['mode'] = $insurance[$value['risk_id']]['mode'];
+                    $risk[$value]['risk_id'] = $list[$value]['id'];
+                    $risk[$value]['name'] = $list[$value]['name'];
+                    $risk[$value]['company'] = $list[$value]['company'];
+                    $risk[$value]['mode'] = $list[$value]['mode'];
+                    $risk[$value]['fee'] = $list[$value]['fee'];
                 }
                 break;
             }
             $key --;
         }while($key > 0);
-        
+
         $attr = $productModel->getProductAttr($category['chain']);
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('categorys', $category['cate']);
-        $this->getView()->assign('risk_data', $risk_data);
+        $this->getView()->assign('risk_data', $risk);
         $this->getView()->assign('attrs', $attr);
         $this->getView()->assign('unit', $category['unit']);
         $this->getView()->assign('cate_id', $category['default']);
@@ -299,7 +299,6 @@ class ManagerDealController extends UcenterBaseController {
         if (intval($pid) > 0) {
             $storeModel = new \nainai\store();
             $return_json = $storeModel->getUserStoreDetail($pid,$this->user_id);
-
             //获取保险产品信息
             $risk = new \nainai\insurance\Risk();
             $return_json['risk_data'] = $risk->getCategoryRisk($return_json['cate']);
@@ -319,14 +318,10 @@ class ManagerDealController extends UcenterBaseController {
                 $cate = $productModel->getCategoryLevel($pid);
 
                 $cate['attr'] = $productModel->getProductAttr($cate['chain']);
-                $insurance = $risk_data = array();
+                 $risk_data = array();
                 //获取保险产品信息
                 $risk = new \nainai\insurance\Risk();
                 $list = $risk->getRiskList(-1, array('status' => 1));
-                $company = $risk->getCompany();
-                foreach ($list['lists'] as $key => $value) {
-                    $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode']);
-                }
 
                 //获取子类的保险配置
                  if (!empty($cate['cate'])) {
@@ -339,37 +334,30 @@ class ManagerDealController extends UcenterBaseController {
                             $key --;
                         }while($key > 0);
                  }
-                //如果子类没有配置保险，获取当前分类的
-                if (empty($risk_data)) {
-                    $risk_data = $productModel->getCateName($pid, 'risk_data');
-                    $risk_data = unserialize($risk_data);
-                }
 
                 //当前分类没有配置保险，获取父类的保险配置
                 if (empty($risk_data)) {
                     $cates = $productModel->getParents($pid);
                     foreach ($cates as $key => $value) {
-                        if ($value['id'] == $pid) { //当前分类已经获取过，没有保险
-                            continue;
-                        }
-
                         $risk_data = $productModel->getCateName($value['id'], 'risk_data');
                         if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置
-                            $risk_data = unserialize($risk_data);
+                            $risk_data = explode(',', $risk_data);
                             break;
                         }
                     }
                 }
-
                  //获取分类设置的保险
                 if (!empty($risk_data)) {
+                    $risk = array();
                     foreach ($risk_data as &$value) {
-                        $value['name'] = $insurance[$value['risk_id']]['name'];
-                        $value['company'] = $insurance[$value['risk_id']]['company'];
-                        $value['mode'] = $insurance[$value['risk_id']]['mode'];
+                        $risk[$value]['risk_id'] = $list[$value]['id'];
+                        $risk[$value]['name'] = $list[$value]['name'];
+                        $risk[$value]['company'] = $list[$value]['company'];
+                        $risk[$value]['mode'] = $list[$value]['mode'];
+                        $risk[$value]['fee'] = $list[$value]['fee'];
                     }
                 }
-                $cate['risk_data'] = $risk_data;
+                $cate['risk_data'] = $risk;
                 unset($cate['chain']);
                 echo JSON::encode($cate);
             }

@@ -28,6 +28,7 @@ class InsuranceController extends InitController{
                     'company' => Safe::filterPost('company', 'int'),
                     'name' => Safe::filterPost('name'),
                     'code' => Safe::filterPost('code'),
+                    'project_code' => Safe::filterPost('projectCode'),
                     'mode' => Safe::filterPost('type', 'int'),
                     'rate' => Safe::filterPost('rate'),
                     'fee' => Safe::filterPost('fee'),
@@ -59,12 +60,16 @@ class InsuranceController extends InitController{
 
      }
 
+     /**
+      * 保险产品详情
+      */
      public function detailAction(){
           if (IS_POST) {
                $Data = array(
                     'company' => Safe::filterPost('company', 'int'),
                     'name' => Safe::filterPost('name'),
                     'code' => Safe::filterPost('code'),
+                    'project_code' => Safe::filterPost('projectCode'),
                     'mode' => Safe::filterPost('type', 'int'),
                     'rate' => Safe::filterPost('rate'),
                     'fee' => Safe::filterPost('fee'),
@@ -113,12 +118,6 @@ class InsuranceController extends InitController{
 
                     $risk = new \nainai\insurance\Risk();
                     $list = $risk->getRiskList(-1, array('status' => 1));
-                    $company = $risk->getCompany();
-                    $insurance = array();
-                    foreach ($list['lists'] as $key => $value) {
-                        $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode']);
-                    }
-
                   foreach($cateTree as $key=>&$val){
                       $temp = '';
                       $attr = explode(',',$val['attrs']);
@@ -129,15 +128,17 @@ class InsuranceController extends InitController{
                       $cateTree[$key]['attrs'] =$temp;
 
                       if (!empty($val['risk_data'])) {
-                          $val['risk_data'] = unserialize($val['risk_data']);
-                          foreach ($val['risk_data'] as &$value) {
-                               $value['name'] = $insurance[$value['risk_id']]['name'];
-                               $value['company'] = $insurance[$value['risk_id']]['company'];
-                               $value['mode'] = $insurance[$value['risk_id']]['mode'];
+                          $risk = explode(',', $val['risk_data']);
+                          $val['risk_data'] = array();
+                          //组成列表中保险显示数据
+                          foreach ($risk as $value) {
+                               $val['risk_data'][$value]['name'] = $list[$value]['name'];
+                               $val['risk_data'][$value]['company'] = $list[$value]['company'];
+                               $val['risk_data'][$value]['mode'] = $list[$value]['mode'];
+                               $val['risk_data'][$value]['fee'] = $list[$value]['fee'];
                           }
                       }
                   }
-
                   $this->getView()->assign('cate',$cateTree);
      }
 
@@ -150,7 +151,7 @@ class InsuranceController extends InitController{
                $cateData = $productModel->getCateInfo($cate_id, 'id, risk_data');
 
                if (!empty($cateData['risk_data'])) {
-                    $cateData['risk_data'] = unserialize($cateData['risk_data']);
+                    $cateData['risk_data'] = explode(',', $cateData['risk_data']);
                }
           }
           
@@ -173,12 +174,7 @@ class InsuranceController extends InitController{
                );
                
                $ids = Safe::filterPost('bid', 'int');
-               $fee = Safe::filterPost('fee', 'float');
-               $rateData = array();
-               foreach ($ids as $key => $value) {
-                    array_push($rateData, array('risk_id' => $value, 'fee' => $fee[$key]));
-               }
-               $data['risk_data'] = serialize($rateData);
+               $data['risk_data'] = implode(',', $ids);
                $res = $productModel->updateCate($data);
                die(JSON::encode($res));
           }
@@ -189,16 +185,8 @@ class InsuranceController extends InitController{
           if (intval($cate_id) > 0) { //修改
                $cateData = $productModel->getCateInfo($cate_id);
                 if (!empty($cateData['risk_data'])) {
-                        
-                            $cateData['risk_data'] = unserialize($cateData['risk_data']);
-                            foreach ($cateData['risk_data']  as $key => $value) {
-                                $fee[$value['risk_id']] = $value['fee'];
-                                $ids[] = $value['risk_id'];
-                            }
+                            $cateData['risk_data'] = explode(',', $cateData['risk_data']);
                         }
-                    
-                    $this->getView()->assign('fee',$fee);
-                    $this->getView()->assign('ids',$ids);
                     $this->getView()->assign('cate',$cateData);
           }else{ //add
                $cateTree = $productModel->getCateTree();//获取分类树
@@ -207,11 +195,8 @@ class InsuranceController extends InitController{
           
           $risk = new \nainai\insurance\Risk();
           $list = $risk->getRiskList(-1, array('status' => 1));
-
-          $this->getView()->assign('company', $risk->getCompany());
-          $this->getView()->assign('list', $list['lists']);
-
           
+          $this->getView()->assign('list', $list);
      }
 
 }

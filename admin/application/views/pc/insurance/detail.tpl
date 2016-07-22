@@ -35,6 +35,14 @@
           <div class="col-5"> </div>
       </div>
 
+
+<div class="row cl" id="rate">
+          <label class="form-label col-2"><span class="c-red"></span>定额代码：</label>
+          <div class="formControls col-5">
+          <input type="text" class="input-text" ignore="ignore" datatype="s1-20"   value="{if:isset($data['project_code'])}{$data['project_code']}{/if}" placeholder="" name="projectCode">
+          </div>
+          <div class="col-5"> </div>
+      </div>
       <div class="row cl">
           <label class="form-label col-2"><span class="c-red"></span>计费类型：</label>
           <div class="formControls col-5">

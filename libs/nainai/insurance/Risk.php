@@ -21,6 +21,7 @@ class Risk extends \nainai\Abstruct\ModelAbstract{
         array('name','/\S{2,20}/i','必须填写保险产品名'),
         array('company','require','必须选择保险公司'),
         array('mode','require','必须选择保额类型'),
+        array('project_code','require','必须填写定额方案代码'),
         array('code','require','必须填写保险代码')
     );
 
@@ -38,7 +39,17 @@ class Risk extends \nainai\Abstruct\ModelAbstract{
             if ($page >= 0) {
                 $res = array('lists' => $data, 'bar' => $query->getPageBar());
             }else{
-                $res = array('lists' => $data);
+              $insurance = array();
+              $company = $this->getCompany();
+              foreach ($data as $key => $value) {
+                  $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode'], 'id' => $value['id'], 'note' => $value['note']);
+                  if ($value['mode'] == 1) {
+                    $insurance[$value['id']]['fee'] =  $value['rate'];
+                  }else{
+                    $insurance[$value['id']]['fee'] =  $value['fee'];
+                  }
+              }
+                $res = $insurance;
             }
             
             return $res;
@@ -53,29 +64,27 @@ class Risk extends \nainai\Abstruct\ModelAbstract{
             $insurance = $risk_data = array();
            //获取保险产品信息
            $list = $this->getRiskList(-1, array('status' => 1));
-           $company = $this->getCompany();
-           foreach ($list['lists'] as $key => $value) {
-                $insurance[$value['id']] = array('company' => $company[$value['company']], 'name' => $value['name'], 'mode' => $value['mode']);
-           }
 
            $model = new \nainai\offer\product();
            $cates = $model->getParents($cid);
            if (!empty($cates)) {
                 foreach ($cates as $key => $value) {
                      $risk_data = $model->getCateName($value['id'], 'risk_data');
-                     $risk_data = unserialize($risk_data);
                      if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置
+                          $risk_data = explode(',', $risk_data);
+                          $risk = array();
                           foreach ($risk_data as &$value) {
-                               $value['name'] = $insurance[$value['risk_id']]['name'];
-                               $value['company'] = $insurance[$value['risk_id']]['company'];
-                               $value['mode'] = $insurance[$value['risk_id']]['mode'];
+                            $risk[$value]['risk_id'] = $list[$value]['id'];
+                               $risk[$value]['name'] = $list[$value]['name'];
+                              $risk[$value]['company'] = $list[$value]['company'];
+                              $risk[$value]['mode'] = $list[$value]['mode'];
+                              $risk[$value]['fee'] = $list[$value]['fee'];
                           }
                           break;
                      }
                 }
            }
-
-           return $risk_data;
+           return $risk;
      }
 
      /**

@@ -70,7 +70,7 @@
             <span> 
             {if: !empty($risk_data)}
                 {foreach: items=$risk_data}
-                    <input type="checkbox" name="risk[]" value="{$item['risk_id']}">{$item['name']}({if: $item['mode'] == 1}比例： {$item['fee']} {else:}定额： {$item['fee']} {/if})
+                    <input type="checkbox" name="risk[]" value="{$item['risk_id']}">{$item['name']}({if: $item['mode'] == 1}比例： {$item['fee']}(%) {else:}定额： {$item['fee']} {/if})
                 {/foreach}
             {else:}
                 该分类没有设置保险，请配置保险

@@ -100,9 +100,8 @@ class RiskApply extends \nainai\Abstruct\ModelAbstract{
           $query->bind = array('id' => $id);
 
           $detail = $query->getObj();
-
           $risk = new Risk();
-          $detail['risk_data'] = $risk->getCategoryRisk($detail['cate_id']);
+          $detail['risk_data'] = $risk->getProductRisk($detail['risk'], $detail['cate_id']);
 
           $product = new \nainai\offer\product();
           $detail['typeText'] = $product->getType($detail['type']);

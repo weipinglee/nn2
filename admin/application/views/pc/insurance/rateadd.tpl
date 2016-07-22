@@ -37,11 +37,9 @@
           <div class="row cl">
                <label class="form-label col-3"></label>
                <div class="formControls col-5">
-                    <label><input type="checkbox" name="bid[{$key}]" class="bid" value="{$item['id']}"{if: !empty($ids) && in_array($item['id'], $ids)}checked='true'{/if} /> 险种： {$item['name']}  保险方式： </label>
-                    <label>{if:$item['mode']==1}比例 :
-                              <input type="text" class="input-text" name="fee[{$key}]" {if: !empty($fee)}value="{$fee[$item['id']]}" {/if}style="width:250px" /> ({$item['rate']}) 
-                                {else:}定额 : 
-                                <input type="text" class="input-text" name="fee[{$key}]" {if: !empty($fee)}value="{$fee[$item['id']]}" {/if}style="width:250px"/>({$item['fee']}){/if}</label> 
+                    <label><input type="checkbox" name="bid[{$key}]" class="bid" value="{$item['id']}"{if: !empty($cate['risk_data']) && in_array($item['id'], $cate['risk_data'])}checked='true'{/if} /> 险种： {$item['name']} ({$item['company']}) 保险方式： </label>
+                    <label>{if:$item['mode']==1}比例 : {$item['fee']}(%)
+                                {else:}定额 : ({$item['fee']}){/if}</label> 
                     <span>提示: {$item['note']}</span>
                </div>
                <div class="col-4"></div>
@@ -93,9 +91,8 @@ $(document).ready(function(){
                     if (data.risk_data != undefined) {
                          $.each(data.risk_data, function(k, val){
                               for (var i = 0; i < $('.bid').length; i++) {
-                                   if ($('.bid').eq(i).val() == val.risk_id) {
+                                   if ($('.bid').eq(i).val() == val) {
                                         $('.bid').eq(i).prop('checked', 'checked');
-                                        $('.input-text').eq(i).val(val.fee);
                                    }
                               }
                          })

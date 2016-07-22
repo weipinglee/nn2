@@ -44,9 +44,9 @@
       </div>
 
             <div class="row cl" id="rate">
-          <label class="form-label col-2"><span class="c-red"></span>保险费率：</label>
+          <label class="form-label col-2"><span class="c-red"></span>保险费率(百分比)：</label>
           <div class="formControls col-5">
-          <input type="text" class="input-text" ignore="ignore" datatype="s1-20"  value="{if:isset($attr)}{$attr['value']}{/if}" placeholder="" name="rate">
+          <input type="text" class="input-text" ignore="ignore" datatype="s1-20"   value="{if:isset($attr)}{$attr['value']}{/if}" placeholder="" name="rate">
           </div>
           <div class="col-5"> </div>
       </div>
@@ -55,6 +55,14 @@
           <label class="form-label col-2"><span class="c-red"></span>保险保额：</label>
           <div class="formControls col-5">
           <input type="text" class="input-text" ignore="ignore" datatype="s1-20"  value="{if:isset($attr)}{$attr['value']}{/if}" placeholder="" name="fee">
+          </div>
+          <div class="col-5"> </div>
+      </div>
+
+      <div class="row cl" id="rate">
+          <label class="form-label col-2"><span class="c-red"></span>定额代码：</label>
+          <div class="formControls col-5">
+          <input type="text" class="input-text" ignore="ignore" datatype="s1-20"   value="{if:isset($attr)}{$attr['value']}{/if}" placeholder="" name="projectCode">
           </div>
           <div class="col-5"> </div>
       </div>
