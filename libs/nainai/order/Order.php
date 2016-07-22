@@ -276,7 +276,6 @@ class Order{
 		return $res ? $res : array();
 	}
 
-	
 
 	//买家支付尾款
 	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = ''){

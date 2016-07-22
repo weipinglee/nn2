@@ -5,6 +5,7 @@
  * Date: 2016/5/18 0004
  * Time: 上午 9:35
  */
+use \nainai\fund\zx;
 class UcenterIndexController extends UcenterBaseController {
 
 
@@ -13,6 +14,17 @@ class UcenterIndexController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
+        // error_reporting(E_ALL);
+        // $a = new zx();
+        // $res = $a->bankTransfer('0.01','53',0,'freeze');
+        // $res = $a->attachBalance('3110710003081042640');
+        // $res = $a->acountInit('3110710003081042640','赵六','100.00');
+        
+        // $res = $a->geneAttachAccount(array('name'=>'王五','contact_name'=>'王五','contact_phone'=>'18623252212','mail_address'=>'2132132@qq.com','id_card'=>'210522199092281128','user_id'=>54));//$this->user_id));
+        // $aa = (array)$res['list'];
+        // $bb = (array)$aa['row'];
+
+        // echo '<pre>';var_dump($res);exit;
         $group = new \nainai\member();
 
         $groupData = $group->getUserGroup($this->user_id);//会员分组数据
