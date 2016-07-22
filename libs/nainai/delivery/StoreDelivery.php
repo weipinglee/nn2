@@ -17,6 +17,7 @@ class StoreDelivery extends Delivery{
 	
 	public function __construct(){
 		parent::__construct(order\Order::ORDER_STORE);
+		$this->orderObj = new order\Order();
 	}
 
 	/**
@@ -31,7 +32,7 @@ class StoreDelivery extends Delivery{
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
-		$res['store_fee'] = number_format($res['store_price'] * abs(time::getDiffSec($res['rent_time'])) / 86400,2);
+		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * ceil(abs(time::getDiffSec($res['rent_time'])) / 86400),2);
 		$res['now_time'] = time::getDateTime();
 		return $res;
 	}
@@ -187,12 +188,23 @@ class StoreDelivery extends Delivery{
 					//货物余量小于等于20% 提货流程结束 
 					$deliveryData['status'] = parent::DELIVERY_COMPLETE;
 				}
-				return $this->deliveryUpdate($deliveryData);
+				try {
+					$this->orderObj->beginTrans();
+					$this->deliveryUpdate($deliveryData);
+					$this->orderObj->orderUpdate(array('id'=>$delivery['order_id'],'contract_status'=>order\Order::CONTRACT_DELIVERY_COMPLETE));
+					$this->orderObj->commit();	
+				} catch (\PDOException $e) {
+					$this->orderObj->rollBack();
+					$error = $e->getMessage();
+				}
+				
 			}else{
-				return tool::getSuccInfo(0,$left);
+				$error = $left;
 			}
 		}else{
-			return tool::getSuccInfo(0,'订单状态有误');
+			$error = '订单状态有误';
 		}
+
+		return isset($error) ? tool::getSuccInfo(0,$error) : tool::getSuccInfo();
 	}
 }

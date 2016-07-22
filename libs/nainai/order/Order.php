@@ -224,6 +224,7 @@ class Order{
 			if($product_valid !== true)
 				return tool::getSuccInfo(0,$product_valid);
 			$orderData['amount'] = $offer_info['price'] * $orderData['num'];
+			
 			// if($orderData['payment'] == 1){
 				//代理账户,判断用户买家余额是否足够
 				$user_id = $orderData['user_id'];
