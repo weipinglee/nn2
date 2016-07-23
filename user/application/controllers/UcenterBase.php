@@ -77,14 +77,10 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 		$this->getView()->setLayout('ucenter');
 
-
-
-
-        
 		//获取菜单数据
 		$MenuModel = new \nainai\user\Menu();
 
-    		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert);
+    		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
 
     		$this->createTreeMenu($menuList);
     		$menu = $this->createHtmlMenu();
@@ -94,9 +90,9 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$action = strtolower($this->getRequest()->getActionName());
         
 		// 判断该方法买家是否能操作，如果不能，跳转到用户中心首页
-		// if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
-		// 	$this->redirect(url::createUrl('/ucenter/index'));
-		// }
+		 if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
+		 	$this->redirect(url::createUrl('/ucenter/index'));
+		 }
 
 		$this->getView()->assign('action', $action);
 		$mess=new \nainai\message($this->user_id);

@@ -110,7 +110,7 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	 * @param array 用户认证数据
 	 * @return [Array]      [菜单数据列表]
 	 */
-	public function getUserMenuList($uid,$cert=array()){
+	public function getUserMenuList($uid,$cert=array(),$user_type=1){
 		$menuList = array();
 
 		if (intval($uid) > 0) {
@@ -120,6 +120,11 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 			if(!empty($cert)){
 				$roleIds['public'] = $this->publicRole;
 				$where = 'cert in (:public';
+				if(isset($cert['deal']) && $cert['deal']==1){//交易商认证特殊处理，根据个人还是企业获取不同的菜单
+					$roleIds['deal'] = 'deal_'.$user_type;
+					$where .= ',:deal';
+					unset($cert['deal']);
+				}
 				foreach($cert as $key=>$val){
 					if($val==1){
 						$roleIds[$key] = $key;
