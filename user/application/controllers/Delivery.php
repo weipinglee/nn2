@@ -71,4 +71,6 @@ class DeliveryController extends UcenterBaseController {
         $this->getView()->assign('page',$list['bar']);
     }
 
+
+
 }

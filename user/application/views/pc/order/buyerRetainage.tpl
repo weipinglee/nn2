@@ -52,8 +52,8 @@
                                   <td>
                                   --
                               </td>
-                                  <td>10
-                                  吨</td>
+                                  <td> {$data['num']}
+                                      ({$data['unit']})</td>
                                   <td><label class="">
                               
                                   <label class="price02">￥</label>
@@ -132,7 +132,7 @@
                         </script>
                        
                    <div id="bain_bo">
-                   <form action="{url:/Order/buyerRetainage}" pay_secret="1" method="post" auto_submit enctype="multipart/form-data">
+                   <form action="{url:/Order/buyerRetainage}" pay_secret="1" method="post" auto_submit enctype="multipart/form-data" redirect_url="{url:/contract/buyerdetail?id=$data['id']}">
                    {if:$show_online}
                    <div class="sty_online" style="display:block;">
                         

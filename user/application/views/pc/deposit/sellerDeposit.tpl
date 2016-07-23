@@ -126,7 +126,7 @@
                          </div>
 
 
-                       <form action="{url:/Deposit/sellerDeposit}" auto_submit pay_secret="1" method="post">
+                       <form action="{url:/Deposit/sellerDeposit}" auto_submit pay_secret="1" method="post" redirect_url="{url:/contract/sellerdetail?id=$data['id']}">
                            <input type="hidden" name="order_id" value="{$data['id']}" />
                            <div class="pay_bton">
                                <h5>待支付金额：<i>{$data['seller_deposit']}</i>元</h5>

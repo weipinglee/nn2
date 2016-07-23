@@ -61,6 +61,8 @@ class Delivery{
 		return empty($delivery_id) ? array() : $this->delivery->where(array('id'=>$delivery_id))->getObj();
 	}
 
+
+
 	/**
 	 * 获取当前用户可提货与已提货列表			
 	 * @param  int $user_id 用户id
@@ -79,7 +81,7 @@ class Delivery{
 		// $query->order = 'po.order_no,pd.status asc';
 		$query->bind = array('user_id'=>$user_id,'tmp_id'=>$user_id);
 		$query->page  = $page;
-		$query->pagesize = 5;
+		$query->pagesize = 10;
 		$data = $query->find();
 		$pageBar =  $query->getPageBar();
 		$arr = array();
