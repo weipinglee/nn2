@@ -128,7 +128,7 @@ body{_padding-top:30px;}
         <div class="topnav_left">
             {if:$login==0}
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="{url:/login/login@user}?callback=http://{url:public/index/index@deal}" target="_blank" class="topnav_login">登录</a>
+                <a rel="external nofollow" href="{url:/login/login@user}?callback={url:/index/index@deal}" target="_blank" class="topnav_login">登录</a>
                 <!--<div class="login_box" id="login_boxMain" style="display: none;">
                     <input name="gtxh_LoginMobile" type="text" id="gtxh_LoginMobile" class="txt_topnav" value="手机号码" maxlength="11">
                     <br>

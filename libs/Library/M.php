@@ -181,32 +181,60 @@ class M{
 						$this->whereParam = array_merge($this->whereParam,$val[1]);
 					}
 					else{
-						foreach($val as $ekey => $eval){
+						if(isset($val[0]) && isset($val[1])){//array('neq','33')的形式
 							//非相等的情况
-							switch(strtolower($ekey)){
-
+							switch(strtolower($val[0])){
 								case 'neq' : {
-									$sql .= $key.' <> :'.$key.$ekey.' AND ';
+									$sql .= $key.' <> :'.$key.' AND ';
 								}
 									break;
 								case 'gt' : {
-									$sql .= $key.' > :'.$key.$ekey.' AND ';
+									$sql .= $key.' > :'.$key.' AND ';
 								}
 									break;
 								case 'lt' : {
-									$sql .= $key.' < :'.$key.$ekey.' AND ';
+									$sql .= $key.' < :'.$key.' AND ';
 								}
 									break;
 								case 'eq' :
 								default : {
-									$sql .= $key.' = :'.$key.$ekey.' AND ';
+									$sql .= $key.' = :'.$key.' AND ';
 								}
-								break;
+									break;
 
 							}
 
-							$this->whereParam[$key.$ekey] = $eval;
+							$this->whereParam[$key] = $val[1];
 						}
+						else{//array('neq'=>33)的形式
+							foreach($val as $ekey=>$v) {
+								//非相等的情况
+								switch (strtolower($ekey)) {
+
+									case 'neq' : {
+										$sql .= $key . ' <> :' . $key . $ekey . ' AND ';
+									}
+										break;
+									case 'gt' : {
+										$sql .= $key . ' > :' . $key . $ekey . ' AND ';
+									}
+										break;
+									case 'lt' : {
+										$sql .= $key . ' < :' . $key . $ekey . ' AND ';
+									}
+										break;
+									case 'eq' :
+									default : {
+										$sql .= $key . ' = :' . $key . $ekey . ' AND ';
+									}
+										break;
+								}
+								$this->whereParam[$key.$ekey] = $v;
+							}
+
+						}
+
+
 
 
 					}
@@ -214,7 +242,6 @@ class M{
 
 			}
 			$sql = substr($sql,0,-4);
-			//$this->whereParam = $where;
 		}
 		else if(is_string($where)){
 			$sql = ' WHERE '.$where;

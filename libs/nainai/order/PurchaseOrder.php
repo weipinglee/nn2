@@ -35,7 +35,7 @@ class PurchaseOrder extends Order{
 		if(empty($purchase_info['order_id'])){
 
 			$product_info = $this->products->where(array('id'=>$purchase_info['product_id']))->getObj();
-			
+
 			try {
 				$this->offer->beginTrans();
 				$this->offer->data(array('price'=>$purchase_info['price']))->where(array('id'=>$purchase_info['offer_id']))->update();
@@ -54,7 +54,7 @@ class PurchaseOrder extends Order{
 
 					$purchase->where(array('offer_id'=>$purchase_info['offer_id'],'id'=>array('neq',$purchase_id)))->data(array('status'=>\nainai\offer\PurchaseReport::STATUS_REPLUSE))->update();
 
-					$res = $this->payLog($order_id,$data['user_id'],0,'买方下单');
+					$res = $this->payLog($gen_res['order_id'],$purchase_info['buyer_id'],0,'买方下单');
 
 					//支付定金
 					$deposit = new \nainai\order\DepositOrder();
