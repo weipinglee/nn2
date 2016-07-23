@@ -80,10 +80,10 @@ class UcenterBaseController extends \nainai\controller\Base{
 		//获取菜单数据
 		$MenuModel = new \nainai\user\Menu();
 
-    		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
+		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
 
-    		$this->createTreeMenu($menuList);
-    		$menu = $this->createHtmlMenu();
+		$this->createTreeMenu($menuList);
+		$menu = $this->createHtmlMenu();
 
 		$this->getView()->assign('topArray', $menu['top']);
 		$this->getView()->assign('leftArray', $menu['left']);

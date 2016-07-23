@@ -150,6 +150,8 @@ class tradeController extends \nainai\controller\Base {
 	 * 处理添加报价
 	 */
 	public function doreportAction(){
+		if($this->user_type==0)
+			die(json::encode(tool::getSuccInfo(0,'个人用户不能报价'))) ;
 		if (IS_POST) {
 			$Model = new \nainai\offer\PurchaseReport();
 			$offer_id = safe::filterPost('id', 'int');
