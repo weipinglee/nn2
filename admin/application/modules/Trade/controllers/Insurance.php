@@ -32,6 +32,7 @@ class InsuranceController extends InitController{
                     'mode' => Safe::filterPost('type', 'int'),
                     'rate' => Safe::filterPost('rate'),
                     'fee' => Safe::filterPost('fee'),
+                    'limit' => Safe::filterPost('limit'),
                     'note' => Safe::filterPost('note'),
                     'status' => Safe::filterPost('status', 'int'),
                     'create_time' => \Library\Time::getDateTime()
@@ -73,6 +74,7 @@ class InsuranceController extends InitController{
                     'mode' => Safe::filterPost('type', 'int'),
                     'rate' => Safe::filterPost('rate'),
                     'fee' => Safe::filterPost('fee'),
+                     'limit' => Safe::filterPost('limit'),
                     'note' => Safe::filterPost('note'),
                     'status' => Safe::filterPost('status', 'int')
                );

@@ -90,14 +90,31 @@ class RiskApply extends \nainai\Abstruct\ModelAbstract{
       * @param  integer $id      申请投保id    
       * @return Array        
       */
-     public function getDetail($id=0){
+     public function getDetail($condition = array()){
           $query = new Query('risk_apply as a');
           $query->fields = 'a.*, p.name, p.cate_id, o.type, u.username, c.company_name';
           $query->join = ' LEFT JOIN product_offer as o ON a.offer_id=o.id LEFT JOIN products as p ON o.product_id=p.id';
           $query->join .= ' LEFT JOIN user as u ON o.user_id=u.id LEFT JOIN company_info as c ON u.id=c.user_id';
 
-          $query->where = 'a.id=:id';
-          $query->bind = array('id' => $id);
+          $where = ' 1 ';
+          $bind = array();
+
+          if (isset($condition['id']) && !empty($condition['id'])) {
+            $where .= ' AND a.id=:id';
+            $bind['id'] = $condition['id'];
+          }
+
+          if (isset($condition['offer_id']) && !empty($condition['offer_id'])) {
+            $where .= ' AND a.offer_id=:offer_id';
+            $bind['offer_id'] = $condition['offer_id'];
+          }
+
+          if (isset($condition['user_id']) && !empty($condition['user_id'])) {
+            $where .= ' AND a.user_id=:user_id';
+            $bind['user_id'] = $condition['user_id'];
+          }
+          $query->where = $where;
+          $query->bind = $bind;
 
           $detail = $query->getObj();
           $risk = new Risk();

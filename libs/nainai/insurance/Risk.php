@@ -22,7 +22,8 @@ class Risk extends \nainai\Abstruct\ModelAbstract{
         array('company','require','必须选择保险公司'),
         array('mode','require','必须选择保额类型'),
         array('project_code','require','必须填写定额方案代码'),
-        array('code','require','必须填写保险代码')
+        array('code','require','必须填写保险代码'),
+        array('limit','require','必须填写保险保额')
     );
 
      public function getRiskList($page=0, $where = array()){

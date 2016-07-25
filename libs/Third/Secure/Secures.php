@@ -17,6 +17,7 @@ class Secures
           return json_decode(json_encode((array) simplexml_load_string($xmlstring)), true);
      }
 
+
      /**
       * 数组解析为xml
       * @param [Array] $data         解析数组
