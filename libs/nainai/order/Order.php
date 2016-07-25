@@ -1126,8 +1126,8 @@ class Order{
 	 * @return array     信息数组
 	 */
 	public function userBankInfo($user_id){
-		$bank = new M('user_bank');
-		return $bank->where(array('user_id'=>$user_id))->getObj();
+		$bank = new \nainai\user\UserBank();
+		return $bank->getActiveBankInfo($user_id);
 	}
 
 	/**

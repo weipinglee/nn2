@@ -34,9 +34,8 @@ class storeProductController extends Yaf\Controller_Abstract{
         $page = safe::filterGet('page','int',1);
         $obj = new storeProductModel();
         $data = $obj->getApplyList($page);
-        $this->getView()->assign('list',$data['list']);
+        $this->getView()->assign('data',$data);
         $this->getView()->assign('attr',$data['attrs']);
-        $this->getView()->assign('bar',$data['pageHtml']);
     }
 
     /**

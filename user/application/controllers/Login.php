@@ -64,7 +64,8 @@ class LoginController extends \Yaf\Controller_Abstract {
 			'mobile'       => safe::filterPost('mobile','/^\d+$/'),
 			'email'        =>safe::filterPost('email','email'),
 			'agent' => safe::filterPost('agent','int',0),
-			'serial_no' => safe::filterPost('agent_pass')
+			'serial_no' => safe::filterPost('agent_pass'),
+			'create_time' => \Library\time::getDateTime()
 		);
 
 		if($userData['type']==1){

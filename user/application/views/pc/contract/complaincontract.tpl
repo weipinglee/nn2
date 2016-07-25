@@ -61,31 +61,23 @@
 						
 							<p>
 								<label for="title"><span>申诉标题<i>*</i>：</span></label>
-								<input  type="text" id="title" name="title">
+								<input  type="text" id="title" name="title" datatype="*">
 							</p>
 							<br />
 							<p>
-							   <label for="content"><span class="explain">申诉说明 ：<br />(0/200字)</span> </label>
-							   <textarea name="content" id="content" cols="30" rows="10"></textarea>
+							   <label for="content"><span class="explain">申诉说明<i>*</i>：<br />(200字)</span> </label>
+							   <span><textarea name="content" id="content" cols="30" rows="10" datatype="*" ></textarea></span>
+
 							</p>
 
 									
 							  <span class="upload_img">上传凭证：</span>  
-								 <div class="choose_img">
-									 <span>
-						                                        <div>
-						                                            <input id="pickfiles"  type="button" value="选择文件">
-						                                            <input type="button"  id='uploadfiles' class="tj" value="上传">
-										</div>
-					                                        <div id="filelist"></div>
-					                                        <pre id="console"></pre>
-					                                    	</span> 
-					                                    	<span class="zhs_img" id='imgContainer'></span>
-									<div id="dd" class="upload_box"></div>
+								 <div class="choose_img"style="width:'';">
+									{include:layout/webuploader.tpl}
 								</div>
 							 
-                                                                    	<input type="hidden" name="orderId" value="{$ContractData['id']}" />
-                                                                     	<input type="hidden" name="user_id" value="{$ContractData['user_id']}" />
+                               <input type="hidden" name="orderId" value="{$ContractData['id']}" />
+                               <input type="hidden" name="user_id" value="{$ContractData['user_id']}" />
 								<div class="subclear"><input name="submit" type="submit" value="提交申请">
 									
 								</div>
@@ -96,19 +88,4 @@
 				</div>
 			</div>
 		
-            {$plupload}
-            
-            <script type="text/javascript">
-		$().ready(function() {
-			$("#signupForm").validate({
-				rules:{
-					title: "required",
-			      		content: "required"
-				},
-				messages:{
-					title: "请输入申述标题",
-			      		content: "请输入申述说明"
-				}
-			});
-		});
-            </script>
+
