@@ -1020,3 +1020,11 @@ table {
 .mar_cotent{
     padding-left: 25px;
 }
+
+
+
+.yListr .bank_box{clear: both;}
+.bank_box h5{color: #999;font-weight: 14px;}
+.bank_box img{width: 150px; height: 36px;vertical-align: middle;}
+.bank_box span{display: block; float: left; width: 210px; }
+.bank_box input{width: 15px;height: 15px;position:}
