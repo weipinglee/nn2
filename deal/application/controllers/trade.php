@@ -101,7 +101,7 @@ class tradeController extends \nainai\controller\Base {
 					$order->commit();
 					$order_id = $gen_res['order_id'];
 					$amount = $order->where(array('id'=>$order_id))->getfield('amount');
-					$url = url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证');
+					$url = url::createUrl('/offers/paySuccess?order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证');
 					die(json::encode(tool::getSuccInfo(1,'操作成功,稍后跳转',$url)));
 				}else{
 					$zhi = new \nainai\member();
@@ -112,7 +112,7 @@ class tradeController extends \nainai\controller\Base {
 					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
 					if($pay_res['success'] == 1){
 						$this->offer->commit();
-						$url = url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']);
+						$url = url::createUrl('/offers/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']);
 						die(json::encode(tool::getSuccInfo(1,'支付成功,稍后跳转',$url)));
 
 					}else{
@@ -132,18 +132,7 @@ class tradeController extends \nainai\controller\Base {
 		return false;
 	}
 
-	//支付成功页面
-	public function paySuccessAction(){
-		$order_no = safe::filter($this->_request->getParam('order_no'));
-		$amount = safe::filter($this->_request->getParam('amount'));
-		$pay_deposit = safe::filter($this->_request->getParam('payed'));
-		$info = safe::filter($this->_request->getParam('info'));
 
-		$this->getView()->assign('order_no',$order_no);
-		$this->getView()->assign('amount',$amount);
-		$this->getView()->assign('info',$info);
-		$this->getView()->assign('pay_deposit',$pay_deposit);
-	}
 
 
 	/**

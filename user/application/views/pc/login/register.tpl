@@ -168,7 +168,7 @@
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>联系人姓名：</span>
-            <span><input class="text" type="text" name="contact" datatype="s2-20" errormsg="请填写联系人姓名" /></span>
+            <span><input class="text" type="text" name="contact" datatype="zh2-20" errormsg="请填写联系人姓名" /></span>
 			<span></span>
           </div>
           <div class="cot">
