@@ -23,7 +23,7 @@
 					<td>{$item['name']}</td>
 					<td>{$item['delivery_num']}{$item['unit']}</td>
 					<td>{$item['store_name']}</td>
-					<td><a href="">{$item['order_no']}</a></td>
+					<td><a href="{url:/contract/buyerDetail?id=$item['id']}">{$item['order_no']}</a></td>
 					<td>{$item['delivery_time']}</td>
 					<td style="color:#079207;">{$item['title']}</td>
 					<td>

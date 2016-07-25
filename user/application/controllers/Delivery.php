@@ -49,6 +49,22 @@ class DeliveryController extends UcenterBaseController {
         die(json::encode($res));
     }
 
+    /**
+     * 显示发货页面
+     */
+    public function consignmentAction(){
+        $id = safe::filter($this->_request->getParam('id'),'int');
+        $order = new \nainai\order\Order();
+        $delivery = new \nainai\delivery\Delivery();
+
+        $info = $order->contractDetail($id);
+        $info['delivery_id'] = safe::filter($this->_request->getParam('delivery_id','int'));
+        $invoice = $order->orderInvoiceInfo($info);
+
+        $info = array_merge($info,$delivery->deliveryInfo($info['delivery_id']));
+        $this->getView()->assign('invoice',$invoice);
+        $this->getView()->assign('info',$info);
+    }
 
 
     public function deliBuyListAction(){

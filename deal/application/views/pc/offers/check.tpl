@@ -276,12 +276,14 @@
                          $(this).parents('ul').siblings('input[name=account]').val(account);
                          $(this).parents('ul').siblings('input[name=invoice]').val(invoice);
                          
-                         if(paytype == 1){
-                            //全款
-                            deposit_text.text(prod_amount.text());
-                         }else{
-                            deposit_text.text(temp_deposit);
-                         }
+                         if(paytype){
+                             if(paytype == 1){
+                                //全款
+                                deposit_text.text(prod_amount.text());
+                             }else{
+                                deposit_text.text(temp_deposit);
+                             }
+                        }
                      })
 
                 })

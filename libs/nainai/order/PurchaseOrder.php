@@ -32,6 +32,7 @@ class PurchaseOrder extends Order{
 		$query->where = 'pr.id = :purchase_id';
 		$query->bind = array('purchase_id'=>$purchase_id);
 		$purchase_info = $query->getObj();
+
 		if(empty($purchase_info['order_id'])){
 
 			$product_info = $this->products->where(array('id'=>$purchase_info['product_id']))->getObj();
@@ -46,6 +47,7 @@ class PurchaseOrder extends Order{
 				$orderData['user_id'] = $purchase_info['seller_id'];
 				$orderData['create_time'] = date('Y-m-d H:i:s',time());
 				$orderData['mode'] = self::ORDER_PURCHASE;
+				$orderData['buyer_id'] = $purchase_info['buyer_id'];
 				$gen_res = $this->geneOrder($orderData);
 
 				if($gen_res['success'] == 1){
