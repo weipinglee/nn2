@@ -11,7 +11,5 @@ return array(
     'rootDir'=>array(
         'user'=>'D:\wamp2.5\www\nn2\user\public',
         'admin'=>'D:\wamp2.5\www\nn2\admin\public'
-
-
     ),
 );
