@@ -34,6 +34,7 @@ class storeController extends Yaf\Controller_Abstract{
     public function storeAddAction(){
         $storeModel = new storeModel();
         if(IS_POST){
+            $imgfile = safe::filterPost('imgfile1');
             $store['id']              = safe::filterPost('id','int',0);
             $store['name']            = safe::filterPost('name');
             $store['short_name']      = safe::filterPost('short_name');
@@ -46,8 +47,10 @@ class storeController extends Yaf\Controller_Abstract{
             $store['type']            = safe::filterPost('type','/^[01]$/');
             $store['status']          = safe::filterPost('status','/^[01]$/');
             $store['note']            = safe::filterPost('note');
-            $store['img']             = tool::setImgApp(safe::filterPost('imgfile1'));
-
+            if (!empty($imgfile)) {
+                $store['img']             = tool::setImgApp($imgfile);
+            }
+            
             $res = $storeModel->update($store);
             die(json::encode($res));
 

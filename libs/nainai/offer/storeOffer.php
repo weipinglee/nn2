@@ -40,4 +40,19 @@ class storeOffer extends product{
         }
     }
 
+    /**
+     * 获取仓库详情
+     * @param  integer $id     id
+     * @param  string  $fields 字段
+     * @return Array          
+     */
+    public function getStoreListDetail($id = 0, $fields='*'){
+        $detail = array();
+        if (intval($id) > 0) {
+            $where = array('id' => $id);
+            $detail = $this->_productObj->table('store_list')->fields($fields)->where($where)->getObj();
+        }
+        return $detail;
+    }
+
 }
