@@ -2,6 +2,7 @@ body,dl,ul,ol,dd,h3,p ,table,tr,td{
 	padding: 0px;
 	margin: 0px;
 	font-size: 12px;
+  font-family: '微软雅黑'
   color:#777;border:0;
   border-collapse:collapse;
 }
@@ -12,6 +13,10 @@ a{
  	cursor: pointer;
  	text-decoration: none;
 	color:#666;
+  font-family: '微软雅黑'
+}
+a:hover{
+  text-decoration: none;
 }
 img{border:0px;}
 .header{
@@ -304,30 +309,29 @@ div.zhxi_con.font_set span i.bold{
   width: 65px;
 }
 .zhxi_con .submit{
-	width: 100px;
-  height: 35px;
-  background: #0088dd;
-  border: 0px;
-  color: #fff;
-  font-size: 14px;
-  position: relative;
-  left: 200px;
-  cursor: pointer;
-  border-radius: 3px;
+	  width: 132px;
+    height: 41px;
+    background: #d61515;
+    border: 0px;
+    color: #fff;
+    font-size: 18px;
+    position: relative;
+    left: 200px;
+    cursor: pointer;
 }
 .zhxi_con .submit_edit{
-    width: 120px;
-    height: 35px;
-    background: #Fff;
-    color: #E51212;
-    font-size: 20px;
+    width: 130px;
+    height: 39px;
+    background: #D61525;
+    color: #FFF;
+    font-size: 18px;
     position: relative;
     left: 340px;
     cursor: pointer;
     border: 1px solid;
     display: block;
     text-align: center;
-    line-height: 35px;
+    line-height: 39px;
 }
 .zhxi_con  .select{
 	height: 31px;
@@ -521,18 +525,18 @@ div.zhxi_con.font_set span i.bold{
 }
 .zf_an .zf_button{    
     margin-top: 15px;
-    width: 100px;
-    height: 35px;
-    background: #0088dd;
+    width: 132px;
+    height: 41px;
+    background: #d61515;
     border: 0px;
     color: #fff;
-    font-size: 14px;
+    font-size: 18px;
     position: relative;
     left: 100px;
     cursor: pointer;
-    line-height: 34px;
+    line-height: 41px;
     text-align: center;
-    border-radius: 3px;
+    text-align: center;
 }
 .zf_two{
   padding-left: 170px; 
@@ -759,12 +763,12 @@ visibility: hidden;
 	padding-right: 5px;
 }
 .xx_top ul li .chaz{
-	height: 24px;
-line-height: 14px;
-padding: 4px 10px;
-background: #A0A0A0;
-margin: 0 10px;
-color: #fff;
+    height: 22px;
+    width: 44px;
+    border: 0px;
+    background: #A0A0A0;
+    margin: 0 10px;
+    color: #fff;
 }
 /*.chp_xx .xx_center tr{
 	height:35px;
@@ -937,8 +941,9 @@ line-height: 25px;
   padding: 0 10px;
 }
 .de_ce .detail_chj input[type="button"]{
-   padding: 5px 10px;
-   border: 0px;
+    width: 80px;
+    border: 0px;
+    height: 30px;
 }
 .de_ce .detail_chj .fk_butt{
   background: #FC7300;
@@ -1135,12 +1140,12 @@ line-height: 25px;
 /*子账户添加css*/
 .submit_zz{
     margin: 0 20px 0 180px;
-    width: 100px;
-    height: 35px;
-    background: #DA0A0A;
+    width: 132px;
+    height: 41px;
+    background: #D61515;
     border: 0px;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
 }
 .reset_zz{
       margin: 0px;
@@ -1271,21 +1276,25 @@ line-height: 25px;
 .user_zhxi .plaint_com .subclear a:hover{text-decoration: underline;}
 /*报盘首页样式*/
 .offer{
-  float: left;
+  float: left;display: block;
   width:33%;
-  padding: 10px 1px;
+  padding: 40px 50px;
+  margin:20px 11px; 
+  background: #fafafa;
+}
+.offer:hover{
+  background: #fff;
 }
 .offer_left,.offer_center,.offer_right{
-  text-align: center;
+  width: 40%;
+  float: left;
 }
 .of_title1{
   padding: 10px 0 10px 15%;
 }
-.of_title2{
-  padding: 0 0 0 25%;
-}
 .offer .title1_a{
  color: #333 ;
+ font-size: 16px;
 }
 
 /*end报盘首页样式*/
@@ -1338,13 +1347,14 @@ padding: 8px 15px;
   cursor: pointer;
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn input{
-  background:#d61515;
-  color: #fff;
-  border: 1px solid #d61515;
-  font-size: 20px;
-  padding: 8px 30px;
-  margin: 5px 10px;
-  cursor: pointer;
+    background: #d61515;
+    color: #fff;
+    border: 1px solid #d61515;
+    font-size: 18px;
+    margin: 5px 10px;
+    cursor: pointer;
+    width: 132px;
+    height: 41px;
 }
 
   /*审核状态字体颜色*/
@@ -1808,3 +1818,22 @@ line-height: 30px;
   padding:0 10px; 
 }
 /*消息管理 end*/
+/*搜索按钮*/
+.search_an{
+  width: 44px;
+  height: 22px;
+  background: #a0a0a0;
+  color: #fff;
+  border: 0px;
+}
+/*立即支付保证金按钮*/
+.submit_bzj{
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+  background: #D61515;
+  display: block;
+  width: 132px;
+  height: 41px;
+  line-height: 41px;
+}
