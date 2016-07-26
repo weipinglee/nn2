@@ -13,6 +13,13 @@ class UcenterIndexController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
+
+        // $a = new \nainai\fund\zx();
+        // $res = $a->acountInit('3110710003081042640','赵六',20);
+        // echo '<pre>';
+        // var_dump($res);
+        // exit;
+
         $group = new \nainai\member();
 
         $groupData = $group->getUserGroup($this->user_id);//会员分组数据

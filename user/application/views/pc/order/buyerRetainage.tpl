@@ -137,8 +137,8 @@
                    <div class="sty_online" style="display:block;">
                         
 						      <label for=""><input name="account" type="radio" value="1" checked="true"/>市场代理账户</label>
-						      <label for=""><input name="account" type="radio" value="2" />银行签约账户</label>
-						      <label for=""><input name="account" type="radio" value="3" />票据账户</label>
+						      <label for=""><input name="account" type="radio" value="2" disabled="disabled" />银行签约账户</label>
+						      <label for=""><input name="account" type="radio" value="3" disabled="disabled" />票据账户</label>
 
                    </div>
                    {/if}

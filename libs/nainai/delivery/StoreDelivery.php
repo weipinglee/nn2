@@ -68,7 +68,7 @@ class StoreDelivery extends Delivery{
 					//卖方支付仓库费 TODO计算仓库费用
 					$storeFees = $this->storeFees($delivery_id);
 					$store_fee = floatval($storeFees['store_fee']);
-					if(empty($store_fee)){
+					if($store_fee < 0){
 						$error = '仓库费用计算错误';
 					}else{
 						$acc_res = $this->account->payMarket($res['user_id'],$store_fee,'支付提单'.$delivery_id.'仓库费用');//?支付到市场？

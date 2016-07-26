@@ -10,12 +10,12 @@
 						<div class="de_ce">
 							<div class="detail_chj" style="margin-top: 11px">
 								<!-- <input class="fk_butt" type="button" value="支付仓库管理费用"/> -->
-								<!--<a href="{url:/storeDelivery/storeFees?id=$info[id]&action_confirm=1&info=支付仓库管理费用}" style="background: #FC7300;padding: 8px 15px;color:#fff;text-decoration: none">支付仓库管理费用</a>
-							-->
-							<form action="{url:/storeDelivery/storeFees}" method="post" auto_submit pay_secret="1" >
+								<a href="{url:/storeDelivery/storeFees?id=$info[id]&action_confirm=1&info=支付仓库管理费用}" style="background: #FC7300;padding: 8px 15px;color:#fff;text-decoration: none">支付仓库管理费用</a>
+							
+							<!-- <form action="{url:/storeDelivery/storeFees}" method="post" auto_submit pay_secret="1" >
 								<input type="hidden" name="id" value="{$info['id']}" />
 								<input  type="submit" value="支付仓库费用" />
-							</form>
+							</form> -->
 							</div>
 						</div>
 						<div class="sjxx">
@@ -64,7 +64,7 @@
 									<th>配送</th>
 								</tr>
 								<tr>
-									<td><img src="{views:images/banner/551b861eNe1c401dc.jpg}"/></td>
+									<td><img src="{$info['img_thumb']}"/></td>
 									<td>{$info['name']}</td>
 									<td>{$info['price']}</td>
 									<td>{$info['num']}{$info['unit']}</td>

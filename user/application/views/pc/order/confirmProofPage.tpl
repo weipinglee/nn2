@@ -77,7 +77,7 @@
                     </tr>
                     <tr style="line-height: 35px;">
                       <td style="background-color: #F7F7F7;" width="100px">合同</td>
-                      <td colspan="3" width=""><a href="javascript:;" style="color:blue;" target=_blank>合同预览</a></td>
+                      <td colspan="3" width=""><a href="{url:/contract/contract?order_id=$data['id']}" style="color:blue;" target=_blank>合同预览</a></td>
                       <td style="background-color: #F7F7F7;" width="100px">合计金额</td>
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
@@ -85,14 +85,16 @@
                                   {$data['amount']}
                               </span>   
                       </td>
+                      {if:$data['show_deposit']}
                        <td style="background-color: #F7F7F7;" width="100px">已支付定金</td>
+                      
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
                               <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
                                   {$data['pay_deposit']}
                               </span>   
                       </td>
-
+                      {/if}
                       <!-- <td style="background-color: #F7F7F7;" width="100px">剩余尾款</td>
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>

@@ -90,7 +90,7 @@
     <div class="row cl">
       <label class="form-label col-2">备注：</label>
       <div class="formControls col-5">
-        <textarea name="" cols="" rows="" class="textarea"   dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,100)">{if:isset($cate)}{$cate['note']}{/if}</textarea>
+        <textarea name="note" cols="" rows="" class="textarea"   dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,100)">{if:isset($cate)}{$cate['note']}{/if}</textarea>
       </div>
       <div class="col-5"> </div>
     </div>

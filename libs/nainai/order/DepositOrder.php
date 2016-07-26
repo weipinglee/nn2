@@ -57,11 +57,11 @@ class DepositOrder extends Order{
 			if($upd_res['success'] == 1){
 				//冻结买方帐户资金  payment=1 余额支付
 				$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
-				$note_type = $type==0 ? '订金' : '全款';
+				$note_type = $type==0 ? '定金' : '全款';
 				$note = '合同'.$note_id.$note_type.'支付';
 				$acc_res = $this->account->freeze($buyer,$orderData['pay_deposit'],$note);
 				if($acc_res === true){
-					$log_res = $this->payLog($order_id,$buyer,0,'买方预付定金--'.$type == 0 ? '定金' : '全款');
+					$log_res = $this->payLog($order_id,$buyer,0,'买方支付预付款--'.($type == 0 ? '定金' : '全款'));
 					$res = $log_res === true ? true : $log_res;
 				}else{
 					$res = $acc_res['info'];
