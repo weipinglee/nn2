@@ -1,18 +1,19 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2016/3/10 0010
+ * Time: 下午 4:43
+ */
 namespace Library;
 return array(
-    'http'=>'http',
-    'host'=>array(
-        'deal'=>'http://deal.test.com',
-        'user'=>'http://localhost/nn2/user/public/',
-        'admin'=>'http://admin.test.com'
+    'host'=>array(//各子系统域名列表，最后不加'/'
+        'deal'=>'http://124.166.246.120:8000/nn2/deal/public',
+		'user'=>'http://124.166.246.120:8000/nn2/user/public',
+		'admin'=>'http://124.166.246.120:8000/nn2/admin/public',
     ),
-    'rootDir'=>array(
-        'user'=>'D:\wamp2.5\www\nn2\user\public',
-        'admin'=>'D:\wamp2.5\www\nn2\admin\public'
-    ),
-    'sms' => array(
-        'plat'=>'',
+    'rootDir'=>array(//子系统根目录物理路径
+        'user'=>'D:\wamp\www\nn2\user\public',
+		'admin'=>'D:\wamp\www\nn2\admin\public',
     ),
 );
