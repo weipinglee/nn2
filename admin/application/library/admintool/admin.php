@@ -14,13 +14,14 @@ class admin{
 	 */
 	public static function is_admin($id = 0){
 		$super_admin = \Library\tool::getConfig('rbac')['super_admin'];
+		$super_admin = explode(',',$super_admin);
 		if($id){
 			$adminModel = new \Library\M('admin');
 			$name = $adminModel->where(array('id'=>$id))->getField('name');
 		}else{
 			$name = \Library\Session::get(\Library\tool::getConfig('rbac')['user_session'])['name'];
 		}
-		return $name == $super_admin ? true : false;
+		return in_array($name,$super_admin) ? true : false;
 	}
 
 	/**
