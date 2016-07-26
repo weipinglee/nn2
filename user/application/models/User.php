@@ -278,15 +278,19 @@ class UserModel{
 			self::$userObj = new M('user');
 		}
 		$id = $data['id'];
+
 		unset($data['id']);
 		if(self::$userObj->validate($this->userRules,$data)){
+			if(isset($data['password'])){
+				$data['password']=sha1($data['password']);
+			}
 			$res = self::$userObj->where(array('id'=>$id))->data($data)->update();
 		}
 		else{
 			$res = self::$userObj->getError();
 		}
-
 		if(is_int($res)){
+
 			return \Library\tool::getSuccInfo();
 		}
 		else
@@ -585,7 +589,10 @@ class UserModel{
 		$code=rand(100000,999999);
 
 		//短信接口 TODO
-
+		$hsms=new Library\Hsms();
+		if(!$hsms->send($phone,$code)){
+			return $this->getSuccInfo(0,'发送失败');
+		}
 		//短信发送成功，保存验证信息
 		session::set('mobileValidate',array('code'=>$code,'time'=>time(),'mobile'=>$phone));
 		return $this->getSuccinfo(1,'发送成功');
@@ -707,6 +714,8 @@ class UserModel{
 					'mobile' => $newMobile
 				);
 				return $this->updateUserInfo($data);
+			}else{
+				return tool::getSuccInfo(0,'验证码不正确');
 			}
 		}
 		else{//第一步未通过，直接验证第二部，弹出错误

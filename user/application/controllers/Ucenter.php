@@ -485,6 +485,7 @@ class UcenterController extends UcenterBaseController {
      * [mobileEditAction 用户手机修改界面]
      */
     public function mobileEditAction(){
+      /*  $this->getView()->setLayout('ucenter');*/
         $userId=$this->user_id;
         $userObj=new userModel();
         $userInfo=$userObj::getUserInfo($userId);
