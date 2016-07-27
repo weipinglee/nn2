@@ -383,6 +383,7 @@ class ManagerDealController extends UcenterBaseController {
      * 申请仓单处理
      */
     public function doStoreProductAction(){
+
         if(IS_POST){
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
@@ -395,7 +396,15 @@ class ManagerDealController extends UcenterBaseController {
                 'package_unit' => Safe::filterPost('packUnit'),
                 'package_weight' => Safe::filterPost('packWeight'),
                 'apply_time'  => \Library\Time::getDateTime(),
-                'user_id' => $this->user_id
+                'user_id' => $this->user_id,
+                'store_pos' => safe::filterPost('pos'),
+                'cang_pos'  => safe::filterPost('cang'),
+                'store_price'=> safe::filterPost('store_price'),
+                'in_time' => safe::filterPost('inTime'),
+                'rent_time' => safe::filterPost('rentTime'),
+                'check_org' => safe::filterPost('check'),
+                'check_no'  => safe::filterPost('check_no'),
+                'confirm'   => \Library\tool::setImgApp(safe::filterPost('imgfile1'))
             );
             $storeObj = new store();
             $res = $storeObj->createStoreProduct($productData,$storeList);

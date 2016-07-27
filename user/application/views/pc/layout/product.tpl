@@ -1,15 +1,5 @@
-<table border="0"  id='productAdd'>
-    {foreach: items=$attrs item=$attr}
+<table border="0" >
 
-        <tr class="attr">
-            <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
-            <td colspan="2">
-                <input class="text" type="text" name="attribute[{$attr['id']}]" >
-            </td>
-        </tr>
-
-
-    {/foreach}
     <tr>
         <th colspan="3">基本挂牌信息</th>
     </tr>
@@ -57,6 +47,22 @@
 
         </td> -->
     </tr>
+        {foreach: items=$attrs item=$attr}
+
+        <tr class="attr">
+            <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
+            <td colspan="2">
+                <input class="text" type="text" name="attribute[{$attr['id']}]" >
+            </td>
+        </tr>
+
+
+    {/foreach}
+    <tr style="display:none" id='productAdd'>
+                            <td ></td>
+                            <td ></td>
+                            </tr>
+                            
     <tr>
         <td>产地:</td>
         <td colspan="2">

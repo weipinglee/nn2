@@ -45,7 +45,7 @@ class ManagerStoreController extends UcenterBaseController{
 		$page = safe::filterGet('page','int',1);
 		$list = $store->storeCheckList($page,$this->user_id);
 		$this->getView()->assign('data',$list['data']);
-        $this->getView()->assign('page',$list['bar']);
+        		$this->getView()->assign('page',$list['bar']);
 	}
 
 	/**
