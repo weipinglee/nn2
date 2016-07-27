@@ -20,17 +20,21 @@
 						<span><input class="text" type="password"  name="re_secret" datatype='*' recheck='new_secret' errormsg='两次输入的密码不一致'/>
 					</div>
 					<input type="hidden" name="oper" value="edit"/>
+					<div class="zhxi_con">
+						<span><input class="submit_edit" type="submit" value="修改"/></span>
+					</div>
 				{else:}
 					<div class="zhxi_con">
 						<span class="con_tit"><i>*</i>支付密码：</span>
 						<span><input class="text" type="password" name="pay_secret"/>
 					</div>
 					<input type="hidden" name="oper" value="add"/>
+					<div class="zhxi_con">
+						<span><input class="submit_edit" type="submit" value="提交"/></span>
+					</div>
 				{/if}
 
-				<div class="zhxi_con">
-					<span><input class="submit_edit" type="submit" value="修改"/></span>
-				</div>
+
 			</form>
 		</div>\
 		<div style="clear:both;"></div>

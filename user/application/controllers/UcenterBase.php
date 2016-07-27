@@ -63,6 +63,7 @@ class UcenterBaseController extends \nainai\controller\Base{
             if(!$sec){
 				IS_AJAX ? die(json::encode(tool::getSuccInfo(0,'支付密码错误'))) : $this->error('支付密码错误'); die;
             }
+
         }
 
         //确认操作

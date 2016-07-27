@@ -15,7 +15,7 @@ return array(
 
     ),
     'rootDir'=>array(//子系统根目录物理路径
-        'user'=>'D:\wamp\www\nn2\user\public',
-		'admin'=>'D:\wamp\www\nn2\admin\public',
+        'user'=>'D:\wamp2.5\www\nn2\user\public',
+		'admin'=>'D:\wamp2.5\www\nn2\admin\public',
     ),
 );
