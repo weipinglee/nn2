@@ -2,7 +2,6 @@ body,dl,ul,ol,dd,h3,p ,table,tr,td{
 	padding: 0px;
 	margin: 0px;
 	font-size: 12px;
-  font-family: '微软雅黑'
   color:#777;border:0;
   border-collapse:collapse;
 }
@@ -13,10 +12,6 @@ a{
  	cursor: pointer;
  	text-decoration: none;
 	color:#666;
-  font-family: '微软雅黑'
-}
-a:hover{
-  text-decoration: none;
 }
 img{border:0px;}
 .header{
@@ -309,29 +304,30 @@ div.zhxi_con.font_set span i.bold{
   width: 65px;
 }
 .zhxi_con .submit{
-	  width: 132px;
-    height: 41px;
-    background: #d61515;
-    border: 0px;
-    color: #fff;
-    font-size: 18px;
-    position: relative;
-    left: 200px;
-    cursor: pointer;
+	width: 100px;
+  height: 35px;
+  background: #0088dd;
+  border: 0px;
+  color: #fff;
+  font-size: 14px;
+  position: relative;
+  left: 200px;
+  cursor: pointer;
+  border-radius: 3px;
 }
 .zhxi_con .submit_edit{
-    width: 130px;
-    height: 39px;
-    background: #D61525;
-    color: #FFF;
-    font-size: 18px;
+    width: 120px;
+    height: 35px;
+    background: #Fff;
+    color: #E51212;
+    font-size: 20px;
     position: relative;
     left: 340px;
     cursor: pointer;
     border: 1px solid;
     display: block;
     text-align: center;
-    line-height: 39px;
+    line-height: 35px;
 }
 .zhxi_con  .select{
 	height: 31px;
@@ -525,18 +521,18 @@ div.zhxi_con.font_set span i.bold{
 }
 .zf_an .zf_button{    
     margin-top: 15px;
-    width: 132px;
-    height: 41px;
-    background: #d61515;
+    width: 100px;
+    height: 35px;
+    background: #0088dd;
     border: 0px;
     color: #fff;
-    font-size: 18px;
+    font-size: 14px;
     position: relative;
     left: 100px;
     cursor: pointer;
-    line-height: 41px;
+    line-height: 34px;
     text-align: center;
-    text-align: center;
+    border-radius: 3px;
 }
 .zf_two{
   padding-left: 170px; 
@@ -763,12 +759,12 @@ visibility: hidden;
 	padding-right: 5px;
 }
 .xx_top ul li .chaz{
-    height: 22px;
-    width: 44px;
-    border: 0px;
-    background: #A0A0A0;
-    margin: 0 10px;
-    color: #fff;
+	height: 24px;
+line-height: 14px;
+padding: 4px 10px;
+background: #A0A0A0;
+margin: 0 10px;
+color: #fff;
 }
 /*.chp_xx .xx_center tr{
 	height:35px;
@@ -941,9 +937,8 @@ line-height: 25px;
   padding: 0 10px;
 }
 .de_ce .detail_chj input[type="button"]{
-    width: 80px;
-    border: 0px;
-    height: 30px;
+   padding: 5px 10px;
+   border: 0px;
 }
 .de_ce .detail_chj .fk_butt{
   background: #FC7300;
@@ -1140,12 +1135,12 @@ line-height: 25px;
 /*子账户添加css*/
 .submit_zz{
     margin: 0 20px 0 180px;
-    width: 132px;
-    height: 41px;
-    background: #D61515;
+    width: 100px;
+    height: 35px;
+    background: #DA0A0A;
     border: 0px;
     color: #fff;
-    font-size: 18px;
+    font-size: 20px;
 }
 .reset_zz{
       margin: 0px;
@@ -1276,25 +1271,21 @@ line-height: 25px;
 .user_zhxi .plaint_com .subclear a:hover{text-decoration: underline;}
 /*报盘首页样式*/
 .offer{
-  float: left;display: block;
+  float: left;
   width:33%;
-  padding: 40px 50px;
-  margin:20px 11px; 
-  background: #fafafa;
-}
-.offer:hover{
-  background: #fff;
+  padding: 10px 1px;
 }
 .offer_left,.offer_center,.offer_right{
-  width: 40%;
-  float: left;
+  text-align: center;
 }
 .of_title1{
   padding: 10px 0 10px 15%;
 }
+.of_title2{
+  padding: 0 0 0 25%;
+}
 .offer .title1_a{
  color: #333 ;
- font-size: 16px;
 }
 
 /*end报盘首页样式*/
@@ -1347,14 +1338,13 @@ padding: 8px 15px;
   cursor: pointer;
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn input{
-    background: #d61515;
-    color: #fff;
-    border: 1px solid #d61515;
-    font-size: 18px;
-    margin: 5px 10px;
-    cursor: pointer;
-    width: 132px;
-    height: 41px;
+  background:#d61515;
+  color: #fff;
+  border: 1px solid #d61515;
+  font-size: 20px;
+  padding: 8px 30px;
+  margin: 5px 10px;
+  cursor: pointer;
 }
 
   /*审核状态字体颜色*/
@@ -1818,22 +1808,49 @@ line-height: 30px;
   padding:0 10px; 
 }
 /*消息管理 end*/
-/*搜索按钮*/
-.search_an{
-  width: 44px;
-  height: 22px;
-  background: #a0a0a0;
-  color: #fff;
-  border: 0px;
+
+
+
+/* 发布商品 */
+.offer.public {
+    width: 336px;
+    text-align: center;
+    background: #fafafa;
+    margin-top: 22px;
+    margin-left: 24px;
+    height: 138px;
+    cursor:pointer;
 }
-/*立即支付保证金按钮*/
-.submit_bzj{
-  text-align: center;
-  font-size: 18px;
-  color: #fff;
-  background: #D61515;
-  display: block;
-  width: 132px;
-  height: 41px;
-  line-height: 41px;
+.offer.public .offer_right,.offer.public .offer_left,.offer.public .offer_center{
+    float: left;
+    position: relative;
+    left: 26%;
+    top: 22%;
+}
+.user_c.public {
+    padding-bottom: 22px;
+}
+.offer .title1_a.public{
+  font-size: 14px;
+  color: #666666;
+  position: relative;
+  top: 30px;
+}
+.of_title2.public{
+    padding: 0 0 0 27%;
+    position: relative;
+    top: 36px;
+    color: #999999;
+}
+.offer.public img{
+  width: 62px;
+  height: 66px;
+}
+.offer.public.hover{
+    background: #ffffff;
+    box-shadow: 0 0 26px #CACACA;
+    -moz-box-shadow: 0 0 26px #CACACA;
+    -webkit-box-shadow: 0 0 26px #CACACA;
+    position: relative;
+    z-index: 1;
 }
