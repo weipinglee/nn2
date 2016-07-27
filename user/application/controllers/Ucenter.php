@@ -21,7 +21,7 @@ class UcenterController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
-		// header('Location:'.url::createUrl('/ucenterindex/index'));
+		 header('Location:'.url::createUrl('/ucenterindex/index'));
     }
 
     public function baseInfoAction(){
@@ -581,7 +581,7 @@ class UcenterController extends UcenterBaseController {
         $id = Safe::filterPost('id', 'int');
         if (intval($id) > 0) {
             $store = new \nainai\offer\storeOffer();
-            $detail = $store->getStoreListDetail($id, 'id, address');
+            $detail = $store->getStoreListDetail($id);
         }
         exit(JSON::encode($detail));
     }

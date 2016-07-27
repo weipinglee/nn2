@@ -5,7 +5,7 @@ return array(
     'http'=>'http',
     'host'=>array(
         'deal'=>'http://deal.test.com',
-        'user'=>'http://localhost/nn2/user/public/',
+        'user'=>'http://user.test.com',
         'admin'=>'http://admin.test.com'
     ),
     'rootDir'=>array(
