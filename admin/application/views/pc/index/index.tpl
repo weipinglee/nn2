@@ -202,10 +202,17 @@
                         <li><a  target="content">入金审核</a>
                             <ul>
                                 <li><a href="{url:balance/fundIn/onlineList}" target="content">线上入金</a></li>
-                                <li><a href="{url:balance/fundIn/offlineList}" target="content">线下入金</a></li>
+                                <li><a href="{url:balance/fundIn/checkOfflineList}" target="content">线下待审核</a></li>
+                                <li><a href="{url:balance/fundIn/checkedOfflineList}" target="content">线下已审核</a></li>
                             </ul>
                         </li>
-                        <li><a href="{url:balance/fundOut/fundOutList}" target="content">出金审核</a></li>
+                        <li><a href="{url:balance/fundOut/fundOutList}" target="content">出金审核</a>
+                            <ul>
+                                <li><a href="{url:balance/fundOut/checkFundOutList}" target="content">出金待审核</a></li>
+                                <li><a href="{url:balance/fundOut/checkedFundOutList}" target="content">出金已审核</a></li>
+                                <li><a href="{url:balance/fundOut/pendingPaymentList}" target="content">待打款</a></li>
+                            </ul>
+                        </li>
                         <li><a target="content">账户管理</a>
                             <ul>
                                 <li><a href="{url:balance/accManage/userAccList}" target="content">会员账户</a></li>

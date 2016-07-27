@@ -93,18 +93,27 @@
                            <tr>
                             <td><span>*</span>是否可拆分：</td>
                             <td>
-                                <select name="divide" id="divide">
+                                <select name="divide" id="divide1">
                                     <option value="0"  selected>可以</option>
                                     <option value="1"  >不可以</option>
                                 </select>
                             </td>
                             </tr>
-                            <tr id='nowrap'>
+                            <tr id='nowrap1'>
                             <td><span>*</span>最小起订量：</td>
                             <td>
                                 <input name="minimum" id="" type="text" />
                             </td>
                         </tr>
+                            <script type="text/javascript">
+                                $('#divide1').change(function(){
+                                    if($('#divide1').val()==0){
+                                        $('#nowrap1').show();
+                                    }else{
+                                        $('#nowrap1').hide();
+                                    }
+                                });
+                            </script>
           					
                             <tr>
                                 <td>图片预览：</td>
