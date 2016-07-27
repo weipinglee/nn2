@@ -30,7 +30,7 @@ class productController extends InitController{
 
             $attrs = safe::filterPost('attr_id','int','');
             $cate['attrs']     = $attrs=='' ? '' : implode(',',array_unique($attrs));
-
+            
             $res = $productModel->updateCate($cate);
             die(json::encode($res));
 

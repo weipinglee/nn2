@@ -56,7 +56,7 @@ class StoreOrder extends Order{
 					//冻结买方帐户资金  payment=1 余额支付
 					$acc_res = $this->account->freeze($info['user_id'],$orderData['pay_deposit']);
 					if($acc_res === true){
-						$log_res = $this->payLog($order_id,$user_id,0,'买方预付定金--'.$type == 0 ? '定金' : '全款');
+						$log_res = $this->payLog($order_id,$user_id,0,'买方支付预付款--'.($type == 0 ? '定金' : '全款'));
 						$res = $log_res === true ? true : $log_res;
 					}else{
 						$res = $acc_res['info'];

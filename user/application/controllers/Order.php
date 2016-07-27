@@ -59,6 +59,8 @@ class OrderController extends UcenterBaseController{
 	public function confirmProofPageAction(){
 		$order_id = intval($this->_request->getParam('order_id'));
 		$info = $this->order->contractDetail($order_id);
+		
+		$info['show_deposit'] = in_array($info['mode'],nainai\order\Order::ORDER_DEPOSIT,nainai\order\Order::ORDER_STORE) ? 1 : 0;
 		$info['proof_thumb'] = \Library\Thumb::get($info['proof'],400,400);
 		$this->getView()->assign('data',$info);
 	}

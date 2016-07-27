@@ -226,11 +226,13 @@ class Order{
 				return tool::getSuccInfo(0,$product_valid);
 			$orderData['amount'] = $offer_info['price'] * $orderData['num'];
 			
+			//获取摘牌所需定金数额
+			$pay_deposit = $this->payDepositCom($orderData['offer_id'],$orderData['amount']);
 			// if($orderData['payment'] == 1){
 				//代理账户,判断用户买家余额是否足够
-				$user_id = $orderData['user_id'];
+				$user_id = isset($orderData['buyer_id']) ? $orderData['buyer_id'] : $orderData['user_id'];//采购买家与正常相反
 				$balance = $this->account->getActive($user_id);
-				if(floatval($balance) < $orderData['amount']){
+				if(floatval($balance) < $pay_deposit){
 					return tool::getSuccInfo(0,'代理账户余额不足');
 				}
 			// }
@@ -916,6 +918,8 @@ class Order{
 				default:
 					break;
 			}
+
+			if($status_txt == '提货完成') break;
 		}
 
 		return $status_txt;
@@ -1126,8 +1130,8 @@ class Order{
 	 * @return array     信息数组
 	 */
 	public function userBankInfo($user_id){
-		$bank = new M('user_bank');
-		return $bank->where(array('user_id'=>$user_id))->getObj();
+		$bank = new \nainai\user\UserBank();
+		return $bank->getActiveBankInfo($user_id);
 	}
 
 	/**
@@ -1136,7 +1140,7 @@ class Order{
 	 */
 	public function canComplain($data){
 		if(isset($data['mode']) && isset($data['contract_status'])){
-			if($data['mode']==self::ORDER_DEPOSIT || $data['mode']==self::ORDER_STORE){
+			if(in_array($data['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE,self::ORDER_PURCHASE))){
 				if($data['contract_status']!=0 && $data['contract_status']!=8)
 					return 1;
 			}

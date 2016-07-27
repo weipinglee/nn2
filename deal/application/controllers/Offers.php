@@ -29,6 +29,18 @@ class OffersController extends PublicController {
 		$this->order = new \nainai\order\Order();
 	}
 
+	//支付成功页面
+	public function paySuccessAction(){
+		$order_no = safe::filter($this->_request->getParam('order_no'));
+		$amount = safe::filter($this->_request->getParam('amount'));
+		$pay_deposit = safe::filter($this->_request->getParam('payed'));
+		$info = safe::filter($this->_request->getParam('info'));
+
+		$this->getView()->assign('order_no',$order_no);
+		$this->getView()->assign('amount',$amount);
+		$this->getView()->assign('info',$info);
+		$this->getView()->assign('pay_deposit',$pay_deposit);
+	}
 
 	//列表
 	public function offerListAction(){
@@ -111,8 +123,10 @@ class OffersController extends PublicController {
 		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
 		//商品剩余数量
 		$pro = new \nainai\offer\product();
-		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
-
+		$pro_info = $pro->getProductDetails($info['product_id']);
+		unset($pro_info['price']);
+		$info = array_merge($info,$pro_info);
+		
 		$this->getView()->assign('data',$info);
 
 	}

@@ -136,7 +136,7 @@ class zx extends account{
                 <preTime></preTime><!--预约时间（格式：hhmmss 预约时非空，只限100000、120000、140000、160000四个时间点）char(6)-->
             </stream>";
      }
-
+ 
 
     /**
      * 资金冻结

@@ -112,7 +112,8 @@ class Delivery{
 						$title = '买家申请提货';
 						if($value['mode'] != order\Order::ORDER_STORE){
 							//卖家发货（保证金提货）
-							$href = url::createUrl("/depositDelivery/sellerConsignment?id={$value['delivery_id']}&action_confirm=1&info=确认发货");
+							// $href = url::createUrl("/depositDelivery/sellerConsignment?id={$value['delivery_id']}&action_confirm=1&info=确认发货");
+							$href = url::createUrl("/delivery/consignment?id={$value['id']}&delivery_id={$value['delivery_id']}");
 							$action []= array('name'=>'发货','url'=>$href);
 						}else{
 							//支付仓库费用（仓单提货）

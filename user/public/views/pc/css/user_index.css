@@ -1246,7 +1246,7 @@ line-height: 25px;
 }
 .user_zhxi .plaint_com span.explain p{color: #cccccc;}
 .user_zhxi .plaint_com span.upload_img{margin-top: 15px;clear: both;}
-.user_zhxi .plaint_com .choose_img{width:200px;float:left; margin: 20px 0 20px 12px;}
+.user_zhxi .plaint_com .choose_img{float:left; margin: 20px 0 20px 12px;}
 .user_zhxi .plaint_com .choose_img #doc{width: 170px;}
 .user_zhxi .plaint_com .choose_img+.uplod_botn{float: left; margin-top: 18px;}
 .user_zhxi .plaint_com .choose_img .upload_box{width: 600px;margin-top: 10px;}

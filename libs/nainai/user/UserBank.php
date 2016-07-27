@@ -60,6 +60,18 @@ class UserBank
         $userBank=new M('user_bank');
         return $userBank->where(array('user_id'=>$user_id))->getObj();
     }
+
+    /**
+     * 获取用户开户信息
+     * @param $user_id
+     * @return mixed
+     */
+    public function getActiveBankInfo($user_id){
+        $userBank=new M('user_bank');
+        return $userBank->where(array('user_id'=>$user_id,'status'=>self::BANK_OK))->getObj();
+    }
+
+
     /**
      * 判断用户开户信息是否审核通过
      */

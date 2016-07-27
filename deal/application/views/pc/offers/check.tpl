@@ -46,7 +46,7 @@
               <img src="{views:images/order/oder-2.jpg}" width="205" height="47" alt="第二步" />
               </div> 
                
-            <form method="post" pay_secret=1 auto_submit action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
+            <form method="post" pay_secret="1" auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
             <div class="checkim">
             <h2>填写并核对订单信息<a id='contract_review' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:blue;">合同预览</a></h2>
                 
@@ -205,7 +205,7 @@
                         var flag = isnum_valid();
                         if(flag && {$data['show_payment']}){
                             $.post("{url:/Offers/payDepositCom}",{id:id,num:num,price:price},function(data){
-                                var data = JSON.parse(data);
+
                                 if(data.success == 1){
                                     prod_amount.text(num*price);
                                     deposit_text.text(paytype == 1 ? prod_amount.text(): data.info);
@@ -214,7 +214,7 @@
                                 }else{
                                     alert(data.info);
                                 }
-                            });
+                            },"json");
                         }else{
                             prod_amount.text(num*price);
                             $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
@@ -276,12 +276,14 @@
                          $(this).parents('ul').siblings('input[name=account]').val(account);
                          $(this).parents('ul').siblings('input[name=invoice]').val(invoice);
                          
-                         if(paytype == 1){
-                            //全款
-                            deposit_text.text(prod_amount.text());
-                         }else{
-                            deposit_text.text(temp_deposit);
-                         }
+                         if(paytype){
+                             if(paytype == 1){
+                                //全款
+                                deposit_text.text(prod_amount.text());
+                             }else{
+                                deposit_text.text(temp_deposit);
+                             }
+                        }
                      })
 
                 })
