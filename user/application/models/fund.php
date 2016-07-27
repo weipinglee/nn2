@@ -9,6 +9,16 @@ use \Library\M;
 use \Library\tool;
 class fundModel extends \nainai\user\UserBank{
 
+    CONST OFFLINE = 1;//线下入金类型编码
+    CONST DIRECT  = 2;//支付宝
+    CONST UNION   = 3;//银联
+
+    CONST OFFLINE_APPLY = 0;
+    CONST OFFLINE_FIRST_OK = 2;//初审通过
+    CONST OFFLINE_FIRST_NG = 3;//初审驳回
+    CONST OFFLINE_FINAL_OK = 1;//终审通过，入金成功
+    CONST OFFLINE_FINAL_NG = 4;//终审驳回
+
     /**
      *
      * @param $user_id
@@ -70,6 +80,88 @@ class fundModel extends \nainai\user\UserBank{
             return tool::getSuccInfo(0,is_string($res)?$res : '操作失败');
         }
     }
+    public function getFundInList($user_id,$cond,$page=1){
+        if($user_id) {
+            $fundInObj = new \Library\Query('recharge_order as r');
+            $where = 'is_del=0 and user_id= :user_id';
+            $cond['user_id']=$user_id;
+            if (isset($cond['begin'])&&$cond['begin']!=""){
+                $where.=' and create_time > :begin' ;
+            }else{
+                unset($cond['begin']);
+            }
+            if(isset($cond['end'])&&$cond['end']!=""){
+                $where.=' and create_time < :end';
+            }else{
+                unset($cond['end']);
+            }
+            if(isset($cond['no'])&&$cond['no']!=''){
+                $where.=' and order_no= :no';
+            }else{
+                unset($cond['no']);
+            }
+            $fundInObj->where=$where;
+            $fundInObj->bind=$cond;
+            $fundInObj->page = $page;
+            $fundInList=$fundInObj->find();
+            $pageBar=$fundInObj->getPageBar();
+            return [$fundInList,$pageBar];
 
+        }
+    }
+    public static function getPayType($payID){
+        switch(intval($payID)){
+            case self::OFFLINE : {
+                return '线下';
+            }
+                break;
+            case self::DIRECT : {
+                return '支付宝即时到账';
+            }
+                break;
+            case self::UNION : {
+                return '银联支付';
+            }
+                break;
 
+            default : {
+                return '未知';
+            }
+                break;
+        }
+    }
+    /**
+     * 线下入金订单状态获取
+     * @param int $status 状态
+     * @return string 状态文字
+     */
+    public static function getOffLineStatustext($status){
+        switch(intval($status)){
+            case self::OFFLINE_APPLY : {
+                return '申请入金';
+            }
+                break;
+            case self::OFFLINE_FIRST_OK : {
+                return '初审通过';
+            }
+                break;
+            case self::OFFLINE_FIRST_NG : {
+                return '初审驳回';
+            }
+                break;
+            case self::OFFLINE_FINAL_OK : {
+                return '入金成功';
+            }
+                break;
+            case self::OFFLINE_FINAL_NG : {
+                return '终审驳回';
+            }
+                break;
+
+            default : {
+                return '未知';
+            }
+                break;
+        }
+    }
 }

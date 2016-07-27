@@ -1,7 +1,8 @@
 ﻿/// <reference path="../../core/jquery.extend.js" />
 
 $(function () {
-
+    var codeUrl=$('#codeUrl').val();
+    var findUrl=$('#findUrl').val();
     //提交前验证
     function formValidator() {
         var mobile = $("#txtMobile").val();
@@ -39,7 +40,7 @@ $(function () {
 
             $.ajax({
                 type: "post",
-                url: "/PasswordReset/Index",
+                url: findUrl,
                 data: {
                     "registerPhone": $("#txtMobile").val(),
                     "usrCode": $("#txtCode").val(),
@@ -47,14 +48,21 @@ $(function () {
                     "returnUrl": $("#txtUrl").val()
                 },
                 dataType: "json",
-                success: function (data, textStatus) {
-                    debugger;
-                    if (data != "跳转页面") {
+                success: function (msg) {
+                   // debugger;
+                    if(msg.success==0){
+                        alert(msg.info);
+                    }else{
+                        alert(msg.info);
+                        window.location=$("#txtUrl").val();
+                    }
+               /*     if (data != "跳转页面") {
                         $("#txtMessage").html(data);
                     }
+
                     else {
                         window.location = $("#txtUrl").val();
-                    }
+                    }*/
 
 
                 }
@@ -91,11 +99,17 @@ $(function () {
         }
         $.ajax({
             type: "post",
-            url: "/registerUser/getCode",
-            data: { "mobile": $("#txtMobile").val(), "channel": '找回密码' },
+            url: codeUrl,
+            data: { "mobile": $("#txtMobile").val(), "code":$("#inputCode").val(),"channel": '找回密码' },
             dataType: "json",
-            success: function (data, textStatus) {
-                time($(".yzm"));
+            success: function (msg) {
+                if(msg.success==1){
+                    time($(".yzm"));
+                    alert(msg.info);
+                }else{
+                    alert(msg.info);
+                }
+                $("#image").click();
             }
         });
     })
