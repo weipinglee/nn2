@@ -93,9 +93,10 @@
                            <tr>
                             <td><span>*</span>是否可拆分：</td>
                             <td>
-                                <select name="divide" id="divide1">
-                                    <option value="0"  selected>可以</option>
-                                    <option value="1"  >不可以</option>
+
+                                <select name="divide" id="divide">
+                                    <option value="1"  selected>是</option>
+                                    <option value="0"  >否</option>
                                 </select>
                             </td>
                             </tr>
@@ -106,8 +107,8 @@
                             </td>
                         </tr>
                             <script type="text/javascript">
-                                $('#divide1').change(function(){
-                                    if($('#divide1').val()==0){
+                                $('#divide').change(function(){
+                                    if($('#divide').val()==1){
                                         $('#nowrap1').show();
                                     }else{
                                         $('#nowrap1').hide();

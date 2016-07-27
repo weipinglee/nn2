@@ -94,7 +94,7 @@ function getCategory(){
             this_div.nextAll('.class_jy').remove();
             var pro_add = $('#productAdd');
             pro_add.find('input[name=cate_id]').val(data.defaultCate);
-            pro_add.find('.attr').remove();
+            $('.attr').remove();
 
             if(data.cate){
                 $('.unit').text(data.unit);
@@ -125,22 +125,24 @@ function getCategory(){
 
             if(data.attr){
                 $.each(data.attr,function(k,v){
-
+                    var attr_box = $('#productAdd').clone();
+                    attr_box.show();
+                    attr_box.addClass('attr');
                     if(v.type==1){
-                        attr_box = '<tr class="attr"  ><td nowrap="nowrap"><span></span>'+ v.name+'</td><td colspan="2"> <input class="text" type="text" name="attribute['+ v.id+']" /> </td> </tr>';
-
+                        attr_box.children('td').eq(0).html(v.name);
+                        attr_box.children('td').eq(1).html(' <input class="text" type="text" name="attribute['+ v.id+']" />');
                     }
                     else if(v.type==2){//2是单选
                         var radio = v.value.split(',');
                         var radio_text = '';
+                        attr_box.children('td').eq(0).html(v.name);
                         $.each(radio,function(i,val){
                             radio_text += '<label style="margin-right:5px;"><input type="radio" name="attribute['+ v.id+']" value="'+val+'" />'+val+'</label>' ;
-                        });
-                        attr_box = '<tr class="attr"  ><td nowrap="nowrap"><span></span>'+ v.name+'</td><td colspan="2"> '+radio_text+' </td> </tr>';
-
+                            attr_box.children('td').eq(1).html(radio_text);
+                       });
                     }
-
-                    $('#productAdd').prepend(attr_box);
+                    console.log(attr_box);
+                    $('#productAdd').after(attr_box);
                 });
                 bindRules();
             };
