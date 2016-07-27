@@ -339,7 +339,7 @@ class product {
                 $v = $items[$key];
                 $v['unit'] = $items[$key]['unit'] =='' ? $unit : $items[$key]['unit'] ;
                 if (!empty($item['risk_data'])) {
-                    $v['risk_data'] = explode(',', $item['risk_data'])s;
+                    $v['risk_data'] = explode(',', $item['risk_data']);
                 }
                 
                 $tree[$item['id']] = $v;
