@@ -32,7 +32,7 @@ class InsuranceController extends PublicController {
           $id = safe::filterGet('id');
           if (intval($id) > 0) {
                
-               $offersModel = new offersModel();
+               $offersModel = new OffersModel();
                $model = new \nainai\offer\product();
 
                $detail = $offersModel->offerDetail($id);

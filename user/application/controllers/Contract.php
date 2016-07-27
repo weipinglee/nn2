@@ -70,6 +70,10 @@ class ContractController extends UcenterBaseController{
 		$info = $order->contractDetail($id,'seller');
 		$invoice = $order->orderInvoiceInfo($info);
 		$info['complain'] = $order->canComplain($info);
+		//判断是否可以购买保险
+		if ($info['contract_status'] == $order::CONTRACT_EFFECT && !empty($info['risk'])) {
+			$info['insurance'] = 1;
+		}
 
 		$this->getView()->assign('info',$info);
 		$this->getView()->assign('invoice',$invoice);
@@ -97,6 +101,8 @@ class ContractController extends UcenterBaseController{
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id);
 		$info['complain'] = $order->canComplain($info);
+		d($info);
+		exit();
 
 		$this->getView()->assign('info',$info);
 	}

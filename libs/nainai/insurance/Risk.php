@@ -62,25 +62,15 @@ class Risk extends \nainai\Abstruct\ModelAbstract{
       * @return Array      
       */
      public function getCategoryRisk($cid){
-            $insurance = $risk_data = array();
-           //获取保险产品信息
-           $list = $this->getRiskList(-1, array('status' => 1));
-
+            $risk_data = array();
+           
            $model = new \nainai\offer\product();
            $cates = $model->getParents($cid);
            if (!empty($cates)) {
                 foreach ($cates as $key => $value) {
                      $risk_data = $model->getCateName($value['id'], 'risk_data');
                      if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置
-                          $risk_data = explode(',', $risk_data);
-                          $risk = array();
-                          foreach ($risk_data as &$value) {
-                            $risk[$value]['risk_id'] = $list[$value]['id'];
-                               $risk[$value]['name'] = $list[$value]['name'];
-                              $risk[$value]['company'] = $list[$value]['company'];
-                              $risk[$value]['mode'] = $list[$value]['mode'];
-                              $risk[$value]['fee'] = $list[$value]['fee'];
-                          }
+                          $risk = $this->getRiskDetail($risk_data);
                           break;
                      }
                 }
@@ -89,26 +79,29 @@ class Risk extends \nainai\Abstruct\ModelAbstract{
      }
 
      /**
-      * 获取产品对应的保险产品
-      * @param  String $risk 报盘的保险id
-      * @param Int $cid 分类id
-      * @return Array              
+      * 获取risk，id对应的产品数据
+      * @param  String $risk_data risk
+      * @return Array            
       */
-     public function getProductRisk($risk, $cid){
-        $riskData = array();
-
-        if (!empty($risk) && intval($cid) > 0 ) {
-          $riskData = $this->getCategoryRisk($cid);
-
-          $risk = explode(',', $risk);
-            foreach ($riskData as $key => $value) {
-              if (!in_array($value['risk_id'], $risk)) {
-                unset($riskData[$key]);
-              }
-            }
-        }
-
-        return $riskData;
+     public function getRiskDetail($risk_data){
+        //获取保险产品信息
+        $list = $this->getRiskList(-1, array('status' => 1));
+        if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置
+                          if (is_string($risk_data)) {
+                            $risk_data = explode(',', $risk_data);
+                          }
+                          $risk = array();
+                          foreach ($risk_data as &$value) {
+                              $risk[$value]['risk_id'] = $list[$value]['id'];
+                              $risk[$value]['name'] = $list[$value]['name'];
+                              $risk[$value]['company'] = $list[$value]['company'];
+                              $risk[$value]['mode'] = $list[$value]['mode'];
+                              $risk[$value]['fee'] = $list[$value]['fee'];
+                          }
+         }
+         return $risk;
      }
+
+    
 
 }

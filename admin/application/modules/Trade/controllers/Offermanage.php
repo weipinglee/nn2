@@ -51,7 +51,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 		
 		if ($info['insurance'] == 1) {
 			$risk = new \nainai\insurance\Risk();
-			$riskData = $risk->getProductRisk($info['risk'], $info['cate_id']);
+			$riskData = $risk->getRiskDetail($info['risk']);
 			$this->getView()->assign('riskData',$riskData);
 		}
 
@@ -90,7 +90,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 		$info['user'] = $user;
 		if ($info['insurance'] == 1) {
 			$risk = new \nainai\insurance\Risk();
-			$riskData = $risk->getProductRisk($info['risk'], $info['cate_id']);
+			$riskData = $risk->getRiskDetail($info['risk']);
 			$this->getView()->assign('riskData',$riskData);
 		}
 		

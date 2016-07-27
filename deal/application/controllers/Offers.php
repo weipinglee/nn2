@@ -25,7 +25,7 @@ class OffersController extends PublicController {
 	public function init(){
 		parent::init();
 		//$this->getView()->setLayout('header');
-		$this->offer = new offersModel();
+		$this->offer = new OffersModel();
 		$this->order = new \nainai\order\Order();
 	}
 
@@ -98,6 +98,17 @@ class OffersController extends PublicController {
 
 		$pro = new \nainai\offer\product();
 		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+		//判断下是否能够申请保险
+		if ($info['insurance'] == 0 && empty($this->login)) {
+			$info['insurance'] = 1;
+		}elseif($info['insurance'] == 0){
+			//已经申请了的不能在申请
+			$risk = new \nainai\insurance\RiskApply();
+			$data = $risk->getRiskApply(array('buyer_id' => $this->login['user_id'], 'offer_id' => $info['id']), 'id');
+			if (!empty($data)) {
+				$info['insurance'] = 1;
+			}
+		}
 
 		$this->getView()->assign('data',$info);
 

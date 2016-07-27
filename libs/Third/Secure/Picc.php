@@ -97,24 +97,23 @@ class Picc extends Secures {
                          <EndDate>' . $data['endDate']. '</EndDate>
                          <StartHour>0</StartHour>
                          <EndHour>24</EndHour> 
-                         <SumAmount>500000.0</SumAmount>
+                         <SumAmount>'.$data['limit']. '</SumAmount>
                          <SumPremium>'.$data['insuranceFee']. '</SumPremium> 
                          <ArguSolution>1</ArguSolution>
-                         <PayMode>Q</PayMode>
                          <InsuredPlan>
-                              <RationType>ZAH1400003</RationType>
+                              <RationType>'.$data['project_code']. '</RationType>
                               <Schemes>
                                         <Scheme>
                                              <SchemeCode>1</SchemeCode>
-                                             <SchemeAmount>500000.0</SchemeAmount>
+                                             <SchemeAmount>'.$data['limit']. '</SchemeAmount>
                                              <SchemePremium>'.$data['insuranceFee']. '</SchemePremium>
                                         </Scheme>
                               </Schemes>
                          </InsuredPlan>';
           $xml .= '<LiabInfo>
                               <ProductType>ZAH</ProductType>
-                              <BusinessNature>05</BusinessNature>
-                              <Coverage>01</Coverage>
+                              <BusinessNature>'.$data['role']. '</BusinessNature>
+                              <Coverage>'.$data['area']. '</Coverage>
                               <NowTurnOver>' .$data['fee']. '</NowTurnOver>
                          </LiabInfo>';
           $xml .= '<Applicant> 
@@ -164,7 +163,6 @@ class Picc extends Secures {
                if ($data['GeneralInfoReturn']['ErrorCode'] != '00') {
                     $return = tool::getSuccInfo(0, $data['GeneralInfoReturn']['ErrorMessage']);
                }
-               d($res, $data);exit();
                $message = $data['PolicyInfoReturns']['PolicyInfoReturn']['SaveResult'] .'|'. $data['PolicyInfoReturns']['PolicyInfoReturn'][ 'SaveMessage'] . '|';
                $message .= $data['PolicyInfoReturns']['PolicyInfoReturn']['InsuredReturns']['InsuredReturn']['CheckResult']  .'|'. $data['PolicyInfoReturns']['PolicyInfoReturn']['InsuredReturns']['InsuredReturn']['CheckMessage'] ;
                if ( $data['PolicyInfoReturns']['PolicyInfoReturn']['SaveResult'] == '00' && $data['PolicyInfoReturns']['PolicyInfoReturn']['InsuredReturns']['InsuredReturn']['CheckResult'] == '00') {

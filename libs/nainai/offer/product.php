@@ -338,7 +338,10 @@ class product {
             if($item['pid']==$pid){
                 $v = $items[$key];
                 $v['unit'] = $items[$key]['unit'] =='' ? $unit : $items[$key]['unit'] ;
-                $v['risk_data'] = unserialize($item['risk_data']);
+                if (!empty($item['risk_data'])) {
+                    $v['risk_data'] = explode(',', $item['risk_data'])s;
+                }
+                
                 $tree[$item['id']] = $v;
                // unset($items[$key]);
                 $tree[$item['id']]['child'] = $this->generateTree($items,$item['id'],$v['unit']);

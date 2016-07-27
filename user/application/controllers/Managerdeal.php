@@ -81,30 +81,21 @@ class ManagerDealController extends UcenterBaseController {
         //获取保险
         $key = count($category['cate']);
         $risk = new \nainai\insurance\Risk();
-        $list = $risk->getRiskList(-1, array('status' => 1));
-        $company = $risk->getCompany();
          $risk_data = array();
         //获取默认的分类设置的保险， 如果最下级默认没有保险，用父级的。
         do{
             $risk_data = $category['cate'][$key]['show'][0]['risk_data'];
-            $risk = array();
+            $risks = array();
             if (!empty($risk_data)) {
-                foreach ($risk_data as &$value) {
-                    $risk[$value]['risk_id'] = $list[$value]['id'];
-                    $risk[$value]['name'] = $list[$value]['name'];
-                    $risk[$value]['company'] = $list[$value]['company'];
-                    $risk[$value]['mode'] = $list[$value]['mode'];
-                    $risk[$value]['fee'] = $list[$value]['fee'];
-                }
+                $risks = $risk->getRiskDetail($risk_data);
                 break;
             }
             $key --;
         }while($key > 0);
-
         $attr = $productModel->getProductAttr($category['chain']);
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('categorys', $category['cate']);
-        $this->getView()->assign('risk_data', $risk);
+        $this->getView()->assign('risk_data', $risks);
         $this->getView()->assign('attrs', $attr);
         $this->getView()->assign('unit', $category['unit']);
         $this->getView()->assign('cate_id', $category['default']);
@@ -348,16 +339,10 @@ class ManagerDealController extends UcenterBaseController {
                 }
                  //获取分类设置的保险
                 if (!empty($risk_data)) {
-                    $risk = array();
-                    foreach ($risk_data as &$value) {
-                        $risk[$value]['risk_id'] = $list[$value]['id'];
-                        $risk[$value]['name'] = $list[$value]['name'];
-                        $risk[$value]['company'] = $list[$value]['company'];
-                        $risk[$value]['mode'] = $list[$value]['mode'];
-                        $risk[$value]['fee'] = $list[$value]['fee'];
-                    }
+                    $risks = array();
+                    $risks = $risk->getRiskDetail($risk_data);
                 }
-                $cate['risk_data'] = $risk;
+                $cate['risk_data'] = $risks;
                 unset($cate['chain']);
                 echo JSON::encode($cate);
             }
@@ -612,7 +597,7 @@ class ManagerDealController extends UcenterBaseController {
             $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
             if ($offerDetail[0]['insurance'] == 1) {
                 $risk = new \nainai\insurance\Risk();
-                $riskData = $risk->getProductRisk($offerDetail[0]['risk'], $offerDetail[1]['cate_id']);
+                $riskData = $risk->getRiskDetail($offerDetail[0]['risk']);
                 $this->getView()->assign('riskData',$riskData);
             }
 

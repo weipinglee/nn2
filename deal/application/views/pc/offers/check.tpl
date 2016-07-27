@@ -46,7 +46,7 @@
               <img src="{views:images/order/oder-2.jpg}" width="205" height="47" alt="第二步" />
               </div> 
                
-            <form method="post" pay_secret=1 auto_submit action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
+            <form method="post" pay_secret=1 auto_submit action='{url:/trade/buyerPay}'>
             <div class="checkim">
             <h2>填写并核对订单信息<a id='contract_review' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:blue;">合同预览</a></h2>
                 
@@ -177,7 +177,9 @@
              {if:$data['left'] == 0}
                 <a style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="javascript:;">暂时无货</a>
              {else:}
-                <a class="btoncomit" href="{url: /Insurance/apply}?{set: echo http_build_query(array('id' => $data['id']))}" >申请保险</a>
+                 {if: $data['insurance'] == 0}
+                    <a href="{url: /Insurance/apply}?{set: echo http_build_query(array('id' => $data['id']))}" >申请保险</a>
+                {/if}
                 <a class="btoncomit" href="javascript:;" >确认支付</a>
              {/if}
             </div>
