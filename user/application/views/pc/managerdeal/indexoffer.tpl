@@ -9,7 +9,9 @@
 					<div class="chp_xx">
 						<div class="offer public">
 							<div class="offer_left">
-								<img src="{views:/images/center/publish1.png}">
+								<a href="{url:/ManagerDeal/depositOffer}">
+									<img src="{views:/images/center/publish1.png}">
+								</a>
 							</div>
 							<p class="of_title1">
 								<a class="title1_a public" href="{url:/ManagerDeal/depositOffer}">保证金报盘</a>
@@ -19,7 +21,7 @@
 						</div>
 						<div class="offer public">
 							<div class="offer_center">
-								<img src="{views:/images/center/publish2.png}">
+								<a href="{url:/ManagerDeal/freeOffer}"><img src="{views:/images/center/publish2.png}"></a>
 							</div>
 							<p class="of_title1">
 								<a class="title1_a public" href="{url:/ManagerDeal/freeOffer}">自由报盘</a>
@@ -29,7 +31,9 @@
 						</div>
 						<div class="offer public">
 							<div class="offer_right">
-								<img src="{views:/images/center/publish3.png}">
+								<a href="{url:/ManagerDeal/storeOffer}">
+									<img src="{views:/images/center/publish3.png}">
+								</a>
 							</div>
 							<p class="of_title1">
 								<a class="title1_a public" href="{url:/ManagerDeal/storeOffer}">仓单报盘</a>
@@ -40,7 +44,9 @@
 
 						<div class="offer public">
 							<div class="offer_right">
-								<img src="{views:/images/center/publish4.png}">
+								<a href="{url:/ManagerDeal/deputeOffer}">
+									<img src="{views:/images/center/publish4.png}">
+								</a>
 							</div>
 							<p class="of_title1">
 								<a class="title1_a public" href="{url:/ManagerDeal/deputeOffer}">委托报盘</a>
