@@ -228,14 +228,15 @@ table {
     font-weight: bold;
 }
 .pay_bton a{
-    padding: 12px 10px;
     text-align: center;
-    font-size: 13px;
+    font-size: 18px;
     color: #fff;
     background: #D61515;
     display: block;
-    width: 108px;
-    border-radius: 25px;
+    width: 132px;
+    height: 41px;
+    line-height: 41px;
+    margin: 15px 0;
 }
 .pay_bton a:hover{
     text-decoration: none;

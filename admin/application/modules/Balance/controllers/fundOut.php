@@ -13,13 +13,31 @@ class fundOutController extends Yaf\Controller_Abstract {
 		$this->getView()->setLayout('admin');
 	}
 	//出金列表
-	public function fundOutListAction() {
+	public function checkFundOutListAction() {
 		$page = safe::filterGet('page', 'int');
 		$fundOutModel = new fundOutModel();
-		$data = $fundOutModel->getFundOutList($page);
+		$data = $fundOutModel->getCheckFundOutList($page);
 
 		//分配数据
-		$this->getView()->assign('data', $data);
+		$this->getView()->assign('data', $data[0]);
+		$this->getView()->assign('pageBar',$data[1]);
+
+	}
+	//已审核列表
+	public function checkedFundOutListAction(){
+		$page=safe::filterGet('page','int');
+		$fundOutModel=new fundOutModel();
+		$data=$fundOutModel->getcheckedFundOutList($page);
+		//分配数据
+		$this->getView()->assign('data',$data[0]);
+		$this->getView()->assign('pageBar',$data[1]);
+	}
+	public function pendingPaymentListAction(){
+		$page=safe::filterGet('page','int');
+		$fundOutModel=new fundOutModel();
+		$data=$fundOutModel->getPendingPaymentList($page);
+		$this->getView()->assign('data',$data[0]);
+		$this->getView()->assign('pageBar',$data[1]);
 
 	}
 	//出金详情页
@@ -31,6 +49,7 @@ class fundOutController extends Yaf\Controller_Abstract {
 		$controllerName = $this->getRequest()->getControllerName();
 		$moduleName = $this->getRequest()->getModuleName();
 		$data['url'] = \Library\url::createUrl($moduleName . '/' . $controllerName . '/' . $data['action']);
+
 		$data['proot'] = \Library\Thumb::get($data['proot'],180,180);
 		$data['bank_proof'] = \Library\Thumb::get($data['bank_proof'],180,180);
 		$this->getView()->assign('outInfo', $data);

@@ -72,7 +72,10 @@ class FundController extends UcenterBaseController {
 			$payment_id = 1;
 			//处理图片
 			$proof = safe::filterPost('imgfile1');
-
+			$fundObj=new \nainai\user\UserBank();
+			if(!$fundObj->getActiveBankInfo($this->user_id)){
+				die(JSON::encode(\Library\tool::getSuccInfo(0,'请申请开户银行')));
+			}
 			if (!isset($recharge) || $recharge <= 0  || $recharge > 99999999) {
 				die(json::encode(0,'金额不正确'))  ;
 			}
@@ -108,10 +111,34 @@ class FundController extends UcenterBaseController {
 	}
 	//充值视图
 	public function czAction() {
+		$where = array();
+		$cond['begin'] = safe::filterGet('begin');
+		$cond['end'] = safe::filterGet('end');
+		$cond['day'] = safe::filterGet('day','int',7);
+		$cond['no'] = safe::filterGet('Sn');
+		if($cond['begin'] || $cond['end']){
+			$where = array('begin'=>$cond['begin'],'end'=>$cond['end']);
+		}
+		else if($cond['day']){
+			$where['begin'] = \Library\time::getDateTime('',time()-$cond['day']*24*3600);
+		}
+
+		if($cond['no'])
+			$where['no'] = $cond['no'];
+
 		$fund = \nainai\fund::createFund(1);
 		$total = $fund->getActive($this->user_id) + $fund->getFreeze($this->user_id);
-
+		$fundObj=new fundModel();
+		$page=safe::filterGet('page','int');
+		$flow=$fundObj->getFundInList($this->user_id,$where,$page);
+		foreach($flow[0] as $k=>$v){
+			$flow[0][$k]['pay_type']=$fundObj::getPayType($v['pay_type']);
+			$flow[0][$k]['status']=$fundObj::getOffLineStatustext($v['status']);
+		}
 		$configs = \nainai\configs::getConfigsByType('jiesuan');
+		$this->getView()->assign('pageBar',$flow[1]);
+		$this->getView()->assign('cond',$cond);
+		$this->getView()->assign('flow',$flow[0]);
 		$this->getView()->assign('acc',$configs);
 		$this->getView()->assign('total',$total);
 
@@ -184,6 +211,7 @@ class FundController extends UcenterBaseController {
 			else
 				$status = '未申请';
 			$this->getView()->assign('status',$status);
+			$this->getView()->assign('user_type',$this->user_type);
 			$type = $fundModel->getCardType();
 			$this->getView()->assign('type',$type);
 		}

@@ -130,7 +130,7 @@
                            <input type="hidden" name="order_id" value="{$data['id']}" />
                            <div class="pay_bton">
                                <h5>待支付金额：<i>{$data['seller_deposit']}</i>元</h5>
-                               <input type="submit" value="立即缴纳保证金" />
+                               <input class="submit_bzj" type="submit" value="立即缴纳保证金" />
                            </div>
 
                        </form>

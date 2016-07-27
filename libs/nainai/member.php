@@ -134,7 +134,7 @@ class member{
     /**
      * 验证支付密码
      * @param  string $password 支付密码
-     * @return boolean    true:通过 false:未通过
+     * @return boolean    1:通过 2:密码未设置，0：密码错误
      */
     public function validPaymentPassword($password,$user_id = 0){
         if(!$password) return false;
@@ -144,9 +144,14 @@ class member{
         }
         $user = new M('user');
         $pay_secret = $user->where(array('id'=>$user_id))->getField('pay_secret');
+        if($pay_secret==''){
+            $url = \Library\url::createUrl('/ucenter/paysecret@user');
+            IS_AJAX ? die(\Library\json::encode(\Library\tool::getSuccInfo(0,'请先设置支付密码',$url))) : die('<script type="text/javascript" >window.location.href="'.$url.'"</script>');
+        }
         if(md5($password) == $pay_secret){
             return true;
-        }else{
+        }
+        else{
             return false;
         }
     }
@@ -157,7 +162,7 @@ class member{
     public function getSecretUrl(){
         return $secret_url = array(
             'ucenter/ind1ex','ucenter/xxxx','order/buyerretainage','test/form','deposit/sellerdeposit',
-            'managerdeal/dofreeoffer','purchaseorder/geneorderhandle',
+            'managerdeal/dofreeoffer',
         );
     }
 

@@ -23,7 +23,7 @@
     <div class="content">
         <div class="pd-20">
     <form action="{$outInfo['url']}" method="post"  class="form form-horizontal"
-     id="offlineEidt" auto_submit redirect_url="{url:/balance/fundOut/fundOutList}">
+     id="offlineEidt" auto_submit redirect_url="{url:/balance/fundOut/checkFundOutList}">
         
         <div class="row cl">
             <label class="form-label col-2">当前状态：</label>

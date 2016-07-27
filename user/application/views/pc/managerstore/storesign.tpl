@@ -332,7 +332,6 @@
             </div>
 <script type="text/javascript">
     $(function(){
-        nextTab({$certShow['step']});
 
         $('#store_id').on('change', getStoreArea);
 

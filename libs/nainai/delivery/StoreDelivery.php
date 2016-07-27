@@ -28,10 +28,15 @@ class StoreDelivery extends Delivery{
 	public function storeFees($delivery_id){
 		$query = new Query('product_delivery as pd');
 		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_list as sl on sp.store_id = sl.id left join products as p on po.product_id = p.id left join order_sell as o on pd.order_id = o.id';
-		$query->fields = 'pd.num as delivery_num,sp.store_price,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num';
+		$query->fields = 'pd.num as delivery_num,sp.store_price,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
+		$pro = new \nainai\offer\product();
+		$photos = $pro->getProductPhoto($res['product_id']);
+	            $res['photos'] = $photos[1];
+	            $res['origphotos'] = $photos[0];
+	            $res['img_thumb'] = $res['photos'][0];
 		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * ceil(abs(time::getDiffSec($res['rent_time'])) / 86400),2);
 		$res['now_time'] = time::getDateTime();
 		return $res;
@@ -189,12 +194,13 @@ class StoreDelivery extends Delivery{
 					$deliveryData['status'] = parent::DELIVERY_COMPLETE;
 				}
 				try {
-					$this->orderObj->beginTrans();
+					$order = new M('order_sell');
+					$order->beginTrans();
 					$this->deliveryUpdate($deliveryData);
 					$this->orderObj->orderUpdate(array('id'=>$delivery['order_id'],'contract_status'=>order\Order::CONTRACT_DELIVERY_COMPLETE));
-					$this->orderObj->commit();	
+					$order->commit();	
 				} catch (\PDOException $e) {
-					$this->orderObj->rollBack();
+					$order->rollBack();
 					$error = $e->getMessage();
 				}
 				

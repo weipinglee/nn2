@@ -1,8 +1,8 @@
 <?php
-
+namespace  Library\hsms;
+use Library\tool;
 require_once('jz/nusoap-for-php5.3.php');
-
-class jianzhou extends hsmsBase{
+class jianzhou extends \Library\hsmsBase{
 	
 	private static $submitUrl = "http://www.jianzhou.sh.cn/JianzhouSMSWSServer/services/BusinessService";
 	
@@ -13,12 +13,12 @@ class jianzhou extends hsmsBase{
 	public function getParam()
 	{
 		//如果后台没有设置的话，这里手动配置也可以
-		$siteConfigObj = new Config("site_config");
+		$siteConfigObj = tool::getGlobalConfig('sms');
 	
 		return array(
-				'account'   => $siteConfigObj->sms_account,
-				'password'  => $siteConfigObj->sms_password,
-				'sign'      => $siteConfigObj->sms_sign
+				'account'   => $siteConfigObj['account'],
+				'password'  => $siteConfigObj['password'],
+				'sign'      => $siteConfigObj['sign']
 		);
 	}
 	
@@ -28,7 +28,7 @@ class jianzhou extends hsmsBase{
 	 */
 	private static function getObj(){
 		$url = self::$submitUrl.'?wsdl';
-		$client = new nusoap_client($url, true);
+		$client = new \nusoap_client($url, true);
 		$client->soap_defencoding = 'utf-8';
 		$client->decode_utf8      = false;
 		$client->xml_encoding     = 'utf-8';
@@ -44,7 +44,6 @@ class jianzhou extends hsmsBase{
 		$config = self::getParam();
 		
 		$obj = self::getObj();
-		
 		$params = array(
 				'account' => $config['account'],
 				'password' => $config['password'],

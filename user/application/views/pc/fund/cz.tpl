@@ -3,7 +3,7 @@
 <!--start中间内容-->
 			<div class="user_c">
 				<!--start代理账户充值-->
-				<div class="user_pay">
+				<div class="user_zhxi">
 				<form method='post' action="{url:/fund/doFundIn}"enctype="multipart/form-data" auto_submit redirect_url="{url:/fund/index}">
 					<div class="zhxi_tit">
 						<p><a>资金管理</a>><a>代理账户管理</a>><a>充值</a>
@@ -127,6 +127,56 @@
 		<!--TAB切换end  -->
 					</div>
 				</form>
+					<div class="zj_mx">
+						<div class="mx_l">结算账户资金明细</div>
+						<form action="{url:/Fund/cz}" method="GET" name="">
+							<div class="mx_r">
+								交易时间：<input class="Wdate" name="begin" type="text" value="{$cond['begin']}" onClick="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'})">
+								-
+								<input class="Wdate" type="text" name="end" value="{$cond['end']}" onClick="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'})">
+								交易号：<input type="text" value="{$cond['no']}" name="Sn">
+								<select name="day" >
+									<option value="7" {if:$cond['day']==7}selected{/if}>一周内</option>
+									<option value="30" {if:$cond['day']==30}selected{/if}>一个月内</option>
+									<option value="365" {if:$cond['day']==365}selected{/if}>一年内</option>
+								</select>
+								<button type="submit">搜索</button>
+							</div>
+						</form>
+					</div>
+					<div class="jy_xq">
+						<table cellpadding="0" cellspacing="0" style="margin:20px auto;width:725px;border-top:1px #dcdcdc solid;border-left: 1px #dcdcdc solid;text-align: center;">
+							<tr>
+								<th>交易号</th>
+								<th>交易时间</th>
+								<th>金额</th>
+								<th>支付方式</th>
+								<th>状态</th>
+								<th>摘要备注</th>
+							</tr>
+							{foreach:items=$flow }
+								<tr>
+
+									<td>{$item['order_no']}</td>
+									<td>{$item['create_time']}</td>
+									<td>{$item['amount']}</td>
+									<td>{$item['pay_type']}</td>
+									<td>{$item['status']}</td>
+									{if: $item['first_time']!=null&&$item['final_time']==null}
+									<td>{$item['first_message']}</td>
+									{/if}
+									{if: $item['final_tiem']!=null}
+									<td>{$item['final_message']}</td>
+									{/if}
+								</tr>
+							{/foreach}
+							<tr>
+								<td colspan="100">{$pageBar}</td>
+							</tr>
+						</table>
+
+					</div>
+
 				</div>
 			</div>
 			

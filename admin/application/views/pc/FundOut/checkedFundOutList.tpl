@@ -6,7 +6,7 @@
             <h1><img src="{views:img/icons/posts.png}" alt="" /> 线下出金</h1>
 <div class="bloc">
     <div class="title">
-        提现列表
+        提现已审核列表
     </div>
     <div class="content">
         <div class="pd-20">
@@ -65,6 +65,6 @@
 	}
 </script>
 	</table>
-		{$data['bar']}
+		{$pageBar}
 	</div>
 </div>
