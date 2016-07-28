@@ -400,7 +400,7 @@ class store{
                 }
                 //插入仓单数据
                 $storeData['product_id'] = $pId;
-                $storeData['status'] = self::USER_APPLY;
+                $storeData['status'] = self::STOREMANAGER_SIGN;
                 $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
             }
             $res = $storeProductObj->commit();
@@ -410,7 +410,7 @@ class store{
             $res = $storeProductObj->getError();
         }
         if($res===true){
-            $resInfo = Tool::getSuccInfo();
+            $resInfo = Tool::getSuccInfo(1, 'success');
         }
         else{
             $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
