@@ -82,6 +82,12 @@
                 <span><input class="text" type="text" name="agent_pass"/></span>
                 <span></span>
             </div>
+            <!-- 协议开始 -->
+            <div class="form-agreen">
+                    <div><input name="agreen" checked="" type="checkbox">我已阅读并同意<a href="agreement.html}">《耐耐网网站用户协议》</a> </div>
+                   
+            </div>
+            <!-- 协议结束 -->
            <div class="cot">
             <span class="zc"><input class="but" type="submit"value="完成注册"/></span>
           </div>
@@ -203,7 +209,12 @@
             <span><input class="text" type="text" name="agent_pass"/></span>
 			<span></span>
           </div>
-
+       <!-- 协议开始 -->
+            <div class="form-agreen">
+                    <div><input name="agreen" checked="" type="checkbox">我已阅读并同意<a href="javascript:;">《耐耐网网站用户协议》</a> </div>
+                   
+            </div>
+      <!-- 协议结束 -->
            <div class="cot">
             <span class="zc"><input class="but" type="submit" value="完成注册"/></span>
           </div>
