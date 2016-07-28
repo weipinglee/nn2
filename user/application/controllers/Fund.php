@@ -46,6 +46,51 @@ class FundController extends UcenterBaseController {
 		//$obj = new \nainai\fund();
 	}
 
+	//中信银行签约账户
+	public function zxAction(){
+		$zx = new \nainai\fund\zx();
+		$balance = $zx->attachBalance($this->user_id);
+		$details = $zx->attachTransDetails($this->user_id);
+		// echo '<pre>';var_dump($details);exit;
+
+		if($details['returnRecords'] == 1){
+			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['TRANTYPE']);
+			$details['row'] = array($details['row']);
+		}else{
+			foreach ($details['row'] as $key => &$value) {
+				$value = (array)$value;
+				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['TRANTYPE']);
+			}
+		}
+
+		$this->getView()->assign('balance',$balance);
+		$this->getView()->assign('flow',$details['row']);
+		// echo '<pre>';var_dump($details['row']);exit;
+
+	}
+
+	//开通中信附属账户
+	public function zxpageAction(){
+		$zx = new \nainai\fund\zx();
+		if(IS_POST){
+			$data = array(
+				'user_id'=>$this->user_id,
+				'name'=>safe::filterPost('name'),
+				'legal'=>safe::filterPost('legal'),
+				'id_card'=>safe::filterPost('id_card'),
+				'address'=>safe::filterPost('address'),
+				'contact_phone'=>safe::filterPost('contact_phone'),
+				'contact_name'=>safe::filterPost('contact_name'),
+				'mail_address'=>safe::filterPost('mail_address'),
+			);
+			$res = $zx->geneAttachAccount($data);
+			die(JSON::encode($res));
+			return false;
+		}else{
+			$data = $zx->attachAccountInfo($this->user_id);
+			$this->getView()->assign('info',$data);
+		}
+	}
 
 	//处理充值操作
 	public function doFundInAction() {

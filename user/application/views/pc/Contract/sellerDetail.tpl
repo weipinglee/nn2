@@ -140,7 +140,9 @@
 									<th>商品价格</th>
 									<th>商品数量</th>
 									<th>小计</th>
-									<th>提货</th>
+									{if:$show_delivery}
+										<th>提货</th>
+									{/if}
 								</tr>
 								<tr>
 									<td><img src="{views:images/banner/551b861eNe1c401dc.jpg}"/></td>
@@ -148,8 +150,9 @@
 									<td>{$info['price']}</td>
 									<td>{$info['num']}{$info['unit']}</td>
 									<td>{$info['amount']}</td>
-									<td>{$info['delivery_status']}</td>
-
+									{if:$show_delivery}
+										<td>{$info['delivery_status']}</td>
+									{/if}
 								</tr>
 							</tbody></table>
 						</div>

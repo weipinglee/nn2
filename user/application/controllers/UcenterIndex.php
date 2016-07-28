@@ -8,11 +8,20 @@
 class UcenterIndexController extends UcenterBaseController {
 
 
-
     /**
      * 个人中心首页
      */
     public function indexAction(){
+
+        // $a = new \nainai\fund\zx();
+        // $res = $a->freezeRelease(53,0.1,'2016000003752');
+        // $res = $a->freezeTrans(53,'20160727');
+        // // $res = $a->attachBalance(array('no'=>'3110710003081042796'));
+        // // $res = $a->acountInit(53,2000,'测试初始化赵六2');
+        // $res = $a->freeze(53,0.01);
+        // echo '<pre>';var_dump($res);exit;
+        // exit;
+
         $group = new \nainai\member();
 
         $groupData = $group->getUserGroup($this->user_id);//会员分组数据

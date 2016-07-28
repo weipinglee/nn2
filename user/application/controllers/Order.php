@@ -21,17 +21,18 @@ class OrderController extends UcenterBaseController{
 
 		if(IS_POST){
 			$order_id = safe::filterPost('order_id','int');
-			$type = safe::filterPost('payment');
+			$type = safe::filterPost('payment');//线上or线下
+			$account = safe::filterPost('account');//支付方式
 			$proof = safe::filterPost('imgproof');
 
 			$user_id = $this->user_id;
-			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof);
+			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof,$account);
 
 			if($res['success'] == 1){
 				$title = $type == 'offline' ? '已上传支付凭证' : '已支付尾款';
 				$info = $type == 'offline' ? '请等待卖家确认凭证' : '合同已生效，可申请提货';
-
-				die(json::encode(tool::getSuccInfo(1,$title,url::createUrl('/contract/buyerdetail?id='.$order_id))));
+				
+				die(json::encode(tool::getSuccInfo(1,$title,url::createUrl('/contract/buyerlist'))));
 				//$this->redirect(url::createUrl('/Order/payRetainageSuc')."/title/$title/info/$info");
 			}else{
 				die(json::encode($res));
@@ -41,14 +42,31 @@ class OrderController extends UcenterBaseController{
 			$order_id = safe::filter($this->_request->getParam('order_id'),'int');
 			$data = $this->order->contractDetail($order_id);
 			$data['pay_retainage'] = number_format(floatval($data['amount']) - floatval($data['pay_deposit']),2);
-			$bankinfo = $this->order->userBankInfo($data['user_id']);
-
+			// tool::pre_dump($data);
+			$seller = $data['type'] == 1 ? $data['seller_id'] : $data['user_id'];
+			$bankinfo = $this->order->userBankInfo($seller);
+			// $bankinfo = array();
+			$data['seller'] = $seller;
 			$this->getView()->assign('show_online',$data['mode'] == \nainai\order\Order::ORDER_DEPOSIT || $data['mode'] == \nainai\order\Order::ORDER_STORE || $data['mode'] == \nainai\order\Order::ORDER_PURCHASE ? 1 : 0);
 			$this->getView()->assign('bankinfo',$bankinfo);
 			$this->getView()->assign('data',$data);
 		}
 	}
 	
+	/**
+	 * 通知买方开户
+	 */
+	public function banckNoticeAction(){
+		$id = safe::filter($this->_request->getParam('tar_id'),'int');
+		$mess = new \nainai\message($id);
+		$res = $mess->send('newbankaccount');
+		if($res['code'] == 1){
+			$this->success('已通知买方开户');
+		}else{
+			$this->error('通知失败');
+		}
+	}
+
 	//支付尾款成功
 	public function payRetainageSucAction(){
 		$this->getView()->assign('title',safe::filter($this->_request->getParam('title')));

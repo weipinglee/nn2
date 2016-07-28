@@ -31,6 +31,9 @@ class Order{
 	const ORDER_ENTRUST = 3;//委托报盘
 	const ORDER_STORE = 4;//仓单报盘订单
 
+	const PAYMENT_AGENT = 1;//代理账户
+	const PAYMENT_BANK = 2;//银行签约账户
+	const PAYMENT_TICKET = 3;//票据账户
 
 	protected $order_table;//订单表名
 	protected $offer_table;//报盘表
@@ -43,6 +46,7 @@ class Order{
 	protected $paylog;//日志
 	protected $mess;//消息表
 	protected $user_invoice;//用户发票类
+	protected $zx;//中信银行签约类
 
 	/**
 	 * 规则
@@ -67,6 +71,7 @@ class Order{
 		$this->paylog = new M('pay_log');
 		$this->account = new \nainai\fund\agentAccount();
 		$this->user_invoice = new \nainai\user\UserInvoice();
+		$this->zx = new \nainai\fund\zx();
 	}	
 
 	/**
@@ -224,14 +229,33 @@ class Order{
 			if($product_valid !== true)
 				return tool::getSuccInfo(0,$product_valid);
 			$orderData['amount'] = $offer_info['price'] * $orderData['num'];
-			// if($orderData['payment'] == 1){
-				//代理账户,判断用户买家余额是否足够
-				$user_id = $orderData['user_id'];
-				$balance = $this->account->getActive($user_id);
-				if(floatval($balance) < $orderData['amount']){
-					return tool::getSuccInfo(0,'代理账户余额不足');
-				}
-			// }
+			//获取摘牌所需定金数额
+			$pay_deposit = $this->payDepositCom($orderData['offer_id'],$orderData['amount']);
+			$user_id = isset($orderData['buyer_id']) ? $orderData['buyer_id'] : $orderData['user_id'];//采购买家与正常相反
+
+			//判断用户买家余额是否足够
+			switch ($orderData['payment']) {
+				case self::PAYMENT_AGENT:
+					//代理账户
+					$balance = $this->account->getActive($user_id);
+					break;
+				case self::PAYMENT_BANK:
+					//银行签约账户
+					$balance = $this->zx->attachBalance($user_id);
+					$balance = $balance['KYAMT'];
+					break;
+				case self::PAYMENT_TICKET:
+					//票据账户
+					break;
+				default:
+					return tool::getSuccInfo(0,'参数错误');
+					break;
+			}
+			
+			if(floatval($balance) < $pay_deposit){
+				return tool::getSuccInfo(0,'账户余额不足');
+			}
+
 			$upd_res = $this->orderUpdate($orderData);
 			$pro_res = $this->productsFreeze($offer_info,$orderData['num']);
 			if($pro_res != true) return tool::getSuccInfo(0,$pro_res);
@@ -278,10 +302,16 @@ class Order{
 		return $res ? $res : array();
 	}
 
-	
-
-	//买家支付尾款
-	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = ''){
+	/**
+	 * 买家支付尾款
+	 * @param  int  $order_id 订单id
+	 * @param  int  $user_id  当前操作用户id
+	 * @param  string  $payment  线上/线下支付
+	 * @param  string  $proof    线下支付凭证图片
+	 * @param  int $account  线上支付方式
+	 * @return array  操作信息
+	 */
+	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = '',$account=0){
 		$info = $this->orderInfo(intval($order_id));
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
@@ -298,31 +328,46 @@ class Order{
 					try {
 						$this->order->beginTrans();
 						$orderData['id'] = $order_id;
+						$orderData['retainage_payment'] = $account;
 						$payment = in_array($info['mode'],array(self::ORDER_ENTRUST,self::ORDER_FREE)) ? 'offline' : $payment;//自由与委托报盘只接受线下凭证
+
 						if($payment == 'online'){
 							//冻结买家帐户余额
-							$note = '支付合同'.$info['order_no'].'尾款';
-							$acc_res = $this->account->freeze($buyer,$retainage,$note);
-
-							if($acc_res === true){
-								$orderData['pay_retainage'] = $retainage;
-								$orderData['contract_status'] = self::CONTRACT_EFFECT;//payment为1  合同状态置为生效
-								$upd_res = $this->orderUpdate($orderData);
-								if($upd_res['success'] == 1){
-									$log_res = $this->payLog($order_id,$user_id,0,'买家线上支付尾款');
-									$seller = $this->sellerUserid($order_id);
-									if(is_int($seller)){
-										$mess = new \nainai\message($seller);
-										$mess->send('buyerRetainage',$order_id);
-									}
-									$res = $log_res === true ? $this->order->commit() : $log_res;
-								}else{
-									$res = $upd_res['info'];
+							$clientID = tool::create_uuid($buyer);
+							$orderData['pay_retainage'] = $retainage;
+							$orderData['contract_status'] = self::CONTRACT_EFFECT;//payment为1  合同状态置为生效
+							$orderData['retainage_clientid'] = $account == self::PAYMENT_BANK ? $clientID : '';
+							$upd_res = $this->orderUpdate($orderData);
+							if($upd_res['success'] == 1){
+								$log_res = $this->payLog($order_id,$user_id,0,'买家线上支付尾款');
+								$seller = $this->sellerUserid($order_id);
+								if(is_int($seller)){
+									$mess = new \nainai\message($seller);
+									$mess->send('buyerRetainage',$order_id);
 								}
+								$res = $log_res;
 							}else{
-								$this->order->rollBack();
-								$res = $acc_res['info'];
+								$res = $upd_res['info'];
 							}
+							if($res === true){
+								$note = '支付合同'.$info['order_no'].'尾款';
+								switch ($account) {
+									case self::PAYMENT_AGENT:
+										$acc_res = $this->account->freeze($buyer,$retainage,$note);	
+										break;
+									case self::PAYMENT_BANK:
+
+										$acc_res = $this->zx->freeze($buyer,$retainage,$clientID);
+										break;
+									case self::PAYMENT_TICKET:
+										break;
+									default:
+										$acc_res = '参数错误';
+										break;
+								}
+								$res = $acc_res;
+							}
+							if($res === true) $res = $this->order->commit();
 						}elseif($payment == 'offline'){
 							$orderData['proof'] = $proof;
 							$upd_res = $this->orderUpdate($orderData);
@@ -645,24 +690,82 @@ class Order{
 				try {
 					$this->order->beginTrans();
 					$res = $this->orderUpdate($orderData);
-						
+					if($res['success'] == 1){
 						//将订单款 减去扣减款项 后的60%支付给卖方
 						$reduce_amount = floatval($order['reduce_amount']); 
-
 						$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.6);
+						$amount = floatval($amount);
+						// switch ($order['buyer_deposit_payment']) {
+						// 	case self::PAYMENT_AGENT:
+						// 		// if($)
+						// 		break;
+						// 	case self::PAYMENT_BANK:
+						// 		break;
+						// 	case self::PAYMENT_TICKET:
+						// 		$error = '定金支付方式错误';
+						// 		break;
+						// 	default:
+						// 		$error = '定金支付方式错误';
+						// 		break;
+						// }
 
-						$acc_res = $this->account->freezePay($buyer,$seller,floatval($amount));
-						if($acc_res === true){
-							$log_res = $this->payLog($order_id,$user_id,0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
-							if($log_res === true){
+						// switch ($order['retainage_payment']) {
+						// 	case self::PAYMENT_AGENT:
+						// 		# code...
+						// 		break;
+						// 	case self::PAYMENT_BANK:
+						// 		break;
+						// 	case self::PAYMENT_TICKET:
+						// 		$error = '定金支付方式错误';
+						// 		break;
+						// 	default:
+						// 		break;
+						// }
+						$res = $this->payLog($order_id,$user_id,0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
+
+						if($res === true){
+
+							//目前只考虑全部流程只选一种支付方式
+							switch ($order['buyer_deposit_payment']) {
+								case self::PAYMENT_AGENT:
+									$acc_res = $this->account->freezePay($buyer,$seller,$amount);
+									break;
+								case self::PAYMENT_BANK:
+									$freeze_records = $this->zx->freezeTrans($buyer,$order['create_time']);
+									// echo '<pre>';var_dump($freeze_records);exit;
+									//获取买方定金与线上尾款的冻结编号
+									$deposit_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_deposit']*0.4+$reduce_amount*0.6);
+									$retainage_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_retainage']*0.4,array($deposit_djcode));
+									
+									//银行事务问题   如何保证??
+									if($deposit_djcode && $retainage_djcode){
+										$deposit_freeze = $this->zx->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6,$deposit_djcode);
+										$retainage_freeze = $this->zx->freezePay($buyer,$seller,$order['pay_retainage']*0.6,$retainage_djcode);
+										
+										if(!($deposit_freeze === true && $retainage_freeze === true)){
+											$error = '冻结支付失败';
+										}
+									}else{
+										$error = '签约账户冻结信息有误';
+									}
+									break;
+								case self::PAYMENT_TICKET:
+									$error = '定金支付方式错误';
+									break;
+								default:
+									$error = '定金支付方式错误';
+									break;
+							}
+							if(!$error){
 								$this->order->commit();
 								return tool::getSuccInfo();
-							}else{
-								$error = $log_res;
 							}
 						}else{
-							$error = $acc_res;
+							$error = $log_res;
 						}
+					}else{
+						$error = $res['info'];
+					}
 				}catch(PDOException $e) {
 					$this->order->rollBack();
 					$error = $e->getMessage();
@@ -701,40 +804,65 @@ class Order{
 					$this->order->beginTrans();
 					$res = $this->orderUpdate($orderData);
 					if($res['success'] == 1){
-						//判断是否为保证金订单
-						if($order['mode'] == self::ORDER_DEPOSIT){
-							//如果是则需要将卖家的保证金解冻
-							$accf_res = $this->account->freezeRelease($seller,floatval($order['seller_deposit']));
-						}else{
-							$accf_res = true;
-						}
+						//支付剩余货款 减去扣减款项 后的40%
+						$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($buyer,$reduce_amount) : true;
+						$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.4);
+						$amount = floatval($amount);
+
+						//若$reduce_amount 大于0 则将此扣减项返还买方账户
+						$reduce_amount = floatval($order['reduce_amount']); 
 						
-						if($accf_res === true){
-							//支付剩余货款 减去扣减款项 后的40%
-							$reduce_amount = floatval($order['reduce_amount']); 
-							$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.4);
-							$accp_res = $this->account->freezePay($buyer,$seller,floatval($amount));
-							if($accp_res === true){
-								//若$reduce_amount 大于0 则将此扣减项返还买方账户
-								$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($buyer,$reduce_amount) : true;
-								$log_res = $this->payLog($order_id,$user_id,0,'买家确认合同,合同结束'.($reduce_amount > 0 ? "(返还扣减项:$reduce_amount)" : ''));
-								if($log_res === true){
-									if($reduce_res === true){
-										$this->order->commit();
-										return tool::getSuccInfo();	
+						$res = $this->payLog($order_id,$user_id,0,'买家确认合同,合同结束'.($reduce_amount > 0 ? "(返还扣减项:$reduce_amount)" : ''));
+
+						//目前只考虑全部流程只选一种支付方式
+							switch ($order['buyer_deposit_payment']) {
+								case self::PAYMENT_AGENT:
+									$acc_res = $this->account->freezePay($buyer,$seller,$amount);
+									if($acc_res !== true) $error = $acc_res;
+									$accp_res = $this->account->freezeRelease($seller,floatval($order['seller_deposit']));
+									if($accp_res !== true) $error = $accp_res;
+									$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($buyer,$reduce_amount) : true;
+									if($reduce_res !== true) $error = $reduce_res;
+									break;
+								case self::PAYMENT_BANK:
+									$freeze_records = $this->zx->freezeTrans($buyer,$order['create_time']);
+									// tool::pre_dump($freeze_records);exit;
+									$seller_freeze_records = $this->zx->freezeTrans($seller,$order['create_time']);
+									$seller_deposit_djcode = $this->zx->getFreezeCode($seller_freeze_records,$order['seller_deposit']);
+									//解冻卖方保证金
+									if($seller_deposit_djcode){
+										$accp_res = $this->zx->freezeRelease($seller,$order['seller_deposit'],$seller_deposit_djcode);
 									}else{
-										$error = $reduce_res;
+										return tool::getSuccInfo(0,'卖方保证金解冻失败');
 									}
 									
-								}else{
-									$error = $log_res;
-								}
-							}else{
-								$error = $accp_res;
+									//获取买方定金与线上尾款的冻结编号
+									$deposit_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_deposit']*0.4+$reduce_amount*0.6);
+									$retainage_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_retainage']*0.4,array($deposit_djcode));
+									//银行事务问题   如何保证??
+									if($deposit_djcode && $retainage_djcode){
+										$deposit_freeze = $this->zx->freezePay($buyer,$seller,($order['pay_deposit']-$reduce_amount)*0.4,$deposit_djcode);
+										$retainage_freeze = $this->zx->freezePay($buyer,$seller,$order['pay_retainage']*0.4,$retainage_djcode);
+										$reduce_res = $reduce_amount > 0 ? $this->zx->freezeRelease($buyer,$reduce_amount,$deposit_djcode) : true;
+										if(!($deposit_freeze === true && $retainage_freeze === true && $reduce_res === true)){
+											$error = '冻结支付失败';
+										}
+									}else{
+										$error = '签约账户冻结信息有误';
+									}
+									break;
+								case self::PAYMENT_TICKET:
+									$error = '定金支付方式错误';
+									break;
+								default:
+									$error = '定金支付方式错误';
+									break;
 							}
-						}else{
-							$error = $accf_res;
+						if(!$error){
+							$this->order->commit();
+							return tool::getSuccInfo();
 						}
+						
 					}else{
 						$error = $res['info'];
 					}

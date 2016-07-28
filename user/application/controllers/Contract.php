@@ -71,6 +71,7 @@ class ContractController extends UcenterBaseController{
 		$invoice = $order->orderInvoiceInfo($info);
 		$info['complain'] = $order->canComplain($info);
 
+		$this->getView()->assign('show_delivery',in_array($info['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE)) ? true : false);
 		$this->getView()->assign('info',$info);
 		$this->getView()->assign('invoice',$invoice);
 	}
@@ -97,7 +98,7 @@ class ContractController extends UcenterBaseController{
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id);
 		$info['complain'] = $order->canComplain($info);
-
+		$this->getView()->assign('show_delivery',in_array($info['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE)) ? true : false);
 		$this->getView()->assign('info',$info);
 	}
 	//开具订单发票

@@ -50,7 +50,7 @@ class tradeController extends \nainai\controller\Base {
 				$order_mode = new order\EntrustOrder($offer_type);
 				break;
 			default:
-				die('无效报盘方式');
+				die(json::encode(tool::getSuccInfo(0,'无效报盘方式')));
 				break;
 		}
 
@@ -58,24 +58,24 @@ class tradeController extends \nainai\controller\Base {
 		//判断用户账户类型
 		if(in_array($offer_type,array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT))){
 			switch ($account) {
-				case 1:
+				case \nainai\order\Order::PAYMENT_AGENT:
 					//代理账户 直接余额扣款
-					$payment = 1;
 					break;
-				case 2:
-					die('票据账户支付暂时未开通，请选择代理账户');
-					//票据账户
-					break;
-				case 3:
-					die('签约账户支付暂时未开通，请选择代理账户');
+				case \nainai\order\Order::PAYMENT_BANK:
 					//签约账户
 					break;
+				case \nainai\order\Order::PAYMENT_TICKET:
+					die(json::encode(tool::getSuccInfo(0,'票据账户支付暂时未开通，请选择其他支付方式')));
+					
+					break;
 				default:
-					die('无效账户类型');
+					die(json::encode(tool::getSuccInfo(0,'无效账户类型')));
 					break;
 			}
 		}
 		$user_id = $this->user_id;
+		
+		$orderData['payment'] = $account;
 		$orderData['offer_id'] = $id;
 		$orderData['num'] = $num;
 		$orderData['order_no'] = tool::create_uuid();
@@ -84,6 +84,13 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['mode'] = $offer_type;
 		//判断是否需要开具发票
 		$orderData['invoice'] = $invoice == 1 ? 1 : 0;
+
+		//判断用户是否填写发票所需信息
+		$user_invoice = new \nainai\user\UserInvoice();
+		$invoce_info = $user_invoice->userInvoiceInfo($user_id);
+		if(!($invoce_info['title'] && $invoce_info['bank_no'])){
+			die(json::encode(tool::getSuccInfo(0,'发票信息未完善')));
+		}
 		$order = new M('order_sell');
 		try {
 			$order->beginTrans();
@@ -108,7 +115,7 @@ class tradeController extends \nainai\controller\Base {
 					if(!$zhi->validPaymentPassword($pay_secret,$this->user_id)){
 						die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
 					}
-					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id);
+					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id,$account);
 					if($pay_res['success'] == 1){
 						$this->offer->commit();
 						$url = url::createUrl('/trade/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']);

@@ -12,7 +12,7 @@
 					<th class="sj_ti_tit">品名</th>
 					<th class="sj_ti_tit">数量</th>
 					<th class="sj_ti_tit">仓库</th>
-					<th class="sj_ti_tit">合同号</th>
+					<th class="sj_ti_tit">订单号</th>
 					<th class="sj_ti_tit">日期</th>
 					<th class="sj_ti_tit">状态</th>
 					<th class="sj_ti_tit">操作</th>								

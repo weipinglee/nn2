@@ -51,6 +51,9 @@ class UcenterController extends UcenterBaseController {
                     $pay_secret = safe::filterPost('pay_secret');
                     if(!$pay_secret || !ctype_alnum($pay_secret))
                         $error = '密码格式有误';
+                    $re_secret = safe::filterPost('re_secret');
+                    if($re_secret != $pay_secret)
+                        $error = '两次输入的密码不一致';
                     $userData['pay_secret'] = md5($pay_secret);
                     break;
                 case 'edit':
