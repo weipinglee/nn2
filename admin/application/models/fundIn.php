@@ -87,14 +87,24 @@ class fundInModel{
     /**
      * 获取在线入金的列表
      */
-    public function getOnlineList($page=1){
+    public function getOnlineList($page=1, $pagesize, $condition=array()){
         $reModel = new adminQuery('recharge_order as r');
         //线上
         $reModel->join = 'left join user as u on r.user_id = u.id';
-        $reModel->fields = 'r.order_no,r.amount,r.proot,r.pay_type,r.status as recharge_status,r.create_time,u.username,u.mobile,u.type';
-        $reModel->where = 'pay_type <>'.self::OFFLINE.'  AND is_del = 0';
-        $reModel->page = $page;
-        $onlineInfo = $reModel->find();
+        $reModel->fields = 'r.order_no,r.amount,r.proot,r.pay_type,r.status,r.create_time,u.username,u.mobile,u.type';
+
+        
+        if ($condition['down'] != 1) {
+            $reModel->page = $page;
+            $reModel->pagesize = $pagesize;
+        }
+
+        $where = ' is_del=0 AND pay_type IN (:type)';
+        $bind = array('type' => $condition['type']);
+
+        $reModel->where = $where;
+        $reModel->bind = $bind;
+        $onlineInfo = $reModel->find($condition);
         return $onlineInfo;
 
     }
@@ -103,14 +113,17 @@ class fundInModel{
      * 线下入金申请列表
      * @param int $page
      */
-    public function getOffLineList($page=1){
+    public function getOffLineList($page=1, $pagesize, $condition=array()){
 
         $reModel = new adminQuery('recharge_order as r');
         //线下
         $reModel->join = 'left join user as u on u.id=r.user_id';
         $reModel->fields = 'u.username,r.*';
         $reModel->where = 'pay_type = '.self::OFFLINE.'  AND is_del = 0';
-        $reModel->page = $page;
+        if ($condition['down'] != 1) {
+            $reModel->page = $page;
+            $reModel->pagesize = $pagesize;
+        }
         $offlineInfo = $reModel->find();
         return $offlineInfo;
     }

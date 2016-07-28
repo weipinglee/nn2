@@ -22,14 +22,19 @@ class fundOutModel {
 		'freezeLess' => array('code' => 0, 'info' => '冻结金额不足'),
 		'outOk' => array('code' => 1, 'info' => '操作成功'),
 	);
-	public function getFundOutList($page = 1) {
+	public function getFundOutList($page = 1, $pagesize, $condition) {
 		$fundOut = new adminQuery('withdraw_request as w');
 		//线上
 		$fundOut->join = 'left join user as u on w.user_id = u.id';
 		$fundOut->fields = 'w.request_no,w.amount,w.status,w.create_time,u.username,u.mobile,u.type,w.id';
 		$fundOut->where = 'is_del = 0';
-		$fundOut->page = $page;
-		$outInfo = $fundOut->find();
+
+		if ($condition['down'] != 1) {
+		            $fundOut->page = $page;
+		            $fundOut->pagesize = $pagesize;
+		}
+
+		$outInfo = $fundOut->find($condition);
 		return $outInfo;
 	}
 	public static function getFundOutStatustext($status) {

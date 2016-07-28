@@ -8,19 +8,53 @@ use Library\JSON;
 use Library\safe;
 use Library\tool;
 
-class fundOutController extends Yaf\Controller_Abstract {
+class FundoutController extends InitController {
 	public function init() {
 		$this->getView()->setLayout('admin');
 	}
 	//出金列表
 	public function fundOutListAction() {
-		$page = safe::filterGet('page', 'int');
+		$page = Safe::filterGet('page', 'int', 1);
+		$begin = Safe::filterGet('begin');
+		$end = Safe::filterGet('end');
+		$down = Safe::filterGet('down', 'int', 0);
+		$condition['down'] = $down;
+		$condition['name'] = '出金列表';
+		if (empty($begin)) {
+			$begin = \Library\Time::getDateTime('Y-m-d');
+		}
+
+		if (empty($end)) {
+			$end = \Library\Time::getDateTime('Y-m-d');
+		}
+		$_GET['begin'] =  $begin . ' 00:00:00';
+		$_GET['end'] = $end . ' 23:59:59';
+
+		
 		$fundOutModel = new fundOutModel();
-		$data = $fundOutModel->getFundOutList($page);
+		$data = $fundOutModel->getFundOutList($page, $this->pagesize, $condition);
 
-		//分配数据
+		if ($down == 1) {
+			$excel = array(0 => array('用户名', '手机号', '订单号',  '金额', '状态', '时间'));
+			foreach ($data['list'] as $key => $value) {
+				$item = array();
+				$item['username'] = $value['username'];
+				$item['mobile'] = $value['mobile'];
+				$item['order_no'] = $value['request_no'];
+				$item['amount'] = $value['amount'];
+				$item['status_text'] = $fundOutModel::getFundOutStatustext($value['status']);
+				$item['create_time'] = $value['create_time'];
+				array_push($excel, $item);
+			}
+			$obj = new \Library\Excel\ExcelHtml();
+			$obj->createExecl($excel, count($excel[0]), "{$begin}至{$end}{$condition['name']}信息报表");
+			exit();
+		}
+
+		$this->getView()->assign('begin', $begin);
+		$this->getView()->assign('end', $end);
 		$this->getView()->assign('data', $data);
-
+		$this->getView()->assign('isDown', 1);
 	}
 	//出金详情页
 	public function fundOutEditAction() {

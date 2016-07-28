@@ -9,7 +9,7 @@ use Library\Safe;
 use Library\json;
 
 
-class AccmanageController extends Yaf\Controller_Abstract {
+class AccmanageController extends InitController {
 
 	protected $account = '';
 	//会用账户列表
@@ -19,23 +19,55 @@ class AccmanageController extends Yaf\Controller_Abstract {
 
 	}
 
-
+	/**
+	 * 信誉保证金账户列表
+	 */
+	public function userCreditListAction(){
+		$condition = array('name' => '信誉保证金账户列表', 'type' => 'Credit', 'types' => 1);
+		$this->userListData($condition);
+	}
 
 	//开户信息表
 	public function userAccListAction() {
-		$page = safe::filterGet('page', 'int');
-		$accObj = new \admintool\adminQuery('user_account as a');
-		$accObj->join = 'left join user as u on a.user_id = u.id';
-		$accObj->fields = 'a.*,u.username,u.mobile,u.create_time';
-		$accObj->page = $page;
-		$accInfo = $accObj->find();
-		foreach ($accInfo['list'] as $k => $v) {
-			$accInfo['list'][$k]['amount'] = $v['fund']+$v['freeze'];
-		}
-		//$accInfo['amount'] = $accInfo['fund']+$accInfo['freeze'];
-		$this->getView()->assign('data', $accInfo);
-
+		$condition = array('name' => '开户信息表', 'type' => 'Acc');
+		$this->userListData($condition);
 	}
+
+	public function userListData($condition=array()){
+		$page = safe::filterGet('page', 'int');
+		$down = Safe::filterGet('down', 'int', 0);
+
+		$condition['down'] = $down;
+		$data = $this->account->userCreditList($page, $this->pagesize, $condition);
+
+		if ($down == 1) {
+			if ($condition['type'] == 'Acc') {
+				$excel = array(0 => array('用户名', '手机号',  '总金额', '可用资金', '冻结资金'));
+			}else{
+				$excel = array(0 => array('用户名', '手机号',  '信誉保证金'));
+			}
+			foreach ($data['list'] as $key => $value) {
+				$item = array();
+				$item['username'] = $value['username'];
+				$item['mobile'] = $value['mobile'];
+				if ($condition['type'] == 'Acc') {
+					$item['amount'] = $value['amount'];
+					$item['fund'] = $value['fund'];
+					$item['freeze'] = $value['freeze'];
+				}else{
+					$item['credit'] = $value['credit'];
+				}
+				array_push($excel, $item);
+			}
+			$obj = new \Library\Excel\ExcelHtml();
+			$obj->createExecl($excel, count($excel[0]), "{$condition['name']}信息报表");
+			exit();
+		}
+		$this->getView()->assign('data', $data);
+		$this->getView()->assign('isDown', 1);
+	}
+
+	
 	public function userAccInfoAction() {
 		echo "<br />";
 		echo "<br />";
@@ -62,11 +94,9 @@ class AccmanageController extends Yaf\Controller_Abstract {
 	public function checkbankListAction()
 	{
 		$obj = new fundBankModel();
-		$page = safe::filterGet('page', 'int', 1);
-		$where = 'b.status = 0';
-		$data = $obj->getBankList($page, $where);
-		$this->getView()->assign('data', $data);
-
+		$condition = array('status' => $obj::BANK_APPLY);
+		$condition['name'] = '待审核开户';
+		$this->listData($condition);
 	}
 
 	/**
@@ -111,20 +141,61 @@ class AccmanageController extends Yaf\Controller_Abstract {
 	 */
 	public function checkedbankListAction(){
 		$obj = new fundBankModel();
-		$page = safe::filterGet('page','int',1);
-		$where = 'b.status != 0';
-		$data = $obj->getBankList($page,$where);
-		$this->getView()->assign('data',$data);
+		$condition = array('status' =>$obj::BANK_OK .','.$obj::BANK_NG);
+		$condition['name'] = '已审核开户';
+		$this->listData($condition);
 	}
 
-	/**
-	 * 信誉保证金账户列表
-	 */
-	public function userCreditListAction(){
-		$page = safe::filterGet('page','int');
-		$list = $this->account->userCreditList($page);
-		$this->getView()->assign('data',$list);
+	public function listData($condition = array()){
+		$obj = new fundBankModel();
+		$page = Safe::filterGet('page', 'int', 1);
+		$begin = Safe::filterGet('begin');
+		$end = Safe::filterGet('end');
+		$down = Safe::filterGet('down', 'int', 0);
+
+		$bankObj = new \nainai\user\userBank();
+		$card_type = $bankObj->getCardType();
+		$status_text = $bankObj::$status_text;
+		$condition['down'] = $down;
+
+		if (empty($begin)) {
+			$begin = \Library\Time::getDateTime('Y-m-d');
+		}
+
+		if (empty($end)) {
+			$end = \Library\Time::getDateTime('Y-m-d');
+		}
+		$_GET['begin'] =  $begin . ' 00:00:00';
+		$_GET['end'] = $end . ' 23:59:59';
+
+		$data = $obj->getBankList($page, $this->pagesize, $condition);
+
+		if ($down == 1) {
+			$excel = array(0 => array('用户名', '姓名',  '开户银行', '银行卡类型', '身份证号', '状态'));
+			foreach ($data['list'] as $key => $value) {
+				$item = array();
+				$item['username'] = $value['username'];
+				$item['truename'] = $value['true_name'];
+				$item['bank_name'] = $value['bank_name'];
+				$item['card_type'] = $card_type[$value['card_type']];
+				$item['identify_no'] = $value['identify_no']; 
+				$item['status_text'] = $status_text[$value['status']]; 
+				array_push($excel, $item);
+			}
+			$obj = new \Library\Excel\ExcelHtml();
+			$obj->createExecl($excel, count($excel[0]), "{$begin}至{$end}{$condition['name']}信息报表");
+			exit();
+		}
+
+		$this->getView()->assign('begin', $begin);
+		$this->getView()->assign('end', $end);
+		$this->getView()->assign('data', $data);
+		$this->getView()->assign('isDown', 1);
+		$this->getView()->assign('card_type', $card_type);
+		$this->getView()->assign('status_text', $status_text);
 	}
+
+
 
 	/**
 	 * 信誉保证金详情

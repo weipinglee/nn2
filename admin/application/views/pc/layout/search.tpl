@@ -1,6 +1,12 @@
+
 {if:$data['search']!=''}
+    {if: empty($begin)}
     {set:$begin=\Library\safe::filterGet('begin');}
+    {/if}
+    {if: empty($end)}
     {set:$end=\Library\safe::filterGet('end');}
+    {/if}
+
     {set:$like=\Library\safe::filterGet('like');}
     {set:$min=\Library\safe::filterGet('min');}
     {set:$max=\Library\safe::filterGet('max');}
@@ -33,7 +39,9 @@
                 </select>
             {/if}
             <button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜索</button>
-
+            {if: isset($isDown) && $isDown == 1}
+            <button type="submit" class="btn btn-success radius" id="" name="down" value="1"><i class="icon-search fa-search"></i> 导出</button>
+            {/if}
 
         </div>
     </form>

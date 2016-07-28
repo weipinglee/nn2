@@ -36,7 +36,7 @@
 				<td>{$item['proot']}</td>
 				<td>{echo:\fundInModel::getPayType($item['pay_type'])}</td>
 
-				<td>{$item['status']}</td>
+				<td>{echo:\fundInModel::getOffLineStatustext($item['status'])}</td>
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
 					<a title="删除" href="javascript:void(0);" onclick="delOnline({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
