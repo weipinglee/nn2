@@ -28,7 +28,7 @@
                     </div>
                     <div class="center_tabl">
                     <div class="lx_gg">
-                        <b>商品类型和规格</b>
+                        <b>商品类型</b>
                     </div>
 
                     {if: !empty($categorys)}

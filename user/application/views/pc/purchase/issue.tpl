@@ -26,7 +26,7 @@
                     </div>
                     <div class="center_tabl">
                     <div class="lx_gg">
-                        <b>商品类型和规格</b>
+                        <b>商品类型</b>
                     </div>
 
                     {if: !empty($categorys)}
@@ -43,19 +43,9 @@
                         {/if}
 
 
-                    <form action="{url:/Purchase/issue}" method="POST" auto_submit redirect_url="{url:/Purchase/issue}">
-                        <table border="0"  id='productAdd'>
-    {foreach: items=$attrs item=$attr}
+                    <form action="{url:/Purchase/issue}" method="POST" auto_submit redirect_url="{url:/Purchase/lists}">
+                        <table border="0"  >
 
-        <tr class="attr">
-            <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
-            <td colspan="2">
-                <input class="text" type="text" name="attribute[{$attr['id']}]" >
-            </td>
-        </tr>
-
-
-    {/foreach}
     <tr>
         <th colspan="3">基本挂牌信息</th>
     </tr>
@@ -97,22 +87,36 @@
         </td> -->
 
     <tr>
-                            <tr>
-                                <td nowrap="nowrap"><span></span>单位:</td>
-                                <td>
-                                    <span class="unit" >{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
-                                </td>
+    <tr>
+        <td nowrap="nowrap"><span></span>单位:</td>
+        <td>
+            <span class="unit" >{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
+        </td>
 
-                                <!--  <td>
-                                    请选择支付保证金比例：
-                                    <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
+        <!--  <td>
+            请选择支付保证金比例：
+            <input type="button" id="jian" value="-"><input type="text" id="num" value="1"><input type="button" id="add" value="+">
 
-                                </td> -->
+        </td> -->
 
-                            <tr>
+    <tr>
+    {foreach: items=$attrs item=$attr}
+    <tr class="attr">
+        <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
+        <td colspan="2">
+            <input class="text" type="text" name="attribute[{$attr['id']}]" >
+        </td>
+    </tr>
+    {/foreach}
+    <tr style="display:none" id='productAdd'>
+        <td ></td>
+        <td ></td>
+    </tr>
+
+    <tr>
         <td>产地:</td>
         <td colspan="2">
-            <span>{area:data=getAreaData()}</span>
+            <span>{area:}</span>
             <span></span>
         </td>
 
