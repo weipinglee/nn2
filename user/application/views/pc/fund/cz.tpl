@@ -128,7 +128,7 @@
 					</div>
 				</form>
 					<div class="zj_mx">
-						<div class="mx_l">结算账户资金明细</div>
+						<div class="mx_l">代理账户充值记录</div>
 						<form action="{url:/Fund/cz}" method="GET" name="">
 							<div class="mx_r">
 								交易时间：<input class="Wdate" name="begin" type="text" value="{$cond['begin']}" onClick="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'})">
@@ -152,7 +152,6 @@
 								<th>金额</th>
 								<th>支付方式</th>
 								<th>状态</th>
-								<th>摘要备注</th>
 							</tr>
 							{foreach:items=$flow }
 								<tr>
@@ -162,16 +161,11 @@
 									<td>{$item['amount']}</td>
 									<td>{$item['pay_type']}</td>
 									<td>{$item['status']}</td>
-									{if: $item['first_time']!=null&&$item['final_time']==null}
-									<td>{$item['first_message']}</td>
-									{/if}
-									{if: $item['final_tiem']!=null}
-									<td>{$item['final_message']}</td>
-									{/if}
+
 								</tr>
 							{/foreach}
 							<tr>
-								<td colspan="100">{$pageBar}</td>
+								<td colspan="100"><div class="page_num">{$pageBar}</div></td>
 							</tr>
 						</table>
 

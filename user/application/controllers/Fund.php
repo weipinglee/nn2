@@ -72,12 +72,12 @@ class FundController extends UcenterBaseController {
 			$payment_id = 1;
 			//处理图片
 			$proof = safe::filterPost('imgfile1');
-			$fundObj=new \nainai\user\UserBank();
-			if(!$fundObj->getActiveBankInfo($this->user_id)){
-				die(JSON::encode(\Library\tool::getSuccInfo(0,'请申请开户银行')));
-			}
+			//$fundObj=new \nainai\user\UserBank();
+//			if(!$fundObj->getActiveBankInfo($this->user_id)){
+//				die(JSON::encode(\Library\tool::getSuccInfo(0,'请申请开户银行')));
+//			}
 			if (!isset($recharge) || $recharge <= 0  || $recharge > 99999999) {
-				die(json::encode(0,'金额不正确'))  ;
+				die(json::encode(\Library\tool::getSuccInfo(0,'金额不正确')) ) ;
 			}
 			//var_dump($_FILES);
 			if ($proof) {
@@ -193,10 +193,14 @@ class FundController extends UcenterBaseController {
 				'card_type'=>safe::filterPost('card_type'),
 				'card_no'=>safe::filterPost('card_no'),
 				'true_name'=>safe::filterPost('true_name'),
-				'identify_no'=>safe::filterPost('identify'),
 				'apply_time' => \Library\time::getDateTime(),
 				'proof'=>\Library\tool::setImgApp(safe::filterPost('imgfile2'))
 			);
+
+			$ident = safe::filterPost('identify');
+			if($ident){
+				$data['identify_no'] = $ident;
+			}
 
 			$res = $fundModel->bankUpdate($data);
 			die(json::encode($res));

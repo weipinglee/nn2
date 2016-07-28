@@ -402,7 +402,7 @@ class product {
         if(!$product_id)
             return array();
         $obj = new M('products');
-        $obj->fields('name as product_name,  attribute, produce_area, create_time, quantity,freeze,sell,cate_id, unit, id as product_id, price, note, expire_time');
+        $obj->fields('name as product_name,  attribute, produce_area, create_time, quantity,freeze,sell,cate_id, unit, id as product_id, price, note');
         $obj->where(array('id'=>$product_id));
         $detail = $obj->getObj();
 

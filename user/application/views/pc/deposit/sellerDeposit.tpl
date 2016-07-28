@@ -32,7 +32,7 @@
                                             <!-- <td width="130px">生产厂家</td> -->
                                             <td width="120px">仓库</td>
                                             <td width="100px">单价</td>
-                                            <td width="100px">数量</td>
+                                            <td width="100px">单位</td>
                                             <td width="100px">重量</td>
                                             <td width="100px">小计</td>
                                             <td width="100px">手续费</td>
@@ -45,14 +45,14 @@
                                             <td>多方位仓库</td>
                                             <td>
                                                     <label class="" id="d_price_1">
-                                                        {$data['price']} 
-                                                    </label> 元/{$data['unit']}
+                                                       ￥ {$data['price']}
+                                                    </label>
                                             </td>
                                             <td>
-                                            --
+                                                {$data['unit']}
                                         </td>
                                             <td>{$data['num']}
-                                            {$data['unit']}</td>
+                                           </td>
                                             <td><label class="">
                                         
                                             <label class="price02">￥</label>

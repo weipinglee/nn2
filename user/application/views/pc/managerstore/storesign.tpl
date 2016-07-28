@@ -42,7 +42,7 @@
                                     <div class="lx_gg">
                                         <b>会员信息</b>
                                     </div>
-                                        
+
                                 </div>
                             </div>
                         </div>

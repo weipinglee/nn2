@@ -127,7 +127,9 @@
                         <div class="yListr">
 
                             <ul>
-                                <li><em class="yListrclickem" account='1'>代理账户<i></i></em> <em account='2'>票据账户<i></i></em><em account='3'>签约账户<i></i></em></li>
+                                <li><em class="yListrclickem" account='1'>代理账户<i></i></em>
+                                    <!--<em account='2'>票据账户<i></i></em>-->
+                                    <em account='3'>签约账户<i></i></em></li>
                             </ul>
                             <input type="hidden" name="account" value="1" />
                         </div>
