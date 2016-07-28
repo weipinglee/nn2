@@ -30,9 +30,10 @@ class searchConfig {
             'like'=>array('c.name,c.name_zh','英文名，中文名'),
             'select'=> array('c.type','配置类型')
         ),
-        'order_sell' => array(
-            'time'=>array('do.create_time','生成时间'),
-            'like' => array('do.order_no','合同号'),
+        'product_offer' => array(
+            'time'=>array('o.apply_time','创建时间'),
+            'like'=>array('o.id,p.name','报盘id,商品名称')
+
         ),
 
 

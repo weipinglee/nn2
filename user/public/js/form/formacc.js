@@ -233,12 +233,10 @@ nn_panduo.formacc.prototype = {
 
 				}else{
 					if(data.returnUrl){
-						if(data.returnUrl){
 							layer.msg(data.info);
 							setTimeout(function(){
 								window.location.href=data.returnUrl;
 							},1000);
-						}
 					}
 					else{
 						if(typeof(eval(err_callback)) == 'function'){

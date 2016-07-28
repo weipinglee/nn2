@@ -5,7 +5,7 @@ use \Library\Thumb;
 use \nainai\subRight;
 use \Library\tool;
 use \Library\JSON;
-class storeOrderController extends Yaf\Controller_Abstract{
+class StoreorderController extends Yaf\Controller_Abstract{
 
     public function init(){
         $this->getView()->setLayout('admin');

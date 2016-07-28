@@ -32,9 +32,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 		$page = safe::filterGet('page','int');
 		$pageData = $this->offer->getApplyList($page);
 
-		$this->getView()->assign('data',$pageData['data']);
-		$this->getView()->assign('bar',$pageData['bar']);
-		$this->getView()->assign('count',$pageData['count']);
+		$this->getView()->assign('data',$pageData);
 	}
 	
 	/**
@@ -100,9 +98,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 	public function offerRecycleAction(){
 		$page = safe::filterGet('page','int');
 		$pageData = $this->offer->getDelList($page);
-		$this->getView()->assign('data',$pageData['data']);
-		$this->getView()->assign('bar',$pageData['bar']);
-		$this->getView()->assign('count',$pageData['count']);
+		$this->getView()->assign('data',$pageData);
 	}
 
 	/**
@@ -151,8 +147,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 	public function kefuOfferListAction(){
 		$page = safe::filterGet('page','int',1);
 		$list = $this->offer->getKefuOfferList($page);
-		$this->getView()->assign('bar',$list['bar']);
-		$this->getView()->assign('data',$list['data']);
+		$this->getView()->assign('data',$list);
 	}
 
 	/**
@@ -176,8 +171,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 		$page = safe::filterGet('page','int',1);
 		$list = $this->offer->getExpireOfferList($page);
 
-		$this->getView()->assign('bar',$list['bar']);
-		$this->getView()->assign('data',$list['data']);
+		$this->getView()->assign('data',$list);
 	}
 
 	public function expireOfferDetailsAction(){

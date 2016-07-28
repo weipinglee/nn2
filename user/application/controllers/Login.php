@@ -64,7 +64,8 @@ class LoginController extends \Yaf\Controller_Abstract {
 			'mobile'       => safe::filterPost('mobile','/^\d+$/'),
 			'email'        =>safe::filterPost('email','email'),
 			'agent' => safe::filterPost('agent','int',0),
-			'serial_no' => safe::filterPost('agent_pass')
+			'serial_no' => safe::filterPost('agent_pass'),
+			'create_time' => \Library\time::getDateTime()
 		);
 
 		if($userData['type']==1){
@@ -212,7 +213,6 @@ class LoginController extends \Yaf\Controller_Abstract {
 		if($res['success']==0){
 			die(JSON::encode($res));
 		}
-
 		$userObj=new M('user');
 		$data=array(
 			'mobile'=>$mobile
@@ -221,8 +221,8 @@ class LoginController extends \Yaf\Controller_Abstract {
 		if(empty($userInfo)){
 			die(JSON::encode(\Library\tool::getSuccInfo(0,'手机号不存在')));
 		}
-		$password=trim($_POST['password']);
-		$password=sha1($password);
+		$password=trim($_POST['passWord']);
+//		$password=sha1($password);
 		$data=array(
 			'id'=>$userInfo['id'],
 			'password'=>$password

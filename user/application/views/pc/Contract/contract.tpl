@@ -61,14 +61,14 @@
         </table>
     </div>
 
-    <div style="padding-left:20px; margin-top:10px;">三. 质量标准及异议处理：
+    <div style="padding-left:20px; margin-top:10px;">二. 质量标准及异议处理：
         <ol style=" margin-top:5px;">
             <li>按生产厂家出具的材质证明书标准执行。</li>
             <li>实际重量按出库仓单为准；如有磅差异议的按国家相关规定执行。</li>
             <li>需方如对供方交付货物的质量有异议，应在提货后七日内以书面形式告知供方以便及时协商处理，过时或已直接使用表示乙方对甲方所交付的货物无任何异议。</li>
         </ol>
     </div>
-    <div style="padding-left:20px; line-height:25px; margin-top:10px;">四. 付款及结算方式:
+    <div style="padding-left:20px; line-height:25px; margin-top:10px;">三. 付款及结算方式:
         <ol style=" margin-top:5px;">
             <li>需方应在本合同签订当日16：00点之前，以现汇形式支付全额货款。</li>
             <li>票据和信用支付的请参照《耐耐网管理办法》相关政策执行。</li>
@@ -76,9 +76,9 @@
             <li>需方提货后由供方结算并开具与此合同金额相对应的增值税发票，货款多退少补。</li>
         </ol>
     </div>
-    <div style="padding-left:20px; line-height:25px; margin-top:10px;">五. 合同期限：本合同从供方收到需方全额货款后开始生效，直至合同履约完毕。
+    <div style="padding-left:20px; line-height:25px; margin-top:10px;">四. 合同期限：本合同从供方收到需方全额货款后开始生效，直至合同履约完毕。
     </div>
-    <div style="padding-left:20px; line-height:25px; margin-top:10px;">六. 其他约定：
+    <div style="padding-left:20px; line-height:25px; margin-top:10px;">五. 其他约定：
         <ol style=" margin-top:5px;">
             <li>在执行本合同过程中所有的争端都应由双方友好协商解决，如双方不能达成一致，可向供方所在地法院提起诉讼。</li>
             <li>本合同一式两份，供需双方各执一份。传真件盖章有效。</li>

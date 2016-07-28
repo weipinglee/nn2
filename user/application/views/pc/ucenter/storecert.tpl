@@ -25,12 +25,21 @@
 						<div class="re_xx">
 								<div class="zhxi_con">
 									<span class="con_tit"><i></i>选择仓库：</span>
-									<span><select name="store_id" datatype="/[1-9][0-9]*/" errormsg="请选择仓库">
+									<span><select name="store_id" id="store_id" datatype="/[1-9][0-9]*/" errormsg="请选择仓库">
 											<option value="0" >请选择</option>
 											{foreach:items=$store}
 												<option value="{$item['id']}" {if:isset($store_id) && $store_id==$item['id']}selected{/if}>{$item['name']}</option>
 											{/foreach}
 										</select>
+									</span>
+									<span></span>
+
+
+								</div>
+								<div class="zhxi_con" id="address">
+									<span class="con_tit">仓库地址：</span>
+									<span>
+
 									</span>
 									<span></span>
 
@@ -136,11 +145,29 @@
 							{/if}
 						</div>
 					</div>
+					<input type="hidden" id="ajaxGetAddress" value="{url:/Ucenter/ajaxGetStoreAddress}">
 				</form>
 				</div>
 			</div>
 <script type="text/javascript">
 	$(function(){
 		nextTab({$certShow['step']});
+
+		$('#store_id').on('change', function(){
+			var val = $(this).val();
+			$('#address').children('span').eq(2).html('');
+			if (val == 0) {return;}
+			  $.ajax({
+			             'url' :  $('#ajaxGetAddress').val(),
+			            'type' : 'post',
+			            'data' : {id : val},
+			            'dataType': 'json',
+			            success:function(data){
+			            	if (data.id) {
+			            		$('#address').children('span').eq(2).html(data.address);
+			            	}
+			            }
+			 })
+		});
 	})
 </script>

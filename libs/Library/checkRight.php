@@ -113,6 +113,9 @@ class checkRight{
 
             }
         }
+        elseif($isLogin == false){
+            $this->logOut();
+        }
 
         return $isLogin;
     }

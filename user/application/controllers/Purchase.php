@@ -23,7 +23,7 @@ class PurchaseController extends UcenterBaseController{
 					'price_r'        => Safe::filterPost('price_r'),
 			        'user_id' => $this->user_id,
 			        'status' => product::OFFER_APPLY,
-					'divide' => 1//默认不可拆分
+					'divide' => 0//默认不可拆分
 			);
 			$productData = $this->getProductData();
 
@@ -66,7 +66,7 @@ class PurchaseController extends UcenterBaseController{
 	        'note'         => Safe::filterPost('note'),
 	        'produce_area' => Safe::filterPost('area'),
 	        'create_time'  => \Library\Time::getDateTime(),
-	        //'unit'         => Safe::filterPost('unit'),
+	        'unit'         => Safe::filterPost('unit'),
 	        'user_id' => $this->user_id
 	    );
 

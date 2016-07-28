@@ -22,15 +22,36 @@ class fundOutModel {
 		'freezeLess' => array('code' => 0, 'info' => '冻结金额不足'),
 		'outOk' => array('code' => 1, 'info' => '操作成功'),
 	);
-	public function getFundOutList($page = 1) {
+	public function getCheckFundOutList($page = 1) {
 		$fundOut = new adminQuery('withdraw_request as w');
-		//线上
+
 		$fundOut->join = 'left join user as u on w.user_id = u.id';
 		$fundOut->fields = 'w.request_no,w.amount,w.status,w.create_time,u.username,u.mobile,u.type,w.id';
-		$fundOut->where = 'is_del = 0';
+		$status="'".self::FUNDOUT_APPLY.",".self::FUNDOUT_FIRST_OK."'";
+		$fundOut->where = 'is_del = 0 and find_in_set(w.status,'.$status.')';
 		$fundOut->page = $page;
 		$outInfo = $fundOut->find();
-		return $outInfo;
+		return [$outInfo,$fundOut->getPageBar()];
+	}
+	public function getCheckedFundOutList($page=1){
+		$fundOut=new adminQuery('withdraw_request as w');
+		$fundOut->join='left join user as u on w.user_id=u.id';
+		$fundOut->fields='w.request_no,w.amount,w.status,w.create_time,u.username,u.mobile,u.type,w.id';
+		$status="'".self::FUNDOUT_OK.','.self::FUNDOUT_FINAL_NG.','.self::FUNDOUT_FIRST_NG."'";
+		$fundOut->where='is_del=0 and find_in_set(w.status,'.$status.')';
+		$fundOut->page=$page;
+		$checkedInfo=$fundOut->find();
+		return [$checkedInfo,$fundOut->getPageBar()];
+	}
+	public function getPendingPaymentList($page=1){
+		$fundOut=new adminQuery('withdraw_request as w');
+		$fundOut->join='left join user as u on w.user_id=u.id';
+		$fundOut->fields='w.request_no,w.amount,w.status,w.create_time,u.username,u.mobile,u.type,w.id';
+		$fundOut->where='is_del=0 and w.status='.self::FUNDOUT_FINAL_OK;
+		$fundOut->page=$page;
+		$pendInfo=$fundOut->find();
+		$pageBar=$fundOut->getPageBar();
+		return [$pendInfo,$pageBar];
 	}
 	public static function getFundOutStatustext($status) {
 		switch (intval($status)) {

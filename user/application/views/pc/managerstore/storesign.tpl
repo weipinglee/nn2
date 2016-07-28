@@ -14,23 +14,50 @@
                     <div class="rz_title">
                         <ul class="rz_ul">
                             <li class="rz_start"></li>
-                            <li class="rz_li cur"><a class="rz">商品信息</a></li>
-                            <li class="rz_li"><a class="yz">入库详细信息</a></li>
+                            <li class="rz_li cur"><a class="rz">会员信息</a></li>
+                            <li class="rz_li "><a class="yz">商品信息</a></li>
+                            <li class="rz_li"><a class="shjg">入库详细信息</a></li>
                             <li class="rz_end"></li>
                         </ul>
 
                     </div>
+                    <div class="class_jy" id="cate_box" style="display:none;">
+                        <span class="jy_title"></span>
+                        <ul>
+                            <!-- <li value=""   class="a_choose" ><a></a></li>
+                    -->
+                        </ul>
+
+                        <ul class="infoslider" style="display: none;">
+                            <li value=""   class="a_choose"  ><a></a></li>
+
+                        </ul>
+
+
+                    </div>
                     <div class="re_xx">
+                        <div class="user_c" style="border:0px;margin-left:0px;">
+                            <div class="user_zhxi">
+                                <div class="center_tabl">
+                                    <div class="lx_gg">
+                                        <b>会员信息</b>
+                                    </div>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yz_img">
                         <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
             <!--start中间内容-->    
-            <div class="user_c">
+            <div class="user_c" style="border:0px;margin-left:0px;">
                 <div class="user_zhxi pro_classify">
                     <div class="center_tabl">
                     <div class="lx_gg">
-                        <b>商品类型和规格</b>
+                        <b>商品类型</b>
                     </div>
-  {if: !empty($categorys)}
+                         {if: !empty($categorys)}
                         {foreach: items=$categorys item=$category key=$level}   
                             <div class="class_jy" id="level{$level}">
                                 <span class="jy_title">市场类型：</span>
@@ -116,7 +143,7 @@
                             <tr>
                             <td>产地：</td>
                             <td colspan="2" >
-                                <span id="areabox">{area:data=getAreaData()}</span>
+                                <span id="areabox">{area:}</span>
                                 <span></span>
                             </td>
                          
@@ -224,13 +251,13 @@
 
                     </div>
 
-                    <div class="yz_img">
+                    <div class="sh_jg">
                        <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
             <!--end左侧导航-->  
             <!--start中间内容-->    
-            <div class="user_c">
+            <div class="user_c" style="border:0px;margin-left:0px;">
                 <div class="user_zhxi">
                     <div class="center_tabl">
                     <div class="lx_gg">
@@ -332,7 +359,6 @@
             </div>
 <script type="text/javascript">
     $(function(){
-        nextTab({$certShow['step']});
 
         $('#store_id').on('change', getStoreArea);
 
