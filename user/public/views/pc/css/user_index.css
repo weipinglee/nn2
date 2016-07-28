@@ -1856,11 +1856,6 @@ line-height: 30px;
 }
 
 
-
-
-
-
-
 input#image {
     width: 68px;
     height: 21px;
@@ -1875,4 +1870,12 @@ input#image {
     font-size: 13px;
     margin-right: 12px;
     cursor: pointer;
+}
+
+
+
+/*仓单签发会员筛选样式  line start:559*/
+.sear_mx{
+  background: #D6D2D2;
+  padding-left: 50px;
 }
