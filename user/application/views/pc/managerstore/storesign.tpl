@@ -39,8 +39,20 @@
                         <div class="user_c" style="border:0px;margin-left:0px;">
                             <div class="user_zhxi">
                                 <div class="center_tabl">
+                                    <div class="lx_gg sear_mx">
+                                        <span>关键词：</span><input type="text">
+                                        <button class="search_an" type="submit">搜索</button> 
+                                    </div>
                                     <div class="lx_gg">
-                                        <b>会员信息</b>
+                                        <table class="table2" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td class="spmx_title" colspan="2">会员信息</td>
+                                            </tr>
+                                            <tr>
+                                                <td>会员账号</td>
+                                                <td>lpf8090y</td>
+                                            </tr>
+                                        </table>
                                     </div>
 
                                 </div>
