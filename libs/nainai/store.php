@@ -22,11 +22,11 @@ class store{
     );
 
     //仓单状态
-    const USER_APPLY          = 10;//卖方申请
+    //const USER_APPLY          = 10;//卖方申请
     const USER_AGREE          = 11;//卖方确认
     const USER_REJECT         = 12;//卖方确认不通过
-    const STOREMANAGER_AGREE  = 21;//仓库管理员审核通过
-    const STOREMANAGER_REJECT = 22;
+   // const STOREMANAGER_AGREE  = 21;//仓库管理员审核通过
+  //  const STOREMANAGER_REJECT = 22;
     const STOREMANAGER_SIGN   = 23;
 
     const MARKET_AGREE        = 31;//市场通过
@@ -39,9 +39,9 @@ class store{
       */
     public function getStatus(){
         return array(
-            self::USER_APPLY => '未审核',
-            self::STOREMANAGER_AGREE => '仓库管理员审核通过',
-            self::STOREMANAGER_REJECT => '仓库管理员审核不通过',
+            //self::USER_APPLY => '未审核',
+           // self::STOREMANAGER_AGREE => '仓库管理员审核通过',
+           // self::STOREMANAGER_REJECT => '仓库管理员审核不通过',
             self::STOREMANAGER_SIGN   => '仓库管理员签发仓单',
             self::USER_AGREE => '卖方确认',
             self::USER_REJECT => '卖方拒绝',
@@ -208,6 +208,7 @@ class store{
         return tool::getSuccInfo(0,'操作错误');
 
     }
+
 
     /**
      * 仓单签发
@@ -381,8 +382,11 @@ class store{
      * @param array $productData 商品数据
      * @param array $storeData 仓库数据
      */
-    public function createStoreProduct($productData,$storeData){
+    public function createStoreProduct($productData,$storeData,$user_id){
         $productObj = new product();
+        $storeData['store_id'] = $this->getManagerStoreId($user_id);
+        if(!$storeData['store_id'])
+            return tool::getSuccInfo(0,'无此权限');
         $storeProductObj = new M($this->storeProduct);
         //验证商品数据和仓单数据
         if($productObj->proValidate($productData) && $storeProductObj->validate($this->storeProductRules,$storeData)){
@@ -400,7 +404,7 @@ class store{
                 }
                 //插入仓单数据
                 $storeData['product_id'] = $pId;
-                $storeData['status'] = self::USER_APPLY;
+                $storeData['status'] = self::STOREMANAGER_SIGN;
                 $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
             }
             $res = $storeProductObj->commit();

@@ -38,6 +38,22 @@ class ManagerStoreController extends UcenterBaseController{
 	}
 
 	/**
+	 * 仓单签发时获取用户信息
+	 */
+	public function getUserAction(){
+		if(IS_POST){
+			$acc = safe::filterPost('username');
+			$user = new \nainai\member();
+			$res = $user->getUserDetail(array('username'=>$acc));
+			die(json::encode($res));
+		}
+		return false;
+
+
+
+	}
+
+	/**
 	 * 仓单提货出库审核列表
 	 */
 	public function storeCheckListAction(){
@@ -120,6 +136,8 @@ class ManagerStoreController extends UcenterBaseController{
 	}
 
 
+
+
 	/**
 	 * 仓单审核页面
 	 */
@@ -171,12 +189,59 @@ class ManagerStoreController extends UcenterBaseController{
 	}
 
 	/**
+	 * 获取POST提交上来的商品数据,报盘处理和申请仓单处理都会用到
+	 * @return array 商品数据数组
+	 */
+	private function getProductData(){
+		$attrs = Safe::filterPost('attribute');
+		if(!empty($attrs)){
+			foreach($attrs as $k=>$v){
+				if(!is_numeric($k)){
+					echo JSON::encode(\Library\tool::getSuccInfo(0,'属性错误'));
+					exit;
+				}
+			}
+		}
+
+		$time = date('Y-m-d H:i:s', time());
+
+		$detail = array(
+			'name'         => Safe::filterPost('warename'),
+			'cate_id'      => Safe::filterPost('cate_id', 'int'),
+			'quantity'     => Safe::filterPost('quantity', 'float'),
+			'attribute'    => empty($attrs) ? '' : serialize($attrs),
+			'note'         => Safe::filterPost('note'),
+			'produce_area' => Safe::filterPost('area'),
+			'create_time'  => $time,
+			'unit'         => Safe::filterPost('unit'),
+		);
+
+		//图片数据
+		$imgData = Safe::filterPost('imgData');
+
+		$resImg = array();
+		if(!empty($imgData)){
+			foreach ($imgData as $imgUrl) {
+				if (!empty($imgUrl) && is_string($imgUrl)) {
+					array_push($resImg, array('img' => \Library\tool::setImgApp($imgUrl)));
+				}
+			}
+		}
+
+		return array($detail,$resImg);
+	}
+	/**
 	 * 处理仓单签发
 	 */
 	public function doStoreSignAction(){
-		$id = Safe::filterPost('id', 'int', 0);
-		if (IS_POST && intval($id) > 0) {
-			$apply = array(
+
+		if (IS_POST) {
+			$user_id = safe::filterPost('user_id','int',0);
+			if(!$user_id)
+				die(json::encode(\Library\tool::getSuccInfo(0,'用户id错误')));
+
+			$storeProduct = array(
+				'user_id'   => $user_id,
 				'store_pos' => safe::filterPost('pos'),
 				'cang_pos'  => safe::filterPost('cang'),
 				'store_price'=> safe::filterPost('store_price'),
@@ -188,17 +253,17 @@ class ManagerStoreController extends UcenterBaseController{
 			);
 
 			if (!empty(safe::filterPost('packNumber'))) {
-				$apply['package_num'] = safe::filterPost('packNumber', 'float');
-				$apply['package_weight'] = safe::filterPost('packWeight', 'float');
+				$storeProduct['package_num'] = safe::filterPost('packNumber', 'float');
+				$storeProduct['package_weight'] = safe::filterPost('packWeight', 'float');
 			}
-
-			$productData = array('quantity'=>safe::filterPost('quantity','float'));
+			$productData = $this->getProductData();
+			$productData[0]['user_id'] = $user_id;
 
 			$store = new store();
-			$res = $store->storeManagerSign($apply, $productData,$id,$this->user_id);
+			$res = $store->createStoreProduct( $productData,$storeProduct,$this->user_id);
 			die(json::encode($res)) ;
 		}
-		$this->redirect('ApplyStoreDetails');
+		$this->redirect('ManagerStoreList');
 	}
 
 	/**

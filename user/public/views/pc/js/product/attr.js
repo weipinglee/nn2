@@ -153,9 +153,7 @@ function getCategory(){
     });
 }
 
-function AddProductCategory(data){
 
-}
 
 //验证规则添加
 
@@ -164,8 +162,6 @@ bindRules();
 });
 
 function bindRules(){
-
-
     //为地址选择框添加验证规则
     var rules = [
         {

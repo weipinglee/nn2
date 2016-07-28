@@ -105,14 +105,19 @@ class member{
 
     /**
      * 获取会员详情
-     * @param int $user_id 用户id
+     * @param mixed $user_id 用户id 为整数时是user_id,为数组时是查询条件
      */
-    public function getUserDetail($user_id){
+    public function getUserDetail($cond){
+        if(is_array($cond))
+            $where = $cond;
+        else
+            $where = array('id'=>$cond);;
         $userObj = new M($this->table);
-        $detail = $userObj->fields('id,type,username,credit,mobile,email,head_photo,pid,roles,status,agent,create_time,yewu')->where(array('id'=>$user_id))->getObj();
+        $detail = $userObj->fields('id,type,username,credit,mobile,email,head_photo,pid,roles,status,agent,create_time,yewu')->where($where)->getObj();
         $product = new \nainai\offer\product();
 
         if(!empty($detail)){
+            $user_id = $detail['id'];
             $detail['user_type'] = self::getType($detail['type']);
             if($detail['type']==1){
                 $comObj = new M('company_info');
