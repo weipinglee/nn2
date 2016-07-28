@@ -105,7 +105,33 @@ class fundOutController extends Yaf\Controller_Abstract {
 			return false;
 		}
 	}
+	/**
+	 * [upload ajax上传]
+	 * @return    [type]      [description]
+	 */
+	public function uploadAction(){
 
+		//调用文件上传类
+		$photoObj = new \Library\photoupload();
+		$photoObj->setThumbParams(array(180,180));
+		$photo = current($photoObj->uploadPhoto());
+
+		if($photo['flag'] == 1)
+		{
+			$result = array(
+				'flag'=> 1,
+				'img' => $photo['img'],
+				'thumb'=> $photo['thumb'][1]
+			);
+		}
+		else
+		{
+			$result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
+		}
+		echo json::encode($result);
+
+		return false;
+	}
 
 }
 ?>

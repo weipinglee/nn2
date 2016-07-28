@@ -2,7 +2,7 @@
 /**
  * @name storeController
  * @author weipinglee
- * @desc ÓÃ»§¹ÜÀí¿ØÖÆÆ÷
+ * @desc ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 use \Library\safe;
 use \Library\Thumb;
@@ -16,7 +16,7 @@ class storeProductController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * »ñÈ¡²Öµ¥ÁÐ±í
+     * ï¿½ï¿½È¡ï¿½Öµï¿½ï¿½Ð±ï¿½
      */
    public function getListAction(){
        $page = safe::filterGet('page','int',1);
@@ -28,7 +28,7 @@ class storeProductController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * ´ýÉóºË²Öµ¥
+     * ï¿½ï¿½ï¿½ï¿½Ë²Öµï¿½
      */
     public function reviewListAction(){
         $page = safe::filterGet('page','int',1);
@@ -39,26 +39,29 @@ class storeProductController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * ´ýÉóºË²Öµ¥ÏêÇé
+     * ï¿½ï¿½ï¿½ï¿½Ë²Öµï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public function reviewDetailsAction(){
+
         $id = $this->getRequest()->getParam('id');
         $id = safe::filter($id,'int');
         if($id){
             $obj = new storeProductModel();
             $detail = $obj->getUserStoreDetail($id);
-
+            $this->getView()->assign('type',$detail['status']);
             $detail['status'] = $obj->getStatusText($detail['status']);
             $mem = new \nainai\member();
             $userData = $mem->getUserDetail($detail['user_id']);
             $this->getView()->assign('user',$userData);
             $this->getView()->assign('detail',$detail);
+            $url=$_SERVER['HTTP_REFERER'];
+            $this->getView()->assign('url',$url);
 
         }
     }
 
     /**
-     * ²Öµ¥ÏêÇé
+     * ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public function detailsAction(){
         $id = $this->getRequest()->getParam('id');

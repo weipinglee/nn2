@@ -150,7 +150,6 @@
 								<th>交易号</th>
 								<th>交易时间</th>
 								<th>金额</th>
-								<th>支付方式</th>
 								<th>状态</th>
 								<th>摘要备注</th>
 							</tr>
@@ -160,7 +159,6 @@
 									<td>{$item['order_no']}</td>
 									<td>{$item['create_time']}</td>
 									<td>{$item['amount']}</td>
-									<td>{$item['pay_type']}</td>
 									<td>{$item['status']}</td>
 									{if: $item['first_time']!=null&&$item['final_time']==null}
 									<td>{$item['first_message']}</td>

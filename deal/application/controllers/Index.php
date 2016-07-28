@@ -69,7 +69,10 @@ class IndexController extends PublicController {
 		//获取当前和昨日成交量
 		$order_num = $order->getOrderTotal();
 		$order_num_yes = $order->getOrderTotal('yesterday');
-
+		//获取帮助
+		$helpModel=new \nainai\system\help();
+		$helpList=$helpModel->getHelplist();
+		$this->getView()->assign('helpList',$helpList);
 		$this->getView()->assign('creditMember',$creditMember);
 		$this->getView()->assign('statcCatList',$statcCatList);
 		$this->getView()->assign('statcProList',$statcProList);

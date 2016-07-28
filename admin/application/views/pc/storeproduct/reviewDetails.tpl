@@ -123,9 +123,11 @@
 
             <tr>
               <th scope="col" colspan="6">
+                  {if: $type!=31 and $type!=32}
                  <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok fa-ok"></i> 通过</a> 
                  <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove fa-remove"></i> 不通过</a>
-                 <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
+                 {/if}
+                  <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
               </th>
             </tr>
 	 	</table>
@@ -152,7 +154,7 @@
             formacc.ajax_post("{url:store/storeProduct/setStatus}",{status:status,id:{$detail['id']}},function(){
               layer.msg(msg+"稍后自动跳转");
                   setTimeout(function(){
-                      window.location.href = "{url:store/storeProduct/reviewList}";
+                      window.location.href = "{$url}";
                   },1500);
             });
           }

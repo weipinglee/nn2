@@ -18,7 +18,15 @@ class fundModel extends \nainai\user\UserBank{
     CONST OFFLINE_FIRST_NG = 3;//初审驳回
     CONST OFFLINE_FINAL_OK = 1;//终审通过，入金成功
     CONST OFFLINE_FINAL_NG = 4;//终审驳回
-
+    //提现状态
+    private static $fundOutStatusText=array(
+        0=>'申请提现',
+        2=>'初审通过',
+        3=>"初审驳回",
+        4=>'终审通过',
+        5=>'终审驳回',
+        1=>'出金完成'
+    );
     /**
      *
      * @param $user_id
@@ -162,6 +170,39 @@ class fundModel extends \nainai\user\UserBank{
                 return '未知';
             }
                 break;
+        }
+    }
+    public static function getFundOutStatusText($status){
+            return self::$fundOutStatusText[$status];
+
+    }
+    public function getFundOutList($user_id,$cond,$page=1){
+        if($user_id) {
+            $fundInObj = new \Library\Query('withdraw_request as r');
+            $where = 'is_del=0 and user_id= :user_id';
+            $cond['user_id']=$user_id;
+            if (isset($cond['begin'])&&$cond['begin']!=""){
+                $where.=' and create_time > :begin' ;
+            }else{
+                unset($cond['begin']);
+            }
+            if(isset($cond['end'])&&$cond['end']!=""){
+                $where.=' and create_time < :end';
+            }else{
+                unset($cond['end']);
+            }
+            if(isset($cond['no'])&&$cond['no']!=''){
+                $where.=' and request   _no= :no';
+            }else{
+                unset($cond['no']);
+            }
+            $fundInObj->where=$where;
+            $fundInObj->bind=$cond;
+            $fundInObj->page = $page;
+            $fundInList=$fundInObj->find();
+            $pageBar=$fundInObj->getPageBar();
+            return [$fundInList,$pageBar];
+
         }
     }
 }
