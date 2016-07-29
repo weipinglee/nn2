@@ -38,9 +38,12 @@ class fundOutModel {
 		            $fundOut->pagesize = $pagesize;
 		}
 
+
 		$outInfo = $fundOut->find();
+
 		return $outInfo;
 	}
+
 	public function getCheckedFundOutList($page=1){
 		$fundOut=new adminQuery('withdraw_request as w');
 		$fundOut->join='left join user as u on w.user_id=u.id';
@@ -51,6 +54,7 @@ class fundOutModel {
 		$checkedInfo=$fundOut->find();
 		return [$checkedInfo,$fundOut->getPageBar()];
 	}
+
 	public function getPendingPaymentList($page=1){
 		$fundOut=new adminQuery('withdraw_request as w');
 		$fundOut->join='left join user as u on w.user_id=u.id';

@@ -99,9 +99,9 @@ class fundInModel{
             $reModel->pagesize = $pagesize;
         }
 
-        $where = ' is_del=0 AND pay_type IN (:type)';
-        $bind = array('type' => $condition['type']);
-
+        $where = '   is_del=0 AND pay_type IN (:type) AND r.status IN (:status)';
+        $bind = array('type' => $condition['type'], 'status' => $condition['status']);
+        
         $reModel->where = $where;
         $reModel->bind = $bind;
         $onlineInfo = $reModel->find($condition);
