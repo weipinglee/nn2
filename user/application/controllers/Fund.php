@@ -215,11 +215,12 @@ class FundController extends UcenterBaseController {
 				'card_type'=>safe::filterPost('card_type'),
 				'card_no'=>safe::filterPost('card_no'),
 				'true_name'=>safe::filterPost('true_name'),
-				'identify_no'=>safe::filterPost('identify'),
 				'apply_time' => \Library\time::getDateTime(),
 				'proof'=>\Library\tool::setImgApp(safe::filterPost('imgfile2'))
 			);
-
+			if($this->user_type!=1){
+				$data['identify_no']=safe::filterPost('identify');
+			}
 			$res = $fundModel->bankUpdate($data);
 			die(json::encode($res));
 		}
