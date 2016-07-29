@@ -44,17 +44,7 @@ class FundoutController extends InitController {
 		$down = Safe::filterGet('down', 'int', 0);
 		$condition['down'] = $down;
 
-		if (empty($begin)) {
-			$begin = \Library\Time::getDateTime('Y-m-d');
-		}
 
-		if (empty($end)) {
-			$end = \Library\Time::getDateTime('Y-m-d');
-		}
-		$_GET['begin'] =  $begin . ' 00:00:00';
-		$_GET['end'] = $end . ' 23:59:59';
-
-		
 		$fundOutModel = new fundOutModel();
 		$data = $fundOutModel->getFundOutList($page, $this->pagesize, $condition);
 
@@ -75,8 +65,6 @@ class FundoutController extends InitController {
 			exit();
 		}
 
-		$this->getView()->assign('begin', $begin);
-		$this->getView()->assign('end', $end);
 		$this->getView()->assign('data', $data);
 		$this->getView()->assign('isDown', 1);
 	}

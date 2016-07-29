@@ -20,6 +20,7 @@ class adminQuery extends \Library\Query{
         $table = explode(' ',$table);
         $table = $table[0];
         $cond = $this->getWhereCond($table);
+        $down = $cond[2];
         $search = '';
         if(!empty($cond)){
             if($cond[0]['where']){
@@ -38,11 +39,11 @@ class adminQuery extends \Library\Query{
 
         $list = parent::find();
         $result = array('list' => $list, 'search'=>$search);
-        if (!isset($selectData['down']) || $selectData['down'] == 0) {
+        if (!$down) {
             $bar = $this->getPageBar();
             $result['bar'] = $bar;
         }
-        
+
         return $result;
 
 
@@ -81,6 +82,10 @@ class adminQuery extends \Library\Query{
         $max = safe::filterGet('max','float',0);
         $cond  = array();
         $cond['where'] =  $temp = '';$cond['bind'] = array();
+
+        //是否导出
+        $down = safe::filterGet('down','int',0);
+
 
         if($begin && isset($condArr['time'])){
             if($cond['where']!='')
@@ -134,7 +139,7 @@ class adminQuery extends \Library\Query{
             $cond['bind']['max'] = $max;
         }
 
-        return array($cond,$search);
+        return array($cond,$search,$down);
     }
 
 }

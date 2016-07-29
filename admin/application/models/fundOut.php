@@ -27,20 +27,19 @@ class fundOutModel {
 
 		$fundOut->join = 'left join user as u on w.user_id = u.id';
 		$fundOut->fields = 'w.request_no,w.amount,w.status,w.create_time,u.username,u.mobile,u.type,w.id';
-		$fundOut->where = 'is_del = 0';
+
+		if(isset($condition['status']))
+			$fundOut->where = ' w.is_del = 0 and w.status in ('.$condition['status'].')';
+		else
+			$fundOut->where = ' w.is_del = 0';
 
 		if ($condition['down'] != 1) {
 		            $fundOut->page = $page;
 		            $fundOut->pagesize = $pagesize;
 		}
 
-		$outInfo = $fundOut->find($condition);
-		return $outInfo;
-		$status="'".self::FUNDOUT_APPLY.",".self::FUNDOUT_FIRST_OK."'";
-		$fundOut->where = 'is_del = 0 and find_in_set(w.status,'.$status.')';
-		$fundOut->page = $page;
 		$outInfo = $fundOut->find();
-		return [$outInfo,$fundOut->getPageBar()];
+		return $outInfo;
 	}
 	public function getCheckedFundOutList($page=1){
 		$fundOut=new adminQuery('withdraw_request as w');
@@ -59,8 +58,7 @@ class fundOutModel {
 		$fundOut->where='is_del=0 and w.status='.self::FUNDOUT_FINAL_OK;
 		$fundOut->page=$page;
 		$pendInfo=$fundOut->find();
-		$pageBar=$fundOut->getPageBar();
-		return [$pendInfo,$pageBar];
+		return $pendInfo;
 	}
 	public static function getFundOutStatustext($status) {
 		switch (intval($status)) {

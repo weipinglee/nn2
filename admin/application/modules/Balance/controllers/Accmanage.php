@@ -158,16 +158,6 @@ class AccmanageController extends InitController {
 		$status_text = $bankObj::$status_text;
 		$condition['down'] = $down;
 
-		if (empty($begin)) {
-			$begin = \Library\Time::getDateTime('Y-m-d');
-		}
-
-		if (empty($end)) {
-			$end = \Library\Time::getDateTime('Y-m-d');
-		}
-		$_GET['begin'] =  $begin . ' 00:00:00';
-		$_GET['end'] = $end . ' 23:59:59';
-
 		$data = $obj->getBankList($page, $this->pagesize, $condition);
 
 		if ($down == 1) {

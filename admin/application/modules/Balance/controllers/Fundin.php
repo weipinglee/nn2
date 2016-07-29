@@ -47,17 +47,6 @@ class FundinController extends InitController {
 		$condition['down'] = $down;
 
 		$fundObj = new fundInModel();
-
-		if (empty($begin)) {
-			$begin = \Library\Time::getDateTime('Y-m-d');
-		}
-
-		if (empty($end)) {
-			$end = \Library\Time::getDateTime('Y-m-d');
-		}
-		$_GET['begin'] =  $begin . ' 00:00:00';
-		$_GET['end'] = $end . ' 23:59:59';
-
 		
 		$data = $fundObj->getOnlineList($page, $this->pagesize, $condition);
 		if ($down == 1) {
