@@ -1,5 +1,7 @@
 <?php
-
+namespace Library;
+use Library\url;
+use Library\tool;
 /**
  * @brief 短信发送接口
  * @version 3.3
@@ -26,24 +28,30 @@ class Hsms
 		{
 			case "jianzhou":
 				{
-					$classFile = IWeb::$app->getBasePath().'plugins/hsms/jianzhou.php';
-					require $classFile;
-					return self::$smsInstance = new jianzhou();
+					$classFile = __DIR__.'/hsms/jianzhou.php';
+					if(file_exists($classFile)){
+						require $classFile;
+						return self::$smsInstance = new \Library\hsms\jianzhou();
+					}else{
+						echo 2;
+					}
+
 					
 				}
 			case "zhutong":
 				{
-					$classFile = IWeb::$app->getBasePath().'plugins/hsms/zhutong.php';
+
+					$classFile = __DIR__.'/hsms/zhutong.php';
 					require($classFile);
-					return self::$smsInstance = new zhutong();
+					return self::$smsInstance = new \Library\hsms\zhutong();
 				}
 				break;
 	
 			default:
 				{
-					$classFile = IWeb::$app->getBasePath().'plugins/hsms/haiyan.php';
+					$classFile =  __DIR__.'/hsms/haiyan.php';
 					require($classFile);
-					return self::$smsInstance = new haiyan();
+					return self::$smsInstance = new \Library\hsms\haiyan();
 				}
 		}
 	}
@@ -54,8 +62,10 @@ class Hsms
 	 */
 	private static function getPlatForm()
 	{
-		$siteConfigObj = new Config("site_config");
-		return $siteConfigObj->sms_platform;
+		$siteConfigObj = tool::getGlobalConfig('sms');
+
+	//	var_dump($siteConfigObj['platform']);
+		return $siteConfigObj['platform'];
 	}
 
 	/**
@@ -67,22 +77,21 @@ class Hsms
 	public static function send($mobile,$content)
 	{
 		self::$smsInstance = self::getSmsInstance();
-
-		if(IValidate::mobi($mobile) && $content)
+		if(preg_match('/^\d{11}$/',$mobile) && $content)
 		{
-			$ip = IClient::getIp();
-			if($ip)
+			$ip = tool::getIp();
+			/*if($ip)
 			{
 				$mobileKey = md5($mobile.$ip);
-				$sendTime  = ISession::get($mobileKey);
+				$sendTime  = \Library\session::get($mobileKey);
 				if($sendTime && time() - $sendTime < 60)
 				{
 					return false;
 				}
-				ISession::set($mobileKey,time());
+				\Library\session::set($mobileKey,time());*/
 				return self::$smsInstance->send($mobile,$content);
 			}
-		}
+
 		return false;
 	}
 }

@@ -91,6 +91,34 @@ class ManagerStoreController extends UcenterBaseController{
 		}
 	}
 
+	/**
+	 * 商品添加页面展示
+	 */
+	private function productAddAction(){
+
+		$category = array();
+
+		//获取商品分类信息，默认取第一个分类信息
+		$productModel = new product();
+		$category = $productModel->getCategoryLevel();
+
+		$attr = $productModel->getProductAttr($category['chain']);
+		//注意，js要放到html的最后面，否则会无效
+		$this->getView()->assign('categorys', $category['cate']);
+		$this->getView()->assign('attrs', $attr);
+		$this->getView()->assign('unit', $category['unit']);
+		$this->getView()->assign('cate_id', $category['default']);
+	}
+	public function storeSignAction(){
+		$store_list = store::getStoretList();
+
+		$this->getView()->assign('storeList',$store_list);
+		$this->productAddAction();
+
+		$token =  \Library\safe::createToken();
+		$this->getView()->assign('token',$token);
+	}
+
 
 	/**
 	 * 仓单审核页面

@@ -629,15 +629,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 .order_comit a:hover{ color:#FFF; text-decoration:none;}
 .btoncomit{
-    padding: 4px 20px;
     display: block;
-    background: #c81624;
-    font-size: 16px;
+    background: #d61515;
+    font-size: 18px;
     color: #fff;
     margin-top: 10px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 3px;
+    height: 41px;
+    line-height: 41px;
+    width: 132px;
+    text-align: center;
 }
 {
     margin: 12px 0 10px 120px;
@@ -698,16 +698,14 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 .page_width .mainRow1 .submit .alreaor .bormin .od_buton .fanhod{
     display: block;
-    background-image: url(../images/order/fanh.png);
-    background-repeat: no-repeat;
-    background-position: left center;
-    width: 285px;
-    height: 63px;
+    background: #d61515;
+    width: 175px;
+    height: 45px;
     float: left;
-    line-height: 63px;
+    line-height: 45px;
     text-align: center;
-    color: aliceblue;
-    font-size: 26px;
+    color:#fff;
+    font-size: 18px;
     font-weight: normal;
     letter-spacing: 2px;
 }

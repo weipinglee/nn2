@@ -25,9 +25,17 @@ class FundinController extends InitController {
 		$condition = array('type' => fundInModel::DIRECT. ',' . fundInModel::UNION, 'name' => '线上列表', 'controller'=>'line');
 		$this->listData($condition);
 	}
-	//线下列表
-	public function offlineListAction() {
-		$condition = array('type' => fundInModel::OFFLINE, 'name' => '线下列表', 'controller'=>'off');
+	//线下待审核列表
+	public function checkofflinelistAction() {
+		$condition = array('type' => fundInModel::OFFLINE, 'name' => '线下待审核列表', 'controller'=>'off');
+		$condition['status'] = fundInModel::OFFLINE_APPLY;
+		$this->listData($condition);
+	}
+
+	//线下已审核审核列表
+	public function checkedofflinelistAction() {
+		$condition = array('type' => fundInModel::OFFLINE, 'name' => '线下已审核审核列表', 'controller'=>'off');
+		$condition['status'] = fundInModel::OFFLINE_FIRST_OK . ',' . fundInModel::OFFLINE_FIRST_NG . ','  . fundInModel::OFFLINE_FINAL_OK . ',' . fundInModel::OFFLINE_FINAL_NG ;
 		$this->listData($condition);
 	}
 
@@ -81,6 +89,7 @@ class FundinController extends InitController {
 		$this->getView()->assign('data', $data);
 		$this->getView()->assign('isDown', 1);
 	}
+	
 	//线下详情页
 	public function offlineEditAction() {
 		//判断当前用户有没有终审的权限

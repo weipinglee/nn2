@@ -153,27 +153,21 @@
 	$(function(){
 		nextTab({$certShow['step']});
 
-		$('#store_id').on('change', getStoreArea);
-
-		function getStoreArea(){
-			var val = $('select[name=store_id]').val();
+		$('#store_id').on('change', function(){
+			var val = $(this).val();
 			$('#address').children('span').eq(2).html('');
 			if (val == 0) {return;}
-				$.ajax({
-					'url' :  $('#ajaxGetAddress').val(),
-					'type' : 'post',
-					'data' : {id : val},
-					'dataType': 'json',
-					success:function(data){
-						if (data.id) {
-							var areaObj = new Area();
-							var area_text = areaObj.getAreaText(data.area);
-							$('#address').children('span').eq(2).html(area_text +' '+ data.address);
-						}
-					}
-				})
-		}
-
-		getStoreArea();
+			  $.ajax({
+			             'url' :  $('#ajaxGetAddress').val(),
+			            'type' : 'post',
+			            'data' : {id : val},
+			            'dataType': 'json',
+			            success:function(data){
+			            	if (data.id) {
+			            		$('#address').children('span').eq(2).html(data.address);
+			            	}
+			            }
+			 })
+		});
 	})
 </script>

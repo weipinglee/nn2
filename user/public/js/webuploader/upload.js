@@ -28,6 +28,11 @@ $(function(){
     });
 
 
+    //开始上传
+    //$('#beginUpload').on('click',function(){
+    //    uploader.upload();
+    //});
+
     uploader.on( 'fileQueued', function( file ) {
         var $li = $(
                 '<li id="' + file.id + '" class="file-item thumbnail">' +

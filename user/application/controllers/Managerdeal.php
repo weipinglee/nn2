@@ -243,18 +243,6 @@ class ManagerDealController extends UcenterBaseController {
         $this->getView()->assign('storeList', $storeList['list']);
     }
 
-    /**
-     * 申请仓单页面
-     */
-    public function storeProductAction(){
-        $store_list = store::getStoretList();
-
-        $this->getView()->assign('storeList',$store_list);
-        $this->productAddAction();
-
-        $token =  \Library\safe::createToken();
-        $this->getView()->assign('token',$token);
-    }
 
 
 

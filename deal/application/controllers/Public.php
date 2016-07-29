@@ -7,13 +7,15 @@ use \Library\url;
 class PublicController extends \Yaf\Controller_Abstract{
 
      public function init(){
+          $right = new \Library\checkRight();
+          $isLogin = $right->checkLogin();
           $this->getView()->setLayout('layout');
           $frdLink = new \nainai\system\friendlyLink();
           $frdData = $frdLink->getFrdLink(10);
           $this->getView()->assign('frdData',$frdData);
 
-          $login = \Library\session::get('login');
-          if($login){
+          if($isLogin){
+               $login = \Library\session::get('login');
                $this->getView()->assign('login',1);
                $this->getView()->assign('username',$login['username']);
           }

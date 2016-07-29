@@ -230,8 +230,14 @@ class Order{
 			$pay_deposit = $this->payDepositCom($orderData['offer_id'],$orderData['amount']);
 			// if($orderData['payment'] == 1){
 				//代理账户,判断用户买家余额是否足够
-				$user_id = isset($orderData['buyer_id']) ? $orderData['buyer_id'] : $orderData['user_id'];//采购买家与正常相反
-				$balance = $this->account->getActive($user_id);
+			if(isset($orderData['buyer_id'])){
+				$user_id = $orderData['buyer_id'];
+				unset($orderData['buyer_id']);
+			}
+			else{
+				$user_id = $orderData['user_id'];
+			}
+			$balance = $this->account->getActive($user_id);
 				if(floatval($balance) < $pay_deposit){
 					return tool::getSuccInfo(0,'代理账户余额不足');
 				}

@@ -16,10 +16,8 @@
     </div>
     <div class="content">
         <div class="pd-20">
-			 <div class="text-c"> 
-			<input type="text" class="input-text" style="width:250px" placeholder="输入标号" id="" name="">
-			<button type="submit" class="btn btn-success" id="" name=""><i class="icon-search fa-search"></i> 搜标号</button>
-		</div>
+            {include:layout/search.tpl}
+			</div>
 	 <table class="table table-border table-bordered table-hover table-bg">
         <thead>
             <tr>

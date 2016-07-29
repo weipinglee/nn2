@@ -24,7 +24,7 @@ class OfferManageModel extends \nainai\offer\product{
 	 * @return array
 	 */
 	private function getList($page,$where =''){
-		$Q = new Query('product_offer as o');
+		$Q = new \Library\searchQuery('product_offer as o');
 		$Q->join = "left join products as p on o.product_id = p.id left join user as u on o.user_id = u.id";
 		$Q->fields = "o.*,u.username,p.quantity,p.unit";
 		if($where) $Q->where = $where;
@@ -32,10 +32,10 @@ class OfferManageModel extends \nainai\offer\product{
 		$Q->pagesize = 20;
 		// $Q->order = "sort";
 		$sql = 'select count(*) as count from product_offer as o '.($where ? ' where '.$where : '');
-		$count = $this->offer->query($sql);
+
 		$data = $Q->find();
 
-		foreach ($data as $key => &$value){
+		foreach ($data['list'] as $key => &$value){
 			$value['quantity'] = $this->floatForm($value['quantity']);
 			$value['mode_txt'] = $this->getMode($value['mode']);
 			$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
@@ -43,9 +43,7 @@ class OfferManageModel extends \nainai\offer\product{
 
 				$value['type_txt'] = $this->getType($value['type']);
 		}
-
-		$pageBar =  $Q->getPageBar();
-		return array('data'=>$data,'bar'=>$pageBar,'count'=>$count[0]['count']);
+		return $data;
 	}
 
 	/**

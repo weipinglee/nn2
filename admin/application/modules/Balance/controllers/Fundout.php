@@ -12,14 +12,38 @@ class FundoutController extends InitController {
 	public function init() {
 		$this->getView()->setLayout('admin');
 	}
+
+	/**
+	 * 出金待审核
+	 */
+	public function checkfundoutlistAction(){
+		$condition = array('name' => '出金待审核', 'status' => fundOutModel::FUNDOUT_APPLY.','.fundOutModel::FUNDOUT_FIRST_OK);
+		$this->listData($condition);
+	}
+
+	/**
+	 * 出金待拨款
+	 */
+	public function pendingpaymentlistAction(){
+		$condition = array('name' => '出金待拨款', 'status' => fundOutModel::FUNDOUT_FINAL_OK);
+		$this->listData($condition);
+	}
+
+	/**
+	 * 出金已审核
+	 */
+	public function checkedfundoutlistAction(){
+		$condition = array('name' => '出金已审核', 'status' => fundOutModel::FUNDOUT_OK.','.fundOutModel::FUNDOUT_FIRST_NG.','.fundOutModel::FUNDOUT_FINAL_NG);
+		$this->listData($condition);
+	}
 	//出金列表
-	public function fundOutListAction() {
+	public function listData($condition) {
 		$page = Safe::filterGet('page', 'int', 1);
 		$begin = Safe::filterGet('begin');
 		$end = Safe::filterGet('end');
 		$down = Safe::filterGet('down', 'int', 0);
 		$condition['down'] = $down;
-		$condition['name'] = '出金列表';
+
 		if (empty($begin)) {
 			$begin = \Library\Time::getDateTime('Y-m-d');
 		}
@@ -65,6 +89,7 @@ class FundoutController extends InitController {
 		$controllerName = $this->getRequest()->getControllerName();
 		$moduleName = $this->getRequest()->getModuleName();
 		$data['url'] = \Library\url::createUrl($moduleName . '/' . $controllerName . '/' . $data['action']);
+
 		$data['proot'] = \Library\Thumb::get($data['proot'],180,180);
 		$data['bank_proof'] = \Library\Thumb::get($data['bank_proof'],180,180);
 		$this->getView()->assign('outInfo', $data);
