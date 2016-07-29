@@ -27,6 +27,7 @@
             </tr>
         </thead>
         <tbody>
+        {set:$bankObj = new \nainai\user\userBank();$card_type = $bankObj->getCardType()}
         {foreach:items=$data['list']}
             {if:$item['status']==0}{set:$status=0}{else:}{set:$status=$item['status']}{/if}
             <tr class="text-c">
@@ -36,7 +37,7 @@
                 <td>{echo:$card_type[$item['card_type']]}</td>
                 <td>{$item['true_name']}</td>
                 <td>{$item['identify_no']}</td>
-                <td>{$status_text[$status]}</td>
+                <td>{echo:\nainai\user\userBank::$status_text[$status]}</td>
                 <td class="td-manage">
                     <a title="查看明细" href="{url:balance/accManage/checkBankDetail}?user_id={$item['user_id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
             </tr>

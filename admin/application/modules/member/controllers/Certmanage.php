@@ -72,6 +72,7 @@ class certManageController extends Yaf\Controller_Abstract {
                $certObj = new certDealer();
 
                $certData = $certObj->getDetail($id);
+
                if(empty($certData))
                     $this->redirect(url::createUrl('member/certManage/dealerCert'));
 
