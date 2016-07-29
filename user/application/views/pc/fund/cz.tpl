@@ -128,7 +128,7 @@
 					</div>
 				</form>
 					<div class="zj_mx">
-						<div class="mx_l">结算账户资金明细</div>
+						<div class="mx_l">账户充值明细</div>
 						<form action="{url:/Fund/cz}" method="GET" name="">
 							<div class="mx_r">
 								交易时间：<input class="Wdate" name="begin" type="text" value="{$cond['begin']}" onClick="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'})">

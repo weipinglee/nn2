@@ -68,6 +68,12 @@
                     </tr>
                 {/if}
                 {if:$reInfo['action']!=null}
+                    <tr>
+                        <th scope="col" colspan="6">
+                            意见: <textarea name="message" id="message" style="width:250px;height:100px;"></textarea>
+                        </th>
+
+                    </tr>
                 <tr>
                     <th scope="col" colspan="6">
                         <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok"></i> 通过</a>
@@ -77,12 +83,7 @@
                     </th>
 
                 </tr>
-                <tr>
-                    <th scope="col" colspan="6">
-                       意见: <textarea name="message" id="message"></textarea>
-                    </th>
 
-                </tr>
             {/if}
 
             </table>
@@ -93,15 +94,16 @@
     $(function(){
         var formacc = new nn_panduo.formacc();
         var status = '';
-        var mess=$('#message').val();
         $('a.pass').click(function(){
             $(this).unbind('click');
+            var mess=$('#message').val();
             msg = '已通过';
             setStatus(1,msg,mess);
         })
 
         $('a.ref').click(function(){
             $(this).unbind('click');
+            var mess=$('#message').val();
             msg = '已驳回';
             setStatus(0,msg,mess);
         })

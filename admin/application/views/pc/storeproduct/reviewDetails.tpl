@@ -123,7 +123,7 @@
 
             <tr>
               <th scope="col" colspan="6">
-                  {if: $type!=31 and $type!=32}
+                  {if: $type!=31&&$type!=32}
                  <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok fa-ok"></i> 通过</a> 
                  <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove fa-remove"></i> 不通过</a>
                  {/if}

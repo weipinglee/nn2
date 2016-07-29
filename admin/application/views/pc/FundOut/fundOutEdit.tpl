@@ -59,9 +59,7 @@
                 </tr>
                 <tr>
                     <th>开户凭证：</th>
-                    <td>  <img id='image1' src='{$outInfo["bank_proof"]}'></td>
-                    <th></th>
-                    <td></td>
+                    <td colspan="4">  <img id='image1' src='{$outInfo["bank_proof"]}'></td>
                 </tr>
                 {if:$outInfo['first_time']!=null}
                     <tr>
@@ -109,6 +107,12 @@
                 {if:$outInfo['action']!=null&&$outInfo['action']!='transfer'}
                     <tr>
                         <th scope="col" colspan="6">
+                            意见: <textarea name="message" id="message"  style="width:250px;height:100px;" ></textarea>
+                        </th>
+
+                    </tr>
+                    <tr>
+                        <th scope="col" colspan="6">
                             <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok"></i> 确定</a>
                             <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove"></i> 不通过</a>
                             <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
@@ -116,12 +120,7 @@
                         </th>
 
                     </tr>
-                    <tr>
-                        <th scope="col" colspan="6">
-                            意见: <textarea name="message" id="message" ></textarea>
-                        </th>
 
-                    </tr>
                 {/if}
 
             </table>
