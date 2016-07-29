@@ -221,12 +221,14 @@ nn_panduo.formacc.prototype = {
 	//ajax提交
 	ajax_post:function(url,ajax_data,suc_callback,err_callback){
 		var _this = this;
+		layer.load(2,{shade:[0.1,'black']});
 		$.ajax({
 			type:'post',
 			url:url,
 			data:ajax_data,
 			dataType:'json',
 			success:function(data){
+				layer.closeAll();
 				if(data.success == 1){
 					if(data.returnUrl){
 						layer.msg(data.info);
@@ -244,7 +246,9 @@ nn_panduo.formacc.prototype = {
 
 
 				}else{
+
 					if(data.returnUrl){
+
 							layer.msg(data.info);
 							setTimeout(function(){
 								window.location.href=data.returnUrl;
@@ -260,6 +264,7 @@ nn_panduo.formacc.prototype = {
 				}
 			},
 			error:function(data){
+				layer.closeAll();
 				layer.msg("服务器错误,请重试");
 			}
 		});

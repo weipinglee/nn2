@@ -136,15 +136,16 @@ class zx extends account{
                 <preTime></preTime><!--预约时间（格式：hhmmss 预约时非空，只限100000、120000、140000、160000四个时间点）char(6)-->
             </stream>";
      }
- 
 
     /**
      * 资金冻结
      * @param int $user_id 用户id
      * @param float $num 冻结金额
      */
-    public function freeze($user_id,$num,$note=''){
-         return $this->bankTransfer($num,$user_id,0,'freeze',$note);
+
+    public function freeze($user_id,$num,$clientID=''){
+         return $this->bankTransfer($clientID,$num,$user_id,0,'freeze');
+
     }
 
     
@@ -153,8 +154,10 @@ class zx extends account{
      * @param int $user_id
      * @param float $num 释放金额
      */
-    public function freezeRelease($user_id,$num,$note=''){
-        return $this->bankTransfer($num,$user_id,0,'freezeRelease',$note);
+
+    public function freezeRelease($user_id,$num,$freezeno=''){
+        return $this->bankTransfer('',$num,$user_id,0,'freezeRelease','',$freezeno);
+
     }
 
     /**
@@ -165,8 +168,20 @@ class zx extends account{
      * @param float $num 转账的金额
      *
      */
-    public function freezePay($from,$to=0,$num,$note=''){
-        return $this->bankTransfer($num,$from,$to,'freezePay',$note);
+
+    public function freezePay($from,$to=0,$num,$freezeno=''){
+        return $this->bankTransfer('',$num,$from,$to,'freezePay','',$freezeno);
+    }
+
+    /**
+     * 强制转账
+     * @param  int $from 付款用户id
+     * @param  int $to   收款用户id
+     * @param  float $num  金额
+     */
+    public function transfer($from,$to,$num){
+        return $this->bankTransfer('',$num,$from,$to,'transfer');
+
     }
 
     /**
@@ -186,16 +201,21 @@ class zx extends account{
      * @param  string $memo     摘要
      * @return 
      */
-    public function acountInit($subAccNo,$subAccNm,$num=0.0,$memo=''){
-        $clientID = '9828382382';
+
+    public function acountInit($user_id,$num=0.0,$memo=''){
+        $clientID = tool::create_uuid($user_id);
+        $payAccInfo = $this->attachAccount->attachInfo($user_id);
+
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLFNDINI</action>
                 <userName>".self::USERNAME."</userName>
                 <clientID>{$clientID}</clientID>
-                <accountNo>3110710003081005213</accountNo>
-                <subAccNo>{$subAccNo}</subAccNo>
-                <subAccNm>{$subAccNm}</subAccNm>
+
+                <accountNo>3110710003081005215</accountNo>
+                <subAccNo>{$payAccInfo['no']}</subAccNo>
+                <subAccNm>{$payAccInfo['name']}</subAccNm>
+
                 <tranAmt>{$num}</tranAmt>
                 <memo></memo>
             </stream>";
@@ -211,7 +231,9 @@ class zx extends account{
         //判断对应user_id是否已有附属账户
         $data['bank'] = self::BANK;
         $accInfo = $this->attachAccount->attachInfo($data['user_id']);
-        if(!($data['user_id'] && $data['name'] && $data['id_card'] && $data['contact_name'] && $data['contact_phone'] && $data['mail_address'])){
+
+        if(!($data['user_id'] && $data['legal'] && $data['name'] && $data['id_card'] && $data['address'] && $data['contact_name'] && $data['contact_phone'] && $data['mail_address'])){
+
             $res = '参数错误';
         }elseif($accInfo){
             $res = '已有附属账户';
@@ -224,7 +246,9 @@ class zx extends account{
                     <appFlag>2</appFlag>
                     <accGenType>0</accGenType>
                     <subAccNo></subAccNo>
-                    <subAccNm>王五</subAccNm>
+
+                    <subAccNm>{$data['name']}</subAccNm>
+
                     <accType>03</accType>
                     <calInterestFlag>0</calInterestFlag>
                     <interestRate></interestRate>
@@ -237,12 +261,14 @@ class zx extends account{
                     <realNameParm>0</realNameParm>
                     <subAccPrintParm>0</subAccPrintParm>
                     <mngNode>231001</mngNode>
-                    <vtlCustNm>{$data['name']}</vtlCustNm>
-                    <legalPersonNm>asdsad</legalPersonNm>
+
+                    <vtlCustNm>vtlcus</vtlCustNm>
+                    <legalPersonNm>{$data['legal']}</legalPersonNm>
                     <custCertType>0</custCertType>
                     <custCertNo>{$data['id_card']}</custCertNo>
                     <branch>024</branch>
-                    <commAddress>sbbbs</commAddress>
+                    <commAddress>{$data['address']}</commAddress>
+
                     <list name='VilcstDataList'>
                         <row>
                         <contactName>{$data['contact_name']}</contactName>
@@ -251,8 +277,12 @@ class zx extends account{
                         </row>
                     </list>
                 </stream>";
+
+                // var_dump($xml);exit;
             $res = $this->attachAccount->curl($xml);
-            if($res['status'] == 'AAAAAAA'){
+            
+            if($res['status'] == 1){
+
                 //成功  插入数据
                 $data['no'] = $res['subAccNo'];
                 $data['name'] = iconv('utf-8','gbk',$res['subAccNm']);
@@ -260,7 +290,9 @@ class zx extends account{
                 $res = $this->attachAccount->addAttach($data);
 
             }else{
-                $res = $res['statusText'];
+
+                $res = $res['info'];
+
             }
         }
 
@@ -269,17 +301,26 @@ class zx extends account{
 
     /**
      * 根据交易类型生成不同的银行报文
+     * @param  string $clientID 流水号
      * @param  float $num 交易数额
      * @param  int $from 付款方id
      * @param  int $to 收款方id
      * @param  string $type 交易类型（方法名）
      * @return 银行返回信息 成功为true  失败为具体信息字符串
      */
-    public function bankTransfer($num,$from = 0,$to = 0,$type,$memo=''){
+
+    public function bankTransfer($clientID,$num,$from = 0,$to = 0,$type,$memo='',$freezeno=''){
+        $clientID = $clientID ? $clientID : tool::create_uuid($from);
+
         if(!intval($from)) return '付款账户未指定';
         if(floatval($num) <= 0) return '交易数额错误';
         $type_txt = '';
         switch ($type) {
+
+            case 'transfer':
+                //转账
+                $type_txt = 'BF';
+                break;
             case 'freeze':
                 //冻结付款方账户
                 $type_txt = 'BR';
@@ -287,6 +328,10 @@ class zx extends account{
             case 'freezeRelease':
                 //解冻付款方账户
                 $type_txt = 'BG';
+
+                $to = $from;
+                // $freezeInfo = $this->freezeTrans($from,'20160727');
+
                 break;
             case 'freezePay':
                 //解冻支付
@@ -296,12 +341,10 @@ class zx extends account{
                 return '交易类型未指定';
                 break;
         }
-        $clientID = tool::create_uuid();//交易流水号
+
         $payAccInfo = $this->attachAccount->attachInfo($from);
         $recvAccInfo = intval($to) ? $this->attachAccount->attachInfo(intval($to)) : array('no'=>'','name'=>'');
 
-        //TODO  冻结编号查询
-        
         
         //强制转账报文
         $xml = self::XML_PREFIX."
@@ -315,12 +358,41 @@ class zx extends account{
                 <recvAccNo>{$recvAccInfo['no']}</recvAccNo>
                 <recvAccNm>{$recvAccInfo['name']}</recvAccNm>
                 <tranAmt>{$num}</tranAmt>
-                <freezeNo></freezeNo>
+
+                <freezeNo>{$freezeno}</freezeNo>
                 <memo>{$memo}</memo>
                 <tranFlag>1</tranFlag>
             </stream>";
+
         $res = $this->attachAccount->curl($xml);
-        return $res;
+        // var_dump($res);exit;
+        return $res['status'] == 1 ? true : $res;
+
+    }
+
+    /**
+     * 获取指定冻结金额的冻结编号
+     * @param  array $records 冻结记录
+     * @param  float $amount 冻结金额
+     * @param  array $exist  已有冻结编号数组(用于同时取得多个冻结编号 防止重复)
+     * @param  string $djtype 冻结类型  默认冻结
+     * @return string  冻结编号
+     */
+    public function getFreezeCode($records,$amount,$exist=array(),$djtype='4'){
+        $amount = number_format($amount,2);
+        if($records['status'] == 1){
+            foreach ($records['row'] as $key => $value) {
+                if($value['DJAMT'] == $amount && $value['JDTIME'] == '000000' && $value['DJTYPE'] == $djtype){
+                    if(in_array($value['DJCODE'],$exist)){
+                        continue;
+                    }else{
+                        return $value['DJCODE'];
+                    }
+                }
+            }
+        }else{
+            return '';
+        }
 
     }
 
@@ -335,49 +407,159 @@ class zx extends account{
                 <action>DLCIDSTT</action>
                 <userName>".self::USERNAME."</userName>
                 <clientID>{$clientID}</clientID>
+
+                <type>DLMDETRN</type>
             </stream>";
         $res = $this->attachAccount->curl($xml);
         return $res;
     }
 
     /**
-     * 查询指定附属账户余额   
-     * @param  string $subAccNo 附属账号
+     * 附属账户冻结信息查询
+     * @param  int $user_id 用户id
+     * @param  datetime $date 冻结时间
+     * @return array 
+     */
+    public function freezeTrans($user_id,$date){
+        $payAccInfo = $this->attachAccount->attachInfo($user_id);
+        $starDate = date('Ymd',strtotime($date));
+        $endDate = date('Ymd',(strtotime($date)+86400*90)>time() ? time() : strtotime($date)+86400*90);
+        $xml = self::XML_PREFIX."
+            <stream>
+                <action>DLSFRZQR</action>
+                <userName>".self::USERNAME."</userName>
+                <accountNo>".self::MAINACC."</accountNo>
+                <subAccNo>{$payAccInfo['no']}</subAccNo>
+                <startDate>{$starDate}</startDate>
+                <endDate>{$endDate}</endDate>
+            </stream>";
+        $res = $this->attachAccount->curl($xml);
+        return $res;
+    }
+
+    /**
+     * 查询指定附属账户余额
+     * @param  int $user_id 用户id
      * @return array:账户余额数组 string:错误信息
      */
-    public function attachBalance($subAccNo){
+    public function attachBalance($user_id){
+        $payAccInfo = $this->attachAccount->attachInfo($user_id);
+
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLSBALQR</action>
                 <userName>".self::USERNAME."</userName>
                 <accountNo>".self::MAINACC."</accountNo>
-                <subAccNo>{$subAccNo}</subAccNo>
+
+                <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
         $res = $this->attachAccount->curl($xml);
-        return $res;
+        // return $res;
+        return $res['row'] ? $res['row'] : array();
+
     }
 
     /**
      * 查询指定附属账户交易明细(10条/次)
-     * @param  string $subAccNo 附属账户
+     * @param  int $user_id 用户id
      * @return array:明细信息数组 string:错误信息
      */
-    public function attachTransDetails($subAccNo){
+    public function attachTransDetails($user_id,$where=array('startDate'=>'20160601','endDate'=>'20160726')){
+        $payAccInfo = $this->attachAccount->attachInfo($user_id);
+        if(!$payAccInfo) return array();
+
         $xml = self::XML_PREFIX."
             <stream>
             <action>DLSTRNDT</action>
                 <userName>".self::USERNAME."</userName>
                 <accountNo>".self::MAINACC."</accountNo>
-                <subAccNo>{$subAccNo}</subAccNo>
+
+                <subAccNo>{$payAccInfo['no']}</subAccNo>
                 <queryType></queryType>
-                <startDate></startDate>
-                <endDate></endDate>
+                <startDate>{$where['startDate']}</startDate>
+                <endDate>{$where['endDate']}</endDate>
                 <tranType></tranType>
                 <startRecord></startRecord>
+                <pageNumber></pageNumber>
+            </stream>";
+        $res = $this->attachAccount->curl($xml);
+        return $res;
+    }
+
+
+    /**
+     * 非登录打印账户交易明细(10条/次)
+     * @param  int $user_id 用户id
+     * @return array:明细信息数组 string:错误信息
+     */
+    public function attachOperDetails($user_id,$where=array('startDate'=>'20160601','endDate'=>'20160726')){
+        $payAccInfo = $this->attachAccount->attachInfo($user_id);
+        $xml = self::XML_PREFIX."
+            <stream>
+            <action>DLPTDTQY</action>
+                <userName>".self::USERNAME."</userName>
+                <mainAccNo>".self::MAINACC."</mainAccNo>
+                <subAccNo>{$payAccInfo['no']}</subAccNo>
+                <startDate>{$where['startDate']}</startDate>
+                <endDate>{$where['endDate']}</endDate>
+                <startRecord>1</startRecord>
                 <pageNumber>10</pageNumber>
             </stream>";
         $res = $this->attachAccount->curl($xml);
         return $res;
+    }
+
+
+    /**
+     * 订单交易结果查询
+     * @param string $clientID 流水号
+     * @return string 
+     */
+    public function orderRes($clientID){
+
+    }
+
+    /**
+     * 获取交易类型
+     * @param  int $type 交易类别号
+     * @return string  交易类型名称
+     */
+    public function getTransType($type){
+        $type_txt = '';
+        switch ($type) {
+            case 11:
+                $type_txt = '普通转账';
+                break;
+            case 12:
+                $type_txt = '资金初始化';
+                break;
+            case 13:
+                $type_txt = '利息分配';
+                break;
+            case 14:
+                $type_txt = '手续费分配';
+                break;
+            case 15:
+                $type_txt = '强制转账';
+                break;
+            case 16:
+                $type_txt = '调账';
+                break;
+            case 21:
+                $type_txt = '公共利息收费账户转账';
+                break;
+            case 22:
+                $type_txt = '公共调账账户外部转账';
+                break;
+            case 23:
+                $type_txt = '普通外部转账';
+                break;
+            default:
+                $type_txt = '未知交易类型';
+                break;
+        }
+
+        return $type_txt;
     }
 
 }

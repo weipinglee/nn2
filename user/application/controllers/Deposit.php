@@ -16,9 +16,10 @@ class DepositController extends OrderController{
 	public function sellerDepositAction(){
 		if(IS_POST){
 			$order_id = safe::filterPost('order_id','int');
+			$payment = safe::filterPost('payment','int');
 			$user_id = $this->user_id;
 			$pay = true;
-			$res = $this->deposit->sellerDeposit($order_id,$pay,$user_id);
+			$res = $this->deposit->sellerDeposit($order_id,$pay,$user_id,$payment);
 			if($res['success'] == 1)
 				die(json::encode(tool::getSuccInfo(1,'保证金支付成功',url::createUrl('/contract/sellerdetail?id='.$order_id))));
 			else

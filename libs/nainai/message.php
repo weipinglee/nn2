@@ -14,7 +14,8 @@ class message{
 	private static $type=array(
 		'orderPay',
 		'fundOut',
-		'depositPay'
+		'depositPay',
+		'newbankaccount'
 	);
 	/**
 	 * [__construct 构造方法]
@@ -80,6 +81,13 @@ class message{
 	public function buyerProof($order_id){
 		$title="请确认支付凭证";
 		$message="您的订单".$order_id."买家已上传支付凭证";
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+	public function newbankaccount(){
+		$title = '开户提醒';
+		$message='有买家要通过线下支付货款，请尽快开户';
 		return array(
 			'title'=>$title,
 			'content'=>$message);

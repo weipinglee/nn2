@@ -38,6 +38,8 @@ class UserInvoice extends \nainai\Abstruct\ModelAbstract {
 		$this->user_invoice = new M('user_invoice');
 		$this->order_invoice = new M('order_invoice');
 	}
+
+	
 	/**
 	 * 根据用户id获取相应发票信息
 	 * @param  int $user_id 用户id
