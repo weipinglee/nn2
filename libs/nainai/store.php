@@ -414,7 +414,7 @@ class store{
             $res = $storeProductObj->getError();
         }
         if($res===true){
-            $resInfo = Tool::getSuccInfo();
+            $resInfo = Tool::getSuccInfo(1, 'success');
         }
         else{
             $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');

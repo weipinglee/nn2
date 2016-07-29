@@ -13,7 +13,7 @@ use nainai\fund;
 use \Library\url;
 use \Library\tool;
 
-class FundinController extends Yaf\Controller_Abstract {
+class FundinController extends InitController {
 
 
 	public function init() {
@@ -21,32 +21,75 @@ class FundinController extends Yaf\Controller_Abstract {
 	}
 	//线上列表
 	public function onlineListAction() {
-
-		$page = safe::filterGet('page', 'int');
 		$fundObj = new fundInModel();
-		$data = $fundObj->getOnlineList($page);
-
-		//分配数据
-		$this->getView()->assign('data', $data);
-		//
+		$condition = array('type' => fundInModel::DIRECT. ',' . fundInModel::UNION, 'name' => '线上列表', 'controller'=>'line');
+		$this->listData($condition);
 	}
-	//线下列表
-	public function checkOfflineListAction() {
-		$page = safe::filterGet('page', 'int');
+	//线下待审核列表
+	public function checkofflinelistAction() {
+		$condition = array('type' => fundInModel::OFFLINE, 'name' => '线下待审核列表', 'controller'=>'off');
+		$condition['status'] = fundInModel::OFFLINE_APPLY;
+		$this->listData($condition);
+	}
+
+	//线下已审核审核列表
+	public function checkedofflinelistAction() {
+		$condition = array('type' => fundInModel::OFFLINE, 'name' => '线下已审核审核列表', 'controller'=>'off');
+		$condition['status'] = fundInModel::OFFLINE_FIRST_OK . ',' . fundInModel::OFFLINE_FIRST_NG . ','  . fundInModel::OFFLINE_FINAL_OK . ',' . fundInModel::OFFLINE_FINAL_NG ;
+		$this->listData($condition);
+	}
+
+	public function listData($condition=array()){
+		$page = Safe::filterGet('page', 'int', 1);
+		$begin = Safe::filterGet('begin');
+		$end = Safe::filterGet('end');
+		$down = Safe::filterGet('down', 'int', 0);
+		$condition['down'] = $down;
+
 		$fundObj = new fundInModel();
-		$data = $fundObj->getCheckOffLineList($page);
-		//分配数据
+
+		if (empty($begin)) {
+			$begin = \Library\Time::getDateTime('Y-m-d');
+		}
+
+		if (empty($end)) {
+			$end = \Library\Time::getDateTime('Y-m-d');
+		}
+		$_GET['begin'] =  $begin . ' 00:00:00';
+		$_GET['end'] = $end . ' 23:59:59';
+
+		
+		$data = $fundObj->getOnlineList($page, $this->pagesize, $condition);
+		if ($down == 1) {
+			if ($condition['controller'] == 'line') {
+				$excel = array(0 => array('用户名', '订单号',  '金额', '充值方式', '状态', '时间'));
+			}else{
+				$excel = array(0 => array('用户名', '订单号',  '金额', '状态', '时间'));
+			}
+			
+			foreach ($data['list'] as $key => $value) {
+				$item = array();
+				$item['username'] = $value['username'];
+				$item['order_no'] = $value['order_no'];
+				$item['amount'] = $value['amount'];
+				if ($condition['controller'] == 'line') {
+					$item['pay_type'] = $fundObj::getPayType($value['pay_type']);
+				}
+				$item['status_text'] = $fundObj::getOffLineStatustext($value['status']);
+				$item['create_time'] = $value['create_time'];
+				array_push($excel, $item);
+			}
+			$obj = new \Library\Excel\ExcelHtml();
+			$obj->createExecl($excel, count($excel[0]), "{$begin}至{$end}{$condition['name']}信息报表");
+			exit();
+		}
+
+		$this->getView()->assign('begin', $begin);
+		$this->getView()->assign('end', $end);
 		$this->getView()->assign('data', $data);
-
+		$this->getView()->assign('isDown', 1);
 	}
-	//已审核列表
-	public function checkedOffLineListAction(){
-		$page=safe::filterGet('page','int');
-		$fundObj=new fundInModel();
-		$data=$fundObj->getCheckedOffLineList($page);
-		$this->getView()->assign('data',$data);
-
-	}
+	
 	//线下详情页
 	public function offlineEditAction() {
 		//判断当前用户有没有终审的权限

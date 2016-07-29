@@ -37,9 +37,13 @@ class adminQuery extends \Library\Query{
         }
 
         $list = parent::find();
-        $bar = $this->getPageBar();
-
-        return array('list'=>$list,'bar'=>$bar,'search'=>$search);
+        $result = array('list' => $list, 'search'=>$search);
+        if (!isset($selectData['down']) || $selectData['down'] == 0) {
+            $bar = $this->getPageBar();
+            $result['bar'] = $bar;
+        }
+        
+        return $result;
 
 
     }
@@ -82,7 +86,7 @@ class adminQuery extends \Library\Query{
             if($cond['where']!='')
                 $temp = ' AND ';
             $cond['where'] .= $temp."  {$condArr['time']} >= :begin";
-            $cond['bind']['begin'] = $begin;
+            $cond['bind']['begin'] = $begin ;
         }
         if($end && isset($condArr['time'])){
             if($cond['where']!='')
