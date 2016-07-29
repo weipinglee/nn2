@@ -178,11 +178,13 @@ class DepositOrder extends Order{
 						if($res === true){
 							switch ($payment) {
 								case self::PAYMENT_AGENT:
-									$acc_res = $this->account->freeze($seller,$seller_deposit,$note);		
+									$acc_res = $this->account->freeze($seller,$seller_deposit,$note);
 									break;
 								case self::PAYMENT_BANK:
 									$acc_res = $this->zx->freeze($seller,$seller_deposit,$clientID);
-									$acc_res = $acc_res['info'];
+									if($acc_res!==true){
+										$acc_res = $acc_res['info'];
+									}
 									break;
 								case self::PAYMENT_TICKET:
 									break;

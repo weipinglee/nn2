@@ -148,7 +148,8 @@
 
                    {if:$show_online}
                    <div class="sty_online" style="display:block;">
-                        
+                       <input type="hidden" value="{$data['id']}" name="order_id"/>
+                       <input type="hidden" value="online" name="payment"/>
 						      <label for=""><input name="account" type="radio" value="1" checked="true"/>市场代理账户</label>
 
 						      <label for=""><input name="account" type="radio" value="2" />银行签约账户</label>
@@ -173,7 +174,7 @@
             							<!-- <input class="uplod" type="file" name='proof' onchange="previewImage(this)" /> -->
                           <input type="file" name="proof" id="proof"  onchange="javascript:uploadImg(this);" />
                           <input type="hidden" value="{$data['id']}" name="order_id"/>
-                          <input type="hidden" value="{if:$show_online}online{else:}offline{/if}" name="payment"/>
+                          <input type="hidden" value="offline" name="payment"/>
                           <input type="hidden" value="{url:/ucenter/upload}" name="uploadUrl"/>
 
                         	</li>

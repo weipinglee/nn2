@@ -34,7 +34,7 @@
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span> 分类：</label>
                     <div class="formControls col-5">
-                        <select name="cat_id" datatype="*" nullmsg="请选择所在城市！">
+                        <select name="cat_id" datatype="*" nullmsg="请选择分类！">
                             <option value="">请选择分类</option>
                             {foreach: $items=$catList}
                             <option value="{$item['id']}"

@@ -24,8 +24,9 @@ class ManagerStoreController extends UcenterBaseController{
 	 */
 	public function applyStoreListAction(){
 		$page = Safe::filterGet('page', 'int', 0);
-		$type = $this->getRequest()->getParam('type');
-		$type = Safe::filter($type,'int',1);
+		//$type = $this->getRequest()->getParam('type');
+		//$type = Safe::filter($type,'int',1);
+		$type=2;
 		$store = new store();
 
 		if($type==1)

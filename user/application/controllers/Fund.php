@@ -197,6 +197,28 @@ class FundController extends UcenterBaseController {
 			$this->redirect('bank');
 			exit;
 		}
+		$where = array();
+		$cond['begin'] = safe::filterGet('begin');
+		$cond['end'] = safe::filterGet('end');
+		$cond['day'] = safe::filterGet('day','int',7);
+		$cond['no'] = safe::filterGet('Sn');
+		if($cond['begin'] || $cond['end']){
+			$where = array('begin'=>$cond['begin'],'end'=>$cond['end']);
+		}
+		else if($cond['day']){
+			$where['begin'] = \Library\time::getDateTime('',time()-$cond['day']*24*3600);
+		}
+
+		if($cond['no'])
+			$where['no'] = $cond['no'];
+		$fundObj=new fundModel();
+		$page=safe::filterGet('page','int');
+		$fundOutList=$fundObj->getFundOutList($this->user_id,$where,$page);
+		foreach($fundOutList[0] as $k=>$v){
+			$fundOutList[0][$k]['status']=fundModel::getFundOutStatusText($v['status']);
+		}
+		$this->getView()->assign('pageBar',$fundOutList[1]);
+		$this->getView()->assign('flow',$fundOutList[0]);
 		$token =  \Library\safe::createToken();
 		$this->getView()->assign('token',$token);
 	}

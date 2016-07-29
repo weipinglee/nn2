@@ -18,7 +18,6 @@ class OrderController extends UcenterBaseController{
 
 	//买家支付尾款
 	public function buyerRetainageAction(){
-
 		if(IS_POST){
 			$order_id = safe::filterPost('order_id','int');
 			$type = safe::filterPost('payment');//线上or线下
@@ -109,20 +108,24 @@ class OrderController extends UcenterBaseController{
 			$reduce_amount = safe::filterPost('amount','floatval');
 			$reduce_amount = !$reduce_amount || $reduce_amount > $amount || $reduce_amount < 0 ? 0 : $reduce_amount;
 			if(!$reduce_amount){
-				die('扣款金额错误');
+				die(json::encode(tool::getSuccInfo(0,'扣减金额错误')));
 			}
 			$reduceData['reduce_amount'] = $reduce_amount;
 			$reduceData['reduce_remark'] = safe::filterPost('remark');
 			$res = $this->order->verifyQaulity($order_id,$this->user_id,$reduceData);
+			if($res['success']==1){
+				$res['returnUrl'] = url::createUrl('/Contract/buyerlist');
+			}
+			die(json::encode($res));
 		}else{
 			$order_id = safe::filter($this->_request->getParam('order_id'));
 			$res = $this->order->verifyQaulity($order_id,$this->user_id);
+			if($res['success'] == 1)
+				$this->success('已确认货物质量',url::createUrl('/Contract/buyerlist'));
+			else
+				$this->error($res['info']);
 		}
 
-		if($res['success'] == 1)
-			$this->success('已确认货物质量',url::createUrl('/Contract/buyerlist'));
-		else
-			$this->error($res['info']);
 		return false;
 	}
 

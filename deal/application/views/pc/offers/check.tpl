@@ -129,8 +129,9 @@
 
                             <ul id="account_type">
                                 <li><em class="yListrclickem" account='1'>代理账户<i></i></em>
-                                   <!-- <em account='3'>票据账户<i></i></em>-->
-                                    <em account='2'>签约账户<i></i></em></li>
+
+                                    <em account='2' class="qianyue">签约账户<i></i></em></li>
+                                <!-- <em account='3'>票据账户<i></i></em>-->
 
                             </ul>
                             <div class="bank_box" style="display:none;">
@@ -151,7 +152,7 @@
                                     for(var i=0; i<arrAccount.length;i++){
                                         arrAccount[i].index=i;
                                         arrAccount[i].onclick=function(){
-                                            if(this.index==2){
+                                            if(this.index==1){
                                                 $('.bank_box').show();
                                             }else{
                                                 $('.bank_box').hide();

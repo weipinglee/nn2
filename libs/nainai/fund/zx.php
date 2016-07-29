@@ -422,6 +422,7 @@ class zx extends account{
      */
     public function freezeTrans($user_id,$date){
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
+       // var_dump($payAccInfo);exit;
         $starDate = date('Ymd',strtotime($date));
         $endDate = date('Ymd',(strtotime($date)+86400*90)>time() ? time() : strtotime($date)+86400*90);
         $xml = self::XML_PREFIX."

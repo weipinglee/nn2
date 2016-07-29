@@ -128,4 +128,18 @@ xml;
 
 	}
 
+
+	public function accInitAction(){
+		$acc = new \nainai\fund\zx();
+		$res = $acc->acountInit(67,1000,'');
+
+		var_dump($res);
+	}
+
+	public function freeAction(){
+		$acc = new \nainai\fund\zx();
+		$res = $acc->freezeTrans(67,date('Y-m-d H:i:s',strtotime('2016-7-21')));
+		var_dump($res);
+	}
+
 }

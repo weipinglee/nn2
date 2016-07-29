@@ -885,18 +885,23 @@
                             <li class="iServiceText"><s class="iS_img3"></s>全天候服务，保障货物安全，严格把控化工原材料质量，省心、省力</li>
                         </ul>
                         <ul class="HomeService_other">
-                            <li class="iServiceTit">新手指南</li>
+                            {foreach: items=$helpList item=$v key=$k}
+                            <li class="iServiceTit">{$v['name']}</li>
                             <li class="iServiceText">
-                                <p><a href="http://news.nainaiwang.com/article/show-9-92.html" rel="nofollow"><b>【订单管理】</b>管理我的订单及邀请我的好友</a></p>
-                                <p><a href="http://news.nainaiwang.com/article/show-9-89.html" rel="nofollow"><b>【完善信息】</b>注册成功后尽快完善公司信息 </a></p>
-                                <p><a href="http://news.nainaiwang.com/article/show-9-94.html" rel="nofollow"><b>【站内消息】</b>管理我的站内消息</a></p>
+                                {foreach:items=$v['data'] item=$vv key=$kk}
+                                {set: $helpContent=mb_substr($vv['content'],0,13,'utf-8'); $helpContent=strip_tags($helpContent)}
+                                    <p><a href="http://news.nainaiwang.com/article/show-9-92.html" rel="nofollow"><b>【{$vv['name']}】</b>{$helpContent}...</a></p>
+                                {/foreach}
+      <!--                          <p><a href="http://news.nainaiwang.com/article/show-9-89.html" rel="nofollow"><b>【完善信息】</b>注册成功后尽快完善公司信息 </a></p>
+                                <p><a href="http://news.nainaiwang.com/article/show-9-94.html" rel="nofollow"><b>【站内消息】</b>管理我的站内消息</a></p>-->
                             </li>
-                            <li class="iServiceTit">常见问题</li>
+                            {/foreach}
+<!--                           <li class="iServiceTit">常见问题</li>
                             <li class="iServiceText">
                                 <p><a href="http://news.nainaiwang.com/article/show-9-42.html" rel="nofollow"><b>【发布供求】</b>注册成功后，如何发布供求？</a></p>
                                 <p><a href="http://news.nainaiwang.com/article/show-9-90.html" rel="nofollow"><b>【批量发布】</b>供求信息多，可否批量发布呢？</a></p>
                                 <p><a href="http://news.nainaiwang.com/article/show-9-93.html" rel="nofollow"><b>【公司认证】</b>如何进行公司认证？</a></p>
-                            </li>
+                            </li>-->
                         </ul>
                         <ul class="i_Contact">
                             <li class="iServiceTit">联系我们</li>

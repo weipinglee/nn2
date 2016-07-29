@@ -88,18 +88,21 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['invoice'] = $invoice == 1 ? 1 : 0;
 
 		//判断用户是否填写发票所需信息
-		$user_invoice = new \nainai\user\UserInvoice();
-		$invoce_info = $user_invoice->userInvoiceInfo($user_id);
-		if(!($invoce_info['title'] && $invoce_info['bank_no'])){
-			die(json::encode(tool::getSuccInfo(0,'发票信息未完善')));
+		if($orderData['invoice']){
+			$user_invoice = new \nainai\user\UserInvoice();
+			$invoce_info = $user_invoice->userInvoiceInfo($user_id);
+			if(empty($invoce_info)){
+				die(json::encode(tool::getSuccInfo(0,'发票信息未完善',url::createUrl('/ucenter/invoice@user'))));
+			}
 		}
+
+
 		$order = new M('order_sell');
 		try {
 			$order->beginTrans();
 			$gen_res = $order_mode->geneOrder($orderData);
 			if($gen_res['success'] == 1){
 				if($offer_type == order\Order::ORDER_FREE || $offer_type == order\Order::ORDER_ENTRUST){
-
 					$zhi = new \nainai\member();
 					$pay_secret = safe::filterPost('pay_secret');
 					if(!$zhi->validPaymentPassword($pay_secret,$this->user_id)){
@@ -116,6 +119,7 @@ class tradeController extends \nainai\controller\Base {
 					if(!$zhi->validPaymentPassword($pay_secret,$this->user_id)){
 						die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
 					}
+
 					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id,$account);
 					if($pay_res['success'] == 1){
 						$this->offer->commit();

@@ -28,7 +28,7 @@ class StoreDelivery extends Delivery{
 	public function storeFees($delivery_id){
 		$query = new Query('product_delivery as pd');
 		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_list as sl on sp.store_id = sl.id left join products as p on po.product_id = p.id left join order_sell as o on pd.order_id = o.id';
-		$query->fields = 'pd.num as delivery_num,sp.store_price,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id';
+		$query->fields = 'p.img,pd.num as delivery_num,sp.store_price,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();

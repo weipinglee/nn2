@@ -703,8 +703,8 @@ class Order{
 					if($res['success'] == 1){
 						//将订单款 减去扣减款项 后的60%支付给卖方
 						$reduce_amount = floatval($order['reduce_amount']); 
-						$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.6);
-						$amount = floatval($amount);
+						$amount = $order['proof'] ? $order['pay_deposit'] - $reduce_amount: ($order['amount'] - $reduce_amount);
+						$amount = floatval($amount*0.6) ;
 						// switch ($order['buyer_deposit_payment']) {
 						// 	case self::PAYMENT_AGENT:
 						// 		// if($)
@@ -742,7 +742,8 @@ class Order{
 									break;
 								case self::PAYMENT_BANK:
 									$freeze_records = $this->zx->freezeTrans($buyer,$order['create_time']);
-									// echo '<pre>';var_dump($freeze_records);exit;
+									 echo '<pre>';var_dump($freeze_records);exit;
+
 									//获取买方定金与线上尾款的冻结编号
 									$deposit_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_deposit']*0.4+$reduce_amount*0.6);
 									$retainage_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_retainage']*0.4,array($deposit_djcode));
@@ -815,9 +816,10 @@ class Order{
 					$res = $this->orderUpdate($orderData);
 					if($res['success'] == 1){
 						//支付剩余货款 减去扣减款项 后的40%
-						$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($buyer,$reduce_amount) : true;
-						$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.4);
-						$amount = floatval($amount);
+						$reduce_amount = floatval($order['reduce_amount']);
+
+						$amount = $order['proof'] ? ($order['pay_deposit'] - $reduce_amount) : ($order['amount'] - $reduce_amount);
+						$amount = floatval($amount*0.4) ;
 
 						//若$reduce_amount 大于0 则将此扣减项返还买方账户
 						$reduce_amount = floatval($order['reduce_amount']); 

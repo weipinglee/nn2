@@ -339,19 +339,19 @@ body{_padding-top:30px;}
 
 
 
-        <center>
+<!--        <center>
             &nbsp;
             <a rel="external nofollow" href="http://www.miibeian.gov.cn/" target="_blank">
                 <img style="border: currentColor;" src="{views:./head_files/miibeian.gif}"></a>
             &nbsp; <a rel="external nofollow" href="https://online.unionpay.com/" target="_blank">
                 <img style="border: currentColor;" src="{views:./head_files/indexBlankIco.gif}"></a>
             &nbsp;
-            <script src="{views:./head_files/seallogo.dll}"></script><a href="https://ss.knet.cn/verifyseal.dll?sn=e1305144301004068157sj000000&ct=df&a=1&pa=0.9814090973231941" target="_blank" kx_type="缩放式" style="display:inline-block;position:relative;width:89px;height:32px;"><img src="{views:./head_files/cnnic.png}" height="32" width="89" h="32" w="89" onmouseover="showFull(this)" onmouseout="showMin(this)" style="left:0;position:absolute;top:0;border:none;"></a>&nbsp;&nbsp; 
+            <script src="{views:./head_files/seallogo.dll}"></script><a href="https://ss.knet.cn/verifyseal.dll?sn=e1305144301004068157sj000000&ct=df&a=1&pa=0.9814090973231941" target="_blank" kx_type="缩放式" style="display:inline-block;position:relative;width:89px;height:32px;"><img src="{views:./head_files/cnnic.png}" height="32" width="89" h="32" w="89" onmouseover="showFull(this)" onmouseout="showMin(this)" style="left:0;position:absolute;top:0;border:none;"></a>&nbsp;&nbsp;
             <a rel="external nofollow" href="http://www.spdb.com.cn/" target="_blank">
                 <img style="border: currentColor;" src="{views:./head_files/pufa.png}"></a>&nbsp;&nbsp;
             <a rel="external nofollow" href="http://www.allinpay.com/" target="_blank">
                 <img style="border: currentColor;" src="{views:./head_files/tonglian.png}"></a>
-        </center>
+        </center>-->
     </div>
     <div>
         网站备案/许可证号:晋ICP备14043533号
