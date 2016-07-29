@@ -34,14 +34,16 @@ class fundOutModel {
 		            $fundOut->pagesize = $pagesize;
 		}
 
+		$where = '   is_del=0 AND  w.status IN (:status)';
+		$bind = array('status' => $condition['status']);
+
+		$fundOut->where = $where;
+		$fundOut->bind = $bind;
+
 		$outInfo = $fundOut->find($condition);
 		return $outInfo;
-		$status="'".self::FUNDOUT_APPLY.",".self::FUNDOUT_FIRST_OK."'";
-		$fundOut->where = 'is_del = 0 and find_in_set(w.status,'.$status.')';
-		$fundOut->page = $page;
-		$outInfo = $fundOut->find();
-		return [$outInfo,$fundOut->getPageBar()];
 	}
+
 	public function getCheckedFundOutList($page=1){
 		$fundOut=new adminQuery('withdraw_request as w');
 		$fundOut->join='left join user as u on w.user_id=u.id';
@@ -52,6 +54,7 @@ class fundOutModel {
 		$checkedInfo=$fundOut->find();
 		return [$checkedInfo,$fundOut->getPageBar()];
 	}
+
 	public function getPendingPaymentList($page=1){
 		$fundOut=new adminQuery('withdraw_request as w');
 		$fundOut->join='left join user as u on w.user_id=u.id';

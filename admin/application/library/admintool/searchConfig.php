@@ -30,6 +30,10 @@ class searchConfig {
             'like'=>array('c.name,c.name_zh','英文名，中文名'),
             'select'=> array('c.type','配置类型')
         ),
+        'order_sell' => array(
+            'like'=>array('o.order_no,o.order_no','订单号'),
+             'time'=>array('o.create_time','创建时间'),
+        ),
     );
 
     public static function config($tableName=''){
