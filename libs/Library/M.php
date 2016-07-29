@@ -30,7 +30,7 @@ class M{
 
     private $order    = '';
 
-    private $limit    = ' LIMIT 500';
+    private $limit    = '';
 
 	private $pk       = 'id';
 
