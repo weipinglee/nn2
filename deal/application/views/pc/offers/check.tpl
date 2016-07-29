@@ -126,11 +126,40 @@
 
                         <div class="yListr">
 
-                            <ul>
+
+                            <ul id="account_type">
                                 <li><em class="yListrclickem" account='1'>代理账户<i></i></em>
-                                    <!--<em account='2'>票据账户<i></i></em>-->
-                                    <em account='3'>签约账户<i></i></em></li>
+                                   <!-- <em account='3'>票据账户<i></i></em>-->
+                                    <em account='2'>签约账户<i></i></em></li>
+
                             </ul>
+                            <div class="bank_box" style="display:none;">
+                                <h5>请选择银行:</h5>
+                               <span>
+                                <input name="zhifu" type="radio" value=""><img src="{views:images/order/bank_jh.png}"/>
+                               </span>
+                                <span>
+                                <input name="zhifu" type="radio" value=""><img src="{views:images/order/bank_pa.png}"/>
+                               </span>
+                                <span>
+                                <input name="zhifu" type="radio" value=""><img src="{views:images/order/bank_zx.png}"/>
+                               </span>
+                            </div>
+                            <script>
+                                $(function(){
+                                    var arrAccount=$("#account_type li em");
+                                    for(var i=0; i<arrAccount.length;i++){
+                                        arrAccount[i].index=i;
+                                        arrAccount[i].onclick=function(){
+                                            if(this.index==2){
+                                                $('.bank_box').show();
+                                            }else{
+                                                $('.bank_box').hide();
+                                            }
+                                        };
+                                    };
+                                });
+                            </script>
                             <input type="hidden" name="account" value="1" />
                         </div>
                     </h3>

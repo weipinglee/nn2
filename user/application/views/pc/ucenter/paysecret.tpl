@@ -28,8 +28,13 @@
 						<span class="con_tit"><i>*</i>支付密码：</span>
 						<span><input class="text" type="password" name="pay_secret"/>
 					</div>
+					<div class="zhxi_con">
+						<span class="con_tit"><i>*</i>重复支付密码：</span>
+						<span><input class="text" type="password"  name="re_secret" datatype='*' recheck='pay_secret' errormsg='两次输入的密码不一致'/>
+					</div>
 					<input type="hidden" name="oper" value="add"/>
 					<div class="zhxi_con">
+
 						<span><input class="submit_edit" type="submit" value="提交"/></span>
 					</div>
 				{/if}

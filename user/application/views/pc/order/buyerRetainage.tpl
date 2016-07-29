@@ -85,14 +85,16 @@
                                   {$data['amount']}
                               </span>   
                       </td>
-                       <td style="background-color: #F7F7F7;" width="100px">已支付定金</td>
-                      <td colspan="1" width="">
-                              <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
-                              <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
-                                  {$data['pay_deposit']}
-                              </span>   
-                      </td>
-
+                      {if:$data['pay_deposit']}
+                         <td style="background-color: #F7F7F7;" width="100px">已支付定金</td>
+                        
+                        <td colspan="1" width="">
+                                <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
+                                <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
+                                    {$data['pay_deposit']}
+                                </span>   
+                        </td>
+                      {/if}
                       <td style="background-color: #F7F7F7;" width="100px">剩余尾款</td>
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
@@ -127,22 +129,37 @@
                                   var payment = $(this).attr('payment');
                                   $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
                                   $('input[name=payment]').val(payment);
+                                  $('.pay_bton span').each(function(){
+                                    if($(this).is(':visible') || !$(this).attr('style')){
+                                      $(this).hide();
+                                      $(this).css({display:'none'});
+                                    }else{
+                                      $(this).show();
+                                      $(this).css({display:'block'});
+                                    }
+                                  });
                                 })
                             });
                         </script>
                        
                    <div id="bain_bo">
-                   <form action="{url:/Order/buyerRetainage}" pay_secret="1" method="post" auto_submit enctype="multipart/form-data" redirect_url="{url:/contract/buyerdetail?id=$data['id']}">
+
+                   <form action="{url:/Order/buyerRetainage}" id='account_form' pay_secret="1" method="post" auto_submit enctype="multipart/form-data" redirect_url="{url:/contract/buyerdetail?id=$data['id']}">
+
                    {if:$show_online}
                    <div class="sty_online" style="display:block;">
                         
 						      <label for=""><input name="account" type="radio" value="1" checked="true"/>市场代理账户</label>
-						      <label for=""><input name="account" type="radio" value="2" disabled="disabled" />银行签约账户</label>
-						      <label for=""><input name="account" type="radio" value="3" disabled="disabled" />票据账户</label>
+
+						      <label for=""><input name="account" type="radio" value="2" />银行签约账户</label>
+						      <label for=""><input name="account" type="radio" value="3" />票据账户</label>
 
                    </div>
                    {/if}
+                   </form>
+                   <form action="{url:/Order/buyerRetainage}" id='proof_form' pay_secret="1" method="post" auto_submit enctype="multipart/form-data">
                    <div class="sty_offline" {if:!$show_online}style='display: block;'{/if}>
+                    {if:$bankinfo['true_name'] && $bankinfo['bank_name'] && $bankinfo['card_no']}
                         <ul>
                         	<li>账户名称：{$bankinfo['true_name']}</li>
                         	<li>开户银行：{$bankinfo['bank_name']}</li>
@@ -161,21 +178,32 @@
 
                         	</li>
                         </ul>
-                      
-                    
+                    {else:}
+                        等待卖方开户
+                    {/if}
                     </div>
                    </form> 
                   </div>  
                             
                        </h3> 
                          </div>
-
+                  
 
                   <div class="pay_bton">
                   	<h5>待支付金额：<i>{$data['pay_retainage']}</i>元</h5>
-                  	<a href="javascript:;" id='pay_retainage'>{if:$show_online}立即支付尾款{else:}上传凭证{/if}</a>
+                    {if:$show_online}
+                  	  <span style="display:block;"><a  href="javascript:;" id='pay_retainage'>立即支付尾款</a></span>
+                    {/if}
+                      <span {if:$show_online}style="display:none;"{/if}>
+                        {if:$bankinfo['true_name'] && $bankinfo['bank_name'] && $bankinfo['card_no']}
+                          <a  href="javascript:;" id='pay_proof'>上传凭证</a>
+                        {else:}
+                          <a href="{url:/order/banckNotice?tar_id=$data['seller']}">通知卖方开户</a>
+                        {/if}
+                      </span>
+                      
                   </div>
-
+      
 
                            </div>
 
@@ -190,12 +218,17 @@
       <script type="text/javascript">
         $(function(){
           $('#pay_retainage').unbind('click').click(function(){
+            $('#account_form').submit();
+          });
+
+          $('#pay_proof').unbind('click').click(function(){
             if($('input[name=payment]').val() == 'offline' && !$('input[name=imgproof]').val()){
               alert('请上传支付凭证');
               return false;
             }
-            $('form').submit();
+            $('#proof_form').submit();
           });
+          
         });
       </script>
 					

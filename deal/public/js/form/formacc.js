@@ -82,7 +82,9 @@ nn_panduo.formacc.prototype = {
 							layer.closeAll();
 							data += '&pay_secret=' + pass;
 							// console.log(data);
+							layer.load(2,{shade:[0.1,'gray']});
 							_this.ajax_post(url,data,function(){
+								layer.closeAll();
 								if(!_this.no_redirect){
 									layer.msg("操作成功!稍后自动跳转");
 									setTimeout(function(){
@@ -99,7 +101,9 @@ nn_panduo.formacc.prototype = {
 						});
 
 					}else{
+						layer.load();
 						_this.ajax_post(url,data,function(){
+							layer.closeAll();
 							if(!_this.no_redirect){
 								layer.msg("操作成功!稍后自动跳转");
 								setTimeout(function(){
@@ -215,6 +219,7 @@ nn_panduo.formacc.prototype = {
 			data:ajax_data,
 			dataType:'json',
 			success:function(data){
+				layer.closeAll();
 				if(data.success == 1){
 					if(data.returnUrl){
 						layer.msg(data.info);
@@ -249,6 +254,7 @@ nn_panduo.formacc.prototype = {
 				}
 			},
 			error:function(data){
+				layer.closeAll();
 				layer.msg("服务器错误,请重试");
 			}
 		});

@@ -870,14 +870,17 @@
 }
 .i_zhishuList .i_w_12 .type{
 	float: left;
-	width: 95px;
+	width: 30%;
 	font-size: 12px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .i_zhishuList .i_w_12 .type span{
 	padding-left: 10px;
 }
 .i_zhishuList .i_w_12 .price{
-	width: 90px;
+	width: 70%;
 	float: right;
 }
 .i_zhishuList .i_w_12 .now_price{
