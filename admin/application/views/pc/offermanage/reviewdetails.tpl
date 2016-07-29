@@ -99,7 +99,7 @@
                  <td>{$info['accept_area']}</td>
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
-                     <td>{$info['sign_thumb']}</td>
+                     <td><img src="{$info['sign_thumb']}" /></td>
                  {else:}
                      <th></th>
                      <td></td>

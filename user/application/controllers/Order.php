@@ -41,7 +41,7 @@ class OrderController extends UcenterBaseController{
 			$order_id = safe::filter($this->_request->getParam('order_id'),'int');
 			$data = $this->order->contractDetail($order_id);
 			$data['pay_retainage'] = number_format(floatval($data['amount']) - floatval($data['pay_deposit']),2);
-			$bankinfo = $this->order->userBankInfo($data['user_id']);
+			$bankinfo = $this->order->userBankInfo($data['seller_id']);
 
 			$this->getView()->assign('show_online',$data['mode'] == \nainai\order\Order::ORDER_DEPOSIT || $data['mode'] == \nainai\order\Order::ORDER_STORE || $data['mode'] == \nainai\order\Order::ORDER_PURCHASE ? 1 : 0);
 			$this->getView()->assign('bankinfo',$bankinfo);
@@ -67,17 +67,11 @@ class OrderController extends UcenterBaseController{
 
 	//卖家确认买方线下支付凭证
 	public function confirmProofAction(){
-		$order_id = intval($this->_request->getParam('order_id'));
-		$type = safe::filter('type');//0:未确认 1：确认
+		$order_id = safe::filterPost('order_id','int');
 		$type = true;
 		$user_id = $this->user_id;
 		$res = $this->order->confirmProof($order_id,$user_id,$type);
-		if($res['success'] == 1)
-			$this->success('操作成功',url::createUrl("/Contract/sellerlist"));
-		else
-			$this->error($res['info']);
-
-		return false;
+		die(json::encode($res));
 	}
 
 	//扣减货款页面

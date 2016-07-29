@@ -59,5 +59,15 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $(function(){
+    document.onkeydown=function(event){
+      e = event ? event :(window.event ? window.event : null);
+      if(e.keyCode==13){
+        double_submit();
+      }
+    }
+  })
+</script>
 </body>
 </html>

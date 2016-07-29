@@ -38,7 +38,7 @@
             </tr>
         </thead>
         <tbody>
-            {foreach:items=$data}
+            {foreach:items=$data['list']}
                 <tr class="text-c">
                     <td><input type="checkbox" value="" name=""></td>
                     <td>{$item['id']}</td>
@@ -55,7 +55,7 @@
            {/foreach}
         </tbody>
     </table>
-            {$bar}
+            {$data['bar']}
 </div>
 
 

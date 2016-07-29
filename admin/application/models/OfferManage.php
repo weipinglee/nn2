@@ -87,6 +87,8 @@ class OfferManageModel extends \nainai\offer\product{
 			$info['mode_txt'] = $info['mode_txt'] == '未知' ? '--' : $info['mode_txt'];
 			$info['status_txt'] = $this->getStatus($info['status']);
 			$product = $this->getProductDetails($info['product_id']);
+
+			$info['sign_thumb'] = \Library\thumb::get($info['sign'],150,150);
 			$info = array_merge($info,$product);
 
 

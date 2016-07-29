@@ -22,12 +22,23 @@ nn_panduo.formacc.prototype = {
 			_this.redirect_url = $(this).attr("redirect_url");
 			_this.form = this;
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
+
 			_this.bind_select();
 			_this.validform();
+			var con = $(_this.form).find('[confirm=1]');
+			if(con){
+				var text = con.attr('confirm_text') ? con.attr('confirm_text') : '确认吗?';
+				con.on('click',function(){
+					layer.confirm(text,function(){
+						$(_this.form).submit();
+					})
+				})
+			}
 
 		});
 		_this.validPaymentPassword();
 	},
+
 	/**
 	 * 自动绑定select选中项
 	 */
@@ -74,6 +85,7 @@ nn_panduo.formacc.prototype = {
 		        var url = $(curform).attr('action');
 		        var data = $(curform).serialize();
 		        var pay_secret = $(curform).attr('pay_secret');
+
 		        if(pay_secret){
 		        	layer.config({
 					    extend: 'extend/layer.ext.js'

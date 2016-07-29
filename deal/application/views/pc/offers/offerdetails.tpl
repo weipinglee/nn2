@@ -80,7 +80,10 @@
                             <td>{$item}</td>
                         </tr>
                         {/foreach}
-
+                        <tr>
+                            <td>详情</td>
+                            <td>{$data['note']}</td>
+                        </tr>
                         <tr>
                             <th colspan="2">报盘详情</th>
                         </tr>
@@ -136,16 +139,17 @@
                             <td>有效期</td>
                             <td>{$data['expire_time']}</td>
                         </tr>
+
                     </table>
 
-                    <h5 class="tit"><i><img src="{views:images/pro_show_04.jpg}"></i><span>质量标准</span></h5>
+                    <!--<h5 class="tit"><i><img src="{views:images/pro_show_04.jpg}"></i><span>质量标准</span></h5>
                     <table>
 						
                         <tr>
                             <td>质量标准</td>
-                            <td>{$data['note']}</td>
+                            <td></td>
                         </tr>
-                    </table>
+                    </table>-->
                     
                     <style type="text/css">
                         .pro_pic{float: left;margin-right: 20px;}

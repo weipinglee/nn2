@@ -175,7 +175,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 				}
 			}
 
-			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/ucenter/baseinfo');
+			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/index/index@deal');
 			// var_dump($data);exit;
 			echo JSON::encode($data);
 		}

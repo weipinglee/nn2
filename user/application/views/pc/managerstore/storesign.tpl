@@ -3,8 +3,10 @@
 <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
-<script type="text/javascript" src="{views:js/cert/cert.js}"></script>
+<script type="text/javascript" src="{views:js/product/storeproduct.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
+<form action="{url:/ManagerStore/doStoreSign}" method="post" auto_submit redirect_url="{url:/managerstore/applystorelist?type=2}">
+
             <div class="user_c">
                 <div class="user_zhxi">
 
@@ -39,22 +41,39 @@
                         <div class="user_c" style="border:0px;margin-left:0px;">
                             <div class="user_zhxi">
                                 <div class="center_tabl">
-                                    <div class="lx_gg sear_mx">
-                                        <span>关键词：</span><input type="text">
-                                        <button class="search_an" type="submit">搜索</button> 
+                                    <div class="lx_gg sear_mx" style="background:#fff;">
+                                        <span>用户名：</span>
+                                        <input name="username" type="text" />
+                                        <input type="hidden" name="getUserUrl" value="{url:/managerstore/getUser}" />
+                                        <button class="search_an" onclick="fundUser()" type="button">获取</button>
                                     </div>
                                     <div class="lx_gg">
-                                        <table class="table2" cellpadding="0" cellspacing="0">
+                                        <table class="table2" cellpadding="0" cellspacing="0" id="userData">
                                             <tr>
                                                 <td class="spmx_title" colspan="2">会员信息</td>
                                             </tr>
                                             <tr>
-                                                <td>会员账号</td>
-                                                <td>lpf8090y</td>
+                                                <td>用户名</td>
+                                                <td id="username"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>企业名称</td>
+                                                <td id="company_name"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>地区</td>
+                                                <td id="area"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>地址</td>
+                                                <td id="address"></td>
                                             </tr>
                                         </table>
                                     </div>
-                                        
+                                    <div class="zhxi_con">
+                                        <span><input class="submit next_step"  type="button"  value="下一步"/></span>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -62,8 +81,9 @@
                     <div class="yz_img">
                         <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
-            <!--start中间内容-->    
-            <div class="user_c" style="border:0px;margin-left:0px;">
+            <!--start中间内容-->
+
+                        <div class="user_c" style="border:0px;margin-left:0px;">
                 <div class="user_zhxi pro_classify">
                     <div class="center_tabl">
                     <div class="lx_gg">
@@ -84,9 +104,8 @@
                         {/foreach}
                         {/if}
                   
-                    <form action="{url:/ManagerDeal/doStoreProduct}" method="POST" auto_submit redirect_url="{url:/managerdeal/storeproductlist}">
                         <table border="0"  >
-                            
+                            <input type="hidden" name="user_id" datatype="n"/>
                             <tr>
                                <th colspan="3">基本挂牌信息</th>
                             </tr>
@@ -98,13 +117,7 @@
                                 <span></span>
                             </td>
                         </tr>
-  <!--                           <tr>
-                                <td nowrap="nowrap"><span></span>商品单价：</td>
-                                <td> 
-                                    <span><input class="text" type="text" datatype="money" errormsg="请正确填写价格" name="price">
-                                    </span>
-                                    <span></span>
-                                </td> -</tr>->
+
 
 <!--                                 <td> 
     请选择付款方式:
@@ -126,7 +139,7 @@
                                            
                                </td> -->
 
-                                <tr>
+                                </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>单位：</td>
                                 <td>
@@ -174,28 +187,6 @@
                         </tr>
 
 
-                                 </tr>
-                                    <tr>
-                                        <td><span>*</span>选择仓库：</td>
-                                        <td>
-                                           <span>
-                                               <select name="store_id" id="store_id" datatype="/[1-9]\d{0,10}/">
-                                                   <option value="0" >请选择</option>
-                                                   {foreach: items=$storeList item=$list}
-                                                       <option value="{$list['id']}" >{$list['name']}</option>
-                                                   {/foreach}
-                                               </select>
-                                           </span>
-                                            <span></span>
-                                        </td>
-                                        </tr>
-                                        <tr id="address">
-                                            <td >仓库地址：
-                                            </td>
-                                            <td>
-                                                
-                                            </td>
-                                        </tr>
                                    <tr>
                                         <td>是否包装：</td>
                                         <td colspan="2">
@@ -210,19 +201,19 @@
                                             <tr id="packUnit" >
                                                  <td>包装单位：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packUnit">
+                                                <input type="text" class='text' name="packUnit" >
                                             </td>
                                             </tr>
                                             <tr id='packNumber'>
                                             <td>包装数量：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packNumber">
+                                                <input type="text" class='text' name="packNumber" >
                                             </td>
                                             </tr>
                                             <tr id='packWeight'>
                                             <td>包装重量：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packWeight">
+                                                <input type="text" class='text' name="packWeight" >
                                             </td>
                                             </tr>
 
@@ -245,9 +236,6 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
-
-
-                                
                             </td>
                         </tr>
                          
@@ -256,16 +244,15 @@
                     </div>
                 </div>
             </div>
-                        
                         <div class="zhxi_con">
-                            <span><input class="submit" id="next_step" type="button"  value="下一步"/></span>
+                            <span><input class="submit next_step"  type="button"  value="下一步"/></span>
                         </div>
 
                     </div>
 
                     <div class="sh_jg">
                        <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
-<script type="text/javascript" src="{root:js/upload/upload.js}"></script>
+                        <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
             <!--end左侧导航-->  
             <!--start中间内容-->    
@@ -277,10 +264,14 @@
                     </div>
                      
                         <table border="0">
+
                             <tr>
                                 <td nowrap="nowrap"><span></span>库位：</td>
                                 <td colspan="2"> 
-                                    <input class="text" type="text" name="pos" datatype="s1-20" errormsg="库位请填写1-20位字符" {if: !empty($storeDetail['store_pos'])} value="{$storeDetail['store_pos']}" readonly="readonly" {/if}>
+                                    <span>
+                                        <input class="text" type="text" name="pos" datatype="s1-20" errormsg="库位请填写1-20位字符" />
+                                    </span>
+                                    <span></span>
                                 </td>
                             </tr>
                             <tr>
@@ -292,20 +283,31 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>租库价格：</td>
                                 <td colspan="2">
-                                    <input name="store_price" class="text" value=""  type="text" />（/{$storeDetail['unit']}/天）
+                                    <span>
+                                      <input name="store_price" class="text" value="" datatype="money" errormsg="请填写价格" type="text" />（/<span class="unit">{$unit}</span>/天）
+
+                                    </span>
+                                    <span></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>入库日期：</td>
                                 <td colspan="2"> 
-                                    <input name="inTime" value="{$storeDetail['in_time']}" datatype="date" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+                                    <span>
+                                        <input name="inTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+                                    </span>
+                                    <span></span>
                                 </td>
                             </tr>
                              <tr>
                                 <td nowrap="nowrap"><span></span>租库日期：</td>
-                                <td colspan="2"> 
-                                    <input name="rentTime" value="{$storeDetail['rent_time']}" datatype="date" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
-                                </td>
+                                <td colspan="2">
+                                    <span>
+                                        <input name="rentTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+
+                                    </span>
+                                    <span></span>
+                                     </td>
                             </tr>
                             <tr >
                                 <td nowrap="nowrap"><span></span>检测机构：</td>
@@ -332,30 +334,7 @@
                                     <img name="file1" />
                                 </td>
                             </tr>
-                            
-                            <tr>
-                                <td>图片预览：</td>
-                                <td colspan="2">
-                    <span class="zhs_img">
-                                    {foreach: items=$storeDetail['photos'] item=$url}
-                        <img src="{$url}"/>
-                                    {/foreach}
-                    </span>
-                                </td>              
-                            </tr>
-                            
-                      
 
-                        <tr>
-                            <td></td>
-                            <td colspan="2" class="btn">
-                            <input type="hidden" value="{$storeDetail['sid']}" name="id" >
-
-
-                                
-                            </td>
-                        </tr>
-                         
                  </table>
                         
                     </div>
@@ -366,34 +345,11 @@
                             <span><input class="submit"  type="submit" value="签发"></span>
                         </div>
                     </div>
-                </form>
+
                 </div>
             </div>
-<script type="text/javascript">
-    $(function(){
+</form>
 
-        $('#store_id').on('change', getStoreArea);
-
-        function getStoreArea(){
-            var val = $('select[name=store_id]').val();
-            $('#address').children('td').eq(1).html('');
-            if (val == 0) {return;}
-                $.ajax({
-                    'url' :  $('#ajaxGetAddress').val(),
-                    'type' : 'post',
-                    'data' : {id : val},
-                    'dataType': 'json',
-                    success:function(data){
-                        if (data.id) {
-                            var areaObj = new Area();
-                            var area_text = areaObj.getAreaText(data.area);
-                            $('#address').children('td').eq(1).html(area_text +' '+ data.address);
-                        }
-                    }
-                })
-        }
-    })
-</script>
 
 
 
