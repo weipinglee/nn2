@@ -52,8 +52,8 @@
 
         </tbody>
     </table>
-        </div>        
-       
+        </div>
+        {$bar}
     </div>
 </div>
 
