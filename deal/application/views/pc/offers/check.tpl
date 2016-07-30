@@ -239,8 +239,9 @@
                             $.post("{url:/Offers/payDepositCom}",{id:id,num:num,price:price},function(data){
 
                                 if(data.success == 1){
-                                    prod_amount.text(num*price);
-                                    deposit_text.text(paytype == 1 ? prod_amount.text(): data.info);
+                                    var total = num*price;
+                                    prod_amount.text(total.toFixed(2));
+                                    deposit_text.text(paytype == 1 ? prod_amount.text(): data.info.toFixed(2));
                                     temp_deposit = data.info;
                                     $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
                                 }else{
@@ -248,7 +249,8 @@
                                 }
                             },"json");
                         }else{
-                            prod_amount.text(num*price);
+                            var total = num*price;
+                            prod_amount.text(total.toFixed(2));
                             $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
                         }
                     });

@@ -34,10 +34,10 @@ class StoreDelivery extends Delivery{
 		$res = $query->getObj();
 		$pro = new \nainai\offer\product();
 		$photos = $pro->getProductPhoto($res['product_id']);
-	            $res['photos'] = $photos[1];
-	            $res['origphotos'] = $photos[0];
-	            $res['img_thumb'] = $res['photos'][0];
-		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * ceil(abs(time::getDiffSec($res['rent_time'])) / 86400),2);
+		$res['photos'] = $photos[1];
+		$res['origphotos'] = $photos[0];
+		$res['img_thumb'] = $res['photos'][0];
+		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * abs(time::getDiffDays($res['rent_time'])) );
 		$res['now_time'] = time::getDateTime();
 		return $res;
 	}

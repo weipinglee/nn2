@@ -10,12 +10,11 @@
 						<div class="de_ce">
 							<div class="detail_chj" style="margin-top: 11px">
 								<!-- <input class="fk_butt" type="button" value="支付仓库管理费用"/> -->
-								<a href="{url:/storeDelivery/storeFees?id=$info[id]&action_confirm=1&info=支付仓库管理费用}" style="background: #FC7300;padding: 8px 15px;color:#fff;text-decoration: none">支付仓库管理费用</a>
-							
-							<!-- <form action="{url:/storeDelivery/storeFees}" method="post" auto_submit pay_secret="1" >
+
+							<form action="{url:/storeDelivery/storeFees}" method="post" auto_submit pay_secret="1" redirect_url="{url:/delivery/deliselllist}">
 								<input type="hidden" name="id" value="{$info['id']}" />
-								<input  type="submit" value="支付仓库费用" />
-							</form> -->
+								<a href="javascript:void(0)" confirm="1" confirm_text="确定支付？" style="background: #FC7300;padding: 8px 15px;color:#fff;text-decoration: none">支付仓库管理费用</a>
+							</form>
 							</div>
 						</div>
 						<div class="sjxx">

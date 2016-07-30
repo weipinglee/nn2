@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ģ���� ����Yaf�лὫ��Model��β���࿴��ģ���࣬���ڵ�ǰ��Ŀģ���в��ң����Ը���ΪData;
+ * ????? ????Yaf?л???Model??β????????????????????????в????????????Data;
  * author: wplee
  * Date: 2016/1/28
  */
@@ -12,11 +12,11 @@ class M{
 
 
 
-	protected $db = null;//DBʵ��
+	protected $db = null;//DB???
 
     private $tablePre = '';
 
-	public $tableData = array();//�������µ�����
+	public $tableData = array();//?????????????
 
 	private $tableName = '';
 
@@ -43,26 +43,26 @@ class M{
 		$this->tableName = $this->tablePre.$tableName;
 	}
 
-	//��������
+	//????????
 	public function pk($pk){
 		$this->pk = $pk;
 	}
 	/**
-	 * �������ݶ����ֵ
+	 * ?????????????
 	 * @access public
-	 * @param string $name ����
-	 * @param mixed $value ֵ
+	 * @param string $name ????
+	 * @param mixed $value ?
 	 * @return void
 	 */
 	public function __set($name,$value) {
-		// �������ݶ�������
+		// ???????????????
 		$this->tableData[$name]  =   $value;
 	}
 
 	/**
-	 * ��ȡ���ݶ����ֵ
+	 * ????????????
 	 * @access public
-	 * @param string $name ����
+	 * @param string $name ????
 	 * @return mixed
 	 */
 	public function __get($name) {
@@ -73,9 +73,9 @@ class M{
 
 
 	/**
-	 * ������ݶ����ֵ
+	 * ????????????
 	 * @access public
-	 * @param string $name ����
+	 * @param string $name ????
 	 * @return boolean
 	 */
 	public function __isset($name) {
@@ -83,42 +83,42 @@ class M{
 	}
 
 	/**
-	 * �������ݶ����ֵ
+	 * ?????????????
 	 * @access public
-	 * @param string $name ����
+	 * @param string $name ????
 	 * @return void
 	 */
 	public function __unset($name) {
 		unset($this->tableData[$name]);
 	}
 
-	//��ȡ������Ϣ
+	//??????????
 	public function getError(){
 		return $this->error;
 	}
 
-	//��������
+	//????????
 	public function beginTrans(){
 		$this->db->beginTrans();
 	}
-	//����ع�
+	//??????
 	public function rollBack(){
 		$this->db->rollBack();
 	}
-	//�����ύ
+	//??????
 	public function commit(){
 		return $this->db->commit();
 
 	}
 
-	//�Ƿ���������
+	//???????????
 	public function inTrans(){
 		return $this->db->inTrans();
 	}
 
 	/**
-	 * @brief ������������ĵ�����
-	 * @param $data array ���»�����������
+	 * @brief ??????????????????
+	 * @param $data array ???????????????
      */
 	public function data($data){
 		$this->tableData = $data;
@@ -126,8 +126,8 @@ class M{
 	}
 
 	/**
-	 * ���ò������� �򷵻ص�ǰ��������
-	 * @param $tableName str ����
+	 * ???ò??????? ?????????????
+	 * @param $tableName str ????
 	 * @return $this
      */
 	public function table($tableName=''){
@@ -141,7 +141,7 @@ class M{
 	}
 
 	/**
-	 *�������
+	 *???????
 	 *
      */
 	private function clear(){
@@ -156,13 +156,13 @@ class M{
 	}
 
 	/**
-	 * @param $where array or str ��ѯ����
-	 * @return string ��ѯ�����ַ���
+	 * @param $where array or str ???????
+	 * @return string ????????????
 	 */
 	public function where($where){
 		if(!isset($where))return false;
 		$sql = '';
-		$this->whereParam = array();//���where����
+		$this->whereParam = array();//???where????
 		if(is_array($where)){
 			$sql .= ' WHERE ';
 			foreach($where as $key=>$val){
@@ -181,8 +181,8 @@ class M{
 						$this->whereParam = array_merge($this->whereParam,$val[1]);
 					}
 					else{
-						if(isset($val[0]) && isset($val[1])){//array('neq','33')����ʽ
-							//����ȵ����
+						if(isset($val[0]) && isset($val[1])){//array('neq','33')?????
+							//?????????
 							switch(strtolower($val[0])){
 								case 'neq' : {
 									$sql .= $key.' <> :'.$key.' AND ';
@@ -206,9 +206,9 @@ class M{
 
 							$this->whereParam[$key] = $val[1];
 						}
-						else{//array('neq'=>33)����ʽ
+						else{//array('neq'=>33)?????
 							foreach($val as $ekey=>$v) {
-								//����ȵ����
+								//?????????
 								switch (strtolower($ekey)) {
 
 									case 'neq' : {
@@ -251,7 +251,7 @@ class M{
 	}
 
 	/**
-	 * @brief ����where�����󶨲�������,where����Ϊstrʱ�趨
+	 * @brief ????where?????????????,where?????str??趨
 	 * @param $bindArr
 	 * @return $this
      */
@@ -261,7 +261,7 @@ class M{
 	}
 
 	/**
-	 * @brief �滻bindWhere
+	 * @brief ?滻bindWhere
 	 * @param $bindArr
 	 * @return $this
 	 */
@@ -271,8 +271,8 @@ class M{
 	}
 
     /**
-     * @brief ���ò�ѯ���ֶ�
-     * @$fields array or str ��ѯ�ֶ�
+     * @brief ???ò???????
+     * @$fields array or str ??????
      */
     public function fields($fields='*'){
         if(is_string($fields))
@@ -291,8 +291,8 @@ class M{
 
 
     /**
-     *���ò�ѯ����
-     * @param string $order  ���������ֶΣ����磺id ,id DESC
+     *???ò??????
+     * @param string $order  ??????????Σ????磺id ,id DESC
      */
     public function order($order=''){
         if($order != ''){
@@ -304,7 +304,7 @@ class M{
     }
 
     /**
-     * ���ò�ѯlimit
+     * ???ò??limit
      * @param $limit str
      */
     public function limit($limit=''){
@@ -316,8 +316,8 @@ class M{
     }
 
 	/**
-     * @brief ��������
-	 * @param bool $trans �Ƿ�Ӧ����������
+     * @brief ????????
+	 * @param bool $trans ??????????????
 	 * @return bool
      */
 	public function add($trans=0) {
@@ -342,7 +342,7 @@ class M{
 	}
 
 	/**
-	 * �����ϴ�������Ŀ��id
+	 * ????????????????id
 	 * @return [type] [description]
 	 */
 	public function lastInsertId(){
@@ -350,7 +350,7 @@ class M{
 	}
 
 	/**
-	 * �����������
+	 * ???????????
 	 */
 	public function adds($trans=0){
 		$res = false;
@@ -387,9 +387,9 @@ class M{
 	}
 
 	/**
-	 * @brief ��������
+	 * @brief ????????
 	 * @param bool $trans
-	 * @return bool|���ش�����
+	 * @return bool|?????????
      */
 	public function update($trans=0){
 		$res = false;
@@ -408,8 +408,8 @@ class M{
 	}
 
 	/**
-	 * ɾ������
-	 * @return bool|���ش�����
+	 * ???????
+	 * @return bool|?????????
      */
 	public function delete($trans=0){
 		$res = false;
@@ -423,12 +423,12 @@ class M{
 	}
 
     /**
-     * @brief ��ȡ��������
-     * @param array or string $cols ��ѯ�ֶ�,֧�������ʽ,��array('cols1','cols2')
-     * @param array or string $orderBy �����ֶ�
-     * @param array or string $desc ����˳�� ֵ: DESC:����; ASC:����;
-     * @param array or int $limit ��ʾ�������� Ĭ��(500)
-     * @return array ��ѯ���
+     * @brief ???????????
+     * @param array or string $cols ??????,?????????,??array('cols1','cols2')
+     * @param array or string $orderBy ???????
+     * @param array or string $desc ??????? ?: DESC:????; ASC:????;
+     * @param array or int $limit ??????????? ???(500)
+     * @return array ??????
      */
     public function select()
     {
@@ -438,8 +438,8 @@ class M{
     }
 
     /**
-     * @brief ��ѯһ�����
-     * @return array ���ش�����
+     * @brief ?????????
+     * @return array ?????????
      */
     public function getObj(){
         $this->limit(1);
@@ -450,9 +450,9 @@ class M{
     }
 
 	/**
-	 * ��ȡһ���ֶ�
-	 * @param string $field �ֶ�
-	 * @return ���ش�����
+	 * ?????????
+	 * @param string $field ???
+	 * @return ?????????
      */
 	public function getField($field){
 		$this->limit(1)->fields($field);
@@ -463,7 +463,7 @@ class M{
 	}
 
 	/**
-	 * ��ȡһ���ֶζ�������
+	 * ????????ζ???????
 	 *
 	 */
 	public function getFields($field){
@@ -483,9 +483,9 @@ class M{
 	}
 
     /**
-     * ִ��һ��sql
+     * ??????sql
      * @param $sql
-     * @return ��ѯ���
+     * @return ??????
      */
     public function query($sql,$param=array(),$type=''){
         $res =  $this->db->exec($sql,array_merge($this->whereParam,$param),$type);
@@ -493,10 +493,10 @@ class M{
     }
 
 	/**
-	 * �ֶ�ֵ����
+	 * ????????
 	 * @access public
-	 * @param string $field  �ֶ���
-	 * @param integer $step  ����ֵ
+	 * @param string $field  ?????
+	 * @param integer $step  ?????
 	 * @return boolean
 	 */
 	public function setInc($field,$step=1,$trans=0) {
@@ -511,10 +511,10 @@ class M{
 	}
 
 	/**
-	 * �ֶ�ֵ����
+	 * ????????
 	 * @access public
-	 * @param string $field  �ֶ���
-	 * @param integer $step  ����ֵ
+	 * @param string $field  ?????
+	 * @param integer $step  ?????
 	 * @return boolean
 	 */
 	public function setDec($field,$step=1,$trans=0) {
@@ -527,9 +527,9 @@ class M{
 	}
 
 	/**
-	 *������£������ֶ�Ψһ���Ѵ�������£������������
-	 * @param array $insert ��������
-	 * @param array $update ��������
+	 *???????????????Ψ?????????????????????????
+	 * @param array $insert ????????
+	 * @param array $update ????????
 	 * @param bool $trans
 	 * @return 
      */
@@ -556,11 +556,11 @@ class M{
 	}
 
 	/**
-	 * ������֤
-	 * @param array $rules ��֤����
-	 * @param int $type 1 : ���� 2������
-	 * @param array $data Ҫ��֤������
-	 * @return bool ��֤��� �������false�����޸�$this->error��ֵ
+	 * ???????
+	 * @param array $rules ???????
+	 * @param int $type 1 : ???? 2??????
+	 * @param array $data ??????????
+	 * @return bool ?????? ???????false???????$this->error???
 	 */
 	public function validate($rules,$data=array(),$type=''){
 		$checkData = empty($data) ? $this->tableData : $data;

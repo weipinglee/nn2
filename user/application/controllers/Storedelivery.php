@@ -21,16 +21,12 @@ class StoreDeliveryController extends DeliveryController{
 
 	//卖家支付仓库管理费用
 	public function storeFeesAction(){
-		$delivery_id = safe::filter($this->_request->getParam('id','int'));
+		$delivery_id = safe::filterPost('id','int');
 		$user_id = $this->user_id;
 		if($delivery_id){
 			$store = new \nainai\delivery\StoreDelivery();
 			$res = $store->payStoreFees($delivery_id,$user_id);
-			if($res['success'] == 1){
-				$this->success('已支付仓库费用',url::createUrl('/delivery/deliselllist'));
-			}else{
-				$this->error($res['info']);
-			}
+			die(json::encode($res));
 		}
 
 	}

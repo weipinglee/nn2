@@ -365,7 +365,7 @@ class ManagerDealController extends UcenterBaseController {
                     'price'        => Safe::filterPost('price', 'float'),
                     'user_id'     => $this->user_id,
                 );
-                
+
                 $offerObj = new \nainai\offer\storeOffer($this->user_id);
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');
 
