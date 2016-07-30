@@ -87,24 +87,14 @@ class fundInModel{
     /**
      * 获取在线入金的列表
      */
-    public function getOnlineList($page=1, $pagesize, $condition=array()){
+    public function getOnlineList($page=1){
         $reModel = new adminQuery('recharge_order as r');
         //线上
         $reModel->join = 'left join user as u on r.user_id = u.id';
-        $reModel->fields = 'r.order_no,r.amount,r.proot,r.pay_type,r.status,r.create_time,u.username,u.mobile,u.type';
-
-        
-        if ($condition['down'] != 1) {
-            $reModel->page = $page;
-            $reModel->pagesize = $pagesize;
-        }
-
-        $where = '   is_del=0 AND pay_type IN (:type) AND r.status IN (:status)';
-        $bind = array('type' => $condition['type'], 'status' => $condition['status']);
-        
-        $reModel->where = $where;
-        $reModel->bind = $bind;
-        $onlineInfo = $reModel->find($condition);
+        $reModel->fields = 'r.order_no,r.amount,r.proot,r.pay_type,r.status as recharge_status,r.create_time,u.username,u.mobile,u.type';
+        $reModel->where = 'pay_type <>'.self::OFFLINE.'  AND is_del = 0';
+        $reModel->page = $page;
+        $onlineInfo = $reModel->find();
         return $onlineInfo;
 
     }
@@ -113,17 +103,15 @@ class fundInModel{
      * 线下入金申请列表
      * @param int $page
      */
-    public function getOffLineList($page=1, $pagesize, $condition=array()){
+    public function getCheckOffLineList($page=1){
+
         $reModel = new adminQuery('recharge_order as r');
         //线下
         $reModel->join = 'left join user as u on u.id=r.user_id';
         $reModel->fields = 'u.username,r.*';
-        $reModel->where = 'pay_type = '.self::OFFLINE.'  AND is_del = 0';
-        if ($condition['down'] != 1) {
-            $reModel->page = $page;
-            $reModel->pagesize = $pagesize;
-        }
-
+        $status="'".self::OFFLINE_APPLY.','.self::OFFLINE_FIRST_OK."'";
+        $reModel->where = 'pay_type = '.self::OFFLINE.'  AND is_del = 0 and find_in_set(r.status,'.$status.')';
+        $reModel->page = $page;
         $offlineInfo = $reModel->find();
         return $offlineInfo;
     }
