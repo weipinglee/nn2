@@ -3,7 +3,6 @@
 use \Library\M;
 use \Library\Query;
 use \Library\tool;
-use \admintool\adminQuery;
 class pairingModel{
 
 	//模型对象实例
@@ -40,8 +39,8 @@ class pairingModel{
 	 * @param  boolean $is_complete 合同是否为已完成状态
 	 * @return array   结果
 	 */
-	public function contractList($page,$where = '',$pairing = 0,$is_complete = false, $pagesize=10, $condition=array()){
-		$query = new adminQuery('order_sell as o ');
+	public function contractList($page,$where = '',$pairing = 0,$is_complete = false){
+		$query = new Query('order_sell as o ');
 		$query->join = 'left join product_offer as po on o.offer_id = po.id left join products as p on po.product_id = p.id left join order_pairing as op on op.order_id = o.id';
 		if($is_complete){
 			$sql_where = 'o.contract_status = '.\nainai\order\Order::CONTRACT_COMPLETE;
@@ -55,18 +54,16 @@ class pairingModel{
 		}
 		if($where) $sql_where .= ' and '.$where;
 		$query->where = $sql_where;
-		$query->fields = 'o.*,p.name as product_name,p.unit,op.id as pairing_id, po.user_id as sell_uid';
-		if ($condition['down'] != 1) {
-			$query->page = $page;
-			$query->pagesize = $pagesize;
-		}
-		
-		$res = $query->find($condition);
+		$query->fields = 'o.*,p.name as product_name,p.unit,op.id as pairing_id';
+		$query->page = $page;
+		$query->pagesize = 5;
+		$res = $query->find();
+		$bar = $query->getPageBar();
 
 		$order = new \nainai\order\Order();
-		$order->adminContractStatus($res['list']);
+		$order->adminContractStatus($res);
 
-		return $res;
+		return array('data'=>$res,'bar'=>$bar);
 	}
 
 
