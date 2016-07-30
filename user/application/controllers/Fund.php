@@ -269,6 +269,7 @@ class FundController extends UcenterBaseController {
 				$data['identify_no'] = $ident;
 			}
 
+
 			$res = $fundModel->bankUpdate($data);
 			die(json::encode($res));
 		}

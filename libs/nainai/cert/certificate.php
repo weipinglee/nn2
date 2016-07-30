@@ -287,6 +287,9 @@ class certificate{
             $userDetail = $userData['type']==1 ? $this->getCompanyInfo($id) : $this->getPersonInfo($id);
             if($certType!=''){
                 $userCert   = $userModel->table($this->getCertTable($certType))->fields('status as cert_status,apply_time,verify_time,admin_id,message')->where(array('user_id'=>$id))->getObj();
+                if(!empty($userCert)){
+                    $userCert['cert_status_text'] = self::getStatusText($userCert['cert_status']);
+                }
                 return array_merge($userData,$userDetail,$userCert);
             }
             return $userDetail;

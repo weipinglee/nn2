@@ -51,7 +51,7 @@
 							{/if}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>银行账号：</span>
-								<span><input class="text" type="text" name="card_no" datatype="/[0-9a-zA-Z]{19}/" value="{$bank['card_no']}"></span>
+								<span><input class="text" type="text" name="card_no" datatype="/^[0-9a-zA-Z]{16,19}$/i" value="{$bank['card_no']}" ></span>
 								<span></span>
 								
 							</div>

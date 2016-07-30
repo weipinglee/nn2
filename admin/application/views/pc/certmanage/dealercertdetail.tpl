@@ -8,170 +8,150 @@
     </div>
  <div class="pd-20">
 	 <form action="{url:member/certManage/doDealerCert}" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="{url:member/certManage/dealerCert}" >
-		<div class="row cl">
-			<label class="form-label col-3">申请时间：</label>
-			<div class="formControls col-5">
-				<span>{$cert['apply_time']}</span>
-			</div>
-			<div class="col-4"> </div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-3">用户名：</label>
-			<div class="formControls col-5">
-				{$cert['username']}
-			</div>
-			<div class="col-4"> </div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-3">手机号：</label>
-			<div class="formControls col-5">
-				{$cert['mobile']}
-			</div>
-			<div class="col-4"> </div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-3">邮箱：</label>
-			<div class="formControls col-5">
-				{$cert['email']}
-			</div>
-			<div class="col-4"> </div>
-		</div>
-	 {if:$cert['type']==0}
-		<div class="row cl">
-			<label class="form-label col-3">真实姓名：</label>
-			<div class="formControls col-5">
-				{$cert['true_name']}
-			</div>
-			<div class="col-4"> </div>
-		</div>
+		  <table class="table table-border table-bordered table-bg">
+				 <tr>
 
-		<div class="row cl">
-			<label class="form-label col-3">身份证号：</label>
-			<div class="formControls col-5">
-				{$cert['identify_no']}
-			</div>
-			<div class="col-4"> </div>
-		</div>
+					 <th>申请时间：</th>
+					 <td>{$cert['apply_time']}</td>
+					 <th></th>
+					 <td></td>
+					 <th></th>
+					 <td></td>
+				 </tr>
+				 <tr>
+					 <th>用户名：</th>
+					 <td>{$cert['username']}</td>
+					 <th>手机号码：</th>
+					 <td>{$cert['mobile']}</td>
+					 <th>邮箱：</th>
+					 <td>{$cert['email']}</td>
+				 </tr>
+
+				 {if: $cert['type']==0}
+					 <tr>
+
+						 <th>真实姓名：</th>
+						 <td>{$cert['true_name']}</td>
+						 <th>身份证号：</th>
+						 <td>{$cert['identify_no']}</td>
+						 <th></th>
+						 <td></td>
+					 </tr>
+					 <tr>
+						 <th>身份证正面：</th>
+						 <td><img src="{$cert['identify_front_thumb']}" /></td>
+						 <th>身份证背面：</th>
+						 <td><img src="{$cert['identify_back_thumb']}" /></td>
+						 <th></th>
+						 <td></td>
+					 </tr>
+				 {else:}
+					 <tr>
+
+						 <th>企业名称：</th>
+						 <td>{$cert['company_name']}</td>
+						 <th>地址：</th>
+						 <td>{areatext:data=$cert['area'] id=areatext}</td>
+						 <th>详细地址：</th>
+						 <td> {$cert['address']}</td>
+					 </tr>
+					 <tr>
+						 <th>法人姓名：</th>
+						 <td>{$cert['legal_person']}</td>
+
+						 <th>注册资金：</th>
+						 <td>{$cert['reg_fund']}</td>
+						 <th></th>
+						 <td></td>
+
+					 </tr>
+					 <tr>
+
+						 <th>联系人：</th>
+						 <td>{$cert['contact']}</td>
+						 <th>联系人电话：</th>
+						 <td colspan="4">  {$cert['contact_phone']}</td>
 
 
-		<div class="row cl">
-			<label class="form-label col-3">身份证正面：</label>
-			<div class="formControls col-5">
+					 </tr>
 
-				<p>
-					<img src="{$cert['identify_front_thumb']}">
-				</p>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-3">身份证背面：</label>
-			<div class="formControls col-5">
+					 <tr>
+						 <th>营业执照：</th>
+						 <td><img src="{$cert['cert_bl_thumb']}" /></td>
+						 <th>组织机构代码：</th>
+						 <td><img src="{$cert['cert_oc_thumb']}" /></td>
+						 <th>税务登记证：</th>
+						 <td><img src="{$cert['cert_tax_thumb']}" /></td>
 
-				<p>
-					<img src="{$cert['identify_back_thumb']}">
-				</p>
-			</div>
-		</div>
-	 {else:}
-		 <div class="row cl">
-			 <label class="form-label col-3">企业名称：</label>
-			 <div class="formControls col-5">
-				 {$cert['company_name']}
-			 </div>
-			 <div class="col-4"> </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">地址：</label>
-			 <div class="formControls col-5" id="areatext">
-				{areatext:data=$cert['area'] id=areatext delimiter=/}
-			 </div>
-			 <div class="col-4"> </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">详细地址：</label>
-			 <div class="formControls col-5">
-				 {$cert['address']}
-			 </div>
-			 <div class="col-4"> </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">法人姓名：</label>
-			 <div class="formControls col-5">
-				 {$cert['legal_person']}
-			 </div>
-			 <div class="col-4"> </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">注册资金：</label>
-			 <div class="formControls col-5">
-				 {$cert['reg_fund']}
-			 </div>万
-			 <div class="col-4"> </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">联系人：</label>
-			 <div class="formControls col-5">
-				 {$cert['contact']}
-			 </div>
-			 <div class="col-4"> </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">联系人电话：</label>
-			 <div class="formControls col-5">
-				 {$cert['contact_phone']}
-			 </div>
-			 <div class="col-4"> </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">营业执照：</label>
-			 <div class="formControls col-5">
+					 </tr>
 
-				 <p>
-					 <img src="{$cert['cert_bl_thumb']}">
-				 </p>
-			 </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">组织机构代码证：</label>
-			 <div class="formControls col-5">
+				 {/if}
+				 {if:$cert['cert_status']==\nainai\cert\certificate::CERT_APPLY}
 
-				 <p>
-					 <img src="{$cert['cert_oc_thumb']}">
-				 </p>
-			 </div>
-		 </div>
-		 <div class="row cl">
-			 <label class="form-label col-3">税务登记证：</label>
-			 <div class="formControls col-5">
+					 <tr>
+						 <th scope="col" colspan="1">
+							 认证状态:
+						 </th>
+						 <td scope="col" colspan="4">
+							 {$cert['cert_status_text']}
+						 </td>
 
-				 <p>
-					 <img src="{$cert['cert_tax_thumb']}">
-				 </p>
-			 </div>
-		 </div>
+					 </tr>
+					 <tr>
+						 <th scope="col" colspan="1">
+							 意见:
+						 </th>
+						 <td scope="col" colspan="4">
+							 <textarea name="message" id="message" >{$cert['message']}</textarea>
+						 </td>
 
-	 {/if}
-		<div class="row cl">
-			<label class="form-label col-3">状态：</label>
-			<div class="formControls col-5">
-				<input type="hidden" name="user_id" value="{$cert['user_id']}" />
-				<label><input name="result" type="radio" value="1" checked />通过 </label>
-				<label><input name="result" type="radio" value="0" />不通过 </label>
-			</div>
-			<div class="col-4"> </div>
-		</div>
-		 <div class="row cl">
-			 <label class="form-label col-3">说明：</label>
-			 <div class="formControls col-5">
-				 <textarea style="width:250px;height:100px;" name="info"></textarea>
-			 </div>
-			 <div class="col-4"> </div>
-		 </div>
-		<div class="row cl">
-			<div class="col-9 col-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-			</div>
-		</div>
+
+					 </tr>
+					 <tr>
+						 <th>审核结果</th>
+						 <th scope="col" colspan="7">
+							 <input type="hidden" name="user_id" value="{$cert['user_id']}" />
+							 <label><input type="radio" name="status" value="1" checked/>通过</label>
+							 <label><input type="radio" name="status" value="0"/>驳回</label>
+
+
+						 </th>
+					 </tr>
+					 <tr>
+						 <th>操作</th>
+						 <th scope="col" colspan="6">
+
+							 <input type="submit" class="btn btn-primary radius" value="提交"/>
+							 <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+
+						 </th>
+
+					 </tr>
+				 {else:}
+					 <tr>
+						 <th scope="col" colspan="1">
+							 意见:
+						 </th>
+						 <td scope="col" colspan="5">
+							 {$cert['message']}
+						 </td>
+
+
+					 </tr>
+					 <tr>
+						 <th scope="col" colspan="1">
+							 认证状态:
+						 </th>
+						 <td scope="col" colspan="5">
+							 {$cert['cert_status_text']}
+						 </td>
+
+
+					 </tr>
+				 {/if}
+
+
+			 </table>
 	</form>
 </div>
 </div>

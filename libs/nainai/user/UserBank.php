@@ -35,7 +35,7 @@ class UserBank
         array('user_id', 'number', ''),
         array('bank_name', '/\S{2,50}/i', '请填写开户银行'),
         array('card_type', array(1, 2), '卡类型错误', 0, 'in'),
-        array('card_no', '/[0-9a-zA-Z]{15,22}/', '请填写银行账号'),
+        array('card_no', '/^[0-9a-zA-Z]{15,22}$/i', '请填写银行账号'),
         array('true_name', '/.{2,20}/', '请填写开户名'),
         array('identify_no', '/^\d{14,17}(\d|x)$/i', '身份证号码错误'),
         array('proof', '/^[a-zA-Z0-9_@\.\/]+$/', '请上传打款凭证')
