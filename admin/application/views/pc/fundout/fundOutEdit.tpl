@@ -82,7 +82,7 @@
                 {/if}
                 {if:$outInfo['proot']!=null}
                     <tr>
-                        <th>打款凭证/th>
+                        <th>打款凭证</th>
                            <td> <img id='image2' src='{$outInfo["proot"]}'></td>
                     </tr>
                 {/if}
