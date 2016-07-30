@@ -93,7 +93,7 @@ function getCategory(){
             var this_div =  _this.parents('.class_jy');
             this_div.nextAll('.class_jy').remove();
             var pro_add = $('#productAdd');
-            pro_add.find('input[name=cate_id]').val(data.defaultCate);
+            $('input[name=cate_id]').val(data.defaultCate);
             $('.attr').remove();
 
             if(data.cate){

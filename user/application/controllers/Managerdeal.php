@@ -124,8 +124,8 @@ class ManagerDealController extends UcenterBaseController {
 
             $offerObj = new freeOffer($this->user_id);
             $productData = $this->getProductData();
-            if($offerData['minimum'] > $productData['quantity']){
-                $offerData['minimum'] = $productData['quantity'];
+            if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
+                $offerData['minimum'] = $productData[0]['quantity'];
             }
             $res = $offerObj->doOffer($productData,$offerData);
 
@@ -163,7 +163,7 @@ class ManagerDealController extends UcenterBaseController {
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => safe::filterPost('divide', 'int'),
-                'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? safe::filterPost('minimum', 'int') : 0,
+                'minimum'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minimum', 'float') : 0,
 
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
@@ -174,9 +174,10 @@ class ManagerDealController extends UcenterBaseController {
             $depositObj = new depositOffer($this->user_id);
             $productData = $this->getProductData();
 
-            if($offerData['minimum'] > $productData['quantity']){
-                $offerData['minimum'] = $productData['quantity'];
+            if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
+                $offerData['minimum'] = $productData[0]['quantity'];
             }
+
             $res = $depositObj->doOffer($productData,$offerData);
             
             echo json::encode($res);
@@ -216,7 +217,7 @@ class ManagerDealController extends UcenterBaseController {
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
-                'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'int') : 0,
+                'minimum'     => (safe::filterPost('divide', 'int') == 1) ? Safe::filterPost('minimum', 'float') : 0,
 
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
@@ -227,8 +228,8 @@ class ManagerDealController extends UcenterBaseController {
 
             $deputeObj = new deputeOffer($this->user_id);
             $productData = $this->getProductData();
-            if($offerData['minimum'] > $productData['quantity']){
-                $offerData['minimum'] = $productData['quantity'];
+            if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
+                $offerData['minimum'] = $productData[0]['quantity'];
             }
             $res = $deputeObj->doOffer($productData,$offerData);
 
