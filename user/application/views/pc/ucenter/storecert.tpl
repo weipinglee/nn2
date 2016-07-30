@@ -138,7 +138,7 @@
 					<div class="sh_jg">
 						<div class="success_text">
 							<p><b class="b_size">认证状态：{$certShow['status_text']}</b></p>
-							<p>{$certData['message']}</p>
+							{if:$certData['cert_status']==\nainai\cert\certificate::CERT_SUCCESS || $certData['cert_status']==\nainai\cert\certificate::CERT_FAIL}<p>审核意见：{$certData['message']}</p>{/if}
 							{if:$certShow['button_show']===true}
 							<p>您还可以进行以下操作:</p>
 							<p><a class="look" href="javascript:void(0)" onclick="nextTab(1)">{$certShow['button_text']}</a>
@@ -152,22 +152,24 @@
 <script type="text/javascript">
 	$(function(){
 		nextTab({$certShow['step']});
-
-		$('#store_id').on('change', function(){
-			var val = $(this).val();
-			$('#address').children('span').eq(2).html('');
-			if (val == 0) {return;}
-			  $.ajax({
-			             'url' :  $('#ajaxGetAddress').val(),
-			            'type' : 'post',
-			            'data' : {id : val},
-			            'dataType': 'json',
-			            success:function(data){
-			            	if (data.id) {
-			            		$('#address').children('span').eq(2).html(data.address);
-			            	}
-			            }
-			 })
-		});
+		function getStore(){
+				var val = $('#store_id').val();
+				$('#address').children('span').eq(2).html('');
+				if (val == 0) {return;}
+					$.ajax({
+						'url' :  $('#ajaxGetAddress').val(),
+						'type' : 'post',
+						'data' : {id : val},
+						'dataType': 'json',
+						success:function(data){
+							if (data.id) {
+								var obj = new Area();
+								$('#address').children('span').eq(2).html(obj.getAreaText(data.area) +' ' + data.address);
+							}
+						}
+					})
+		}
+		$('#store_id').on('change', getStore);
+		getStore();
 	})
 </script>

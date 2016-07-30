@@ -13,7 +13,7 @@
     <div class="row cl">
       <label class="form-label col-2"><span class="c-red">*</span>分类名称：</label>
       <div class="formControls col-5">
-        <input type="text" class="input-text" value="{if:isset($cate)}{$cate['name']}{/if}" datatype="s1-20" errormsg="请正确填写分类名称" placeholder="" name="name">
+        <input type="text" class="input-text" value="{if:isset($cate)}{$cate['name']}{/if}" datatype="*1-20" errormsg="请正确填写分类名称" placeholder="" name="name">
       </div>
       <div class="col-5"> </div>
     </div>

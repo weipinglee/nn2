@@ -44,9 +44,16 @@
                 <tr>
                     <th>申请时间：</th>
                     <td>{$reInfo['create_time']}</td>
+                    <th></th>
+                    <td> </td>
+
+                </tr>
+                <tr>
+
                     <th>凭证：</th>
                     <td><img src='{$reInfo['proot']}'>  </td>
-
+                    <th></th>
+                    <td> </td>
                 </tr>
                 {if:$reInfo['first_time']!=null}
                 <tr>
@@ -69,9 +76,10 @@
                 {/if}
                 {if:$reInfo['action']!=null}
                     <tr>
-                        <th scope="col" colspan="6">
-                            意见: <textarea name="message" id="message" style="width:250px;height:100px;"></textarea>
-                        </th>
+                        <th>意见</th>
+                        <td scope="col" colspan="6">
+                            <textarea name="message" id="message" style="width:250px;height:100px;"></textarea>
+                        </td>
 
                     </tr>
                 <tr>

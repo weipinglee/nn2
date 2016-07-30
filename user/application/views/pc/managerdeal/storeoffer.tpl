@@ -5,7 +5,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>产品管理</a>><a>商品分类</a></p>
+						<p><a>产品管理</a>><a>仓单报盘</a></p>
 					</div>
 					<div class="center_tabl">
 
@@ -132,7 +132,7 @@
                             </tr>
                             <td>交收时间：</td>
                             <td colspan="2">
-                                <input type="text" class='text' datatype="/[1-9]\d{0,5}/" errormsg="请填写交收时间" name="accept_day">
+                                <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,5}/" name="accept_day" style="width:50px;">天</span>
                             </td>
                             </tr>
               			                      

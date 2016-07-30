@@ -20,6 +20,11 @@ class storeOffer extends product{
      * @return [Array]
      */
     public function insertStoreOffer($id, & $productOffer){
+        $pro = new M('products');
+        $quantity = $pro->where(array('id'=>$productOffer['product_id']))->getField('quantity');
+        if($quantity<=$productOffer['minimum']){
+            $productOffer['minimum'] = $quantity;
+        }
         $productOffer['expire_time'] = $this->getExpireTime();
         if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
             $productOffer['mode'] = self::STORE_OFFER;

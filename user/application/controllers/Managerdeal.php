@@ -124,6 +124,9 @@ class ManagerDealController extends UcenterBaseController {
 
             $offerObj = new freeOffer($this->user_id);
             $productData = $this->getProductData();
+            if($offerData['minimum'] > $productData['quantity']){
+                $offerData['minimum'] = $productData['quantity'];
+            }
             $res = $offerObj->doOffer($productData,$offerData);
 
             echo json::encode($res);
@@ -170,6 +173,10 @@ class ManagerDealController extends UcenterBaseController {
 
             $depositObj = new depositOffer($this->user_id);
             $productData = $this->getProductData();
+
+            if($offerData['minimum'] > $productData['quantity']){
+                $offerData['minimum'] = $productData['quantity'];
+            }
             $res = $depositObj->doOffer($productData,$offerData);
             
             echo json::encode($res);
@@ -220,6 +227,9 @@ class ManagerDealController extends UcenterBaseController {
 
             $deputeObj = new deputeOffer($this->user_id);
             $productData = $this->getProductData();
+            if($offerData['minimum'] > $productData['quantity']){
+                $offerData['minimum'] = $productData['quantity'];
+            }
             $res = $deputeObj->doOffer($productData,$offerData);
 
             echo json::encode($res);
@@ -347,7 +357,7 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData = array(
                     'apply_time'  => \Library\Time::getDateTime(),
                     'divide'      => Safe::filterPost('divide', 'int'),
-                    'minimum'     => ($this->getRequest()->getPost('divide') == 0) ? Safe::filterPost('minimum', 'int') : 0,
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'int') : 0,
                     'status'      => 0,
                     'accept_area' => Safe::filterPost('accept_area'),
                     'accept_day' => Safe::filterPost('accept_day', 'int'),
@@ -357,6 +367,7 @@ class ManagerDealController extends UcenterBaseController {
                 
                 $offerObj = new \nainai\offer\storeOffer($this->user_id);
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');
+
                 $res = $offerObj->insertStoreOffer($id,$offerData);
                 die(json::encode($res)) ;
             }

@@ -5,7 +5,7 @@
 			<p><a>账号管理</a>><a>{if:!empty($pay_secret)}修改支付密码{else:}设置支付密码{/if}</a></p>
 		</div>
 		<div style="float:left">
-			<form action="{url:/ucenter/paysecret}" auto_submit no_redirect="1">
+			<form action="{url:/ucenter/paysecret}" auto_submit redirect_url="{url:/ucenter/baseinfo}">
 				{if:!empty($pay_secret)}
 					<div class="zhxi_con">
 						<span class="con_tit"><i>*</i>原支付密码：</span>
@@ -41,7 +41,7 @@
 
 
 			</form>
-		</div>\
+		</div>
 		<div style="clear:both;"></div>
 	</div>
 </div>

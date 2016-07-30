@@ -19,9 +19,9 @@
     </div>
       <div class="row cl">
           <label class="form-label col-2"><span class="c-red"></span>类型：</label>
-          <div class="formControls col-5">
-              <input type="radio" class="input-text" {if:!isset($attr) || $attr['type']==1}checked="checked"{/if} value="1" name="type">输入框
-              <input type="radio" class="input-text" {if:isset($attr) && $attr['type']==2}checked="checked"{/if} value="2" name="type">单选
+          <div class=" col-5">
+              <input type="radio" class="" {if:!isset($attr) || $attr['type']==1}checked="checked"{/if} value="1" name="type">输入框
+              <input type="radio" class="" {if:isset($attr) && $attr['type']==2}checked="checked"{/if} value="2" name="type">单选
              <!-- <input type="radio" class="input-text" {if:isset($attr) && $attr['type']==3}checked="checked"{/if} value="3" name="type">多选
          --> </div>
           <div class="col-5"> </div>

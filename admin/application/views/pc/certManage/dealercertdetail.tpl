@@ -102,7 +102,7 @@
 							 意见:
 						 </th>
 						 <td scope="col" colspan="4">
-							 <textarea name="message" id="message" >{$cert['message']}</textarea>
+							 <textarea name="message" id="message" ></textarea>
 						 </td>
 
 

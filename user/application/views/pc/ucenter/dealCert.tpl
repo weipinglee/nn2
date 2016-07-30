@@ -207,7 +207,7 @@
 					<div class="sh_jg">
 						<div class="success_text">
 							<p><b class="b_size">认证状态：{$certShow['status_text']}</b></p>
-							{if:$certData['cert_status']==\nainai\cert\certificate::CERT_SUCCESS || $certData['cert_status']==\nainai\cert\certificate::CERT_FAIL}<p>{$certData['message']}</p>{/if}
+							{if:$certData['cert_status']==\nainai\cert\certificate::CERT_SUCCESS || $certData['cert_status']==\nainai\cert\certificate::CERT_FAIL}<p>审核意见：{$certData['message']}</p>{/if}
 							{if:$certShow['button_show']===true}
 							<p>您还可以进行以下操作:</p>
 							<p><a class="look" href="javascript:void(0)" onclick="nextTab(1)">{$certShow['button_text']}</a>

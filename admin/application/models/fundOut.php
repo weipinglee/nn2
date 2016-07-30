@@ -127,9 +127,9 @@ class fundOutModel {
 		if ($reInfo['status'] == self::FUNDOUT_APPLY) {
 
 			$data = array();
-
+			$fundModel = \nainai\fund::createFund(1);
 			if ($status == 1) {
-				$fundModel = \nainai\fund::createFund(1);
+
 				//获取冻结资金
 				$userFund = $fundModel->getFreeze($reInfo['user_id']);
 				if ($userFund != 0 && $userFund - $reInfo['amount'] >= 0) {
@@ -140,6 +140,8 @@ class fundOutModel {
 
 			} else {
 				$data['status'] = self::FUNDOUT_FIRST_NG;
+				$fundModel->freezeRelease($reInfo['user_id'],$reInfo['amount'],$reInfo['request_no'].'出金初审被驳回');
+
 			}
 			$data['first_time'] = \Library\Time::getDateTime();
 			$data['first_message'] = $mess;
@@ -174,8 +176,9 @@ class fundOutModel {
 			$data = array();
 			$data['final_time'] = \Library\Time::getDateTime();
 			$data['final_message'] = $mess;
+			$fundModel = \nainai\fund::createFund(1);
 			if ($status == 1) {
-				$fundModel = \nainai\fund::createFund(1);
+
 				//获取冻结资金
 				$userFund = $fundModel->getFreeze($reInfo['user_id']);
 				if ($userFund != 0 && $userFund - $reInfo['amount'] >= 0) {
@@ -186,6 +189,7 @@ class fundOutModel {
 
 			} else {
 				$data['status'] = self::FUNDOUT_FINAL_NG;
+				$fundModel->freezeRelease($reInfo['user_id'],$reInfo['amount'],$reInfo['request_no'].'出金终审被驳回');
 			}
 			$fundOut->beginTrans();
 			if ($fundOut->where($where)->data($data)->update()) {
@@ -216,7 +220,7 @@ class fundOutModel {
 		$fundOut = new M('withdraw_request');
 		$where = array('id' => $wid);
 
-		$userData = $fundOut->where($where)->fields('amount,user_id,status')->getObj();//提现总金额
+		$userData = $fundOut->where($where)->getObj();//提现总金额
 
 		if($userData['status']==self::FUNDOUT_FINAL_OK){
 			$data = array(
@@ -229,7 +233,7 @@ class fundOutModel {
 			if ($fundOut->where($where)->data($data)->update()) {
 
 				$fund = \nainai\fund::createFund(1);
-				$fund->out($userData['user_id'],floatval($userData['amount']));
+				$fund->out($userData['user_id'],floatval($userData['amount']),$userData['request_no'].'提现成功');
 				$log = new \Library\log();
 				$log->addLog(array('table'=>'withdraw_request','type'=>'check','field'=>'request_no','id'=>$wid,'check_text'=>$this->getFundOutStatustext($data['status'])));
 

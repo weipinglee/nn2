@@ -36,7 +36,7 @@
 				<td>{echo:\fundInModel::getOffLineStatustext($item['status'])}</td>
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
-<!--					<a title="审核" href="{url:/balance/fundin/offlineEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>-->
+					<a title="查看" href="{url:/balance/fundin/offlineEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
 					<a title="删除" href="javascript:void(0);" onclick="delOffline({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}

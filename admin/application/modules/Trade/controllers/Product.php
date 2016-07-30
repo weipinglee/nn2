@@ -102,6 +102,7 @@ class productController extends InitController{
             $attr['type']  = safe::filterPost('type','int',1);
             $attr['sort']  = safe::filterPost('sort','int',0);
             $attr['note']  = safe::filterPost('note');
+            $attr['status'] = 1;
             $res = $productModel->updateAttr($attr);
             die(json::encode($res));
         }

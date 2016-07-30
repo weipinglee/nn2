@@ -93,14 +93,12 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>银行卡类型：</span>
-										{$item}
-								</span>
-								<span></span>
+								<span>{$type[$bank['card_type']]}</span>
 
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>{if: $user_type==1}公司名称：{else:}姓名：{/if}</span>
-								<span>{$bank['true_name']}"</span>
+								<span>{$bank['true_name']}</span>
 								<span></span>
 							</div>
 							{if: $user_type!=1}

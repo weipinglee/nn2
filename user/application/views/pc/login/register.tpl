@@ -109,7 +109,7 @@
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>手机号：</span>
-            <span><input class="text" type="text" name="mobile" datatype="m" nullmsg="请输入手机号" errormsg="请正确填写手机号" /></span>
+            <span><input class="text" type="text" name="mobile"  datatype="mobile" nullmsg="请输入手机号" errormsg="请正确填写手机号" /></span>
 			<span></span>
           </div>
           <div class="cot">
