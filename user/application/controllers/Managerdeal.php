@@ -439,7 +439,7 @@ class ManagerDealController extends UcenterBaseController {
             $stObj = new store();
             $detail = $stObj->getUserStoreDetail($id,$this->user_id);
 
-            $this->getView()->assign('detail', $detail);
+            $this->getView()->assign('storeDetail', $detail);
         }
 
         else

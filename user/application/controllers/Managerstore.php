@@ -158,13 +158,18 @@ class ManagerStoreController extends UcenterBaseController{
 	        
 	}
 
+	/**
+	 * 仓单详情
+	 */
 	public function applyStoreDetailAction(){
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
 			$data = $store->getManagerStoreDetail($id,$this->user_id);
-
+			$mem = new \nainai\member();
+			$userData = $mem->getUserDetail($data['user_id']);
+			$this->getView()->assign('user', $userData);
 			$this->getView()->assign('storeDetail', $data);
 			$this->getView()->assign('photos', $data['photos']);
 		}else{
@@ -250,10 +255,13 @@ class ManagerStoreController extends UcenterBaseController{
 				'rent_time' => safe::filterPost('rentTime'),
 				'check_org' => safe::filterPost('check'),
 				'check_no'  => safe::filterPost('check_no'),
+				'sign_time' => \Library\time::getDateTime(),
+				'package'   => safe::filterPost('package','int'),
 				'confirm'   => \Library\tool::setImgApp(safe::filterPost('imgfile1'))
 			);
 
-			if (!empty(safe::filterPost('packNumber'))) {
+			if ($storeProduct['package']) {
+				$storeProduct['package_unit'] = safe::filterPost('packUnit');
 				$storeProduct['package_num'] = safe::filterPost('packNumber', 'float');
 				$storeProduct['package_weight'] = safe::filterPost('packWeight', 'float');
 			}

@@ -196,9 +196,9 @@
                                             </select>
                                         </td>
 
-                                             </tr>
+                                   </tr>
 
-                                            <tr id="packUnit" >
+                                   <tr id="packUnit" >
                                                  <td>包装单位：</td>
                                             <td colspan="2">
                                                 <input type="text" class='text' name="packUnit" >
@@ -215,7 +215,7 @@
                                             <td colspan="2">
                                                 <input type="text" class='text' name="packWeight" >
                                             </td>
-                                            </tr>
+                                   </tr>
 
 
 <!--                               <tr>

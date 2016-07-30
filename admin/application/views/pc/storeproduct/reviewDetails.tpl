@@ -26,12 +26,12 @@
                  <td>{$detail['cang_pos']}</td>
              </tr>
              <tr>
-                 <th>申请日期</th>
-                 <td>{$detail['create_time']}</td>
                  <th>入库日期</th>
                  <td>{$detail['in_time']}</td>
                  <th>租库日期</th>
                  <td>{$detail['rent_time']}</td>
+                 <th></th>
+                 <td></td>
 
              </tr>
 
@@ -77,8 +77,8 @@
                  <td>{$detail['status']}</td>
                  <th>是否打包:</th>
                  <td>     {if: $detail['package'] == 1}是{else:}否{/if}</td>
-                 <th>商品单价</th>
-                 <td>{$detail['price']}</td>
+                 <th></th>
+                 <td></td>
              </tr>
 
                  {if: $detail['package'] == 1}
@@ -109,58 +109,44 @@
              </tr>
              <tr>
 
-                 <th>仓库审核时间</th>
-                 <td>
-                     {$detail['manager_time']}
-                 </td>
                  <th>仓单签发时间</th>
                  <td>{$detail['sign_time']}</td>
                  <th>用户确认时间</th>
                  <td>{$detail['user_time']}</td>
-
+                 <th>市场审核时间</th>
+                 <td>{$detail['market_time']}</td>
              </tr>
+             {if:$type==\nainai\store::USER_AGREE}
+                 <form action="{url:store/storeProduct/setStatus}" method="post" auto_submit="1" redirect_url="{url:store/storeProduct/getlist}">
+                     <tr>
+                         <th>审核结果</th><input type="hidden" name="id" value="{$detail['id']}" />
+                         <td> <label><input type="radio" name="status" value="1" checked/>通过</label>
+                             <label><input type="radio" name="status" value="0"/>不通过</label>
+                         </td>
+                         <th></th>
+                         <td></td>
+                         <th></th>
+                         <td></td>
+                     </tr>
 
 
-            <tr>
-              <th scope="col" colspan="6">
-                  {if: $type!=31&&$type!=32}
-                 <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok fa-ok"></i> 通过</a> 
-                 <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove fa-remove"></i> 不通过</a>
-                 {/if}
-                  <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
-              </th>
-            </tr>
+                     <tr>
+                         <th>操作</th>
+                         <th scope="col" colspan="6">
+                             <input type="submit" class="btn btn-primary radius" value="提交"/>
+                             <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
+                         </th>
+                     </tr>
+                 </form>
+             {else:}
+                 <tr>
+                     <th>操作</th>
+                     <th scope="col" colspan="6">
+                         <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
+                     </th>
+                 </tr>
+             {/if}
+
 	 	</table>
  	</div>
 </div>
-</div>
-      <script type="text/javascript">
-        $(function(){
-          var formacc = new nn_panduo.formacc();
-          var status = '';
-          $('a.pass').click(function(){
-            $(this).unbind('click');
-            msg = '已通过';
-            setStatus(1,msg);
-          })
-
-          $('a.ref').click(function(){
-            $(this).unbind('click');
-            msg = '已驳回';
-            setStatus(0,msg);
-          })
-
-          function setStatus(status,msg){
-            formacc.ajax_post("{url:store/storeProduct/setStatus}",{status:status,id:{$detail['id']}},function(){
-              layer.msg(msg+"稍后自动跳转");
-                  setTimeout(function(){
-                      window.location.href = "{$url}";
-                  },1500);
-            });
-          }
-        })
-
-      </script>
-        
-    </body>
-</html>

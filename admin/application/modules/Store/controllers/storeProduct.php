@@ -2,7 +2,7 @@
 /**
  * @name storeController
  * @author weipinglee
- * @desc �û����������
+ * @desc �û����������?
  */
 use \Library\safe;
 use \Library\Thumb;
@@ -28,7 +28,7 @@ class storeProductController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * ����˲ֵ�
+     * ����˲ֵ�?
      */
     public function reviewListAction(){
         $page = safe::filterGet('page','int',1);
@@ -39,7 +39,7 @@ class storeProductController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * ����˲ֵ�����
+     * ����˲ֵ�����?
      */
     public function reviewDetailsAction(){
 
