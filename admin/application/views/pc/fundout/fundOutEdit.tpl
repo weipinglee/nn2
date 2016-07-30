@@ -106,9 +106,16 @@
                 {/if}
                 {if:$outInfo['action']!=null&&$outInfo['action']!='transfer'}
                     <tr>
-                        <th scope="col" colspan="6">
-                            意见: <textarea name="message" id="message"  style="width:250px;height:100px;" ></textarea>
+                        <th scope="col" >
+                            意见
                         </th>
+                        <td>
+                            <textarea name="message" id="message"  style="width:250px;height:100px;" ></textarea>
+
+                        </td>
+                        <th>
+                        </th>
+                        <td></td>
 
                     </tr>
                     <tr>

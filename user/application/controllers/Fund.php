@@ -214,6 +214,7 @@ class FundController extends UcenterBaseController {
 		$fundObj=new fundModel();
 		$page=safe::filterGet('page','int');
 		$fundOutList=$fundObj->getFundOutList($this->user_id,$where,$page);
+
 		foreach($fundOutList[0] as $k=>$v){
 			$fundOutList[0][$k]['status']=fundModel::getFundOutStatusText($v['status']);
 		}
