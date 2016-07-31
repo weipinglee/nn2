@@ -123,10 +123,19 @@ class OffersController extends PublicController {
 		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
 		//商品剩余数量
 		$pro = new \nainai\offer\product();
-		$pro_info = $pro->getProductDetails($info['product_id']);
-		unset($pro_info['price']);
-		$info = array_merge($info,$pro_info);
-		
+
+		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
+		//判断下是否能够申请保险
+		if($info['insurance'] == 0){
+			//已经申请了的不能在申请
+			$risk = new \nainai\insurance\RiskApply();
+			$data = $risk->getRiskApply(array('buyer_id' => $this->login['user_id'], 'offer_id' => $info['id']), 'id');
+			if (!empty($data)) {
+				$info['insurance'] = 1;
+			}
+		}
+print_r($info);
 		$this->getView()->assign('data',$info);
 
 	}
@@ -256,6 +265,13 @@ class OffersController extends PublicController {
 
 			$pro = new \nainai\offer\product();
 			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
+			if ($info['insurance'] == 1) {
+				$risk = new \nainai\insurance\Risk();
+				$riskData = $risk->getProductRisk($info['risk']);
+				$this->getView()->assign('riskData',$riskData);
+			}
+
 			$kefuData = array();
 			if($info['kefu']){
 				$kefu = new \Library\M('admin_kefu');

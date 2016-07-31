@@ -176,6 +176,12 @@
                                 <li><a href="{url:/trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
                             </ul>
                         </li>
+                        <li><a target="content">保险管理</a>
+                            <ul>
+                                <li><a href="{url:/trade/Insurance/insuranceList}" target="content">保险产品列表</a></li>
+                                <li><a href="{url:/trade/Insurance/rateList}" target="content">产品费率列表</a></li>
+                            </ul>
+                        </li>
                         <li><a target="content">合同管理</a>
                             <ul>
                                 <li><a href="{url:trade/pairing/contractList}" target="content">添加撮合人</a></li>

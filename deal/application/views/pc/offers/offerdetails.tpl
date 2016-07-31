@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" type="text/css" href="{views:css/offer_ask.css}"/>
 <link href="{views:css/pro_show.css}" rel="stylesheet">
 <link href="{views:css/tender_con.css}" rel="stylesheet">
@@ -40,7 +41,7 @@
                 </div>
                 <div class="offer_right">
                     <ul>
-                        <li>参考价：<b> {$data['price']}</b>元/吨 <span class="qianse">（含税）</span></li>
+                        <li>参考价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
                         <li>总数量： <i>{$data['quantity']}</i>  {$data['unit']}</li>
                       <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
                     </ul>
@@ -101,8 +102,18 @@
                         </tr>
                         <tr>
                             <td>是否投保</td>
-                            <td>是</td>
+                            <td>{if: $data['insurance'] == 1}是{else:}否{/if}</td>
                         </tr>
+                        {if: $data['insurance'] == 1}
+                        <tr>
+                            <td>投保产品</td>
+                            <td>
+                                 {foreach: items=$riskData}
+                                    保险公司：{$item['company']} - 保险产品：{$item['name']} {if:$item['mode']==1}比例 : ({$item['rate']}){else:}定额 : ({$item['fee']}){/if}<br />
+                                   {/foreach}
+                            </td>
+                        </tr>
+                        {/if}
                         <tr>
                             <td>计重方式</td>
                             <td>理论计值</td>

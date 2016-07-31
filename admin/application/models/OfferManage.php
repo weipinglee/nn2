@@ -27,6 +27,7 @@ class OfferManageModel extends \nainai\offer\product{
 		$Q = new \Library\searchQuery('product_offer as o');
 		$Q->join = "left join products as p on o.product_id = p.id left join user as u on o.user_id = u.id";
 		$Q->fields = "o.*,u.username,p.quantity,p.unit";
+		$Q->order = 'apply_time desc';
 		if($where) $Q->where = $where;
 		$Q->page = $page;
 		$Q->pagesize = 20;

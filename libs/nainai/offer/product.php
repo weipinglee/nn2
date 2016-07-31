@@ -203,7 +203,7 @@ class product {
      */
     public function getCategoryLevel($pid = 0){
         $where  = array('status' => 1);
-        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs')->where($where)->select();
+        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
 
         $res = $this->generateTree($category);
 
@@ -348,7 +348,10 @@ class product {
             if($item['pid']==$pid){
                 $v = $items[$key];
                 $v['unit'] = $items[$key]['unit'] =='' ? $unit : $items[$key]['unit'] ;
-
+                if (!empty($item['risk_data'])) {
+                    $v['risk_data'] = explode(',', $item['risk_data']);
+                }
+                
                 $tree[$item['id']] = $v;
                // unset($items[$key]);
                 $tree[$item['id']]['child'] = $this->generateTree($items,$item['id'],$v['unit']);
@@ -434,6 +437,32 @@ class product {
 
     }
 
+    /**
+     * 获取报盘详情
+     */
+    public function offerDetail($id){
+        $query = new Query('product_offer as o');
+        $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id = pp.products_id";
+        $query->fields = "o.*,p.cate_id,p.name,pp.img,p.quantity,p.freeze,p.sell,p.unit, o.expire_time";
+
+        $query->where = 'o.id = :id';
+        $query->bind = array('id'=>$id);
+        $res = $query->getObj();
+
+        if(!empty($res)){
+            $res['mode_text'] = $this->getMode($res['mode']);
+
+            $res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
+            $res['left'] = floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']);
+
+            $res['divide_txt'] = $this->getDivide($res['divide']);
+            if($res['divide']==self::UNDIVIDE)
+                $res['minimum'] = $res['quantity'];
+        }
+
+
+        return $res ? $res : array();
+    }
     /**
      * 获取产品的属性值，对应的属性id
      * @param  array  $attr_id [属性id]
@@ -556,9 +585,9 @@ class product {
      * 获取某个分类名称
      * @param int $cate_id 分类id
      */
-    public function getCateName($cate_id){
+    public function getCateName($cate_id, $fields='name'){
         $m = new M('product_category');
-        return $m->where(array('id'=>$cate_id))->getField('name');
+        return $m->where(array('id'=>$cate_id))->getField($fields);
 
     }
 

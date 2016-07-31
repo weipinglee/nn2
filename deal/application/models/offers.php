@@ -234,32 +234,7 @@ class offersModel extends \nainai\offer\product{
         return $this->getMode($type);
     }
 
-    /**
-     * 获取报盘详情
-     */
-    public function offerDetail($id){
-        $query = new Query('product_offer as o');
-        $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id = pp.products_id";
-        $query->fields = "o.*,p.cate_id,p.name,pp.img,p.quantity,p.freeze,p.sell,p.unit, o.expire_time";
 
-        $query->where = 'o.id = :id';
-        $query->bind = array('id'=>$id);
-        $res = $query->getObj();
-
-        if(!empty($res)){
-            $res['mode_text'] = $this->offerMode($res['mode']);
-
-            $res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
-            $res['left'] = floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']);
-
-            $res['divide_txt'] = $this->getDivide($res['divide']);
-            if($res['divide']==self::UNDIVIDE)
-                $res['minimum'] = $res['quantity'];
-        }
-
-
-        return $res ? $res : array();
-    }
 
     //获取报盘类型
     public function offerType($id){

@@ -30,7 +30,8 @@ class tradeController extends \nainai\controller\Base {
 		$account = safe::filterPost('account');
 		$invoice = safe::filterPost('invoice');
 
-		$offer_type = $this->offer->offerType($id);
+		$detail = $this->offer->offerDetail($id);
+		$offer_type = intval($detail['mode']);
 
 		switch ($offer_type) {
 			case order\Order::ORDER_FREE:
@@ -84,6 +85,18 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['user_id'] = $user_id;
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
+
+		//设置保险信息到合同里面
+		if ($detail['insurance'] == 1) {//投保产品
+			$orderData['risk'] = $detail['risk'];
+		}else {//申请投保
+			$risk = new \nainai\insurance\RiskApply();
+			$data = $risk->getRiskApply(array('buyer_id' => $user_id, 'offer_id' => $id, 'status' => $risk::APPLYOK), 'risk');
+			if (!empty($data)) {
+				$orderData['risk'] = $data['risk'];
+			}
+		}
+
 		//判断是否需要开具发票
 		$orderData['invoice'] = $invoice == 1 ? 1 : 0;
 
@@ -121,6 +134,7 @@ class tradeController extends \nainai\controller\Base {
 					}
 
 					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id,$account);
+
 					if($pay_res['success'] == 1){
 						$this->offer->commit();
 						$url = url::createUrl('/offers/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']);

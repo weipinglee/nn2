@@ -44,6 +44,12 @@ class OffermanageController extends Yaf\Controller_Abstract{
 		$info = $this->offer->getofferDetail($id);
 
 		$info['user'] = $user;
+		
+		if ($info['insurance'] == 1) {
+			$risk = new \nainai\insurance\Risk();
+			$riskData = $risk->getRiskDetail($info['risk']);
+			$this->getView()->assign('riskData',$riskData);
+		}
 
 		//获取客服人员列表
 		$kefu = new KefuModel();
@@ -78,6 +84,12 @@ class OffermanageController extends Yaf\Controller_Abstract{
 		$user = $this->_request->getParam('user');//委托人
 		$info = $this->offer->getofferDetail($id);
 		$info['user'] = $user;
+		if ($info['insurance'] == 1) {
+			$risk = new \nainai\insurance\Risk();
+			$riskData = $risk->getRiskDetail($info['risk']);
+			$this->getView()->assign('riskData',$riskData);
+		}
+		
 		$this->getView()->assign('info',$info);
 	}
 

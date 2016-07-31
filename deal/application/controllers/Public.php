@@ -6,6 +6,8 @@ use \Library\url;
 
 class PublicController extends \Yaf\Controller_Abstract{
 
+     public $login;
+
      public function init(){
           $right = new \Library\checkRight();
           $isLogin = $right->checkLogin();
@@ -14,10 +16,11 @@ class PublicController extends \Yaf\Controller_Abstract{
           $frdData = $frdLink->getFrdLink(10);
           $this->getView()->assign('frdData',$frdData);
 
+
           if($isLogin){
-               $login = \Library\session::get('login');
+               $this->login = \Library\session::get('login');
                $this->getView()->assign('login',1);
-               $this->getView()->assign('username',$login['username']);
+               $this->getView()->assign('username',$this->login['username']);
           }
           else
                $this->getView()->assign('login',0);

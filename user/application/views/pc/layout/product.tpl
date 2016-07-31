@@ -64,6 +64,30 @@
                             </tr>
                             
     <tr>
+        <td nowrap="nowrap"><span></span>是否投保:</td>
+        <td>
+            <span> <input type="radio" name="insurance" value="1"  checked="true">是 <input type="radio" name="insurance" value="0" >否</span>
+        </td>
+    </tr>
+
+    <tr id="riskdata" >
+        <td ><span></span>保险:</td>
+        <td>
+            <span> 
+            {if: !empty($risk_data)}
+                {foreach: items=$risk_data}
+                    <input type="checkbox" name="risk[]" value="{$item['risk_id']}">{$item['name']}{if: $item['mode'] == 1}比例： {$item['fee']}(‰) {else:}定额： {$item['fee']} {/if}
+                {/foreach}
+            {else:}
+                该分类没有设置保险
+            {/if}
+            </span>
+        </td>
+    </tr>
+    <input type="hidden" name="cate_id" id="cid">
+    <input type="hidden" name="ajax_url" id="ajax_url" value="{url: Trade/Insurance/ajaxGetCate}">
+
+    <tr>
         <td>产地:</td>
         <td colspan="2">
             <span id="areabox">{area:}</span>

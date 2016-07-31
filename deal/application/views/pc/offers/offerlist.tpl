@@ -226,7 +226,11 @@
                        <li><%=data[i].left%> (<%=data[i].unit%>)</li>
                        <li><i class="qian_blue">￥<%=data[i].price%></i></li>
                        <li>
-                           <a href="" title="未投保"><img class="icon_img" src="{views:images/icon/icon_yb.png}"/></a>
+                       <% if(data[i].insurance == 1){%>
+                       <a href="" title="已投保"><img class="icon_img" src="{views:images/icon/icon_yb.png}"/></a>
+                       <% } else { %>
+                       <a href="" title="未投保"><img class="icon_img" src="{views:images/icon/icon_wb.png}"/></a>
+                       <% }%>
                            <a href="" title="认证"><img class="icon_img" src="{views:images/icon/icon_rz.png}"/></a>
                        </li>
                        <li class="but_left">
