@@ -183,13 +183,12 @@ class productController extends InitController{
     /**
      * ·ÖÀàÉ¾³ý
      */
-    public function logicDelAttrAction(){
+    public function delAttrAction(){
         if(IS_AJAX){
-            $data['is_del'] = 1;
             $data['id'] = intval($this->_request->getParam('id'));
             $storeModel = new productModel();
 
-            $res = $storeModel->updateAttr($data);
+            $res = $storeModel->deleteAttr($data);
 
             echo JSON::encode($res);
             return false;

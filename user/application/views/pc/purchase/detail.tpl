@@ -88,7 +88,7 @@
  
                             <tr>
                                 <td colspan="2">商品单价</td>
-                                <td colspan="6">{set: echo str_replace(',', '到', $offer['price'])}元/吨</td>
+                                <td colspan="6">{$offer['price_l']}-{$offer['price_r']}元/{$product['unit']}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">交货地址</td>

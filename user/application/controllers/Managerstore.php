@@ -229,6 +229,8 @@ class ManagerStoreController extends UcenterBaseController{
 		if(!empty($imgData)){
 			foreach ($imgData as $imgUrl) {
 				if (!empty($imgUrl) && is_string($imgUrl)) {
+					if(!isset($detail['img']) || $detail['img']=='')
+						$detail['img'] = \Library\tool::setImgApp($imgUrl);
 					array_push($resImg, array('img' => \Library\tool::setImgApp($imgUrl)));
 				}
 			}

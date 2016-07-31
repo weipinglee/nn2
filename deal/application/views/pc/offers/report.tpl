@@ -135,18 +135,21 @@
                <span></span>
 
               <p>
-                  {set:$attrs=array_keys($product['attribute'])}
+                  {if:!empty($product['attribute'])}
+                       {set:$attrs=array_keys($product['attribute'])}
                   {set:$i=0;}
-               {foreach: items=$product['attr_arr']}
-               <label for=""> {$key}</label>
-               <span>
-                <input type="text" id="attr_value{$item}" datatype="*" name="attribute[{$attrs[$i]}]" class="required" />
+                   {foreach: items=$product['attr_arr']}
+                   <label for=""> {$key}</label>
+                   <span>
+                    <input type="text" id="attr_value{$item}" datatype="*" name="attribute[{$attrs[$i]}]" class="required" />
 
-                </span>
-                <span></span>
-                     </br>
-                     {set:$i=$i+1;}
-               {/foreach}
+                    </span>
+                    <span></span>
+                         </br>
+                         {set:$i=$i+1;}
+                   {/foreach}
+                  {/if}
+
                 </p>
            </div>
 <!--            <div class="baoxian">

@@ -134,7 +134,7 @@
                         <td colspan="2">图片预览</td>
                         <td colspan="6">
                             <span class="zhs_img">
-                                    {foreach: items=$photos item=$url}
+                                    {foreach: items=$storeDetail['photos'] item=$url}
                                         <img src="{$url}"/>
                                     {/foreach}
     				        </span>

@@ -139,6 +139,10 @@ class ManagerDealController extends UcenterBaseController {
                'risk' =>implode(',', Safe::filterPost('risk', 'int'))
             );
 
+            if(!$offerData['risk']){
+                $offerData['risk'] = '';
+            }
+
             $offerObj = new freeOffer($this->user_id);
             $productData = $this->getProductData();
             if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
@@ -185,10 +189,14 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
                 'price'        => safe::filterPost('price', 'float'),
-                 'insurance' => Safe::filterPost('insurance', 'int'),
-                 'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+                 'insurance' => Safe::filterPost('insurance', 'int',''),
+
+                'risk' =>implode(',', Safe::filterPost('risk', 'int'))
                // 'acc_type'   => 1,
             );
+            if(!$offerData['risk']){
+                $offerData['risk'] = '';
+            }
 
             $depositObj = new depositOffer($this->user_id);
             $productData = $this->getProductData();
@@ -247,6 +255,9 @@ class ManagerDealController extends UcenterBaseController {
                 // 'acc_type'   => 1,
             );
 
+            if(!$offerData['risk']){
+                $offerData['risk'] = '';
+            }
             $deputeObj = new deputeOffer($this->user_id);
             $productData = $this->getProductData();
             if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
@@ -400,8 +411,8 @@ class ManagerDealController extends UcenterBaseController {
         if (IS_POST) {
 
             $token = safe::filterPost('token');
-            if(!safe::checkToken($token))
-                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+           // if(!safe::checkToken($token))
+              //  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
 
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
             $storeObj = new \nainai\store();
@@ -420,6 +431,10 @@ class ManagerDealController extends UcenterBaseController {
                     'insurance' => Safe::filterPost('insurance', 'int'),
                     'risk' =>implode(',', Safe::filterPost('risk', 'int'))
                 );
+
+                if(!$offerData['risk']){
+                    $offerData['risk'] = '';
+                }
 
                 $offerObj = new \nainai\offer\storeOffer($this->user_id);
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');

@@ -676,7 +676,6 @@ visibility: hidden;
     padding: 10px 50px;
 }
 .center_tabl table tr td textarea{
-	margin-left: 10px;
     width: 95%;
     margin-top: 12px;
 }
@@ -718,6 +717,18 @@ visibility: hidden;
 .chp_xx .methed li{
     min-height: 60px;
 }
+
+.chp_xx .methed.too li{
+    min-height: 32px;
+}
+.chp_xx .methed li div input {
+    height: 25px;
+    width: 200px;
+}
+.chp_xx .methed li div p {
+    margin: 10px 0;
+}
+
 .chp_xx .methed li div{
     float: left;
     line-height: 32px;
@@ -748,8 +759,8 @@ visibility: hidden;
 	padding-right: 5px;
 }
 .xx_top ul li .chaz{
-	height: 20px;
-line-height: 20px;
+	height: 24px;
+line-height: 14px;
 padding: 4px 10px;
 background: #A0A0A0;
 margin: 0 10px;
@@ -832,14 +843,18 @@ color: #fff;
 .page_num{
 	text-align: center;
 }
+.page_num .pages_bar{
+  margin-top: 10px;
+  height:24px;
+}
 .page_num a:link, .page_num a:visited, .page_num a:active {
-padding: 2px 6px;
+padding: 6px 12px;
 border: #FFC3AC 1px solid;
 background: #FEE9E0;
 color: #000;
+margin:;
 }
 .page_num a:hover {
-padding: 2px 6px;
 border: #666 1px solid;
 background: #fff;
 color: #333;
@@ -1001,9 +1016,7 @@ line-height: 25px;
 
 /*正则表达式*/
 .username{border-width:0px;color:red;width:300px;position: absolute;/*top: 85px;*/left: 170px;cursor: default;}
-input.username.childnum{left: 428px;top: 50px;height: 20px;}
 .tran_saction{border-width:0px;color:red;width:300px;position: absolute;/*top: 145px;*/left: 170px;cursor: default;}
-input.tran_saction.childnum{left: 428px;top: 99px;height: 20px;}
 .name_china{border-width:0px;color:red;width:300px;position: absolute;/*top: 204px;*/left: 170px;cursor: default;}
 .name_eng{border-width:0px;color:red;width:300px;position: absolute;/*top: 264px;*/left: 170px;cursor: default;}
 .email{border-width:0px;color:red;width:300px;position: absolute;/*top: 563px;*/left: 170px;cursor: default;}
@@ -1202,7 +1215,7 @@ input.tran_saction.childnum{left: 428px;top: 99px;height: 20px;}
     text-overflow: ellipsis;
     overflow: hidden;}
 .selectes{background:url(../images/submit/btn_1.png) 215px 12px no-repeat;}
-.new_plaint{width:236px;position:absolute;border:1px solid #CCC;display:none;background: #fff;left: 107px;}
+.new_plaint{width:236px;position:absolute;border:1px solid #CCC;display:none;background: #fff;left: 112px;}
 .nav_plaint ul li{line-height:30px;
      padding-left:10px;
      white-space: nowrap;
@@ -1248,7 +1261,6 @@ input.tran_saction.childnum{left: 428px;top: 99px;height: 20px;}
     font-size: 13px;
     margin-right: 12px;
     cursor: pointer;
-    margin-top: 10px;
 }
 .user_zhxi .plaint_com .subclear a{
     font-size: 12px;
@@ -1317,6 +1329,15 @@ padding: 8px 15px;
 
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn a{
+  background:#d61515;
+  color: #fff;
+  border: 1px solid #d61515;
+  font-size: 20px;
+  padding: 8px 30px;
+  margin: 5px 10px;
+  cursor: pointer;
+}
+.center_tabl  .table2  .cg_fb,.center_tabl .btn input{
   background:#d61515;
   color: #fff;
   border: 1px solid #d61515;
@@ -1586,8 +1607,15 @@ border: 1px solid #c0c0c0;
   line-height: 30px;
 }
 .div_height{
-  padding: 5px 10px;
-  text-align: left;
+    padding: 5px 10px;
+    text-align: left;
+    height: 90px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.div_height p {
+    width: 140px;
+    word-wrap: break-word;
 }
  .div_heights{
   padding: 5px 0;
