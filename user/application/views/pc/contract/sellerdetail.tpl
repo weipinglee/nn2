@@ -146,7 +146,7 @@
 									<th>提货</th>
 								</tr>
 								<tr>
-									<td><img src="{views:images/banner/551b861eNe1c401dc.jpg}"/></td>
+									<td><img src="{$info['img_thumb']}"/></td>
 									<td>{$info['name']}</td>
 									<td>{$info['price']}</td>
 									<td>{$info['num']}{$info['unit']}</td>

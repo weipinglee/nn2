@@ -20,28 +20,10 @@ class ContractController extends UcenterBaseController{
 		$order = new \nainai\order\Order();
 		$page = safe::filterGet('page','int',1);
 
-
 		$list = $order->sellerContractList($user_id,$page);
 		$this->getView()->assign('data',$list);
 	}
 
-	public function depositListAction(){
-		$user_id = $this->user_id;
-		$deposit = new \nainai\order\DepositOrder();
-
-		// $page = $this->_request->getParam('page');
-		$page = safe::filterGet('page','int',1);
-		$name = safe::filterPost('name');
-		$where = array();
-		if(!empty($name)){
-			$where []= array(" and p.name = :name ",array('name'=>$name));
-		}
-
-		$list = $deposit->depositContractList($user_id,$page,$where);
-
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['bar']);
-	}
 
 	public function storeListAction(){
 		$user_id = $this->user_id;
@@ -80,7 +62,6 @@ class ContractController extends UcenterBaseController{
 	public function buyerListAction(){
 		$user_id = $this->user_id;
 		$order = new \nainai\order\Order();
-		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);
 
 		$list = $order->buyerContractList($user_id,$page);
@@ -93,8 +74,6 @@ class ContractController extends UcenterBaseController{
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id);
 		$info['complain'] = $order->canComplain($info);
-		d($info);
-		exit();
 
 
 		$invoice = $order->orderInvoiceInfo($info);

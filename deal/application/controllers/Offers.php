@@ -135,7 +135,7 @@ class OffersController extends PublicController {
 				$info['insurance'] = 1;
 			}
 		}
-print_r($info);
+
 		$this->getView()->assign('data',$info);
 
 	}

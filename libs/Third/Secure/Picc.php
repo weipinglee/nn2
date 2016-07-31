@@ -76,7 +76,7 @@ class Picc extends Secures {
      public function insures( & $data){
           $this->request['interfaceNo'] = '001001';
           $this->request['datas'] = $this->getInsureXml( $data);
-          
+
           return $this->commonOperate(__FUNCTION__);
      }
 
@@ -146,11 +146,12 @@ class Picc extends Secures {
      public function commonOperate($function){
           try{
                $return = array();
-               d($this->request);
+
                $client = new \SoapClient('http://test.mypicc.com.cn/ecooperation/webservice/insure?wsdl', array('trace' => TRUE,'cache_wsdl' => WSDL_CACHE_NONE));
                switch ($function) {
                     case 'insures':
                          $res = $client->insureService($this->request);
+                         var_dump($res);
                          break;
                     
                     default:

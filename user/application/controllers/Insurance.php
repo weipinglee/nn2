@@ -138,74 +138,72 @@ class InsuranceController extends UcenterBaseController{
      public function buyAction(){
       $insurance = new \Third\Secure\Picc();
         if (IS_POST) {
-          $insureData = array(
-            'linkName' => Safe::filterPost('linkName'),
-            'linkTel' => Safe::filterPost('linkTel'),
-            'startDate' => Safe::filterPost('baoDate'),
-            'relation' => Safe::filterPost('relation'),
-            'code' => Safe::filterPost('code'),
-            'fee' => Safe::filterPost('fee'),
-            'rate' => Safe::filterPost('rate'),
-            'project_code' => Safe::filterPost('project_code'),
-            'limit' => Safe::filterPost('limit'),
-            'role' => Safe::filterPost('role'),
-            'area' => Safe::filterPost('area'),
-          );
-          //计算保费
-          $insureData['endDate'] = \Library\Time::getDateTime('Y-m-d', strtotime($insureData['startDate']) + 364*24*3600);
-          $insureData['insuranceFee'] = round($insureData['fee'] * ($insureData['rate']/1000), 2);
-          //投保人信息
-          $insureData['toubaoInfo'] = array(
-            'name' => Safe::filterPost('baoName'),
-            'address' => Safe::filterPost('baoAddress'),
-            'tel' => Safe::filterPost('baoTel'),
-            'email' => Safe::filterPost('baoEmail'),
-            'type' => Safe::filterPost('baoidentType'),
-            'identno' => Safe::filterPost('baoidentNO'),
-          );
-          //被保人信息
-          $insureData['insureInfo'] = array(
-            'name' => Safe::filterPost('theName'),
-            'address' => Safe::filterPost('theAddress'),
-            'tel' => Safe::filterPost('theTel'),
-            'email' => Safe::filterPost('theEmail'),
-            'type' => Safe::filterPost('theidentType'),
-            'identno' => Safe::filterPost('theidentNo'),
-          );
-          //获取被保人出生日期
-          if ($insureData['insureInfo']['type'] == 01) {
-            $insureData['insureInfo']['birthday'] = substr($insureData['insureInfo']['identno'], 6, 4) . '-' .substr($insureData['insureInfo']['identno'], 10, 2) . '-' . substr($insureData['insureInfo']['identno'], 12, 2);
-          }else{
-            $insureData['insureInfo']['birthday'] = Safe::filterPost('birthday');
-          }
-          $res = $insurance->insures($insureData);
-          if ($res['success'] == 1) {
-            $this->success('处理成功');
-          }else{
-            $this->error($res['info']);
-          }
-          exit();
+              $insureData = array(
+                'linkName' => Safe::filterPost('linkName'),
+                'linkTel' => Safe::filterPost('linkTel'),
+                'startDate' => Safe::filterPost('baoDate'),
+                'relation' => Safe::filterPost('relation'),
+                'code' => Safe::filterPost('code'),
+                'fee' => Safe::filterPost('fee'),
+                'rate' => Safe::filterPost('rate'),
+                'project_code' => Safe::filterPost('project_code'),
+                'limit' => Safe::filterPost('limit'),
+                'role' => Safe::filterPost('role'),
+                'area' => Safe::filterPost('area'),
+              );
+              //计算保费
+              $insureData['endDate'] = \Library\Time::getDateTime('Y-m-d', strtotime($insureData['startDate']) + 364*24*3600);
+              $insureData['insuranceFee'] = round($insureData['fee'] * ($insureData['rate']/1000), 2);
+              //投保人信息
+              $insureData['toubaoInfo'] = array(
+                'name' => Safe::filterPost('baoName'),
+                'address' => Safe::filterPost('baoAddress'),
+                'tel' => Safe::filterPost('baoTel'),
+                'email' => Safe::filterPost('baoEmail'),
+                'type' => Safe::filterPost('baoidentType'),
+                'identno' => Safe::filterPost('baoidentNO'),
+              );
+              //被保人信息
+              $insureData['insureInfo'] = array(
+                'name' => Safe::filterPost('theName'),
+                'address' => Safe::filterPost('theAddress'),
+                'tel' => Safe::filterPost('theTel'),
+                'email' => Safe::filterPost('theEmail'),
+                'type' => Safe::filterPost('theidentType'),
+                'identno' => Safe::filterPost('theidentNo'),
+              );
+              //获取被保人出生日期
+              if ($insureData['insureInfo']['type'] == 01) {
+                $insureData['insureInfo']['birthday'] = substr($insureData['insureInfo']['identno'], 6, 4) . '-' .substr($insureData['insureInfo']['identno'], 10, 2) . '-' . substr($insureData['insureInfo']['identno'], 12, 2);
+              }else{
+                $insureData['insureInfo']['birthday'] = Safe::filterPost('birthday');
+              }
+              $res = $insurance->insures($insureData);
+              die(json::encode($res));
+
         }
+         else{
+             $order_no = safe::filter($this->_request->getParam('oid'));
+             $id = safe::filter($this->_request->getParam('id'));
 
-        $order_no = safe::filter($this->_request->getParam('oid'));
-        $id = safe::filter($this->_request->getParam('id'));
+             if (intval($order_no) <= 0 && intval($id) <= 0) {
+                 $this->error('错误的请求！');
+             }
 
-        if (intval($order_no) <= 0 && intval($id) <= 0) {
-          $this->error('错误的请求！');
-        }
+             $order = new \nainai\order\Order();
+             $info = $order->contractDetail($order_no,'other');
+             $risk = new \nainai\insurance\Risk();
+             $risk_data = $risk->getRisk($id);
 
-        $order = new \nainai\order\Order();
-        $info = $order->contractDetail($order_no,'other');
+             $this->getView()->assign('info', $info);
+             $this->getView()->assign('risk_data', $risk_data);
+             $this->getView()->assign('identity', $insurance->identity);
+             $this->getView()->assign('role', $insurance->role);
+             $this->getView()->assign('area', $insurance->area);
+             $this->getView()->assign('relation', $insurance->relation);
+         }
 
-        $risk = new \nainai\insurance\Risk();
-        $risk_data = $risk->getRisk($id);
 
-        $this->getView()->assign('info', $info);
-        $this->getView()->assign('risk_data', $risk_data);
-        $this->getView()->assign('identity', $insurance->identity);
-        $this->getView()->assign('role', $insurance->role);
-        $this->getView()->assign('area', $insurance->area);
-        $this->getView()->assign('relation', $insurance->relation);
      }
 
 

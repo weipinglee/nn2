@@ -8,7 +8,7 @@
                         <p><a>投保管理</a>><a>投保缴费详情</a></p>
                     </div>
                     <div class="center_tabl">
-                    <form action="{url:/Insurance/buy}" method="POST">
+                    <form action="{url:/Insurance/buy}" method="POST"  redirect_url="{url:/contract/sellerdetail?id/$info['id']}">
                        <table class="table2" cellpadding="0" cellspacing="0" >
                             <tr>
                                 <td class="spmx_title" colspan="8">商品投保费用缴纳详情</td>

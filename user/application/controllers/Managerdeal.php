@@ -367,7 +367,6 @@ class ManagerDealController extends UcenterBaseController {
         $detail = array(
             'name'         => Safe::filterPost('warename'),
             'cate_id'      => Safe::filterPost('cate_id', 'int'),
-            'price'        => Safe::filterPost('price', 'float'),
             'quantity'     => Safe::filterPost('quantity', 'float'),
             'attribute'    => empty($attrs) ? '' : serialize($attrs),
             'note'         => Safe::filterPost('note'),
