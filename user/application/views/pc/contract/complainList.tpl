@@ -19,7 +19,6 @@
                         <td>订单号</td>
                         <td>申述类型</td>
                         <td>申述标题</td>
-                        <td>凭证图片</td>
                         <td>申述时间</td>
                         <td>申述状态</td>
                         <td>操作</td>
@@ -30,13 +29,7 @@
                             <td>{$list['order_no']}</td>
                             <td>{$list['type']}</td>
                             <td>{$list['title']}</td>
-                            <td>
-                                <ul>
-                                    {foreach: items=$list['proof']  item=$img}
-                                        <li><img src="{$img}"></li>
-                                    {/foreach}
-                                </ul>
-                            </td>
+
                             <td>{$list['apply_time']}</td>
                             <td>{$list['status']}</td>
 
