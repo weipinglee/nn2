@@ -5,7 +5,8 @@
 					<div class="zhxi_tit">
 						<p><a>账号管理</a>><a>开票信息管理</a></p>
 					</div>
-					<div>
+					<div {if: empty($data)}style="display:block"{else:}style="display: none" {/if} id="invoice1">
+
 						<form action="{url:/ucenter/invoice}" method="post" auto_submit >
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>发票抬头：</span>
@@ -28,7 +29,7 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>电话：</span>
-								<span><input class="text" type="text" name="tel" value="{$data['phone']}" datatype="/^[0-9\-]{6,12}$/" errormsg="格式错误">
+								<span><input class="text" type="text" name="tel" value="{$data['phone']}" datatype="/^[0-9\-]{11}$/" errormsg="格式错误">
 								</span>
                                 <span></span>
 							</div>
@@ -40,17 +41,60 @@
 							</div>
                             <div class="zhxi_con">
                                 <span class="con_tit"><i>*</i>银行账号：</span>
-								<span><input class="text" type="text" name="bankAccount" value="{$data['bank_no']}" datatype="s16-20" errormsg="格式错误">
+								<span><input class="text" type="text" name="bankAccount" value="{$data['bank_no']}" datatype="s16-19" errormsg="格式错误">
 								</span>
                                 <span></span>
                             </div>
 							<div class="zhxi_con">	
-								<span><input class="submit_zz" type="submit" value="提交"></span>
+								<span><input class="submit_zz" type="submit" value="保存"></span>
 							</div>
 						</form>
 					</div>
-					
+					<div style="clear:both;"></div>
+					<div {if:!empty($data)}style="display:block"{else:}style="display: none"{/if} id="invoice2">
+							<div class="zhxi_con">
+								<span class="con_tit"><i>*</i>发票抬头：</span>
+								<span>{$data['title']}
+                                </span>
+								<span></span>
+							</div>
+							<div class="zhxi_con">
+								<span class="con_tit"><i>*</i>纳税人识别号：</span>
+								<span>{$data['tax_no']}</span>
+								<span></span>
+							</div>
+							<div class="zhxi_con">
+								<span class="con_tit"><i>*</i>地址：</span>
+								<span>{$data['address']}</span>
+								<span></span>
+							</div>
+							<div class="zhxi_con">
+								<span class="con_tit"><i>*</i>电话：</span>
+								<span>{$data['phone']}</span>
+								<span></span>
+							</div>
+							<div class="zhxi_con">
+								<span class="con_tit"><i>*</i>开户行：</span>
+								<span>{$data['bank_name']}</span>
+								<span></span>
+							</div>
+							<div class="zhxi_con">
+								<span class="con_tit"><i>*</i>银行账号：</span>
+								<span>{$data['bank_no']}</span>
+								<span></span>
+							</div>
+							<div class="zhxi_con">
+								<span><input class="submit_zz" type="button" value="修改" onclick="changeDiv()"></span>
+							</div>
+					</div>
 				
 					<div style="clear:both;"></div>
 				</div>
 			</div>
+<script type="text/javascript">
+	function changeDiv(){
+		$('#invoice2').css('display','none');
+		$('#invoice1').css('display','block');
+	}
+
+</script>

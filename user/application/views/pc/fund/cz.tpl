@@ -153,6 +153,7 @@
 								<th>交易时间</th>
 								<th>金额</th>
 								<th>状态</th>
+								<th>审核意见</th>
 							</tr>
 							{foreach:items=$flow }
 								<tr>
@@ -161,7 +162,12 @@
 									<td>{$item['create_time']}</td>
 									<td>{$item['amount']}</td>
 									<td>{$item['status']}</td>
-
+									{if: $item['first_time']!=null&&$item['final_time']==null}
+										<td>{$item['first_message']}</td>
+									{/if}
+									{if: $item['first_time']!=null&&$item['final_time']!=null}
+									<td>{$item['final_message']}</td>
+									{/if}
 								</tr>
 							{/foreach}
 							<tr>

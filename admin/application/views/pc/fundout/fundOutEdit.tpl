@@ -138,20 +138,22 @@
     $(function(){
         var formacc = new nn_panduo.formacc();
         var status = '';
-        var mess=$('#message').val();
+
 
         $('a.pass').click(function(){
+            var mess=$('#message').val();
             $(this).unbind('click');
             msg = '已通过';
             setStatus(1,msg,mess);
         })
         $('a.passProot').click(function(){
             var proot=$('#imgfile2  ').val();
-
+            var mess=$('#message').val();
 
             setProot(proot);
         });
         $('a.ref').click(function(){
+            var mess=$('#message').val();
             $(this).unbind('click');
             msg = '已驳回';
             setStatus(0,msg,mess);
