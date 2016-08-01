@@ -63,7 +63,7 @@
 									<th>配送</th>
 								</tr>
 								<tr>
-									<td><img src="{views:images/banner/551b861eNe1c401dc.jpg}"/></td>
+									<td><img src="{if:isset($info['photos'][0])}{$info['photos'][0]}{/if}"/></td>
 									<td>{$info['name']}</td>
 									<td>{$info['price']}</td>
 									<td>{$info['num']}{$info['unit']}</td>

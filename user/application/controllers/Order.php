@@ -18,20 +18,20 @@ class OrderController extends UcenterBaseController{
 
 	//买家支付尾款
 	public function buyerRetainageAction(){
-
 		if(IS_POST){
 			$order_id = safe::filterPost('order_id','int');
-			$type = safe::filterPost('payment');
+			$type = safe::filterPost('payment');//线上or线下
+			$account = safe::filterPost('account');//支付方式
 			$proof = safe::filterPost('imgproof');
 
 			$user_id = $this->user_id;
-			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof);
+			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof,$account);
 
 			if($res['success'] == 1){
 				$title = $type == 'offline' ? '已上传支付凭证' : '已支付尾款';
 				$info = $type == 'offline' ? '请等待卖家确认凭证' : '合同已生效，可申请提货';
-
-				die(json::encode(tool::getSuccInfo(1,$title,url::createUrl('/contract/buyerdetail?id='.$order_id))));
+				
+				die(json::encode(tool::getSuccInfo(1,$title,url::createUrl('/contract/buyerlist'))));
 				//$this->redirect(url::createUrl('/Order/payRetainageSuc')."/title/$title/info/$info");
 			}else{
 				die(json::encode($res));
@@ -41,7 +41,12 @@ class OrderController extends UcenterBaseController{
 			$order_id = safe::filter($this->_request->getParam('order_id'),'int');
 			$data = $this->order->contractDetail($order_id);
 			$data['pay_retainage'] = number_format(floatval($data['amount']) - floatval($data['pay_deposit']),2);
-			$bankinfo = $this->order->userBankInfo($data['user_id']);
+
+
+			$seller = $data['type'] == 1 ? $data['seller_id'] : $data['user_id'];
+			$bankinfo = $this->order->userBankInfo($seller);
+
+			$data['seller'] = $seller;
 
 			$this->getView()->assign('show_online',$data['mode'] == \nainai\order\Order::ORDER_DEPOSIT || $data['mode'] == \nainai\order\Order::ORDER_STORE || $data['mode'] == \nainai\order\Order::ORDER_PURCHASE ? 1 : 0);
 			$this->getView()->assign('bankinfo',$bankinfo);
@@ -49,6 +54,20 @@ class OrderController extends UcenterBaseController{
 		}
 	}
 	
+	/**
+	 * 通知买方开户
+	 */
+	public function banckNoticeAction(){
+		$id = safe::filter($this->_request->getParam('tar_id'),'int');
+		$mess = new \nainai\message($id);
+		$res = $mess->send('newbankaccount');
+		if($res['code'] == 1){
+			$this->success('已通知买方开户');
+		}else{
+			$this->error('通知失败');
+		}
+	}
+
 	//支付尾款成功
 	public function payRetainageSucAction(){
 		$this->getView()->assign('title',safe::filter($this->_request->getParam('title')));
@@ -59,23 +78,19 @@ class OrderController extends UcenterBaseController{
 	public function confirmProofPageAction(){
 		$order_id = intval($this->_request->getParam('order_id'));
 		$info = $this->order->contractDetail($order_id);
+		
+		$info['show_deposit'] = in_array($info['mode'],nainai\order\Order::ORDER_DEPOSIT,nainai\order\Order::ORDER_STORE) ? 1 : 0;
 		$info['proof_thumb'] = \Library\Thumb::get($info['proof'],400,400);
 		$this->getView()->assign('data',$info);
 	}
 
 	//卖家确认买方线下支付凭证
 	public function confirmProofAction(){
-		$order_id = intval($this->_request->getParam('order_id'));
-		$type = safe::filter('type');//0:未确认 1：确认
+		$order_id = safe::filterPost('order_id','int');
 		$type = true;
 		$user_id = $this->user_id;
 		$res = $this->order->confirmProof($order_id,$user_id,$type);
-		if($res['success'] == 1)
-			$this->success('操作成功',url::createUrl("/Contract/sellerlist"));
-		else
-			$this->error($res['info']);
-
-		return false;
+		die(json::encode($res));
 	}
 
 	//扣减货款页面
@@ -93,20 +108,24 @@ class OrderController extends UcenterBaseController{
 			$reduce_amount = safe::filterPost('amount','floatval');
 			$reduce_amount = !$reduce_amount || $reduce_amount > $amount || $reduce_amount < 0 ? 0 : $reduce_amount;
 			if(!$reduce_amount){
-				die('扣款金额错误');
+				die(json::encode(tool::getSuccInfo(0,'扣减金额错误')));
 			}
 			$reduceData['reduce_amount'] = $reduce_amount;
 			$reduceData['reduce_remark'] = safe::filterPost('remark');
 			$res = $this->order->verifyQaulity($order_id,$this->user_id,$reduceData);
+			if($res['success']==1){
+				$res['returnUrl'] = url::createUrl('/Contract/buyerlist');
+			}
+			die(json::encode($res));
 		}else{
 			$order_id = safe::filter($this->_request->getParam('order_id'));
 			$res = $this->order->verifyQaulity($order_id,$this->user_id);
+			if($res['success'] == 1)
+				$this->success('已确认货物质量',url::createUrl('/Contract/buyerlist'));
+			else
+				$this->error($res['info']);
 		}
 
-		if($res['success'] == 1)
-			$this->success('已确认货物质量',url::createUrl('/Contract/buyerlist'));
-		else
-			$this->error($res['info']);
 		return false;
 	}
 

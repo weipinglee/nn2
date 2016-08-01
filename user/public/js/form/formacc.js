@@ -22,12 +22,23 @@ nn_panduo.formacc.prototype = {
 			_this.redirect_url = $(this).attr("redirect_url");
 			_this.form = this;
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
+
 			_this.bind_select();
 			_this.validform();
+			var con = $(_this.form).find('[confirm=1]');
+			if(con){
+				var text = con.attr('confirm_text') ? con.attr('confirm_text') : '确认吗?';
+				con.on('click',function(){
+					layer.confirm(text,function(){
+						$(_this.form).submit();
+					})
+				})
+			}
 
 		});
 		_this.validPaymentPassword();
 	},
+
 	/**
 	 * 自动绑定select选中项
 	 */
@@ -66,13 +77,15 @@ nn_panduo.formacc.prototype = {
 				  'mobile':/^1[2|3|4|5|6|7|8|9][0-9]\d{8}$/,
 				  'date':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/i,
 			      'datetime':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29) (?:(?:[0-1][0-9])|(?:2[0-3])):(?:[0-5][0-9]):(?:[0-5][0-9])$/i,
-				  'identify' : /^\d{17}(\d|x)$/i
+				  'identify' : /^\d{17}(\d|x)$/i,
+				  'money' : /^[1-9][0-9]{0,7}(\.\d{0,2})?$/
 
 		},
 		      beforeSubmit:function(curform){
 		        var url = $(curform).attr('action');
 		        var data = $(curform).serialize();
 		        var pay_secret = $(curform).attr('pay_secret');
+
 		        if(pay_secret){
 		        	layer.config({
 					    extend: 'extend/layer.ext.js'
@@ -208,12 +221,14 @@ nn_panduo.formacc.prototype = {
 	//ajax提交
 	ajax_post:function(url,ajax_data,suc_callback,err_callback){
 		var _this = this;
+		layer.load(2,{shade:[0.1,'black']});
 		$.ajax({
 			type:'post',
 			url:url,
 			data:ajax_data,
 			dataType:'json',
 			success:function(data){
+				layer.closeAll();
 				if(data.success == 1){
 					if(data.returnUrl){
 						layer.msg(data.info);
@@ -231,13 +246,13 @@ nn_panduo.formacc.prototype = {
 
 
 				}else{
+
 					if(data.returnUrl){
-						if(data.returnUrl){
+
 							layer.msg(data.info);
 							setTimeout(function(){
 								window.location.href=data.returnUrl;
 							},1000);
-						}
 					}
 					else{
 						if(typeof(eval(err_callback)) == 'function'){
@@ -249,6 +264,7 @@ nn_panduo.formacc.prototype = {
 				}
 			},
 			error:function(data){
+				layer.closeAll();
 				layer.msg("服务器错误,请重试");
 			}
 		});
@@ -263,7 +279,7 @@ $(function(){
 	formacc.form_init();
 	//地址验证，根据是两级或三级动态调整验证规则
 	if($('#areabox').length && $('#areabox').length>0){
-		$('#areabox').find('select:first').on('change',function(){
+		$('#areabox').find('select').on('change',function(){
 			var num = $('#areabox').find('select:visible').length;
 			var rules = [{
 				ele:"input[name=area]",

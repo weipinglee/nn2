@@ -32,9 +32,8 @@ function Area(){
                 if(area.length>3) b = parseInt(area.substring(0,4));
                 if(area.length>5) l = parseInt(area.substring(0,6));
                 if(area!='' && l==0)
-                    document.getElementById(h+'_div').style.display='none';
-
-            }
+                        document.getElementById(h+'_div').style.display='none';
+             }
             o[0] = new Option("请选择", 0);
             n[0] = new Option("请选择 ", 0);
             for (e = 0; e < p.length; e++) {
@@ -107,6 +106,7 @@ function Area(){
         c = parseInt(c);
         var _d = this.district_arr[c];
         if(_d){
+            $("#" + a).parent('span').show();
             var str = "";
             str += "<option value='0' >请选择</option>";
             for (var i = c * 100; i < _d.length; i++) {
@@ -114,6 +114,9 @@ function Area(){
                 str += "<option value='" + i + "' >" + _d[i] + "</option>";
             }
             $("#" + a).html(str);
+        }
+        else{
+            $("#" + a).parent('span').hide();
         }
 
     }

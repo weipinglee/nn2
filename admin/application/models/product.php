@@ -88,7 +88,7 @@ class productModel extends baseModel{
 	 */
 	public function getCateTree(){
 		$m = new M('product_category');
-		$data = $m->select();
+		$data = $m->where(array('is_del'=>0))->select();
 		if($data){
 			return $this->generateTree($data);
 		}
@@ -134,8 +134,13 @@ class productModel extends baseModel{
 	 */
 	public function getAttr($page=0){
 		$m = new Query('product_attribute');
-		if($page!=0)
+		if($page!=0){
 			$m->page = $page;
+		}
+		else{
+			$m->where = 'status=1';
+		}
+
 		$attr = $m->find();
 		$res = array();
 		foreach($attr as $k=>$v){
@@ -143,11 +148,14 @@ class productModel extends baseModel{
 			$res[$attr[$k]['id']]['type'] = $this->getAttrType($v['type']);
 		}
 		if($page!=0){
+
 			$pageBar =  $m->getPageBar();
 			return array($res,$pageBar);
 		}
-		else
+		else{
 			return $res;
+		}
+
 
 
 

@@ -22,11 +22,11 @@ class store{
     );
 
     //仓单状态
-    const USER_APPLY          = 10;//卖方申请
+    //const USER_APPLY          = 10;//卖方申请
     const USER_AGREE          = 11;//卖方确认
     const USER_REJECT         = 12;//卖方确认不通过
-    const STOREMANAGER_AGREE  = 21;//仓库管理员审核通过
-    const STOREMANAGER_REJECT = 22;
+   // const STOREMANAGER_AGREE  = 21;//仓库管理员审核通过
+  //  const STOREMANAGER_REJECT = 22;
     const STOREMANAGER_SIGN   = 23;
 
     const MARKET_AGREE        = 31;//市场通过
@@ -39,9 +39,9 @@ class store{
       */
     public function getStatus(){
         return array(
-            self::USER_APPLY => '未审核',
-            self::STOREMANAGER_AGREE => '仓库管理员审核通过',
-            self::STOREMANAGER_REJECT => '仓库管理员审核不通过',
+            //self::USER_APPLY => '未审核',
+           // self::STOREMANAGER_AGREE => '仓库管理员审核通过',
+           // self::STOREMANAGER_REJECT => '仓库管理员审核不通过',
             self::STOREMANAGER_SIGN   => '仓库管理员签发仓单',
             self::USER_AGREE => '卖方确认',
             self::USER_REJECT => '卖方拒绝',
@@ -49,6 +49,7 @@ class store{
             self::MARKET_REJECT => '后台审核驳回'
         );
     }
+
 
     /**
      * 获取仓单状态
@@ -69,7 +70,7 @@ class store{
     public function getManagerStoreDetail($id,$user_id){
         $store_id = $this->getManagerStoreId($user_id);//根据$user_id获取
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid,a.cang_pos,a.check_org,a.check_no,a.product_id,a.status, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
+        $query->fields = 'a.id as sid,a.user_id,a.cang_pos,a.sign_time,a.user_time,a.market_time,a.check_org,a.check_no,a.confirm,a.product_id,a.status,a.package,a.package_unit,a.package_num,a.package_weight, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid,  d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
         $query->where = ' a.id=:id AND a.store_id=:store_id';
         $query->bind = array('id' => $id,'store_id'=>$store_id);
@@ -77,7 +78,10 @@ class store{
         if(empty($data)){
             return false;
         }
+
         $data['status_txt'] = $this->getStatusText($data['status']);
+        $data['confirm_thumb'] = \Library\thumb::get($data['confirm'],180,180);
+        $data['confirm_orig'] = \Library\thumb::getOrigImg($data['confirm']);
         $productModel = new product();
 
         $product = $productModel->getProductDetails($data['product_id']);
@@ -142,9 +146,9 @@ class store{
      * @param array $condition 条件
      */
     protected function getStoreProductList($page,$condition=array(),$pagesize=20){
-        $query = new Query('store_list as b');
+        $query = new \Library\searchQuery('store_products as a');
         $query->fields = 'a.id,a.user_id,b.name as sname, a.status, c.name as pname,c.quantity,d.name as cname, c.attribute,c.unit, a.package_unit, a.package_weight';
-        $query->join = ' RIGHT JOIN (store_products as a LEFT JOIN products as c ON a.product_id = c.id ) ON a.store_id=b.id LEFT JOIN product_category as d  ON c.cate_id=d.id';
+        $query->join = ' LEFT JOIN store_list as b ON a.store_id=b.id LEFT JOIN products as c ON a.product_id = c.id   LEFT JOIN product_category as d  ON c.cate_id=d.id';
         $query->page = $page;
         $query->pagesize = $pagesize;
         if(!empty($condition)){
@@ -152,13 +156,13 @@ class store{
             $query->bind  = isset($condition['bind']) ? $condition['bind'] : array();
         }
 
-        $storeList = $query->find();
+        $storeList = $query->find(self::getStatus());
 
         $attrs = $attr_id = array();
-        foreach ($storeList as $key => $value) {
+        foreach ($storeList['list'] as $key => $value) {
 
             $attrs = unserialize($value['attribute']);
-            $storeList[$key]['attribute'] = $attrs;
+            $storeList['list'][$key]['attribute'] = $attrs;
             if(!empty($attrs)){
                 foreach ($attrs as $aid => $name) {
                     if (!in_array($aid, $attr_id)) {
@@ -169,7 +173,8 @@ class store{
 
         }
         $obj = new product();
-        return array('list' => $storeList, 'pageHtml' => $query->getPageBar(), 'attrs' => $obj->getHTMLProductAttr($attr_id));
+        $storeList['attrs'] =  $obj->getHTMLProductAttr($attr_id);
+        return $storeList;
     }
 
     /**
@@ -203,6 +208,7 @@ class store{
         return tool::getSuccInfo(0,'操作错误');
 
     }
+
 
     /**
      * 仓单签发
@@ -341,6 +347,8 @@ class store{
         }
 
         $detail['status_txt'] = $this->getStatusText($detail['status']);
+        $detail['confirm_thumb'] = \Library\thumb::get($detail['confirm'],180,180);
+        $detail['confirm_orig'] = \Library\thumb::getOrigImg($detail['confirm']);
         //获取商品信息
         $productModel = new product();
 
@@ -374,8 +382,11 @@ class store{
      * @param array $productData 商品数据
      * @param array $storeData 仓库数据
      */
-    public function createStoreProduct($productData,$storeData){
+    public function createStoreProduct($productData,$storeData,$user_id){
         $productObj = new product();
+        $storeData['store_id'] = $this->getManagerStoreId($user_id);
+        if(!$storeData['store_id'])
+            return tool::getSuccInfo(0,'无此权限');
         $storeProductObj = new M($this->storeProduct);
         //验证商品数据和仓单数据
         if($productObj->proValidate($productData) && $storeProductObj->validate($this->storeProductRules,$storeData)){
@@ -393,7 +404,7 @@ class store{
                 }
                 //插入仓单数据
                 $storeData['product_id'] = $pId;
-                $storeData['status'] = self::USER_APPLY;
+                $storeData['status'] = self::STOREMANAGER_SIGN;
                 $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
             }
             $res = $storeProductObj->commit();
@@ -403,7 +414,7 @@ class store{
             $res = $storeProductObj->getError();
         }
         if($res===true){
-            $resInfo = Tool::getSuccInfo();
+            $resInfo = Tool::getSuccInfo(1, 'success');
         }
         else{
             $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');

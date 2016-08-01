@@ -9,7 +9,6 @@ use \nainai\fund\zx;
 class UcenterIndexController extends UcenterBaseController {
 
 
-
     /**
      * 个人中心首页
      */
@@ -25,7 +24,6 @@ class UcenterIndexController extends UcenterBaseController {
         // $bb = (array)$aa['row'];
 
         // echo '<pre>';var_dump($res);exit;
-        $group = new \nainai\member();
 
         $groupData = $group->getUserGroup($this->user_id);//会员分组数据
         $creditGap = $group->getGroupCreditGap($this->user_id);//与更高等级的分组的差值

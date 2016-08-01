@@ -13,10 +13,7 @@
                             <tr>
                                 <td class="spmx_title" colspan="8">商品明细</td>
                             </tr>
-                            <tr>
-                                <td colspan="2">商品编号</td>
-                                <td colspan="6">{$detail['pid']}</td>
-                            </tr>
+
                            <tr>
                                <td colspan="2">商品标题</td>
                                <td colspan="6">{$product['product_name']}</td>
@@ -54,9 +51,15 @@
                                 <td colspan="2">生成日期</td>
                                 <td colspan="6">{$product['create_time']}</td>
                             </tr>
+                           <tr>
+                               <td colspan="2">有效日期</td>
+                               <td colspan="6">{$offer['expire_time']}</td>
+                           </tr>
                             <tr>
+
                                 <td colspan="2">产品数量(单位)</td>
-                                <td colspan="6"class="end_td">{set: echo round($product['quantity'], 2)}({$product['unit']})</td>
+                                <td colspan="6" class="end_td">{$product['quantity']}（{$product['unit']}）</td>
+
                             </tr>
                             <tr>
                                 <td class="spmx_title" colspan="8">报盘详情</td>
@@ -86,30 +89,53 @@
                               <td colspan="2">支付方式</td>
                               <td colspan="6">现汇</td>
                           </tr> -->
+                          <tr>
+                                <td colspan="2">是否投保</td>
+                                <td colspan="6">{if: $offer['insurance'] == 1}是{else:}否{/if}</td>
+                            </tr>
+                             {if: $offer['insurance'] == 1}
+                            <tr>
+                                <td colspan="2">投保产品</td>
+                                <td colspan="6">
+                                     {foreach: items=$riskData}
+                                      保险公司：{$item['company']} - 保险产品：{$item['name']} {if:$item['mode']==1}比例 : ({$item['fee']}){else:}定额 : ({$item['fee']}){/if}<br />
+                                     {/foreach}
+                                </td>
+                            </tr>
+                            {/if}
                             <tr>
                                 <td colspan="2">可否拆分</td>
-                                <td colspan="6">{if:$offer['divide'] == 1}是{else:}否{/if}</td>
+                                <td colspan="6">{$offer['divide_txt']}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">报盘数量(单位)</td>
-                                <td colspan="6">{set: echo round($product['quantity'], 2)}({$product['unit']})</td>
+
+                                <td colspan="2">报盘数量</td>
+                                <td colspan="6">{$product['quantity']}</td>
+
                             </tr>
+                           <tr>
+                               <td colspan="2">单位</td>
+                               <td colspan="6">{$product['unit']}</td>
+                           </tr>
+                           {if:$offer['divide']==1}
                             <tr>
                                 <td colspan="2">起订量</td>
-                                <td colspan="6">{$offer['minimum']}吨</td>
+                                <td colspan="6">{$offer['minimum']}</td>
                             </tr>
+                           {/if}
                             <tr>
                                 <td colspan="2">商品单价</td>
-                                <td colspan="6">{$offer['price']}元/吨</td>
+                                <td colspan="6">{$offer['price']}元</td>
                             </tr>
                             <tr>
                                 <td colspan="2">交货地址</td>
                                 <td colspan="6">{$offer['accept_area']}</td>
                             </tr>
-                            <tr>
-                                <td colspan="2">交货时间</td>
-                                <td colspan="6">T + {$offer['accept_day']}天</td>
-                            </tr>
+                           <tr>
+                               <td colspan="2">交收时间</td>
+                               <td colspan="6">T+{$offer['accept_day']}天</td>
+                           </tr>
+
                             <tr>
                                 <td colspan="2">产品描述</td>
                                 <td colspan="6">{$product['note']}</td>

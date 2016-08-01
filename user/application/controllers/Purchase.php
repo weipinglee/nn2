@@ -23,7 +23,7 @@ class PurchaseController extends UcenterBaseController{
 					'price_r'        => Safe::filterPost('price_r'),
 			        'user_id' => $this->user_id,
 			        'status' => product::OFFER_APPLY,
-					'divide' => 1//默认不可拆分
+					'divide' => 0//默认不可拆分
 			);
 			$productData = $this->getProductData();
 
@@ -37,11 +37,7 @@ class PurchaseController extends UcenterBaseController{
 	        $category = $productModel->getCategoryLevel();
 
 	        $attr = $productModel->getProductAttr($category['chain']);
-	        //上传图片插件
-	        $plupload = new PlUpload(url::createUrl('/ManagerDeal/swfupload'));
 
-	        //注意，js要放到html的最后面，否则会无效
-	        $this->getView()->assign('plupload',$plupload->show());
 	        $this->getView()->assign('categorys', $category['cate']);
 	        $this->getView()->assign('attrs', $attr);
 	        $this->getView()->assign('unit', $category['unit']);
@@ -64,13 +60,12 @@ class PurchaseController extends UcenterBaseController{
 	    $detail = array(
 	        'name'         => Safe::filterPost('warename'),
 	        'cate_id'      => Safe::filterPost('cate_id', 'int'),
-	        'price'        => Safe::filterPost('price'),
 	        'quantity'     => Safe::filterPost('quantity', 'int'),
 	        'attribute'    => empty($attrs) ? '' : serialize($attrs),
 	        'note'         => Safe::filterPost('note'),
 	        'produce_area' => Safe::filterPost('area'),
 	        'create_time'  => \Library\Time::getDateTime(),
-	        //'unit'         => Safe::filterPost('unit'),
+	        'unit'         => Safe::filterPost('unit'),
 	        'user_id' => $this->user_id
 	    );
 
@@ -81,6 +76,8 @@ class PurchaseController extends UcenterBaseController{
 	    if(!empty($imgData)){
 	        foreach ($imgData as $imgUrl) {
 	            if (!empty($imgUrl) && is_string($imgUrl)) {
+					if(!isset($detail['img']) || $detail['img']=='')
+						$detail['img'] = tool::setImgApp($imgUrl);
 	                array_push($resImg, array('img' => tool::setImgApp($imgUrl)));
 	            }
 	        }

@@ -94,32 +94,32 @@
           <input type="hidden" name="type" value="1"/>
          <div class="cot">
             <span class="cot_tit"><i>*</i>用户名：</span>
-            <span><input class="text" type="text" name="username" callback="checkUser"  datatype="/^[a-zA-Z0-9_]{3,30}$/" errormsg="请填写3-30位英文字母、数字" /></span>
+            <span><input class="text" type="text" name="username" callback="checkUser" nullmsg="请填写用户名"  datatype="/^[a-zA-Z0-9_]{3,30}$/" errormsg="请填写3-30位英文字母、数字" /></span>
             <span></span>
 		  </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>密码：</span>
-            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" errormsg="6-15位非空字符"  /></span>
+            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" nullmsg='请输入密码' errormsg="6-15位非空字符"  /></span>
             <span></span>
 		  </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>确认密码：</span>
-            <span><input class="text" type="password" name="repassword" datatype="*" errormsg="两次密码输入不一致" recheck="password" /></span>
+            <span><input class="text" type="password" name="repassword" datatype="*" nullmsg="请确认密码" errormsg="两次密码输入不一致" recheck="password" /></span>
 			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>手机号：</span>
-            <span><input class="text" type="text" name="mobile" datatype="m"  /></span>
+            <span><input class="text" type="text" name="mobile"  datatype="mobile" nullmsg="请输入手机号" errormsg="请正确填写手机号" /></span>
 			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>邮箱：</span>
-            <span><input class="text" type="text" name="email"  datatype="e" errormsg="邮箱格式错误"/ /></span>
+            <span><input class="text" type="text" name="email"  datatype="e" errormsg="邮箱格式错误" nullmsg="请填写邮箱" /></span>
 			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>公司名称：</span>
-            <span><input class="text" type="text" name="company_name"  datatype="s2-20" errormsg="请填写公司名称" /></span>
+            <span><input class="text" type="text" name="company_name"  datatype="s2-20" errormsg="请填写公司名称" nullmsg="请填写邮箱" /></span>
 			<span></span>
           </div>
           <div class="cot">
@@ -132,20 +132,20 @@
 
           <div class="cot">
             <span class="cot_tit"><i>*</i>法人：</span>
-            <span><input class="text" type="text" name="legal_person" datatype="s2-20" errormsg="请填写法人名称"/></span>
+            <span><input class="text" type="text" name="legal_person" datatype="s2-20" errormsg="请填写法人名称" nullmsg="请填写法人名称"/></span>
 			<span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>注册资金：</span>
             <span>
-              <input class="text" type="text" name="reg_fund" datatype="float" errormsg="请正确填写注册资金"/>万
+              <input class="text" type="text" name="reg_fund" datatype="float" nullmsg="请正确填写注册资金" errormsg="请正确填写注册资金"/>万
            </span>
 		   <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>企业类型：</span>
             <span> 
-              <select class="select sel_d" name="category" datatype="/[1-9]\d{0,}/" errormsg="请选择企业类型">
+              <select class="select sel_d" name="category" datatype="/[1-9]\d{0,}/" nullmsg="请选择企业类型" errormsg="请选择企业类型">
               <option value="0">请选择...</option>
                   {foreach:items=$comtype}
                       <option value="{$item['id']}">{$item['name']}</option>
@@ -157,7 +157,7 @@
           <div class="cot">
             <span class="cot_tit"><i>*</i>企业性质：</span>
             <span> 
-              <select class="select sel_d" name="nature" datatype="/^[1-9]\d{0,}$/" errormsg="选择企业性质">
+              <select class="select sel_d" name="nature" datatype="/^[1-9]\d{0,}$/" nullmsg="请选择企业性质" errormsg="选择企业性质">
                   <option value="0">请选择...</option>
                   {foreach:items=$comNature}
                     <option value="{$key}">{$item}</option>
@@ -168,12 +168,12 @@
           </div>
           <div class="cot">
             <span class="cot_tit"><i>*</i>联系人姓名：</span>
-            <span><input class="text" type="text" name="contact" datatype="s2-20" errormsg="请填写联系人姓名" /></span>
+            <span><input class="text" type="text" name="contact" datatype="zh2-20" errormsg="请填写联系人姓名" /></span>
 			<span></span>
           </div>
           <div class="cot">
-            <span class="cot_tit"><i>*</i>电话：</span>
-            <span><input class="text" type="text" name="contact_phone" datatype="m" errormsg="请填写联系人电话"/></span>
+            <span class="cot_tit"><i>*</i>联系人电话：</span>
+            <span><input class="text" type="text" name="contact_phone" datatype="m" nullmsg="请填写联系人电话 " errormsg="请正确填写联系人电话"/></span>
 			<span></span>
           </div>
           <div class="cot">

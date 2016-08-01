@@ -35,7 +35,7 @@
                 <th>联系人</th>
                 <td>{$user['contact']}</td>
                 <th>联系人电话</th>
-                <td>{$user['contact']}</td>
+                <td>{$user['contact_phone']}</td>
                 {else:}
                     <th>联系人电话</th>
                     <td>{$user['mobile']}</td>
@@ -87,7 +87,7 @@
                  <th>操作</th>
                  <th scope="col" colspan="7">
 
-                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>
              </tr>
 

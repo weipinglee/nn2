@@ -141,12 +141,12 @@ class statistics{
 
     protected function getChildCate($id){
         $obj = new M('product_category');
-        static $arr = array();
+        $arr = array();
         $data = $obj->where(array('pid'=>$id))->fields('id')->select();
         if(!empty($data)){
             foreach($data as $k=>$v){
                 $arr[] = $v['id'];
-                $this->getChildCate($v['id']);
+                $arr = array_merge($arr,$this->getChildCate($v['id']));
             }
         }
         return $arr;
@@ -289,6 +289,7 @@ class statistics{
         $marketObj=new Query('static_market as m');
         $marketObj->join='left join product_category as c on m.cate_id=c.id';
         $marketObj->fields='c.name,m.*';
+        $marketObj->limit = 10;
         $marketObj->where='m.type= :type and datediff(NOW(),m.create_time)<'.$this->interval;
         $marketObj->bind = array('type'=>$type);
         $data = $marketObj->find();

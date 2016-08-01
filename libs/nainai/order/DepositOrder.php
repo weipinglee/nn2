@@ -19,12 +19,13 @@ class DepositOrder extends Order{
 
 
 	/**
-	 * 买方预付定金(全款或定金)
+	 * 买方预付定金(全款或定金) 需要在外部加事务
 	 * @param array $info 订单信息数组
 	 * @param int $type 0:定金1:全款 默认定金支付
 	 * @param int $user_id 当前session用户id
+	 * @param int $payment 用户支付方式 默认代理账户
 	 */
-	public function buyerDeposit($order_id,$type,$user_id){
+	public function buyerDeposit($order_id,$type,$user_id,$payment=self::PAYMENT_AGENT){
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
@@ -36,6 +37,7 @@ class DepositOrder extends Order{
 				return tool::getSuccInfo(0,'订单买家信息有误');
 			$orderData['id'] = $order_id;
 			$orderData['contract_status'] = self::CONTRACT_SELLER_DEPOSIT;//合同状态置为等待卖方保证金支付
+			$orderData['buyer_deposit_payment'] = $payment;
 			if($type == 0){
 				//定金支付
 				$pay_deposit = $this->payDeposit($info);
@@ -53,24 +55,35 @@ class DepositOrder extends Order{
 					return tool::getSuccInfo(0,'无效订单');
 				}
 			}
+			$clientID = tool::create_uuid($buyer);
+			$orderData['buyer_deposit_clientid'] = $payment == self::PAYMENT_BANK ? $clientID : '';
+
 			$upd_res = $this->orderUpdate($orderData);
 			if($upd_res['success'] == 1){
-				//冻结买方帐户资金  payment=1 余额支付
-				$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
-				$note_type = $type==0 ? '订金' : '全款';
-				$note = '合同'.$note_id.$note_type.'支付';
-				$acc_res = $this->account->freeze($buyer,$orderData['pay_deposit'],$note);
-				if($acc_res === true){
-					$pro_res = $this->productsFreeze($this->offerInfo($info['offer_id']),$info['num']);
-					if($pro_res === true){
-						$log_res = $this->payLog($order_id,$buyer,0,'买方预付定金--'.$type == 0 ? '定金' : '全款');
-						$res = $log_res === true ? true : $log_res;
-					}else{
-						$res = $pro_res;
+
+				$log_res = $this->payLog($order_id,$buyer,0,'买方预付定金--'.$type == 0 ? '定金' : '全款');
+				$res = $log_res === true ? true : $log_res;
+				if($res === true){
+					//冻结买方帐户资金  payment=1 余额支付
+					$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
+					$note_type = $type==0 ? '订金' : '全款';
+					$note = '合同'.$note_id.$note_type.'支付';
+					switch ($payment) {
+						case self::PAYMENT_AGENT:
+							$acc_res = $this->account->freeze($buyer,$orderData['pay_deposit'],$note);
+							break;
+						case self::PAYMENT_BANK:
+							$acc_res = $this->zx->freeze($buyer,$orderData['pay_deposit'],$clientID);
+							break; 
+						case self::PAYMENT_TICKET:
+							break;
+						default:
+							$acc_res = '参数错误';
+							break;
 					}
-				}else{
-					$res = $acc_res['info'];
-				}	
+					$res = $acc_res;
+				}
+
 			}else{
 				$res = $upd_res['info'];
 			}
@@ -87,9 +100,10 @@ class DepositOrder extends Order{
 	 * @param  int  $order_id 订单id
 	 * @param  boolean $pay      卖方是否支付保证金 若未支付则取消合同 同时扣除卖方信誉值
 	 * @param  int $user_id session中用户id
+	 * @param  int $payment 支付方式 默认代理账户
 	 * @return array   结果信息数组
 	 */
-	public function sellerDeposit($order_id,$pay = true,$user_id){
+	public function sellerDeposit($order_id,$pay = true,$user_id,$payment=self::PAYMENT_AGENT){
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
@@ -137,10 +151,13 @@ class DepositOrder extends Order{
 						$user_percent = $user->getUserGroup($seller);
 						if($user_percent['caution_fee'] === false) return tool::getSuccInfo(0,'用户等级未知');
 						$percent = (floatval($sys_percent) * floatval($user_percent['caution_fee'])) / 10000;
-						$seller_deposit = floatval($info['amount'] * $percent);
+						$seller_deposit = number_format(floatval($info['amount'] * $percent),2);
 						//冻结卖方帐户保证金
-						$note = '支付合同'.$info['order_no'].'保证金';
-						$acc_res = $this->account->freeze($seller,$seller_deposit,$note);
+						$note = '支付合同'.$info['order_no'].'保证金';	
+
+						$clientID = tool::create_uuid($seller);
+						$orderData['seller_deposit_clientid'] = $payment == self::PAYMENT_BANK ? $clientID : '';
+						$orderData['seller_deposit_payment'] = $payment;
 						$orderData['seller_deposit'] = $seller_deposit;
 						//判断此订单是否支付全款
 						if($info['amount'] === $info['pay_deposit']){
@@ -150,27 +167,41 @@ class DepositOrder extends Order{
 							//定金 等待支付尾款
 							$orderData['contract_status'] = self::CONTRACT_BUYER_RETAINAGE;
 						}
-						$pro_res = true;
-						$log_res = $this->payLog($order_id,$user_id,1,'卖方支付保证金');
+
+						$upd_res = $this->orderUpdate($orderData);
+						if($upd_res['success'] == 1){
+							$log_res = $this->payLog($order_id,$user_id,1,'卖方支付保证金');
+							$res = $log_res === true ? true : $log_res;
+						}else{
+							$res = $upd_res['info'];
+						}
+						if($res === true){
+							switch ($payment) {
+								case self::PAYMENT_AGENT:
+									$acc_res = $this->account->freeze($seller,$seller_deposit,$note);
+									break;
+								case self::PAYMENT_BANK:
+									$acc_res = $this->zx->freeze($seller,$seller_deposit,$clientID);
+									if($acc_res!==true){
+										$acc_res = $acc_res['info'];
+									}
+									break;
+								case self::PAYMENT_TICKET:
+									break;
+								default:
+									$acc_res = '参数错误';
+									break;
+							}
+							$res = $acc_res;
+						}
 					}else{
 						$res = $seller;
 					}
 				}else{
 					$res = '参数错误';
 				}
-
-				if($acc_res === true){
-					$upd_res = $this->orderUpdate($orderData);
-					if($upd_res['success'] == 1){
-						$res = $pro_res === true && $log_res === true ? $this->order->commit() : ($pro_res === true ? $log_res : $pro_res);
-					}else{
-						$this->order->rollBack();
-						$res = $upd_res['info'];
-					}
-				}else{
-					$this->order->rollBack();
-					$res = isset($acc_res['info']) ? $acc_res['info'] : $res;
-				}
+				$res = $res === true ? $this->order->commit() : $res;
+				
 			} catch (\PDOException $e) {
 				$res = $e->getMessage();
 				$this->order->rollBack();

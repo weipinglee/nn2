@@ -32,10 +32,11 @@ class PurchaseOrder extends Order{
 		$query->where = 'pr.id = :purchase_id';
 		$query->bind = array('purchase_id'=>$purchase_id);
 		$purchase_info = $query->getObj();
+
 		if(empty($purchase_info['order_id'])){
 
 			$product_info = $this->products->where(array('id'=>$purchase_info['product_id']))->getObj();
-			
+
 			try {
 				$this->offer->beginTrans();
 				$this->offer->data(array('price'=>$purchase_info['price']))->where(array('id'=>$purchase_info['offer_id']))->update();
@@ -46,6 +47,7 @@ class PurchaseOrder extends Order{
 				$orderData['user_id'] = $purchase_info['seller_id'];
 				$orderData['create_time'] = date('Y-m-d H:i:s',time());
 				$orderData['mode'] = self::ORDER_PURCHASE;
+				$orderData['buyer_id'] = $purchase_info['buyer_id'];
 				$gen_res = $this->geneOrder($orderData);
 
 				if($gen_res['success'] == 1){
@@ -54,7 +56,7 @@ class PurchaseOrder extends Order{
 
 					$purchase->where(array('offer_id'=>$purchase_info['offer_id'],'id'=>array('neq',$purchase_id)))->data(array('status'=>\nainai\offer\PurchaseReport::STATUS_REPLUSE))->update();
 
-					$res = $this->payLog($order_id,$data['user_id'],0,'买方下单');
+					$res = $this->payLog($gen_res['order_id'],$purchase_info['buyer_id'],0,'买方下单');
 
 					//支付定金
 					$deposit = new \nainai\order\DepositOrder();

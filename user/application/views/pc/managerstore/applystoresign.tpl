@@ -1,4 +1,6 @@
-﻿
+﻿<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/upload.js}"></script>
+<input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 			<!--end左侧导航-->	
 			<!--start中间内容-->	
 			<div class="user_c">
@@ -98,12 +100,24 @@
                                             </td>
                                             </tr>
                                   {/if}
+                            <tr>
+                                <td>双方签字入库单：</td>
+                                <td>
+                                    <div class="zhxi_con">
+                                        <span><input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
+                                        <input type="hidden" name="imgfile1" value="" datatype="*" nullmsg="请上传签字入库单" />
+
+                                    </div>
+                                   
+                                    <img name="file1" />
+                                </td>
+                            </tr>
           					
                             <tr>
                                 <td>图片预览：</td>
                                 <td colspan="2">
     				<span class="zhs_img">
-                                    {foreach: items=$photos item=$url}
+                                    {foreach: items=$storeDetail['photos'] item=$url}
     					<img src="{$url}"/>
                                     {/foreach}
     				</span>

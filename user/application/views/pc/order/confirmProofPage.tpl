@@ -33,7 +33,7 @@
                                   <!-- <td width="130px">生产厂家</td> -->
                                   <td width="120px">仓库</td>
                                   <td width="100px">单价</td>
-                                  <td width="100px">数量</td>
+                                  <td width="100px">单位</td>
                                   <td width="100px">重量</td>
                                   <td width="100px">小计</td>
                                   <td width="100px">手续费</td>
@@ -46,14 +46,13 @@
                                   <td>{$data['store_name']}</td>
                                   <td>
                                           <label class="" id="d_price_1">
-                                              {$data['price']} 
-                                          </label> 元/{$data['unit']}
+                                            ￥  {$data['price']}
+                                          </label>
                                   </td>
                                   <td>
-                                  --
+                                      {$data['unit']}
                               </td>
-                                  <td>10
-                                  吨</td>
+                                  <td>{$data['num']}</td>
                                   <td><label class="">
                               
                                   <label class="price02">￥</label>
@@ -77,7 +76,7 @@
                     </tr>
                     <tr style="line-height: 35px;">
                       <td style="background-color: #F7F7F7;" width="100px">合同</td>
-                      <td colspan="3" width=""><a href="javascript:;" style="color:blue;" target=_blank>合同预览</a></td>
+                      <td colspan="3" width=""><a href="{url:/contract/contract?order_id=$data['id']}" style="color:blue;" target=_blank>合同预览</a></td>
                       <td style="background-color: #F7F7F7;" width="100px">合计金额</td>
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
@@ -85,14 +84,16 @@
                                   {$data['amount']}
                               </span>   
                       </td>
+                      {if:$data['show_deposit']}
                        <td style="background-color: #F7F7F7;" width="100px">已支付定金</td>
+                      
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
                               <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
                                   {$data['pay_deposit']}
                               </span>   
                       </td>
-
+                      {/if}
                       <!-- <td style="background-color: #F7F7F7;" width="100px">剩余尾款</td>
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
@@ -145,19 +146,21 @@
                        </h3> 
                          </div>
 
-
-                  <div class="pay_bton">
-                  	<a href="{url:/Order/confirmProof?order_id=$data['id']&action_confirm=1&info=确认此凭证}" id='pay_retainage'>确认凭证</a>
-                  </div>
+                    <form action="{url:/Order/confirmProof}" method="post" auto_submit="1" redirect_url="{url:/contract/sellerdetail?id=$data['id']}" >
+                        <input type="hidden" name="order_id" value="{$data['id']}" />
+                        <div class="pay_bton">
+                            <a href="javascript:void(0)" id='pay_retainage'  confirm="1" confirm_text="确认线下支付凭证无误？" >确认凭证</a>
+                        </div>
+                    </form>
 
 
                            </div>
-
 
                
 
 				</div>				
 				
 			</div>
-			<!--end中间内容-->	
+			<!--end中间内容-->
+
 

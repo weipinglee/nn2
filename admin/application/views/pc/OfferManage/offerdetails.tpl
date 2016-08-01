@@ -1,6 +1,6 @@
 
         <!--            
-              CONTENT 
+              CONTENT
                         --> 
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" />报盘管理
@@ -53,14 +53,14 @@
                      {/foreach}
                  </td>
                  <th>可否拆分</th>
-                 <td>{if:$info['divide'] == 0}可拆分{else:}否{/if}</td>
+                 <td>{if:$info['divide'] == 1}可拆分{else:}否{/if}</td>
 
              </tr>
 
              <tr>
                  {if:$info['type']=='买盘'}
                      <th>价格区间</th>
-                     <td>{$info['price']}--{$info['price_r']}</td>
+                     <td>{$info['price_l']}--{$info['price_r']}</td>
                  {else:}
                      <th>挂牌价</th>
                      <td>{$info['price']}</td>
@@ -101,7 +101,14 @@
              </tr>
              <tr>
                  <th>图片</th>
-                 <td></td>
+                 <td>
+
+                     {foreach:items=$info['photos']}
+                         <img src="{$item}"  />
+                     {/foreach}
+
+
+                 </td>
                  <th>商品属性</th>
                  <td >
                      {foreach:items=$info['attr_arr']}
@@ -110,6 +117,28 @@
                  </td>
                  <th>描述</th>
                  <td>{$info['note']}</td>
+             </tr>
+                <tr>
+                 <th>是否投保</th>
+
+                 <td>
+                     {if: $info['insurance'] == 1}是{else:}否{/if}
+                 </td>
+                    {if: $info['insurance'] == 1}
+                 <th>保险产品</th>
+                 <td >
+ {foreach: items=$riskData}
+                                    保险公司：{$item['company']} - 保险产品：{$item['name']} {if:$item['mode']==1}比例 : ({$item['fee']}){else:}定额 : ({$item['fee']}){/if}<br />
+                                   {/foreach}
+                 </td>
+                 {else:}
+                 <th></th>
+                 <td >
+
+                 </td>
+                 {/if}
+                 <th></th>
+                 <td></td>
              </tr>
 
              <tr>
@@ -128,7 +157,7 @@
                          <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;绑定客服&nbsp;&nbsp;">
                      </form>
 
-                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>
 
             </tr>

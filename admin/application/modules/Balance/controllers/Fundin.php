@@ -21,23 +21,30 @@ class FundinController extends Yaf\Controller_Abstract {
 	}
 	//线上列表
 	public function onlineListAction() {
+
 		$page = safe::filterGet('page', 'int');
 		$fundObj = new fundInModel();
 		$data = $fundObj->getOnlineList($page);
 
 		//分配数据
-		$this->getView()->assign('onlineInfo', $data[0]);
-		$this->getView()->assign('reBar', $data[1]);
+		$this->getView()->assign('data', $data);
 		//
 	}
 	//线下列表
-	public function offlineListAction() {
+	public function checkOfflineListAction() {
 		$page = safe::filterGet('page', 'int');
 		$fundObj = new fundInModel();
-		$data = $fundObj->getOffLineList($page);
+		$data = $fundObj->getCheckOffLineList($page);
 		//分配数据
-		$this->getView()->assign('offlineInfo', $data[0]);
-		$this->getView()->assign('reBar', $data[1]);
+		$this->getView()->assign('data', $data);
+
+	}
+	//已审核列表
+	public function checkedOffLineListAction(){
+		$page=safe::filterGet('page','int');
+		$fundObj=new fundInModel();
+		$data=$fundObj->getCheckedOffLineList($page);
+		$this->getView()->assign('data',$data);
 
 	}
 	//线下详情页

@@ -113,8 +113,11 @@ class certStore extends certificate{
 
         if(!empty($userData)){
             $userDetail = $userData['type']==1 ? $this->getCompanyInfo($id) : $this->getPersonInfo($id);
-                $userCert   = $userModel->table($this->getCertTable($certType))->fields('status as cert_status,apply_time,verify_time,admin_id,message,store_id')->where(array('user_id'=>$id))->getObj();
-               $store = array();
+            $userCert   = $userModel->table($this->getCertTable($certType))->fields('status as cert_status,apply_time,verify_time,admin_id,message,store_id')->where(array('user_id'=>$id))->getObj();
+            if(isset($userCert['cert_status'])){
+                 $userCert['cert_status_text'] = $this->getStatusText($userCert['cert_status']);
+            }
+            $store = array();
             if(isset($userCert['store_id'])){
                    $store = $userModel->table('store_list')->where(array('id'=>$userCert['store_id'],'status'=>1))->getObj();
                }

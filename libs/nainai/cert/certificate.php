@@ -287,6 +287,9 @@ class certificate{
             $userDetail = $userData['type']==1 ? $this->getCompanyInfo($id) : $this->getPersonInfo($id);
             if($certType!=''){
                 $userCert   = $userModel->table($this->getCertTable($certType))->fields('status as cert_status,apply_time,verify_time,admin_id,message')->where(array('user_id'=>$id))->getObj();
+                if(!empty($userCert)){
+                    $userCert['cert_status_text'] = self::getStatusText($userCert['cert_status']);
+                }
                 return array_merge($userData,$userDetail,$userCert);
             }
             return $userDetail;
@@ -303,8 +306,8 @@ class certificate{
     protected function getPersonInfo($user_id){
         $um = new M('person_info');
         $result = $um->where(array('user_id'=>$user_id))->getObj();
-        $result['identify_front_thumb'] = Thumb::get($result['identify_front'],300,200);
-        $result['identify_back_thumb'] = Thumb::get($result['identify_back'],300,200);
+        $result['identify_front_thumb'] = Thumb::get($result['identify_front'],180,180);
+        $result['identify_back_thumb'] = Thumb::get($result['identify_back'],180,180);
         return $result;
     }
 
@@ -315,9 +318,9 @@ class certificate{
     protected function getCompanyInfo($user_id){
         $um = new M('company_info');
         $result = $um->where(array('user_id'=>$user_id))->getObj();
-        $result['cert_oc_thumb'] = Thumb::get($result['cert_oc'],300,200);
-        $result['cert_bl_thumb'] = Thumb::get($result['cert_bl'],300,200);
-        $result['cert_tax_thumb'] = Thumb::get($result['cert_tax'],300,200);
+        $result['cert_oc_thumb'] = Thumb::get($result['cert_oc'],180,180);
+        $result['cert_bl_thumb'] = Thumb::get($result['cert_bl'],180,180);
+        $result['cert_tax_thumb'] = Thumb::get($result['cert_tax'],180,180);
         return $result;
     }
 

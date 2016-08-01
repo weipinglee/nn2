@@ -3045,7 +3045,8 @@ label,.placeholder {
 }
 
 .form-horizontal .formControls {
-    padding-right: 10px
+    padding-right: 10px;
+    line-height:30px;
 }
 
 .form-horizontal .Validform_checktip {

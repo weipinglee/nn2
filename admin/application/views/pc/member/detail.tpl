@@ -29,7 +29,7 @@
              </tr>
 
 	 		<tr>
-	 			<th>用户名称</th>
+	 			<th> {if:$user['type']==1}企业名称{else:}真实姓名{/if}</th>
 	 			<td>{$user['company_name']}{$user['true_name']}</td>
 	 			<th>用户类型</th>
 	 			<td>{$user['user_type']}</td>
@@ -47,12 +47,15 @@
                 {else:}
                     <th>联系人电话</th>
                     <td>{$user['mobile']}</td>
+                    <th></th>
+                    <td></td>
                 {/if}
 
                 <th>用户地区</th>
                 <td><span id="area">{areatext:data=$user['area'] id=area}</span></td>
                 <th>详细地址</th>
                 <td>{$user['address']}</td>
+
             {if:$user['type']==1}
             <tr>
                  <th>法人</th>
@@ -81,7 +84,7 @@
 
                          <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;绑定业务员&nbsp;&nbsp;">
                      </form>
-                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>
              </tr>
 

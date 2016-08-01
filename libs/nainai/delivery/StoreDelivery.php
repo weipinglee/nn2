@@ -17,6 +17,7 @@ class StoreDelivery extends Delivery{
 	
 	public function __construct(){
 		parent::__construct(order\Order::ORDER_STORE);
+		$this->orderObj = new order\Order();
 	}
 
 	/**
@@ -27,11 +28,16 @@ class StoreDelivery extends Delivery{
 	public function storeFees($delivery_id){
 		$query = new Query('product_delivery as pd');
 		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_list as sl on sp.store_id = sl.id left join products as p on po.product_id = p.id left join order_sell as o on pd.order_id = o.id';
-		$query->fields = 'pd.num as delivery_num,sp.store_price,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num';
+		$query->fields = 'p.img,pd.num as delivery_num,sp.store_price,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
-		$res['store_fee'] = number_format($res['store_price'] * abs(time::getDiffSec($res['rent_time'])) / 86400,2);
+		$pro = new \nainai\offer\product();
+		$photos = $pro->getProductPhoto($res['product_id']);
+		$res['photos'] = $photos[1];
+		$res['origphotos'] = $photos[0];
+		$res['img_thumb'] = $res['photos'][0];
+		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * abs(time::getDiffDays($res['rent_time'])) );
 		$res['now_time'] = time::getDateTime();
 		return $res;
 	}
@@ -67,7 +73,7 @@ class StoreDelivery extends Delivery{
 					//卖方支付仓库费 TODO计算仓库费用
 					$storeFees = $this->storeFees($delivery_id);
 					$store_fee = floatval($storeFees['store_fee']);
-					if(empty($store_fee)){
+					if($store_fee < 0){
 						$error = '仓库费用计算错误';
 					}else{
 						$acc_res = $this->account->payMarket($res['user_id'],$store_fee,'支付提单'.$delivery_id.'仓库费用');//?支付到市场？
@@ -187,12 +193,24 @@ class StoreDelivery extends Delivery{
 					//货物余量小于等于20% 提货流程结束 
 					$deliveryData['status'] = parent::DELIVERY_COMPLETE;
 				}
-				return $this->deliveryUpdate($deliveryData);
+				try {
+					$order = new M('order_sell');
+					$order->beginTrans();
+					$this->deliveryUpdate($deliveryData);
+					$this->orderObj->orderUpdate(array('id'=>$delivery['order_id'],'contract_status'=>order\Order::CONTRACT_DELIVERY_COMPLETE));
+					$order->commit();	
+				} catch (\PDOException $e) {
+					$order->rollBack();
+					$error = $e->getMessage();
+				}
+				
 			}else{
-				return tool::getSuccInfo(0,$left);
+				$error = $left;
 			}
 		}else{
-			return tool::getSuccInfo(0,'订单状态有误');
+			$error = '订单状态有误';
 		}
+
+		return isset($error) ? tool::getSuccInfo(0,$error) : tool::getSuccInfo();
 	}
 }

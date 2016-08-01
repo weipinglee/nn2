@@ -81,7 +81,7 @@ class photoupload{
 	*/
 	public function uploadPhoto($isForge = false){
 		//图片上传
-		$upObj = new Upload(3072,array('jpg','gif','png','jpeg'));
+		$upObj = new Upload(2048,array('jpg','gif','png','jpeg'));
 
 		$upObj->isForge = $isForge;
 		$upObj->setDir($this->dir);

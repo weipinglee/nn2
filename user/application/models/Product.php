@@ -21,7 +21,7 @@ class productModel extends \nainai\offer\product{
 	 */
 	public function getOfferProductList($page, $pagesize, $where='', $bind=array()){
 		$query = new Query('product_offer as c');
-		$query->fields = 'c.id, a.name, b.name as cname, a.quantity,a.unit,a.freeze,a.sell, a.price, a.expire_time, c.status, c.mode, a.user_id, c.apply_time';
+		$query->fields = 'c.id, a.name, b.name as cname, a.quantity,a.unit,a.freeze,a.sell, c.price, c.expire_time, c.status, c.mode, a.user_id, c.apply_time';
 		$query->join = '  LEFT JOIN products as a ON c.product_id=a.id LEFT JOIN product_category as b ON a.cate_id=b.id ';
 		$query->page = $page;
 		$query->pagesize = $pagesize;
@@ -77,6 +77,7 @@ class productModel extends \nainai\offer\product{
 	public function getOfferProductDetail($id,$user_id){
 		$query = new M('product_offer');
 		$offerData = $query->where(array('id'=>$id,'user_id'=>$user_id))->getObj();
+		$offerData['divide_txt'] = $this->getDivide($offerData['divide']);
 		$offerData['status_txt'] = $this->getStatus($offerData['status']);
 		$productData = $this->getProductDetails($offerData['product_id']);
 		return array($offerData,$productData);

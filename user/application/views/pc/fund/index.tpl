@@ -18,8 +18,8 @@
 							<div class="zj_r">
 								<div class="zj_price"></div>
 								<div class="zj_column">
-									<span class="column_yes" style="width:{echo:$freeze/($active+$freeze)*300}px;" title="{$active}"></span>
-									<span class="column_no" style="width:{echo:$active/($active+$freeze)*300}px;" title="{$freeze}"></span>
+									<span class="column_yes" style="width:{echo:$freeze/($active+$freeze)*300}px;" title="{$freeze}"></span>
+									<span class="column_no" style="width:{echo:$active/($active+$freeze)*300}px;" title="{$active}"></span>
 									<div class="clear"></div>
 								</div>
 								<div class="price">
@@ -50,7 +50,7 @@
 								<option value="30" {if:$cond['day']==30}selected{/if}>一个月内</option>
 								<option value="365" {if:$cond['day']==365}selected{/if}>一年内</option>
 							</select>
-							<button type="submit">搜索</button> 					
+							<button class="search_an" type="submit">搜索</button> 					
 						</div>
 							</form>
                     </div>
@@ -73,7 +73,7 @@
 							<td>{$item['time']}</td>
 							<td>{$item['fund_in']}</td>
 							<td>{$item['fund_out']}</td>
-							<td>{$item['freeze']}</td>
+							<td>{echo:$item['total'] -$item['active'] }</td>
 							<td>{$item['total']}</td>
 							<td>{$item['active']}</td>
 							<td style="font-size:8px;">{$item['note']}</td>

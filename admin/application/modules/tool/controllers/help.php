@@ -166,4 +166,11 @@ class helpController extends Yaf\Controller_Abstract{
         return false;
 
     }
+    public function test2Action(){
+        $hsms=new Library\Hsms();
+       $res= $hsms->send('18703210113','1111');
+       var_dump($res);
+        die;
+
+    }
 }

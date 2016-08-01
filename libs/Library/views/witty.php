@@ -242,7 +242,7 @@ class witty{
                 }
                 break;
                 case 'root:' : {//根目录
-                    return url::getHost().url::getScriptDir().'/'.trim(trim($matches[4]),'/');
+                    return url::getScriptDir().'/'.trim(trim($matches[4]),'/');
                 }
                 break;
                 case 'area:' : {
@@ -278,21 +278,25 @@ OEF;
                 case 'areatext:' : {
                     $attr = $this->getAttrs($matches[4]);
                     if(!isset($attr['data'])) $attr['data'] = '';
-                    if(!isset($attr['id'])) $attr['id'] = 'areaText';
+                    if(!isset($attr['id'])) $attr['id'] = '';
                     if(!isset($attr['delimiter'])) $attr['delimiter'] = ' ';
                     if(substr($attr['data'],0,1) == '$')
                         $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
                     if(substr($attr['id'],0,1) == '$')
                         $attr['id'] = '<?php echo '.$attr['id'].' ; ?>';
-                    return   <<< OEF
-                <script type="text/javascript">
-                 {$attr['id']}Obj = new Area();
 
-                  $(function () {
-                    var text = {$attr['id']}Obj.getAreaText('{$attr['data']}','{$attr['delimiter']}');
-                    $('#{$attr['id']}').html(text);
-                  });
-                </script>
+                    return   <<< OEF
+                    <span id="areatext{$attr['id']}">
+                        <script type="text/javascript">
+                         ( function(){
+                            var areatextObj = new Area();
+                            var text = areatextObj.getAreaText('{$attr['data']}','{$attr['delimiter']}');
+                            $('#areatext{$attr['id']}').html(text);
+
+                            })()
+                        </script>
+                     </span>
+
 
 OEF;
 

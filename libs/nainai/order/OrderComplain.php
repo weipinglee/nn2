@@ -272,6 +272,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 				$complainData['status'] = self::DONTCOMPLAIN;
 
 			}
+
 			if($obj->data($complainData)->validate($this->Rules)){
 				$id=$complainData['id'];
 				unset($complainData['id']);
@@ -306,6 +307,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 			if($status!=self::INTERVENECOMPLAIN)
 				return tool::getSuccInfo(0,'该状态不能审核');
 			$order = new M('order_sell');
+
 			$obj->beginTrans();
 			if($complainData['status']==self::CONFERCOMPLAIN){//协商通过
 				$order->data(array('is_lock'=>0))->where(array('id'=>$order_id))->update();//合同解锁
@@ -319,6 +321,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 				$order = new Order();
 				$res1 = $order->sellerBreakContract($order_id);
 			}
+
 			if($res1===true && $obj->data($complainData)->validate($this->Rules)){
 				$id=$complainData['id'];
 				unset($complainData['id']);
@@ -336,8 +339,10 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 			if($res===true){
 				return tool::getSuccInfo();
 			}
-			else
-				return tool::getSuccInfo(0,is_string($res)?$res : '系统繁忙');
+			else{
+				$res .= $res1;
+				return tool::getSuccInfo(0,is_string($res)?$res  : '系统繁忙');
+			}
 
 		}
 		return tool::getSuccInfo(0,'审核失败');

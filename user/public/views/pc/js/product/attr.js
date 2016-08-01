@@ -24,6 +24,15 @@ $(document).ready(function(){
         }
     });
 
+
+    $('input[name=insurance]').on('click', function(){
+        if ($(this).val() == 1){
+            $('#riskdata').show();
+        }else{
+            $('#riskdata').hide();
+        }
+    });
+
     $('[id^=level]').find('li').on('click',getCategory);
 
     $('#storeList').change(function(){
@@ -69,6 +78,25 @@ $(document).ready(function(){
                     insertHtml += '<img src="' + value + '" />';
                 });
                 $('#photos').html(insertHtml);
+                
+                $('#riskdata').children('td').eq(1).remove();
+                if (data.risk_data) {
+                    var check_box = '<td><span>';
+                    $.each(data.risk_data, function(k, v){
+                        check_box += '<input type="checkbox" name="risk[]" value="' +v.risk_id+ '">' + v.name;
+                        if (v.mode == 1) {
+                            check_box += '比例';
+                            check_box += '('+v.fee+'‰)&nbsp;&nbsp;';
+                        }else{
+                            check_box += '定额';
+                            check_box += '('+v.fee+')&nbsp;&nbsp;';
+                        }
+                    });
+                    check_box += '</sapn></td>';
+                    $('#riskdata').append(check_box);
+                }else{
+                    $('#riskdata').append('<td>该分类没有设置保险</td>');
+                }
             }
         });
     });
@@ -80,7 +108,8 @@ $(document).ready(function(){
 //异步获取分类
 function getCategory(){
    var cate_id = parseInt($(this).attr('value'));
-
+   if ($('#cid').val() == cate_id) {return;}
+   $('#cid').val(cate_id);
     var _this = $(this);
     _this.parents('.class_jy').find('li').removeClass('a_choose');
     _this.addClass('a_choose');
@@ -89,26 +118,29 @@ function getCategory(){
         'type' : 'post',
         'data' : {pid : cate_id},
         'dataType': 'json',
-        success:function(data){
+        success:function(data){//alert(JSON.stringify(data));
             var this_div =  _this.parents('.class_jy');
             this_div.nextAll('.class_jy').remove();
             var pro_add = $('#productAdd');
-            pro_add.find('input[name=cate_id]').val(data.defaultCate);
-            pro_add.find('.attr').remove();
+            $('input[name=cate_id]').val(data.defaultCate);
+            $('.attr').remove();
+
             if(data.cate){
                 $('.unit').text(data.unit);
                 $('input[name=unit]').val(data.unit);
                 $.each(data.cate,function(k,v){
 
                     var box = $('#cate_box').clone();
-
-                    if(v.childname){
-                        box.find('.jy_title').text(v.childname+'：');
-                    }
-                    else
-                        box.find('.jy_title').text('商品分类：');
+                    
                     if(v.show){
                         $.each(v.show,function(key,value){
+                            if (key == 0) {
+                                if(value.childname){
+                                    box.find('.jy_title').text(value.childname+'：');
+                                }
+                                else
+                                    box.find('.jy_title').text('商品分类：');
+                            }
                             if(key==0)
                                 box.find('ul').eq(0).append('<li class="a_choose" value="'+ value.id+'"><a href="javascript:void(0)">'+ value.name+'</a></li>');
                             else
@@ -124,35 +156,52 @@ function getCategory(){
 
             if(data.attr){
                 $.each(data.attr,function(k,v){
-
+                    var attr_box = $('#productAdd').clone();
+                    attr_box.show();
+                    attr_box.addClass('attr');
                     if(v.type==1){
-                        attr_box = '<tr class="attr"  ><td nowrap="nowrap"><span></span>'+ v.name+'</td><td colspan="2"> <input class="text" type="text" name="attribute['+ v.id+']" /> </td> </tr>';
-
+                        attr_box.children('td').eq(0).html(v.name);
+                        attr_box.children('td').eq(1).html(' <input class="text" type="text" name="attribute['+ v.id+']" />');
                     }
                     else if(v.type==2){//2是单选
                         var radio = v.value.split(',');
                         var radio_text = '';
+                        attr_box.children('td').eq(0).html(v.name);
                         $.each(radio,function(i,val){
                             radio_text += '<label style="margin-right:5px;"><input type="radio" name="attribute['+ v.id+']" value="'+val+'" />'+val+'</label>' ;
-                        });
-                        attr_box = '<tr class="attr"  ><td nowrap="nowrap"><span></span>'+ v.name+'</td><td colspan="2"> '+radio_text+' </td> </tr>';
-
+                            attr_box.children('td').eq(1).html(radio_text);
+                       });
                     }
-
-                    $('#productAdd').prepend(attr_box);
+                    console.log(attr_box);
+                    $('#productAdd').after(attr_box);
                 });
                 bindRules();
             };
 
-
-
+            $('#riskdata').children('td').eq(1).remove();
+            if (data.risk_data) {
+                var check_box = '<td><span>';
+                $.each(data.risk_data, function(k, v){
+                    check_box += '<input type="checkbox" name="risk[]" value="' +v.risk_id+ '">' + v.name;
+                    if (v.mode == 1) {
+                        check_box += '比例';
+                        check_box += '('+v.fee+'‰)&nbsp;&nbsp;';
+                    }else{
+                        check_box += '定额';
+                        check_box += '('+v.fee+')&nbsp;&nbsp;';
+                    }
+                    
+                });
+                check_box += '</sapn></td>';
+                $('#riskdata').append(check_box);
+            }else{
+                $('#riskdata').append('<td>该分类没有设置保险，请配置保险</td>');
+            }
         }
     });
 }
 
-function AddProductCategory(data){
 
-}
 
 //验证规则添加
 
@@ -161,8 +210,6 @@ bindRules();
 });
 
 function bindRules(){
-
-
     //为地址选择框添加验证规则
     var rules = [
         {

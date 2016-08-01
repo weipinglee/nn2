@@ -36,9 +36,9 @@
 		-
 		<input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search"></i> 搜用户</button>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜用户</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i>批量删除</a> </span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a> </span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -66,7 +66,7 @@
 				<td class="text-l">北京市 海淀区</td>
 				<td>2014-6-11 11:11:42</td>
 				<td class="td-status"><span class="label label-danger radius">已删除</span></td>
-				 <td class="f-14"><a title="编辑" href="javascript:;" style="text-decoration:none"><i class=" icon-edit"></i></a> <a title="删除" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+				 <td class="f-14"><a title="编辑" href="javascript:;" style="text-decoration:none"><i class=" icon-edit fa-edit"></i></a> <a title="删除" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		</tbody>
 	</table>

@@ -24,18 +24,19 @@ class OfferManageModel extends \nainai\offer\product{
 	 * @return array
 	 */
 	private function getList($page,$where =''){
-		$Q = new Query('product_offer as o');
+		$Q = new \Library\searchQuery('product_offer as o');
 		$Q->join = "left join products as p on o.product_id = p.id left join user as u on o.user_id = u.id";
 		$Q->fields = "o.*,u.username,p.quantity,p.unit";
+		$Q->order = 'apply_time desc';
 		if($where) $Q->where = $where;
 		$Q->page = $page;
 		$Q->pagesize = 20;
 		// $Q->order = "sort";
 		$sql = 'select count(*) as count from product_offer as o '.($where ? ' where '.$where : '');
-		$count = $this->offer->query($sql);
+
 		$data = $Q->find();
 
-		foreach ($data as $key => &$value){
+		foreach ($data['list'] as $key => &$value){
 			$value['quantity'] = $this->floatForm($value['quantity']);
 			$value['mode_txt'] = $this->getMode($value['mode']);
 			$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
@@ -43,9 +44,7 @@ class OfferManageModel extends \nainai\offer\product{
 
 				$value['type_txt'] = $this->getType($value['type']);
 		}
-
-		$pageBar =  $Q->getPageBar();
-		return array('data'=>$data,'bar'=>$pageBar,'count'=>$count[0]['count']);
+		return $data;
 	}
 
 	/**
@@ -89,6 +88,8 @@ class OfferManageModel extends \nainai\offer\product{
 			$info['mode_txt'] = $info['mode_txt'] == '未知' ? '--' : $info['mode_txt'];
 			$info['status_txt'] = $this->getStatus($info['status']);
 			$product = $this->getProductDetails($info['product_id']);
+
+			$info['sign_thumb'] = \Library\thumb::get($info['sign'],150,150);
 			$info = array_merge($info,$product);
 
 
@@ -122,6 +123,7 @@ class OfferManageModel extends \nainai\offer\product{
 				$fund = \nainai\fund::createFund($offerData['acc_type']);
 				if($status==self::OFFER_OK){//通过扣费
 					$note = '扣除id为'.$id.'的自由报盘报盘费用';
+					
 					$res = $fund->freezePay($offerData['user_id'],0,floatval($offerData['offer_fee']),$note);
 				}
 				else{
@@ -129,14 +131,12 @@ class OfferManageModel extends \nainai\offer\product{
 					$res = $fund->freezeRelease($offerData['user_id'],floatval($offerData['offer_fee']),$note);
 				}
 			}
-
 			if($res===true){
-				$base = new baseModel($this->offer);
-				$base->where(array('id'=>$id))->update(array('status'=>$status));
+				$this->offer->where(array('id'=>$id))->data(array('status'=>$status))->update();
 				$log = new \Library\log();
 				$log->addLog(array('table'=>'报盘','type'=>'check','id'=>$id,'check_text'=>$this->getStatus($status)));
 
-				if($status==1){//审核通过增加信誉值
+				if($status==self::OFFER_OK){//审核通过增加信誉值
 					$credit = new \nainai\CreditConfig();
 					$credit->changeUserCredit($offerData['user_id'],'product');
 				}

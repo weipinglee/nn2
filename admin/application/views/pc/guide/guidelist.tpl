@@ -23,7 +23,7 @@
 				</ul>
 			</div>
 	<div class="zhu_nav">
-	 	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i>批量删除</a> <a class="btn btn-primary radius" href="{url:/guide/addGuide}"><i class=" icon-plus"></i> 添加导航</a> </span> </div>
+	 	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a> <a class="btn btn-primary radius" href="{url:/guide/addGuide}"><i class=" icon-plus fa-plus"></i> 添加导航</a> </span> </div>
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<tr class="text-c">
 				<th><input type="checkbox" name="" value=""></th>
@@ -43,8 +43,8 @@
 				<td>{$data['link']}</td>
 				<td>{$data['sort']}</td>
 				<td class="td-manage"> 
-					<a title="编辑" href="{url:/guide/updateGuide?id=$data['id']}"  style="text-decoration:none"><i class="icon-edit"></i></a> 
-					 <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:/guide/deleteGuide?id=$data['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a>
+					<a title="编辑" href="{url:/guide/updateGuide?id=$data['id']}"  style="text-decoration:none"><i class="icon-edit fa-edit"></i></a> 
+					 <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:/guide/deleteGuide?id=$data['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
 				</td>
 			</tr>
 			{/foreach}

@@ -13,10 +13,7 @@
                             <tr>
                                 <td class="spmx_title" colspan="8">商品明细</td>
                             </tr>
-                            <tr>
-                                <td colspan="2">商品编号</td>
-                                <td colspan="6">{$detail['pid']}</td>
-                            </tr>
+
                            <tr>
                                <td colspan="2">商品标题</td>
                                <td colspan="6">{$product['product_name']}</td>
@@ -91,7 +88,7 @@
  
                             <tr>
                                 <td colspan="2">商品单价</td>
-                                <td colspan="6">{set: echo str_replace(',', '到', $offer['price'])}元/吨</td>
+                                <td colspan="6">{$offer['price_l']}-{$offer['price_r']}元/{$product['unit']}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">交货地址</td>

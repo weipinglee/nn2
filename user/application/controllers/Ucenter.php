@@ -21,7 +21,7 @@ class UcenterController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
-		header('Location:'.url::createUrl('/ucenterindex/index'));
+		 header('Location:'.url::createUrl('/ucenterindex/index'));
     }
 
     public function baseInfoAction(){
@@ -51,6 +51,9 @@ class UcenterController extends UcenterBaseController {
                     $pay_secret = safe::filterPost('pay_secret');
                     if(!$pay_secret || !ctype_alnum($pay_secret))
                         $error = '密码格式有误';
+                    $re_secret = safe::filterPost('re_secret');
+                    if($re_secret != $pay_secret)
+                        $error = '两次输入的密码不一致';
                     $userData['pay_secret'] = md5($pay_secret);
                     break;
                 case 'edit':
@@ -461,7 +464,7 @@ class UcenterController extends UcenterBaseController {
                     'bank_name' => Safe::filterPost('bankName'),
                     'bank_no' => Safe::filterPost('bankAccount')
                 );
-
+                
                 $returnData = $invoiceModel->insertupdateUserInvoice($invoiceData,$invoiceData);
 
                 die(json::encode($returnData));
@@ -485,6 +488,7 @@ class UcenterController extends UcenterBaseController {
      * [mobileEditAction 用户手机修改界面]
      */
     public function mobileEditAction(){
+      /*  $this->getView()->setLayout('ucenter');*/
         $userId=$this->user_id;
         $userObj=new userModel();
         $userInfo=$userObj::getUserInfo($userId);
@@ -573,6 +577,17 @@ class UcenterController extends UcenterBaseController {
             }
         }
 
+    }
+    /**
+     * 获取仓库详情
+     */
+    public function ajaxGetStoreAddressAction(){
+        $id = Safe::filterPost('id', 'int');
+        if (intval($id) > 0) {
+            $store = new \nainai\offer\storeOffer();
+            $detail = $store->getStoreListDetail($id);
+        }
+        exit(JSON::encode($detail));
     }
 
 

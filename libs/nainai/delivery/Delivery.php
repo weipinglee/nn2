@@ -11,6 +11,7 @@ use \Library\Query;
 use \Library\tool;
 use \Library\url;
 use nainai\order;
+use \Library\Thumb;
 class Delivery{
 
 	//提货状态常量
@@ -60,6 +61,8 @@ class Delivery{
 		return empty($delivery_id) ? array() : $this->delivery->where(array('id'=>$delivery_id))->getObj();
 	}
 
+
+
 	/**
 	 * 获取当前用户可提货与已提货列表			
 	 * @param  int $user_id 用户id
@@ -78,7 +81,7 @@ class Delivery{
 		// $query->order = 'po.order_no,pd.status asc';
 		$query->bind = array('user_id'=>$user_id,'tmp_id'=>$user_id);
 		$query->page  = $page;
-		$query->pagesize = 5;
+		$query->pagesize = 10;
 		$data = $query->find();
 		$pageBar =  $query->getPageBar();
 		$arr = array();
@@ -109,7 +112,8 @@ class Delivery{
 						$title = '买家申请提货';
 						if($value['mode'] != order\Order::ORDER_STORE){
 							//卖家发货（保证金提货）
-							$href = url::createUrl("/depositDelivery/sellerConsignment?id={$value['delivery_id']}&action_confirm=1&info=确认发货");
+							// $href = url::createUrl("/depositDelivery/sellerConsignment?id={$value['delivery_id']}&action_confirm=1&info=确认发货");
+							$href = url::createUrl("/delivery/consignment?id={$value['id']}&delivery_id={$value['delivery_id']}");
 							$action []= array('name'=>'发货','url'=>$href);
 						}else{
 							//支付仓库费用（仓单提货）
@@ -194,12 +198,14 @@ class Delivery{
 	 */
 	public function deliveryStore($order_id){
 		$query = new Query('order_sell as os');
-		$query->join = 'left join product_offer as po on po.id = os.offer_id left join products as p on po.product_id = p.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sl.id = sp.store_id';
+		$query->join = 'left join product_offer as po on po.id = os.offer_id left join products as p on po.product_id = p.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sl.id = sp.store_id left join product_photos as pp on p.id = pp.products_id';
 		$query->where = 'os.id=:order_id';
 		$query->bind = array('order_id'=>$order_id);
-		$query->fields = 'os.id,p.name,sl.name as store_name,os.num,p.unit';
+		$query->fields = 'os.id,p.name,sl.name as store_name,os.num,p.unit,pp.img';
 
 		$res = $query->getObj();
+		$thumb_default = Thumb::get($res['img']);
+		$res['img'] = $thumb_default;
 		return $res;
 	}
 

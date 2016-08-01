@@ -14,11 +14,11 @@
         <div class="pd-20">
         <form action="{url:member/agent/agentList}">
 	<div class="text-c"> <input type="text" name="username" class="input-text" style="width:250px" placeholder="输入会员名称">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search"></i> 搜会员</button>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜会员</button>
 	</div>
 	</form>
 	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l">
-			 <a class="btn btn-primary radius" href="{url:member/agent/addAgent/}"><i class=" icon-plus"></i> 添加代理商</a> </span>
+			 <a class="btn btn-primary radius" href="{url:member/agent/addAgent/}"><i class=" icon-plus fa-plus"></i> 添加代理商</a> </span>
 	 </div>
 
 	<div class="mt-20">
@@ -64,12 +64,12 @@
 				<td class="td-manage">
 				{if:$item['status'] == 1}
 
-				<a style="text-decoration:none" ajax_status=0  ajax_url="{url:member/agent/ajaxUpdateAgentStatus?id=$item['id']}"  href="javascript:;" title="停用"><i class="icon-pause"></i></a>
+				<a style="text-decoration:none" ajax_status=0  ajax_url="{url:member/agent/ajaxUpdateAgentStatus?id=$item['id']}"  href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a>
 				{else:}
-				<a style="text-decoration:none" ajax_status=1  ajax_url="{url:member/agent/ajaxUpdateAgentStatus?id=$item['id']}"  href="javascript:;" title="启用"><i class="icon-play"></i></a>
+				<a style="text-decoration:none" ajax_status=1  ajax_url="{url:member/agent/ajaxUpdateAgentStatus?id=$item['id']}"  href="javascript:;" title="启用"><i class="icon-play fa-play"></i></a>
 				{/if}
-				<a title="编辑" href="{url:member/agent/addAgent?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a>
-				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:member/agent/deleteAgent?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+				<a title="编辑" href="{url:member/agent/addAgent?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:member/agent/deleteAgent?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 
 			</tr>
 		{/foreach}

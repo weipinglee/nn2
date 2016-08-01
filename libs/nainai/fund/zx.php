@@ -302,7 +302,6 @@ class zx extends account{
 
         //TODO  冻结编号查询
         
-        
         //强制转账报文
         $xml = self::XML_PREFIX."
             <stream>

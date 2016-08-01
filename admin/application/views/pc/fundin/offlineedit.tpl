@@ -1,123 +1,132 @@
-
-        
+<script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
+<script type="text/javascript" src="{views:js/validform/validform.js}"></script>
+<script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
+<script type="text/javascript" src="{views:js/layer/layer.js}"></script>
 <script type="text/javascript" src="{views:content/settings/main.js}"></script>
 <link rel="stylesheet" href="{views:content/settings/style.css}" />
 <link rel="stylesheet" type="text/css" href="{views:css/H-ui.admin.css}">
 
+<!--
+      CONTENT
+                -->
+<div id="content" class="white">
+    <h1><img src="{views:img/icons/dashboard.png}" alt="" />入金审核
+    </h1>
 
-        <!--            
-              CONTENT 
-                        --> 
-        <div id="content" class="white">
-            <h1><img src="{views:img/icons/posts.png}" alt="" /> 线下入金审核</h1>
-<div class="bloc">
-    <div class="title">
-        线下入金详情
-    </div>
-    <div class="content">
+    <div class="bloc">
+        <div class="title">
+            入金详情
+        </div>
         <div class="pd-20">
-    <form action="{$reInfo['url']}" method="post" class="form form-horizontal" id="offlineEidt" auto_submit redirect_url="{url:balance/fundIn/offlineList}">
-        <input id='re_id' name='re_id' type="hidden" value="{if:isset($reInfo['id'])}{$reInfo['id']}{/if}" />
-        <div class="row cl">
-            <label class="form-label col-2">当前状态：</label>
-            <div class="formControls col-10">
-                {$reInfo['statusText']}
-            </div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-2">用户名：</label>
-            <div class="formControls col-10">
-                {$reInfo['username']}
-            </div>
-        </div>
-         <div class="row cl">
-            <label class="form-label col-2">手机号：</label>
-            <div class="formControls col-10">
-                {$reInfo['mobile']}
-            </div>
-        </div>
+            <table class="table table-border table-bordered table-bg">
+                <tr>
 
-        <div class="row cl">
-            <label class="form-label col-2">支付方式：</label>
-             <div class="formControls col-10">
-                线下 
-            </div>
-            
-        </div>
-             <div class="row cl">
-            <label class="form-label col-2">订单号：</label>
-                     <div class="formControls col-10">
-                         {$reInfo['order_no']}
-                    </div>
-            </div>
-              <div class="row cl">
-            <label class="form-label col-2">金额：</label>
-                      <div class="formControls col-10">
-                         {$reInfo['amount']}
-                    </div>        
-            </div>
-            <div class="row cl">
-                <label class="form-label col-2">凭证： </label>
-                <div class="formControls col-10">
-                        <img src='{$reInfo['proot']}'>
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-2">申请时间：</label>
-                <div class="formControls col-10">
-                     {$reInfo['create_time']}
-                </div>
-            </div>
-            {if:$reInfo['first_time']!=null}
-                <div class="row cl">
-                    <label class="form-label col-2">初审时间：</label>
-                    <div class="formControls col-10">
-                        {$reInfo['first_time']}
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-2">初审意见：</label>
-                    <div class="formControls col-10">
-                        {$reInfo['first_message']}
-                    </div>
-                </div>
+                    <th>当前状态</th>
+                    <td>{$reInfo['statusText']}</td>
+                    <th>用户名</th>
+                    <td>{$reInfo['username']}</td>
+                </tr>
+                <tr>
+
+                    <th>手机号</th>
+                    <td>{$reInfo['mobile']}</td>
+                    <th>支付方式</th>
+                    <td>线下</td>
+                </tr>
+                <tr>
+
+                    <th>订单号</th>
+                    <td>{$reInfo['order_no']}</td>
+                    <th>金额</th>
+                    <td>{$reInfo['amount']}</td>
+
+                </tr>
+                <tr>
+                    <th>申请时间：</th>
+                    <td>{$reInfo['create_time']}</td>
+                    <th></th>
+                    <td> </td>
+
+                </tr>
+                <tr>
+
+                    <th>凭证：</th>
+                    <td><img src='{$reInfo['proot']}'>  </td>
+                    <th></th>
+                    <td> </td>
+                </tr>
+                {if:$reInfo['first_time']!=null}
+                <tr>
+
+                    <th>初审时间</th>
+                    <td>{$reInfo['first_time']}</td>
+                    <th>初审意见</th>
+                    <td>{$reInfo['first_message']}</td>
+
+                </tr>
+                {/if}
+                {if:$reInfo['final_time']!=null}
+                    <tr>
+
+                        <th>终审时间</th>
+                        <td>{$reInfo['final_time']}</td>
+                        <th>终审意见</th>
+                        <td>{$reInfo['final_message']}</td>
+                    </tr>
+                {/if}
+                {if:$reInfo['action']!=null}
+                    <tr>
+                        <th>意见</th>
+                        <td scope="col" colspan="6">
+                            <textarea name="message" id="message" style="width:250px;height:100px;"></textarea>
+                        </td>
+
+                    </tr>
+                <tr>
+                    <th scope="col" colspan="6">
+                        <a href="javascript:;" class="btn btn-danger radius pass"><i class="icon-ok"></i> 通过</a>
+                        <a href="javascript:;" class="btn btn-primary radius ref"><i class="icon-remove"></i> 不通过</a>
+                        <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+
+                    </th>
+
+                </tr>
+
             {/if}
-            {if:$reInfo['final_time']!=null}
-                <div class="row cl">
-                    <label class="form-label col-2">终审时间：</label>
-                    <div class="formControls col-10">
-                        {$reInfo['final_time']}
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-2">终审意见：</label>
-                    <div class="formControls col-10">
-                        {$reInfo['final_message']}
-                    </div>
-                </div>
-            {/if}
-        {if:$reInfo['action']!=''}
-            <div class="row cl">
-                <label class="form-label col-2"><span class="c-red">*</span>状态：</label>
-                <div class="formControls col-10">
-                    <input type="radio"  value="1"   name="status" checked>通过
-                    <input type="radio"  value="0" name="status" >驳回
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-2"><span class="c-red">*</span>意见：</label>
-                <div class="formControls col-10">
-                    <textarea name="message"></textarea>
-                </div>
-            </div>
-            <div class="row cl">
-                <div class="col-10 col-offset-2">
-                    <button type="submit" class="btn btn-success radius" id="offline-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
-                </div>
-            </div>
-        {/if}
 
+            </table>
         </div>
-
-    </form>
+    </div>
 </div>
+<script type="text/javascript">
+    $(function(){
+        var formacc = new nn_panduo.formacc();
+        var status = '';
+        $('a.pass').click(function(){
+            $(this).unbind('click');
+            var mess=$('#message').val();
+            msg = '已通过';
+            setStatus(1,msg,mess);
+        })
+
+        $('a.ref').click(function(){
+            $(this).unbind('click');
+            var mess=$('#message').val();
+            msg = '已驳回';
+            setStatus(0,msg,mess);
+        })
+
+        function setStatus(status,msg,mess){
+            formacc.ajax_post("{$reInfo['url']}",{re_id:"{$reInfo['id']}",status:status,message:mess},function(){
+                layer.msg(msg+"稍后自动跳转");
+                setTimeout(function() {
+                    window.location.href = "{url:balance/fundIn/checkofflineList}"
+                },1500);
+            });
+        }
+    })
+
+</script>
+
+</body>
+</html>

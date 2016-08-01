@@ -75,7 +75,7 @@ class Query
      */
     public function getWhere()
     {
-    	return ltrim($this->sql['where'],'where ');
+    	return ltrim($this->sql['where'],'where');
     }
     /**
      * @brief 实现属性的直接存
@@ -138,6 +138,7 @@ class Query
 	{
 		if (is_int($this->page)) {
 			$sql = "select $this->distinct $this->fields from $this->table $this->join $this->where $this->group $this->having $this->order";
+
 			$pagesize = isset($this->pagesize) ? intval($this->pagesize) : 20;
 			$pagelength = isset($this->pagelength) ? intval($this->pagelength) : 10;
 			$count = $this->getPageCount($sql);

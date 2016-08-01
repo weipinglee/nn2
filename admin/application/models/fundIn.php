@@ -10,6 +10,7 @@ use \Library\M;
 use \Library\Query;
 use \nainai\fund;
 use \Library\tool;
+use \admintool\adminQuery;
 class fundInModel{
 
 
@@ -87,15 +88,14 @@ class fundInModel{
      * 获取在线入金的列表
      */
     public function getOnlineList($page=1){
-        $reModel = new Query('recharge_order as r');
+        $reModel = new adminQuery('recharge_order as r');
         //线上
         $reModel->join = 'left join user as u on r.user_id = u.id';
         $reModel->fields = 'r.order_no,r.amount,r.proot,r.pay_type,r.status as recharge_status,r.create_time,u.username,u.mobile,u.type';
         $reModel->where = 'pay_type <>'.self::OFFLINE.'  AND is_del = 0';
         $reModel->page = $page;
         $onlineInfo = $reModel->find();
-        $reBar = $reModel->getPageBar();
-        return array($onlineInfo,$reBar);
+        return $onlineInfo;
 
     }
 
@@ -103,20 +103,31 @@ class fundInModel{
      * 线下入金申请列表
      * @param int $page
      */
-    public function getOffLineList($page=1){
+    public function getCheckOffLineList($page=1){
 
-        $reModel = new Query('recharge_order as r');
+        $reModel = new adminQuery('recharge_order as r');
         //线下
         $reModel->join = 'left join user as u on u.id=r.user_id';
         $reModel->fields = 'u.username,r.*';
-        $reModel->where = 'pay_type = '.self::OFFLINE.'  AND is_del = 0';
+        $status="'".self::OFFLINE_APPLY.','.self::OFFLINE_FIRST_OK."'";
+        $reModel->where = 'pay_type = '.self::OFFLINE.'  AND is_del = 0 and find_in_set(r.status,'.$status.')';
         $reModel->page = $page;
         $offlineInfo = $reModel->find();
-        d($offlineInfo);exit();
-        $reBar = $reModel->getPageBar();
-        return array($offlineInfo,$reBar);
+        return $offlineInfo;
     }
+    public function getCheckedOffLineList($page=1){
+        $reModel=new adminQuery('recharge_order as r');
+        //已审核
+        $reModel->join='left join user as u on u.id=r.user_id';
+        $reModel->fields='u.username,r.*';
+        $status="'".self::OFFLINE_FINAL_NG.','.self::OFFLINE_FIRST_NG.','.self::OFFLINE_FINAL_OK."'";
 
+        $reModel->where='pay_type='.self::OFFLINE.' AND is_del=0 and find_in_set(r.status,'.$status.')';
+        $reModel->page=$page;
+        $checkedInfo=$reModel->find();
+        //var_dump($checkedInfo);
+        return $checkedInfo;
+    }
     /**
      * @param $rid 充值订单id
      */

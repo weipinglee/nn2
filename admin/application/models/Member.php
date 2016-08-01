@@ -16,6 +16,7 @@ class MemberModel{
 		$Q = new Query('user as u');
 		$Q->join = 'left join agent as a on u.agent = a.id left join admin_yewu as ye on u.yewu = ye.admin_id';
 		$Q->fields = 'u.*,a.username as agent_name,ye.ser_name';
+		$Q->order = 'u.id asc';
 		$Q->page = $page;
 		$Q->pagesize = 18;
 		$data = $Q->find();

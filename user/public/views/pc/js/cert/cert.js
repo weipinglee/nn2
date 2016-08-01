@@ -12,8 +12,6 @@ function nextTab(step){
    else{
         $('.rz_ul').find('li.rz_li').eq(step-1).find('a').trigger('click');
     }
-
-
 }
 
 $(function(){

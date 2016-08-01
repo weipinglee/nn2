@@ -34,7 +34,7 @@
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span> 分类：</label>
                     <div class="formControls col-5">
-                        <select name="cat_id" datatype="*" nullmsg="请选择所在城市！">
+                        <select name="cat_id" datatype="*" nullmsg="请选择分类！">
                             <option value="">请选择分类</option>
                             {foreach: $items=$catList}
                             <option value="{$item['id']}"
@@ -52,7 +52,7 @@
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span> 排序：</label>
                     <div class="formControls col-5">
-                        <input type="text" name="sort"  value="{if:isset($helpInfo)}{$helpInfo['sort']}{else:}100{/if}" class="input-text" datatype="n2-50" nullmsg="排序不能为空" errormsg='排序为数字'/>
+                        <input type="text" name="sort"  value="{if:isset($helpInfo)}{$helpInfo['sort']}{else:}100{/if}" class="input-text" datatype="n1-50" nullmsg="排序不能为空" errormsg='排序为数字'/>
                     </div>
                     <div class="col-4"> </div>
                 </div>

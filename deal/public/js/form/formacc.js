@@ -82,7 +82,9 @@ nn_panduo.formacc.prototype = {
 							layer.closeAll();
 							data += '&pay_secret=' + pass;
 							// console.log(data);
+							layer.load(2,{shade:[0.1,'gray']});
 							_this.ajax_post(url,data,function(){
+								layer.closeAll();
 								if(!_this.no_redirect){
 									layer.msg("操作成功!稍后自动跳转");
 									setTimeout(function(){
@@ -97,8 +99,11 @@ nn_panduo.formacc.prototype = {
 								}
 							});
 						});
+
 					}else{
+						layer.load();
 						_this.ajax_post(url,data,function(){
+							layer.closeAll();
 							if(!_this.no_redirect){
 								layer.msg("操作成功!稍后自动跳转");
 								setTimeout(function(){
@@ -214,11 +219,12 @@ nn_panduo.formacc.prototype = {
 			data:ajax_data,
 			dataType:'json',
 			success:function(data){
+				layer.closeAll();
 				if(data.success == 1){
-					if(data.return){
+					if(data.returnUrl){
 						layer.msg(data.info);
 						setTimeout(function(){
-								window.location.href=data.return;
+								window.location.href=data.returnUrl;
 						},1000);
 					}
 					else{
@@ -231,13 +237,12 @@ nn_panduo.formacc.prototype = {
 
 
 				}else{
-					if(data.return){
-						if(data.return){
+					if(data.returnUrl){
 							layer.msg(data.info);
 							setTimeout(function(){
-								window.location.href=data.return;
+								window.location.href=data.returnUrl;
 							},1000);
-						}
+
 					}
 					else{
 						if(typeof(eval(err_callback)) == 'function'){
@@ -249,6 +254,7 @@ nn_panduo.formacc.prototype = {
 				}
 			},
 			error:function(data){
+				layer.closeAll();
 				layer.msg("服务器错误,请重试");
 			}
 		});
@@ -263,7 +269,7 @@ $(function(){
 	formacc.form_init();
 	//地址验证，根据是两级或三级动态调整验证规则
 	if($('#areabox').length && $('#areabox').length>0){
-		$('#areabox').find('select:first').on('change',function(){
+		$('#areabox').find('select').on('change',function(){
 			var num = $('#areabox').find('select:visible').length;
 			var rules = [{
 				ele:"input[name=area]",

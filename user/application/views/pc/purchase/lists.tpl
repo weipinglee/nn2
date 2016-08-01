@@ -18,7 +18,7 @@
 											<option value="{$key}" {if: isset($s) && $key===$s}selected{/if}>{$item}</option>
 										{/foreach}
 									</select></li>
-									<li>时间：<input class="Wdate" type="text" name="beginDate" value="{$beginData}" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="{$endDate}" onclick="WdatePicker()">
+									<li>时间：<input class="Wdate" type="text" name="beginDate" value="{$beginDate}" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="{$endDate}" onclick="WdatePicker()">
 									</li>
 									<li> <a class="chaz"><input type="submit" value="查找"> </a></li>
 								</ul>
@@ -48,7 +48,7 @@
 									<td>{$list['cname']}</td>
 									<td>{$list['quantity']}</td>
 									<td>{$list['unit']}</td>
-									<td>{$list['price']}-{$list['price_r']}</td>
+									<td>{$list['price_l']}-{$list['price_r']}</td>
 									<!-- <td>已投保</td> -->
 									<td><span class="col000000">{$list['status_txt']}</span></td>
 									<td>{$list['apply_time']}</td>

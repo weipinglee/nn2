@@ -57,7 +57,31 @@ class attachAccount{
 	 	// var_dump($output);
 		curl_close($ch);
 		$xml_obj = (array)new \SimpleXMLElement($output);
-		// var_dump($xml_obj);
+		// var_dump($output);exit;
+		// exit;
+			// return $xml_obj;
+		if($xml_obj['status'] == 'AAAAAAA'){
+			if(isset($xml_obj['list'])){
+				$output = $xml_obj['list'];
+				$list = (array)$output;
+				$row = (array)$list['row'];
+				// $xml_obj['list'] = $list;
+				unset($xml_obj['list']);
+				if(isset($row[0])){
+					foreach ($row as $key => &$value) {
+						$value = (array)$value;
+					}
+				}
+				$xml_obj['row'] = $row;
+			}
+			$xml_obj['status'] = 1;
+			$xml_obj['success'] = 1;
+		}else{
+			$xml_obj['status'] = 0;
+			$xml_obj['success'] = 0;
+		}
+		$xml_obj['info'] = $xml_obj['statusText'];
+		unset($xml_obj['statusText']);
 		return $xml_obj;
 	}
 }
