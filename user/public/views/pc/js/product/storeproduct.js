@@ -32,8 +32,17 @@ function nextTab(step){
 
 }
 
-$(function(){
+function showArea(val){
+    if (val == 1) {
+        $('#textarea').hide();
+        $('#sarea').show();
+    }else{
+        $('#textarea').show();
+        $('#sarea').hide();
+    }
+}
 
+$(function(){
     $('.next_step').eq(0).on('click',function(){
         var user_id = $('input[name=user_id]').val();
         if(user_id=='')

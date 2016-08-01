@@ -116,6 +116,12 @@
                  <th>市场审核时间</th>
                  <td>{$detail['market_time']}</td>
              </tr>
+
+              <tr>
+
+                 <th>用户审核意见</th>
+                 <td colspan="5">{$detail['msg']}</td>
+             </tr>
              {if:$type==\nainai\store::USER_AGREE}
                  <form action="{url:store/storeProduct/setStatus}" method="post" auto_submit="1" redirect_url="{url:store/storeProduct/getlist}">
                      <tr>
