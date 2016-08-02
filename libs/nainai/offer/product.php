@@ -27,8 +27,8 @@ class product {
     );
 
     //是否可拆分
-    const DIVIDE = 0;//可拆分
-    const UNDIVIDE = 1;//不可拆分
+    const DIVIDE = 1;//可拆分
+    const UNDIVIDE = 0;//不可拆分
     //报盘类型
     const FREE_OFFER  = 1;
     const DEPOSIT_OFFER = 2;
@@ -93,9 +93,6 @@ class product {
             case self::OFFER_NG:
                 $st = '未通过';
                 break;
-            case self::OFFER_EXPIRE:
-                $st = '已过期';
-                break;
             default:
                 $st = '未知';
                 break;
@@ -103,6 +100,17 @@ class product {
         return $st;
     }
 
+    //获取是否可拆分
+    public function getDivide($div){
+        $divide = array(
+            self::UNDIVIDE=>'不可',
+            self::DIVIDE=>'可以'
+        );
+        if($div==1 || $div==0){
+            return $divide[$div];
+        }
+        return $divide[0];
+    }
     //获取报盘模式文本
     public function getMode($mode){
         switch ($mode) {
@@ -141,7 +149,7 @@ class product {
     protected $productRules = array(
         array('name','require','商品名称必须填写'),
         array('cate_id','number','商品类型id错误'),
-        array('price','double','商品价格必须是数字'),
+        array('price','currency','商品价格必须是数字'),
         array('quantity','double','供货总量必须是整数'),
         array('attribute', 'require', '请选择商品属性'),
         array('note', 'require', '商品描述必须填写')
@@ -155,8 +163,10 @@ class product {
         array('product_id', 'number', '必须有商品id'),
         array('mode', 'number', '必须有报盘类型'),
         array('divide', 'number','是否可拆分的id错误'),
+        array('price','currency','商品价格必须是数字'),
+        array('price_l','currency','商品价格必须是数字'),
+        array('price_r','currency','商品价格必须是数字'),
         array('acc_type','/^[\d+,?]+$/','账户类型错误'),
-        array('offer_fee','currency','金额错误'),
         array('sign','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
         array('accept_area', 'require', '交收地点必须填写'),
         array('accept_day', 'number', '交收时间必须填写')
@@ -192,8 +202,8 @@ class product {
      * @return array array('chain'=>,'default'=>,1=>,2=>);
      */
     public function getCategoryLevel($pid = 0){
-        $where  = array('status' => 1);
-        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs')->where($where)->select();
+        $where  = array('status' => 1,'is_del'=>0);
+        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
 
         $res = $this->generateTree($category);
 
@@ -338,7 +348,10 @@ class product {
             if($item['pid']==$pid){
                 $v = $items[$key];
                 $v['unit'] = $items[$key]['unit'] =='' ? $unit : $items[$key]['unit'] ;
-
+                if (!empty($item['risk_data'])) {
+                    $v['risk_data'] = explode(',', $item['risk_data']);
+                }
+                
                 $tree[$item['id']] = $v;
                // unset($items[$key]);
                 $tree[$item['id']]['child'] = $this->generateTree($items,$item['id'],$v['unit']);
@@ -392,7 +405,7 @@ class product {
         if(!$product_id)
             return array();
         $obj = new M('products');
-        $obj->fields('name as product_name,  attribute, produce_area, create_time, quantity,freeze,sell,cate_id, unit, id as product_id, price, note, expire_time');
+        $obj->fields('name as product_name,  attribute, produce_area, create_time, quantity,freeze,sell,cate_id, unit, id as product_id, note');
         $obj->where(array('id'=>$product_id));
         $detail = $obj->getObj();
 
@@ -417,11 +430,39 @@ class product {
             }
         }
         //获取图片
-        $detail['photos'] = $this->getProductPhoto($product_id);
+        $photos = $this->getProductPhoto($product_id);
+        $detail['photos'] = $photos[1];
+        $detail['origphotos'] = $photos[0];
         return $detail;
 
     }
 
+    /**
+     * 获取报盘详情
+     */
+    public function offerDetail($id){
+        $query = new Query('product_offer as o');
+        $query->join = "left join products as p on o.product_id = p.id left join product_photos as pp on p.id = pp.products_id";
+        $query->fields = "o.*,p.cate_id,p.name,pp.img,p.quantity,p.freeze,p.sell,p.unit, o.expire_time";
+
+        $query->where = 'o.id = :id';
+        $query->bind = array('id'=>$id);
+        $res = $query->getObj();
+
+        if(!empty($res)){
+            $res['mode_text'] = $this->getMode($res['mode']);
+
+            $res['img'] = empty($res['img']) ? 'no_picture.jpg' : \Library\thumb::get($res['img'],100,100);//获取缩略图
+            $res['left'] = floatval($res['quantity']) - floatval($res['freeze']) - floatval($res['sell']);
+
+            $res['divide_txt'] = $this->getDivide($res['divide']);
+            if($res['divide']==self::UNDIVIDE)
+                $res['minimum'] = $res['quantity'];
+        }
+
+
+        return $res ? $res : array();
+    }
     /**
      * 获取产品的属性值，对应的属性id
      * @param  array  $attr_id [属性id]
@@ -443,21 +484,22 @@ class product {
         /**
          * 根据产品id获取图片
          * @param  [type] $pid [description]
-         * @return [type]      [description]
+         * @return [type]      [description] 第一个原图，第二个缩略
          */
         public function getProductPhoto($pid = 0){
             $photos = array();
+            $thumbs = array();
             if (intval($pid) > 0) {
                 $imgObj = new M('product_photos');
                 $photos = $imgObj->fields('id, img')->where(array('products_id'=>$pid))->select();
 
                 foreach ($photos as $key => $value) {
-                    $photos[$key] = Thumb::get($value['img'],180,180);
+                    $thumbs[$key] = Thumb::get($value['img'],150,150);
+                    $photos[$key] = Thumb::getOrigImg($value['img']);
                 }
 
             }
-
-            return $photos;
+            return array($photos,$thumbs);
         }
 
         /**
@@ -543,9 +585,9 @@ class product {
      * 获取某个分类名称
      * @param int $cate_id 分类id
      */
-    public function getCateName($cate_id){
+    public function getCateName($cate_id, $fields='name'){
         $m = new M('product_category');
-        return $m->where(array('id'=>$cate_id))->getField('name');
+        return $m->where(array('id'=>$cate_id))->getField($fields);
 
     }
 

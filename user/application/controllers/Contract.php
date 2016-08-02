@@ -18,35 +18,12 @@ class ContractController extends UcenterBaseController{
 	public function sellerListAction(){
 		$user_id = $this->user_id;
 		$order = new \nainai\order\Order();
-		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);
-		$name = safe::filterPost('name');
-		$where = array();
-		if(!empty($name)){
-			$where []= array(" and p.name = :name ",array('name'=>$name)); 
-		}
-		$list = $order->sellerContractList($user_id,$page,$where);
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['bar']);
+
+		$list = $order->sellerContractList($user_id,$page);
+		$this->getView()->assign('data',$list);
 	}
 
-	public function depositListAction(){
-		$user_id = $this->user_id;
-		$deposit = new \nainai\order\DepositOrder();
-
-		// $page = $this->_request->getParam('page');
-		$page = safe::filterGet('page','int',1);
-		$name = safe::filterPost('name');
-		$where = array();
-		if(!empty($name)){
-			$where []= array(" and p.name = :name ",array('name'=>$name));
-		}
-
-		$list = $deposit->depositContractList($user_id,$page,$where);
-
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['bar']);
-	}
 
 	public function storeListAction(){
 		$user_id = $this->user_id;
@@ -68,9 +45,15 @@ class ContractController extends UcenterBaseController{
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id,'seller');
+
 		$invoice = $order->orderInvoiceInfo($info);
 		$info['complain'] = $order->canComplain($info);
+		//判断是否可以购买保险
+		if ($info['contract_status'] == $order::CONTRACT_EFFECT && !empty($info['risk'])) {
+			$info['insurance'] = 1;
+		}
 
+		$this->getView()->assign('show_delivery',in_array($info['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE)) ? true : false);
 		$this->getView()->assign('info',$info);
 		$this->getView()->assign('invoice',$invoice);
 	}
@@ -79,16 +62,10 @@ class ContractController extends UcenterBaseController{
 	public function buyerListAction(){
 		$user_id = $this->user_id;
 		$order = new \nainai\order\Order();
-		// $page = $this->_request->getParam('page');
 		$page = safe::filterGet('page','int',1);
-		$name = safe::filterPost('name');
-		$where = array();
-		if(!empty($name)){
-			$where []= array(" and p.name = :name ",array('name'=>$name));
-		}
-		$list = $order->buyerContractList($user_id,$page,$where);
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['bar']);
+
+		$list = $order->buyerContractList($user_id,$page);
+		$this->getView()->assign('data',$list);
 	}
 
 	//购买合同详情
@@ -97,6 +74,12 @@ class ContractController extends UcenterBaseController{
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id);
 		$info['complain'] = $order->canComplain($info);
+
+
+		$invoice = $order->orderInvoiceInfo($info);
+		$this->getView()->assign('invoice',$invoice);
+
+		$this->getView()->assign('show_delivery',in_array($info['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE)) ? true : false);
 
 		$this->getView()->assign('info',$info);
 	}
@@ -107,7 +90,7 @@ class ContractController extends UcenterBaseController{
 		$invoiceData['order_id'] = safe::filterPost('order_id','int');
 		$invoiceData['post_company'] = safe::filterPost('post_company');
 		$invoiceData['post_no'] = safe::filterPost('post_no');
-		$invoiceData['image'] = safe::filterPost('imgimage').'@user';
+		$invoiceData['image'] = tool::setImgApp(safe::filterPost('imgimage'));
 		$invoiceData['create_time'] = date('Y-m-d H:i:s',time());
 		$res = $user_invoice->geneInvoice($invoiceData);
 		die(JSON::encode($res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,'开具发票失败')));
@@ -115,6 +98,7 @@ class ContractController extends UcenterBaseController{
 
 	//合同详情
 	public function contractAction(){
+		$this->getView()->setLayout('');
 		$order = new \nainai\order\Order();
 		$product = new \nainai\offer\product();
 		$order_id = safe::filter($this->_request->getParam('order_id'));
@@ -151,12 +135,19 @@ class ContractController extends UcenterBaseController{
 				die(json::encode(tool::getSuccInfo(0,'无效的合同')));
 			}
 
+			$img = Safe::filterPost('imgData');
+			if(!empty($img)){
+				foreach($img as $k=>$v){
+					$img[$k] = tool::setImgApp($v);
+				}
+			}
+
 			$complainData = array(
 				'order_id' => $order_id ,
 				'user_id' => $this->user_id,
 				'title' => Safe::filterPost('title'),
 				'detail' => Safe::filterPost('content'),
-				'proof' => serialize(Safe::filterPost('imgData')),
+				'proof' => serialize($img),
 				'apply_time' => \Library\Time::getDateTime(),
 				'type' => ($this->user_id == Safe::filterPost('user_id', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
 				'status' => \nainai\order\OrderComplain::APPLYCOMPLAIN

@@ -24,8 +24,9 @@ class ManagerStoreController extends UcenterBaseController{
 	 */
 	public function applyStoreListAction(){
 		$page = Safe::filterGet('page', 'int', 0);
-		$type = $this->getRequest()->getParam('type');
-		$type = Safe::filter($type,'int',1);
+		//$type = $this->getRequest()->getParam('type');
+		//$type = Safe::filter($type,'int',1);
+		$type=2;
 		$store = new store();
 
 		if($type==1)
@@ -34,9 +35,23 @@ class ManagerStoreController extends UcenterBaseController{
 			$data = $store->getManagerStoreList($page,$this->user_id);
 
 		$this->getView()->assign('statuList', $store->getStatus());
-		$this->getView()->assign('storeList', $data['list']);
-		$this->getView()->assign('attrs', $data['attrs']);
-		$this->getView()->assign('pageHtml', $data['pageHtml']);
+		$this->getView()->assign('data', $data);
+	}
+
+	/**
+	 * 仓单签发时获取用户信息
+	 */
+	public function getUserAction(){
+		if(IS_POST){
+			$acc = safe::filterPost('username');
+			$user = new \nainai\member();
+			$res = $user->getUserDetail(array('username'=>$acc));
+			die(json::encode($res));
+		}
+		return false;
+
+
+
 	}
 
 	/**
@@ -47,7 +62,7 @@ class ManagerStoreController extends UcenterBaseController{
 		$page = safe::filterGet('page','int',1);
 		$list = $store->storeCheckList($page,$this->user_id);
 		$this->getView()->assign('data',$list['data']);
-        $this->getView()->assign('page',$list['bar']);
+        		$this->getView()->assign('page',$list['bar']);
 	}
 
 	/**
@@ -86,50 +101,81 @@ class ManagerStoreController extends UcenterBaseController{
 			$store = new store();
 			$data = $store->getManagerStoreDetail($id,$this->user_id);
 
-			$productModel = new product();
 
 			$this->getView()->assign('storeDetail', $data);
-			$this->getView()->assign('photos', $productModel->getProductPhoto($data['pid']));
 		}else{
-			$this->redirect('/ManagerStore/ApplyStoreList');
+			$this->redirect(url::createUrl('/ManagerStore/ApplyStoreList'));
 		}
 	}
+
+	/**
+	 * 商品添加页面展示
+	 */
+	private function productAddAction(){
+
+		$category = array();
+
+		//获取商品分类信息，默认取第一个分类信息
+		$productModel = new product();
+		$category = $productModel->getCategoryLevel();
+
+		$attr = $productModel->getProductAttr($category['chain']);
+		//注意，js要放到html的最后面，否则会无效
+		$this->getView()->assign('categorys', $category['cate']);
+		$this->getView()->assign('attrs', $attr);
+		$this->getView()->assign('unit', $category['unit']);
+		$this->getView()->assign('cate_id', $category['default']);
+	}
+
+	//仓单签发
+	public function storeSignAction(){
+		$store_list = store::getStoretList();
+
+		$this->getView()->assign('storeList',$store_list);
+		$this->productAddAction();
+
+		$token =  \Library\safe::createToken();
+		$this->getView()->assign('token',$token);
+	}
+
+
 
 
 	/**
 	 * 仓单审核页面
 	 */
 	public function applyStoreCheckAction(){
-		$category = array();
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
 			$data = $store->getManagerStoreDetail($id,$this->user_id);
-			//获取商品分类信息，默认取第一个分类信息
-		        $productModel = new product();
-		        $attr_ids = array();
-		        $data['attribute'] = unserialize($data['attribute']);
-		        $attr_ids = array_keys($data['attribute']);
+			$userObj = new \nainai\member();
 
-		       $this->getView()->assign('detail', $data);
-	                $this->getView()->assign('attrs', $productModel->getHTMLProductAttr($attr_ids));
-	               $this->getView()->assign('photos', $productModel->getProductPhoto($data['pid']));
+			$userData = $userObj->getUserDetail($data['user_id']);
+
+		    $this->getView()->assign('detail', $data);
+			$this->getView()->assign('user', $userData);
 		}
 	        
 	}
 
+	/**
+	 * 仓单详情
+	 */
 	public function applyStoreDetailAction(){
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);
 		if (intval($id) > 0) {
 			$store = new store();
 			$data = $store->getManagerStoreDetail($id,$this->user_id);
-
+			$mem = new \nainai\member();
+			$userData = $mem->getUserDetail($data['user_id']);
+			$this->getView()->assign('user', $userData);
 			$this->getView()->assign('storeDetail', $data);
 			$this->getView()->assign('photos', $data['photos']);
 		}else{
-			$this->redirect('/ManagerStore/ApplyStoreList');
+			$this->redirect(url::createUrl('/ManagerStore/ApplyStoreList'));
 		}
 	}
 
@@ -151,33 +197,86 @@ class ManagerStoreController extends UcenterBaseController{
 	}
 
 	/**
+	 * 获取POST提交上来的商品数据,报盘处理和申请仓单处理都会用到
+	 * @return array 商品数据数组
+	 */
+	private function getProductData(){
+		$attrs = Safe::filterPost('attribute');
+		if(!empty($attrs)){
+			foreach($attrs as $k=>$v){
+				if(!is_numeric($k)){
+					echo JSON::encode(\Library\tool::getSuccInfo(0,'属性错误'));
+					exit;
+				}
+			}
+		}
+
+		$time = date('Y-m-d H:i:s', time());
+
+		$detail = array(
+			'name'         => Safe::filterPost('warename'),
+			'cate_id'      => Safe::filterPost('cate_id', 'int'),
+			'quantity'     => Safe::filterPost('quantity', 'float'),
+			'attribute'    => empty($attrs) ? '' : serialize($attrs),
+			'note'         => Safe::filterPost('note'),
+			'produce_area' => Safe::filterPost('area'),
+			'create_time'  => $time,
+			'unit'         => Safe::filterPost('unit'),
+		);
+
+		//图片数据
+		$imgData = Safe::filterPost('imgData');
+
+		$resImg = array();
+		if(!empty($imgData)){
+			foreach ($imgData as $imgUrl) {
+				if (!empty($imgUrl) && is_string($imgUrl)) {
+					if(!isset($detail['img']) || $detail['img']=='')
+						$detail['img'] = \Library\tool::setImgApp($imgUrl);
+					array_push($resImg, array('img' => \Library\tool::setImgApp($imgUrl)));
+				}
+			}
+		}
+
+		return array($detail,$resImg);
+	}
+	/**
 	 * 处理仓单签发
 	 */
 	public function doStoreSignAction(){
-		$id = Safe::filterPost('id', 'int', 0);
-		if (IS_POST && intval($id) > 0) {
-			$apply = array(
+
+		if (IS_POST) {
+			$user_id = safe::filterPost('user_id','int',0);
+			if(!$user_id)
+				die(json::encode(\Library\tool::getSuccInfo(0,'用户id错误')));
+
+			$storeProduct = array(
+				'user_id'   => $user_id,
 				'store_pos' => safe::filterPost('pos'),
 				'cang_pos'  => safe::filterPost('cang'),
 				'store_price'=> safe::filterPost('store_price'),
 				'in_time' => safe::filterPost('inTime'),
 				'rent_time' => safe::filterPost('rentTime'),
 				'check_org' => safe::filterPost('check'),
-				'check_no'  => safe::filterPost('check_no')
+				'check_no'  => safe::filterPost('check_no'),
+				'sign_time' => \Library\time::getDateTime(),
+				'package'   => safe::filterPost('package','int'),
+				'confirm'   => \Library\tool::setImgApp(safe::filterPost('imgfile1')),
+				'quality'   => \Library\tool::setImgApp(safe::filterPost('imgfile2'))
 			);
-
-			if (!empty(safe::filterPost('packNumber'))) {
-				$apply['package_num'] = safe::filterPost('packNumber', 'float');
-				$apply['package_weight'] = safe::filterPost('packWeight', 'float');
+			if ($storeProduct['package']) {
+				$storeProduct['package_unit'] = safe::filterPost('packUnit');
+				$storeProduct['package_num'] = safe::filterPost('packNumber', 'float');
+				$storeProduct['package_weight'] = safe::filterPost('packWeight', 'float');
 			}
-
-			$productData = array('quantity'=>safe::filterPost('quantity','float'));
+			$productData = $this->getProductData();
+			$productData[0]['user_id'] = $user_id;
 
 			$store = new store();
-			$res = $store->storeManagerSign($apply, $productData,$id,$this->user_id);
+			$res = $store->createStoreProduct( $productData,$storeProduct,$this->user_id);
 			die(json::encode($res)) ;
 		}
-		$this->redirect('ApplyStoreDetails');
+		$this->redirect('ManagerStoreList');
 	}
 
 	/**

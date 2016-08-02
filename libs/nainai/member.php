@@ -29,7 +29,14 @@ class member{
     public function getComNature(){
         return $compNature = array(
             1=>'国有企业',
-            2=>'私人企业'
+            2=>'集体企业',
+            3=>'联营企业',
+            4=>'股份合作制企业',
+            5=>'私营企业',
+            6=>'个体户',
+            7=>'合伙企业',
+            8=>'有限责任公司',
+            9=>'股份有限公司'
         );
     }
 
@@ -66,7 +73,11 @@ class member{
         $credit = $userObj->where(array('id'=>$user_id))->getField('credit');
         if($credit!==false){
             $group = $userObj->table('user_group')->where('credit <=:credit')->bind(array('credit'=>$credit))->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit DESC')->getObj();
-           $group['icon'] = \Library\thumb::get($group['icon'],25,25);
+           if(empty($group)){
+               $group = $userObj->table('user_group')->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit asc')->getObj();
+
+           }
+            $group['icon'] = \Library\thumb::get($group['icon'],25,25);
             return $group;
         }
         else
@@ -101,14 +112,19 @@ class member{
 
     /**
      * 获取会员详情
-     * @param int $user_id 用户id
+     * @param mixed $user_id 用户id 为整数时是user_id,为数组时是查询条件
      */
-    public function getUserDetail($user_id){
+    public function getUserDetail($cond){
+        if(is_array($cond))
+            $where = $cond;
+        else
+            $where = array('id'=>$cond);;
         $userObj = new M($this->table);
-        $detail = $userObj->where(array('id'=>$user_id))->getObj();
+        $detail = $userObj->fields('id,type,username,credit,mobile,email,head_photo,pid,roles,status,agent,create_time,yewu')->where($where)->getObj();
         $product = new \nainai\offer\product();
 
         if(!empty($detail)){
+            $user_id = $detail['id'];
             $detail['user_type'] = self::getType($detail['type']);
             if($detail['type']==1){
                 $comObj = new M('company_info');
@@ -130,7 +146,7 @@ class member{
     /**
      * 验证支付密码
      * @param  string $password 支付密码
-     * @return boolean    true:通过 false:未通过
+     * @return boolean    1:通过 2:密码未设置，0：密码错误
      */
     public function validPaymentPassword($password,$user_id = 0){
         if(!$password) return false;
@@ -140,9 +156,14 @@ class member{
         }
         $user = new M('user');
         $pay_secret = $user->where(array('id'=>$user_id))->getField('pay_secret');
+        if($pay_secret==''){
+            $url = \Library\url::createUrl('/ucenter/paysecret@user');
+            IS_AJAX ? die(\Library\json::encode(\Library\tool::getSuccInfo(0,'请先设置支付密码',$url))) : die('<script type="text/javascript" >window.location.href="'.$url.'"</script>');
+        }
         if(md5($password) == $pay_secret){
             return true;
-        }else{
+        }
+        else{
             return false;
         }
     }

@@ -190,7 +190,8 @@ use \Library\Time;
      * @param float $num 冻结金额
      */
     public function freeze($user_id,$num,$note=''){
-        if(is_integer($num) || is_float($num)){
+        $num = floatval($num);
+        if($num>0){
             $fund = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('fund');
             if($fund===false || $fund<$num)
 
@@ -226,7 +227,8 @@ use \Library\Time;
      * @param float $num 释放金额
      */
     public function freezeRelease($user_id,$num,$note=''){
-        if(is_integer($num) || is_float($num)){
+        $num = floatval($num);
+        if($num>0){
             $freeze = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('freeze');
             if($freeze===false || $freeze<$num)
 

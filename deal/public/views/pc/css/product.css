@@ -136,6 +136,7 @@ text-align: right;
 
 .pro_main{
 	margin-top: 15px;
+	text-align: center;
 }
 .pro_main .pro_sort{
 	padding: 6px 8px;
@@ -178,8 +179,20 @@ text-align: right;
 	color: #333;
 	position: relative;
 }
+.pro_main .pro_sort .sort_list a:hover{
+	float: left;
+	padding: 0 15px;
+	height: 23px;
+	border: 1px solid #CCC;
+	line-height: 23px;
+	padding-left: 10px;
+	background: #FFF;
+	color: #333;
+	position: relative;
+	text-decoration: none;
+}
 .pro_main .pro_sort .sort_list a.curr{
-	background-color: #e4393c;
+	background-color: #d61515;
 	color: #fff;
 	border-color: #e4393c;
 }
@@ -196,7 +209,7 @@ text-align: right;
 }
 .pro_main .pro_cen ul li{
 	float: left;
-	width: 70px;
+	width: 105px;
 	text-align: center;
 }
 /*product.html*/
@@ -235,6 +248,9 @@ text-align: right;
 	line-height: 45px;
 	border-bottom: 1px solid #e3e3e3;
 }
+.pro_main .main_centon li {
+    height: 45px;
+}
 .pro_main  .main_centon .pz_img{
 	position: relative;
 	top:6px;
@@ -270,7 +286,7 @@ text-align: right;
 	background: #c4141c;
 	line-height: 25px;
 	border-bottom: 1px solid;
-
+	margin-top: 10px;
 }
 .pro_main .pro_cen ul li a{
 	text-decoration:none;

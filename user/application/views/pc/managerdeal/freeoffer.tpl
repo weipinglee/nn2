@@ -28,7 +28,7 @@
                     </div>
                     <div class="center_tabl">
                     <div class="lx_gg">
-                        <b>商品类型和规格</b>
+                        <b>商品类型</b>
                     </div>
 
                     {if: !empty($categorys)}
@@ -63,7 +63,7 @@
                             <td colspan="2" class="btn">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
                                 <input type="hidden" name="token" value="{$token}" />
-                                <input  type="submit" >提交审核</input>
+                                <input  type="submit" >
                                 <span class="color">审核通过将收取{$fee}元的费用，请仔细填写</span>
                             </td>
                         </tr>
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            {$plupload}
+
 
 
 

@@ -7,21 +7,31 @@
  */
 
 use \Library\M;
-use \Library\Query;
 use \nainai\fund;
 use \Library\tool;
+use \admintool\adminQuery;
 class fundBankModel extends \nainai\user\UserBank{
 
-    public function getBankList($page,$where){
-        $reModel = new Query($this->table.' as b');
+
+    public function getBankList($page, $pagesize, $condition){
+        $reModel = new adminQuery($this->table.' as b');
         //线上
         $reModel->join = 'left join user as u on b.user_id = u.id';
         $reModel->fields = 'b.*, u.username';
+        
+        if ($condition['down'] != 1) {
+            $reModel->page = $page;
+            $reModel->pagesize = $pagesize;
+        }
+        
+        $where = ' b.status IN (:status)';
+        $bind = array('status' => $condition['status']);
+
         $reModel->where = $where;
-        $reModel->page = $page;
-        $onlineInfo = $reModel->find();
-        $reBar = $reModel->getPageBar();
-        return array($onlineInfo,$reBar);
+        $reModel->bind = $bind;
+        $onlineInfo = $reModel->find($condition);
+
+        return $onlineInfo;
     }
 
     /**

@@ -13,12 +13,9 @@
     </div>
     <div class="content">
         <div class="pd-20">
-			 <div class="text-c"> 
-			<input type="text" class="input-text" style="width:250px" placeholder="输入标号" id="" name="">
-			<button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜标号</button>
-		</div>
-			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span> <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
-    <table class="table table-border table-bordered table-hover table-bg">
+            {include:layout/search.tpl}
+			 </div>
+		   <table class="table table-border table-bordered table-hover table-bg">
         <thead>
             <tr>
                 <th scope="col" colspan="12">报盘信息</th>
@@ -37,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            {foreach:items=$data}
+            {foreach:items=$data['list']}
                 <tr class="text-c">
                     <td><input type="checkbox" value="" name=""></td>
                     <td>{$item['id']}</td>
@@ -47,13 +44,13 @@
                     <td>{if:$item['divide'] == 0}可拆分{else:}否{/if}</td>
                     <td>{$item['quantity']}</td>
                     <td>{$item['price']}</td>
-                    <td>{$item['status_txt']}</td><td class="td-manage"> <a title="查看" href="{url:trade/OfferManage/offerDetails?id=$item['id']&user=$item['username']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open"></i></a> <a title="恢复" href="javascript:;" ajax_status=1 ajax_url="{url:trade/OfferManage/logicRec?id=$item['id']}" to_list=1 class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+                    <td>{$item['status_txt']}</td><td class="td-manage"> <a title="查看" href="{url:trade/OfferManage/offerDetails?id=$item['id']&user=$item['username']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open fa-eye-open"></i></a> <a title="删除" href="javascript:;" ajax_status=1 ajax_url="{url:trade/OfferManage/logicRec?id=$item['id']}" to_list=1 class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
                 </tr>
            {/foreach}
            
         </tbody>
     </table>
-            {$bar}
+            {$data['bar']}
 </div>
 
 

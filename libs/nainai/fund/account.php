@@ -39,7 +39,7 @@ abstract class account{
      * @param int $user_id 用户id
      * @param float $num 冻结金额
      */
-    protected function freeze($user_id,$num){
+    protected function freeze($user_id,$num,$clientID=''){
 
     }
 
@@ -48,7 +48,7 @@ abstract class account{
      * @param int $user_id
      * @param float $num 释放金额
      */
-    protected function freezeRelease($user_id,$num){
+    protected function freezeRelease($user_id,$num,$freezeno=''){
 
     }
 
@@ -60,7 +60,7 @@ abstract class account{
      * @param float $num 转账的金额
      *
      */
-    protected function freezePay($from,$to,$num){
+    protected function freezePay($from,$to,$num,$freezeno=''){
 
     }
 

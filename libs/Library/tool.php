@@ -80,7 +80,11 @@ class tool{
     }
 
     public static function getSuccInfo($res=1,$info='',$url='',$id=''){
-        return array('success'=>$res,'info'=>$info,'return'=>$url,'id'=>$id);
+        return array('success'=>$res,'info'=>$info,'returnUrl'=>$url,'id'=>$id);
+    }
+
+    public static function create_uuid($user_id = 0){
+        return date('YmdHis',time()).$user_id.substr(-1,3,time()).mt_rand(0,99);
     }
 
     //uuid
@@ -99,10 +103,6 @@ class tool{
     //         return $uuid;
     //     }
     // }
-
-    public static function create_uuid($user_id=0){
-        return date('YmdHis',time()).substr(time(),-1,3).$user_id.mt_rand(0,99);
-    }
 
     public static function pre_dump($data){
         echo '<pre>';

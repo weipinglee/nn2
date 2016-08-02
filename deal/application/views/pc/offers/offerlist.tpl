@@ -130,7 +130,7 @@
             <a href="javascript:void(0)" class="" id="Place">商品产地</a>
         </div>
         <!-- 商品产地筛选 -->
-        <div class="hit_point">
+        <div class="hit_point" style="text-align:left;">
             <ul>
                 <li>
                     <b>华北</b><a href="javascript:void(0)" title="0">不限</a><a href="javascript:void(0)" title="11">北京</a><a href="javascript:void(0)" title="12">天津</a><a href="javascript:void(0)" title="13">河北</a><a href="javascript:void(0)" title="14">山西</a><a
@@ -161,6 +161,7 @@
     <div class="pro_cen">
         <ul class="main_title">
             <li class="tit_left">品名</li>
+            <li>图片</li>
             <li>供求</li>
             <li>类型</li>
             <li style="width:200px;">产地</li>
@@ -186,6 +187,7 @@
             </div>
         </div>
     {/if}
+    <!--
         <div class="pro_gg">
             <div class="gg_img">
                 <div class="gg_cen">
@@ -193,9 +195,10 @@
                     class="icon_type icon-search"></i><input class="sumit" type="submit" value="帮我找"/>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- 广告 end -->
         <!-- 温馨提示 -->
+
         <div class="pro_gg">
             <hr style="border:1px dashed #ccc;border-bottom:0;border-right:0;
             border-left:0;">
@@ -214,25 +217,49 @@
                            <!--<a href="" title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
                            <span><%=data[i].name%></span>
                        </li>
-                       <li><% if(data[i].type == 1){ %><i class="red">供</i><% }else { %><i class="green">求</i> <%}%></li>
+                       <li><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>no_picture.jpg<% }else { %><%=data[i].img%> <%}%>" class="icon_img"></a></li>
+                       <li><% if(data[i].type == 1){ %><i class="green">供</i><% }else { %><i class="red">求</i> <%}%></li>
                        <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>--<%}%></li>
 
                        <li style="width:200px;"><%=data[i].produce_area%></li>
                        <li><%=data[i].accept_area%></li>
                        <li><%=data[i].left%> (<%=data[i].unit%>)</li>
-                       <li><i class="qian_blue">￥<%=data[i].price%></i></li>
+                       <li><i class="qian_blue">
+                               <% if(data[i].type == 1){ %>
+                               ￥<%=data[i].price%>
+                               <% }else { %>
+                               ￥<%=data[i].price_l%> - ￥<%=data[i].price_r%>
+                               <%}%>
+                           </i>
+                       </li>
                        <li>
-                           <a href="" title="未投保"><img class="icon_img" src="{views:images/icon/icon_wb.png}"/></a>
+                       <% if(data[i].insurance == 1){%>
+                       <a href="" title="已投保"><img class="icon_img" src="{views:images/icon/icon_yb.png}"/></a>
+                       <% } else { %>
+                       <a href="" title="未投保"><img class="icon_img" src="{views:images/icon/icon_wb.png}"/></a>
+                       <% }%>
                            <a href="" title="认证"><img class="icon_img" src="{views:images/icon/icon_rz.png}"/></a>
                        </li>
                        <li class="but_left">
                            <div class="">
-                               <div class="xd">
+                               <div >
+                               <% if (data[i].jiao==0){ %>
                                    <% if (data[i].type==1){ %>
-                                   <a href="{url:/Offers/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" class="cz_wz prod_xd">下单</a><i class="icon_color icon-angle-down"></i>
+								    
+                                   <a href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+								   <a href="{url:/Offers/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
                                     <% } else { %>
-                                   <a href="{url:/Offers/report}/id/<%=data[i].id%>" class="cz_wz prod_xd">报价</a><i class="icon_color icon-angle-down"></i>
+									<a href="{url:/Offers/purchaseDetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+								   <a href="{url:/Offers/report}/id/<%=data[i].id%>" ><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="报价"/></a>
+                                 
 
+                                   <% }%>
+								    <% if (data[i].qq){ %>
+								   <a href="tencent://message/?uin=<%=data[i].qq%>&Site=qq&Menu=yes"><img style="vertical-align:middle;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                   </a>
+								     <% }%>
+                                   <% } else { %>
+                                   <img style="vertical-align:middle;" src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
                                    <% }%>
                                </div>
                                <ul>

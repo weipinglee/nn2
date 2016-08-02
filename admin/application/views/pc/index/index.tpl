@@ -38,6 +38,7 @@
                 <a href="#">{$info['name']}</a>
                 |
                 <a href="{url:/login/logout}">退出</a>
+                <a href="">返回网站首页</a>
             </div>
             <div class="right">
                 <form action="#" id="search" class="search placeholder">
@@ -72,6 +73,7 @@
                             <ul>
                                 <li><a href="{url:/system/Confsystem/creditList}" target="content">信誉值配置列表</a></li>
                                 <li><a href="{url:/system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
+                                <li><a href="{url:/system/Confsystem/generalList}" target="content">一般设置</a></li>
                             </ul>
                         </li>
                         <li><a target="content">管理员信息</a>
@@ -174,6 +176,12 @@
                                 <li><a href="{url:/trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
                             </ul>
                         </li>
+                        <li><a target="content">保险管理</a>
+                            <ul>
+                                <li><a href="{url:/trade/Insurance/insuranceList}" target="content">保险产品列表</a></li>
+                                <li><a href="{url:/trade/Insurance/rateList}" target="content">产品费率列表</a></li>
+                            </ul>
+                        </li>
                         <li><a target="content">合同管理</a>
                             <ul>
                                 <li><a href="{url:trade/pairing/contractList}" target="content">添加撮合人</a></li>
@@ -200,14 +208,23 @@
                         <li><a  target="content">入金审核</a>
                             <ul>
                                 <li><a href="{url:balance/fundIn/onlineList}" target="content">线上入金</a></li>
-                                <li><a href="{url:balance/fundIn/offlineList}" target="content">线下入金</a></li>
+                                <li><a href="{url:balance/fundIn/checkOfflineList}" target="content">线下待审核</a></li>
+                                <li><a href="{url:balance/fundIn/checkedOfflineList}" target="content">线下已审核</a></li>
                             </ul>
                         </li>
-                        <li><a href="{url:balance/fundOut/fundOutList}" target="content">出金审核</a></li>
+                        <li><a href="{url:balance/fundOut/fundOutList}" target="content">出金审核</a>
+                            <ul>
+                                <li><a href="{url:balance/fundOut/checkFundOutList}" target="content">出金待审核</a></li>
+                                <li><a href="{url:balance/fundOut/checkedFundOutList}" target="content">出金已审核</a></li>
+                                <li><a href="{url:balance/fundOut/pendingPaymentList}" target="content">待打款</a></li>
+                            </ul>
+                        </li>
                         <li><a target="content">账户管理</a>
                             <ul>
                                 <li><a href="{url:balance/accManage/userAccList}" target="content">会员账户</a></li>
-                                <!--<li><a href="account-market.html" target="content">市场账户</a></li>-->
+
+                                <li><a href="{url:balance/accManage/userCreditList}" target="content">信誉保证金账户</a></li>
+
                             </ul>
                         </li>
                     </ul>

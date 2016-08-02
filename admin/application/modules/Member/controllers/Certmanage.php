@@ -92,8 +92,8 @@ class certManageController extends Yaf\Controller_Abstract {
      public function doDealerCertAction(){
           if(IS_POST){
                $user_id = safe::filterPost('user_id','int',0);
-               $status  = safe::filterPost('result','int',0);
-               $info    = safe::filterPost('info');
+               $status  = safe::filterPost('status','int',0);
+               $info    = safe::filterPost('message');
                $status  = $status==1 ? 1 : 0;
                $m = new certDealer();
                $res = $m->verify($user_id,$status,$info);
@@ -162,8 +162,8 @@ class certManageController extends Yaf\Controller_Abstract {
      public function doStoreCertAction(){
           if(IS_POST){
                $user_id = safe::filterPost('user_id','int',0);
-               $status  = safe::filterPost('result','int',0);
-               $info    = safe::filterPost('info');
+               $status  = safe::filterPost('status','int',0);
+               $info    = safe::filterPost('message');
                $status  = $status==1 ? 1 : 0;
                $m = new certStore();
                $res = $m->verify($user_id,$status,$info);

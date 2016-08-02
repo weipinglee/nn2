@@ -21,7 +21,6 @@ class PurchaseReport extends \nainai\Abstruct\ModelAbstract {
      protected $Rules = array(
           array('offer_id', 'number', '必须有报盘id'),
           array('seller_id','number','报价用户错误'),
-          array('attr','require','必须添加报价规格'),
           array('price','number','请填写报价单价')
      );
 

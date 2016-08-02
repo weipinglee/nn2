@@ -224,7 +224,7 @@ class url {
     public static function getViewDir(){
         $client = client::getDevice();
         $template = $client=='pc' ? 'pc' : 'mobile';
-        return self::getBaseUrl().'/views/'.$template.'/';
+        return self::getScriptDir().'/views/'.$template.'/';
     }
     /**
      * @brief 获取当前url地址[经过RewriteRule之后的]

@@ -6,7 +6,7 @@
 						<p><a>仓单管理</a>><a>仓单列表</a></p>
 					</div>
 					<div class="chp_xx">
-						
+						{include:layout/search.tpl}
 						<div class="xx_center">
 
 							<table border="0"  cellpadding="" cellspacing="">
@@ -20,8 +20,8 @@
                                                                                 <td>所在库</td>
                                                                                 <td>操作</td>
 								</tr>
-								{if:!empty($storeList)}
-                                                                                        {foreach:  items=$storeList item=$list}
+								{if:!empty($data['list'])}
+                                                                                        {foreach:  items=$data['list'] item=$list}
                                                                                         {set:$key++}
                                                                                         <tr>
                                                                                                 <td>{$key}</td>
@@ -31,7 +31,7 @@
                                                                                                 		<ul>
 																											{if:!empty($list['attribute'])}
                                                                                                 		{foreach: items=$list['attribute'] key=$aid item=$attr}
-                                                                                                		<li>{$attrs[$aid]} : {$attr}</li>
+                                                                                                		<li>{$data['attrs'][$aid]} : {$attr}</li>
                                                                                                 		{/foreach}
 																											{/if}
                                                                                                 		</ul>
@@ -64,7 +64,7 @@
 <a href="#">最后页</a>&nbsp; 
 跳转到第 <input name="pagefind" id="pagefind" type="text" style="width:20px;font-size: 12px;" maxlength="5" value="1"> 页 
 <a><span class="style1">确定</span></a> -->
-	{$pageHtml}
+	{$data['bar']}
 						</div>
 					</div>
 				</div>

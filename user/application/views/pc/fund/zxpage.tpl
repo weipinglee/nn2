@@ -19,14 +19,16 @@
 								<span></span>
 
 							</div>
-							{if:$info['no']}
-								<div class="zhxi_con">
-									<span class="con_tit"><i>*</i>附属账号：</span>
-									<span><input class="text" type="text" value="{$info['no']}"></span>
-									<span></span>
-								</div>
-							{/if}
-							<div class="zhxi_con">
+
+					{if:$info['no']}
+						<div class="zhxi_con">
+							<span class="con_tit"><i>*</i>附属账号：</span>
+							<span><input class="text" type="text" value="{$info['no']}"></span>
+							<span></span>
+						</div>
+					{/if}
+
+					<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>法人名称：</span>
 								<span><input class="text" type="text" datatype="zh2-10" nullmsg="填写法人名称" name="legal" value="{$info['legal']}"></span>
 								<span></span>

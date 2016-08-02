@@ -11,8 +11,8 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 
 	private $confcredit;
 	public function init(){
-		$this->confcredit = new confcreditModel();
-		$this->confscaleOffer = new confscaleOfferModel();
+		$this->confcredit = new \config\confcreditModel();
+		$this->confscaleOffer = new \config\confscaleOfferModel();
 		$this->getView()->setLayout('admin');
 		//echo $this->getViewPath();
 	}
@@ -95,6 +95,91 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			$this->getView()->assign('info',$confscaleOfferInfo);
 		}
 	}
+
+
+	/**
+	 * 配置项的添加
+	 */
+	public function addConfigAction(){
+		$configObj = new \config\configsModel();
+		if(IS_POST){
+			$config = array();
+			$config['name'] = safe::filterPost('name');
+			$config['name_zh'] = safe::filterPost('name_zh');
+			$config['type'] = safe::filterPost('type');
+			$config['value'] = safe::filterPost('value');
+
+			$res = $configObj->add($config);
+
+			die(json::encode($res));
+
+
+		}
+		else{
+			//获取配置类型
+			$types = $configObj->getType();
+			$this->getView()->assign('type',$types);
+		}
+	}
+
+	/**
+	 * 配置项列表
+	 */
+	public function generalListAction(){
+		$configObj = new \config\configsModel();
+		$data = $configObj->getConfigList();
+		$this->getView()->assign('data',$data);
+	}
+
+	/**
+	 * 配置项的编辑
+	 */
+	public function editConfigAction(){
+		$configObj = new \config\configsModel();
+		if(IS_POST){
+			$config = array();
+			$config['id'] = safe::filterPost('id','int');
+			$config['name_zh'] = safe::filterPost('name_zh');
+			$config['value'] = safe::filterPost('value');
+
+			$res = $configObj->update($config);
+
+			die(json::encode($res));
+
+
+		}
+		else{
+			$id = $this->getRequest()->getParam('id');
+			$id = safe::filter($id,'int');
+			if($id){
+				$data = $configObj->get($id);
+				if(!empty($data)){
+					$data['type'] = $configObj->getType($data['type']);
+				}
+
+				$this->getView()->assign('data',$data);
+			}
+		}
+	}
+
+	/**
+	 * 删除配置项
+	 */
+	public function delConfigAction(){
+		if(IS_POST){
+			$configObj = new \config\configsModel();
+			$id = $this->getRequest()->getParam('id');
+			$id = safe::filter($id,'int');
+
+			if($id){
+				$res = $configObj->delete($id);
+				die(json::encode($res)) ;
+			}
+		}
+
+	}
+
+
 
 
 }

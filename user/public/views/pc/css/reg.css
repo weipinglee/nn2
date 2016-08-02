@@ -79,11 +79,12 @@ button{cursor:pointer;}
 }
 
 .reg_cot .cot .but{
-	width: 130px;
-    height: 35px;
-    background-color: rgb(254, 150, 57);
+	width: 132px;
+    height: 41px;
+    background-color: #d61515;
     border: 0px;
     color: #fff;
+    font-size: 18px;
 
 }
 /*企业注册*/

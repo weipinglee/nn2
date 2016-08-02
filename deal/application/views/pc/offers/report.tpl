@@ -1,6 +1,3 @@
-<script type="text/javascript" src="{views:js/area/Area.js}" ></script>
-     <script type="text/javascript" src="{views:js/area/AreaData_min.js}" ></script>
-
 
      <link rel="stylesheet" href="{views:css/submit_baojia.css}">
     <!------------------导航 开始-------------------->
@@ -108,7 +105,7 @@
                     {$key}:{$item}</br>
                {/foreach}
            </span>
-           <span class="danjia">￥<b>{set: echo str_replace(',', '-', $offer['price'])}</b><span> 元</span></span>
+           <span class="danjia">￥<b>{$offer['price_l']}-{$offer['price_r']}</b><span> 元</span></span>
            <span class="jine"><i>{$product['quantity']} </i></span>
            <span class="danwei">{$product['unit']}</span>
 
@@ -138,18 +135,21 @@
                <span></span>
 
               <p>
-                  {set:$attrs=array_keys($product['attribute'])}
+                  {if:!empty($product['attribute'])}
+                       {set:$attrs=array_keys($product['attribute'])}
                   {set:$i=0;}
-               {foreach: items=$product['attr_arr']}
-               <label for=""> {$key}</label>
-               <span>
-                <input type="text" id="attr_value{$item}" datatype="*" name="attribute[{$attrs[$i]}]" class="required" />
+                   {foreach: items=$product['attr_arr']}
+                   <label for=""> {$key}</label>
+                   <span>
+                    <input type="text" id="attr_value{$item}" datatype="*" name="attribute[{$attrs[$i]}]" class="required" />
 
-                </span>
-                <span></span>
-                     </br>
-                     {set:$i=$i+1;}
-               {/foreach}
+                    </span>
+                    <span></span>
+                         </br>
+                         {set:$i=$i+1;}
+                   {/foreach}
+                  {/if}
+
                 </p>
            </div>
 <!--            <div class="baoxian">

@@ -106,6 +106,7 @@ function Area(){
         c = parseInt(c);
         var _d = this.district_arr[c];
         if(_d){
+            $("#" + a).parent('span').show();
             var str = "";
             str += "<option value='0' >请选择</option>";
             for (var i = c * 100; i < _d.length; i++) {
@@ -113,6 +114,9 @@ function Area(){
                 str += "<option value='" + i + "' >" + _d[i] + "</option>";
             }
             $("#" + a).html(str);
+        }
+        else{
+            $("#" + a).parent('span').hide();
         }
 
     }

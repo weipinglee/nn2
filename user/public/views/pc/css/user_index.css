@@ -717,6 +717,18 @@ visibility: hidden;
 .chp_xx .methed li{
     min-height: 60px;
 }
+
+.chp_xx .methed.too li{
+    min-height: 32px;
+}
+.chp_xx .methed li div input {
+    height: 25px;
+    width: 200px;
+}
+.chp_xx .methed li div p {
+    margin: 10px 0;
+}
+
 .chp_xx .methed li div{
     float: left;
     line-height: 32px;
@@ -1234,7 +1246,7 @@ line-height: 25px;
 }
 .user_zhxi .plaint_com span.explain p{color: #cccccc;}
 .user_zhxi .plaint_com span.upload_img{margin-top: 15px;clear: both;}
-.user_zhxi .plaint_com .choose_img{width:200px;float:left; margin: 20px 0 20px 12px;}
+.user_zhxi .plaint_com .choose_img{float:left; margin: 20px 0 20px 12px;}
 .user_zhxi .plaint_com .choose_img #doc{width: 170px;}
 .user_zhxi .plaint_com .choose_img+.uplod_botn{float: left; margin-top: 18px;}
 .user_zhxi .plaint_com .choose_img .upload_box{width: 600px;margin-top: 10px;}
@@ -1796,3 +1808,74 @@ line-height: 30px;
   padding:0 10px; 
 }
 /*消息管理 end*/
+
+
+
+/* 发布商品 */
+.offer.public {
+    width: 336px;
+    text-align: center;
+    background: #fafafa;
+    margin-top: 22px;
+    margin-left: 24px;
+    height: 138px;
+    cursor:pointer;
+}
+.offer.public .offer_right,.offer.public .offer_left,.offer.public .offer_center{
+    float: left;
+    position: relative;
+    left: 26%;
+    top: 22%;
+}
+.user_c.public {
+    padding-bottom: 22px;
+}
+.offer .title1_a.public{
+  font-size: 14px;
+  color: #666666;
+  position: relative;
+  top: 30px;
+}
+.of_title2.public{
+    padding: 0 0 0 27%;
+    position: relative;
+    top: 36px;
+    color: #999999;
+}
+.offer.public img{
+  width: 62px;
+  height: 66px;
+}
+.offer.public.hover{
+    background: #ffffff;
+    box-shadow: 0 0 26px #CACACA;
+    -moz-box-shadow: 0 0 26px #CACACA;
+    -webkit-box-shadow: 0 0 26px #CACACA;
+    position: relative;
+    z-index: 1;
+}
+
+
+input#image {
+    width: 68px;
+    height: 21px;
+}
+.sj_detal span input[type="submit"]{
+    margin-left: 13px;
+    background: #D61515;
+    border: 1px solid #D61515;
+    height: 28px;
+    padding: 3px 15px;
+    color: #fff;
+    font-size: 13px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+
+
+/*仓单签发会员筛选样式  line start:559*/
+.sear_mx{
+  background: #D6D2D2;
+  padding-left: 50px;
+}

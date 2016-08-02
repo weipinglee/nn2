@@ -29,6 +29,18 @@ class OffersController extends PublicController {
 		$this->order = new \nainai\order\Order();
 	}
 
+	//支付成功页面
+	public function paySuccessAction(){
+		$order_no = safe::filter($this->_request->getParam('order_no'));
+		$amount = safe::filter($this->_request->getParam('amount'));
+		$pay_deposit = safe::filter($this->_request->getParam('payed'));
+		$info = safe::filter($this->_request->getParam('info'));
+
+		$this->getView()->assign('order_no',$order_no);
+		$this->getView()->assign('amount',$amount);
+		$this->getView()->assign('info',$info);
+		$this->getView()->assign('pay_deposit',$pay_deposit);
+	}
 
 	//列表
 	public function offerListAction(){
@@ -88,13 +100,41 @@ class OffersController extends PublicController {
 		if(time() > strtotime($info['expire_time'])){
 			$this->error('报盘不存在或已过期');
 		}
-		$info['amount'] = $info['minimum'] * $info['price'];
+
+		if($info['divide']==\nainai\offer\product::UNDIVIDE ){//不可拆分
+			$info['fixed'] = true;
+			$info['minimum'] = $info['quantity'];
+			$info['amount'] = $info['quantity'] * $info['price'];
+		}
+		else if($info['left'] <= $info['minimum']){//余量不够最小起订量
+			$info['fixed'] = true;
+			$info['minimum'] = $info['left'];
+			$info['amount'] = $info['left'] * $info['price'];
+		}
+		else{//可拆分且余量大于起订量
+			$info['fixed'] = false;
+			$info['amount'] = $info['minimum'] * $info['price'];
+		}
+
 		$order_mode = new Order($info['mode']);
 		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
 		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));
 
 		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
 		//商品剩余数量
+		$pro = new \nainai\offer\product();
+
+		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
+		//判断下是否能够申请保险
+		if($info['insurance'] == 0){
+			//已经申请了的不能在申请
+			$risk = new \nainai\insurance\RiskApply();
+			$data = $risk->getRiskApply(array('buyer_id' => $this->login['user_id'], 'offer_id' => $info['id']), 'id');
+			if (!empty($data)) {
+				$info['insurance'] = 1;
+			}
+		}
 
 		$this->getView()->assign('data',$info);
 
@@ -138,6 +178,7 @@ class OffersController extends PublicController {
 		$search = safe::filterPost('search');
 
 
+
 		//获取这个分类下对应的产品信息
 		$condition = array();
 		$cate = array();
@@ -161,18 +202,18 @@ class OffersController extends PublicController {
 			switch($orderArr[0]){
 				case 'price' : {
 					if(isset($orderArr[1]) && $orderArr[1]=='asc')
-						$order = 'o.price asc';
-					else $order = 'o.price desc';
+						$order = 'price asc';
+					else $order = 'price desc';
 				}
 					break;
 				case 'time' : {
 					if(isset($orderArr[1]) && $orderArr[1]=='asc')
-						$order = 'o.apply_time asc';
-					else $order = 'o.apply_time desc';
+						$order = 'apply_time asc';
+					else $order = 'apply_time desc';
 				}
 					break;
 				default : {
-					$order = 'o.apply_time desc';
+					$order = 'apply_time desc';
 				}
 			}
 		}
@@ -190,17 +231,16 @@ class OffersController extends PublicController {
 	 */
 	public function reportAction(){
 		$id = $this->getRequest()->getParam('id');
-		$id = Safe::filter($id, 'id');
+		$id = Safe::filter($id, 'int');
 
 		if (intval($id) > 0) {
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
 			$offerDetail = $PurchaseOfferModel->getOfferProductDetailDeal($id);
+
 			if(empty($offerDetail)){
 				$this->error('采购不存在');exit;
 			}
-			if(time() > strtotime($offerDetail[1]['expire_time'])){
-				$this->error('报盘不存在或已过期');
-			}
+
 
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
@@ -210,6 +250,74 @@ class OffersController extends PublicController {
 
 	}
 
+	public function offerDetailsAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int');
+
+		if($id){
+			$info = $this->offer->offerDetail($id);
+			if(empty($info)){
+				$this->error('报盘不存在或未通过审核');
+			}
+			if(time() > strtotime($info['expire_time'])){
+				$this->error('报盘不存在或已过期');
+			}
+
+			$pro = new \nainai\offer\product();
+			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
+			if ($info['insurance'] == 1) {
+				$risk = new \nainai\insurance\Risk();
+				$riskData = $risk->getProductRisk($info['risk']);
+				$this->getView()->assign('riskData',$riskData);
+			}
+
+			$kefuData = array();
+			if($info['kefu']){
+				$kefu = new \Library\M('admin_kefu');
+				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
+			}
+
+			$mem = new \nainai\member();
+
+			$userData = $mem->getUserDetail($info['user_id']);
+
+			$this->getView()->assign('data',$info);
+			$this->getView()->assign('user',$userData);
+			$this->getView()->assign('kefu',$kefuData);
+		}
+	}
+
+	public function purchaseDetailsAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int');
+
+		if($id){
+			$info = $this->offer->offerDetail($id);
+			if(empty($info)){
+				$this->error('报盘不存在或未通过审核');
+			}
+			if(time() > strtotime($info['expire_time'])){
+				$this->error('报盘不存在或已过期');
+			}
+
+			$pro = new \nainai\offer\product();
+			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+			$kefuData = array();
+			if($info['kefu']){
+				$kefu = new \Library\M('admin_kefu');
+				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
+			}
+
+			$mem = new \nainai\member();
+
+			$userData = $mem->getUserDetail($info['user_id']);
+
+			$this->getView()->assign('data',$info);
+			$this->getView()->assign('user',$userData);
+			$this->getView()->assign('kefu',$kefuData);
+		}
+	}
 
 
 }

@@ -1,15 +1,5 @@
-<table border="0"  id='productAdd'>
-    {foreach: items=$attrs item=$attr}
+<table border="0" >
 
-        <tr class="attr">
-            <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
-            <td colspan="2">
-                <input class="text" type="text" name="attribute[{$attr['id']}]" >
-            </td>
-        </tr>
-
-
-    {/foreach}
     <tr>
         <th colspan="3">基本挂牌信息</th>
     </tr>
@@ -22,9 +12,9 @@
 
     </tr>
     <tr>
-        <td nowrap="nowrap"><span></span>商品单价:</td>
+        <td nowrap="nowrap"><span></span>商品单价：</td>
         <td>
-            <span> <input class="text" type="text" datatype="float" errormsg="填写正确填写单价" name="price"></span>
+            <span> <input class="text" type="text" datatype="money" errormsg="请正确填写单价" name="price"></span>
             <span></span>
         </td>
         <!--                                 <td>
@@ -34,9 +24,9 @@
         </td> -->
     </tr>
     <tr>
-        <td nowrap="nowrap"><span></span>数量:</td>
+        <td nowrap="nowrap"><span></span>数量：</td>
         <td>
-            <span><input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="quantity"></span>
+            <span><input class="text" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity"></span>
             <span></span>
         </td>
         <span></span>
@@ -47,7 +37,7 @@
         </td> -->
     </tr>
     <tr>
-        <td nowrap="nowrap"><span></span>单位:</td>
+        <td nowrap="nowrap"><span></span>单位：</td>
         <td>
             <span class="unit">{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
         </td>
@@ -57,37 +47,82 @@
 
         </td> -->
     </tr>
+        {foreach: items=$attrs item=$attr}
+
+        <tr class="attr">
+            <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
+            <td colspan="2">
+                <input class="text" type="text" name="attribute[{$attr['id']}]" >
+            </td>
+        </tr>
+
+
+    {/foreach}
+    <tr style="display:none" id='productAdd'>
+                            <td ></td>
+                            <td ></td>
+                            </tr>
+                            
     <tr>
-        <td>产地:</td>
+        <td nowrap="nowrap"><span></span>是否投保：</td>
+        <td>
+            <span> <input type="radio" name="insurance" value="1"  checked="true">是 <input type="radio" name="insurance" value="0" >否</span>
+        </td>
+    </tr>
+
+    <tr id="riskdata" >
+        <td ><span></span>保险：</td>
+        <td>
+            <span> 
+            {if: !empty($risk_data)}
+                {foreach: items=$risk_data}
+                    <input type="checkbox" name="risk[]" value="{$item['risk_id']}">{$item['name']}{if: $item['mode'] == 1}比例： {$item['fee']}(‰) {else:}定额： {$item['fee']} {/if}
+                {/foreach}
+            {else:}
+                该分类没有设置保险
+            {/if}
+            </span>
+        </td>
+    </tr>
+    <input type="hidden" name="cate_id" id="cid">
+    <input type="hidden" name="ajax_url" id="ajax_url" value="{url: Trade/Insurance/ajaxGetCate}">
+
+    <tr>
+        <td>产地：</td>
         <td colspan="2">
-            <span id="areabox">{area:data=getAreaData()}</span>
+            <span id="areabox">{area:}</span>
             <span></span>
         </td>
 
     </tr>
 
 
-
-    <tr>
-        <td>图片预览：</td>
-        <td colspan="2">
-                                    <span class="zhs_img" id='imgContainer'>
-
-                                    </span>
-        </td>
-    </tr>
     <tr>
         <td>上传图片：</td>
         <td>
-                                    <span>
-                                        <div>
 
-                                            <input id="pickfiles"  type="button" value="选择文件">
-                                            <input type="button"  id='uploadfiles' class="tj" value="上传">
-                                        </div>
-                                        <div id="filelist"></div>
-                                        <pre id="console"></pre>
-                                    </span>
+            <script type="text/javascript" src="{root:/js/webuploader/webuploader.js}"></script>
+            <script type="text/javascript" src="{root:/js/webuploader/upload.js}"></script>
+            <link href="{root:/js/webuploader/webuploader.css}" rel="stylesheet" type="text/css" />
+            <link href="{root:/js/webuploader/demo.css}" rel="stylesheet" type="text/css" />
+
+
+            <div id="uploader" class="wu-example">
+                <input type="hidden" name="uploadUrl" value="{url:/ucenter/upload}" />
+                <input type="hidden" name="swfUrl" value="{root:/js/webuploader/Uploader.swf}" />
+                <!--用来存放文件信息-->
+                <ul id="filelist" class="filelist">
+                </ul>
+                <div class="btns">
+
+                    <div id="picker" style="line-height:15px;">选择文件</div>
+                    <div class="totalprogress" style="display:none;">
+                        <span class="text">0%</span>
+                        <span class="percentage"></span>
+                    </div>
+                    <div class="info"></div>
+                </div>
+            </div>
         </td>
     </tr>
     <tr>
@@ -123,7 +158,7 @@
     </tr>
     <td>交收时间：</td>
     <td colspan="2">
-        <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,11}/" name="accept_day" style="width:50px;">天</span>
+        <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,5}/" name="accept_day" style="width:50px;">天</span>
         <span></span>
     </td>
     </tr>

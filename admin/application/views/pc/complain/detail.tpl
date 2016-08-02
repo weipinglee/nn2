@@ -54,9 +54,11 @@
                 <td colspan="5">
                         <ul>
                         {if: !empty($detail['proof'])}
+                            <li>
                         {foreach: items=$detail['proof']  item=$img}
-                        <li><img src="{$img}"></li>
+                        <img src="{$img}">
                         {/foreach}
+                            </li>
                         {/if}
                         </ul>
                 </td>
@@ -117,8 +119,10 @@
              <tr>
                  <th>操作</th>
                  <th scope="col" colspan="7">
+                 {if: $handler == 2 || $handler == 1}
                      <input type="submit" class="btn btn-primary radius" value="提交"/>
-                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                     {/if}
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>
              </tr>
 
@@ -127,7 +131,3 @@
  	</div>
 </div>
 </div>
-
-        
-    </body>
-</html>

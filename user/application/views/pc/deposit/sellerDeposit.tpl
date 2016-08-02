@@ -32,7 +32,7 @@
                                             <!-- <td width="130px">生产厂家</td> -->
                                             <td width="120px">仓库</td>
                                             <td width="100px">单价</td>
-                                            <td width="100px">数量</td>
+                                            <td width="100px">单位</td>
                                             <td width="100px">重量</td>
                                             <td width="100px">小计</td>
                                             <td width="100px">手续费</td>
@@ -45,14 +45,14 @@
                                             <td>多方位仓库</td>
                                             <td>
                                                     <label class="" id="d_price_1">
-                                                        {$data['price']} 
-                                                    </label> 元/{$data['unit']}
+                                                       ￥ {$data['price']}
+                                                    </label>
                                             </td>
                                             <td>
-                                            --
+                                                {$data['unit']}
                                         </td>
                                             <td>{$data['num']}
-                                            {$data['unit']}</td>
+                                           </td>
                                             <td><label class="">
                                         
                                             <label class="price02">￥</label>
@@ -108,14 +108,16 @@
                                 <div class="yListr" id="yListr">
                                   
                                       <ul>
-                                          <li><em name="chooice" class="yListrclickem">市场代理账户<i></i></em> <em name="chooice">银行签约账户<i></i></em> <em name="chooice">票据账户<i></i></em> </li>
+                                          <li><em name="chooice" class="yListrclickem" payment=1>市场代理账户<i></i></em> <em name="chooice" payment=2>银行签约账户<i></i></em> <em name="chooice" payment=3>票据账户<i></i></em> </li>
                                       </ul>
                               </div> 
 
                         <script type="text/javascript">
                             $(function() {
                                 $(".yListr ul li em").click(function() {
+                                    var payment = $(this).attr('payment'); 
                                     $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+                                    $('input[name=payment]').val(payment);
                                 })
                             });
                         </script>
@@ -126,11 +128,12 @@
                          </div>
 
 
-                       <form action="{url:/Deposit/sellerDeposit}" auto_submit pay_secret="1" method="post">
+                       <form action="{url:/Deposit/sellerDeposit}" auto_submit pay_secret="1" method="post" redirect_url="{url:/contract/sellerdetail?id=$data['id']}">
                            <input type="hidden" name="order_id" value="{$data['id']}" />
+                           <input type="hidden" name="payment" value="1" />
                            <div class="pay_bton">
                                <h5>待支付金额：<i>{$data['seller_deposit']}</i>元</h5>
-                               <input type="submit" value="立即缴纳保证金" />
+                               <input class="submit_bzj" type="submit" value="立即缴纳保证金" />
                            </div>
 
                        </form>

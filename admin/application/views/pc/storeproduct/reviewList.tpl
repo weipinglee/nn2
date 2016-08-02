@@ -7,13 +7,15 @@
     </div>
     <div class="content">
         <div class="pd-20">
+			<form action="{url:store/storeproduct/reviewList}" method="get" >
 	<div class="text-c"> 日期范围：
-		<input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;">
+		<input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" name="begin" style="width:120px;" value="{$_GET['begin']}">
 		-
-		<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search"></i> 搜会员</button>
+		<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" name="end" style="width:120px;" value="{$_GET['end']}">
+		<input type="text" class="input-text" style="width:250px" placeholder="输入商品名称"  name="product_name" id="" value="{$_GET['product_name']}">
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜会员</button>
 	</div>
+				</form>
 	 <div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -30,7 +32,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$list}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 				<td><input type="checkbox" value="" name=""></td>
 				<td>{$item['id']}</td>
@@ -49,9 +51,9 @@
 				<td>{$item['status_txt']}</td>
 				<td class="td-manage">
 					<a title="编辑" href="{url:store/storeProduct/reviewDetails?id=$item['id']}" class="ml-5" style="text-decoration:none">
-						<i class="icon-edit"></i>
+						<i class="icon-edit fa-edit"></i>
 					</a>
-					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i>
+					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i>
 					</a>
 
 				</td>
@@ -60,6 +62,6 @@
 		</tbody>
 
 	</table>
-		{$bar}
+		{$data['bar']}
 	</div>
 </div>

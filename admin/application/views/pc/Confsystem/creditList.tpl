@@ -9,7 +9,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a class="btn btn-primary radius" href="{url:/system/Confsystem/creditOper}oper_type/1"><i class=" icon-plus"></i> 添加配置</a> </span>  </div>
+	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a class="btn btn-primary radius" href="{url:/system/Confsystem/creditOper}oper_type/1"><i class=" icon-plus fa-plus"></i> 添加配置</a> </span>  </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -39,8 +39,8 @@
 				<td>{$item['time']}</td>
 				<td>{$item['note']}</td>
 				<td class="td-manage">
-				<a title="编辑" href="{url:/system/Confsystem/creditOper}oper_type/2/name/{$item['name']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i></a> 
-				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:/system/Confsystem/creditDel}name/{$item['name']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+				<a title="编辑" href="{url:/system/Confsystem/creditOper}oper_type/2/name/{$item['name']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a> 
+				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:/system/Confsystem/creditDel}name/{$item['name']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>

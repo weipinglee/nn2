@@ -46,11 +46,7 @@ class DeliveryController extends UcenterBaseController {
         $delivery = new \nainai\delivery\Delivery();
         $res = $delivery->geneDelivery($deliveryData);
 
-        if($res['success'] == 1){
-            $this->success('已申请提货',url::createUrl('/Delivery/deliBuyList'));
-        }else{
-            $this->error($res['info']);
-        }
+        die(json::encode($res));
     }
 
     public function deliveryInfoAction(){
@@ -61,6 +57,22 @@ class DeliveryController extends UcenterBaseController {
         $info = $delivery->deliveryInfo($delivery_id);
         $info['title'] = $title;
         $info['order_no'] = $order_no;
+        $this->getView()->assign('info',$info);
+    }
+    /**
+     * 显示发货页面
+     */
+    public function consignmentAction(){
+        $id = safe::filter($this->_request->getParam('id'),'int');
+        $order = new \nainai\order\Order();
+        $delivery = new \nainai\delivery\Delivery();
+
+        $info = $order->contractDetail($id);
+        $info['delivery_id'] = safe::filter($this->_request->getParam('delivery_id','int'));
+        $invoice = $order->orderInvoiceInfo($info);
+
+        $info = array_merge($info,$delivery->deliveryInfo($info['delivery_id']));
+        $this->getView()->assign('invoice',$invoice);
         $this->getView()->assign('info',$info);
     }
 
@@ -83,5 +95,7 @@ class DeliveryController extends UcenterBaseController {
         $this->getView()->assign('data',$list['data']);
         $this->getView()->assign('page',$list['bar']);
     }
+
+
 
 }

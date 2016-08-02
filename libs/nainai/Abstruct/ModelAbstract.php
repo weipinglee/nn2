@@ -132,15 +132,21 @@ abstract class ModelAbstract{
 				break;
 
 			case 'delete':
-				if (intval($args[0]) > 0) {
-			    		return (bool)$this->model->where($this->pk . '=:id')->bind(array('id'=>$args[0]))->delete(0);
+				$res = null;
+				if (!is_array($args[0]) && intval($args[0]) > 0) {
+			    		$res = $this->model->where($this->pk . '=:id')->bind(array('id'=>$args[0]))->delete(0);
 
 			    	}elseif (is_array($args[0])) {
 			    		$condition = $args[0];
-			    		return (bool)$this->model->where($condition['where'])->bind($condition['bind'])->delete(0);
+			    		$res = $this->model->where($condition['where'])->bind($condition['bind'])->delete(0);
 
 			    	}
-			    	return false;
+			    	if( ! is_null($res) ){
+			          	return Tool::getSuccInfo();
+			         }
+			        else{
+			            	return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+			         }
 				break;
 
 			case 'get':

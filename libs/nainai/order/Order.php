@@ -10,6 +10,7 @@ use \Library\M;
 use \Library\Query;
 use \Library\tool;
 use \Library\url;
+use \search\adminQuery;
 class Order{
 
 	//合同制状态常量
@@ -31,6 +32,9 @@ class Order{
 	const ORDER_ENTRUST = 3;//委托报盘
 	const ORDER_STORE = 4;//仓单报盘订单
 
+	const PAYMENT_AGENT = 1;//代理账户
+	const PAYMENT_BANK = 2;//银行签约账户
+	const PAYMENT_TICKET = 3;//票据账户
 
 	protected $order_table;//订单表名
 	protected $offer_table;//报盘表
@@ -43,6 +47,7 @@ class Order{
 	protected $paylog;//日志
 	protected $mess;//消息表
 	protected $user_invoice;//用户发票类
+	protected $zx;//中信银行签约类
 
 	/**
 	 * 规则
@@ -67,6 +72,7 @@ class Order{
 		$this->paylog = new M('pay_log');
 		$this->account = new \nainai\fund\agentAccount();
 		$this->user_invoice = new \nainai\user\UserInvoice();
+		$this->zx = new \nainai\fund\zx();
 	}	
 
 	/**
@@ -224,15 +230,38 @@ class Order{
 			if($product_valid !== true)
 				return tool::getSuccInfo(0,$product_valid);
 			$orderData['amount'] = $offer_info['price'] * $orderData['num'];
-			// if($orderData['payment'] == 1){
-				//代理账户,判断用户买家余额是否足够
-				$user_id = $orderData['user_id'];
-				$balance = $this->account->getActive($user_id);
-				if(floatval($balance) < $orderData['amount']){
-					return tool::getSuccInfo(0,'代理账户余额不足');
-				}
-			// }
+
+			//获取摘牌所需定金数额
+			$pay_deposit = $this->payDepositCom($orderData['offer_id'],$orderData['amount']);
+			$user_id = isset($orderData['buyer_id']) ? $orderData['buyer_id'] : $orderData['user_id'];//采购买家与正常相反
+
+			//判断用户买家余额是否足够
+			switch ($orderData['payment']) {
+				case self::PAYMENT_AGENT:
+					//代理账户
+					$balance = $this->account->getActive($user_id);
+					break;
+				case self::PAYMENT_BANK:
+					//银行签约账户
+					$balance = $this->zx->attachBalance($user_id);
+					$balance = $balance['KYAMT'];
+					break;
+				case self::PAYMENT_TICKET:
+					//票据账户
+					break;
+				default:
+					return tool::getSuccInfo(0,'参数错误');
+					break;
+			}
+			
+			if(floatval($balance) < $pay_deposit){
+				return tool::getSuccInfo(0,'账户余额不足');
+			}
+
+
 			$upd_res = $this->orderUpdate($orderData);
+			$pro_res = $this->productsFreeze($offer_info,$orderData['num']);
+			if($pro_res != true) return tool::getSuccInfo(0,$pro_res);
 			if($offer_info['mode'] == self::ORDER_DEPOSIT){
 				$mess = new \nainai\message($offer_info['user_id']);
 				$mess->send('depositPay',$upd_res['order_id']);
@@ -276,9 +305,16 @@ class Order{
 		return $res ? $res : array();
 	}
 
-
-	//买家支付尾款
-	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = ''){
+	/**
+	 * 买家支付尾款
+	 * @param  int  $order_id 订单id
+	 * @param  int  $user_id  当前操作用户id
+	 * @param  string  $payment  线上/线下支付
+	 * @param  string  $proof    线下支付凭证图片
+	 * @param  int $account  线上支付方式
+	 * @return array  操作信息
+	 */
+	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = '',$account=0){
 		$info = $this->orderInfo(intval($order_id));
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
@@ -295,31 +331,46 @@ class Order{
 					try {
 						$this->order->beginTrans();
 						$orderData['id'] = $order_id;
+						$orderData['retainage_payment'] = $account;
 						$payment = in_array($info['mode'],array(self::ORDER_ENTRUST,self::ORDER_FREE)) ? 'offline' : $payment;//自由与委托报盘只接受线下凭证
+
 						if($payment == 'online'){
 							//冻结买家帐户余额
-							$note = '支付合同'.$info['order_no'].'尾款';
-							$acc_res = $this->account->freeze($buyer,$retainage,$note);
-
-							if($acc_res === true){
-								$orderData['pay_retainage'] = $retainage;
-								$orderData['contract_status'] = self::CONTRACT_EFFECT;//payment为1  合同状态置为生效
-								$upd_res = $this->orderUpdate($orderData);
-								if($upd_res['success'] == 1){
-									$log_res = $this->payLog($order_id,$user_id,0,'买家线上支付尾款');
-									$seller = $this->sellerUserid($order_id);
-									if(is_int($seller)){
-										$mess = new \nainai\message($seller);
-										$mess->send('buyerRetainage',$order_id);
-									}
-									$res = $log_res === true ? $this->order->commit() : $log_res;
-								}else{
-									$res = $upd_res['info'];
+							$clientID = tool::create_uuid($buyer);
+							$orderData['pay_retainage'] = $retainage;
+							$orderData['contract_status'] = self::CONTRACT_EFFECT;//payment为1  合同状态置为生效
+							$orderData['retainage_clientid'] = $account == self::PAYMENT_BANK ? $clientID : '';
+							$upd_res = $this->orderUpdate($orderData);
+							if($upd_res['success'] == 1){
+								$log_res = $this->payLog($order_id,$user_id,0,'买家线上支付尾款');
+								$seller = $this->sellerUserid($order_id);
+								if(is_int($seller)){
+									$mess = new \nainai\message($seller);
+									$mess->send('buyerRetainage',$order_id);
 								}
+								$res = $log_res;
 							}else{
-								$this->order->rollBack();
-								$res = $acc_res['info'];
+								$res = $upd_res['info'];
 							}
+							if($res === true){
+								$note = '支付合同'.$info['order_no'].'尾款';
+								switch ($account) {
+									case self::PAYMENT_AGENT:
+										$acc_res = $this->account->freeze($buyer,$retainage,$note);	
+										break;
+									case self::PAYMENT_BANK:
+
+										$acc_res = $this->zx->freeze($buyer,$retainage,$clientID);
+										break;
+									case self::PAYMENT_TICKET:
+										break;
+									default:
+										$acc_res = '参数错误';
+										break;
+								}
+								$res = $acc_res;
+							}
+							if($res === true) $res = $this->order->commit();
 						}elseif($payment == 'offline'){
 							$orderData['proof'] = $proof;
 							$upd_res = $this->orderUpdate($orderData);
@@ -485,13 +536,20 @@ class Order{
 	 */
 	public function productNumValid($num,$offer_info,$product=array()){
 		$res = $this->productNumLeft($offer_info['product_id'],$product);
-		if($offer_info['divide'] == 1 && $num != $res['quantity'])
+		if($offer_info['divide'] == \nainai\offer\product::UNDIVIDE && bccomp($num,$res['quantity'],2) != 0)
 			return '此商品不可拆分';
 
-		if($num > $res['left'])
+		if(bccomp($num,$res['left'],2) > 0){//精确比较到小数点后两位，
 			return '商品存货不足';
-		if($num < $offer_info['minimum'])
+		}
+
+		if(bccomp($offer_info['minimum'],$res['left'],2) < 0 && bccomp($num,$offer_info['minimum'],2) <0){
 			return '小于最小起订量';
+		}
+		//剩余量小于等于最小起订量且购买量不等于剩余量
+		if(bccomp($offer_info['minimum'],$res['left'],2) >= 0 && bccomp($num,$res['left'],2) != 0){
+			return '剩余量已不足最小起订量，购买量必须等于剩余量';
+		}
 
 		return true;
 	}
@@ -664,24 +722,83 @@ class Order{
 				try {
 					$this->order->beginTrans();
 					$res = $this->orderUpdate($orderData);
-						
+					if($res['success'] == 1){
 						//将订单款 减去扣减款项 后的60%支付给卖方
 						$reduce_amount = floatval($order['reduce_amount']); 
+						$amount = $order['proof'] ? $order['pay_deposit'] - $reduce_amount: ($order['amount'] - $reduce_amount);
+						$amount = floatval($amount*0.6) ;
+						// switch ($order['buyer_deposit_payment']) {
+						// 	case self::PAYMENT_AGENT:
+						// 		// if($)
+						// 		break;
+						// 	case self::PAYMENT_BANK:
+						// 		break;
+						// 	case self::PAYMENT_TICKET:
+						// 		$error = '定金支付方式错误';
+						// 		break;
+						// 	default:
+						// 		$error = '定金支付方式错误';
+						// 		break;
+						// }
 
-						$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.6);
+						// switch ($order['retainage_payment']) {
+						// 	case self::PAYMENT_AGENT:
+						// 		# code...
+						// 		break;
+						// 	case self::PAYMENT_BANK:
+						// 		break;
+						// 	case self::PAYMENT_TICKET:
+						// 		$error = '定金支付方式错误';
+						// 		break;
+						// 	default:
+						// 		break;
+						// }
+						$res = $this->payLog($order_id,$user_id,0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
 
-						$acc_res = $this->account->freezePay($buyer,$seller,floatval($amount));
-						if($acc_res === true){
-							$log_res = $this->payLog($order_id,$user_id,0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
-							if($log_res === true){
+						if($res === true){
+
+							//目前只考虑全部流程只选一种支付方式
+							switch ($order['buyer_deposit_payment']) {
+								case self::PAYMENT_AGENT:
+									$acc_res = $this->account->freezePay($buyer,$seller,$amount);
+									break;
+								case self::PAYMENT_BANK:
+									$freeze_records = $this->zx->freezeTrans($buyer,$order['create_time']);
+									 echo '<pre>';var_dump($freeze_records);exit;
+
+									//获取买方定金与线上尾款的冻结编号
+									$deposit_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_deposit']*0.4+$reduce_amount*0.6);
+									$retainage_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_retainage']*0.4,array($deposit_djcode));
+									
+									//银行事务问题   如何保证??
+									if($deposit_djcode && $retainage_djcode){
+										$deposit_freeze = $this->zx->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6,$deposit_djcode);
+										$retainage_freeze = $this->zx->freezePay($buyer,$seller,$order['pay_retainage']*0.6,$retainage_djcode);
+										
+										if(!($deposit_freeze === true && $retainage_freeze === true)){
+											$error = '冻结支付失败';
+										}
+									}else{
+										$error = '签约账户冻结信息有误';
+									}
+									break;
+								case self::PAYMENT_TICKET:
+									$error = '定金支付方式错误';
+									break;
+								default:
+									$error = '定金支付方式错误';
+									break;
+							}
+							if(!$error){
 								$this->order->commit();
 								return tool::getSuccInfo();
-							}else{
-								$error = $log_res;
 							}
 						}else{
-							$error = $acc_res;
+							$error = $log_res;
 						}
+					}else{
+						$error = $res['info'];
+					}
 				}catch(PDOException $e) {
 					$this->order->rollBack();
 					$error = $e->getMessage();
@@ -720,43 +837,67 @@ class Order{
 					$this->order->beginTrans();
 					$res = $this->orderUpdate($orderData);
 					if($res['success'] == 1){
-						//判断是否为保证金订单
-						if($order['mode'] == self::ORDER_DEPOSIT){
-							//如果是则需要将卖家的保证金解冻
-							$accf_res = $this->account->freezeRelease($seller,floatval($order['seller_deposit']));
-						}else{
-							$accf_res = true;
-						}
+						//支付剩余货款 减去扣减款项 后的40%
+						$reduce_amount = floatval($order['reduce_amount']);
+
+						$amount = $order['proof'] ? ($order['pay_deposit'] - $reduce_amount) : ($order['amount'] - $reduce_amount);
+						$amount = floatval($amount*0.4) ;
+
+						//若$reduce_amount 大于0 则将此扣减项返还买方账户
+						$reduce_amount = floatval($order['reduce_amount']); 
 						
-						if($accf_res === true){
-							//支付剩余货款 减去扣减款项 后的40%
-							$reduce_amount = floatval($order['reduce_amount']); 
-							$amount = $order['proof'] ? $order['pay_deposit'] : (($order['amount'] - $reduce_amount) * 0.4);
-							$accp_res = $this->account->freezePay($buyer,$seller,floatval($amount));
-							if($accp_res === true){
-								//若$reduce_amount 大于0 则将此扣减项返还买方账户
-								$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($buyer,$reduce_amount) : true;
-								$log_res = $this->payLog($order_id,$user_id,0,'买家确认合同,合同结束'.($reduce_amount > 0 ? "(返还扣减项:$reduce_amount)" : ''));
-								//商品表中冻结商品解冻 添加到已销售
-								$this->productsFreezeToSell($offerInfo,$order['num']);
-								
-								if($log_res === true){
-									if($reduce_res === true){
-										$this->order->commit();
-										return tool::getSuccInfo();	
+						$res = $this->payLog($order_id,$user_id,0,'买家确认合同,合同结束'.($reduce_amount > 0 ? "(返还扣减项:$reduce_amount)" : ''));
+						//商品表中冻结商品解冻 添加到已销售
+						$this->productsFreezeToSell($offerInfo,$order['num']);
+
+						//目前只考虑全部流程只选一种支付方式
+							switch ($order['buyer_deposit_payment']) {
+								case self::PAYMENT_AGENT:
+									$acc_res = $this->account->freezePay($buyer,$seller,$amount);
+									if($acc_res !== true) $error = $acc_res;
+									$accp_res = $this->account->freezeRelease($seller,floatval($order['seller_deposit']));
+									if($accp_res !== true) $error = $accp_res;
+									$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($buyer,$reduce_amount) : true;
+									if($reduce_res !== true) $error = $reduce_res;
+									break;
+								case self::PAYMENT_BANK:
+									$freeze_records = $this->zx->freezeTrans($buyer,$order['create_time']);
+									$seller_freeze_records = $this->zx->freezeTrans($seller,$order['create_time']);
+									$seller_deposit_djcode = $this->zx->getFreezeCode($seller_freeze_records,$order['seller_deposit']);
+									//解冻卖方保证金
+									if($seller_deposit_djcode){
+										$accp_res = $this->zx->freezeRelease($seller,$order['seller_deposit'],$seller_deposit_djcode);
 									}else{
-										$error = $reduce_res;
+										return tool::getSuccInfo(0,'卖方保证金解冻失败');
 									}
 									
-								}else{
-									$error = $log_res;
-								}
-							}else{
-								$error = $accp_res;
+									//获取买方定金与线上尾款的冻结编号
+									$deposit_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_deposit']*0.4+$reduce_amount*0.6);
+									$retainage_djcode = $this->zx->getFreezeCode($freeze_records,$order['pay_retainage']*0.4,array($deposit_djcode));
+									//银行事务问题   如何保证??
+									if($deposit_djcode && $retainage_djcode){
+										$deposit_freeze = $this->zx->freezePay($buyer,$seller,($order['pay_deposit']-$reduce_amount)*0.4,$deposit_djcode);
+										$retainage_freeze = $this->zx->freezePay($buyer,$seller,$order['pay_retainage']*0.4,$retainage_djcode);
+										$reduce_res = $reduce_amount > 0 ? $this->zx->freezeRelease($buyer,$reduce_amount,$deposit_djcode) : true;
+										if(!($deposit_freeze === true && $retainage_freeze === true && $reduce_res === true)){
+											$error = '冻结支付失败';
+										}
+									}else{
+										$error = '签约账户冻结信息有误';
+									}
+									break;
+								case self::PAYMENT_TICKET:
+									$error = '定金支付方式错误';
+									break;
+								default:
+									$error = '定金支付方式错误';
+									break;
 							}
-						}else{
-							$error = $accf_res;
+						if(!$error){
+							$this->order->commit();
+							return tool::getSuccInfo();
 						}
+						
 					}else{
 						$error = $res['info'];
 					}
@@ -778,21 +919,20 @@ class Order{
 	 * 获取用户所有销售合同信息(含商品信息与买家信息)
 	 * @param  int $user_id 卖家id
 	 */
-	public function sellerContractList($user_id,$page,$where = array()){
-		$query = new Query('order_sell as do');
+	public function sellerContractList($user_id,$page){
+		$query = new \Library\searchQuery('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
-		$query->where = '(po.user_id = :user_id and po.type = 1) or (do.user_id = :seller_id and po.type = 2)';
-		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
+		$query->where = '((po.user_id = :user_id and po.type = 1) or (do.user_id = :seller_id and po.type = 2))';
+		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id,'seller_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
-		// $query->order = "sort";
+		 $query->order = "do.id desc";
 		$data = $query->find();
-		$this->sellerContractStatus($data);
+		$this->sellerContractStatus($data['list']);
 		// tool::pre_dump($data);
-		$pageBar =  $query->getPageBar();
-		return array('data'=>$data,'bar'=>$pageBar);
+		return $data;
 	}
 
 	// /**
@@ -820,22 +960,20 @@ class Order{
 	 * @param  array  $where  条件数组
 	 * @return array          列表数组
 	 */
-	public function buyerContractList($user_id,$page,$where = array()){
-		$query = new Query('order_sell as do');
+	public function buyerContractList($user_id,$page){
+		$query = new \Library\searchQuery('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
-		$query->where = '(do.user_id = :user_id and po.type = 1) or (po.user_id = :buyer_id and po.type = 2)';
-		$query->fields = 'u.username,do.*,p.name as product_name,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
+		$query->where = '((do.user_id = :user_id and po.type = 1) or (po.user_id = :buyer_id and po.type = 2))';
+		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id,'buyer_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
-		// $query->order = "sort";
+		 $query->order = "do.id desc ";
 		$data = $query->find();
 
-		$this->buyerContractStatus($data);
-		// tool::pre_dump($data);
-		$pageBar =  $query->getPageBar();
-		return array('data'=>$data,'bar'=>$pageBar);
+		$this->buyerContractStatus($data['list']);
+		return $data;
 
 	}
 
@@ -848,7 +986,7 @@ class Order{
 	public function contractReview($offer_id,$num){
 		$query = new Query('product_offer as po');
 		$query->join = 'left join products as p on po.product_id = p.id';
-		$query->fields = 'po.price,p.name,p.cate_id,p.produce_area';
+		$query->fields = 'po.price,p.name,p.cate_id,p.produce_area,p.unit';
 		$query->where = 'po.id = :id';
 		$query->bind = array('id'=>$offer_id);
 		$res = $query->getObj();
@@ -868,10 +1006,15 @@ class Order{
 	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id';
-		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,p.cate_id,p.produce_area,pc.name as cate_name,po.user_id as seller_id';
+		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,p.cate_id,p.img,p.produce_area,pc.name as cate_name,po.user_id as seller_id';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();
+		if(empty($res)){
+			return array();
+		}
+
+		$res['img_thumb'] = \Library\thumb::get($res['img'],50,50);
 		// var_dump($res);exit;
 		if($res['mode'] == self::ORDER_STORE){
 			$query = new Query('store_list as s');
@@ -886,12 +1029,14 @@ class Order{
 		}
 
 		$res = array($res);
-		$user_id = $res[0]['type'] == 1 ? $res[0]['user_id'] : $res[0]['seller_id'];
+
 		if($identity == 'seller'){
 			$this->sellerContractStatus($res);
+			$user_id = $res[0]['type'] == 1 ? $res[0]['user_id'] : $res[0]['seller_id'];
 			$res[0]['userinfo'] = $this->contractUserInfo($user_id,1);
 		}elseif($identity == 'buyer'){
 			$this->buyerContractStatus($res);
+			$user_id = $res[0]['type'] == 2 ? $res[0]['user_id'] : $res[0]['seller_id'];
 			$res[0]['userinfo'] = $this->contractUserInfo($user_id);
 		}
 		$res[0]['pay_log'] = $this->paylog->where(array('order_id'=>$id))->fields('remark,create_time')->order('create_time asc')->select();
@@ -925,6 +1070,8 @@ class Order{
 				default:
 					break;
 			}
+
+			if($status_txt == '提货完成') break;
 		}
 
 		return $status_txt;
@@ -938,7 +1085,7 @@ class Order{
 	public function orderInvoiceInfo($orderInfo){
 		if($orderInfo['invoice'] == 1){
 			$offerInfo = $this->offerInfo($orderInfo['offer_id']);
-			$seller = $offerInfo['type'] == 1 ? $offerInfo['user_id'] : $orderInfo['user_id'];
+			$seller = $offerInfo['type'] == 1 ? $orderInfo['user_id'] : $offerInfo['user_id']  ;
 			$invoice_info = $this->user_invoice->userInvoiceInfo($seller);
 			$invoice_info['order_invoice'] = $this->user_invoice->orderInvoiceInfo($orderInfo['id']);
 			return $invoice_info;
@@ -1125,19 +1272,8 @@ class Order{
 	 * @return array    信息数组
 	 */
 	public function contractUserInfo($user_id,$is_seller = 0){
-		$query = new Query('person_info as pi');
-		$query->join = 'left join company_info as ci on pi.user_id = ci.user_id';
-		$query->fields = 'pi.area,pi.address,pi.true_name,ci.company_name,ci.area as company_area,ci.address as company_address';
-		$query->where = 'pi.user_id = :id';
-		$query->bind = array('id'=>$user_id);
-		$res = $query->getObj();
-		if($is_seller){
-			$res['type'] = empty($res['company_name']) ? '个人' : '企业';
-			$res['true_name'] = empty($res['company_name']) ? $res['true_name'] : $res['company_name'];
-			$res['area'] = empty($res['company_area']) ? $res['area'] : $res['company_area'];
-			$res['address'] = empty($res['company_address']) ? $res['address'] : $res['company_address'];
-		}
-		return $res;
+		$mem = new \nainai\member();
+		return $mem->getUserDetail($user_id);
 	}
 
 	/**
@@ -1146,8 +1282,8 @@ class Order{
 	 * @return array     信息数组
 	 */
 	public function userBankInfo($user_id){
-		$bank = new M('user_bank');
-		return $bank->where(array('user_id'=>$user_id))->getObj();
+		$bank = new \nainai\user\UserBank();
+		return $bank->getActiveBankInfo($user_id);
 	}
 
 	/**
@@ -1156,7 +1292,7 @@ class Order{
 	 */
 	public function canComplain($data){
 		if(isset($data['mode']) && isset($data['contract_status'])){
-			if($data['mode']==self::ORDER_DEPOSIT || $data['mode']==self::ORDER_STORE){
+			if(in_array($data['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE,self::ORDER_PURCHASE))){
 				if($data['contract_status']!=0 && $data['contract_status']!=8)
 					return 1;
 			}

@@ -60,7 +60,7 @@
              <tr>
                  {if:$info['type']=='买盘'}
                      <th>价格区间</th>
-                     <td>{$info['price']}--{$info['price_r']}</td>
+                     <td>{$info['price_l']}--{$info['price_r']}</td>
                  {else:}
                      <th>挂牌价</th>
                      <td>{$info['price']}</td>
@@ -93,7 +93,7 @@
                  <td>{$info['accept_area']}</td>
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
-                     <td>{$info['sign_thumb']}</td>
+                     <td><img src="{$info['sign_thumb']}" /></td>
                  {else:}
                      <th></th>
                      <td></td>
@@ -117,7 +117,7 @@
 
                  <th scope="col" colspan="7">
 
-                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>
 
             </tr>

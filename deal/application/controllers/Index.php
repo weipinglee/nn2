@@ -23,6 +23,7 @@ class IndexController extends PublicController {
      */
 	public function indexAction() {
 
+		$this->getView()->assign('index',1);
 		//获取所有分类
 		$productModel=new product();
 		$res=$productModel->getAllCat();
@@ -35,9 +36,8 @@ class IndexController extends PublicController {
 		//获取幻灯片
 		$indexSlide=\nainai\system\slide::getIndexSlide();
 		foreach($indexSlide as $k=>$v){
-			$indexSlide[$k]['img']=\Library\Thumb::get($v['img']);
+			$indexSlide[$k]['img']=\Library\Thumb::getOrigImg($v['img']);
 		}
-
 		//获取统计数据
 		$statcModel=new \nainai\statistics();
 		$statcCatList=$statcModel->getNewStatcList(1);
@@ -58,6 +58,7 @@ class IndexController extends PublicController {
 		$offerCateData = array();
 		foreach($topCat as $k=>$v){
 			$offerCateData[$v['id']] = $offer->getOfferCategoryList($v['id']);
+
 		}
 		//获取报盘总数
 		$offer_num = $offer->getOfferNum();
@@ -68,7 +69,10 @@ class IndexController extends PublicController {
 		//获取当前和昨日成交量
 		$order_num = $order->getOrderTotal();
 		$order_num_yes = $order->getOrderTotal('yesterday');
-
+		//获取帮助
+		$helpModel=new \nainai\system\help();
+		$helpList=$helpModel->getHelplist();
+		$this->getView()->assign('helpList',$helpList);
 		$this->getView()->assign('creditMember',$creditMember);
 		$this->getView()->assign('statcCatList',$statcCatList);
 		$this->getView()->assign('statcProList',$statcProList);

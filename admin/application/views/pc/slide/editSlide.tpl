@@ -64,7 +64,7 @@
                     <div class="row cl">
                         <div class="col-10 col-offset-2">
                             <input type="hidden" value="{$slideInfo['id']}" name="id">
-                            <button type="submit" class="btn btn-success radius" id="offline-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+                            <button type="submit" class="btn btn-success radius" id="offline-save" name="admin-role-save"><i class="icon-ok fa-ok"></i> 确定</button>
                         </div>
                     </div>
 

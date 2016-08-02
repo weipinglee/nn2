@@ -19,7 +19,7 @@
 	 			<th>库位</th>
 	 			<td>{$detail['store_pos']}</td>
 	 			<th>仓位</th>
-	 			<td>{$detail['cang_id']}</td>
+	 			<td>{$detail['cang_pos']}</td>
 	 		</tr>
             <tr>
                 <th>申请日期</th>
@@ -73,8 +73,8 @@
               <td>{$detail['status']}</td>
                 <th>是否打包:</th>
                 <td>     {if: $detail['package'] == 1}是{else:}否{/if}</td>
-                <th></th>
-                <td></td>
+                <th>商品单价</th>
+                <td>{$detail['price']}</td>
             </tr>
              <tr>
               {if: $detail['package'] == 1}
@@ -118,8 +118,10 @@
              <tr>
                  <th>市场审核时间</th>
                  <td>{$detail['market_time']}</td>
+                 <th>签字入库单</th>
+                 <td><img src="{$detail['confirm_thumb']}" /></td>
                  <th scope="col" colspan="6">
-                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove"></i> 返回</a>
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>
              </tr>
 

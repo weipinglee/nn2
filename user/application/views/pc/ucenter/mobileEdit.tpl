@@ -1,4 +1,4 @@
-
+<script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
@@ -17,7 +17,7 @@
                               <div>
 
                                 <input id="inputCode" placeholder="请输入验证码" type="text" class="gradient">
-                                <img id='image' width="" height="45" src="{url:/login/getCaptcha}" onclick="this.src='{url:/index/getCaptcha}?'+Math.random()" />
+                                <img id='image' width="" height="45" src="{url:/login/getCaptcha}" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()" />
                               <!--   <input type="button" class="yzm_submit" value="确定" id="submit"> -->
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                         </div>
 						<div class="zhxi_con">
                                                                             <input type='hidden' value="{$userInfo['mobile']}" name='mobile' id='mobile'/>
-							<span><!-- <a href="mobile_new.html" onclick="return checkMobileCode()"> --><input class="submit" type="submit" value="下一步"/></a></span>
+							<span><!-- <a href="mobile_new.html" onclick="return checkMobileCode()"> --><input class="submit" type="button" value="下一步" onclick="checkMobileCode()"/></a></span>
 						</div>
 						</form>
 					</div>
@@ -76,10 +76,12 @@
             dataType:'json',
             data:{mobileCode:code},
             success:function(msg){
-                if(msg.code==0){
+                if(msg.success==0){
                     alert('验证失败');
                     return false;
                 }else{
+
+                     window.location="{url:/ucenter/MobileNew}";
                     return true;
                 }
             }

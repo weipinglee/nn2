@@ -42,13 +42,13 @@ class UcenterBaseController extends \nainai\controller\Base{
 	protected function init(){
 		parent::init();//继承父类的方法，检测是否登录和角色
         $controllerName = $this->_request->getControllerName();
-        $actionName = $this->_request->getActionName();
-        $a = new \nainai\subAccount();
-        $res = $a->AccessDecision($controllerName,$actionName);
-        if(!$res){
-            //子账户无权限则跳转到首页
-            $this->error('无权限',url::createUrl('/Ucenter/index'));
-        }
+		$actionName = $this->_request->getActionName();
+		$a = new \nainai\subAccount();
+		$res = $a->AccessDecision($controllerName,$actionName);
+		if(!$res){
+			//子账户无权限则跳转到首页
+			$this->error('无权限',url::createUrl('/Ucenter/index'));
+		}
 
         $user = new \nainai\member();
         $secret_url = $user->getSecretUrl();
@@ -63,6 +63,7 @@ class UcenterBaseController extends \nainai\controller\Base{
             if(!$sec){
 				IS_AJAX ? die(json::encode(tool::getSuccInfo(0,'支付密码错误'))) : $this->error('支付密码错误'); die;
             }
+
         }
 
         //确认操作
@@ -76,27 +77,21 @@ class UcenterBaseController extends \nainai\controller\Base{
 		}
 
 		$this->getView()->setLayout('ucenter');
-
-
-
-
-        
 		//获取菜单数据
 		$MenuModel = new \nainai\user\Menu();
+		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
 
-    		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert);
-
-    		$this->createTreeMenu($menuList);
-    		$menu = $this->createHtmlMenu();
+		$this->createTreeMenu($menuList);
+		$menu = $this->createHtmlMenu();
 
 		$this->getView()->assign('topArray', $menu['top']);
 		$this->getView()->assign('leftArray', $menu['left']);
 		$action = strtolower($this->getRequest()->getActionName());
         
 		// 判断该方法买家是否能操作，如果不能，跳转到用户中心首页
-		// if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
-		// 	$this->redirect(url::createUrl('/ucenter/index'));
-		// }
+		 if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
+		 	$this->redirect(url::createUrl('/ucenter/index'));
+		 }
 
 		$this->getView()->assign('action', $action);
 		$mess=new \nainai\message($this->user_id);

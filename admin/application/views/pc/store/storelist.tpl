@@ -10,9 +10,9 @@
         <div class="pd-20">
 	<div class="text-c">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入仓库名称" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search"></i> 搜仓库</button>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜仓库</button>
 	</div>
-	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"><a class="btn btn-primary radius" href="{url:store/store/storeAdd}"><i class=" icon-plus"></i> 添加仓库</a> </span>  </div>
+	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"><a class="btn btn-primary radius" href="{url:store/store/storeAdd}"><i class=" icon-plus fa-plus"></i> 添加仓库</a> </span>  </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -37,7 +37,7 @@
 				<td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
 
 				<td>{$item['short_name']}</td>
-				<td> <span id="areaText">{areatext:data=$item['area']}</span></td>
+				<td> {areatext:data=$item['area'] id=$key}</td>
 				<td>{echo:$store_type[$item['type']]}</td>
 				<td class="td-status">
 					{if:$item['status'] == 1}
@@ -49,13 +49,13 @@
 				</td>
 				<td class="td-manage">
 					{if:$item['status'] == 1}
-						<a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=0 ajax_url="{url:store/store/setStatus?id=$item['id']}"><i class="icon-pause"></i></a>
+						<a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=0 ajax_url="{url:store/store/setStatus?id=$item['id']}"><i class="icon-pause fa-pause"></i></a>
 					{elseif:$item['status'] == 0}
-						<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:store/store/setStatus?id=$item['id']}"><i class="icon-play"></i></a>
+						<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:store/store/setStatus?id=$item['id']}"><i class="icon-play fa-play"></i></a>
 					{/if}
-					<a title="编辑" href="{url:store/store/storeAdd?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit"></i>
+					<a title="编辑" href="{url:store/store/storeAdd?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i>
 
-					<a title="删除" href="javascript:;"  ajax_status=-1 ajax_url="{url:store/store/logicDel?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+					<a title="删除" href="javascript:;"  ajax_status=-1 ajax_url="{url:store/store/logicDel?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>
