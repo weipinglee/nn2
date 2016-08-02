@@ -39,7 +39,7 @@ class PurchaseOrder extends Order{
 			try {
 				$this->offer->beginTrans();
 				$this->offer->data(array('price'=>$purchase_info['price']))->where(array('id'=>$purchase_info['offer_id']))->update();
-
+				
 				$orderData['offer_id'] = $purchase_info['offer_id'];
 				$orderData['num'] = $purchase_info['quantity'];
 				$orderData['order_no'] = tool::create_uuid();
@@ -47,7 +47,6 @@ class PurchaseOrder extends Order{
 				$orderData['create_time'] = date('Y-m-d H:i:s',time());
 				$orderData['mode'] = self::ORDER_PURCHASE;
 				$gen_res = $this->geneOrder($orderData);
-
 				if($gen_res['success'] == 1){
 					//将其他的报价状态置为被拒绝 选中报价置为已采纳
 					$purchase->where(array('id'=>$purchase_id))->data(array('status'=>\nainai\offer\PurchaseReport::STATUS_ADOPT))->update();

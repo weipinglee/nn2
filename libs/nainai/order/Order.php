@@ -106,8 +106,8 @@ class Order{
 		}
 
 		try {
-
-			//买方支付买方违约金
+			$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
+			//买方支付卖方违约金
 			$this->account->freezePay($info['user_id'],$offerInfo['user_id'],$pay_break);
 			$product_left = $delivery->orderNumLeft($order_id,false,true);
 			$res = $this->productsFreezeRelease($offerInfo,$product_left);
@@ -138,18 +138,18 @@ class Order{
 				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
 				//解冻未提货货物
 				$product_left = $delivery->orderNumLeft($order_id,false,true);
-				$res = $this->productsFreezeRelease($offerInfo,$product_left);
+				$this->productsFreezeRelease($offerInfo,$product_left);
 				
 			}else{
-				$res = $this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
+				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
 			}
-
+			$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
 		} catch (\PDOException $e) {
 
 			$res = $e->getMessage();
 		}
 
-		return $res;
+		return $res ? tool::getSuccInfo(0,$res) : tool::getSuccInfo();
 	}	
 
 	/**
@@ -211,10 +211,10 @@ class Order{
 		}else{
 			$orderData['contract_status'] = self::CONTRACT_NOTFORM;	
 		}
-
-		$offer_exist = $this->offerExist($orderData['offer_id']);
-		if($offer_exist === false) return tool::getSuccInfo(0,'报盘不存在或未通过审核');
-		
+		if($orderData['mode'] != self::ORDER_PURCHASE){
+			$offer_exist = $this->offerExist($orderData['offer_id']);
+			if($offer_exist === false) return tool::getSuccInfo(0,'报盘不存在或未通过审核');
+		}
 		$offer_info = $this->offerInfo($orderData['offer_id']);
 		if($offer_info['user_id'] == $orderData['user_id']){
 			return tool::getSuccInfo(0,'买方卖方为同一人');
@@ -555,6 +555,28 @@ class Order{
 	}
 
 	/**
+	 * 合同完成 将冻结的商品数量清理 转为已销售数量
+	 * @param  array $offer_info 报盘信息数组
+	 * @param  float $num  商品数目
+	 * @return true:解冻成功 string:报错信息
+	 */
+	final protected function productsFreezeToSell($offer_info,$num){
+		$num = floatval($num);
+		if($offer_info && is_array($offer_info) && $num > 0){
+			$product = $this->products->where(array('id'=>$offer_info['product_id']))->getObj();
+			$freeze = floatval($product['freeze']);//已冻结商品数量
+			if($freeze >= $num){
+				$res = $this->products->where(array('id'=>$product['id']))->data(array('freeze'=>($freeze-$num),'sell'=>$num))->update();
+				return is_int($res) && $res>0 ? true : ($this->products->getError() ? $this->products->getError() : '数据未修改');
+			}else{
+				return '冻结商品数量有误';
+			}
+		}else{
+			return '无效报盘';
+		}
+	}
+
+	/**
 	 * 订单日志记录
 	 * @param  int $order_id  订单id
 	 * @param  int $user_id   操作用户id
@@ -715,6 +737,9 @@ class Order{
 								//若$reduce_amount 大于0 则将此扣减项返还买方账户
 								$reduce_res = $reduce_amount > 0 ? $this->account->freezeRelease($buyer,$reduce_amount) : true;
 								$log_res = $this->payLog($order_id,$user_id,0,'买家确认合同,合同结束'.($reduce_amount > 0 ? "(返还扣减项:$reduce_amount)" : ''));
+								//商品表中冻结商品解冻 添加到已销售
+								$this->productsFreezeToSell($offerInfo,$order['num']);
+								
 								if($log_res === true){
 									if($reduce_res === true){
 										$this->order->commit();
@@ -959,7 +984,7 @@ class Order{
 				case self::CONTRACT_VERIFY_QAULITY:
 					if(empty($value['reduce_amount'])) {
 						$title = '质量合格';
-						$href = url::createUrl("/Order/sellerVerify?order_id={$value['id']}");
+						$href = url::createUrl("/Order/sellerVerifyPage?order_id={$value['id']}");
 					}else{
 						$title = '扣减货款';
 						$href = url::createUrl("/Order/sellerVerify?order_id={$value['id']}&reduce=1");

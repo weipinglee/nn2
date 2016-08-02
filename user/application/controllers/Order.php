@@ -110,6 +110,13 @@ class OrderController extends UcenterBaseController{
 		return false;
 	}
 
+	//显示合同信息
+	public function sellerVerifyPageAction(){
+		$order_id = safe::filter($this->_request->getParam('order_id'));
+		$info = $this->order->contractDetail($order_id);
+		$this->getView()->assign('info',$info);	
+	}
+
 	//卖家确认质量 
 	public function sellerVerifyAction(){
 		$reduce = safe::filter($this->_request->getParam('reduce'));
