@@ -16,7 +16,7 @@
                                 <th colspan="3">选择仓单</th>
            		</tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>可选仓单:</td>
+                                <td nowrap="nowrap"><span></span>可选仓单：</td>
                                 <td colspan="2"> 
                                     <select id="storeList" name="storeproduct" datatype="/[1-9][\d]{0,}/">
                                         <option value="0">请选择仓单</option>
@@ -79,7 +79,7 @@
                                <th colspan="3">基本挂牌信息</th>
                             </tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>商品单价:</td>
+                                <td nowrap="nowrap"><span></span>商品单价：</td>
                                 <td> 
                                     <input class="text" type="text" datatype="float" errormsg="价格错误" name="price">
                                     
@@ -91,7 +91,7 @@
                                </td> -->
                             </tr>
                               <tr>
-        <td nowrap="nowrap"><span></span>是否投保:</td>
+        <td nowrap="nowrap"><span></span>是否投保：</td>
         <td>
             <span> <input type="radio" name="insurance" value="1"  >是 <input type="radio" name="insurance" value="0"  checked="true">否</span>
         </td>
