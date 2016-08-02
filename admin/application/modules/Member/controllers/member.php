@@ -202,7 +202,25 @@ class MemberController extends Yaf\Controller_Abstract {
 		}
 		return false;
 	}
+	public function OnLineListAction(){
+		$page=safe::filterGet('page','int');
+		$memberModel=new MemberModel();
+		$member=$memberModel->getOnLine($page);
+		//var_dump($member);
+		$memberObj=new \nainai\cert\certificate();
+		foreach($member[0] as $k=>$v){
+			//var_dump($v);
+			$status=$memberObj->getUserCertStatus($v['id']);
+			if(!empty($status)){
+				$member[0][$k]['status']=implode('/',$memberObj->getUserCertStatus($v['id']));
+			}else{
+				$member[0][$k]['status']='未认证';
+			}
+		}
+		$this->getView()->assign('member',$member[0]);
+		$this->getView()->assign('pageBar',$member[1]);
 
+	}
 
 
 }
