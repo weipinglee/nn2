@@ -305,8 +305,16 @@ class Order{
 		return $res ? $res : array();
 	}
 
-	//买家支付尾款
-	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = ''){
+	/**
+	 * 买家支付尾款
+	 * @param  int  $order_id 订单id
+	 * @param  int  $user_id  当前操作用户id
+	 * @param  string  $payment  线上/线下支付
+	 * @param  string  $proof    线下支付凭证图片
+	 * @param  int $account  线上支付方式
+	 * @return array  操作信息
+	 */
+	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = '',$account=0){
 		$info = $this->orderInfo(intval($order_id));
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){

@@ -127,7 +127,7 @@ class DepositOrder extends Order{
 					
 					//扣除信誉值
 					$configs_credit = new \nainai\CreditConfig();
-					$configs_credit->changeUserCredit($seller,'cancel_contract',200);
+					$configs_credit->changeUserCredit($seller,'cancel_contract');
 					
 					//将买方冻结资金解冻
 					$note = '卖方未支付合同'.$info['order_no'].'保证金退还定金';

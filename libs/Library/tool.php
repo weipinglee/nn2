@@ -83,25 +83,8 @@ class tool{
         return array('success'=>$res,'info'=>$info,'returnUrl'=>$url,'id'=>$id);
     }
 
-    //uuid
-    // public static function create_uuid(){
-    //     if (function_exists('com_create_guid')){
-    //         return com_create_guid();
-    //     }else{
-    //         mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
-    //         $charid = strtoupper(md5(uniqid(rand(), true)));
-    //         $hyphen = chr(45);// "-"
-    //         $uuid = substr($charid, 0, 8).$hyphen
-    //                 .substr($charid, 8, 4).$hyphen
-    //                 .substr($charid,12, 4).$hyphen
-    //                 .substr($charid,16, 4).$hyphen
-    //                 .substr($charid,20,12);
-    //         return $uuid;
-    //     }
-    // }
-
-    public static function create_uuid($user_id=0){
-        return date('YmdHis',time()).substr(time(),-1,3).$user_id.mt_rand(0,99);
+    public static function create_uuid($user_id = 0){
+        return date('YmdHis',time()).$user_id.substr(-1,3,time()).mt_rand(0,99);
     }
 
     //uuid
