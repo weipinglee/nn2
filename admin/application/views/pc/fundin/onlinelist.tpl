@@ -34,9 +34,9 @@
 				<td>{$item['order_no']}</td>
 				<td>{$item['amount']}</td>
 				<td>{$item['proot']}</td>
-				<td>{echo:\fundInModel::getPayType($item['pay_type'])}</td>
+				<td>{$item['pay_type']}</td>
 
-				<td>{echo:\fundInModel::getOffLineStatustext($item['recharge_status'])}</td>
+				<td>{$item['status_text']}</td>
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
 					<a title="删除" href="javascript:void(0);" onclick="delOnline({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>

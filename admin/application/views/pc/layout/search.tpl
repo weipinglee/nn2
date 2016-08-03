@@ -39,7 +39,8 @@
                 </select>
             {/if}
             <button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜索</button>
-            {if: isset($isDown) && $isDown == 1}
+   
+            {if: isset($data['search']['down'])}
             <button type="submit" class="btn btn-success radius" id="" name="down" value="1"><i class="icon-search fa-search"></i> 导出</button>
             {/if}
 

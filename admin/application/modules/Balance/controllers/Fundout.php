@@ -18,6 +18,7 @@ class FundoutController extends InitController {
 	 */
 	public function checkfundoutlistAction(){
 		$condition = array('name' => '出金待审核', 'status' => fundOutModel::FUNDOUT_APPLY.','.fundOutModel::FUNDOUT_FIRST_OK);
+		$condition['type'] = 'withdraw_request';
 		$this->listData($condition);
 	}
 
@@ -26,6 +27,7 @@ class FundoutController extends InitController {
 	 */
 	public function pendingpaymentlistAction(){
 		$condition = array('name' => '出金待拨款', 'status' => fundOutModel::FUNDOUT_FINAL_OK);
+		$condition['type'] = 'withdraw_request';
 		$this->listData($condition);
 	}
 
@@ -34,40 +36,22 @@ class FundoutController extends InitController {
 	 */
 	public function checkedfundoutlistAction(){
 		$condition = array('name' => '出金已审核', 'status' => fundOutModel::FUNDOUT_OK.','.fundOutModel::FUNDOUT_FIRST_NG.','.fundOutModel::FUNDOUT_FINAL_NG);
+		$condition['type'] = 'withdraw_request';
 		$this->listData($condition);
 	}
+
 	//出金列表
 	public function listData($condition) {
-		$page = Safe::filterGet('page', 'int', 1);
-		$begin = Safe::filterGet('begin');
-		$end = Safe::filterGet('end');
-		$down = Safe::filterGet('down', 'int', 0);
-		$condition['down'] = $down;
-
-
 		$fundOutModel = new fundOutModel();
-		$data = $fundOutModel->getFundOutList($page, $this->pagesize, $condition);
+		$data = $fundOutModel->getFundOutList($condition);
 
+		$down = safe::filterGet('down', 'int', 0);//是否导出
 		if ($down == 1) {
-			$excel = array(0 => array('用户名', '手机号', '订单号',  '金额', '状态', '时间'));
-			foreach ($data['list'] as $key => $value) {
-				$item = array();
-				$item['username'] = $value['username'];
-				$item['mobile'] = $value['mobile'];
-				$item['order_no'] = $value['request_no'];
-				$item['amount'] = $value['amount'];
-				$item['status_text'] = $fundOutModel::getFundOutStatustext($value['status']);
-				$item['create_time'] = $value['create_time'];
-				array_push($excel, $item);
-			}
-			$obj = new \Library\Excel\ExcelHtml();
-			$obj->createExecl($excel, count($excel[0]), "{$begin}至{$end}{$condition['name']}信息报表");
-			exit();
+			$this->downExcel($data['list'], $condition);
 		}
-
 		$this->getView()->assign('data', $data);
-		$this->getView()->assign('isDown', 1);
 	}
+
 	//出金详情页
 	public function fundOutEditAction() {
 		$id = safe::filterGet('id', 'int');

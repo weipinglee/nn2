@@ -22,7 +22,7 @@ class fundOutModel {
 		'freezeLess' => array('code' => 0, 'info' => '冻结金额不足'),
 		'outOk' => array('code' => 1, 'info' => '操作成功'),
 	);
-	public function getFundOutList($page = 1, $pagesize, $condition) {
+	public function getFundOutList($condition) {
 		$fundOut = new adminQuery('withdraw_request as w');
 
 		$fundOut->join = 'left join user as u on w.user_id = u.id';
@@ -33,13 +33,11 @@ class fundOutModel {
 		else
 			$fundOut->where = ' w.is_del = 0';
 
-		if ($condition['down'] != 1) {
-		            $fundOut->page = $page;
-		            $fundOut->pagesize = $pagesize;
-		}
-
-
 		$outInfo = $fundOut->find();
+		
+		foreach ($outInfo['list'] as $key => &$value) {
+			$value['status_text'] = $this->getFundOutStatustext($value['status']);
+		}
 
 		return $outInfo;
 	}
