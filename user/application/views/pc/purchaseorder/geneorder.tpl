@@ -119,7 +119,7 @@
                    <div id="bain_bo">
                    <form action="{url:/PurchaseOrder/geneOrderHandle}" auto_submit pay_secret="1" redirect_url="{url:/purchase/lists}" method="post" enctype="multipart/form-data">
                    <div class="sty_online" style="display:block;">
-                        
+                       <input type="hidden" value="online" name="payment"/>
 						      <label for=""><input name="account" type="radio" value="1" checked="true"/>市场代理账户</label>
 						      <label for=""><input name="account" type="radio" value="2" />银行签约账户</label>
 						      <label for=""><input name="account" type="radio" value="3" />票据账户</label>

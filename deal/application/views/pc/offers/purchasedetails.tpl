@@ -24,7 +24,6 @@
                                 {$data['product_name']}
                             </h3>
                         </li>
-                        <li>编号：<i>{$data['id']}</i> </li>
                         <li> 产地：<i><span id="areatext">{areatext:data=$data['produce_area'] id=areatext }</span></i></li>
                         <li>卖方：<i>{$user['company_name']}</i></li>
                         <li>发布时间：<i>{$data['apply_time']}</i></li>
@@ -60,10 +59,6 @@
                     <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>产品参数</span></h5>
                     <table>
                         <tr>                <th colspan="2">商品明细</th>            </tr>
-                        <tr>
-                            <td style="width:15%">商品编号</td>
-                            <td>{$data['id']}</td>
-                        </tr>
                         <tr>
                             <td>品名</td>
                             <td>{$data['product_name']}</td>
@@ -120,7 +115,7 @@
                             <th colspan="2">交收详情</th>
                         </tr>
                         <tr>
-                            <td>交收日</td>
+                            <td>交收时间</td>
                             <td>成交后顺延T+{$data['accept_day']}天开始交收</td>
                         </tr>
                         <tr>
@@ -132,16 +127,17 @@
                             <td>有效期</td>
                             <td>{$data['expire_time']}</td>
                         </tr>
-                    </table>
-
-                    <h5 class="tit"><i><img src="{views:images/pro_show_04.jpg}"></i><span>质量标准</span></h5>
-                    <table style="width:100%;">
-
-                        <tr>
-                            <td>质量标准</td>
+                         <tr>
+                            <td>产品描述</td>
                             <td>{$data['note']}</td>
                         </tr>
                     </table>
+<!-- 
+                    <h5 class="tit"><i><img src="{views:images/pro_show_04.jpg}"></i><span>质量标准</span></h5>
+                    <table style="width:100%;">
+
+                       
+                    </table> -->
                     
                     <style type="text/css">
                         .pro_pic{float: left;margin-right: 20px;}

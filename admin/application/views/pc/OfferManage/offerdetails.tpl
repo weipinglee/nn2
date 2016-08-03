@@ -1,6 +1,6 @@
 
         <!--            
-              CONTENT 
+              CONTENT
                         --> 
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" />报盘管理
@@ -53,7 +53,7 @@
                      {/foreach}
                  </td>
                  <th>可否拆分</th>
-                 <td>{if:$info['divide'] == 0}可拆分{else:}否{/if}</td>
+                 <td>{if:$info['divide'] == 1}可拆分{else:}否{/if}</td>
 
              </tr>
 
@@ -93,7 +93,7 @@
                  <td>{$info['accept_area']}</td>
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
-                     <td><img src="{$info['sign_thumb']}" /></td>
+                     <td>{$info['sign_thumb']}</td>
                  {else:}
                      <th></th>
                      <td></td>
@@ -101,7 +101,14 @@
              </tr>
              <tr>
                  <th>图片</th>
-                 <td></td>
+                 <td>
+
+                     {foreach:items=$info['photos']}
+                         <img src="{$item}"  />
+                     {/foreach}
+
+
+                 </td>
                  <th>商品属性</th>
                  <td >
                      {foreach:items=$info['attr_arr']}
@@ -111,11 +118,44 @@
                  <th>描述</th>
                  <td>{$info['note']}</td>
              </tr>
+                <tr>
+                 <th>是否投保</th>
+
+                 <td>
+                     {if: $info['insurance'] == 1}是{else:}否{/if}
+                 </td>
+                    {if: $info['insurance'] == 1}
+                 <th>保险产品</th>
+                 <td >
+ {foreach: items=$riskData}
+                                    保险公司：{$item['company']} - 保险产品：{$item['name']} {if:$item['mode']==1}比例 : ({$item['fee']}){else:}定额 : ({$item['fee']}){/if}<br />
+                                   {/foreach}
+                 </td>
+                 {else:}
+                 <th></th>
+                 <td >
+
+                 </td>
+                 {/if}
+                 <th></th>
+                 <td></td>
+             </tr>
 
              <tr>
                  <th>操作</th>
 
                  <th scope="col" colspan="7">
+                     <form action="{url:trade/OfferManage/kefuAdd}" method="post" auto_submit redirect_url="{url:trade/OfferManage/offerList}">
+                         <input type="hidden" name="offer_id" value="{$info['id']}" />
+                         <select name="kefu" >
+                             <option value="0">请选择客服</option>
+                             {foreach:items=$kefu}
+                                 <option value="{$item['admin_id']}" {if:$info['kefu']==$item['admin_id']}selected="true"{/if}>{$item['ser_name']}</option>
+                             {/foreach}
+                         </select>
+
+                         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;绑定客服&nbsp;&nbsp;">
+                     </form>
 
                      <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>

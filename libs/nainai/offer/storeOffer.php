@@ -25,9 +25,8 @@ class storeOffer extends product{
         if($quantity<=$productOffer['minimum']){
             $productOffer['minimum'] = $quantity;
         }
-        $img = $pro->table('product_photos')->where(array('products_id'=>$productOffer['product_id']))->getObj();
         $productOffer['expire_time'] = $this->getExpireTime();
-        $productOffer['img'] = $img['img'];
+
         if ($this->_productObj->validate($this->productOfferRules, $productOffer)) {
             $productOffer['mode'] = self::STORE_OFFER;
 

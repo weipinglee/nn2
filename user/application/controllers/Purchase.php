@@ -60,7 +60,6 @@ class PurchaseController extends UcenterBaseController{
 	    $detail = array(
 	        'name'         => Safe::filterPost('warename'),
 	        'cate_id'      => Safe::filterPost('cate_id', 'int'),
-	        'price'        => Safe::filterPost('price'),
 	        'quantity'     => Safe::filterPost('quantity', 'int'),
 	        'attribute'    => empty($attrs) ? '' : serialize($attrs),
 	        'note'         => Safe::filterPost('note'),

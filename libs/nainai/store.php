@@ -70,7 +70,7 @@ class store{
     public function getManagerStoreDetail($id,$user_id){
         $store_id = $this->getManagerStoreId($user_id);//根据$user_id获取
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid,a.user_id,a.cang_pos,a.sign_time,a.user_time,a.market_time,a.check_org,a.check_no,a.confirm,a.product_id,a.status,a.package,a.package_unit,a.package_num,a.package_weight, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid, b.price, d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
+        $query->fields = 'a.id as sid,a.user_id,a.cang_pos,a.sign_time,a.user_time,a.market_time,a.check_org,a.check_no,a.confirm,a.product_id,a.status,a.package,a.package_unit,a.package_num,a.package_weight, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid,  d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
         $query->where = ' a.id=:id AND a.store_id=:store_id';
         $query->bind = array('id' => $id,'store_id'=>$store_id);
@@ -258,11 +258,12 @@ class store{
      * @param int $id 仓单id
      * @param int $user_id 用户id
      */
-    public function userCheck($status,$id,$user_id){
+    public function userCheck($status,$id,$user_id, $msg){
         if($this->getStoreProductStatus($id)==self::STOREMANAGER_SIGN) {
             $store = array();
             $store['status'] = intval($status) == 1 ? self::USER_AGREE : self::USER_REJECT;
             $store['user_time'] = \Library\Time::getDateTime();
+            $store['msg'] = $msg;
             $res = $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
             if($res===true){
                 return tool::getSuccInfo();
@@ -339,7 +340,6 @@ class store{
             $query->where = ' a.id=:id ';
             $query->bind = array('id' => $id);
         }
-
         $detail =  $query->getObj();//仓单详情，不包括商品
 
          if(empty($detail)){
@@ -349,6 +349,8 @@ class store{
         $detail['status_txt'] = $this->getStatusText($detail['status']);
         $detail['confirm_thumb'] = \Library\thumb::get($detail['confirm'],180,180);
         $detail['confirm_orig'] = \Library\thumb::getOrigImg($detail['confirm']);
+        $detail['quality_thumb'] = \Library\thumb::get($detail['quality'],180,180);
+        $detail['quality_orig'] = \Library\thumb::getOrigImg($detail['quality']);
         //获取商品信息
         $productModel = new product();
 
@@ -422,6 +424,40 @@ class store{
         return $resInfo;
 
 
+    }
+
+    public function updateStoreProduct($productData,$storeData, $product_id, $id){
+        $productObj = new product();
+         $storeProductObj = new M($this->storeProduct);
+        //验证商品数据和仓单数据
+        if($productObj->proValidate($productData) && $storeProductObj->validate($this->storeProductRules,$storeData)){
+            $storeProductObj->beginTrans();
+            $storeProductObj->table('products')->where('id=:id')->bind(array('id' => $product_id))->data($productData[0])->update(1);
+            $imgData = $productData[1];
+            if (intval($product_id) > 0) {
+                //插入图片数据
+                if (!empty($imgData)) {
+                    foreach ($imgData as $key => $imgUrl) {
+                        $imgData[$key]['products_id'] = $product_id;
+                    }
+                    $storeProductObj->table('product_photos')->data($imgData)->adds(1);
+
+                }
+                $storeProductObj->table($this->storeProduct)->where('id=:id')->bind(array('id' => $id))->data($storeData)->update(1);
+            }
+            $res = $storeProductObj->commit();
+        }
+        else{
+            $res = $productObj->getErrorMessage();
+            $res = $storeProductObj->getError();
+        }
+        if($res===true){
+            $resInfo = Tool::getSuccInfo(1, 'success');
+        }
+        else{
+            $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+        }
+        return $resInfo;
     }
 
 

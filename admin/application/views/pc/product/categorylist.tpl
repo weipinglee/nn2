@@ -54,7 +54,7 @@
 					<a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:trade/product/setStatusCate?id=$item['id']}"><i class="icon-play fa-play"></i></a>
 					{/if}<a title="编辑" href="{url:trade/product/categoryAdd?cid=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
 
-					<a title="删除" href="javascript:;"  class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
+					<a title="删除" ajax_status=-1 ajax_url="{url:trade/product/logicDelCate?id=$item['id']}" href="javascript:;"  class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 
 		{/foreach}

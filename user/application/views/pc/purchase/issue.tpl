@@ -58,7 +58,7 @@
 
     </tr>
     <tr>
-        <td nowrap="nowrap"><span></span>商品价格区间:</td>
+        <td nowrap="nowrap"><span></span>商品价格区间：</td>
         <td>
             <span>
                 <input class="text" style="width:90px;" type="text" errormsg="填写正确填写单价" name="price"> -
@@ -74,7 +74,7 @@
         </td> -->
     </tr>
     <tr>
-        <td nowrap="nowrap"><span></span>数量:</td>
+        <td nowrap="nowrap"><span></span>数量：</td>
         <td>
             <span><input class="text" type="text" datatype="float" errormsg="填写正确填写数量" name="quantity"></span>
             <span></span>
@@ -88,7 +88,7 @@
 
     <tr>
     <tr>
-        <td nowrap="nowrap"><span></span>单位:</td>
+        <td nowrap="nowrap"><span></span>单位：</td>
         <td>
             <span class="unit" >{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
         </td>
@@ -114,7 +114,7 @@
     </tr>
 
     <tr>
-        <td>产地:</td>
+        <td>产地：</td>
         <td colspan="2">
             <span>{area:}</span>
             <span></span>

@@ -12,7 +12,7 @@
 
     </tr>
     <tr>
-        <td nowrap="nowrap"><span></span>商品单价:</td>
+        <td nowrap="nowrap"><span></span>商品单价：</td>
         <td>
             <span> <input class="text" type="text" datatype="money" errormsg="请正确填写单价" name="price"></span>
             <span></span>
@@ -24,7 +24,7 @@
         </td> -->
     </tr>
     <tr>
-        <td nowrap="nowrap"><span></span>数量:</td>
+        <td nowrap="nowrap"><span></span>数量：</td>
         <td>
             <span><input class="text" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity"></span>
             <span></span>
@@ -37,7 +37,7 @@
         </td> -->
     </tr>
     <tr>
-        <td nowrap="nowrap"><span></span>单位:</td>
+        <td nowrap="nowrap"><span></span>单位：</td>
         <td>
             <span class="unit">{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
         </td>
@@ -64,14 +64,14 @@
                             </tr>
                             
     <tr>
-        <td nowrap="nowrap"><span></span>是否投保:</td>
+        <td nowrap="nowrap"><span></span>是否投保：</td>
         <td>
             <span> <input type="radio" name="insurance" value="1"  checked="true">是 <input type="radio" name="insurance" value="0" >否</span>
         </td>
     </tr>
 
     <tr id="riskdata" >
-        <td ><span></span>保险:</td>
+        <td ><span></span>保险：</td>
         <td>
             <span> 
             {if: !empty($risk_data)}
@@ -88,7 +88,7 @@
     <input type="hidden" name="ajax_url" id="ajax_url" value="{url: Trade/Insurance/ajaxGetCate}">
 
     <tr>
-        <td>产地:</td>
+        <td>产地：</td>
         <td colspan="2">
             <span id="areabox">{area:}</span>
             <span></span>

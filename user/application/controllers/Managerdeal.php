@@ -139,6 +139,10 @@ class ManagerDealController extends UcenterBaseController {
                'risk' =>implode(',', Safe::filterPost('risk', 'int'))
             );
 
+            if(!$offerData['risk']){
+                $offerData['risk'] = '';
+            }
+
             $offerObj = new freeOffer($this->user_id);
             $productData = $this->getProductData();
             if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
@@ -185,10 +189,14 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
                 'price'        => safe::filterPost('price', 'float'),
-                 'insurance' => Safe::filterPost('insurance', 'int'),
-                 'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+                 'insurance' => Safe::filterPost('insurance', 'int',''),
+
+                'risk' =>implode(',', Safe::filterPost('risk', 'int'))
                // 'acc_type'   => 1,
             );
+            if(!$offerData['risk']){
+                $offerData['risk'] = '';
+            }
 
             $depositObj = new depositOffer($this->user_id);
             $productData = $this->getProductData();
@@ -247,6 +255,9 @@ class ManagerDealController extends UcenterBaseController {
                 // 'acc_type'   => 1,
             );
 
+            if(!$offerData['risk']){
+                $offerData['risk'] = '';
+            }
             $deputeObj = new deputeOffer($this->user_id);
             $productData = $this->getProductData();
             if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
@@ -400,8 +411,8 @@ class ManagerDealController extends UcenterBaseController {
         if (IS_POST) {
 
             $token = safe::filterPost('token');
-            if(!safe::checkToken($token))
-                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+           // if(!safe::checkToken($token))
+              //  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
 
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
             $storeObj = new \nainai\store();
@@ -420,6 +431,10 @@ class ManagerDealController extends UcenterBaseController {
                     'insurance' => Safe::filterPost('insurance', 'int'),
                     'risk' =>implode(',', Safe::filterPost('risk', 'int'))
                 );
+
+                if(!$offerData['risk']){
+                    $offerData['risk'] = '';
+                }
 
                 $offerObj = new \nainai\offer\storeOffer($this->user_id);
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');
@@ -511,8 +526,9 @@ class ManagerDealController extends UcenterBaseController {
         if(IS_POST){
             $storeProductID = safe::filterPost('id','int',0);
             $status = safe::filterPost('status','int',0);
+            $msg = safe::filterPost('msg');
             $store = new store();
-           $res = $store->userCheck($status,$storeProductID,$this->user_id);
+           $res = $store->userCheck($status,$storeProductID,$this->user_id, $msg);
            die(json::encode($res));
 
         }
@@ -618,6 +634,68 @@ class ManagerDealController extends UcenterBaseController {
         }
 
 
+    }
+    /**
+     * 修改仓单信息
+     */
+    public function updateStoreAction(){
+        $id = Safe::filterGet('id','int',0);
+        if($id){
+            $stObj = new store();
+            $detail = $stObj->getUserStoreDetail($id,$this->user_id);
+            $user = new \nainai\member();
+            $res = $user->getUserDetail(array('id'=>$this->user_id));
+            $this->productAddAction();
+
+            $this->getView()->assign('detail', $detail);
+            $this->getView()->assign('user', $res);
+        }else{
+            $this->error('错误的请求方式!');
+        }
+    }
+
+    /**
+     * 处理仓单签发
+     */
+    public function doupdateStoreAction(){
+
+        if (IS_POST) {
+            $product_id = safe::filterPost('product_id');
+            // $id = safe::filterPost('id');
+            $id = 39;
+            if (empty($product_id) || empty($id)) {
+                $this->error('错误的请求方式!');
+            }
+            $storeProduct = array(
+                'store_pos' => safe::filterPost('pos'),
+                'cang_pos'  => safe::filterPost('cang'),
+                'store_price'=> safe::filterPost('store_price'),
+                'in_time' => safe::filterPost('inTime'),
+                'rent_time' => safe::filterPost('rentTime'),
+                'check_org' => safe::filterPost('check'),
+                'check_no'  => safe::filterPost('check_no'),
+                'package'   => safe::filterPost('package','int')
+            );
+            if ($storeProduct['package']) {
+                $storeProduct['package_unit'] = safe::filterPost('packUnit');
+                $storeProduct['package_num'] = safe::filterPost('packNumber', 'float');
+                $storeProduct['package_weight'] = safe::filterPost('packWeight', 'float');
+            }
+            if (!empty(safe::filterPost('imgfile1'))) {
+                $storeProduct['confirm'] = \Library\tool::setImgApp(safe::filterPost('imgfile1'));
+            }
+            if (!empty(safe::filterPost('imgfile2'))) {
+                $storeProduct['quality'] = \Library\tool::setImgApp(safe::filterPost('imgfile2'));
+            }
+
+            $productData = $this->getProductData();
+            $productData[0]['user_id'] = $user_id;
+
+            $store = new store();
+            $res = $store->updateStoreProduct( $productData,$storeProduct,$product_id, $id);
+            die(json::encode($res));
+        }
+        $this->redirect('managerdeal/storeproductdetail');
     }
 
 

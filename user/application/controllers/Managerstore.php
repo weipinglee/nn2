@@ -104,7 +104,7 @@ class ManagerStoreController extends UcenterBaseController{
 
 			$this->getView()->assign('storeDetail', $data);
 		}else{
-			$this->redirect('/ManagerStore/ApplyStoreList');
+			$this->redirect(url::createUrl('/ManagerStore/ApplyStoreList'));
 		}
 	}
 
@@ -126,6 +126,8 @@ class ManagerStoreController extends UcenterBaseController{
 		$this->getView()->assign('unit', $category['unit']);
 		$this->getView()->assign('cate_id', $category['default']);
 	}
+
+	//仓单签发
 	public function storeSignAction(){
 		$store_list = store::getStoretList();
 
@@ -173,7 +175,7 @@ class ManagerStoreController extends UcenterBaseController{
 			$this->getView()->assign('storeDetail', $data);
 			$this->getView()->assign('photos', $data['photos']);
 		}else{
-			$this->redirect('/ManagerStore/ApplyStoreList');
+			$this->redirect(url::createUrl('/ManagerStore/ApplyStoreList'));
 		}
 	}
 
@@ -229,6 +231,8 @@ class ManagerStoreController extends UcenterBaseController{
 		if(!empty($imgData)){
 			foreach ($imgData as $imgUrl) {
 				if (!empty($imgUrl) && is_string($imgUrl)) {
+					if(!isset($detail['img']) || $detail['img']=='')
+						$detail['img'] = \Library\tool::setImgApp($imgUrl);
 					array_push($resImg, array('img' => \Library\tool::setImgApp($imgUrl)));
 				}
 			}
@@ -257,9 +261,9 @@ class ManagerStoreController extends UcenterBaseController{
 				'check_no'  => safe::filterPost('check_no'),
 				'sign_time' => \Library\time::getDateTime(),
 				'package'   => safe::filterPost('package','int'),
-				'confirm'   => \Library\tool::setImgApp(safe::filterPost('imgfile1'))
+				'confirm'   => \Library\tool::setImgApp(safe::filterPost('imgfile1')),
+				'quality'   => \Library\tool::setImgApp(safe::filterPost('imgfile2'))
 			);
-
 			if ($storeProduct['package']) {
 				$storeProduct['package_unit'] = safe::filterPost('packUnit');
 				$storeProduct['package_num'] = safe::filterPost('packNumber', 'float');

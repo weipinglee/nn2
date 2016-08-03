@@ -224,7 +224,14 @@
                        <li style="width:200px;"><%=data[i].produce_area%></li>
                        <li><%=data[i].accept_area%></li>
                        <li><%=data[i].left%> (<%=data[i].unit%>)</li>
-                       <li><i class="qian_blue">￥<%=data[i].price%></i></li>
+                       <li><i class="qian_blue">
+                               <% if(data[i].type == 1){ %>
+                               ￥<%=data[i].price%>
+                               <% }else { %>
+                               ￥<%=data[i].price_l%> - ￥<%=data[i].price_r%>
+                               <%}%>
+                           </i>
+                       </li>
                        <li>
                        <% if(data[i].insurance == 1){%>
                        <a href="" title="已投保"><img class="icon_img" src="{views:images/icon/icon_yb.png}"/></a>

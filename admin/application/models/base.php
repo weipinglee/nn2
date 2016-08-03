@@ -114,7 +114,7 @@ class baseModel{
 					$res =  $model->where($this->pk . '=:id')->bind(array('id'=>$args))->delete();
 				}
 				else{
-					$res =  $model->where($args)->bind(array('id'=>$args))->delete();
+					$res =  $model->where($args)->delete();
 				}
 			break;
 

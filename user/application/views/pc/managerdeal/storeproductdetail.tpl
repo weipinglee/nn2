@@ -134,7 +134,7 @@
                         <td colspan="2">图片预览</td>
                         <td colspan="6">
                             <span class="zhs_img">
-                                    {foreach: items=$photos item=$url}
+                                    {foreach: items=$storeDetail['photos'] item=$url}
                                         <img src="{$url}"/>
                                     {/foreach}
     				        </span>
@@ -143,6 +143,10 @@
                     <tr>
                         <td colspan="2">签字入库单</td>
                         <td colspan="6"> <img src="{$storeDetail['confirm_thumb']}" /></td>
+                    </tr>
+                     <tr>
+                        <td colspan="2">质检证书：</td>
+                        <td colspan="6"> <img src="{$storeDetail['quality_thumb']}" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">产品描述：</td>
@@ -160,10 +164,17 @@
                             </td>
                         </tr>
                         <tr>
+                            <td colspan="2">审核意见：</td>
+                            <td colspan="6">
+                                <textarea name="msg"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="8" class="btn">
                                 <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
                                 <input type="hidden" value="{$storeDetail['id']}" name="id">
                                 <input type="submit" value="提交">
+                                <a class="btoncomit" href="{url:/managerdeal/updateStore}?{set: echo http_build_query(array('id'=>$storeDetail['id']))}" >修改仓单</a>
                             </td>
                         </tr>
                     </form>
