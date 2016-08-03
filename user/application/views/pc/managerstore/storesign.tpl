@@ -288,7 +288,7 @@
                                 <td nowrap="nowrap"><span></span>租库价格：</td>
                                 <td colspan="2">
                                     <span>
-                                      <input name="store_price" class="text" value="" datatype="money" errormsg="请填写价格" type="text" />（/<span class="unit">{$unit}</span>/天）
+                                      <input name="store_price" class="text" value="" datatype="money|/^0?$/" errormsg="请填写价格" type="text" />（/<span class="unit">{$unit}</span>/天）
 
                                     </span>
                                     <span></span>
