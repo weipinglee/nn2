@@ -318,16 +318,9 @@ class FundController extends UcenterBaseController {
 		return false;
 	}
 	public function test4Action(){
-		$userRiskModel=new \nainai\riskControl\userRisk();
+		$userRiskModel=new \nainai\riskMgt\userRisk();
 		$params=array('user_id'=>$this->user_id,'ip'=>'222.129.28.29');
 		$res1=$userRiskModel->checkUserAddress($params);
-		var_dump($res1);
-			if($res1==false){
-			$data['introduce']='nimei';
-				$data['user_id']=$params['user_id'];
-			$res2=$userRiskModel->writeRecord($data);
-			var_dump($res2);
-		}
 		$res=$userRiskModel->addUseAddress($params);
 		var_dump($res);
 		die;

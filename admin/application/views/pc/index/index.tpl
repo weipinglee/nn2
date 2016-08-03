@@ -285,7 +285,17 @@
 
                     </ul>
                 </li>
+                <li><a   target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 风险管理</a>
+                    <ul>
+                        <li><a  target="content">预警管理</a>
+                            <ul>
+                                <li><a target="content" href="{url:riskMgt/riskMgt/userRiskList}">会员预警</a></li>
+                            </ul>
+                        </li>
 
+
+                    </ul>
+                </li>
 
 
             </ul>
