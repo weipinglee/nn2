@@ -33,6 +33,13 @@ class LoginController extends \Yaf\Controller_Abstract {
 		$ca->CreateImage();
 	}
 
+	/**
+	 * 注册协议
+	 */
+	public function agreementAction(){
+
+	}
+
 
 	/**
 	 *注册页面
