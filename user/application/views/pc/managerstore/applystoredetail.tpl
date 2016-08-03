@@ -33,6 +33,10 @@
                         <td colspan="6"> {$storeDetail['cang_pos']}</td>
                     </tr>
                     <tr>
+                        <td colspan="2"> 组库价格</td>
+                        <td colspan="6"> {$storeDetail['store_price']}（/kg/天） </td>
+                    </tr>
+                    <tr>
                         <td colspan="2">签发时间</td>
                         <td colspan="6">{$storeDetail['sign_time']}</td>
                     </tr>
@@ -136,7 +140,10 @@
                         <td colspan="2">签字入库单</td>
                         <td colspan="6"> <img src="{$storeDetail['confirm_thumb']}" /></td>
                     </tr>
-
+<tr>
+                        <td colspan="2">质检证书：</td>
+                        <td colspan="6"> <img src="{$storeDetail['quality_thumb']}" /></td>
+                    </tr>
                     <tr>
                         <td class="spmx_title" colspan="8">用户信息</td>
                     </tr>
@@ -168,13 +175,15 @@
                     </tr>
                     <tr>
                         <td colspan="2">联系电话</td>
-                        <td colspan="6">{$user['contact_phone']} </td>
+                        <td colspan="6">{$user['contact_phone']}</td>
                     </tr>
 
                     <tr>
                         <td colspan="8">
                             <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
+                              <a class="btoncomit" href="{url:/managerstore/updateStore}?{set: echo http_build_query(array('id'=>$storeDetail['sid']))}" >修改仓单</a>
                         </td>
+
                     </tr>
                 </table>
             </form>

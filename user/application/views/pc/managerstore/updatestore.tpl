@@ -1,10 +1,13 @@
-﻿
+
 <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <script type="text/javascript" src="{views:js/product/storeproduct.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
+
+
+
             <div class="user_c">
                 <div class="user_zhxi">
 
@@ -39,38 +42,30 @@
                         <div class="user_c" style="border:0px;margin-left:0px;">
                             <div class="user_zhxi">
                                 <div class="center_tabl">
-                                    <div class="lx_gg sear_mx" style="background:#fff;">
-                                        <span>用户名：</span>
-                                        <input name="username" type="text" />
-                                        <input type="hidden" name="getUserUrl" value="{url:/managerstore/getUser}" />
-                                        <button class="search_an" onclick="fundUser()" type="button">获取</button>
-                                    </div>
                                     <div class="lx_gg">
-                                    
-
                                         <table class="table2" cellpadding="0" cellspacing="0" id="userData">
                                             <tr>
                                                 <td class="spmx_title" colspan="2">会员信息</td>
                                             </tr>
                                             <tr>
                                                 <td>用户名</td>
-                                                <td id="username"></td>
+                                                <td id="username">{$user['username']}</td>
                                             </tr>
                                             <tr>
                                                 <td>企业名称</td>
-                                                <td id="company_name"></td>
+                                                <td id="company_name">{$user['company_name']}</td>
                                             </tr>
                                             <tr>
                                                 <td>地区</td>
-                                                <td id="area"></td>
+                                                <td id="area">{$user['area']}</td>
                                             </tr>
                                             <tr>
                                                 <td>地址</td>
-                                                <td id="address"></td>
+                                                <td id="address">{$user['address']}</td>
                                             </tr>
                                             <tr>
                                                 <td>联系方式</td>
-                                                <td id="mobile"></td>
+                                                <td id="mobile">{$user['mobile']}</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -93,23 +88,13 @@
                     <div class="lx_gg">
                         <b>商品类型</b>
                     </div>
-                           {if: !empty($categorys)}
-
-                        {foreach: items=$categorys item=$category key=$level}
+                         {if: !empty($categorys)}
+                        {foreach: items=$categorys item=$category key=$level}   
                             <div class="class_jy" id="level{$level}">
-                                <span class="jy_title">
-                                    {if: isset($childName)}
-                                        {$childName}：
-                                    {else:}
-                                        市场类型：
-                                    {/if}
-                                </span>
+                                <span class="jy_title">市场类型：</span>
                                 <ul>
                                     {foreach: items=$category['show'] item=$cate}
-                                    <li value="{$cate['id']}"  {if: $key==0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
-                                    {if: $key == 0}
-                                    {set: $childName = $cate['childname']}
-                                    {/if}
+                                    <li value="{$cate['id']}"  {if: $key==0} class="a_choose"{/if}  ><a>{$cate['name']}</a></li>
                                     {/foreach}
                                 </ul>
 
@@ -117,17 +102,17 @@
                             </div>
                         {/foreach}
                         {/if}
-                  <form action="{url:/ManagerStore/doStoreSign}" method="post" auto_submit redirect_url="{url:/managerstore/applystorelist?type=2}">
 
+                  <form action="{url:/ManagerStore/doUpdateStore}" method="post" auto_submit redirect_url="{url:/managerstore/applystoredetail?id=$detail['id']}">
                         <table border="0"  >
-                            <input type="hidden" name="user_id" datatype="n"/>
+                            <input type="hidden" name="user_id" datatype="n" value="{$user['id']}" />
                             <tr>
                                <th colspan="3">基本挂牌信息</th>
                             </tr>
                             <tr>
                             <td nowrap="nowrap"><span></span>商品标题：</td>
                             <td colspan="2"> 
-                                <span><input class="text" type="text" datatype="s1-30" errormsg="填写商品标题" name="warename">
+                                <span><input class="text" type="text" datatype="s1-30" errormsg="填写商品标题" name="warename" value="{$detail['product_name']}">
                                     </span>
                                 <span></span>
                             </td>
@@ -143,7 +128,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>数量：</td>
                                 <td> <span>
-                                         <input class="text" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity">
+                                         <input class="text" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity" value="{$detail['quantity']}">
 
                                     </span>
                                     <span></span>
@@ -158,7 +143,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>单位：</td>
                                 <td>
-                                    <span class="unit">{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
+                                    <span class="unit">{$detail['unit']}</span><input type="hidden" name="unit"  value="{$detail['unit']}"/>
                                 </td>
                                 <!--  <td>
                                     请选择支付保证金比例:
@@ -170,11 +155,7 @@
                                     <tr class="attr">
                                         <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
                                         <td colspan="2">
-                                            {if: $attr['type'] == 1}
                                             <input class="text" type="text" name="attribute[{$attr['id']}]" >
-                                            {elseif: $attr['type'] == 2}
-                                            <input type="radio" name="attribute[{$attr['id']}]" value="{$attr['value']}" />
-                                            {/if}
                                         </td>
                                     </tr>
                             {/foreach}
@@ -184,23 +165,35 @@
                             <td ></td>
                             </tr>
                             
-                            <tr>
+<!--                             <tr id="textarea">
+                            <td>产地：</td>
+                            <td colspan="2" >
+                                <span id="areabox">{areatext:data=$detail['produce_area']}</span>
+                                <span><a onclick="showArea(1)">修改</a></span>
+                            </td>
+                         
+                        </tr> -->
+                            
+                            <tr id="sarea" >
                             <td>产地：</td>
                             <td colspan="2" >
                                 <span id="areabox">{area:}</span>
-                                <span></span>
+                                <span><!-- <a onclick="showArea(0)">返回</a> --></span>
                             </td>
                          
                         </tr>
-                            
                                
 
                             <tr>
                                 <td>上传图片：</td>
-                                <td>
+                                <td colspan="2" >
                                    {include:layout/webuploader.tpl}
+                                    {foreach: items=$detail['photos'] item=$url}
+                                        <img src="{$url}"/>
+                                    {/foreach}
                                  </td>
                              </tr>
+
                          <tr>
                              <th colspan="3"><b>详细信息</b></th>
                         </tr>
@@ -210,29 +203,29 @@
                                         <td>是否包装：</td>
                                         <td colspan="2">
                                             <select name="package" id="package">
-                                                <option value="1" selected="selected">是</option>
-                                                <option value="0">否</option>
+                                                <option value="1" {if: $detail['package'] == 1}selected="selected"{/if}>是</option>
+                                                <option value="0" {if: $detail['package'] == 0}selected="selected"{/if}>否</option>
                                             </select>
                                         </td>
 
                                    </tr>
 
-                                   <tr id="packUnit" >
+                                   <tr id="packUnit" {if: $detail['package'] == 0}style="display:none;"{/if}>
                                                  <td>包装单位：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packUnit" >
+                                                <input type="text" class='text' name="packUnit" value="{$detail['page_unit']}">
                                             </td>
-                                            </tr>
-                                            <tr id='packNumber'>
+                                            </tr >
+                                            <tr id='packNumber' {if: $detail['package'] == 0}style="display:none;"{/if}>
                                             <td>包装数量：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packNumber" >
+                                                <input type="text" class='text' name="packNumber" value="{$detail['page_num']}">
                                             </td>
-                                            </tr>
-                                            <tr id='packWeight'>
+                                            </tr >
+                                            <tr id='packWeight' {if: $detail['package'] == 0}style="display:none;"{/if}>
                                             <td>包装重量：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packWeight" >
+                                                <input type="text" class='text' name="packWeight" value="{$detail['page_weight']}">
                                             </td>
                                    </tr>
 
@@ -247,14 +240,16 @@
                         <tr>
                             <td>产品描述：</td>
                             <td colspan="2">
-                                <textarea name="note"></textarea>
+                                <textarea name="note">{$detail['note']}</textarea>
                             </td>
                         </tr>
                         <input type="hidden" name="token" value="{$token}" />
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
-                            <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
+                            <input type="hidden" name='cate_id' id="cate_id" value="{$detail['cate_id']}">
+                            <input type="hidden" name='product_id' id="cate_id" value="{$detail['product_id']}">
+                            <input type="hidden" name='id' id="cate_id" value="{$detail['id']}">
                             </td>
                         </tr>
                          
@@ -288,7 +283,7 @@
                                 <td nowrap="nowrap"><span></span>库位：</td>
                                 <td colspan="2"> 
                                     <span>
-                                        <input class="text" type="text" name="pos" datatype="/^[(?=[\x21-\x7e]+)\w]{2, 20}$/" errormsg="库位请填写1-20位字符" />
+                                        <input class="text" value="{$detail['store_pos']}" type="text" name="pos" datatype="/^[(?=[\x21-\x7e]+)\w]{2, 20}$/" errormsg="库位请填写1-20位字符" />
                                     </span>
                                     <span></span>
                                 </td>
@@ -296,14 +291,14 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>仓位：</td>
                                 <td colspan="2"> 
-                                    <input class="text" name="cang" type="text">
+                                    <input class="text" name="cang" type="text"  value="{$detail['cang_pos']}">
                                 </td>
                             </tr>
                             <tr>
                                 <td nowrap="nowrap"><span></span>租库价格：</td>
                                 <td colspan="2">
                                     <span>
-                                      <input name="store_price" class="text" value="" datatype="money" errormsg="请填写价格" type="text" />（/<span class="unit">{$unit}</span>/天）
+                                      <input name="store_price" class="text" value="{$detail['store_price']}" datatype="money" errormsg="请填写价格" type="text" />（/<span class="unit">{$unit}</span>/天）
 
                                     </span>
                                     <span></span>
@@ -313,7 +308,7 @@
                                 <td nowrap="nowrap"><span></span>入库日期：</td>
                                 <td colspan="2"> 
                                     <span>
-                                        <input name="inTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+                                        <input name="inTime"  value="{$detail['in_time']}" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
                                     </span>
                                     <span></span>
                                 </td>
@@ -322,7 +317,7 @@
                                 <td nowrap="nowrap"><span></span>租库日期：</td>
                                 <td colspan="2">
                                     <span>
-                                        <input name="rentTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+                                        <input name="rentTime"  value="{$detail['rent_time']}" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
 
                                     </span>
                                     <span></span>
@@ -331,13 +326,13 @@
                             <tr >
                                 <td nowrap="nowrap"><span></span>检测机构：</td>
                                 <td colspan="2"> 
-                                    <input class="text" name="check" type="text">
+                                    <input class="text" name="check" type="text"  value="{$detail['check_org']}">
                                 </td>
                             </tr>
                             <tr >
                                 <td nowrap="nowrap"><span></span>质检证书编号：</td>
                                 <td colspan="2"> 
-                                    <input class="text" name="check_no" type="text">
+                                    <input class="text" name="check_no" type="text"  value="{$detail['check_no']}">
                                 </td>
                             </tr>
                               
@@ -350,7 +345,7 @@
 
                                     </div>
                                    
-                                    <img name="file1" />
+                                    <img name="file1"  src="{$detail['confirm_thumb']}" />
                                 </td>
                             </tr>
 
@@ -363,7 +358,7 @@
 
                                     </div>
                                    
-                                    <img name="file2" />
+                                    <img name="file2" src="{$detail['quality_thumb']}"/>
                                 </td>
                             </tr>
 

@@ -41,7 +41,7 @@ class adminQuery extends \Library\Query{
             $this->pagesize = 5000;
         }else{ //页面显示
             $this->page = $cond[0]['page'];
-            $this->pagesize = 1;
+            $this->pagesize = 10;
         }
 
         $list = parent::find();
