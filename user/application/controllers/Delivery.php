@@ -49,6 +49,16 @@ class DeliveryController extends UcenterBaseController {
         die(json::encode($res));
     }
 
+    public function deliveryInfoAction(){
+        $title = safe::filter($this->_request->getParam('title'));
+        $order_no = safe::filter($this->_request->getParam('order_no'));
+        $delivery_id = safe::filter($this->_request->getParam('delivery_id'));
+        $delivery = new \nainai\delivery\Delivery();
+        $info = $delivery->deliveryInfo($delivery_id);
+        $info['title'] = $title;
+        $info['order_no'] = $order_no;
+        $this->getView()->assign('info',$info);
+    }
     /**
      * 显示发货页面
      */
@@ -65,7 +75,6 @@ class DeliveryController extends UcenterBaseController {
         $this->getView()->assign('invoice',$invoice);
         $this->getView()->assign('info',$info);
     }
-
 
     public function deliBuyListAction(){
         $delivery = new \nainai\delivery\Delivery();

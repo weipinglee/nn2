@@ -149,9 +149,11 @@ class Delivery{
 					break;
 			}
 			// $this->addNewDelivery($value);
+			$action []= array('name'=>'详情','url'=>url::createUrl("/delivery/deliveryInfo?delivery_id={$value['delivery_id']}&title={$title}&order_no={$value['order_no']}"));
 			$value['action'] = $action;
 			$value['title'] = $title;
 			$value['href'] = $href;
+
 		}
 		// foreach ($arr as $key => $v) {
 		// 	array_splice($data, $key,0,array($v));
