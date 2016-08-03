@@ -34,6 +34,9 @@ class searchConfig {
             'like'=>array('o.order_no,o.order_no','订单号'),
              'time'=>array('o.create_time','创建时间'),
         ),
+        'user'       => array(
+                'like' => array('u.username,u.email,u.mobile','用户名、手机号、邮箱'),
+        ),
     );
 
     public static function config($tableName=''){

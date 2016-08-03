@@ -27,8 +27,7 @@ class MemberController extends Yaf\Controller_Abstract {
 		$m = new MemberModel();
 		$page = safe::filterGet('page','int');
 		$pageData = $m->getList($page);
-		$this->getView()->assign('member',$pageData['data']);
-		$this->getView()->assign('bar',$pageData['bar']);
+		$this->getView()->assign('data',$pageData);
 	}
 
 	public function detailAction(){

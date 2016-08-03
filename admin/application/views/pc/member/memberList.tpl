@@ -7,10 +7,9 @@
     </div>
     <div class="content">
         <div class="pd-20">
-	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜会员</button>
-	</div>
+			{include:layout/search.tpl}
+		</div>
+
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -27,11 +26,11 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$member}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 
 				<td>{$item['id']}</td>
-				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">{$item['username']}</u></td>
+				<td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
 
 				<td>{$item['mobile']}</td>
 				<td>{$item['email']}</td>
@@ -44,6 +43,6 @@
 		</tbody>
 
 	</table>
-		{$bar}
+		{$data['bar']}
 	</div>
 </div>

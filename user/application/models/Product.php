@@ -42,7 +42,7 @@ class productModel extends \nainai\offer\product{
 		return array('list' => $list, 'pageHtml' => $query->getPageBar());
 	}
 
-	
+
 
 
 	/**
