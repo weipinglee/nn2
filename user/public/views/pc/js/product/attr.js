@@ -134,17 +134,13 @@ function getCategory(){
                     
                     if(v.show){
                         $.each(v.show,function(key,value){
-                            if (data.childname) {
-                                box.find('.jy_title').text(data.childname+'：');
-                                data.childname = null;
-                            }else{
-                                if (key == 0) {
+                            box.find('.jy_title').text(data.childname+'：');
+                            if (key == 0) {
                                     if(value.childname){
-                                        box.find('.jy_title').text(value.childname+'：');
+                                        data.childname = value.childname;
+                                    }else{
+                                        data.childname = '商品分类';
                                     }
-                                    else
-                                        box.find('.jy_title').text('商品分类：');
-                                }
                             }
                             
                             if(key==0)
