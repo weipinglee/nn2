@@ -18,10 +18,12 @@ class searchConfig {
         'recharge_order' => array(
             'time'=>array('r.create_time','申请时间'),
             'like' => array('r.order_no,u.username','用户名，订单号'),
+            'down' => array('1', 1)
         ),
         'withdraw_request' => array(
             'time'=>array('w.create_time','申请时间'),
             'like' => array('w.request_no,u.username','用户名，订单号'),
+            'down' => array('1', 1)
         ),
          'user_account' => array(
             'like' => array('u.mobile,u.username','用户名，手机号'),
