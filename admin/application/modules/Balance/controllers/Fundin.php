@@ -29,7 +29,7 @@ class FundinController extends InitController {
 	//线下待审核列表
 	public function checkofflinelistAction() {
 		$condition = array('types' => fundInModel::OFFLINE, 'name' => '线下待审核列表', 'controller'=>'off');
-		$condition['status'] = fundInModel::OFFLINE_APPLY;
+		$condition['status'] = fundInModel::OFFLINE_APPLY.','.fundInModel::OFFLINE_FIRST_OK ;
 		$condition['type'] = 'recharge_orderoff';
 		$this->listData($condition);
 	}
@@ -37,7 +37,7 @@ class FundinController extends InitController {
 	//线下已审核审核列表
 	public function checkedofflinelistAction() {
 		$condition = array('types' => fundInModel::OFFLINE, 'name' => '线下已审核审核列表', 'controller'=>'off');
-		$condition['status'] = fundInModel::OFFLINE_FIRST_OK . ',' . fundInModel::OFFLINE_FIRST_NG . ','  . fundInModel::OFFLINE_FINAL_OK . ',' . fundInModel::OFFLINE_FINAL_NG ;
+		$condition['status'] =  fundInModel::OFFLINE_FIRST_NG . ','  . fundInModel::OFFLINE_FINAL_OK . ',' . fundInModel::OFFLINE_FINAL_NG ;
 		$condition['type'] = 'recharge_orderoff';
 		$this->listData($condition);
 	}
@@ -51,6 +51,7 @@ class FundinController extends InitController {
 		if ($down == 1) {
 			$this->downExcel($data['list'], $condition);
 		}
+
 		$this->getView()->assign('data', $data);
 	}
 	

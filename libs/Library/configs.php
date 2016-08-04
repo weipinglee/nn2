@@ -14,9 +14,9 @@ return array(
         'admin'=>'http://admin.test.com'
     ),
     'rootDir'=>array(
-        'user'=>'E:\wamp2.5\www\nn2\user\public',
-        'admin'=>'E:\wamp2.5\www\nn2\admin\public',
-        'deal'=>'E:\wamp2.5\www\nn2\deal\public'
+        'user'=>'E:\wamp\www\nn2\user\public',
+        'admin'=>'E:\wamp\www\nn2\admin\public',
+        'deal'=>'E:\wamp\www\nn2\deal\public'
 
     ),
     'sms'=>array(

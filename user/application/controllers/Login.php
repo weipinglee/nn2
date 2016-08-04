@@ -193,7 +193,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	public function logOutAction(){
 		$checkRight = new checkRight();
 		$checkRight->logOut();
-		$this->redirect('login');
+		$this->redirect(url::createUrl('/index/index@deal'));
 		return false;
 	}
 
