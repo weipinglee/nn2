@@ -257,6 +257,7 @@ class product {
         $step = 0;
         if($pid!=0){
             foreach($category as $k=>$v){
+                
                 $step += 1;
                 $chain[] = $k;
                 if($k!=$pid && !empty($category[$k]['child'])){
@@ -268,6 +269,7 @@ class product {
                 else if($k==$pid){
                     $pidChain = $chain;
                     $cate = $this->getchildCate($category[$k]['child']);
+                    $res['childname'] = $v['childname'];
                     if(empty($cate)){
                         $res['chain'] = $pidChain;
                         $res['cate']  = array();
@@ -287,13 +289,13 @@ class product {
         }
         else{
             $cate = $this->getchildCate($category);
+            $res['childname'] = $v['childname'];
             $res['chain'] = $cate[1];
             $res['cate']  = $cate[0];
             $res['default'] = $cate[1][count($cate[1])-1];
             $res['unit'] = $cate[2];
 
         }
-
 
         return $res;
     }
@@ -494,7 +496,7 @@ class product {
                 $photos = $imgObj->fields('id, img')->where(array('products_id'=>$pid))->select();
 
                 foreach ($photos as $key => $value) {
-                    $thumbs[$key] = Thumb::get($value['img'],150,150);
+                    $thumbs[$key] = Thumb::get($value['img'],180,180);
                     $photos[$key] = Thumb::getOrigImg($value['img']);
                 }
 

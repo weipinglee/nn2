@@ -13,7 +13,7 @@ use nainai\fund;
 use \Library\url;
 use \Library\tool;
 
-class FundinController extends Yaf\Controller_Abstract {
+class FundinController extends InitController {
 
 
 	public function init() {
@@ -21,32 +21,39 @@ class FundinController extends Yaf\Controller_Abstract {
 	}
 	//线上列表
 	public function onlineListAction() {
-
-		$page = safe::filterGet('page', 'int');
 		$fundObj = new fundInModel();
-		$data = $fundObj->getOnlineList($page);
-
-		//分配数据
-		$this->getView()->assign('data', $data);
-		//
+		$condition = array('types' => fundInModel::DIRECT. ',' . fundInModel::UNION, 'name' => '线上列表', 'controller'=>'line');
+		$condition['type'] = 'recharge_orderline';
+		$this->listData($condition);
 	}
-	//线下列表
-	public function checkOfflineListAction() {
-		$page = safe::filterGet('page', 'int');
+	//线下待审核列表
+	public function checkofflinelistAction() {
+		$condition = array('types' => fundInModel::OFFLINE, 'name' => '线下待审核列表', 'controller'=>'off');
+		$condition['status'] = fundInModel::OFFLINE_APPLY;
+		$condition['type'] = 'recharge_orderoff';
+		$this->listData($condition);
+	}
+
+	//线下已审核审核列表
+	public function checkedofflinelistAction() {
+		$condition = array('types' => fundInModel::OFFLINE, 'name' => '线下已审核审核列表', 'controller'=>'off');
+		$condition['status'] = fundInModel::OFFLINE_FIRST_OK . ',' . fundInModel::OFFLINE_FIRST_NG . ','  . fundInModel::OFFLINE_FINAL_OK . ',' . fundInModel::OFFLINE_FINAL_NG ;
+		$condition['type'] = 'recharge_orderoff';
+		$this->listData($condition);
+	}
+
+	public function listData($condition=array()){
 		$fundObj = new fundInModel();
-		$data = $fundObj->getCheckOffLineList($page);
-		//分配数据
+		
+		$data = $fundObj->getOnlineList($condition);
+
+		$down = safe::filterGet('down', 'int', 0);//是否导出
+		if ($down == 1) {
+			$this->downExcel($data['list'], $condition);
+		}
 		$this->getView()->assign('data', $data);
-
 	}
-	//已审核列表
-	public function checkedOffLineListAction(){
-		$page=safe::filterGet('page','int');
-		$fundObj=new fundInModel();
-		$data=$fundObj->getCheckedOffLineList($page);
-		$this->getView()->assign('data',$data);
-
-	}
+	
 	//线下详情页
 	public function offlineEditAction() {
 		//判断当前用户有没有终审的权限

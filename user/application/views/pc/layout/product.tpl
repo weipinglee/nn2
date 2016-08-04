@@ -52,7 +52,11 @@
         <tr class="attr">
             <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
             <td colspan="2">
-                <input class="text" type="text" name="attribute[{$attr['id']}]" >
+                 {if: $attr['type'] == 1}
+                                            <input class="text" type="text" name="attribute[{$attr['id']}]" >
+                                            {elseif: $attr['type'] == 2}
+                                            <input type="radio" name="attribute[{$attr['id']}]" value="{$attr['value']}" />
+                                            {/if}
             </td>
         </tr>
 

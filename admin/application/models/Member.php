@@ -13,15 +13,14 @@ class MemberModel{
 	 *获取用户列表
      */
 	public function getList($page){
-		$Q = new Query('user as u');
+		$Q = new \admintool\adminQuery('user as u');
 		$Q->join = 'left join agent as a on u.agent = a.id left join admin_yewu as ye on u.yewu = ye.admin_id';
 		$Q->fields = 'u.*,a.username as agent_name,ye.ser_name';
 		$Q->order = 'u.id asc';
 		$Q->page = $page;
-		$Q->pagesize = 18;
+		$Q->pagesize = 20;
 		$data = $Q->find();
-		$pageBar =  $Q->getPageBar();
-		return array('data'=>$data,'bar'=>$pageBar);
+		return $data;
 	}
 
 	/**

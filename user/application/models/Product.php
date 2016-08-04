@@ -43,30 +43,6 @@ class productModel extends \nainai\offer\product{
 	}
 
 
-	/**
-	 * 获取报盘的状态
-	 * @return [Array]
-	 */
-	public function getStatus($status){
-		switch ($status) {
-			case self::OFFER_APPLY:
-				$st = '审核中';
-				break;
-			case self::OFFER_OK:
-				$st = '发布成功';
-				break;
-			case self::OFFER_NG:
-				$st = '被驳回';
-				break;
-			case self::OFFER_EXPIRE:
-				$st = '已过期';
-				break;
-			default:
-				$st = '未知';
-				break;
-		}
-		return $st;
-	}
 
 
 	/**

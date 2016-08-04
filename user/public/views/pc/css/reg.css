@@ -106,3 +106,19 @@ button{cursor:pointer;}
 .regis_reg_total {border-width:0px;color:red;width: 360px;font-size: 12px; cursor: default;}
 
 .Validform_wrong{color:red;}
+
+
+/*协议样式*/
+.form-agreen input {
+    width: 16px;
+    height: 16px;
+    border: solid 1px #cfd1d3;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+    margin-right: 6px;
+}
+.form-agreen {
+    margin-left: 148px;
+    margin-top: 20px;
+}

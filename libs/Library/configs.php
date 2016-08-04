@@ -9,14 +9,14 @@ namespace Library;
 return array(
     'http'=>'http',
     'host'=>array(
-        'deal'=>'http://localhost/nnbug/deal/public',
-        'user'=>'http://localhost/nnbug/user/public',
-        'admin'=>'http://localhost/nnbug/admin/public'
+        'deal'=>'http://deal.test.com',
+        'user'=>'http://user.test.com',
+        'admin'=>'http://admin.test.com'
     ),
     'rootDir'=>array(
-        'user'=>'E:\wamp\wamp\www\nnbug\user\public',
-        'admin'=>'E:\wamp\wamp\www\nnbug\admin\public',
-        'deal'=>'E:\wamp\wamp\www\nnbug\deal\public'
+        'user'=>'E:\wamp2.5\www\nn2\user\public',
+        'admin'=>'E:\wamp2.5\www\nn2\admin\public',
+        'deal'=>'E:\wamp2.5\www\nn2\deal\public'
 
     ),
     'sms'=>array(

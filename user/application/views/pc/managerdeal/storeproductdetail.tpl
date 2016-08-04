@@ -33,6 +33,10 @@
                         <td colspan="6"> {$storeDetail['cang_pos']}</td>
                     </tr>
                     <tr>
+                        <td colspan="2"> 组库价格</td>
+                        <td colspan="6"> {$storeDetail['store_price']}（/kg/天） </td>
+                    </tr>
+                    <tr>
                         <td colspan="2">签发时间</td>
                         <td colspan="6">{$storeDetail['sign_time']}</td>
                     </tr>
@@ -130,6 +134,10 @@
                         <td colspan="2">产地</td>
                         <td colspan="6">{areatext:data=$storeDetail['produce_area']}</td>
                     </tr>
+                     <tr>
+                        <td colspan="2">商品描述</td>
+                        <td colspan="6">{$storeDetail['note']}</td>
+                    </tr>
                     <tr>
                         <td colspan="2">图片预览</td>
                         <td colspan="6">
@@ -174,7 +182,6 @@
                                 <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
                                 <input type="hidden" value="{$storeDetail['id']}" name="id">
                                 <input type="submit" value="提交">
-                                <a class="btoncomit" href="{url:/managerdeal/updateStore}?{set: echo http_build_query(array('id'=>$storeDetail['id']))}" >修改仓单</a>
                             </td>
                         </tr>
                     </form>
