@@ -8,6 +8,19 @@ $(document).ready(function(){
     $('.sort').on('click',function(){
         $(this).parents('div').find('.curr').removeClass('curr');
         $(this).addClass('curr');
+        var sort = $(this).find('input').val();
+        if(sort=='price_asc'){
+            $(this).find('input').val('price_desc');
+        }
+        else if(sort=='price_desc'){
+            $(this).find('input').val('price_asc');
+        }
+        if(sort=='time_asc'){
+            $(this).find('input').val('time_desc');
+        }
+        else if(sort=='time_desc'){
+            $(this).find('input').val('time_asc');
+        }
         getCategory();
     });
     $('[id^=level]').find('li').on('click',getCategory);
@@ -88,6 +101,7 @@ function getCategory(cond){
 
                 var proHtml = template.render('productTemplate',{data:data.data});
                 data.bar = data.bar.replace(/<span>.*<\/span>/i,'');
+                $('.page_num').remove();
                 data.bar = '<div class="page_num">' + data.bar + '</div>';
                 proHtml += data.bar;
                 $('.pro_cen').eq(0).after(proHtml);

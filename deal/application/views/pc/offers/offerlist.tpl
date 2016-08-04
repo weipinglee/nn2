@@ -16,37 +16,14 @@
   </style>
 
  <!------------------导航 开始-------------------->
-                <form method="post" action="" id="form1">
-                    <div class="aspNetHidden">
-                        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE"
-                        value="b7kHdN58Jsi2cPaAmmpEqXjSD5M7lilMmnUNdKzTkgYwpBrDsYEml4gvo/iOj8sf">
-                    </div>
-                </form>
+
 
 
                 <input type="hidden" id="UserID">
                 <!--主要内容 开始-->
                 <div id="mainContent">
                     <div class="page_width">
-        <!--搜索条件 start
-           <div class="pro_se">
-            <table>
-                <tr>
-                    <td><span>大类</span> <select><option>全部</option></select></td>
-                    <td><span>规格</span> <input type="text"/></td>
-                    <td><span>材质</span> <input type="text"/></td>
-                    <td><span>产地</span> <input type="text"/></td>
-                    <td><span>品名</span> <input type="text"/></td>
-                    <td><span>仓库</span> <input type="text"/></td>
-                    <td><a class="search"><i class="icon-search"></i> 搜索</a>
 
-                        <a class="pro_clear"><i class=""></i>清空</a>
-                    </td>
-                </tr>
-            </table>
-           </div>
-           <!--搜索条件 end-->
-           <!-- 分类 start -->
            <div class="pro_classify">
             <div class="class_re">
                 <h3>

@@ -84,6 +84,8 @@ class Risk extends \nainai\Abstruct\ModelAbstract{
       * @return Array            
       */
      public function getRiskDetail($risk_data){
+         if($risk_data=='')
+             return array();
         //获取保险产品信息
         $list = $this->getRiskList(-1, array('status' => 1));
         if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置

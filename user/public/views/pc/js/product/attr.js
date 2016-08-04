@@ -131,11 +131,11 @@ function getCategory(){
                 $.each(data.cate,function(k,v){
 
                     var box = $('#cate_box').clone();
-                    
+                    box.attr('id','');
                     if(v.show){
                         $.each(v.show,function(key,value){
-                            box.find('.jy_title').text(data.childname+'：');
                             if (key == 0) {
+                                box.find('.jy_title').text(data.childname+'：');
                                     if(value.childname){
                                         data.childname = value.childname;
                                     }else{
@@ -151,6 +151,7 @@ function getCategory(){
                         })
                     }
                     box.css('display','block').insertAfter(this_div);
+
                     box.find('li').on('click',getCategory);
                     this_div = box;
                 })
@@ -162,13 +163,13 @@ function getCategory(){
                     attr_box.show();
                     attr_box.addClass('attr');
                     if(v.type==1){
-                        attr_box.children('td').eq(0).html(v.name);
+                        attr_box.children('td').eq(0).html(v.name+'：');
                         attr_box.children('td').eq(1).html(' <input class="text" type="text" name="attribute['+ v.id+']" />');
                     }
                     else if(v.type==2){//2是单选
                         var radio = v.value.split(',');
                         var radio_text = '';
-                        attr_box.children('td').eq(0).html(v.name);
+                        attr_box.children('td').eq(0).html(v.name+'：');
                         $.each(radio,function(i,val){
                             radio_text += '<label style="margin-right:5px;"><input type="radio" name="attribute['+ v.id+']" value="'+val+'" />'+val+'</label>' ;
                             attr_box.children('td').eq(1).html(radio_text);
@@ -196,7 +197,7 @@ function getCategory(){
                 check_box += '</sapn></td>';
                 $('#riskdata').append(check_box);
             }else{
-                $('#riskdata').append('<td>该分类没有设置保险，请配置保险</td>');
+                $('#riskdata').append('<td>该分类没有设置保险</td>');
             }
         }
     });

@@ -84,7 +84,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 		$user = $this->_request->getParam('user');//委托人
 		$info = $this->offer->getofferDetail($id);
 		$info['user'] = $user;
-		if ($info['insurance'] == 1) {
+		if ($info['insurance'] == 1 && $info['risk']) {
 			$risk = new \nainai\insurance\Risk();
 			$riskData = $risk->getRiskDetail($info['risk']);
 			$this->getView()->assign('riskData',$riskData);
