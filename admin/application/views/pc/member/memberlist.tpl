@@ -19,7 +19,7 @@
 				<th width="100">用户名</th>
 				<th width="90">手机</th>
 				<th width="150">邮箱</th>
-				<th width="130">加入时间</th>
+				<th width="130">注册时间</th>
 				<th width="130">代理商</th>
 				<th width="130">业务员</th>
 				<th width="100">操作</th>

@@ -5,7 +5,7 @@
             <h1><img src="{views:img/icons/posts.png}" alt="" /> 系统管理</h1>
 <div class="bloc">
     <div class="title">
-        信誉制配置列表
+        信誉值配置列表
     </div>
     <div class="content">
         <div class="pd-20">
