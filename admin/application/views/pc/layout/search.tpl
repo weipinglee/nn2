@@ -32,7 +32,7 @@
             {if:isset($data['search']['select'])}
                 {$data['search']['select']}：
                 <select name="select" >
-                    <option value="0">所有</option>
+                    <option value="all">所有</option>
                     {foreach:items=$data['search']['selectData']}
                         <option value="{$key}" {if:$select==$key}selected=true{/if}>{$item}</option>
                     {/foreach}

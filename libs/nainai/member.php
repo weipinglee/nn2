@@ -21,7 +21,10 @@ class member{
      * @param $type
      * @return string
      */
-    public static function getType($type){
+    public static function getType($type=''){
+        if($type==''){
+            return self::$userType;
+        }
         return isset(self::$userType[$type]) ? self::$userType[$type] : '未知';
     }
 

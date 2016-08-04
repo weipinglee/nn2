@@ -10,12 +10,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-            <div class="text-c">
-                <!--<form class="Huiform" method="post" action="" target="_self">
-                    <input type="text" class="input-text" style="width:250px" placeholder="会员名称" id="" name="">
-                    <button type="submit" class="btn btn-success" id="" name=""><i class="icon-search fa-search"></i>  搜会员</button>
-                </form>-->
-            </div>
+            {include:layout/search.tpl}
            <table class="table table-border table-bordered table-hover table-bg">
         <thead>
             <tr>
@@ -34,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-        {foreach:items=$certData}
+        {foreach:items=$data['list']}
             <tr class="text-c">
                <!-- <td><input type="checkbox" value="" name=""></td>-->
                 <td>{$item['id']}</td>
@@ -53,7 +48,7 @@
         </tbody>
     </table>
         </div>
-        {$bar}
+        {$data['bar']}
     </div>
 </div>
 

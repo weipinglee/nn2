@@ -69,7 +69,7 @@ class searchQuery extends Query{
         $name = safe::filterGet('like');
         $status = safe::filterGet('status');
         //选择查询
-        $select = safe::filterGet('select');
+        $select = safe::filterGet('select','string','all');
 
         //区间查询
         $min = safe::filterGet('min','float',0);
@@ -108,7 +108,7 @@ class searchQuery extends Query{
             $cond['bind']['like'] = "%{$name}%";
         }
 
-        if($select && isset($condArr['select'])){
+        if($select!='all' && isset($condArr['select'])){
             if($cond['where']!='')
                 $temp = ' AND ';
             $cond['where'] .= $temp." {$condArr['select']} = :select";

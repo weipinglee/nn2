@@ -5,6 +5,7 @@
   <meta name="keywords"/>
   <meta name="description"/>
   <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
   <link href="{views:css/user_index.css}" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
 

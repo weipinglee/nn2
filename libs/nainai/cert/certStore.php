@@ -8,6 +8,7 @@
 
 namespace nainai\cert;
 use \Library\M;
+use Library\searchQuery;
 use \Library\Time;
 use \Library\Query;
 use \Library\Thumb;
@@ -139,14 +140,13 @@ class certStore extends certificate{
     private function getList($page,$status){
         $type = self::$certType;
         $table = self::getCertTable($type);
-        $Q = new Query('user as u');
-        $Q->join = 'left join '.$table.' as c on u.id = c.user_id left join store_list as s on c.store_id = s.id';
+        $Q = new searchQuery($table.' as c');
+        $Q->join = 'left join user as u on u.id = c.user_id left join store_list as s on c.store_id = s.id';
         $Q->fields = 'u.id,u.type,u.username,u.mobile,u.email,u.status as user_status,u.create_time,c.*,s.name as store_name';
         $Q->page = $page;
         $Q->where = 'c.status in('.$status.')';
-        $data = $Q->find();
-        $pageBar =  $Q->getPageBar();
-        return array('data'=>$data,'bar'=>$pageBar);
+        $data = $Q->find(\nainai\member::getType());
+        return $data;
     }
     /**
      * 获取申请认证用户列表

@@ -6,7 +6,9 @@
  * Time: 22:55
  */
 namespace nainai\cert;
+use conf\searchConfig;
 use \Library\M;
+use Library\searchQuery;
 use \Library\Time;
 use \Library\Query;
 use \Library\Thumb;
@@ -252,14 +254,13 @@ class certificate{
     public function certApplyList($type,$page,$status=1){
         if(!isset($type))return array();
         $table = self::getCertTable($type);
-        $Q = new Query('user as u');
-        $Q->join = 'left join '.$table.' as c on u.id = c.user_id';
+        $Q = new searchQuery($table.' as c');
+        $Q->join = 'left join user as u on u.id = c.user_id';
         $Q->fields = 'u.id,u.type,u.username,u.mobile,u.email,u.status as user_status,u.create_time,c.*';
         $Q->page = $page;
         $Q->where = 'c.status in('.$status.')';
-        $data = $Q->find();
-        $pageBar =  $Q->getPageBar();
-        return array('data'=>$data,'bar'=>$pageBar);
+        $data = $Q->find(\nainai\member::getType());
+        return $data;
     }
 
     /**

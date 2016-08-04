@@ -40,8 +40,7 @@ class certManageController extends Yaf\Controller_Abstract {
           $page = safe::filterGet('page','int',1);
           $pageData = $m->certList($page);
 
-          $this->getView()->assign('certData',$pageData['data']);
-          $this->getView()->assign('bar',$pageData['bar']);
+          $this->getView()->assign('data',$pageData);
 
      }
 
@@ -54,8 +53,7 @@ class certManageController extends Yaf\Controller_Abstract {
           $page = safe::filterGet('page','int',1);
           $pageData = $m->certedList($page);
 
-          $this->getView()->assign('certData',$pageData['data']);
-          $this->getView()->assign('bar',$pageData['bar']);
+          $this->getView()->assign('data',$pageData);
 
      }
 
@@ -114,8 +112,7 @@ class certManageController extends Yaf\Controller_Abstract {
           $page = safe::filterGet('page','int',1);
           $pageData = $m->certList($page);
 
-          $this->getView()->assign('certData',$pageData['data']);
-          $this->getView()->assign('bar',$pageData['bar']);
+          $this->getView()->assign('data',$pageData);
 
      }
 
@@ -128,8 +125,7 @@ class certManageController extends Yaf\Controller_Abstract {
           $page = safe::filterGet('page','int',1);
           $pageData = $m->certedList($page);
 
-          $this->getView()->assign('certData',$pageData['data']);
-          $this->getView()->assign('bar',$pageData['bar']);
+          $this->getView()->assign('data',$pageData);
 
      }
 

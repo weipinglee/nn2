@@ -120,6 +120,7 @@ class ManagerStoreController extends UcenterBaseController{
 		$category = $productModel->getCategoryLevel();
 
 		$attr = $productModel->getProductAttr($category['chain']);
+		$attr = array_reverse($attr);
 		//注意，js要放到html的最后面，否则会无效
 		$this->getView()->assign('categorys', $category['cate']);
 		$this->getView()->assign('attrs', $attr);

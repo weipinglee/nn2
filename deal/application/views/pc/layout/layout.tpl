@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
     耐耐网
 </title><meta name="Keywords" content="耐火材料、耐耐网"><meta name="Description" content="耐火材料、耐耐网">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
     <script type="text/javascript" defer="" async="" src="{views:js/uta.js}"></script>
     <script src="{views:js/jquery-1.7.2.min.js}" type="text/javascript" language="javascript"></script>
     <script src="{views:js/gtxh_formlogin.js}" type="text/javascript"></script>

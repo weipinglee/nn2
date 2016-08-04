@@ -35,6 +35,16 @@ class searchConfig {
             'like'=>array('o.id,p.name','报盘id,商品名称')
 
         ),
+        'dealer' => array(
+            'time' => array('c.apply_time','申请时间'),
+            'like' => array('u.username,u.mobile','用户名，手机号'),
+            'select' => array('u.type','用户类型')
+        ),
+        'store_manager' => array(
+            'time' => array('c.apply_time','申请时间'),
+            'like' => array('u.username,u.mobile','用户名，手机号'),
+            'select' => array('u.type','用户类型')
+        ),
 
 
     );
