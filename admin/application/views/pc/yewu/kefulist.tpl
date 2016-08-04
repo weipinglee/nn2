@@ -17,7 +17,7 @@
                         <thead>
                         <tr class="text-c">
                             <th width="100">用户名</th>
-                            <th width="100">客服名称</th>
+                            <th width="100">业务员名称</th>
                             <th width="90"> 手机</th>
                             <th width="50">QQ</th>
                             <th width='100'>操作</th>
