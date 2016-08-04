@@ -70,7 +70,7 @@ class store{
     public function getManagerStoreDetail($id,$user_id){
         $store_id = $this->getManagerStoreId($user_id);//根据$user_id获取
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid,a.user_id,a.cang_pos,a.sign_time,a.user_time,a.market_time,a.check_org,a.check_no,a.confirm,a.product_id,a.status,a.package,a.package_unit,a.package_num,a.package_weight, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid,  d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time';
+        $query->fields = 'a.id as sid,a.user_id,a.cang_pos,a.sign_time,a.user_time,a.market_time,a.check_org,a.check_no,a.confirm,a.product_id,a.status,a.package,a.package_unit,a.package_num,a.package_weight, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid,  d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time, a.quality, a.store_price';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
         $query->where = ' a.id=:id AND a.store_id=:store_id';
         $query->bind = array('id' => $id,'store_id'=>$store_id);
@@ -82,6 +82,8 @@ class store{
         $data['status_txt'] = $this->getStatusText($data['status']);
         $data['confirm_thumb'] = \Library\thumb::get($data['confirm'],180,180);
         $data['confirm_orig'] = \Library\thumb::getOrigImg($data['confirm']);
+        $data['quality_thumb'] = \Library\thumb::get($data['quality'],180,180);
+        $data['quality_orig'] = \Library\thumb::getOrigImg($data['quality']);
         $productModel = new product();
 
         $product = $productModel->getProductDetails($data['product_id']);

@@ -33,7 +33,7 @@
 				<td>{$item['amount']}</td>
 
 
-				<td>{echo:\fundInModel::getOffLineStatustext($item['status'])}</td>
+				<td>{$item['status_text']}</td>>
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
 					<a title="审核" href="{url:/balance/fundin/offlineEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>

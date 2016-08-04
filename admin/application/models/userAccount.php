@@ -15,7 +15,7 @@ class userAccountModel {
 	 * @param  int $page 当前页
 	 * @return array   列表数组
 	 */
-	public function userCreditList($page, $pagesize, $condition=array()){
+	public function userCreditList($condition=array()){
 		$query = new adminQuery('user_account as a');
 		$query->join = 'left join user as u on a.user_id = u.id';
 		$query->fields = 'a.*,u.username,u.mobile,u.create_time, a.credit,u.id';
@@ -23,11 +23,7 @@ class userAccountModel {
 		if (isset($condition['types']) && $condition['types'] == 1) {
 			$query->where = 'u.type=1';
 		}
-		if ($condition['down'] != 1) {
-		            $query->page = $page;
-		            $query->pagesize = $pagesize;
-	       	}
-		$accInfo = $query->find($condition);
+		$accInfo = $query->find();
 		foreach ($accInfo['list'] as $k => $v) {
 			$accInfo['list'][$k]['amount'] = $v['fund']+$v['freeze'];
 		}

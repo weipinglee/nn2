@@ -5,6 +5,7 @@
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <script type="text/javascript" src="{views:js/product/storeproduct.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
+
 <form action="{url:/Managerdeal/doUpdateStore}" method="post" auto_submit redirect_url="{url:/managerstore/applystorelist?type=2}">
 
             <div class="user_c">

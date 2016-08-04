@@ -32,12 +32,22 @@
                     </div>
 
                     {if: !empty($categorys)}
+
                         {foreach: items=$categorys item=$category key=$level}
                             <div class="class_jy" id="level{$level}">
-                                <span class="jy_title">市场类型：</span>
+                                <span class="jy_title">
+                                    {if: isset($childName)}
+                                        {$childName}：
+                                    {else:}
+                                        市场类型：
+                                    {/if}
+                                </span>
                                 <ul>
                                     {foreach: items=$category['show'] item=$cate}
                                     <li value="{$cate['id']}"  {if: $key==0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
+                                    {if: $key == 0}
+                                    {set: $childName = $cate['childname']}
+                                    {/if}
                                     {/foreach}
                                 </ul>
 

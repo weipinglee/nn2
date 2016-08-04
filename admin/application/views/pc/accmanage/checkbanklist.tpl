@@ -34,10 +34,10 @@
                 <td><input type="checkbox" value="" name=""></td>
                 <td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
                 <td>{$item['bank_name']}</td>
-                <td>{echo:$card_type[$item['card_type']]}</td>
+                <td>{$item['card_type']}</td>
                 <td>{$item['true_name']}</td>
                 <td>{$item['identify_no']}</td>
-                <td>{echo:\nainai\user\userBank::$status_text[$status]}</td>
+                <td>{$item['status_text']}</td>
                 <td class="td-manage">
                     <a title="查看明细" href="{url:balance/accManage/checkBankDetail}?user_id={$item['user_id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
             </tr>

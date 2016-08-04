@@ -13,23 +13,28 @@ use \admintool\adminQuery;
 class fundBankModel extends \nainai\user\UserBank{
 
 
-    public function getBankList($page, $pagesize, $condition){
+    public function getBankList($condition){
         $reModel = new adminQuery($this->table.' as b');
         //线上
         $reModel->join = 'left join user as u on b.user_id = u.id';
         $reModel->fields = 'b.*, u.username';
-        
-        if ($condition['down'] != 1) {
-            $reModel->page = $page;
-            $reModel->pagesize = $pagesize;
-        }
         
         $where = ' b.status IN (:status)';
         $bind = array('status' => $condition['status']);
 
         $reModel->where = $where;
         $reModel->bind = $bind;
+
         $onlineInfo = $reModel->find($condition);
+
+        $bankObj = new \nainai\user\userBank();
+        $card_type = $bankObj->getCardType();
+        $status_text = $bankObj::$status_text;
+
+        foreach ($onlineInfo['list'] as $key => &$value) {
+            $value['card_type'] = $card_type[$value['card_type']];
+            $value['status_text'] = $status_text[$value['status']]; 
+        }
 
         return $onlineInfo;
     }

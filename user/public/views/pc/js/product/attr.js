@@ -134,13 +134,15 @@ function getCategory(){
                     
                     if(v.show){
                         $.each(v.show,function(key,value){
+                            box.find('.jy_title').text(data.childname+'：');
                             if (key == 0) {
-                                if(value.childname){
-                                    box.find('.jy_title').text(value.childname+'：');
-                                }
-                                else
-                                    box.find('.jy_title').text('商品分类：');
+                                    if(value.childname){
+                                        data.childname = value.childname;
+                                    }else{
+                                        data.childname = '商品分类';
+                                    }
                             }
+                            
                             if(key==0)
                                 box.find('ul').eq(0).append('<li class="a_choose" value="'+ value.id+'"><a href="javascript:void(0)">'+ value.name+'</a></li>');
                             else
@@ -172,7 +174,6 @@ function getCategory(){
                             attr_box.children('td').eq(1).html(radio_text);
                        });
                     }
-                    console.log(attr_box);
                     $('#productAdd').after(attr_box);
                 });
                 bindRules();

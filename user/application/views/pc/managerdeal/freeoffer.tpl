@@ -31,26 +31,27 @@
                         <b>商品类型</b>
                     </div>
 
-                    {if: !empty($categorys)}
-                        {foreach: items=$categorys item=$category key=$level}   
+                     {if: !empty($categorys)}
+
+                        {foreach: items=$categorys item=$category key=$level}
                             <div class="class_jy" id="level{$level}">
-                                <span class="jy_title">市场类型：</span>
+                                <span class="jy_title">
+                                    {if: isset($childName)}
+                                        {$childName}：
+                                    {else:}
+                                        市场类型：
+                                    {/if}
+                                </span>
                                 <ul>
                                     {foreach: items=$category['show'] item=$cate}
                                     <li value="{$cate['id']}"  {if: $key==0} class="a_choose" {/if} ><a>{$cate['name']}</a></li>
+                                    {if: $key == 0}
+                                    {set: $childName = $cate['childname']}
+                                    {/if}
                                     {/foreach}
                                 </ul>
 
-                                    {if: !empty($category['hide'])}
-                                    <ul class="infoslider" style="display: none;">
-                                        {foreach: items=$category['hide'] item=$cate}
-                                        <li value="{$cate['id']}"  ><a>{$cate['name']}</a></li>
-                                        {/foreach}
-                                    </ul>
-                                        <div class="sl_ext">
-                                        <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-                                        </div>
-                                    {/if}
+
                             </div>
                         {/foreach}
                         {/if}

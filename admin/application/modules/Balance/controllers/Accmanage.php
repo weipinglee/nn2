@@ -34,37 +34,13 @@ class AccmanageController extends InitController {
 	}
 
 	public function userListData($condition=array()){
-		$page = safe::filterGet('page', 'int');
-		$down = Safe::filterGet('down', 'int', 0);
+		$data = $this->account->userCreditList($condition);
 
-		$condition['down'] = $down;
-		$data = $this->account->userCreditList($page, $this->pagesize, $condition);
-
+		$down = safe::filterGet('down', 'int', 0);//是否导出
 		if ($down == 1) {
-			if ($condition['type'] == 'Acc') {
-				$excel = array(0 => array('用户名', '手机号',  '总金额', '可用资金', '冻结资金'));
-			}else{
-				$excel = array(0 => array('用户名', '手机号',  '信誉保证金'));
-			}
-			foreach ($data['list'] as $key => $value) {
-				$item = array();
-				$item['username'] = $value['username'];
-				$item['mobile'] = $value['mobile'];
-				if ($condition['type'] == 'Acc') {
-					$item['amount'] = $value['amount'];
-					$item['fund'] = $value['fund'];
-					$item['freeze'] = $value['freeze'];
-				}else{
-					$item['credit'] = $value['credit'];
-				}
-				array_push($excel, $item);
-			}
-			$obj = new \Library\Excel\ExcelHtml();
-			$obj->createExecl($excel, count($excel[0]), "{$condition['name']}信息报表");
-			exit();
+			$this->downExcel($data['list'], $condition);
 		}
 		$this->getView()->assign('data', $data);
-		$this->getView()->assign('isDown', 1);
 	}
 
 	
@@ -87,17 +63,7 @@ class AccmanageController extends InitController {
 
 	}
 
-	/**
-	 * 会员待审核开户列表
-	 *
-	 */
-	public function checkbankListAction()
-	{
-		$obj = new fundBankModel();
-		$condition = array('status' => $obj::BANK_APPLY);
-		$condition['name'] = '待审核开户';
-		$this->listData($condition);
-	}
+	
 
 	/**
 	 * 开户信息审核页面
@@ -143,46 +109,32 @@ class AccmanageController extends InitController {
 		$obj = new fundBankModel();
 		$condition = array('status' =>$obj::BANK_OK .','.$obj::BANK_NG);
 		$condition['name'] = '已审核开户';
+		$condition['type'] = 'user_bank';
+		$this->listData($condition);
+	}
+
+	/**
+	 * 会员待审核开户列表
+	 *
+	 */
+	public function checkbankListAction()
+	{
+		$obj = new fundBankModel();
+		$condition = array('status' => $obj::BANK_APPLY);
+		$condition['name'] = '待审核开户';
+		$condition['type'] = 'user_bank';
 		$this->listData($condition);
 	}
 
 	public function listData($condition = array()){
 		$obj = new fundBankModel();
-		$page = Safe::filterGet('page', 'int', 1);
-		$begin = Safe::filterGet('begin');
-		$end = Safe::filterGet('end');
-		$down = Safe::filterGet('down', 'int', 0);
-
-		$bankObj = new \nainai\user\userBank();
-		$card_type = $bankObj->getCardType();
-		$status_text = $bankObj::$status_text;
-		$condition['down'] = $down;
-
-		$data = $obj->getBankList($page, $this->pagesize, $condition);
-
+		$data = $obj->getBankList($condition);
+		$down = safe::filterGet('down', 'int', 0);//是否导出
 		if ($down == 1) {
-			$excel = array(0 => array('用户名', '姓名',  '开户银行', '银行卡类型', '身份证号', '状态'));
-			foreach ($data['list'] as $key => $value) {
-				$item = array();
-				$item['username'] = $value['username'];
-				$item['truename'] = $value['true_name'];
-				$item['bank_name'] = $value['bank_name'];
-				$item['card_type'] = $card_type[$value['card_type']];
-				$item['identify_no'] = $value['identify_no']; 
-				$item['status_text'] = $status_text[$value['status']]; 
-				array_push($excel, $item);
-			}
-			$obj = new \Library\Excel\ExcelHtml();
-			$obj->createExecl($excel, count($excel[0]), "{$begin}至{$end}{$condition['name']}信息报表");
-			exit();
+			$this->downExcel($data['list'], $condition);
 		}
 
-		$this->getView()->assign('begin', $begin);
-		$this->getView()->assign('end', $end);
 		$this->getView()->assign('data', $data);
-		$this->getView()->assign('isDown', 1);
-		$this->getView()->assign('card_type', $card_type);
-		$this->getView()->assign('status_text', $status_text);
 	}
 
 

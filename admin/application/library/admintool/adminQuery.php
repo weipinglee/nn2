@@ -20,7 +20,6 @@ class adminQuery extends \Library\Query{
         $table = explode(' ',$table);
         $table = $table[0];
         $cond = $this->getWhereCond($table);
-        $down = $cond[2];
         $search = '';
         if(!empty($cond)){
             if($cond[0]['where']){
@@ -37,9 +36,17 @@ class adminQuery extends \Library\Query{
             }
         }
 
+        if ($cond[0]['down'] == 1) {//如果是导出
+            $this->page = 1;
+            $this->pagesize = 5000;
+        }else{ //页面显示
+            $this->page = $cond[0]['page'];
+            $this->pagesize = 10;
+        }
+
         $list = parent::find();
         $result = array('list' => $list, 'search'=>$search);
-        if (!$down) {
+        if ($cond[0]['down'] == 0) {
             $bar = $this->getPageBar();
             $result['bar'] = $bar;
         }
@@ -70,21 +77,22 @@ class adminQuery extends \Library\Query{
             $search[$k] = $v[1];
         }
 
+        $page = safe::filterGet('page', 'int', 0);
         $begin = safe::filterGet('begin');
         $end = safe::filterGet('end');
         $name = safe::filterGet('like');
         $status = safe::filterGet('status');
         //选择查询
         $select = safe::filterGet('select');
-
+        
         //区间查询
         $min = safe::filterGet('min','float',0);
         $max = safe::filterGet('max','float',0);
+        $down = safe::filterGet('down', 'int', 0);//是否导出
         $cond  = array();
+        $cond['down'] = $down;
         $cond['where'] =  $temp = '';$cond['bind'] = array();
-
-        //是否导出
-        $down = safe::filterGet('down','int',0);
+        $cond['page'] = $page;
 
 
         if($begin && isset($condArr['time'])){
@@ -139,7 +147,7 @@ class adminQuery extends \Library\Query{
             $cond['bind']['max'] = $max;
         }
 
-        return array($cond,$search,$down);
+        return array($cond,$search);
     }
 
 }
