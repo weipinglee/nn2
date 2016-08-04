@@ -60,12 +60,14 @@
                 {else:}
                     您好，{$username}
                     <a rel="external nofollow" href="{url:/login/logout}" >退出</a>
+                    <a  href="{url:/index/index@deal}">首页</a>
                 {/if}
             </div>
             <div class="topnav_login_in" id="userCenterbox" style="display: none;">
                 您好，<label class="icon_topnav_loginin" id="gtxh_uame"></label>
                 <a id="userCenter" href="centre/user_index.html" target="_blank">会员中心</a>
                 <a id="loginOut" href="javascript:">退出</a>
+
                 <iframe id="iframe_loginOut" frameborder="0" height="1" width="1" scrolling="no"></iframe>
             </div>
         </div>
@@ -77,7 +79,7 @@
                         <a rel="external nofollow" href="http://app.nainaiwang.com/" class="top_a" target="_blank" style="display:none !important;visibility: hidden"><!--<em class="icons zz"></em>--><i style="font-size:14px;">▪</i><span>掌中耐耐APP</span></a>
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <div class="popueButton">
                         <a href="javascript:window.external.AddFavorite('http://www.nainaiwang.com', '耐耐网——大宗商品交易中心')">加入收藏</a>
                     </div>
@@ -156,7 +158,7 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

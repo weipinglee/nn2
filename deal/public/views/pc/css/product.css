@@ -217,7 +217,7 @@ text-align: right;
 	width: 117px;
 }
 .pro_main .pro_cen ul .tit_left{
-	width: 150px;
+	width: 150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .pro_main .pro_cen ul .but_left{
 	width: 100px;

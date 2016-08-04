@@ -266,7 +266,7 @@ class OffersController extends PublicController {
 			$pro = new \nainai\offer\product();
 			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
 
-			if ($info['insurance'] == 1) {
+			if ($info['insurance'] == 1 && $info['risk']) {
 				$risk = new \nainai\insurance\Risk();
 				$riskData = $risk->getProductRisk($info['risk']);
 				$this->getView()->assign('riskData',$riskData);

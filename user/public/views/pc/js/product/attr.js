@@ -164,12 +164,15 @@ function getCategory(){
                     attr_box.addClass('attr');
                     if(v.type==1){
                         attr_box.children('td').eq(0).html(v.name+'：');
+
                         attr_box.children('td').eq(1).html(' <input class="text" type="text" name="attribute['+ v.id+']" />');
                     }
                     else if(v.type==2){//2是单选
                         var radio = v.value.split(',');
                         var radio_text = '';
+
                         attr_box.children('td').eq(0).html(v.name+'：');
+
                         $.each(radio,function(i,val){
                             radio_text += '<label style="margin-right:5px;"><input type="radio" name="attribute['+ v.id+']" value="'+val+'" />'+val+'</label>' ;
                             attr_box.children('td').eq(1).html(radio_text);
