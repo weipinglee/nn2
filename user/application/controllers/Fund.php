@@ -321,8 +321,7 @@ class FundController extends UcenterBaseController {
 		$userRiskModel=new \nainai\riskMgt\userRisk();
 		$params=array('user_id'=>$this->user_id,'ip'=>'222.129.28.29');
 		$res1=$userRiskModel->checkUserAddress($params);
-		$res=$userRiskModel->addUseAddress($params);
-		var_dump($res);
+		//$res=$userRiskModel->addUseAddress($params);
 		die;
 
 	}

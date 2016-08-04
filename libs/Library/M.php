@@ -334,7 +334,7 @@ class M{
 				$insertVal .= ':'.$key.',';
 			}
 			$sql = 'INSERT INTO '.$this->tableName.' ( '.rtrim($insertCol,',').' ) VALUES ( '.rtrim($insertVal,',').' ) ';
-			echo $sql;
+			//echo $sql;
 			$res =  $this->db->exec($sql,$this->tableData,'INSERT');
 		}
 
