@@ -82,7 +82,7 @@ $(function () {
         return code;
     }
 
-    $(".yzm").click(function () {
+    $("#yzmBtn").bind('click',function () {
         $(".yzm").attr('disabled', true);
         var mobile = $("#txtMobile").val();
         if ($.isEmpty(mobile)) {
@@ -104,15 +104,17 @@ $(function () {
             dataType: "json",
             success: function (msg) {
                 if(msg.success==1){
-                    time($(".yzm"));
+                    time($('#yzmBtn'));
                     alert(msg.info);
                 }else{
                     alert(msg.info);
+                    $('#yzmBtn').attr('disabled',false);
                 }
-                $("#image").click();
+
+                $('#image').click();
             }
         });
-    })
+    });
     var wait = 60;
     function time(o) {
 

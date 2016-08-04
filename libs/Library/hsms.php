@@ -77,6 +77,7 @@ class Hsms
 	public static function send($mobile,$content)
 	{
 		self::$smsInstance = self::getSmsInstance();
+
 		if(preg_match('/^\d{11}$/',$mobile) && $content)
 		{
 			$ip = tool::getIp();
