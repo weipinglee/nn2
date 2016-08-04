@@ -127,9 +127,14 @@
                         <td colspan="6">{areatext:data=$storeDetail['produce_area']}</td>
                     </tr>
                     <tr>
+                        <td colspan="2">商品描述</td>
+                        <td colspan="6">{$storeDetail['note']}</td>
+                    </tr>
+                    <tr>
                         <td colspan="2">图片预览</td>
                         <td colspan="6">
                             <span class="zhs_img">
+                           
                                     {foreach: items=$photos item=$url}
                                         <img src="{$url}"/>
                                     {/foreach}
