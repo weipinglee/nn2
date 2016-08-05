@@ -33,7 +33,7 @@
                         <td colspan="6"> {$storeDetail['cang_pos']}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"> 组库价格</td>
+                        <td colspan="2"> 租库价格</td>
                         <td colspan="6"> {$storeDetail['store_price']}（/kg/天） </td>
                     </tr>
                     <tr>
@@ -183,8 +183,9 @@
                         <td colspan="6">{$user['contact_phone']}</td>
                     </tr>
 
-                    <tr>
+                    <tr id="operate">
                         <td colspan="8">
+                            <button onClick="window.print()">打印</button>
                             <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
                               <a class="btoncomit" href="{url:/managerstore/updateStore}?{set: echo http_build_query(array('id'=>$storeDetail['sid']))}" >修改仓单</a>
                         </td>
@@ -197,6 +198,27 @@
     </div>
 </div>
 
+<script type="text/javascript">
+       document.getElementsByTagName("BODY")[0].onbeforeprint = function() {myFunction()};
+    document.getElementsByTagName("BODY")[0].onafterprint = function() {myFunction2()};
 
+       function myFunction()
+        {
+            $('.bg_topnav').hide();
+            $('.header').hide();
+            $('.user_l').hide();
+            $('.zhxi_tit').hide();
+            $('#operate').hide();
+        }
+
+        function myFunction2()
+        {
+            $('.bg_topnav').show();
+            $('.header').show();
+            $('.user_l').show();
+            $('.zhxi_tit').show();
+            $('#operate').show();
+        }
+</script>
 
 

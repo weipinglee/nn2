@@ -55,9 +55,7 @@
 
                             </div>
                         {/foreach}
-                        {/if}ach}
                         {/if}
-
                         <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
                     <form action="{url:/ManagerDeal/doDeputeOffer}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
                         {include:/layout/product.tpl}

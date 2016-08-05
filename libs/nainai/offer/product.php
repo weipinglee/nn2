@@ -427,7 +427,7 @@ class product {
         $detail['attrs'] = '';
         if(!empty($detail['attribute'])) {
             foreach ($detail['attribute'] as $key => $value) {
-                if(isset($attrs[$key])){
+                if(@isset($attrs[$key])){
                     $detail['attr_arr'][$attrs[$key]] = $value;
                     $detail['attrs'] .= $attrs[$key] . ' : ' . $value . ';';
                 }
