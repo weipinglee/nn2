@@ -427,8 +427,11 @@ class product {
         $detail['attrs'] = '';
         if(!empty($detail['attribute'])) {
             foreach ($detail['attribute'] as $key => $value) {
-                $detail['attr_arr'][$attrs[$key]] = $value;
-                $detail['attrs'] .= $attrs[$key] . ' : ' . $value . ';';
+                if(isset($attrs[$key])){
+                    $detail['attr_arr'][$attrs[$key]] = $value;
+                    $detail['attrs'] .= $attrs[$key] . ' : ' . $value . ';';
+                }
+
             }
         }
         //获取图片
