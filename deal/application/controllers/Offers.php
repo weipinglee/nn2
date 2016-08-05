@@ -31,12 +31,14 @@ class OffersController extends PublicController {
 
 	//支付成功页面
 	public function paySuccessAction(){
+		$id = safe::filter($this->_request->getParam('id'));
 		$order_no = safe::filter($this->_request->getParam('order_no'));
 		$amount = safe::filter($this->_request->getParam('amount'));
 		$pay_deposit = safe::filter($this->_request->getParam('payed'));
 		$info = safe::filter($this->_request->getParam('info'));
 
 		$this->getView()->assign('order_no',$order_no);
+		$this->getView()->assign('id',$id);
 		$this->getView()->assign('amount',$amount);
 		$this->getView()->assign('info',$info);
 		$this->getView()->assign('pay_deposit',$pay_deposit);

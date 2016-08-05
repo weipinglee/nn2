@@ -83,7 +83,8 @@
                <p>交货地点<i>:</i>4</p> -->
 
                <div class="od_buton">
-                <a class="fanhod" href="{url:/Offers/offerList}">返回报盘列表</a>
+                <a class="fanhod" href="{url:/Offers/offerList}">继续浏览</a>
+                <a class="" href="{url:/contract/buyerDetail?id=$id@user}">查看合同</a>
                 
                 
                 </div>

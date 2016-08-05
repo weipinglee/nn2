@@ -12,8 +12,6 @@ class UcenterIndexController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
-
-
         $group = new \nainai\member();
 
         $groupData = $group->getUserGroup($this->user_id);//会员分组数据
@@ -38,16 +36,16 @@ class UcenterIndexController extends UcenterBaseController {
         $where = array();
         $list = $order->sellerContractList($this->user_id,1,$where);
 
-        if(isset($list['data'][0]))
-            $contract1 = $list['data'][0];
+        if(isset($list['list'][0]))
+            $contract1 = $list['list'][0];
         else $contract1 = array();
         $this->getView()->assign('contract1',$contract1);
 
         //获取购买合同
         $list = $order->buyerContractList($this->user_id,1,$where);
 
-        if(isset($list['data'][0]))
-            $contract2 = $list['data'][0];
+        if(isset($list['list'][0]))
+            $contract2 = $list['list'][0];
         else $contract2 = array();
 
         $this->getView()->assign('contract2',$contract2);

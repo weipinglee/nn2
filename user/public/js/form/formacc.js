@@ -63,7 +63,7 @@ nn_panduo.formacc.prototype = {
         if(this.form){
 
 			this.validObj = $(this.form).Validform({
-		      tiptype : 2,
+		      tiptype : 3,
 		      ajaxPost:false,
 		      showAllError:false,
 		      postonce:true,

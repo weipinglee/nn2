@@ -124,7 +124,7 @@ class tradeController extends \nainai\controller\Base {
 					$order->commit();
 					$order_id = $gen_res['order_id'];
 					$amount = $order->where(array('id'=>$order_id))->getfield('amount');
-					$url = url::createUrl('/offers/paySuccess?order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证');
+					$url = url::createUrl('/offers/paySuccess?id='.$order_id.'&order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证');
 					die(json::encode(tool::getSuccInfo(1,'操作成功,稍后跳转',$url)));
 				}else{
 					$zhi = new \nainai\member();
@@ -137,7 +137,7 @@ class tradeController extends \nainai\controller\Base {
 
 					if($pay_res['success'] == 1){
 						$this->offer->commit();
-						$url = url::createUrl('/offers/paySuccess?order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']);
+						$url = url::createUrl('/offers/paySuccess?id='.$order_id.'&order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']);
 						die(json::encode(tool::getSuccInfo(1,'支付成功,稍后跳转',$url)));
 
 					}else{

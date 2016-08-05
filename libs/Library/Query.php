@@ -14,6 +14,7 @@
 namespace Library;
 use \Library\DB\DbFactory;
 use \Library\Page;
+use \Library\cache\Cache;
 class Query
 {
 	public  $db       = null;
@@ -166,10 +167,10 @@ class Query
 			$cacheKey = md5($sql);
 			$result = $this->cache->get($cacheKey);
 			if ($result) {
-				return $result;
+				return unserialize($result);
 			} else {
 				$result = $this->db->exec($sql, $this->sql['bind'], 'SELECT');
-				$this->cache->set($cacheKey, $result);
+				$this->cache->set($cacheKey, serialize($result));
 			}
 		} //关闭缓存
 		else {

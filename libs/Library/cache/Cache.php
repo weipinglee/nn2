@@ -9,6 +9,8 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 namespace Library\cache;
+use Library\cache\driver\Memcached;
+use Library\cache\driver\Redis;
 /**
  * 缓存管理类
  */
@@ -28,6 +30,22 @@ class Cache {
      */
     protected $options = array();
 
+    public function __construct($type=''){
+        $expire = (is_array($type) && $type['expire']) ? $type['expire'] : '';
+        $type = is_array($type) ? $type['type'] : $type;
+        switch ($type) {
+            case 'm':
+                $options = $expire ? array('expire'=>$expire) : array();
+                $this->handler = new Memcached($options);
+                break;
+            case 'r':
+                $this->handler = new Redis();
+            default:
+                return false;
+                break;
+        }
+    }
+
     /**
      * 连接缓存
      * @access public
@@ -41,7 +59,7 @@ class Cache {
         if(class_exists($class))
             $cache = new $class($options);
         else
-            E(L('_CACHE_TYPE_INVALID_').':'.$type);
+            // E(L('_CACHE_TYPE_INVALID_').':'.$type);
         return $cache;
     }
 
@@ -120,8 +138,8 @@ class Cache {
         if(method_exists($this->handler, $method)){
            return call_user_func_array(array($this->handler,$method), $args);
         }else{
-            E(__CLASS__.':'.$method.L('_METHOD_NOT_EXIST_'));
-            return;
+            
+            return false;
         }
     }
 }

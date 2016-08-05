@@ -8,6 +8,7 @@
 
 namespace Library;
 use \Library\DB\DbFactory;
+use \Library\cache\Cache;
 class M{
 
 
@@ -37,6 +38,8 @@ class M{
 	static private $check    = null;
 
 	private $error   = '';
+
+	private $cache = '';
 	
 	public function __construct($tableName) {
 		$this->db = DbFactory::getInstance();
@@ -432,9 +435,23 @@ class M{
      */
     public function select()
     {
-        $sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->order.$this->limit ;
-        $res =  $this->db->exec($sql,$this->whereParam,'SELECT');
-        return $res;
+    	$sql = 'SELECT '.$this->fields.' FROM '.$this->tableName. $this->whereStr.$this->order.$this->limit ;
+    	if ($this->cache) {
+			$cacheKey = md5($sql);
+			$result = $this->cache->get($cacheKey);
+			if ($result) {
+				var_dump($result);exit;
+				return unserialize($result);
+			} else {
+				$result =  $this->db->exec($sql,$this->whereParam,'SELECT');
+				$this->cache->set($cacheKey, serialize($result));
+			}
+		}
+		else {
+			$result =  $this->db->exec($sql,$this->whereParam,'SELECT');
+		}
+
+        return $result;
     }
 
     /**
@@ -569,8 +586,17 @@ class M{
 		return self::$check->validate($checkData,$rules,$this->error,$type,$this->pk);
 	}
 
-
-
+	/**
+	 * 缓存
+	 * @param  string $type   类别 m:memcached r:redis
+	 * @param  int $expire 缓存时间
+	 */
+	public function cache($type='m',$expire=''){
+		$options = $expire ? array('type'=>$type,'expire'=>$expire) : array('type'=>$type);
+		$res = $this->cache = new Cache($options);
+		if($res === false) $this->error = '缓存初始化失败';
+		return $this;
+	}
 
 
 
