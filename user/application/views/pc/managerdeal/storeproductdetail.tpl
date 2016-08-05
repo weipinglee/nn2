@@ -33,7 +33,7 @@
                         <td colspan="6"> {$storeDetail['cang_pos']}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"> 组库价格</td>
+                        <td colspan="2"> 租库价格</td>
                         <td colspan="6"> {$storeDetail['store_price']}（/kg/天） </td>
                     </tr>
                     <tr>
