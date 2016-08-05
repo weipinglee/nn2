@@ -211,7 +211,7 @@ function getCategory(){
 //验证规则添加
 
 $(function(){
-bindRules();
+    bindRules();
 });
 
 function bindRules(){

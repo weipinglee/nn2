@@ -5,6 +5,10 @@
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <script type="text/javascript" src="{views:js/product/storeproduct.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
+<input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
+<script type="text/javascript" src="{views:js/product/attr.js}" ></script>
+<form action="{url:/ManagerStore/doStoreSign}" method="post" auto_submit redirect_url="{url:/managerstore/applystorelist?type=2}">
+
             <div class="user_c">
                 <div class="user_zhxi">
 
@@ -21,6 +25,7 @@
                         </ul>
 
                     </div>
+
                     <div class="class_jy" id="cate_box" style="display:none;">
                         <span class="jy_title"></span>
                         <ul>
@@ -83,16 +88,16 @@
                         </div>
                     </div>
                     <div class="yz_img">
-                        <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
-<script type="text/javascript" src="{views:js/product/attr.js}" ></script>
+
+
             <!--start中间内容-->
 
                         <div class="user_c" style="border:0px;margin-left:0px;">
-                <div class="user_zhxi pro_classify">
+                              <div class="user_zhxi pro_classify">
                     <div class="center_tabl">
-                    <div class="lx_gg">
-                        <b>商品类型</b>
-                    </div>
+                        <div class="lx_gg">
+                            <b>商品类型</b>
+                        </div>
                            {if: !empty($categorys)}
 
                         {foreach: items=$categorys item=$category key=$level}
@@ -117,7 +122,6 @@
                             </div>
                         {/foreach}
                         {/if}
-                  <form action="{url:/ManagerStore/doStoreSign}" method="post" auto_submit redirect_url="{url:/managerstore/applystorelist?type=2}">
 
                         <table border="0"  >
                             <input type="hidden" name="user_id" datatype="n"/>
@@ -131,7 +135,7 @@
                                     </span>
                                 <span></span>
                             </td>
-                        </tr>
+                             </tr>
 
 
 <!--                                 <td> 
@@ -166,7 +170,7 @@
 
                                 </td> -->
                             </tr>
-{foreach: items=$attrs item=$attr}
+                            {foreach: items=$attrs item=$attr}
                                     <tr class="attr">
                                         <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
                                         <td colspan="2">
@@ -191,7 +195,7 @@
                                 <span></span>
                             </td>
                          
-                        </tr>
+                              </tr>
                             
                                
 
@@ -201,7 +205,7 @@
                                    {include:layout/webuploader.tpl}
                                  </td>
                              </tr>
-                         <tr>
+                             <tr>
                              <th colspan="3"><b>详细信息</b></th>
                         </tr>
 
@@ -262,122 +266,121 @@
                         
                     </div>
                 </div>
-            </div>
+                          </div>
                         <div class="zhxi_con">
                             <span><input class="submit next_step"  type="button"  value="下一步"/></span>
                         </div>
 
-                    </div>
+                     </div>
 
                     <div class="sh_jg">
-                       <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
-                        <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
-<input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
-            <!--end左侧导航-->  
-            <!--start中间内容-->    
-            <div class="user_c" style="border:0px;margin-left:0px;">
-                <div class="user_zhxi">
-                    <div class="center_tabl">
-                    <div class="lx_gg">
-                        <b>入库详细信息</b>
-                    </div>
-                     
-                        <table border="0">
 
-                            <tr>
-                                <td nowrap="nowrap"><span></span>库位：</td>
-                                <td colspan="2"> 
-                                    <span>
-                                        <input class="text" type="text" name="pos" datatype="/^[(?=[\x21-\x7e]+)\w]{2, 20}$/" errormsg="库位请填写1-20位字符" />
-                                    </span>
-                                    <span></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td nowrap="nowrap"><span></span>仓位：</td>
-                                <td colspan="2"> 
-                                    <input class="text" name="cang" type="text">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td nowrap="nowrap"><span></span>租库价格：</td>
-                                <td colspan="2">
-                                    <span>
-                                      <input name="store_price" class="text" value="" datatype="money|/^0?$/" errormsg="请填写价格" type="text" />（/<span class="unit">{$unit}</span>/天）
-
-                                    </span>
-                                    <span></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td nowrap="nowrap"><span></span>入库日期：</td>
-                                <td colspan="2"> 
-                                    <span>
-                                        <input name="inTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
-                                    </span>
-                                    <span></span>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td nowrap="nowrap"><span></span>租库日期：</td>
-                                <td colspan="2">
-                                    <span>
-                                        <input name="rentTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
-
-                                    </span>
-                                    <span></span>
-                                     </td>
-                            </tr>
-                            <tr >
-                                <td nowrap="nowrap"><span></span>检测机构：</td>
-                                <td colspan="2"> 
-                                    <input class="text" name="check" type="text">
-                                </td>
-                            </tr>
-                            <tr >
-                                <td nowrap="nowrap"><span></span>质检证书编号：</td>
-                                <td colspan="2"> 
-                                    <input class="text" name="check_no" type="text">
-                                </td>
-                            </tr>
-                              
-                            <tr>
-                                <td>双方签字入库单：</td>
-                                <td>
-                                    <div class="zhxi_con">
-                                        <span><input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
-                                        <input type="hidden" name="imgfile1" value="" datatype="*" nullmsg="请上传签字入库单" />
-
+                         <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
+                        <!--end左侧导航-->
+                        <!--start中间内容-->
+                        <div class="user_c" style="border:0px;margin-left:0px;">
+                            <div class="user_zhxi">
+                                <div class="center_tabl">
+                                     <div class="lx_gg">
+                                          <b>入库详细信息</b>
                                     </div>
-                                   
-                                    <img name="file1" />
-                                </td>
-                            </tr>
 
-                            <tr>
-                                <td>质检证书：</td>
-                                <td>
-                                    <div class="zhxi_con">
-                                        <span><input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
-                                        <input type="hidden" name="imgfile2" value="" datatype="*" nullmsg="请上传质检证书" />
+                                    <table border="0">
 
-                                    </div>
-                                   
-                                    <img name="file2" />
-                                </td>
-                            </tr>
+                                        <tr>
+                                            <td nowrap="nowrap"><span></span>库位：</td>
+                                            <td colspan="2">
+                                                <span>
+                                                    <input class="text" type="text" name="pos" datatype="/^[(?=[\x21-\x7e]+)\w]{2, 20}$/" errormsg="库位请填写1-20位字符" />
+                                                </span>
+                                                <span></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap="nowrap"><span></span>仓位：</td>
+                                            <td colspan="2">
+                                                <input class="text" name="cang" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap="nowrap"><span></span>租库价格：</td>
+                                            <td colspan="2">
+                                                <span>
+                                                  <input name="store_price" class="text" value="" datatype="money|/^0?$/" errormsg="请填写价格" type="text" />（/<span class="unit">{$unit}</span>/天）
 
-                 </table>
-                        
-                    </div>
-                </div>
-            </div><input type="hidden" id="ajaxGetAddress" value="{url:/Ucenter/ajaxGetStoreAddress}">
+                                                </span>
+                                                <span></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td nowrap="nowrap"><span></span>入库日期：</td>
+                                            <td colspan="2">
+                                                <span>
+                                                    <input name="inTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+                                                </span>
+                                                <span></span>
+                                            </td>
+                                        </tr>
+                                         <tr>
+                                            <td nowrap="nowrap"><span></span>租库日期：</td>
+                                            <td colspan="2">
+                                                <span>
+                                                    <input name="rentTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+
+                                                </span>
+                                                <span></span>
+                                                 </td>
+                                        </tr>
+                                        <tr >
+                                            <td nowrap="nowrap"><span></span>检测机构：</td>
+                                            <td colspan="2">
+                                                <input class="text" name="check" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td nowrap="nowrap"><span></span>质检证书编号：</td>
+                                            <td colspan="2">
+                                                <input class="text" name="check_no" type="text">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>双方签字入库单：</td>
+                                            <td>
+                                                <div class="zhxi_con">
+                                                    <span><input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
+                                                    <input type="hidden" name="imgfile1" value="" datatype="*" nullmsg="请上传签字入库单" />
+
+                                                </div>
+
+                                                <img name="file1" />
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>质检证书：</td>
+                                            <td>
+                                                <div class="zhxi_con">
+                                                    <span><input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
+                                                    <input type="hidden" name="imgfile2" value="" datatype="*" nullmsg="请上传质检证书" />
+
+                                                </div>
+
+                                                <img name="file2" />
+                                            </td>
+                                        </tr>
+
+                             </table>
+
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="ajaxGetAddress" value="{url:/Ucenter/ajaxGetStoreAddress}">
             
                         <div class="zhxi_con">
                             <span><input class="submit"  type="submit" value="签发"></span>
                         </div>
                     </div>
-
                 </div>
             </div>
 </form>

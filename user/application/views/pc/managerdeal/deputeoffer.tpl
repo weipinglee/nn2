@@ -21,7 +21,7 @@
 
        <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
-            <!--start中间内容-->    
+            <!--start中间内容-->
             <div class="user_c">
                 <div class="user_zhxi pro_classify">
                     <div class="zhxi_tit">
@@ -55,7 +55,6 @@
 
                             </div>
                         {/foreach}
-                        {/if}ach}
                         {/if}
 
                         <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
@@ -94,10 +93,10 @@
                                 <span class="color">需在线下支付总金额的{$rate}%的委托金</span>
                             </td>
                         </tr>
-                         
+
                  </table>
                 </form>
-                        
+
                     </div>
                 </div>
             </div>

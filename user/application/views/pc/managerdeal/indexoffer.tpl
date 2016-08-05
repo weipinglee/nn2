@@ -7,12 +7,9 @@
 						<p><a>产品管理</a>><a>产品发布</a></p>
 					</div>
 					<div class="chp_xx">
-					 <a href="{url:/ManagerDeal/depositOffer}">
-						<div class="offer public">
+						<div class="offer public" onclick="window.open('{url:/ManagerDeal/depositOffer}')">
 							<div class="offer_left">
-								<a href="{url:/ManagerDeal/depositOffer}">
-									<img src="{views:/images/center/publish1.png}">
-								</a>
+								<img src="{views:/images/center/publish1.png}">
 							</div>
 							<p class="of_title1">
 								<span class="title1_a public">保证金报盘</span>
@@ -20,11 +17,9 @@
 							<p class="of_title2 public">保证金报盘的好处</p>
 							<!-- <p class="of_title1">保证金报盘优点</p> -->
 						</div>
-					</a>
-					<a href="{url:/ManagerDeal/freeOffer}">
-						<div class="offer public">
+						<div class="offer public" onclick="window.open('{url:/ManagerDeal/freeOffer}')">
 							<div class="offer_center">
-								<a href="{url:/ManagerDeal/freeOffer}"><img src="{views:/images/center/publish2.png}"></a>
+								<img src="{views:/images/center/publish2.png}">
 							</div>
 							<p class="of_title1">
 								<span class="title1_a public">自由报盘</span>
@@ -32,13 +27,9 @@
 							<p class="of_title2 public">自由报盘的好处</p>
 							<!-- <p class="of_title1">自由报盘有什么吗</p> -->
 						</div>
-					</a>
-					<a href="{url:/ManagerDeal/storeOffer}">	
-						<div class="offer public">
+						<div class="offer public" onclick="window.open('{url:/ManagerDeal/storeOffer}')">
 							<div class="offer_right">
-								<a href="{url:/ManagerDeal/storeOffer}">
-									<img src="{views:/images/center/publish3.png}">
-								</a>
+								<img src="{views:/images/center/publish3.png}">
 							</div>
 							<p class="of_title1">
 								<span class="title1_a public">仓单报盘</span>
@@ -46,13 +37,9 @@
 							<p class="of_title2 public">仓单报盘的好处</p>
 							<!-- <p class="of_title1">仓单报盘有什么吗</p> -->
 						</div>
-					</a>
-                    <a href="{url:/ManagerDeal/deputeOffer}">
-						<div class="offer public">
+						<div class="offer public" onclick="window.open('{url:/ManagerDeal/deputeOffer}')">
 							<div class="offer_right">
-								<a href="{url:/ManagerDeal/deputeOffer}">
-									<img src="{views:/images/center/publish4.png}">
-								</a>
+								<img src="{views:/images/center/publish4.png}">
 							</div>
 							<p class="of_title1">
 								<span class="title1_a public">委托报盘</span>
@@ -60,7 +47,6 @@
 							<p class="of_title2 public">委托报盘的好处</p>
 							<!-- <p class="of_title1">委托报盘有什么吗</p> -->
 						</div>
-                    </a>
 						
 					</div>
 				</div>
