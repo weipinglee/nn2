@@ -550,10 +550,7 @@ class M{
 	 * @param bool $trans
 	 * @return 
      */
-	public function
-
-
-	insertUpdate($insert,$update,$trans=0){
+	public function insertUpdate($insert,$update,$trans=0){
 		$sql = 'INSERT INTO '.$this->table();
 		$insertCol = '';
 		$insertVal = '';
