@@ -26,13 +26,13 @@
                  <td>{$detail['cang_pos']}</td>
              </tr>
              <tr>
-                 <th>组库价格</th>
-                 <td>{$detail['store_price']}（/kg/天）</td>
+                 
                  <th>入库日期</th>
                  <td>{$detail['in_time']}</td>
                  <th>租库日期</th>
                  <td>{$detail['rent_time']}</td>
-                 
+                 <th></th>
+                 <td></td>
 
              </tr>
 
