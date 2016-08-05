@@ -42,6 +42,9 @@ class loginModel{
 					$rbacModel = new RbacModel();
 					$role_name = admintool\admin::is_admin($user['id']) ? '超级管理员' : $rbacModel->adminRole($user['role']);
 					Session::set(tool::getConfig('rbac')['user_session'],array('id'=>$user['id'],'name'=>$user['name'],'role'=>$role_name));
+					$adminRiskModel=new adminRiskModel();
+					//检查登录地址
+					//$adminRiskModel->checkAdminAdd(['admin_id'=>$user['id'],'ip'=>$ip]);
 					$this->admin->commit();
 				} catch (PDOException $e) {
 					$this->admin->rollBack();

@@ -19,4 +19,7 @@ class riskMgtController extends Yaf\Controller_Abstract
         $this->getView()->assign('data',$userRiskList[0]);
         $this->getView()->assign('pageBar',$userRiskList[1]);
     }
+    public function adminRiskListAction(){
+
+    }
 }

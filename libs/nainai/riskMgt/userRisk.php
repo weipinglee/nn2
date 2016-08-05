@@ -19,6 +19,7 @@ class userRisk
         array('ip','require','ip不能为空'),
     );
 
+
     //添加，修改用户常用登录地址
     /**
      * @param  ['user_id','ip']

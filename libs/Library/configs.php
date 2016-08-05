@@ -9,9 +9,9 @@ namespace Library;
 return array(
     'http'=>'http',
     'host'=>array(
-        'deal'=>'http://192.168.2.9/nnzaixian/deal/public',
-        'user'=>'http://192.168.2.9/nnzaixian/user/public',
-        'admin'=>'http://192.168.2.9/nnzaixian/admin/public'
+        'deal'=>'http://localhost/nnzaixian/deal/public',
+        'user'=>'http://localhost/nnzaixian/user/public',
+        'admin'=>'http://localhost/nnzaixian/admin/public'
     ),
     'rootDir'=>array(
         'user'=>'E:\wamp\wamp\www\nnzaixian\user\public',
