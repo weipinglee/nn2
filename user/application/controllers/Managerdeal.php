@@ -102,6 +102,18 @@ class ManagerDealController extends UcenterBaseController {
         $this->getView()->assign('cate_id', $category['default']);
     }
 
+    //检查报盘规则
+    protected function offerCheck(){
+        $divide = Safe::filterPost('divide');
+        $minimum = Safe::filterPost('minimum','float',0);
+        $quantity = Safe::filterPost('quantity','float');
+        if($divide == 1){
+            if(!$minimum) return json::encode(tool::getSuccInfo(0,'未填写最小起订量'));
+            if($quantity <= $minimum) return json::encode(tool::getSuccInfo(0,'最小起订量需小于商品数量'));
+        }
+        return true;
+    }
+
     /**
      * 自由报盘申请页面
      *
@@ -127,6 +139,8 @@ class ManagerDealController extends UcenterBaseController {
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            $res = $this->offerCheck();
+            if($res !== true) die($res);
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
@@ -181,7 +195,8 @@ class ManagerDealController extends UcenterBaseController {
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
-
+            $res = $this->offerCheck();
+            if($res !== true) die($res);
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => safe::filterPost('divide', 'int'),
@@ -241,7 +256,8 @@ class ManagerDealController extends UcenterBaseController {
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
-
+            $res = $this->offerCheck();
+            if($res !== true) die($res);
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
@@ -414,10 +430,11 @@ class ManagerDealController extends UcenterBaseController {
             $token = safe::filterPost('token');
            // if(!safe::checkToken($token))
               //  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
-
+            
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
             $storeObj = new \nainai\store();
-
+            $res = $this->offerCheck();
+            if($res !== true) die($res);
             if ($storeObj->judgeIsUserStore($id, $this->user_id)) { //判断是否为用户的仓单
                 // 报盘数据
                 $offerData = array(

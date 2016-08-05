@@ -21,9 +21,8 @@ class Memcached extends \Library\cache\Cache {
      */
     public function __construct($options = array()) {
         if ( !extension_loaded('memcached') ) {
-            E(L('_NOT_SUPPORT_').':memcached');
+            return '未开启扩展';
         }
-
         $options = array_merge(array(
             'servers'       =>  array(array('127.0.0.1',11211)),
             'lib_options'   =>  null
@@ -46,7 +45,6 @@ class Memcached extends \Library\cache\Cache {
      * @return mixed
      */
     public function get($name) {
-        //N('cache_read',1);
         return $this->handler->get($this->options['prefix'].$name);
     }
 
