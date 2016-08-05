@@ -339,4 +339,17 @@ class certificate{
         }
         return $result;
     }
+    /*
+ * 验证角色属于什么状态
+ * */
+    public function getUserCertStatus($user_id){
+        $status=$this->checkCert($user_id);
+        $result=array();
+        foreach($status as $k=>$v){
+            if($v==1){
+                $result[]=self::$certRoleText[$k];
+            }
+        }
+        return $result;
+    }
 }

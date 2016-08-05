@@ -133,6 +133,7 @@
                         </li>-->
                         <li><a href="{url:member/usergroup/groupList}" target="content">角色分组</a></li>
                         <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
+                        <li><a href="{url:member/member/OnLineList}" target="content">在线会员信息</a></li>
                         <li><a href='javascript:voie(0)' target="content">菜单管理</a>
                          <ul>
                                 <li><a href="{url:member/Menu/MenuList}" target="content"> 菜单列表</a></li>
@@ -284,7 +285,17 @@
 
                     </ul>
                 </li>
+                <li><a   target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 风险管理</a>
+                    <ul>
+                        <li><a  target="content">预警管理</a>
+                            <ul>
+                                <li><a target="content" href="{url:riskMgt/riskMgt/userRiskList}">会员预警</a></li>
+                            </ul>
+                        </li>
 
+
+                    </ul>
+                </li>
 
 
             </ul>

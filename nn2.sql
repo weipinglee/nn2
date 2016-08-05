@@ -3036,3 +3036,21 @@ INSERT INTO `withdraw_request` (`id`, `user_id`, `request_no`, `amount`, `acc_na
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+create table if not exists `admin_often_use_address`(
+  `id` int(11) unsigned not null auto_increment comment '主键id',
+   `admin_id` int(11) not null default 0 comment '管理员Id',
+   `ip` varchar(16) not null default '' comment '登录ip',
+   `login_address` varchar(100) not null default '' comment '登录的地址',
+     `city_id` mediumint(6) NOT NULL DEFAULT '0' COMMENT '城市id',
+  `login_time` datetime DEFAULT NULL COMMENT '最近登录时间',
+  `login_times` int(11) NOT NULL DEFAULT '0' COMMENT '登录次数',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '地址状态 1是常用 0是不常用',
+  PRIMARY KEY (`id`)
+)engine=innodb charset=utf8;
+| user_alerted_record | CREATE TABLE `admin_alerted_record` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `record_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '预警时间',
+  `introduce` text COMMENT '预警原因',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 |

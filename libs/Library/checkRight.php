@@ -7,6 +7,8 @@
 namespace Library;
 use \Library\Session\Driver\Db;
 use \Library\url;
+use nainai\riskMgt\userRisk;
+
 class checkRight{
 
 
@@ -51,8 +53,11 @@ class checkRight{
         self::$sessObj->gc();
         self::$sessObj->write($sessID,serialize($sessData));
         $userModel = new M('user');
-        $userModel->where(array('id'=>$data['id']))->data(array('session_id'=>$sessID))->update();
-
+        $ip=\Library\tool::getIP();
+        $userModel->where(array('id'=>$data['id']))->data(array('session_id'=>$sessID,'login_ip'=>$ip,'login_time'=>date('Y-m-d H:i:s',time())))->update();
+        $riskModel=new userRisk();
+       // $riskModel->addUseAddress(['user_id'=>$data['id'],'ip'=>$ip]);
+        $riskModel->checkUserAddress(['user_id'=>$data['id'],'ip'=>$ip]);
         //获取认证状态
         $this->getCert($data['id']);
 

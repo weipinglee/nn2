@@ -45,5 +45,18 @@ class MemberModel{
 			return tool::getSuccInfo(0,'操作错误');
 		}
 	}
+	public function getOnLine($page=1){
+		$queryObj=new Query('user as u');
+		$queryObj->join=' left join user_session as s on s.session_id=u.session_id left join company_info as c on u.id=c.user_id left join person_info as p on p.user_id=u.id';
+		$queryObj->fields='u.*,c.company_name,p.true_name';
+		$queryObj->where='s.session_expire>:time';
+		$queryObj->bind=array('time'=>time());
+		$queryObj->page=$page;
+		$OnLineList=$queryObj->find();
+		$pageBar=$queryObj->getPageBar();
+		//var_dump($OnLineList,$pageBar);
+		return [$OnLineList,$pageBar];
+		return $OnLineList;
+	}
 
 }
