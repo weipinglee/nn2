@@ -56,7 +56,6 @@ class MemberModel{
 		$pageBar=$queryObj->getPageBar();
 		//var_dump($OnLineList,$pageBar);
 		return [$OnLineList,$pageBar];
-		return $OnLineList;
 	}
 
 }

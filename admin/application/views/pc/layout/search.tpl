@@ -40,7 +40,7 @@
             {/if}
             <button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜索</button>
    
-            {if: isset($data['search']['down'])}
+            {if: isset($data['search']['down']) && $data['search']['down']==1}
             <button type="submit" class="btn btn-success radius" id="" name="down" value="1"><i class="icon-search fa-search"></i> 导出</button>
             {/if}
 

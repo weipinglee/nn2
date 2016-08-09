@@ -1,5 +1,5 @@
 <?php
-namespace admintool;
+namespace conf;
 
 /**
 * 导出的下载字段数据配置
