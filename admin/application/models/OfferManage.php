@@ -103,7 +103,7 @@ class OfferManageModel extends \nainai\offer\product{
 	 * @param int $id 报盘id
 	 * @param int $status
 	 */
-	public function setStatus($id,$status){
+	public function setStatus($id,$status, $msg=''){
 		if(!($id = intval($id))) return tool::getSuccInfo(0,'参数错误');
 		$status = isset($status) ? intval($status) : 1;
 
@@ -132,7 +132,7 @@ class OfferManageModel extends \nainai\offer\product{
 				}
 			}
 			if($res===true){
-				$this->offer->where(array('id'=>$id))->data(array('status'=>$status))->update();
+				$this->offer->where(array('id'=>$id))->data(array('status'=>$status, 'admin_msg' => $msg))->update();
 				$log = new \Library\log();
 				$log->addLog(array('table'=>'报盘','type'=>'check','id'=>$id,'check_text'=>$this->getStatus($status)));
 

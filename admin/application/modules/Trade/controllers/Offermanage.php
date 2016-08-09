@@ -50,7 +50,6 @@ class OffermanageController extends Yaf\Controller_Abstract{
 			$riskData = $risk->getRiskDetail($info['risk']);
 			$this->getView()->assign('riskData',$riskData);
 		}
-
 		//获取客服人员列表
 		$kefu = new KefuModel();
 		$kefuData = $kefu->getAllkefu();
@@ -99,7 +98,7 @@ class OffermanageController extends Yaf\Controller_Abstract{
 			$id = safe::filterPost("id","int");
 			if(!$id) $id = intval($this->_request->getParam('id'));
 			$status = safe::filterPost("status","int");
-			$res = $this->offer->setStatus($id,$status);
+			$res = $this->offer->setStatus($id,$status, safe::filterPost("adminMsg"));
 			die(JSON::encode($res));
 		}
 		return false;

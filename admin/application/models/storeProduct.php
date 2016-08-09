@@ -71,11 +71,12 @@ class storeProductModel extends \nainai\store{
      * @param $id
      * @return bool
      */
-    public function marketCheck($id,$status){
+    public function marketCheck($id,$status, $msg=''){
         $old_status = $this->getStoreProductStatus($id);
         if($old_status == self::USER_AGREE) {
             $store['status'] = $status == 1 ? self::MARKET_AGREE : self::MARKET_REJECT;
             $store['market_time'] = \Library\Time::getDateTime();
+            $store['admin_msg'] = $msg;
             $obj = new M('');
             $obj->beginTrans();
             if(false === $this->UpdateApplyStore($store, array('id'=>$id))) {

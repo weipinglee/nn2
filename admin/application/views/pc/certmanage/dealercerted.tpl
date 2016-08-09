@@ -3,7 +3,7 @@
               CONTENT 
                         --> 
         <div id="content" class="white">
-            <h1><img src="{views:img/icons/posts.png}" alt="" /> 交易商认证</h1>
+            <h1><img src="{views:img/icons/posts.png}" alt="" /> 交易商已认证</h1>
 <div class="bloc">
     <div class="title">
         会员认证
@@ -33,7 +33,7 @@
                 <!--<td><input type="checkbox" value="" name=""></td>-->
                 <td>{$item['id']}</td>
                 <td>{$item['username']}</td>
-                <td>{echo:\nainai\member::getType($item['type'])}</td>
+                <td>{if: $item['type'] != ''}{echo:\nainai\member::getType($item['type'])}{/if}</td>
                 <td>{$item['mobile']}</td>
 				<td>{echo:\nainai\cert\certDealer::getStatusText($item['status'])}</td>
 				<td>{$item['apply_time']}</td>
@@ -45,8 +45,8 @@
 
         </tbody>
     </table>
-        </div>        
-       {$data['bar']}
+        </div>
+        {$data['bar']}
     </div>
 </div>
 
