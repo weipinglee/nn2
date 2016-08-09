@@ -3,7 +3,7 @@
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <script type="text/javascript" src="{views:js/product/storeproduct.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
-<input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
+<input type="hidden" name="attr_url" value="{url:/Managerstore/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
 <form action="{url:/ManagerStore/doStoreSign}" method="post" auto_submit="1" redirect_url="{url:/managerstore/applystorelist?type=2}">
 
@@ -373,8 +373,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" id="ajaxGetAddress" value="{url:/Ucenter/ajaxGetStoreAddress}">
-            
+
                         <div class="zhxi_con">
                             <span><input class="submit"  type="submit" value="签发"></span>
                         </div>

@@ -1,14 +1,13 @@
-
-<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
-<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
+<input type="hidden" name="attr_url" value="{url:/Managerstore/ajaxGetCategory}"  />
 <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
+<script type="text/javascript" src="{views:js/product/attr.js}" ></script>
 <script type="text/javascript" src="{views:js/product/storeproduct.js}"></script>
+
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
+<form action="{url:/ManagerStore/doUpdateStore}" method="post" auto_submit redirect_url="{url:/managerstore/applystoredetail?id=$detail['id']}">
 
-
-
-            <div class="user_c">
+<div class="user_c">
                 <div class="user_zhxi">
 
                     <div class="zhxi_tit">
@@ -78,8 +77,7 @@
                         </div>
                     </div>
                     <div class="yz_img">
-                        <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
-<script type="text/javascript" src="{views:js/product/attr.js}" ></script>
+
             <!--start中间内容-->
 
                         <div class="user_c" style="border:0px;margin-left:0px;">
@@ -103,7 +101,6 @@
                         {/foreach}
                         {/if}
 
-                  <form action="{url:/ManagerStore/doUpdateStore}" method="post" auto_submit redirect_url="{url:/managerstore/applystoredetail?id=$detail['id']}">
                         <table border="0"  >
                             <input type="hidden" name="user_id" datatype="n" value="{$user['id']}" />
                             <tr>
@@ -177,7 +174,7 @@
                             <tr id="sarea" >
                             <td>产地：</td>
                             <td colspan="2" >
-                                <span id="areabox">{area:}</span>
+                                <span id="areabox">{area:data=$detail['produce_area']}</span>
                                 <span><!-- <a onclick="showArea(0)">返回</a> --></span>
                             </td>
                          
@@ -187,10 +184,7 @@
                             <tr>
                                 <td>上传图片：</td>
                                 <td colspan="2" >
-                                   {include:layout/webuploader.tpl}
-                                    {foreach: items=$detail['photos'] item=$url}
-                                        <img src="{$url}"/>
-                                    {/foreach}
+                                    {include:layout/webuploader.tpl}
                                  </td>
                              </tr>
 
@@ -265,8 +259,6 @@
                     </div>
 
                     <div class="sh_jg">
-                       <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
-                        <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
             <!--end左侧导航-->  
             <!--start中间内容-->    
@@ -283,7 +275,7 @@
                                 <td nowrap="nowrap"><span></span>库位：</td>
                                 <td colspan="2"> 
                                     <span>
-                                        <input class="text" value="{$detail['store_pos']}" type="text" name="pos" datatype="/^[(?=[\x21-\x7e]+)\w]{2, 20}$/" errormsg="库位请填写1-20位字符" />
+                                        <input class="text" value="{$detail['store_pos']}" type="text" name="pos" datatype="*2-20" errormsg="库位请填写1-20位字符" />
                                     </span>
                                     <span></span>
                                 </td>
@@ -341,7 +333,7 @@
                                 <td>
                                     <div class="zhxi_con">
                                         <span><input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
-                                        <input type="hidden" name="imgfile1" value="" datatype="*" nullmsg="请上传签字入库单" />
+                                        <input type="hidden" name="imgfile1" value="confirm" datatype="*" nullmsg="请上传签字入库单" />
 
                                     </div>
                                    
@@ -354,7 +346,7 @@
                                 <td>
                                     <div class="zhxi_con">
                                         <span><input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
-                                        <input type="hidden" name="imgfile2" value="" datatype="*" nullmsg="请上传质检证书" />
+                                        <input type="hidden" name="imgfile2" value="{$detail['quality']}" datatype="*" nullmsg="请上传质检证书" />
 
                                     </div>
                                    
@@ -376,6 +368,8 @@
                 </div>
             </div>
 </form>
+
+
 
 
 

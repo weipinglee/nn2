@@ -9,6 +9,17 @@
     <input type="hidden" name="swfUrl" value="{root:/js/webuploader/Uploader.swf}" />
     <!--用来存放文件信息-->
     <ul id="filelist" class="filelist">
+        {if:isset($imgData)}
+            {foreach:items=$imgData}
+                <li   class="file-item thumbnail">
+                    <p>
+                        <img width="110" src="{echo:\Library\thumb::get($item,110,110)}" />
+
+                    </p>
+                    <input type="hidden" name="imgData[]" value="{$item}" />
+                </li>
+            {/foreach}
+        {/if}
     </ul>
     <div class="btns">
 

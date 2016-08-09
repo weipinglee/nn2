@@ -295,6 +295,56 @@ class ManagerStoreController extends UcenterBaseController{
 		$this->getView()->assign('pageHtml', $data['pageHtml']);
 	}
 
+	/**
+	 * AJax获取产品分类信息
+	 * @return [Json]
+	 */
+	public function ajaxGetCategoryAction(){
+		$pid = Safe::filterPost('pid', 'int',0);
+		if($pid){
+			$productModel = new product();
+			$cate = $productModel->getCategoryLevel($pid);
+
+			$cate['attr'] = $productModel->getProductAttr($cate['chain']);
+			$risk_data = array();
+			//获取保险产品信息
+			$risk = new \nainai\insurance\Risk();
+			$list = $risk->getRiskList(-1, array('status' => 1));
+
+			//获取子类的保险配置
+			if (!empty($cate['cate'])) {
+				$key  = count($cate['cate']);
+				do{
+					$risk_data = $cate['cate'][$key]['show'][0]['risk_data'];
+					if (!empty($risk_data)) {
+						break;
+					}
+					$key --;
+				}while($key > 0);
+			}
+
+			//当前分类没有配置保险，获取父类的保险配置
+			if (empty($risk_data)) {
+				$cates = $productModel->getParents($pid);
+				foreach ($cates as $key => $value) {
+					$risk_data = $productModel->getCateName($value['id'], 'risk_data');
+					if (!empty($risk_data)) { //如果上一级分类有保险配置，就用这个配置
+						$risk_data = explode(',', $risk_data);
+						break;
+					}
+				}
+			}
+			//获取分类设置的保险
+			if (!empty($risk_data)) {
+				$risks = array();
+				$risks = $risk->getRiskDetail($risk_data);
+			}
+			$cate['risk_data'] = $risks;
+			unset($cate['chain']);
+			echo JSON::encode($cate);
+		}
+		return false;
+	}
 	 /**
      * 修改仓单信息
      */
@@ -308,6 +358,7 @@ class ManagerStoreController extends UcenterBaseController{
     		$this->productAddAction();
 
     		$this->getView()->assign('detail', $detail);
+			$this->getView()->assign('imgData', $detail['imgData']);
     		$this->getView()->assign('user', $res);
     	}else{
     		$this->error('错误的请求方式!');
@@ -349,7 +400,7 @@ class ManagerStoreController extends UcenterBaseController{
     		}
 
     		$productData = $this->getProductData();
-    		$productData[0]['user_id'] = $user_id;
+
 
     		$store = new store();
     		$res = $store->updateStoreProduct( $productData,$storeProduct,$product_id, $id);

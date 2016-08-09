@@ -438,6 +438,7 @@ class product {
         $photos = $this->getProductPhoto($product_id);
         $detail['photos'] = $photos[1];
         $detail['origphotos'] = $photos[0];
+        $detail['imgData'] = $photos[2];
         return $detail;
 
     }
@@ -494,6 +495,7 @@ class product {
         public function getProductPhoto($pid = 0){
             $photos = array();
             $thumbs = array();
+            $imgData = array();
             if (intval($pid) > 0) {
                 $imgObj = new M('product_photos');
                 $photos = $imgObj->fields('id, img')->where(array('products_id'=>$pid))->select();
@@ -501,10 +503,11 @@ class product {
                 foreach ($photos as $key => $value) {
                     $thumbs[$key] = Thumb::get($value['img'],180,180);
                     $photos[$key] = Thumb::getOrigImg($value['img']);
+                    $imgData[$key] = $value['img'];
                 }
 
             }
-            return array($photos,$thumbs);
+            return array($photos,$thumbs,$imgData);
         }
 
         /**
