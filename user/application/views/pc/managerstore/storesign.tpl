@@ -1,13 +1,11 @@
 ﻿
-<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
-<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <script type="text/javascript" src="{views:js/product/storeproduct.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
-<form action="{url:/ManagerStore/doStoreSign}" method="post" auto_submit redirect_url="{url:/managerstore/applystorelist?type=2}">
+<form action="{url:/ManagerStore/doStoreSign}" method="post" auto_submit="1" redirect_url="{url:/managerstore/applystorelist?type=2}">
 
             <div class="user_c">
                 <div class="user_zhxi">
@@ -291,7 +289,7 @@
                                             <td nowrap="nowrap"><span></span>库位：</td>
                                             <td colspan="2">
                                                 <span>
-                                                    <input class="text" type="text" name="pos" datatype="/^[(?=[\x21-\x7e]+)\w]{2, 20}$/" errormsg="库位请填写1-20位字符" />
+                                                    <input class="text" type="text" name="pos" datatype="s2-20" errormsg="库位请填写1-20位字符" />
                                                 </span>
                                                 <span></span>
                                             </td>
