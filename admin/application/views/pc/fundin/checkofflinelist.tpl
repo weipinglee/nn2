@@ -6,7 +6,7 @@
             <h1><img src="{views:img/icons/posts.png}" alt="" /> 线下入金</h1>
 <div class="bloc">
     <div class="title">
-        未审核列表
+        待审核列表
     </div>
     <div class="content">
         <div class="pd-20">
@@ -31,12 +31,10 @@
 				<td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
 				<td>{$item['order_no']}</td>
 				<td>{$item['amount']}</td>
-
-
-				<td>{$item['status_text']}</td>>
+				<td>{$item['status_text']}</td>
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
-					<a title="审核" href="{url:balance/fundin/offlineEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+					<a title="查看" href="{url:/balance/fundin/offlineEdit}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
 					<a title="删除" href="javascript:void(0);" onclick="delOffline({$item['id']},this)" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}

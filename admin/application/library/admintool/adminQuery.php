@@ -36,12 +36,9 @@ class adminQuery extends \Library\Query{
             }
         }
 
-        if ($cond[0]['down'] == 1) {//如果是导出
-            $this->page = 1;
-            $this->pagesize = 5000;
-        }else{ //页面显示
+        if ($cond[0]['down'] == 0) {//如果不导出
             $this->page = $cond[0]['page'];
-            $this->pagesize = 10;
+            $this->pagesize = 20;
         }
 
         $list = parent::find();
@@ -77,7 +74,7 @@ class adminQuery extends \Library\Query{
             $search[$k] = $v[1];
         }
 
-        $page = safe::filterGet('page', 'int', 0);
+        $page = safe::filterGet('page', 'int', 1);
         $begin = safe::filterGet('begin');
         $end = safe::filterGet('end');
         $name = safe::filterGet('like');
