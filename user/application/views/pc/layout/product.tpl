@@ -100,6 +100,15 @@
 
     </tr>
 
+    <tr>
+        <td>有效期：</td>
+        <td colspan="2">
+            <span > <input class="Wdate" type="text" onclick="WdatePicker()" name="expire_time" value=""></span>
+            <span></span>
+        </td>
+
+    </tr>
+
 
     <tr>
         <td>上传图片：</td>
@@ -178,5 +187,12 @@
         <td>产品描述：</td>
         <td colspan="2">
             <textarea name="note"></textarea>
+        </td>
+    </tr>
+
+    <tr>
+        <td>补充条款：</td>
+        <td colspan="2">
+            <textarea name="other"></textarea>
         </td>
     </tr>

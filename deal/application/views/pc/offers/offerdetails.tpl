@@ -53,7 +53,9 @@
 
                     <div class="buy_btn baoj">
                         <a href="{url:/offers/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
+
                     </div>
+                    <a id='contract_review' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:blue;">合同预览</a>
 
                 </div>
                 <div style="clear:both;"></div>
@@ -144,6 +146,10 @@
                         <tr>
                             <td>有效期</td>
                             <td>{$data['expire_time']}</td>
+                        </tr>
+                        <tr>
+                            <td>补充条款</td>
+                            <td>{$data['other']}</td>
                         </tr>
 
                     </table>

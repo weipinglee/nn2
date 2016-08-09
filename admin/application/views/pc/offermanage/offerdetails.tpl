@@ -100,6 +100,14 @@
                  {/if}
              </tr>
              <tr>
+                 <th>申请时间</th>
+                 <td>{$info['apply_time']}</td>
+                 <th>过期时间</th>
+                 <td>{$info['expire_time']}</td>
+                 <th>补充条款</th>
+                 <td>{$info['other']}</td>
+             </tr>
+             <tr>
                  <th>图片</th>
                  <td>
 

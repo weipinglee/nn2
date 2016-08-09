@@ -25,7 +25,6 @@ class depositOffer extends product{
      */
     public function doOffer($productData,$offerData){
         $offerData['mode'] = self::DEPOSIT_OFFER;
-        $offerData['expire_time'] = $this->getExpireTime();
         $this->_productObj->beginTrans();
         $offerData['user_id'] = $this->user_id;
         $insert = $this->insertOffer($productData,$offerData);

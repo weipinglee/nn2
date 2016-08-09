@@ -135,10 +135,17 @@
                                <td colspan="2">交收时间</td>
                                <td colspan="6">T+{$offer['accept_day']}天</td>
                            </tr>
-
+                           <tr>
+                               <td colspan="2">过期时间</td>
+                               <td colspan="6">{$offer['expire_time']}</td>
+                           </tr>
                             <tr>
                                 <td colspan="2">产品描述</td>
                                 <td colspan="6">{$product['note']}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">补充条款</td>
+                                <td colspan="6">{$offer['other']}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">产品图片</td>

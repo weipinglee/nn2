@@ -78,12 +78,13 @@
                      <th>最小起订量</th>
                      <td>{$info['minimum']}</td>
                  {else:}
-                     <th>申请时间</th>
-                     <td>{$info['apply_time']}</td>
+                     <th></th>
+                     <td></td>
                  {/if}
 
 
              </tr>
+           
              <tr>
                  <th>报盘数量</th>
                  <td>{$info['quantity']}</td>
@@ -104,6 +105,14 @@
                      <th></th>
                      <td></td>
                  {/if}
+             </tr>
+               <tr>
+                 <th>申请时间</th>
+                 <td>{$info['apply_time']}</td>
+                 <th>过期时间</th>
+                 <td>{$info['expire_time']}</td>
+                 <th>补充条款</th>
+                 <td>{$info['other']}</td>
              </tr>
              <tr>
                  <th>图片</th>
