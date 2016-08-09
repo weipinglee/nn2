@@ -45,10 +45,6 @@ class FundoutController extends InitController {
 		$fundOutModel = new fundOutModel();
 		$data = $fundOutModel->getFundOutList($condition);
 
-		$down = safe::filterGet('down', 'int', 0);//是否导出
-		if ($down == 1) {
-			$this->downExcel($data['list'], $condition);
-		}
 		$this->getView()->assign('data', $data);
 	}
 

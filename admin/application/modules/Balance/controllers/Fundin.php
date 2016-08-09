@@ -48,11 +48,6 @@ class FundinController extends InitController {
 		
 		$data = $fundObj->getOnlineList($condition);
 
-		$down = safe::filterGet('down', 'int', 0);//是否导出
-		if ($down == 1) {
-			$this->downExcel($data['list'], $condition);
-		}
-
 		$this->getView()->assign('data', $data);
 	}
 	

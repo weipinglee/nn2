@@ -131,6 +131,11 @@ class Query
     {
         if(isset($this->sql[$name]))return true;
     }
+
+	public function __unset($name){
+		if(isset($this->sql[$name]))
+			$this->sql[$name] = null;
+	}
     /**
      * @brief 取得查询结果
      * @return array

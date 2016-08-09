@@ -93,7 +93,6 @@ class fundInModel{
         $reModel->join = 'left join user as u on r.user_id = u.id';
         $reModel->fields = 'r.id,r.order_no,r.amount,r.proot,r.pay_type,r.status,r.create_time,u.username,u.mobile,u.type';
 
-
         $where = ' r.is_del=0 AND r.pay_type IN (:type) AND r.status in ('.$condition['status'].')';
         $bind = array('type' => $condition['types']);
 
@@ -105,6 +104,8 @@ class fundInModel{
             $value['pay_type'] = $this->getPayType($value['pay_type']);
             $value['status_text'] = $this->getOffLineStatustext($value['status']);
         }
+
+        $reModel->downExcel($onlineInfo['list'],$condition['type']);
 
         return $onlineInfo;
 

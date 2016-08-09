@@ -36,6 +36,8 @@ class fundBankModel extends \nainai\user\UserBank{
             $value['status_text'] = $status_text[$value['status']]; 
         }
 
+        $reModel->downExcel($onlineInfo['list'],$condition['type']);
+
         return $onlineInfo;
     }
 

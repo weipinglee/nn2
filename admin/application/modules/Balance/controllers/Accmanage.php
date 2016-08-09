@@ -36,10 +36,6 @@ class AccmanageController extends InitController {
 	public function userListData($condition=array()){
 		$data = $this->account->userCreditList($condition);
 
-		$down = safe::filterGet('down', 'int', 0);//是否导出
-		if ($down == 1) {
-			$this->downExcel($data['list'], $condition);
-		}
 		$this->getView()->assign('data', $data);
 	}
 
@@ -129,10 +125,6 @@ class AccmanageController extends InitController {
 	public function listData($condition = array()){
 		$obj = new fundBankModel();
 		$data = $obj->getBankList($condition);
-		$down = safe::filterGet('down', 'int', 0);//是否导出
-		if ($down == 1) {
-			$this->downExcel($data['list'], $condition);
-		}
 
 		$this->getView()->assign('data', $data);
 	}

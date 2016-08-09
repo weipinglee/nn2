@@ -6,7 +6,6 @@ namespace admintool;
 */
 class Downconfig 
 {
-     
      public static function getConfig($type){
           $config = array();
           switch ($type) {

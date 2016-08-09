@@ -9,6 +9,7 @@ namespace admintool;
 use \Library\safe;
 class adminQuery extends \Library\Query{
 
+    private $down = 0;
 
     /**
      * 获取列表数据，返回页面显示信息
@@ -36,7 +37,10 @@ class adminQuery extends \Library\Query{
             }
         }
 
-        if ($cond[0]['down'] == 0) {//如果不导出
+        if ($cond[0]['down'] == 1) {//如果是导出
+            $this->down = 1;
+            unset($this->page);
+        }else if(!isset($this->page) || !$this->page){ //如果没有定义分页，在这里定义
             $this->page = $cond[0]['page'];
             $this->pagesize = 20;
         }
@@ -74,7 +78,7 @@ class adminQuery extends \Library\Query{
             $search[$k] = $v[1];
         }
 
-        $page = safe::filterGet('page', 'int', 1);
+        $page = safe::filterGet('page', 'int', 0);
         $begin = safe::filterGet('begin');
         $end = safe::filterGet('end');
         $name = safe::filterGet('like');
@@ -145,6 +149,46 @@ class adminQuery extends \Library\Query{
         }
 
         return array($cond,$search);
+    }
+
+
+    /**
+     * 导出操作
+     * @param array $list 列表
+     * @param string $type 导出的数据类型 在downconfig里配置
+     * @param string $name 文件名称
+     * @return bool
+     */
+    public function downExcel($list=array(), $type='',$name=''){
+        if (is_array($list) && !empty($list) && $this->down) {
+
+            $excel = array();
+            if($type)
+                $excel[0] = \admintool\Downconfig::getConfig($type);
+            else{
+                $table = ltrim($this->table,' ');
+                $excel[0] = \admintool\Downconfig::getConfig($table);
+            }
+            if (empty($excel[0])) {
+                exit();
+            }
+            $keys = array_keys($excel[0]);
+            $count = count($keys);
+            foreach ($list as $key => $value) {
+                $item = array();
+                for ($i=0; $i < $count; $i++) {
+                    $item[$keys[$i]] = $value[$keys[$i]];
+                }
+                array_push($excel, $item);
+            }
+
+            $obj = new \Library\Excel\ExcelHtml();
+            $fileName = $name ? $name : '信息报表';
+            $obj->createExecl($excel, $count,  $fileName);
+            exit();
+        }
+
+        return false;
     }
 
 }

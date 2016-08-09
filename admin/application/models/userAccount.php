@@ -27,6 +27,8 @@ class userAccountModel {
 		foreach ($accInfo['list'] as $k => $v) {
 			$accInfo['list'][$k]['amount'] = $v['fund']+$v['freeze'];
 		}
+
+		$query->downExcel($accInfo['list'],$condition['type']);
 		return $accInfo;
 	}
 
