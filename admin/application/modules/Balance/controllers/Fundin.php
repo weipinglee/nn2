@@ -23,6 +23,7 @@ class FundinController extends InitController {
 	public function onlineListAction() {
 		$fundObj = new fundInModel();
 		$condition = array('types' => fundInModel::DIRECT. ',' . fundInModel::UNION, 'name' => '线上列表', 'controller'=>'line');
+		$condition['status'] = fundInModel::OFFLINE_APPLY.','.fundInModel::OFFLINE_FIRST_OK ;
 		$condition['type'] = 'recharge_orderline';
 		$this->listData($condition);
 	}

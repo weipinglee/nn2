@@ -137,7 +137,7 @@ use \Library\Time;
 
              $this->flowModel->bind($cond);
 
-             return $this->flowModel->where($where)->bind($cond)->order('time DESC')->select();
+             return $this->flowModel->where($where)->bind($cond)->order('id DESC')->select();
          }
      }
     /**
