@@ -48,6 +48,9 @@ $(function(){
 
         // $list为容器jQuery实例
         $('#filelist').append( $li );
+        $li.on('dblclick',function(){
+            $(this).remove();
+        })
 
         percentages[file.id] = [file.size,0];
 
