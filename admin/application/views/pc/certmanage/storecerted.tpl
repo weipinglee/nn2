@@ -34,10 +34,10 @@
                <!-- <td><input type="checkbox" value="" name=""></td>-->
                 <td>{$item['id']}</td>
                 <td>{$item['username']}</td>
-                <td>{echo:\nainai\member::getType($item['type'])}</td>
+                <td>{$item['type_text']}</td>
                 <td>{$item['mobile']}</td>
                 <td>{$item['store_name']}</td>
-				<td>{echo:\nainai\cert\certDealer::getStatusText($item['status'])}</td>
+				<td>{$item['status_text']}</td>
 				<td>{$item['apply_time']}</td>
 
                 <td class="f-14"><a title="编辑" href="{url:member/certManage/storecertDetail?uid=$item['id']}"  style="text-decoration:none"><i class=" icon-edit fa-edit"></i></a> </td>

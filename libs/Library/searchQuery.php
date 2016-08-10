@@ -35,12 +35,21 @@ class searchQuery extends Query{
             }
         }
 
+        if ($cond[0]['down'] == 1) {//如果是导出
+            $this->page = 1;
+            $this->pagesize = 5000;
+        }else{ //页面显示
+            $this->page = $cond[0]['page'];
+            $this->pagesize = 1;
+        }
         $list = parent::find();
-        $bar = $this->getPageBar();
+        $result = array('list' => $list, 'search'=>$search);
+        if ($cond[0]['down'] == 0) {
+            $bar = $this->getPageBar();
+            $result['bar'] = $bar;
+        }
 
-        return array('list'=>$list,'bar'=>$bar,'search'=>$search);
-
-
+        return $result;
     }
     /**
      * 获取搜索条件
@@ -75,7 +84,9 @@ class searchQuery extends Query{
         $min = safe::filterGet('min','float',0);
         $max = safe::filterGet('max','float',0);
         $cond  = array();
+        $cond['down'] = safe::filterGet('down', 'int', 0);//是否导出
         $cond['where'] =  $temp = '';$cond['bind'] = array();
+        $cond['page'] = safe::filterGet('page', 'int', 0);;
 
         if($begin && isset($condArr['time'])){
             if($cond['where']!='')

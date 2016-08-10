@@ -38,12 +38,14 @@ class searchConfig {
         'dealer' => array(
             'time' => array('c.apply_time','申请时间'),
             'like' => array('u.username,u.mobile','用户名，手机号'),
-            'select' => array('u.type','用户类型')
+            'select' => array('u.type','用户类型'),
+            'down' => array(1, 1)
         ),
         'store_manager' => array(
             'time' => array('c.apply_time','申请时间'),
             'like' => array('u.username,u.mobile','用户名，手机号'),
-            'select' => array('u.type','用户类型')
+            'select' => array('u.type','用户类型'),
+            'down' => array(1, 1)
         ),
 
 

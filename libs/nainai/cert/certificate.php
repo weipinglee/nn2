@@ -251,15 +251,24 @@ class certificate{
      * @param int $page 页码
      * @param string $status 狀態
      */
-    public function certApplyList($type,$page,$status=1){
+    public function certApplyList($type,$page=0,$status=1){
         if(!isset($type))return array();
         $table = self::getCertTable($type);
         $Q = new searchQuery($table.' as c');
         $Q->join = 'left join user as u on u.id = c.user_id';
         $Q->fields = 'u.id,u.type,u.username,u.mobile,u.email,u.status as user_status,u.create_time,c.*';
-        $Q->page = $page;
+
         $Q->where = 'c.status in('.$status.')';
+
         $data = $Q->find(\nainai\member::getType());
+        foreach ($data['list'] as $key => &$value) {
+            $value['status_text'] = \nainai\cert\certDealer::getStatusText($value['status']);
+            if ($value['type'] != '') {
+                $value['type_text'] = \nainai\member::getType($value['type']);
+            }else{
+                $value['type_text'] = '';
+            }
+        }
         return $data;
     }
 
