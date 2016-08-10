@@ -110,7 +110,11 @@ class userRisk
         $ch=curl_init('http://ip.taobao.com/service/getIpInfo.php?ip='.$ip);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt ( $ch ,  CURLOPT_TIMEOUT ,  2 );
         $output = curl_exec($ch) ;
+        if($output===false){
+            return false;
+        }
         $cityInfo=json_decode($output);
         if($cityInfo->code==1){
             return false;

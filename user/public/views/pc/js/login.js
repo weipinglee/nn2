@@ -67,6 +67,7 @@
 
 
  function button_recover() {
+     logining = 0;
      $('#js-mobile_btn').removeAttr("disabled");
      $("#js-mobile_btn").text("立即登录");
  }
@@ -76,13 +77,16 @@
          d.focus();
      }
  }
-
+var logining = 0;
  function chgCode(){
      $('#chgCode').trigger('click');
  }
  function double_submit() {
+     if(logining==1)
+        return false;
      $("#js-mobile_btn").attr("disabled", "disabled");
      $("#js-mobile_btn").text("登录中...");
+
      $("#error_info").hide();
      var account = $.trim($('input[name=mobile]').val());
      var password = $.trim($('input[name=passwd]').val());
@@ -100,6 +104,7 @@
          showErrInfo('请填写验证码 ',$('input[name=code]'));
          return false;
      }
+     logining = 1;
      var data = {account : account ,password : password,captcha:captcha,callback:$('input[name=callback]').val()};
      $.ajax({
          type:'post',
@@ -137,19 +142,18 @@
                          }
 
                      }
+                     button_recover();
 
                  }else{
                          if(e.returnUrl)
-                             returnUrl = e.returnUrl;
-                         window.location = returnUrl;
+                             window.location = e.returnUrl;
                          return;
 
                  }
-                 button_recover();
+
              }
          },
          complete:function(){
-             button_recover();
          },
          timeout:1000
      })
