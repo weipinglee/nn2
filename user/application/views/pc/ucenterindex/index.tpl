@@ -69,17 +69,17 @@
 					<div class="user_nrz">
 						<div class="nrz_tit"><span>最新购买合同</span><a class="gengduo" href="{url:/contract/buyerList}">更多>></a></div>
 						<div class="nrz_gz">
+							{if:!empty($contract2)}
 							<table width="100%">
 								<tr>
 									<td width="220px">
 										<div style="padding:5px 10px;">
 											<div class="div_height">&nbsp;{$contract2['product_name']}</div>
-											<div class="div_height">&nbsp;所在地：{$contract2['store_name']}</div>
 										</div>
 
 									</td>
 									<td>
-										<a href="{url:/contract/buyerdetail?id=$contract1['id']}">{$contract2['order_no']}</a>
+										<a href="{url:/contract/buyerdetail?id=$contract2['id']}">{$contract2['order_no']}</a>
 									</td>
 									<td width="200px">
 										<div class="div_heights colaa0707">合同总额：￥{$contract2['amount']}</div>
@@ -92,6 +92,8 @@
 											</b></b></td>
 								</tr>
 							</table>
+							{else:}
+							{/if}
 
 						</div>
 					</div>
@@ -99,12 +101,12 @@
 					<div class="user_nrz">
 						<div class="nrz_tit"><span>最新销售合同</span><a class="gengduo" href="{url:/contract/sellerList}">更多>></a></div>
 						<div class="nrz_gz">
+							{if:!empty($contract1)}
 							<table width="100%">
 								<tr>
 									<td width="220px">
 										<div style="padding:5px 10px;">
 											<div class="div_height">&nbsp;{$contract1['product_name']}</div>
-											<div class="div_height">&nbsp;所在地：{$contract1['store_name']}</div>
 										</div>
 										
 									</td>
@@ -122,6 +124,9 @@
 									</b></b></td>
 								</tr>
 							</table>
+							{else:}
+
+							{/if}
 							
 						</div>
 					</div>

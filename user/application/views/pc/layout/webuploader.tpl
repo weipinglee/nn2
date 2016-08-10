@@ -22,8 +22,13 @@
         {/if}
     </ul>
     <div class="btns">
-
+        {set:$filesize = \Library\tool::getConfig(array('application','uploadsize'))}
+        {if:!$filesize}
+            {set:$filesize = 2048;}
+        {/if}
+        {set:$filesize = $filesize / 1024;}
         <div id="picker" style="line-height:15px;">选择文件</div>
+        <span>每张图片大小不能超过{$filesize}M</span>
         <div class="totalprogress" style="display:none;">
             <span class="text">0%</span>
             <span class="percentage"></span>
