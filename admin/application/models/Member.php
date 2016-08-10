@@ -25,7 +25,7 @@ class MemberModel extends baseModel{
 	 *获取用户列表
      */
 	public function getList(){
-		$Q = new \admintool\adminQuery('user as u');
+		$Q = new \Library\searchQuery('user as u');
 		$Q->join = 'left join agent as a on u.agent = a.id left join admin_yewu as ye on u.yewu = ye.admin_id';
 		$Q->fields = 'u.*,a.username as agent_name,ye.ser_name';
 		$Q->order = 'u.id asc';

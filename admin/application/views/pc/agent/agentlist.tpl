@@ -14,7 +14,7 @@
         <div class="pd-20">
         <form action="{url:member/agent/agentList}">
 	<div class="text-c"> <input type="text" name="username" class="input-text" style="width:250px" placeholder="输入会员名称">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜会员</button>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜索</button>
 	</div>
 	</form>
 	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l">
