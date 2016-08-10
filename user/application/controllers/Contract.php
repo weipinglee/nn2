@@ -94,6 +94,7 @@ class ContractController extends UcenterBaseController{
 		$invoiceData['create_time'] = date('Y-m-d H:i:s',time());
 		$res = $user_invoice->geneInvoice($invoiceData);
 		die(JSON::encode($res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,'开具发票失败')));
+		return false;
 	}
 
 	//合同详情

@@ -68,20 +68,10 @@ class DepositOrder extends Order{
 					$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
 					$note_type = $type==0 ? '订金' : '全款';
 					$note = '合同'.$note_id.$note_type.'支付';
-					switch ($payment) {
-						case self::PAYMENT_AGENT:
-							$acc_res = $this->account->freeze($buyer,$orderData['pay_deposit'],$note);
-							break;
-						case self::PAYMENT_BANK:
-							$acc_res = $this->zx->freeze($buyer,$orderData['pay_deposit'],$clientID);
-							break; 
-						case self::PAYMENT_TICKET:
-							break;
-						default:
-							$acc_res = '参数错误';
-							break;
-					}
-					$res = $acc_res;
+					
+					$account = $this->base_account->get_account($payment);
+					if(!is_object($account)) return tool::getSuccInfo(0,$account);
+					$res = $account->freeze($buyer,$orderData['pay_deposit'],$note);
 				}
 
 			}else{
@@ -125,13 +115,16 @@ class DepositOrder extends Order{
 				if($pay === false){
 					//未支付 合同取消
 					
+
+					$account = $this->base_account->get_account($info['buyer_deposit_payment']);
+					if(!is_object($account)) return tool::getSuccInfo(0,$account);
 					//扣除信誉值
 					$configs_credit = new \nainai\CreditConfig();
 					$configs_credit->changeUserCredit($seller,'cancel_contract');
 					
 					//将买方冻结资金解冻
 					$note = '卖方未支付合同'.$info['order_no'].'保证金退还定金';
-					$acc_res = $this->account->freezeRelease($buyer,floatval($info['pay_deposit']),$note);
+					$acc_res = $account->freezeRelease($buyer,floatval($info['pay_deposit']),$note);
 					//将商品数量解冻
 					$pro_res = $this->productsFreezeRelease($this->offerInfo($info['offer_id']),$info['num']);
 
@@ -155,8 +148,6 @@ class DepositOrder extends Order{
 						//冻结卖方帐户保证金
 						$note = '支付合同'.$info['order_no'].'保证金';	
 
-						$clientID = tool::create_uuid($seller);
-						$orderData['seller_deposit_clientid'] = $payment == self::PAYMENT_BANK ? $clientID : '';
 						$orderData['seller_deposit_payment'] = $payment;
 						$orderData['seller_deposit'] = $seller_deposit;
 						//判断此订单是否支付全款
@@ -176,23 +167,11 @@ class DepositOrder extends Order{
 							$res = $upd_res['info'];
 						}
 						if($res === true){
-							switch ($payment) {
-								case self::PAYMENT_AGENT:
-									$acc_res = $this->account->freeze($seller,$seller_deposit,$note);
-									break;
-								case self::PAYMENT_BANK:
-									$acc_res = $this->zx->freeze($seller,$seller_deposit,$clientID);
-									if($acc_res!==true){
-										$acc_res = $acc_res['info'];
-									}
-									break;
-								case self::PAYMENT_TICKET:
-									break;
-								default:
-									$acc_res = '参数错误';
-									break;
-							}
-							$res = $acc_res;
+							$account = $this->base_account->get_account($payment);
+							// var_dump($account);exit;
+							if(!is_object($account)) return tool::getSuccInfo(0,$account);
+							$res = $account->freeze($seller,$seller_deposit,$note);
+							
 						}
 					}else{
 						$res = $seller;

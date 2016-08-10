@@ -143,8 +143,9 @@ class zx extends account{
      * @param float $num 冻结金额
      */
 
-    public function freeze($user_id,$num,$clientID=''){
-         return $this->bankTransfer($clientID,$num,$user_id,0,'freeze');
+    public function freeze($user_id,$num,$note=''){
+        $clientID = tool::create_uuid($user_id);
+        return $this->bankTransfer($clientID,$num,$user_id,0,'freeze');
 
     }
 
@@ -155,9 +156,11 @@ class zx extends account{
      * @param float $num 释放金额
      */
 
-    public function freezeRelease($user_id,$num,$freezeno=''){
-        return $this->bankTransfer('',$num,$user_id,0,'freezeRelease','',$freezeno);
-
+    public function freezeRelease($user_id,$num,$time=''){
+        $freeze_records = $this->freezeTrans($user_id,$time);
+        $djcode = $this->getFreezeCode($freeze_records,$num);
+        if(!$djcode) return '无效冻结金额';
+        return $this->bankTransfer('',$num,$user_id,0,'freezeRelease','',$djcode);
     }
 
     /**
@@ -165,12 +168,41 @@ class zx extends account{
      * 将冻结资金解冻，支付给另外一个用户
      * @param int $from 冻结账户用户id
      * @param int $to  转到的账户用户id,0代表市场
-     * @param float $num 转账的金额
+     * @param mixed $num 转账的金额
      *
      */
 
-    public function freezePay($from,$to=0,$num,$freezeno=''){
-        return $this->bankTransfer('',$num,$from,$to,'freezePay','',$freezeno);
+    public function freezePay($from,$to=0,$num,$time=''){
+        $freeze_records = $this->freezeTrans($from,$time);//加缓存TODO
+        if(is_array($num)){
+            $temp = array();
+            $freeze_nos = array();
+            foreach ($num as $value) {
+                $code = $this->getFreezeCode($freeze_records,$value,$temp);
+                if($code){
+                    $freeze_nos [$value]= $code;
+                    $temp []= $value;
+                }else{
+                    return '冻结信息获取错误:'.$value;
+                }
+            }
+
+            foreach ($freeze_nos as $amount => $code) {
+                $res = $this->bankTransfer('',$amount,$from,$to,'freezePay','',$code);   
+                if($res !== true){
+                    return $res['info'];
+                }
+            }
+        }else{
+            $code = $this->getFreezeCode($freeze_records,$num);
+            if(!$code) return '冻结信息获取错误:'.$num;
+            $res = $this->bankTransfer('',$amount,$from,$to,'freezePay','',$code); 
+            if($res !== true){
+                return $res['info'];
+            }  
+        }
+        return true;
+        
     }
 
     /**
@@ -366,7 +398,7 @@ class zx extends account{
 
         $res = $this->attachAccount->curl($xml);
         // var_dump($res);exit;
-        return $res['status'] == 1 ? true : $res;
+        return $res['status'] == 1 ? true : $res['info'];
 
     }
 
@@ -393,7 +425,7 @@ class zx extends account{
         }else{
             return '';
         }
-
+        return '';
     }
 
     /**
@@ -421,6 +453,7 @@ class zx extends account{
      * @return array 
      */
     public function freezeTrans($user_id,$date){
+        $date = $date ? $date : '20160101';
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
        // var_dump($payAccInfo);exit;
         $starDate = date('Ymd',strtotime($date));
