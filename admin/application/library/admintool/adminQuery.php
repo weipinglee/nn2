@@ -35,7 +35,6 @@ class adminQuery extends \Library\Query{
                 $search['selectData'] = $selectData;
             }
         }
-
         if ($cond[0]['down'] == 1) {//如果是导出
             $this->page = 1;
             $this->pagesize = 5000;
@@ -125,8 +124,7 @@ class adminQuery extends \Library\Query{
             $cond['where'] .= $temp." ( {$likeWhere} )";
             $cond['bind']['like'] = "%{$name}%";
         }
-
-        if($select && isset($condArr['select'])){
+        if($select != 'all' && isset($condArr['select'])){
             if($cond['where']!='')
                 $temp = ' AND ';
             $cond['where'] .= $temp." {$condArr['select']} = :select";

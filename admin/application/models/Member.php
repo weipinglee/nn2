@@ -12,14 +12,12 @@ class MemberModel{
 	/**
 	 *获取用户列表
      */
-	public function getList($page){
+	public function getList(){
 		$Q = new \admintool\adminQuery('user as u');
 		$Q->join = 'left join agent as a on u.agent = a.id left join admin_yewu as ye on u.yewu = ye.admin_id';
 		$Q->fields = 'u.*,a.username as agent_name,ye.ser_name';
 		$Q->order = 'u.id asc';
-		$Q->page = $page;
-		$Q->pagesize = 20;
-		$data = $Q->find();
+		$data = $Q->find($this->getYewuList());
 		return $data;
 	}
 
@@ -45,6 +43,7 @@ class MemberModel{
 			return tool::getSuccInfo(0,'操作错误');
 		}
 	}
+
 	public function getOnLine($page=1){
 		$queryObj=new Query('user as u');
 		$queryObj->join=' left join user_session as s on s.session_id=u.session_id left join company_info as c on u.id=c.user_id left join person_info as p on p.user_id=u.id';
@@ -57,6 +56,19 @@ class MemberModel{
 		//var_dump($OnLineList,$pageBar);
 		return [$OnLineList,$pageBar];
 		return $OnLineList;
+	}
+
+	public function getYewuList(){
+		$return = array();
+		$mem = new M('admin_yewu');
+		$list = $mem->fields('admin_id, ser_name')->select();
+		if (!empty($list)) {
+			foreach ($list as $key => $value) {
+				$return[$value['admin_id']] = $value['ser_name'];
+			}
+		}
+
+		return $return;
 	}
 
 }

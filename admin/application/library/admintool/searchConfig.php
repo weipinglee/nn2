@@ -40,6 +40,8 @@ class searchConfig {
         ),
         'user'       => array(
                 'like' => array('u.username,u.email,u.mobile','用户名、手机号、邮箱'),
+                 'select'=> array('u.yewu','业务员'),
+                 'down' => array('1', 1)
         ),
     );
 

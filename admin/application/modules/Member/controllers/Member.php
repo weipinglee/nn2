@@ -10,7 +10,7 @@ use \Library\Thumb;
 use \nainai\subRight;
 use \Library\url;
 use \nainai\member;
-class MemberController extends Yaf\Controller_Abstract {
+class MemberController extends InitController {
 
 
 	public function init(){
@@ -23,10 +23,14 @@ class MemberController extends Yaf\Controller_Abstract {
 	 * 获取会员列表
 	 */
 	public function memberListAction(){
-
 		$m = new MemberModel();
-		$page = safe::filterGet('page','int');
-		$pageData = $m->getList($page);
+		$pageData = $m->getList();
+		$down = safe::filterGet('down', 'int', 0);//是否导出
+		if ($down == 1) {
+			$condition = array('name' => '会员列表', 'type' =>'user');
+			$this->downExcel($pageData['list'], $condition);
+		}
+
 		$this->getView()->assign('data',$pageData);
 	}
 
