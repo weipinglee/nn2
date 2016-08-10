@@ -27,6 +27,8 @@
 
                 <th>ID</th>
                 <th>用户名</th>
+                <th>姓名/企业名称</th>
+                <th>商品名</th>
                 <th>交易方式</th>
                 <th>类型</th>
                 <th>可否拆分</th>
@@ -43,6 +45,8 @@
 
                     <td>{$item['id']}</td>
                     <td><a href="#">{$item['username']}</a></td>
+                    <td>{if:$item['company_name']!=''}{$item['company_name']}{else:}{$item['true_name']}{/if}</td>
+                    <td>{$item['name']}</td>
                     <td>{$item['type_txt']}</td>
                     <td>{$item['mode_txt']}</td>
                     <td>{if:$item['divide'] == 1}可拆分{else:}否{/if}</td>

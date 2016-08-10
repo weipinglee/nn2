@@ -41,6 +41,7 @@ class searchConfig {
         ),
         'product_offer' => array(
             'time'=>array('o.apply_time','创建时间'),
+            'select' => array('o.mode','报盘类型'),
             'like'=>array('o.id,p.name','报盘id,商品名称')
 
         ),

@@ -131,7 +131,7 @@ class searchQuery extends Query{
             $cond['bind']['like'] = "%{$name}%";
         }
 
-        if($select && isset($condArr['select'])){
+        if(isset($_GET['select']) && $select!='all' && isset($condArr['select'])){
             if($cond['where']!='')
                 $temp = ' AND ';
             $cond['where'] .= $temp." {$condArr['select']} = :select";

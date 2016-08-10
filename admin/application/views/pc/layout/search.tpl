@@ -11,6 +11,11 @@
     {set:$min=\Library\safe::filterGet('min');}
     {set:$max=\Library\safe::filterGet('max');}
     {set:$select=\Library\safe::filterGet('select');}
+
+    {if:$select==='all' || !isset($_GET['select']) }
+        {set:$select = -9999}
+    {/if}
+
     <form action="" method="get" >
         <div class="text-c">
             {if:isset($data['search']['time'])}
