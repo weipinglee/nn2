@@ -1,4 +1,11 @@
-﻿<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
+﻿{if: $stop == 1}
+<div >    
+<img src="{views:images/weituo.png}">
+</div>
+
+{else:}
+
+<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
@@ -21,7 +28,6 @@
 
        <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
-            <!--start中间内容-->
             <div class="user_c">
                 <div class="user_zhxi pro_classify">
                     <div class="zhxi_tit">
@@ -76,7 +82,7 @@
                                            <div  >
                                                <img name="file1" src=""/>
                                                <input type="hidden"  name="imgfile1" value=""  alt="请上传图片" />
-                                           </div><!--img name属性与上传控件id相同-->
+                                           </div>
 
 
                                        </div>
@@ -100,6 +106,6 @@
                 </div>
             </div>
 
-
+{/if}
 
 

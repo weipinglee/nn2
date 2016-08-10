@@ -37,7 +37,14 @@
 				<td>{$item['create_time']}</td>
 				<td>{$item['agent_name']}</td>
 				<td>{$item['ser_name']}</td>
-				<td class="td-manage"><!-- <a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a> --> <a title="编辑" href="{url:member/member/detail?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> </td>
+				<td class="td-manage">
+				{if:$item['status'] == MemberModel::NOMAL}
+				<a style="text-decoration:none" ajax_status=0  ajax_url="{url:member/member/ajaxupdatestatus?id=$item['id']}"  href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a>
+				{else:}
+				<a style="text-decoration:none" ajax_status=1  ajax_url="{url:member/member/ajaxupdatestatus?id=$item['id']}"  href="javascript:;" title="启用"><i class="icon-play fa-play"></i></a>
+				{/if} 
+				<a title="编辑" href="{url:member/member/detail?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> 
+				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:member/member/ajaxupdatestatus?id=$item['id']&delete=1}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>

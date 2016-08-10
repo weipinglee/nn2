@@ -244,12 +244,13 @@ class ManagerDealController extends UcenterBaseController {
      *
      */
     public function deputeOfferAction(){
-        $token =  \Library\safe::createToken();
+        $this->getView()->assign('stop',1);
+/*        $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
         $Obj = new \nainai\offer\deputeOffer();
         $rate = $Obj->getFeeRate($this->user_id);
         $this->getView()->assign('rate',$rate);
-        $this->productAddAction();
+        $this->productAddAction();*/
     }
 
     /**

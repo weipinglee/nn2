@@ -124,7 +124,7 @@ class adminQuery extends \Library\Query{
             $cond['where'] .= $temp." ( {$likeWhere} )";
             $cond['bind']['like'] = "%{$name}%";
         }
-        if($select != 'all' && isset($condArr['select'])){
+        if((!empty($select) && $select != 'all') && isset($condArr['select'])){
             if($cond['where']!='')
                 $temp = ' AND ';
             $cond['where'] .= $temp." {$condArr['select']} = :select";

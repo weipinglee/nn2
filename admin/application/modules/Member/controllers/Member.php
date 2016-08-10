@@ -10,6 +10,8 @@ use \Library\Thumb;
 use \nainai\subRight;
 use \Library\url;
 use \nainai\member;
+use \Library\json;
+use \Library\tool;
 class MemberController extends InitController {
 
 
@@ -223,6 +225,36 @@ class MemberController extends InitController {
 		$this->getView()->assign('member',$member[0]);
 		$this->getView()->assign('pageBar',$member[1]);
 
+	}
+
+
+	public function ajaxUpdateStatusAction(){
+		$id = $this->getRequest()->getParam('id');
+		$delete = $this->getRequest()->getParam('delete');
+		$status = safe::filterPost('status','int',0);
+
+		$id = Safe::filter($id, 'int', 0);
+		$delete = Safe::filter($delete, 'int', 0); //判断是否删除
+
+		if (intval($id) > 0) {
+			
+			$m = new MemberModel();
+			$m->setTable('user');
+			
+			$data = array(
+				'id' => $id
+			);
+			if ($delete == 1) {
+				$data['status'] = $m::DELETE;
+			}else{
+				$data['status'] = ($status == 1) ? $m::NOMAL : $m::LOCK;
+			}
+			$res = $m->update($data);
+			exit(json::encode($res));
+		}
+
+		
+		exit(json::encode(tool::getSuccInfo(0, 'error id')));
 	}
 
 
