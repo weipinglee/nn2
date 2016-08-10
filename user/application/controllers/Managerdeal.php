@@ -138,7 +138,7 @@ class ManagerDealController extends UcenterBaseController {
         if(IS_POST){
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
-                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+                // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $res = $this->offerCheck();
             if($res !== true) die($res);
             $offerData = array(
@@ -151,8 +151,12 @@ class ManagerDealController extends UcenterBaseController {
                 'price'        => Safe::filterPost('price', 'float'),
                 'acc_type'   => 1,//现在写死了，就是代理账户
                  'insurance' => Safe::filterPost('insurance', 'int'),
-               'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+               'risk' =>implode(',', Safe::filterPost('risk', 'int')),
+               'expire_time' =>  Safe::filterPost('expire_time'),
+               'other' => Safe::filterPost('other'),
             );
+
+
 
             if(!$offerData['risk']){
                 $offerData['risk'] = '';
@@ -194,7 +198,7 @@ class ManagerDealController extends UcenterBaseController {
         if(IS_POST){
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
-                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+                // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $res = $this->offerCheck();
             if($res !== true) die($res);
             $offerData = array(
@@ -207,13 +211,14 @@ class ManagerDealController extends UcenterBaseController {
                 'price'        => safe::filterPost('price', 'float'),
                  'insurance' => Safe::filterPost('insurance', 'int',''),
 
-                'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
+                'expire_time' =>  Safe::filterPost('expire_time'),
+               'other' => Safe::filterPost('other'),
                // 'acc_type'   => 1,
             );
             if(!$offerData['risk']){
                 $offerData['risk'] = '';
             }
-
             $depositObj = new depositOffer($this->user_id);
             $productData = $this->getProductData();
 
@@ -268,7 +273,9 @@ class ManagerDealController extends UcenterBaseController {
                 'price'        => Safe::filterPost('price', 'float'),
                 'sign'        => Tool::setImgApp(Safe::filterPost('imgfile1')),//委托书照片
                 'insurance' => Safe::filterPost('insurance', 'int'),
-               'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+               'risk' =>implode(',', Safe::filterPost('risk', 'int')),
+               'expire_time' =>  Safe::filterPost('expire_time'),
+               'other' => Safe::filterPost('other'),
                 // 'acc_type'   => 1,
             );
 
@@ -643,7 +650,6 @@ class ManagerDealController extends UcenterBaseController {
                 $riskData = $risk->getRiskDetail($offerDetail[0]['risk']);
                 $this->getView()->assign('riskData',$riskData);
             }
-
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
         }

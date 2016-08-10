@@ -54,7 +54,6 @@ class freeOffer extends product{
             $offerData['offer_fee'] = $fee;
             $offerData['user_id'] = $user_id;
             $offerData['mode'] = self::FREE_OFFER;
-            $offerData['expire_time'] = $this->getExpireTime();
             $this->_productObj->beginTrans();
             $insert = $this->insertOffer($productData,$offerData);
 

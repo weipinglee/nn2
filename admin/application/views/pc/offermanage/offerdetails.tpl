@@ -1,22 +1,16 @@
-        <script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
-        <script type="text/javascript" src="{views:js/validform/validform.js}"></script>
-        <script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
-        <script type="text/javascript" src="{views:js/layer/layer.js}"></script>
+
         <!--            
-              CONTENT 
+              CONTENT
                         --> 
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" />报盘管理
 </h1>
-
+                
 <div class="bloc">
     <div class="title">
        报盘信息
     </div>
      <div class="pd-20">
-         <form action="{url:trade/Offermanage/setStatus}" method="post" auto_submit redirect_url="{url:trade/Offermanage/offerReview}">
-
-
 	 	 <table class="table table-border table-bordered table-bg">
              <tr>
                  <th>委托方</th>
@@ -75,16 +69,15 @@
                  <th>计量单位</th>
                  <td>{$info['unit']}</td>
                  {if: $info['divide'] == 1}
-                     <th>最小起订量</th>
-                     <td>{$info['minimum']}</td>
+                 <th>最小起订量</th>
+                 <td>{$info['minimum']}</td>
                  {else:}
-                     <th></th>
-                     <td></td>
-                 {/if}
-
+                     <th>申请时间</th>
+                     <td>{$info['apply_time']}</td>
+             {/if}
+            
 
              </tr>
-           
              <tr>
                  <th>报盘数量</th>
                  <td>{$info['quantity']}</td>
@@ -100,13 +93,13 @@
                  <td>{$info['accept_area']}</td>
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
-                     <td><img src="{$info['sign_thumb']}" /></td>
+                     <td>{$info['sign_thumb']}</td>
                  {else:}
                      <th></th>
                      <td></td>
                  {/if}
              </tr>
-               <tr>
+             <tr>
                  <th>申请时间</th>
                  <td>{$info['apply_time']}</td>
                  <th>过期时间</th>
@@ -116,16 +109,16 @@
              </tr>
              <tr>
                  <th>图片</th>
-
                  <td>
+
                      {foreach:items=$info['photos']}
                          <img src="{$item}"  />
-                      {/foreach}
-                 </td>
+                     {/foreach}
 
+
+                 </td>
                  <th>商品属性</th>
                  <td >
-
                      {foreach:items=$info['attr_arr']}
                          {$key}:{$item}</br>
                      {/foreach}
@@ -133,9 +126,7 @@
                  <th>描述</th>
                  <td>{$info['note']}</td>
              </tr>
-
-
-              <tr>
+                <tr>
                  <th>是否投保</th>
 
                  <td>
@@ -157,34 +148,37 @@
                  <th></th>
                  <td></td>
              </tr>
-             <tr>
-                 <th>审核结果</th><input type="hidden" name="id" value="{$info['id']}" />
-                 <td> <label><input type="radio" name="status" value="1" checked/>通过</label>
-                     <label><input type="radio" name="status" value="0"/>不通过</label>
-                 </td>
-                 <th></th>
-                 <td></td>
-                 <th></th>
-                 <td></td>
-             </tr>
 <tr>
 
                  <th>审核意见</th>
-                 <td colspan="5"><textarea name='adminMsg' cols="100"></textarea></td>
+                 <td colspan="5">{$info['admin_msg']}</td>
              </tr>
+             <tr>
+                 <th>操作</th>
 
-            <tr>
-              <th scope="col" colspan="6">
-                  <input type="submit" class="btn btn-primary radius" value="提交"/>
-                  <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
-              </th>
+                 <th scope="col" colspan="7">
+                     <form action="{url:trade/OfferManage/kefuAdd}" method="post" auto_submit redirect_url="{url:trade/OfferManage/offerList}">
+                         <input type="hidden" name="offer_id" value="{$info['id']}" />
+                         <select name="kefu" >
+                             <option value="0">请选择客服</option>
+                             {foreach:items=$kefu}
+                                 <option value="{$item['admin_id']}" {if:$info['kefu']==$item['admin_id']}selected="true"{/if}>{$item['ser_name']}</option>
+                             {/foreach}
+                         </select>
+
+                         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;绑定客服&nbsp;&nbsp;">
+                     </form>
+
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
+                 </th>
+
             </tr>
 	 	</table>
-         </form>
  	</div>
 </div>
-</div>
 
+</div>
+        
         
     </body>
 </html>
