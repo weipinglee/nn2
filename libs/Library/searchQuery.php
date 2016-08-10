@@ -38,6 +38,7 @@ class searchQuery extends Query{
         }
 
         if ($cond[0]['down'] == 1) {//如果是导出
+
             $this->down = 1;
             unset($this->page);
         }else if(!isset($this->page) || !$this->page){ //如果没有定义分页，在这里定义
@@ -95,9 +96,11 @@ class searchQuery extends Query{
         $max = safe::filterGet('max','float',0);
         $down = safe::filterGet('down', 'int', 0);//是否导出
         $cond  = array();
+
         $cond['down'] = $down;
         $cond['where'] =  $temp = '';$cond['bind'] = array();
         $cond['page'] = $page;
+
 
 
         if($begin && isset($condArr['time'])){

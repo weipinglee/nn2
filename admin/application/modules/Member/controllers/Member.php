@@ -10,7 +10,9 @@ use \Library\Thumb;
 use \nainai\subRight;
 use \Library\url;
 use \nainai\member;
-class MemberController extends Yaf\Controller_Abstract {
+use \Library\json;
+use \Library\tool;
+class MemberController extends InitController {
 
 
 	public function init(){
@@ -23,10 +25,14 @@ class MemberController extends Yaf\Controller_Abstract {
 	 * 获取会员列表
 	 */
 	public function memberListAction(){
-
 		$m = new MemberModel();
-		$page = safe::filterGet('page','int');
-		$pageData = $m->getList($page);
+		$pageData = $m->getList();
+		$down = safe::filterGet('down', 'int', 0);//是否导出
+		if ($down == 1) {
+			$condition = array('name' => '会员列表', 'type' =>'user');
+			$this->downExcel($pageData['list'], $condition);
+		}
+
 		$this->getView()->assign('data',$pageData);
 	}
 
@@ -219,6 +225,36 @@ class MemberController extends Yaf\Controller_Abstract {
 		$this->getView()->assign('member',$member[0]);
 		$this->getView()->assign('pageBar',$member[1]);
 
+	}
+
+
+	public function ajaxUpdateStatusAction(){
+		$id = $this->getRequest()->getParam('id');
+		$delete = $this->getRequest()->getParam('delete');
+		$status = safe::filterPost('status','int',0);
+
+		$id = Safe::filter($id, 'int', 0);
+		$delete = Safe::filter($delete, 'int', 0); //判断是否删除
+
+		if (intval($id) > 0) {
+			
+			$m = new MemberModel();
+			$m->setTable('user');
+			
+			$data = array(
+				'id' => $id
+			);
+			if ($delete == 1) {
+				$data['status'] = $m::DELETE;
+			}else{
+				$data['status'] = ($status == 1) ? $m::NOMAL : $m::LOCK;
+			}
+			$res = $m->update($data);
+			exit(json::encode($res));
+		}
+
+		
+		exit(json::encode(tool::getSuccInfo(0, 'error id')));
 	}
 
 

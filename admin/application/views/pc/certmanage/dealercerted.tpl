@@ -33,9 +33,9 @@
                 <!--<td><input type="checkbox" value="" name=""></td>-->
                 <td>{$item['id']}</td>
                 <td>{$item['username']}</td>
-                <td>{if: $item['type'] != ''}{echo:\nainai\member::getType($item['type'])}{/if}</td>
+                s<td>{$item['type_text']}</td>
                 <td>{$item['mobile']}</td>
-				<td>{echo:\nainai\cert\certDealer::getStatusText($item['status'])}</td>
+				<td>{$item['status_text']}</td>
 				<td>{$item['apply_time']}</td>
 
                 <td class="f-14"><a title="编辑" href="{url:member/certManage/dealercertDetail?uid=$item['id']}"  style="text-decoration:none"><i class=" icon-edit fa-edit"></i></a> </td>

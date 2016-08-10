@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Created by PhpStorm.
@@ -9,3 +10,4 @@ namespace admintool;
 class adminQuery extends \Library\searchQuery{
 
 }
+

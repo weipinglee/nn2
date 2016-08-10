@@ -27,6 +27,15 @@ class Downconfig
               case 'recharge_orderoff':
                 $config = array('username' => '用户名', 'order_no' => '订单号', 'amount' => '金额', 'status_text' => '状态', 'create_time' => '时间');
                 break;
+              case 'dealer':
+                $config = array('username' => '登录账号', 'type_text' => '会员类型', 'mobile' => '手机号', 'status_text' => '认证状态', 'apply_time' => '申请时间');
+                break;
+              case 'store_manager':
+                $config = array('username' => '登录账号', 'type_text' => '会员类型', 'mobile' => '手机号', 'store_name'=>'认证仓库','status_text' => '认证状态', 'apply_time' => '申请时间');
+              case 'user':
+                $config = array('username' => '用户名', 'email' => '邮箱', 'mobile' => '手机号', 'create_time' => '注册时间', 'agent_name' => '代理商', 'ser_name' => '业务员');
+                break;
+                break;
           }
           return $config;
      }

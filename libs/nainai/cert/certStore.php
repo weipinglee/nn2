@@ -146,6 +146,15 @@ class certStore extends certificate{
         $Q->page = $page;
         $Q->where = 'c.status in('.$status.')';
         $data = $Q->find(\nainai\member::getType());
+        
+        foreach ($data['list'] as $key => &$value) {
+            $value['status_text'] = \nainai\cert\certDealer::getStatusText($value['status']);
+            if ($value['type'] != '') {
+                $value['type_text'] = \nainai\member::getType($value['type']);
+            }else{
+                $value['type_text'] = '';
+            }
+        }
         return $data;
     }
     /**
