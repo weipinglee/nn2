@@ -115,6 +115,7 @@ class tradeController extends \nainai\controller\Base {
 			$order->beginTrans();
 			$gen_res = $order_mode->geneOrder($orderData);
 			if($gen_res['success'] == 1){
+				$order_id = $gen_res['order_id'];
 				if($offer_type == order\Order::ORDER_FREE || $offer_type == order\Order::ORDER_ENTRUST){
 					$zhi = new \nainai\member();
 					$pay_secret = safe::filterPost('pay_secret');
@@ -122,7 +123,7 @@ class tradeController extends \nainai\controller\Base {
 						die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
 					}
 					$order->commit();
-					$order_id = $gen_res['order_id'];
+					
 					$amount = $order->where(array('id'=>$order_id))->getfield('amount');
 					$url = url::createUrl('/offers/paySuccess?id='.$order_id.'&order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证');
 					die(json::encode(tool::getSuccInfo(1,'操作成功,稍后跳转',$url)));

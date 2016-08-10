@@ -22,7 +22,7 @@ class StoreOrder extends Order{
 	 * @param int $type 0:定金1:全款 默认定金支付
 	 * @param int $user_id 当前session用户id
 	 */
-	public function buyerDeposit($order_id,$type,$user_id){
+	public function buyerDeposit($order_id,$type,$user_id,$payment=self::PAYMENT_AGENT){
 		$info = $this->orderInfo($order_id);
 		if(is_array($info) && isset($info['contract_status'])){
 			if($info['contract_status'] != self::CONTRACT_NOTFORM)
@@ -53,13 +53,15 @@ class StoreOrder extends Order{
 
 				$upd_res = $this->orderUpdate($orderData);
 				if($upd_res['success'] == 1){
-					//冻结买方帐户资金  payment=1 余额支付
-					$acc_res = $this->account->freeze($info['user_id'],$orderData['pay_deposit']);
+					//冻结买方帐户资金 
+					$account = $this->base_account->get_account($payment);
+					if(!is_object($account)) return tool::getSuccInfo(0,$account);
+					$acc_res = $account->freeze($info['user_id'],$orderData['pay_deposit']);
 					if($acc_res === true){
 						$log_res = $this->payLog($order_id,$user_id,0,'买方支付预付款--'.($type == 0 ? '定金' : '全款'));
 						$res = $log_res === true ? true : $log_res;
 					}else{
-						$res = $acc_res['info'];
+						$res = $acc_res;
 					}	
 				}else{
 					$res = $upd_res['info'];

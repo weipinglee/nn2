@@ -178,7 +178,6 @@ class LoginController extends \Yaf\Controller_Abstract {
 				else{//登录成功
 					$checkRight = new checkRight();
 					$checkRight->loginAfter($userData);
-
 				}
 			}
 

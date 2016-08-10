@@ -90,7 +90,7 @@
 								<b class="sj_de_tit">银行卡号：</b>
 								<span>&nbsp;{$invoice['bank_no']}</span>
 							</div>
-							<form action="{url:/Contract/geneOrderInvoice}" method="post"  rediret_url="{url:/Contract/sellerDetail?id=$info['id']}">
+							<form action="{url:/Contract/geneOrderInvoice}" method="post" auto_submit rediret_url="{url:/Contract/sellerDetail?id=$info['id']}">
 								<div class="sj_detal">
 									<b class="sj_de_tit">发票照片：</b>
 									<span>&nbsp;{if:$invoice['order_invoice']['image']}<img src="{$invoice['order_invoice']['image']}">{else:}
