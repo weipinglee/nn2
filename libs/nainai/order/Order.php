@@ -1241,6 +1241,7 @@ class Order{
 		$Q->fields = 'u.username,of.type,p.name,p.unit,o.num';
 		$Q->where = 'o.contract_status='.self::CONTRACT_COMPLETE;
 		$Q->limit = $num;
+		$Q->cache = 'm';
 		$data = $Q->find();
 		return $data;
 

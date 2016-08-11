@@ -20,6 +20,7 @@ class indexModel {
        $obj->where = 'u.type=1';
        $obj->order = 'u.credit DESC';
        $obj->limit = $num;
+	   $obj->cache = 'm';
        $data = $obj->find();
        $mem = new \nainai\member();
        if(!empty($data)){

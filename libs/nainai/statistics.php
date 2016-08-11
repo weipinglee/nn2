@@ -275,8 +275,10 @@ class statistics{
         $marketObj->join='left join product_category as c on m.cate_id=c.id';
         $marketObj->fields='c.name,m.*';
         $marketObj->where='m.type= :type and datediff(NOW(),m.create_time)<'.$this->interval.' and find_in_set(m.cate_id,getChildLists(:cid))';
-        foreach($topCat as $k=>$v) {
+        
+		foreach($topCat as $k=>$v) {
             $marketObj->bind = array('cid' => $v['id'], 'type' => $type);
+			$marketObj->cache = 'm';
             $newStatcList[$v['id']]=$marketObj->find();
         }
         return $newStatcList;
@@ -292,6 +294,7 @@ class statistics{
         $marketObj->limit = 10;
         $marketObj->where='m.type= :type and datediff(NOW(),m.create_time)<'.$this->interval;
         $marketObj->bind = array('type'=>$type);
+		$marketObj->cache = 'm';
         $data = $marketObj->find();
         return $data;
     }
