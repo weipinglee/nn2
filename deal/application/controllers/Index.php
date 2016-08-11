@@ -22,6 +22,7 @@ class IndexController extends PublicController {
      * 对于如下的例子, 当访问http://yourhost/yar-demo/index/index/index/name/root 的时候, 你就会发现不同
      */
 	public function indexAction() {
+		//phpinfo();
 
 		$this->getView()->assign('index',1);
 		//获取所有分类

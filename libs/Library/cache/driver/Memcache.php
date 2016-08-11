@@ -9,36 +9,32 @@
 // | Author: 何辉 <runphp@qq.com>
 // +----------------------------------------------------------------------
 
-namespace Cache\Driver;
-
-
-
+namespace Library\cache\driver;
 /**
  * Memcached缓存驱动
  */
-class Memcached extends Cache {
+class Memcache extends \Library\cache\Cache {
 
     /**
      *
      * @param array $options
      */
     public function __construct($options = array()) {
-        if ( !extension_loaded('memcached') ) {
-            E(L('_NOT_SUPPORT_').':memcached');
+        if ( !extension_loaded('memcache') ) {
+            return '未开启扩展';
         }
-
         $options = array_merge(array(
-            'servers'       =>  '127.0.0.1:11211',
+            'servers'       =>  array(array('127.0.0.1',11211)),
             'lib_options'   =>  null
         ), $options);
 
         $this->options      =   $options;
-        $this->options['expire'] =  isset($options['expire'])?  $options['expire']  :   3600;
+        $this->options['expire'] =  isset($options['expire']) && $options['expire']?  $options['expire']  :   3600;
         $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   "nn2_";
-        $this->options['length'] =  isset($options['length'])?  $options['length']  :   0;
+        $this->options['length'] =  0;//isset($options['length'])?  $options['length']  :   0;
 
-        $this->handler      =   new MemcachedResource;
-        $options['servers'] && $this->handler->addServers($options['servers']);
+        $this->handler      =   new \Memcache();
+        $this->handler->connect('localhost', 11211);
         $options['lib_options'] && $this->handler->setOptions($options['lib_options']);
     }
 
@@ -49,7 +45,6 @@ class Memcached extends Cache {
      * @return mixed
      */
     public function get($name) {
-        N('cache_read',1);
         return $this->handler->get($this->options['prefix'].$name);
     }
 
@@ -62,12 +57,11 @@ class Memcached extends Cache {
      * @return boolean
      */
     public function set($name, $value, $expire = null) {
-        N('cache_write',1);
         if(is_null($expire)) {
             $expire  =  $this->options['expire'];
         }
         $name   =   $this->options['prefix'].$name;
-        if($this->handler->set($name, $value, time() + $expire)) {
+        if($this->handler->set($name, $value,0, $expire)) {
             if($this->options['length']>0) {
                 // 记录缓存队列
                 $this->queue($name);

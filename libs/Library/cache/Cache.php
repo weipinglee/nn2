@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 namespace Library\cache;
 use Library\cache\driver\Memcached;
-use Library\cache\driver\Redis;
+use Library\cache\driver\Memcache;
 /**
  * 缓存管理类
  */
@@ -34,9 +34,13 @@ class Cache {
         $expire = (is_array($type) && $type['expire']) ? $type['expire'] : '';
         $type = is_array($type) ? $type['type'] : $type;
         switch ($type) {
-            case 'm':
+            case 'md':
                 $options = $expire ? array('expire'=>$expire) : array();
                 $this->handler = new Memcached($options);
+                break;
+            case 'm':
+                $options = $expire ? array('expire'=>$expire) : array();
+                $this->handler = new Memcache($options);
                 break;
             case 'r':
                 $this->handler = new Redis();
