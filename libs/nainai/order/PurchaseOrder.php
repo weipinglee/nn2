@@ -24,7 +24,7 @@ class PurchaseOrder extends Order{
 	 * @param  int $type 0:定金 1:全款
 	 * @return array  结果数组
 	 */
-	public function purchaseOrder($purchase_id,$type = 0){
+	public function purchaseOrder($purchase_id,$type = 0,$payment){
 		$purchase = new M('purchase_report');
 		$query = new Query('purchase_report as pr');
 		$query->join = 'left join product_offer as po on pr.offer_id = po.id left join products as p on po.product_id = p.id left join order_sell as o on po.id = o.offer_id';

@@ -5,10 +5,16 @@
   <meta name="keywords"/>
   <meta name="description"/>
   <meta charset="utf-8">
+
   <link href="{views:css/home.css?v=2}" rel="stylesheet" type="text/css" />
   <style type="text/css">
         p{text-indent: 24px;}
   </style>
+
+  <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src='{root:js/area/Area.js}'></script>
+<script type="text/javascript" src='{root:js/area/AreaData_min.js}'></script>
+
 </head>
 <body>
 <div class="wrap">
@@ -19,6 +25,7 @@
         <span class="pop_con_tit"></span>
 
         <div class="main">
+
             <p align="center"><strong style="font-size:20px;">耐耐网电子交易平台挂牌交易电子合同</strong></p>
 
             <div style="padding-left:20px;margin-top:10px;">
@@ -138,6 +145,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- 合同弹出层end -->

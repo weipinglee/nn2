@@ -23,8 +23,9 @@ class PurchaseOrderController extends OrderController{
 	public function geneOrderHandleAction(){
 		if(IS_POST){
 			$id = safe::filterPost('id','int');
+			$account = safe::filterPost('account','int');
 			$order = new \nainai\order\PurchaseOrder();
-			$res = $order->purchaseOrder($id);
+			$res = $order->purchaseOrder($id,0,$account);
 			die(json::encode($res));
 		}
 		return false;

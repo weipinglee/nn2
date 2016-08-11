@@ -75,7 +75,7 @@ class ContractController extends UcenterBaseController{
 		$info = $order->contractDetail($id);
 		$info['complain'] = $order->canComplain($info);
 
-
+		
 		$invoice = $order->orderInvoiceInfo($info);
 		$this->getView()->assign('invoice',$invoice);
 
