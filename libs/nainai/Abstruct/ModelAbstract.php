@@ -13,7 +13,7 @@ abstract class ModelAbstract{
 	 * 表名
 	 * @var null
 	 */
-	public $tableName = null;
+	protected $tableName = null;
 
 	/**
 	 * 数据对象

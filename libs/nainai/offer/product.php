@@ -522,7 +522,16 @@ class product {
                 $pId = $this->_productObj->data($productData[0])->add();
                 $productOffer['product_id'] = $pId;
 
-                   $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+                $id =   $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+
+                if ($id > 0) {
+
+                    $title =  $this->getMode($productOffer['mode'])  . '审核';
+                    $content = $productData[0]['name'] . $this->getMode($productOffer['mode']) . '需要审核';
+
+                    $adminMsg = new \nainai\adminMsg();
+                    $adminMsg->createMsg('checkoffer',$id,$content,$title);
+                };
                     $imgData = $productData[1];
                     if (!empty($imgData)) {
                         foreach ($imgData as $key => $imgUrl) {
