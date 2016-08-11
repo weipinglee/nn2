@@ -7,6 +7,7 @@
 
 use \Library\M;
 use \Library\Query;
+use \Library\searchQuery;
 use \Library\tool;
 class AdminModel{
 
@@ -136,17 +137,15 @@ class AdminModel{
 	//获取管理员操作记录
 	public function logList($page,$name='')
 	{
-		$Q = new Query('admin as a');
+		$Q = new searchQuery('admin as a');
 		$Q->join = 'right join admin_log as l on a.id = l.author';
-		$Q->page = $page;
-		$Q->pagesize = 18;
 		$Q->fields = "l.*,a.name";
 		$Q->order = "l.datetime desc";
 		$Q->where = "a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
 		$data = $Q->find();
 
-		$pageBar =  $Q->getPageBar();
-		return array('data'=>$data,'bar'=>$pageBar);
+		$Q->downExcel($data['list'], 'admin_log', '管理员操作记录');
+		return $data;
 	}
 
 }

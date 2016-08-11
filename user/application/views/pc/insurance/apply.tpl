@@ -28,6 +28,7 @@
                     </span>
                     <span></span>
                 </div>
+                {if: !empty($risk_data)}
                 <div class="zhxi_con">
                     <span class="con_tit"><i>*</i>购买数量：</span>
                     <span><input  name="quantity" type="text" datatype="float" ></span>
@@ -45,6 +46,7 @@
                 <div class="zhxi_con">
                     <span><input class="submit" type="submit" value="提交"/></span>
                 </div>
+                {/if}
             </form>
         </div>
         <div style="clear:both;"></div>

@@ -6,6 +6,7 @@ use \Library\Query;
 use \Library\tool;
 use \Library\url;
 use \Library\Thumb;
+use \Library\searchQuery;
 
 /**
  * 申述的对应数据操作api
@@ -105,8 +106,8 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 	 * @param  array  $condition [查询条件,where是sql，bind对应的绑定数据]
 	 * @return [Array]            
 	 */
-	public function getComplainList($page, $pagesize, $condition = array()){
-		$query = new Query('order_complain as a');
+	public function getComplainList($condition = array()){
+		$query = new searchQuery('order_complain as a');
 		$query->fields = 'a.id, a.title, a.type, a.proof, a.status, a.apply_time, b.order_no, b.id as oid, c.username';
 		$query->join = 'LEFT JOIN order_sell as b ON a.order_id=b.id LEFT JOIN user as c ON a.user_id=c.id';
 		$query->order = 'apply_time desc';
@@ -116,14 +117,12 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 			$query->bind = $condition['bind'];
 		}
 
-		$query->page = $page;
-        		$query->pagesize = $pagesize;
+		$types = $this->getComplainType();
+		$status = $this->getComplainStatus();
 
-        		$lists = $query->find();
-        		$types = $this->getComplainType();
-        		$status = $this->getComplainStatus();
-
-        		foreach ($lists as $k => &$list) {
+        		$lists = $query->find($types);
+        		
+        		foreach ($lists['list'] as $k => &$list) {
         			$list['type'] = $types[$list['type']];
         			$list['status'] = $status[$list['status']];
         			$list['proof'] = unserialize($list['proof']);
@@ -133,8 +132,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 	        			}
         			}
         		}
-
-        		return array('list' => $lists, 'pageHtml' => $query->getPageBar());
+        		return $lists;
 	}
 
 	/**

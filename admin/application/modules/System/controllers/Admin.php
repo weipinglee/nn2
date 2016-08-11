@@ -118,8 +118,8 @@ class AdminController extends InitController {
 		$page = safe::filterGet('page','int');
 		$name = safe::filterGet('name');
 		$pageData = $this->adminModel->logList($page,$name);
-		$this->getView()->assign('data',$pageData['data']);
-		$this->getView()->assign('bar',$pageData['bar']);
+
+		$this->getView()->assign('data',$pageData);
 		$this->getView()->assign('name',$name);
 	}
 }

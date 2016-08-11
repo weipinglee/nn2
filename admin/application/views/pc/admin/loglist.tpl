@@ -9,10 +9,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="" value="{$name}">
-		<button type="submit" class="btn btn-success radius search-admin" id="" name=""><i class="icon-search fa-search"></i> 搜索</button>
-	</div>
+	{include:layout/search.tpl}
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -26,7 +23,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$data}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 				<!-- <td><input type="checkbox" value="" name=""></td> -->
 				<td>{$item['id']}</td>
@@ -43,7 +40,7 @@
 		</tbody>
 
 	</table>
-		{$bar}
+		{$data['bar']}
 	</div>
 </div>
 <script type="text/javascript">

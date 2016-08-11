@@ -109,7 +109,7 @@ class ManagerDealController extends UcenterBaseController {
         $quantity = Safe::filterPost('quantity','float');
         if($divide == 1){
             if(!$minimum) return json::encode(tool::getSuccInfo(0,'未填写最小起订量'));
-            if($quantity <= $minimum) return json::encode(tool::getSuccInfo(0,'最小起订量需小于商品数量'));
+            if(bccomp($quantity, $minimum) == -1) return json::encode(tool::getSuccInfo(0,'最小起订量需小于商品数量'));
         }
         return true;
     }
@@ -199,6 +199,7 @@ class ManagerDealController extends UcenterBaseController {
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
                  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+
             $res = $this->offerCheck();
             if($res !== true) die($res);
             $offerData = array(
@@ -261,7 +262,7 @@ class ManagerDealController extends UcenterBaseController {
         if(IS_POST){
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
-                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+                // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $res = $this->offerCheck();
             if($res !== true) die($res);
             $offerData = array(
@@ -461,7 +462,6 @@ class ManagerDealController extends UcenterBaseController {
                 if(!$offerData['risk']){
                     $offerData['risk'] = '';
                 }
-
                 $offerObj = new \nainai\offer\storeOffer($this->user_id);
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');
 
