@@ -713,6 +713,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     font-size: 18px;
     font-weight: normal;
     letter-spacing: 2px;
+    margin-right: 20px;
 }
 .od_buton a:hover{text-decoration:none; }
 .od_buton{
