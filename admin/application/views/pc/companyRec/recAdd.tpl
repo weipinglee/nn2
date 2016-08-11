@@ -51,7 +51,7 @@
         <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>开始时间：</label>
           <div class="formControls col-5">
-            <input type="text" name="start_time" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});">
+            <input type="text" name="start_time" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'%y-%M-%d'});">
           </div>
           <div class="col-4"> </div>
         </div>

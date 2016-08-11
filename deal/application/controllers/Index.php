@@ -42,7 +42,6 @@ class IndexController extends PublicController {
 		$statcModel=new \nainai\statistics();
 		$statcCatList=$statcModel->getNewStatcList(1);
 		$statcProList=$statcModel->getNewStaticListNocate(2);
-
 		$topCat=$productModel->getTopCate(8);
 		$company=\nainai\companyRec::getAllCompany();
 
@@ -52,8 +51,7 @@ class IndexController extends PublicController {
 
 		//获取首页最新完成的交易
 		$order = new \nainai\order\Order();
-		$newTrade = $order->getNewComplateTrade(10);
-
+		$newTrade = $order->getNewComplateTrade(20);
 		$offer = new OffersModel();
 		$offerCateData = array();
 		foreach($topCat as $k=>$v){
@@ -66,6 +64,8 @@ class IndexController extends PublicController {
 		//获取企业总数
 		$company_num = $indexModel->getTotalCompany();
 		$this->getView()->assign('company_num',$company_num['num']);
+		$userNum=$indexModel->getAllUser();
+		$this->getView()->assign('all_user_num',$userNum['num']);
 		//获取当前和昨日成交量
 		$order_num = $order->getOrderTotal();
 		$order_num_yes = $order->getOrderTotal('yesterday');

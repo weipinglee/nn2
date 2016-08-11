@@ -57,7 +57,6 @@ $(document).ready(function(){
                 $('#attrs').html(data.attrs);
                 $('#id').val(data.sid);
                 $('#product_id').val(data.product_id);
-
                 var areaData= getAreaData();
                 var p =  areaData[0];
                 var q = areaData[1];
@@ -70,9 +69,11 @@ $(document).ready(function(){
                     if(data.produce_area.length>3) b = parseInt(data.produce_area.substring(0,4));
                     if(data.produce_area.length>5) l = parseInt(data.produce_area.substring(0,6));
                  }
-
-                $('#area').html(p[d] + q[d][b] + dis_arr[b][l]);
- 
+                if(dis_arr[b]!=undefined) {
+                    $('#area').html(p[d] + q[d][b] + dis_arr[b][l]);
+                }else{
+                    $('#area').html(p[d]+q[d][b]);
+                }
                 var insertHtml = '';
                 $.each(data.photos, function(key, value){
                     insertHtml += '<img src="' + value + '" />';

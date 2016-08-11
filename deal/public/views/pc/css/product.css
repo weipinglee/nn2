@@ -42,7 +42,6 @@ a{cursor: pointer;text-decoration: none;}
 	padding: 0px 15px;
 border-bottom: 1px solid #e3e3e3;
 position: relative;
-overflow: hidden;
 }
 .pro_classify .class_jy .jy_title{
 	font-weight: 700;
@@ -53,9 +52,8 @@ text-align: right;
 }
 .pro_classify .class_jy ul {
 	width:92%;
-	float: left;
+	height: 30px;
 	line-height: 30px;
-	overflow: hidden; 
 }
 .pro_classify .class_jy .infoslider{
     display: block;
@@ -136,7 +134,6 @@ text-align: right;
 
 .pro_main{
 	margin-top: 15px;
-	text-align: center;
 }
 .pro_main .pro_sort{
 	padding: 6px 8px;
@@ -179,20 +176,8 @@ text-align: right;
 	color: #333;
 	position: relative;
 }
-.pro_main .pro_sort .sort_list a:hover{
-	float: left;
-	padding: 0 15px;
-	height: 23px;
-	border: 1px solid #CCC;
-	line-height: 23px;
-	padding-left: 10px;
-	background: #FFF;
-	color: #333;
-	position: relative;
-	text-decoration: none;
-}
 .pro_main .pro_sort .sort_list a.curr{
-	background-color: #d61515;
+	background-color: #e4393c;
 	color: #fff;
 	border-color: #e4393c;
 }
@@ -209,7 +194,7 @@ text-align: right;
 }
 .pro_main .pro_cen ul li{
 	float: left;
-	width: 105px;
+	width: 80px;
 	text-align: center;
 }
 /*product.html*/
@@ -217,7 +202,7 @@ text-align: right;
 	width: 117px;
 }
 .pro_main .pro_cen ul .tit_left{
-	width: 150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+	width: 150px;
 }
 .pro_main .pro_cen ul .but_left{
 	width: 100px;
@@ -248,15 +233,12 @@ text-align: right;
 	line-height: 45px;
 	border-bottom: 1px solid #e3e3e3;
 }
-.pro_main .main_centon li {
-    height: 45px;
-}
 .pro_main  .main_centon .pz_img{
 	position: relative;
 	top:6px;
 }
 .pro_main .pro_cen .main_centon .qian_blue{
-	color:#FF6600;
+	color:#1cddaf;
 }
 
 .pro_main .pro_cen .main_centon .icon_img{
@@ -286,7 +268,8 @@ text-align: right;
 	background: #c4141c;
 	line-height: 25px;
 	border-bottom: 1px solid;
-	margin-top: 10px;
+	margin:0 auto;
+
 }
 .pro_main .pro_cen ul li a{
 	text-decoration:none;
@@ -344,7 +327,7 @@ text-align: right;
 .pro_gg .gg_img .gg_cen .sumit{
 	    height: 61px;
 	line-height: 61px;
-    width: 100px;
+    width: 65px;
     background: #c81624;
     border: 0px;
     color: #fff;
@@ -368,7 +351,6 @@ text-align: right;
   top: 0;
   height: 100%;
   width: 100%;
- 
   visibility: hidden;
     z-index: 20;
    

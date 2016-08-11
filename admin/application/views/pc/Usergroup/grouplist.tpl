@@ -16,7 +16,7 @@
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">ID</th>
-				<th width="100">分组名</th>
+				<th width="100">会员等级</th>
 				<th width="100">信誉值分界线</th>
 				<th width="70">分组图标</th>
 				<th width="130">保证金比率</th>

@@ -16,7 +16,7 @@ function nextTab(step){
 
 $(function(){
     //var validObj = formacc;
-	
+
     $('#next_step').on('click',function(){
         formacc.ignore('.yz_img input');
         if(formacc.check()){

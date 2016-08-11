@@ -24,12 +24,12 @@
 
                 <div class="tabPanel">
             		<ul>
-            			<li class="hit">支付宝支付</li>
+            		<!--	<li class="hit">支付宝支付</li>-->
             			<li>银行在线支付</li>
             			<li>线下支付</li>
             		</ul>
             		<div class="panes">
-            			<div class="pane" style="display:block;">
+        <!--   			<div class="pane" style="display:block;">
             				<div class="zhxi_con">
             					<span class="con_tit">充值方式一：</span>
             					<span>支付宝</span>
@@ -42,8 +42,8 @@
             					<p class="zf_an"><input class="zf_button" type="submit" value="立即支付"/></p>
 
             				</div>
-            			</div>
-            			<div class="pane">
+            			</div>-->
+            			<div class="pane" style="display:block">
             				<div class="zhxi_con">
             					<span class="con_tit">充值方式二：</span>
             					<span>银行在线支付</span>
