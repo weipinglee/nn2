@@ -67,6 +67,10 @@ class searchConfig {
             'like' => array('c.username','用户名'),
             'select' => array('a.type','申述类型')
         ),
+        'admin' => array(
+            'like' => array('a.name','用户名'),
+            'down' => 1
+        ),
 
 
     );
