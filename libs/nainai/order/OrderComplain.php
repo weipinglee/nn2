@@ -106,10 +106,11 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 	 * @param  array  $condition [查询条件,where是sql，bind对应的绑定数据]
 	 * @return [Array]            
 	 */
-	public function getComplainList($condition = array()){
-		$query = new searchQuery('order_complain as a');
-		$query->fields = 'a.id, a.title, a.type, a.proof, a.status, a.apply_time, b.order_no, b.id as oid, c.username';
-		$query->join = 'LEFT JOIN order_sell as b ON a.order_id=b.id LEFT JOIN user as c ON a.user_id=c.id';
+	public function getComplainList( $condition = array()){
+		$query = new Query('order_complain as a');
+		$query->fields = 'a.id, a.title, a.type, a.proof, a.status, a.apply_time, b.order_no, b.id as oid, c.username, p.name';
+		$query->join = 'LEFT JOIN order_sell as b ON a.order_id=b.id LEFT JOIN user as c ON a.user_id=c.id LEFT JOIN product_offer as o ON b.offer_id=o.id LEFT JOIN products as p ON o.product_id=p.id ';
+
 		$query->order = 'apply_time desc';
 
 		if (!empty($condition)) {
