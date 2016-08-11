@@ -13,7 +13,7 @@
 		-
 		<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" name="end" style="width:120px;" value="{$_GET['end']}">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入商品名称"  name="product_name" id="" value="{$_GET['product_name']}">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜会员</button>
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜索</button>
 	</div>
 				</form>
 	 <div class="mt-20">

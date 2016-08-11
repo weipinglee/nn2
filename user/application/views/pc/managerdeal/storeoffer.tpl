@@ -140,7 +140,7 @@
                             <tr>
                         <td>交收地点：</td>
                             <td colspan="2">
-                                <input type="text" class='text' datatype="s2-100" errormsg="请填写交收地址" name="accept_area">
+                                <input type="text" class='text' datatype="s2-100" errormsg="请填写有效地址" name="accept_area">
                             </td>
                             </tr>
                             <td>交收时间：</td>
@@ -154,6 +154,7 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" name="mode" value="3">
+                            <input type="hidden" name="quantity" value="0" >
                             <input type="hidden" name="product_id" id="product_id" value="{$storeDetail['pid']}">
                                 <input type="hidden" name="token" value="{$token}" />
                         <input type="submit" value="提交审核">

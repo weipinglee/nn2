@@ -39,10 +39,9 @@ class ComplainController extends InitController{
 
 		$complainModel = new \nainai\order\OrderComplain();
 
-		$complainList = $complainModel->getComplainList($page, 10, $condition);
+		$complainList = $complainModel->getComplainList($condition);
 
-		$this->getView()->assign('complainList', $complainList['list']);
-		$this->getView()->assign('pageHtml', $complainList['pageHtml']);
+		$this->getView()->assign('data', $complainList);
 		$this->getView()->assign('status', $status);
 	}
 

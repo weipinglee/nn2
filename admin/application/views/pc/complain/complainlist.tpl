@@ -11,12 +11,7 @@
     </div>
     <div class="content">
  <div class="pd-20">
- <form action="{url:trade/complain/complainList}" method="POST">
-	<div class="text-c"> 订单号：
-		<input type="text" class="input-text" style="width:250px" placeholder="输入订单号" id="" name="order_no" value="{$order_no}">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜申述</button>
-	</div>
-</form>
+ {include:layout/search.tpl}
  </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -34,7 +29,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$complainList key=$k}
+		{foreach:items=$data['list'] key=$k}
 			<tr class="text-c">
 				<td><input type="checkbox" value="" name=""></td>
 				<td>{$item['order_no']}</td>
@@ -55,6 +50,6 @@
 		</tbody>
 
 	</table>
-		{$pageHtml}
+		{$data['bar']}
 	</div>
 </div>
