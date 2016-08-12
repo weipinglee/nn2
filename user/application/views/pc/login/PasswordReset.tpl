@@ -47,7 +47,7 @@
                         <img id="image"src="{url:/login/getCaptcha}" height="45" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()"/>
                     </li>
 
-                    <li><label>验证码：</label><input type="text" class=" text1 text1_yzm" id="txtCode" name="code"> <input type="button" value="获取验证码" class="yzm" id="yzmBtn"> </li>
+                    <li><label>验证码：</label><input type="text" class=" text1 text1_yzm" id="txtCode" name="code"> <input type="button" value="获取验证码" class="yzm"> </li>
 
 
 

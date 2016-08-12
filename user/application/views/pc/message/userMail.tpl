@@ -74,19 +74,25 @@
                 </div>
 	</div>
 <script text="text/javascript">
-    $(document).ready(function(){
+      $(function(){
         $('.mail_cont').css('display','none');
-        $('#controlAll').toggle(function(){
-            $("input[name='checkbox']:checkbox").each(function(i,s){
-                $(this).attr('checked',true);
-            });
-        },function(){
-            $('input[name="checkbox"]:checkbox').each(function(i,s){
-                $(this).attr('checked',false);
-            });
-
-        });
-
+        $('[type=checkbox]').prop('checked',false);
+        $('#controlAll').click(function(){
+            $("input[name='checkbox']").prop("checked", this.checked);
+                if(!this.checked) {
+                      $('.chp_xx').find('input').removeAttr('checked');
+                   
+                }else{  
+                          $('.chp_xx').find('input').attr('checked', 'checked');
+                       
+                        }  
+                });
+               
+        $('input[name=checkbox]').click(function(){
+            var $subs = $("input[name='checkbox']");
+            $('#controlAll').prop("checked" , $subs.length == $subs.filter(":checked").length ? true :false);
+            check_goods(this);
+        });       
     });
     function readMess(id,obj){
         $(obj).attr('class','colab right-a');
