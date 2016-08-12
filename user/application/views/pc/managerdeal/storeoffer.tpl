@@ -91,7 +91,7 @@
                                </td> -->
                             </tr>
                               <tr>
-        <td nowrap="nowrap"><span></span>是否投保：</td>
+<!--         <td nowrap="nowrap"><span></span>是否投保：</td>
         <td>
             <span> <input type="radio" name="insurance" value="1"  >是 <input type="radio" name="insurance" value="0"  checked="true">否</span>
         </td>
@@ -102,7 +102,7 @@
             <span> 
             </span>
         </td>
-    </tr>
+    </tr> -->
                            <tr>
                             <td><span>*</span>是否可拆分：</td>
                             <td>

@@ -437,8 +437,8 @@ class ManagerDealController extends UcenterBaseController {
         if (IS_POST) {
 
             $token = safe::filterPost('token');
-            if(!safe::checkToken($token))
-                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            // if(!safe::checkToken($token))
+                // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
             $storeObj = new \nainai\store();
@@ -458,7 +458,7 @@ class ManagerDealController extends UcenterBaseController {
                     'insurance' => Safe::filterPost('insurance', 'int'),
                     'risk' =>implode(',', Safe::filterPost('risk', 'int'))
                 );
-
+                
                 if(!$offerData['risk']){
                     $offerData['risk'] = '';
                 }
