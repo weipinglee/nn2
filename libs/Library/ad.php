@@ -31,6 +31,19 @@ class ad
         }
         return $adList;
     }
+
+    /**
+     * @param $position 广告位名称
+     */
+    public static function getAdListByName($position){
+        $positionObject=array();
+        $adList=array();
+        $positionObject=self::getPositionInfo($position);
+        if($positionObject){
+            $adList=self::getAdList($positionObject['id']);
+        }
+        return $adList;
+    }
     /**
      * @brief 获取广告位置的信息
      * @param $position mixed 广告位ID 或者 广告位名称

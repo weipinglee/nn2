@@ -997,24 +997,12 @@
                            <link rel="stylesheet" href="{views:css/swiper.min.css}">
                             <div class="swiper-container swiper-container-horizontal">
                                 <div class="swiper-wrapper">
+                                    {foreach: items=$adList}
                                     <div class="swiper-slide">
-                                        <img class="swiper_img" src="{views:images/index/gug1.jpg}">
+                                        <img class="swiper_img" src="{$item['content']}">
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img class="swiper_img" src="{views:images/index/gug2.jpg}">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="swiper_img" src="{views:images/index/gug3.jpg}">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="swiper_img" src="{views:images/index/gug4.jpg}">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="swiper_img" src="{views:images/index/gug3.jpg}">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="swiper_img" src="{views:images/index/gug3.jpg}">
-                                    </div>
+                                    {/foreach}
+
                                </div>
                                
                                 <!-- Add Arrows -->

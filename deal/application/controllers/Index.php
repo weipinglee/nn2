@@ -72,6 +72,15 @@ class IndexController extends PublicController {
 		//获取帮助
 		$helpModel=new \nainai\system\help();
 		$helpList=$helpModel->getHelplist();
+		//获取滚动的图片信息
+		$adModel=new \Library\ad();
+		$adList=$adModel->getAdListByName('滚动');
+		foreach($adList as $k=>$v) {
+			if (isset($v['content'])) {
+				$adList[$k]['content'] = \Library\Thumb::getOrigImg($v['content']);
+			}
+		}
+		$this->getView()->assign('adList',$adList);
 		$this->getView()->assign('helpList',$helpList);
 		$this->getView()->assign('creditMember',$creditMember);
 		$this->getView()->assign('statcCatList',$statcCatList);
