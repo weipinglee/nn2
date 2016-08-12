@@ -99,6 +99,14 @@
 								</tr>
 							</table>
 							{else:}
+								<table width="100%">
+									<tr>
+										<td colspan="4">
+											<img src="{views:/images/center/no-data.png}">
+											<p class="no-data">暂无销售合同</p>
+										</td>
+									</tr>
+								</table>
 							{/if}
 
 						</div>
@@ -129,15 +137,17 @@
 										<div class="div_heights"><a><b>{$contract1['action']}<b></b></b></a></div><b><b>
 									</b></b></td>
 								</tr>
+
+							</table>
+							{else:}
+							<table width="100%">
 								<tr>
 									<td colspan="4">
 										<img src="{views:/images/center/no-data.png}">
 										<p class="no-data">暂无销售合同</p>
 									</td>
 								</tr>
-							</table>
-							{else:}
-
+								</table>
 							{/if}
 							
 						</div>
