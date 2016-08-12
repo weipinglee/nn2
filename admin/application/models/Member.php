@@ -32,6 +32,8 @@ class MemberModel extends baseModel{
 		$Q->where = ' FIND_IN_SET(u.status, :s)';
 		$Q->bind = array('s' => self::NOMAL . ',' . self::LOCK);
 		$data = $Q->find($this->getYewuList());
+		$Q->downExcel($data['list'],'user', '会员列表');
+
 		return $data;
 	}
 

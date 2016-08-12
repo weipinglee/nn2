@@ -28,11 +28,6 @@ class MemberController extends InitController {
 		$m = new MemberModel();
 		$pageData = $m->getList();
 		$down = safe::filterGet('down', 'int', 0);//是否导出
-		if ($down == 1) {
-			$condition = array('name' => '会员列表', 'type' =>'user');
-			$this->downExcel($pageData['list'], $condition);
-		}
-
 		$this->getView()->assign('data',$pageData);
 	}
 
