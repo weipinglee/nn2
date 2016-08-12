@@ -122,7 +122,7 @@
           </div>      
            <div class="input_box">
                <label for="" class="positon">产地</label>
-               <span>
+               <span id="areabox">
                     {area:}
                </span>
                <span></span>
