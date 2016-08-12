@@ -91,6 +91,12 @@
 										<div class="div_heights"><a><b>{$contract2['title']}<b></b></b></a></div><b><b>
 											</b></b></td>
 								</tr>
+								<tr>
+									<td colspan="4">
+										<img src="{views:/images/center/no-data.png}">
+										<p class="no-data">暂无购买合同</p>
+									</td>
+								</tr>
 							</table>
 							{else:}
 							{/if}
@@ -122,6 +128,12 @@
 									<td>
 										<div class="div_heights"><a><b>{$contract1['action']}<b></b></b></a></div><b><b>
 									</b></b></td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<img src="{views:/images/center/no-data.png}">
+										<p class="no-data">暂无销售合同</p>
+									</td>
 								</tr>
 							</table>
 							{else:}
