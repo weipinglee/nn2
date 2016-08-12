@@ -12,7 +12,7 @@ use \Library\Query;
 use \Library\Thumb;
 use \Library\log;
 use \Library\tool;
-class product {
+class product  {
 
     private $product_limit = 5;
 
@@ -43,6 +43,7 @@ class product {
     const OFFER_APPLY = 0;
     const OFFER_OK    = 1;
     const OFFER_NG    = 2;
+    const OFFER_CANCEL = 4; //取消报盘
 
 
     public function getModelArray(){
@@ -93,6 +94,9 @@ class product {
             case self::OFFER_NG:
                 $st = '未通过';
                 break;
+            case self::OFFER_CANCEL:
+                $st = '撤单';
+                break;
             default:
                 $st = '未知';
                 break;
@@ -137,7 +141,7 @@ class product {
         return array(
             self::OFFER_APPLY => $this->getStatus(self::OFFER_APPLY),
             self::OFFER_OK => $this->getStatus(self::OFFER_OK),
-            self::OFFER_NG => $this->getStatus(self::OFFER_NG),
+            self::OFFER_NG => $this->getStatus(self::OFFER_NG)
         );
     }
 
@@ -642,8 +646,22 @@ class product {
     }
 
 
+    public function update($data, $id, $pk='id'){
+        $res = null;
+        $this->_productObj->table('product_offer');
+        if (intval($id) > 0)  {
+            $res = $this->_productObj->data($data)->where($pk . '=:id')->bind(array('id'=>$id))->update();
+        }else{
+            $res = 'Error ID';
+        }
 
-
+        if(intval($res) > 0 ){
+            return Tool::getSuccInfo();
+         }
+        else{
+                return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+         }
+    }
 
 
 

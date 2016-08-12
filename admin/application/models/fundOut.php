@@ -39,7 +39,7 @@ class fundOutModel {
 			$value['status_text'] = $this->getFundOutStatustext($value['status']);
 		}
 
-		$fundOut->downExcel($outInfo['list'],$condition['type']);
+		$fundOut->downExcel($outInfo['list'],$condition['type'], $condition['name']);
 
 		return $outInfo;
 	}

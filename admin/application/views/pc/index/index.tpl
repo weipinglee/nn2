@@ -175,6 +175,7 @@
                                 <li><a href="{url:/trade/OfferManage/offerReview}" target="content">报盘审核</a></li>
                                 <li><a href="{url:/trade/OfferManage/expireOfferList}" target="content">历史报盘信息查询</a></li>
                                 <li><a href="{url:/trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
+                                <li><a href="{url:/trade/OfferManage/cancelList}" target="content">撤销报盘列表</a></li>
                             </ul>
                         </li>
                         <li><a target="content">保险管理</a>

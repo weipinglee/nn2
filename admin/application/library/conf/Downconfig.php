@@ -34,10 +34,13 @@ class Downconfig
                 $config = array('username' => '登录账号', 'type_text' => '会员类型', 'mobile' => '手机号', 'store_name'=>'认证仓库','status_text' => '认证状态', 'apply_time' => '申请时间');
                   break;
               case 'user':
-                $config = array('username' => '用户名', 'email' => '邮箱', 'mobile' => '手机号', 'create_time' => '注册时间', 'agent_name' => '代理商', 'ser_name' => '业务员');
+                $config = array('username' => '用户名', 'true_name' => '真实姓名', 'company_name' => '企业名称', 'email' => '邮箱', 'mobile' => '手机号', 'create_time' => '注册时间', 'agent_name' => '代理商', 'ser_name' => '业务员');
                 break;
-                case 'admin_log':
+              case 'admin_log':
                 $config = array('id' => 'id', 'name' => '用户名', 'datetime' => '时间', 'ip' => 'ip', 'content' => '操作');
+                break;
+              case 'product_offer':
+                $config = array('id' => 'id', 'username' => '用户名', 'true_name' => '姓名', 'company_name' => '企业名称', 'name' => '商品名', 'type_txt' => '交易方式', 'mode_txt' => '类型', 'divide_text' => '可否拆分', 'quantity' => '数量', 'price' => '挂牌价', 'status_txt' => '状态');
                 break;
           }
           return $config;

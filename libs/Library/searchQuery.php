@@ -36,9 +36,7 @@ class searchQuery extends Query{
                 $search['selectData'] = $selectData;
             }
         }
-
-        if ($cond[0]['down'] == 1) {//如果是导出
-
+        if (isset($cond[0]['down']) && $cond[0]['down'] == 1) {//如果是导出
             $this->down = 1;
             unset($this->page);
         }else if(!isset($this->page) || !$this->page){ //如果没有定义分页，在这里定义
@@ -48,7 +46,7 @@ class searchQuery extends Query{
 
         $list = parent::find();
         $result = array('list' => $list, 'search'=>$search);
-        if ($cond[0]['down'] == 0) {
+        if (!isset($cond[0]['down']) ||$cond[0]['down'] == 0) {
             $bar = $this->getPageBar();
             $result['bar'] = $bar;
         }
@@ -75,8 +73,15 @@ class searchQuery extends Query{
         foreach($configArr as $k=>$v){
             if($k=='down'){
                 $search[$k] = $v;
-            }
-            else{
+            }elseif ($k == 'likes') {
+                $keys = explode(',', $v[0]);
+                $vals = explode(',', $v[1]);
+                $search['likes'] = $news = array();
+                foreach ($keys as $key => $str) {
+                    $news[$key] = substr($str, strpos($str, '.') + 1);
+                    $search['likes'][$news[$key]] = $vals[$key];
+                }
+            }else{
                 $condArr[$k] = $v[0];
                 $search[$k] = $v[1];
             }
@@ -101,7 +106,18 @@ class searchQuery extends Query{
         $cond['where'] =  $temp = '';$cond['bind'] = array();
         $cond['page'] = $page;
 
-
+        if (!empty($news)) {
+            $search['likesval'] = array();
+            foreach ($news as $key => $value) {
+                 $tempval = safe::filterGet($value);
+                $search['likesval'][$value] = $tempval;
+                if (!empty($tempval)) {
+                    if($cond['where']!='')
+                        $temp = ' AND ';
+                    $cond['where'] .= $temp .$keys[$key].' LIKE "%' .$tempval. '%"';
+                }
+            }
+        }
 
         if($begin && isset($condArr['time'])){
             if($cond['where']!='')
@@ -154,7 +170,6 @@ class searchQuery extends Query{
             $cond['where'] .= $temp." {$condArr['between']} <= :max";
             $cond['bind']['max'] = $max;
         }
-
         return array($cond,$search);
     }
 
@@ -190,7 +205,7 @@ class searchQuery extends Query{
             }
 
             $obj = new \Library\Excel\ExcelHtml();
-            $fileName = $name ? $name : '信息报表';
+            $fileName =  $name .  '信息报表';
             $obj->createExecl($excel, $count,  $fileName);
             exit();
         }

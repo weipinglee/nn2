@@ -36,7 +36,7 @@
 								{/if}
 								{if:$info['action_href']}<input class="fk_butt" type="button" onclick="window.location.href='{$info['action_href']}'" value="{$info['action']}"/>{/if}
 								{if: isset($info['insurance']) && $info['insurance'] == 1}
-								<a  href="{url:/Insurance/buyList}?id={$info['id']}"><input class="fk_butt" type="button" value="购买保险"/></a>
+								<!-- <a  href="{url:/Insurance/buyList}?id={$info['id']}"><input class="fk_butt" type="button" value="购买保险"/></a> -->
 								{/if}
 							</div>
 						</div>

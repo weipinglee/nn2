@@ -251,7 +251,7 @@ class certificate{
      * @param int $page 页码
      * @param string $status 狀態
      */
-    public function certApplyList($type,$page=0,$status=1){
+    public function certApplyList($type,$condition,$status=1){
         if(!isset($type))return array();
         $table = self::getCertTable($type);
         $Q = new searchQuery($table.' as c');
@@ -269,6 +269,8 @@ class certificate{
                 $value['type_text'] = '';
             }
         }
+        
+        $Q->downExcel($data['list'], $condition['type'], $condition['name']);
         return $data;
     }
 

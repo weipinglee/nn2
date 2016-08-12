@@ -42,11 +42,12 @@ class searchConfig {
         'product_offer' => array(
             'time'=>array('o.apply_time','创建时间'),
             'select' => array('o.mode','报盘类型'),
-            'like'=>array('o.id,p.name','报盘id,商品名称')
-
+            'like'=>array('o.id,p.name','报盘id,商品名称'),
+            'down' => 1
         ),
         'user'       => array(
             'like' => array('u.username,u.email,u.mobile','用户名、手机号、邮箱'),
+            'likes' => array('p.true_name, c.company_name','真实姓名,企业名称'),
             'select'=> array('u.yewu','业务员'),
             'down' => 1
         ),
@@ -54,17 +55,17 @@ class searchConfig {
             'time' => array('c.apply_time','申请时间'),
             'like' => array('u.username,u.mobile','用户名，手机号'),
             'select' => array('u.type','用户类型'),
-            'down' => array(1, 1)
+            'down' => 1
         ),
         'store_manager' => array(
             'time' => array('c.apply_time','申请时间'),
             'like' => array('u.username,u.mobile','用户名，手机号'),
             'select' => array('u.type','用户类型'),
-            'down' => array(1, 1)
+            'down' => 1
         ),
         'order_complain' => array(
             'time' => array('a.apply_time','申请时间'),
-            'like' => array('c.username','用户名'),
+            'like' => array('c.username', '申述用户'),
             'select' => array('a.type','申述类型')
         ),
         'admin' => array(

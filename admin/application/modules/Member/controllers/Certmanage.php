@@ -49,14 +49,8 @@ class certManageController extends InitController {
       */
      public function dealerCertedAction(){
           $m = new certDealer();
-
-          $pageData = $m->certedList(0);
           $condition = array('name' => '交易商认证列表', 'type' =>'dealer');
-          $down = safe::filterGet('down', 'int', 0);//是否导出
-
-          if ($down == 1) {
-            $this->downExcel($pageData['list'], $condition);
-          }
+          $pageData = $m->certedList($condition);
 
           $this->getView()->assign('data',$pageData);
 
@@ -128,15 +122,8 @@ class certManageController extends InitController {
      public function storeCertedAction(){
           $m = new certStore();
 
-          $page = safe::filterGet('page','int',1);
-          $pageData = $m->certedList($page);
-          $down = safe::filterGet('down', 'int', 0);//是否导出
           $condition = array('name' => '仓库管理员认证列表', 'type' =>'store_manager');
-          if ($down == 1) {
-            $this->downExcel($pageData['list'], $condition);
-          }
-
-
+          $pageData = $m->certedList($condition);
           $this->getView()->assign('data',$pageData);
 
      }

@@ -67,7 +67,7 @@
                             <td ></td>
                             </tr>
                             
-    <tr>
+    <!-- <tr>
         <td nowrap="nowrap"><span></span>是否投保：</td>
         <td>
             <span> <input type="radio" name="insurance" value="1"  checked="true">是 <input type="radio" name="insurance" value="0" >否</span>
@@ -87,7 +87,7 @@
             {/if}
             </span>
         </td>
-    </tr>
+    </tr> -->
     <input type="hidden" name="cate_id" id="cid">
     <input type="hidden" name="ajax_url" id="ajax_url" value="{url: Trade/Insurance/ajaxGetCate}">
 

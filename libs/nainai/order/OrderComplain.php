@@ -107,7 +107,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 	 * @return [Array]            
 	 */
 	public function getComplainList( $condition = array()){
-		$query = new Query('order_complain as a');
+		$query = new \Library\searchQuery('order_complain as a');
 		$query->fields = 'a.id, a.title, a.type, a.proof, a.status, a.apply_time, b.order_no, b.id as oid, c.username, p.name';
 		$query->join = 'LEFT JOIN order_sell as b ON a.order_id=b.id LEFT JOIN user as c ON a.user_id=c.id LEFT JOIN product_offer as o ON b.offer_id=o.id LEFT JOIN products as p ON o.product_id=p.id ';
 

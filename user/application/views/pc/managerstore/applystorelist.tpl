@@ -38,13 +38,15 @@
                                                                                                 <td>{$list['quantity']}({$list['unit']})</td>
                                                                                                 <td>{$statuList[$list['status']]}</td>
                                                                                                 <td>{$list['sname']}</td>
+                                                                                                <td>
+                                                                                                <a href='{url:/ManagerStore/table?id=$list["id"]}'>打印预览</a>
                                                                                                 {if: $list['status'] == 10}
-                                                                                                <td><a href='{url:/ManagerStore/applyStoreCheck?id=$list["id"]}'>审核</a></td>
+                                                                                                <a href='{url:/ManagerStore/applyStoreCheck?id=$list["id"]}'>审核</a>
                                                                                                 {elseif:$list['status'] == 21 }
-                                                                                                <td><a href='{url:/ManagerStore/applyStoreSign?id=$list["id"]}'>签发</a></td>
-																								{else:}
-																									<td><a href='{url:/ManagerStore/applyStoreDetail?id=$list["id"]}'>查看</a></td>
-                                                                                                {/if}
+                                                                                                <a href='{url:/ManagerStore/applyStoreSign?id=$list["id"]}'>签发</a>
+                                                                                                {else:}
+                                                                                                <a href='{url:/ManagerStore/applyStoreDetail?id=$list["id"]}'>查看</a>
+                                                                                                {/if}</td>
                                                                                         </tr>
                                                                                       {/foreach}
 							</table>

@@ -17,11 +17,14 @@
 
 				<th width="80">ID</th>
 				<th width="100">用户名</th>
+				<th width="100">真实姓名</th>
+				<th width="100">企业名称</th>
 				<th width="90">手机</th>
 				<th width="150">邮箱</th>
 				<th width="130">注册时间</th>
 				<th width="130">代理商</th>
 				<th width="130">业务员</th>
+				<th width="130">状态</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -31,12 +34,22 @@
 
 				<td>{$item['id']}</td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
-
+<td>{$item['true_name']}</td>
+<td>{$item['company_name']}</td>
 				<td>{$item['mobile']}</td>
 				<td>{$item['email']}</td>
 				<td>{$item['create_time']}</td>
 				<td>{$item['agent_name']}</td>
 				<td>{$item['ser_name']}</td>
+				<td class="td-status">
+				{if:$item['status'] == MemberModel::NOMAL}
+					<span class="label label-success radius">已启用</span>
+				{else:}
+
+					<span class="label label-error radius">停用</span>
+
+				{/if}
+				</td>
 				<td class="td-manage">
 				{if:$item['status'] == MemberModel::NOMAL}
 				<a style="text-decoration:none" ajax_status=0  ajax_url="{url:member/member/ajaxupdatestatus?id=$item['id']}"  href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a>
