@@ -660,6 +660,24 @@ class ManagerDealController extends UcenterBaseController {
 
 
     }
+
+    /**
+     * 撤销报盘
+     */
+    public function ajaxsetStatusAction(){
+        $id = Safe::filterPost('id', 'int', 0);
+
+        if (intval($id) > 0) {
+            $model = new product('');
+            $data =array(
+                'status' => $model::OFFER_CANCEL
+            );
+
+            $res = $model->update($data, $id);
+            exit(json::encode($res));
+        }
+        exit(json::encode(tool::getSuccInfo(0, 'Error id')));
+    }
    
 
 

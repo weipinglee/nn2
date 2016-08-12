@@ -159,10 +159,17 @@
                              <tr>
                                 <td colspan="8">
                                    <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
+
                                 </td>
                             </tr>
                         </table>
             	    </form>
+                  <form action="{url:/managerdeal/ajaxsetStatus}" method="post" auto_submit="1" redirect_url="{url:managerdeal/productList}" >
+                        <input type="hidden" name="id" value="{$offer['id']}" />
+                        <div class="pay_bton">
+                            <a href="javascript:void(0)" class="cg_fb"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？" >撤销报盘</a>
+                        </div>
+                    </form>
 						
 					</div>
 				</div>

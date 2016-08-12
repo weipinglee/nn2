@@ -22,15 +22,19 @@ class OffermanageController extends Yaf\Controller_Abstract{
 	 */
 	public function offerListAction(){
 		// $no = $this->_request->getParam('no');
-		$page = safe::filterGet('page','int');
-		$pageData = $this->offer->getActiveList($page);
+		$pageData = $this->offer->getActiveList(0);
 		$this->getView()->assign('data',$pageData);
 	}
 
 	//报盘审核
 	public function offerReviewAction(){
-		$page = safe::filterGet('page','int');
-		$pageData = $this->offer->getApplyList($page);
+		$pageData = $this->offer->getApplyList(0);
+
+		$this->getView()->assign('data',$pageData);
+	}
+
+	public function cancelListAction(){
+		$pageData = $this->offer->getCancelLIst();
 
 		$this->getView()->assign('data',$pageData);
 	}

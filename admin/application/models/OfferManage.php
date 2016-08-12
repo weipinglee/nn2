@@ -29,9 +29,8 @@ class OfferManageModel extends \nainai\offer\product{
 					left join company_info as c on u.id = c.user_id left join person_info as per on u.id = per.user_id";
 		$Q->fields = "o.*,u.username,p.quantity,p.unit,p.name,per.true_name,c.company_name";
 		$Q->order = 'apply_time desc';
+
 		if($where) $Q->where = $where;
-		$Q->page = $page;
-		$Q->pagesize = 20;
 		// $Q->order = "sort";
 		$sql = 'select count(*) as count from product_offer as o '.($where ? ' where '.$where : '');
 
@@ -67,6 +66,13 @@ class OfferManageModel extends \nainai\offer\product{
 	 */
 	public function getApplyList($page){
 		return $this->getList($page,'o.is_del = 0 and o.status = '.self::OFFER_APPLY);
+	}
+
+	/**
+	 * 撤销报盘
+	 */
+	public function getCancelList(){
+		return $this->getList(0,'o.is_del = 0 and o.status = '.self::OFFER_CANCEL);
 	}
 
 	/**
