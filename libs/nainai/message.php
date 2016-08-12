@@ -15,7 +15,8 @@ class message{
 		'orderPay',
 		'fundOut',
 		'depositPay',
-		'newbankaccount'
+		'newbankaccount',
+		'breakcontract'
 	);
 	/**
 	 * [__construct 构造方法]
@@ -60,6 +61,13 @@ class message{
 	public function orderPay($order_id){
 		$title='支付通知';
 		$message="您的订单".$order_id."已经形成,请在多少时间内支付 <a href='?order_id={$order_id}'></a>";
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+	public function breakcontract($order_id){
+		$title="违约";
+		$message="您的订单".$order_id."已被判为违约";
 		return array(
 			'title'=>$title,
 			'content'=>$message);

@@ -88,7 +88,13 @@
 
 
 									<td>
-										<div class="div_heights"><a><b>{$contract2['title']}<b></b></b></a></div><b><b>
+										<div class="div_heights">
+										{if:$contract2['action_href']}
+											<a href="{$contract2['action_href']}"><b>{$contract2['title']}<b></b></b></a>
+										{else:}
+											{$contract2['title']}
+										{/if}
+										</div><b><b>
 											</b></b></td>
 								</tr>
 								<tr>
@@ -134,7 +140,13 @@
 
 									
 									<td>
-										<div class="div_heights"><a><b>{$contract1['action']}<b></b></b></a></div><b><b>
+										<div class="div_heights">
+											{if:$contract1['action_href']}
+											<a href='{$contract1['action_href']}'><b>{$contract1['action']}<b></b></b></a>
+											{else:}
+											<b>{$contract1['action']}<b></b></b>
+											{/if}
+										</div><b><b>
 									</b></b></td>
 								</tr>
 

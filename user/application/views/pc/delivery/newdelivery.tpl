@@ -19,7 +19,9 @@
 									<th>商品数量</th>
 									<th>可提数量</th>
 									<th>提货数量</th>
-									<th>仓库</th>
+									{if:$data['store_name']}
+										<th>仓库</th>
+									{/if}
 								</tr>
 								<tr>
 									<td><img src="{$data['img']}"/></td>
@@ -28,10 +30,10 @@
 									<td>{$data['left']}{$data['unit']}</td>
 									<!-- 判断系统参数是否支持多次开单 如果单次开单则不能修改开单数量-->
 									<td>
-										<input type="text" class="thjs_input" name='num' datatype="float">
+										<input type="text" class="thjs_input" name='num' datatype="float" nullmsg=''>
 
 									</td>
-									<td>{$data['store_name']}</td>
+									{if:$data['store_name']}<td>{$data['store_name']}</td>{/if}
 
 								</tr>
 							</tbody></table>

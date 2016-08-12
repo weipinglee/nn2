@@ -119,6 +119,9 @@ class Order{
 			$product_left = $delivery->orderNumLeft($order_id,false,true);
 			$res = $this->productsFreezeRelease($offerInfo,$product_left);
 
+			$buyer = $offerInfo['type'] == 1 ? $info['user_id'] : $offerInfo['user_id'];
+			$mess = new \nainai\message($buyer);
+			$mess->send('breakcontract',$order_id);
 		} catch (\PDOException $e) {
 
 			$res = $e->getMessage();
@@ -146,7 +149,9 @@ class Order{
 				//解冻未提货货物
 				$product_left = $delivery->orderNumLeft($order_id,false,true);
 				$this->productsFreezeRelease($offerInfo,$product_left);
-				
+				$seller = $offerInfo['type'] == 2 ? $info['user_id'] : $offerInfo['user_id'];
+				$mess = new \nainai\message($seller);
+				$mess->send('breakcontract',$order_id);
 			}else{
 				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
 			}
@@ -933,8 +938,8 @@ class Order{
 	 */
 	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id';
-		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,p.cate_id,p.img,p.produce_area,pc.name as cate_name,po.user_id as seller_id';
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id left join person_info as pi on pi.user_id = u.id';
+		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,po.accept_area,p.cate_id,p.img,p.produce_area,pc.name as cate_name,po.user_id as seller_id,pi.true_name as buyer_name';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();

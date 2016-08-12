@@ -48,6 +48,7 @@ class PurchaseOrder extends Order{
 				$orderData['create_time'] = date('Y-m-d H:i:s',time());
 				$orderData['mode'] = self::ORDER_PURCHASE;
 				$orderData['buyer_id'] = $purchase_info['buyer_id'];
+				$orderData['payment'] = $payment;
 				$gen_res = $this->geneOrder($orderData);
 				if($gen_res['success'] == 1){
 					//将其他的报价状态置为被拒绝 选中报价置为已采纳

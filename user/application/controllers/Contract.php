@@ -116,6 +116,7 @@ class ContractController extends UcenterBaseController{
 			$tmp .= $value['name'].'/';
 		}
 		$order_info['product_cate'] = rtrim($tmp,'/');
+		// echo '<pre>';var_dump($order_info);exit;
 		$this->getView()->assign('info',$order_info);
 	}
 
