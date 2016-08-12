@@ -185,7 +185,7 @@
 
                     <tr id="operate">
                         <td colspan="8">
-                            <button onClick="window.print()">打印</button>
+                           
                             <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
                               <a class="btoncomit" href="{url:/managerstore/updateStore}?{set: echo http_build_query(array('id'=>$storeDetail['sid']))}" >修改仓单</a>
                         </td>
@@ -198,27 +198,5 @@
     </div>
 </div>
 
-<script type="text/javascript">
-       document.getElementsByTagName("BODY")[0].onbeforeprint = function() {myFunction()};
-    document.getElementsByTagName("BODY")[0].onafterprint = function() {myFunction2()};
-
-       function myFunction()
-        {
-            $('.bg_topnav').hide();
-            $('.header').hide();
-            $('.user_l').hide();
-            $('.zhxi_tit').hide();
-            $('#operate').hide();
-        }
-
-        function myFunction2()
-        {
-            $('.bg_topnav').show();
-            $('.header').show();
-            $('.user_l').show();
-            $('.zhxi_tit').show();
-            $('#operate').show();
-        }
-</script>
 
 
