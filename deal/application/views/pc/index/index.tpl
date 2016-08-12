@@ -647,7 +647,7 @@
                     </div>
 
                 </div>    
-                <div class="guanimg"><img src="{views:images/index/icon_big_gug.jpg}"/></div>      
+                <div class="guanimg">{echo: \Library\Ad::show("首页1")}</div>
 
                     <!--美金市场-->
                     <div class="i_market clearfix">
