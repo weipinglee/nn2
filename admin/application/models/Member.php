@@ -26,12 +26,13 @@ class MemberModel extends baseModel{
      */
 	public function getList(){
 		$Q = new \Library\searchQuery('user as u');
-		$Q->join = 'left join agent as a on u.agent = a.id left join admin_yewu as ye on u.yewu = ye.admin_id';
-		$Q->fields = 'u.*,a.username as agent_name,ye.ser_name';
+		$Q->join = 'left join agent as a on u.agent = a.id left join admin_yewu as ye on u.yewu = ye.admin_id LEFT JOIN company_info as c ON u.id=c.user_id LEFT JOIN person_info as p ON u.id=p.user_id';
+		$Q->fields = 'u.*,a.username as agent_name,ye.ser_name, c.company_name, p.true_name';
 		$Q->order = 'u.id asc';
 		$Q->where = ' FIND_IN_SET(u.status, :s)';
 		$Q->bind = array('s' => self::NOMAL . ',' . self::LOCK);
 		$data = $Q->find($this->getYewuList());
+
 		$Q->downExcel($data['list'],'user', '会员列表');
 
 		return $data;

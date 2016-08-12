@@ -27,7 +27,6 @@ class MemberController extends InitController {
 	public function memberListAction(){
 		$m = new MemberModel();
 		$pageData = $m->getList();
-		$down = safe::filterGet('down', 'int', 0);//是否导出
 		$this->getView()->assign('data',$pageData);
 	}
 

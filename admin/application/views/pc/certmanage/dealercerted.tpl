@@ -33,7 +33,7 @@
                 <!--<td><input type="checkbox" value="" name=""></td>-->
                 <td>{$item['id']}</td>
                 <td>{$item['username']}</td>
-                s<td>{$item['type_text']}</td>
+                <td>{$item['type_text']}</td>
                 <td>{$item['mobile']}</td>
 				<td>{$item['status_text']}</td>
 				<td>{$item['apply_time']}</td>

@@ -47,6 +47,7 @@ class searchConfig {
         ),
         'user'       => array(
             'like' => array('u.username,u.email,u.mobile','用户名、手机号、邮箱'),
+            'likes' => array('p.true_name, c.company_name','真实姓名,企业名称'),
             'select'=> array('u.yewu','业务员'),
             'down' => 1
         ),

@@ -29,6 +29,11 @@
             {if:isset($data['search']['like'])}
                 <input type="text" class="input-text" style="width:250px" placeholder="输入{$data['search']['like']}" id="" name="like" value="{$like}">
             {/if}
+            {if: !empty($data['search']['likes'])}
+                {foreach: items=$data['search']['likes']}
+                    {$item}：<input type="text" class="input-text" style="width:250px" placeholder="输入{$item}"  name="{$key}" value="{$data['search']['likesval'][$key]}">
+                {/foreach}
+            {/if}
             {if:isset($data['search']['between'])}
                 {$data['search']['between']}:
                 <input type="text" class="input-text" style="width:100px"  id="" name="min" value="{$min}">-
