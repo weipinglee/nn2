@@ -24,6 +24,7 @@
 				<th width="130">注册时间</th>
 				<th width="130">代理商</th>
 				<th width="130">业务员</th>
+				<th width="130">状态</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -40,6 +41,15 @@
 				<td>{$item['create_time']}</td>
 				<td>{$item['agent_name']}</td>
 				<td>{$item['ser_name']}</td>
+				<td class="td-status">
+				{if:$item['status'] == MemberModel::NOMAL}
+					<span class="label label-success radius">已启用</span>
+				{else:}
+
+					<span class="label label-error radius">停用</span>
+
+				{/if}
+				</td>
 				<td class="td-manage">
 				{if:$item['status'] == MemberModel::NOMAL}
 				<a style="text-decoration:none" ajax_status=0  ajax_url="{url:member/member/ajaxupdatestatus?id=$item['id']}"  href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a>
