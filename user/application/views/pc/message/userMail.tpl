@@ -74,7 +74,8 @@
                 </div>
 	</div>
 <script text="text/javascript">
-     $(function(){
+      $(function(){
+        $('.mail_cont').css('display','none');
         $('[type=checkbox]').prop('checked',false);
         $('#controlAll').click(function(){
             $("input[name='checkbox']").prop("checked", this.checked);
