@@ -27,6 +27,7 @@ class productController extends InitController{
             $cate['pid']       = safe::filterPost('pid','int',0);
             $cate['sort']      = safe::filterPost('sort','int',0);
             $cate['note']      = safe::filterPost('note');
+            $cate['img'] = safe::filterPost('imgfile2');
 
             $attrs = safe::filterPost('attr_id','int','');
             $cate['attrs']     = $attrs=='' ? '' : implode(',',array_unique($attrs));

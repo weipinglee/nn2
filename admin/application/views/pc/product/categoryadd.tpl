@@ -1,4 +1,9 @@
+<script type="text/javascript" src="{views:content/settings/main.js}"></script>
+<script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
+<script type="text/javascript" src="{views:js/validform/validform.js}"></script>
 <script type="text/javascript" src="{views:js/product/cate.js}"></script>
+<script type="text/javascript" src='{root:js/upload/ajaxfileupload.js}'></script>
+<script type="text/javascript" src='{root:js/upload/upload.js}'></script>
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" /> 添加商品类型
 </h1>
@@ -80,6 +85,17 @@
           </div><a href="javascript:void(0)" onclick="addAttr()">添加</a>
           <div class="col-5"> </div>
       </div>
+      <div class="row cl">
+                        <label class="form-label col-2">图片：</label>
+                        <div class="formControls col-10">
+                            <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
+                        </div>
+                        <div>
+                            <img name="file2" />
+                            <input type="hidden" name="imgfile2"  />
+
+                        </div>
+                    </div>
       <div class="row cl">
           <label class="form-label col-2"><span class="c-red"></span>排序：</label>
           <div class="formControls col-5">
