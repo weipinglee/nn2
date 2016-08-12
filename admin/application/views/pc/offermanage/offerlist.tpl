@@ -49,7 +49,7 @@
                     <td>{$item['name']}</td>
                     <td>{$item['type_txt']}</td>
                     <td>{$item['mode_txt']}</td>
-                    <td>{if:$item['divide'] == 1}可拆分{else:}否{/if}</td>
+                    <td>{$item['divide_text']}</td>
                     <td>{$item['quantity']}</td>
                     <td>{$item['price']}</td>
                     <td>{$item['status_txt']}</td>
