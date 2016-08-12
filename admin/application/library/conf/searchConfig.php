@@ -65,7 +65,7 @@ class searchConfig {
         ),
         'order_complain' => array(
             'time' => array('a.apply_time','申请时间'),
-            'like' => array('c.username','用户名'),
+            'like' => array('c.username', '申述用户'),
             'select' => array('a.type','申述类型')
         ),
         'admin' => array(
