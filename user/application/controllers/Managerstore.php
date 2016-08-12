@@ -108,6 +108,7 @@ class ManagerStoreController extends UcenterBaseController{
 		}
 	}
 
+
 	/**
 	 * 商品添加页面展示
 	 */

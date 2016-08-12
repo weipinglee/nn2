@@ -213,6 +213,7 @@ function getCategory(){
 
 $(function(){
     bindRules();
+    minimumRules();
 });
 
 function bindRules(){
@@ -225,5 +226,28 @@ function bindRules(){
             errormsg:"请填写规格！"
         }
     ];
+    formacc.addRule(rules);
+}
+
+//最小起订量的限制规则
+function minimumRules(){
+    formacc.addDatatype('compare',function(gets){
+        var quantity = parseFloat($('#quantity').text());
+        if(!quantity){
+            quantity = parseFloat($('input[name=quantity]').val());
+        }
+        if(!quantity){
+            quantity = 0;
+        }
+        if($('[id^=nowrap]').css('display')!='none' && gets>quantity)
+            return false;
+       return true;
+    });
+    var rules = [{
+        ele:"input[name=minimum]",
+        datatype:"compare",
+        nullmsg:"请输入最小起订量！",
+        errormsg:"最小起订量不能大于总量！"
+    }];
     formacc.addRule(rules);
 }

@@ -81,7 +81,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>商品单价：</td>
                                 <td> 
-                                    <input class="text" type="text" datatype="float" errormsg="价格错误" name="price">
+                                    <input class="text" type="text" datatype="money" errormsg="价格错误" name="price">
                                     
                                 </td>
                                <!--  <td> 
@@ -116,7 +116,8 @@
                             <tr id='nowrap1'>
                             <td><span>*</span>最小起订量：</td>
                             <td>
-                                <input name="minimum" id="" type="text" />
+                                <span><input name="minimum" id="" type="text" /></span>
+                                <span></span>
                             </td>
                         </tr>
                             <script type="text/javascript">

@@ -23,3 +23,12 @@
         <div class="info"></div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function(){
+        formacc.addDatatype('hh',/^[a-z]$/);
+    })
+</script>
+<form action="" auto_submit="1">
+    <input type="text" datatype='hh' name="kj" />
+</form>

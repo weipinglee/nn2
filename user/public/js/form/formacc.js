@@ -79,7 +79,7 @@ nn_panduo.formacc.prototype = {
 				  'identify' : /^\d{17}(\d|x)$/i,
 				  'money' : /^[1-9][0-9]{0,7}(\.\d{0,2})?$/
 
-		},
+				},
 		      beforeSubmit:function(curform){
 		        var url = $(curform).attr('action');
 		        var data = $(curform).serialize();
@@ -128,6 +128,7 @@ nn_panduo.formacc.prototype = {
 		        return false;
 		      }
 	      });
+
 	    }
 	},
 	//为a标签绑定认证支付密码事件
@@ -163,6 +164,12 @@ nn_panduo.formacc.prototype = {
 	addRule :function(roles){
 		this.validObj.addRule(roles);
 	},
+
+	addDatatype : function(name,rule){
+		$.Datatype[name] = rule;
+	},
+
+
 
 	/**
 	 * 设置数据状态
@@ -298,6 +305,8 @@ $(function(){
 		}];
 		formacc.addRule(rules);
 	}
+
+
 
 })
 

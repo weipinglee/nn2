@@ -32,7 +32,7 @@ class Downconfig
                 break;
               case 'store_manager':
                 $config = array('username' => '登录账号', 'type_text' => '会员类型', 'mobile' => '手机号', 'store_name'=>'认证仓库','status_text' => '认证状态', 'apply_time' => '申请时间');
-                brak;
+                  break;
               case 'user':
                 $config = array('username' => '用户名', 'email' => '邮箱', 'mobile' => '手机号', 'create_time' => '注册时间', 'agent_name' => '代理商', 'ser_name' => '业务员');
                 break;
