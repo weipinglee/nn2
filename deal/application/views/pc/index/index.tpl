@@ -1131,121 +1131,26 @@
 
                             <div class="i_leftCon">
                                 <div class="swiper-container2 swiper-container-horizontal">
-                                <div class="swiper-wrapper">
+                                    <div class="swiper-wrapper">
+                                        {foreach:items=$allCompany}
                                     <div class="swiper-slide">
                                         <div class="commercial">
                                             <div class="commercial_title">
                                                 <img src="{views:images/index/comm_logo.jpg}">
-                                                <b>武钢集团</b>
+                                                <b>{$item['company_name']}</b>
                                             </div>
                                             <div class="main_chanp">
                                                 <b>主营：
-                                                   <span>钢铁</span>
-                                                   <span>建筑材料</span>
-                                                   <span>机电设备</span>
+                                                   <span>{$item['business']}</span>
                                                 </b>
                                             </div>
                                             <div class="base_infor">
-                                                <p>张三&nbsp;1856567653</p>
-                                                <p>河北省唐山市路南区</p>
+                                                <p>{$item['contact']}&nbsp;{$item['contact_phone']}</p>
+                                                <p>{areatext: data=$item['area'] id=areat }</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="swiper-slide">
-                                        <div class="commercial">
-                                            <div class="commercial_title">
-                                                <img src="{views:images/index/comm_logo.jpg}">
-                                                <b>武钢集团</b>
-                                            </div>
-                                            <div class="main_chanp">
-                                                <b>主营：
-                                                   <span>钢铁</span>
-                                                   <span>建筑材料</span>
-                                                   <span>机电设备</span>
-                                                </b>
-                                            </div>
-                                            <div class="base_infor">
-                                                <p>张三&nbsp;1856567653</p>
-                                                <p>河北省唐山市路南区</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="commercial">
-                                            <div class="commercial_title">
-                                                <img src="{views:images/index/comm_logo.jpg}">
-                                                <b>武钢集团</b>
-                                            </div>
-                                            <div class="main_chanp">
-                                                <b>主营：
-                                                   <span>钢铁</span>
-                                                   <span>建筑材料</span>
-                                                   <span>机电设备</span>
-                                                </b>
-                                            </div>
-                                            <div class="base_infor">
-                                                <p>张三&nbsp;1856567653</p>
-                                                <p>河北省唐山市路南区</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="commercial">
-                                            <div class="commercial_title">
-                                                <img src="{views:images/index/comm_logo.jpg}">
-                                                <b>武钢集团</b>
-                                            </div>
-                                            <div class="main_chanp">
-                                                <b>主营：
-                                                   <span>钢铁</span>
-                                                   <span>建筑材料</span>
-                                                   <span>机电设备</span>
-                                                </b>
-                                            </div>
-                                            <div class="base_infor">
-                                                <p>张三&nbsp;1856567653</p>
-                                                <p>河北省唐山市路南区</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="commercial">
-                                            <div class="commercial_title">
-                                                <img src="{views:images/index/comm_logo.jpg}">
-                                                <b>武钢集团</b>
-                                            </div>
-                                            <div class="main_chanp">
-                                                <b>主营：
-                                                   <span>钢铁</span>
-                                                   <span>建筑材料</span>
-                                                   <span>机电设备</span>
-                                                </b>
-                                            </div>
-                                            <div class="base_infor">
-                                                <p>张三&nbsp;1856567653</p>
-                                                <p>河北省唐山市路南区</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="commercial">
-                                            <div class="commercial_title">
-                                                <img src="{views:images/index/comm_logo.jpg}">
-                                                <b>武钢集团</b>
-                                            </div>
-                                            <div class="main_chanp">
-                                                <b>主营：
-                                                   <span>钢铁</span>
-                                                   <span>建筑材料</span>
-                                                   <span>机电设备</span>
-                                                </b>
-                                            </div>
-                                            <div class="base_infor">
-                                                <p>张三&nbsp;1856567653</p>
-                                                <p>河北省唐山市路南区</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   {/foreach}
                                </div>
                                
                                 <!-- Add Arrows -->

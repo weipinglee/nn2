@@ -301,6 +301,14 @@ class companyRec{
             return tool::getSuccInfo(0,'操作错误');
 
     }
+    public static function getAllCompanyOrderByType(){
+        $cRecObj=new \Library\Query('company_rec as r');
+        $cRecObj->join='left join company_info as i on r.user_id=i.user_id';
+        $cRecObj->where='NOW() between r.start_time and r.end_time and r.status=1';
+        $cRecObj->order='r.type ASC';
+        $allCompany=$cRecObj->find();
+        return $allCompany;
+    }
     //返回所有的推荐信息，
     public static function getAllCompany(){
         $cRecModel        = new \Library\Query('company_rec as r');

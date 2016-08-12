@@ -8,6 +8,13 @@
     <script src="{views:js/gtxh_formlogin.js}" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="{views:css/index20141027.css}">
     <script src="{views:js/index20141027.js}" type="text/javascript"></script>
+    <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
+    <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
+    <script type="text/javascript" src="{root:js/layer/layer.js}" ></script>
+    <script type="text/javascript" src="{views:js/area/Area.js}" ></script>
+    <script type="text/javascript" src="{views:js/area/AreaData_min.js}" ></script>
+    <script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
+    <script type="text/javascript" src="{views:js/search&floor.js}"></script>
     <link rel="stylesheet" href="{views:css/classify.css}">
     <!-- 头部css -->
     <link href="{views:css/topnav20141027.css}" rel="stylesheet" type="text/css">

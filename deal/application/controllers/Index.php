@@ -80,6 +80,9 @@ class IndexController extends PublicController {
 				$adList[$k]['content'] = \Library\Thumb::getOrigImg($v['content']);
 			}
 		}
+		//获取所有的推荐商户信息
+		$allCompany=\nainai\companyRec::getAllCompanyOrderByType();
+		$this->getView()->assign('allCompany',$allCompany);
 		$this->getView()->assign('adList',$adList);
 		$this->getView()->assign('helpList',$helpList);
 		$this->getView()->assign('creditMember',$creditMember);
