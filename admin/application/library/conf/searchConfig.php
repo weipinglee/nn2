@@ -55,13 +55,13 @@ class searchConfig {
             'time' => array('c.apply_time','申请时间'),
             'like' => array('u.username,u.mobile','用户名，手机号'),
             'select' => array('u.type','用户类型'),
-            'down' => array(1, 1)
+            'down' => 1
         ),
         'store_manager' => array(
             'time' => array('c.apply_time','申请时间'),
             'like' => array('u.username,u.mobile','用户名，手机号'),
             'select' => array('u.type','用户类型'),
-            'down' => array(1, 1)
+            'down' => 1
         ),
         'order_complain' => array(
             'time' => array('a.apply_time','申请时间'),

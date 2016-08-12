@@ -137,13 +137,13 @@ class certStore extends certificate{
         return $this->certVerify($user_id,$result,$info,self::$certType);
     }
 
-    private function getList($page,$status){
+    private function getList($condition,$status){
         $type = self::$certType;
         $table = self::getCertTable($type);
         $Q = new searchQuery($table.' as c');
         $Q->join = 'left join user as u on u.id = c.user_id left join store_list as s on c.store_id = s.id';
         $Q->fields = 'u.id,u.type,u.username,u.mobile,u.email,u.status as user_status,u.create_time,c.*,s.name as store_name';
-        $Q->page = $page;
+
         $Q->where = 'c.status in('.$status.')';
         $data = $Q->find(\nainai\member::getType());
         
@@ -155,19 +155,21 @@ class certStore extends certificate{
                 $value['type_text'] = '';
             }
         }
+        
+        $Q->downExcel($data['list'], $condition['type'], $condition['name']);
         return $data;
     }
     /**
      * 获取申请认证用户列表
      * @param int $page 页码
      */
-    public function certList($page){
-        return $this->getList($page,self::CERT_APPLY);
+    public function certList($condition){
+        return $this->getList($condition,self::CERT_APPLY);
     }
 
     //获取交易商已认证列表
-    public function certedList($page){
-        return $this->getList($page,self::CERT_INIT.','.self::CERT_SUCCESS.','.self::CERT_FAIL);
+    public function certedList($condition){
+        return $this->getList($condition,self::CERT_INIT.','.self::CERT_SUCCESS.','.self::CERT_FAIL );
     }
 
     /**
