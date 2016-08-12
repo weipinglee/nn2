@@ -137,8 +137,8 @@ class ManagerDealController extends UcenterBaseController {
     public function doFreeOfferAction(){
         if(IS_POST){
             $token = safe::filterPost('token');
-            // if(!safe::checkToken($token))
-                 // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            if(!safe::checkToken($token))
+                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $res = $this->offerCheck();
             if($res !== true) die($res);
             $offerData = array(
@@ -197,8 +197,8 @@ class ManagerDealController extends UcenterBaseController {
     public function doDepositOfferAction(){
         if(IS_POST){
             $token = safe::filterPost('token');
-            // if(!safe::checkToken($token))
-                 // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            if(!safe::checkToken($token))
+                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
 
             $res = $this->offerCheck();
             if($res !== true) die($res);
@@ -261,7 +261,7 @@ class ManagerDealController extends UcenterBaseController {
     public function doDeputeOfferAction(){
         if(IS_POST){
             $token = safe::filterPost('token');
-            // if(!safe::checkToken($token))
+            if(!safe::checkToken($token))
                 // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $res = $this->offerCheck();
             if($res !== true) die($res);
