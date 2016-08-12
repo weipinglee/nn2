@@ -172,7 +172,7 @@
                               <input type="hidden"  name="imgproof" value="" pattern="required" alt="请上传图片" />
                             </div><!--img name属性与上传控件id相同-->
             							<!-- <input class="uplod" type="file" name='proof' onchange="previewImage(this)" /> -->
-                          <input type="file" name="proof" id="proof"  onchange="javascript:uploadImg(this);" />
+                          <input type="file" name="proof" id="proof"  onchange="javascript:uploadImg(this);" style="width:60px;" />
                           <input type="hidden" value="{$data['id']}" name="order_id"/>
                           <input type="hidden" value="offline" name="payment"/>
                           <input type="hidden" value="{url:/ucenter/upload}" name="uploadUrl"/>

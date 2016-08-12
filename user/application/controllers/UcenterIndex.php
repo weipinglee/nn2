@@ -40,7 +40,7 @@ class UcenterIndexController extends UcenterBaseController {
             $contract1 = $list['list'][0];
         else $contract1 = array();
         $this->getView()->assign('contract1',$contract1);
-
+        // var_dump($contract1);exit;
         //获取购买合同
         $list = $order->buyerContractList($this->user_id,1,$where);
 

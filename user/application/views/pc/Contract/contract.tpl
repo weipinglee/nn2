@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>合同详情</title>
-  <meta name="keywords"/>
-  <meta name="description"/>
-  <meta charset="utf-8">
-
-  <link href="{views:css/home.css?v=2}" rel="stylesheet" type="text/css" />
+<link href="{views:css/home.css?v=2}" rel="stylesheet" type="text/css" />
   <style type="text/css">
         p{text-indent: 24px;}
   </style>
-
-  <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-  <script type="text/javascript" src='{root:js/area/Area.js}'></script>
+<script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
+<script type="text/javascript" src='{root:js/area/Area.js}'></script>
 <script type="text/javascript" src='{root:js/area/AreaData_min.js}'></script>
 
-</head>
-<body>
+
 <div class="wrap">
   <!-- 合同弹出层 -->
 
@@ -25,7 +15,7 @@
         <span class="pop_con_tit"></span>
 
         <div class="main">
-
+    
             <p align="center"><strong style="font-size:20px;">耐耐网电子交易平台挂牌交易电子合同</strong></p>
 
             <div style="padding-left:20px;margin-top:10px;">
@@ -36,15 +26,15 @@
                 style="border:1px #000 solid; border-collapse:collapse; margin:10px 0px;">
                     <tr style="height:35px">
                         <td style="padding:0 10px; " width="110px">卖方（甲方）</td>
-                        <td style="padding:0 10px; " width="110px"></td>
+                        <td style="padding:0 10px; " width="110px">{$info['userinfo']['true_name']}</td>
                         <td style="padding:0 10px; " width="110px">合同编号</td>
-                        <td style="padding:0 10px; " width="110px"></td>
+                        <td style="padding:0 10px; " width="110px">{$info['order_no']}</td>
                     </tr>
                     <tr style="height:35px">
                         <td style="padding:0 10px;" width="110px">买方（乙方）</td>
-                        <td style="padding:0 10px;" width="110px"></td>
+                        <td style="padding:0 10px;" width="110px">{$info['buyer_name']}</td>
                         <td style="padding:0 10px; " width="110px">签约时间</td>
-                        <td style="padding:0 10px;" width="110px"></td>
+                        <td style="padding:0 10px;" width="110px">{$info['create_time']}</td>
                     </tr>
                 </table>
             </div>
@@ -58,7 +48,7 @@
                         style="border:1px #000 solid; border-collapse:collapse;">
                     <tr style="height:35px">
                         <td width="100px" style="padding:0 10px">商品名称:</td>
-                        <td style="padding:0 10px"></td>
+                        <td style="padding:0 10px">{$info['name']}</td>
                     </tr>
                     <tr style="height:35px">
                         <td width="100px" style="padding:0 10px">商品规格:</td>
@@ -66,7 +56,7 @@
                     </tr>
                     <tr style="height:35px">
                         <td width="100px" style="padding:0 10px">生产地:</td>
-                        <td style="padding:0 10px"></td>
+                        <td style="padding:0 10px" id='areatextarea'>{areatext:id=area data=$info['produce_area']}</td>
                     </tr>
                 </table>
                 <div style="text-align:center">（以挂牌交易中的相关商品描述为准，或买卖双方自行约定）</div>
@@ -74,20 +64,20 @@
 
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">二、数量
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;">第二条 买卖双方通过交易平台电子交易平台成交的数量：__________________________。（以挂牌交易中双方达成的交易数量为准） 计重：________________。（以挂牌交易中双方达成的约定为准）</li>
+                    <li style="text-indent: 20px;">第二条 买卖双方通过交易平台电子交易平台成交的数量：___________{$info['num']}{$info['unit']}_______________。（以挂牌交易中双方达成的交易数量为准） 计重：________________。（以挂牌交易中双方达成的约定为准）</li>
                     <li style="text-indent: 20px;">第三条 产品质量补充说明 　　（以挂牌交易中的相关商品描述为准，或双方自行约定）
         ______________________________________________________________</li>
                 </ol>
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">三、成交价格与成交时间
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;">第四条 买卖双方通过交易平台电子交易系统成交的产品的含税单价为______________元（人民币）/____(单位)。（以挂牌交易中买卖双方达成的交易价格为准）</li>
-                    <li style="text-indent: 20px;">第五条 成交时间:________________（以挂牌交易中双方达成的交易时间为准）</li>
+                    <li style="text-indent: 20px;">第四条 买卖双方通过交易平台电子交易系统成交的产品的含税单价为_______{$info['price']}_______元（人民币）/__{$info['unit']}__(单位)。（以挂牌交易中买卖双方达成的交易价格为准）</li>
+                    <li style="text-indent: 20px;">第五条 成交时间:________{$info['create_time']}________（以挂牌交易中双方达成的交易时间为准）</li>
                 </ol>
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">四、交收地点
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;">第六条 本合同项下货物的交收地点在交易所指定的交收地，该商品交收地为________________。（以挂牌交易中约定的交收地点，或买卖双方自行约定的交收地点为准）</li>
+                    <li style="text-indent: 20px;">第六条 本合同项下货物的交收地点在交易所指定的交收地，该商品交收地为_______{$info['accept_area']}_________。（以挂牌交易中约定的交收地点，或买卖双方自行约定的交收地点为准）</li>
                 </ol>
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">五、交收时间及期限
@@ -150,5 +140,3 @@
 
 <!-- 合同弹出层end -->
 </div>
-</body>
-</html>
