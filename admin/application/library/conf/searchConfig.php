@@ -72,6 +72,9 @@ class searchConfig {
             'like' => array('a.name','用户名'),
             'down' => 1
         ),
+        'apply_resetpay' => array(
+             'time' => array('r.apply_time','申请时间'),
+        ),
 
 
     );
