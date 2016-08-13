@@ -251,5 +251,27 @@ class MemberController extends InitController {
 		exit(json::encode(tool::getSuccInfo(0, 'error id')));
 	}
 
+	public function applyPayListAction(){
+		$model = new \nainai\user\ApplyResetpay();
+		$condition = array('status' => $model::APPLY);
+
+		$data = $model->getList($condition);
+
+		$this->getView()->assign('data',$data);
+	}
+
+	public function checkPayListAction(){
+		$model = new \nainai\user\ApplyResetpay();
+		$condition = array('status' => implode(',', array($model::APPLY_OK, $model::APPLY_NO)));
+
+		$data = $model->getList($condition);
+
+		$this->getView()->assign('data',$data);
+	}
+
+	public function paydetailAction(){
+		
+	}
+
 
 }

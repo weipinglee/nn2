@@ -24,8 +24,7 @@ class PurchaseOffer extends product {
 		array('acc_type','/^[\d+,?]+$/','账户类型错误'),
 		array('offer_fee','currency','金额错误'),
 		array('sign','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
-		array('accept_area', 'require', '交收地点必须填写'),
-		array('accept_day', 'number', '交收时间必须填写')
+		array('accept_area', 'require', '交收地点必须填写')
 	);
 
 	/**
@@ -40,7 +39,6 @@ class PurchaseOffer extends product {
 			$pId = $this->_productObj->table('products')->data($productData[0])->add();
 			$offerData['product_id'] = $pId;
 			$offerData['type'] = self::PURCHASE_OFFER;
-			$offerData['expire_time'] = $this->getExpireTime();
 			if (intval($pId) < 0) {
 				$this->_productObj->rollBack();
 				return tool::getSuccInfo(0, $this->_productObj->getError());

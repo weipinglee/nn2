@@ -48,7 +48,7 @@
                                 <td colspan="6" id="areat">{areatext: data=$product['produce_area'] id=areat }</td>
                             </tr>
                             <tr>
-                                <td colspan="2">生成日期</td>
+                                <td colspan="2">入库日期</td>
                                 <td colspan="6">{$product['create_time']}</td>
                             </tr>
                            <tr>

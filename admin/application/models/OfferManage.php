@@ -94,7 +94,7 @@ class OfferManageModel extends \nainai\offer\product{
 		$obj = new M('product_offer');
 		$info = $obj->where(array('id'=>$id))->getObj();
 		if(!empty($info)){
-			$info['type'] = $this->getType($info['type']);
+			$info['type_txt'] = $this->getType($info['type']);
 			$info['mode_txt'] = $this->getMode($info['mode']);
 			$info['mode_txt'] = $info['mode_txt'] == '未知' ? '--' : $info['mode_txt'];
 			$info['status_txt'] = $this->getStatus($info['status']);

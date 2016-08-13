@@ -14,6 +14,7 @@ use \Library\url;
 use \Library\session;
 use \Library\swfupload;
 use \Library\safe;
+use \Library\Hsms;
 class LoginController extends \Yaf\Controller_Abstract {
 
 	public function init(){
@@ -62,37 +63,47 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 */
 	public function doRegAction(){
 		\Library\session::clear('login');
-		$userModel = new UserModel();
-		$userData = array(
-			'username'     =>safe::filterPost('username'),
-			'password'     =>trim($_POST['password']),
-			'repassword'   =>trim($_POST['repassword']),
-			'type'         => safe::filterPost('type','int'),
-			'mobile'       => safe::filterPost('mobile','/^\d+$/'),
-			'email'        =>safe::filterPost('email','email'),
-			'agent' => safe::filterPost('agent','int',0),
-			'serial_no' => safe::filterPost('agent_pass'),
-			'create_time' => \Library\time::getDateTime()
-		);
+        $validPhoneCode = safe::filterPost('validPhoneCode','int');
+        $phone = safe::filterPost('mobile','/^\d+$/');
+        $data = self::checkMobileValidateCode($phone,$validPhoneCode);
+        if($data['err'] == 1)
+        {
+            $res = array('success'=>0,'info'=>$data['info']);
+        }
+        else
+        {
+		    $userModel = new UserModel();
+		    $userData = array(
+			    'username'     =>safe::filterPost('username'),
+			    'password'     =>trim($_POST['password']),
+			    'repassword'   =>trim($_POST['repassword']),
+			    'type'         => safe::filterPost('type','int'),
+			    'mobile'       => safe::filterPost('mobile','/^\d+$/'),
+			    'email'        =>safe::filterPost('email','email'),
+			    'agent' => safe::filterPost('agent','int',0),
+			    'serial_no' => safe::filterPost('agent_pass'),
+			    'create_time' => \Library\time::getDateTime()
+		    );
 
-		if($userData['type']==1){
-			$companyData = array(
-				'company_name' => safe::filterPost('company_name'),
-				'area'         => safe::filterPost('area','/\d+/'),
-				'legal_person' =>safe::filterPost('legal_person'),
-				'reg_fund'     => safe::filterPost('reg_fund','float'),
-				'category'     => safe::filterPost('category','int'),
-				'nature'       => safe::filterPost('nature','int'),
-				'contact'      => safe::filterPost('contact'),
-				'contact_phone'=> safe::filterPost('contact_phone','/^\d+$/'),
-				'contact_duty' => safe::filterPost('contact_duty','int'),
+		    if($userData['type']==1){
+			    $companyData = array(
+				    'company_name' => safe::filterPost('company_name'),
+				    'area'         => safe::filterPost('area','/\d+/'),
+				    'legal_person' =>safe::filterPost('legal_person'),
+				    'reg_fund'     => safe::filterPost('reg_fund','float'),
+				    'category'     => safe::filterPost('category','int'),
+				    'nature'       => safe::filterPost('nature','int'),
+				    'contact'      => safe::filterPost('contact'),
+				    'contact_phone'=> safe::filterPost('contact_phone','/^\d+$/'),
+				    'contact_duty' => safe::filterPost('contact_duty','int'),
 
 
-			);
-			$res = $userModel->companyReg($userData,$companyData);
-		}else{
-			$res = $userModel->userInsert($userData);
-		}
+			    );
+			    $res = $userModel->companyReg($userData,$companyData);
+		    }else{
+			    $res = $userModel->userInsert($userData);
+            }
+        }
 		if(isset($res['success']) && $res['success']==1){//注册成功
 			$login = new CheckRight();
 			$login->loginAfter($userData);
@@ -105,6 +116,23 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 
 	}
+    
+    /**
+     *
+     * 验证手机验证码
+     * @param $phone
+     * @param $num
+     * @return int
+     */
+    function checkMobileValidateCode($phone,$num){
+        if($mobileValidateSess = session::get('mobileValidateReg')){
+            if(time() - $mobileValidateSess['time']>=1800){//session过期
+                return array('err' => 1, 'info' => '验证码过期');
+            }else if($mobileValidateSess['num']!=$num || $mobileValidateSess['phone']!=$phone){
+                return array('err' => 1, 'info' => '验证码错误');//错误
+            }else return array('err' => 0, 'info' => '正确');//正确
+        }
+    }
 
 	public function checkIsOneAction(){
 		if(IS_AJAX){
@@ -134,9 +162,46 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 */
 	public function getCaptchaAction(){
 
-		$ca = new \Library\captcha();
+        $w = safe::filterGet('w','int', 150);
+        $h = safe::filterGet('h','int', 50);
+		$ca = new \Library\captcha(array('width' => $w, 'height' => $h));
 		$ca->CreateImage();
 	}
+    
+    /**
+     * 验证验证码
+     */
+    public function captchaCheckAction(){
+
+        $captcha  = safe::filterPost('captcha','/^[a-zA-Z]{4}$/');
+        $captchaObj = new captcha();
+        if($captchaObj->check($captcha))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    } 
+    
+    //发送短信
+    public function sendMessageAction()
+    {
+        $phone = safe::filterPost('phone');
+        $text = rand(100000, 999999);
+        session::set('mobileValidateReg', array('phone' => $phone, 'num' => $text, 'time' => time()));
+        $hsms = new Hsms();
+        if ($hsms->send($phone, $text))
+        {
+            return false;
+        }
+        else
+        {
+            return $text;
+        }            
+    }
+     
 	/**
 	 * 登录
 	 */
@@ -157,6 +222,11 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 			$data=array('errorCode'=>0);
 			$captchaObj = new captcha();
+            $res = $captchaObj->check($captcha);
+            if(!$res)
+            {
+                $data['errorCode'] = 4;
+            }
 			if($account == ''){
 				$data['errorCode'] = 1;
 			}

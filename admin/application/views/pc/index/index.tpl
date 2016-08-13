@@ -155,6 +155,14 @@
                                 <li><a href="{url:member/companyRec/recAdd}" target="content" >添加推荐</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href='javascript:voie(0)' target="content">支付密码修改</a>
+                            <ul>
+                                <li><a href="{url:member/member/applyPayList}" target="content" >待审核</a></li>
+                                <li><a href="{url:member/member/recAdd}" target="content" >重置密码</a></li>
+                                <li><a href="{url:member/member/checkPayList}" target="content" >已审核</a></li>
+                            </ul>
+                        </li>
                         <!--<li><a href="shop-list.html" target="content">商铺管理</a></li>-->
                        <!-- <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>-->
                     </ul>

@@ -20,9 +20,10 @@ class PurchaseController extends UcenterBaseController{
 			        'accept_area' => Safe::filterPost('accept_area'),
 			        'accept_day' => Safe::filterPost('accept_day', 'int'),
 			        'price_l'        => Safe::filterPost('price'),
-					'price_r'        => Safe::filterPost('price_r'),
+				'price_r'        => Safe::filterPost('price_r'),
 			        'user_id' => $this->user_id,
 			        'status' => product::OFFER_APPLY,
+			        'expire_time' =>  Safe::filterPost('expire_time'),
 					'divide' => 0//默认不可拆分
 			);
 			$productData = $this->getProductData();
