@@ -52,8 +52,9 @@
                          {/if}
                      {/foreach}
                  </td>
-                 <th>可否拆分</th>
-                 <td>{if:$info['divide'] == 0}可拆分{else:}否{/if}</td>
+                 <th></th>
+                 <td></td>
+
 
              </tr>
 
@@ -68,15 +69,25 @@
 
                  <th>计量单位</th>
                  <td>{$info['unit']}</td>
-                 {if: $info['divide'] == 1}
-                 <th>最小起订量</th>
-                 <td>{$info['minimum']}</td>
-                 {else:}
-                     <th>申请时间</th>
-                     <td>{$info['apply_time']}</td>
-             {/if}
+                 <th></th>
+                 <td></td>
             
 
+             </tr>
+             <tr>
+                 <th>可否拆分</th>
+                 <td>{if:$info['divide'] == 1}可拆分{else:}否{/if}</td>
+                 {if: $info['divide'] == 1}
+                     <th>最小起订量</th>
+                     <td>{$info['minimum']}</td>
+                     <th>最小递增量</th>
+                     <td>{$info['minstep']}</td>
+                 {else:}
+                     <th></th>
+                     <td></td>
+                     <th></th>
+                     <td></td>
+                 {/if}
              </tr>
              <tr>
                  <th>报盘数量</th>

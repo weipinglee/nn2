@@ -145,6 +145,7 @@ class ManagerDealController extends UcenterBaseController {
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
                 'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'int') : 0,
+                'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
 
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
@@ -206,6 +207,7 @@ class ManagerDealController extends UcenterBaseController {
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => safe::filterPost('divide', 'int'),
                 'minimum'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minimum', 'float') : 0,
+                'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
 
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
@@ -269,6 +271,7 @@ class ManagerDealController extends UcenterBaseController {
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
                 'minimum'     => (safe::filterPost('divide', 'int') == 1) ? Safe::filterPost('minimum', 'float') : 0,
+                'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
 
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
@@ -449,7 +452,8 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData = array(
                     'apply_time'  => \Library\Time::getDateTime(),
                     'divide'      => Safe::filterPost('divide', 'int'),
-                    'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'int') : 0,
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'float') : 0,
+                    'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
                     'status'      => 0,
                     'accept_area' => Safe::filterPost('accept_area'),
                     'accept_day' => Safe::filterPost('accept_day', 'int'),

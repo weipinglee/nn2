@@ -122,6 +122,10 @@
                                 <td colspan="2">起订量</td>
                                 <td colspan="6">{$offer['minimum']}</td>
                             </tr>
+                               <tr>
+                                   <td colspan="2">最小递增量</td>
+                                   <td colspan="6">{$offer['minstep']}</td>
+                               </tr>
                            {/if}
                             <tr>
                                 <td colspan="2">商品单价</td>

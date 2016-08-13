@@ -154,7 +154,7 @@ class product  {
         array('name','require','商品名称必须填写'),
         array('cate_id','number','商品类型id错误'),
         array('price','currency','商品价格必须是数字'),
-        array('quantity','double','供货总量必须是整数'),
+        array('quantity','double','供货总量必须是数字'),
         array('attribute', 'require', '请选择商品属性'),
         array('note', 'require', '商品描述必须填写')
     );
@@ -167,6 +167,8 @@ class product  {
         array('product_id', 'number', '必须有商品id'),
         array('mode', 'number', '必须有报盘类型'),
         array('divide', 'number','是否可拆分的id错误'),
+        array('minimum','double','最小起订量错误'),
+        array('minstep','double','最小递增量错误'),
         array('price','currency','商品价格必须是数字'),
         array('price_l','currency','商品价格必须是数字'),
         array('price_r','currency','商品价格必须是数字'),

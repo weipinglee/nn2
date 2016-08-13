@@ -6,9 +6,9 @@ var attr_url = $('input[name=attr_url]').val();
 $(document).ready(function(){
     $('#divide').change(function(){
         if ($('#divide').val() == 1) {
-            $('#nowrap').show();
+            $('.nowrap').show();
         }else{
-            $('#nowrap').hide();
+            $('.nowrap').hide();
         }
     });
 
@@ -231,6 +231,7 @@ function bindRules(){
 
 //最小起订量的限制规则
 function minimumRules(){
+    //最小起订量
     formacc.addDatatype('compare',function(gets){
         var quantity = parseFloat($('#quantity').text());
         if(!quantity){
@@ -241,15 +242,47 @@ function minimumRules(){
         }
         gets = parseFloat(gets) ;
 
-        if($('[id^=nowrap]').css('display')!='none'  &&   gets>quantity)
+        if($('[class^=nowrap]').css('display')!='none'  &&   gets>quantity)
             return false;
        return true;
     });
+    //最小递增量
+    formacc.addDatatype('minsteprule',function(gets){
+        var quantity = parseFloat($('#quantity').text());
+        var max = 0;
+        var minimum = 0;
+        if(!quantity){
+            quantity = parseFloat($('input[name=quantity]').val());
+        }
+        if(!quantity){
+            quantity = 0;
+        }
+        else{
+             minimum = parseFloat($('input[name=minimum]').val());
+            if(!minimum)
+                minimum = 0;
+            max = quantity - minimum;
+        }
+
+        gets = parseFloat(gets) ;
+
+        if($('[class^=nowrap]').css('display')!='none'  &&   gets>max)
+            return false;
+        return true;
+    });
+
     var rules = [{
         ele:"input[name=minimum]",
         datatype:"compare&float",
         nullmsg:"请输入最小起订量！",
         errormsg:"最小起订量不能大于总量！"
-    }];
+    },
+        {
+            ele:"input[name=minstep]",
+            datatype:"minsteprule&float",
+            nullmsg:"请输入最小递增量！",
+            errormsg:"最小递增量必须小于等于总量和最小递增量之差！"
+        }
+    ];
     formacc.addRule(rules);
 }

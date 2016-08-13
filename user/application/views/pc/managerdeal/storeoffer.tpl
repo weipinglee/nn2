@@ -113,19 +113,26 @@
                                 </select>
                             </td>
                             </tr>
-                            <tr id='nowrap1'>
-                            <td><span>*</span>最小起订量：</td>
-                            <td>
-                                <span><input name="minimum" id="" type="text" /></span>
-                                <span></span>
-                            </td>
-                        </tr>
+                            <tr class='nowrap1'>
+                                <td><span>*</span>最小起订量：</td>
+                                <td>
+                                    <span><input name="minimum" id="" type="text" /></span>
+                                    <span></span>
+                                </td>
+                            </tr>
+                            <tr class='nowrap1'>
+                                <td><span>*</span>最小递增量：</td>
+                                <td>
+                                    <span><input name="minstep" id="" type="text" /></span>
+                                    <span></span>
+                                </td>
+                            </tr>
                             <script type="text/javascript">
                                 $('#divide').change(function(){
                                     if($('#divide').val()==1){
-                                        $('#nowrap1').show();
+                                        $('.nowrap1').show();
                                     }else{
-                                        $('#nowrap1').hide();
+                                        $('.nowrap1').hide();
                                     }
                                 });
                             </script>
