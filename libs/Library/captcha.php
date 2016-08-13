@@ -47,7 +47,7 @@ class Captcha
     /** Shadow color in RGB-array or null */
     public $shadowColor = null; //array(0, 0, 0);
 
-    public $fontSize    = 45;
+    public $fontSize    = 24;
 
     /**
      * Font configuration
