@@ -41,6 +41,9 @@ class IndexController extends PublicController {
 		//获取统计数据
 		$statcModel=new \nainai\statistics();
 		$statcCatList=$statcModel->getNewStatcList(1);
+		$statcCatList=$statcModel->getAllStatcList(1);
+		$statcTime=$statcModel->getStaticTime(1);
+		$this->getView()->assign('statcTime',\Library\json::encode($statcTime));
 		$statcProList=$statcModel->getNewStaticListNocate(2);
 		$topCat=$productModel->getTopCate(8);
 		$company=\nainai\companyRec::getAllCompany();
@@ -86,7 +89,7 @@ class IndexController extends PublicController {
 		$this->getView()->assign('adList',$adList);
 		$this->getView()->assign('helpList',$helpList);
 		$this->getView()->assign('creditMember',$creditMember);
-		$this->getView()->assign('statcCatList',$statcCatList);
+		$this->getView()->assign('statcCatList',\Library\json::encode($statcCatList));
 		$this->getView()->assign('statcProList',$statcProList);
 		$this->getView()->assign('company',$company);
 		$this->getView()->assign('topCat',$topCat);

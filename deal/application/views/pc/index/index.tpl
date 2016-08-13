@@ -160,7 +160,7 @@
                 <div id="row1_clinch" class="row1_clinch">
                     <div class="clinch_tit">
                         <div class="tit_time">
-                            <p id="time_year" class="time_year">2016<br><span class="time_month">08/02</span></p>
+                            <p id="time_year" class="time_year">{$year}<br><span class="time_month">{$month}/{$day}</span></p>
                             <!-- <p id="time_day" class="time_day">11</p> -->
                         </div>
                         <div class="tit_font">
@@ -172,21 +172,21 @@
                         <div class="data-tit">
                             <div class="data">
                                 <p class="data_title">当前在线报盘</p>
-                                <p class="data_content">144384</p>
+                                <p class="data_content">{$offer_num}</p>
                             </div>
                             <img class="data_img" src="{views:images/icon/data-img_03.png}"/>
                         </div>
                         <div class="data-tit">                            
                             <div class="data">
                                 <p class="data_title">当前成交量</p>
-                                <p class="data_content">144384</p>
+                                <p class="data_content">{$order_num}</p>
                             </div>
                             <img class="data_img" src="{views:images/icon/data-img_06.png}"/>
                         </div>
                         <div class="data-tit">
                             <div class="data">
                                 <p class="data_title">昨日成交量</p>
-                                <p class="data_content">144384</p>
+                                <p class="data_content">{$order_num_yes}</p>
                             </div>
                             <img class="data_img" src="{views:images/icon/data-img_08.png}"/>
                         </div>
@@ -656,19 +656,89 @@
                             <div class="i_leftTit i_leftTit_bg clearfix">
                                 <div class="i_left_title " name="1" id="item2">市场指数</div>
                                 <ul>
-                                    <li class="li_select"><a href="javascript:void(0)"><em class="em2"></em><span></span>冶金化工市场</a></li>
-                                    <li><a href="javascript:void(0)"><em class="em2"></em><span></span>设备市场</a></li>
-                                    <li><a href="javascript:void(0)"><em class="em2"></em><span></span>耐火市场</a></li>
-                                    <li><a href="javascript:void(0)"><em class="em2"></em><span></span>建材市场</a></li>
-                                    <li><a href="javascript:void(0)"><em class="em2"></em><span></span>钢铁市场</a></li>
-                                    <li><a href="javascript:void(0)"><em class="em2"></em><span></span>其他市场</a></li>
+                                    <ul>
+                                        {foreach:items=$topCat}
+                                            <li {if:$key==0}class='li_select'{/if} onclick="statistics({$item['id']},this)" ><a attr="{$item['id']}"href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+
+                                        {/foreach}
+                                    </ul>
                                 </ul>
                                             
                             </div>
+                            {set: $first_cat_id=$topCat[0]['id']}
+                            <script src="https://code.highcharts.com/highcharts.js"></script>
+                            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+                            <script language="javascript" type="text/javascript">
+                                $(function(){
+                                    var cat_id={$first_cat_id};
+                                    changeContainer(cat_id);
+                                });
+                                function statistics(id,obj){
+                                    $(obj).siblings().removeClass('li_select');
+                                    $(obj).addClass('li_select');
+                                    //var recObj=$('#statc'+id);
+                                   /* $('#item5').children().css('display','none');
+                                    recObj.css('display','block');*/
+                                    changeContainer(id);
+                                }
+                                function changeContainer(id){
+                                    var statisList={$statcCatList};
+                                        var categories={$statcTime};
+                                    var series=new Array();
+                                    var j=0;
+                                    if(statisList[id]==undefined){
+                                        return false;
+                                    }
+                                   $.each(statisList[id],function(index,value){
+                                       var data=new Array();
+                                        for(var i=0;i<value.length;i++){
+                                            var ave_price=parseInt(value[i].ave_price,10);
+                                            data[i]=ave_price;
+                                        }
+                                       series[j]={name:index,data:data};
+                                        j++;
+                                    });
 
+                                    $('#container').highcharts({
+                                        title: {
+                                            text: '市场指数',
+                                            x: -20 //center
+                                        },
+                                        subtitle: {
+                                            text: 'Source: WorldClimate.com',
+                                            x: -20
+                                        },
+
+                                        xAxis: {
+                                            categories: {$statcTime}
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: '金额（元）'
+                                            },
+                                            plotLines: [{
+                                                value: 0,
+                                                width: 1,
+                                                color: '#808080'
+                                            }]
+                                        },
+                                        tooltip: {
+                                            valueSuffix: '元 '
+                                        },
+                                        legend: {
+                                            layout: 'vertical',
+                                            align: 'right',
+                                            verticalAlign: 'middle',
+                                            borderWidth: 0
+                                        },
+                                        series:series
+                                    });
+                                }
+
+                            </script>
                             <div class="i_leftCon" style="margin:0px;">
                                 <div class="i_proList show i_proList_zhishu">
-                                    <div class="img_pro"><img src="{views:images/index/zhibiao.jpg}"></div>
+                                    <div class="img_pro" id="container"></div>
                                 </div>
                                 <div class="i_proList i_proList_zhishu">
                                     <div class="img_pro"><img src="{views:images/index/zhibiao.jpg}"></div>
@@ -854,6 +924,46 @@
             <!-- 最新交易js end -->               
             </div>
             <!----五大类  结束---->
+            <script type="text/javascript">
+                $('document').ready(function(){
+                    var obj=$('#item3').next().children().first();
+                    var id=obj.attr('attr');
+                    var obj2=$('#item2').next().children().first();;
+                    var id2=obj.attr('attr');
+                    obj2.addClass('li_select');
+                    obj.addClass('li_select');
+                    var recObj=$('#rec'+id);
+                    var recObj2=$('#statc'+id2);
+                    recObj2.css('display','block');
+                    recObj.css('display','block');
+
+                });
+                function companyRec(id,obj){
+                    $(obj).siblings().removeClass('li_select');
+                    $(obj).addClass('li_select');
+                    var recObj=$('#rec'+id);
+                    $('#item4').nextAll().css('display','none');
+                    recObj.css('display','block');
+
+                }
+/*                function statistics(id,obj){
+                    $(obj).siblings().removeClass('li_select');
+                    $(obj).addClass('li_select');
+                    var recObj=$('#statc'+id);
+                    $('#item5').children().css('display','none');
+                    recObj.css('display','block');
+
+                }*/
+
+
+                function showOffers(id,obj){
+                    obj.siblings().removeClass('li_select');
+                    obj.addClass('li_select');
+                    $('[id^=offer]').removeClass('show');
+                    $('#offer'+id).addClass('show');
+
+                }
+            </script>
         </div>
     </div>  
     <!--主要内容 结束-->

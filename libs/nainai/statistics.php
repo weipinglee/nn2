@@ -281,6 +281,66 @@ class statistics{
         }
         return $newStatcList;
     }
+    public function getAllStatcList($type){
+        $productModel=new product();
+        $topCat=$productModel->getTopCate();
+        $marketObj=new Query('static_market as m');
+        $marketObj->join='left join product_category as c on m.cate_id=c.id';
+        $marketObj->fields='c.name,m.*';
+        $marketObj->order='m.create_time';
+        $marketObj->where='m.type= :type and find_in_set(m.cate_id,getChildLists(:cid))';
+        foreach($topCat as $k=>$v) {
+            $marketObj->bind = array('cid' => $v['id'], 'type' => $type);
+            $allStatcList[$v['id']]=$marketObj->find();
+        }
+        $staticTimes=$this->getStaticTime(1);
+        $tmp=array();
+        $res=array();
+        foreach($allStatcList as $k=>$v){
+
+            foreach($v as $kk=>$vv){
+                    $tmp[$k][$vv['name']][$vv['create_time']]=array();
+                    foreach($tmp[$k] as $kkk=>$vvv){
+                        if($vv['name']==$kkk){
+                            foreach($tmp[$k][$vv['name']] as $kkkk=>$vvvv){
+                                if($vv['create_time']==$kkkk){
+                                    $tmp[$k][$vv['name']][$vv['create_time']]=$vv;
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+        foreach($tmp as $k=>$v){
+            foreach($tmp[$k] as $kk=>$vv){
+                ksort($vv);
+                $tmp[$k][$kk]=$vv;
+            }
+        }
+        foreach($tmp as $k=>$v){
+            foreach($tmp[$k] as $kk=>$vv){
+                    foreach($tmp[$k][$kk] as $kkk=>$vvv){
+                        foreach($staticTimes as $kkkk=>$vvvv){
+                            if(!isset($tmp[$k][$kk][$vvvv])){
+                                $tmp[$k][$kk][$vvvv]['ave_price']=0;
+                            }
+                        }
+
+                    }
+            }
+        }
+      foreach($tmp as $k=>$v){
+            foreach($tmp[$k] as $kk=>$vv){
+                ksort($vv);
+                $tmp[$k][$kk]=$vv;
+            }
+            foreach($tmp[$k] as $kk=>$vv){
+                $tmp[$k][$kk]=array_values($vv);
+            }
+        }
+       return $tmp;
+
+    }
 
     /**
      * 获取最新统计数据（不分类）
@@ -295,5 +355,20 @@ class statistics{
         $data = $marketObj->find();
         return $data;
     }
-
+    /*
+     *
+     * */
+    public function getStaticTime($type){
+        $marketObj=new Query('static_market');
+        $marketObj->fields='distinct create_time';
+        $marketObj->where='type= :type';
+        $marketObj->order='create_time';
+        $marketObj->bind=array('type'=>$type);
+        $time=$marketObj->find();
+        $res=array();
+        foreach($time as $k=>$v){
+            $res[$k]=$v['create_time'];
+        }
+        return $res;
+    }
 }
