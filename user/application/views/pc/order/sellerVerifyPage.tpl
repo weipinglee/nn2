@@ -54,7 +54,7 @@
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
-
+                                
                                 <a href="{url:/order/sellerVerify?order_id=$info['id']&action_confirm=1&info=确认}">确认质量</a>
                                 <a href="javascript:history.back()">返回</a>
                                 

@@ -153,7 +153,7 @@
 						      <label for=""><input name="account" type="radio" value="1" checked="true"/>市场代理账户</label>
 
 						      <label for=""><input name="account" type="radio" value="2" />银行签约账户</label>
-						      <label for=""><input name="account" type="radio" value="3" />票据账户</label>
+						      <!-- <label for=""><input name="account" type="radio" value="3" />票据账户</label> -->
 
                    </div>
                    {/if}
@@ -191,13 +191,20 @@
                   
 
                   <div class="pay_bton">
-                  	<h5>待支付金额：<i>{$data['pay_retainage']}</i>元</h5>
+                  	<h5>待支付金额：<i>{$data['topay_retainage']}</i>元</h5>
                     {if:$show_online}
-                  	  <span style="display:block;"><a  href="javascript:;" id='pay_retainage'>立即支付尾款</a></span>
+                  	  {if:!$data['pay_retainage'] && !$data['proof']}
+                        <span style="display:block;"><a  href="javascript:;" id='pay_retainage'>立即支付尾款</a></span>
+                        {else:}
+                        已支付
+                      {/if}
                     {/if}
                       <span {if:$show_online}style="display:none;"{/if}>
                         {if:$bankinfo['true_name'] && $bankinfo['bank_name'] && $bankinfo['card_no']}
-                          <a  href="javascript:;" id='pay_proof'>上传凭证</a>
+                          {if:!($data['proof'] || $data['pay_retainage'])}
+                            <a  href="javascript:;" id='pay_proof'>上传凭证</a>
+                            {else:}
+                          {/if}
                         {else:}
                           <a href="{url:/order/banckNotice?tar_id=$data['seller']}">通知卖方开户</a>
                         {/if}

@@ -727,12 +727,13 @@ class Order{
 						if($res === true){
 							$account_deposit = $this->base_account->get_account($order['buyer_deposit_payment']);
 							$account_retainage = $this->base_account->get_account($order['retainage_payment']);
-							if(is_object($account_deposit) && is_object($account_retainage)){
+							$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage) : is_object($account_deposit);
+							if($cond){
 								$deposit_res = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6);
 								if($deposit_res !== true) {
 									$error = $deposit_res;
 								}else{
-									$retainage_res = $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.6);
+									$retainage_res = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.6) : true;
 									$error = $retainage_res === true ? '' : $retainage_res;
 								}
 							}else{
@@ -803,19 +804,21 @@ class Order{
 						$account_deposit = $this->base_account->get_account($order['buyer_deposit_payment']);
 						$account_retainage = $this->base_account->get_account($order['retainage_payment']);
 						$account_seller_deposit = $this->base_account->get_account($order['seller_deposit_payment']);
-						if(is_object($account_deposit) && is_object($account_retainage) && is_object($account_seller_deposit)){
-							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,floatval($order['seller_deposit'])) : true;
+						$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage) && is_object($account_seller_deposit) : is_object($account_deposit)  && is_object($account_seller_deposit);
+						if($cond){
+							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit']) : true;
+
 							if($r1 === true){
 								$r2 = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$reduce_amount)*0.4);
 								
 								if($r2 !== true){
 									$error = $r2;
 								}else{
-									$r3 = $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.4);	
+									$r3 = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.4) : true;	
 									if($r3 !== true){
 										$error = $r3;
 									}else{
-										$r4 = $account_deposit->freezeRelease($buyer,$reduce_amount);			
+										$r4 = $reduce_amount > 0 ? $account_deposit->freezeRelease($buyer,$reduce_amount) : true;			
 										$error = $r4 === true ? '' : $r4;
 									}
 								}

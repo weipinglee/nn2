@@ -122,7 +122,7 @@
                        <input type="hidden" value="online" name="payment"/>
 						      <label for=""><input name="account" type="radio" value="1" checked="true"/>市场代理账户</label>
 						      <label for=""><input name="account" type="radio" value="2" />银行签约账户</label>
-						      <label for=""><input name="account" type="radio" value="3" />票据账户</label>
+						      <!-- <label for=""><input name="account" type="radio" value="3" />票据账户</label> -->
                   <input type="hidden" name="id" value="{$data['id']}"/>
                    </div>
                    
