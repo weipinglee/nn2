@@ -43,6 +43,7 @@
                         <li>参考价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
                         <li>总数量： <i>{$data['quantity']}</i>  {$data['unit']}</li>
                       <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
+                      <li><a id='contract_review' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:blue;">合同预览</a></li>
                     </ul>
 
                   <!--  <div class="counter">
@@ -55,7 +56,6 @@
                         <a href="{url:/offers/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
 
                     </div>
-                    <a id='contract_review' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:blue;">合同预览</a>
 
                 </div>
                 <div style="clear:both;"></div>
