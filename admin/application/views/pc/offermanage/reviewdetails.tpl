@@ -59,7 +59,7 @@
                      {/foreach}
                  </td>
                  <th>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}可否拆分{/if}</th>
-                 <td>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}{if:$info['divide'] == 1}可拆分{else:}否{/if}{/if}</td>
+                 <td>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}{if:$info['divide'] == 1}是{else:}否{/if}{/if}</td>
 
              </tr>
 

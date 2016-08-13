@@ -53,7 +53,7 @@
                      {/foreach}
                  </td>
                  <th>可否拆分</th>
-                 <td>{if:$info['divide'] == 1}可拆分{else:}否{/if}</td>
+                 <td>{if:$info['divide'] == 1}是{else:}否{/if}</td>
 
              </tr>
 
