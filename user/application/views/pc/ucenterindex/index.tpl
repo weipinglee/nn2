@@ -97,12 +97,6 @@
 										</div><b><b>
 											</b></b></td>
 								</tr>
-								<tr>
-									<td colspan="4">
-										<img src="{views:/images/center/no-data.png}">
-										<p class="no-data">暂无购买合同</p>
-									</td>
-								</tr>
 							</table>
 							{else:}
 								<table width="100%">
