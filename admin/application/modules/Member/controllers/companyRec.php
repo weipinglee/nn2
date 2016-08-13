@@ -78,8 +78,8 @@ class companyRecController extends Yaf\Controller_Abstract {
         //var_dump($res);
     	$this->getView()->assign('cInfo',$res);
     }
-    /*
-    关闭开启推荐
+    /**
+    **关闭开启推荐
      */
     public function recStatusEditAction(){
     	if(IS_POST&&IS_AJAX){

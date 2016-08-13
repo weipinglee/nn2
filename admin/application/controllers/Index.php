@@ -35,7 +35,7 @@ class IndexController extends InitController {
 	}
 
 	public function welcomeAction(){
-		
+		$this->getView()->setLayout('');
 	}
 
 	public function noaccessAction(){
@@ -74,55 +74,59 @@ class IndexController extends InitController {
 	 * 获取管理员操作提醒
 	 */
 	public function getMsgAction(){
-		$admin_info = admintool\admin::sessionInfo();
+		if(IS_POST){
+			$admin_info = admintool\admin::sessionInfo();
 
-		if (empty($admin_info) || !isset($admin_info['id'])) {
+			if (empty($admin_info) || !isset($admin_info['id'])) {
+				exit(json::encode(array()));
+			}
+			$admin_id = $admin_info['id'];
+			$adminModel = new AdminModel();
+			$role = $adminModel->getAdminInfo($admin_id);
+
+			$msgModel = new \nainai\AdminMsg();
+			$msgData = $msgModel->getmsg($admin_id);
+
+			if (!empty($msgData) ) {
+				foreach ($msgData as $key => $value) {
+
+					//判断是否有权限
+					$value['url_oper'] = ltrim($value['url_oper'],'/');
+					$operUrl = explode('/',$value['url_oper']);
+					$rbac = new \Library\adminrbac\rbac();
+					$check = $rbac->AccessDecision($operUrl[0],$operUrl[1],$operUrl[2]);
+					if($check){//如果有权限,设置已访问
+						$msgModel->setVisit($admin_id,$value['id']);
+						//生成访问的url
+						$msgData[$key]['url'] = ltrim($msgData[$key]['url'],'/');
+						$url = explode('?',$msgData[$key]['url']);
+						$i=0;
+						$c = 0;
+						while($i<strlen($url[0])){
+							if($c==3)
+								break;
+							if($url[0][$i]=='/'){
+								$c = $c + 1;
+							}
+							$i = $i  + 1;
+						}
+
+						$msgData[$key]['url'] = \Library\url::createUrl(substr($url[0],0,$i));
+						$msgData[$key]['url'] .= substr($url[0],$i-1).$value['args'];
+						$msgData[$key]['url'] .= $url[1] ? '?'.$url[1] : '';
+
+					}
+					else{
+						unset($msgData[$key]);
+					}
+				}
+				die(json::encode($msgData));
+			}
+
 			exit(json::encode(array()));
 		}
-		$admin_id = $admin_info['id'];
-		$adminModel = new AdminModel();
-		$role = $adminModel->getAdminInfo($admin_id);
+		return false;
 
-		$msgModel = new \nainai\AdminMsg();
-		$msgData = $msgModel->getmsg($admin_id);
-
-		if (!empty($msgData) ) {
-			foreach ($msgData as $key => $value) {
-
-				//判断是否有权限
-				$value['url_oper'] = ltrim($value['url_oper'],'/');
-				$operUrl = explode('/',$value['url_oper']);
-				$rbac = new \Library\adminrbac\rbac();
-				$check = $rbac->AccessDecision($operUrl[0],$operUrl[1],$operUrl[2]);
-				if($check){//如果有权限,设置已访问
-					$msgModel->setVisit($admin_id,$value['id']);
-					//生成访问的url
-					$msgData[$key]['url'] = ltrim($msgData[$key]['url'],'/');
-					$url = explode('?',$msgData[$key]['url']);
-					$i=0;
-					$c = 0;
-					while($i<strlen($url[0])){
-						if($c==3)
-							break;
-						if($url[0][$i]=='/'){
-								$c = $c + 1;
-						}
-						$i = $i  + 1;
-					}
-
-					$msgData[$key]['url'] = \Library\url::createUrl(substr($url[0],0,$i));
-					$msgData[$key]['url'] .= substr($url[0],$i-1).$value['args'];
-					$msgData[$key]['url'] .= $url[1] ? '?'.$url[1] : '';
-
-				}
-				else{
-					unset($msgData[$key]);
-				}
-			}
-			die(json::encode($msgData));
-		}
-
-		exit(json::encode(array()));
 	}
 
 

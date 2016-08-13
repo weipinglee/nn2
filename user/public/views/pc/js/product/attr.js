@@ -239,13 +239,15 @@ function minimumRules(){
         if(!quantity){
             quantity = 0;
         }
-        if($('[id^=nowrap]').css('display')!='none' && gets>quantity)
+        gets = parseFloat(gets) ;
+
+        if($('[id^=nowrap]').css('display')!='none'  &&   gets>quantity)
             return false;
        return true;
     });
     var rules = [{
         ele:"input[name=minimum]",
-        datatype:"compare",
+        datatype:"compare&float",
         nullmsg:"请输入最小起订量！",
         errormsg:"最小起订量不能大于总量！"
     }];
