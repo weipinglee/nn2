@@ -3,7 +3,7 @@ ini_set('display_errors',1);
 
 date_default_timezone_set('Asia/Shanghai');
 
-error_reporting(E_ALL ^ E_NOTICE)
+error_reporting(E_ALL ^ E_NOTICE);
 
 define('APPLICATION_PATH', dirname(__DIR__));
 

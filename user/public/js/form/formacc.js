@@ -251,7 +251,11 @@ nn_panduo.formacc.prototype = {
 					}
 
 
-				}else{
+				}else if(!!data.payment_id)
+                {
+                    var html = '<form action="'+submit_pay+'" method="post"><input type="hidden" name="payment_id" value="'+data.payment_id+'"/><input type="hidden" name="recharge" value="'+data.recharge+'"/><input type="hidden" name="sign" value="1"/></form><script type="text/javascript">window.document.forms[0].submit();</script>';
+                    $('body').html(html);
+                }else{
 
 					if(data.returnUrl){
 
