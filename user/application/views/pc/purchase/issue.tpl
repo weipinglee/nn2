@@ -135,7 +135,14 @@
     </tr>
 
 
+   <tr>
+        <td>有效期：</td>
+        <td colspan="2">
+            <span > <input class="Wdate" type="text" onclick="WdatePicker()" name="expire_time" value=""></span>
+            <span></span>
+        </td>
 
+    </tr>
 
     <tr>
         <td>上传图片：</td>
@@ -165,12 +172,6 @@
             <span><input type="text" class='text' datatype="s1-30" errormsg="填写商品标题" name="accept_area"></span>
             <span></span>
         </td>
-    </tr>
-    <td>交收时间：</td>
-    <td colspan="2">
-        <span>T+<input type="text" class='text' style="width:100px"  name="accept_day">天</span>
-        <span></span>
-    </td>
     </tr>
 
     <tr>

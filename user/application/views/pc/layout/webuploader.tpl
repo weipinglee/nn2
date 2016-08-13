@@ -28,7 +28,7 @@
         {/if}
         {set:$filesize = $filesize / 1024;}
         <div id="picker" style="line-height:15px;">选择文件</div>
-        <span>每张图片大小不能超过{$filesize}M</span>
+        <span>每张图片大小不能超过{$filesize}M,双击图片可以删除</span>
         <div class="totalprogress" style="display:none;">
             <span class="text">0%</span>
             <span class="percentage"></span>

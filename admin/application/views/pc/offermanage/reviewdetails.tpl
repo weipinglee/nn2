@@ -28,7 +28,7 @@
              </tr>
              <tr>
                  <th>交易方式</th>
-                 <td>{$info['type']}</td>
+                 <td>{$info['type_txt']}</td>
                  <th>报盘类型</th>
                  <td>{$info['mode_txt']}</td>
                  <th>报盘费率</th>
@@ -58,15 +58,15 @@
                          {/if}
                      {/foreach}
                  </td>
-                 <th>可否拆分</th>
-                 <td>{if:$info['divide'] == 1}可拆分{else:}否{/if}</td>
+                 <th>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}可否拆分{/if}</th>
+                 <td>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}{if:$info['divide'] == 1}可拆分{else:}否{/if}{/if}</td>
 
              </tr>
 
              <tr>
-                 {if:$info['type']=='买盘'}
+                 {if:$info['type']==\nainai\offer\product::TYPE_BUY}
                      <th>价格区间</th>
-                     <td>{$info['price_l']}--{$info['price_r']}</td>
+                     <td>{$info['price_l']}--{$info['price_r']}( /{$info['unit']})</td>
                  {else:}
                      <th>挂牌价</th>
                      <td>{$info['price']}</td>
@@ -95,7 +95,7 @@
              </tr>
              <tr>
                  <th>交收时间</th>
-                 <td>{$info['accept_day']}</td>
+                 <td>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}{$info['accept_day']}{else:}--{/if}</td>
                  <th>交收地点</th>
                  <td>{$info['accept_area']}</td>
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
