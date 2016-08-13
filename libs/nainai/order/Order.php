@@ -161,7 +161,7 @@ class Order{
 			$res = $e->getMessage();
 		}
 
-		return $res ? tool::getSuccInfo(0,$res) : tool::getSuccInfo();
+		return !empty($res) ? $res : '未知错误';
 	}	
 
 	/**
