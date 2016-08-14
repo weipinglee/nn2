@@ -3,11 +3,13 @@
  */
 
 var attr_url = $('input[name=attr_url]').val();
+
 $(document).ready(function(){
     $('#divide').change(function(){
         if ($('#divide').val() == 1) {
             $('.nowrap').show();
         }else{
+            $('.nowrap').find('input').val(0);
             $('.nowrap').hide();
         }
     });

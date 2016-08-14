@@ -108,22 +108,22 @@
                             <td>
 
                                 <select name="divide" id="divide">
-                                    <option value="1"  selected>是</option>
-                                    <option value="0"  >否</option>
+                                    <option value="1"  >是</option>
+                                    <option value="0" selected >否</option>
                                 </select>
                             </td>
                             </tr>
-                            <tr class='nowrap1'>
+                            <tr class='nowrap1' style="display:none">
                                 <td><span>*</span>最小起订量：</td>
                                 <td>
-                                    <span><input name="minimum" id="" type="text" /></span>
+                                    <span><input name="minimum" id="" type="text" value="0" /></span>
                                     <span></span>
                                 </td>
                             </tr>
-                            <tr class='nowrap1'>
+                            <tr class='nowrap1' style="display:none" >
                                 <td><span>*</span>最小递增量：</td>
                                 <td>
-                                    <span><input name="minstep" id="" type="text" /></span>
+                                    <span><input name="minstep" id="" type="text"  value="0"/></span>
                                     <span></span>
                                 </td>
                             </tr>
@@ -131,8 +131,10 @@
                                 $('#divide').change(function(){
                                     if($('#divide').val()==1){
                                         $('.nowrap1').show();
+
                                     }else{
                                         $('.nowrap1').hide();
+                                        $('.nowrap1').find('input').val(0);
                                     }
                                 });
                             </script>
