@@ -160,7 +160,7 @@
     <tr class='nowrap' style="display: none">
         <td nowrap="nowrap" ><span>*</span>最小起订量：</td>
         <td>
-            <span><input name="minimum" id="" type="text" class="text" value="0" /></span>
+            <span><input name="minimum" id="" type="text" class="text"  /></span>
             <span></span>
         </td>
        <!-- <td>
@@ -171,7 +171,7 @@
     <tr class='nowrap' style="display: none">
         <td nowrap="nowrap" ><span>*</span>最小递增量：</td>
         <td>
-            <span><input name="minstep" id="" type="text" class="text" value="0" /></span>
+            <span><input name="minstep" id="" type="text" class="text"  /></span>
             <span></span>
         </td>
         <!-- <td>

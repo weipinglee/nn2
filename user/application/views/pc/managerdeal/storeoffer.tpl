@@ -116,14 +116,14 @@
                             <tr class='nowrap1' style="display:none">
                                 <td><span>*</span>最小起订量：</td>
                                 <td>
-                                    <span><input name="minimum" id="" type="text" value="0" /></span>
+                                    <span><input name="minimum" id="" type="text"  /></span>
                                     <span></span>
                                 </td>
                             </tr>
                             <tr class='nowrap1' style="display:none" >
                                 <td><span>*</span>最小递增量：</td>
                                 <td>
-                                    <span><input name="minstep" id="" type="text"  value="0"/></span>
+                                    <span><input name="minstep" id="" type="text"  /></span>
                                     <span></span>
                                 </td>
                             </tr>
@@ -134,7 +134,6 @@
 
                                     }else{
                                         $('.nowrap1').hide();
-                                        $('.nowrap1').find('input').val(0);
                                     }
                                 });
                             </script>
