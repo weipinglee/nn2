@@ -103,6 +103,10 @@ class IndexController extends PublicController {
 		$this->getView()->assign('day',$day);
 	}
 
+	public function foundAction(){
+
+	}
+
 
 
 }
