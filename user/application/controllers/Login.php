@@ -14,6 +14,7 @@ use \Library\url;
 use \Library\session;
 use \Library\swfupload;
 use \Library\safe;
+use \Library\tool;
 use \Library\Hsms;
 class LoginController extends \Yaf\Controller_Abstract {
 
@@ -283,29 +284,27 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 * 修改密码
 	 * */
 	public function findPasswordAction(){
-		$mobile= safe::filterPost('registerPhone','/^\d+$/');
-		$code=safe::filterPost('usrCode','int');
-		$userModel=new userModel();
-		$res=$userModel->checkMobileForget($code,$mobile);
-		if($res['success']==0){
-			die(JSON::encode($res));
+		$mobile= safe::filterPost('mobile','/^\d+$/');
+		$password = safe::filterPost('password');
+
+		if (empty($mobile) || empty($password)) {
+			exit(json::encode(tool::getSuccInfo(0, 'Error Request')));
 		}
-		$userObj=new M('user');
-		$data=array(
-			'mobile'=>$mobile
-		);
-		$userInfo=$userObj->where($data)->getObj();
-		if(empty($userInfo)){
+		$userModel=new UserModel();
+		$uid = $userModel->getMobileUserInfo($mobile);
+		if(empty($uid)){
 			die(JSON::encode(\Library\tool::getSuccInfo(0,'手机号不存在')));
 		}
-		$password=trim($_POST['passWord']);
-//		$password=sha1($password);
+		$info = $userModel->getPasswordInfo($uid);
+		if (empty($info) OR !empty($info['code'])) {
+			die(JSON::encode(\Library\tool::getSuccInfo(0,'Error Request')));
+		}
 		$data=array(
-			'id'=>$userInfo['id'],
+			'id'=>$uid,
 			'password'=>$password
 		);
 		$userModel->updateUserInfo($data);
-		die(JSON::encode(\Library\tool::getSuccInfo(1,'修改成功')));
+		die(JSON::encode(\Library\tool::getSuccInfo(1,'修改成功', url::createUrl('/Login/resetend'))));
 	}
 
 	/**
@@ -319,15 +318,52 @@ class LoginController extends \Yaf\Controller_Abstract {
 			if (!$captchaObj->check($code)) {
 				die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
 			}
-			$userObj = new userModel();
+			$userObj = new UserModel();
 			$res = $userObj->getForgetMobileCode($mobile);
 			//var_dump($_SESSION);
 			die(JSON::encode($res));
 		}
 	}
 
+	public function checkMobileCodeAction(){
+		$code = safe::filterPost('code');
+		$uid = safe::filterPost('uid');
+		$mobile = safe::filterPost('mobile');
+
+		if (empty($uid) || empty($code)) {
+			exit(json::encode(tool::getSuccInfo(0, 'Error Request')));
+		}
+
+		$model = new UserModel();
+		$info = $model->getPasswordInfo($uid);
+		if (time() - strtotime($info['create_time']) > 15*60) {
+			exit(json::encode(tool::getSuccInfo(0, '过期的验证')));
+		}
+		
+
+		if ($info['code'] == $code) {
+			$model->clearPassword($uid);
+			exit(json::encode(tool::getSuccInfo(1, 'success', url::createUrl('/Login/resetTo?mobile='.$mobile))));
+		}else{
+			exit(json::encode(tool::getSuccInfo(0, '验证码错误')));
+		}
+	}
+
+	public function resetToAction(){
+		$mobile = $this->getRequest()->getParam('mobile');
+		$mobile = safe::filter($mobile, 'int');
+
+		if (intval($mobile) <= 0) {
+			exit('Error Request');
+		}
+
+		$this->getView()->assign('mobile', $mobile);
+	}
 
 
+	public function resetendAction(){
+
+	}
 
 
 }

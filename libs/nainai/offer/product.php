@@ -107,8 +107,8 @@ class product  {
     //获取是否可拆分
     public function getDivide($div){
         $divide = array(
-            self::UNDIVIDE=>'不可',
-            self::DIVIDE=>'可以'
+            self::UNDIVIDE=>'是',
+            self::DIVIDE=>'否'
         );
         if($div==1 || $div==0){
             return $divide[$div];

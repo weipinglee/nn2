@@ -39,7 +39,7 @@
                                                                                                 <td>{$statuList[$list['status']]}</td>
                                                                                                 <td>{$list['sname']}</td>
                                                                                                 <td>
-                                                                                                <a href='{url:/ManagerStore/table?id=$list["id"]}'>打印预览</a>
+                                                                                                <a href='{url:/Managerdeal/table?id=$list["id"]}' target="_blank">打印预览</a>
                                                                                                 {if: $list['status'] == 10}
                                                                                                 <a href='{url:/ManagerStore/applyStoreCheck?id=$list["id"]}'>审核</a>
                                                                                                 {elseif:$list['status'] == 21 }

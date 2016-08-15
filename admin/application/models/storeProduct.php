@@ -37,8 +37,11 @@ class storeProductModel extends \nainai\store{
      * @param $page
      */
     public function getList($page){
-
-        $cond = $this->getCond();
+        $status = $this->getStatus();
+        $status = array_keys($status);
+        $cond = array(
+            'where' => ' a.status IN (' .implode(',', $status). ')'
+        );
        $data =  $this->getStoreProductList($page,$cond);
 
        foreach($data['list'] as $k=>$v){
@@ -97,6 +100,16 @@ class storeProductModel extends \nainai\store{
         }
         else
         return tool::getSuccInfo(0,'该状态不能审核');
+    }
+
+    public function delete($id){
+        if (intval($id) > 0) {
+            $obj = new M('store_products');
+            $data = array('status' => self::DELETE);
+            return (bool)$obj->where(array('id' => $id))->data($data)->update(0);
+        }
+
+        return false;
     }
 
 }

@@ -15,6 +15,9 @@
             $("#btnImg").click(function () {
                 window.location = $("#txtUrl").val();
             });
+            $("#login").click(function () {
+                window.location = $("#txtUrl").val();
+            });
         })
     </script>
 </head>
@@ -58,18 +61,14 @@
             <div><img class="" src="{views:images/password/two_q.png}"><p>重置密码</p></div>
             <div><img class="" src="{views:images/password/three_r.png}"><p>修改成功</p></div>
            </div>
-            <input type="hidden" value="{url:/login/login}" name="url" id="txtUrl">
-            <input type='hidden' value='{url:/login/getMobileCode}' id='codeUrl'>
-            <input type='hidden' value='{url:/login/findPassword}' id='findUrl'>
-<form action="{url:/login/findPassword}" method="post" id="647727080" auto_submit >               
+            <input type="hidden" value="{url:/login/login}" name="url" id="txtUrl">      
                <ul class="mar_top">
                     <li><span class="error red"><span class="field-validation-valid" data-valmsg-for="txtMessage" data-valmsg-replace="true" id="txtMessage"></span></span></li>
                     <li><h3>恭喜您，新密码设置成功！</h3></li>
 
 
-                    <li><input type="button" value="立即登录" class="tj_btn success" id="btnSubmit"></li>
-                </ul>
-</form>        </div>
+                    <li><input type="button" value="立即登录" class="tj_btn success" id="login"></li>
+                </ul> </div>
     </div>
     <div class="background_img"></div>
     <div class="w1200 secondaryend">

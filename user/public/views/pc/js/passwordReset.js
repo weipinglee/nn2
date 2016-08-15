@@ -4,37 +4,41 @@ $(function () {
     var codeUrl=$('#codeUrl').val();
     var findUrl=$('#findUrl').val();
     //提交前验证
-    function formValidator() {
-        var mobile = $("#txtMobile").val();
-        var pwd = $("#txtPassWord").val();
-        var againPassword = $("#txtAgainPassWord").val();
-
-        if ($.isEmpty(mobile)) {
-            $('.error').find(".field-validation-error").html("【手机号】不允许为空！");
-            $('.error').find(".field-validation-valid").html("【手机号】不允许为空！");
-            return false;
+    function formValidator($step) {
+        if ($step == 1) {
+             var mobile = $("#txtMobile").val();
+            if ($.isEmpty(mobile)) {
+                $('.error').find(".field-validation-error").html("【手机号】不允许为空！");
+                $('.error').find(".field-validation-valid").html("【手机号】不允许为空！");
+                return false;
+            }
+            if (!$.isMobile(mobile)) {
+                $('.error').find(".field-validation-error").html("【手机号】格式错误！");
+                $('.error').find(".field-validation-valid").html("【手机号】格式错误！");
+                return false;
+            }
+        }else{
+             var pwd = $("#txtPassWord").val();
+             var againPassword = $("#txtAgainPassWord").val();
+            if (pwd.length < 6) {
+                $('.error').find(".field-validation-error").html("【密码】不能低于6位");
+                $('.error').find(".field-validation-valid").html("【密码】不能低于6位");
+                return false;
+            }
+            if (pwd != againPassword) {
+                $('.error').find(".field-validation-error").html("【密码】与【确认密码】不一致！");
+                $('.error').find(".field-validation-valid").html("【密码】与【确认密码】不一致！");
+                return false;
+            }
         }
-        if (!$.isMobile(mobile)) {
-            $('.error').find(".field-validation-error").html("【手机号】格式错误！");
-            $('.error').find(".field-validation-valid").html("【手机号】格式错误！");
-            return false;
-        }
-        if (pwd.length < 6) {
-            $('.error').find(".field-validation-error").html("【密码】不能低于6位");
-            $('.error').find(".field-validation-valid").html("【密码】不能低于6位");
-            return false;
-        }
-        if (pwd != againPassword) {
-            $('.error').find(".field-validation-error").html("【密码】与【确认密码】不一致！");
-            $('.error').find(".field-validation-valid").html("【密码】与【确认密码】不一致！");
-            return false;
-        }
+        
+        
         return true;
     }
 
-    $("#btnSubmit").click(function () {
+    $("#btnSubmit2").click(function () {
         var self = $(this);
-        if (formValidator()) {
+        if (formValidator(2)) {
             //$("#txtPassWord").attr("value", encryptCode($("#txtPassWord").val()));
             //self.parents('form').submit();
 
@@ -42,10 +46,8 @@ $(function () {
                 type: "post",
                 url: findUrl,
                 data: {
-                    "registerPhone": $("#txtMobile").val(),
-                    "usrCode": $("#txtCode").val(),
-                    "passWord": $("#txtPassWord").val(),
-                    "returnUrl": $("#txtUrl").val()
+                    "password": $("#txtPassWord").val(),
+                    "mobile": $("#txtMobile").val()
                 },
                 dataType: "json",
                 success: function (msg) {
@@ -53,8 +55,45 @@ $(function () {
                     if(msg.success==0){
                         alert(msg.info);
                     }else{
+                        window.location=msg.returnUrl;
+                    }
+               /*     if (data != "跳转页面") {
+                        $("#txtMessage").html(data);
+                    }
+
+                    else {
+                        window.location = $("#txtUrl").val();
+                    }*/
+
+
+                }
+            });
+        } else {
+            return false;
+        }
+    })
+
+    $("#btnSubmit").click(function () {
+        var self = $(this);
+        if (formValidator(1)) {
+            //$("#txtPassWord").attr("value", encryptCode($("#txtPassWord").val()));
+            //self.parents('form').submit();
+
+            $.ajax({
+                type: "post",
+                url: findUrl,
+                data: {
+                    "uid": $("#uid").val(),
+                    "code": $("#txtCode").val(),
+                    "mobile": $("#txtMobile").val()
+                },
+                dataType: "json",
+                success: function (msg) {
+                   // debugger;
+                    if(msg.success==0){
                         alert(msg.info);
-                        window.location=$("#txtUrl").val();
+                    }else{
+                        window.location=msg.returnUrl;
                     }
                /*     if (data != "跳转页面") {
                         $("#txtMessage").html(data);
@@ -105,6 +144,7 @@ $(function () {
             success: function (msg) {
                 if(msg.success==1){
                     time($('#yzmBtn'));
+                    $('#uid').val(msg.data.uid)
                     alert(msg.info);
                 }else{
                     alert(msg.info);

@@ -60,20 +60,22 @@
            </div>
             <input type="hidden" value="{url:/login/login}" name="url" id="txtUrl">
             <input type='hidden' value='{url:/login/getMobileCode}' id='codeUrl'>
-            <input type='hidden' value='{url:/login/findPassword}' id='findUrl'>
-<form action="{url:/login/findPassword}" method="post" id="647727080" auto_submit >                <ul>
+            <input type='hidden' value='{url:/login/checkMobileCode}' id='findUrl'>
+<form action="{url:/login/checkMobileCode}" method="post" id="647727080" auto_submit >                <ul>
                     <li><span class="error red"><span class="field-validation-valid" data-valmsg-for="txtMessage" data-valmsg-replace="true" id="txtMessage"></span></span></li>
                     <li>
                         <label>手机号：</label><input type="text" class="text1" id="txtMobile" name="mobile"> 
                     </li>
-                    <li>
+                     <li>
                         <label class="yanzm">验证码：</label><input type="text" class="text1 text1_yzm" id="inputCode" placeholder="请输入验证码"  name="inputCode">
                         <img id="image"src="{url:/login/getCaptcha}" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()"/>
                     </li>
-
                     <li>
-                        <label>校验码：</label><input type="text" class=" text1 text1_yzm" id="txtCode" name="code"> <input type="button" value="获取校验码" class="yzm"> 
+                        <label>校验码：</label><input type="text" class=" text1 text1_yzm" id="txtCode" name="code"> <input  id="yzmBtn" type="button" value="获取校验码" class="yzm"> 
                     </li>
+                   
+
+                    <input type="hidden" name="uid" id="uid" value="">
 
 
                     <li><input type="button" value="下一步" class="tj_btn" id="btnSubmit"></li>

@@ -64,10 +64,11 @@
 <form action="{url:/login/findPassword}" method="post" id="647727080" auto_submit >                <ul>
                     <li><span class="error red"><span class="field-validation-valid" data-valmsg-for="txtMessage" data-valmsg-replace="true" id="txtMessage"></span></span></li>
                     <li><label>新密码：</label><input type="password" class="text1" id="txtPassWord" name="passWord"> </li>
-                    <li><label class="margin_left">确认密码：</label><input type="password" class="text1" id="txtAgainPassWord" name="againPassWord"> </li>
+                    <li><label class="margin_left">
+                    确认密码：</label><input type="password" class="text1" id="txtAgainPassWord" name="againPassWord"> </li>
+                    <input type="hidden" name="mobile" value="{$mobile}" id="txtMobile">
 
-
-                    <li><input type="button" value="下一步" class="tj_btn" id="btnSubmit"></li>
+                    <li><input type="button" value="下一步" class="tj_btn" id="btnSubmit2"></li>
                 </ul>
 </form>        </div>
     </div>

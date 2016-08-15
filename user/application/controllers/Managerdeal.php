@@ -690,6 +690,25 @@ class ManagerDealController extends UcenterBaseController {
     }
    
 
+    /**
+     * 打印预览
+     */
+    public function tableAction(){
+        $this->getView()->setLayOut('');
+        $id = $this->getRequest()->getParam('id');
+        $id = Safe::filter($id, 'int', 0);
 
+        if (intval($id) > 0) {
+            $store = new store();
+            $data = $store->getManagerStoreDetail($id,$this->user_id);
+            $mem = new \nainai\member();
+            $userData = $mem->getUserDetail($data['user_id']);
+            $this->getView()->assign('user', $userData);
+            $this->getView()->assign('storeDetail', $data);
+            $this->getView()->assign('photos', $data['photos']);
+        }else{
+            $this->redirect(url::createUrl('/ManagerStore/ApplyStoreList'));
+        }
+    }
 
 }

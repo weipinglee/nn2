@@ -153,8 +153,8 @@ class UserModel{
 	 * @param int $res 0:失败 1：成功
 	 * @param string $info 错误信息
 	 */
-	private function getSuccInfo($res=1,$info=''){
-		return array('success'=>$res,'info'=>$info);
+	private function getSuccInfo($res=1,$info='', $data=array()){
+		return array('success'=>$res,'info'=>$info, 'data'=>$data);
 	}
 
 
@@ -565,27 +565,33 @@ class UserModel{
 	 * @param     string      $type   [类型:空是旧手机,2:是新手机]
 	 * @return    [type]              [description]
 	 */
-	private function getMobileCode($phone,$type=''){
-		$validDate=session::get('mobileValidate');
-
+	private function getMobileCode($phone,$type='', $save='session', $uid=0){
+		if ($save == 'database') {
+			$model = new M('user_password');
+			$validDate = $model->where(array('uid'=>$uid))->getField('create_time');
+			if (!empty($validDate) && (time() - strtotime($validDate)) < 60) {
+				return $this->getSuccinfo(1,'已发送',  array('uid'=>$uid));
+			}
+		}else{
+			$validDate=session::get('mobileValidate');
+			if($validDate!=null&&time()-$validDate['time']<60){
+				return $this->getSuccinfo(0,'已发送');
+			}
+		}
+		
 		if($type==2){//更换手机
 			$checkPhone=$this->checkPhone($phone);
 			if($checkPhone['success']==0){
 				return $checkPhone;
 			}
-		}
-
-		else if($type==3){//找回密码
+		}else if($type==3){//找回密码
 			$checkPhone=$this->checkPhone($phone);
 			if($checkPhone['success']==1){
 				return $checkPhone;
 			}
 
 		}
-
-		if($validDate!=null&&time()-$validDate['time']<60){
-			return $this->getSuccinfo(0,'已发送');
-		}
+		
 		$code=rand(100000,999999);
 
 		//短信接口 TODO
@@ -594,8 +600,19 @@ class UserModel{
 			return $this->getSuccInfo(0,'发送失败');
 		}
 		//短信发送成功，保存验证信息
-		session::set('mobileValidate',array('code'=>$code,'time'=>time(),'mobile'=>$phone));
-		return $this->getSuccinfo(1,'发送成功');
+		if ($save == 'database') {
+			$data = array('code' => $code, 'create_time' => \Library\Time::getDateTime());
+			if (empty($validDate)) {
+				$data['uid'] = $uid;
+				$model->data($data)->add(0);
+			}else{
+				$model->where(array('uid' => $uid))->data($data)->update(0);
+			}
+		}else{
+			session::set('mobileValidate',array('code'=>$code,'time'=>time(),'mobile'=>$phone));
+		}
+		
+		return $this->getSuccinfo(1,'发送成功', array('uid'=>$uid));
 	}
 
 	/**
@@ -635,7 +652,7 @@ class UserModel{
 		return $res;
 	}
 	/**
-	 * [checkMobileCode 检查验证码]
+	 * [  检查验证码]
 	 * @param     [type]      $code  [验证码]
 	 * @param     [type]      $phone [手机号]
 	 * @param     [type]      $type []
@@ -736,8 +753,43 @@ class UserModel{
 	}
 
 	public function getForgetMobileCode($mobile){
-		$res = $this->getMobileCode($mobile, 3);
+		if (!empty($mobile)) {
+			$uid = $this->getMobileUserInfo($mobile);
+			if ($uid == false) {
+				$res = $this->getSuccinfo(0, '手机号不存在用户');
+			}else{
+				$res = $this->getMobileCode($mobile, 3, 'database', $uid);
+			}
+		}else{
+			$res = $this->getSuccinfo(0, '手机号不存在用户');
+		}
+		
 		return $res;
+	}
+
+	public function getMobileUserInfo($mobile){
+		if (!empty($mobile)) {
+			$where = array('mobile' => $mobile);
+			return self::$userObj->where($where)->getField('id');
+		}
+		return null;
+	}
+
+	public function getPasswordInfo($uid){
+		$res  = array();
+		if ($uid > 0) {
+			$model = new M('user_password');
+			$res = $model->where(array('uid' => $uid))->getObj();
+		}
+		
+		return $res;
+	}
+
+	public function clearPassword($uid){
+		if ($uid > 0) {
+			$model = new M('user_password');
+			return $model->where(array('uid' => $uid))->data(array('code' => '', 'create_time'=>\Library\Time::getDateTime()))->update(0);
+		}
 	}
 
 
