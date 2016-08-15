@@ -8,24 +8,24 @@
 						<p><a>产品管理</a>><a>产品详情</a></p>
 					</div>
 					<div class="center_tabl">
-                    <form action="" method="">
+                    <form action="{url:/managerdeal/ajaxsetStatus}" method="post" auto_submit="1" redirect_url="{url:managerdeal/productList}" >
 					   <table class="table2" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td class="spmx_title" colspan="8">商品明细</td>
+                                <td class="spmx_title" colspan="2">商品明细</td>
                             </tr>
 
                            <tr>
-                               <td colspan="2">商品标题</td>
-                               <td colspan="6">{$product['product_name']}</td>
+                               <td>商品标题</td>
+                               <td>{$product['product_name']}</td>
                            </tr>
 
                             <tr>
-                                <td colspan="2">产品大类</td>
-                                 <td colspan="6">{$product['cate'][0]['name']}</td>
+                                <td>产品大类</td>
+                                 <td>{$product['cate'][0]['name']}</td>
                             </tr>
                            <tr>
-                               <td colspan="2">产品分类</td>
-                               <td colspan="6">
+                               <td>产品分类</td>
+                               <td>
                                    {foreach:items=$product['cate']}
                                         {if:$key!=0}
                                             {if:$key==1}
@@ -38,35 +38,35 @@
                                </td>
                            </tr>
                             <tr>
-                                <td colspan="2">规格</td>
-                                <td colspan="6">
+                                <td>规格</td>
+                                <td>
                                    {$product['attrs']}
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">产地</td>
-                                <td colspan="6" id="areat">{areatext: data=$product['produce_area'] id=areat }</td>
+                                <td>产地</td>
+                                <td id="areat">{areatext: data=$product['produce_area'] id=areat }</td>
                             </tr>
                             <tr>
-                                <td colspan="2">入库日期</td>
-                                <td colspan="6">{$product['create_time']}</td>
+                                <td>入库日期</td>
+                                <td>{$product['create_time']}</td>
                             </tr>
                            <tr>
-                               <td colspan="2">有效日期</td>
-                               <td colspan="6">{$offer['expire_time']}</td>
+                               <td>有效日期</td>
+                               <td>{$offer['expire_time']}</td>
                            </tr>
                             <tr>
 
-                                <td colspan="2">产品数量(单位)</td>
-                                <td colspan="6" class="end_td">{$product['quantity']}（{$product['unit']}）</td>
+                                <td>产品数量(单位)</td>
+                                <td class="end_td">{$product['quantity']}（{$product['unit']}）</td>
 
                             </tr>
                             <tr>
-                                <td class="spmx_title" colspan="8">报盘详情</td>
+                                <td class="spmx_title" colspan="2">报盘详情</td>
                             </tr>
                              <tr>
-                                <td colspan="2">报盘状态</td>
-                                <td colspan="6">
+                                <td>报盘状态</td>
+                                <td>
 
                                     <span class="col12aa07">{$offer['status_txt']}</span>
 
@@ -74,29 +74,29 @@
                             </tr>
 
                           <!--   <tr>
-                              <td colspan="2">交易类型</td>
-                              <td colspan="6">销售</td>
+                              <td>交易类型</td>
+                              <td>销售</td>
                           </tr>
                           <tr>
-                              <td colspan="2">担保类型</td>
-                              <td colspan="6">仓单</td>
+                              <td>担保类型</td>
+                              <td>仓单</td>
                           </tr>
                           <tr>
-                              <td colspan="2">是否投保</td>
-                              <td colspan="6">是</td>
+                              <td>是否投保</td>
+                              <td>是</td>
                           </tr>
                           <tr>
-                              <td colspan="2">支付方式</td>
-                              <td colspan="6">现汇</td>
+                              <td>支付方式</td>
+                              <td>现汇</td>
                           </tr> -->
                           <tr>
-                                <td colspan="2">是否投保</td>
-                                <td colspan="6">{if: $offer['insurance'] == 1}是{else:}否{/if}</td>
+                                <td>是否投保</td>
+                                <td>{if: $offer['insurance'] == 1}是{else:}否{/if}</td>
                             </tr>
                              {if: $offer['insurance'] == 1}
                             <tr>
-                                <td colspan="2">投保产品</td>
-                                <td colspan="6">
+                                <td>投保产品</td>
+                                <td>
                                      {foreach: items=$riskData}
                                       保险公司：{$item['company']} - 保险产品：{$item['name']} {if:$item['mode']==1}比例 : ({$item['fee']}){else:}定额 : ({$item['fee']}){/if}<br />
                                      {/foreach}
@@ -104,56 +104,56 @@
                             </tr>
                             {/if}
                             <tr>
-                                <td colspan="2">可否拆分</td>
-                                <td colspan="6">{$offer['divide_txt']}</td>
+                                <td>可否拆分</td>
+                                <td>{$offer['divide_txt']}</td>
                             </tr>
                             <tr>
 
-                                <td colspan="2">报盘数量</td>
-                                <td colspan="6">{$product['quantity']}</td>
+                                <td>报盘数量</td>
+                                <td>{$product['quantity']}</td>
 
                             </tr>
                            <tr>
-                               <td colspan="2">单位</td>
-                               <td colspan="6">{$product['unit']}</td>
+                               <td>单位</td>
+                               <td>{$product['unit']}</td>
                            </tr>
                            {if:$offer['divide']==1}
                             <tr>
-                                <td colspan="2">起订量</td>
-                                <td colspan="6">{$offer['minimum']}</td>
+                                <td>起订量</td>
+                                <td>{$offer['minimum']}</td>
                             </tr>
                                <tr>
-                                   <td colspan="2">最小递增量</td>
-                                   <td colspan="6">{$offer['minstep']}</td>
+                                   <td>最小递增量</td>
+                                   <td>{$offer['minstep']}</td>
                                </tr>
                            {/if}
                             <tr>
-                                <td colspan="2">商品单价</td>
-                                <td colspan="6">{$offer['price']}元</td>
+                                <td>商品单价</td>
+                                <td>{$offer['price']}元</td>
                             </tr>
                             <tr>
-                                <td colspan="2">交货地址</td>
-                                <td colspan="6">{$offer['accept_area']}</td>
+                                <td>交货地址</td>
+                                <td>{$offer['accept_area']}</td>
                             </tr>
                            <tr>
-                               <td colspan="2">交收时间</td>
-                               <td colspan="6">T+{$offer['accept_day']}天</td>
+                               <td>交收时间</td>
+                               <td>T+{$offer['accept_day']}天</td>
                            </tr>
                            <tr>
-                               <td colspan="2">过期时间</td>
-                               <td colspan="6">{$offer['expire_time']}</td>
+                               <td>过期时间</td>
+                               <td>{$offer['expire_time']}</td>
                            </tr>
                             <tr>
-                                <td colspan="2">产品描述</td>
-                                <td colspan="6">{$product['note']}</td>
+                                <td>产品描述</td>
+                                <td>{$product['note']}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">补充条款</td>
-                                <td colspan="6">{$offer['other']}</td>
+                                <td>补充条款</td>
+                                <td>{$offer['other']}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">产品图片</td>
-                                <td colspan="6">
+                                <td>产品图片</td>
+                                <td>
                                 {foreach: items=$product['photos'] item=$v}
                                     <img src="{$v}">
                                     {/foreah}
@@ -161,19 +161,17 @@
                                 </td>
                             </tr>
                              <tr>
-                                <td colspan="8">
-                                   <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
+                                <td colspan="2">
+                                   <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)" style="float:left;"/>
+                                  <input type="hidden" name="id" value="{$offer['id']}" />
+                                  <div class="pay_bton">
+                                      <a href="javascript:void(0)" class="cg_fb"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？" >撤销报盘</a>
+                                  </div>
 
                                 </td>
                             </tr>
                         </table>
             	    </form>
-                  <form action="{url:/managerdeal/ajaxsetStatus}" method="post" auto_submit="1" redirect_url="{url:managerdeal/productList}" >
-                        <input type="hidden" name="id" value="{$offer['id']}" />
-                        <div class="pay_bton">
-                            <a href="javascript:void(0)" class="cg_fb"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？" >撤销报盘</a>
-                        </div>
-                    </form>
 						
 					</div>
 				</div>
