@@ -151,7 +151,7 @@ z-index:1000;">
             <li class="current"><a href="http://www.nainaiwang.com/">首页</a></li>
             <li><a href="product.html" target="_blank">交易中心</a></li>
             <li><a href="news.html" target="_blank">仓储专区</a></li>
-            <li><a href="auction.html" target="_blank">帮我找</a></li>
+            <li><a href="{url:/index/found}" target="_blank">帮我找</a></li>
         </ul>
     </div>
 </div>

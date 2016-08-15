@@ -5,13 +5,17 @@
  * @desc 默认控制器
  * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
  */
-use \DB\M;
+//use \DB\M;
 use \tool\http;
 //use \common\url;
-use \common\tool;
+//use \common\tool;
 use \nainai\offer\product;
 use \Library\url;
 use \Library\views\wittyAdapter;
+use \Library\json;
+use \Library\tool;
+use \Library\M;
+use \Library\safe;
 class IndexController extends PublicController {
 
 
@@ -105,8 +109,38 @@ class IndexController extends PublicController {
 
 	public function foundAction(){
 
+    }
+    
+    public function doFoundAction(){
+        if(!$this->login)
+        {
+            die(json::encode(tool::getSuccInfo(0,'请登录后再操作', url::createUrl('/login/login@user'))));
+        }
+        else
+        {
+            $foundObj = new M('found');
+            $fData = array(
+                'product_name' => safe::filterPost('name'),
+                'spec' => safe::filterPost('spec'),
+                'num' => safe::filterPost('num'),
+                'place' => safe::filterPost('place'),
+                'user_name' => safe::filterPost('username'),
+                'phone' => safe::filterPost('phone'),
+                'area' => safe::filterPost('local'),
+                'user_id' => $this->login['user_id'],
+                'description' => safe::filterPost('desc'),
+                'create_time' => date('Y-m-d H:i:s')
+            );
+
+            $f_id = $foundObj->data($fData)->add();
+            if($f_id){
+                die(json::encode(\Library\tool::getSuccInfo()));
+            }
+            else
+            {
+                die(json::encode(\Library\tool::getSuccInfo(0, '服务器错误')));
+            }
+        }
+        
 	}
-
-
-
 }
