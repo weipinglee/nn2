@@ -31,6 +31,7 @@ class store{
 
     const MARKET_AGREE        = 31;//市场通过
     const MARKET_REJECT       = 32;//市场拒绝
+    const DELETE = 4; //删除记录
 
 
      /**

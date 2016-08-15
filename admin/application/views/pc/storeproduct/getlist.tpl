@@ -56,8 +56,7 @@
 					<a title="编辑" href="{url:store/storeProduct/reviewDetails?id=$item['id']}" class="ml-5" style="text-decoration:none">
 						<i class="icon-edit fa-edit"></i>
 					</a>
-					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i>
-					</a>
+					<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:store/storeproduct/delete?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
 
 				</td>
 			</tr>
