@@ -112,8 +112,8 @@ class IndexController extends InitController {
 						}
 
 						$msgData[$key]['url'] = \Library\url::createUrl(substr($url[0],0,$i));
-						$msgData[$key]['url'] .= substr($url[0],$i-1).$value['args'];
-						$msgData[$key]['url'] .= $url[1] ? '?'.$url[1] : '';
+						$msgData[$key]['url'] .= $url[1] ? '?'.$url[1] : '/';
+						$msgData[$key]['url'] .= substr($url[0],$i).$value['args'];
 
 					}
 					else{
