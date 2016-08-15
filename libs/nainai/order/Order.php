@@ -728,8 +728,10 @@ class Order{
 							$account_deposit = $this->base_account->get_account($order['buyer_deposit_payment']);
 							$account_retainage = $this->base_account->get_account($order['retainage_payment']);
 							$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage) : is_object($account_deposit);
+
 							if($cond){
 								$deposit_res = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6);
+
 								if($deposit_res !== true) {
 									$error = $deposit_res;
 								}else{
@@ -737,7 +739,7 @@ class Order{
 									$error = $retainage_res === true ? '' : $retainage_res;
 								}
 							}else{
-								$error = (string)$account_deposit.(string)$account_retainage;
+								$error = '无效支付方式';
 							}
 
 							if(!$error){
@@ -804,7 +806,8 @@ class Order{
 						$account_deposit = $this->base_account->get_account($order['buyer_deposit_payment']);
 						$account_retainage = $this->base_account->get_account($order['retainage_payment']);
 						$account_seller_deposit = $this->base_account->get_account($order['seller_deposit_payment']);
-						$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage) && is_object($account_seller_deposit) : is_object($account_deposit)  && is_object($account_seller_deposit);
+						$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage): is_object($account_deposit);
+						$cond = $order['seller_deposit'] ? $cond && is_object($account_seller_deposit) : $cond;
 						if($cond){
 							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit']) : true;
 
@@ -826,7 +829,7 @@ class Order{
 								$error = $r1;
 							}
 						}else{
-							$error = (string)$account_deposit.(string)$account_retainage.(string)$account_seller_deposit;
+							$error = '无效支付方式';
 						}
 						
 						if(!$error){
