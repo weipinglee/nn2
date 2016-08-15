@@ -45,7 +45,7 @@
 
                         <ul class="ul2">
                             {foreach:items=$item['data'] item=$v}
-                            <li><a class="a_cur" href="{url:/help/help}?id={$v['id']}&cat_id={$item['cat_id']}">{$v['name']}</a></li>
+                            <li><a {if:$helpInfo['name']==$v['name']} class="a_cur" {/if}href="{url:/help/help}?id={$v['id']}&cat_id={$item['cat_id']}">{$v['name']}</a></li>
                             {/foreach}
                         </ul>
                     </li>
