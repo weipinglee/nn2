@@ -332,7 +332,6 @@ div.zhxi_con.font_set span i.bold{
     display: block;
     text-align: center;
     line-height: 39px;
-    border-radius: 3px;
 }
 .zhxi_con a:hover{
   text-decoration: none;
@@ -1918,7 +1917,6 @@ line-height: 30px;
     position: relative;
     left: 200px;
     cursor: pointer;
-    border-radius: 3px;
 }
 input#image {
     width: 68px;
