@@ -58,7 +58,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td >生产日期</td>
+                                            <td >签发日期</td>
                                             <td id="create_time"> 
 
                                             </td>

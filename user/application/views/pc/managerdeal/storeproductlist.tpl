@@ -39,8 +39,10 @@
                                                                                                 <td>{echo:\nainai\offer\product::floatForm($list['quantity'])}({$list['unit']})</td>
                                                                                                 <td>{$statuList[$list['status']]}</td>
                                                                                                 <td>{$list['sname']}</td>
-
-																									<td><a href='{url:/Managerdeal/storeProductDetail?id=$list['id']}'>查看</a></td>
+                                                                                                <td>
+                                                                                                <a href='{url:/Managerdeal/table?id=$list["id"]}' target="_blank">打印预览</a>
+                                                                                                <a href='{url:/Managerdeal/storeProductDetail?id=$list['id']}'>查看</a>
+                                                                                                </td>
 
                                                                                         </tr>
                                                                                       {/foreach}
