@@ -54,8 +54,8 @@ class FundinController extends InitController {
 	//线下详情页
 	public function offlineEditAction() {
 		//判断当前用户有没有终审的权限
-
 		$id = safe::filterGet('id', 'int');
+		if(!$id) $id = intval($this->_request->getParam('id'));
 		$fundObj = new fundInModel();
 		$data = $fundObj->offLineDetail($id);
 		$data['proot'] = \Library\Thumb::get($data['proot'],300,200);
@@ -69,14 +69,19 @@ class FundinController extends InitController {
 	}
 	//初审
 	public function offlineFirstAction() {
-
 		$id = safe::filterPost('re_id', 'int');
+
 		$status = safe::filterPost('status', 'int');
 		$mess  = safe::filterPost('message');
 		$fundObj = new fundInModel();
 
 		$res = $fundObj->offLineFirst($id,$status,$mess);//初审操作
-
+		if($res['success']==1){
+			$adminMsg = new \nainai\adminMsg();
+			$content='有一笔入金需要终审';
+			$adminMsg->setStatus($this,$id);
+			$adminMsg->createMsg('fundinFinal',$id,$content);
+		}
 		die(json::encode($res));
 	}
 	//终审
@@ -88,7 +93,12 @@ class FundinController extends InitController {
 		$fundObj = new fundInModel();
 
 		$res = $fundObj->offLineFinal($id,$status,$mess);//终审操作
+		if($res['success']==1){
+			$adminMsg = new \nainai\adminMsg();
 
+			$adminMsg->setStatus($this,$id);
+
+		}
 		die(json::encode($res));
 
 	}

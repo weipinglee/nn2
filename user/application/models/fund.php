@@ -46,13 +46,16 @@ class fundModel extends \nainai\user\UserBank{
                  return tool::getSuccInfo(0,$withdrawRequest->getError());
 
             $withdrawRequest->beginTrans();
-            $withdrawRequest->data($data)->add();
+            $id=$withdrawRequest->data($data)->add();
 
             //冻结资金
             $fundModel->freeze($user_id, $amount);
 
             $res = $withdrawRequest->commit();
             if($res){
+                    $adminmsg=new \nainai\AdminMsg();
+                    $content='有一笔提现需要处理';
+                    $adminmsg->createMsg('fundoutfirst',$id,$content);
                 return tool::getSuccInfo();
             }
             else{

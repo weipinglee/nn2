@@ -51,7 +51,7 @@ class FundoutController extends InitController {
 	//出金详情页
 	public function fundOutEditAction() {
 		$id = safe::filterGet('id', 'int');
-
+		if(!$id) $id = intval($this->_request->getParam('id'));
 		$fundOutModel = new fundOutModel();
 		$data = $fundOutModel->fundOutDetail($id);
 		$controllerName = $this->getRequest()->getControllerName();
@@ -66,10 +66,17 @@ class FundoutController extends InitController {
 	public function firstCheckAction() {
 		if(IS_AJAX && IS_POST){
 			$id = safe::filterPost('out_id', 'int');
+			//if(!$id) $id = intval($this->_request->getParam('id'));
 			$status = safe::filterPost('status', 'int');
 			$message = safe::filterPost('message');
 			$fundOutModel = new fundOutModel();
 			$res = $fundOutModel->fundOutFirst($id, $status, $message);
+			if($res['code']==1){
+				$adminmsg=new \nainai\AdminMsg();
+				$content='有一笔提现需要终审';
+				$adminmsg->createMsg('fundoutfinal',$id,$content);
+				$adminmsg->setStatus($this,$id);
+			}
 			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
 		}
 
@@ -82,6 +89,12 @@ class FundoutController extends InitController {
 			$message = safe::filterPost('message');
 			$fundOutModel = new fundOutModel();
 			$res = $fundOutModel->fundOutFinal($id, $status, $message);
+			if($res['code']==1){
+				$adminmsg=new \nainai\AdminMsg();
+				$content='有一笔提现需要打款';
+				$adminmsg->createMsg('fundouttransfer',$id,$content);
+				$adminmsg->setStatus($this,$id);
+			}
 			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
 		}
 
@@ -100,6 +113,12 @@ class FundoutController extends InitController {
 			$proof = tool::setImgApp($proof);
 			$fundOutModel = new fundOutModel();
 			$res = $fundOutModel->fundOutTransfer($id,$proof);
+			if($res['code']==1){
+				if($res['code']==1){
+					$adminmsg=new \nainai\AdminMsg();
+					$adminmsg->setStatus($this,$id);
+				}
+			}
 			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
 		}
 	}
