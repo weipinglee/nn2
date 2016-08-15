@@ -72,7 +72,7 @@
 
 									
 							  <span class="upload_img">&nbsp;上传凭证：</span>  
-								 <div class="choose_img"style="width:'';">
+								 <div class="choose_img" >
 									{include:layout/webuploader.tpl}
 								</div>
 							 
