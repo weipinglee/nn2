@@ -53,7 +53,7 @@
 
                     <li><label>新密码：</label><input type="password" class="text1" id="txtPassWord" name="passWord"> </li>
                     <li><label>确认密码：</label><input type="password" class="text1" id="txtAgainPassWord" name="againPassWord"> </li>
-                    <li><input type="button" value="提交" class="tj_btn" id="btnSubmit"></li>
+                    <li><input type="submit" value="提交" class="tj_btn" id="btnSubmit"></li>
                 </ul>
 </form>        </div>
     </div>
