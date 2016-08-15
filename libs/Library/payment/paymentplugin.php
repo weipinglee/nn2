@@ -29,15 +29,14 @@ abstract class paymentPlugin {
 	 */
 	public function __construct($payment_id) {
 		//回调函数地址
-		$this->callbackUrl = url::createUrl("/index/rechargeCallbackAction/?id=" . $payment_id);
-
-		//回调业务处理地址
-		$this->serverCallbackUrl = url::createUrl("/index/serverCallbackAction/?id=" . $payment_id);
-		/*//退款回调地址
-	$this->serverCallbackUrlForRefund = url::getHost() . url::createUrl("/block/server_callback_refund/?_id=" . $payment_id);
-	//中断支付返回
-	$this->merchantCallbackUrl = url::getHost() . url::createUrl("/block/merchant_callback/?_id=" . $payment_id);
-	//合并支付同步回调地址
+        $this->callbackUrl = url::createUrl("/Fund/rechargeCallback/?id=" . $payment_id);
+        //回调业务处理地址
+        $this->serverCallbackUrl = url::createUrl("/Fund/serverCallback/?id=" . $payment_id);
+        //退款回调地址
+        $this->serverCallbackUrlForRefund = url::createUrl("/Fund/serverCallbackRefund/?id=" . $payment_id);
+        //中断支付返回
+        $this->merchantCallbackUrl = url::createUrl("/Fund/merchantCallback/?id=" . $payment_id);
+		/*//合并支付同步回调地址
 	$this->callbackUrlMerge = url::getHost() . url::createUrl("/block/callback_merge/?_id=" . $payment_id);
 	//合并支付异步回调地址
 	$this->serverCallbackUrlMerge = url::getHost() . url::createUrl("/block/server_callback_merge/?_id=" . $payment_id);*/
