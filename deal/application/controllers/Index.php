@@ -107,6 +107,10 @@ class IndexController extends PublicController {
 
 	}
 
+	public function helpAction(){
+
+	}
+
 
 
 }
