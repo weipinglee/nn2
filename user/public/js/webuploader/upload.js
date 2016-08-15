@@ -50,6 +50,7 @@ $(function(){
         $('#filelist').append( $li );
         $li.on('dblclick',function(){
             $(this).remove();
+            uploader.removeFile(file.id,true);
         })
 
         percentages[file.id] = [file.size,0];

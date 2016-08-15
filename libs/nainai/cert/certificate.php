@@ -158,14 +158,16 @@ class certificate{
         }
         else{
             $up = true;
-            $insert['apply_time'] = Time::getDateTime();
+
         }
 
 
         $insert['status'] = $status;
         $insert['user_id'] = $user_id;
+        $insert['apply_time'] = time::getDateTime();
         $update['status'] = $status;
         $update['user_id'] = $user_id;
+        $update['apply_time'] = time::getDateTime();
         $certModel->insertUpdate($insert,$update);//更新或插入认证数据
 
 
