@@ -37,7 +37,7 @@
         <div class="comm_problem">
             <div class="dh_left">
 
-                <div class="big_tit"><img class="" src="images/icon/issue.png"><b>帮助中心</b></div>
+                <div class="big_tit"><img class="" src="{views:images/icon/issue.png}"><b>帮助中心</b></div>
                 <ul class="ul1">
                     {foreach: items=$helpList}
                     <li class="ul1_li">
