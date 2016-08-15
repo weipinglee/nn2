@@ -219,18 +219,19 @@
                         <div class="i_leftTit clearfix">
                             <div class="i_left_title" name="1" id="item1">交易市场</div>
                             <ul>
-                                <li class="li_select" onclick="showOffers(1,$(this))"><a href="javascript:void(0)"><em></em><span></span>冶金化工市场</a></li>
-                                <li class="" onclick="showOffers(2,$(this))"><a href="javascript:void(0)"><em></em><span></span>设备市场</a></li>
-                                <li class="" onclick="showOffers(3,$(this))"><a href="javascript:void(0)"><em></em><span></span>耐火市场</a></li>
-                                <li class="" onclick="showOffers(10,$(this))"><a href="javascript:void(0)"><em></em><span></span>建材市场</a></li>
-                                <li class="" onclick="showOffers(12,$(this))"><a href="javascript:void(0)"><em></em><span></span>钢铁市场</a></li>
-                                <li class="" onclick="showOffers(13,$(this))"><a href="javascript:void(0)"><em></em><span></span>其他市场</a></li>
-                            </ul>
+                                {foreach:items=$topCat}
+                                    <li class="{if:$key==0}li_select{/if}" onclick="showOffers({$item['id']},$(this))"><a href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+
+                                {/foreach}
+                       <!--         <li class="li_select" onclick="showOffers(1,$(this))"><a href="javascript:void(0)"><em></em><span></span>冶金化工市场</a></li>
+                            </ul> -->
                             <span class="i_more"><a rel="http://new.nainaiwang.com/index/index" href="http://new.nainaiwang.com/offers/offerlist">更多&gt;&gt;</a></span>
                         </div>
 
-                        <div class="i_leftCon" id="offer_list">                        
-                            <div class="i_proList show" id="offer1">
+                        <div class="i_leftCon" id="offer_list">
+                            {set:$i=0}
+                            {foreach:items=$offerData}
+                            <div class="i_proList{if:$i==0} show{/if}" id="offer{$key}">
                                 <ul>
                                     <li class="i_ListTit">
                                         <span class="i_w_1">品名</span>
@@ -244,349 +245,64 @@
                                         <span class="i_w_9">咨询</span>
                                         <span class="i_w_10">操作</span>
                                     </li>
-                                    <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen">供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                                </li>
-                                <li class="">
-                                        <span class="i_w_1 ">结构钢</span>
-                                        <span class="i_w_2 i_TextRed">求</span>
-                                        <span class="i_w_3"> 保证金报盘</span>
-                                        <span class="i_w_4">河北省唐山市</span>
-                                        <span class="i_w_5">山西</span>
-                                        <span class="i_w_6">10（吨）</span>
-                                        <span class="i_w_7">10（吨）</span>
-                                        <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00-￥600.00</span></span>
-                                        <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                        <span class="i_w_10">
-                                           <a href="">
-                                               <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                           </a>
-                                           <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                              <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                           </a>
-                                        </span>
-                        
-                                    </li>
-                                    <li class="">
-                                        <span class="i_w_1 ">结构钢</span>
-                                        <span class="i_w_2 i_TextRed">求</span>
-                                        <span class="i_w_3"> 保证金报盘</span>
-                                        <span class="i_w_4">河北省唐山市</span>
-                                        <span class="i_w_5">山西</span>
-                                        <span class="i_w_6">10（吨）</span>
-                                        <span class="i_w_7">10（吨）</span>
-                                        <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00-￥600.00</span></span>
-                                        <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                        <span class="i_w_10">
-                                           <img src="{views:images/icon/bg_ycj.png}" class="ser_img_1">
-                                        </span>
-                        
-                                    </li>
-                                    <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen">供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                                </li>
-                                <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen">供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                                </li>
-                                <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen">供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                                </li>
-                                <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen">供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                                </li>
+                                    {foreach:items=$item $key=$pid item=$pro}
+                                        <li>
+                                            <span class="i_w_1 ">{$pro['id']}</span>
+                                            {if:$pro['type']==1}
+                                                <span class="i_w_2 i_TextGreen">
+                                                   供
+                                                </span>
+                                            {else:}
+                                                <span class="i_w_2 i_TextRed">
+                                                   求
+                                                </span>
+                                            {/if}
+                                            <span class="i_w_3">
+                                                  {$pro['pname']}
+                                            </span>
 
+                                            <span class="i_w_6">{$pro['quantity']}</span>
+                                            <span class="i_w_7">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
+                                            <span class="i_w_7">{$pro['unit']}</span>
+                                            <span class="i_w_8">￥{$pro['price']}</span>
+                                            <span class="i_w_9" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
+                                            <span class="i_w_10">{$pro['accept_area']}</span>
+                                            <span class="i_w_11">
+                                                {if:$pro['quantity']-$pro['sell']-$pro['freeze']>0}
+                                                    {if:$pro['type']==1}
+                                                        <a href="{url:/offers/offerdetails?id=$pro['id']&pid=$pro['product_id']}">
+                                                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                        </a>
+                                                     <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
+                                                         <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
+                                                     </a>
+                                                    {else:}
+                                                        <a href="{url:/offers/purchasedetails?id=$pro['id']}">
+                                                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                        </a>
+                                                         <a href="{url:/offers/report?id=$pro['id']}">
+                                                              <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
+                                                        </a>
+                                                    {/if}
+                                                    {if:$pro['qq']!=''}
+
+                                                    <a href="tencent://message/?uin={$pro['qq']}&Site=qq&Menu=yes"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                    </a>
+                                                        {else:}
+                                                        <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                    </a>
+
+                                                {/if}
+                                                {else:}
+                                                        <img src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
+                                                {/if}
+                                        </li>
+                                    {/foreach}
                                 </ul>
                             </div>
-                         
-                            <div class="i_proList " id="offer2">
-                                <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">品名</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">类型</span>
-                                        <span class="i_w_4">产地</span>
-                                        <span class="i_w_5">交货地</span>
-                                        <span class="i_w_6">数量</span>
-                                        <span class="i_w_7">剩余</span>
-                                        <span class="i_w_8">单价</span>
-                                        <span class="i_w_9">咨询</span>
-                                        <span class="i_w_10">操作</span>
-                                    </li>
-                                    <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen"> 供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                        
-                                    </li>
-                                    <li class="">
-                                        <span class="i_w_1 ">结构钢</span>
-                                        <span class="i_w_2 i_TextRed">求</span>
-                                        <span class="i_w_3"> 保证金报盘</span>
-                                        <span class="i_w_4">河北省唐山市</span>
-                                        <span class="i_w_5">山西</span>
-                                        <span class="i_w_6">10（吨）</span>
-                                        <span class="i_w_7">10（吨）</span>
-                                        <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00-￥600.00</span></span>
-                                        <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                        <span class="i_w_10">
-                                           <a href="">
-                                               <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                           </a>
-                                           <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                              <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                           </a>
-                                        </span>
-                        
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                         
-                            <div class="i_proList " id="offer3">
-                                <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">品名</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">类型</span>
-                                        <span class="i_w_4">产地</span>
-                                        <span class="i_w_5">交货地</span>
-                                        <span class="i_w_6">数量</span>
-                                        <span class="i_w_7">剩余</span>
-                                        <span class="i_w_8">单价</span>
-                                        <span class="i_w_9">咨询</span>
-                                        <span class="i_w_10">操作</span>
-                                    </li>
-                                    <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen"> 供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                        
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                         
-                            <div class="i_proList " id="offer4">
-                                <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">品名</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">类型</span>
-                                        <span class="i_w_4">产地</span>
-                                        <span class="i_w_5">交货地</span>
-                                        <span class="i_w_6">数量</span>
-                                        <span class="i_w_7">剩余</span>
-                                        <span class="i_w_8">单价</span>
-                                        <span class="i_w_9">咨询</span>
-                                        <span class="i_w_10">操作</span>
-                                    </li>
-                                    <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen"> 供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                        
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                         
-                            <div class="i_proList " id="offer5">
-                               <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">品名</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">类型</span>
-                                        <span class="i_w_4">产地</span>
-                                        <span class="i_w_5">交货地</span>
-                                        <span class="i_w_6">数量</span>
-                                        <span class="i_w_7">剩余</span>
-                                        <span class="i_w_8">单价</span>
-                                        <span class="i_w_9">咨询</span>
-                                        <span class="i_w_10">操作</span>
-                                    </li>
-                                    <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen"> 供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                        
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                         
-                            <div class="i_proList " id="offer6">
-                                <ul>
-                                    <li class="i_ListTit">
-                                        <span class="i_w_1">品名</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">类型</span>
-                                        <span class="i_w_4">产地</span>
-                                        <span class="i_w_5">交货地</span>
-                                        <span class="i_w_6">数量</span>
-                                        <span class="i_w_7">剩余</span>
-                                        <span class="i_w_8">单价</span>
-                                        <span class="i_w_9">咨询</span>
-                                        <span class="i_w_10">操作</span>
-                                    </li>
-                                    <li class="">
-                                     <span class="i_w_1 ">结构钢</span>
-                                     <span class="i_w_2 i_TextGreen"> 供</span>
-                                     <span class="i_w_3"> 保证金报盘</span>
-                                     <span class="i_w_4">河北省唐山市</span>
-                                     <span class="i_w_5">山西</span>
-                                    <span class="i_w_6">10（吨）</span>
-                                    <span class="i_w_7">10（吨）</span>
-                                    <span class="i_w_8 i_TextRed" id="area1"> <span id="areatextarea1">￥500.00</span></span>
-                                    <span class="i_w_9"><img  src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/></span>
-                                    <span class="i_w_10">
-                                       <a href="">
-                                           <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情">
-                                       </a>
-                                       <a href="http://new.nainaiwang.com/offers/check/id/116/pid/180">
-                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单">
-                                       </a>
-                                     </span>
-                        
-                                    </li>
-                                    
-                                </ul>
-                            </div>
+                                {set:$i=$i+1;}
+                            {/foreach}
+
                            <!-- 广告轮播 Swiper -->
                            <link rel="stylesheet" href="{views:css/swiper.min.css}">
                             <div class="swiper-container swiper-container-horizontal">
@@ -855,56 +571,31 @@
                                             <span class="i_r_4">等级</span>
                                             <span class="i_r_5">信誉值</span>
                                         </li>
-                                        <li class="rank_list">
-                                            <span class="i_r_1"><img src="{views:images/rank_06.png}"></span>
-                                            <span class="i_r_2">华岭耐火</span>
-                                            <span class="i_r_3"><img src="{views:images/index/icon_rz.png}"></span>
-                                            <span class="i_r_4"><img src="{views:images/index/icon_dj1.png}"></span>
-                                            <span class="i_r_5">10000</span>
-                                        </li>
-                                        <li class="rank_list">
-                                            <span class="i_r_1"><img src="{views:images/rank_13.png}"></span>
-                                             <span class="i_r_2">华岭耐火</span>
-                                            <span class="i_r_3"><img src="{views:images/index/icon_rz.png}"></span>
-                                            <span class="i_r_4"><img src="{views:images/index/icon_dj2.png}"></span>
-                                            <span class="i_r_5">10000</span>
-                                        </li>
-                                        <li class="rank_list">
-                                            <span class="i_r_1"><img src="{views:images/rank_16.png}"></span>
-                                            <span class="i_r_2">华岭耐火</span>
-                                            <span class="i_r_3"><img src="{views:images/index/icon_rz.png}"></span>
-                                            <span class="i_r_4"><img src="{views:images/index/icon_dj3.png}"></span>
-                                            <span class="i_r_5">10000</span>
-                                        </li>
-                                        <li class="rank_list">
-                                            <span class="i_r_1">4</span>
-                                             <span class="i_r_2">华岭耐火</span>
-                                            <span class="i_r_3"><img src="{views:images/index/icon_rz.png}"></span>
-                                            <span class="i_r_4"><img src="{views:images/index/icon_dj4.png}"></span>
-                                            <span class="i_r_5">10000</span>
-                                        </li>
-                                        <li class="rank_list">
-                                            <span class="i_r_1">5</span>
-                                            <span class="i_r_2">华岭耐火</span>
-                                            <span class="i_r_3"><img src="{views:images/index/icon_rz.png}"></span>
-                                            <span class="i_r_4"><img src="{views:images/index/icon_dj5.png}"></span>
-                                            <span class="i_r_5">10000</span>
-                                        </li>
-                                        <li class="rank_list">
-                                            <span class="i_r_1">6</span>
-                                            <span class="i_r_2">华岭耐火</span>
-                                            <span class="i_r_3"><img src="{views:images/index/icon_rz.png}"></span>
-                                            <span class="i_r_4"><img src="{views:images/index/icon_dj1.png}"></span>
-                                            <span class="i_r_5">10000</span>
-                                        </li>
-                                        <li class="rank_list">
-                                            <span class="i_r_1">7</span>
-                                            <span class="i_r_2">华岭耐火</span>
-                                            <span class="i_r_3"><img src="{views:images/index/icon_rz.png}"></span>
-                                            <span class="i_r_4"><img src="{views:images/index/icon_dj5.png}"></span>
-                                            <span class="i_r_5">10000</span>
-                                        </li>
-                                       
+                                        {foreach:items=$creditMember}
+                                            <li class="rank_list">
+                                            <span class="i_r_1">{if:$key==0}
+                                                    <img src="{views:images/rank_06.png}">
+
+                                                                {elseif:$key==1}
+                                                    <img src="{views:images/rank_13.png}">
+
+                                                                {elseif:$key==2}
+                                                    <img src="{views:images/rank_16.png}">
+
+                                                {else:}
+                                                    {echo:$key+1}
+                                                {/if}
+
+
+                                            </span>
+                                                <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
+                                                <span class="i_r_3">{if:$item['credit_money']>0}<img src="{views:images/rank_08.png}">{/if}</span>
+                                                <span class="i_r_4"><img style="margin-top: -17px;" src="{$item['icon']}"></span>
+                                                <span class="i_r_5">{$item['credit']}</span>
+                                            </li>
+                                        {/foreach}
+
+
                                     </ul>
                                 </div>
                             </div>

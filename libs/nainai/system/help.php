@@ -14,7 +14,7 @@ use Library\Query;
 class help
 {
     public $helpLimit=3;
-    public $helpCatLimit=2;
+    public $helpCatLimit=3;
     public function getHelplist(){
         $helpCatObj=new Query('help_category');
         $helpCatObj->where="status=:status";
@@ -34,7 +34,5 @@ class help
             $helpList[$k]['data']=$helpObj->find();
         }
         return $helpList;
-        /*echo "<pre>";
-        print_r($helpList);*/
     }
 }
