@@ -60,24 +60,36 @@
              <tr>
                  {if:$info['type']=='买盘'}
                      <th>价格区间</th>
-                     <td>{$info['price_l']}--{$info['price_r']}</td>
+                     <td>￥{$info['price_l']}--{$info['price_r']}</td>
                  {else:}
                      <th>挂牌价</th>
-                     <td>{$info['price']}</td>
+                     <td>￥{$info['price']}</td>
                  {/if}
 
                  <th>计量单位</th>
                  <td>{$info['unit']}</td>
-                 {if: $info['divide'] == 1}
-                 <th>最小起订量</th>
-                 <td>{$info['minimum']}</td>
-                 {else:}
-                     <th>申请时间</th>
-                     <td>{$info['apply_time']}</td>
-             {/if}
+                 <th></th>
+                 <td></td>
             
 
              </tr>
+             {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
+             <tr>
+                 <th>可否拆分</th>
+                 <td>{if:$info['divide'] == 1}是{else:}否{/if}</td>
+                 {if: $info['divide'] == 1}
+                     <th>最小起订量</th>
+                     <td>{$info['minimum']}</td>
+                     <th>最小递增量</th>
+                     <td>{$info['minstep']}</td>
+                 {else:}
+                     <th></th>
+                     <td></td>
+                     <th></th>
+                     <td></td>
+                 {/if}
+             </tr>
+             {/if}
              <tr>
                  <th>报盘数量</th>
                  <td>{$info['quantity']}</td>
@@ -88,7 +100,7 @@
              </tr>
              <tr>
                  <th>交收时间</th>
-                 <td>{$info['accept_day']}</td>
+                 <td>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}{$info['accept_day']}{else:}--{/if}</td>
                  <th>交收地点</th>
                  <td>{$info['accept_area']}</td>
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}

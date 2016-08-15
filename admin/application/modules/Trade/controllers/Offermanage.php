@@ -66,8 +66,10 @@ class OffermanageController extends Yaf\Controller_Abstract{
 	 * 删除
 	 */
 	public function offerDelAction(){
-		$name = $this->_request->getParam('name');
-		$res = $this->offer->offerDel($name);
+		$id = safe::filterPost("id","int");
+		if(!$id) $id = intval($this->_request->getParam('id'));
+
+		$res = $this->offer->offerDel($id);
 		die(JSON::encode($res));
 	}
 
@@ -103,6 +105,10 @@ class OffermanageController extends Yaf\Controller_Abstract{
 			if(!$id) $id = intval($this->_request->getParam('id'));
 			$status = safe::filterPost("status","int");
 			$res = $this->offer->setStatus($id,$status, safe::filterPost("adminMsg"));
+			if($res['success']==1){
+				$mess = new \nainai\AdminMsg();
+				$mess->setStatus($this,$id);
+			}
 			die(JSON::encode($res));
 		}
 		return false;

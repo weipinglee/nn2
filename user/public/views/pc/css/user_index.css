@@ -1765,6 +1765,7 @@ a.for_cangdan:hover,a.for_cangdan:active{
 .huikod{
   margin: 0 auto;
   text-align: center;
+  margin-left: -140px;
 }
 
 /*消息管理 strat*/

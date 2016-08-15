@@ -157,7 +157,7 @@
             </select>
         </td>
     </tr>
-    <tr id='nowrap' style="display: none">
+    <tr class='nowrap' style="display: none">
         <td nowrap="nowrap" ><span>*</span>最小起订量：</td>
         <td>
             <span><input name="minimum" id="" type="text" class="text"  /></span>
@@ -167,6 +167,17 @@
             <span>*</span>
             最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
         </td>-->
+    </tr>
+    <tr class='nowrap' style="display: none">
+        <td nowrap="nowrap" ><span>*</span>最小递增量：</td>
+        <td>
+            <span><input name="minstep" id="" type="text" class="text"  /></span>
+            <span></span>
+        </td>
+        <!-- <td>
+             <span>*</span>
+             最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
+         </td>-->
     </tr>
     <tr>
         <td>交收地点：</td>

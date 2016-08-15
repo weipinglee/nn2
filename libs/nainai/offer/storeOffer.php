@@ -33,14 +33,16 @@ class storeOffer extends product{
             $obj = new M('store_products');
             $obj->beginTrans();
             $obj->data(array('is_offer'=>1))->where(array('id'=>$id))->update();//更改为已报盘
-            $this->_productObj->table('product_offer')->data($productOffer)->add();
+            $pro_id = $this->_productObj->table('product_offer')->data($productOffer)->add();
             $res = $obj->commit();
+
         }else{
+            $pro_id = 0;
             $res = $this->_productObj->getError();
         }
 
         if ($res===true) {
-            return Tool::getSuccInfo(1, '报盘成功');
+            return Tool::getSuccInfo(1, '报盘成功','',$pro_id);
         }else{
             return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
         }

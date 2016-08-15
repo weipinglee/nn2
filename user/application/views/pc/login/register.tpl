@@ -15,6 +15,7 @@
     <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
   <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
     <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
+    <script type="text/javascript" src="{views:js/common.js}"></script>
 </head>
 <body>
 
@@ -85,6 +86,11 @@
           $(".background_img.bottom").css({"bottom": "-252px"});
       })
     })
+
+    //验证码验证地址
+    var captchaCheckUrl = '{url:/login/captchaCheck}';
+    //发送短信地址
+    var sendMessageUrl = '{url:/login/sendMessage}';
     </script>
       <!--个人注册-->
       <div class="reg_cot gr_reg">
@@ -111,9 +117,15 @@
             <span><input class="text" type="text" name="mobile" maxlength="11" datatype="mobile" nullmsg="请填写手机号" errormsg="手机号格式错误"/></span>
               <span></span>
           </div>
+          <div class="cot">
+            <span class="cot_tit">验证码：</span>
+            <span><input class="text" style="width: 50px;" type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
+              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img src="{url:/login/getCaptcha}?w=200&h=50" /></a>
+              <span></span>
+          </div>
            <div class="cot">
             <span class="cot_tit">校验码：</span>
-            <span><input style="width:122px;" class="text" type="text" name="email"  datatype="e" errormsg="邮箱格式错误"/> <input type="button" value="获取校验码" class="jiaoyma"> </span>
+            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode"  datatype="e" errormsg="邮箱格式错误"/> <a class="jiaoyma">获取校验码</a> </span>
               <span></span>
           </div>
           <div class="cot">
@@ -159,9 +171,15 @@
             <span><input class="text" type="text" name="mobile"  datatype="mobile" nullmsg="请输入手机号" errormsg="请正确填写手机号" /></span>
 			<span></span>
           </div>
+          <div class="cot">
+            <span class="cot_tit">验证码：</span>
+            <span><input class="text" style="width: 50px;" type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
+              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img src="{url:/login/getCaptcha}?w=200&h=50" /></a>
+              <span></span>
+          </div>
            <div class="cot">
             <span class="cot_tit">校验码：</span>
-            <span><input style="width:122px;" class="text" type="text" name="email"  datatype="e" errormsg="邮箱格式错误"/> <input type="button" value="获取校验码" class="jiaoyma"> </span>
+            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode"  datatype="e" errormsg="邮箱格式错误"/> <a  class="jiaoyma">获取校验码</a> </span>
               <span></span>
           </div>
           <div class="cot">

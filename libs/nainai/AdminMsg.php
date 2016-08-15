@@ -70,10 +70,19 @@ class AdminMsg extends \nainai\Abstruct\ModelAbstract{
 		return false;
 	}
 
-	public function setStatus($id){
+	/**
+	 * 设置信息已执行
+	 * @param string $url_oper 操作url
+	 * @param $id 参数
+	 * @return mixed
+	 */
+	public function setStatus($controller,$id){
 		if (intval($id) > 0) {
-			$where = ' args="id='.$id.'"';
-			return $this->model->where($where)->data(array('status' => 1))->update();
+			$module = $controller->getRequest()->getModuleName();
+			$contr = $controller->getRequest()->getControllerName();
+			$action = $controller->getRequest()->getActionName();
+			$url_oper = strtolower($module).'/'.strtolower($contr).'/'.strtolower($action);
+			 $this->model->where(array('url_oper'=>$url_oper,'args'=>$id))->data(array('status' => 1))->update();
 		}
 	}
 }

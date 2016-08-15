@@ -52,8 +52,7 @@
                          {/if}
                      {/foreach}
                  </td>
-                 <th>可否拆分</th>
-                 <td>{if:$info['divide'] == 0}是{else:}否{/if}</td>
+
 
              </tr>
 
@@ -86,9 +85,26 @@
                  <th>已售数量</th>
                  <td>{$info['sell']}</td>
              </tr>
+             {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
+                 <tr>
+                     <th>可否拆分</th>
+                     <td>{if:$info['divide'] == 1}是{else:}否{/if}</td>
+                     {if: $info['divide'] == 1}
+                         <th>最小起订量</th>
+                         <td>{$info['minimum']}</td>
+                         <th>最小递增量</th>
+                         <td>{$info['minstep']}</td>
+                     {else:}
+                         <th></th>
+                         <td></td>
+                         <th></th>
+                         <td></td>
+                     {/if}
+                 </tr>
+             {/if}
              <tr>
                  <th>交收时间</th>
-                 <td>{$info['accept_day']}</td>
+                 <td>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}{$info['accept_day']}{else:}--{/if}</td>
                  <th>交收地点</th>
                  <td>{$info['accept_area']}</td>
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}

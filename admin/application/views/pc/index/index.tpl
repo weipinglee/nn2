@@ -6,9 +6,10 @@
 
         
         <!-- jQuery AND jQueryUI -->
-        <script type="text/javascript" src="{views:js/libs/jquery/1.6/jquery.min.js}"></script>
-        <script type="text/javascript" src="{views:js/libs/jqueryui/1.8.13/jquery-ui.min.js}"></script>
+     <script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
 
+     <script type="text/javascript" src="{views:js/libs/jqueryui/1.8.13/jquery-ui.min.js}"></script>
+     <script type="text/javascript" src="{views:js/layer/layer.js}"></script>
         <link rel="stylesheet" href="{views:css/min.css}" />
         <script type="text/javascript" src="{views:js/min.js}"></script>
         <style type="text/css">
@@ -384,7 +385,8 @@
 
      </div>
 </div>
-      
-    
+        <input type="hidden" name="getMsgUrl" value="{url:/index/getMsg}" />
+        <script type="text/javascript" src="{views:js/index/index.js}"></script>
+
     </body>
 </html>

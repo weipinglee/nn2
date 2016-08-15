@@ -145,6 +145,7 @@ class ManagerDealController extends UcenterBaseController {
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
                 'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'int') : 0,
+                'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
 
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
@@ -206,6 +207,7 @@ class ManagerDealController extends UcenterBaseController {
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => safe::filterPost('divide', 'int'),
                 'minimum'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minimum', 'float') : 0,
+                'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
 
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
@@ -262,13 +264,14 @@ class ManagerDealController extends UcenterBaseController {
         if(IS_POST){
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
-                // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $res = $this->offerCheck();
             if($res !== true) die($res);
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
                 'minimum'     => (safe::filterPost('divide', 'int') == 1) ? Safe::filterPost('minimum', 'float') : 0,
+                'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
 
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
@@ -437,8 +440,8 @@ class ManagerDealController extends UcenterBaseController {
         if (IS_POST) {
 
             $token = safe::filterPost('token');
-            // if(!safe::checkToken($token))
-                // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+             if(!safe::checkToken($token))
+                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
             $storeObj = new \nainai\store();
@@ -449,7 +452,8 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData = array(
                     'apply_time'  => \Library\Time::getDateTime(),
                     'divide'      => Safe::filterPost('divide', 'int'),
-                    'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'int') : 0,
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'float') : 0,
+                    'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
                     'status'      => 0,
                     'accept_area' => Safe::filterPost('accept_area'),
                     'accept_day' => Safe::filterPost('accept_day', 'int'),
@@ -467,7 +471,13 @@ class ManagerDealController extends UcenterBaseController {
 
 
                 $res = $offerObj->insertStoreOffer($id,$offerData);
-                //$res = $offerObj->insertStoreOffer($id,$offerData, $product);
+                if($res['success']==1){
+                    $title = '仓单报盘审核';
+                    $content = '仓单号为'.$id.'的报盘需要审核';
+
+                    $adminMsg = new \nainai\adminMsg();
+                    $adminMsg->createMsg('checkoffer',$res['id'],$content,$title);
+                }
 
                 die(json::encode($res)) ;
             }

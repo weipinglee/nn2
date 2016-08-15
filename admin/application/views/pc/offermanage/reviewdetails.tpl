@@ -58,33 +58,48 @@
                          {/if}
                      {/foreach}
                  </td>
-                 <th>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}可否拆分{/if}</th>
-                 <td>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}{if:$info['divide'] == 1}是{else:}否{/if}{/if}</td>
+
+                 <th></th>
+                 <td></td>
+
 
              </tr>
 
              <tr>
                  {if:$info['type']==\nainai\offer\product::TYPE_BUY}
                      <th>价格区间</th>
-                     <td>{$info['price_l']}--{$info['price_r']}( /{$info['unit']})</td>
+
+                     <td>￥{$info['price_l']}--{$info['price_r']}( /{$info['unit']})</td>
+
                  {else:}
                      <th>挂牌价</th>
-                     <td>{$info['price']}</td>
+                     <td>￥{$info['price']}</td>
                  {/if}
 
                  <th>计量单位</th>
                  <td>{$info['unit']}</td>
-                 {if: $info['divide'] == 1}
-                     <th>最小起订量</th>
-                     <td>{$info['minimum']}</td>
-                 {else:}
-                     <th></th>
-                     <td></td>
-                 {/if}
+                 <th></th>
+                 <td></td>
 
 
              </tr>
-           
+             {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
+             <tr>
+                 <th>可否拆分</th>
+                 <td>{if:$info['divide'] == 1}是{else:}否{/if}</td>
+                 {if: $info['divide'] == 1}
+                     <th>最小起订量</th>
+                     <td>{$info['minimum']}</td>
+                     <th>最小递增量</th>
+                     <td>{$info['minstep']}</td>
+                 {else:}
+                     <th></th>
+                     <td></td>
+                     <th></th>
+                     <td></td>
+                 {/if}
+             </tr>
+             {/if}
              <tr>
                  <th>报盘数量</th>
                  <td>{$info['quantity']}</td>
