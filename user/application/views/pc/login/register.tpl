@@ -26,7 +26,7 @@
       <ul class="topnav_left">
         <li><a href="index.html"><img class="shouy icon" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
         <li class="space">您好，欢迎进入耐耐网</li>
-        <li><a href="">请登录</a></li>
+        <li><a href="{url:/login/login}">请登录</a></li>
         <li><a href="">欢迎注册</a></li>
       </ul>
       <ul class="topnav_right">
@@ -62,7 +62,7 @@
    <span style="display:none;"> {url:/login/doReg} </span>
     <div class="register"> 
       <div class="beinit">
-        <span>已有账号?</span><a href="">立即登录</a>
+        <span>已有账号?</span><a href="{url:/login/login}">立即登录</a>
       </div>
       <div class="reg_top">
       <div class="register_top">

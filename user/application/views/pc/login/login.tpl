@@ -26,7 +26,7 @@
         <li><a href="index.html"><img class="shouy icon" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
         <li class="space">您好，欢迎进入耐耐网</li>
         <li><a href="">请登录</a></li>
-        <li><a href="">欢迎注册</a></li>
+        <li><a href="{url:/login/register}">欢迎注册</a></li>
       </ul>
       <ul class="topnav_right">
         <li><a href="">会员中心</a><i>|</i></li>
