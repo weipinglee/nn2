@@ -89,10 +89,12 @@
                          {if: !empty($categorys)}
                         {foreach: items=$categorys item=$category key=$level}   
                             <div class="class_jy" id="level{$level}">
-                                <span class="jy_title">市场类型：</span>
+                                <span class="jy_title">{$category['childname']}：</span>
+                                {set:unset($categorys[$level]['childname'])}
                                 <ul>
-                                    {foreach: items=$category['show'] item=$cate}
-                                    <li value="{$cate['id']}"  {if: $key==0} class="a_choose"{/if}  ><a>{$cate['name']}</a></li>
+
+                                    {foreach: items=$category item=$cate}
+                                    <li value="{$cate['id']}"  {if: $key==$cate_sel[$level]} class="a_choose"{/if}  ><a>{$cate['name']}</a></li>
                                     {/foreach}
                                 </ul>
 
@@ -148,11 +150,12 @@
 
                                 </td> -->
                             </tr>
-{foreach: items=$attrs item=$attr}
+
+                            {foreach: items=$detail['attribute'] item=$attr}
                                     <tr class="attr">
-                                        <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
+                                        <td nowrap="nowrap"><span></span>{$detail['attr_name'][$key]}：</td>
                                         <td colspan="2">
-                                            <input class="text" type="text" name="attribute[{$attr['id']}]" >
+                                            <input class="text" type="text" name="attribute[{$key}]" value="{$attr}">
                                         </td>
                                     </tr>
                             {/foreach}
@@ -162,14 +165,7 @@
                             <td ></td>
                             </tr>
                             
-<!--                             <tr id="textarea">
-                            <td>产地：</td>
-                            <td colspan="2" >
-                                <span id="areabox">{areatext:data=$detail['produce_area']}</span>
-                                <span><a onclick="showArea(1)">修改</a></span>
-                            </td>
-                         
-                        </tr> -->
+<!--
                             
                             <tr id="sarea" >
                             <td>产地：</td>
@@ -207,19 +203,19 @@
                                    <tr id="packUnit" {if: $detail['package'] == 0}style="display:none;"{/if}>
                                                  <td>包装单位：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packUnit" value="{$detail['page_unit']}">
+                                                <input type="text" class='text' name="packUnit" value="{$detail['package_unit']}">
                                             </td>
                                             </tr >
                                             <tr id='packNumber' {if: $detail['package'] == 0}style="display:none;"{/if}>
                                             <td>包装数量：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packNumber" value="{$detail['page_num']}">
+                                                <input type="text" class='text' name="packNumber" value="{$detail['package_num']}">
                                             </td>
                                             </tr >
                                             <tr id='packWeight' {if: $detail['package'] == 0}style="display:none;"{/if}>
                                             <td>包装重量：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packWeight" value="{$detail['page_weight']}">
+                                                <input type="text" class='text' name="packWeight" value="{$detail['package_weight']}">
                                             </td>
                                    </tr>
 
@@ -290,7 +286,7 @@
                                 <td nowrap="nowrap"><span></span>租库价格：</td>
                                 <td colspan="2">
                                     <span>
-                                      <input name="store_price" class="text" value="{$detail['store_price']}" datatype="money" errormsg="请填写价格" type="text" />（/<span class="unit">{$unit}</span>/天）
+                                      <input name="store_price" class="text" value="{$detail['store_price']}" datatype="money" errormsg="请填写价格" type="text" />（/<span class="unit">{$detail['unit']}</span>/天）
 
                                     </span>
                                     <span></span>

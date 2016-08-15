@@ -376,10 +376,18 @@ class ManagerStoreController extends UcenterBaseController{
     	if($id){
     		$stObj = new store();
     		$detail = $stObj->getUserStoreDetail($id,$this->user_id);
+
+			$cate_sel = array();//商品所属的各级分类
+			foreach($detail['cate'] as $k=>$v){
+				$cate_sel[] = $v['id'];
+			}
+			$pro = new \nainai\offer\product();
+			$categorys = $pro->getCategoryLevelSpec($cate_sel);
+
+			$this->getView()->assign('categorys',$categorys);
+			$this->getView()->assign('cate_sel',$cate_sel);
     		$user = new \nainai\member();
     		$res = $user->getUserDetail(array('id'=>$this->user_id));
-    		$this->productAddAction();
-
     		$this->getView()->assign('detail', $detail);
 			$this->getView()->assign('imgData', $detail['imgData']);
     		$this->getView()->assign('user', $res);

@@ -203,7 +203,7 @@ class product  {
     }
 
     /**
-     * 获取分级的分类
+     * 获取默认的分级的分类
      * @param int $gid
      * @return array array('chain'=>,'default'=>,1=>,2=>);
      */
@@ -214,6 +214,38 @@ class product  {
         $res = $this->generateTree($category);
 
         return  $this->getCateChain($pid,$res);
+
+    }
+
+    /**
+     * 获取指定的分类层级
+     * @param array $cate array(2,3,4)，2是顶级分类，3是2的下级分类，。。。
+     */
+    public function getCategoryLevelSpec($cate){
+        $where  = array('status' => 1,'is_del'=>0);
+        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
+
+        $res = $this->generateTree($category);
+        $cates = array();
+        $cates[0] = $res;
+        $i=0;
+        $childName = '市场分类';
+        while(!empty($cates[$i])){
+            $cates[$i]['childname'] = $childName;
+            foreach($cates[$i] as $key=>$val){
+                if(!is_int($key))continue;
+                if($cate[$i]==$val['id'] && !empty($cates[$i][$key]['child'])){
+                    $cates[$i+1] = $cates[$i][$key]['child'];
+                    $childName = $val['childname'];
+                }
+                unset($cates[$i][$key]['child']);
+
+            }
+
+            $i++;
+        }
+        return $cates;
+
 
     }
 
@@ -440,6 +472,7 @@ class product  {
 
             }
         }
+        $detail['attr_name'] = $attrs;
         //获取图片
         $photos = $this->getProductPhoto($product_id);
         $detail['photos'] = $photos[1];
