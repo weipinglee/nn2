@@ -5,11 +5,13 @@
     </title><meta name="Keywords" content="耐火材料、耐耐网"><meta name="Description" content="耐火材料、耐耐网">
     <script type="text/javascript" defer="" async="" src="{views:js/uta.js}"></script>
     <script src="{views:js/jquery-1.7.2.min.js}" type="text/javascript" language="javascript"></script>
+    <!-- 帮助中心页 常见问题 -->
+    <link rel="stylesheet" type="text/css" href="{views:css/help.css}"/>
+    <script src="{views:js/help.js}" type="text/javascript"/>
+    <!-- 帮助页 常见问题end -->
     <script src="{views:js/gtxh_formlogin.js}" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="{views:css/index20141027.css}">
-
     <link rel="stylesheet" href="{views:css/classify.css}">
-
     <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
     <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
 
@@ -215,12 +217,12 @@ z-index:1000;">
         <div class="foter_width">
             <ul>
                 {foreach: items=$helpList}
-                <li class="footer_li">
-                    <a class="fotter_div" target="_blank"><b>{$item['name']}</b></a>
-                    {foreach: items=$item['data'] item=$v key=$k}
-                    <a class="fotter_a" target="_blank">{$v['name']}</a>
-                    {/foreach}
-                </li>
+                    <li class="footer_li">
+                        <a class="fotter_div" href="{url:/help/help}?cat_id={$item['cat_id']}" target="_blank"><b>{$item['name']}</b></a>
+                        {foreach: items=$item['data'] item=$v key=$k}
+                            <a class="fotter_a" href="{url:/help/help}?id={$v['id']}" target="_blank">{$v['name']}</a>
+                        {/foreach}
+                    </li>
                 {/foreach}
                 <li class="footer_li">
                     <a class="fotter_div" href="http://corp.nainaiwang.com/aboutUs.aspx" target="_blank"><b>联系我们</b></a>

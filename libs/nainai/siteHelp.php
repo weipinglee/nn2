@@ -135,12 +135,12 @@ class SiteHelp
         $pageBar=$helpCatObj->getPageBar();
         return [$helpCatList,$pageBar];
     }
-    private function checkHelpName($where){
+    public function checkHelpName($where){
         $helpObj=$this->helpObj;
         $res=$helpObj->where($where)->getObj();
         return $res?$res:false;
     }
-    private function checkHelpCatName($where){
+    public function checkHelpCatName($where){
         $helpCatObj=$this->helpCatObj;
         $res=$helpCatObj->where($where)->getObj();
         return $res?$res:false;
@@ -157,5 +157,4 @@ class SiteHelp
         return $res;
 
     }
-
 }
