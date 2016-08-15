@@ -108,7 +108,7 @@
                                 <div class="yListr" id="yListr">
                                   
                                       <ul>
-                                          <li><em name="chooice" class="yListrclickem" payment=1>市场代理账户<i></i></em> <em name="chooice" payment=2>银行签约账户<i></i></em> <em name="chooice" payment=3>票据账户<i></i></em> </li>
+                                          <li><em name="chooice" class="yListrclickem" payment=1>市场代理账户<i></i></em> <em name="chooice" payment=2>银行签约账户<i></i></em> <!-- <em name="chooice" payment=3>票据账户<i></i></em> --> </li>
                                       </ul>
                               </div> 
 

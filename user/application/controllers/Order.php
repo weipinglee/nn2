@@ -41,7 +41,7 @@ class OrderController extends UcenterBaseController{
 			$order_id = safe::filter($this->_request->getParam('order_id'),'int');
 			$data = $this->order->contractDetail($order_id);
 
-			$data['pay_retainage'] = number_format(floatval($data['amount']) - floatval($data['pay_deposit']),2);
+			$data['topay_retainage'] = number_format(floatval($data['amount']) - floatval($data['pay_deposit']),2);
 
 
 			$seller = $data['type'] == 1 ? $data['seller_id'] : $data['user_id'];

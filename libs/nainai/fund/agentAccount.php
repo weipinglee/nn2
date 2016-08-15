@@ -259,7 +259,8 @@ use \Library\Time;
      *
      */
     public function freezePay($from,$to=0,$num,$note=''){
-        if(is_integer($num) || is_float($num)){
+        $num = floatval($num);
+        if($num > 0){
 
             $fromFreeze = $this->agentModel->where(array('user_id'=>$from))->getField('freeze');
 
