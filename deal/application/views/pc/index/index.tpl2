@@ -486,7 +486,7 @@
                                     </ul>
                                         {/if}
                                     {/foreach}
-                                    {set:$i=$i+1;}
+                                    {set:$i=$i+1;}{set:$i=$i+1;}
                                 </div>
                                 <ul>
                                     <li class="i_ListTit">
