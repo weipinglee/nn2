@@ -1237,20 +1237,20 @@ line-height: 25px;
 .nav_plaint ul li:hover{background:#CCC;color:#FFF;}
 
 .user_zhxi .plaint_com span {
-    float: left;
     line-height: 30px;
     font-size: 16px;
     font-family: "Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
     font-weight: 500;
     margin-bottom: 20px;
 }
+.user_zhxi .plaint_com span .complain_title{float: left;}
 .user_zhxi .plaint_com span i{font-style: normal;color:red;}
 .user_zhxi .plaint_com span input.amount{
     width: 50px;
     height: 25px;
     margin-right: 10px;
 }
-.user_zhxi .plaint_com span.explain{clear: both;}
+.user_zhxi .plaint_com span.explain{clear: both;float: left;}
 .user_zhxi .plaint_com span.explain+textarea{
     float: left;
     width: 550px;
@@ -1258,7 +1258,7 @@ line-height: 25px;
     margin-left: 12px;
 }
 .user_zhxi .plaint_com span.explain p{color: #cccccc;}
-.user_zhxi .plaint_com span.upload_img{margin-top: 15px;clear: both;}
+.user_zhxi .plaint_com span.upload_img{margin-top: 15px;clear: both;float: left;}
 .user_zhxi .plaint_com .choose_img{width:200px;float:left; margin: 20px 0 20px 12px;}
 .user_zhxi .plaint_com .choose_img #doc{width: 170px;}
 .user_zhxi .plaint_com .choose_img+.uplod_botn{float: left; margin-top: 18px;}

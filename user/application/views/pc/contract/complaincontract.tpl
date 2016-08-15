@@ -60,18 +60,18 @@
 							<form action="{url:/Contract/complainContract}" id="signupForm"  method="post" auto_submit redirect_url="{url:/contract/complainlist}">
 						
 							<p>
-								<label for="title"><span>申诉标题<i>*</i>：</span></label>
+								<label for="title"><span class="complain_title"><i>*</i>申诉标题：</span></label>
 								<input  type="text" id="title" name="title" datatype="*">
 							</p>
 							<br />
 							<p>
-							   <label for="content"><span class="explain">申诉说明<i>*</i>：<br />(200字)</span> </label>
+							   <label for="content"><span class="explain"><i>*</i>申诉说明：<br />(200字)</span> </label>
 							   <span><textarea name="content" id="content" cols="30" rows="10" datatype="*" ></textarea></span>
 
 							</p>
 
 									
-							  <span class="upload_img">上传凭证：</span>  
+							  <span class="upload_img">&nbsp;上传凭证：</span>  
 								 <div class="choose_img"style="width:'';">
 									{include:layout/webuploader.tpl}
 								</div>
