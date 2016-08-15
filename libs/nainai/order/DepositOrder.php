@@ -61,7 +61,7 @@ class DepositOrder extends Order{
 			$upd_res = $this->orderUpdate($orderData);
 			if($upd_res['success'] == 1){
 
-				$log_res = $this->payLog($order_id,$buyer,0,'买方预付定金--'.($type == 0 ? '定金' : '全款'));
+				$log_res = $this->payLog($order_id,$buyer,0,'买方支付预付款--'.($type == 0 ? '定金' : '全款'));
 				$res = $log_res === true ? true : $log_res;
 				if($res === true){
 					//冻结买方帐户资金  payment=1 余额支付
