@@ -151,6 +151,9 @@ class FundController extends UcenterBaseController {
 
 				$r_id = $rechargeObj->data($reData)->add();
 				if($r_id){
+					$adminMsg=new \nainai\AdminMsg();
+					$content='新添加了一笔线下入金需要审核';
+					$adminMsg->createMsg('fundinfirst',$r_id,$content);
 					die(json::encode(\Library\tool::getSuccInfo()));
 				}
 
@@ -247,7 +250,11 @@ class FundController extends UcenterBaseController {
 		);
 		$fundModel = new fundModel();
 		$res = $fundModel->fundOutApply($user_id,$data);
-
+		if($res['success']==1){
+			$adminmsg=new \nainai\AdminMsg();
+			$content='有一笔提现需要处理';
+			$adminmsg->createMsg('fundoutfirst',$data['user_id'],$content);
+		}
 		die(json::encode($res));
 
 	}
@@ -280,6 +287,13 @@ class FundController extends UcenterBaseController {
 
 
 			$res = $fundModel->bankUpdate($data);
+			if($res['success']==1){
+				$title = '开户审核';
+				$content = '用户姓名为'.$data['true_name'].'的开户需要审核';
+
+				$adminMsg = new \nainai\adminMsg();
+				$adminMsg->createMsg('checkbankdetail',$data['user_id'],$content,$title);
+			}
 			die(json::encode($res));
 		}
 		else{//获取数据

@@ -45,7 +45,6 @@ class AccmanageController extends InitController {
 		echo "<br />";
 		$page = safe::filterGet('page', 'int');
 		$id = safe::filterGet('user_id', 'int');
-
 		$fundFlowObj = new Query('user_fund_flow as f');
 		$fundFlowObj->join = 'left join user as u on u.id=f.user_id';
 		$fundFlowObj->fields = 'u.username,f.*';
@@ -68,14 +67,16 @@ class AccmanageController extends InitController {
 		$obj = new fundBankModel();
 		if(IS_POST){
 			$user_id = safe::filterPost('id','int');
+			if(!$user_id) $user_id = intval($this->_request->getParam('user_id'));
 			$status = safe::filterPost('status','int');
 			$res = $obj->bankVerify($user_id,$status);
+			if($res['success']==1)  $adminMsg = new \nainai\adminMsg();
+			$adminMsg->setStatus($this,$user_id);
 			die(json::encode($res));
-
 		}
 		else{
 			$user_id = safe::filterGet('user_id','int',0);
-
+			if(!$user_id) $user_id = intval($this->_request->getParam('user_id'));
 			$data = $obj->getBankDetail($user_id);
 			$this->getView()->assign('bank',$data[0]);
 			$this->getView()->assign('user',$data[1]);

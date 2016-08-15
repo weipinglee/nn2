@@ -86,6 +86,7 @@ class fundBankModel extends \nainai\user\UserBank{
             $log->addLog(array('type'=>'check','check_text'=>self::$status_text[$updateData['status']],'id'=>$user_id,'pk'=>'user_id','table'=>$this->table));
             $res = $bankObj->commit();
             if($res){
+
                 return tool::getSuccInfo();
             }
 

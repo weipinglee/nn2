@@ -18,6 +18,36 @@ class AdminMsg extends \nainai\Abstruct\ModelAbstract{
 			'url_oper' => 'trade/offermanage/setstatus',
 			'title' => '报盘审核',
 		),
+		'fundoutfirst'=>array(
+			'url'=>'balance/fundout/fundOutEdit/id/',
+			'url_oper'=>'balance/fundout/firstCheck',
+			'title'=>'出金初审'
+		),
+		'fundoutfinal'=>array(
+			'url'=>'balance/fundout/fundoutEdit/id/',
+			'url_oper'=>'balance/fundout/finalCheck',
+			'title'=>'出金终审'
+		),
+		'fundouttransfer'=>array(
+			'url'=>'balance/fundout/fundoutEdit/id/',
+			'url_oper'=>'balance/fundout/transfer',
+			'title'=>'打款'
+		),
+		'fundinfirst'=>array(
+			'url'=>'balance/fundin/offlineEdit/id/',
+			'url_oper'=>'balance/fundin/offlineFirst',
+			'title'=>'入金初审'
+		),
+		'fundinfinal'=>array(
+			'url'=>'balance/fundin/offlineEdit/id/',
+			'url_oper'=>'balance/fundin/offlinefinal',
+			'title'=>'入金终审'
+		),
+		'checkbankdetail'=>array(
+			'url'=>'balance/Accmanage/checkBankDetail/user_id/',
+			'url_oper'=>'balance/Accmanage/checkBankDetail',
+			'title'=>'开户申请'
+		),
 	);
 
 	/**

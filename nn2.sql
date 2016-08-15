@@ -3054,3 +3054,15 @@ create table if not exists `admin_often_use_address`(
   `introduce` text COMMENT '预警原因',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 |
+create table if not exists `admin_msg`(
+  `id` int(11) unsigned not null auto_increment comment '主键id',
+  `title` varchar(100) not null default '',
+  `content` varchar(255) not null default '',
+  `url` varchar(100) not null default '',
+  `url_oper` varchar(100) not null default '',
+  `args` varchar(100) not null default '',
+  `status` VARCHAR(100) not null default '',
+  `visited` tinyint(2) not null default 0,
+  `create_time` datetime not null default now(),
+  primary key(`id`)
+)engine=innodb charset=utf8;
