@@ -165,7 +165,10 @@
                                    <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)" style="float:left;"/>
                                   <input type="hidden" name="id" value="{$offer['id']}" />
                                   <div class="pay_bton">
-                                      <a href="javascript:void(0)" class="cg_fb"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？" >撤销报盘</a>
+                                      <a href="javascript:void(0)" class="cg_fb"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？" style="
+    background: #ccc;
+    border: #ccc;
+    text-decoration: none;">撤销报盘</a>
                                   </div>
 
                                 </td>
