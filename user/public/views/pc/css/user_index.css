@@ -1242,7 +1242,7 @@ line-height: 25px;
     font-weight: 500;
     margin-bottom: 20px;
 }
-.user_zhxi .plaint_com span .complain_title{float: left;}
+.user_zhxi .plaint_com span .complain_title{clear:both;float: left;}
 .user_zhxi .plaint_com span i{font-style: normal;color:red;}
 .user_zhxi .plaint_com span input.amount{
     width: 50px;
