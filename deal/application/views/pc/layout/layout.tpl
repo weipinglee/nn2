@@ -5,11 +5,13 @@
     </title><meta name="Keywords" content="耐火材料、耐耐网"><meta name="Description" content="耐火材料、耐耐网">
     <script type="text/javascript" defer="" async="" src="{views:js/uta.js}"></script>
     <script src="{views:js/jquery-1.7.2.min.js}" type="text/javascript" language="javascript"></script>
+    <!-- 帮助中心页 常见问题 -->
+    <link rel="stylesheet" type="text/css" href="{views:css/help.css}"/>
+    <script src="{views:js/help.js}" type="text/javascript"/>
+    <!-- 帮助页 常见问题end -->
     <script src="{views:js/gtxh_formlogin.js}" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="{views:css/index20141027.css}">
-
     <link rel="stylesheet" href="{views:css/classify.css}">
-
     <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
     <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
 
@@ -196,63 +198,32 @@ z-index:1000;">
     <div class="div_flink">
         <ul>
             <li class="ul_tit"><b>友情链接</b></li>
+            {set: $sum=count($frdLinkList)}
+            {foreach: items=$frdLinkList}
             <li class="li_txt">
-                <a class="li_a">中国耐火材料商情网</a>
+                <a class="li_a" href="{$item['link']}">{$item['name']}</a>
             </li>
+                {if:$key!=$sum-1}
             <li class="li_l">
                 <span class="span_l">|</span>
             </li>
-            <li class="li_txt">
-                <a class="li_a">中国窑炉网</a>
-            </li>
-            <li class="li_l">
-                <span class="span_l">|</span>
-            </li>
-            <li class="li_txt">
-                <a class="li_a">中国机械专家网</a>
-            </li>
-            <li class="li_l">
-                <span class="span_l">|</span>
-            </li>
-            <li class="li_txt">
-                <a class="li_a">中国建材企业名录</a>
-            </li>
-            <li class="li_l">
-                <span class="span_l">|</span>
-            </li>
-            <li class="li_txt">
-                <a class="li_a">现货交易</a>
-            </li>
+                {/if}
+            {/foreach}
+
         </ul>
     </div>
 
     <div class="footer_link clearfix">
         <div class="foter_width">
             <ul>
-                <li class="footer_li">
-                    <a class="fotter_div" target="_blank"><b>关于我们</b></a>
-                    <a class="fotter_a" target="_blank">耐耐网简介</a>
-                    <a class="fotter_a" target="_blank">联系我们</a>
-                    <a class="fotter_a" target="_blank">铝钢网大事记</a>
-                    <a class="fotter_a" target="_blank">调查问卷</a>
-                    <a class="fotter_a" target="_blank">网站地图</a>
-                </li>
-                <li class="footer_li">
-                    <a class="fotter_div" href="http://help.nainaiwang.com" target="_blank"><b>帮助中心</b></a>
-                    <a class="fotter_a" target="_blank">钢钢网简介</a>
-                    <a class="fotter_a" target="_blank">联系我们</a>
-                    <a class="fotter_a" target="_blank">钢钢网大事记</a>
-                    <a class="fotter_a" target="_blank">调查问卷</a>
-                    <a class="fotter_a" target="_blank">网站地图</a>
-                </li>
-                <li class="footer_li">
-                    <a class="fotter_div" href="http://corp.nainaiwang.com/aboutUs.aspx" target="_blank"><b>人才招聘</b></a>
-                    <a class="fotter_a" target="_blank">耐耐网简介</a>
-                    <a class="fotter_a" target="_blank">联系我们</a>
-                    <a class="fotter_a" target="_blank">铝钢网大事记</a>
-                    <a class="fotter_a" target="_blank">调查问卷</a>
-                    <a class="fotter_a" target="_blank">网站地图</a>
-                </li>
+                {foreach: items=$helpList}
+                    <li class="footer_li">
+                        <a class="fotter_div" href="{url:/help/help}?cat_id={$item['cat_id']}" target="_blank"><b>{$item['name']}</b></a>
+                        {foreach: items=$item['data'] item=$v key=$k}
+                            <a class="fotter_a" href="{url:/help/help}?id={$v['id']}" target="_blank">{$v['name']}</a>
+                        {/foreach}
+                    </li>
+                {/foreach}
                 <li class="footer_li">
                     <a class="fotter_div" href="http://corp.nainaiwang.com/aboutUs.aspx" target="_blank"><b>联系我们</b></a>
                     <a class="fotter_a" target="_blank">021-52688872</a>

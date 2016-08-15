@@ -89,6 +89,10 @@ class IndexController extends PublicController {
 		}
 		//获取所有的推荐商户信息
 		$allCompany=\nainai\companyRec::getAllCompanyOrderByType();
+		//获取友情链接
+		$frdLinkModel= new \nainai\system\friendlyLink();
+		$frdLinkList=$frdLinkModel->getFrdLink(6);
+		$this->getView()->assign('frdLinkList',$frdLinkList);
 		$this->getView()->assign('allCompany',$allCompany);
 		$this->getView()->assign('adList',$adList);
 		$this->getView()->assign('helpList',$helpList);
@@ -143,4 +147,8 @@ class IndexController extends PublicController {
         }
         
 	}
+
+    public function helpAction(){
+
+    }
 }

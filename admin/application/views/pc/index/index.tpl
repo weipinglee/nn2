@@ -84,22 +84,6 @@
                             </ul>
                         </li>
                         <li><a  target="content">系统设置</a>
-                            <ul>
-                                <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
-                                    <ul>
-                                        <li><a href="{url:/system/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
-                                        <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li><a href="{url:/system/slide/slideList}" target="content">幻灯片管理</a>
-                                    <ul>
-                                        <li><a href="{url:/system/slide/addSlide}" target="content">新增幻灯片</a></li>
-                                        <li><a href="{url:/system/slide/slideList}" target="content">幻灯片列表</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </li>
 
                         <li><a href="{url:system/kefu/kefuList}" target="content">客服管理</a></li>
