@@ -1238,6 +1238,7 @@
 	color: #c6c6c6;
 	margin: 25px 0;
 	font-weight: bold;
+	text-align: center;
 }
 .iServiceCon ul.HomeService_other li.iServiceText{
 	padding: 0;
@@ -2709,8 +2710,14 @@ text-indent: 1em;
 .i_r_1{
 	width: 30px;   
 }
-.i_r_2{
-	width: 60px;
+.i_r_2 {
+    margin: -15px 0;
+    width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 35px;
 }
 .i_r_3{
 	width: 30px;
@@ -2786,4 +2793,9 @@ text-indent: 1em;
 }
 .commercial .base_infor p{
 	line-height: 25px;
+}
+.footer_clude{
+    background: #fff;
+    position: relative;
+    bottom: -15px;
 }

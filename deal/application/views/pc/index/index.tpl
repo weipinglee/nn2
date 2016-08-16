@@ -658,4 +658,53 @@
         </div>
     </div>  
     <!--主要内容 结束-->
+        <!--耐耐网服务-->
+   <div class="footer_clude">    
+    <div class="i_service clearfix">
+        <div class="iServiceCon clearfix">
+            <ul>
+                <li class="iServiceTit">
+                    <div class="fw_img"><img src="{views:images/index/icon_free.png}"/></div>
+                    <div class="wi_fw">免费撮合</div>
+                </li><!--
+                    <li class="iServiceTit">
+                        <div class="fw_img"><img src="{views:images/index/icon_financial.png}"/></div>
+                        <div class="wi_fw">金融服务</div>
+                    </li> -->
+                <li class="iServiceTit">
+                    <div class="fw_img"><img src="{views:images/index/icon_fw3.png}"/></div>
+                    <div class="wi_fw">保险服务</div>
+                </li>
+                <li class="iServiceTit">
+                    <div class="fw_img"><img src="{views:images/index/icon_fw7.png}"/></div>
+                    <div class="wi_fw">仓储服务</div>
+                </li>
+                <li class="iServiceTit">
+                    <div class="fw_img"><img src="{views:images/index/icon_fw5.png}"/></div>
+                    <div class="wi_fw">软文服务</div>
+                </li>
+                <li class="iServiceTit">
+                    <div class="fw_img"><img src="{views:images/index/icon_fw6.png}"/></div>
+                    <div class="wi_fw">定制报告</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="div_flink">
+        <ul>
+            <li class="ul_tit"><b>友情链接</b></li>
+            {set: $sum=count($frdLinkList)}
+            {foreach: items=$frdLinkList}
+            <li class="li_txt">
+                <a class="li_a" href="{$item['link']}">{$item['name']}</a>
+            </li>
+                {if:$key!=$sum-1}
+            <li class="li_l">
+                <span class="span_l">|</span>
+            </li>
+                {/if}
+            {/foreach}
 
+        </ul>
+    </div>
+</div> 

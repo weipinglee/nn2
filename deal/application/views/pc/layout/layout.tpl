@@ -40,7 +40,7 @@
     </script>
     <![endif]-->
 </head>
-<body style="background:#f5f5f5;">
+<body style="background:#fff;">
 
 
 
@@ -164,54 +164,7 @@ z-index:1000;">
 <!--公用底部控件 开始-->
 <link href="{views:css/footer.css}" rel="stylesheet" type="text/css">
 <div id="footer">
-    <!--耐耐网服务-->
-    <div class="i_service clearfix">
-        <div class="iServiceCon clearfix">
-            <ul>
-                <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_free.png}"/></div>
-                    <div class="wi_fw">免费撮合</div>
-                </li><!--
-                    <li class="iServiceTit">
-                        <div class="fw_img"><img src="{views:images/index/icon_financial.png}"/></div>
-                        <div class="wi_fw">金融服务</div>
-                    </li> -->
-                <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_fw3.png}"/></div>
-                    <div class="wi_fw">保险服务</div>
-                </li>
-                <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_fw7.png}"/></div>
-                    <div class="wi_fw">仓储服务</div>
-                </li>
-                <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_fw5.png}"/></div>
-                    <div class="wi_fw">软文服务</div>
-                </li>
-                <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_fw6.png}"/></div>
-                    <div class="wi_fw">定制报告</div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="div_flink">
-        <ul>
-            <li class="ul_tit"><b>友情链接</b></li>
-            {set: $sum=count($frdLinkList)}
-            {foreach: items=$frdLinkList}
-            <li class="li_txt">
-                <a class="li_a" href="{$item['link']}">{$item['name']}</a>
-            </li>
-                {if:$key!=$sum-1}
-            <li class="li_l">
-                <span class="span_l">|</span>
-            </li>
-                {/if}
-            {/foreach}
 
-        </ul>
-    </div>
 
     <div class="footer_link clearfix">
         <div class="foter_width">

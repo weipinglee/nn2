@@ -50,6 +50,13 @@
 	float: right;
 	margin-right: 70px;
 }
+#mainContent .mainRow4 .pic img{
+	width: 225px;
+	height: 300px;
+	position: absolute;
+    right: 55px;
+    top: 83px;
+}
 #mainContent .mainRow3 .found{
 	width: 650px;height:300px;padding:0 10px;
 	margin-left: 150px;
@@ -83,4 +90,15 @@
 	text-align: center;
 	line-height: 39px;
 	border-radius: 3px;
+}
+#placeProv,#placeCity,#placeDistrict{
+	width: 83px;
+	height: 30px;
+}
+#localProv,#localCity,#localDistrict{
+	width: 83px;
+	height: 30px;
+}
+#localDistrict{
+    margin-left: 14px;
 }
