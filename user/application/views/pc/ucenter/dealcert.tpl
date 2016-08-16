@@ -124,7 +124,7 @@
 						{if:$userType==1}
 						<div class="zhxi_con">
 							<span class="con_tit"><i></i>营业执照：</span>
-							<span><input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
+							<span class="input-file">选择文件<input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
 							<input type="hidden" name="imgfile1" value="{$certData['cert_bl']}" />
 							
 						</div>
@@ -137,7 +137,7 @@
 						</div>
 						<div class="zhxi_con">
 							<span class="con_tit"><i></i>税务登记证：</span>
-							<span><input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
+							<span class="input-file">选择文件<input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
 							<input type="hidden" name="imgfile2" value="{$certData['cert_tax']}" />
 
 						</div>
@@ -150,7 +150,7 @@
 						</div>
 						<div class="zhxi_con">
 							<span class="con_tit"><i></i>组织机构代码证：</span>
-							<span><input class="doc" type="file" name="file3" id="file3" onchange="javascript:uploadImg(this);" ></span>
+							<span class="input-file">选择文件<input class="doc" type="file" name="file3" id="file3" onchange="javascript:uploadImg(this);" ></span>
 							<input type="hidden" name="imgfile3" value="{$certData['cert_oc']}" />
 
 						</div>
@@ -170,7 +170,7 @@
 						{else:}
 							<div class="zhxi_con">
 								<span class="con_tit"><i></i>身份证正面：</span>
-								<span><input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
+								<span class="input-file">选择文件<input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
 								<input type="hidden" name="imgfile1" value="{$certData['identify_front']}" />
 
 							</div>
@@ -183,7 +183,7 @@
 
 							<div class="zhxi_con">
 								<span class="con_tit"><i></i>身份证背面：</span>
-								<span><input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
+								<span class="input-file">选择文件<input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
 								<input type="hidden" name="imgfile2" value="{$certData['identify_back']}" />
 
 							</div>
@@ -196,7 +196,7 @@
 
 							<div class="zhxi_con">
 								<p class="font-color">1.请保证证件上的信息清晰可见</p>
-								<p class="font-color">2.支持jpg,bmp,png,gif,文件不超过4MB</p>
+								<p class="font-color">2.支持jpg,bmp,png,gif,文件不超过2MB</p>
 							</div>
 						{/if}
 						<div class="zhxi_con">

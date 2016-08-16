@@ -59,7 +59,7 @@
 								<span class="con_tit"><i>*</i>打款凭证： </span>
 								<span>
 									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload}" />
-                        			<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
+                        			<span class="input-file">选择文件<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></span>
 
 								</span>
 								<p class="con_title">请向上海公司总部账户打款0.1元并上传打款凭证</p>

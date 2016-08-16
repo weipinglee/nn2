@@ -75,7 +75,7 @@
                             <div class="huikod">
 
                               <label for="female">上传汇款单据</label>
-                                <input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" />
+                                <span class="input-file">选择文件<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" /></span>
                                 <div id="preview">
                                     <img name="file1" src=""/>
                                     <input type="hidden" disabled="disabled" name="imgfile1" datatype="*"  />
