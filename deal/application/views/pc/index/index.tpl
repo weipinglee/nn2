@@ -38,8 +38,10 @@
       </div>
     <!-- 轮播大图 结束 -->
     <!--主要内容 开始-->
+
+                            </div>
     <div id="mainContent">
-        <div class="page_width">  
+        <div class="page_width">
             <!----第一行搜索  开始---->
             <div class="mainRow1">
                 <!--搜索条件 开始-->
@@ -96,8 +98,6 @@
                                 </div>
                             </div>
                         {/foreach}
-                            </div>
-
                           
                         </div>
                         <!--所有分类 End-->

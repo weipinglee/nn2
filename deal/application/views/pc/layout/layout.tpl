@@ -200,7 +200,7 @@ z-index:1000;">
     <div class="footer_link clearfix">
         <div class="foter_width">
             <ul>
-                {foreach: items=$helpList}
+                {foreach: items=$helpList2}
                     <li class="footer_li">
                         <a class="fotter_div" " target="_blank"><b>{$item['name']}</b></a>
                         {foreach: items=$item['data'] item=$v key=$k}
