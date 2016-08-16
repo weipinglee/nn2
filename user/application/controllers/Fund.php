@@ -253,7 +253,7 @@ class FundController extends UcenterBaseController {
 		if($res['success']==1){
 			$adminmsg=new \nainai\AdminMsg();
 			$content='有一笔提现需要处理';
-			$adminmsg->createMsg('fundoutfirst',$data['user_id'],$content);
+			$adminmsg->createMsg('fundoutfirst',$res['id'],$content);
 		}
 		die(json::encode($res));
 
