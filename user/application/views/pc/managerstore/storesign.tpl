@@ -289,7 +289,7 @@
                                             <td nowrap="nowrap"><span></span>库位：</td>
                                             <td colspan="2">
                                                 <span>
-                                                    <input class="text" type="text" name="pos" datatype="s1-20" errormsg="库位请填写1-20位字符" />
+                                                    <input class="text" type="text" name="pos" datatype="*" errormsg="库位请填写1-20位字符" />
                                                 </span>
                                                 <span></span>
                                             </td>

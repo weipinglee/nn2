@@ -138,7 +138,7 @@
    <tr>
         <td>有效期：</td>
         <td colspan="2">
-            <span > <input class="Wdate" type="text" onclick="WdatePicker()" name="expire_time" value=""></span>
+            <span > <input class="Wdate" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="expire_time" value=""></span>
             <span></span>
         </td>
 
@@ -156,16 +156,7 @@
 
     </tr>
    
-    <tr id='nowrap' style="display: none">
-        <td nowrap="nowrap" ><span>*</span>最小起订量：</td>
-        <td>
-            <input name="minimum" id="" type="text" class="text"  />
-        </td>
-        <td>
-            <span>*</span>
-            最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
-        </td>
-    </tr>
+    
     <tr>
         <td>交收地点：</td>
         <td colspan="2">
