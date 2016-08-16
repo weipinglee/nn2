@@ -22,7 +22,7 @@
 					</div>
 					<input type="hidden" name="oper" value="edit"/>
 					<div class="zhxi_con">
-						<span><input class="submit_edit" type="submit" value="修改"/></span>
+						<span><input class="submit" type="submit" value="修改"/></span>
 					</div>
 				{else:}
 					<div class="zhxi_con">
@@ -37,7 +37,7 @@
 					<input type="hidden" name="oper" value="add"/>
 					<div class="zhxi_con">
 
-						<span><input class="submit_edit" type="submit" value="提交"/></span>
+						<span><input class="submit" type="submit" value="提交"/></span>
 					</div>
 				{/if}
 

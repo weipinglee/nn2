@@ -23,7 +23,7 @@
 
 
 						<div class="zhxi_con">
-							<span><a class="submit_edit" href="{url:/ucenter/baseEdit}">修改</a></span>
+							<span><a class="submit" href="{url:/ucenter/baseEdit}">修改</a></span>
 						</div>
 
 					</div>

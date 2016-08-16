@@ -332,7 +332,6 @@ div.zhxi_con.font_set span i.bold{
     display: block;
     text-align: center;
     line-height: 39px;
-    border-radius: 3px;
 }
 .zhxi_con a:hover{
   text-decoration: none;
@@ -856,8 +855,9 @@ padding-left: 3px;
 	text-align: center;
 }
 .page_num .pages_bar{
-  margin-top: 10px;
+  margin:10px 0px;
   height:24px;
+  line-height: 24px;
 }
 .page_num a:link, .page_num a:visited, .page_num a:active {
 padding: 6px 12px;
@@ -1197,7 +1197,6 @@ line-height: 25px;
     border-bottom: 1px #999 dashed;
     line-height: 32px;
 }
-.user_zhxi .opera_suc h5 a:hover{color: #224abe; text-decoration:underline;}
 .user_zhxi .opera_suc h5 a{ margin-right: 15px;}
 
 /* 申诉CSS */
@@ -1237,20 +1236,20 @@ line-height: 25px;
 .nav_plaint ul li:hover{background:#CCC;color:#FFF;}
 
 .user_zhxi .plaint_com span {
-    float: left;
     line-height: 30px;
     font-size: 16px;
     font-family: "Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
     font-weight: 500;
     margin-bottom: 20px;
 }
+.user_zhxi .plaint_com span .complain_title{clear:both;float: left;}
 .user_zhxi .plaint_com span i{font-style: normal;color:red;}
 .user_zhxi .plaint_com span input.amount{
     width: 50px;
     height: 25px;
     margin-right: 10px;
 }
-.user_zhxi .plaint_com span.explain{clear: both;}
+.user_zhxi .plaint_com span.explain{clear: both;float: left;}
 .user_zhxi .plaint_com span.explain+textarea{
     float: left;
     width: 550px;
@@ -1258,7 +1257,7 @@ line-height: 25px;
     margin-left: 12px;
 }
 .user_zhxi .plaint_com span.explain p{color: #cccccc;}
-.user_zhxi .plaint_com span.upload_img{margin-top: 15px;clear: both;}
+.user_zhxi .plaint_com span.upload_img{margin-top: 15px;clear: both;float: left;}
 .user_zhxi .plaint_com .choose_img{width:200px;float:left; margin: 20px 0 20px 12px;}
 .user_zhxi .plaint_com .choose_img #doc{width: 170px;}
 .user_zhxi .plaint_com .choose_img+.uplod_botn{float: left; margin-top: 18px;}
@@ -1281,7 +1280,6 @@ line-height: 25px;
     font-family: 微软雅黑;
     font-weight: normal;
 }
-.user_zhxi .plaint_com .subclear a:hover{text-decoration: underline;}
 /*报盘首页样式*/
 .offer{
   float: left;display: block;
@@ -1918,7 +1916,6 @@ line-height: 30px;
     position: relative;
     left: 200px;
     cursor: pointer;
-    border-radius: 3px;
 }
 input#image {
     width: 68px;
@@ -1957,3 +1954,25 @@ input#image {
 }
 
 .no-data{font-size: 16px;padding-top: 15px;}
+
+/*上传文件按钮样式修改*/
+.input-file {
+overflow:hidden;
+position:relative;
+cursor: pointer;width: 68px;height: 21px;border:1px solid #949494;display: inline-block;
+color: #000;font-size: 12px;text-align: center;
+line-height: 21px;vertical-align: middle;background-color: #eaeaea;
+border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;
+}
+.input-file input,
+.input-file .doc{
+opacity:0;
+filter:alpha(opacity=0);
+font-size:100px;
+position:absolute;
+top:0;
+right:0;
+cursor: pointer;
+}
+
+.pay_bton{float: left;margin:10px;}
