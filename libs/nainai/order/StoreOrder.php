@@ -30,6 +30,7 @@ class StoreOrder extends Order{
 			if($info['user_id'] != $user_id)
 				return tool::getSuccInfo(0,'订单买家信息有误');
 			$orderData['id'] = $order_id;
+			$orderData['buyer_deposit_payment'] = $payment;
 			if($type == 0){
 				//定金支付
 				$orderData['contract_status'] = self::CONTRACT_BUYER_RETAINAGE;//合同状态置为等待买方支付尾款
