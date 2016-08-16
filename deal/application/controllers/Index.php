@@ -5,12 +5,16 @@
  * @desc 默认控制器
  * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
  */
-use \DB\M;
+//use \DB\M;
 use \tool\http;
 //use \common\url;
 use \common\tool;
 use \nainai\offer\product;
 use \Library\url;
+use \Library\safe;
+use \Library\Payment;
+use \Library\json;
+use \Library\M;
 use \Library\views\wittyAdapter;
 class IndexController extends PublicController {
 
@@ -90,7 +94,70 @@ class IndexController extends PublicController {
 		$this->getView()->assign('month',$month);
 		$this->getView()->assign('day',$day);
 	}
+    
+    
+    //支付异步回调
+    public function serverCallbackAction(){
+        //从URL中获取支付方式
+        $payment_id      = safe::filterGet('id','int');
+        $paymentInstance = Payment::createPaymentInstance($payment_id);
 
+        if(!is_object($paymentInstance))
+        {
+            die('fail');
+        }
+
+        //初始化参数
+        $money   = '';
+        $message = '支付失败';
+        $orderNo = '';
+
+        //执行接口回调函数
+        $callbackData = array_merge($_POST,$_GET);
+        unset($callbackData['controller']);
+        unset($callbackData['action']);
+        unset($callbackData['_id']);
+        $return = $paymentInstance->serverCallback($callbackData,$payment_id,$money,$message,$orderNo);        
+        //支付成功
+        if($return)
+        {
+            //充值方式
+            $recharge_no = str_replace('recharge','',$orderNo);
+            $rechargeObj = new M('recharge_order');
+            $rechargeRow = $rechargeObj->getObj('recharge_no = "'.$recharge_no.'"');
+            if(empty($rechargeRow))
+            {
+                die('fail') ;
+            }
+            $dataArray = array(
+                'status' => 1,
+            );
+
+            $rechargeObj->data($dataArray);
+            $result = $rechargeObj->data($dataArray)->where('recharge_no = "'.$recharge_no.'"')->update();
+
+            if(!$result)
+            {
+                die('fail') ;
+            }
+
+            $money   = $rechargeRow['account'];
+            $user_id = $rechargeRow['user_id'];
+            $agenA = new \nainai\fund\agentAccount();
+            $res = $agenA->in($user_id, $money);
+            if($res)
+            {
+                $paymentInstance->notifyStop();
+                exit;
+            }
+        }
+        //支付失败
+        else
+        {
+            $paymentInstance->notifyStop();
+            exit;
+        }
+    }
 
 
 }
