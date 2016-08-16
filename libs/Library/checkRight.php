@@ -56,7 +56,7 @@ class checkRight{
         $ip=\Library\tool::getIP();
         $userModel->where(array('id'=>$data['id']))->data(array('session_id'=>$sessID,'login_ip'=>$ip,'login_time'=>date('Y-m-d H:i:s',time())))->update();
         $riskModel=new userRisk();
-        //$riskModel->checkUserAddress(['user_id'=>$data['id'],'ip'=>$ip]);
+        $riskModel->checkUserAddress(['user_id'=>$data['id'],'ip'=>$ip]);
         //获取认证状态
         $this->getCert($data['id']);
 

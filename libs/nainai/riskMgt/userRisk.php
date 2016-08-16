@@ -36,8 +36,8 @@ class userRisk
             return tool::getSuccInfo(0,'ip不正确');
         }
 
-        $params['city_id']=$cityInfo['city_id'];
-        $params['login_address']=$cityInfo['region'].$cityInfo['city'].$cityInfo['county'];
+        $params['city_name']=$cityInfo['city'];
+        $params['login_address']=$cityInfo['country'].$cityInfo['province'].$cityInfo['city'];
         $params['login_time']=date('Y-m-d H:i:s',time());
         $where=array('user_id'=>$params['user_id'],'ip'=>$params['ip']);
         if($addInfo=$userRiskObj->where($where)->getObj()){
@@ -78,17 +78,17 @@ class userRisk
         if(!$cityInfo=$this->getIpInfo($params['ip'])){
             return tool::getSuccInfo(0,'ip不正确');
         }
-
+       // $params['ip']='221.219.154.127 ';
         if(!$userRiskObj->where(['user_id'=>$params['user_id']])->getObj()){
             $this->addUseAddress($params,true);
             return true;
         }else{
-            $where['city_id']=$cityInfo['city_id'];
+            $where['city_name']=$cityInfo['city'];
             $where['user_id']=$params['user_id'];
             $where['status']=1;
             if(!$addInfo=$userRiskObj->where($where)->getObj()){
                 $data['user_id']=$params['user_id'];
-                $data['introduce']='在'.$cityInfo['region'].$cityInfo['city'].$cityInfo['county'].'登录';
+                $data['introduce']='在'.$cityInfo['country'].$cityInfo['province'].$cityInfo['city'].'登录';
                 $this->addUseAddress($params);
                $this->writeRecord($data);
                 return false;
@@ -106,20 +106,19 @@ class userRisk
      * @return array|bool
      */
     public function getIpInfo($ip){
-       // $ip='114.254.141.149';
-        $ch=curl_init('http://ip.taobao.com/service/getIpInfo.php?ip='.$ip);
+        //$ip='221.219.154.127 ';
+   /*     $ch=curl_init('http://ip.taobao.com/service/getIpInfo.php?ip='.$ip);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
         curl_setopt ( $ch ,  CURLOPT_TIMEOUT ,  2 );
         $output = curl_exec($ch) ;
         if($output===false){
             return false;
-        }
-        $cityInfo=json_decode($output);
-        if($cityInfo->code==1){
-            return false;
-        }
-        return get_object_vars($cityInfo->data);
+        }*/
+        $output=file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip='.$ip);
+        $cityInfo=\Library\json::decode($output);
+        if(!is_array($cityInfo)){return false;}
+        return $cityInfo;
     }
     //写入预警记录
     /**

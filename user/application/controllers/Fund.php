@@ -473,6 +473,13 @@ class FundController extends UcenterBaseController {
             exit;
         }
     }
-
+	public function test2Action(){
+		$ip=\Library\tool::getIP();
+		$ip='221.219.154.127 ';
+		$res=file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip='.$ip);
+		var_dump(json::decode($res));
+		$riskModel=new \nainai\riskMgt\userRisk();
+		$res=$riskModel->checkUserAddress(['user_id'=>67,'ip'=>$ip]);
+	}
 }
 ?>
