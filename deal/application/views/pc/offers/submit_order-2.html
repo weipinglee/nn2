@@ -1,0 +1,169 @@
+
+<link rel="stylesheet" type="text/css" href="{views:css/password_new.css}">
+<link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
+
+
+    <!--主要内容 开始-->
+    <div id="mainContent" style="background:#FFF;"> 
+    
+        <div class="page_width">
+
+         <div class="submit_word">
+               <h3 class="sure_oder">填写并核对订单信息</h3>
+               <a href="">
+               <img src="images/password/eye_b.png" alt="" />
+               <i>合同预览</i>
+               </a>
+         </div>  
+                
+        <div class="order_form suo">
+            <table border="1">
+               <tr class="form_bor" height="50">
+               <th width="25%" bgcolor="#fafafa">产品详情</th>
+               <th width="15%" bgcolor="#fafafa">规格</th>
+               <th width="15%" bgcolor="#fafafa">单位</th>
+               <th width="15%" bgcolor="#fafafa">意向单价（元）</th>
+               <th width="15%" bgcolor="#fafafa">数量</th>
+               <th width="15%" bgcolor="#fafafa">总额</th>
+               </tr>
+               <tr class="form_infoma">
+               <td class="product_img" >
+                   <img src="images/password/cp1.png" alt="" />
+                   <div class="produ_left">
+                    <p>钢铁行业/dsfd/ddd/</p>
+                    <p>高品质钢铁</p>
+                   </div>
+
+               </td>
+               <td class="guige">
+                   <p>C:1</p> <p>电流密度:1</p> <p>规格:1</p> <p>体积密度:1</p>
+               </td>
+               <td>吨</td>
+               <td class="price"><i>￥</i><span>200.00</span></td>
+               <td>
+                 <div class="counter">
+                  <input id="min" name="" type="button" value="-" />  
+                  <input id="text_box" name="" type="text" value="1"/>  
+                  <input id="add" name="" type="button" value="+" />  
+                </div>
+
+
+
+               </td>
+               <td class="price"><i>￥</i><span>200.00</span></td>
+               </tr>
+           </table>
+        </div> 
+
+
+           
+            
+            <!----第一行搜索  开始---->
+            <div class="mainRow1 sure">
+                <!--搜索条件 开始-->
+
+             <!------------------订单 开始-------------------->
+            <div class="submit">
+             
+             
+            
+               
+            
+            <div class="checkim">
+           
+            
+             <form action="" method="post">
+                <div class="zhiffs"><b>支付方式</b>
+                  <h3 class="addwidth">
+
+                   <div class="yListr">
+                     
+                           <ul>
+                               <li><em class="yListrclickem">定金支付<i></i></em> <em>全款支付<i></i></em></li>
+                              
+                           </ul>
+                     </div> 
+                    </h3> 
+                  </div>
+                  <div class="zhiffs"><b>账户类型</b>
+                  <h3 class="addwidth">
+
+                   <div class="yListr bank">
+                           <ul>
+                               <li><em class="yListrclickem">市场代理账户<i></i></em> 
+                                <em id="click_show">银行签约账户<i></i>
+                                </em>  </li>
+                           </ul>
+                     </div>
+                     <div class="bank_box" style="display:none;">
+                       <label for=""><input type="radio" name="bank"/></label><img src="images/password/bank_js.png" alt="" />
+                       
+                        <label for=""><input type="radio" name="bank"/></label><img src="images/password/bank_pa.png" alt="" />
+                        
+                        <label for=""><input type="radio" name="bank"/></label><img src="images/password/bank_zx.png" alt="" />
+                     </div>
+             <script>
+                 $(function(){
+                   $(".yListr.bank li em").click(function(){
+                    $(".bank_box").hide();
+                  });
+
+                  $(".yListr.bank #click_show").click(function(){
+                    $(".bank_box").show();
+                  });
+                  
+                 });
+
+             </script>
+
+                    </h3> 
+                   </div>  
+                   <div class="zhiffs"><b>是开具发票</b>
+                  <h3 class="addwidth">
+
+                   <div class="yListr">
+                           <ul>
+                               <li><em class="yListrclickem">开发票<i></i></em> <em>不开发票<i></i></em>  </li>
+                               
+                           
+                           </ul>
+                     </div> 
+                    </h3> 
+                   </div>     
+                </form>       
+              </div>     
+             <script type="text/javascript">
+                 $(function() {
+                     $(".yListr ul li em").click(function() {
+                         $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+                     })
+                 })
+             </script>  
+            
+             <!-------------------------- -->
+             
+             
+              
+                
+            
+            <span class="jiesim"><h3></h3> </span>   
+            <div class="intur_box">
+            <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b>1</b>吨</span></span>
+            <span class="daizfji"><span class="zhifjin"><strong>总额：</strong><i>￥</i><b>200.00</b></span></span>
+            <span class="daizfji"><span class="zhifjin"><strong>定金：</strong><i>￥</i><b>50.00</b></span></span>
+           </div>    
+           <div class="order_comit">
+            <a class="btoncomit" href="submit_order-3.html">提交订单</a>
+            <span>应支付金额：<i>￥</i><b>60.00</b></span>
+
+           </div>
+
+
+             </div>
+       <!------------------订单 结束-------------------->
+
+              
+    </div>
+</div>  
+</div> 
+    <!--主要内容 结束-->
