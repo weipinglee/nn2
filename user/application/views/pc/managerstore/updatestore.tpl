@@ -296,7 +296,7 @@
                                 <td nowrap="nowrap"><span></span>入库日期：</td>
                                 <td colspan="2"> 
                                     <span>
-                                        <input name="inTime"  value="{$detail['in_time']}" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+                                        <input name="inTime"  value="{$detail['in_time']}" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" type="text">
                                     </span>
                                     <span></span>
                                 </td>
@@ -305,7 +305,7 @@
                                 <td nowrap="nowrap"><span></span>租库日期：</td>
                                 <td colspan="2">
                                     <span>
-                                        <input name="rentTime"  value="{$detail['rent_time']}" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+                                        <input name="rentTime"  value="{$detail['rent_time']}" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" type="text">
 
                                     </span>
                                     <span></span>

@@ -53,7 +53,8 @@ class fundModel extends \nainai\user\UserBank{
 
             $res = $withdrawRequest->commit();
             if($res){
-                return tool::getSuccInfo(1,'','',$id);
+                return tool::getSuccInfo('1','','',$id);
+
             }
             else{
                 return tool::getSuccInfo(0,'提现失败');
