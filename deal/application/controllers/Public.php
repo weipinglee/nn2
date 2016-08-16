@@ -15,8 +15,17 @@ class PublicController extends \Yaf\Controller_Abstract{
           $frdLink = new \nainai\system\friendlyLink();
           $frdData = $frdLink->getFrdLink(10);
           $this->getView()->assign('frdData',$frdData);
-
-
+          //获取帮助
+          $helpModel=new \nainai\system\help();
+          $helpList=$helpModel->getHelplist();
+          $this->getView()->assign('helpList',$helpList);
+          //获得服务列表
+          $fuwuList=\nainai\SiteHelp::getFuwuList();
+          $this->getView()->assign('fuwuList',$fuwuList);
+          //获取友情链接
+          $frdLinkModel= new \nainai\system\friendlyLink();
+          $frdLinkList=$frdLinkModel->getFrdLink(6);
+          $this->getView()->assign('frdLinkList',$frdLinkList);
           if($isLogin){
                $this->login = \Library\session::get('login');
                $this->getView()->assign('login',1);

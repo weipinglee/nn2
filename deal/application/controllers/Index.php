@@ -76,9 +76,7 @@ class IndexController extends PublicController {
 		//获取当前和昨日成交量
 		$order_num = $order->getOrderTotal();
 		$order_num_yes = $order->getOrderTotal('yesterday');
-		//获取帮助
-		$helpModel=new \nainai\system\help();
-		$helpList=$helpModel->getHelplist();
+
 		//获取滚动的图片信息
 		$adModel=new \Library\ad();
 		$adList=$adModel->getAdListByName('滚动');
@@ -89,13 +87,10 @@ class IndexController extends PublicController {
 		}
 		//获取所有的推荐商户信息
 		$allCompany=\nainai\companyRec::getAllCompanyOrderByType();
-		//获取友情链接
-		$frdLinkModel= new \nainai\system\friendlyLink();
-		$frdLinkList=$frdLinkModel->getFrdLink(6);
-		$this->getView()->assign('frdLinkList',$frdLinkList);
+
 		$this->getView()->assign('allCompany',$allCompany);
 		$this->getView()->assign('adList',$adList);
-		$this->getView()->assign('helpList',$helpList);
+
 		$this->getView()->assign('creditMember',$creditMember);
 		$this->getView()->assign('statcCatList',\Library\json::encode($statcCatList));
 		$this->getView()->assign('statcProList',$statcProList);
