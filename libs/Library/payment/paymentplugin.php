@@ -31,7 +31,7 @@ abstract class paymentPlugin {
 		//回调函数地址
         $this->callbackUrl = url::createUrl("/Fund/rechargeCallback/?id=" . $payment_id);
         //回调业务处理地址
-        $this->serverCallbackUrl = url::createUrl("/Fund/serverCallback/?id=" . $payment_id);
+        $this->serverCallbackUrl = url::createUrl("/index/serverCallback/?id=" . $payment_id.'@deal');
         //退款回调地址
         $this->serverCallbackUrlForRefund = url::createUrl("/Fund/serverCallbackRefund/?id=" . $payment_id);
         //中断支付返回
