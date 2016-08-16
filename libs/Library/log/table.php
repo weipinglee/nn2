@@ -16,7 +16,11 @@ class table{
             'store_manager'=>'仓库管理员认证',
             'user_group'=>'用户组',
             'user_bank' => '开户信息',
-            'configs_general' => '配置表'
+            'configs_general' => '配置表',
+            'withdraw_request' => '提现申请',
+            'product_category' => '商品分类',
+            'product_attribute'=> '商品属性',
+
         );
     }
 
