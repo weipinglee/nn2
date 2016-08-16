@@ -56,7 +56,18 @@
                     </div>
                     <div class="col-4"> </div>
                 </div>
+                <div class="row cl">
+                    <label class="form-label col-2">上传图片就替换原图片：</label>
+                    <div class="formControls col-10">
+                        <input type="hidden" name="uploadUrl"  value="{url:system/slide/upload@admin}" />
+                        <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
+                    </div>
+                    <div>
+                        <img name="file2" src="{echo: \Library\Thumb::get($slideInfo['img'])}"  />
+                        <input type="hidden" name="imgfile2" value="{$slideInfo['img']}" />
 
+                    </div>
+                </div>
                 <div class="row cl">
                     <div class="col-9 col-offset-3">
                         <input type="hidden" value="{$helpCatInfo['id']}" name="id" />

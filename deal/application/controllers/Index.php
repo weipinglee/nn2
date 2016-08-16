@@ -5,13 +5,17 @@
  * @desc 默认控制器
  * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
  */
-use \DB\M;
+//use \DB\M;
 use \tool\http;
 //use \common\url;
-use \common\tool;
+//use \common\tool;
 use \nainai\offer\product;
 use \Library\url;
 use \Library\views\wittyAdapter;
+use \Library\json;
+use \Library\tool;
+use \Library\M;
+use \Library\safe;
 class IndexController extends PublicController {
 
 
@@ -24,12 +28,8 @@ class IndexController extends PublicController {
 	public function indexAction() {
 
 		$this->getView()->assign('index',1);
-		//获取所有分类
-		$productModel=new product();
-		$res=$productModel->getAllCat();
-		$res = array_slice($res,0,6);
-		$this->getView()->assign('catList',$res);
 
+		$productModel=new product();
 		$year = date('Y');
 		$month = date('m');
 		$day = date('d');
@@ -72,9 +72,7 @@ class IndexController extends PublicController {
 		//获取当前和昨日成交量
 		$order_num = $order->getOrderTotal();
 		$order_num_yes = $order->getOrderTotal('yesterday');
-		//获取帮助
-		$helpModel=new \nainai\system\help();
-		$helpList=$helpModel->getHelplist();
+
 		//获取滚动的图片信息
 		$adModel=new \Library\ad();
 		$adList=$adModel->getAdListByName('滚动');
@@ -85,13 +83,10 @@ class IndexController extends PublicController {
 		}
 		//获取所有的推荐商户信息
 		$allCompany=\nainai\companyRec::getAllCompanyOrderByType();
-		//获取友情链接
-		$frdLinkModel= new \nainai\system\friendlyLink();
-		$frdLinkList=$frdLinkModel->getFrdLink(6);
-		$this->getView()->assign('frdLinkList',$frdLinkList);
+
 		$this->getView()->assign('allCompany',$allCompany);
 		$this->getView()->assign('adList',$adList);
-		$this->getView()->assign('helpList',$helpList);
+
 		$this->getView()->assign('creditMember',$creditMember);
 		$this->getView()->assign('statcCatList',\Library\json::encode($statcCatList));
 		$this->getView()->assign('statcProList',$statcProList);
@@ -109,12 +104,42 @@ class IndexController extends PublicController {
 
 	public function foundAction(){
 
+    }
+    
+    public function doFoundAction(){
+        if(!$this->login)
+        {
+            die(json::encode(tool::getSuccInfo(0,'请登录后再操作', url::createUrl('/login/login@user'))));
+        }
+        else
+        {
+            $foundObj = new M('found');
+            $fData = array(
+                'product_name' => safe::filterPost('name'),
+                'spec' => safe::filterPost('spec'),
+                'num' => safe::filterPost('num'),
+                'place' => safe::filterPost('place'),
+                'user_name' => safe::filterPost('username'),
+                'phone' => safe::filterPost('phone'),
+                'area' => safe::filterPost('local'),
+                'user_id' => $this->login['user_id'],
+                'description' => safe::filterPost('desc'),
+                'create_time' => date('Y-m-d H:i:s')
+            );
+
+            $f_id = $foundObj->data($fData)->add();
+            if($f_id){
+                die(json::encode(\Library\tool::getSuccInfo()));
+            }
+            else
+            {
+                die(json::encode(\Library\tool::getSuccInfo(0, '服务器错误')));
+            }
+        }
+        
 	}
 
-	public function helpAction(){
+    public function helpAction(){
 
-	}
-
-
-
+    }
 }

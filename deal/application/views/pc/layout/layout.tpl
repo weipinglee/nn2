@@ -5,10 +5,8 @@
     </title><meta name="Keywords" content="耐火材料、耐耐网"><meta name="Description" content="耐火材料、耐耐网">
     <script type="text/javascript" defer="" async="" src="{views:js/uta.js}"></script>
     <script src="{views:js/jquery-1.7.2.min.js}" type="text/javascript" language="javascript"></script>
-    <!-- 帮助中心页 常见问题 -->
-    <link rel="stylesheet" type="text/css" href="{views:css/help.css}"/>
-    <script src="{views:js/help.js}" type="text/javascript"/>
-    <!-- 帮助页 常见问题end -->
+
+
     <script src="{views:js/gtxh_formlogin.js}" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="{views:css/index20141027.css}">
     <link rel="stylesheet" href="{views:css/classify.css}">
@@ -39,6 +37,10 @@
         });
     </script>
     <![endif]-->
+    <!-- 帮助中心页 常见问题 -->
+    <link rel="stylesheet" type="text/css" href="{views:css/help.css}"/>
+    <script src="{views:js/help.js}" type="text/javascript" ></script>
+    <!-- 帮助页 常见问题end -->
 </head>
 <body style="background:#f5f5f5;">
 
@@ -101,7 +103,7 @@ z-index:1000;">
                     <a href="">手机版</a><span class="line_l">|<span>
                 </li>
                 <li>
-                    <a href="">在线客服</a><span class="line_l">|<span>
+                    <a href="" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><span class="line_l">|<span>
                 </li>
                 <li>
                     <a href="">交易时间：09:00--18:00</a>
@@ -134,7 +136,7 @@ z-index:1000;">
             </div>
             <div class="bodys">
                 <p class="keyword_0"><input type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="product.html"><button class="one1">搜索</button></a></p>
-                <p class="keyword_1"><input type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="product.html"><button class="two2">搜索</button></a></p>
+                <p class="keyword_1" style="display: none"><input type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="product.html"><button class="two2">搜索</button></a></p>
             </div>
         </div>
         <div class="index_phone">
@@ -153,7 +155,7 @@ z-index:1000;">
             <li class="current"><a href="http://www.nainaiwang.com/">首页</a></li>
             <li><a href="product.html" target="_blank">交易中心</a></li>
             <li><a href="news.html" target="_blank">仓储专区</a></li>
-            <li><a href="auction.html" target="_blank">帮我找</a></li>
+            <li><a href="{url:/index/found}" target="_blank">帮我找</a></li>
         </ul>
     </div>
 </div>
@@ -168,30 +170,12 @@ z-index:1000;">
     <div class="i_service clearfix">
         <div class="iServiceCon clearfix">
             <ul>
+                {foreach:items=$fuwuList}
                 <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_free.png}"/></div>
-                    <div class="wi_fw">免费撮合</div>
-                </li><!--
-                    <li class="iServiceTit">
-                        <div class="fw_img"><img src="{views:images/index/icon_financial.png}"/></div>
-                        <div class="wi_fw">金融服务</div>
-                    </li> -->
-                <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_fw3.png}"/></div>
-                    <div class="wi_fw">保险服务</div>
+                    <div class="fw_img"><img src="{echo:\Library\Thumb::get($item['img'])}"/></div>
+                    <div class="wi_fw"><a href="{url:help/help}?cat_id={$item['cat_id']}&id={$item['id']}">{$item['name']}</a></div>
                 </li>
-                <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_fw7.png}"/></div>
-                    <div class="wi_fw">仓储服务</div>
-                </li>
-                <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_fw5.png}"/></div>
-                    <div class="wi_fw">软文服务</div>
-                </li>
-                <li class="iServiceTit">
-                    <div class="fw_img"><img src="{views:images/index/icon_fw6.png}"/></div>
-                    <div class="wi_fw">定制报告</div>
-                </li>
+                {/foreach}
             </ul>
         </div>
     </div>
@@ -216,11 +200,11 @@ z-index:1000;">
     <div class="footer_link clearfix">
         <div class="foter_width">
             <ul>
-                {foreach: items=$helpList}
+                {foreach: items=$helpList2}
                     <li class="footer_li">
-                        <a class="fotter_div" href="{url:/help/help}?cat_id={$item['cat_id']}" target="_blank"><b>{$item['name']}</b></a>
+                        <a class="fotter_div" " target="_blank"><b>{$item['name']}</b></a>
                         {foreach: items=$item['data'] item=$v key=$k}
-                            <a class="fotter_a" href="{url:/help/help}?id={$v['id']}" target="_blank">{$v['name']}</a>
+                            <a class="fotter_a" href="{url:/help/help}?cat_id={$v['cat_id']}&id={$v['id']}" target="_blank">{$v['name']}</a>
                         {/foreach}
                     </li>
                 {/foreach}

@@ -180,6 +180,8 @@
                                 <li><a href="{url:trade/complain/complainList?=&status=1}" target="content">已处理申述列表</a></li>
                             </ul>
                         </li>
+                        <li><a href="{url:trade/found/foundList}" target="content">找货信息列表</a>
+                        </li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>

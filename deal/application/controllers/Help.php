@@ -11,6 +11,8 @@ class HelpController extends PublicController
     public function helpAction(){
         //获取帮助
         $helpModel=new \nainai\system\help();
+        $helpModel->helpLimit='';
+        $helpModel->helpCatLimit='';
         $helpList=$helpModel->getHelplist();
         $this->getView()->assign('helpList',$helpList);
         $cat_id=\Library\safe::filterGet('cat_id');
@@ -22,5 +24,4 @@ class HelpController extends PublicController
         $this->getView()->assign('helpCatInfo',$helpCatInfo);
 
     }
-
 }

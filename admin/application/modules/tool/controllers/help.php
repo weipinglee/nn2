@@ -51,6 +51,8 @@ class helpController extends Yaf\Controller_Abstract{
             $data['sort']=\Library\safe::filterPost('sort','int');
             $data['link']=\Library\safe::filterPost('link');
             $data['content']=$_POST['introduce'];
+            $img=\Library\safe::filterPost('imgfile2');
+            $data['img']=\Library\tool::setImgApp($img);
             $id=\Library\safe::filterPost('id','int');
             if($id){
                 $data['id']=$id;
@@ -84,6 +86,7 @@ class helpController extends Yaf\Controller_Abstract{
             $data['sort']=\Library\safe::filterPost('sort','int');
             $data['status']=\Library\safe::filterPost('status','int');
             $id=\Library\safe::filterPost('id','int',0);
+            $data['img']=\Library\safe::filterPost('imgfile2');
             if($id!=0){
                 $data['id']=$id;
                 $res=$helpCatModel->helpCatEdit($data);
