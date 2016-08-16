@@ -26,7 +26,7 @@
                 style="border:1px #000 solid; border-collapse:collapse; margin:10px 0px;">
                     <tr style="height:35px">
                         <td style="padding:0 10px; " width="110px">卖方（甲方）</td>
-                        <td style="padding:0 10px; " width="110px">{$info['userinfo']['true_name']}</td>
+                        <td style="padding:0 10px; " width="110px">{$info['seller_name']}</td>
                         <td style="padding:0 10px; " width="110px">合同编号</td>
                         <td style="padding:0 10px; " width="110px">{$info['order_no']}</td>
                     </tr>
@@ -52,7 +52,7 @@
                     </tr>
                     <tr style="height:35px">
                         <td width="100px" style="padding:0 10px">商品规格:</td>
-                        <td style="padding:0 10px"></td>
+                        <td style="padding:0 10px">{$info['attrs']}</td>
                     </tr>
                     <tr style="height:35px">
                         <td width="100px" style="padding:0 10px">生产地:</td>

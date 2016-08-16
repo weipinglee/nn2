@@ -228,9 +228,9 @@ class Order{
 			if($offer_exist === false) return tool::getSuccInfo(0,'报盘不存在或未通过审核');
 		}
 		$offer_info = $this->offerInfo($orderData['offer_id']);
-		// if($offer_info['user_id'] == $orderData['user_id']){
-		// 	return tool::getSuccInfo(0,'买方卖方为同一人');
-		// }
+		if($offer_info['user_id'] == $orderData['user_id']){
+			return tool::getSuccInfo(0,'买方卖方为同一人');
+		}
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
 			if($product_valid !== true)
@@ -359,7 +359,7 @@ class Order{
 								$res = $upd_res['info'];
 							}
 							if($res === true){
-								$note = '支付合同'.$info['order_no'].'尾款';
+								$note = '支付合同'.$info['order_no'].'尾款 '.$retainage;
 								$account = $this->base_account->get_account($account);
 								if(!is_object($account)) return tool::getSuccInfo(0,$account);
 								$acc_res = $account->freeze($buyer,$retainage,$note);
@@ -656,6 +656,8 @@ class Order{
 			if($order['contract_status'] == self::CONTRACT_DELIVERY_COMPLETE){
 				$offerInfo = $this->offerInfo($order['offer_id']);
 				$buyer = $offerInfo['type'] == 1 ? $order['user_id'] : $offerInfo['user_id'];
+				if($reduceData['reduce_amount'] >= $order['pay_deposit'])
+					return tool::getSuccInfo(0,'扣减货款超过定金数额');
 				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'操作用户错误');
 				$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//状态置为买家已确认质量
@@ -730,12 +732,14 @@ class Order{
 							$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage) : is_object($account_deposit);
 
 							if($cond){
-								$deposit_res = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6);
+								$note = '卖方确认合同'.$info['order_no'].'解冻支付定金部分60%'.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+								$deposit_res = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6,$note);
 
 								if($deposit_res !== true) {
 									$error = $deposit_res;
 								}else{
-									$retainage_res = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.6) : true;
+									$note = '卖方确认合同'.$info['order_no'].'解冻支付尾款部分60%'.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+									$retainage_res = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.6,$note) : true;
 									$error = $retainage_res === true ? '' : $retainage_res;
 								}
 							}else{
@@ -809,19 +813,23 @@ class Order{
 						$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage): is_object($account_deposit);
 						$cond = $order['seller_deposit'] ? $cond && is_object($account_seller_deposit) : $cond;
 						if($cond){
-							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit']) : true;
+							$note = '买方确认合同完成'.$info['order_no'].'解冻卖方保证金 '.$order['seller_deposit'];
+							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit'],$note) : true;
 
 							if($r1 === true){
-								$r2 = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$reduce_amount)*0.4);
+								$note = '买方确认合同完成'.$info['order_no'].'解冻支付定金部分40%'.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+								$r2 = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$reduce_amount)*0.4,$note);
 								
 								if($r2 !== true){
 									$error = $r2;
 								}else{
-									$r3 = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.4) : true;	
+									$note = '买方确认合同完成'.$info['order_no'].'解冻支付尾款部分40%'.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+									$r3 = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.4,$note) : true;	
 									if($r3 !== true){
 										$error = $r3;
 									}else{
-										$r4 = $reduce_amount > 0 ? $account_deposit->freezeRelease($buyer,$reduce_amount) : true;			
+										$note = '买方确认合同完成'.$info['order_no'].'解冻扣减货款 '.$reduce_amount;
+										$r4 = $reduce_amount > 0 ? $account_deposit->freezeRelease($buyer,$reduce_amount,$note) : true;			
 										$error = $r4 === true ? '' : $r4;
 									}
 								}
@@ -960,9 +968,11 @@ class Order{
 			$query->join = 'left join store_products as sp on s.id = sp.store_id';
 			$query->where = 'sp.product_id = :product_id';
 			$query->bind = array('product_id'=>$res['product_id']);
-			$query->fields = 's.name as store_name';
+			$query->fields = 's.name as store_name,s.area,s.address';
 			$data = $query->getObj();
 			$res['store_name'] = $data['store_name'];
+			$res['store_area'] = $data['area'];
+			$res['store_address'] = $data['address'];
 		}else{
 			$res['store_name'] = '-';
 		}

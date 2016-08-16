@@ -99,7 +99,7 @@
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
                               <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
-                                  {$data['pay_retainage']}
+                                  {$data['topay_retainage']}
                               </span>   
                       </td>
                     </tr>

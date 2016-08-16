@@ -30,7 +30,7 @@ class DepositOrder extends Order{
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
 			$buyer = $offerInfo['type'] == 1 ? intval($info['user_id']) : $this->sellerUserid($order_id);
-				
+			
 			if($info['contract_status'] != self::CONTRACT_NOTFORM)
 				return tool::getSuccInfo(0,'合同状态有误');
 			if($buyer != $user_id)
@@ -67,7 +67,7 @@ class DepositOrder extends Order{
 					//冻结买方帐户资金  payment=1 余额支付
 					$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
 					$note_type = $type==0 ? '订金' : '全款';
-					$note = '合同'.$note_id.$note_type.'支付';
+					$note = '合同'.$note_id.$note_type.'支付 '.$info['amount'];
 					
 					$account = $this->base_account->get_account($payment);
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);
@@ -146,7 +146,7 @@ class DepositOrder extends Order{
 						$percent = (floatval($sys_percent) * floatval($user_percent['caution_fee'])) / 10000;
 						$seller_deposit = number_format(floatval($info['amount'] * $percent),2);
 						//冻结卖方帐户保证金
-						$note = '支付合同'.$info['order_no'].'保证金';	
+						$note = '支付合同'.$info['order_no'].'保证金 '.$seller_deposit;	
 
 						$orderData['seller_deposit_payment'] = $payment;
 						$orderData['seller_deposit'] = $seller_deposit;

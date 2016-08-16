@@ -1,3 +1,6 @@
+<script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
+<script type="text/javascript" src='{root:js/area/Area.js}'></script>
+<script type="text/javascript" src='{root:js/area/AreaData_min.js}'></script>
 
 			<!--end左侧导航-->	
 			<!--start中间内容-->	
@@ -16,6 +19,31 @@
                     </div>
 
 						<table border="0">
+                            <tr>
+                                <td nowrap="nowrap"><span></span>商品名称：</td>
+                                <td colspan="2">
+                                    {$info['order']['name']}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td nowrap="nowrap"><span></span>接收地点：</td>
+                                <td colspan="2">
+                                    
+                                    {$info['order']['accept_area']}
+                                </td>
+                            </tr>
+
+                            {if:$info['order']['mode'] == \nainai\order\Order::ORDER_STORE}
+                                <tr>
+                                    <td nowrap="nowrap"><span></span>所在仓库：</td>
+                                    <td colspan="2" id='areatext'>
+                                        {areatext:data=$info['order']['store_area']}&nbsp;
+                                        {$info['order']['store_address']}&nbsp;
+                                        {$info['order']['store_name']}
+                                    </td>
+                                </tr>
+                            {/if}
+                           
                             <tr>
                                 <td nowrap="nowrap"><span></span>提货数量：</td>
                                 <td colspan="2">
