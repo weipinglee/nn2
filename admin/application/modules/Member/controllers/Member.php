@@ -251,6 +251,9 @@ class MemberController extends InitController {
 		exit(json::encode(tool::getSuccInfo(0, 'error id')));
 	}
 
+	/**
+	 * 带审核
+	 */
 	public function applyPayListAction(){
 		$model = new \nainai\user\ApplyResetpay();
 		$condition = array('status' => $model::APPLY);
@@ -260,6 +263,9 @@ class MemberController extends InitController {
 		$this->getView()->assign('data',$data);
 	}
 
+	/**
+	 * 已审核
+	 */
 	public function checkPayListAction(){
 		$model = new \nainai\user\ApplyResetpay();
 		$condition = array('status' => implode(',', array($model::APPLY_OK, $model::APPLY_NO)));
@@ -269,8 +275,79 @@ class MemberController extends InitController {
 		$this->getView()->assign('data',$data);
 	}
 
+	/**
+	 * 等待重置密码
+	 */
+	public function resetpayListAction(){
+		$model = new \nainai\user\ApplyResetpay();
+		$condition = array('status' => $model::APPLY_OK);
+
+		$data = $model->getList($condition);
+
+		$this->getView()->assign('data',$data);
+	}
+
 	public function paydetailAction(){
-		
+		$id = $this->getRequest()->getParam('id');
+		$id = safe::filter($id);
+
+		if (intval($id) > 0) {
+			$model = new \nainai\user\ApplyResetpay();
+
+			$data = $model->getDetail($id);
+			$this->getView()->assign('data', $data);
+		}
+	}
+
+	/**
+	 * 审核申请支付修改密码
+	 */
+	public function docheckAction(){
+		$id = safe::filterPost('id', 'int');
+		if (intval($id) > 0) {
+			$model = new \nainai\user\ApplyResetpay();
+			$status = safe::filterPost('status', 'int');
+			$data = array('status' => ($status == 1) ? $model::APPLY_OK : $model::APPLY_NO);
+			$data['msg'] = safe::filterPost('msg');
+
+			$res = $model->updateApplyResetpay($data, $id);
+		}else{
+			$res = tool::getSuccInfo(0, 'Error iD');
+		}
+
+		exit(json::encode($res));
+	}
+
+	/**
+	 * 重置支付密码
+	 */
+	public function resetAction(){
+		$id = safe::filterPost('id', 'int');
+
+		if (intval($id) > 0) {
+			$pwd = rand(10000000,99999999);
+			$model = new \nainai\user\ApplyResetpay();
+			$info = $model->getDetail($id);
+			$str = '自动生成的支付密码：' . $pwd;
+
+			if ($info['status'] == $model::APPLY_OK) {
+				$hsms=new Library\Hsms();
+				if(!$hsms->send($info['mobile'],$str)){
+					$res = tool::getSuccInfo(0, '发送短信失败');
+				}else{
+					$usermodel = new \nainai\user\User();
+					$data = array('pay_secret' => md5($pwd));
+					$res = $usermodel->updateUser($data, $info['uid']);
+				}
+			}else{
+				$res = tool::getSuccInfo(0, 'Error status');
+			}
+			
+		}else{
+			$res = tool::getSuccInfo(0, 'Error iD');
+		}
+
+		exit(json::encode($res));
 	}
 
 

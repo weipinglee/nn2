@@ -109,7 +109,30 @@ $(function () {
         } else {
             return false;
         }
-    })
+    });
+
+    $("#btnSubmit3").click(function () {
+            $.ajax({
+                type: "post",
+                url: findUrl,
+                data: {
+                    "name": $("#txtname").val(),
+                    "no": $("#txtno").val(),
+                    "noimg": $("#noimg").val(),
+                    "applyimg": $("#applyimg").val()
+                },
+                dataType: "json",
+                success: function (msg) {
+                   // debugger;
+                    if(msg.success==0){
+                        alert(msg.info);
+                    }else{
+                        window.location=msg.returnUrl;
+                    }
+
+                }
+            });
+    });
 
     //格式化提交
     function encryptCode(str) {
@@ -139,7 +162,7 @@ $(function () {
         $.ajax({
             type: "post",
             url: codeUrl,
-            data: { "mobile": $("#txtMobile").val(), "code":$("#inputCode").val(),"channel": '找回密码' },
+            data: { "mobile": $("#txtMobile").val(), "code":$("#inputCode").val(),'uid':$('#uid').val()},
             dataType: "json",
             success: function (msg) {
                 if(msg.success==1){

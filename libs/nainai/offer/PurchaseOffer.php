@@ -44,7 +44,16 @@ class PurchaseOffer extends product {
 				return tool::getSuccInfo(0, $this->_productObj->getError());
 			}
 
-			$this->_productObj->table('product_offer')->data($offerData)->add(1);
+			$id = $this->_productObj->table('product_offer')->data($offerData)->add(1);
+			if ($id > 0) {
+
+		                    $title =    '采购报盘审核';
+		                    $content = '采购报盘' . $productData[0]['name'] . '需要审核';
+
+		                    $adminMsg = new \nainai\adminMsg();
+		                    $adminMsg->createMsg('checkoffer',$id,$content,$title);
+		             };
+
 			$imgData = $productData[1];
 			if (!empty($imgData)) {
 				foreach ($imgData as $key => $imgUrl) {
