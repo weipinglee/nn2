@@ -314,7 +314,7 @@
                                             <td nowrap="nowrap"><span></span>入库日期：</td>
                                             <td colspan="2">
                                                 <span>
-                                                    <input name="inTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+                                                    <input name="inTime" value="" datatype="*" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
                                                 </span>
                                                 <span></span>
                                             </td>
@@ -323,7 +323,7 @@
                                             <td nowrap="nowrap"><span></span>租库日期：</td>
                                             <td colspan="2">
                                                 <span>
-                                                    <input name="rentTime" value="" datatype="datetime" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
+                                                    <input name="rentTime" value="" datatype="*" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:'yyyy-MM-dd H:mm:ss'});" type="text">
 
                                                 </span>
                                                 <span></span>
@@ -359,7 +359,7 @@
                                             <td>质检证书：</td>
                                             <td>
                                                 <div class="zhxi_con">
-                                                    <span><input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
+                                                    <span class="input-file">选择文件<input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
                                                     <input type="hidden" name="imgfile2" value="" datatype="*" nullmsg="请上传质检证书" />
 
                                                 </div>

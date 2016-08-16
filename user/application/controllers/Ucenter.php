@@ -638,6 +638,10 @@ class UcenterController extends UcenterBaseController {
         $this->getView()->assign('mapPlupload',$mapPlupload->show());
     }
 
+    public function paysecret1Action(){
+
+    }
+
 
 
 }
