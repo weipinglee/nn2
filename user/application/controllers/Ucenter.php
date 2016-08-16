@@ -13,6 +13,7 @@ use \Library\safe;
 use \Library\Thumb;
 use \Library\tool;
 use \Library\PlUpload;
+use \Library\Captcha;
 
 class UcenterController extends UcenterBaseController {
 
@@ -638,10 +639,115 @@ class UcenterController extends UcenterBaseController {
         $this->getView()->assign('mapPlupload',$mapPlupload->show());
     }
 
-    public function paysecret1Action(){
+    /**
+     * 支付密码step1
+     */
+    public function paysecretsAction(){
+        $model = new UserModel();
+        $info = $model->getUserInfo($this->user_id);
 
+        $this->getView()->assign('info', $info);
     }
 
+    //获取手机验证码
+    public function getMobileCodeAction(){
+        if (IS_POST || IS_AJAX) {
+            $mobile = safe::filterPost('mobile');
+            $code = safe::filterPost('code');
+            $captchaObj = new captcha();
+            if (!$captchaObj->check($code)) {
+                // die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
+            }
+            $userObj = new UserModel();
+            $info = $userObj->getUserInfo($this->user_id);
+            if ($info['mobile'] != $mobile) {
+                die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码手机不一致')));
+            }
+            $res = $userObj->getForgetMobileCode($mobile, $this->user_id);
+            die(JSON::encode($res));
+        }
+        exit(JSON::encode(tool::getSuccInfo(0, 'Error Request')));
+    }
+
+    public function checkpayMobileCodeAction(){
+        $code = safe::filterPost('code');
+        $uid = safe::filterPost('uid');
+        $mobile = safe::filterPost('mobile');
+
+        if (empty($uid) || empty($code)) {
+            exit(json::encode(tool::getSuccInfo(0, 'Error Request')));
+        }
+
+        $model = new UserModel();
+        $info = $model->getPasswordInfo($uid);
+        if (time() - strtotime($info['apply_time']) > 15*60) {
+            exit(json::encode(tool::getSuccInfo(0, '过期的验证')));
+        }
+        
+
+        if ($info['pay_code'] == $code) {
+            $model->clearPassword($uid);
+            $info = $model->getUserInfo($this->user_id);
+            if ($info['type'] == 1) {
+                $url = url::createUrl('/ucenter/paysecretcompany');
+            }else{
+                $url = url::createUrl('/ucenter/paysecretperson');
+            }
+            exit(json::encode(tool::getSuccInfo(1, 'success', $url)));
+        }else{
+            exit(json::encode(tool::getSuccInfo(0, '验证码错误')));
+        }
+    }
+
+    public function paysecretpersonAction(){
+         if (IS_POST || IS_AJAX) {
+
+            $model = new UserModel();
+            $resetModel = new \nainai\user\ApplyResetpay();
+            $info = $model->getUserInfo($this->user_id);
+            $data = array(
+                'name' => safe::filterPost('name'),
+                'ident_no' => safe::filterPost('no'),
+                'ident_img' => safe::filterPost('noimg'),
+                'apply_img' => safe::filterPost('applyimg'),
+                'apply_time' => \Library\Time::getDateTime(),
+                'uid' => $this->user_id,
+                'status' => $resetModel::APPLY,
+                'type' => 0,
+                'mobile' => $info['mobile']
+            );
+            $res = $resetModel->addApplyResetpay($data);
+           $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
+            exit(json::encode($res));
+        }
+    }
+
+    public function paysecretcompanyAction(){
+        if (IS_POST || IS_AJAX) {
+
+            $model = new UserModel();
+            $resetModel = new \nainai\user\ApplyResetpay();
+            $info = $model->getUserInfo($this->user_id);
+            $data = array(
+                'company_name' => safe::filterPost('name'),
+                'legal_person' => safe::filterPost('no'),
+                'ident_img' => safe::filterPost('noimg'),
+                'apply_img' => safe::filterPost('applyimg'),
+                'apply_time' => \Library\Time::getDateTime(),
+                'uid' => $this->user_id,
+                'status' => $resetModel::APPLY,
+                'type' => 1,
+                'mobile' => $info['mobile']
+            );
+            $res = $resetModel->addApplyResetpay($data);
+           $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
+            exit(json::encode($res));
+        }
+    }
+
+    public function paysecretendAction(){
+
+    }
 
 
 }

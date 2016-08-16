@@ -21,7 +21,6 @@
 				<th width="90">联系电话</th>
 				<th width="150">申请时间</th>
 				<th width="130">状态</th>
-				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,8 +33,6 @@
 				<td>{$item['mobile']}</td>
 				<td>{$item['apply_time']}</td>
 				<td>{$item['status_txt']}</td>
-				<td class="td-manage">
-				<a title="编辑" href="{url:member/member/paydetail?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> </td>
 			</tr>
 		{/foreach}
 		</tbody>
