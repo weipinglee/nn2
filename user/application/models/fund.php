@@ -53,10 +53,8 @@ class fundModel extends \nainai\user\UserBank{
 
             $res = $withdrawRequest->commit();
             if($res){
-                    $adminmsg=new \nainai\AdminMsg();
-                    $content='有一笔提现需要处理';
-                    $adminmsg->createMsg('fundoutfirst',$id,$content);
-                return tool::getSuccInfo();
+
+                return tool::getSuccInfo('1','','',$id);
             }
             else{
                 return tool::getSuccInfo(0,'提现失败');

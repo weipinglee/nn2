@@ -133,7 +133,7 @@ class FundController extends UcenterBaseController {
 				die(json::encode(\Library\tool::getSuccInfo(0,'金额不正确')) ) ;
 			}
 			//var_dump($_FILES);
-			if ($proof) {
+			if (111) {
 
 				$rechargeObj = new M('recharge_order');
 				$reData = array(
@@ -252,8 +252,8 @@ class FundController extends UcenterBaseController {
 		$res = $fundModel->fundOutApply($user_id,$data);
 		if($res['success']==1){
 			$adminmsg=new \nainai\AdminMsg();
-			$content='有一笔提现需要处理';
-			$adminmsg->createMsg('fundoutfirst',$data['user_id'],$content);
+			$content='编号为'.$user_id.'的用户有一笔提现需要处理';
+			$adminmsg->createMsg('fundoutfirst',$res['id'],$content);
 		}
 		die(json::encode($res));
 

@@ -69,11 +69,12 @@ class FundoutController extends InitController {
 			//if(!$id) $id = intval($this->_request->getParam('id'));
 			$status = safe::filterPost('status', 'int');
 			$message = safe::filterPost('message');
+			$userName=safe::filterPost('user_name');
 			$fundOutModel = new fundOutModel();
 			$res = $fundOutModel->fundOutFirst($id, $status, $message);
 			if($res['code']==1){
 				$adminmsg=new \nainai\AdminMsg();
-				$content='有一笔提现需要终审';
+				$content='用户'.$userName.'有一笔提现需要终审';
 				$adminmsg->createMsg('fundoutfinal',$id,$content);
 				$adminmsg->setStatus($this,$id);
 			}
@@ -87,11 +88,12 @@ class FundoutController extends InitController {
 			$id = safe::filterPost('out_id', 'int');
 			$status = safe::filterPost('status', 'int');
 			$message = safe::filterPost('message');
+			$userName=safe::filterPost('user_name');
 			$fundOutModel = new fundOutModel();
 			$res = $fundOutModel->fundOutFinal($id, $status, $message);
 			if($res['code']==1){
 				$adminmsg=new \nainai\AdminMsg();
-				$content='有一笔提现需要打款';
+				$content='用户'.$userName.'有一笔提现需要打款';
 				$adminmsg->createMsg('fundouttransfer',$id,$content);
 				$adminmsg->setStatus($this,$id);
 			}

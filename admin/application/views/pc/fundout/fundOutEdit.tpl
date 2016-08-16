@@ -173,7 +173,7 @@
             });
         }
         function setStatus(status,msg,mess){
-            formacc.ajax_post("{$outInfo['url']}",{out_id:"{$outInfo['id']}",status:status,message:mess},function(){
+            formacc.ajax_post("{$outInfo['url']}",{out_id:"{$outInfo['id']}",status:status,message:mess,user_name:"{$outInfo['username']}"},function(){
                 layer.msg(msg+"稍后自动跳转");
              setTimeout(function(){
                     if("{$outInfo['action']}"=='firstCheck'){

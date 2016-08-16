@@ -73,12 +73,13 @@ class FundinController extends InitController {
 
 		$status = safe::filterPost('status', 'int');
 		$mess  = safe::filterPost('message');
+		$userName=safe::filterPost('user_name');
 		$fundObj = new fundInModel();
 
 		$res = $fundObj->offLineFirst($id,$status,$mess);//初审操作
 		if($res['success']==1){
 			$adminMsg = new \nainai\adminMsg();
-			$content='有一笔入金需要终审';
+			$content='用户'.$userName.'有一笔入金需要终审';
 			$adminMsg->setStatus($this,$id);
 			$adminMsg->createMsg('fundinFinal',$id,$content);
 		}
