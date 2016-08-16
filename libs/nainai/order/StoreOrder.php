@@ -30,6 +30,7 @@ class StoreOrder extends Order{
 			if($info['user_id'] != $user_id)
 				return tool::getSuccInfo(0,'订单买家信息有误');
 			$orderData['id'] = $order_id;
+			$orderData['buyer_deposit_payment'] = $payment;
 			if($type == 0){
 				//定金支付
 				$orderData['contract_status'] = self::CONTRACT_BUYER_RETAINAGE;//合同状态置为等待买方支付尾款
@@ -56,7 +57,10 @@ class StoreOrder extends Order{
 					//冻结买方帐户资金 
 					$account = $this->base_account->get_account($payment);
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);
-					$acc_res = $account->freeze($info['user_id'],$orderData['pay_deposit']);
+					$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
+					$note_type = $type==0 ? '订金' : '全款';
+					$note = '合同'.$note_id.$note_type.'支付 '.$info['amount'];
+					$acc_res = $account->freeze($info['user_id'],$orderData['pay_deposit'],$note);
 					if($acc_res === true){
 						$log_res = $this->payLog($order_id,$user_id,0,'买方支付预付款--'.($type == 0 ? '定金' : '全款'));
 						$res = $log_res === true ? true : $log_res;

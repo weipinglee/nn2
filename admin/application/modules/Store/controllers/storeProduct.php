@@ -2,12 +2,13 @@
 /**
  * @name storeController
  * @author weipinglee
- * @desc �û����������?
+ * @desc ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
  */
 use \Library\safe;
 use \Library\Thumb;
 use \nainai\subRight;
 use \Library\tool;
+use \Library\json;
 class storeProductController extends Yaf\Controller_Abstract{
 
     public function init(){
@@ -16,19 +17,19 @@ class storeProductController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * ��ȡ�ֵ��б�
+     * ï¿½ï¿½È¡ï¿½Öµï¿½ï¿½Ð±ï¿½
      */
    public function getListAction(){
        $page = safe::filterGet('page','int',1);
-      
 
         $obj = new storeProductModel();
        $data = $obj->getList($page);
+
        $this->getView()->assign('list',$data);
     }
 
     /**
-     * ����˲ֵ�?
+     * ï¿½ï¿½ï¿½ï¿½Ë²Öµï¿?
      */
     public function reviewListAction(){
         $page = safe::filterGet('page','int',1);
@@ -39,7 +40,7 @@ class storeProductController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * ����˲ֵ�����?
+     * ï¿½ï¿½ï¿½ï¿½Ë²Öµï¿½ï¿½ï¿½ï¿½ï¿?
      */
     public function reviewDetailsAction(){
 
@@ -61,7 +62,7 @@ class storeProductController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * �ֵ�����
+     * ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public function detailsAction(){
         $id = $this->getRequest()->getParam('id');
@@ -89,6 +90,23 @@ class storeProductController extends Yaf\Controller_Abstract{
             die(\Library\JSON::encode($res));
         }
         return false;
+    }
+
+    public function deleteAction(){
+        $id = $this->getRequest()->getParam('id');
+        $id = safe::filter($id,'int');
+
+        $obj = new storeProductModel();
+        if (intval($id) > 0) {
+            $res = $obj->delete($id);
+            if ($res == true) {
+                exit(json::encode(tool::getSuccInfo(1)));
+            }else{
+                exit(json::encode(tool::getSuccInfo(0, '操作失败')));
+            }
+        }
+
+        exit(json::encode(tool::getSuccInfo(0, 'Error id')));
     }
 
 

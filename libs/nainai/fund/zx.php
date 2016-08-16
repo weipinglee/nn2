@@ -453,7 +453,7 @@ class zx extends account{
      * @return array 
      */
     public function freezeTrans($user_id,$date){
-        $date = $date ? $date : '20160101';
+        $date = strlen($date)<=8 ? $date : '20160101';
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
        // var_dump($payAccInfo);exit;
         $starDate = date('Ymd',strtotime($date));

@@ -238,6 +238,11 @@
 
                             </ul>
                         </li>
+                        <li><a target="content">收费明细</a>
+                            <ul>
+                                <li><a href="{url:balance/paytoMarket/index}" target="content">明细列表</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 统计管理</a>

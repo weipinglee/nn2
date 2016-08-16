@@ -106,7 +106,7 @@ class OrderController extends UcenterBaseController{
 			$info = $this->order->orderInfo($order_id);
 			$amount = $info['amount'];
 			$reduce_amount = safe::filterPost('amount','floatval');
-			$reduce_amount = !$reduce_amount || $reduce_amount > $amount || $reduce_amount < 0 ? 0 : $reduce_amount;
+			$reduce_amount = (!$reduce_amount || $reduce_amount > $amount || $reduce_amount < 0) ? 0 : $reduce_amount;
 			if(!$reduce_amount){
 				die(json::encode(tool::getSuccInfo(0,'扣减金额错误')));
 			}
@@ -114,6 +114,7 @@ class OrderController extends UcenterBaseController{
 			$reduceData['reduce_remark'] = safe::filterPost('remark');
 			$res = $this->order->verifyQaulity($order_id,$this->user_id,$reduceData);
 			if($res['success']==1){
+				$res['info'] = '已扣减'.$reduce_amount;
 				$res['returnUrl'] = url::createUrl('/Contract/buyerlist');
 			}
 			die(json::encode($res));

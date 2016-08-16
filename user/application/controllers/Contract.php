@@ -115,7 +115,10 @@ class ContractController extends UcenterBaseController{
 		foreach ($product_cate as $key => $value) {
 			$tmp .= $value['name'].'/';
 		}
+		$aa = $product->getProductDetails($order_info['product_id']);
+		$order_info['attrs'] = $aa['attrs'];
 		$order_info['product_cate'] = rtrim($tmp,'/');
+		$order_info['seller_name'] = $order_info['userinfo']['type'] == 0 ? $order_info['userinfo']['true_name'] : $order_info['userinfo']['company_name'];
 		// echo '<pre>';var_dump($order_info);exit;
 		$this->getView()->assign('info',$order_info);
 	}
