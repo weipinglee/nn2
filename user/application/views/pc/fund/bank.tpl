@@ -70,8 +70,7 @@
 									<span class="con_tit"><i>*</i>请上传公司的银行许可证： </span>
 								<span>
 									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload}" />
-                        			<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
-
+                        			 <span class="input-file">选择文件<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></span>
 								</span>
 									<p class="con_title"></p>
 								</div>

@@ -95,6 +95,9 @@ a:hover {
 	padding-bottom:10px;
 	display: block; 
 }
+#footer .footer_link ul li.footer_li a.fotter_div b{
+    color: #666;
+}
 #footer .footer_link ul.ewm_ul {
 	margin-right:50px; 
 }

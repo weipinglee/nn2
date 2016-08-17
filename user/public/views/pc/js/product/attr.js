@@ -181,6 +181,11 @@ function getCategory(){
                             attr_box.children('td').eq(1).html(radio_text);
                        });
                     }
+                    else if(v.type==3){
+                        attr_box.children('td').eq(0).html(v.name+'：');
+                        attr_box.children('td').eq(1).html(' <input name="attribute['+ v.id+']" value="" datatype="*" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:\'yyyy-MM-dd\'});" type="text">');
+
+                    }
                     $('#productAdd').after(attr_box);
                 });
                 bindRules();
@@ -289,13 +294,13 @@ function minimumRules(){
         ele:"input[name=minimum]",
         datatype:"compare",
         nullmsg:"请输入最小起订量！",
-        errormsg:"最小起订量必须小于等于总量和最小递增量之差！"
+        errormsg:"最小起订量大于0且必须小于等于总量和最小递增量之差！"
     },
         {
             ele:"input[name=minstep]",
             datatype:"minsteprule",
             nullmsg:"请输入最小递增量！",
-            errormsg:"最小递增量必须小于等于总量和最小起订量之差！"
+            errormsg:"最小递增量大于0且必须小于等于总量和最小起订量之差！"
         }
     ];
     formacc.addRule(rules);

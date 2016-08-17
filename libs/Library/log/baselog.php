@@ -93,7 +93,6 @@ class baselog
 	 * 参数说明：
 	 * array(
 	 * 'id'=>$user_id,//计入日志的id(必填)
-	 * 'status'=>$status,//后台审核的状态
 	 * 'check_text'=>'',//后台审核结果文字
 	 * 'table'=>$table,//操作的数据表(必填)
 	 * 'type'=>'',//取值为：add,update,delete,logicdel(逻辑删除),check(审核),(必填)

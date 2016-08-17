@@ -286,10 +286,25 @@
                                 <td nowrap="nowrap"><span></span>租库价格：</td>
                                 <td colspan="2">
                                     <span>
-                                      <input name="store_price" class="text" value="{$detail['store_price']}" datatype="money" errormsg="请填写价格" type="text" />（/<span class="unit">{$detail['unit']}</span>/天）
+                                      <input name="store_price" class="text" value="{$detail['store_price']}" datatype="money" errormsg="请填写价格" type="text" />
 
                                     </span>
                                     <span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td nowrap="nowrap"><span></span>价格单位：</td>
+                                <td colspan="2">
+                                    元/ <span>
+                                                    <select name="store_unit" >
+                                                        <option value="d" {if:$detail['store_unit']=='d'}selected{/if}>天</option>
+                                                        <option value="m" {if:$detail['store_unit']=='m'}selected{/if}>月</option>
+                                                        <option value="y" {if:$detail['store_unit']=='y'}selected{/if}>年</option>
+                                                    </select>
+
+                                                </span>/
+                                    <span class="unit"> {$detail['unit']}</span>
+
                                 </td>
                             </tr>
                             <tr>
