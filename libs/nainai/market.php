@@ -19,7 +19,23 @@ class market{
         ),
         'user' => array(
             'index/fund/dofundout',
-            'index/fund/dofundin'
+            'index/fund/dofundin',
+            'index/managerdeal/dodepositeoffer',
+            'index/managerdeal/dofreeoffer',
+            'index/managerdeal/dostoreoffer',
+            'index/managerdeal/dodeputeoffer',
+            'index/managerstore/dostoresign',
+            'index/ucenter/dodealcert',
+            'index/ucenter/dostorecert',
+
+            'post' => array(   //里面的url 闭市时不能通过post请求，可以访问页面
+                'index/purchase/issue',
+                'index/fund/bank'
+            ),
+
+        ),
+        'admin' => array(
+
         ),
     );
 
@@ -44,6 +60,7 @@ class market{
     /**
      *判断是否可以操作
      * @param obj $request 请求
+     * @return bool true:可以操作，false:不可操作
      */
     public function checkCanOper($request){
         if(!$this->checkTime()){//如果已闭市
@@ -51,16 +68,18 @@ class market{
             if($appName && isset($this->actions[$appName])){
                 $url = $request->getModuleName().'/'.$request->getControllerName().'/'.$request->getActionName();
                 $url = strtolower($url);
+
                 if(in_array($url,$this->actions[$appName])){//该动作不能操作
-                    if(IS_AJAX || IS_POST){
-                        die(\Library\json::encode(tool::getSuccInfo(0,'现在已闭市，无法操作')));
-                    }
-                    else{
-                        die('现在已闭市，无法操作');
-                    }
+                    return false;
                 }
+
+                if(in_array($url,$this->actions[$appName]['post']) && IS_POST){//该url的post请求不能操作
+                    return false;
+                }
+
             }
         }
+        return true;
     }
 
 

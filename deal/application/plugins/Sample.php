@@ -14,8 +14,17 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 	}
 
 	public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
+		//开闭市控制
 		$market = new \nainai\market();
-		$market->checkCanOper($request);
+		$res = $market->checkCanOper($request);
+		if(!$res){
+			if(IS_AJAX || IS_POST){
+				die(\Library\json::encode(\Library\tool::getSuccInfo(0,'现在已闭市，无法操作')));
+			}
+			else{
+				$response->setRedirect(\Library\url::createUrl("/oper/error?info=现在已闭市，无法操作"));
+			}
+		}
 	}
 
 	public function dispatchLoopStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
