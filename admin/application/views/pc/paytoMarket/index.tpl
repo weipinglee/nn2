@@ -1,6 +1,4 @@
-<script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
-<script type="text/javascript" src="{views:js/layer/layer.js}"></script>
-<script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
+
         <div id="content" class="white">
             <h1><img src="{views:img/icons/posts.png}" alt="" /> 结算管理</h1>
 <div class="bloc">
@@ -9,10 +7,8 @@
     </div>
     <div class="content">
         <div class="pd-20">
-	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="" value="{$name}">
-		<button type="submit" class="btn btn-success radius search-admin" id="" name=""><i class="icon-search fa-search"></i> 搜用户名</button>
-	</div>
+			{include:layout/search.tpl}
+
 	 <!-- <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a> <a class="btn btn-primary radius" href="{url:/system/admin/adminAdd}"><i class=" icon-plus fa-plus"></i> 添加管理员</a> </span>  </div> -->
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -28,7 +24,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$data}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 				<!-- <td><input type="checkbox" value="" name=""></td> -->
 				<td>{$item['id']}</td>
@@ -46,7 +42,7 @@
 		</tbody>
 
 	</table>
-		{$page}
+		{$data['bar']}
 	</div>
 </div>
 <script type="text/javascript">

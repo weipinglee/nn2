@@ -18,23 +18,18 @@ class PaytoMarketController extends InitController {
 	public function indexAction(){
 		// $this->object->paytoMarket('112','1','1','2','26.00','测试');exit;
 		$page = Safe::filterGet('page','int',1);
-		$name = Safe::filterGet('name');
-		$where = '';
-		
-		$name && $where .= 'username = '.$name;
-		$list = $this->object->paylist($page,$where);
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['page']);
+
+		$list = $this->object->paylist($page);
+		$this->getView()->assign('data',$list);
 	}
 
 	public function detailAction(){
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$data = $this->object->detail($id);
 		$mem = new \nainai\member();
-		$data['user'] = $mem->getUserDetail(array('username'=>$data['username']));
+		$data['user'] = $mem->getUserDetail($data['user_id']);
 		$product = new \nainai\offer\product();
 		$data['offer'] = $product->offerDetail($data['offer_id']);
-		// echo '<pre>';var_dump($data);exit;
 		$this->getView()->assign('data',$data);
 	}
 }

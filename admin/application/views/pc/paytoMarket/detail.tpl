@@ -20,32 +20,27 @@
 
 	 		<tr>
 	 			<th>用户名称</th>
-	 			<td>{$data['username']}</td>
-	 			<th>真实姓名</th>
-	 			<td>{$data['user']['true_name']}</td>
+	 			<td>{$data['user']['username']}</td>
+	 			<th>企业名称</th>
+	 			<td>{$data['user']['company_name']}</td>
 	 			<th>联系电话</th>
 	 			<td>{$data['user']['mobile']}</td>
-                <th></th>
-                <td></td>
+
 	 		</tr>
             <tr>
                 <th>报盘类型</th>
                 <td>{$data['offer']['mode_text']}</td>
                 <th>商品名称</th>
-                <td>{$data['name']}</td>
+                <td>{$data['offer']['name']}</td>
                 
                 <th>接收地点</th>
                 <td><span id="area">{areatext:data=$data['offer']['accept_area'] id=area}</span></td>
-                <th></th>
+
 
 
 
             </tr>
-  	 		<tr>
-                <th>商品图片</th>
-                <td colspan="5"><img src="{$data['offer']['img']}"/></td>
-                
-  	 		</tr>
+
              
             <tr>
                 <th>收费类别</th>
@@ -55,7 +50,7 @@
                 
                 <th>收费时间</th>
                 <td>{$data['create_time']}</td>
-                <th></th>
+
             </tr>
 
             <tr>

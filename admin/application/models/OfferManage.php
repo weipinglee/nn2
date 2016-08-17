@@ -134,8 +134,9 @@ class OfferManageModel extends \nainai\offer\product{
 				$fund = \nainai\fund::createFund($offerData['acc_type']);
 				if($status==self::OFFER_OK){//通过扣费
 					$note = '扣除id为'.$id.'的自由报盘报盘费用';
-					
+					$marketFund = new \nainai\fund\paytoMarket();
 					$res = $fund->freezePay($offerData['user_id'],0,floatval($offerData['offer_fee']),$note);
+					$marketFund->paytoMarket($offerData['user_id'],1,2,$id,floatval($offerData['offer_fee']),'自由报盘费用');
 				}
 				else{
 					$note = '释放id为'.$id.'自由报盘报盘费用';

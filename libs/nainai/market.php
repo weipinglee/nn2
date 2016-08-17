@@ -42,7 +42,7 @@ class market{
 
     protected $start_time = '09:00:00';//开市时间
 
-    protected $end_time = '17:00:00';//闭市时间
+    protected $end_time = '19:00:00';//闭市时间
 
     /**
      * 判断是否处于开市时间
@@ -66,7 +66,7 @@ class market{
     public function checkCanOper($request){
         if(!$this->checkTime()){//如果已闭市
             $appName = tool::getConfig(array('application','name'));
-            if($appName && isset($this->actions[$appName])){
+            if($appName && !empty($this->actions[$appName])){
                 $url = $request->getModuleName().'/'.$request->getControllerName().'/'.$request->getActionName();
                 $url = strtolower($url);
 
