@@ -9,7 +9,7 @@ ol,ul{list-style:none;}
 li{list-style-type:none;}
 img{border:0px; vertical-align:top}
 a{ text-decoration:none;}
-a:hover{text-decoration:underline}
+a:hover{text-decoration:none ;}
 .clearfix{clear:both;}
 .clearfix:after{clear:both;content: ".";display: block;height: 0; overflow: hidden; visibility: hidden;}
 /******背景******/
