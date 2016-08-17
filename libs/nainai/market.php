@@ -74,7 +74,7 @@ class market{
                     return false;
                 }
 
-                if(in_array($url,$this->actions[$appName]['post']) && IS_POST){//该url的post请求不能操作
+                if(isset($this->actions[$appName]['post']) && in_array($url,$this->actions[$appName]['post']) && IS_POST){//该url的post请求不能操作
                     return false;
                 }
 
