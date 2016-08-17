@@ -440,7 +440,6 @@ class M{
 			$cacheKey = md5($sql);
 			$result = $this->cache->get($cacheKey);
 			if ($result) {
-				var_dump($result);exit;
 				return unserialize($result);
 			} else {
 				$result =  $this->db->exec($sql,$this->whereParam,'SELECT');
@@ -588,7 +587,7 @@ class M{
 	 * @param  string $type   类别 m:memcached r:redis
 	 * @param  int $expire 缓存时间
 	 */
-	public function cache($type='m',$expire=''){
+	public function cache($type='md',$expire=''){
 		$options = $expire ? array('type'=>$type,'expire'=>$expire) : array('type'=>$type);
 		$res = $this->cache = new Cache($options);
 		if($res === false) $this->error = '缓存初始化失败';

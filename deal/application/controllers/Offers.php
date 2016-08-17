@@ -57,7 +57,6 @@ class OffersController extends PublicController {
 			$this->getView()->assign('cate_list',$cate_list);
 
 		}
-
 		//获取报盘类型信息
 		$offertype = $this->getRequest()->getParam('type');
 		$offertype = safe::filter($offertype);
@@ -137,7 +136,6 @@ class OffersController extends PublicController {
 				$info['insurance'] = 1;
 			}
 		}
-
 		$this->getView()->assign('data',$info);
 
 	}

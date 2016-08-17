@@ -17,7 +17,6 @@ class DepositOrder extends Order{
 		parent::__construct(parent::ORDER_DEPOSIT);
 	}
 
-
 	/**
 	 * 买方预付定金(全款或定金) 需要在外部加事务
 	 * @param array $info 订单信息数组
@@ -67,7 +66,7 @@ class DepositOrder extends Order{
 					//冻结买方帐户资金  payment=1 余额支付
 					$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
 					$note_type = $type==0 ? '订金' : '全款';
-					$note = '合同'.$note_id.$note_type.'支付 '.$info['amount'];
+					$note = '合同'.$note_id.$note_type.'支付-'.$info['amount'];
 					
 					$account = $this->base_account->get_account($payment);
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);
@@ -123,7 +122,7 @@ class DepositOrder extends Order{
 					$configs_credit->changeUserCredit($seller,'cancel_contract');
 					
 					//将买方冻结资金解冻
-					$note = '卖方未支付合同'.$info['order_no'].'保证金退还定金';
+					$note = '卖方未支付合同'.$info['order_no'].'保证金 退还定金-'.$info['pay_deposit'];
 					$acc_res = $account->freezeRelease($buyer,floatval($info['pay_deposit']),$note);
 					//将商品数量解冻
 					$pro_res = $this->productsFreezeRelease($this->offerInfo($info['offer_id']),$info['num']);
