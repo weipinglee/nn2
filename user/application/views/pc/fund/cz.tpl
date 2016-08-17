@@ -79,9 +79,10 @@
                                 <span class="input-file">选择文件<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" /></span>
                                 <div id="preview">
                                     <img name="file1" src=""/>
-                                    <input type="hidden" disabled="disabled" name="imgfile1" datatype="*"  />
+                                    <input type="hidden"  name="imgfile1" datatype="*"  />
 
                                 </div>
+                                <span></span>
                             </div>
 
 
@@ -128,9 +129,10 @@
                                     <td>{$item['status']}</td>
                                     {if: $item['first_time']!=null&&$item['final_time']==null}
                                         <td>{$item['first_message']}</td>
-                                    {/if}
-                                    {if: $item['first_time']!=null&&$item['final_time']!=null}
+                                    {elseif: $item['first_time']!=null&&$item['final_time']!=null}
                                     <td>{$item['final_message']}</td>
+                                    {else:}
+                                        <td></td>
                                     {/if}
                                 </tr>
                             {/foreach}

@@ -117,7 +117,7 @@
         })
 
         function setStatus(status,msg,mess){
-            formacc.ajax_post("{$reInfo['url']}",{re_id:"{$reInfo['id']}",status:status,message:mess,user_name:{$reInfo['username']}},function(){
+            formacc.ajax_post("{$reInfo['url']}",{re_id:"{$reInfo['id']}",status:status,message:mess,user_name:"{$reInfo['username']}"},function(){
                 layer.msg(msg+"稍后自动跳转");
                 setTimeout(function() {
                     window.location.href = "{url:balance/fundIn/checkofflineList}"
@@ -128,5 +128,3 @@
 
 </script>
 
-</body>
-</html>

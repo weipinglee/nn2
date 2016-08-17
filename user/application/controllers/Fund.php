@@ -121,23 +121,18 @@ class FundController extends UcenterBaseController {
         }
 		//线下支付
 		else {
-
 			$payment_id = 1;
 			//处理图片
 			$proof = safe::filterPost('imgfile1');
-			//$fundObj=new \nainai\user\UserBank();
-//			if(!$fundObj->getActiveBankInfo($this->user_id)){
-//				die(JSON::encode(\Library\tool::getSuccInfo(0,'请申请开户银行')));
-//			}
+
 			if (!isset($recharge) || $recharge <= 0  || $recharge > 99999999) {
 				die(json::encode(\Library\tool::getSuccInfo(0,'金额不正确')) ) ;
 			}
-			//var_dump($_FILES);
-			if (111) {
+
+			if ($proof) {
 
 				$rechargeObj = new M('recharge_order');
 				$reData = array(
-					//'user_id' => Session::get('user_id'),
 					'user_id' => $this->user_id,
 					'order_no' => Payment::createOrderNum(),
 					//资金
@@ -309,7 +304,7 @@ class FundController extends UcenterBaseController {
 				$status = '未申请';
 			$this->getView()->assign('status',$status);
 			$this->getView()->assign('user_type',$this->user_type);
-			var_dump($this->user_type);
+
 			$type = $fundModel->getCardType();
 			$this->getView()->assign('type',$type);
 		}
