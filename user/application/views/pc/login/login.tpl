@@ -43,7 +43,7 @@
     <div class="m_log w1200">
         <div class="logoimg_left">
             <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
-            <div class="word_box"><a href="">欢迎登录</a></div>
+            <div class="word_box">欢迎登录</div>
 
   
 
