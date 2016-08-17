@@ -125,7 +125,7 @@
           </div>
            <div class="cot">
             <span class="cot_tit">校验码：</span>
-            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode"  datatype="e" errormsg="邮箱格式错误"/> <a class="jiaoyma">获取校验码</a> </span>
+            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode"/> <a class="jiaoyma">获取校验码</a> </span>
               <span></span>
           </div>
           <div class="cot">
@@ -179,7 +179,7 @@
           </div>
            <div class="cot">
             <span class="cot_tit">校验码：</span>
-            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode"  datatype="e" errormsg="邮箱格式错误"/> <a  class="jiaoyma">获取校验码</a> </span>
+            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode"/> <a  class="jiaoyma">获取校验码</a> </span>
               <span></span>
           </div>
           <div class="cot">
