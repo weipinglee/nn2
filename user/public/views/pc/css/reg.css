@@ -9,12 +9,10 @@ i,em{font-style:normal;}
 b{color:#F63;}
 button{cursor:pointer;}
 .wrap{
-    background-image:url(../images/mid_banner/banner_01_repeat.png?v=201406241538);
+    background-color:#fff;
 }
 .register{
-	position: absolute;
-    right: 25%;
-    left: 30%;
+	width:712px;
     margin: 0 auto;
 }
 .register .reg_top{
