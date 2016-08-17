@@ -105,24 +105,25 @@ a:hover {
 #index_nav .page_width {
     position: relative
 }
+
 #index_nav .all_steel {
     float: left;
     width: 220px;
-    height: 43px;
+    height: 36px;
     background-color: #c81623;
     font-size: 16px;
     color: #ffffff;
     text-align: center;
-    line-height: 43px;
+    line-height: 36px;
     font-weight: bolder;
     position: absolute;
     left: 0px;
-    top: 0px;
-    border-radius:5px 5px 0 0;
+    top: 7px;
+    border-radius: 5px 5px 0 0;
 }
 #index_nav .all_steel .steel_img{
     position: relative;
-    top:10px;
+    top:6px;
     padding-right:10px 
 }
 #index_nav .nav {
@@ -1760,14 +1761,17 @@ a.close:hover {
 .row1_clinch .clinch_con #clinch_con div,.row1_clinch .clinch_con,.mainRow1 .row1_clinch,.row1_clinch .clinch_con #clinch_con {
     position: static;
 }
+
 .mainRow1 .row1_clinch {
     width: 238px;
     height: 326px;
     overflow: hidden;
     border: 1px solid #ccc;
-    position: relative;
+    position: absolute;
     z-index: 10;
-    top: 30px;
+    top: 52px;
+    right: 0;
+    border-radius: 6px;
 }
 .row1_clinch .clinch_con #clinch_con div .clinch_con_time {
     position: static;

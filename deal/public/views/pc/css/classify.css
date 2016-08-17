@@ -123,16 +123,15 @@ a:hover,a:active {
 .all-sort-list .item {
     height: 46px;
     width: 200px;
-    border-top: 1px solid #e9e9e9;
     border-bottom: 1px solid #e9e9e9;
-    padding: 15px 10px;
+    padding: 10px 10px;
     background: #fff;
 }
 .all-sort-list .item-sp {
     background: #fb8901;
 }
 .all-sort-list .item .fenlei-h1 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
 }
 .all-sort-list .item .fenlei-h2 {
@@ -238,11 +237,11 @@ div.item h3 p.fenlei a:hover {
 .all-sort-list .item-list {
     display: none;
     position: absolute;
-    width: 730px;
-    height: 466px;
+    width: 725px;
+    height: 400px;
     _height: 466px;
     background: #FFF;
-    left: 218px;
+    left: 221px;
     border: 1px solid #DDD;
     top: 3px;
 }
@@ -255,7 +254,7 @@ div.item h3 p.fenlei a:hover {
 }
 .item-list .subitem dl {
     border-top: 1px solid #EEE;
-    padding: 6px 0px;
+    padding: 3px 0px;
     overflow: hidden;
     zoom:1; width: 160px;
     height: 100px;
