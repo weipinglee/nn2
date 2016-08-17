@@ -181,6 +181,11 @@ function getCategory(){
                             attr_box.children('td').eq(1).html(radio_text);
                        });
                     }
+                    else if(v.type==3){
+                        attr_box.children('td').eq(0).html(v.name+'：');
+                        attr_box.children('td').eq(1).html(' <input name="attribute['+ v.id+']" value="" datatype="*" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:\'yyyy-MM-dd\'});" type="text">');
+
+                    }
                     $('#productAdd').after(attr_box);
                 });
                 bindRules();
