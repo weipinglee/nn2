@@ -1178,6 +1178,7 @@ a:hover {
 }
 #mainContent {
     overflow: hidden;
+    background: #fff;
 }
 .row3_clinch .clinch_tit .tit_font b {
     border-bottom: 2px solid #e4e2e2;

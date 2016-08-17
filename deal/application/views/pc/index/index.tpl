@@ -658,4 +658,38 @@
         </div>
     </div>  
     <!--主要内容 结束-->
+        <!--耐耐网服务-->
 
+</div>
+
+        <div class="footer_clude">
+            <!--耐耐网服务-->
+            <div class="i_service clearfix">
+                <div class="iServiceCon clearfix">
+                    <ul>
+                        {foreach:items=$fuwuList}
+                            <li class="iServiceTit">
+                                <div class="fw_img"><img src="{echo:\Library\Thumb::get($item['img'])}"/></div>
+                                <div class="wi_fw"><a href="{url:help/help}?cat_id={$item['cat_id']}&id={$item['id']}">{$item['name']}</a></div>
+                            </li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+            <div class="div_flink">
+                <ul>
+                    <li class="ul_tit"><b>友情链接</b></li>
+                    {set: $sum=count($frdLinkList)}
+                    {foreach: items=$frdLinkList}
+                        <li class="li_txt">
+                            <a class="li_a" href="{$item['link']}">{$item['name']}</a>
+                        </li>
+                        {if:$key!=$sum-1}
+                            <li class="li_l">
+                                <span class="span_l">|</span>
+                            </li>
+                        {/if}
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
