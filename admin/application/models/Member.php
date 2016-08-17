@@ -9,18 +9,7 @@ use \Library\Query;
 use \Library\tool;
 class MemberModel extends baseModel{
 
-	/**
-	 * 会员状态，正常
-	 */
-	const NOMAL = 0;
-	/**
-	 * 会员状态，删除
-	 */
-	const DELETE = 2;
-	/**
-	 * 会员状态，锁定挂起
-	 */
-	const LOCK = 1;
+
 	/**
 	 *获取用户列表
      */
@@ -30,7 +19,8 @@ class MemberModel extends baseModel{
 		$Q->fields = 'u.*,a.username as agent_name,ye.ser_name, c.company_name, p.true_name';
 		$Q->order = 'u.id asc';
 		$Q->where = ' FIND_IN_SET(u.status, :s)';
-		$Q->bind = array('s' => self::NOMAL . ',' . self::LOCK);
+		$model = new \nainai\user\User();
+		$Q->bind = array('s' => $model::NOMAL . ',' . $model::LOCK);
 		$data = $Q->find($this->getYewuList());
 
 		$Q->downExcel($data['list'],'user', '会员列表');
