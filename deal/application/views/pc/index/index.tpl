@@ -64,7 +64,7 @@
 
                                     </p>
                                 </h3>
-                                <div class="item-list clearfix" style="top: 62px; display: none;">
+                                <div class="item-list clearfix" style="top: 1px; display: none;">
 
                                     <div class="subitem">
                                         {foreach: items=$item['nested']}
@@ -261,17 +261,17 @@
                                                   {$pro['pname']}
                                             </span>
 
-                                            <span class="i_w_6">{$pro['quantity']}</span>
-                                            <span class="i_w_7">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
-                                            <span class="i_w_7">{$pro['unit']}</span>
-                                            <span class="i_w_8">￥{$pro['price']}</span>
-                                            <span class="i_w_9" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
-                                            <span class="i_w_10">{$pro['accept_area']}</span>
-                                            <span class="i_w_11">
+                                            <span class="i_w_4">{$pro['quantity']}</span>
+                                            <span class="i_w_5">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
+                                            <span class="i_w_6">{$pro['unit']}</span>
+                                            <span class="i_w_7">￥{$pro['price']}</span>
+                                            <span class="i_w_8" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
+                                            <span class="i_w_9">{$pro['accept_area']}</span>
+                                            <span class="i_w_10">
                                                 {if:$pro['quantity']-$pro['sell']-$pro['freeze']>0}
                                                     {if:$pro['type']==1}
                                                         <a href="{url:/offers/offerdetails?id=$pro['id']&pid=$pro['product_id']}">
-                                                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                                                            <img class="ckxq" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                                                         </a>
                                                      <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
                                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>

@@ -598,7 +598,7 @@
 .i_market{
 	width: 1190px;
 	height: 488px;
-	margin: 20px auto 0 auto;
+	margin: 70px auto 0 auto;
 }
 .i_market_left{
 	width: 910px;
@@ -810,7 +810,7 @@
 	line-height: 30px;
 }
 .i_w_1{
-	width: 80px;
+	width: 90px;
 	height: 35px;
 }
 .i_w_2{
@@ -827,11 +827,11 @@
 	height: 35px;
 }
 .i_w_5{
-	width: 100px;
+	width: 120px;
 	height: 35px;
 }
 .i_w_6{
-	width: 80px;
+	width: 82px;
 	height: 35px;
 }
 .i_w_7{
@@ -839,16 +839,20 @@
 	height: 35px;
 }
 .i_w_8{
-	width: 104px;
+	width: 124px;
 	height: 35px;
 }
 .i_w_9{
-	width: 70px;
+	width: 50px;
 	height: 35px;
 }
 .i_w_10{
-	width: 100px;
+	width: 70px;
 	height: 35px;
+}
+.i_w_10 .ckxq {
+    margin-left: 18px;
+    margin-top: 10px;
 }
 .i_w_11{
 	width: 60px;
@@ -2731,6 +2735,9 @@ text-indent: 1em;
 #areatextarea1{
 	width: 100%;
 
+}
+.i_proList ul li span span {
+    width: 100%;
 }
 /*中间大广告图*/
 .guanimg{
