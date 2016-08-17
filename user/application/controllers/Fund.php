@@ -149,6 +149,8 @@ class FundController extends UcenterBaseController {
 					$adminMsg=new \nainai\AdminMsg();
 					$content='新添加了一笔线下入金需要审核';
 					$adminMsg->createMsg('fundinfirst',$r_id,$content);
+					$userLog=new \Library\userLog();
+					$userLog->addLog(['action'=>'线下充值操作','content'=>'充值了'.$recharge.'元']);
 					die(json::encode(\Library\tool::getSuccInfo()));
 				}
 
@@ -247,10 +249,9 @@ class FundController extends UcenterBaseController {
 		$res = $fundModel->fundOutApply($user_id,$data);
 		if($res['success']==1){
 			$adminmsg=new \nainai\AdminMsg();
-
 			$content='编号为'.$user_id.'的用户有一笔提现需要处理';
-
 			$adminmsg->createMsg('fundoutfirst',$res['id'],$content);
+
 		}
 		die(json::encode($res));
 
@@ -281,7 +282,6 @@ class FundController extends UcenterBaseController {
 			if($ident){
 				$data['identify_no'] = $ident;
 			}
-
 
 			$res = $fundModel->bankUpdate($data);
 			if($res['success']==1){
@@ -337,18 +337,7 @@ class FundController extends UcenterBaseController {
 
 		return false;
 	}
-	public function test4Action(){
-		$userRiskModel=new \nainai\riskMgt\userRisk();
-		$params=array('user_id'=>$this->user_id,'ip'=>'222.129.28.29');
-		//$res1=$userRiskModel->checkUserAddress($params);
-		//$res=$userRiskModel->addUseAddress($params);
-		echo "<iframe style=\"display:none;\" src=\"tencent://message/?uin=409681817\"></iframe>";
-		die;
 
-	}
-    
-    
-    
     //支付回调
     public function rechargeCallbackAction(){
         //从URL中获取支付方式
@@ -399,6 +388,8 @@ class FundController extends UcenterBaseController {
             $res = $agenA->in($user_id, $money);
             if($res)
             {
+				$userLog=new \Library\userLog();
+				$userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
                 die(json::encode(\Library\tool::getSuccInfo(1,'充值成功',url::createUrl('/fund/doFundIn'))));
                 exit;
             }

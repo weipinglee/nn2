@@ -20,5 +20,4 @@ class userLog  extends \Library\log\baselog
 
 
 
-
 }

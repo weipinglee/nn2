@@ -53,6 +53,8 @@ class fundModel extends \nainai\user\UserBank{
 
             $res = $withdrawRequest->commit();
             if($res){
+                $userLog=new \Library\userLog();
+                $userLog->addLog(['action'=>'提现操作','content'=>'申请提现'.$data['amount'].'元']);
                 return tool::getSuccInfo('1','','',$id);
 
             }
@@ -83,6 +85,8 @@ class fundModel extends \nainai\user\UserBank{
         }
 
         if(is_int($res)){
+            $userLog=new \Library\userLog();
+            $userLog->addLog(['action'=>'编辑开户信息操作','content'=>'编辑了卡号为'.$data['card_no'].'的开户信息']);
             return tool::getSuccInfo();
         }
         else{
