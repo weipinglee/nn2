@@ -145,7 +145,7 @@
             <li>交货地</li>
 
             <li>剩余</li>
-            <li>
+            <li style="width:130px;">
                 <!-- <a class="main_mr">默认</a><a class="main_px">从低到高<i class="arrow_color icon-arrow-up"></i></a> -->
                 单价
             </li>
@@ -201,7 +201,7 @@
                        <li style="width:200px;"><%=data[i].produce_area%></li>
                        <li><%=data[i].accept_area%></li>
                        <li><%=data[i].left%> (<%=data[i].unit%>)</li>
-                       <li><i class="qian_blue">
+                       <li class="price_unit"><i class="qian_blue">
                                <% if(data[i].type == 1){ %>
                                ￥<%=data[i].price%>
                                <% }else { %>
@@ -209,7 +209,7 @@
                                <%}%>
                            </i>
                        </li>
-                       <li>
+                       <li class="toubao_rz">
                        <% if(data[i].insurance == 1){%>
                        <a href="" title="已投保"><img class="icon_img" src="{views:images/icon/icon_yb.png}"/></a>
                        <% } else { %>
