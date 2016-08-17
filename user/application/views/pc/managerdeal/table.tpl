@@ -6,6 +6,9 @@
   <meta name="description"/>
   <meta charset="utf-8">
   <link href="{views:css/table.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
+  <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
+<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 </head>
 <body>
   <!-- 表格详情样式 strat-->

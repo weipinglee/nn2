@@ -568,8 +568,14 @@ class product  {
                     $title =  $this->getMode($productOffer['mode'])  . '审核';
                     $content = $productData[0]['name'] . $this->getMode($productOffer['mode']) . '需要审核';
 
-                    $adminMsg = new \nainai\adminMsg();
+                    $adminMsg = new \nainai\AdminMsg();
                     $adminMsg->createMsg('checkoffer',$id,$content,$title);
+
+                    $log = array();
+                    $log['action'] = $this->getMode($productOffer['mode']) ;
+                    $log['content'] = '用户' . $productData[2] . '添加' . $this->getMode($productOffer['mode'])  . ':' .$productData[0]['name'];
+                    $userLog = new \Library\userLog();
+                    $userLog->addLog($log);
                 };
                     $imgData = $productData[1];
                     if (!empty($imgData)) {

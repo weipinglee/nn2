@@ -12,6 +12,19 @@ use \Library\url;
  * @copyright 2016年05月30日
  */
 class User extends \nainai\Abstruct\ModelAbstract {
+
+    /**
+     * 会员状态，正常
+     */
+    const NOMAL = 0;
+    /**
+     * 会员状态，删除
+     */
+    const DELETE = 2;
+    /**
+     * 会员状态，锁定挂起
+     */
+    const LOCK = 1;
 	
      /**
       * 获取id对应的用户名

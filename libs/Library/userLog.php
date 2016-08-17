@@ -5,6 +5,7 @@
  */
 namespace Library;
 class userLog  extends \Library\log\baselog
+
 {
 	protected $tableName = 'user_log';
 

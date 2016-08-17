@@ -42,7 +42,7 @@
 				<td>{$item['agent_name']}</td>
 				<td>{$item['ser_name']}</td>
 				<td class="td-status">
-				{if:$item['status'] == MemberModel::NOMAL}
+				{if:$item['status'] == \nainai\user\User::NOMAL}
 					<span class="label label-success radius">已启用</span>
 				{else:}
 
@@ -51,7 +51,7 @@
 				{/if}
 				</td>
 				<td class="td-manage">
-				{if:$item['status'] == MemberModel::NOMAL}
+				{if:$item['status'] == \nainai\user\User::NOMAL}
 				<a style="text-decoration:none" ajax_status=0  ajax_url="{url:member/member/ajaxupdatestatus?id=$item['id']}"  href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a>
 				{else:}
 				<a style="text-decoration:none" ajax_status=1  ajax_url="{url:member/member/ajaxupdatestatus?id=$item['id']}"  href="javascript:;" title="启用"><i class="icon-play fa-play"></i></a>

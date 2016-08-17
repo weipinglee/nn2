@@ -80,9 +80,9 @@ class checkRight{
         //判断是否登录以及登录是否超时
         if($sessLogin!=null && isset($sessLogin['user_id']) && $sessID !=''){
             $userModel = new M('user');
-            $login_sess = $userModel->where(array('id'=>$sessLogin['user_id']))->fields('session_id,cert_status')->getObj();
+            $login_sess = $userModel->where(array('id'=>$sessLogin['user_id']))->fields('session_id,cert_status, status')->getObj();
 
-            if($sessID == $login_sess['session_id'] && self::$sessObj->expire($sessID)){
+            if($login_sess['status'] == \nainai\user\User::NOMAL && $sessID == $login_sess['session_id'] && self::$sessObj->expire($sessID)){
                 $isLogin = true;
                 if($login_sess['cert_status']==1){//认证状态发生了变化
                     //获取认证状态

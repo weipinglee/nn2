@@ -41,13 +41,13 @@
                 <a href="{url:/login/logout}">退出</a>
                 <a href="">返回网站首页</a>
             </div>
-            <div class="right">
+          <!--   <div class="right">
                 <form action="#" id="search" class="search placeholder">
                     <label>查找</label>
                     <input type="text" value="" name="q" class="text"/>
                     <input type="submit" value="rechercher" class="submit"/>
                 </form>
-            </div>
+            </div> -->
         </div>
                 
                 

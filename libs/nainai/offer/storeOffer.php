@@ -19,7 +19,7 @@ class storeOffer extends product{
      * @param  [Array] $productOffer [报盘的数据]
      * @return [Array]
      */
-    public function insertStoreOffer($id, & $productOffer){
+    public function insertStoreOffer($id, & $productOffer, $username){
         $pro = new M('products');
         $quantity = $pro->where(array('id'=>$productOffer['product_id']))->getField('quantity');
         if($quantity<=$productOffer['minimum']){
@@ -34,8 +34,13 @@ class storeOffer extends product{
             $obj->beginTrans();
             $obj->data(array('is_offer'=>1))->where(array('id'=>$id))->update();//更改为已报盘
             $pro_id = $this->_productObj->table('product_offer')->data($productOffer)->add();
-            $res = $obj->commit();
 
+            $log = array();
+            $log['action'] = '仓单报盘' ;
+            $log['content'] = '用户:' . $username. ',添加仓单报盘id为' . $pro_id . '的报盘';
+            $userLog = new \Library\userLog();
+            $userLog->addLog($log);
+            $res = $obj->commit();
         }else{
             $pro_id = 0;
             $res = $this->_productObj->getError();

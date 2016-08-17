@@ -234,14 +234,14 @@ class MemberController extends InitController {
 			
 			$m = new MemberModel();
 			$m->setTable('user');
-			
+			$user = new \nainai\user\User();
 			$data = array(
 				'id' => $id
 			);
 			if ($delete == 1) {
-				$data['status'] = $m::DELETE;
+				$data['status'] = $user::DELETE;
 			}else{
-				$data['status'] = ($status == 1) ? $m::NOMAL : $m::LOCK;
+				$data['status'] = ($status == 1) ? $user::NOMAL : $user::LOCK;
 			}
 			$res = $m->update($data);
 			exit(json::encode($res));
