@@ -103,9 +103,8 @@
     <tr>
         <td>有效期：</td>
         <td colspan="2">
-            <span > <input class="Wdate" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"
-                           name="expire_time" value=""></span>
-            <span></span>
+             <input class="Wdate text" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"
+                           name="expire_time" value="">
         </td>
 
     </tr>

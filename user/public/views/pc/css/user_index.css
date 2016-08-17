@@ -1,10 +1,14 @@
-body,dl,ul,ol,dd,h3,p ,table,tr,td{
+body,dl,ul,ol,dd,h1,h2,h3,h4,h5,p ,table,tr,td,span{
 	padding: 0px;
 	margin: 0px;
 	font-size: 12px;
     font-family: 微软雅黑;
   color:#777;border:0;
   border-collapse:collapse;
+}
+*{
+  margin: 0px;padding: 0px;
+  font-family: 微软雅黑;
 }
 /*统一修改select样式*/
 select {
@@ -324,7 +328,9 @@ div.zhxi_con.font_set span i.bold{
     font-size: 16px;
 }
 .zhxi_con .text{
+  height: 35px;
   width: 240px;
+  font-family: 微软雅黑;
 }
 .zhxi_con .text.potwt{
   width: 65px;
@@ -355,6 +361,20 @@ div.zhxi_con.font_set span i.bold{
     left: 200px;
     cursor: pointer;
     display: block;
+    text-align: center;
+    line-height: 35px;
+    font-family: 微软雅黑;
+}
+.submit_chag{
+    width: 120px;
+    height: 35px;
+    background: #c0c0c0;
+    border: 0px;
+    color: #fff;
+    font-size: 16px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
     text-align: center;
     line-height: 35px;
     font-family: 微软雅黑;
@@ -521,7 +541,6 @@ div.zhxi_con.font_set span i.bold{
     line-height: 30px;
     font-size: 12px;
     font-weight: normal;
-    color: #000000;
     padding: 0 10px;
 }
 
@@ -1375,20 +1394,23 @@ padding: 8px 15px;
   background:#d61515;
   color: #fff;
   border: 1px solid #d61515;
-  font-size: 20px;
+  font-size: 16px;
   padding: 8px 30px;
   margin: 5px 10px;
   cursor: pointer;
+    font-family: 微软雅黑;
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn input{  
     background: #d61515;
     color: #fff;
     border: 1px solid #d61515;
-    font-size: 18px;
+    font-size: 16px;
     margin: 5px 10px;
     cursor: pointer;
-    width: 132px;
-    height: 41px;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    font-family: 微软雅黑;
 }
 
   /*审核状态字体颜色*/
@@ -1751,7 +1773,6 @@ a.for_cangdan:hover,a.for_cangdan:active{
   color: red;
 }
 /*tabqiehuan*/
-*{margin:0;padding:0;}
 .tabPanel ul{height:30px;border-bottom:1px solid #aaa;}
 .tabPanel ul li{
   float:left;margin:0 2px 0 0;border:1px solid #aaa;font-size:11px;height:29px;line-height:30px;width:111px;text-align:center;cursor:pointer;
@@ -1901,6 +1922,7 @@ line-height: 30px;
   color: #666666;
   position: relative;
   top: 30px;
+  margin-left: -30px;
 }
 .of_title2.public{
     padding: 0 0 0 27%;
