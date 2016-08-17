@@ -300,6 +300,8 @@ class LoginController extends \Yaf\Controller_Abstract {
 			'password'=>$password
 		);
 		$userModel->updateUserInfo($data);
+		$userLog=new \Library\userLog();
+		$userLog->addLog(['action'=>'找回密码操作','进行了找回密码操作']);
 		die(JSON::encode(\Library\tool::getSuccInfo(1,'修改成功', url::createUrl('/Login/resetend'))));
 	}
 

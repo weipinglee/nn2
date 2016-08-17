@@ -290,7 +290,6 @@ class UserModel{
 			$res = self::$userObj->getError();
 		}
 		if(is_int($res)){
-
 			return \Library\tool::getSuccInfo();
 		}
 		else

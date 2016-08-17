@@ -4,8 +4,9 @@
  * @brief 日志记录类
  */
 namespace Library;
+use Library\log\baselog;
 use \Library\log\ILogFactory;
-class userLog
+class userLog extends baselog
 {
 	protected $tableName = 'user_log';
 
@@ -16,7 +17,6 @@ class userLog
 		}
 		return false;
 	}
-
 
 
 

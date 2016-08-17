@@ -72,6 +72,10 @@ class UcenterController extends UcenterBaseController {
                     break;
             }
             $res = empty($error) ? $userModel->updateUserInfo($userData) : tool::getSuccInfo(0,$error);
+            if($res['success']==1){
+                $userLog=new \Library\userLog();
+                $userLog->addLog(['action'=>'支付密码编辑','content'=>'编辑了支付密码']);
+            }
             die(JSON::encode($res));
         }else{
             $this->getView()->assign('pay_secret',$userInfo['pay_secret']);
@@ -86,6 +90,10 @@ class UcenterController extends UcenterBaseController {
 
         $userModel = new userModel();
         $res = $userModel->updateUserInfo($data);
+        if($res['success']==1){
+            $userLog=new \Library\userLog();
+            $userLog->addLog(['action'=>'基本信息编辑','content'=>'编辑了基本信息']);
+        }
        die(json::encode($res));
     }
     /**
@@ -142,6 +150,10 @@ class UcenterController extends UcenterBaseController {
 
         $userModel = new userModel();
         $res = $userModel->changePass($pass,$user_id);
+        if($res['success']==1){
+            $userLog=new \Library\userLog();
+            $userLog->addLog(['action'=>'修改密码操作','content'=>'修改了密码 ']);
+        }
        echo JSON::encode($res);
         return false;
     }
@@ -204,6 +216,9 @@ class UcenterController extends UcenterBaseController {
                 if($res['success']==1){//数据发生变化，更改认证状态
                     $certObj = new \nainai\certificate();
                     $certObj->certInit($this->user_id);
+                        $userLog=new \Library\userLog();
+                        $userLog->addLog(['action'=>'基本信息编辑','content'=>'编辑了基本信息']);
+
                 }
                 $this->redirect('info');
             }
@@ -256,6 +271,8 @@ class UcenterController extends UcenterBaseController {
                 if($res['success']==1){//数据发生变化，更改认证状态
                     $certObj = new \nainai\certificate();
                     $certObj->certInit($this->user_id);
+                        $userLog=new \Library\userLog();
+                        $userLog->addLog(['action'=>'企业信息编辑','content'=>'编辑了企业信息']);
                 }
                 $this->redirect('info');
             }
@@ -338,7 +355,10 @@ class UcenterController extends UcenterBaseController {
             $cert = new \nainai\cert\certDealer($user_id,$this->user_type);
 
             $res = $cert->certDealApply($accData);
-
+            if($res['success']==1){
+                $userLog=new \Library\userLog();
+                $userLog->addLog(['action'=>'交易商申请','content'=>'进行了交易商申请']);
+            }
             die(json::encode($res));
         }
         return false;
@@ -374,6 +394,10 @@ class UcenterController extends UcenterBaseController {
             $certData = array('store_id'=>safe::filterPost('store_id','int',0));
             if($certData['store_id']){
                 $res = $cert->certStoreApply($accData,$certData);
+                if($res['success']==1){
+                    $userLog=new \Library\userLog();
+                    $userLog->addLog(['action'=>'仓库认证','content'=>'进行了仓库认证']);
+                }
                 echo JSON::encode($res);
             }
 
@@ -443,7 +467,10 @@ class UcenterController extends UcenterBaseController {
 
                 $res = $userModel->subAccUpdate($data);
             }
-
+            if($res['success']==1){
+                $userLog=new \Library\userLog();
+                $userLog->addLog(['action'=>'添加子账户','content'=>'添加了子账户']);
+            }
             die(json::encode($res));
         }
         return false;
@@ -467,7 +494,10 @@ class UcenterController extends UcenterBaseController {
                 );
                 
                 $returnData = $invoiceModel->insertupdateUserInvoice($invoiceData,$invoiceData);
-
+                if($returnData['success']==1){
+                    $userLog=new \Library\userLog();
+                    $userLog->addLog(['action'=>'开票信息编辑','content'=>'编辑了开票信息']);
+                }
                 die(json::encode($returnData));
             }
             else{
@@ -562,6 +592,10 @@ class UcenterController extends UcenterBaseController {
             $code=safe::filterPost('mobileCode');
             $newMobile= safe::filterPost('mobile','/^\d+$/');
             $res = $userObj->checkMobileSecond($this->user_id,$code,$newMobile);
+            if($res['success']==1){
+                $userLog=new \Library\userLog();
+                $userLog->addLog(['action'=>'修改手机号','content'=>'修改了新的手机号'.$newMobile]);
+            }
             die(json::encode($res));
         }else{
             $userObj=new userModel();
