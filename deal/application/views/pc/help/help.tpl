@@ -12,10 +12,10 @@
             <span><b>{$helpInfo['name']}</b></span>
         </div>
         <div class="form_right">
-            <form>
+           <!--  <form>
                 <input class="com_pro_search" type="text" placeholder="输入问题关键词"/>
                 <input class="com_probutton" type="button"/>
-            </form>
+            </form> -->
         </div>
         <div class="clear"></div>
     </div>

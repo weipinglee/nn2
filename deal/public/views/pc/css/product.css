@@ -237,10 +237,16 @@ text-align: right;
 	position: relative;
 	top:6px;
 }
-.pro_main .pro_cen .main_centon .qian_blue{
-	color:#1cddaf;
+.pro_main .pro_cen .main_centon .qian_blue {
+    color: #FF6600;
+    display: block;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 130px;
 }
-
+.pro_main .pro_cen .main_centon .price_unit{width: 130px;}
+.pro_main .pro_cen .main_centon .toubao_rz{width: 55px;}
 .pro_main .pro_cen .main_centon .icon_img{
 	vertical-align: middle;
 }
