@@ -3,7 +3,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>账号管理</a>><a>开票信息管理</a></p>
+						<p><a>账户管理</a>><a>开票信息管理</a></p>
 					</div>
 					<div {if: empty($data)}style="display:block"{else:}style="display: none" {/if} id="invoice1">
 
@@ -40,7 +40,7 @@
                                 <span></span>
 							</div>
                             <div class="zhxi_con">
-                                <span class="con_tit"><i>*</i>银行账号：</span>
+                                <span class="con_tit"><i>*</i>银行账户：</span>
 								<span><input class="text" type="text" name="bankAccount" value="{$data['bank_no']}" datatype="s16-19" errormsg="格式错误">
 								</span>
                                 <span></span>
@@ -79,7 +79,7 @@
 								<span></span>
 							</div>
 							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>银行账号：</span>
+								<span class="con_tit"><i>*</i>银行账户：</span>
 								<span>{$data['bank_no']}</span>
 								<span></span>
 							</div>

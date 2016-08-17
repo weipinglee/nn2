@@ -1,11 +1,39 @@
-body,dl,ul,ol,dd,h3,p ,table,tr,td{
+body,dl,ul,ol,dd,h1,h2,h3,h4,h5,p ,table,tr,td,span{
 	padding: 0px;
 	margin: 0px;
 	font-size: 12px;
-  font-family: "微软雅黑";
+    font-family: 微软雅黑;
   color:#777;border:0;
   border-collapse:collapse;
 }
+*{
+  margin: 0px;padding: 0px;
+  font-family: 微软雅黑;
+}
+/*统一修改select样式*/
+select {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: solid 1px #000;
+
+  /*很关键：将默认的select选择框样式清除*/
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent ;
+  background-color:  #fff;
+
+
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+  padding-right: 14px;
+}
+
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand { display: none; }
+
+
 ul,ol{
 	list-style-type: none;
 }
@@ -13,7 +41,7 @@ a{
  	cursor: pointer;
  	text-decoration: none;
 	color:#666;
-  font-family: "微软雅黑";
+    font-family: 微软雅黑;
 }
 a:hover{
   text-decoration: none;
@@ -57,7 +85,7 @@ img{border:0px;}
     display: block;
     padding: 0 26px;
     color: #fff;
-    font-size: 20px;
+    font-size: 16px;
 }
 .nav-list li a.cur{
   background: #930d13;
@@ -112,7 +140,7 @@ img{border:0px;}
 .user_l .nav-first{
   border-bottom: 1px solid #c0c0c0;
   display: block;
-  padding-left: 40px;
+  padding-left: 45px;
 }
 .user_l .nav-first:hover{
    background: #eee;
@@ -233,14 +261,13 @@ text-align: left;
 }
 .left_navigation ul li{
   line-height:40px;
-  font-size: 16px;
+  font-size: 14px;
 }
 .left_navigation ul li ul li{
 	line-height:40px;
 	border-bottom:1px solid #c0c0c0;
   font-size: 14px;
   padding-left: 50px;
-
 }
 .left_navigation .zj_zh li{font-size: 12px;}
 .left_navigation ul li a.cur{
@@ -253,7 +280,9 @@ text-align: left;
 .left_navigation .let_nav_tit h3{
 	padding: 4px 40px;
   color:#fff;
-  font-size: 22px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: normal;
   border-bottom: 1px solid #c0c0c0;
 }
 /*中间内容*/
@@ -269,10 +298,7 @@ text-align: left;
 }
 .user_zhxi .zhxi_tit p a,.user_pay .zhxi_tit p a,.user_pay_tx .zhxi_tit p a,.user_xqbz .zhxi_tit p a{
 	padding: 0 10px;
-    font-size: 18px;
-}
-.zhxi_tit p a:hover{
-	color:#102BEC;
+    font-size: 16px;
 }
 .zhxi_con{
 	padding:10px 0px;
@@ -302,36 +328,56 @@ div.zhxi_con.font_set span i.bold{
     font-size: 16px;
 }
 .zhxi_con .text{
-	height: 25px;
+  height: 35px;
   width: 240px;
+  font-family: 微软雅黑;
 }
 .zhxi_con .text.potwt{
   width: 65px;
 }
 .zhxi_con .submit{
-	width: 132px;
-    height: 41px;
+	width: 120px;
+    height: 35px;
     background: #d61515;
     border: 0px;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     position: relative;
     left: 200px;
     cursor: pointer;
-}
-.zhxi_con .submit_edit{
-    width: 130px;
-    height: 39px;
-    background: #D61525;
-    color: #FFF;
-    font-size: 18px;
-    position: relative;
-    left: 340px;
-    cursor: pointer;
-    border: 1px solid;
     display: block;
     text-align: center;
-    line-height: 39px;
+    line-height: 35px;
+    font-family: 微软雅黑;
+}
+.zhxi_con .submit_edit{
+    width: 120px;
+    height: 35px;
+    background: #d61515;
+    border: 0px;
+    color: #fff;
+    font-size: 16px;
+    position: relative;
+    left: 200px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    line-height: 35px;
+    font-family: 微软雅黑;
+}
+.submit_chag{
+    width: 120px;
+    height: 35px;
+    background: #c0c0c0;
+    border: 0px;
+    color: #fff;
+    font-size: 16px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    line-height: 35px;
+    font-family: 微软雅黑;
 }
 .zhxi_con a:hover{
   text-decoration: none;
@@ -397,8 +443,8 @@ div.zhxi_con.font_set span i.bold{
   color:#3C3B3B;
 }
 .zj_gl .zj_l .rental{
-    margin: 10px 10px;
-    font-family: '微软雅黑';
+    margin: 10px 10px;    
+    font-family: 微软雅黑;
     font-size: 40px;
     color: #C50E0E;
 }
@@ -473,7 +519,7 @@ div.zhxi_con.font_set span i.bold{
 
  .user_c .user_zhxi .jy_xq table{
   margin:20px auto;
-  width: 725px;
+  width: 925px;
   border-top: 1px #dcdcdc solid;
   border-left: 1px #dcdcdc solid;
   text-align: center;
@@ -493,9 +539,9 @@ div.zhxi_con.font_set span i.bold{
     border-right: 1px #dcdcdc solid;
     height: 30px;
     line-height: 30px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: normal;
-    color: #000000;
+    padding: 0 10px;
 }
 
  .user_c .user_zhxi .jy_xq table tr td .dj_xq i{
@@ -661,7 +707,7 @@ visibility: hidden;
 .center_tabl td {
    padding: 5px 0;
     font-size: 12px;
-    font-family: "宋体";
+    font-family: 微软雅黑;
     color: #666;
     line-height: 30px;
     position: relative;
@@ -764,7 +810,7 @@ visibility: hidden;
 	line-height: 25px;
 	padding-right: 5px;
 }
-.xx_top ul li .chaz{
+.xx_top ul li .chaz,{
 	height: 22px;
 width: 44px;
 border: 0px;
@@ -1348,20 +1394,23 @@ padding: 8px 15px;
   background:#d61515;
   color: #fff;
   border: 1px solid #d61515;
-  font-size: 20px;
+  font-size: 16px;
   padding: 8px 30px;
   margin: 5px 10px;
   cursor: pointer;
+    font-family: 微软雅黑;
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn input{  
     background: #d61515;
     color: #fff;
     border: 1px solid #d61515;
-    font-size: 18px;
+    font-size: 16px;
     margin: 5px 10px;
     cursor: pointer;
-    width: 132px;
-    height: 41px;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    font-family: 微软雅黑;
 }
 
   /*审核状态字体颜色*/
@@ -1579,7 +1628,7 @@ background: #cd5c5c;
 border: 0;
 }
 .send1{
-  padding: 8px 10px;
+  padding:10px;
 border: 1px solid #c0c0c0;
 margin-left: 5px;
 background:#F4F1F1;
@@ -1626,9 +1675,9 @@ border: 1px solid #c0c0c0;
 .div_height{
     padding: 5px 10px;
     text-align: left;
-    height: 90px;
     display: table-cell;
     vertical-align: middle;
+    float: left;
 }
 .div_height p {
     width: 140px;
@@ -1724,7 +1773,6 @@ a.for_cangdan:hover,a.for_cangdan:active{
   color: red;
 }
 /*tabqiehuan*/
-*{margin:0;padding:0;}
 .tabPanel ul{height:30px;border-bottom:1px solid #aaa;}
 .tabPanel ul li{
   float:left;margin:0 2px 0 0;border:1px solid #aaa;font-size:11px;height:29px;line-height:30px;width:111px;text-align:center;cursor:pointer;
@@ -1874,6 +1922,7 @@ line-height: 30px;
   color: #666666;
   position: relative;
   top: 30px;
+  margin-left: -30px;
 }
 .of_title2.public{
     padding: 0 0 0 27%;
@@ -1906,17 +1955,6 @@ line-height: 30px;
     cursor: pointer;
 }
 
-.zhxi_con .submit {
-    width: 120px;
-    height: 35px;
-    background: #d61515;
-    border: 0px;
-    color: #fff;
-    font-size: 14px;
-    position: relative;
-    left: 200px;
-    cursor: pointer;
-}
 input#image {
     width: 68px;
     height: 21px;

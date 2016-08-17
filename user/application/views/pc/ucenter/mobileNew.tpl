@@ -2,7 +2,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>账号管理</a>><a> 更换新手机号</a></p>
+						<p><a>账户管理</a>><a> 更换新手机号</a></p>
 					</div>
 					<div>
 						<form action="{url:/ucenter/MobileSuccess}" method="post" auto_submit redirect_url="{url:/ucenter/MobileSuccess}">

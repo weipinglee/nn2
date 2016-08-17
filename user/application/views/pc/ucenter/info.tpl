@@ -8,7 +8,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>账号管理</a>><a>基本信息</a></p>
+						<p><a>账户管理</a>><a>基本信息</a></p>
 					</div>
 					<input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 					{if:$type==0}
@@ -220,7 +220,7 @@
 									<span><input class="text" type="text" name="deposit_bank" pattern="required" value="{$user['deposit_bank']}"/></span>
 								</div>
 								<div class="zhxi_con">
-									<span class="con_tit"><i>*</i>银行账号：</span>
+									<span class="con_tit"><i>*</i>银行账户：</span>
 									<span><input class="text" type="text" name="bank_acc" pattern="int" value="{$user['bank_acc']}"/></span>
 								</div>
 								<div class="zhxi_con">

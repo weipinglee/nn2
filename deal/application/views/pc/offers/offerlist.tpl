@@ -191,7 +191,7 @@
                <div class="pro_cen">
                    <ul class="main_centon">
                        <li class="tit_left">
-                           <!--<a href="" title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
+                           <!--<a title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
                            <span><%=data[i].name%></span>
                        </li>
                        <li><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>no_picture.jpg<% }else { %><%=data[i].img%> <%}%>" class="icon_img"></a></li>
@@ -211,11 +211,11 @@
                        </li>
                        <li class="toubao_rz">
                        <% if(data[i].insurance == 1){%>
-                       <a href="" title="已投保"><img class="icon_img" src="{views:images/icon/icon_yb.png}"/></a>
+                       <a title="已投保"><img class="icon_img" src="{views:images/icon/icon_yb.png}"/></a>
                        <% } else { %>
-                       <a href="" title="未投保"><img class="icon_img" src="{views:images/icon/icon_wb.png}"/></a>
+                       <a title="未投保"><img class="icon_img" src="{views:images/icon/icon_wb.png}"/></a>
                        <% }%>
-                           <a href="" title="认证"><img class="icon_img" src="{views:images/icon/icon_rz.png}"/></a>
+                           <a title="认证"><img class="icon_img" src="{views:images/icon/icon_rz.png}"/></a>
                        </li>
                        <li class="but_left">
                            <div class="">

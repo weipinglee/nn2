@@ -107,7 +107,7 @@
                                     <option value="30" {if:$cond['day']==30}selected{/if}>一个月内</option>
                                     <option value="365" {if:$cond['day']==365}selected{/if}>一年内</option>
                                 </select>
-                                <button type="submit">搜索</button>
+                                <button type="submit" class="search_an">搜索</button>
                             </div>
                         </form>
                     </div>

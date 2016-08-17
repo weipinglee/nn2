@@ -25,7 +25,7 @@
       <ul class="topnav_left">
         <li><a href="index.html"><img class="shouy icon" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
         <li class="space">您好，欢迎进入耐耐网</li>
-        <li><a href="">请登录</a></li>
+        <li>请登录</li>
         <li><a href="{url:/login/register}">欢迎注册</a></li>
       </ul>
       <ul class="topnav_right">
@@ -43,7 +43,7 @@
     <div class="m_log w1200">
         <div class="logoimg_left">
             <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
-            <div class="word_box"><a href="">欢迎登录</a></div>
+            <div class="word_box">欢迎登录</div>
 
   
 

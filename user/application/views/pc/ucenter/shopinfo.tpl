@@ -6,7 +6,7 @@
  <div class="user_c">
                 <div class="user_zhxi">
                     <div class="zhxi_tit">
-                        <p><a>账号管理</a>><a>商铺信息</a></p>
+                        <p><a>账户管理</a>><a>商铺信息</a></p>
                     </div>
                     <div style="float:left">
         <!--店铺广告位start  -->

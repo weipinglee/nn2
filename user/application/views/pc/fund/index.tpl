@@ -1,6 +1,6 @@
 ﻿	
 			<!--start中间内容-->	
-			<div class="user_c">
+			<div class="user_c_list">
 				<div class="user_zhxi">
 				<form action="" method="get">
 					<div class="zhxi_tit">
@@ -76,7 +76,7 @@
 							<td>{echo:$item['total'] -$item['active'] }</td>
 							<td>{$item['total']}</td>
 							<td>{$item['active']}</td>
-							<td style="font-size:8px;">{$item['note']}</td>
+							<td>{$item['note']}</td>
 
 						</tr>
 						{/foreach}

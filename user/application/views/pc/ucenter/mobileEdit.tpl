@@ -2,7 +2,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>账号管理</a>><a>修改绑定手机</a></p>
+						<p><a>账户管理</a>><a>修改绑定手机</a></p>
 					</div>
 					<div>
 						<form action="{url:/ucenter/checkMobileCode}" method="post" auto_submit redirect_url="{url:/ucenter/mobileNew}">
@@ -24,7 +24,7 @@
 
 						<div class="zhxi_con">
                             <span class="con_tit"><i></i>短信验证码：</span>
-                            <span><input type="text" name='mobileCode' id="phone" class="infos text" placeholder="请输入验证码"/></span><input class="send1" type="button" value="免费获取短信验证码" onClick="getMobileCode()" />
+                            <span><input type="text" name='mobileCode' id="phone" class="infos text gradient" placeholder="请输入验证码"/></span><input class="send1" type="button" value="免费获取短信验证码" onClick="getMobileCode()" />
                             <div><input type="text" readonly="readonly" name="checkCode" class="mobile_no"/></div>
                         </div>
 						<div class="zhxi_con">
