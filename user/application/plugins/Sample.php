@@ -12,7 +12,9 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 	}
 
 	public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-		
+		//开闭市控制
+		$market = new \nainai\market();
+		$market->checkCanOper($request);
 	}
 
 	public function dispatchLoopStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {

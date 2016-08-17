@@ -13,7 +13,7 @@ use \Library\JSON;
 class SamplePlugin extends Yaf\Plugin_Abstract {
 
 	public function routerStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-		
+
 	}
 
 	public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
@@ -41,6 +41,10 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 		// if(strtolower($request->controller) == 'index' && strtolower($request->action) == 'index'){
 		// 	rbac::accessMenu();
 		// }
+
+		//开闭市控制
+		$market = new \nainai\market();
+		$market->checkCanOper($request);
 		
 	}
 
