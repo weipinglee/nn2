@@ -289,13 +289,13 @@ function minimumRules(){
         ele:"input[name=minimum]",
         datatype:"compare",
         nullmsg:"请输入最小起订量！",
-        errormsg:"最小起订量必须小于等于总量和最小递增量之差！"
+        errormsg:"最小起订量大于0且必须小于等于总量和最小递增量之差！"
     },
         {
             ele:"input[name=minstep]",
             datatype:"minsteprule",
             nullmsg:"请输入最小递增量！",
-            errormsg:"最小递增量必须小于等于总量和最小起订量之差！"
+            errormsg:"最小递增量大于0且必须小于等于总量和最小起订量之差！"
         }
     ];
     formacc.addRule(rules);
