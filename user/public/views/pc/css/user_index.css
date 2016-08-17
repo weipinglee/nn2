@@ -2,7 +2,7 @@ body,dl,ul,ol,dd,h3,p ,table,tr,td{
 	padding: 0px;
 	margin: 0px;
 	font-size: 12px;
-  font-family: "微软雅黑";
+    font-family: 微软雅黑;
   color:#777;border:0;
   border-collapse:collapse;
 }
@@ -37,7 +37,7 @@ a{
  	cursor: pointer;
  	text-decoration: none;
 	color:#666;
-  font-family: "微软雅黑";
+    font-family: 微软雅黑;
 }
 a:hover{
   text-decoration: none;
@@ -346,6 +346,7 @@ div.zhxi_con.font_set span i.bold{
     display: block;
     text-align: center;
     line-height: 35px;
+    font-family: 微软雅黑;
 }
 .zhxi_con .submit_edit{
     width: 120px;
@@ -360,6 +361,7 @@ div.zhxi_con.font_set span i.bold{
     display: block;
     text-align: center;
     line-height: 35px;
+    font-family: 微软雅黑;
 }
 .zhxi_con a:hover{
   text-decoration: none;
@@ -425,8 +427,8 @@ div.zhxi_con.font_set span i.bold{
   color:#3C3B3B;
 }
 .zj_gl .zj_l .rental{
-    margin: 10px 10px;
-    font-family: '微软雅黑';
+    margin: 10px 10px;    
+    font-family: 微软雅黑;
     font-size: 40px;
     color: #C50E0E;
 }
@@ -690,7 +692,7 @@ visibility: hidden;
 .center_tabl td {
    padding: 5px 0;
     font-size: 12px;
-    font-family: "宋体";
+    font-family: 微软雅黑;
     color: #666;
     line-height: 30px;
     position: relative;
