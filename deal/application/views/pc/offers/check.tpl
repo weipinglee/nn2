@@ -1,224 +1,191 @@
 
-    <script type="text/javascript" defer="" async="" src="{views:js/uta.js}"></script>
-    <script src="{views:js/gtxh_formlogin.js}" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="{views:css/index20141027.css}">
-    <!-- <script src="{views:js/index20141027.js}" type="text/javascript"></script> -->
-    <link rel="stylesheet" href="{views:css/classify.css}">
-    <link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
-     <script type="text/javascript" src="{views:js/submit_order.js}"></script>
+<link rel="stylesheet" type="text/css" href="{views:css/password_new.css}">
+<link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
+<form method="post" pay_secret="1" auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
 
-    <!------------------导航 开始-------------------->
-    <form method="post" action="" id="form1">
-        <div class="aspNetHidden">
-        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="b7kHdN58Jsi2cPaAmmpEqXjSD5M7lilMmnUNdKzTkgYwpBrDsYEml4gvo/iOj8sf">
-        </div>
-    </form>
-
-
-    <input type="hidden" id="UserID">
     <!--主要内容 开始-->
     <div id="mainContent" style="background:#FFF;"> 
     
-    
-    
-    
-    
         <div class="page_width">
 
+         <div class="submit_word">
+               <h3 class="sure_oder">填写并核对订单信息</h3>
+               <a id="contract_review" href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}">
+               <img src="images/password/eye_b.png" alt="" />
+               <i>合同预览</i>
+               </a>
+         </div>  
+                
+        <div class="order_form suo">
+            <table border="1">
+               <tr class="form_bor" height="50">
+               <th width="25%" bgcolor="#fafafa">产品详情</th>
+               <th width="15%" bgcolor="#fafafa">规格</th>
+               <th width="15%" bgcolor="#fafafa">单位</th>
+               <th width="15%" bgcolor="#fafafa">意向单价（元）</th>
+               <th width="15%" bgcolor="#fafafa">数量(最小起订量：{$data['minimum']} 剩余:{$data['left']}) </th>
+               <th width="15%" bgcolor="#fafafa">总额</th>
+               </tr>
+               <tr class="form_infoma">
+               <td class="product_img" >
+                   <img src="{$data['img']}" alt="" />
+                   <div class="produ_left">
+                    <p>钢铁行业/dsfd/ddd/</p>
+                    <p>{$data['name']}</p>
+                   </div>
+
+               </td>
+               <td class="guige">
+                   {foreach:items=$data['attr_arr']}
+                       <p>{$key}:{$item}</p>
+                   {/foreach}
+               </td>
+               <td>{$data['unit']}</td>
+               <td class="price"><i>￥</i><span>{$data['price']}</span></td>
+               <td>
+                 <div class="counter">
+                 {if:$data['fixed']}
+                    {$data['minimum']}
+                    <input type="hidden" name="num" value="{$data['minimum']}"/>
+                 {else:}
+                    <input id="min" name="" type="button" value="-" />  
+                    <input id="text_box" name="num" type="text" value="{$data['minimum']}"/>  
+                    <input id="add" name="" type="button" value="+" />  
+                 {/if}
+                  
+                </div>
+
+
+
+               </td>
+               <td class="price"><i>￥</i><span class="prod_amount">{$data['amount']}</span></td>
+               </tr>
+           </table>
+        </div> 
+
+
+           
             
             <!----第一行搜索  开始---->
-            <div class="mainRow1">
+            <div class="mainRow1 sure">
                 <!--搜索条件 开始-->
-                    
-            
- 
-            
-              
+
              <!------------------订单 开始-------------------->
             <div class="submit">
              
-             <div class="submit_word">
-             <span>支付货款</span>
-             <span>支付完成</span>
-             </div>  
-            <div class="submit_photo">
-              <img src="{views:images/order/oder-1.jpg}" width="203" height="47" alt="第一步" />
-              <img src="{views:images/order/oder-2.jpg}" width="205" height="47" alt="第二步" />
-              </div> 
-
-            <form method="post" pay_secret="1" auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
-
+             
+            
+               
+            
             <div class="checkim">
-            <h2>填写并核对订单信息<a id='contract_review' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:blue;">合同预览</a></h2>
-                
-                <!--清单开始-->
-                <div class="clrarorder">
-                 <span class="qingorder"><b class="shangpqd">商品信息</b><h3>
+           
+            
+             {if:$data['show_payment']}
+                <div class="zhiffs"><b>支付方式</b>
+                  <h3 class="addwidth">
 
-
-                     <div class="bezel_clear">
-                         <div class="wor_clear">
-
-                             <span class="goods">商品</span>
-                             <span class="norms">规格</span>
-                             <span class="number">数量(最小起订量：{$data['minimum']} 剩余:{$data['left']}) </span>
-                            <span class="numunit">单位</span> 
-                             <span class="amount">总额(元)</span>
-                             <span class="price ">单价(元)</span>
-                         </div>
-
-                         <div class="module_clear">
-
-                             <a href="javascript:;"><img src="{$data['img']}" width="80" height="80" alt="产品"> </a>
-                             <a href="javascript:;"><div class="clear_word">
-                                 <h5>{$data['name']}</h5>
-                             </div></a>
-                             <span class="guige">
-                                 {foreach:items=$data['attr_arr']}
-                                     {$key}:{$item}</br>
-                                 {/foreach}
-                             </span>
-                             <span class="shulag">
-                                {if:$data['fixed']}
-                                    {$data['minimum']}
-                                    <input type="hidden" name="num" value="{$data['minimum']}"/>
-                                {else:}
-                                    <input type="text" name="num" value="{$data['minimum']}" width="20px" style="width:100px" />
-                                {/if}
-                              </span>
-                             <span class="danwei">{$data['unit']}</span>
-                             <span class="danjia"><b>￥</b>{$data['price']}</span>
-                             <span class="jine"><i><b>￥</b><b class='prod_amount'>{$data['amount']}</b></i></span>
-
-                         </div>
-
-
-                     </div>
-
-
-
-                 </h3>
-            </span>
-                    <hr class="bottor" color="#c8c8c8" size="2px" />
-                </div>
-                {if:$data['show_payment']}
-                <!--清单结束-->
-                <span class="zhiffs">
-                    <b>支付方式</b>
-                    <h3 class="addwidth">
-
-
-                        <div class="yListr">
-
+                   <div class="yListr">
+                     
                            <ul>
-                               <li><em class="yListrclickem" paytype='0'>订金支付<i></i></em> <em paytype='1'>全款支付<i></i></em></li>
+                               <li><em class="yListrclickem" paytype='0'>定金支付<i></i></em> <em paytype='1'>全款支付<i></i></em></li>
                                
                            </ul>
                             <input type="hidden" name="paytype" value="0" />
+                     </div> 
+                    </h3> 
+                  </div>
+                  <div class="zhiffs"><b>账户类型</b>
+                  <h3 class="addwidth">
 
-                        </div>
-                    </h3>
-             
-                </span>
+                   <div class="yListr bank">
+                           <ul>
+                              <li><em class="yListrclickem" account='1'>市场代理账户<i></i></em>
 
-                <span class="zhiffs">
-                    <b>账户类型</b>
-                    <h3 class="addwidth">
+                                    <em account='2' class="qianyue" id="click_show">银行签约账户<i></i></em></li>
 
-                        <div class="yListr">
+                           </ul>
+                           <input type="hidden" name="account" value="1" />   
+                     </div>
+                     <div class="bank_box" style="display:none;">
+                       <label for=""><input type="radio" name="bank"/></label><img src="{views:images/password/bank_js.png}" alt="" />
+                       
+                        <label for=""><input type="radio" name="bank"/></label><img src="images/password/bank_pa.png" alt="" />
+                        
+                        <label for=""><input type="radio" name="bank"/></label><img src="images/password/bank_zx.png" alt="" />
+                     </div>
+             <script>
+                 $(function(){
+                   $(".yListr.bank li em").click(function(){
+                    $(".bank_box").hide();
+                  });
 
+                  $(".yListr.bank #click_show").click(function(){
+                    $(".bank_box").show();
+                  });
+                  
+                 });
 
-                            <ul id="account_type">
-                                <li><em class="yListrclickem" account='1'>代理账户<i></i></em>
-
-                                    <em account='2' class="qianyue">签约账户<i></i></em></li>
-                                <!-- <em account='3'>票据账户<i></i></em>-->
-
-                            </ul>
-                            <div class="bank_box" style="display:none;">
-                                <h5>请选择银行:</h5>
-                               <span>
-                                <input name="zhifu" type="radio" value=""><img src="{views:images/order/bank_jh.png}"/>
-                               </span>
-                                <span>
-                                <input name="zhifu" type="radio" value=""><img src="{views:images/order/bank_pa.png}"/>
-                               </span>
-                                <span>
-                                <input name="zhifu" type="radio" value=""><img src="{views:images/order/bank_zx.png}"/>
-                               </span>
-                            </div>
-                            <script>
-                                $(function(){
-                                    var arrAccount=$("#account_type li em");
-                                    for(var i=0; i<arrAccount.length;i++){
-                                        arrAccount[i].index=i;
-                                        arrAccount[i].onclick=function(){
-                                            if(this.index==1){
-                                                $('.bank_box').show();
-                                            }else{
-                                                $('.bank_box').hide();
-                                            }
-                                        };
-                                    };
-                                });
-                            </script>
-                            <input type="hidden" name="account" value="1" />
-                        </div>
-                    </h3>
-
-                 </span>
-                 {/if}
-
-                 <span class="zhiffs">
-                    <b>是否开具发票</b>
-                    <h3 class="addwidth">
-
-                        <div class="yListr">
-
-                            <ul>
-                                <li><em  invoice='1'>开发票<i></i></em> <em invoice='2' class="yListrclickem">不开发票<i></i></em></li>
-                            </ul>
-                            <input type="hidden" name="invoice" value="2" />
-                        </div>
-                    </h3>
-
-                 </span>
-                <!-------------------------- -->
-             
-        
-  
-             <!-------------------发票信息-------------------->
-              <hr color="#c8c8c8" size="2px" /> 
-
+             </script>
               
-                </div>
-            {if:$data['show_payment']}
-           <span class="jiesim"><b>结算信息</b><h3>  </h3> </span>
+              {/if}
+                    </h3> 
+                   </div>  
+                   <div class="zhiffs"><b>是开具发票</b>
+                  <h3 class="addwidth">
+
+                   <div class="yListr">
+                           <ul>
+                              <li><em  invoice='1'>开发票<i></i></em> <em invoice='2' class="yListrclickem">不开发票<i></i></em></li>
+                           </ul>
+                           <input type="hidden" name="invoice" value="2" />
+                     </div> 
+                    </h3> 
+                   </div>      
+              </div>     
+             <script type="text/javascript">
+                 $(function() {
+                     $(".yListr ul li em").click(function() {
+                         $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+                     })
+                 })
+             </script>  
             
-            <span class="daizfji"><span class="zhifjin">待支付金额：</span><i>￥</i><b class='pay_deposit'>
-               {$data['minimum_deposit']}
-
-            </b></span>
-            {/if}
-               <input type="hidden" name="id" value="{$data['id']}" />
-
-             <div class="order_comit">
+             <!-------------------------- -->                
+            
+            <span class="jiesim"><h3></h3> </span>   
+            <div class="intur_box">
+            <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b class='prod_num'>{$data['minimum']}</b>吨</span></span>
+            <span class="daizfji"><span class="zhifjin"><strong>总额：</strong><i>￥</i><b class='prod_amount'>{$data['amount']}</b></span></span>
+            <span class="daizfji"><span class="zhifjin"><strong>定金：</strong><i>￥</i><b class="pay_deposit">{$data['minimum_deposit']}</b></span></span>
+           </div>    
+           <div class="order_comit">
+              <input type="hidden" name="id" value="{$data['id']}" />
              {if:$data['left'] == 0}
                 <a style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="javascript:;">已成交</a>
              {else:}
                  {if: $data['insurance'] == 0}
                    <!--  <a  style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="{url: /Insurance/apply@user}?{set: echo http_build_query(array('id' => $data['id']))}" >申请保险</a> -->
                 {/if}
-                <a class="btoncomit" href="javascript:;" >确认支付</a>
+                <a class="btoncomit" href="javascript:;" >提交订单</a>
              {/if}
+            <!-- <a class="btoncomit" href="submit_order-3.html">提交订单</a> -->
+            <span>应支付金额：<i>￥</i><b class='pay_deposit'>{$data['minimum_deposit']}</b></span>
 
-            </div>
-            </form>
+           </div>
+
 
              </div>
        <!------------------订单 结束-------------------->
 
-            <script type="text/javascript">
+              
+    </div>
+</div>  
+</div> 
+    <!--主要内容 结束-->
+
+</form>
+
+    <script type="text/javascript">
                 
                 $(function(){
                     var num_input = $('input[name=num]');
@@ -231,34 +198,17 @@
                     var price = {$data['price']};
                     var minimum_deposit = {$data['minimum_deposit']};
                     var left_deposit = {$data['left_deposit']};
-                    var temp_deposit = deposit_text.text();
+                    var minimum_step = {$data['minstep']};
+                    var temp_deposit = deposit_text.eq(1).text();
                     var paytype = 0;
+                    
+                    bindmin();
+                    bindadd();
 
 
                     $('input[name=num]').blur(function(){
-                        var num = parseFloat(num_input.val());
-                        var id = $('input[name=id]').val();
-                        var flag = isnum_valid();
-                        if(flag && {$data['show_payment']}){
-                            $.post("{url:/Offers/payDepositCom}",{id:id,num:num,price:price},function(data){
-
-                                if(data.success == 1){
-                                    var total = num*price;
-                                    prod_amount.text(total.toFixed(2));
-                                    deposit_text.text(paytype == 1 ? prod_amount.text(): data.info.toFixed(2));
-                                    temp_deposit = data.info;
-                                    $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
-                                }else{
-                                    alert(data.info);
-                                }
-                            },"json");
-                        }else{
-                            var total = num*price;
-                            prod_amount.text(total.toFixed(2));
-                            $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
-                        }
+                        check();
                     });
-
 
                     $('.btoncomit').click(function(){
                         var flag = isnum_valid();
@@ -268,42 +218,6 @@
 
 
                     });
-
-                    function isnum_valid(){
-                        var flag = false;
-                        var num = parseFloat(num_input.val());
-                        if(divide == 0){
-                            if(num != quantity){
-                                alert('此商品不可拆分');
-                            }else{
-                                flag = true;
-                            }
-                        }else{
-                            if(left>minimum) { //剩余量大于最小起订量
-                                if (num < minimum) {
-                                    num_input.val(minimum);
-                                    deposit_text.text(paytype == 1 ? minimum * price : minimum_deposit);
-                                    temp_deposit = minimum_deposit;
-                                    prod_amount.text(minimum * price);
-                                    alert('小于最小起订量');
-                                }
-                                else if (num > left) {
-                                    num_input.val(left);
-                                    deposit_text.text(paytype == 1 ? left * price : left_deposit);
-                                    temp_deposit = left_deposit;
-                                    prod_amount.text(left * price);
-                                    alert('超出剩余数量');
-                                } else {
-                                    flag = true;
-                                }
-                            }
-                            else if(num==left){
-                                flag = true;
-                            }
-                        }
-                        return flag;
-                    }
-
 
                     $(".yListr ul li em").click(function() {
                          paytype = $(this).attr('paytype');
@@ -324,8 +238,95 @@
                         }
                      })
 
-                })
-            </script>
+                    function isnum_valid(){
+                        var flag = false;
+                        var num = parseFloat(num_input.val());
+                        if(divide == 0){
+                            if(num != quantity){
+                                layer.msg('此商品不可拆分');
+                            }else{
+                                flag = true;
+                            }
+                        }else{
+                            if(left>minimum) { //剩余量大于最小起订量
+                                if (num < minimum) {
+                                    num_input.val(minimum);
+                                    deposit_text.text(paytype == 1 ? minimum * price : minimum_deposit);
+                                    temp_deposit = minimum_deposit;
+                                    prod_amount.text(minimum * price);
+                                    temp_num = minimum;
+                                    layer.msg('小于最小起订量');
+                                }
+                                else if (num > left) {
+                                    num_input.val(left);
+                                    deposit_text.text(paytype == 1 ? left * price : left_deposit);
+                                    temp_deposit = left_deposit;
+                                    prod_amount.text(left * price);
+                                    temp_num = left;
+                                    layer.msg('超出剩余数量');
+                                } else {
+                                    temp_num = num;
+                                    flag = true;
+                                }
+                                $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+temp_num);
+                                $('.prod_num').text(temp_num);
+                            }
+                            else if(num==left){
+                                flag = true;
+                            }
+                        }
+                        return flag;
+                    }
 
-       
+                    function check(){
+                      var num = parseFloat(num_input.val());
+                      var id = $('input[name=id]').val();
+                      var flag = isnum_valid();
+                      if(flag && {$data['show_payment']}){
+                          layer.load(2);
+                          unbindmin();
+                          unbindadd();
+                          $.post("{url:/Offers/payDepositCom}",{id:id,num:num,price:price},function(data){
+                              layer.closeAll();
+                              bindmin();
+                              bindadd();
+                              if(data.success == 1){
+                                  var total = num*price;
+                                  prod_amount.text(total.toFixed(2));
+                                  deposit_text.text(paytype == 1 ? prod_amount.text(): data.info.toFixed(2));
+                                  temp_deposit = data.info;
+                                  $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
+                              }else{
+                                  layer.msg(data.info);
+                              }
+                          },"json");
+                      }
+                    }
+
+                    function bindmin(){
+                      $('#min').click(function(){
+                        num = parseFloat(num_input.val())-minimum_step;
+                        num_input.val(num.toFixed(2));
+                        check();
+                      });
+                    }
+                    function unbindmin(){
+                      $('#min').unbind('click');
+                    }
+
+                    function bindadd(){
+                      $('#add').click(function(){
+                        num = parseFloat(num_input.val())+minimum_step;
+                        num_input.val(parseFloat(num).toFixed(2));
+                        check();
+                      });
+                    }
+
+                    function unbindadd(){
+                      $('#add').unbind('click');
+                    }
+                })
+
+
+            </script>
 

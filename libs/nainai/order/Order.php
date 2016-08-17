@@ -228,9 +228,9 @@ class Order{
 			if($offer_exist === false) return tool::getSuccInfo(0,'报盘不存在或未通过审核');
 		}
 		$offer_info = $this->offerInfo($orderData['offer_id']);
-		if($offer_info['user_id'] == $orderData['user_id']){
-			return tool::getSuccInfo(0,'买方卖方为同一人');
-		}
+		// if($offer_info['user_id'] == $orderData['user_id']){
+		// 	return tool::getSuccInfo(0,'买方卖方为同一人');
+		// }
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
 			if($product_valid !== true)
@@ -359,7 +359,7 @@ class Order{
 								$res = $upd_res['info'];
 							}
 							if($res === true){
-								$note = '支付合同'.$info['order_no'].'尾款 '.$retainage;
+								$note = '支付合同'.$info['order_no'].'尾款-'.$retainage;
 								$account = $this->base_account->get_account($account);
 								if(!is_object($account)) return tool::getSuccInfo(0,$account);
 								$acc_res = $account->freeze($buyer,$retainage,$note);
@@ -732,13 +732,13 @@ class Order{
 							$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage) : is_object($account_deposit);
 
 							if($cond){
-								$note = '卖方确认合同'.$info['order_no'].'解冻支付定金部分60%'.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+								$note = '卖方确认质量合格'.$info['order_no'].'解冻支付定金部分60%-'.($order['pay_deposit']-$order['reduce_amount'])*0.6.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 								$deposit_res = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6,$note);
 
 								if($deposit_res !== true) {
 									$error = $deposit_res;
 								}else{
-									$note = '卖方确认合同'.$info['order_no'].'解冻支付尾款部分60%'.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+									$note = '卖方确认质量合格'.$info['order_no'].'解冻支付尾款部分60%-'.$order['pay_retainage']*0.6.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 									$retainage_res = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.6,$note) : true;
 									$error = $retainage_res === true ? '' : $retainage_res;
 								}
@@ -788,6 +788,7 @@ class Order{
 					return tool::getSuccInfo(0,'操作用户错误');
 
 				$orderData['contract_status'] = self::CONTRACT_COMPLETE;
+				$orderData['end_time'] = date('Y-m-d H:i:s',time());
 				$orderData['id'] = $order_id;
 
 				try {
@@ -813,22 +814,22 @@ class Order{
 						$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage): is_object($account_deposit);
 						$cond = $order['seller_deposit'] ? $cond && is_object($account_seller_deposit) : $cond;
 						if($cond){
-							$note = '买方确认合同完成'.$info['order_no'].'解冻卖方保证金 '.$order['seller_deposit'];
+							$note = '买方确认合同完成'.$info['order_no'].'解冻卖方保证金-'.$order['seller_deposit'];
 							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit'],$note) : true;
 
 							if($r1 === true){
-								$note = '买方确认合同完成'.$info['order_no'].'解冻支付定金部分40%'.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+								$note = '买方确认合同完成'.$info['order_no'].'解冻支付定金部分40%-'.($order['pay_deposit']-$reduce_amount)*0.4.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 								$r2 = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$reduce_amount)*0.4,$note);
 								
 								if($r2 !== true){
 									$error = $r2;
 								}else{
-									$note = '买方确认合同完成'.$info['order_no'].'解冻支付尾款部分40%'.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+									$note = '买方确认合同完成'.$info['order_no'].'解冻支付尾款部分40%-'.$order['pay_retainage']*0.4.($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 									$r3 = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.4,$note) : true;	
 									if($r3 !== true){
 										$error = $r3;
 									}else{
-										$note = '买方确认合同完成'.$info['order_no'].'解冻扣减货款 '.$reduce_amount;
+										$note = '买方确认合同完成'.$info['order_no'].'解冻扣减货款-'.$reduce_amount;
 										$r4 = $reduce_amount > 0 ? $account_deposit->freezeRelease($buyer,$reduce_amount,$note) : true;			
 										$error = $r4 === true ? '' : $r4;
 									}
@@ -860,6 +861,37 @@ class Order{
 		}
 
 		return tool::getSuccInfo(0,$error);
+	}
+
+	/**
+	 * 获取所有合同列表
+	 * @param  int $page 分页
+	 */
+	public function memberContractList($page,$where=''){
+		$query = new \Library\searchQuery('order_sell as do');
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join user as u2 on po.user_id = u2.id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
+		if($where)$query->where = $where;
+		$query->fields = 'u2.username as po_username,po.mode,u.username as do_username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
+		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
+		
+		$query->page  = $page;
+		$query->pagesize = 10;
+		 $query->order = "do.id desc";
+		$data = $query->find();
+		$this->adminContractStatus($data['list']);
+		$product = new \nainai\offer\product();
+		foreach ($data['list'] as $key => &$value) {
+			$value['mode_txt'] = $product->getMode($value['mode']);
+			$value['type_txt'] = $product->gettype($value['mode']);
+			$value['account'] = number_format(floatval($value['amount']) - floatval($value['reduce_amount']),2);
+			$value['amount'] = number_format(floatval($value['amount']),2);
+			$value['num'] = number_format(floatval($value['num']),2);
+			$value['buyer_name'] = $value['mode_txt'] == '卖盘' ? $value['do_username'] : $value['po_username'];
+			$value['seller_name'] = $value['mode_txt'] == '卖盘' ? $value['po_username'] : $value['do_username'];
+		}
+		// tool::pre_dump($data['list'][0]);exit;
+		// tool::pre_dump($data);
+		return $data;
 	}
 
 	/**

@@ -12,12 +12,13 @@ class PublicController extends \Yaf\Controller_Abstract{
           $right = new \Library\checkRight();
           $isLogin = $right->checkLogin();
           $this->getView()->setLayout('layout');
+          
           //获取所有分类
           $productModel=new product();
           $res=$productModel->getAllCat();
           $res = array_slice($res,0,6);
           $this->getView()->assign('catList',$res);
-
+          
           $frdLink = new \nainai\system\friendlyLink();
           $frdData = $frdLink->getFrdLink(10);
           $this->getView()->assign('frdData',$frdData);

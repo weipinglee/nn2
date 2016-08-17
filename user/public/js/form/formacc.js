@@ -22,7 +22,7 @@ nn_panduo.formacc.prototype = {
 			_this.redirect_url = $(this).attr("redirect_url");
 			_this.form = this;
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
-
+			
 			_this.bind_select();
 			_this.validform();
 			var con = $(_this.form).find('[confirm=1]');
@@ -66,7 +66,7 @@ nn_panduo.formacc.prototype = {
 		      ajaxPost:false,
 		      showAllError:false,
 		      postonce:true,
-
+		      
 			  datatype : {
 				  'float' : /^\d+\.?\d*$/i,
 				  "zh" : /^[\u4E00-\u9FA5\uf900-\ufa2d]$/,
