@@ -295,6 +295,7 @@ nn_panduo.formacc.prototype = {
 
 
 $(function(){
+
 	 formacc = new nn_panduo.formacc();
 	formacc.bind_status_handle();
 
@@ -315,7 +316,7 @@ $(function(){
 		//为地址选择框添加验证规则
 		var rules = [{
 			ele:"input[name=area]",
-			datatype:"n6-6",
+			datatype:"n2-6",
 			nullmsg:"请选择地址！",
 			errormsg:"请选择地址！"
 		}];

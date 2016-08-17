@@ -1259,7 +1259,7 @@ class Order{
 		$Q->join = ' left join '.$this->offer_table.' as of on o.offer_id=of.id
 					 left join '.'products'.' as p on of.product_id = p.id
 					 left join user as u on u.id = of.user_id';
-		$Q->fields = 'u.username,of.type,p.name,p.unit,o.num';
+		$Q->fields = 'u.username,of.type,p.name,p.unit,o.num,o.create_time';
 		$Q->where = 'o.contract_status='.self::CONTRACT_COMPLETE;
 		$Q->limit = $num;
 		$Q->cache = 'm';

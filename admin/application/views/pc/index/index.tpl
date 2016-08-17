@@ -85,22 +85,6 @@
                             </ul>
                         </li>
                         <li><a  target="content">系统设置</a>
-                            <ul>
-                                <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
-                                    <ul>
-                                        <li><a href="{url:/system/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
-                                        <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li><a href="{url:/system/slide/slideList}" target="content">幻灯片管理</a>
-                                    <ul>
-                                        <li><a href="{url:/system/slide/addSlide}" target="content">新增幻灯片</a></li>
-                                        <li><a href="{url:/system/slide/slideList}" target="content">幻灯片列表</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </li>
 
                         <li><a href="{url:system/kefu/kefuList}" target="content">客服管理</a></li>
@@ -206,6 +190,8 @@
                                 <li><a href="{url:trade/complain/complainList?=&status=1}" target="content">已处理申述列表</a></li>
                             </ul>
                         </li>
+                        <li><a href="{url:trade/found/foundList}" target="content">找货信息列表</a>
+                        </li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>
@@ -296,8 +282,18 @@
                                 <li><a href="{url:tool/help/helpList}" target="content">帮助列表</a></li>
                             </ul>
                         </li>
-
-
+                            <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
+                                <ul>
+                                    <li><a href="{url:/system/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
+                                    <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{url:/system/slide/slideList}" target="content">幻灯片管理</a>
+                                <ul>
+                                    <li><a href="{url:/system/slide/addSlide}" target="content">新增幻灯片</a></li>
+                                    <li><a href="{url:/system/slide/slideList}" target="content">幻灯片列表</a></li>
+                                </ul>
+                            </li>
                     </ul>
                 </li>
                 <li><a   target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 风险管理</a>
@@ -305,6 +301,7 @@
                         <li><a  target="content">预警管理</a>
                             <ul>
                                 <li><a target="content" href="{url:riskMgt/riskMgt/userRiskList}">会员预警</a></li>
+                                <li><a target="content" href="{url:riskMgt/riskMgt/adminRiskList}">管理员预警</a></li>
                             </ul>
                         </li>
 

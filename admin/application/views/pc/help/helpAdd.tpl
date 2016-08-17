@@ -8,6 +8,8 @@
 <script type="text/javascript" charset="utf-8" src="{views:js/ueditor/ueditor.config.js}"></script>
 <script type="text/javascript" charset="UTF-8" src="{views:js/ueditor/ueditor.all.min.js}"></script>
 <script type="text/javascript" charset="UTF-8" src="{views:js/ueditor/lang/zh-cn/zh-cn.js}"></script>
+<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <!--
       CONTENT
                 -->
@@ -65,7 +67,18 @@
                     <div class="col-4"> </div>
                 </div>
                 <div class="col-4"> </div>
-
+                <div class="row cl">
+                    <label class="form-label col-3"><span class="c-red">*</span>图片：</label>
+                    <div class="formControls col-5">
+                        <div class="">
+                            <input type="hidden" name="uploadUrl"  value="{url:system/slide/upload@admin}" />
+                            <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
+                        </div>
+                        <div>
+                            <img name="file2" {if:isset($helpInfo)&&$helpInfo['img']!=''}src="{echo: \Library\Thumb::get($helpInfo['img'])}"{/if}/>
+                            <input type="hidden" name="imgfile2" {if:isset($helpInfo)&&$helpInfo['img']!=''}value="{$helpInfo['img']}" {/if} />
+                        </div>
+                        </div>
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span>内容：</label>
                     <div class="formControls col-5">

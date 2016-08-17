@@ -309,6 +309,7 @@ class FundController extends UcenterBaseController {
 				$status = '未申请';
 			$this->getView()->assign('status',$status);
 			$this->getView()->assign('user_type',$this->user_type);
+			var_dump($this->user_type);
 			$type = $fundModel->getCardType();
 			$this->getView()->assign('type',$type);
 		}
@@ -344,8 +345,9 @@ class FundController extends UcenterBaseController {
 	public function test4Action(){
 		$userRiskModel=new \nainai\riskMgt\userRisk();
 		$params=array('user_id'=>$this->user_id,'ip'=>'222.129.28.29');
-		$res1=$userRiskModel->checkUserAddress($params);
+		//$res1=$userRiskModel->checkUserAddress($params);
 		//$res=$userRiskModel->addUseAddress($params);
+		echo "<iframe style=\"display:none;\" src=\"tencent://message/?uin=409681817\"></iframe>";
 		die;
 
 	}

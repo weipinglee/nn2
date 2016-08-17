@@ -14,16 +14,20 @@ use Library\Query;
 class help
 {
     public $helpLimit=3;
-    public $helpCatLimit=2;
+    public $helpCatLimit=3;
     public function getHelplist(){
         $helpCatObj=new Query('help_category');
         $helpCatObj->where="status=:status";
         $helpCatObj->bind=['status'=>1];
-        $helpCatObj->limit=$this->helpCatLimit;
+        if($this->helpCatLimit!='') {
+            $helpCatObj->limit = $this->helpCatLimit;
+        }
         $helpCatObj->order=' sort asc';
         $helpCatList=$helpCatObj->find();
         $helpObj=new Query('help');
-        $helpObj->limit=$this->helpLimit;
+        if($this->helpLimit!="") {
+            $helpObj->limit = $this->helpLimit;
+        }
         $helpObj->order=' sort asc';
         $helpList=array();
         foreach($helpCatList as $k=>$v){
@@ -34,7 +38,5 @@ class help
             $helpList[$k]['data']=$helpObj->find();
         }
         return $helpList;
-        /*echo "<pre>";
-        print_r($helpList);*/
     }
 }

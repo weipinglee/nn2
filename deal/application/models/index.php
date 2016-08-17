@@ -42,7 +42,14 @@ class indexModel {
         $mem = new M('user');
         return $mem->fields(' COUNT(id) as num')->where(array('type'=>1))->getObj();
     }
+    /*
+     * 获取所有用户的数量
+     * */
 
+    public function getAllUser(){
+        $userObj=new M('user');
+        return $userObj->fields('count(id) as num')->getObj();
+    }
 
 
 }

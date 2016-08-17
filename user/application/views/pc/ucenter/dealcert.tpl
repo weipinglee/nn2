@@ -55,11 +55,13 @@
 							</span>
 								<span></span>
 							</div>
+
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>地区：</span>
-							<span id="areabox">
-								{area:data=$certData['area']}
-							</span>
+								<span id="areabox">
+										{area:data=$certData['area']}
+
+								</span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">
@@ -98,7 +100,7 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>地区：</span>
-								<span id="areabox">
+								<span id="area">
 										{area:data=$certData['area']}
 
 								</span>

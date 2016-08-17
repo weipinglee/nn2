@@ -1,9 +1,9 @@
 
 <div id="content" class="white">
-    <h1><img src="{views:img/icons/posts.png}" alt="" /> 会员管理</h1>
+    <h1><img src="{views:img/icons/posts.png}" alt="" /> 风险管理</h1>
     <div class="bloc">
         <div class="title">
-            在线会员列表
+            会员预警列表
         </div>
         <div class="content">
             <div class="pd-20">

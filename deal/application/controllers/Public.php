@@ -3,7 +3,7 @@
  * 交易中心不需要登录的控制器公共类
  */
 use \Library\url;
-
+use \nainai\offer\product;
 class PublicController extends \Yaf\Controller_Abstract{
 
      public $login;
@@ -12,11 +12,26 @@ class PublicController extends \Yaf\Controller_Abstract{
           $right = new \Library\checkRight();
           $isLogin = $right->checkLogin();
           $this->getView()->setLayout('layout');
+          //获取所有分类
+          $productModel=new product();
+          $res=$productModel->getAllCat();
+          $res = array_slice($res,0,6);
+          $this->getView()->assign('catList',$res);
+
           $frdLink = new \nainai\system\friendlyLink();
           $frdData = $frdLink->getFrdLink(10);
           $this->getView()->assign('frdData',$frdData);
-
-
+          //获取帮助
+          $helpModel=new \nainai\system\help();
+          $helpList=$helpModel->getHelplist();
+          $this->getView()->assign('helpList2',$helpList);
+          //获得服务列表
+          $fuwuList=\nainai\SiteHelp::getFuwuList();
+          $this->getView()->assign('fuwuList',$fuwuList);
+          //获取友情链接
+          $frdLinkModel= new \nainai\system\friendlyLink();
+          $frdLinkList=$frdLinkModel->getFrdLink(6);
+          $this->getView()->assign('frdLinkList',$frdLinkList);
           if($isLogin){
                $this->login = \Library\session::get('login');
                $this->getView()->assign('login',1);

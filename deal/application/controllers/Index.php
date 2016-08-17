@@ -5,17 +5,13 @@
  * @desc 默认控制器
  * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
  */
-//use \DB\M;
-use \tool\http;
-//use \common\url;
-use \common\tool;
 use \nainai\offer\product;
 use \Library\url;
 use \Library\safe;
 use \Library\Payment;
 use \Library\json;
 use \Library\M;
-use \Library\views\wittyAdapter;
+use \Library\tool;
 class IndexController extends PublicController {
 
 
@@ -29,12 +25,8 @@ class IndexController extends PublicController {
 		//phpinfo();
 
 		$this->getView()->assign('index',1);
-		//获取所有分类
-		$productModel=new product();
-		$res=$productModel->getAllCat();
-		$res = array_slice($res,0,6);
-		$this->getView()->assign('catList',$res);
 
+		$productModel=new product();
 		$year = date('Y');
 		$month = date('m');
 		$day = date('d');
@@ -47,8 +39,10 @@ class IndexController extends PublicController {
 		//获取统计数据
 		$statcModel=new \nainai\statistics();
 		$statcCatList=$statcModel->getNewStatcList(1);
+		$statcCatList=$statcModel->getAllStatcList(1);
+		$statcTime=$statcModel->getStaticTime(1);
+		$this->getView()->assign('statcTime',\Library\json::encode($statcTime));
 		$statcProList=$statcModel->getNewStaticListNocate(2);
-
 		$topCat=$productModel->getTopCate(8);
 		$company=\nainai\companyRec::getAllCompany();
 
@@ -58,8 +52,7 @@ class IndexController extends PublicController {
 
 		//获取首页最新完成的交易
 		$order = new \nainai\order\Order();
-		$newTrade = $order->getNewComplateTrade(10);
-
+		$newTrade = $order->getNewComplateTrade(20);
 		$offer = new OffersModel();
 		$offerCateData = array();
 		foreach($topCat as $k=>$v){
@@ -73,15 +66,28 @@ class IndexController extends PublicController {
 		//获取企业总数
 		$company_num = $indexModel->getTotalCompany();
 		$this->getView()->assign('company_num',$company_num['num']);
+		$userNum=$indexModel->getAllUser();
+		$this->getView()->assign('all_user_num',$userNum['num']);
 		//获取当前和昨日成交量
 		$order_num = $order->getOrderTotal();
 		$order_num_yes = $order->getOrderTotal('yesterday');
-		//获取帮助
-		$helpModel=new \nainai\system\help();
-		$helpList=$helpModel->getHelplist();
-		$this->getView()->assign('helpList',$helpList);
+
+		//获取滚动的图片信息
+		$adModel=new \Library\ad();
+		$adList=$adModel->getAdListByName('滚动');
+		foreach($adList as $k=>$v) {
+			if (isset($v['content'])) {
+				$adList[$k]['content'] = \Library\Thumb::getOrigImg($v['content']);
+			}
+		}
+		//获取所有的推荐商户信息
+		$allCompany=\nainai\companyRec::getAllCompanyOrderByType();
+
+		$this->getView()->assign('allCompany',$allCompany);
+		$this->getView()->assign('adList',$adList);
+
 		$this->getView()->assign('creditMember',$creditMember);
-		$this->getView()->assign('statcCatList',$statcCatList);
+		$this->getView()->assign('statcCatList',\Library\json::encode($statcCatList));
 		$this->getView()->assign('statcProList',$statcProList);
 		$this->getView()->assign('company',$company);
 		$this->getView()->assign('topCat',$topCat);
@@ -101,6 +107,7 @@ class IndexController extends PublicController {
         //从URL中获取支付方式
         $payment_id      = safe::filterGet('id','int');
         $paymentInstance = Payment::createPaymentInstance($payment_id);
+
 
         if(!is_object($paymentInstance))
         {
@@ -159,5 +166,45 @@ class IndexController extends PublicController {
         }
     }
 
+	public function foundAction(){
 
+    }
+    
+    public function doFoundAction(){
+        if(!$this->login)
+        {
+            die(json::encode(tool::getSuccInfo(0,'请登录后再操作', url::createUrl('/login/login@user'))));
+        }
+        else
+        {
+            $foundObj = new M('found');
+            $fData = array(
+                'product_name' => safe::filterPost('name'),
+                'spec' => safe::filterPost('spec'),
+                'num' => safe::filterPost('num'),
+                'place' => safe::filterPost('place'),
+                'user_name' => safe::filterPost('username'),
+                'phone' => safe::filterPost('phone'),
+                'area' => safe::filterPost('local'),
+                'user_id' => $this->login['user_id'],
+                'description' => safe::filterPost('desc'),
+                'create_time' => date('Y-m-d H:i:s')
+            );
+
+            $f_id = $foundObj->data($fData)->add();
+            if($f_id){
+                die(json::encode(\Library\tool::getSuccInfo()));
+            }
+            else
+            {
+                die(json::encode(\Library\tool::getSuccInfo(0, '服务器错误')));
+            }
+        }
+        
+	}
+
+
+    public function helpAction(){
+
+    }
 }

@@ -7,6 +7,7 @@
  * Time: 15:20
  */
 namespace nainai;
+use Library\M;
 use Library\Query;
 use Library\tool;
 
@@ -135,12 +136,12 @@ class SiteHelp
         $pageBar=$helpCatObj->getPageBar();
         return [$helpCatList,$pageBar];
     }
-    private function checkHelpName($where){
+    public function checkHelpName($where){
         $helpObj=$this->helpObj;
         $res=$helpObj->where($where)->getObj();
         return $res?$res:false;
     }
-    private function checkHelpCatName($where){
+    public function checkHelpCatName($where){
         $helpCatObj=$this->helpCatObj;
         $res=$helpCatObj->where($where)->getObj();
         return $res?$res:false;
@@ -155,7 +156,19 @@ class SiteHelp
         $helpCatObj->fields='id,name';
         $res=$helpCatObj->find();
         return $res;
+    }
+    public static function getFuwuList(){
+        $helpCatObj=new M('help_category');
+        $helpCatInfo=$helpCatObj->where(['name'=>'服务'])->getObj();
+        if($helpCatInfo){
+            $helpObj=new Query('help');
+            $helpObj->where='cat_id= :cat_id';
+            $helpObj->limit=5;
+            $helpObj->order='sort asc';
+            $helpObj->bind=array('cat_id'=>$helpCatInfo['id']);
+            return $helpObj->find();
+        }
+        return false;
 
     }
-
 }

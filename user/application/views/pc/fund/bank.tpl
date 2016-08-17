@@ -55,6 +55,7 @@
 								<span></span>
 								
 							</div>
+							{if:$user_type!=1}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>打款凭证： </span>
 								<span>
@@ -64,6 +65,17 @@
 								</span>
 								<p class="con_title">请向上海公司总部账户打款0.1元并上传打款凭证</p>
 							</div>
+								{else:}
+								<div class="zhxi_con">
+									<span class="con_tit"><i>*</i>请上传公司的银行许可证： </span>
+								<span>
+									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload}" />
+                        			<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
+
+								</span>
+									<p class="con_title"></p>
+								</div>
+							{/if}
 							 <div class="zhxi_con">
 								 <span  class="con_tit">图片预览：</span>
 								 <span>
@@ -117,6 +129,7 @@
 								<span></span>
 
 							</div>
+						{if:$user_type!=1}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>打款凭证： </span>
 								<span>
@@ -124,6 +137,15 @@
 
 								</span>
 							</div>
+							{else:}
+							<div class="zhxi_con">
+								<span class="con_tit"><i>*</i>公司的银行许可证： </span>
+								<span>
+									<img name="file2" src="{$bank['proof_thumb']}"/>
+
+								</span>
+							</div>
+						{/if}
 							<div class="zhxi_con"  style="cursor:hand">
 								<span><input class="submit_zz" type="button" id="bankBtn" value="修改" ></span>
 							</div>
