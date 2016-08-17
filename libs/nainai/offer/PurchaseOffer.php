@@ -50,8 +50,14 @@ class PurchaseOffer extends product {
 		                    $title =    '采购报盘审核';
 		                    $content = '采购报盘' . $productData[0]['name'] . '需要审核';
 
-		                    $adminMsg = new \nainai\adminMsg();
+		                    $adminMsg = new \nainai\AdminMsg();
 		                    $adminMsg->createMsg('checkoffer',$id,$content,$title);
+
+		                    $log = array();
+		                    $log['action'] = '采购报盘' ;
+		                    $log['content'] = '用户' . $offerData['user_id']. ',添加采购报盘:'. $productData[0]['name'];
+		                    $userLog = new \Library\userLog();
+		                    $userLog->addLog($log);
 		             };
 
 			$imgData = $productData[1];

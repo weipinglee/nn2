@@ -429,7 +429,7 @@ class ManagerDealController extends UcenterBaseController {
             }
         }
 
-        return array($detail,$resImg);
+        return array($detail,$resImg, $this->username);
     }
 
     /**
@@ -470,12 +470,12 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData['product_id'] = Safe::filterPost('product_id', 'int');
 
 
-                $res = $offerObj->insertStoreOffer($id,$offerData);
+                $res = $offerObj->insertStoreOffer($id,$offerData, $this->username);
                 if($res['success']==1){
                     $title = '仓单报盘审核';
                     $content = '仓单号为'.$id.'的报盘需要审核';
 
-                    $adminMsg = new \nainai\adminMsg();
+                    $adminMsg = new \nainai\AdminMsg();
                     $adminMsg->createMsg('checkoffer',$res['id'],$content,$title);
                 }
 
@@ -564,7 +564,7 @@ class ManagerDealController extends UcenterBaseController {
             $status = safe::filterPost('status','int',0);
             $msg = safe::filterPost('msg');
             $store = new store();
-           $res = $store->userCheck($status,$storeProductID,$this->user_id, $msg);
+           $res = $store->userCheck($status,$storeProductID,$this->user_id, $msg, $this->username);
            die(json::encode($res));
 
         }
@@ -684,6 +684,13 @@ class ManagerDealController extends UcenterBaseController {
             );
 
             $res = $model->update($data, $id);
+            if ($res['success'] == 1) {
+                    $log = array();
+                    $log['action'] = '撤销报盘' ;
+                    $log['content'] = '用户:' . $this->username. ',撤销报盘id为' . $id . '的报盘';
+                    $userLog = new \Library\userLog();
+                    $userLog->addLog($log);
+            }
             exit(json::encode($res));
         }
         exit(json::encode(tool::getSuccInfo(0, 'Error id')));

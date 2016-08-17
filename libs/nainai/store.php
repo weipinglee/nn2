@@ -261,13 +261,19 @@ class store{
      * @param int $id 仓单id
      * @param int $user_id 用户id
      */
-    public function userCheck($status,$id,$user_id, $msg){
+    public function userCheck($status,$id,$user_id, $msg, $username){
         if($this->getStoreProductStatus($id)==self::STOREMANAGER_SIGN) {
             $store = array();
             $store['status'] = intval($status) == 1 ? self::USER_AGREE : self::USER_REJECT;
             $store['user_time'] = \Library\Time::getDateTime();
             $store['msg'] = $msg;
             $res = $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
+            
+            $log = array();
+            $log['action'] = '用户确认仓单';
+            $log['content'] = '用户' . $username . ',修改仓单' . $id . '状态为:' . $this->getStatusText($store['status']);
+            $userLog = new \Library\userLog();
+            $userLog->addLog($log);
             if($res===true){
                 return tool::getSuccInfo();
             }
@@ -410,7 +416,14 @@ class store{
                 //插入仓单数据
                 $storeData['product_id'] = $pId;
                 $storeData['status'] = self::STOREMANAGER_SIGN;
-                $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
+                $id = $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
+                if ($id > 0) {
+                            $title =    '仓单签发审核';
+                            $content = '仓单签发' . $productData[0]['name'] . '需要审核';
+
+                            $adminMsg = new \nainai\adminMsg();
+                            $adminMsg->createMsg('checkoffer',$id,$content,$title);
+                }
             }
             $res = $storeProductObj->commit();
         }

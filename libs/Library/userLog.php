@@ -5,7 +5,7 @@
  */
 namespace Library;
 use \Library\log\ILogFactory;
-class userLog
+class userLog extends \Library\log\baselog
 {
 	protected $tableName = 'user_log';
 
