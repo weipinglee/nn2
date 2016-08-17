@@ -27,6 +27,7 @@ class market{
             'index/managerstore/dostoresign',
             'index/ucenter/dodealcert',
             'index/ucenter/dostorecert',
+            'index/managerstore/doupdatestore',
 
             'post' => array(   //里面的url 闭市时不能通过post请求，可以访问页面
                 'index/purchase/issue',
