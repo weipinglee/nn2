@@ -224,23 +224,19 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 			$data=array('errorCode'=>0);
 			$captchaObj = new captcha();
-            $res = $captchaObj->check($captcha);
-            if(!$res)
-            {
-                $data['errorCode'] = 4;
-            }
+
 			if($account == ''){
 				$data['errorCode'] = 1;
 			}
 			else if($password==''){
 				$data['errorCode'] = 2;
 			}
-			  else if($captcha==''){
-			  	$data['errorCode'] = 3;
-			  }
-			  else if(!$captchaObj->check($captcha)){//验证码是否正确
-			  	$data['errorCode'] = 4;
-			  }
+			else if($captcha==''){
+				$data['errorCode'] = 3;
+			}
+			else if(!$captchaObj->check($captcha)){//验证码是否正确
+				$data['errorCode'] = 4;
+			}
 			else{
 				$userModel = new UserModel();
 				$userData = $userModel->checkUser($account,$password);
