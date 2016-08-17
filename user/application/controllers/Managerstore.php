@@ -261,6 +261,7 @@ class ManagerStoreController extends UcenterBaseController{
 				'store_pos' => safe::filterPost('pos'),
 				'cang_pos'  => safe::filterPost('cang'),
 				'store_price'=> safe::filterPost('store_price'),
+				'store_unit' => safe::filterPost('store_unit','/^[dym]$/'),
 				'in_time' => safe::filterPost('inTime'),
 				'rent_time' => safe::filterPost('rentTime'),
 				'check_org' => safe::filterPost('check'),
