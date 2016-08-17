@@ -2,7 +2,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>账号管理</a>><a>基本信息</a></p>
+						<p><a>账户管理</a>><a>基本信息</a></p>
 					</div>
 					<div>
 						<form>

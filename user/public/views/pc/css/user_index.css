@@ -296,9 +296,6 @@ text-align: left;
 	padding: 0 10px;
     font-size: 16px;
 }
-.zhxi_tit p a:hover{
-	color:#102BEC;
-}
 .zhxi_con{
 	padding:10px 0px;
 	line-height: 30px;
@@ -327,7 +324,6 @@ div.zhxi_con.font_set span i.bold{
     font-size: 16px;
 }
 .zhxi_con .text{
-	height: 25px;
   width: 240px;
 }
 .zhxi_con .text.potwt{
@@ -1610,7 +1606,7 @@ background: #cd5c5c;
 border: 0;
 }
 .send1{
-  padding: 8px 10px;
+  padding:10px;
 border: 1px solid #c0c0c0;
 margin-left: 5px;
 background:#F4F1F1;

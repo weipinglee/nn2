@@ -5,7 +5,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>账号管理</a>><a>添加子账户</a></p>
+						<p><a>账户管理</a>><a>添加子账户</a></p>
 					</div>
 					<input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 
