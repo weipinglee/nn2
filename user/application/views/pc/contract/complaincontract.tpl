@@ -60,8 +60,8 @@
 							<form action="{url:/Contract/complainContract}" id="signupForm"  method="post" auto_submit redirect_url="{url:/contract/complainlist}">
 						
 							<p>
-								<label for="title"><span class="complain_title"><i>*</i>申诉标题：</span></label>
-								<input  type="text" id="title" name="title" datatype="*">
+								<label for="title" style="text-align:left;"><span class="complain_title"><i>*</i>申诉标题：</span></label>
+								<input  type="text" id="title" name="title" datatype="*" style="width:255px;">
 							</p>
 							<br />
 							<p>
