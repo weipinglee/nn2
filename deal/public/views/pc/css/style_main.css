@@ -598,7 +598,7 @@
 .i_market{
 	width: 1190px;
 	height: 488px;
-	margin: 70px auto 0 auto;
+	margin: 30px auto 0 auto;
 }
 .i_market_left{
 	width: 910px;
@@ -2779,6 +2779,7 @@ text-indent: 1em;
 .commercial{
 	margin: 0 10px;
 	border: 1px solid #e6e6e6;
+	min-height: 180px;
 }
 .commercial .commercial_title{
 	height: 50px;
@@ -2802,7 +2803,7 @@ text-indent: 1em;
 	line-height: 25px;
 }
 .footer_clude{
-    background: #fff;
+    background: #f7f7f7;
     position: relative;
     bottom: -15px;
 }

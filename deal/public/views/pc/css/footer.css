@@ -36,7 +36,7 @@ a:hover {
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 15px;
     _ margin-top: 0px;
-    background-color: #fff;
+    background-color: #f7f7f7;
 }
 
 /*******************快速导航********************/
@@ -94,6 +94,9 @@ a:hover {
 	text-align: left;
 	padding-bottom:10px;
 	display: block; 
+}
+#footer .footer_link ul li.footer_li a:hover{
+    text-decoration: none;
 }
 #footer .footer_link ul li.footer_li a.fotter_div b{
     color: #666;

@@ -20,7 +20,7 @@
 <body>
 
 
-<div class="wrap">
+<div class="wrap" style="background:none;">
   <div class="login_top">
     <ul class="w1200">
       <ul class="topnav_left">
@@ -58,7 +58,7 @@
       <div class="con"> </div>
     </div>
   </div> -->
-  <div>
+  <div class="regis_boxs">
    <span style="display:none;"> {url:/login/doReg} </span>
     <div class="register"> 
       <div class="beinit">
@@ -72,20 +72,6 @@
       </div>
       </div>
     <script>
-    $(function(){
-      $(".register_l").click(function(){ 
-          $(".hide_qy").hide();
-          $(".show_gr").show();
-          $(".secondaryend").css({"bottom": "0px"});
-          $(".background_img.bottom").css({"bottom": "58px"});
-      });
-      $(".register_r").click(function(){
-          $(".show_gr").hide();
-          $(".hide_qy").show();
-          $(".secondaryend").css({"bottom": "-312px"});
-          $(".background_img.bottom").css({"bottom": "-252px"});
-      })
-    })
 
     //验证码验证地址
     var captchaCheckUrl = '{url:/login/captchaCheck}';
@@ -119,8 +105,8 @@
           </div>
           <div class="cot">
             <span class="cot_tit">验证码：</span>
-            <span><input class="text" style="width: 50px;" type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
-              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img src="{url:/login/getCaptcha}?w=200&h=50" /></a>
+            <span><input class="text" style="width: 50px;display:block;float:left;" type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
+              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img style="float:left;" src="{url:/login/getCaptcha}?w=200&h=50" /></a>
               <span></span>
           </div>
            <div class="cot">
@@ -281,7 +267,6 @@
 
     })
 </script>
-<div class="background_img bottom"></div>
     <div class="w1200 secondaryend">
     <p>Copyright 2014-2016 耐耐云商科技有限公司 www.nainaiwang.cn All Rights Reserved </p>
     <p>

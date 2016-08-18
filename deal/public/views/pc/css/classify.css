@@ -124,7 +124,7 @@ a:hover,a:active {
     height: 46px;
     width: 200px;
     border-bottom: 1px solid #e9e9e9;
-    padding: 10px 10px;
+    padding: 1.3em 10px;
     background: #fff;
 }
 .all-sort-list .item-sp {
@@ -238,7 +238,7 @@ div.item h3 p.fenlei a:hover {
     display: none;
     position: absolute;
     width: 725px;
-    height: 400px;
+    height: 466px;
     _height: 466px;
     background: #FFF;
     left: 221px;
