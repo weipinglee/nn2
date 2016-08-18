@@ -181,7 +181,7 @@ text-align: right;
 	color: #fff;
 	border-color: #e4393c;
 }
-.pro_main .pro_sort .sort_list i{
+.pro_main .pro_sort .sort_list a i{
 	background: url(../images/icon/arrow.png) no-repeat;
 	display: block;
 	position: absolute;
@@ -192,10 +192,13 @@ text-align: right;
 	overflow: hidden;
 	font-size: 0;
 }
+.pro_main .pro_sort .sort_list a.curr i{
+	background: url(../images/icon/arrow_hover.png) no-repeat;
+}
 .pro_main .pro_cen ul li{
 	float: left;
 	width: 105px;
-	text-align: center;
+	text-align: center; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 /*product.html*/
 .pro_main .pro_cen .poptwidth li{
