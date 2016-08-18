@@ -84,6 +84,7 @@ class searchConfig {
             'like'=>array('u.username','用户名'),
             'down' => 1
         ),
+        'user_alerted_record' => array('like' => array('u.username','用户名'))
     );
 
     public static function config($tableName=''){
