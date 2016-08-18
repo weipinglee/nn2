@@ -66,8 +66,8 @@ class LoginController extends \Yaf\Controller_Abstract {
 		\Library\session::clear('login');
         $validPhoneCode = safe::filterPost('validPhoneCode','int');
         $phone = safe::filterPost('mobile','/^\d+$/');
-        //$data = self::checkMobileValidateCode($phone,$validPhoneCode);
-		$data = array('err'=>0);
+        $data = array('err'=>0);
+        $data = self::checkMobileValidateCode($phone,$validPhoneCode);
         if($data['err'] == 1)
         {
             $res = array('success'=>0,'info'=>$data['info']);
@@ -191,17 +191,20 @@ class LoginController extends \Yaf\Controller_Abstract {
     public function sendMessageAction()
     {
         $phone = safe::filterPost('phone');
+        $captcha = safe::filterPost('captcha');
+        $captchaObj = new captcha();
+        if(!$captchaObj->check($captcha))
+        {
+            die(JSON::encode(tool::getSuccInfo(0, '验证码错误')));
+        }
         $text = rand(100000, 999999);
         session::set('mobileValidateReg', array('phone' => $phone, 'num' => $text, 'time' => time()));
         $hsms = new Hsms();
-        if ($hsms->send($phone, $text))
+        if (!$hsms->send($phone, $text))
         {
-            return false;
+            die(JSON::encode(tool::getSuccInfo(0, '发送失败')));
         }
-        else
-        {
-            return $text;
-        }            
+        die(JSON::encode(tool::getSuccInfo()));        
     }
      
 	/**
