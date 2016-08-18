@@ -89,7 +89,7 @@ z-index:1000;">
             <ul>
                 {if:$login!=0}
                  <li>
-                   <a href="{url:/ucenterindex/index}">会员中心</a><span class="line_l">|<span>
+                   <a href="{url:/ucenterindex/index@user}">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
                    <a href="">我的合同</a><span class="line_l">|<span>

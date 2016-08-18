@@ -116,7 +116,7 @@
                                 <li><a href="{url:/member/roleAdd}" target="content">添加角色</a></li>
                             </ul>
                         </li>-->
-                        <li><a href="{url:member/usergroup/groupList}" target="content">角色分组</a></li>
+                        <li><a href="{url:member/usergroup/groupList}" target="content">会员等级</a></li>
                         <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
                         <li><a href="{url:member/member/OnLineList}" target="content">在线会员信息</a></li>
                         <li><a href='javascript:voie(0)' target="content">菜单管理</a>

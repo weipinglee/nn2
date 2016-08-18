@@ -343,7 +343,7 @@
                                 <td>双方签字入库单：</td>
                                 <td>
                                     <div class="zhxi_con">
-                                        <span class="input-file"><input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
+                                        <span class="input-file">选择文件<input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
                                         <input type="hidden" name="imgfile1" value="confirm" datatype="*" nullmsg="请上传签字入库单" />
 
                                     </div>
@@ -356,7 +356,7 @@
                                 <td>质检证书：</td>
                                 <td>
                                     <div class="zhxi_con">
-                                        <span class="input-file"><input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
+                                        <span class="input-file">选择文件<input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
                                         <input type="hidden" name="imgfile2" value="{$detail['quality']}" datatype="*" nullmsg="请上传质检证书" />
 
                                     </div>
