@@ -264,8 +264,8 @@ a{color:#FFF}#content .calendar .today .events
 span{color:#A7C9D8}#content .calendar ul, #content .calendar ul
 li{list-style:none;margin:0
 0 0 3px !important;padding:0
-!important}/*.tooltipsy{background:#000;background:rgba(0, 0, 0, 0.8);color:#FFF;padding:5px
-10px;-moz-border-radius:3px;-webkit-border-radius:3px;-khtml-border-radius:3px;border-radius:3px 3px 3px 3px}*/.dark{background:url(img/dark-bg.png)}.wood{background:url(img/wood.jpg) fixed center top}.dark #content
+!important}.tooltipsy{color:#FFF;padding:5px
+10px;-moz-border-radius:3px;-webkit-border-radius:3px;-khtml-border-radius:3px;border-radius:3px 3px 3px 3px}.dark{background:url(img/dark-bg.png)}.wood{background:url(img/wood.jpg) fixed center top}.dark #content
 .bloc{-moz-box-shadow:0px 5px 15px rgba(0, 0, 0, 0.5);-webkit-box-shadow:0px 5px 15px rgba(0, 0, 0, 0.5);-o-box-shadow:0px 5px 15px rgba(0, 0, 0, 0.5);box-shadow:0px 5px 15px rgba(0, 0, 0, 0.5)}.dark #content
 h1{color:#FFF;text-shadow:0px 1px #000}#content.white .bloc
 .title{background:url(img/white-title.png);color:#2C2C2C;-moz-text-shadow:0px 1px #FFF;-webkit-text-shadow:0px 1px #FFF;-o-text-shadow:0px 1px #FFF;text-shadow:0px 1px #FFF;font-weight:bold;border:none}#content.white .bloc .title
