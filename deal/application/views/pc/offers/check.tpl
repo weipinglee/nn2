@@ -11,7 +11,7 @@
          <div class="submit_word">
                <h3 class="sure_oder">填写并核对订单信息</h3>
                <a id="contract_review" href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}">
-               <img src="images/password/eye_b.png" alt="" />
+               <img src="{views:images/password/eye_b.png}" alt="" />
                <i>合同预览</i>
                </a>
          </div>  

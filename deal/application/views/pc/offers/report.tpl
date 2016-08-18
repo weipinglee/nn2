@@ -44,7 +44,7 @@
                                      {if:$key==1}
                                          {$item['name']}
                                      {else:}
-                                         > {$item['name']}
+                                         / {$item['name']}
                                      {/if}
                                  {/if}
                              {/foreach}
