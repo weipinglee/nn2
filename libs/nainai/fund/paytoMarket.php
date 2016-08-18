@@ -20,7 +20,7 @@ class paytoMarket{
 	public function __construct(){
 		$this->table = new M('payto_market');
 	}
-
+	
 	public function paytoMarket($user_id,$offer_type,$charge_type,$offer_id,$num,$remark='',$order_no=''){
 		$payData['user_id'] = $user_id;
 		$payData['offer_type'] = $offer_type;
