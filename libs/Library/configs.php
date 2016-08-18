@@ -7,16 +7,19 @@
  */
 namespace Library;
 return array(
-    'host'=>array(//各子系统域名列表，最后不加'/'
-        'deal'=>'http://deal.test.com',
-		'user'=>'http://user.test.com',
-		'admin'=>'http://admin.test.com',
+    'http'=>'http',
+    'host'=>array(
+        'deal'=>'http://localhost/nn2/deal/public/',
+        'user'=>'http://localhost/nn2/user/public',
+        'admin'=>'http://localhost/nn2/admin/public'
     ),
-    'rootDir'=>array(//子系统根目录物理路径
-        'user'=>'D:\wamp2.5\www\nn2\user\public',
-		'admin'=>'D:\wamp2.5\www\nn2\admin\public',
+    'rootDir'=>array(
+        'user'=>'D:\wamp\www\nn2\user\public',
+        'admin'=>'D:\wamp\www\nn2\admin\public',
+        'deal'=>'D:\wamp\www\nn2\deal\public'
+
     ),
-	 'sms'=>array(
+    'sms'=>array(
         'platform'=>'jianzhou',
         'account'=>'jzyy802',
         'password'=>'813813',

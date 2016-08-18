@@ -240,6 +240,12 @@
                                 <li><a href="{url:information/marketStats/marketStatsList}" target="content">市场统计</a></li>
                             </ul>
                         </li>
+                        <li><a target="content">商品指导价</a>
+                            <ul>
+                                <li><a href="{url:information/productStats/productStatsList}" target="content">统计项</a></li>
+                                <li><a href="{url:information/productStats/statsList}" target="content">统计数据</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                <!-- <li class="nosubmenu"><a href="modal.html" class="zoombox w450 h700" target="content"><img src="{views:img/icons/menu/comment.png}" alt="" /> 数据统计</a></li>
