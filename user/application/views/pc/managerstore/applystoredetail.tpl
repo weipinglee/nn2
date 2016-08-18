@@ -146,7 +146,7 @@
                         <td colspan="6"> <img src="{$storeDetail['confirm_thumb']}" /></td>
                     </tr>
 <tr>
-                        <td colspan="2">质检证书：</td>
+                        <td colspan="2">质检证书</td>
                         <td colspan="6"> <img src="{$storeDetail['quality_thumb']}" /></td>
                     </tr>
                     <tr>
