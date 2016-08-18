@@ -143,9 +143,15 @@ class Order{
 			if($info['mode'] == self::ORDER_DEPOSIT){
 				$seller_deposit = floatval($info['seller_deposit']);
 				//将卖方保证金支付10%支付给买方 解冻货物
-				$this->account->freezePay($offerInfo['user_id'],$info['user_id'],$seller_deposit * 0.1);
+				$res = $this->account->freezePay($offerInfo['user_id'],$info['user_id'],$seller_deposit * 0.1);
+				if (is_string($res)) {
+					return $res;
+				}
 				//解冻卖方货款   线下支付？？？
-				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
+				$res = $this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
+				if (is_string($res)) {
+					return $res;
+				}
 				//解冻未提货货物
 				$product_left = $delivery->orderNumLeft($order_id,false,true);
 				$this->productsFreezeRelease($offerInfo,$product_left);
@@ -153,14 +159,13 @@ class Order{
 				$mess = new \nainai\message($seller);
 				$mess->send('breakcontract',$order_id);
 			}else{
-				$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
+				$res = (bool)$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
 			}
-			$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
+			$res = (bool)$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
 		} catch (\PDOException $e) {
 
 			$res = $e->getMessage();
 		}
-
 		return !empty($res) ? $res : '未知错误';
 	}	
 
@@ -873,9 +878,7 @@ class Order{
 		if($where)$query->where = $where;
 		$query->fields = 'u2.username as po_username,po.mode,u.username as do_username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
-		
-		$query->page  = $page;
-		$query->pagesize = 10;
+
 		 $query->order = "do.id desc";
 		$data = $query->find();
 		$this->adminContractStatus($data['list']);
@@ -889,6 +892,7 @@ class Order{
 			$value['buyer_name'] = $value['mode_txt'] == '卖盘' ? $value['do_username'] : $value['po_username'];
 			$value['seller_name'] = $value['mode_txt'] == '卖盘' ? $value['po_username'] : $value['do_username'];
 		}
+		$query->downExcel($data['list'], 'order_sell', '合同列表');
 		// tool::pre_dump($data['list'][0]);exit;
 		// tool::pre_dump($data);
 		return $data;

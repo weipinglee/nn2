@@ -80,7 +80,6 @@ class userRisk
             return tool::getSuccInfo(0,'ip不正确');
         }
 
-       // $params['ip']='221.219.154.127 ';
         if(!$userRiskObj->where(['user_id'=>$params['user_id']])->getObj()){
             $this->addUseAddress($params,true);
             return true;
@@ -143,12 +142,11 @@ class userRisk
     }
     //获取会员预警记录
     public function getUserRiskList($page){
-        $recordObj=new \Library\Query('user_alerted_record as r');
+        $recordObj=new \Library\searchQuery('user_alerted_record as r');
         $recordObj->join='left join user as u on u.id=r.user_id left join company_info as c on r.user_id=c.user_id left join person_info as p on p.user_id=r.user_id';
 		$recordObj->fields='r.*,c.company_name,p.true_name,u.username';
         $recordObj->page=$page;
         $userRiskList=$recordObj->find();
-        $pageBar=$recordObj->getPageBar();
-        return [$userRiskList,$pageBar];
+        return $userRiskList;
     }
 }

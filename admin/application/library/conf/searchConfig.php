@@ -36,8 +36,9 @@ class searchConfig {
             'select'=> array('c.type','配置类型')
         ),
         'order_sell' => array(
-            'like'=>array('o.order_no,o.order_no','订单号'),
-            'time'=>array('o.create_time','创建时间'),
+            'like'=>array('do.order_no,do.order_no','订单号'),
+            'time'=>array('do.create_time','创建时间'),
+            'down' => 1
         ),
         'product_offer' => array(
             'time'=>array('o.apply_time','创建时间'),
@@ -82,7 +83,11 @@ class searchConfig {
             'like' => array('a.name','管理员用户名')
         ),
 
-
+        'user_log' => array(
+            'like'=>array('u.username','用户名'),
+            'down' => 1
+        ),
+        'user_alerted_record' => array('like' => array('u.username','用户名'))
     );
 
     public static function config($tableName=''){

@@ -42,6 +42,12 @@ class Downconfig
               case 'product_offer':
                 $config = array('id' => 'id', 'username' => '用户名', 'true_name' => '姓名', 'company_name' => '企业名称', 'name' => '商品名', 'type_txt' => '交易方式', 'mode_txt' => '类型', 'divide_text' => '可否拆分', 'quantity' => '数量', 'price' => '挂牌价', 'status_txt' => '状态');
                 break;
+              case 'user_log':
+                $config = array('id' => 'id', 'username' => '用户名', 'datetime' => '操作时间', 'action' => '动作', 'content' => '操作内容', 'ip' => 'ip');
+                break;
+              case 'order_sell':
+                $config = array('order_no' => '订单编号', 'create_time' => '合同开始日期', 'end_time' => '合同完成日期', 'product_name' => '商品名称', 'buyer_name' => '买方名称', 'seller_name' => '卖方名称', 'mode_txt' => '交易方式', 'type_txt' => '报盘方式', 'num' => '成交数量', 'amount' => '合同金额', 'reduce_amount' => '质量扣款金额', 'account' => '结算金额', 'title' => '合同状态');
+                break;
           }
           return $config;
      }
