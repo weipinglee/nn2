@@ -46,6 +46,7 @@ class OffersController extends PublicController {
 
 	//列表
 	public function offerListAction(){
+		$this->getView()->assign('cur','offerlist');
 		$page = safe::filterGet('page','int',1);
 
 		//获取分类信息

@@ -152,10 +152,10 @@ z-index:1000;">
 
 
         <ul class="nav">
-            <li class="current"><a href="{url:/index/index}">首页</a></li>
-            <li><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
-            <li><a href="news.html" target="_blank">仓储专区</a></li>
-            <li><a href="{url:/index/found}" target="_blank">帮我找</a></li>
+            <li {if:!isset($cur) || $cur=='index'}class="current"{/if}><a href="{url:/index/index}">首页</a></li>
+            <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
+            <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}" target="_blank">仓储专区</a></li>
+            <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}" target="_blank">帮我找</a></li>
         </ul>
     </div>
 </div>

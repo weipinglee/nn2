@@ -23,6 +23,7 @@ class IndexController extends PublicController {
      */
 	public function indexAction() {
 		//phpinfo();
+        $this->getView()->assign('cur','index');
 
 		$this->getView()->assign('index',1);
 
@@ -167,7 +168,7 @@ class IndexController extends PublicController {
     }
 
 	public function foundAction(){
-
+        $this->getView()->assign('cur','found');
     }
     
     public function doFoundAction(){
@@ -206,5 +207,9 @@ class IndexController extends PublicController {
 
     public function helpAction(){
 
+    }
+
+    public function storageAction(){
+        $this->getView()->assign('cur','storage');
     }
 }
