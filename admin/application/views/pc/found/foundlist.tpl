@@ -7,7 +7,7 @@
     </div>
     <div class="content">
  <div class="pd-20">
- <form action="{url:trade/found/foundList}" method="POST">
+ <form action="{url:trade/found/foundList}" method="get">
     <div class="text-c">
         发布时间：
         <input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" name="begin" value="{$begin}" style="width:120px;">

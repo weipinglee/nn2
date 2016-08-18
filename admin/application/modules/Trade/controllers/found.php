@@ -7,23 +7,23 @@
  */
  use \Library\M;
 use \Library\Query;
-use \Library\safe;
+use \Library\Safe;
 class FoundController extends InitController{
     public function foundListAction()
     {
         $page = Safe::filterGet('page', 'int', 0);
-        $begin = Safe::filterPost('begin');
-        $end = Safe::filterPost('end');
-        $area = Safe::filterPost('area');
-        $username = Safe::filterPost('username');
-        $product_name = Safe::filterPost('product_name');
+        $begin = Safe::filterGet('begin');
+        $end = Safe::filterGet('end');
+        $area = Safe::filterGet('area');
+        $username = Safe::filterGet('username');
+        $product_name = Safe::filterGet('product_name');
         $where = 1;
         if (!empty($begin)) {
-            $where .= ' AND create_time>'.$begin;
+            $where .= ' AND f.create_time>="'.$begin.'"';
             $this->getView()->assign('begin', $begin);
         }
         if (!empty($end)) {
-            $where .= ' AND create_time<'.$end;
+            $where .= ' AND f.create_time<="'.$end.'"';
             $this->getView()->assign('end', $end);
         }
         if (!empty($area)) {
@@ -43,15 +43,7 @@ class FoundController extends InitController{
         $query->join = 'LEFT JOIN user as u ON f.user_id=u.id';
         $query->where = $where;
         $query->order = 'create_time desc';
-
-        if (!empty($condition)) {
-            $query->where = $condition['where'];
-            $query->bind = $condition['bind'];
-        }
-
         $query->page = $page;
-        $query->pagesize = 10;
-
         $lists = $query->find();
         $pageHtml = $query->getPageBar();
 
