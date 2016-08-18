@@ -68,18 +68,18 @@ z-index:1000;">
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="{views:images/index/icon_index.png}"/>
-                <a rel="external nofollow" href="index.html" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="{url:/index/index}" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
-                <a rel="external nofollow" href="login.html" target="_blank" class="">您好{$username}，欢迎进入耐耐网</a>
+                <a rel="external nofollow" href="{url:/ucenterindex/index@user}" target="_blank" class="">您好{$username}，欢迎进入耐耐网</a>
             </div>
             {if:$login==0}
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="login.html" target="_blank" class="topnav_login">请登录</a>
+                <a rel="external nofollow" href="{url:/login/login@user}" target="_blank" class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
-                <a rel="external nofollow" href="register.html" target="_blank">免费注册</a>
+                <a rel="external nofollow" href="{url:/login/register@user}" target="_blank">免费注册</a>
             </div>
 
 
@@ -89,14 +89,14 @@ z-index:1000;">
             <ul>
                 {if:$login!=0}
                  <li>
-                   <a>会员中心</a><span class="line_l">|<span>
+                   <a href="{url:/ucenterindex/index}">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
                    <a href="">我的合同</a><span class="line_l">|<span>
                 </li>
                 {/if}
                 <li>
-                    <a href="">消息中心</a><span class="line_l">|<span>
+                    <a href="{url:/message/usermail@user}">消息中心</a><span class="line_l">|<span>
                 </li>
                 <li>
                     <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
@@ -152,8 +152,8 @@ z-index:1000;">
 
 
         <ul class="nav">
-            <li class="current"><a href="http://www.nainaiwang.com/">首页</a></li>
-            <li><a href="product.html" target="_blank">交易中心</a></li>
+            <li class="current"><a href="{url:/index/index}">首页</a></li>
+            <li><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
             <li><a href="news.html" target="_blank">仓储专区</a></li>
             <li><a href="{url:/index/found}" target="_blank">帮我找</a></li>
         </ul>
