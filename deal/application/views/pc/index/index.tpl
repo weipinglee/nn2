@@ -422,8 +422,12 @@
                                             text: '市场指数',
                                             x: -20 //center
                                         },
+                                        credits:{
+                                            text:'耐耐网',
+                                            href:'www.nainaiwang.com'
+                                        },
                                         subtitle: {
-                                            text: 'Source: WorldClimate.com',
+                                            text: 'www.nainaiwang.com',
                                             x: -20
                                         },
 

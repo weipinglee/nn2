@@ -103,7 +103,7 @@ class statistics{
         $error=array();
 
         foreach($catList as $key=>$cate){
-            $prev_price = $marketObj->where(array('cate_id'=>$cate['cate_id'],'type'=>$cate['type']))->order('id desc')->getField('ave_price');
+           $prev_price = $marketObj->where(array('cate_id'=>$cate['cate_id'],'type'=>$cate['type']))->order('id desc')->getField('ave_price');
             if(!$prev_price)
                 $prev_price = 0;
             $cate_childs = $this->getChildCate($cate['cate_id']);
@@ -288,14 +288,16 @@ class statistics{
         $topCat=$productModel->getTopCate();
         $marketObj=new Query('static_market as m');
         $marketObj->join='left join product_category as c on m.cate_id=c.id';
-        $marketObj->fields='c.name,m.*';
+        $marketObj->fields='c.name,m.id,m.cate_id,m.type,m.ave_price,m.prev_price,m.low_price,m.high_price,date(m.create_time) as create_time,m.days';
         $marketObj->order='m.create_time';
         $marketObj->where='m.type= :type and find_in_set(m.cate_id,getChildLists(:cid))';
         foreach($topCat as $k=>$v) {
             $marketObj->bind = array('cid' => $v['id'], 'type' => $type);
             $allStatcList[$v['id']]=$marketObj->find();
         }
+       // print_r($allStatcList);die;
         $staticTimes=$this->getStaticTime(1);
+       //print_r($staticTimes);die;
         $tmp=array();
         $res=array();
         foreach($allStatcList as $k=>$v){
@@ -324,7 +326,7 @@ class statistics{
                     foreach($tmp[$k][$kk] as $kkk=>$vvv){
                         foreach($staticTimes as $kkkk=>$vvvv){
                             if(!isset($tmp[$k][$kk][$vvvv])){
-                                $tmp[$k][$kk][$vvvv]['ave_price']=0;
+                                $tmp[$k][$kk][$vvvv]['ave_price']=NULL;
                             }
                         }
 
@@ -363,13 +365,13 @@ class statistics{
      * */
     public function getStaticTime($type){
         $marketObj=new Query('static_market');
-        $marketObj->fields='distinct create_time';
+        $marketObj->fields='distinct date(create_time) as create_time';
         $marketObj->where='type= :type';
         $marketObj->order='create_time';
         $marketObj->bind=array('type'=>$type);
         $time=$marketObj->find();
-        $res=array();
-        foreach($time as $k=>$v){
+       $res=array();
+         foreach($time as $k=>$v){
             $res[$k]=$v['create_time'];
         }
         return $res;
