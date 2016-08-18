@@ -247,7 +247,7 @@
                                     </li>
                                     {foreach:items=$item $key=$pid item=$pro}
                                         <li>
-                                            <span class="i_w_1 ">{$pro['id']}</span>
+                                            <span class="i_w_1 ">{$pro['pname']}</span>
                                             {if:$pro['type']==1}
                                                 <span class="i_w_2 i_TextGreen">
                                                    供
@@ -258,15 +258,25 @@
                                                 </span>
                                             {/if}
                                             <span class="i_w_3">
-                                                  {$pro['pname']}
+                                                  {$pro['mode']}
                                             </span>
+                                            <span class="i_w_4" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
+                                            <span class="i_w_5">{$pro['accept_area']}</span>
+                                            <span class="i_w_6">{$pro['quantity']}</span>
+                                            <span class="i_w_7">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
+                                            <span class="i_w_8">￥{$pro['price']}</span>
+                                            <span class="i_w_9">                                                   {if:$pro['qq']!=''}
 
-                                            <span class="i_w_4">{$pro['quantity']}</span>
-                                            <span class="i_w_5">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
-                                            <span class="i_w_6">{$pro['unit']}</span>
-                                            <span class="i_w_7">￥{$pro['price']}</span>
-                                            <span class="i_w_8" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
-                                            <span class="i_w_9">{$pro['accept_area']}</span>
+                                                    <a href="tencent://message/?uin={$pro['qq']}&Site=qq&Menu=yes"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                    </a>
+                                                        {else:}
+                                                        <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                    </a>
+
+                                                {/if}
+</span>
+
+
                                             <span class="i_w_10">
                                                 {if:$pro['quantity']-$pro['sell']-$pro['freeze']>0}
                                                     {if:$pro['type']==1}
@@ -284,18 +294,10 @@
                                                               <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                                                         </a>
                                                     {/if}
-                                                    {if:$pro['qq']!=''}
-
-                                                    <a href="tencent://message/?uin={$pro['qq']}&Site=qq&Menu=yes"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
-                                                    </a>
-                                                        {else:}
-                                                        <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
-                                                    </a>
-
+                                                                                                    {else:}
+                                                <img src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
                                                 {/if}
-                                                {else:}
-                                                        <img src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
-                                                {/if}
+                                                </span>
                                         </li>
                                     {/foreach}
                                 </ul>

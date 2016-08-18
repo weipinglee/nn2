@@ -8,14 +8,15 @@
 namespace Library;
 return array(
     'host'=>array(//各子系统域名列表，最后不加'/'
-        'deal'=>'http://deal.test.com',
-		'user'=>'http://user.test.com',
-		'admin'=>'http://admin.test.com',
+        'deal'=>'http://localhost/nnzaixian/deal/public',
+		'user'=>'http://localhost/nnzaixian/user/public',
+		'admin'=>'http://localhost/nnzaixian/admin/public',
     ),
     'rootDir'=>array(//子系统根目录物理路径
-        'user'=>'D:\wamp2.5\www\nn2\user\public',
-		'admin'=>'D:\wamp2.5\www\nn2\admin\public',
-    ),
+        'user'=>'E:\wamp\wamp\www\nn2\user\public',
+		'admin'=>'E:\wamp\wamp\www\nn2\admin\public',
+    	'deal'=>'E:\wamp\wamp\www\nn2\deal\public'
+		),
 	 'sms'=>array(
         'platform'=>'jianzhou',
         'account'=>'jzyy802',

@@ -59,7 +59,6 @@ class IndexController extends PublicController {
 			$offerCateData[$v['id']] = $offer->getOfferCategoryList($v['id']);
 
 		}
-		
 		//获取报盘总数
 		$offer_num = $offer->getOfferNum();
 		$this->getView()->assign('offer_num',$offer_num['num']);
