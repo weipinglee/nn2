@@ -18,6 +18,18 @@ class userLog  extends \Library\log\baselog
 	}
 
 
+	public function getList($condition = array()){
+	       $reModel = new searchQuery($this->tableName . ' as r');
+	        //线上
+	        $reModel->join = 'left join user as u on r.author = u.id';
+	        $reModel->fields = 'r.*, u.username';
+
+	        $onlineInfo = $reModel->find();
+
+	        $reModel->downExcel($onlineInfo['list'], 'user_log', '用户操作日志');
+
+	        return $onlineInfo;
+	}
 
 
 }

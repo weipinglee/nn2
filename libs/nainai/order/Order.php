@@ -873,9 +873,7 @@ class Order{
 		if($where)$query->where = $where;
 		$query->fields = 'u2.username as po_username,po.mode,u.username as do_username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
-		
-		$query->page  = $page;
-		$query->pagesize = 10;
+
 		 $query->order = "do.id desc";
 		$data = $query->find();
 		$this->adminContractStatus($data['list']);
@@ -889,6 +887,7 @@ class Order{
 			$value['buyer_name'] = $value['mode_txt'] == '卖盘' ? $value['do_username'] : $value['po_username'];
 			$value['seller_name'] = $value['mode_txt'] == '卖盘' ? $value['po_username'] : $value['do_username'];
 		}
+		$query->downExcel($data['list'], 'order_sell', '合同列表');
 		// tool::pre_dump($data['list'][0]);exit;
 		// tool::pre_dump($data);
 		return $data;

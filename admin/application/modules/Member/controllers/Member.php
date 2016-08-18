@@ -350,5 +350,13 @@ class MemberController extends InitController {
 		exit(json::encode($res));
 	}
 
+	public function userlogAction(){
+		$model = new \Library\userLog();
+		
+		$data = $model->getList();
+		
+		$this->getView()->assign('data', $data);
+	}
+
 
 }
