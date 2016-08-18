@@ -15,7 +15,9 @@ class market{
      */
     protected $actions = array(
         'deal' => array(
-            'index/trade/report'
+            'index/trade/doreport',
+            'index/trade/buyerPay'
+
         ),
         'user' => array(
             'index/fund/dofundout',
@@ -28,21 +30,43 @@ class market{
             'index/ucenter/dodealcert',
             'index/ucenter/dostorecert',
             'index/managerstore/doupdatestore',
-
+            'index/depositdelivery/sellerconsignment',
+            'index/depositdelivery/buyerconfirm',
+            'index/contract/geneorderinvoice',
+            'index/contract/complaincontract',
+            'index/contract/complaincontract',
+            'index/purchaseorder/geneorderhandle',
+            'index/storedelivery/storefees',
+            'index/order/confirmproof',
+            'index/order/verifyqaulity',
+            'index/order/sellerverify',
+            'index/order/contractcomplete',
             'post' => array(   //里面的url 闭市时不能通过post请求，可以访问页面
                 'index/purchase/issue',
-                'index/fund/bank'
+                'index/fund/bank',
+                'index/deposit/sellerdeposit',
+                'index/order/buyerretainage',
             ),
 
         ),
         'admin' => array(
+            'balance/accmanage/usercreditadd',
+            'balance/fundin/offlinefirst',
+            'balance/fundin/offlinefinal',
+            'balance/fundin/del',
+            'balance/fundout/firstcheck',
+            'balance/fundout/finalcheck',
+            'balance/fundout/transfer',
+            'balance/fundout/del',
+            'store/storeorder/storeorderpass',
+            'store/storeproduct/setStatus',
 
         ),
     );
 
     protected $start_time = '09:00:00';//开市时间
 
-    protected $end_time = '19:00:00';//闭市时间
+    protected $end_time = '18:00:00';//闭市时间
 
     /**
      * 判断是否处于开市时间
@@ -75,6 +99,10 @@ class market{
                 }
 
                 if(isset($this->actions[$appName]['post']) && in_array($url,$this->actions[$appName]['post']) && IS_POST){//该url的post请求不能操作
+                    return false;
+                }
+
+                if(IS_POST){
                     return false;
                 }
 
