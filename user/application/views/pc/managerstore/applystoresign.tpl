@@ -6,7 +6,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>仓单管理</a>><a>仓单审核</a></p>
+						<p><a>仓单管理</a>><a>仓单签发</a></p>
 					</div>
 					<div class="center_tabl">
                     <div class="lx_gg">
@@ -104,7 +104,7 @@
                                 <td>双方签字入库单：</td>
                                 <td>
                                     <div class="zhxi_con">
-                                        <span><input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
+                                        <span class="input-file">选择文件<input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
                                         <input type="hidden" name="imgfile1" value="" datatype="*" nullmsg="请上传签字入库单" />
 
                                     </div>

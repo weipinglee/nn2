@@ -16,12 +16,12 @@
     border-right: 1px solid #e7e7e7;
 }
 .offer_left ul li h3{
-	font-size: 16px;
+	font-size: 22px;
 	color: #333333;
-	margin-bottom: 16px;
+	margin-bottom: 22px;
 }
 .offer_left ul li {
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 26px;
 	color: #666666;
 }
@@ -55,7 +55,7 @@
     font-size: 24px;
 }
 .offer_right ul li{
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 26px;
 	color: #666666;
 }
@@ -97,14 +97,13 @@
 }
 .buy_btn a {
     display: block;
-    width: 110px;
-    float: right;
+    width: 120px;
     height: 40px;
+    font-size: 16px;
     text-align: center;
     background: #bc1018;
     color: #fff;
     line-height: 36px;
-    border-radius: 3px;
     margin-top: 22px;
 }
 .buy_btn a i{

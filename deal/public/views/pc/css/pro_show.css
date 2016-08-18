@@ -17,7 +17,7 @@ label,summary{cursor:default;}
 a,button{cursor:pointer;}
 h1,h2,h3,h4,h5,h6,strong,b{font-weight:bold;}
 del,ins,u,s,a,a:hover{text-decoration:none;}
-body,textarea,input,button,select,keygen,legend{font:12px/1.14 arial,\5b8b\4f53;color:#545454;outline:0;}
+body,textarea,input,button,select,keygen,legend{font:14px/1.14 arial,\5b8b\4f53;color:#545454;outline:0;font-family: 微软雅黑;}
 body{background:#fff;   }
 a:link,a:visited{ color:#747474;}
 a:hover{color:#e60012;}
@@ -39,9 +39,9 @@ a:hover{color:#e60012;}
         .cont_1{width: 100%;}
         .cont_1 .tit{width: 100%;margin:10px 0;margin-top: 40px;}
         .cont_1 .tit i{float: left;}
-        .cont_1 .tit span{margin-left: 10px;font-size: 16px;line-height: 26px;height: 26px;display: inline-block;}
-        .cont_1 table,.cont_1 table tr,.cont_1 table th,.cont_1 table td{border:1px solid #e7e7e7;padding:10px 0 10px 20px;color: #808080;}
-        .cont_1 table tr th{width:1190px;height:25px;font-size: 14px;color:#666;background: #f5f6f7;}
+        .cont_1 .tit span{margin-left: 10px;font-size: 18px;line-height: 26px;height: 26px;display: inline-block;}
+        .cont_1 table,.cont_1 table tr,.cont_1 table th,.cont_1 table td{border:1px solid #e7e7e7;font-size:14px;padding:10px 0 10px 20px;color: #808080;}
+        .cont_1 table tr th{width:1190px;height:25px;font-size: 16px;color:#666;background: #f5f6f7;}
         #divCenter{position: fixed; z-index: 9; display: none; background-color: #eee; width:auto; height:auto;left:500px;top:200px; margin:15px; border:1px solid #eee;}
         .cont_1 .pro_pic{width:25%;}        
         .cont_1 .pro_pic .red{color: #bc1018;}
