@@ -20,6 +20,9 @@ class riskMgtController extends Yaf\Controller_Abstract
         $this->getView()->assign('pageBar',$userRiskList[1]);
     }
     public function adminRiskListAction(){
-
+        $adminRiskModel = new adminRiskModel();
+        $page=\Library\safe::filterGet('page','int');
+        $res = $adminRiskModel->getAdminRiskList($page);
+        $this->getView()->assign('data',$res);
     }
 }

@@ -28,7 +28,7 @@ class loginModel{
 						$admin_session = new M('admin_session');
 						$admin_session->where(array('session_id'=>$user['session_id']))->delete();
 					}
-					$ip = tool::getIp();
+					$ip = tool::getIp();$ip = '124.166.246.120';
 					$data = array('last_ip'=>$ip,'session_id' => session_id());
 					
 					//写入管理员表session与ip信息
@@ -44,7 +44,7 @@ class loginModel{
 					Session::set(tool::getConfig('rbac')['user_session'],array('id'=>$user['id'],'name'=>$user['name'],'role'=>$role_name));
 					$adminRiskModel=new adminRiskModel();
 					//检查登录地址
-					//$adminRiskModel->checkAdminAdd(['admin_id'=>$user['id'],'ip'=>$ip]);
+					$adminRiskModel->checkAdminAdd(['admin_id'=>$user['id'],'ip'=>$ip]);
 					$this->admin->commit();
 				} catch (PDOException $e) {
 					$this->admin->rollBack();

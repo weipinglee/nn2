@@ -105,4 +105,13 @@ class adminRiskModel
         }
 
     }
+
+    public function getAdminRiskList($page=1){
+        $risk = new \Library\searchQuery('admin_alerted_record as ar');
+        $risk->join = 'left join admin as a on a.id = ar.admin_id left join admin_role as role on a.role = role.id';
+        $risk->fields = 'ar.*,a.name,a.role,role.name as role_name';
+        $risk->page = $page;
+        $risk->pagesize = 20;
+        return $risk->find();
+    }
 }

@@ -7,10 +7,7 @@
         </div>
         <div class="content">
             <div class="pd-20">
-                <div class="text-c">
-                    <input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
-                    <button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜会员</button>
-                </div>
+                {include:layout/search.tpl}
                 <div class="mt-20">
                     <table class="table table-border table-bordered table-hover table-bg table-sort">
                         <thead>
@@ -26,14 +23,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {foreach:items=$data}
+                        {foreach:items=$data['list']}
                             <tr class="text-c">
 
                                 <td>{$item['id']}</td>
-                                <td>{$item['user_id']}</td>
-                                <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">{$item['username']}</u></td>
+                                <td>{$item['admin_id']}</td>
+                                <td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
 
-                                <td>{if:$item['true_name']!=null}{$item['true_name']}{else:}{$item['company_name']}{/if}</td>
+                                <td>{if:$item['role']==0}超级管理员{else:}{$item['role_name']}{/if}</td>
                                 <td>{$item['introduce']}</td>
                                 <td>{$item['record_time']}</td>
                                 <!--       <td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a> <a title="编辑" href="{url:member/member/detail?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> </td> -->
@@ -42,6 +39,6 @@
                         </tbody>
 
                     </table>
-                    {$pageBar}
+                    {$data['bar']}
                 </div>
             </div>

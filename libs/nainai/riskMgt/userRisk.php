@@ -75,9 +75,11 @@ class userRisk
         if(!$userRiskObj->data($params)->validate($this->useAddress)){
             return tool::getSuccInfo(0,$userRiskObj->getError());
         }
+
         if(!$cityInfo=$this->getIpInfo($params['ip'])){
             return tool::getSuccInfo(0,'ip不正确');
         }
+
        // $params['ip']='221.219.154.127 ';
         if(!$userRiskObj->where(['user_id'=>$params['user_id']])->getObj()){
             $this->addUseAddress($params,true);
@@ -97,6 +99,7 @@ class userRisk
                 return  true;
             }
         }
+
 
 
     }

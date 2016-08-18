@@ -78,6 +78,9 @@ class searchConfig {
         'payto_market' => array(
             'like' => array('u.username','用户名')
         ),
+        'admin_alerted_record' => array(
+            'like' => array('a.name','管理员用户名')
+        ),
 
 
     );
