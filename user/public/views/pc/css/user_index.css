@@ -2014,3 +2014,6 @@ cursor: pointer;
 }
 
 .pay_bton{float: left;margin:10px;}
+
+/*全选按钮规格样式*/
+.controlAll{position: relative;top:3px;width: 24px;}

@@ -11,7 +11,7 @@
 						<div class="xx_center">
 							<table class="sales_table" border="0"  cellpadding="0" cellspacing="0">
 								<tr class="first_tr">
-									<td width="80px"><input onclick="selectAll1();" name="controlAll" style="controlAll" id="controlAll" type="checkbox">全选
+									<td width="80px"><input onclick="selectAll1();" name="controlAll" style="controlAll" id="controlAll" type="checkbox" class="controlAll">全选
 									</td>
 									<td width="180px">产品详情</td>
 									<td width="260px">金额及付款方式</td>
