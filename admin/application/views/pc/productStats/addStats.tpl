@@ -22,38 +22,30 @@
               CONTENT 
                         --> 
         <div id="content" class="white">
-            <h1><img src="{views:img/icons/dashboard.png}" alt="" />统计分类
+            <h1><img src="{views:img/icons/dashboard.png}" alt="" />统计数据
 </h1>
                 
 <div class="bloc">
     <div class="title">
-       添加统计分类
+       添加统计数据
     </div>
    <div class="pd-20">
-  <form action="{url:information/marketStats/addCateStats}" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="">
+  <form action="{url:information/productStats/addStats}" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="{url:information/productStats/statsList}">
+  <input type="hidden" name="id" value="{$detail['id']}">
     <div class="row cl">
-      <label class="form-label col-3"><span class="c-red">*</span>分类名：</label>
+      <label class="form-label col-3"><span class="c-red">*</span>商品名：</label>
 
       <div class="formControls col-5">
-        <select class='input-select roles' name='cate_id' nullmsg = '请选择分类' dataType="/^[1-9]\d*$/">
-          <option value='-1'>请选择分类</option>
-            {foreach:items=$cateTree}
-              <option value="{$item['id']}">{echo: str_repeat('&nbsp',$item['level']*2)}{$item['name']}</option>
-            {/foreach}
-        </select>
+        <input type="hidden" name="products_stats_id" value="{$detail['products_stats_id']}">
+        <input type="text" class="input-text" value="{$detail['name']}" readonly="readonly" datatype="*" errormsg=""  >
       </div>
       <div class="col-4"> </div>
     </div>
       <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>分类名：</label>
+          <label class="form-label col-3"><span class="c-red">*</span>价格：</label>
 
           <div class="formControls col-5">
-              <select class='input-select roles' name='type' nullmsg = '请选择类型' dataType="/^[1-9]\d*$/">
-                  <option value='-1'>请选择类型</option>
-                  {foreach:items=$statsType}
-                      <option value="{$key}">{$item}</option>
-                  {/foreach}
-              </select>
+              <input type="text" class="input-text" value="{$detail['price']}" name="price" datatype="float" nullmsg="请输入价格" errormsg="请输入正确的价格"  >
           </div>
           <div class="col-4"> </div>
       </div>
@@ -61,7 +53,11 @@
     <div class="row cl">
       <div class="col-9 col-offset-3">
         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-        &emsp;<a class="btn btn-primary radius" href="{url:/information/marketStats/marketStatsList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
+        {if:$detail['id']}
+        &emsp;<a class="btn btn-primary radius" href="{url:/information/productStats/statsList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
+        {else:}
+        &emsp;<a class="btn btn-primary radius" href="{url:/information/productStats/productStatsList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
+        {/if}
       </div>
     </div>
   </form>

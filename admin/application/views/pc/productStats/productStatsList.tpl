@@ -45,7 +45,7 @@
                     {/if}
                     <a title="编辑" href="{url:information/productStats/addProductStats}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
                     <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:information/productStats/delProductStats}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
-                    <a title="添加统计数据" href="{url:information/productStats/addStats}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>    
+                    <a title="添加统计数据" href="{url:information/productStats/addStats}?pro_id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>    
                 </td>
             </tr>
         {/foreach}
