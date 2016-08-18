@@ -64,7 +64,7 @@
                <tr class="form_infoma">
                   <td class="first">
                        <div class="libary_ku">
-                          <img src="{views:images/storage/jiang.png}" alt=""><span>直管库</span>
+                          <img src="{views:images/storage/jiang.png}" alt=""><span>监管库</span>
                           <p><img src="{views:images/storage/level.png}" alt="">
                             <img src="{views:images/storage/level.png}" alt="">
                             <img src="{views:images/storage/level.png}" alt="">
@@ -89,7 +89,7 @@
                <tr class="form_infoma">
                     <td class="first">
                        <div class="libary_ku">
-                          <img src="{views:images/storage/zhongz.png}" alt=""><span>直管库</span>
+                          <img src="{views:images/storage/zhongz.png}" alt=""><span>中转库</span>
                           <p><img src="{views:images/storage/level.png}" alt="">
                             <img src="{views:images/storage/level.png}" alt=""></p>
                        </div>
