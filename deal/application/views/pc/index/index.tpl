@@ -701,3 +701,39 @@
                 </ul>
             </div>
         </div>
+
+
+        <!-- 浮动楼层 -->
+<link rel="stylesheet" type="text/css" href="{views:css/global_site_index_new.css}">
+<div class="floor_left_box" id="floornav" data-tpa="YHD_HOMEPAGE_FLOORNAV" style="display: block;">
+
+            <a href="#floor-1" data="#floor-1" rel="floor-1" class="cur">
+                <i class="left_iconfont " display="block"><img src="{views:images/floor_01.png}">交易市场</i>
+                <em class="two_line" display="none"><img src="{views:images/floor_cur_01.png}">交易市场</em>
+            </a>
+            <a href="#floor-2" data="#floor-2" rel="floor-2" class="">
+                <i class="left_iconfont " display="none"><img src="{views:images/floor_02.png}">市场指数</i>
+                <em class="two_line" display="black"><img src="{views:images/floor_cur_02.png}">市场指数</em>
+            </a>
+            <a href="#floor-3" data="#floor-3" rel="floor-3" class="">
+                <i class="left_iconfont " display="none"><img src="{views:images/floor_030.png}">推荐商家</i>
+                <em class="two_line" display="black"><img src="{views:images/floor_cur_030.png}">推荐商家</em>
+            </a>
+            <a href="" data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur">
+                <i class="left_iconfont " display="none"><img src="{views:images/floor_04.png}">客服</i>
+                <em class="two_line" display="black"><img src="{views:images/floor_cur_04.png}">客服</em>
+            </a>
+            <div class="show_div">
+                <a href="" class="fhdb_a" data="#toTop" rel="toTop">
+                    <i class="left_iconfont " display="none"><img src="{views:images/floor_05.png}">返回顶部</i>
+                    <em class="two_line" display="black"><img src="{views:images/floor_cur_05.png}">返回顶部</em>
+                </a>
+                <div class="hover_div">
+                    <em></em>
+                    <a href="" data="#toTop" rel="toTop" class="hove_a">返回顶部</a>
+                </div>
+            </div>
+
+        </div>
+        <!-- 浮动楼层 end -->
+

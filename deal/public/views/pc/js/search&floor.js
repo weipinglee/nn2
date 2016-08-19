@@ -59,4 +59,12 @@ window.onscroll = function () {
     }
 }
 
+/*右侧浮动楼层*/
+$(function(){
+    $(".fhdb_a").mouseover(function (){  
+            $(this).parent(".show_div").find(".hover_div").show();  
+        }).mouseout(function (){  
+           $(this).parent(".show_div").find(".hover_div").hide();  
+        }); 
+})
 

@@ -4,9 +4,9 @@
 			<div class="user_c_list">
 				<div class="user_zhxi">
 					<div class="zhxi_tit add">
-						<p><a>交易管理</a>><a>申诉管理</a></p>
+						<p><a>交易管理</a>><a>我要申诉</a></p>
 
-						<p class="backg_red">我要申诉</p>
+						<!-- <p class="backg_red">我要申诉</p> -->
 					</div>
 					<div class="chp_xx">
 						<div class="xx_center">
