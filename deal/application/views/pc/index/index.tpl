@@ -25,11 +25,13 @@
                 {/foreach}
 
                 <div class="switch-tab">
+
                     {foreach: items=$indexSlide}
                     {set:$key++}
                     <a href="#" onclick="return false;" {if:$key == 1} class="current"{/if}>{$key}</a>
 
                     {/foreach}
+
                 </div>
             </div>
         </div>

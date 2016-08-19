@@ -1,6 +1,6 @@
 ﻿{if: $stop == 1}
-<div >    
-<img src="{views:images/weituo.png}">
+<div class="user_c_list">    
+<img src="{views:images/weituo.png}" style="width:100%;">
 </div>
 
 {else:}
