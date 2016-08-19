@@ -68,7 +68,6 @@ class UserModel{
 		array('nature','number','企业类型错误'),
 		array('contact','require','请填写联系人'),
 		array('contact_phone','mobile','填写正确的联系人手机号'),
-		array('contact_duty','number','正确选择职务'),
 		array('check_taker_phone','mobile','请正确填写收票人电话'),
 		array('check_taker_add','require','请填写收票人地址'),
 		array('deposit_bank','require','请填写开户银行'),

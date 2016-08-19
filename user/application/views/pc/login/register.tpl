@@ -87,8 +87,6 @@
       })
     })
 
-    //验证码验证地址
-    var captchaCheckUrl = '{url:/login/captchaCheck}';
     //发送短信地址
     var sendMessageUrl = '{url:/login/sendMessage}';
     </script>

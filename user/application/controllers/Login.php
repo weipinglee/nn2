@@ -170,22 +170,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 		$ca->CreateImage();
 	}
     
-    /**
-     * 验证验证码
-     */
-    public function captchaCheckAction(){
 
-        $captcha  = safe::filterPost('captcha','/^[a-zA-Z]{4}$/');
-        $captchaObj = new captcha();
-        if($captchaObj->check($captcha))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    } 
     
     //发送短信
     public function sendMessageAction()
