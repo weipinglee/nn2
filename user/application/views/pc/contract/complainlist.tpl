@@ -5,12 +5,7 @@
             <p><a>申述管理</a>><a>申述列表</a></p>
         </div>
         <div class="chp_xx">
-            <!--<form action="{url:contract/complainList}" method="POST">
-                <div class="text-c"> 订单号：
-                    <input type="text" class="input-text" style="width:250px" placeholder="输入订单号" id="" name="order_no" value="{$order_no}">
-                    <button type="submit" class="btn btn-success radius" id="" name="">搜申述</button>
-                </div>
-            </form>-->
+             {include:layout/search.tpl}
             <br />
             <div class="xx_center">
 
@@ -23,7 +18,7 @@
                         <td>申述状态</td>
                         <td>操作</td>
                     </tr>
-                    {foreach:  items=$complainList item=$list}
+                    {foreach:  items=$data['list'] item=$list}
 
                         <tr>
                             <td>{$list['order_no']}</td>
@@ -57,7 +52,7 @@
                 <a href="#">最后页</a>&nbsp;
                 跳转到第 <input name="pagefind" id="pagefind" type="text" style="width:20px;font-size: 12px;" maxlength="5" value="1"> 页
                 <a><span class="style1">确定</span></a> -->
-                {$pageHtml}
+                {$data['bar']}
             </div>
         </div>
     </div>

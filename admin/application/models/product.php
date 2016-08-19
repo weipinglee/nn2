@@ -73,6 +73,14 @@ class productModel extends baseModel{
 		}
 	}
 
+	public function getTypeArray(){
+		return array(
+			1 => '输入框',
+			2 => '单选',
+			3 => '多选',
+		);
+	}
+
 
 	/**
 	 * 获取一条分类数据
@@ -133,7 +141,7 @@ class productModel extends baseModel{
 	 * @param int $page 页码 0表示获取全部
 	 */
 	public function getAttr($page=0){
-		$m = new Query('product_attribute');
+		$m = new \Library\searchQuery('product_attribute');
 		if($page!=0){
 			$m->page = $page;
 		}
@@ -141,23 +149,12 @@ class productModel extends baseModel{
 			$m->where = 'status=1';
 		}
 
-		$attr = $m->find();
+		$attr = $m->find($this->getTypeArray());
 		$res = array();
-		foreach($attr as $k=>$v){
-			$res[$attr[$k]['id']] = $v;
-			$res[$attr[$k]['id']]['type'] = $this->getAttrType($v['type']);
+		foreach($attr['list'] as $k=>&$v){
+			$v['type_txt'] = $this->getAttrType($v['type']);
 		}
-		if($page!=0){
-
-			$pageBar =  $m->getPageBar();
-			return array($res,$pageBar);
-		}
-		else{
-			return $res;
-		}
-
-
-
+		return $attr;
 
 	}
 

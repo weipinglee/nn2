@@ -17,6 +17,7 @@
 		 </span>
 
 	 </div>
+	 	{include:layout/search.tpl}
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -31,12 +32,12 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$attr}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 				<td><input type="checkbox" value="" name=""></td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
 
-				<td>{$item['type']}</td>
+				<td>{$item['type_txt']}</td>
 				<td>{$item['value']}</td>
 				<td>{$item['sort']}</td>
 				<td class="td-status">
@@ -59,6 +60,6 @@
 		</tbody>
 
 	</table>
-		{$bar}
+		{$data['bar']}
 	</div>
 </div>
