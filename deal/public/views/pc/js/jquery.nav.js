@@ -2,11 +2,13 @@
     $.fn.extend({
         "nav": function (con) {
         //创建按钮
-            var length=$(".event-item a img").length
-            
-        for(var i=1;i<length;i++)
+         var length=$(".event-item a img").length
+                  
+        for(var i=0;i<length;i++)
+
         {
-             $(".switch-tab").append('<a href="#" onclick="return false;">'+i+'</a>');      
+            var a=i+1;
+             $(".switch-tab").append('<a href="#" onclick="return false;">'+a+'</a>');      
         }
         //创建按钮end
             var $this = $(this), $nav = $this.find('.switch-tab'), t = (con && con.t) || 3000, a = (con && con.a) || 500, i = 0, autoChange = function () {
