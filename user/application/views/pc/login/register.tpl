@@ -104,12 +104,12 @@
           </div>
           <div class="cot">
             <span class="cot_tit">密码：</span>
-            <span><input class="text" type="password" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" /><a href=""><img class="show_eye" src="{views:images/password/eye.png}" alt=""></a></span>
+            <span><input class="text" type="password" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" /><img class="show_eye" src="{views:images/password/eye.png}" alt=""></span>
               <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit">确认密码：</span>
-            <span><input class="text" type="password" name="repassword" datatype="*" recheck="password" nullmsg="请重复填写密码" errormsg="两次密码输入不一致" /><a href=""><img class="show_eye" src="{views:images/password/eye.png}" alt=""></a></span>
+            <span><input class="text" type="password" name="repassword" datatype="*" recheck="password" nullmsg="请重复填写密码" errormsg="两次密码输入不一致" /><img class="show_eye" src="{views:images/password/eye.png}" alt=""></span>
               <span></span>
           </div>
           <div class="cot">
@@ -130,7 +130,7 @@
           </div>
           <div class="cot">
             <span class="cot_tit">邮箱：</span>
-            <span><input class="text" type="text" name="email"  datatype="e" errormsg="邮箱格式错误"/></span>
+            <span><input class="text" type="text" name="email" nullmsg="请填写邮箱"   datatype="e" errormsg="邮箱格式错误"/></span>
               <span></span>
           </div>
            
@@ -158,12 +158,12 @@
 		  </div>
           <div class="cot">
             <span class="cot_tit">密码：</span>
-            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" nullmsg='请输入密码' errormsg="6-15位非空字符"  /><a href=""><img class="show_eye" src="{views:images/password/eye.png}" alt=""></a></span>
+            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" nullmsg='请输入密码' errormsg="6-15位非空字符"  /><img class="show_eye" src="{views:images/password/eye.png}" alt=""></span>
             <span></span>
 		  </div>
           <div class="cot">
             <span class="cot_tit">确认密码：</span>
-            <span><input class="text" type="password" name="repassword" datatype="*" nullmsg="请确认密码" errormsg="两次密码输入不一致" recheck="password" /><a href=""><img class="show_eye" src="{views:images/password/eye.png}" alt=""></a></span>
+            <span><input class="text" type="password" name="repassword" datatype="*" nullmsg="请确认密码" errormsg="两次密码输入不一致" recheck="password" /><img class="show_eye" src="{views:images/password/eye.png}" alt=""></span>
 			<span></span>
           </div>
           <div class="cot">
@@ -189,7 +189,7 @@
           </div>
           <div class="cot">
             <span class="cot_tit">公司名称：</span>
-            <span><input class="text" type="text" name="company_name"  datatype="s2-20" errormsg="请填写公司名称" nullmsg="请填写邮箱" /></span>
+            <span><input class="text" type="text" name="company_name"  datatype="s2-20" errormsg="请填写公司名称" nullmsg="请填写公司名称" /></span>
 			<span></span>
           </div>
           <div class="cot">

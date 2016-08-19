@@ -69,7 +69,7 @@
                  {if:$info['type']==\nainai\offer\product::TYPE_BUY}
                      <th>价格区间</th>
 
-                     <td>￥{$info['price_l']}--{$info['price_r']}( /{$info['unit']})</td>
+                     <td>{$info['price_l']}--{$info['price_r']}( 元/{$info['unit']})</td>
 
                  {else:}
                      <th>挂牌价</th>
