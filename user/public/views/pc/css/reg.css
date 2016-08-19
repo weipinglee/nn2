@@ -12,16 +12,16 @@ button{cursor:pointer;}
     background-color:#fff;
 }
 .register{
-    width:712px;
+	width:712px;
     margin: 0 auto;
 }
 .register .reg_top{
-    height: 45px;
+	height: 45px;
     border-bottom: 3px solid #B9B5B5;
 }
 .register .register_top {
-    width: 100%;
-    margin: 0 auto;
+	width: 100%;
+	margin: 0 auto;
 }
 .register .beinit{
     position: absolute;
@@ -40,27 +40,23 @@ button{cursor:pointer;}
     font-size: 16px;
 }
 .register .register_top .register_r,.register .register_top .register_l{
-    width: 50%;
-    cursor:pointer; 
-}
-.register .register_r img {
-    position: absolute;
-    top: 46px;
-    right: 155px;
+	width: 50%;
+	cursor:pointer; 
 }
 .register .register_top .jg{
-    display: block;
+	display: block;
     width: 20%;
     font-size: 20px;
 }
 .register .register_top .border_bom{
-    border-bottom:3px solid #F70404;
+	border-bottom:3px solid #F70404;
+    position: relative;
     /*background: url(../images/password/sanj.png) no-repeat 126px 45px;*/
 }
-.reg_zc.register_l img{
+.reg_zc img{
     position: absolute;
-    top: 46px;
-    left: 160px;
+    top: 48px;
+    left: 172px;
 }
 
 /*注册内容*/
@@ -68,7 +64,7 @@ button{cursor:pointer;}
     margin: 30px auto;
 }
 .reg_cot .cot{
-    padding: 6px 0px;
+	padding: 6px 0px;
     width: 712px;
 }
 .reg_cot .cot .show_eye{
@@ -81,12 +77,12 @@ button{cursor:pointer;}
     border: 1px solid #D8D5D5;
     background: #f2f2f2;
     font-size: 12px;
-    padding: 8px 6px;
+    padding: 9px 6px 8px 6px;
     color: #666666;
 }
 
 .reg_cot .cot .cot_tit{
-    display: block;
+	display: block;
     float: left;
     text-align: right;
     padding: 0 10px;
@@ -95,17 +91,17 @@ button{cursor:pointer;}
     margin-top: 4px;
 }
 .reg_cot .cot .cot_tit i{
-    color: red;
+	color: red;
 }
 .reg_cot .cot .text{
-    width: 200px;
+	width: 200px;
     height: 20px;
     line-height: 15px;
     padding: 5px;
     border: 1px solid #D8D5D5;
 }
 .reg_cot .cot .zc{
-    display: block;
+	display: block;
     position: relative;
     left: 24%;
 }
@@ -129,7 +125,7 @@ button{cursor:pointer;}
 }
 /*企业注册*/
 .qy_reg{
-    display: none;
+	display: none;
 }
 .reg_cot .cot .select{
     height: 30px;
