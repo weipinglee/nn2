@@ -46,6 +46,61 @@
 								<span id='area'>&nbsp;{areatext:data=$info['userinfo']['area'] id=area}</span>&nbsp;{$info['userinfo']['address']}
 							</div>
 						</div>
+						<div class="sjxx">
+							<p>发票信息</p>
+							{if:$info['invoice']}
+							<div class="sj_detal">
+								<b class="sj_de_tit">开具发票：</b>
+								<span>&nbsp;需要</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">已开发票：</b>
+								<span>&nbsp;{if:$invoice['order_invoice']}已开具{else:}未开具{/if}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">发票抬头：</b>
+								<span>&nbsp;{$invoice['title']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">纳税人识别号：</b>
+								<span>&nbsp;{$invoice['tax_no']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">地址：</b>
+								<span>&nbsp;{$invoice['address']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">电话：</b>
+								<span>&nbsp;{$invoice['phone']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">银行名称：</b>
+								<span>&nbsp;{$invoice['bank_name']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">银行卡号：</b>
+								<span>&nbsp;{$invoice['bank_no']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">发票照片：</b>
+								<span>&nbsp;<img src="{$invoice['order_invoice']['image']}"></span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">邮寄公司：</b>
+								<span>&nbsp;{$invoice['order_invoice']['post_company']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">邮寄单号：</b>
+								<span>&nbsp;{$invoice['order_invoice']['post_no']}</span>
+							</div>
+								
+							{else:}
+							<div class="sj_detal">
+								<b class="sj_de_tit">开具发票：</b>
+								<span>&nbsp;不需要</span>
+							</div>
+							{/if}
+						</div>
 						<div class="xx_center">
 							<table border="0" cellpadding="" cellspacing="">
 								<tbody>

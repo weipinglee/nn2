@@ -78,7 +78,6 @@ class ContractController extends UcenterBaseController{
 		
 		$invoice = $order->orderInvoiceInfo($info);
 		$this->getView()->assign('invoice',$invoice);
-		var_dump($invoice);exit;
 		$this->getView()->assign('show_delivery',in_array($info['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE)) ? true : false);
 
 		$this->getView()->assign('info',$info);
@@ -146,6 +145,26 @@ class ContractController extends UcenterBaseController{
 					$img[$k] = tool::setImgApp($v);
 				}
 			}
+			$type = Safe::filterPost('type');
+			$buyer_id = $type == \nainai\offer\product::TYPE_SELL ? Safe::filterPost('user_id','int'):Safe::filterPost('offer_user','int');
+			$seller_id = $type == \nainai\offer\product::TYPE_BUY ? Safe::filterPost('user_id','int'):Safe::filterPost('offer_user','int');
+
+			//判断是否是当前买方或者卖方申请的
+			switch ($type) {
+				case \nainai\order\OrderComplain::BUYCOMPLAIN:
+					if ($this->user_id != $buyer_id) {
+						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你购买的合同')));
+					}
+					break;
+				case \nainai\order\OrderComplain::SELLCOMPLAIN:
+					if ($this->user_id != $seller_id) {
+						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你销售的合同')));
+					}
+					break;
+				default:
+					die(json::encode(tool::getSuccInfo(0,'未知报盘类型')));
+					break;
+			}
 
 			$complainData = array(
 				'order_id' => $order_id ,
@@ -154,23 +173,9 @@ class ContractController extends UcenterBaseController{
 				'detail' => Safe::filterPost('content'),
 				'proof' => serialize($img),
 				'apply_time' => \Library\Time::getDateTime(),
-				'type' => ($this->user_id == Safe::filterPost('user_id', 'int')) ? \nainai\order\OrderComplain::BUYCOMPLAIN : \nainai\order\OrderComplain::SELLCOMPLAIN, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
+				'type' => $type, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
 				'status' => \nainai\order\OrderComplain::APPLYCOMPLAIN
 			);
-
-			//判断是否是当前买方或者卖方申请的
-			switch ($complainData['type']) {
-				case \nainai\order\OrderComplain::BUYCOMPLAIN:
-					if ($this->user_id != $ContractData['user_id']) {
-						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你购买的合同')));
-					}
-					break;
-				case \nainai\order\OrderComplain::SELLCOMPLAIN:
-					if ($this->user_id != $ContractData['sell_user']) {
-						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你销售的合同')));
-					}
-					break;
-			}
 
 			$returnData = $complainModel->addOrderComplain($complainData);
 

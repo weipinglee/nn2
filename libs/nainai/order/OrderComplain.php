@@ -217,7 +217,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
 		$detail = array();
 		if (intval($orderId) > 0) {
 			$query = new  Query('order_sell as a ');
-			$query->fields = 'a.id, a.order_no,a.contract_status, a.user_id, a.amount, c.name as pname, c.attribute, c.quantity, c.user_id as sell_user, d.name as cname, b.product_id';
+			$query->fields = 'a.id, a.order_no,a.contract_status, a.user_id, a.amount, c.name as pname, c.attribute, c.quantity, c.user_id as sell_user, d.name as cname, b.product_id,b.user_id as offer_user,b.type as offer_type';
 
 
 			$query->join = 'LEFT JOIN product_offer as b ON a.offer_id=b.id LEFT JOIN products as c ON b.product_id=c.id LEFT JOIN product_category as d ON c.cate_id=d.id';

@@ -117,7 +117,7 @@ class OffersController extends PublicController {
 			$info['fixed'] = false;
 			$info['amount'] = $info['minimum'] * $info['price'];
 		}
-
+		
 		$order_mode = new Order($info['mode']);
 		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
 		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));
