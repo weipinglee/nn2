@@ -121,11 +121,13 @@ function getCategory(cond){
                 });
             }
 
+            layer.closeAll();
+
 
 
         },
         complete:function(){
-            layer.closeAll();
+
         }
     });
 }
