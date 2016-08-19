@@ -23,6 +23,7 @@ button{cursor:pointer;}
 .register .reg_top{
 	height: 45px;
     border-bottom: 3px solid #B9B5B5;
+    position: relative;
 }
 .register .register_top {
 	width: 100%;
@@ -47,6 +48,7 @@ button{cursor:pointer;}
 .register .register_top .register_r,.register .register_top .register_l{
 	width: 50%;
 	cursor:pointer; 
+    position: relative;
 }
 .register .register_r img {
     position: absolute;
