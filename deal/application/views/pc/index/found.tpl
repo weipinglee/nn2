@@ -8,7 +8,7 @@
     <!--主要内容 开始-->
     <div id="mainContent">
         <div class="page_width">  
-        <form class="found" action="{url:/index/doFound}" method="post" auto_submit redirect_url="">
+        <form class="found" action="{url:/index/doFound}" method="post" auto_submit redirect_url="{url:/index/index}">
             <!----第一行搜索  开始---->
             <div class="mainRow4">
                 <h2 class="title">找货需求单</h2>

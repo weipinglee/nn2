@@ -44,6 +44,13 @@
 
                         </div>
                     </div>
+                    <div class="row cl">
+                        <label class="form-label col-2"><span class="c-red"></span> 背景颜色：</label>
+                        <div class="formControls col-10">
+                            <input type="text" name="bgcolor" class="input-text" value="{$slideInfo['bgcolor']}" />
+                        </div>
+                        <div class="col-4"> </div>
+                    </div>
 
                     <div class="row cl">
                         <label class="form-label col-2">排序：</label>

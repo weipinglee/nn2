@@ -1,15 +1,15 @@
-﻿; (function ($) {
+; (function ($) {
     $.fn.extend({
         "nav": function (con) {
-            var $this = $(this), $nav = $this.find('.switch-tab'), t = (con && con.t) || 3000, a = (con && con.a) || 500, i = 0, autoChange = function () {
-                $nav.find('a:eq(' + (i + 1 === 5 ? 0 : i + 1) + ')').addClass('current').siblings().removeClass('current');
-                $this.find('.event-item:eq(' + i + ')').css('display', 'none').end().find('.event-item:eq(' + (i + 1 === 5 ? 0 : i + 1) + ')').css({
+            var $this = $(this), $nav = $this.find('.switch-tab'), t = (con && con.t) || 3000, a = (con && con.a) || 500, _c = (con && con.c) || 5, i = 0, autoChange = function () {
+                $nav.find('a:eq(' + (i + 1 === _c ? 0 : i + 1) + ')').addClass('current').siblings().removeClass('current');
+                $this.find('.event-item:eq(' + i + ')').css('display', 'none').end().find('.event-item:eq(' + (i + 1 === _c ? 0 : i + 1) + ')').css({
                     display: 'block',
                     opacity: 0
                 }).animate({
                     opacity: 1
                 }, a, function () {
-                    i = i + 1 === 5 ? 0 : i + 1;
+                    i = i + 1 === _c ? 0 : i + 1;
                 }).siblings('.event-item').css({
                     display: 'none',
                     opacity: 0
