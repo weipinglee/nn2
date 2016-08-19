@@ -269,7 +269,17 @@
         }];
         validObj.addRule(rules);
 
-    })
+    });
+    $(function(){
+      $(".register_l").click(function(){ 
+          $(".hide_qy").hide();
+          $(".show_gr").show();
+      });
+      $(".register_r").click(function(){
+          $(".show_gr").hide();
+          $(".hide_qy").show();
+      })
+    });
 </script>
     <div class="w1200 secondaryend">
     <p>Copyright 2014-2016 耐耐云商科技有限公司 www.nainaiwang.cn All Rights Reserved </p>
