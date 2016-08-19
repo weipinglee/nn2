@@ -1165,22 +1165,25 @@ tr.form_infoma{
 
 .counter{
     float: left;
-    margin: 1px 20%;
-    border: 1px solid #f5f5f5;
+    margin: 0 30px;
+    border: 1px solid #e6e6e6;
     border-radius: 3px;
     background: #fff;
 }
 .counter input {
     background: #fff;
     width: 22px;
-    height: 23px;
-    font-size: 14px;
+    height: 25px;
+    font-size: 16px;
     text-align: center;
     border: none;
+    background: #f5f5f5;
+}
+#text_box{
+    background: #fff;
 }
 .counter #text_box{
-    border-left: 1px solid #f5f5f5;
-    border-right: 1px solid #f5f5f5;
+    border-bottom: 1px solid #e6e6e6;
     width: 30px;
 }
 .order_form.suo{
