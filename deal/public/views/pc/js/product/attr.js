@@ -70,6 +70,7 @@ function getCategory(cond){
 
     //获取页码
     var page = $('.pages_bar').find('a.current_page').attr('title');
+    layer.load(2,{offset: '430px'});
     $.ajax({
         'url' :  attr_url,
         'type' : 'post',
@@ -122,6 +123,9 @@ function getCategory(cond){
 
 
 
+        },
+        complete:function(){
+            layer.closeAll();
         }
     });
 }
