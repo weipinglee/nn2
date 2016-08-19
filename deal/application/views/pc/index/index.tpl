@@ -225,7 +225,7 @@
                                 {/foreach}
                        <!--         <li class="li_select" onclick="showOffers(1,$(this))"><a href="javascript:void(0)"><em></em><span></span>冶金化工市场</a></li>
                             </ul> -->
-                            <span class="i_more"><a rel="http://new.nainaiwang.com/index/index" href="http://new.nainaiwang.com/offers/offerlist">更多&gt;&gt;</a></span>
+                            <span class="i_more"><a rel="http://new.nainaiwang.com/index/index" href="{url:offers/offerlist}">更多&gt;&gt;</a></span>
                         </div>
 
                         <div class="i_leftCon" id="offer_list">
@@ -245,7 +245,7 @@
                                         <span class="i_w_9">咨询</span>
                                         <span class="i_w_10">操作</span>
                                     </li>
-                                    {foreach:items=$item $key=$pid item=$pro}
+                                    {foreach:items=$item key=$pid item=$pro}
                                         <li>
                                             <span class="i_w_1 ">{$pro['pname']}</span>
                                             {if:$pro['type']==1}
@@ -260,7 +260,7 @@
                                             <span class="i_w_3">
                                                   {$pro['mode']}
                                             </span>
-                                            <span class="i_w_4" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
+                                            <span class="i_w_4" id="area{$key}{$pid}">{set:$id='area'.$key.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
                                             <span class="i_w_5">{$pro['accept_area']}</span>
                                             <span class="i_w_6">{$pro['quantity']}</span>
                                             <span class="i_w_7">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
@@ -354,9 +354,18 @@
                                 <ul style="top: 0px;">
                                     {foreach:items=$newTrade}
                                     <li style="opacity: 1.0000000000000007;">
-                                        <i>{$item['username']}</i>
-                                        <em class="red">成功销售</em>{$item['name']}{$item['num']}{$item['unit']}
+                                        {set:$time=date('m-d',strtotime($item['create_time']))}
+                                        {set:$userName=mb_substr($item['username'],0,3)}
+                                        <i>{$userName}**</i>
+                                        {if:$item['type']==1}
+                                        <em class="red">售出</em>
+                                        {else:}
+                                            <em class="green">采购</em>
+                                        {/if}
+                                        <span>{$item['name']}{$item['num']}{$item['unit']}</span>
+                                        <span>{$time}</span>
                                     </li>
+
                                     {/foreach}
 
                                 </ul>
@@ -405,22 +414,32 @@
                                         var categories={$statcTime};
                                     var series=new Array();
                                     var j=0;
-                                    if(statisList[id]==undefined){
-                                        return false;
+                                    var chart;
+                                    var text;
+                                    if(statisList[id]!=undefined){
+                                        text='市场指数';
+                                        $.each(statisList[id],function(index,value){
+                                            var data=new Array();
+                                            for(var i=0;i<value.length;i++){
+                                                var ave_price=parseInt(value[i].ave_price,10);
+                                                data[i]=ave_price;
+                                            }
+                                            series[j]={name:index,data:data};
+                                            j++;
+                                        });
+                                    }else {
+                                        categories=null;series=[{
+                                            type:'line',
+                                            name:'',
+                                            data:[]
+                                        }];
+                                        text='暂时没有数据';
                                     }
-                                   $.each(statisList[id],function(index,value){
-                                       var data=new Array();
-                                        for(var i=0;i<value.length;i++){
-                                            var ave_price=parseInt(value[i].ave_price,10);
-                                            data[i]=ave_price;
-                                        }
-                                       series[j]={name:index,data:data};
-                                        j++;
-                                    });
+
 
                                     $('#container').highcharts({
                                         title: {
-                                            text: '市场指数',
+                                            text: text,
                                             x: -20 //center
                                         },
                                         credits:{
@@ -431,9 +450,26 @@
                                             text: 'www.nainaiwang.com',
                                             x: -20
                                         },
-
+                                        noData: {
+                                            // Custom positioning/aligning options
+                                            position: {
+                                                align: 'right',
+                                                verticalAlign: 'bottom'
+                                            },
+                                            // Custom svg attributes
+                                            attr: {
+                                                'stroke-width': 1,
+                                                stroke: '#cccccc'
+                                            },
+                                            // Custom css
+                                            style: {
+                                                fontWeight: 'bold',
+                                                fontSize: '15px',
+                                                color: '#202030'
+                                            }
+                                        },
                                         xAxis: {
-                                            categories: {$statcTime}
+                                            categories: categories
                                         },
                                         yAxis: {
                                             title: {
@@ -655,7 +691,7 @@
                 function showOffers(id,obj){
                     obj.siblings().removeClass('li_select');
                     obj.addClass('li_select');
-                    $('[id^=offer]').removeClass('show');
+                     $('[id^=offer]').removeClass('show');
                     $('#offer'+id).addClass('show');
 
                 }
