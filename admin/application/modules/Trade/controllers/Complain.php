@@ -108,7 +108,6 @@ class ComplainController extends InitController{
 			$complainModel = new \nainai\order\OrderComplain();
 			$res = $complainModel->firstCheck($complainData, $order_id);
 			die(json::encode($res));
-
 		}
 
 		$this->redirect('complainList');

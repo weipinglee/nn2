@@ -78,6 +78,8 @@
 							 
                                <input type="hidden" name="orderId" value="{$ContractData['id']}" />
                                <input type="hidden" name="user_id" value="{$ContractData['user_id']}" />
+                               <input type="hidden" name="offer_user" value="{$ContractData['offer_user']}" />
+                               <input type="hidden" name="type" value="{$ContractData['offer_type']}" />
 								<div class="subclear"><input name="submit" type="submit" value="提交申请">
 									
 								</div>

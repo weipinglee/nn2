@@ -201,7 +201,8 @@
                     var minimum_step = {$data['minstep']};
                     var temp_deposit = deposit_text.eq(1).text();
                     var paytype = 0;
-                    
+                    var global_num = minimum;
+
                     bindmin();
                     bindadd();
 
@@ -231,7 +232,7 @@
                          if(paytype){
                              if(paytype == 1){
                                 //全款
-                                deposit_text.text(prod_amount.text());
+                                deposit_text.text(prod_amount.eq(0).text());
                              }else{
                                 deposit_text.text(temp_deposit);
                              }
@@ -241,39 +242,45 @@
                     function isnum_valid(){
                         var flag = false;
                         var num = parseFloat(num_input.val());
-                        if(divide == 0){
-                            if(num != quantity){
-                                layer.msg('此商品不可拆分');
-                            }else{
-                                flag = true;
-                            }
+                        if((num-global_num)%minimum_step != 0){
+                          layer.msg('不符合最小起步量');
+                          num_input.val(global_num);
                         }else{
-                            if(left>minimum) { //剩余量大于最小起订量
-                                if (num < minimum) {
-                                    num_input.val(minimum);
-                                    deposit_text.text(paytype == 1 ? minimum * price : minimum_deposit);
-                                    temp_deposit = minimum_deposit;
-                                    prod_amount.text(minimum * price);
-                                    temp_num = minimum;
-                                    layer.msg('小于最小起订量');
-                                }
-                                else if (num > left) {
-                                    num_input.val(left);
-                                    deposit_text.text(paytype == 1 ? left * price : left_deposit);
-                                    temp_deposit = left_deposit;
-                                    prod_amount.text(left * price);
-                                    temp_num = left;
-                                    layer.msg('超出剩余数量');
-                                } else {
-                                    temp_num = num;
-                                    flag = true;
-                                }
-                                $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+temp_num);
-                                $('.prod_num').text(temp_num);
-                            }
-                            else if(num==left){
-                                flag = true;
-                            }
+                          if(divide == 0){
+                              if(num != quantity){
+                                  layer.msg('此商品不可拆分');
+                              }else{
+                                  flag = true;
+                              }
+                          }else{
+                              if(left>minimum) { //剩余量大于最小起订量
+                                  if (num < minimum) {
+                                      num_input.val(minimum);
+                                      deposit_text.text(paytype == 1 ? minimum * price : minimum_deposit);
+                                      temp_deposit = minimum_deposit;
+                                      prod_amount.text(minimum * price);
+                                      temp_num = minimum;
+                                      layer.msg('小于最小起订量');
+                                  }
+                                  else if (num > left) {
+                                      num_input.val(left);
+                                      deposit_text.text(paytype == 1 ? left * price : left_deposit);
+                                      temp_deposit = left_deposit;
+                                      prod_amount.text(left * price);
+                                      temp_num = left;
+                                      layer.msg('超出剩余数量');
+                                  } else {
+                                      temp_num = num;
+                                      flag = true;
+                                  }
+                                  global_num = temp_num;
+                                  $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+temp_num);
+                                  $('.prod_num').text(temp_num);
+                              }
+                              else if(num==left){
+                                  flag = true;
+                              }
+                          }
                         }
                         return flag;
                     }
@@ -293,7 +300,8 @@
                               if(data.success == 1){
                                   var total = num*price;
                                   prod_amount.text(total.toFixed(2));
-                                  deposit_text.text(paytype == 1 ? prod_amount.text(): data.info.toFixed(2));
+                                  deposit_text.text(paytype == 1 ? total.toFixed(2): data.info.toFixed(2));
+
                                   temp_deposit = data.info;
                                   $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
                               }else{

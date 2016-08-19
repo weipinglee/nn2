@@ -58,7 +58,9 @@ class Delivery{
 	 * @return array $res  信息数组
 	 */
 	public function deliveryInfo($delivery_id){
-		return empty($delivery_id) ? array() : $this->delivery->where(array('id'=>$delivery_id))->getObj();
+		$res =  empty($delivery_id) ? array() : $this->delivery->where(array('id'=>$delivery_id))->getObj();
+		$res['num'] = number_format($res['num'],2);
+		return $res;
 	}
 
 

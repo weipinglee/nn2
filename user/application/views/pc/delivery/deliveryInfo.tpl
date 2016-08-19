@@ -26,7 +26,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td nowrap="nowrap"><span></span>接收地点：</td>
+                                <td nowrap="nowrap"><span></span>交收地点：</td>
                                 <td colspan="2">
                                     
                                     {$info['order']['accept_area']}
@@ -86,19 +86,22 @@
                                     {$info['create_time']}
                                 </td>
                             </tr>
-                               <tr >
-                                <td nowrap="nowrap"><span></span>发货时间：</td>
-                                <td colspan="2"> 
-                                    {$info['delivery_time']}
-                                </td>
-                            </tr>
-                            <tr >
-                                <td nowrap="nowrap"><span></span>确认提货时间：</td>
-                                <td colspan="2"> 
-                                    {$info['confirm_time']}
-                                </td>
-                            </tr>
-                                 
+                            {if:$info['delivery_time']}
+                                <tr >
+                                    <td nowrap="nowrap"><span></span>发货时间：</td>
+                                    <td colspan="2"> 
+                                        {$info['delivery_time']}
+                                    </td>
+                                </tr>
+                            {/if}
+                            {if:$info['confirm_time']}
+                                <tr >
+                                    <td nowrap="nowrap"><span></span>确认提货时间：</td>
+                                    <td colspan="2"> 
+                                        {$info['confirm_time']}
+                                    </td>
+                                </tr>
+                            {/if}
                             <tr >
                                 <td nowrap="nowrap"><span></span>当前提货状态：</td>
                                 <td colspan="2"> 
