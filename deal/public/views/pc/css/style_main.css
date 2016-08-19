@@ -597,13 +597,13 @@
 /*市场框架*/
 .i_market{
 	width: 1190px;
-	height: 488px;
-	margin: 70px auto 0 auto;
+	height: 490px;
+	margin: 20px auto;
 }
 .i_market_left{
 	width: 910px;
-	padding: 0 0 20px 0;
-	height: 468px;
+	padding: 0;
+	height: 490px;
 	float: left;
 }
 .i_market_right{

@@ -11,7 +11,7 @@
 						<div class="xx_center">
 							<table class="sales_table" border="0"  cellpadding="0" cellspacing="0">
 								<tr class="first_tr">
-									<td width="80px"><input onclick="selectAll1();" name="controlAll" style="controlAll" id="controlAll" type="checkbox">全选
+									<td width="80px"><input onclick="selectAll1();" name="controlAll" style="controlAll" id="controlAll" type="checkbox" class="controlAll">全选
 									</td>
 									<td width="180px">产品详情</td>
 									<td width="260px">金额及付款方式</td>
@@ -27,7 +27,7 @@
                                 {foreach:items=$data['list']}
 									<tr class="title">
 										<td colspan="6">
-											<input id="controlAll" type="checkbox">
+											<input id="controlAll" type="checkbox" class="controlAll">
 											单号:<a href="{url:/contract/sellerDetail?id=$item['id']}"><span class="col2517EF">{$item['order_no']}</span></a>
 											<span class="colaa0707 ht_padd"></span>
 											<span><img class="middle_img" src="{views:images/center/ico_cj.jpg}">{if:$item['company_name']}购买单位：{$item['company_name']}{else:}购买个人：{$item['true_name']}{/if}</span>

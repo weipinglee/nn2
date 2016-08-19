@@ -5,11 +5,15 @@
   <meta name="keywords"/>
   <meta name="description"/>
   <meta charset="utf-8">
+  <link href="{views:css/user_index.css}" rel="stylesheet" type="text/css" />
   <link href="{views:css/table.css}" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
   <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 </head>
+<style media="print" type="text/css"> 
+.noprint{visibility:hidden} 
+</style>
 <body>
   <!-- 表格详情样式 strat-->
   <div class="details">
@@ -46,7 +50,7 @@
           <td><span>{$storeDetail['sign_time']}</span></td>
         </tr>
         <tr>
-          <td><span>用户确认时间：</span></td>
+          <td><span>用户确认时间</span></td>
           <td><span>{$storeDetail['user_time']}</span></td>
         </tr>
         <tr>
@@ -163,12 +167,9 @@
           <td><span>联系电话</span></td>
           <td><span>{$user['contact_phone']}</span></td>
         </tr>
-        <tr>
-          <td colspan="2">
-              <button onClick="window.print()">打印</button>
-          </td>
-        </tr>
       </table>
+
+              <p class="noprint"><button onClick="window.print()" class="submit_bzj" style="margin:10px auto">打印</button></p> 
     </div>
   </div>
   <!-- 表格详情样式 end-->

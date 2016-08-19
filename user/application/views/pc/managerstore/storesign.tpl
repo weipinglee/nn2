@@ -44,7 +44,7 @@
                                 <div class="center_tabl">
                                     <div class="lx_gg sear_mx" style="background:#fff;">
                                         <span>用户名：</span>
-                                        <input name="username" type="text" />
+                                        <input name="username" type="text" style="width:255px;"/>
                                         <input type="hidden" name="getUserUrl" value="{url:/managerstore/getUser}" />
                                         <button class="search_an" onclick="fundUser()" type="button">获取</button>
                                     </div>

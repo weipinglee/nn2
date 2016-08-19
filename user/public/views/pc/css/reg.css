@@ -43,11 +43,6 @@ button{cursor:pointer;}
 	width: 50%;
 	cursor:pointer; 
 }
-.register .register_r img {
-    position: absolute;
-    top: 46px;
-    right: 155px;
-}
 .register .register_top .jg{
 	display: block;
     width: 20%;
@@ -55,12 +50,13 @@ button{cursor:pointer;}
 }
 .register .register_top .border_bom{
 	border-bottom:3px solid #F70404;
+    position: relative;
     /*background: url(../images/password/sanj.png) no-repeat 126px 45px;*/
 }
-.reg_zc.register_l img{
+.reg_zc img{
     position: absolute;
-    top: 46px;
-    left: 160px;
+    top: 48px;
+    left: 172px;
 }
 
 /*注册内容*/

@@ -34,7 +34,7 @@
                             <td>{$list['status']}</td>
 
 
-                            <td><a href='{url:/Contract/complainDetail?id=$list['id']}'>查看详情</a></td>
+                            <td><a href='{url:/Contract/complainDetail?id=$list['id']}'>查看</a></td>
 
                         </tr>
                     {/foreach}

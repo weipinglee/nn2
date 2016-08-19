@@ -13,7 +13,7 @@ body,dl,ul,ol,dd,h1,h2,h3,h4,h5,p ,table,tr,td,span{
 /*统一修改select样式*/
 select {
   /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
-  border: solid 1px #000;
+  border: solid 1px #ccc;
 
   /*很关键：将默认的select选择框样式清除*/
   appearance:none;
@@ -180,7 +180,7 @@ text-indent: 1em;
 }
 /*中心内容*/
 .user_c{
-   margin: 0 19px 10px 20px;
+   margin: 0 20px;
     width: 748px;
     text-align: center;
     border: 1px solid #c0c0c0;
@@ -757,7 +757,7 @@ visibility: hidden;
 }
 .chp_xx label{
     display: block;
-    min-width: 100px;
+    min-width: 77px;
     height: 32px;
     line-height: 32px;
     text-align: right;
@@ -810,7 +810,7 @@ visibility: hidden;
 	line-height: 25px;
 	padding-right: 5px;
 }
-.xx_top ul li .chaz,{
+.chaz{
 	height: 22px;
 width: 44px;
 border: 0px;
@@ -1283,8 +1283,8 @@ line-height: 25px;
 
 .user_zhxi .plaint_com span {
     line-height: 30px;
-    font-size: 16px;
-    font-family: "Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
+    font-size: 12px;
+    font-family:微软雅黑;
     font-weight: 500;
     margin-bottom: 20px;
 }
@@ -1304,7 +1304,7 @@ line-height: 25px;
 }
 .user_zhxi .plaint_com span.explain p{color: #cccccc;}
 .user_zhxi .plaint_com span.upload_img{margin-top: 15px;clear: both;float: left;}
-.user_zhxi .plaint_com .choose_img{width:200px;float:left; margin: 20px 0 20px 12px;}
+.user_zhxi .plaint_com .choose_img{width:280px;float:left; margin: 20px 0 20px 12px;}
 .user_zhxi .plaint_com .choose_img #doc{width: 170px;}
 .user_zhxi .plaint_com .choose_img+.uplod_botn{float: left; margin-top: 18px;}
 .user_zhxi .plaint_com .choose_img .upload_box{width: 600px;margin-top: 10px;}
@@ -1409,7 +1409,7 @@ padding: 8px 15px;
     cursor: pointer;
     width: 120px;
     height: 35px;
-    line-height: 35px;
+    /*line-height: 35px;*/
     font-family: 微软雅黑;
 }
 
@@ -1886,13 +1886,13 @@ line-height: 30px;
 /*立即支付保证金按钮*/
 .submit_bzj{
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   color: #fff;
   background: #D61515;
   display: block;
-  width: 132px;
-  height: 41px;
-  line-height: 41px;
+  width: 120px;
+  height: 35px;
+  line-height: 35px;
   border: 0px;
 }
 
@@ -1944,15 +1944,16 @@ line-height: 30px;
 }
 
 .user_zhxi .plaint_com .subclear input{ 
-     margin-left: 92px;
+    margin-left: 92px;
     background: #D61515;
     border: 1px solid #D61515;
-    height: 28px;
+    height: 35px;
     padding: 3px 15px;
     color: #fff;
-    font-size: 13px;
+    font-size: 16px;
     margin-right: 12px;
     cursor: pointer;
+    width: 120px;
 }
 
 input#image {
@@ -2013,4 +2014,7 @@ right:0;
 cursor: pointer;
 }
 
-.pay_bton{float: left;margin:10px;}
+.pay_bton{float: left;margin:5px;}
+
+/*全选按钮规格样式*/
+.controlAll{position: relative;top:3px;width: 24px;}

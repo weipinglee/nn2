@@ -44,7 +44,7 @@
                                      {if:$key==1}
                                          {$item['name']}
                                      {else:}
-                                         > {$item['name']}
+                                         / {$item['name']}
                                      {/if}
                                  {/if}
                              {/foreach}
@@ -83,7 +83,7 @@
                         {set:$i=0;}
                           {foreach: items=$product['attr_arr']}
                           <div>
-                             <label for=""> {$key}</label>
+                             <label for=""> {$key}：</label>
                              <input type="text" id="attr_value{$item}" datatype="*" name="attribute[{$attrs[$i]}]" class="required" />
 
                         </div>
