@@ -47,7 +47,7 @@
 											<input id="controlAll" type="checkbox" class="controlAll">
 											单号:<span class="col2517EF">{$item['order_no']}</span>
 											<span class="colaa0707 ht_padd"></span>
-											<span><img class="middle_img" src="{views:images/center/ico_cj.jpg}">生成厂家：北京东峰兴达耐火材料有线公司</span>
+											<span><img class="middle_img" src="{views:images/center/ico_cj.png}">生成厂家：北京东峰兴达耐火材料有线公司</span>
 											<span class="ht_padd">
 												<img class="middle_img" src="{views:images/center/ico_kf.png}">  客服
 											</span>

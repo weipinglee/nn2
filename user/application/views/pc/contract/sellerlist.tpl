@@ -30,7 +30,7 @@
 											<input id="controlAll" type="checkbox" class="controlAll">
 											单号:<a href="{url:/contract/sellerDetail?id=$item['id']}"><span class="col2517EF">{$item['order_no']}</span></a>
 											<span class="colaa0707 ht_padd"></span>
-											<span><img class="middle_img" src="{views:images/center/ico_cj.jpg}">{if:$item['company_name']}购买单位：{$item['company_name']}{else:}购买个人：{$item['true_name']}{/if}</span>
+											<span><img class="middle_img" src="{views:images/center/ico_cj.png}">{if:$item['company_name']}购买单位：{$item['company_name']}{else:}购买个人：{$item['true_name']}{/if}</span>
 											<span class="ht_padd">
 												<!-- <img class="middle_img" src="{views:images/center/ico_kf.png}">  客服 -->
 											</span>
