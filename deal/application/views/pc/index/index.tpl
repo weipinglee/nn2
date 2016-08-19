@@ -17,17 +17,16 @@
             <div class="hot-event">
                 {foreach: items=$indexSlide}
                 <div class="event-item" style="{if:$key==0}display: block;{else:}display:none;{/if}background:#ddd">
-                    <a target="_blank" href="http://www.lanrentuku.com/">
+                    <a target="_blank" href="">
                         <img src="{$item['img']}" class="photo" style="width: 100%; height: 470px;margin:0 auto" alt="{$itme['name']}" />
                     </a>
                 </div>
                 {/foreach}
+
                 <div class="switch-tab">
-                    <a href="#" onclick="return false;" class="current">1</a>
-                    <a href="#" onclick="return false;">2</a>
-                    <a href="#" onclick="return false;">3</a>
-                    <a href="#" onclick="return false;">4</a>
-                    <a href="#" onclick="return false;">5</a>
+                    {foreach: items=$indexSlide}
+                    <a href="#" onclick="return false;" {if:$key==0}class="current"{/if}>{echo:$key+1}</a>
+                    {/foreach}
                 </div>
             </div>
         </div>
