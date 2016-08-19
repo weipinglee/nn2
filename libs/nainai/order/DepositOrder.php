@@ -67,7 +67,10 @@ class DepositOrder extends Order{
 					$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
 					$note_type = $type==0 ? '订金' : '全款';
 					$note = '合同'.$note_id.$note_type.'支付 '.$info['amount'];
-					
+
+					$mess = new \nainai\message($offerInfo['user_id']);
+					$mess->send('depositPay',$info['order_no']);
+
 					$account = $this->base_account->get_account($payment);
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);
 					$res = $account->freeze($buyer,$orderData['pay_deposit'],$note);

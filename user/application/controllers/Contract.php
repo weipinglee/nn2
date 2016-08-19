@@ -146,26 +146,33 @@ class ContractController extends UcenterBaseController{
 				}
 			}
 			$type = Safe::filterPost('type');
+
 			$buyer_id = $type == \nainai\offer\product::TYPE_SELL ? Safe::filterPost('user_id','int'):Safe::filterPost('offer_user','int');
 			$seller_id = $type == \nainai\offer\product::TYPE_BUY ? Safe::filterPost('user_id','int'):Safe::filterPost('offer_user','int');
 
-			//判断是否是当前买方或者卖方申请的
-			switch ($type) {
-				case \nainai\order\OrderComplain::BUYCOMPLAIN:
-					if ($this->user_id != $buyer_id) {
-						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你购买的合同')));
-					}
-					break;
-				case \nainai\order\OrderComplain::SELLCOMPLAIN:
-					if ($this->user_id != $seller_id) {
-						die(json::encode(tool::getSuccInfo(0,'请不要申请不是你销售的合同')));
-					}
-					break;
-				default:
-					die(json::encode(tool::getSuccInfo(0,'未知报盘类型')));
-					break;
+			if($buyer_id == $this->user_id){
+				$complain_type = \nainai\order\OrderComplain::BUYCOMPLAIN;
+			}elseif($seller_id == $this->user_id){
+				$complain_type = \nainai\order\OrderComplain::SELLCOMPLAIN;
+			}else{
+				die(json::encode(tool::getSuccInfo(0,'请不要申诉与你无关的合同')));
 			}
+			$complain_type = $type == 1 ? \nainai\order\OrderComplain::SELLCOMPLAIN : \nainai\order\OrderComplain::BUYCOMPLAIN;
 
+			// //判断是否是当前买方或者卖方申请的
+			// switch ($complain_type) {
+			// 	case \nainai\order\OrderComplain::BUYCOMPLAIN:
+			// 		if ($this->user_id != $buyer_id) {
+			// 			die(json::encode(tool::getSuccInfo(0,'请不要申请不是你购买的合同')));
+			// 		}
+			// 		break;
+			// 	case \nainai\order\OrderComplain::SELLCOMPLAIN:
+			// 		if ($this->user_id != $seller_id) {
+			// 			die(json::encode(tool::getSuccInfo(0,'请不要申请不是你销售的合同')));
+			// 		}
+			// 		break;
+			// }
+			
 			$complainData = array(
 				'order_id' => $order_id ,
 				'user_id' => $this->user_id,
@@ -173,7 +180,7 @@ class ContractController extends UcenterBaseController{
 				'detail' => Safe::filterPost('content'),
 				'proof' => serialize($img),
 				'apply_time' => \Library\Time::getDateTime(),
-				'type' => $type, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
+				'type' => $complain_type, //判断合同userid和申请人是否为同一人，来选择是买方申述，还是卖方申述
 				'status' => \nainai\order\OrderComplain::APPLYCOMPLAIN
 			);
 

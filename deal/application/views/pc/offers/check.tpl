@@ -1,7 +1,7 @@
 
 <link rel="stylesheet" type="text/css" href="{views:css/password_new.css}">
 <link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
-<form method="post" pay_secret="1" auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
+<form method="post" {if:$info['show_payment']}pay_secret="1"{/if} auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
 
     <!--主要内容 开始-->
     <div id="mainContent" style="background:#FFF;"> 
@@ -156,7 +156,8 @@
             <div class="intur_box">
             <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b class='prod_num'>{$data['minimum']}</b>吨</span></span>
             <span class="daizfji"><span class="zhifjin"><strong>总额：</strong><i>￥</i><b class='prod_amount'>{$data['amount']}</b></span></span>
-            <span class="daizfji"><span class="zhifjin"><strong>定金：</strong><i>￥</i><b class="pay_deposit">{$data['minimum_deposit']}</b></span></span>
+            {if:$info['show_payment']}
+            <span class="daizfji"><span class="zhifjin"><strong>定金：</strong><i>￥</i><b class="pay_deposit">{$data['minimum_deposit']}</b></span></span>{/if}
            </div>    
            <div class="order_comit">
               <input type="hidden" name="id" value="{$data['id']}" />
@@ -169,7 +170,7 @@
                 <a class="btoncomit" href="javascript:;" >提交订单</a>
              {/if}
             <!-- <a class="btoncomit" href="submit_order-3.html">提交订单</a> -->
-            <span>应支付金额：<i>￥</i><b class='pay_deposit'>{$data['minimum_deposit']}</b></span>
+            {if:$info['show_payment']}<span>应支付金额：<i>￥</i><b class='pay_deposit'>{$data['minimum_deposit']}</b></span>{/if}
 
            </div>
 
@@ -242,7 +243,7 @@
                     function isnum_valid(){
                         var flag = false;
                         var num = parseFloat(num_input.val());
-                        if((num-global_num)%minimum_step != 0){
+                        if(num != global_num && (num-global_num)%minimum_step != 0){
                           layer.msg('不符合最小起步量');
                           num_input.val(global_num);
                         }else{

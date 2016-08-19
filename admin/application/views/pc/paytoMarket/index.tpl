@@ -17,6 +17,8 @@
 				<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
 				<th width="80">ID</th>
 				<th width="100">用户名</th>
+				<th width="100">订单类型</th>
+				<th width="100">收费类别</th>
 				<th width="100">金额</th>
 				<th width="150">所属订单</th>
 				<th width="130">时间</th>
@@ -29,6 +31,8 @@
 				<!-- <td><input type="checkbox" value="" name=""></td> -->
 				<td>{$item['id']}</td>
 				<td>{$item['username']}</td>
+				<td>{$item['mode_text']}</td>
+				<td>{$item['charge_type_text']}</td>
 				<td>{$item['num']}</td>
 				<td>{$item['order_no']}</td>
 				<td>{$item['create_time']}</td>
