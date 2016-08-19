@@ -37,7 +37,7 @@
     <div class="topnav_width">
         <div class="topnav_left">
             <div class="top_index">
-                <img class="index_img" src="{views:images/index/icon_index.png}"/>
+                <img class="index_img" src="{views:images/icon/icon_index.png}"/>
                 <a rel="external nofollow" href="{url:/index/index}" target="_blank" >耐耐网首页</a>
             </div>
 
@@ -75,7 +75,7 @@
                     <a href="{url:/message/usermail@user}">消息中心</a><span class="line_l">|<span>
                 </li>
                 <li>
-                    <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
+                    <img class="iphon_img" src="{views:images/icon/icon_iphon.png}"/>
                     <!--<a href="">手机版</a><span class="line_l">|<span>-->
                 </li>
                 <li>
