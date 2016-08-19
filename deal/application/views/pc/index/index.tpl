@@ -310,38 +310,34 @@
 
                            <!-- 广告轮播 Swiper -->
                            <link rel="stylesheet" href="{views:css/swiper.min.css}">
-                            <div class="swiper-container swiper-container-horizontal">
-                                <div class="swiper-wrapper">
-                                    {foreach: items=$adList}
-                                    <div class="swiper-slide">
-                                        <img class="swiper_img" src="{$item['content']}">
-                                    </div>
-                                    {/foreach}
-
-                               </div>
-                               
-                                <!-- Add Arrows -->
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                           
+                             <div class="slider4">
+                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                </div>
+             
                             <!-- Swiper JS -->
                             <script src="{views:js/swiper.min.js}"></script>
 
                             <!-- Initialize Swiper -->
                             <script>
-                            var appendNumber = 4;
-                            var prependNumber = 1;
-                            var swiper = new Swiper('.swiper-container', {
-                                pagination: '.swiper-pagination',
-                                nextButton: '.swiper-button-next',
-                                prevButton: '.swiper-button-prev',
-                                slidesPerView: 4,
-                                paginationClickable: true,
-                                loop : true,
-                                autoplay : 1000,
-                               
-                            });
+                              $(document).ready(function(){
+                                $('.slider4').bxSlider({
+                                  slideWidth: 215,
+                                  minSlides: 2,
+                                  maxSlides: 4,
+                                  moveSlides: 1,
+                                  startSlide: 1,
+                                  auto: true,
+                                  slideMargin: 10
+                                });
+                              });
                             </script>
                         </div>
                       </div>
@@ -553,7 +549,7 @@
                                 <div class="i_left_title " name="1" id="item3">推荐商家</div>
                             </div>
 
-                            <div class="i_leftCon">
+                          <!--   <div class="i_leftCon">
                                 <div class="swiper-container2 swiper-container-horizontal">
                                     <div class="swiper-wrapper">
                                         {foreach:items=$allCompany}
@@ -577,23 +573,38 @@
                                    {/foreach}
                                </div>
                                
-                                <!-- Add Arrows -->
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
+                                Add Arrows
+                               <div class="swiper-button-next"></div>
+                               <div class="swiper-button-prev"></div> 
                             </div>                                            
-                            </div>
-                            <script class="">
-                            var appendNumber = 4;
-                            var prependNumber = 1;
-                            var swiper2 = new Swiper('.swiper-container2', {
-                                pagination: '.swiper-pagination',
-                                nextButton: '.swiper-button-next',
-                                prevButton: '.swiper-button-prev',
-                                slidesPerView: 3,
-                                paginationClickable: true,
-                               
-                            });
-                            </script>
+                            </div> -->
+                           
+
+                             <div class="slider2">
+                                 
+                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>  
+                                
+                             </div>
+                                <script type="text/javascript">
+                                    $(document).ready(function(){
+                                      $('.slider2').bxSlider({
+                                        slideWidth: 300, 
+                                        auto: true,
+                                        autoControls: true,
+                                        minSlides: 1,
+                                        maxSlides: 3,
+                                        slideMargin: 10
+                                      });
+                                    });
+                                </script>
 
                         </div>
 
