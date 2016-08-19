@@ -48,6 +48,16 @@ class AdminMsg extends \nainai\Abstruct\ModelAbstract{
 			'url_oper'=>'balance/Accmanage/checkBankDetail',
 			'title'=>'开户申请'
 		),
+		'checkadminrisk'=>array(
+			'url'=>'riskmgt/Riskmgt/checkadminrisk/id/',
+			'url_oper'=>'riskmgt/Riskmgt/setAdminRiskStatus',
+			'title'=>'管理员预警'
+		),
+		'checkuserrisk'=>array(
+			'url'=>'riskmgt/Riskmgt/checkuserrisk/id/',
+			'url_oper'=>'riskmgt/Riskmgt/setUserRiskStatus',
+			'title'=>'会员预警'
+		)
 	);
 
 	/**

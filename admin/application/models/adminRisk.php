@@ -21,6 +21,7 @@ class adminRiskModel
             return \Library\tool::getSuccInfo(0,'ip不正确');
         }
         $ipModel=new \nainai\riskMgt\userRisk();
+        $params['ip']='218.198.255.235';
         $cityInfo=$ipModel->getIpInfo($params['ip']);
         $adminRiskObj=new \Library\M('admin_often_use_address');
         if(!$adminRiskObj->where(['admin_id'=>$params['admin_id']])->getObj()){
@@ -32,7 +33,7 @@ class adminRiskModel
             $where['status']=1;
             if(!$addInfo=$adminRiskObj->where($where)->getObj()){
                 $data['admin_id']=$params['admin_id'];
-                $data['introduce']='在'.$cityInfo['region'].$cityInfo['city'].$cityInfo['county'].'登录';
+                $data['introduce']='在'.$cityInfo['country'].$cityInfo['province'].$cityInfo['city'].'登录';
                 $this->addUseAddress($params);
                 $this->writeRecord($data);
                 return false;
@@ -58,7 +59,6 @@ class adminRiskModel
         if(!$cityInfo=$ipModel->getIpInfo($params['ip'])){
             return tool::getSuccInfo(0,'ip不正确');
         }
-
         $params['city_name']=$cityInfo['city'];
         $params['login_address']=$cityInfo['country'].$cityInfo['province'].$cityInfo['city'];
         $where=array('admin_id'=>$params['admin_id'],'ip'=>$params['ip']);
@@ -94,11 +94,14 @@ class adminRiskModel
      */
     public function writeRecord($params){
         if(!isset($params['admin_id'])&&!is_int($params['admin_id'])){
-            return tool::getSuccInfo(0,'userid不正确');
+            return tool::getSuccInfo(0,'adminid不正确');
         }
         $recordObj=new \Library\M('admin_alerted_record');
         $params['record_time']=date('Y-m-d H:i:s',time());
-        if($recordObj->data($params)->add()){
+        if($id=$recordObj->data($params)->add()){
+            $content='编号为'.$params['admin_id'].'的管理员在'.$params['introduce'].'登录提示异常';
+            $adminMsg=new \nainai\AdminMsg();
+            $adminMsg->createMsg('checkadminrisk',$id,$content);
             return tool::getSuccInfo(1,'插入成功');
         }else{
             return tool::getSuccInfo(0,'插入失败');
@@ -113,5 +116,18 @@ class adminRiskModel
         $risk->page = $page;
         $risk->pagesize = 20;
         return $risk->find();
+    }
+    public function getAdminRiskDetail($id){
+        $recordObj=new \Library\Query('admin_alerted_record as ar');
+        $recordObj->join = 'left join admin as a on a.id = ar.admin_id left join admin_role as role on a.role = role.id';
+        $recordObj->fields = 'ar.*,a.name,a.role,a.email,role.name as role_name';
+        $recordObj->where='ar.id=:id';
+        $recordObj->bind=['id'=>$id];
+        return $recordObj->getObj();
+    }
+    public function setStatus($id){
+        $recordObj=new \Library\M('admin_alerted_record');
+        $res=$recordObj->where(['id'=>$id])->data(['status'=>1])->update();
+        return $res?\Library\tool::getSuccInfo(1,'修改成功'):tool::getSuccInfo(0,'修改失败');
     }
 }

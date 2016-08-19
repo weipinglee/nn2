@@ -21,7 +21,7 @@
 									<td colspan="2" width="450px">
 										<ul class="dj">
 											<li>会员等级：<span class="colaa0707">{$group['group_name']}</span></li>
-											<li><img src="{$group['icon']}"/></li>
+											<li><!--<img src="{$group['icon']}"/>--></li>
 											<li>
 												<div style="height:10px;width:100px;background:#ccc;position:relative;top: 5px;">
 													<div style="height: 10px;width: 10%;background: #AD4C4C;"></div>

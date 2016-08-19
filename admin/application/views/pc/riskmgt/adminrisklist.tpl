@@ -19,7 +19,7 @@
                             <th width="100">管理分组</th>
                             <th width="130">预警原因</th>
                             <th width="130">预警时间</th>
-                            <!--   <th width="100">操作</th> -->
+                            <th width="100">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -33,7 +33,7 @@
                                 <td>{if:$item['role']==0}超级管理员{else:}{$item['role_name']}{/if}</td>
                                 <td>{$item['introduce']}</td>
                                 <td>{$item['record_time']}</td>
-                                <!--       <td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a> <a title="编辑" href="{url:member/member/detail?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> </td> -->
+                                     <td class="td-manage"><!--<a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a>--> <a title="编辑" href="{url:riskmgt/riskmgt/checkadminrisk?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> </a></td>
                             </tr>
                         {/foreach}
                         </tbody>
