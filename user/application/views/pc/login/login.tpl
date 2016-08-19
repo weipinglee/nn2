@@ -23,7 +23,9 @@
   <div class="login_top">
     <ul class="w1200">
       <ul class="topnav_left">
-        <li><a href="{url:index/index@deal}"><img class="shouy icon" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
+
+        <li><a href="{url:index/index@deal}"><img class="shouy" src="{views:images/password/shouy.png}"><span class="inde_txt">耐耐网首页</span></a></li>
+
         <li class="space">您好，欢迎进入耐耐网</li>
         <li>请登录</li>
         <li><a href="{url:/login/register}">欢迎注册</a></li>
@@ -32,7 +34,7 @@
         <li><a href="">会员中心</a><i>|</i></li>
         <li><a href="">我的合同</a><i>|</i></li>
         <li><a href="">消息中心</a><i>|</i></li>
-        <li><a href=""><img class="shouy icon" src="{views:images/password/mobile.png}">手机版</a><i>|</i></li>
+        <li><a href=""><img class="" src="{views:images/password/mobile.png}"><span class="inde_mob">手机版</span></a><i>|</i></li>
         <li><a href="">在线客服</a><i>|</i></li>
         <li>交易时间&nbsp;09:00-18:00</li>
      </ul>  

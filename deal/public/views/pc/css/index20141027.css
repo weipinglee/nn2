@@ -1810,13 +1810,12 @@ a.close:hover {
     height: 94px;
 }
 .div_flink {
-    background: #fff;
+    background: #f7f7f7;
     height: 50px;
     line-height: 50px;
     overflow: hidden;
     width: 1190px;
     margin: 0 auto;
-    border-top:1px solid #e6e6e6;
     border-bottom:1px solid #e6e6e6; 
 }
 .div_flink ul li{

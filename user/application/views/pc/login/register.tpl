@@ -20,11 +20,15 @@
 <body>
 
 
-<div class="wrap">
+<div class="wrap" style="background:none;">
   <div class="login_top">
     <ul class="w1200">
       <ul class="topnav_left">
+<<<<<<< HEAD
         <li><a href="{url:index/index@deal}"><img class="shouy icon" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
+=======
+        <li><a href="index.html"><img class="shouy" src="{views:images/password/shouy.png}"><span class="inde_txt">耐耐网首页</span></a></li>
+>>>>>>> origin/wxl_817
         <li class="space">您好，欢迎进入耐耐网</li>
         <li><a href="{url:/login/login}">请登录</a></li>
         <li>欢迎注册</li>
@@ -33,7 +37,7 @@
         <!-- <li><a href="">会员中心</a><i>|</i></li>
         <li><a href="">我的合同</a><i>|</i></li> -->
         <li><a href="">消息中心</a><i>|</i></li>
-        <li><a href=""><img class="shouy icon" src="{views:images/password/mobile.png}">手机版</a><i>|</i></li>
+        <li><a href=""><img class="shouy" src="{views:images/password/mobile.png}"><span class="inde_txt">手机版</span></a><i>|</i></li>
         <li><a href="">在线客服</a><i>|</i></li>
         <li>交易时间&nbsp;09:00-18:00</li>
      </ul>  
@@ -46,7 +50,7 @@
             <div class="word_box">欢迎注册</div>
         </div>
          <div class="logoimg_right">
-            <img class="shouy" src="{views:images/password/iphone.png}"> 
+            <img class="" src="{views:images/password/iphone.png}"> 
             <h3>服务热线：<b>400-6238-086</b></h3>
          </div>
         
@@ -58,7 +62,7 @@
       <div class="con"> </div>
     </div>
   </div> -->
-  <div>
+  <div class="regis_boxs">
    <span style="display:none;"> {url:/login/doReg} </span>
     <div class="register"> 
       <div class="beinit">
@@ -72,20 +76,6 @@
       </div>
       </div>
     <script>
-    $(function(){
-      $(".register_l").click(function(){ 
-          $(".hide_qy").hide();
-          $(".show_gr").show();
-          $(".secondaryend").css({"bottom": "0px"});
-          $(".background_img.bottom").css({"bottom": "58px"});
-      });
-      $(".register_r").click(function(){
-          $(".show_gr").hide();
-          $(".hide_qy").show();
-          $(".secondaryend").css({"bottom": "-312px"});
-          $(".background_img.bottom").css({"bottom": "-252px"});
-      })
-    })
 
     //发送短信地址
     var sendMessageUrl = '{url:/login/sendMessage}';
@@ -117,8 +107,10 @@
           </div>
           <div class="cot">
             <span class="cot_tit">验证码：</span>
-            <span><input class="text" style="width: 50px;" type="text" name="captcha" maxlength="4"/></span>
-              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img src="{url:/login/getCaptcha}?w=200&h=50" /></a>
+
+            <span><input class="text" style="width: 50px;display:block;float:left;" type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
+              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img style="float:left;" src="{url:/login/getCaptcha}?w=200&h=50" /></a>
+
               <span></span>
           </div>
            <div class="cot">
@@ -171,8 +163,10 @@
           </div>
           <div class="cot">
             <span class="cot_tit">验证码：</span>
-            <span><input class="text" style="width: 50px;" type="text" name="captcha" maxlength="4"/></span>
-              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img src="{url:/login/getCaptcha}?w=200&h=50" /></a>
+
+            <span><input class="text" style="width: 50px;display:block;float:left;" type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
+              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img style="float:left;" src="{url:/login/getCaptcha}?w=200&h=50" /></a>
+
               <span></span>
           </div>
            <div class="cot">
@@ -279,7 +273,6 @@
 
     })
 </script>
-<div class="background_img bottom"></div>
     <div class="w1200 secondaryend">
     <p>Copyright 2014-2016 耐耐云商科技有限公司 www.nainaiwang.cn All Rights Reserved </p>
     <p>

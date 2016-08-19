@@ -102,10 +102,6 @@ class market{
                     return false;
                 }
 
-                if(IS_POST){
-                    return false;
-                }
-
             }
         }
         return true;
