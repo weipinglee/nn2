@@ -114,7 +114,7 @@ class statistics{
             $res = $offerObj->find();
 
             if(empty($res)||$res[0]['avg']==null){
-                $data['ave_price'] = 0;
+                $data['ave_price'] = $prev_price;
             }
             else{
                 $data['ave_price']=$res[0]['avg'];
