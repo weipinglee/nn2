@@ -62,9 +62,11 @@
 									<td>{$item['status']}</td>
 									{if: $item['first_time']!=null&&$item['final_time']==null}
 									<td>{$item['first_message']}</td>
-									{/if}
-									{if: $item['first_time']!=null&&$item['final_time']!=null}
+
+									{elseif: $item['first_time']!=null&&$item['final_time']!=null}
 									<td>{$item['final_message']}</td>
+									{else:}
+										<td></td>
 									{/if}
 								</tr>
 							{/foreach}
