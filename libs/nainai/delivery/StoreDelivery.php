@@ -28,7 +28,7 @@ class StoreDelivery extends Delivery{
 	public function storeFees($delivery_id){
 		$query = new Query('product_delivery as pd');
 		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_list as sl on sp.store_id = sl.id left join products as p on po.product_id = p.id left join order_sell as o on pd.order_id = o.id';
-		$query->fields = 'p.img,pd.num as delivery_num,sp.store_price,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id';
+		$query->fields = 'p.img,pd.num as delivery_num,sp.store_price,sp.store_unit,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
@@ -37,7 +37,23 @@ class StoreDelivery extends Delivery{
 		$res['photos'] = $photos[1];
 		$res['origphotos'] = $photos[0];
 		$res['img_thumb'] = $res['photos'][0];
-		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * abs(time::getDiffDays($res['rent_time'])) );
+
+		$days = 1;
+		switch ($res['store_unit']) {
+
+			case 'd':
+				break;
+			case 'm':
+				$days = 30;
+				break;
+			case 'y':
+				$days = 365;
+				break;
+			default:
+				# code...
+				break;
+		}
+		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * abs(time::getDiffDays($res['rent_time']))/$days ,2);
 		$res['now_time'] = time::getDateTime();
 		return $res;
 	}
@@ -51,8 +67,8 @@ class StoreDelivery extends Delivery{
 	public function payStoreFees($delivery_id,$seller_id){
 		//获取提货id对应报盘信息
 		$query = new Query('product_delivery as pd');
-		$query->join = 'left join product_offer as po on pd.offer_id = po.id';
-		$query->fields = 'pd.*,po.user_id,po.mode';
+		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join order_sell as o on o.id=pd.order_id';
+		$query->fields = 'pd.*,po.id as offer_id,po.user_id,po.mode,po.type,o.order_no';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
@@ -76,8 +92,11 @@ class StoreDelivery extends Delivery{
 					if($store_fee < 0){
 						$error = '仓库费用计算错误';
 					}else{
-						$acc_res = $this->account->payMarket($res['user_id'],$store_fee,'支付提单'.$delivery_id.'仓库费用');//?支付到市场？
+						$note = '支付提单'.$delivery_id.'仓库费用';
+						$acc_res = $this->account->payMarket($res['user_id'],$store_fee,$note);//?支付到市场？
 						if($acc_res === true){
+							$pay_detail = new \nainai\fund\paytoMarket();
+							$pay_detail->paytoMarket($seller_id,$res['type'],1,$res['offer_id'],$store_fee,$note,$res['order_no']);
 							$this->delivery->commit();
 							return tool::getSuccInfo();
 						}else{

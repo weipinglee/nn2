@@ -18,6 +18,7 @@ class userLog  extends \Library\log\baselog
 	}
 
 
+
 	public function getList($condition = array()){
 	       $reModel = new searchQuery($this->tableName . ' as r');
 	        //线上
@@ -30,6 +31,7 @@ class userLog  extends \Library\log\baselog
 
 	        return $onlineInfo;
 	}
+
 
 
 }

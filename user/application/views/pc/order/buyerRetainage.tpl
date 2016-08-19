@@ -158,7 +158,7 @@
                    </div>
                    {/if}
                    </form>
-                   <form action="{url:/Order/buyerRetainage}" id='proof_form' pay_secret="1" method="post" auto_submit enctype="multipart/form-data">
+                   <form action="{url:/Order/buyerRetainage}" id='proof_form'  method="post" auto_submit enctype="multipart/form-data">
                    <div class="sty_offline" {if:!$show_online}style='display: block;'{/if}>
                     {if:$bankinfo['true_name'] && $bankinfo['bank_name'] && $bankinfo['card_no']}
                         <ul>
