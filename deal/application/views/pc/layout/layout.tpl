@@ -135,7 +135,7 @@ z-index:1000;">
         <script type="text/javascript" src="{views:js/search&floor.js}"></script>
         <div class="searchbox">
             <div class="search_xz">
-                <select class="search_select">
+                <select class="search_select" name="type">
                     <option>供应</option>
                     <option>求购</option>
                 </select>
