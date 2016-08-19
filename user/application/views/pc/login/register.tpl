@@ -24,11 +24,9 @@
   <div class="login_top">
     <ul class="w1200">
       <ul class="topnav_left">
-<<<<<<< HEAD
-        <li><a href="{url:index/index@deal}"><img class="shouy icon" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
-=======
-        <li><a href="index.html"><img class="shouy" src="{views:images/password/shouy.png}"><span class="inde_txt">耐耐网首页</span></a></li>
->>>>>>> origin/wxl_817
+
+        <li><a href="{url:index/index@deal}"><img class="shouy" src="{views:images/password/shouy.png}"><span class="inde_txt">耐耐网首页</span></a></li>
+
         <li class="space">您好，欢迎进入耐耐网</li>
         <li><a href="{url:/login/login}">请登录</a></li>
         <li>欢迎注册</li>
