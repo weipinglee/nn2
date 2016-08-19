@@ -23,11 +23,11 @@
                 </div>
                 {/foreach}
                 <div class="switch-tab">
-                    <a href="#" onclick="return false;" class="current">1</a>
+                    <!-- <a href="#" onclick="return false;" class="current">1</a>
                     <a href="#" onclick="return false;">2</a>
                     <a href="#" onclick="return false;">3</a>
                     <a href="#" onclick="return false;">4</a>
-                    <a href="#" onclick="return false;">5</a>
+                    <a href="#" onclick="return false;">5</a> -->
                 </div>
             </div>
         </div>

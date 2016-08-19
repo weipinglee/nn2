@@ -1,6 +1,14 @@
 ﻿; (function ($) {
     $.fn.extend({
         "nav": function (con) {
+        //创建按钮
+            var length=$(".event-item a img").length
+            
+        for(var i=1;i<length;i++)
+        {
+             $(".switch-tab").append('<a href="#" onclick="return false;">'+i+'</a>');      
+        }
+        //创建按钮end
             var $this = $(this), $nav = $this.find('.switch-tab'), t = (con && con.t) || 3000, a = (con && con.a) || 500, i = 0, autoChange = function () {
                 $nav.find('a:eq(' + (i + 1 === 5 ? 0 : i + 1) + ')').addClass('current').siblings().removeClass('current');
                 $this.find('.event-item:eq(' + i + ')').css('display', 'none').end().find('.event-item:eq(' + (i + 1 === 5 ? 0 : i + 1) + ')').css({

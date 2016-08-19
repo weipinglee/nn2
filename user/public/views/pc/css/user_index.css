@@ -1378,7 +1378,7 @@ padding: 8px 15px;
 
 /*嵌套表格css*/
 .center_tabl  .table2{
-   width: 80%;
+   width: 90%;
     margin: 0 5%;
 }
 
@@ -1396,7 +1396,7 @@ padding: 8px 15px;
   color: #fff;
   border: 1px solid #d61515;
   font-size: 16px;
-  padding: 8px 30px;
+  padding: 5px 30px;
   margin: 5px 10px;
   cursor: pointer;
     font-family: 微软雅黑;
