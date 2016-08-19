@@ -92,12 +92,12 @@
           </div>
           <div class="cot">
             <span class="cot_tit">密码：</span>
-            <span><input class="text" type="password" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" /><img class="show_eye" src="{views:images/password/eye.png}" alt=""></span>
+            <span><input class="text" type="password" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
               <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit">确认密码：</span>
-            <span><input class="text" type="password" name="repassword" datatype="*" recheck="password" nullmsg="请重复填写密码" errormsg="两次密码输入不一致" /><img class="show_eye" src="{views:images/password/eye.png}" alt=""></span>
+            <span><input class="text" type="password" name="repassword" datatype="*" recheck="password" nullmsg="请重复填写密码" errormsg="两次密码输入不一致" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
               <span></span>
           </div>
           <div class="cot">
@@ -147,12 +147,12 @@
 		  </div>
           <div class="cot">
             <span class="cot_tit">密码：</span>
-            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" nullmsg='请输入密码' errormsg="6-15位非空字符"  /><img class="show_eye" src="{views:images/password/eye.png}" alt=""></span>
+            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" nullmsg='请输入密码' errormsg="6-15位非空字符"  /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
             <span></span>
 		  </div>
           <div class="cot">
             <span class="cot_tit">确认密码：</span>
-            <span><input class="text" type="password" name="repassword" datatype="*" nullmsg="请确认密码" errormsg="两次密码输入不一致" recheck="password" /><img class="show_eye" src="{views:images/password/eye.png}" alt=""></span>
+            <span><input class="text" type="password" name="repassword" datatype="*" nullmsg="请确认密码" errormsg="两次密码输入不一致" recheck="password" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
 			<span></span>
           </div>
           <div class="cot">
@@ -270,7 +270,24 @@
         }];
         validObj.addRule(rules);
 
-        $('input[name=password]').attr('type','text');
+
+
+        $('.pwd').on('click', function(){
+          if ($(this).attr('alt') == 0) {
+            var val = $(this).prev().val();
+            $(this).prev().remove();
+            $html = '<input class="text" type="text" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" value="'+val+'" />';
+            $(this).before($html);
+            $(this).attr('alt', 1);
+          }else{
+            var val = $(this).prev().val();
+            $(this).prev().remove();
+            $html = '<input class="text" type="password" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" value="'+val+'" />';
+            $(this).before($html);
+            $(this).attr('alt', 0);
+          }
+        })
+
     })
 </script>
     <div class="w1200 secondaryend">
