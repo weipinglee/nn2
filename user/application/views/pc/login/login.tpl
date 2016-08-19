@@ -23,7 +23,7 @@
   <div class="login_top">
     <ul class="w1200">
       <ul class="topnav_left">
-        <li><a href="index.html"><img class="shouy icon" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
+        <li><a href="{url:index/index@deal}"><img class="shouy icon" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
         <li class="space">您好，欢迎进入耐耐网</li>
         <li>请登录</li>
         <li><a href="{url:/login/register}">欢迎注册</a></li>

@@ -72,7 +72,11 @@ z-index:1000;">
             </div>
 
             <div class="index_user">
-                <a rel="external nofollow" href="{url:/ucenterindex/index@user}" target="_blank" class="">您好{$username}，欢迎进入耐耐网</a>
+            {if:$username}
+                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">您好{$username}，欢迎进入耐耐网</a>
+                {else:}
+                <span>您好，欢迎进入耐耐网</span>
+                {/if}
             </div>
             {if:$login==0}
             <div class="login_link" id="toploginbox">
@@ -81,8 +85,10 @@ z-index:1000;">
             <div class="topnav_regsiter">
                 <a rel="external nofollow" href="{url:/login/register@user}" target="_blank">免费注册</a>
             </div>
-
-
+            {else:}
+            <div class="login_link" id="toploginbox">
+                <a rel="external nofollow" href="{url:/login/logOut@user}" target="_blank" class="topnav_login">退出</a>
+            </div>
             {/if}
         </div>
         <div class="topnav_right">
@@ -92,7 +98,7 @@ z-index:1000;">
                    <a href="{url:/ucenterindex/index@user}">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
-                   <a href="">我的合同</a><span class="line_l">|<span>
+                   <a href="{url:/contract/buyerList}">我的合同</a><span class="line_l">|<span>
                 </li>
                 {/if}
                 <li>
@@ -100,13 +106,13 @@ z-index:1000;">
                 </li>
                 <li>
                     <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
-                    <a href="">手机版</a><span class="line_l">|<span>
+                    <!--<a href="">手机版</a><span class="line_l">|<span>-->
                 </li>
                 <li>
                     <a href="" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><span class="line_l">|<span>
                 </li>
                 <li>
-                    <a href="">交易时间：09:00--18:00</a>
+                    <span>交易时间：09:00--18:00</span>
                 </li>
 
             </ul>
