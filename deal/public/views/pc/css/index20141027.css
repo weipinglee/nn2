@@ -1784,6 +1784,7 @@ a.close:hover {
 }
 #mainContent {
     overflow: hidden;
+    width: 100%;
 }
 .row1_clinch .clinch_tit .tit_font {
     margin: 7px 0 0;
