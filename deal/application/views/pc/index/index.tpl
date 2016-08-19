@@ -15,9 +15,10 @@
     <script src="{views:js/jquery.nav.js}" type="text/javascript"></script>
         <div id="inner">
             <div class="hot-event">
+            {set:$count = count($indexSlide)}
                 {foreach: items=$indexSlide}
-                <div class="event-item" style="{if:$key==0}display: block;{else:}display:none;{/if}background:#ddd">
-                    <a target="_blank" href="">
+                <div class="event-item" style="{if:$key==0}display: block;{else:}display:none;{/if}background:{$item['bgcolor']}">
+                    <a target="_blank" href="javascript:;">
                         <img src="{$item['img']}" class="photo" style="width: 100%; height: 470px;margin:0 auto" alt="{$itme['name']}" />
                     </a>
                 </div>
@@ -25,13 +26,16 @@
 
                 <div class="switch-tab">
                     {foreach: items=$indexSlide}
-                    <a href="#" onclick="return false;" {if:$key==0}class="current"{/if}>{echo:$key+1}</a>
+                    {set:$key++}
+                    <a href="#" onclick="return false;" {if:$key == 1} class="current"{/if}>{$key}</a>
+
                     {/foreach}
                 </div>
             </div>
         </div>
         <script type="text/javascript">
-             $('#inner').nav({ t: 2000, a: 1000 });
+            var _c = {$count};
+             $('#inner').nav({ t: 2000, a: 1000, c: _c});
         </script>
         <!-- 代码 结束 -->
       </div>

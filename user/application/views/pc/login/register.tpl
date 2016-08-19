@@ -270,6 +270,7 @@
         }];
         validObj.addRule(rules);
 
+        $('input[name=password]').attr('type','text');
     })
 </script>
     <div class="w1200 secondaryend">

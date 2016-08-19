@@ -45,10 +45,17 @@
                         </div>
 
                     </div>
-                    </div>
                     <div class="col-4"> </div>
 
-
+                </div>
+                
+                <div class="row cl">
+                    <label class="form-label col-3"><span class="c-red"></span> 背景颜色：</label>
+                    <div class="formControls col-5">
+                        <input type="text" name="bgcolor" class="input-text" />
+                    </div>
+                    <div class="col-4"> </div>
+                </div>
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span>排序：</label>
                     <div class="formControls col-5">

@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <th>产地</th>
-                <td>{area:data=$detail['place']}</td>
+                <td>{areatext:data=$detail['place']}</td>
             </tr>
             <tr>
                 <th>联系人</th>
@@ -46,7 +46,7 @@
              <tr>
                 <th>地区</th>
                 <td colspan="5">
-                {area:data=$detail['area'] provinceID=placeProv cityID=placeCity districtID=placeDistrict inputName=place}
+                {areatext:data=$detail['area'] id=place}
                 </td>
             </tr>
             <tr>

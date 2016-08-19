@@ -26,6 +26,7 @@ class slideController extends Yaf\Controller_Abstract{
             $data['img']=\Library\tool::setImgApp($img);
             $data['status']=safe::filterPost('status','int');
             $data['order']=safe::filterPost('order','int');
+            $data['bgcolor']=safe::filterPost('bgcolor');
             $slideModel=$this->slideModel;
             $res=$slideModel->addSlide($data);
             die(json::encode($res));
@@ -69,6 +70,7 @@ class slideController extends Yaf\Controller_Abstract{
             $img=safe::filterPost('imgfile2');
             $date['img']=\Library\tool::setImgApp($img);
             $date['status']=safe::filterPost('status','int');
+            $date['bgcolor']=safe::filterPost('bgcolor');
             $res=$this->slideModel->editSlide($date);
             die(json::encode($res));
         }
