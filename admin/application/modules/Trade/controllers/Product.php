@@ -127,8 +127,7 @@ class productController extends InitController{
         $attrs    = $productModel->getAttr($page);//获取所有属性
 
 
-        $this->getView()->assign('attr',$attrs[0]);
-        $this->getView()->assign('bar',$attrs[1]);
+        $this->getView()->assign('data',$attrs);
     }
 
     /**

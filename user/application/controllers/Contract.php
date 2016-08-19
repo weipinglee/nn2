@@ -221,10 +221,9 @@ class ContractController extends UcenterBaseController{
 		);
 
 		$complainModel = new \nainai\order\OrderComplain();
-		$complainList = $complainModel->getComplainList($page, $this->pagesize, $condition);
+		$complainList = $complainModel->getComplainList($condition);
 
-		$this->getView()->assign('complainList', $complainList['list']);
-		$this->getView()->assign('pageHtml', $complainList['pageHtml']);
+		$this->getView()->assign('data', $complainList);
 	}
 
 	/**

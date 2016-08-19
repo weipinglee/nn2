@@ -87,7 +87,11 @@ class searchConfig {
             'like'=>array('u.username','用户名'),
             'down' => 1
         ),
-        'user_alerted_record' => array('like' => array('u.username','用户名'))
+        'user_alerted_record' => array('like' => array('u.username','用户名')),
+        'product_attribute' => array(
+            'like' => array('name','名称'),
+             'select' => array('type','类型')
+        )
     );
 
     public static function config($tableName=''){

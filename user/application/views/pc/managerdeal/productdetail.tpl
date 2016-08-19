@@ -48,11 +48,11 @@
                                 <td id="areat">{areatext: data=$product['produce_area'] id=areat }</td>
                             </tr>
                             <tr>
-                                <td>入库日期</td>
+                                <td>申请时间</td>
                                 <td>{$product['create_time']}</td>
                             </tr>
                            <tr>
-                               <td>有效日期</td>
+                               <td>过期时间</td>
                                <td>{$offer['expire_time']}</td>
                            </tr>
                             <tr>
@@ -139,10 +139,6 @@
                                <td>交收时间</td>
                                <td>T+{$offer['accept_day']}天</td>
                            </tr>
-                           <tr>
-                               <td>过期时间</td>
-                               <td>{$offer['expire_time']}</td>
-                           </tr>
                             <tr>
                                 <td>产品描述</td>
                                 <td>{$product['note']}</td>
@@ -164,10 +160,11 @@
                                 <td colspan="2">
                                    <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)" style="float:left;"/>
                                   <input type="hidden" name="id" value="{$offer['id']}" />
+                                  {if: ($product['quantity'] - $product['sell'] - $product['freeze']) > 0}
                                   <div class="pay_bton">
                                       <a href="javascript:void(0)" class="submit_chag"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？">撤销报盘</a>
                                   </div>
-
+                                  {/if}
                                 </td>
                             </tr>
                         </table>

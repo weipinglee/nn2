@@ -19,6 +19,10 @@ class searchConfig {
             'like' => array('c.name','商品名称'),
             'select' => array('a.status','状态')
         ),
+        'order_complain' => array(
+            'time' => array('a.apply_time','申请时间'),
+            'like' => array('b.order_no','订单号'),
+        )
 
     );
 
