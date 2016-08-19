@@ -22,7 +22,7 @@
              </tr>
              <tr>
                  <th>交易方式</th>
-                 <td>{$info['type']}</td>
+                 <td>{$info['type_txt']}</td>
                  <th>报盘类型</th>
                  <td>{$info['mode_txt']}</td>
                  <th>报盘费率</th>
@@ -52,15 +52,19 @@
                          {/if}
                      {/foreach}
                  </td>
+
                  <th></th>
                  <td></td>
+
 
              </tr>
 
              <tr>
-                 {if:$info['type']=='买盘'}
+                 {if:$info['type']==\nainai\offer\product::TYPE_BUY}
                      <th>价格区间</th>
-                     <td>￥{$info['price_l']}--{$info['price_r']}</td>
+
+                     <td>{$info['price_l']}--{$info['price_r']}( 元/{$info['unit']})</td>
+
                  {else:}
                      <th>挂牌价</th>
                      <td>￥{$info['price']}</td>
@@ -70,7 +74,7 @@
                  <td>{$info['unit']}</td>
                  <th></th>
                  <td></td>
-            
+
 
              </tr>
              {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
@@ -105,13 +109,13 @@
                  <td>{$info['accept_area']}</td>
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
-                     <td>{$info['sign_thumb']}</td>
+                     <td><img src="{$info['sign_thumb']}" /></td>
                  {else:}
                      <th></th>
                      <td></td>
                  {/if}
              </tr>
-             <tr>
+               <tr>
                  <th>申请时间</th>
                  <td>{$info['apply_time']}</td>
                  <th>过期时间</th>
@@ -121,16 +125,16 @@
              </tr>
              <tr>
                  <th>图片</th>
-                 <td>
 
+                 <td>
                      {foreach:items=$info['photos']}
                          <img src="{$item}"  />
-                     {/foreach}
-
-
+                      {/foreach}
                  </td>
+
                  <th>商品属性</th>
                  <td >
+
                      {foreach:items=$info['attr_arr']}
                          {$key}:{$item}</br>
                      {/foreach}
@@ -138,6 +142,7 @@
                  <th>描述</th>
                  <td>{$info['note']}</td>
              </tr>
+
                 <tr>
                  <th>是否投保</th>
 

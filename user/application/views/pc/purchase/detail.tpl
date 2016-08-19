@@ -48,6 +48,10 @@
                                 <td colspan="2">生成日期</td>
                                 <td colspan="6">{$product['create_time']}</td>
                             </tr>
+                             <tr>
+                               <td colspan="2">过期时间</td>
+                               <td colspan="6">{$offer['expire_time']}</td>
+                           </tr>
                             <tr>
                                 <td colspan="2">产品数量{$product['unit']}</td>
                                 <td colspan="6"class="end_td">{$product['quantity']}</td>
