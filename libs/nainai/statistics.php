@@ -376,4 +376,27 @@ class statistics{
         }
         return $res;
     }
+    
+    //获取热门商品数据
+    public function getHotProductDataList($l=10)
+    {
+        $query=new Query('products_stats_data as psd');
+        $query->join='left join products_stats as ps on psd.products_stats_id=ps.id';
+        $query->fields = 'ps.id, ps.name';
+        $query->distinct = 1;
+        $query->limit = $l;
+        $query->where='ps.status = 1 and ps.is_del = 0';
+        $query->order = "psd.id DESC, ps.id DESC";
+        $query->cache = 'm';
+        $data = $query->find();
+        $obj = new M('products_stats_data');
+        $ret = array();
+        foreach($data as $k => $v)
+        {
+            $temp = $obj->where('products_stats_id='.$v['id'])->order('id DESC')->getObj();
+            $temp['name'] = $v['name'];
+            $ret[] = $temp;
+        }
+        return $ret;
+    }
 }

@@ -493,12 +493,9 @@
                                 <div class="ShopPro_Con">
                                     {foreach: items=$statcProList}
                                     <div class="ShopPro_item clearfix">
-                                        {set:$gap = $item['ave_price']- $item['prev_price']}
-                                        <span class="ShopPro_text"><a href="#">{$item['name']}</a></span>
-                                        <span class="ShopPro_change i_TextRed"><img class="shja"
-                                                                                    {if:$gap>0}
-                                                                                    src="{views:images/index/icon_top.png}"{elseif:$gap<0}src="{views:images/index/icon_down.png}"{else:}src="{views:images/index/icon_line.png}"{/if}/>{echo:abs($item['ave_price']-$item['prev_price'])}</span>
-                                        <span class="ShopPro_price i_TextRed">￥{$item['ave_price']}</span>
+                                        <span class="ShopPro_text"><a href="javascript:;">{$item['name']}</a></span>
+                                        <span class="ShopPro_change i_TextRed"><img class="shja" {if:$item['change_range'] == 0}src="{views:images/index/icon_line.png}"{elseif:abs($item['change_range']) <> $item['change_range']}src="{views:images/index/icon_down.png}"{else:}src="{views:images/index/icon_top.png}"{/if}/>{echo:abs($item['change_range'])}%</span>
+                                        <span class="ShopPro_price i_TextRed">￥{$item['price']}</span>
                                     </div>
                                     {/foreach}
                                 </div>
