@@ -1344,7 +1344,8 @@ line-height: 25px;
   float: left;
 }
 .of_title1{
-  padding: 10px 0 10px 15%;
+  padding: 60px 0 0px 0px;
+  text-align: left;
 }
 .offer .title1_a{
  color: #333 ;
@@ -1900,12 +1901,12 @@ line-height: 30px;
 
 /* 发布商品 */
 .offer.public {
-    width: 336px;
+    width: 440px;
     text-align: center;
     background: #fafafa;
     margin-top: 22px;
     margin-left: 24px;
-    height: 138px;
+    height: 180px;
     cursor:pointer;
     padding: 10px 0;
 }
@@ -1913,22 +1914,20 @@ line-height: 30px;
     float: left;
     position: relative;
     left: 10%;
-    top: 22%;
+    top: 30%;
 }
 .user_c.public {
     padding-bottom: 22px;
 }
 .offer .title1_a.public{
-  font-size: 14px;
+  font-size: 18px;
   color: #666666;
   position: relative;
-  top: 30px;
-  margin-left: -30px;
 }
 .of_title2.public{
-    padding: 0 0 0 27%;
+    padding: 0;
     position: relative;
-    top: 36px;
+    top: 10px;
     color: #999999;
 }
 .offer.public img{
