@@ -35,7 +35,9 @@
         <!-- <li><a href="">会员中心</a><i>|</i></li>
         <li><a href="">我的合同</a><i>|</i></li> -->
         <li><a href="">消息中心</a><i>|</i></li>
-        <li><a href=""><img class="shouy" src="{views:images/password/mobile.png}"><span class="inde_txt">手机版</span></a><i>|</i></li>
+
+        <!--<li><a href=""><img class="shouy icon" src="{views:images/password/mobile.png}">手机版</a><i>|</i></li>-->
+
         <li><a href="">在线客服</a><i>|</i></li>
         <li>交易时间&nbsp;09:00-18:00</li>
      </ul>  
@@ -112,7 +114,7 @@
           </div>
            <div class="cot">
             <span class="cot_tit">校验码：</span>
-            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode"/> <a class="jiaoyma">获取校验码</a><span></span> </span>
+            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode" maxlength="6" datatype="zip" nullmsg="请填写校验码" errormsg="校验码格式不正确"/> <a class="jiaoyma">获取校验码</a><span></span> </span>
               <span></span>
           </div>
           <div class="cot">
@@ -168,7 +170,7 @@
           </div>
            <div class="cot">
             <span class="cot_tit">校验码：</span>
-            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode"/> <a  class="jiaoyma">获取校验码</a><span></span> </span>
+            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode" maxlength="6" datatype="zip" nullmsg="请填写校验码" errormsg="校验码格式不正确"/> <a  class="jiaoyma">获取校验码</a><span></span> </span>
               <span></span>
           </div>
           <div class="cot">

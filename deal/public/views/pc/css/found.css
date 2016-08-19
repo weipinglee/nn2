@@ -17,7 +17,6 @@ select {
   padding-right: 14px;
 }
 
-
 #mainContent .mainRow4{
 	background: #fff;
 	height: 435px;
@@ -32,17 +31,15 @@ select {
 	border-bottom: 3px solid #d61515;
 }
 #mainContent .mainRow4 .line{
-	width: 100%;
-	background-color: #ccc;
-	height: 1px;
-	margin-bottom: 40px;
+    width: 100%;
+    background-color: #ccc;
+    height: 1px;
+    margin-bottom: 40px;
 }
-#mainContent .mainRow4 .found{
-	width:650px;
-	height: 300px;
-	padding:0 10px;
-	margin-left:150px; 
-	float: left;
+#mainContent .mainRow4 ul{
+	padding-left: 161px;
+    width: 620px;
+    float: left;
 }
 .found ul li{
 	font-size: 14px;
@@ -107,4 +104,10 @@ select {
 	text-align: center;
 	line-height: 39px;
 	border-radius: 3px;
+}
+
+#placeProv,#placeCity,#placeDistrict{height: 31px; min-width: 83px;}
+#localProv,#localCity,#localDistrict{height: 31px; min-width: 83px;}
+select#localDistrict {
+    margin-left: 14px;
 }

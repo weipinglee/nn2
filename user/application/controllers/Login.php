@@ -134,6 +134,10 @@ class LoginController extends \Yaf\Controller_Abstract {
                 return array('err' => 1, 'info' => '验证码错误');//错误
             }else return array('err' => 0, 'info' => '正确');//正确
         }
+        else
+        {
+            return array('err' => 1, 'info' => '验证失败');
+        }
     }
 
 	public function checkIsOneAction(){
@@ -207,7 +211,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 		if(IS_AJAX){
 			$account = safe::filterPost('account');
 			$password = $_POST['password'];
-			$captcha  = safe::filterPost('captcha','/^[a-zA-Z]{4}$/');
+			$captcha  = safe::filterPost('captcha');
 
 
 			$data=array('errorCode'=>0);

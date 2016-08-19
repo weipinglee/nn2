@@ -73,7 +73,10 @@ z-index:1000;">
 
             <div class="index_user">
             {if:$username}
-                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">您好，{$username}</a>
+
+            您好，
+                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">{$username}</a>
+
                 {else:}
                 <span>您好，欢迎进入耐耐网</span>
                 {/if}
@@ -98,16 +101,16 @@ z-index:1000;">
                    <a href="{url:/ucenterindex/index@user}">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
-                   <a href="{url:/contract/buyerList}">我的合同</a><span class="line_l">|<span>
+                   <a href="{url:/contract/buyerList@user}">我的合同</a><span class="line_l">|<span>
                 </li>
                 {/if}
                 <li>
                     <a href="{url:/message/usermail@user}">消息中心</a><span class="line_l">|<span>
                 </li>
-                <li>
+                <!--<li>
                     <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
-                    <!--<a href="">手机版</a><span class="line_l">|<span>-->
-                </li>
+                    <a href="">手机版</a><span class="line_l">|<span>
+                </li>-->
                 <li>
                     <a href="" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><span class="line_l">|<span>
                 </li>

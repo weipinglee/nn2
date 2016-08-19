@@ -15,8 +15,8 @@ class FoundController extends InitController{
         $begin = Safe::filterGet('begin');
         $end = Safe::filterGet('end');
         $area = Safe::filterGet('area');
-        $username = Safe::filterGet('username');
-        $product_name = Safe::filterGet('product_name');
+        $keywords = Safe::filterGet('keywords');
+        $search_name = Safe::filterGet('search_name');
         $where = 1;
         if (!empty($begin)) {
             $where .= ' AND f.create_time>="'.$begin.'"';
@@ -30,14 +30,26 @@ class FoundController extends InitController{
             $where .= ' AND area = '.$area;
             $this->getView()->assign('area', $area);
         }
-        if (!empty($username)) {
+        if (!empty($keywords) && !empty($search_name)) {
+            if($search_name == 'username')
+            {
+                $where .= ' AND u.username = "'.$keywords.'"';
+            }
+            else
+            {
+                $where .= ' AND product_name = "'.$keywords.'"';
+            }
+            $this->getView()->assign('keywords', $keywords);
+            $this->getView()->assign('search_name', $search_name);
+        }
+        /*if (!empty($username)) {
             $where .= ' AND u.username = "'.$username.'"';
             $this->getView()->assign('username', $username);
         }
         if (!empty($product_name)) {
             $where .= ' AND product_name = '.$product_name;
             $this->getView()->assign('product_name', $product_name);
-        }
+        }*/
         $query = new Query('found as f');
         $query->fields = 'f.*, u.username';
         $query->join = 'LEFT JOIN user as u ON f.user_id=u.id';

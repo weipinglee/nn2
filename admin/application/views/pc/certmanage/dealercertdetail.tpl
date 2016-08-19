@@ -1,4 +1,4 @@
-﻿
+
         <div id="content" class="white">
             <h1><img src="{views:img/icons/dashboard.png}" alt="" /> 交易商认证信息</h1>
                 
@@ -34,16 +34,16 @@
 						 <td>{$cert['true_name']}</td>
 						 <th>身份证号：</th>
 						 <td>{$cert['identify_no']}</td>
-						 <th></th>
-						 <td></td>
+						 <th>地区：</th>
+						 <td>{areatext:data=$cert['area']}</td>
 					 </tr>
 					 <tr>
 						 <th>身份证正面：</th>
 						 <td><img src="{$cert['identify_front_thumb']}" /></td>
 						 <th>身份证背面：</th>
 						 <td><img src="{$cert['identify_back_thumb']}" /></td>
-						 <th></th>
-						 <td></td>
+						 <th>详细地址：</th>
+						 <td>{$cert['address']}</td>
 					 </tr>
 				 {else:}
 					 <tr>
@@ -61,8 +61,8 @@
 
 						 <th>注册资金：</th>
 						 <td>{$cert['reg_fund']}</td>
-						 <th></th>
-						 <td></td>
+						 <th>主营品种：</th>
+						 <td>{$cert['business']}</td>
 
 					 </tr>
 					 <tr>
