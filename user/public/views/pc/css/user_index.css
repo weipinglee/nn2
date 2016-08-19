@@ -180,10 +180,11 @@ text-indent: 1em;
 }
 /*中心内容*/
 .user_c{
-   margin: 0 20px;
-    width: 748px;
-    text-align: center;
-    border: 1px solid #c0c0c0;
+   float: left;
+  margin: 0 0px 10px 20px;
+text-align: center;
+width: 81%;
+border: 1px solid #c0c0c0;
 
 }
 .check-approve{
@@ -329,7 +330,7 @@ div.zhxi_con.font_set span i.bold{
 }
 .zhxi_con .text{
   height: 35px;
-  width: 240px;
+  width: 152px;
   font-family: 微软雅黑;
 }
 .zhxi_con .text.potwt{
@@ -1673,7 +1674,7 @@ border: 1px solid #c0c0c0;
   line-height: 30px;
 }
 .div_height{
-    padding: 5px 10px;
+    padding: 25px 10px;
     text-align: left;
     display: table-cell;
     vertical-align: middle;
@@ -2018,3 +2019,5 @@ cursor: pointer;
 
 /*全选按钮规格样式*/
 .controlAll{position: relative;top:3px;width: 24px;}
+
+.clear{clear: both;}
