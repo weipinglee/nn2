@@ -3,7 +3,7 @@
 			<div class="user_c_list">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>交易管理</a>><a>合同详情</a></p>
+						<p><a>交易管理</a>><a>申请提货</a></p>
 					</div>
 					<div class="chp_xx">
 						
