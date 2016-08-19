@@ -1,6 +1,6 @@
 
 			<!-- start 依据条件显示HTML-->
-			<div class="user_c">
+			<div class="user_c_list">
 				<!-- start 是否选择去认证
 				<div class="check-approve">
 					<img src="../images/icon/check-approve.jpg">
@@ -72,13 +72,13 @@
 							{if:!empty($contract2)}
 							<table width="100%">
 								<tr>
-									<td width="220px">
+									<td width="220px" style="min-height:80px;">
 										<div style="padding:5px 10px;">
 											<div class="div_height">&nbsp;{$contract2['product_name']}</div>
 										</div>
 
 									</td>
-									<td>
+									<td width="380px" >
 										<a href="{url:/contract/buyerdetail?id=$contract2['id']}">{$contract2['order_no']}</a>
 									</td>
 									<td width="200px">
@@ -118,13 +118,13 @@
 							{if:!empty($contract1)}
 							<table width="100%">
 								<tr>
-									<td width="220px">
+									<td width="220px" style="min-height:80px;">
 										<div style="padding:5px 10px;">
 											<div class="div_height">&nbsp;{$contract1['product_name']}</div>
 										</div>
 										
 									</td>
-									<td>
+									<td width="380px" >
 										<a href="{url:/contract/sellerdetail?id=$contract1['id']}">{$contract1['order_no']}</a>
 									</td>
 									<td width="200px">
