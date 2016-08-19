@@ -17,7 +17,7 @@
                 <th scope="col" colspan="9">会员账户</th>
             </tr>
             <tr class="text-c">
-                <!--<th><input type="checkbox" value="" name=""></th>-->
+                <!--<th><input type="checkbox" value="" name="checkall"></th>-->
                 <th>ID</th>
                 <th >登录账号</th>
                 <th>会员类型</th>
@@ -31,7 +31,7 @@
         <tbody>
         {foreach:items=$data['list']}
             <tr class="text-c">
-               <!-- <td><input type="checkbox" value="" name=""></td>-->
+               <!-- <td><input type="checkbox" value="" name="check"></td>-->
                 <td>{$item['id']}</td>
                 <td>{$item['username']}</td>
                 <td>{echo:\nainai\member::getType($item['type'])}</td>

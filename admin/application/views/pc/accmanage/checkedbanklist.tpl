@@ -15,7 +15,7 @@
     <table class="table table-border table-bordered table-hover table-bg table-sort">
         <thead>
             <tr class="text-c">
-                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="25"><input type="checkbox" name="checkall" value=""></th>
                 <th width="100">用户名</th>
                 <th width="90">开户银行</th>
                 <th width="60">银行卡类型</th>
@@ -30,7 +30,7 @@
         {foreach:items=$data['list']}
             {if:$item['status']==0}{set:$status=0}{else:}{set:$status=$item['status']}{/if}
             <tr class="text-c">
-                <td><input type="checkbox" value="" name=""></td>
+                <td><input type="checkbox" value="" name="check"></td>
                 <td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
                 <td>{$item['bank_name']}</td>
                 <td>{$item['card_type']}</td>

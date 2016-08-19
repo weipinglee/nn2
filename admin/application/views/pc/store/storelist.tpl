@@ -17,7 +17,7 @@
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="25"><input type="checkbox" name="checkall" value=""></th>
 				<th width="80">ID</th>
 				<th width="80">图片</th>
 				<th width="100">仓库名</th>
@@ -31,7 +31,7 @@
 		<tbody>
 		{foreach:items=$store}
 			<tr class="text-c">
-				<td><input type="checkbox" value="" name=""></td>
+				<td><input type="checkbox" value="" name="check"></td>
 				<td>{$item['id']}</td>
 				<td><img widht="180" height="180" src="{echo:\Library\thumb::get($item['img'],180,180)}"/> </td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>

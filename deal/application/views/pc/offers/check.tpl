@@ -22,7 +22,7 @@
                <th width="25%" bgcolor="#fafafa">产品详情</th>
                <th width="15%" bgcolor="#fafafa">规格</th>
                <th width="15%" bgcolor="#fafafa">单位</th>
-               <th width="15%" bgcolor="#fafafa">意向单价（元）</th>
+               <th width="15%" bgcolor="#fafafa">单价（元）</th>
                <th width="15%" bgcolor="#fafafa">数量(最小起订量：{$data['minimum']} 剩余:{$data['left']}) </th>
                <th width="15%" bgcolor="#fafafa">总额</th>
                </tr>
@@ -130,7 +130,7 @@
               {/if}
                     </h3> 
                    </div>  
-                   <div class="zhiffs"><b>是开具发票</b>
+                   <div class="zhiffs"><b>是否开具发票</b>
                   <h3 class="addwidth">
 
                    <div class="yListr">

@@ -660,6 +660,9 @@
 	width: 0;
 	margin-left: -5px;
 }
+#floor-2 .i_leftTit ul li.li_select a em{
+	border-color: transparent transparent #ffab2d transparent;
+}
 .i_leftTit span.i_leftText{
 	float: left;
 	margin: 0 20px 0 -20px;

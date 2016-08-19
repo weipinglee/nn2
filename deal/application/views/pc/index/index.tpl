@@ -214,7 +214,7 @@
                      <div class="i_market clearfix">
 
                     <div class="i_market_left" id="rmb_market">
-                        <div id="floor-1" class="item"></div>
+                        <div id="floor-1" class="item">
 
                         <div class="i_leftTit clearfix">
                             <div class="i_left_title" name="1" id="item1">交易市场</div>
@@ -341,6 +341,7 @@
                             });
                             </script>
                         </div>
+                      </div>
 
                     </div>
 
@@ -370,7 +371,7 @@
                     <!--美金市场-->
                     <div class="i_market clearfix">
                         <div class="i_market_left" id="rmb_market">
-                            <div id="floor-2" class="item"></div>
+                            <div id="floor-2" class="item">
                             <div class="i_leftTit i_leftTit_bg clearfix">
                                 <div class="i_left_title " name="1" id="item2">市场指数</div>
                                 <ul>
@@ -478,6 +479,7 @@
                                     
                                 </div>
                                      
+                            </div>
                             </div>
                         
                         </div>

@@ -1,6 +1,6 @@
 ﻿	
 			<!--start中间内容-->	
-			<div class="user_c" style="width:81%">
+			<div class="user_c" style="width:79%">
 				<div class="user_zhxi">
 				<form action="" method="get">
 					<div class="zhxi_tit">

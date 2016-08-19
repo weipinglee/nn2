@@ -16,7 +16,7 @@
                     <table class="table table-border table-bordered table-hover table-bg table-sort">
                         <thead>
                         <tr class="text-c">
-                            <th width="25"><input type="checkbox" name="" value=""></th>
+                            <th width="25"><input type="checkbox" name="checkall" value=""></th>
                             <th width="100">广告位名称</th>
                             <th width="60">宽高</th>
                             <th width="80">开启状态 </th>
@@ -27,7 +27,7 @@
                         <tbody>
                         {foreach:items=$adPositionList}
                         <tr class="text-c">
-                            <td><input type="checkbox" value="" name=""></td>
+                            <td><input type="checkbox" value="" name="check"></td>
                             <td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
                             <td>{$item['width']}x{$item['height']}</td>
                             <td>

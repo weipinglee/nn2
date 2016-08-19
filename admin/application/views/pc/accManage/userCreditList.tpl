@@ -15,7 +15,7 @@
     <table class="table table-border table-bordered table-hover table-bg table-sort">
         <thead>
             <tr class="text-c">
-                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="25"><input type="checkbox" name="checkall" value=""></th>
                 <th width="100">用户名</th>
                 <th width="90">手机号</th>
                 <th width="50">信誉保证金</th>
@@ -25,7 +25,7 @@
         <tbody>
         {foreach:items=$data['list']}
             <tr class="text-c">
-                <td><input type="checkbox" value="" name=""></td>
+                <td><input type="checkbox" value="" name="check"></td>
                 <td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
                 <td>{$item['mobile']}</td>
                 <td>{$item['credit']}</td>

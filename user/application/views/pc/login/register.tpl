@@ -106,9 +106,8 @@
           <div class="cot">
             <span class="cot_tit">验证码：</span>
 
-            <span><input class="text" style="width: 50px;display:block;float:left;" type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
-              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img style="float:left;" src="{url:/login/getCaptcha}?w=200&h=50" /></a>
-
+            <span><input class="text" style="width: 122px;" type="text" name="captcha" maxlength="4"/></span>
+              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img src="{url:/login/getCaptcha}?w=200&h=50" /></a>
               <span></span>
           </div>
            <div class="cot">

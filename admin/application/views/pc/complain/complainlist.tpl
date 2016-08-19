@@ -17,7 +17,7 @@
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="25"><input type="checkbox" name="checkall" value=""></th>
 				<th width="80">订单号</th>
 				<th width="80">商品名称</th>
 				<th width="100">申述用户</th>
@@ -32,7 +32,7 @@
 		<tbody>
 		{foreach:items=$data['list'] key=$k}
 			<tr class="text-c">
-				<td><input type="checkbox" value="" name=""></td>
+				<td><input type="checkbox" value="" name="check"></td>
 				<td>{$item['order_no']}</td>
 				<td>{$item['name']}</td>
 				<td>{$item['username']}</td>

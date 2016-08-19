@@ -14,7 +14,7 @@
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
+				<!-- <th width="25"><input type="checkbox" name="checkall" value=""></th> -->
 				<th width="80">ID</th>
 				<th width="100">用户名</th>
 				<th width="130">时间</th>
@@ -25,7 +25,7 @@
 		<tbody>
 		{foreach:items=$data['list']}
 			<tr class="text-c">
-				<!-- <td><input type="checkbox" value="" name=""></td> -->
+				<!-- <td><input type="checkbox" value="" name="check"></td> -->
 				<td>{$item['id']}</td>
 				<td>{$item['name']}</td>
 				<td>{$item['datetime']}</td>

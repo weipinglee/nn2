@@ -198,6 +198,7 @@ text-align: right;
 .pro_main .pro_cen ul li{
 	float: left;
 	width: 105px;
+	height: 35px;
 	text-align: center; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 /*product.html*/
