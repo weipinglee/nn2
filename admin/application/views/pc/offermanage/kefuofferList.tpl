@@ -24,7 +24,7 @@
                 <th scope="col" colspan="12">报盘信息</th>
             </tr>
             <tr class="text-c">
-                <th><input type="checkbox" value="" name=""></th>
+                <th><input type="checkbox" value="" name="checkall"></th>
                 <th>ID</th>
                 <th>用户名</th>
                 <th>交易方式</th>
@@ -42,7 +42,7 @@
         <tbody>
             {foreach:items=$data['list']}
                 <tr class="text-c">
-                    <td><input type="checkbox" value="" name=""></td>
+                    <td><input type="checkbox" value="" name="check"></td>
                     <td>{$item['id']}</td>
                     <td><a href="#">{$item['username']}</a></td>
                     <td>{if:$item['company_name']!=''}{$item['company_name']}{else:}{$item['true_name']}{/if}</td>

@@ -16,7 +16,7 @@
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="25"><input type="checkbox" name="checkall" value=""></th>
 				<th width="100">分类名</th>
 				<th width="90">统计类型</th>
 				<th width="60">平均价</th>
@@ -28,7 +28,7 @@
 		<tbody>
 		{foreach:items=$statsList}
 			<tr class="text-c">
-				<td><input type="checkbox" value="" name=""></td>
+				<td><input type="checkbox" value="" name="check"></td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
 				<td>{echo:\nainai\statistics::getStatsType($item['type'])}</td>
 				<td>{$item['ave_price']}</td>

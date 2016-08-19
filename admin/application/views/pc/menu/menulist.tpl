@@ -14,7 +14,7 @@
     <table class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
       <tr class="text-c">
-        <th width="25"><input type="checkbox" name="" value=""></th>
+        <th width="25"><input type="checkbox" name="checkall" value=""></th>
         <th width="80">菜单名</th>
         <th width="100">操作</th>
       </tr>
@@ -23,7 +23,7 @@
 
         {foreach: items=$lists item=$list}
 <tr class="text-c">
-        <td><input type="checkbox" value="" name=""></td>
+        <td><input type="checkbox" value="" name="check"></td>
         <td>
         {set: echo str_repeat('&nbsp;&nbsp;', $list['level'] * 5)} 
         {if: !empty($icon[$list['level']])}{$icon[$list['level']]} {/if}

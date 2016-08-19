@@ -26,7 +26,7 @@
 	 	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a> <a class="btn btn-primary radius" href="{url:/guide/addGuide}"><i class=" icon-plus fa-plus"></i> 添加导航</a> </span> </div>
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<tr class="text-c">
-				<th><input type="checkbox" name="" value=""></th>
+				<th><input type="checkbox" name="checkall" value=""></th>
 				<th>ID</th>
 				<th>导航名称</th>
 				<th>链接地址</th>
@@ -37,7 +37,7 @@
 			{foreach: items=$guideData item=$data}
 			{set: $key++}
 			<tr class="text-c">
-				<td><input type="checkbox" value="1" name=""></td>
+				<td><input type="checkbox" value="1" name="check"></td>
 				<td>{$key}</td>
 				<td><u style="cursor:pointer" class="text-primary">{$data['name']}</u></td>
 				<td>{$data['link']}</td>

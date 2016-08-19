@@ -14,7 +14,7 @@
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
+				<!-- <th width="25"><input type="checkbox" name="checkall" value=""></th> -->
 				<th width="80">参数名</th>
 				<th width="100">中文名</th>
 				<th width="100">参数类型</th>
@@ -29,7 +29,7 @@
 		<tbody>
 		{foreach:items=$data}
 			<tr class="text-c">
-				<!-- <td><input type="checkbox" value="" name=""></td> -->
+				<!-- <td><input type="checkbox" value="" name="check"></td> -->
 				<td>{$item['name']}</td>
 				<td>{$item['name_zh']}</td>
 				<td>{if:$item['type'] == 1}百分比{else:}数值{/if}</td>

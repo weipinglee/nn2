@@ -15,7 +15,7 @@
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="25"><input type="checkbox" name="checkall" value=""></th>
 				<th width="100">角色名</th>
 				<th width="90">是否开启</th>
 				<th width="150">备注</th>
@@ -25,7 +25,7 @@
 		<tbody>
 		{foreach:items=$subroles}
 			<tr class="text-c">
-				<td><input type="checkbox" value="" name=""></td>
+				<td><input type="checkbox" value="" name="check"></td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['name']}</u></td>
 
 				<td>{$item['status']}</td>
