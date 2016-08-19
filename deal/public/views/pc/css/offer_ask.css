@@ -59,6 +59,11 @@
 	line-height: 26px;
 	color: #666666;
 }
+.offer_right ul li img{
+    width: 18px;
+    height: 12px;
+    padding: 7px;
+}
 .buy_left {
     width: 450px;
     float: left;

@@ -43,7 +43,7 @@
                         <li>参考价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
                         <li>总数量： <i>{$data['quantity']}</i>  {$data['unit']}</li>
                       <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
-                      <li><a id='contract_review' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:blue;">合同预览</a></li>
+                      <li><img src="{views:images/password/eye_b.png}" alt="" /><a id='contract_review' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:#3fa5d9;">合同预览</a></li>
                     </ul>
 
                   <!--  <div class="counter">
