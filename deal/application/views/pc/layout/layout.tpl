@@ -136,15 +136,23 @@ z-index:1000;">
         <div class="searchbox">
             <div class="search_xz">
                 <select class="search_select" name="type">
-                    <option>供应</option>
-                    <option>求购</option>
+                    <option value="gong">供应</option>
+                    <option value="qiu">求购</option>
                 </select>
             </div>
             <div class="bodys">
-                <p class="keyword_0"><input type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="product.html"><button class="one1">搜索</button></a></p>
-                <p class="keyword_1" style="display: none"><input type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="product.html"><button class="two2">搜索</button></a></p>
+                <p class="keyword_0"><input type="text"  placeholder="请输入关键词查询" value="" id=""  /><a href="javascript:void(0)" onclick="searchGoods(this)"><button class="one1">搜索</button></a></p>
+                <p class="keyword_1" style="display: none"><input  type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="javascript:void(0)" onclick="searchGoods(this)"><button class="two2">搜索</button></a></p>
             </div>
         </div>
+
+        <script type="text/javascript">
+            function searchGoods(_this){
+                var type = $('select[name=type]').val();
+                var content = $(_this).parents('p').find('input').val();
+                window.location.href='{url:/offers/offerList}/type/'+type+'/content/'+content;
+            }
+        </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
         </div>
