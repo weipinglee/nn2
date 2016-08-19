@@ -134,6 +134,10 @@ class LoginController extends \Yaf\Controller_Abstract {
                 return array('err' => 1, 'info' => '验证码错误');//错误
             }else return array('err' => 0, 'info' => '正确');//正确
         }
+        else
+        {
+            return array('err' => 1, 'info' => '验证失败');
+        }
     }
 
 	public function checkIsOneAction(){

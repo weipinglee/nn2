@@ -15,8 +15,13 @@
         <input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" name="end" value="{$end}" style="width:120px;">
         用户地区：
         {area:data=$area}
-        <input type="text" name="username" class="input-text" style="width:250px" value="{$username}" placeholder="输入用户名">
-        <input type="text" name="product_name" class="input-text" style="width:250px" value="{$product_name}" placeholder="输入商品名称">
+        <input type="text" name="keywords" class="input-text" style="width:250px" value="{$keywords}" placeholder="输入关键字">
+        <!--<input type="text" name="product_name" class="input-text" style="width:250px" value="{$product_name}" placeholder="输入商品名称">-->
+        <select name="search_name" >
+            <!--<option value="all">所有</option>-->
+            <option value="username" {if:$search_name=='username'}selected{/if}>用户名</option>
+            <option value="product_name" {if:$search_name=='product_name'}selected{/if}>商品名称</option>
+        </select>
         <button type="submit" class="btn btn-success radius" id=""><i class="icon-search fa-search"></i> 搜信息</button>
     </div>
 </form>
