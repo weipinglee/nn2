@@ -75,7 +75,7 @@ class userRisk
         if(!$userRiskObj->data($params)->validate($this->useAddress)){
             return tool::getSuccInfo(0,$userRiskObj->getError());
         }
-
+        $params['ip']='218.198.255.235';
         if(!$cityInfo=$this->getIpInfo($params['ip'])){
             return tool::getSuccInfo(0,'ip不正确');
         }
@@ -133,7 +133,10 @@ class userRisk
         }
         $recordObj=new \Library\M('user_alerted_record');
         $params['record_time']=date('Y-m-d H:i:s',time());
-        if($recordObj->data($params)->add()){
+        if($id=$recordObj->data($params)->add()){
+            $adminMsg=new \nainai\AdminMsg();
+            $content='编号为'.$params['user_id'].'的会员在'.$params['introduce'].'登录提示异常登录';
+            $adminMsg->createMsg('checkuserrisk',$id,$content);
             return tool::getSuccInfo(1,'插入成功');
         }else{
             return tool::getSuccInfo(0,'插入失败');
@@ -148,5 +151,18 @@ class userRisk
         $recordObj->page=$page;
         $userRiskList=$recordObj->find();
         return $userRiskList;
+    }
+    public function getUserRiskDetail($id){
+        $recordObj=new Query('user_alerted_record as r');
+        $recordObj->join='left join user as u on u.id=r.user_id left join company_info as c on r.user_id=c.user_id left join person_info as p on p.user_id=r.user_id';
+        $recordObj->fields='r.*,c.company_name,p.true_name,u.username,u.mobile';
+        $recordObj->where='r.id=:id';
+        $recordObj->bind=array('id'=>$id);
+        return $recordObj->getObj();
+    }
+    public function setStatus($id){
+        $recordObj=new M('user_alerted_record');
+        $res=$recordObj->where(['id'=>$id])->data(['status'=>1])->update()?tool::getSuccInfo(1,'修改成功'):tool::getSuccInfo(0,'修改失败');
+        return $res;
     }
 }
