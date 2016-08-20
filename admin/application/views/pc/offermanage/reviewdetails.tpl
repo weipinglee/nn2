@@ -108,11 +108,17 @@
                  <th>已售数量</th>
                  <td>{$info['sell']}</td>
              </tr>
-             <tr>
-                 <th>交收时间</th>
-                 <td>{if: $info['type'] == \nainai\offer\product::TYPE_SELL}{$info['accept_day']}{else:}--{/if}</td>
+            <tr>
+
                  <th>交收地点</th>
                  <td>{$info['accept_area']}</td>
+                 {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
+                 <th>交收时间</th>
+                 <td>{$info['accept_day']}</td>
+                 {else:}
+                 <th></th>
+                 <td></td>
+                 {/if}
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
                      <td><img src="{$info['sign_thumb']}" /></td>
