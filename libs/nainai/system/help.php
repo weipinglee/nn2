@@ -13,12 +13,12 @@ use Library\Query;
 
 class help
 {
-    public $helpLimit=3;
-    public $helpCatLimit=3;
+    public $helpLimit=4;
+    public $helpCatLimit=4;
     public function getHelplist(){
         $helpCatObj=new Query('help_category');
-        $helpCatObj->where="status=:status";
-        $helpCatObj->bind=['status'=>1];
+        $helpCatObj->where="status=:status and name<>:name";
+        $helpCatObj->bind=['status'=>1,'name'=>'服务'];
         if($this->helpCatLimit!='') {
             $helpCatObj->limit = $this->helpCatLimit;
         }
