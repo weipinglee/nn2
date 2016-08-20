@@ -1,7 +1,7 @@
 
 <link rel="stylesheet" type="text/css" href="{views:css/password_new.css}">
 <link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
-<form method="post" {if:$info['show_payment']}pay_secret="1"{/if} auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
+<form method="post" {if:$data['show_payment']}pay_secret="1"{/if} auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
 
     <!--主要内容 开始-->
     <div id="mainContent" style="background:#FFF;"> 
@@ -30,7 +30,7 @@
                <td class="product_img" >
                    <img src="{$data['img']}" alt="" />
                    <div class="produ_left">
-                    <p>钢铁行业/dsfd/ddd/</p>
+                    <p>{$data['cate_chain']}</p>
                     <p>{$data['name']}</p>
                    </div>
 
@@ -156,7 +156,7 @@
             <div class="intur_box">
             <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b class='prod_num'>{$data['minimum']}</b>吨</span></span>
             <span class="daizfji"><span class="zhifjin"><strong>总额：</strong><i>￥</i><b class='prod_amount'>{$data['amount']}</b></span></span>
-            {if:$info['show_payment']}
+            {if:$data['show_payment']}
             <span class="daizfji"><span class="zhifjin"><strong>定金：</strong><i>￥</i><b class="pay_deposit">{$data['minimum_deposit']}</b></span></span>{/if}
            </div>    
            <div class="order_comit">
@@ -170,7 +170,7 @@
                 <a class="btoncomit" href="javascript:;" >提交订单</a>
              {/if}
             <!-- <a class="btoncomit" href="submit_order-3.html">提交订单</a> -->
-            {if:$info['show_payment']}<span>应支付金额：<i>￥</i><b class='pay_deposit'>{$data['minimum_deposit']}</b></span>{/if}
+            {if:$data['show_payment']}<span>应支付金额：<i>￥</i><b class='pay_deposit'>{$data['minimum_deposit']}</b></span>{/if}
 
            </div>
 
@@ -302,13 +302,16 @@
                                   var total = num*price;
                                   prod_amount.text(total.toFixed(2));
                                   deposit_text.text(paytype == 1 ? total.toFixed(2): data.info.toFixed(2));
-
+                                  
                                   temp_deposit = data.info;
                                   $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
                               }else{
                                   layer.msg(data.info);
                               }
                           },"json");
+                      }else if(flag && !{$data['show_payment']}){
+                        var total = num*price;
+                        prod_amount.text(total.toFixed(2));
                       }
                     }
 

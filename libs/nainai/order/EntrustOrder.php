@@ -18,6 +18,7 @@ class entrustOrder extends Order{
 
 	//生成摘牌订单
 	public function geneOrder($orderData){
+		unset($orderData['payment']);
 		if($orderData['mode'] == self::ORDER_ENTRUST){
 			$orderData['contract_status'] = self::CONTRACT_BUYER_RETAINAGE;
 		}else{

@@ -102,13 +102,13 @@ class ContractController extends UcenterBaseController{
 		$order = new \nainai\order\Order();
 		$product = new \nainai\offer\product();
 		$order_id = safe::filter($this->_request->getParam('order_id'));
-
+		
 		if($order_id){
 			$order_info = $order->contractDetail($order_id);			
 		}else{
 			$offer_id = safe::filter($this->_request->getParam('offer_id'));
 			$num = safe::filter($this->_request->getParam('num'));
-			$order_info = $order->contractReview($offer_id,$num);
+			$order_info = $order->contractReview($offer_id,$num,$this->user_id);
 		}
 		$product_cate = array_reverse($product->getParents($order_info['cate_id']));
 		foreach ($product_cate as $key => $value) {
@@ -117,8 +117,9 @@ class ContractController extends UcenterBaseController{
 		$aa = $product->getProductDetails($order_info['product_id']);
 		$order_info['attrs'] = $aa['attrs'];
 		$order_info['product_cate'] = rtrim($tmp,'/');
-		$order_info['seller_name'] = $order_info['userinfo']['type'] == 0 ? $order_info['userinfo']['true_name'] : $order_info['userinfo']['company_name'];
+		
 		// echo '<pre>';var_dump($order_info);exit;
+		
 		$this->getView()->assign('info',$order_info);
 	}
 
@@ -172,7 +173,7 @@ class ContractController extends UcenterBaseController{
 			// 		}
 			// 		break;
 			// }
-			
+
 			$complainData = array(
 				'order_id' => $order_id ,
 				'user_id' => $this->user_id,

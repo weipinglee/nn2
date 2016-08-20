@@ -28,7 +28,7 @@ class DepositOrder extends Order{
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
-			$buyer = $offerInfo['type'] == 1 ? intval($info['user_id']) : $this->sellerUserid($order_id);
+			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($info['user_id']) : $this->sellerUserid($order_id);
 			
 			if($info['contract_status'] != self::CONTRACT_NOTFORM)
 				return tool::getSuccInfo(0,'合同状态有误');
@@ -101,7 +101,7 @@ class DepositOrder extends Order{
 		if(is_array($info) && isset($info['contract_status'])){
 			$orderData['id'] = $order_id;
 			$tmp = $this->sellerUserid($order_id);
-			if($offerInfo['type'] == 1){
+			if($offerInfo['type'] == \nainai\offer\product::TYPE_SELL){
 				$seller = $tmp;
 				$buyer = intval($info['user_id']);
 			}else{

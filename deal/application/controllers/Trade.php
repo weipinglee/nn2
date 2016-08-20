@@ -113,15 +113,12 @@ class tradeController extends \nainai\controller\Base {
 		$order = new M('order_sell');
 		try {
 			$order->beginTrans();
+
 			$gen_res = $order_mode->geneOrder($orderData);
 			if($gen_res['success'] == 1){
 				$order_id = $gen_res['order_id'];
 				if($offer_type == order\Order::ORDER_FREE || $offer_type == order\Order::ORDER_ENTRUST){
-					$zhi = new \nainai\member();
-					$pay_secret = safe::filterPost('pay_secret');
-					if(!$zhi->validPaymentPassword($pay_secret,$this->user_id)){
-						die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
-					}
+					
 					$order->commit();
 					
 					$amount = $order->where(array('id'=>$order_id))->getfield('amount');

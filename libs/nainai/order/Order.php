@@ -119,7 +119,7 @@ class Order{
 			$product_left = $delivery->orderNumLeft($order_id,false,true);
 			$res = $this->productsFreezeRelease($offerInfo,$product_left);
 
-			$buyer = $offerInfo['type'] == 1 ? $info['user_id'] : $offerInfo['user_id'];
+			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $info['user_id'] : $offerInfo['user_id'];
 			$mess = new \nainai\message($buyer);
 			$mess->send('breakcontract',$order_id);
 		} catch (\PDOException $e) {
@@ -223,9 +223,11 @@ class Order{
 
 	//生成摘牌订单
 	public function geneOrder($orderData){
+		$check_payment = 0;
 		if(in_array($orderData['mode'],array(self::ORDER_FREE,self::ORDER_ENTRUST))){
 			$orderData['contract_status'] = self::CONTRACT_BUYER_RETAINAGE;
 		}else{
+			$check_payment = 1;
 			$orderData['contract_status'] = self::CONTRACT_NOTFORM;	
 		}
 		if($orderData['mode'] != self::ORDER_PURCHASE){
@@ -233,44 +235,47 @@ class Order{
 			if($offer_exist === false) return tool::getSuccInfo(0,'报盘不存在或未通过审核');
 		}
 		$offer_info = $this->offerInfo($orderData['offer_id']);
-		// if($offer_info['user_id'] == $orderData['user_id']){
-		// 	return tool::getSuccInfo(0,'买方卖方为同一人');
-		// }
+		if($offer_info['user_id'] == $orderData['user_id']){
+			return tool::getSuccInfo(0,'买方卖方为同一人');
+		}
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
 			if($product_valid !== true)
 				return tool::getSuccInfo(0,$product_valid);
 			$orderData['amount'] = $offer_info['price'] * $orderData['num'];
 
-			//获取摘牌所需定金数额
-			$pay_deposit = $this->payDepositCom($orderData['offer_id'],$orderData['amount']);
-			$user_id = isset($orderData['buyer_id']) ? $orderData['buyer_id'] : $orderData['user_id'];//采购买家与正常相反
-
 			//判断用户买家余额是否足够
-			switch ($orderData['payment']) {
-				case self::PAYMENT_AGENT:
-					//代理账户
-					$balance = $this->account->getActive($user_id);
-					break;
-				case self::PAYMENT_BANK:
-					//银行签约账户
-					$balance = $this->zx->attachBalance($user_id);
-					$balance = $balance['KYAMT'];
-					break;
-				case self::PAYMENT_TICKET:
-					//票据账户
-					break;
-				default:
-					return tool::getSuccInfo(0,'参数错误');
-					break;
+			if($check_payment){
+				//获取摘牌所需定金数额
+				$pay_deposit = $this->payDepositCom($orderData['offer_id'],$orderData['amount']);
+				$user_id = isset($orderData['buyer_id']) ? $orderData['buyer_id'] : $orderData['user_id'];//采购买家与正常相反
+				switch ($orderData['payment']) {
+					case self::PAYMENT_AGENT:
+						//代理账户
+						$balance = $this->account->getActive($user_id);
+						break;
+					case self::PAYMENT_BANK:
+						//银行签约账户
+						$balance = $this->zx->attachBalance($user_id);
+						$balance = $balance['KYAMT'];
+						break;
+					case self::PAYMENT_TICKET:
+						//票据账户
+						break;
+					default:
+						return tool::getSuccInfo(0,'参数错误');
+						break;
+				}
+				if(floatval($balance) < $pay_deposit){
+					return tool::getSuccInfo(0,'账户余额不足');
+				}
 			}
 			
-			if(floatval($balance) < $pay_deposit){
-				return tool::getSuccInfo(0,'账户余额不足');
-			}
 
+			unset($orderData['payment']);
 
 			$upd_res = $this->orderUpdate($orderData);
+
 			$pro_res = $this->productsFreeze($offer_info,$orderData['num']);
 			if($pro_res != true) return tool::getSuccInfo(0,$pro_res);
 			
@@ -326,7 +331,7 @@ class Order{
 		$info = $this->orderInfo(intval($order_id));
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
-			$buyer = $offerInfo['type'] == 1 ? intval($info['user_id']) : $this->sellerUserid($order_id);
+			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($info['user_id']) : $this->sellerUserid($order_id);
 			if($info['contract_status'] == self::CONTRACT_BUYER_RETAINAGE || $info['contract_status'] == self::CONTRACT_NOTFORM){
 				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'订单买家信息有误');
@@ -361,7 +366,7 @@ class Order{
 								$res = $upd_res['info'];
 							}
 							if($res === true){
-								$note = '支付合同'.$info['order_no'].'尾款 '.$retainage;
+								$note = '支付合同'.$info['order_no'].'尾款 '.number_format($retainage,2);
 								$account = $this->base_account->get_account($account);
 								if(!is_object($account)) return tool::getSuccInfo(0,$account);
 								$acc_res = $account->freeze($buyer,$retainage,$note);
@@ -411,7 +416,7 @@ class Order{
 			if($info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST && $info['contract_status'] != self::CONTRACT_BUYER_RETAINAGE){
 				return tool::getSuccInfo(0,'合同状态有误');
 			}
-			$seller = $offerInfo['type'] == 1 ? $this->sellerUserid($order_id) : intval($info['user_id']);//获取卖方帐户id
+			$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $this->sellerUserid($order_id) : intval($info['user_id']);//获取卖方帐户id
 			if($seller != $user_id)
 				return tool::getSuccInfo(0,'订单卖家信息有误');
 
@@ -422,8 +427,9 @@ class Order{
 			if($confirm === true){
 				//卖家确认收款
 				
+				$order_type = $info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST;
 				//合同状态置为生效
-				$orderData['contract_status'] = $info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
+				$orderData['contract_status'] = $order_type ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
 				$log_res = $this->payLog($order_id,$user_id,1,'卖家确认线下支付凭证');
 			}elseif($confirm === false){
 				//删除之前上传proof
@@ -441,7 +447,13 @@ class Order{
 					$this->order->beginTrans();
 					$upd_res = $this->orderUpdate($orderData);
 					if($upd_res['success'] == 1){
-						$res = $log_res === true ? $this->order->commit() : $log_res;
+						$pdo_res = $order_type ? true : $this->productsFreezeToSell($offerInfo,$info['num']);
+						if($pdo_res === true){
+							$res = $log_res === true ? $this->order->commit() : $log_res;	
+						}else{
+							$res = $pdo_res;
+						}
+						
 					}else{
 						$this->order->rollBack();
 						$res = $upd_res['info'];
@@ -619,8 +631,9 @@ class Order{
 		if($offer_info && is_array($offer_info) && $num > 0){
 			$product = $this->products->where(array('id'=>$offer_info['product_id']))->getObj();
 			$freeze = floatval($product['freeze']);//已冻结商品数量
+			$sell = floatval($product['sell']);//已冻结商品数量
 			if($freeze >= $num){
-				$res = $this->products->where(array('id'=>$product['id']))->data(array('freeze'=>($freeze-$num),'sell'=>$num))->update();
+				$res = $this->products->where(array('id'=>$product['id']))->data(array('freeze'=>($freeze-$num),'sell'=>($sell+$num)))->update();
 				return is_int($res) && $res>0 ? true : ($this->products->getError() ? $this->products->getError() : '数据未修改');
 			}else{
 				return '冻结商品数量有误';
@@ -657,7 +670,7 @@ class Order{
 		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE,self::ORDER_PURCHASE))){
 			if($order['contract_status'] == self::CONTRACT_DELIVERY_COMPLETE){
 				$offerInfo = $this->offerInfo($order['offer_id']);
-				$buyer = $offerInfo['type'] == 1 ? $order['user_id'] : $offerInfo['user_id'];
+				$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
 				if($reduceData['reduce_amount'] >= $order['pay_deposit'])
 					return tool::getSuccInfo(0,'扣减货款超过定金数额');
 				if($buyer != $user_id)
@@ -709,8 +722,8 @@ class Order{
 		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE,self::ORDER_PURCHASE))){
 			if($order['contract_status'] == self::CONTRACT_VERIFY_QAULITY){
 				$offerInfo = $this->offerInfo($order['offer_id']);
-				$buyer  = $offerInfo['type'] == 1 ? $order['user_id'] : $offerInfo['user_id'];
-				$seller = $offerInfo['type'] == 1 ? $offerInfo['user_id'] : $order['user_id'];
+				$buyer  = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
+				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order['user_id'];
 				if($seller != $user_id)
 					return tool::getSuccInfo(0,'操作用户错误');
 				
@@ -784,8 +797,8 @@ class Order{
 		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE,self::ORDER_PURCHASE))){
 			if($order['contract_status'] == self::CONTRACT_SELLER_VERIFY){
 				$offerInfo = $this->offerInfo($order['offer_id']);
-				$buyer  = $offerInfo['type'] == 1 ? $order['user_id'] : $offerInfo['user_id'];
-				$seller = $offerInfo['type'] == 1 ? $offerInfo['user_id'] : $order['user_id'];
+				$buyer  = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
+				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order['user_id'];
 				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'操作用户错误');
 
@@ -901,15 +914,19 @@ class Order{
 	 */
 	public function sellerContractList($user_id,$page){
 		$query = new \Library\searchQuery('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
-		$query->where = '((po.user_id = :user_id and po.type = 1) or (do.user_id = :seller_id and po.type = 2))';
-		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci1 on do.user_id = ci1.user_id left join company_info as ci2 on po.user_id = ci2.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
+		$query->where = '((po.user_id = :user_id and po.type = '.\nainai\offer\product::TYPE_SELL.') or (do.user_id = :seller_id and po.type = '.\nainai\offer\product::TYPE_BUY.'))';
+		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci1.company_name as do_company_name,ci2.company_name as po_company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id,'seller_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
 		 $query->order = "do.id desc";
 		$data = $query->find();
+
+		foreach ($data['list'] as $key => &$value) {
+			$value['company_name'] = $value['type'] == \nainai\offer\product::TYPE_BUY ? $value['do_company_name'] : $value['po_company_name'];
+		}
 		$this->sellerContractStatus($data['list']);
 		// tool::pre_dump($data);
 		return $data;
@@ -942,15 +959,19 @@ class Order{
 	 */
 	public function buyerContractList($user_id,$page){
 		$query = new \Library\searchQuery('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
-		$query->where = '((do.user_id = :user_id and po.type = 1) or (po.user_id = :buyer_id and po.type = 2))';
-		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci1 on do.user_id = ci1.user_id left join company_info as ci2 on po.user_id = ci2.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
+		$query->where = '((do.user_id = :user_id and po.type = '.\nainai\offer\product::TYPE_SELL.') or (po.user_id = :buyer_id and po.type = '.\nainai\offer\product::TYPE_BUY.'))';
+		$query->fields = 'po.type,u.username,do.*,p.name as product_name,p.img,p.unit,ci1.company_name as do_company_name,ci2.company_name as po_company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id,'buyer_id'=>$user_id);
 		$query->page  = $page;
 		$query->pagesize = 5;
 		 $query->order = "do.id desc ";
 		$data = $query->find();
+
+		foreach ($data['list'] as $key => &$value) {
+			$value['company_name'] = $value['type'] == \nainai\offer\product::TYPE_BUY ? $value['do_company_name'] : $value['po_company_name'];
+		}
 
 		$this->buyerContractStatus($data['list']);
 		return $data;
@@ -963,17 +984,27 @@ class Order{
 	 * @param  float $num  商品数量
 	 * @return array  信息数组
 	 */
-	public function contractReview($offer_id,$num){
+	public function contractReview($offer_id,$num,$user_id = ''){
 		$query = new Query('product_offer as po');
 		$query->join = 'left join products as p on po.product_id = p.id';
-		$query->fields = 'po.price,p.name,p.cate_id,p.produce_area,p.unit';
+		$query->fields = 'po.type,po.user_id as offer_user,po.price,p.name,po.product_id,po.accept_area,p.cate_id,p.produce_area,p.unit';
 		$query->where = 'po.id = :id';
 		$query->bind = array('id'=>$offer_id);
-		$res = $query->getObj();
+		$res = $query->getObj();	
 
 		$res['num'] = $num;
 		$res['amount'] = $res['price']*$num;
-
+		$user = $this->contractUserInfo($user_id);
+		$offer_user = $this->contractUserInfo($res['offer_user']);
+		if($res['type'] == \nainai\offer\product::TYPE_BUY){
+			$res['userinfo'] = $user;
+			$res['buyer_name'] = $offer_user['type'] == 0 ? $offer_user['true_name'] : $offer_user['company_name'];
+			$res['seller_name'] = $user['type'] == 0 ? $user['true_name'] : $user['company_name'];
+		}else{
+			$res['userinfo'] = $offer_user;
+			$res['buyer_name'] = $user['type'] == 0 ? $user['true_name'] : $user['company_name'];
+			$res['seller_name'] = $offer_user['type'] == 0 ? $offer_user['true_name'] : $offer_user['company_name'];
+		}
 		return $res;
 	}
 
@@ -985,8 +1016,8 @@ class Order{
 	 */
 	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id left join person_info as pi on pi.user_id = u.id';
-		$query->fields = 'do.*,po.type,p.name,po.price,do.amount,p.unit,po.product_id,po.accept_area,p.cate_id,p.img,p.produce_area,pc.name as cate_name,po.user_id as seller_id,pi.true_name as buyer_name';
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id';
+		$query->fields = 'do.*,po.type,po.other,p.name,po.price,do.amount,p.unit,po.product_id,po.accept_area,p.cate_id,p.img,p.produce_area,pc.name as cate_name,po.user_id as seller_id';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();
@@ -995,7 +1026,7 @@ class Order{
 		}
 
 		$res['img_thumb'] = \Library\thumb::get($res['img'],50,50);
-		// var_dump($res);exit;
+
 		if($res['mode'] == self::ORDER_STORE){
 			$query = new Query('store_list as s');
 			$query->join = 'left join store_products as sp on s.id = sp.store_id';
@@ -1010,17 +1041,27 @@ class Order{
 			$res['store_name'] = '-';
 		}
 
+		$buyer_id = $res['type'] == \nainai\offer\product::TYPE_SELL ? $res['user_id'] : $res['seller_id'];
+		$seller_id = $res['type'] == \nainai\offer\product::TYPE_SELL ? $res['seller_id'] : $res['user_id'];
+
+		$buyer_info = $this->contractUserInfo($buyer_id);
+		$seller_info = $this->contractUserInfo($seller_id);
+		$res['buyer_name'] = $buyer_info['type'] == 0 ? $buyer_info['true_name'] : $buyer_info['company_name'];
+		$res['seller_name'] = $seller_info['type'] == 0 ? $seller_info['true_name'] : $seller_info['company_name'];
+
 		$res = array($res);
 
+		
 		if($identity == 'seller'){
 			$this->sellerContractStatus($res);
-			$user_id = $res[0]['type'] == 1 ? $res[0]['user_id'] : $res[0]['seller_id'];
-			$res[0]['userinfo'] = $this->contractUserInfo($user_id,1);
+			$res[0]['userinfo'] = $buyer_info;
+			
 		}elseif($identity == 'buyer'){
 			$this->buyerContractStatus($res);
-			$user_id = $res[0]['type'] == 2 ? $res[0]['user_id'] : $res[0]['seller_id'];
-			$res[0]['userinfo'] = $this->contractUserInfo($user_id);
+			$res[0]['userinfo'] = $seller_info;
 		}
+		
+		
 		$res[0]['pay_log'] = $this->paylog->where(array('order_id'=>$id))->fields('remark,create_time')->order('create_time asc')->select();
 		$res[0]['delivery_status'] = $this->deliveryStatus($id);
 		return $res[0];
@@ -1037,10 +1078,10 @@ class Order{
 		$query->join = 'left join product_delivery as pd on o.id = pd.order_id';
 		$query->where = 'o.id = :id';
 		$query->bind = array('id'=>$order_id);
-		$query->fields = 'pd.status';
+		$query->fields = 'pd.status,o.mode';
 		$res = $query->find();
 
-		$status_txt = '未提货';
+		$status_txt = in_array($res[0]['mode'],array(self::ORDER_FREE,self::ORDER_ENTRUST)) ? '线下交收' : '未提货';
 		foreach ($res as $key => $value) {
 			switch ($value['status']) {
 				case $delivery::DELIVERY_AGAIN:
@@ -1067,8 +1108,8 @@ class Order{
 	public function orderInvoiceInfo($orderInfo){
 		if($orderInfo['invoice'] == 1){
 			$offerInfo = $this->offerInfo($orderInfo['offer_id']);
-			$seller = $offerInfo['type'] == 1 ? $orderInfo['user_id'] : $offerInfo['user_id']  ;
-			$invoice_info = $this->user_invoice->userInvoiceInfo($seller);
+			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $orderInfo['user_id'] : $offerInfo['user_id']  ;
+			$invoice_info = $this->user_invoice->userInvoiceInfo($buyer);
 			$invoice_info['order_invoice'] = $this->user_invoice->orderInvoiceInfo($orderInfo['id']);
 			return $invoice_info;
 		}else{

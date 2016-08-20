@@ -48,7 +48,7 @@
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">名称：</b>
-								<span>&nbsp;{$info['userinfo']['true_name']}{$info['userinfo']['company_name']}</span>
+								<span>&nbsp;{$info['buyer_name']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">地址：</b>
