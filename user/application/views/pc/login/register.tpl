@@ -10,57 +10,6 @@
   <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
     <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
     <script type="text/javascript" src="{views:js/common.js}"></script>
-<<<<<<< HEAD
-</head>
-<body>
-
-
-<div class="wrap" style="background:none;">
-  <div class="login_top">
-    <ul class="w1200">
-      <ul class="topnav_left">
-
-        <li><a href="{url:index/index@deal}"><img class="shouy" src="{views:images/password/shouy.png}"><span class="inde_txt">耐耐网首页</span></a></li>
-
-        <li class="space">您好，欢迎进入耐耐网</li>
-        <li><a href="{url:/login/login}">请登录</a></li>
-        <li>欢迎注册</li>
-      </ul>
-      <ul class="topnav_right">
-        <!-- <li><a href="">会员中心</a><i>|</i></li>
-        <li><a href="">我的合同</a><i>|</i></li> -->
-        <li><a href="">消息中心</a><i>|</i></li>
-
-        <!--<li><a href=""><img class="shouy icon" src="{views:images/password/mobile.png}">手机版</a><i>|</i></li>-->
-
-        <li><a href="">在线客服</a><i>|</i></li>
-        <li>交易时间&nbsp;09:00-18:00</li>
-     </ul>  
-    </ul>
-</div>
-   <div class="toplog_bor">
-    <div class="m_log w1200">
-        <div class="logoimg_left">
-            <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
-            <div class="word_box">欢迎注册</div>
-        </div>
-         <div class="logoimg_right">
-            <img class="" src="{views:images/password/iphone.png}"> 
-            <h3>服务热线：<b>400-6238-086</b></h3>
-         </div>
-        
-    </div>
-   </div> 
-
-  <!-- <div class="banner-show" id="js_ban_content">
-    <div class="cell bns-01">
-      <div class="con"> </div>
-    </div>
-  </div> -->
-  <div class="regis_boxs">
-=======
-
->>>>>>> origin/zyn819
    <span style="display:none;"> {url:/login/doReg} </span>
     <div class="register"> 
       <div class="beinit">

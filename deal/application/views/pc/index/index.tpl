@@ -15,24 +15,25 @@
     <script src="{views:js/jquery.nav.js}" type="text/javascript"></script>
         <div id="inner">
             <div class="hot-event">
+            {set:$count = count($indexSlide)}
                 {foreach: items=$indexSlide}
-                <div class="event-item" style="{if:$key==0}display: block;{else:}display:none;{/if}background:#ddd">
-                    <a target="_blank" href="http://www.lanrentuku.com/">
+                <div class="event-item" style="{if:$key==0}display: block;{else:}display:none;{/if}background:{$item['bgcolor']}">
+                    <a target="_blank" href="javascript:;">
                         <img src="{$item['img']}" class="photo" style="width: 100%; height: 470px;margin:0 auto" alt="{$itme['name']}" />
                     </a>
                 </div>
                 {/foreach}
                 <div class="switch-tab">
-                    <a href="#" onclick="return false;" class="current">1</a>
-                    <a href="#" onclick="return false;">2</a>
-                    <a href="#" onclick="return false;">3</a>
-                    <a href="#" onclick="return false;">4</a>
-                    <a href="#" onclick="return false;">5</a>
+                    {foreach: items=$indexSlide}
+                    {set:$key++}
+                    <a href="javascript:;" onclick="return false;" {if:$key == 1} class="current"{/if}>{$key}</a>
+                    {/foreach}
                 </div>
             </div>
         </div>
         <script type="text/javascript">
-             $('#inner').nav({ t: 2000, a: 1000 });
+             var _c = {$count};
+             $('#inner').nav({ t: 2000, a: 1000, c: _c});
         </script>
         <!-- 代码 结束 -->
       </div>
@@ -489,12 +490,9 @@
                                 <div class="ShopPro_Con">
                                     {foreach: items=$statcProList}
                                     <div class="ShopPro_item clearfix">
-                                        {set:$gap = $item['ave_price']- $item['prev_price']}
-                                        <span class="ShopPro_text"><a href="#">{$item['name']}</a></span>
-                                        <span class="ShopPro_change i_TextRed"><img class="shja"
-                                                                                    {if:$gap>0}
-                                                                                    src="{views:images/index/icon_top.png}"{elseif:$gap<0}src="{views:images/index/icon_down.png}"{else:}src="{views:images/index/icon_line.png}"{/if}/>{echo:abs($item['ave_price']-$item['prev_price'])}</span>
-                                        <span class="ShopPro_price i_TextRed">￥{$item['ave_price']}</span>
+                                        <span class="ShopPro_text"><a href="javascript:;">{$item['name']}</a></span>
+                                        <span class="ShopPro_change i_TextRed"><img class="shja" {if:$item['change_range'] == 0}src="{views:images/index/icon_line.png}"{elseif:abs($item['change_range']) <> $item['change_range']}src="{views:images/index/icon_down.png}"{else:}src="{views:images/index/icon_top.png}"{/if}/>{echo:abs($item['change_range'])}%</span>
+                                        <span class="ShopPro_price i_TextRed">￥{$item['price']}</span>
                                     </div>
                                     {/foreach}
                                 </div>

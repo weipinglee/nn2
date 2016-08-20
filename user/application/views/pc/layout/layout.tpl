@@ -18,9 +18,9 @@
       </ul>
       <ul class="topnav_right">
         <!--<li><a href="">会员中心</a><i>|</i></li>
-        <li><a href="">我的合同</a><i>|</i></li>-->
+        <li><a href="">我的合同</a><i>|</i></li>
         <li><a href="">消息中心</a><i>|</i></li>
-        <!--<li><a href=""><img class="shouy icon" src="{views:images/password/mobile.png}">手机版</a><i>|</i></li>-->
+        <li><a href=""><img class="shouy icon" src="{views:images/password/mobile.png}">手机版</a><i>|</i></li>-->
         <li><a href="">在线客服</a><i>|</i></li>
         <li>交易时间&nbsp;09:00-18:00</li>
      </ul>  
