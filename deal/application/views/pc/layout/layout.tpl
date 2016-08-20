@@ -135,16 +135,30 @@ z-index:1000;">
         <script type="text/javascript" src="{views:js/search&floor.js}"></script>
         <div class="searchbox">
             <div class="search_xz">
-                <select class="search_select">
-                    <option>供应</option>
-                    <option>求购</option>
+                <select class="search_select" name="type">
+                    <option value="gong" {if:isset($searchtype) && $searchtype==1}selected{/if}>供应</option>
+                    <option value="qiu" {if:isset($searchtype) && $searchtype==2}selected{/if}>求购</option>
                 </select>
             </div>
             <div class="bodys">
-                <p class="keyword_0"><input type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="product.html"><button class="one1">搜索</button></a></p>
-                <p class="keyword_1" style="display: none"><input type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="product.html"><button class="two2">搜索</button></a></p>
+                <p class="keyword_0"><input type="text" {if:isset($search)}value="{$search}"{/if} name="content" placeholder="请输入关键词查询" value="" id=""  /><a href="javascript:void(0)" onclick="searchGoods()"><button class="one1">搜索</button></a></p>
             </div>
         </div>
+
+        <script type="text/javascript">
+            function searchGoods(){
+                var type = $('select[name=type]').val();
+                var content = $('input[name=content]').val();
+                if(content=='')return false;
+                window.location.href='{url:/offers/offerList}/type/'+type+'/content/'+content;
+            }
+            document.onkeydown=function(event){
+                e = event ? event :(window.event ? window.event : null);
+                if(e.keyCode==13){
+                    searchGoods();
+                }
+            }
+        </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
         </div>
