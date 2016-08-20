@@ -200,14 +200,6 @@ z-index:1000;">
                         {/foreach}
                     </li>
                 {/foreach}
-                <li class="footer_li">
-                    <a class="fotter_div" href="http://corp.nainaiwang.com/aboutUs.aspx" target="_blank"><b>联系我们</b></a>
-                    <a class="fotter_a" target="_blank">021-52688872</a>
-                    <a class="fotter_a" target="_blank">400-6738-086</a>
-                    <a class="fotter_a" target="_blank">021-80356106</a>
-                    <a class="fotter_a" target="_blank">13603560985</a>
-                    <a class="fotter_a" target="_blank">service#nainaiwang.com</a>
-                </li>
 
             </ul>
             <ul class="ewm_ul">

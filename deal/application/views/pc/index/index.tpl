@@ -261,7 +261,7 @@
                                             <span class="i_w_3">
                                                   {$pro['mode']}
                                             </span>
-                                            <span class="i_w_4" id="area{$pid}">{set:$id='area'.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
+                                            <span class="i_w_4" id="area{$key}{$pid}">{set:$id='area'.$key.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
                                             <span class="i_w_5">{$pro['accept_area']}</span>
                                             <span class="i_w_6">{$pro['quantity']}</span>
                                             <span class="i_w_7">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
@@ -310,14 +310,11 @@
                            <link rel="stylesheet" href="{views:css/swiper.min.css}">
                              <div class="slider4">
                                   <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
                                 </div>
              
                             <!-- Swiper JS -->
@@ -509,48 +506,17 @@
                                 <div class="i_left_title " name="1" id="item3">推荐商家</div>
                             </div>
 
-                          <!--   <div class="i_leftCon">
-                                <div class="swiper-container2 swiper-container-horizontal">
-                                    <div class="swiper-wrapper">
-                                        {foreach:items=$allCompany}
-                                    <div class="swiper-slide">
-                                        <div class="commercial">
-                                            <div class="commercial_title">
-                                                <img src="{views:images/index/comm_logo.jpg}">
-                                                <b>{$item['company_name']}</b>
-                                            </div>
-                                            <div class="main_chanp">
-                                                <b>主营：
-                                                   <span>{$item['business']}</span>
-                                                </b>
-                                            </div>
-                                            <div class="base_infor">
-                                                <p>{$item['contact']}&nbsp;{$item['contact_phone']}</p>
-                                                <p>{areatext: data=$item['area'] id=areat }</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   {/foreach}
-                               </div>
-                               
-                                Add Arrows
-                               <div class="swiper-button-next"></div>
-                               <div class="swiper-button-prev"></div> 
-                            </div>                                            
-                            </div> -->
                            
 
                              <div class="slider2">
                                  
                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>  
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
                                 
                              </div>
                                 <script type="text/javascript">
