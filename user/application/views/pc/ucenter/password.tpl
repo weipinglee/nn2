@@ -11,7 +11,7 @@
 							<span class="con_tit"><i>*</i>原始密码：</span>
 							<span><input class="text" type="password" datatype="*6-15" name="old_pass"/></span>
 							<span></span>
-							<span><a style="color:#d61515;">忘记密码？</a></span>
+							<span><a style="color:#d61515;" href="{url:/login/PasswordReset}">忘记密码？</a></span>
 						</div>
 						<div class="zhxi_con">
 							<span class="con_tit"><i>*</i>新密码：</span>
