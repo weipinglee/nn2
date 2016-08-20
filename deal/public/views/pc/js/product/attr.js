@@ -128,7 +128,7 @@ function getCategory(cond){
 
             layer.closeAll();
             getting = false;
-            
+
         },
         error : function(){
             getting = false;

@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>注册</title>
-  <meta name="keywords"/>
-  <meta name="description"/>
-  <meta charset="utf-8">
+
   <link href="{views:css/password_new.css}" rel="stylesheet">
   <link href="{views:css/reg.css}" rel="stylesheet" type="text/css" />
   <link href="{views:css/city.css}" rel="stylesheet" type="text/css">
@@ -16,6 +10,7 @@
   <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
     <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
     <script type="text/javascript" src="{views:js/common.js}"></script>
+<<<<<<< HEAD
 </head>
 <body>
 
@@ -63,6 +58,9 @@
     </div>
   </div> -->
   <div class="regis_boxs">
+=======
+
+>>>>>>> origin/zyn819
    <span style="display:none;"> {url:/login/doReg} </span>
     <div class="register"> 
       <div class="beinit">
@@ -302,12 +300,4 @@
     });
 
 </script>
-    <div class="w1200 secondaryend">
-    <p>Copyright 2014-2016 耐耐云商科技有限公司 www.nainaiwang.cn All Rights Reserved </p>
-    <p>
-        <a href="#" target="_blank" style="color: #666666;">沪ICP备15028925号</a>
-        <a href="#" target="_blank" style="color: #006aa8;">ICP许可证</a>
-    </p>
-</div>
-</body>
-</html>
+

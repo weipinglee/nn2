@@ -19,6 +19,7 @@ use \Library\Hsms;
 class LoginController extends \Yaf\Controller_Abstract {
 
 	public function init(){
+        $this->getView()->setLayout('layout');
 		//echo $this->getViewPath();
 	}
 	/** 
