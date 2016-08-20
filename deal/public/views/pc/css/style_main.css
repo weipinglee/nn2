@@ -1222,13 +1222,16 @@
 }
 
 /*化塑汇服务*/
-.i_service{
-	/*margin: 15px 0 0 0;
-	padding: 0 0 30px 0;*/
-	width: 1190px;
-	margin: 0 auto;
+.i_service.clearfix {
+    width: 100%;
+    margin: 0 auto;
 }
-/*.i_service span{
+.iServiceCon.clearfix {
+    width: 1190px;
+    margin: 0 auto;
+}
+/*.i_service 
+span{
 	border-bottom: 2px solid #ccc;
     height: 24px;
     line-height: 24px;

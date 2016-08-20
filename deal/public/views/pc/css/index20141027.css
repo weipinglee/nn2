@@ -1826,7 +1826,8 @@ a.close:hover {
 }
 .div_flink ul li.ul_tit{
     width: 155px;
-    font-size: 18px;
+    font-size: 16px;
+    color: #666;
 }
 .div_flink ul li.li_txt a.li_a{
     padding: 0 15px;

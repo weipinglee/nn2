@@ -73,10 +73,7 @@ z-index:1000;">
 
             <div class="index_user">
             {if:$username}
-
-            您好，
-                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">{$username}</a>
-
+                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">您好{$username}，欢迎进入耐耐网</a>
                 {else:}
                 <span>您好，欢迎进入耐耐网</span>
                 {/if}
@@ -101,16 +98,16 @@ z-index:1000;">
                    <a href="{url:/ucenterindex/index@user}">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
-                   <a href="{url:/contract/buyerList@user}">我的合同</a><span class="line_l">|<span>
+                   <a href="{url:/contract/buyerList}">我的合同</a><span class="line_l">|<span>
                 </li>
                 {/if}
                 <li>
                     <a href="{url:/message/usermail@user}">消息中心</a><span class="line_l">|<span>
                 </li>
-                <!--<li>
+                <li>
                     <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
-                    <a href="">手机版</a><span class="line_l">|<span>
-                </li>-->
+                    <!--<a href="">手机版</a><span class="line_l">|<span>-->
+                </li>
                 <li>
                     <a href="" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><span class="line_l">|<span>
                 </li>
@@ -138,30 +135,16 @@ z-index:1000;">
         <script type="text/javascript" src="{views:js/search&floor.js}"></script>
         <div class="searchbox">
             <div class="search_xz">
-                <select class="search_select" name="type">
-                    <option value="gong" {if:isset($searchtype) && $searchtype==1}selected{/if}>供应</option>
-                    <option value="qiu" {if:isset($searchtype) && $searchtype==2}selected{/if}>求购</option>
+                <select class="search_select">
+                    <option>供应</option>
+                    <option>求购</option>
                 </select>
             </div>
             <div class="bodys">
-                <p class="keyword_0"><input type="text" {if:isset($search)}value="{$search}"{/if} name="content" placeholder="请输入关键词查询" value="" id=""  /><a href="javascript:void(0)" onclick="searchGoods()"><button class="one1">搜索</button></a></p>
+                <p class="keyword_0"><input type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="product.html"><button class="one1">搜索</button></a></p>
+                <p class="keyword_1" style="display: none"><input type="text" placeholder="请输入关键词查询" value="" id=""  /><a href="product.html"><button class="two2">搜索</button></a></p>
             </div>
         </div>
-
-        <script type="text/javascript">
-            function searchGoods(){
-                var type = $('select[name=type]').val();
-                var content = $('input[name=content]').val();
-                if(content=='')return false;
-                window.location.href='{url:/offers/offerList}/type/'+type+'/content/'+content;
-            }
-            document.onkeydown=function(event){
-                e = event ? event :(window.event ? window.event : null);
-                if(e.keyCode==13){
-                    searchGoods();
-                }
-            }
-        </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
         </div>
@@ -197,7 +180,7 @@ z-index:1000;">
             <ul>
                 {foreach: items=$helpList2}
                     <li class="footer_li">
-                        <a class="fotter_div"  target="_blank"><b>{$item['name']}</b></a>
+                        <a class="fotter_div" " target="_blank"><b>{$item['name']}</b></a>
                         {foreach: items=$item['data'] item=$v key=$k}
                             <a class="fotter_a" href="{url:/help/help}?cat_id={$v['cat_id']}&id={$v['id']}" target="_blank">{$v['name']}</a>
                         {/foreach}
@@ -215,12 +198,16 @@ z-index:1000;">
             </ul>
             <ul class="ewm_ul">
                 <li class="ewm_li">
-                    <div class="fotter_div" target="_blank"><b>关注耐耐网微信</b></div>
-                    <div><img src="{views:images/index/ewm.jpg}"></div>
+                    <div class="fotter_div" target="_blank"><b>关注耐火频道</b></div>
+                    <div><img src="{views:images/index/a_naih.png}"></div>
                 </li>
                 <li class="ewm_li">
-                    <div class="fotter_div" target="_blank"><b>关注耐耐网微博</b></div>
-                    <div><img src="{views:images/index/ewm.jpg}"></div>
+                    <div class="fotter_div" target="_blank"><b>关注耐耐网</b></div>
+                    <div><img src="{views:images/index/a_nain.png}"></div>
+                </li>
+                <li class="ewm_li">
+                    <div class="fotter_div" target="_blank"><b>关注建材频道</b></div>
+                    <div><img src="{views:images/index/a_jianc.png}"></div>
                 </li>
             </ul>
         </div>

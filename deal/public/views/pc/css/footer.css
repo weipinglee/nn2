@@ -81,7 +81,7 @@ a:hover {
 #footer .footer_link ul li.footer_li{
 	float: left;
 	margin: 60px 0;
-    width: 180px;
+    width: 155px;
 }
 #footer .footer_link ul li.footer_li a.fotter_a{
     display: block;
@@ -91,7 +91,7 @@ a:hover {
     font-family: '微软雅黑';
 }
 #footer .footer_link ul li.footer_li a.fotter_a{
-    color: #c81623;
+    color: #b1b1b1;
 }
 #footer .footer_link ul li.footer_li a.fotter_div{
 	text-align: left;
@@ -109,7 +109,11 @@ a:hover {
 }
 #footer .footer_link ul.ewm_ul li.ewm_li{
 	float: right;
-	margin: 50px 20px ;
+	margin: 50px 10px ;
+}
+#footer .footer_link ul.ewm_ul li.ewm_li img{
+    width: 120px;
+    height: 120px;
 }
 #footer .footer_link ul.ewm_ul li div.fotter_div{
 	padding-bottom: 20px;
