@@ -10,7 +10,7 @@
 					<div class="zhxi_con">
 						<span class="con_tit"><i>*</i>原支付密码：</span>
 						<span><input class="text" type="password"  name="ori_secret" datatype='*6-10' errormsg='6-10位支付密码'/>
-							<span>忘记原密码？试试<a style="color:#d61515;">申诉找回</a></span>
+							<span>忘记原密码？试试<a style="color:#d61515;" href="{url:/ucenter/paysecrets}">申诉找回</a></span>
 					</div>
 					<div class="zhxi_con">
 						<span class="con_tit"><i>*</i>新支付密码：</span>

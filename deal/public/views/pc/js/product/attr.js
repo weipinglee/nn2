@@ -36,8 +36,13 @@ $(document).ready(function(){
 
 })
 
+var getting = false;
 //异步获取商品信息
 function getCategory(cond){
+    if(getting){
+        return false;
+    }
+    getting = true;
     var area = 0;
     var search = '';
     var offertype = 0;
@@ -122,9 +127,11 @@ function getCategory(cond){
             }
 
             layer.closeAll();
+            getting = false;
 
-
-
+        },
+        error : function(){
+            getting = false;
         },
         complete:function(){
 
