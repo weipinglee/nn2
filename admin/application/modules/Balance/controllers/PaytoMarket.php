@@ -16,7 +16,6 @@ class PaytoMarketController extends InitController {
 	}
 
 	public function indexAction(){
-		// $this->object->paytoMarket('112','1','1','2','26.00','测试');exit;
 		$page = Safe::filterGet('page','int',1);
 
 		$list = $this->object->paylist($page);

@@ -42,6 +42,11 @@ class paytoMarket{
 		$query->page = $page;
 		$query->order = 'p.create_time desc';
 		$res = $query->find();
+		$product = new \nainai\offer\product();
+		foreach ($res['list'] as $key => &$value) {
+			$value['charge_type_text'] = $this->getCharge(intval($value['charge_type']));
+			$value['mode_text'] = $product->getMode($value['offer_type']);
+		}
 		return $res;
 	}
 
