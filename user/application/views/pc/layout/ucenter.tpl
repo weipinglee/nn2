@@ -38,7 +38,7 @@
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="{views:images/icon/icon_index.png}"/>
-                <a rel="external nofollow" href="{url:/index/index}" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="{url:/index/index@deal}" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
@@ -74,12 +74,12 @@
                 <li>
                     <a href="{url:/message/usermail@user}">消息中心</a><span class="line_l">|<span>
                 </li>
-                <li>
+                <!--<li>
                     <img class="iphon_img" src="{views:images/icon/icon_iphon.png}"/>
-                    <!--<a href="">手机版</a><span class="line_l">|<span>-->
-                </li>
+                    <a href="">手机版</a><span class="line_l">|<span>
+                </li>-->
                 <li>
-                    <a href="" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><span class="line_l">|<span>
+                    <a href="javascript:;" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><span class="line_l">|<span>
                 </li>
                 <li>
                     <span>交易时间：09:00--18:00</span>
