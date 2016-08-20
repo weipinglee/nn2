@@ -113,10 +113,12 @@ class tradeController extends \nainai\controller\Base {
 		$order = new M('order_sell');
 		try {
 			$order->beginTrans();
+
 			$gen_res = $order_mode->geneOrder($orderData);
 			if($gen_res['success'] == 1){
 				$order_id = $gen_res['order_id'];
 				if($offer_type == order\Order::ORDER_FREE || $offer_type == order\Order::ORDER_ENTRUST){
+
 					$order->commit();
 					
 					$amount = $order->where(array('id'=>$order_id))->getfield('amount');

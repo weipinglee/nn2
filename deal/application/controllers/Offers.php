@@ -127,7 +127,7 @@ class OffersController extends PublicController {
 		$pro = new \nainai\offer\product();
 
 		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
-
+		// echo '<pre>';var_dump($info);
 		//判断下是否能够申请保险
 		if($info['insurance'] == 0){
 			//已经申请了的不能在申请

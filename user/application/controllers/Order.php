@@ -134,7 +134,7 @@ class OrderController extends UcenterBaseController{
 	//显示合同信息
 	public function sellerVerifyPageAction(){
 		$order_id = safe::filter($this->_request->getParam('order_id'));
-		$info = $this->order->contractDetail($order_id);
+		$info = $this->order->contractDetail($order_id,'seller');
 		$this->getView()->assign('info',$info);	
 	}
 
