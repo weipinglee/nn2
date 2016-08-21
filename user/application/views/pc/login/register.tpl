@@ -11,6 +11,24 @@
     <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
     <script type="text/javascript" src="{views:js/common.js}"></script>
    <span style="display:none;"> {url:/login/doReg} </span>
+   
+
+   <div class="toplog_bor none">
+    <div class="m_log w1200">
+        <div class="logoimg_left">
+            <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
+            <div class="word_box">欢迎注册</div>
+
+  
+
+        </div>
+         <div class="logoimg_right">
+            <img class="shouy" src="{views:images/password/iphone.png}"> 
+            <h3>服务热线：<b>400-6238-086</b></h3>
+         </div>
+        
+    </div>
+   </div> 
     <div class="register"> 
       <div class="beinit">
         <span>已有账号?</span><a href="{url:/login/login}">立即登录</a>
