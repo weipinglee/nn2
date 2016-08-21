@@ -165,8 +165,8 @@
                                       <a href="javascript:void(0)" class="submit_chag"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？">撤销报盘</a>
                                   </div>
                                   {/if}
-                                    {if:$offer['status'] == \nainai\offer\product::OFFER_NG}
-                                        <a class="submit_chag"  href="{url:/managerdeal/updateOffer?id=$offer['id']}" >修改<a/>
+                                    {if:isset($updateUrl)}
+                                        <a class="submit_chag"  href="{$updateUrl}" >修改<a/>
                                     {/if}
                                 </td>
                             </tr>

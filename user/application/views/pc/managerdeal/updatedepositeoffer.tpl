@@ -45,14 +45,14 @@
                 {/foreach}
             {/if}
 
-
-            <form action="{url:/ManagerDeal/doUpdateOffer}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
+            <form action="{url:/ManagerDeal/doDepositeOffer}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
                 {include:/layout/product.tpl}
                 <tr>
                     <td></td>
                     <td colspan="2" class="btn">
+                        <input type="hidden" name="offer_id" value="{$offer['id']}" />
                         <input type="hidden" name='cate_id' id="cate_id" value="{$product['cate_id']}">
-
+                        <input type="hidden" name="token" value="{$token}" />
                         <input  type="submit"  value="提交审核" />
                         <span class="color"></span>
                     </td>

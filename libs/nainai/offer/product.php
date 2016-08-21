@@ -708,5 +708,27 @@ class product  {
     }
 
 
+    /**
+     * 删除报盘
+     * @param int $id 报盘id
+     */
+    public function delOffer($id){
+        if(intval($id)>0){
+            $this->_productObj->table('product_offer');
+            $product_id = $this->_productObj->where(array('id'=>$id))->getField('product_id');
+            $this->_productObj->beginTrans();
+            $this->_productObj->where(array('id'=>$id))->delete();
+            $this->_productObj->table('products')->where(array('id'=>$product_id))->delete();
+            $this->_productObj->table('product_photos')->where(array('id'=>$product_id))->delete();
+            $res = $this->_productObj->commit();
+            return $res;
+        }
+        return true;
+
+
+
+    }
+
+
 
 }

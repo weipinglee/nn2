@@ -141,6 +141,11 @@ class ManagerDealController extends UcenterBaseController {
                  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $res = $this->offerCheck();
             if($res !== true) die($res);
+            $offer_id = safe::filterPost('offer_id','int',0);
+            $offerObj = new freeOffer($this->user_id);
+            if($offer_id){//更新的情况，删除原有报盘
+                $offerObj->delOffer($offer_id);
+            }
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
@@ -163,7 +168,7 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData['risk'] = '';
             }
 
-            $offerObj = new freeOffer($this->user_id);
+
             $productData = $this->getProductData();
             if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
                 $offerData['minimum'] = $productData[0]['quantity'];
@@ -200,7 +205,11 @@ class ManagerDealController extends UcenterBaseController {
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
                  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
-
+            $offer_id = safe::filterPost('offer_id','int',0);
+            $depositObj = new depositOffer($this->user_id);
+            if($offer_id){//更新的情况，删除原有报盘
+                $depositObj->delOffer($offer_id);
+            }
             $res = $this->offerCheck();
             if($res !== true) die($res);
             $offerData = array(
@@ -222,7 +231,7 @@ class ManagerDealController extends UcenterBaseController {
             if(!$offerData['risk']){
                 $offerData['risk'] = '';
             }
-            $depositObj = new depositOffer($this->user_id);
+
             $productData = $this->getProductData();
 
             if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
@@ -440,10 +449,11 @@ class ManagerDealController extends UcenterBaseController {
         if (IS_POST) {
 
             $token = safe::filterPost('token');
-             if(!safe::checkToken($token))
-                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            // if(!safe::checkToken($token))
+             //    die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
+
             $storeObj = new \nainai\store();
             $res = $this->offerCheck();
             if($res !== true) die($res);
@@ -656,11 +666,23 @@ class ManagerDealController extends UcenterBaseController {
         if (intval($id) > 0) {
             $productModel = new ProductModel();
             $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
+            print_r($offerDetail);
             if ($offerDetail[0]['insurance'] == 1) {
                 $risk = new \nainai\insurance\Risk();
                 $riskData = $risk->getRiskDetail($offerDetail[0]['risk']);
                 $this->getView()->assign('riskData',$riskData);
             }
+
+            if($offerDetail[0]['status'] == $productModel::OFFER_NG){
+                if($offerDetail[0]['mode'] == $productModel::DEPOSIT_OFFER)
+                    $updateUrl = url::createUrl('/managerdeal/updatedepositeoffer?id='.$offerDetail[0]['id']);
+                if($offerDetail[0]['mode'] == $productModel::FREE_OFFER)
+                    $updateUrl = url::createUrl('/managerdeal/updatefreeoffer?id='.$offerDetail[0]['id']);
+                if($offerDetail[0]['mode'] == $productModel::STORE_OFFER)
+                    $updateUrl = url::createUrl('/managerdeal/updatestoreoffer?id='.$offerDetail[0]['id']);
+                $this->getView()->assign('updateUrl',$updateUrl);
+            }
+
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
 
@@ -675,7 +697,9 @@ class ManagerDealController extends UcenterBaseController {
     /**
      * 修改报盘
      */
-    public function updateOfferAction(){
+    public function updateFreeOfferAction(){
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
         $id = $this->getRequest()->getParam('id');
         $id = Safe::filter($id, 'int', 0);
         if($id){
@@ -699,46 +723,35 @@ class ManagerDealController extends UcenterBaseController {
     }
 
     /**
-     * 更新报盘操作
+     * 修改报盘
      */
-    public function doUpdateOfferAction(){
-        if(IS_POST){
-            $res = $this->offerCheck();
-            if($res !== true) die($res);
-            $offerData = array(
-                'apply_time'  => \Library\Time::getDateTime(),
-                'divide'      => safe::filterPost('divide', 'int'),
-                'minimum'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minimum', 'float') : 0,
-                'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
-
-                'accept_area' => safe::filterPost('accept_area'),
-                'accept_day' => safe::filterPost('accept_day', 'int'),
-                'price'        => safe::filterPost('price', 'float'),
-                'insurance' => Safe::filterPost('insurance', 'int',''),
-
-                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
-                'expire_time' =>  Safe::filterPost('expire_time'),
-                'other' => Safe::filterPost('other'),
-                // 'acc_type'   => 1,
-            );
-            if(!$offerData['risk']){
-                $offerData['risk'] = '';
+    public function updateDepositeOfferAction(){
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
+        $id = $this->getRequest()->getParam('id');
+        $id = Safe::filter($id, 'int', 0);
+        if($id){
+            $productModel = new ProductModel();
+            $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
+            $cate_sel = array();//商品所属的各级分类
+            foreach($offerDetail[1]['cate'] as $k=>$v){
+                $cate_sel[] = $v['id'];
             }
-            $depositObj = new depositOffer($this->user_id);
-            $productData = $this->getProductData();
+            $pro = new \nainai\offer\product();
+            $categorys = $pro->getCategoryLevelSpec($cate_sel);
 
-            if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
-                $offerData['minimum'] = $productData[0]['quantity'];
-            }
+            $this->getView()->assign('attr',json::encode($offerDetail[1]['attribute']));
+            unset($offerDetail[1]['attribute']);
 
-            $res = $depositObj->doOffer($productData,$offerData);
-
-            echo json::encode($res);
-            exit;
+            $this->getView()->assign('offer',$offerDetail[0]);
+            $this->getView()->assign('product',$offerDetail[1]);
+            $this->getView()->assign('categorys',$categorys);
+            $this->getView()->assign('cate_sel',$cate_sel);
         }
-        else
-            return false;
     }
+
+
+
 
     /**
      * 撤销报盘
@@ -764,7 +777,61 @@ class ManagerDealController extends UcenterBaseController {
         }
         exit(json::encode(tool::getSuccInfo(0, 'Error id')));
     }
-   
+
+    /**
+     * 修改仓单报盘页面
+     */
+    public function updateStoreofferAction(){
+        $id = $this->getRequest()->getParam('id');
+        $id = Safe::filter($id, 'int', 0);
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
+        if($id){
+            $productModel = new ProductModel();
+            $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
+            $storeP = new \Library\M('store_products');
+            $storeProduct = $storeP->where(array('product_id'=>$offerDetail[0]['product_id']))->getObj();
+            $this->getView()->assign('storeproduct',$storeProduct);
+
+            $this->getView()->assign('offer',$offerDetail[0]);
+            $this->getView()->assign('product',$offerDetail[1]);
+        }
+    }
+
+    /**
+     * 仓单报盘修改提交
+     */
+    public function doUpdateStoreOfferAction(){
+        if(IS_POST){
+            $token = safe::filterPost('token');
+            if(!safe::checkToken($token))
+                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            if($id = safe::filterPost('offer_id','int',0)){
+                $offerData = array(
+                    'apply_time'  => \Library\Time::getDateTime(),
+                    'divide'      => Safe::filterPost('divide', 'int'),
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'float') : 0,
+                    'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
+                    'status'      => 0,
+                    'accept_area' => Safe::filterPost('accept_area'),
+                    'accept_day' => Safe::filterPost('accept_day', 'int'),
+                    'price'        => Safe::filterPost('price', 'float'),
+                    'user_id'     => $this->user_id,
+                    'insurance' => Safe::filterPost('insurance', 'int'),
+                    'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+                );
+
+                $obj = new \Library\M('product_offer');
+                $res = $obj->where(array('id'=>$id))->data($offerData)->update();
+                if($res){
+                    die(json::encode(tool::getSuccInfo()));
+                }
+
+            }
+
+        }
+        die(json::encode(tool::getSuccInfo(0,'修改失败')));
+    }
 
     /**
      * 打印预览

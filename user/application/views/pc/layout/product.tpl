@@ -155,7 +155,7 @@
             <span></span>
         </td>
     </tr>
-    <tr class='nowrap' style="display: none">
+    <tr class='nowrap' {if:!isset($offer['divide']) || $offer['divide']==0}style="display: none"{/if}>
         <td nowrap="nowrap" ><span>*</span>最小递增量：</td>
         <td>
             <span><input name="minstep" id="" type="text" class="text" value="{$offer['minstep']}" /></span>
