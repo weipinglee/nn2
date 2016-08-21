@@ -128,7 +128,7 @@ z-index:1000;">
     <div class="page_width">
         <div class="index_logo">
             <h1>
-                <a href="http://www.nainaiwang.com/"></a>
+                <a href="{url:/index/index}"></a>
             </h1>
         </div>
 
@@ -220,7 +220,7 @@ z-index:1000;">
     </div>
     <div class="fotter_bq ">
         <div>
-            Copyright&nbsp;&nbsp; © 2009-2016&nbsp;&nbsp;<a href="http://www.nainaiwang.com/" target="_blank" >nainaiwang.com</a>&nbsp;耐耐云商科技有限公司&nbsp;
+            Copyright&nbsp;&nbsp; © 2009-2016&nbsp;&nbsp;<a href="{url:/index/index}" target="_blank" >nainaiwang.com</a>&nbsp;耐耐云商科技有限公司&nbsp;
             版权所有
         </div>
         <div>

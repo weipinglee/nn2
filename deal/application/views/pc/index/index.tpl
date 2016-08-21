@@ -418,7 +418,7 @@
                                         },
                                         credits:{
                                             text:'耐耐网',
-                                            href:'www.nainaiwang.com'
+                                            href:'{url:/index/index}'
                                         },
                                         subtitle: {
                                             text: 'www.nainaiwang.com',
