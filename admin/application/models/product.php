@@ -158,4 +158,10 @@ class productModel extends baseModel{
 
 	}
 
+	public function getAllAttr(){
+		$obj = new M('product_attribute');
+		return $obj->where(array('status'=>1))->select();
+
+	}
+
 }

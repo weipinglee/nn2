@@ -74,7 +74,7 @@
               <input type="hidden" name="attrs[]" value="2"/> -->
               <select id='all_attr'>
                   {if:!empty($attr)}
-                      {foreach: items=$attr['list']}
+                      {foreach: items=$attr}
                           <option value="{$item['id']}">{$item['name']}</option>
 
                       {/foreach}

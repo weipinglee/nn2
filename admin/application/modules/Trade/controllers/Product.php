@@ -41,7 +41,7 @@ class productController extends InitController{
             $cate_id  = $this->getRequest()->getParam('cid',0);
             $cate_id = safe::filter($cate_id,'int');
             //??ȡ????????
-            $attr = $productModel->getAttr();
+            $attr = $productModel->getAllAttr();
             if($cate_id){
                 $temp = array();
                 foreach($attr['list'] as $v)
