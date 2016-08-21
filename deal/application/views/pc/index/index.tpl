@@ -226,7 +226,7 @@
                                 {/foreach}
                        <!--         <li class="li_select" onclick="showOffers(1,$(this))"><a href="javascript:void(0)"><em></em><span></span>冶金化工市场</a></li>
                             </ul> -->
-                            <span class="i_more"><a rel="http://new.nainaiwang.com/index/index" href="http://new.nainaiwang.com/offers/offerlist">更多&gt;&gt;</a></span>
+                            <span class="i_more"><a rel="{url:/offers/offerlist}" href="{url:/offers/offerlist}">更多&gt;&gt;</a></span>
                         </div>
 
                         <div class="i_leftCon" id="offer_list">
@@ -266,12 +266,12 @@
                                             <span class="i_w_6">{$pro['quantity']}</span>
                                             <span class="i_w_7">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
                                             <span class="i_w_8">￥{$pro['price']}</span>
-                                            <span class="i_w_9">                                                   {if:$pro['qq']!=''}
-
-                                                    <a href="tencent://message/?uin={$pro['qq']}&Site=qq&Menu=yes"><img src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                            <span class="i_w_9">
+                                                {if:$pro['qq']!=''}
+                                                    <a href="tencent://message/?uin={$pro['qq']}&Site=qq&Menu=yes"><img style="vertical-align:middle;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
                                                     </a>
                                                         {else:}
-                                                        <img style="visibility:hidden;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                                                         <img style="vertical-align:middle;" src="{views:images/icon/QQgray16X16.png}" class="ser_img"/>
                                                     </a>
 
                                                 {/if}

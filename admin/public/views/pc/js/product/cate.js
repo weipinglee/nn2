@@ -13,7 +13,7 @@ function addAttr(){
     if(end)
         return false;
     var attr_input = $('.attr').clone();
-    attr_input.find('input').eq(0).val(attr_text);
+    attr_input.find('input').eq(0).val(attr_text).attr('readonly', 'readonly');
     attr_input.find('input').eq(1).val(attr_id).attr('name','attr_id[]');
     attr_input.css('display','block').removeClass('attr');
     attr_input.find('a').bind('click',delAttr);
