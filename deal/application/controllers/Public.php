@@ -35,6 +35,10 @@ class PublicController extends \Yaf\Controller_Abstract{
           $this->getView()->assign('frdLinkList',$frdLinkList);
           if($isLogin){
                $this->login = \Library\session::get('login');
+               //获取未读消息
+               $messObj=new \nainai\message($this->login['user_id']);
+               $mess=$messObj->getCountMessage();
+               $this->getView()->assign('mess',$mess);
                $this->getView()->assign('login',1);
                $this->getView()->assign('username',$this->login['username']);
           }

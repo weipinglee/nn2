@@ -66,7 +66,7 @@ class fundBankModel extends \nainai\user\UserBank{
      * @param $user_id
      * @param $status
      */
-    public function bankVerify($user_id,$status){
+    public function bankVerify($user_id,$status,$message){
         $log = new \Library\log();
         $bankObj = new M($this->table);
         $data = $bankObj->where(array('user_id'=>$user_id))->getObj();
@@ -76,6 +76,7 @@ class fundBankModel extends \nainai\user\UserBank{
             $admin_data = \Library\session::get('admin');
             $updateData['check_admin'] = $admin_data['id'];
             $updateData['check_time'] = \Library\time::getDateTime();
+            $updateData['message']=$message;
             if($status==1){
                 $updateData['status'] = self::BANK_OK;
             }

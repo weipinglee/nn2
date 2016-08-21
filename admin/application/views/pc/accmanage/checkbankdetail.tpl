@@ -83,11 +83,17 @@
 
             </tr>
             <tr>
-                 <th>处理结果</th>
+                 <th>审核意见</th>
                   <th scope="col" colspan="7">
-                  <input  type="hidden" name="id" value="{$bank['user_id']}" />
+                      <textarea name='message'></textarea>
+                 </th>
+             </tr>
+             <tr>
+                 <th>处理结果</th>
+                 <th scope="col" colspan="7">
+                     <input  type="hidden" name="id" value="{$bank['user_id']}" />
                      <label><input type="radio" name="status" value="1" checked/>通过</label>
-                      <label><input type="radio" name="status" value="0"/>不通过</label>
+                     <label><input type="radio" name="status" value="0"/>不通过</label>
 
 
                  </th>
