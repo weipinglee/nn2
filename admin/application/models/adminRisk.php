@@ -69,8 +69,8 @@ class adminRiskModel
             if($force==true){
                 $params['status']=1;
             }
+            $params['login_times']=$addInfo['login_times']+1;
             if($userRiskObj->data($params)->where($where)->update()){
-                $userRiskObj->setInc('login_times');
                 return tool::getSuccInfo(1,'修改成功');
             }else{
                 return tool::getSuccInfo(0,'修改失败');

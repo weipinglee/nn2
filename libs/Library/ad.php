@@ -54,12 +54,12 @@ class ad
 
         if(is_int($position))
         {
-            $where=array('id'=>$position);
+            $where=array('id'=>$position,'status'=>1);
             return $adPositionDB->where($where)->getObj();
         }
         else
         {  // echo 4;
-            $where=array('name'=>$position);
+            $where=array('name'=>$position,'status'=>1);
             return $adPositionDB->where($where)->getObj();
         }
     }
