@@ -40,7 +40,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 * 注册协议
 	 */
 	public function agreementAction(){
-
+		$this->getView()->setLayout('');
 	}
 
 
