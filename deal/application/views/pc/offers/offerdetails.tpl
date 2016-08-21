@@ -32,7 +32,7 @@
                     </ul>
                     {if:!empty($kefu)}
                     <div class="link_style">
-                        <h5><a href="tencent://message/?uin={$kefu['qq']}&Site=qq&Menu=yes"><img src="{views:images/order/bj_kefu.png}" alt="" /><span>联系客服</span></a></h5>
+                        <h5><a href="tencent://message/?uin={$kefu['qq']}&Site=qq&Menu=yes"><img src="{views:images/order/QQ24x21.png}" alt="" style="width: 24px; height: 21px;" /><span>联系客服</span></a></h5>
                         <!-- <h5><a href=""><img src="images/order/bj_shouc.png" alt="" /><span>收藏产品</span></a></h5> -->
                     </div>
                     {/if}

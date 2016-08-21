@@ -21,7 +21,7 @@
         <li><a href="">我的合同</a><i>|</i></li>
         <li><a href="">消息中心</a><i>|</i></li>
         <li><a href=""><img class="shouy icon" src="{views:images/password/mobile.png}">手机版</a><i>|</i></li>-->
-        <li><a href="">在线客服</a><i>|</i></li>
+        <li><a href="javascript:;" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><i>|</i></li>
         <li>交易时间&nbsp;09:00-18:00</li>
      </ul>  
     </ul>

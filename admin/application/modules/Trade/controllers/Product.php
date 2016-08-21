@@ -2,7 +2,7 @@
 /**
  * @name storeController
  * @author weipinglee
- * @desc ”√ªßπ‹¿Ìøÿ÷∆∆˜
+ * @desc ?√ª???????????
  */
 use \Library\safe;
 use \nainai\certificate;
@@ -13,12 +13,12 @@ class productController extends InitController{
 
 
     /**
-     *∑÷¿‡ÃÌº”
+     *????????
      */
     public function categoryAddAction(){
         $productModel = new productModel();
 
-        if(IS_POST){//±‡º≠ªÚ–¬‘ˆ
+        if(IS_POST){//?‡º≠??????
             $cate['id'] = safe::filterPost('id','int',0);
             $cate['name'] = safe::filterPost('name');
             $cate['childname'] = safe::filterPost('childname');
@@ -40,9 +40,14 @@ class productController extends InitController{
 
             $cate_id  = $this->getRequest()->getParam('cid',0);
             $cate_id = safe::filter($cate_id,'int');
-            //ªÒ»°À˘”– Ù–‘
+            //??»°????????
             $attr = $productModel->getAttr();
             if($cate_id){
+                $temp = array();
+                foreach($attr['list'] as $v)
+                {
+                    $temp[$v['id']] = $v['name'];
+                }
                 $cateData = $productModel->getCateInfo($cate_id);
                 if(!empty($cateData)){
                     $attr_arr = explode(',',$cateData['attrs']);
@@ -50,7 +55,7 @@ class productController extends InitController{
                     foreach($attr_arr as $v){
                         if($v=='')
                             continue;
-                        $attr_sel[$v] = $attr[$v]['name'];
+                        $attr_sel[$v] = $temp[$v];
                     }
                     $this->getView()->assign('attr_sel',$attr_sel);
                     $this->getView()->assign('cate',$cateData);
@@ -58,9 +63,7 @@ class productController extends InitController{
 
 
             }
-            $cateTree = $productModel->getCateTree();//ªÒ»°∑÷¿‡ ˜
-
-
+            $cateTree = $productModel->getCateTree();//??»°??????
 
             $this->getView()->assign('tree',$cateTree);
             $this->getView()->assign('attr',$attr);
@@ -68,20 +71,20 @@ class productController extends InitController{
     }
 
     /**
-     * ∑÷¿‡¡–±Ì
+     * ?????–±?
      *
      */
     public function categoryListAction(){
         $productModel = new productModel();
-        $cateTree = $productModel->getCateTree();//ªÒ»°∑÷¿‡ ˜
-        $attrs    = $productModel->getAttr();//ªÒ»°À˘”– Ù–‘
+        $cateTree = $productModel->getCateTree();//??»°??????
+        $attrs    = $productModel->getAttr();//??»°????????
 
-        //∏˜∏ˆ∑÷¿‡µƒ Ù–‘id◊™ªªŒ™ Ù–‘√˚≥∆
+        //??????????????id◊™??Œ™????????
         foreach($cateTree as $key=>$val){
             $temp = '';
             $attr = explode(',',$val['attrs']);
             foreach($attr as $k=>$v){
-                $temp .= isset($attrs[$attr[$k]]['name']) ? $attrs[$attr[$k]]['name'] .',' : '';
+                $temp .= isset($attrs['list'][$attr[$k]]['name']) ? $attrs['list'][$attr[$k]]['name'] .',' : '';
             }
             $temp = rtrim($temp,',');
             $cateTree[$key]['attrs'] =$temp;
@@ -92,7 +95,7 @@ class productController extends InitController{
     }
 
     /**
-     *  Ù–‘ÃÌº”
+     * ????????
      */
     public function attributeAddAction(){
         $productModel = new productModel();
@@ -119,19 +122,19 @@ class productController extends InitController{
     }
 
     /**
-     *  Ù–‘¡–±Ì
+     * ?????–±?
      */
     public function attributeListAction(){
         $page = safe::filterGet('page','int',1);
         $productModel = new productModel();
-        $attrs    = $productModel->getAttr($page);//ªÒ»°À˘”– Ù–‘
+        $attrs    = $productModel->getAttr($page);//??»°????????
 
 
         $this->getView()->assign('data',$attrs);
     }
 
     /**
-     * …Ë÷√∑÷¿‡ø™πÿ
+     * ???√∑??‡ø™??
      */
     public function setStatusCateAction(){
         if(IS_AJAX){
@@ -147,7 +150,7 @@ class productController extends InitController{
         return false;
     }
     /**
-     * …Ë÷√ Ù–‘ø™πÿ
+     * ???????‘ø???
      */
     public function setStatusAttrAction(){
         if(IS_AJAX){
@@ -164,7 +167,7 @@ class productController extends InitController{
     }
 
     /**
-     * ∑÷¿‡…æ≥˝
+     * ????…æ??
      */
     public function logicDelCateAction(){
         if(IS_AJAX){
@@ -181,7 +184,7 @@ class productController extends InitController{
     }
 
     /**
-     * ∑÷¿‡…æ≥˝
+     * ????…æ??
      */
     public function delAttrAction(){
         if(IS_AJAX){

@@ -6,7 +6,7 @@
         <div class="page_width">
             <div class="index_logo">
                 <h1>
-                    <a href="http://www.nainaiwang.com/"></a>
+                    <a href="{url:/index/index@deal}"></a>
                 </h1>
             </div>
 
@@ -34,8 +34,8 @@
 
 
             <ul class="nav n_nav">
-                <li class="current"><a href="http://www.nainaiwang.com/">首页</a></li>
-                <li><a href="http://market.nainaiwang.com/" target="_blank">交易中心</a></li>
+                <li class="current"><a href="{url:/index/index@deal}">首页</a></li>
+                <li><a href="{url:/offers/offerlist@deal}" target="_blank">交易中心</a></li>
                 <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">数据中心</a></li>
                 <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">竞价招投标</a></li>
                 <li><a href="http://market.nainaiwang.com/brand.html" target="_blank">品牌商户</a></li>
@@ -216,7 +216,7 @@
         </div>
     </div>
     <div>
-        Copyright&nbsp;&nbsp; © 2009-2016&nbsp;&nbsp;<a href="http://www.nainaiwang.com/" target="_blank" style="color: #4884be">nainaiwang.com</a>&nbsp;耐耐云商科技有限公司&nbsp;
+        Copyright&nbsp;&nbsp; © 2009-2016&nbsp;&nbsp;<a href="{url:/index/index@deal}" target="_blank" style="color: #4884be">nainaiwang.com</a>&nbsp;耐耐云商科技有限公司&nbsp;
         版权所有
     </div>
     <div>
@@ -261,7 +261,7 @@
 <!-- 页面侧边栏 -->
 <div id="fixed">
     <dl>
-        <dd><a href="http://www.nainaiwang.com/" class="web">个人中心</a></dd>
+        <dd><a href="{url:/ucenterindex/index}" class="web">个人中心</a></dd>
         <dd><a href="http:/www.nainaiwang.com/" class="mb">在线客服</a></dd>
         <dd><a href="http://www.nainaiwang.com/" target="_blank" class="dj">常见问题</a></dd>
         <dd><a href="http://www.nainaiwang.com/" target="_blank" class="mh">用户反馈</a></dd>
