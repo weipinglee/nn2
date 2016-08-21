@@ -41,7 +41,7 @@ class UcenterController extends UcenterBaseController {
      * 支付密码管理
      */
     public function paysecretAction(){
-        $userModel = new userModel();
+        $userModel = new UserModel();
         $userInfo = $userModel->getUserInfo($this->user_id);
         if(IS_POST){
             $oper = safe::filterPost('oper','trim');

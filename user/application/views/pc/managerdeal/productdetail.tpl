@@ -157,6 +157,11 @@
                                 </td>
                             </tr>
                              <tr>
+                                <td>审核意见</td>
+                                <td>{$offer['admin_msg']}
+                                </td>
+                            </tr>
+                             <tr>
                                 <td colspan="2">
                                    <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)" style="float:left;"/>
                                   <input type="hidden" name="id" value="{$offer['id']}" />

@@ -84,8 +84,7 @@
                                 <li><a href="{url:/system/admin/logList}" target="content">管理员操作记录</a></li>
                             </ul>
                         </li>
-                        <li><a  target="content">系统设置</a>
-                        </li>
+                        <!-- <li><a  target="content">系统设置</a></li> -->
 
                         <li><a href="{url:system/kefu/kefuList}" target="content">客服管理</a></li>
                         <li><a href="{url:system/yewu/kefuList}" target="content">业务员管理</a></li>

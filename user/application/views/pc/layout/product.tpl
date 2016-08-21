@@ -183,7 +183,7 @@
     <tr>
         <td>交收地点：</td>
         <td colspan="2">
-            <span><input type="text" class='text' datatype="s1-30" errormsg="填写商品标题" name="accept_area"></span>
+            <span><input type="text" class='text' datatype="s2-100" errormsg="请填写有效地址"  name="accept_area"></span>
             <span></span>
         </td>
     </tr>
