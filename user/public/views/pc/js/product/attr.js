@@ -109,66 +109,83 @@ $(document).ready(function(){
 });
 
 //异步获取分类
-function getCategory(){
-   var cate_id = parseInt($(this).attr('value'));
-   if ($('#cid').val() == cate_id) {return;}
-   $('#cid').val(cate_id);
-    var _this = $(this);
-    _this.parents('.class_jy').find('li').removeClass('a_choose');
-    _this.addClass('a_choose');
+//cate 默认的cate_id
+//data 属性和保险数据
+function getCategory(cate,attr){
+    var cate_id;
+    var click = true;//是否是点击获取
+    if(typeof cate == 'object'){
+         cate_id = parseInt($(this).attr('value'));
+        if ($('#cid').val() == cate_id) {return;}
+        $('#cid').val(cate_id);
+        var _this = $(this);
+        _this.parents('.class_jy').find('li').removeClass('a_choose');
+        _this.addClass('a_choose');
+    }
+    else{
+        click = false;
+         cate_id = cate;
+    }
+
     $.ajax({
         'url' :  attr_url,
         'type' : 'post',
         'data' : {pid : cate_id},
         'dataType': 'json',
-        success:function(data){//alert(JSON.stringify(data));
-            var this_div =  _this.parents('.class_jy');
-            this_div.nextAll('.class_jy').remove();
-            var pro_add = $('#productAdd');
-            $('input[name=cate_id]').val(data.defaultCate);
-            $('.attr').remove();
+        success:function(data){
+            if(click){
+                var this_div =  _this.parents('.class_jy');
+                this_div.nextAll('.class_jy').remove();
+                var pro_add = $('#productAdd');
+                $('input[name=cate_id]').val(data.defaultCate);
+                if(data.cate){
+                    $.each(data.cate,function(k,v){
 
-            if(data.cate){
-                $('.unit').text(data.unit);
-                $('input[name=unit]').val(data.unit);
-                $.each(data.cate,function(k,v){
-
-                    var box = $('#cate_box').clone();
-                    box.attr('id','');
-                    if(v.show){
-                        $.each(v.show,function(key,value){
-                            if (key == 0) {
-                                box.find('.jy_title').text(data.childname+'：');
+                        var box = $('#cate_box').clone();
+                        box.attr('id','');
+                        if(v.show){
+                            $.each(v.show,function(key,value){
+                                if (key == 0) {
+                                    box.find('.jy_title').text(data.childname+'：');
                                     if(value.childname){
                                         data.childname = value.childname;
                                     }else{
                                         data.childname = '商品分类';
                                     }
-                            }
-                            
-                            if(key==0)
-                                box.find('ul').eq(0).append('<li class="a_choose" value="'+ value.id+'"><a href="javascript:void(0)">'+ value.name+'</a></li>');
-                            else
-                                box.find('ul').eq(0).append('<li  value="'+ value.id+'"><a href="javascript:void(0)">'+ value.name+'</a></li>');
+                                }
 
-                        })
-                    }
-                    box.css('display','block').insertAfter(this_div);
+                                if(key==0)
+                                    box.find('ul').eq(0).append('<li class="a_choose" value="'+ value.id+'"><a href="javascript:void(0)">'+ value.name+'</a></li>');
+                                else
+                                    box.find('ul').eq(0).append('<li  value="'+ value.id+'"><a href="javascript:void(0)">'+ value.name+'</a></li>');
 
-                    box.find('li').on('click',getCategory);
-                    this_div = box;
-                })
-            };
+                            })
+                        }
+                        box.css('display','block').insertAfter(this_div);
 
+                        box.find('li').on('click',getCategory);
+                        this_div = box;
+                    })
+                };
+            }
+
+            $('.attr').remove();
             if(data.attr){
+                var attr_value = '';
                 $.each(data.attr,function(k,v){
                     var attr_box = $('#productAdd').clone();
                     attr_box.show();
                     attr_box.addClass('attr');
+
+                    //判断是否有默认的属性值
+                    if(typeof attr != 'undefined' && typeof attr[v.id] !='undefined'){
+                        attr_value = attr[v.id];
+                    }
+
                     if(v.type==1){
                         attr_box.children('td').eq(0).html(v.name+'：');
 
-                        attr_box.children('td').eq(1).html(' <input class="text" type="text" name="attribute['+ v.id+']" />');
+                        attr_box.children('td').eq(1).html(' <input class="text" type="text" name="attribute['+ v.id+']" value="'+attr_value+'" />');
                     }
                     else if(v.type==2){//2是单选
                         var radio = v.value.split(',');
@@ -177,19 +194,26 @@ function getCategory(){
                         attr_box.children('td').eq(0).html(v.name+'：');
 
                         $.each(radio,function(i,val){
-                            radio_text += '<label style="margin-right:5px;"><input type="radio" name="attribute['+ v.id+']" value="'+val+'" />'+val+'</label>' ;
+                            if(val==attr_value){
+                                radio_text += '<label style="margin-right:5px;"><input type="radio" checked="true" name="attribute['+ v.id+']" value="'+val+'" />'+val+'</label>' ;
+                            }
+                            else{
+                                radio_text += '<label style="margin-right:5px;"><input type="radio" name="attribute['+ v.id+']" value="'+val+'" />'+val+'</label>' ;
+                            }
                             attr_box.children('td').eq(1).html(radio_text);
-                       });
+                        });
                     }
                     else if(v.type==3){
                         attr_box.children('td').eq(0).html(v.name+'：');
-                        attr_box.children('td').eq(1).html(' <input name="attribute['+ v.id+']" value="" datatype="*" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:\'yyyy-MM-dd\'});" type="text">');
+                        attr_box.children('td').eq(1).html(' <input name="attribute['+ v.id+']" value="'+attr_value+'" datatype="*" errormsg="请选择日期" class="Wdate addw" onclick="WdatePicker({dateFmt:\'yyyy-MM-dd\'});" type="text">');
 
                     }
+
                     $('#productAdd').after(attr_box);
                 });
                 bindRules();
             };
+
 
             $('#riskdata').children('td').eq(1).remove();
             if (data.risk_data) {
@@ -203,16 +227,20 @@ function getCategory(){
                         check_box += '定额';
                         check_box += '('+v.fee+')&nbsp;&nbsp;';
                     }
-                    
+
                 });
                 check_box += '</sapn></td>';
                 $('#riskdata').append(check_box);
             }else{
                 $('#riskdata').append('<td>该分类没有设置保险</td>');
             }
+
+
         }
     });
 }
+
+
 
 
 

@@ -663,12 +663,81 @@ class ManagerDealController extends UcenterBaseController {
             }
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
+
         }
         else{
             $this->redirect('productList');
         }
 
 
+    }
+
+    /**
+     * 修改报盘
+     */
+    public function updateOfferAction(){
+        $id = $this->getRequest()->getParam('id');
+        $id = Safe::filter($id, 'int', 0);
+        if($id){
+            $productModel = new ProductModel();
+            $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
+            $cate_sel = array();//商品所属的各级分类
+            foreach($offerDetail[1]['cate'] as $k=>$v){
+                $cate_sel[] = $v['id'];
+            }
+            $pro = new \nainai\offer\product();
+            $categorys = $pro->getCategoryLevelSpec($cate_sel);
+
+            $this->getView()->assign('attr',json::encode($offerDetail[1]['attribute']));
+            unset($offerDetail[1]['attribute']);
+
+            $this->getView()->assign('offer',$offerDetail[0]);
+            $this->getView()->assign('product',$offerDetail[1]);
+            $this->getView()->assign('categorys',$categorys);
+            $this->getView()->assign('cate_sel',$cate_sel);
+        }
+    }
+
+    /**
+     * 更新报盘操作
+     */
+    public function doUpdateOfferAction(){
+        if(IS_POST){
+            $res = $this->offerCheck();
+            if($res !== true) die($res);
+            $offerData = array(
+                'apply_time'  => \Library\Time::getDateTime(),
+                'divide'      => safe::filterPost('divide', 'int'),
+                'minimum'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minimum', 'float') : 0,
+                'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
+
+                'accept_area' => safe::filterPost('accept_area'),
+                'accept_day' => safe::filterPost('accept_day', 'int'),
+                'price'        => safe::filterPost('price', 'float'),
+                'insurance' => Safe::filterPost('insurance', 'int',''),
+
+                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
+                'expire_time' =>  Safe::filterPost('expire_time'),
+                'other' => Safe::filterPost('other'),
+                // 'acc_type'   => 1,
+            );
+            if(!$offerData['risk']){
+                $offerData['risk'] = '';
+            }
+            $depositObj = new depositOffer($this->user_id);
+            $productData = $this->getProductData();
+
+            if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
+                $offerData['minimum'] = $productData[0]['quantity'];
+            }
+
+            $res = $depositObj->doOffer($productData,$offerData);
+
+            echo json::encode($res);
+            exit;
+        }
+        else
+            return false;
     }
 
     /**

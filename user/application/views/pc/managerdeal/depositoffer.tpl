@@ -71,7 +71,11 @@
                          
                  </table>
                 </form>
-                        
+        <script type="text/javascript">
+            $(function(){
+                getCategory({$cate_id});
+            })
+        </script>
                     </div>
                 </div>
             </div>

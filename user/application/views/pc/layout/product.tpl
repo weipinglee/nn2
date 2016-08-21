@@ -6,7 +6,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>商品标题：</td>
         <td colspan="2">
-            <span><input class="text" type="text" datatype="s1-30" errormsg="填写商品标题" name="warename"></span>
+            <span><input class="text" type="text" datatype="s1-30" value="{$product['product_name']}" errormsg="填写商品标题" name="warename"></span>
             <span></span>
         </td>
 
@@ -14,7 +14,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>商品单价：</td>
         <td>
-            <span> <input class="text" type="text" datatype="money" errormsg="请正确填写单价" name="price"></span>
+            <span> <input class="text" type="text" datatype="money" value="{$offer['price']}" errormsg="请正确填写单价" name="price"></span>
             <span></span>
         </td>
         <!--                                 <td>
@@ -26,7 +26,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>数量：</td>
         <td>
-            <span><input class="text" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity"></span>
+            <span><input class="text" value="{$product['quantity']}" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity"></span>
             <span></span>
         </td>
         <span></span>
@@ -39,7 +39,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>单位：</td>
         <td>
-            <span class="unit">{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
+            <input type="text" name="unit" value="{$product['unit']}"/>
         </td>
         <!--  <td>
             请选择支付保证金比例：
@@ -47,25 +47,11 @@
 
         </td> -->
     </tr>
-        {foreach: items=$attrs item=$attr}
 
-        <tr class="attr">
-            <td nowrap="nowrap"><span></span>{$attr['name']}：</td>
-            <td colspan="2">
-                 {if: $attr['type'] == 1}
-                                            <input class="text" type="text" name="attribute[{$attr['id']}]" >
-                                            {elseif: $attr['type'] == 2}
-                                            <input type="radio" name="attribute[{$attr['id']}]" value="{$attr['value']}" />
-                                            {/if}
-            </td>
-        </tr>
-
-
-    {/foreach}
     <tr style="display:none" id='productAdd'>
                             <td ></td>
                             <td ></td>
-                            </tr>
+     </tr>
                             
     <!-- <tr>
         <td nowrap="nowrap"><span></span>是否投保：</td>
@@ -78,13 +64,7 @@
         <td ><span></span>保险：</td>
         <td>
             <span> 
-            {if: !empty($risk_data)}
-                {foreach: items=$risk_data}
-                    <input type="checkbox" name="risk[]" value="{$item['risk_id']}">{$item['name']}{if: $item['mode'] == 1}比例： {$item['fee']}(‰) {else:}定额： {$item['fee']} {/if}
-                {/foreach}
-            {else:}
-                该分类没有设置保险
-            {/if}
+
             </span>
         </td>
     </tr> -->
@@ -94,7 +74,7 @@
     <tr>
         <td>产地：</td>
         <td colspan="2">
-            <span id="areabox">{area:}</span>
+            <span id="areabox">{area:data=$product['produce_area']}</span>
             <span></span>
         </td>
 
@@ -103,7 +83,7 @@
     <tr>
         <td>有效期：</td>
         <td colspan="2">
-             <span><input class="Wdate text" datatype="*" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"
+             <span><input class="Wdate text" datatype="*" value="{$offer['expire_time']}" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"
                            name="expire_time" value="">
                  </span>
             <span></span>
@@ -127,6 +107,17 @@
                 <input type="hidden" name="swfUrl" value="{root:/js/webuploader/Uploader.swf}" />
                 <!--用来存放文件信息-->
                 <ul id="filelist" class="filelist">
+                    {if:isset($product['imgData'])}
+                        {foreach:items=$product['imgData']}
+                            <li   class="file-item thumbnail">
+                                <p>
+                                    <img width="110" src="{echo:\Library\thumb::get($item,110,110)}" />
+
+                                </p>
+                                <input type="hidden" name="imgData[]" value="{$item}" />
+                            </li>
+                        {/foreach}
+                    {/if}
                 </ul>
                 <div class="btns">
                 {set:$filesize = \Library\tool::getConfig(array('application','uploadsize'))}
@@ -148,48 +139,39 @@
         <th colspan="3"><b>详细信息</b></th>
     </tr>
 
-    </tr>
     <tr>
         <td><span>*</span>是否可拆分：</td>
         <td>
             <select name="divide" id="divide">
-                <option value="1" selected >是</option>
-                <option value="0" selected >否</option>
+                <option value="1"  >是</option>
+                <option value="0" {if:$offer['divide']==0}selected{/if}>否</option>
             </select>
         </td>
     </tr>
-    <tr class='nowrap' style="display: none">
+    <tr class='nowrap' {if:!isset($offer['divide']) || $offer['divide']==0}style="display: none"{/if}>
         <td nowrap="nowrap" ><span>*</span>最小起订量：</td>
         <td>
-            <span><input name="minimum" id="" type="text" class="text"  /></span>
+            <span><input name="minimum" id="" type="text" class="text" value="{$offer['minimum']}" /></span>
             <span></span>
         </td>
-       <!-- <td>
-            <span>*</span>
-            最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
-        </td>-->
     </tr>
     <tr class='nowrap' style="display: none">
         <td nowrap="nowrap" ><span>*</span>最小递增量：</td>
         <td>
-            <span><input name="minstep" id="" type="text" class="text"  /></span>
+            <span><input name="minstep" id="" type="text" class="text" value="{$offer['minstep']}" /></span>
             <span></span>
         </td>
-        <!-- <td>
-             <span>*</span>
-             最小起订量即为最小起增量，最小设为1，不填写规则为不可拆分
-         </td>-->
     </tr>
     <tr>
         <td>交收地点：</td>
         <td colspan="2">
-            <span><input type="text" class='text' datatype="s1-30" errormsg="填写商品标题" name="accept_area"></span>
+            <span><input type="text" class='text' datatype="s1-30" value="{$offer['accept_area']}" errormsg="填写商品标题" name="accept_area"></span>
             <span></span>
         </td>
     </tr>
     <td>交收时间：</td>
     <td colspan="2">
-        <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,5}/" name="accept_day" style="width:50px;">天</span>
+        <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,5}/" value="{$offer['accept_day']}" name="accept_day" style="width:50px;">天</span>
         <span></span>
     </td>
     </tr>
@@ -204,13 +186,13 @@
     <tr>
         <td>产品描述：</td>
         <td colspan="2">
-            <textarea name="note"></textarea>
+            <textarea name="note" >{$product['note']}</textarea>
         </td>
     </tr>
 
     <tr>
         <td>补充条款：</td>
         <td colspan="2">
-            <textarea name="other"></textarea>
+            <textarea name="other">{$offer['other']}</textarea>
         </td>
     </tr>
