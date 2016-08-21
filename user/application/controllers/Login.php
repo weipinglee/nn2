@@ -344,7 +344,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 		$mobile = $this->getRequest()->getParam('mobile');
 		$mobile = safe::filter($mobile, 'int');
 
-		if (intval($mobile) <= 0) {
+		if (empty($mobile) ) {
 			exit('Error Request');
 		}
 
