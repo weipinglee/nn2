@@ -639,19 +639,32 @@ function updateItem(){
 	}*/
 	var timeslot = 6000;
 	var i =0;
-	var update = setInterval(function(){
+	var d;
+	var time;
+	var update = setInterval(d=function(){
 		var item = $(".items_container.yichi").find("li:last");
 		var height = item.height();
 		item.parent().prepend(item);
 		item.css('opacity',0);
 		item.parent().css('top',-height);
 		item.parent().animate({'top':'0px'},500);
-		setTimeout(function(){
+		var times=function(){
 			fadeIn(item);
-		},1000);
+		};
+		 time = setTimeout(times,1000);
 		
 		i++;
 	},timeslot);
+	$(".items_container.yichi").find("li").mouseover(function(){
+		clearInterval(update);
+		$(this).find('div').css('display','block');
+	});
+	$(".items_container.yichi").find("li").mouseout(function(){
+		$(this).find('div').css('display','none');
+		clearInterval(update);
+		update=setInterval(d,timeslot);
+
+	})
 }
 function fadeIn(obj){
 	var item = obj;

@@ -4,7 +4,7 @@
         耐耐网
     </title><meta name="Keywords" content="耐火材料、耐耐网"><meta name="Description" content="耐火材料、耐耐网">
     <script type="text/javascript" defer="" async="" src="{views:js/uta.js}"></script>
-    <script src="{views:js/jquery-1.7.2.min.js}" type="text/javascript" language="javascript"></script>
+    <script src="{views:js/jquery-1.9.1.min.js}" type="text/javascript" language="javascript"></script>
 
 
     <script src="{views:js/gtxh_formlogin.js}" type="text/javascript"></script>

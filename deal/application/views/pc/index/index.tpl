@@ -309,16 +309,13 @@
                            <!-- 广告轮播 Swiper -->
                            <link rel="stylesheet" href="{views:css/swiper.min.css}">
                              <div class="slider4">
-                                  <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 {foreach: items=$adList}
+                                  <div class="slide"><img src="{$item['content']}" /></div>
+                                 {/foreach}
                                 </div>
              
                             <!-- Swiper JS -->
-                            <script src="{views:js/swiper.min.js}"></script>
+                            <script src="{views:js/jquery.bxslider.js}"></script>
 
                             <!-- Initialize Swiper -->
                             <script>
@@ -346,10 +343,21 @@
                             <div class="items_container yichi">
                                 <ul style="top: 0px;">
                                     {foreach:items=$newTrade}
-                                    <li style="opacity: 1.0000000000000007;">
-                                        <i>{$item['username']}</i>
-                                        <em class="red">成功销售</em>{$item['name']}{$item['num']}{$item['unit']}
-                                    </li>
+                                        <li style="opacity: 1.0000000000000007;">
+                                            {set:$time=date('m-d',strtotime($item['create_time']))}
+                                            {set:$userName=mb_substr($item['username'],0,4,'utf-8')}
+                                            <i>{$userName}****</i>
+                                            {if:$item['type']==1}
+                                                <em class="red">售出</em>
+                                            {else:}
+                                                <em class="green">采购</em>
+                                            {/if}
+                                            <b>{$item['name']}{$item['num']}{$item['unit']}</b>
+                                            <span>{$time}</span>
+                                            <div class="titles"><p>{$item['name']}{$item['num']}{$item['unit']}</p></div>
+                                        </li>
+
+
                                     {/foreach}
 
                                 </ul>
@@ -395,25 +403,35 @@
                                 }
                                 function changeContainer(id){
                                     var statisList={$statcCatList};
-                                        var categories={$statcTime};
+                                    var categories={$statcTime};
                                     var series=new Array();
                                     var j=0;
-                                    if(statisList[id]==undefined){
-                                        return false;
+                                    var chart;
+                                    var text;
+                                    if(statisList[id]!=undefined){
+                                        text='市场指数';
+                                        $.each(statisList[id],function(index,value){
+                                            var data=new Array();
+                                            for(var i=0;i<value.length;i++){
+                                                var ave_price=parseInt(value[i].ave_price,10);
+                                                data[i]=ave_price;
+                                            }
+                                            series[j]={name:index,data:data};
+                                            j++;
+                                        });
+                                    }else {
+                                        categories=null;series=[{
+                                            type:'line',
+                                            name:'',
+                                            data:[]
+                                        }];
+                                        text='暂时没有数据';
                                     }
-                                   $.each(statisList[id],function(index,value){
-                                       var data=new Array();
-                                        for(var i=0;i<value.length;i++){
-                                            var ave_price=parseInt(value[i].ave_price,10);
-                                            data[i]=ave_price;
-                                        }
-                                       series[j]={name:index,data:data};
-                                        j++;
-                                    });
+
 
                                     $('#container').highcharts({
                                         title: {
-                                            text: '市场指数',
+                                            text: text,
                                             x: -20 //center
                                         },
                                         credits:{
@@ -424,9 +442,26 @@
                                             text: 'www.nainaiwang.com',
                                             x: -20
                                         },
-
+                                        noData: {
+                                            // Custom positioning/aligning options
+                                            position: {
+                                                align: 'right',
+                                                verticalAlign: 'bottom'
+                                            },
+                                            // Custom svg attributes
+                                            attr: {
+                                                'stroke-width': 1,
+                                                stroke: '#cccccc'
+                                            },
+                                            // Custom css
+                                            style: {
+                                                fontWeight: 'bold',
+                                                fontSize: '15px',
+                                                color: '#202030'
+                                            }
+                                        },
                                         xAxis: {
-                                            categories: {$statcTime}
+                                            categories: categories
                                         },
                                         yAxis: {
                                             title: {
@@ -450,7 +485,6 @@
                                         series:series
                                     });
                                 }
-
                             </script>
                             <div class="i_leftCon" style="margin:0px;">
                                 <div class="i_proList show i_proList_zhishu">
@@ -509,14 +543,10 @@
                            
 
                              <div class="slider2">
-                                 
-                                <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
-                                 <div class="slide"><img src="{views:images/index/FooBar.png}"></div>
+                                 {foreach: items=$allCompanyAd}
+                                <div class="slide"><img src="{$item['content']}"></div>
+                                 {/foreach}
+
                                 
                              </div>
                                 <script type="text/javascript">
