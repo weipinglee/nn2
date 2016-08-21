@@ -143,13 +143,11 @@ class ManagerDealController extends UcenterBaseController {
             if($res !== true) die($res);
             $offer_id = safe::filterPost('offer_id','int',0);
             $offerObj = new freeOffer($this->user_id);
-            if($offer_id){//更新的情况，删除原有报盘
-                $offerObj->delOffer($offer_id);
-            }
+
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
-                'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'int') : 0,
+                'minimum'     => (safe::filterPost('divide', 'int') == 1) ? Safe::filterPost('minimum', 'float') : 0,
                 'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
 
                 'accept_area' => Safe::filterPost('accept_area'),
@@ -173,7 +171,7 @@ class ManagerDealController extends UcenterBaseController {
             if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
                 $offerData['minimum'] = $productData[0]['quantity'];
             }
-            $res = $offerObj->doOffer($productData,$offerData);
+            $res = $offerObj->doOffer($productData,$offerData,$offer_id);
 
             echo json::encode($res);
             exit;
@@ -207,9 +205,6 @@ class ManagerDealController extends UcenterBaseController {
                  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $offer_id = safe::filterPost('offer_id','int',0);
             $depositObj = new depositOffer($this->user_id);
-            if($offer_id){//更新的情况，删除原有报盘
-                $depositObj->delOffer($offer_id);
-            }
             $res = $this->offerCheck();
             if($res !== true) die($res);
             $offerData = array(
@@ -238,7 +233,7 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData['minimum'] = $productData[0]['quantity'];
             }
 
-            $res = $depositObj->doOffer($productData,$offerData);
+            $res = $depositObj->doOffer($productData,$offerData,$offer_id);
             
             echo json::encode($res);
             exit;
@@ -666,7 +661,7 @@ class ManagerDealController extends UcenterBaseController {
         if (intval($id) > 0) {
             $productModel = new ProductModel();
             $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
-            print_r($offerDetail);
+
             if ($offerDetail[0]['insurance'] == 1) {
                 $risk = new \nainai\insurance\Risk();
                 $riskData = $risk->getRiskDetail($offerDetail[0]['risk']);

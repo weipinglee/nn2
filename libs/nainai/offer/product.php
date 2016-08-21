@@ -714,14 +714,12 @@ class product  {
      */
     public function delOffer($id){
         if(intval($id)>0){
-            $this->_productObj->table('product_offer');
-            $product_id = $this->_productObj->where(array('id'=>$id))->getField('product_id');
-            $this->_productObj->beginTrans();
-            $this->_productObj->where(array('id'=>$id))->delete();
-            $this->_productObj->table('products')->where(array('id'=>$product_id))->delete();
-            $this->_productObj->table('product_photos')->where(array('id'=>$product_id))->delete();
-            $res = $this->_productObj->commit();
-            return $res;
+            $obj = new M('product_offer');
+            $product_id = $obj->where(array('id'=>$id))->getField('product_id');
+            $obj->where(array('id'=>$id))->delete();
+            $obj->table('products')->where(array('id'=>$product_id))->delete();
+            $obj->table('product_photos')->where(array('products_id'=>$product_id))->delete();
+
         }
         return true;
 

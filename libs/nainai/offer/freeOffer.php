@@ -43,7 +43,7 @@ class freeOffer extends product{
      * @param array $offerData 报盘数据
      *
      */
-    public function doOffer($productData,$offerData){
+    public function doOffer($productData,$offerData,$offer_id=0){
         $user_id = $this->user_id;
         $acc_type = $offerData['acc_type'];
         $fund = fund::createFund($acc_type);
@@ -55,6 +55,9 @@ class freeOffer extends product{
             $offerData['user_id'] = $user_id;
             $offerData['mode'] = self::FREE_OFFER;
             $this->_productObj->beginTrans();
+            if($offer_id){//删除旧的id
+                $this->delOffer($offer_id);
+            }
             $insert = $this->insertOffer($productData,$offerData);
 
             if($insert===true){

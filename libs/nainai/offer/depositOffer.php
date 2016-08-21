@@ -22,10 +22,15 @@ class depositOffer extends product{
      * 报盘申请插入数据
      * @param array $productData  商品数据
      * @param array $offerData 报盘数据
+     * @param int $offer_id 要更新的id
      */
-    public function doOffer($productData,$offerData){
+    public function doOffer($productData,$offerData,$offer_id=0){
         $offerData['mode'] = self::DEPOSIT_OFFER;
         $this->_productObj->beginTrans();
+        if($offer_id){//删除旧的id
+            $this->delOffer($offer_id);
+        }
+
         $offerData['user_id'] = $this->user_id;
         $insert = $this->insertOffer($productData,$offerData);
 
