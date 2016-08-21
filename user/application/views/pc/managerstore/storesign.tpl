@@ -160,7 +160,10 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>单位：</td>
                                 <td>
-                                    <span class="unit">{$unit}</span><input type="hidden" name="unit" value="{$unit}"/>
+                                    <span>
+                                   <input type="text" name="unit" datatype="*" value=""/>
+                                        </span>
+                                    <span></span>
                                 </td>
                                 <!--  <td>
                                     请选择支付保证金比例:
@@ -321,7 +324,7 @@
                                                     </select>
 
                                                 </span>/
-                                                <span class="unit"> {$unit}</span>
+                                                <span class="unit"></span>
 
                                             </td>
                                         </tr>

@@ -52,6 +52,10 @@ $(function(){
 
 
     })
+    
+    $('input[name=unit]').on('blur',function(){
+        $('.unit').text($(this).val());
+    })
 
 
 
