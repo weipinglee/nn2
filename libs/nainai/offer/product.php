@@ -711,11 +711,17 @@ class product  {
     /**
      * 删除报盘
      * @param int $id 报盘id
+     * @param int $user_id yonghu id
      */
-    public function delOffer($id){
+    protected function delOffer($id,$user_id){
         if(intval($id)>0){
             $obj = new M('product_offer');
-            $product_id = $obj->where(array('id'=>$id))->getField('product_id');
+            $data = $obj->where(array('id'=>$id,'user_id'=>$user_id))->fields('product_id,status')->getObj();
+            if(empty($data))
+                return false;
+            $product_id = $data['product_id'];
+            if($data['status']!=self::OFFER_NG)
+                return false;
             $obj->where(array('id'=>$id))->delete();
             $obj->table('products')->where(array('id'=>$product_id))->delete();
             $obj->table('product_photos')->where(array('products_id'=>$product_id))->delete();

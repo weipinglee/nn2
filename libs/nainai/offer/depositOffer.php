@@ -28,7 +28,7 @@ class depositOffer extends product{
         $offerData['mode'] = self::DEPOSIT_OFFER;
         $this->_productObj->beginTrans();
         if($offer_id){//É¾³ı¾ÉµÄid
-            $this->delOffer($offer_id);
+            $this->delOffer($offer_id,$this->user_id);
         }
 
         $offerData['user_id'] = $this->user_id;

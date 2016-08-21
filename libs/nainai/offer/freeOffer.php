@@ -56,7 +56,7 @@ class freeOffer extends product{
             $offerData['mode'] = self::FREE_OFFER;
             $this->_productObj->beginTrans();
             if($offer_id){//删除旧的id
-                $this->delOffer($offer_id);
+                $this->delOffer($offer_id,$this->user_id);
             }
             $insert = $this->insertOffer($productData,$offerData);
 
