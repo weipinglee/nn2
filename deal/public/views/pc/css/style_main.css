@@ -1083,25 +1083,64 @@
 	height: 40px;
 	line-height: 40px;
 	border-bottom: 1px dotted #ccc;
-	margin: 0 20px;
-	overflow: hidden;
+	margin: 0 10px;
 	float: left;
-	width: 220px;
+	width: 240px;
+	position: relative;
 }
 .iConWrap ul li i{
 	display: block;
     float: left;
     width: 55px;
+	overflow:hidden;
 }
 .iConWrap ul li em{
 	display: block;
     float: left;
-    width: 50px;
+    width: 25px;
+	overflow: hidden;
 }
 .iConWrap ul li em{
 	margin: 0 10px;
 	color: #3399cc;
 }
+.iConWrap ul li b{
+	font-weight: normal;
+	display: block;
+	width:80px;
+	overflow: hidden;
+	float: left;
+	text-overflow: ellipsis;
+	white-space:nowrap;
+	-o-text-overflow:ellipsis;
+
+}
+.iConWrap ul li span{
+	float: right;
+}
+
+.titles {
+	position: absolute;
+	height: auto;
+	overflow: hidden;
+	background: #EFEDEA;
+	border: 1px solid #D2CAB7;
+	left: 120px;
+	display: none;
+	z-index: 9999999999999999999;
+	margin: 0 5px;
+	width: 120px;
+}
+.titles p{
+	line-height:25px;
+	padding:0 5px;
+}
+
+
+
+
+
+
 .iConWrap2{
 	margin: 18px 0 0 0;
 	padding: 0 0 20px 0;

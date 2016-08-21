@@ -82,12 +82,20 @@ class IndexController extends PublicController {
 				$adList[$k]['content'] = \Library\Thumb::getOrigImg($v['content']);
 			}
 		}
+
 		//获取所有的推荐商户信息
 		$allCompany=\nainai\companyRec::getAllCompanyOrderByType();
-
+        //获取推荐商家的广告
+        $allCompanyAd=$adModel->getAdListByName('推荐商家');
+        foreach($allCompanyAd as $k=>$v){
+            if(isset($v['content'])){
+                $allCompanyAd[$k]['content']=\Library\Thumb::getOrigImg($v['content']);
+            }
+        }
+       // var_dump($allCompanyAd);die;
+        $this->getView()->assign('allCompanyAd',$allCompanyAd);
 		$this->getView()->assign('allCompany',$allCompany);
 		$this->getView()->assign('adList',$adList);
-
 		$this->getView()->assign('creditMember',$creditMember);
 		$this->getView()->assign('statcCatList',\Library\json::encode($statcCatList));
 		$this->getView()->assign('statcProList',$statcProList);
