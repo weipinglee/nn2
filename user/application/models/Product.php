@@ -25,7 +25,7 @@ class productModel extends \nainai\offer\product{
 		$query->join = '  LEFT JOIN products as a ON c.product_id=a.id LEFT JOIN product_category as b ON a.cate_id=b.id ';
 		$query->page = $page;
 		$query->pagesize = $pagesize;
-		$query->order = ' a.create_time desc';
+		// $query->order = ' a.create_time desc';
 
 		$status = implode(',', array(self::OFFER_APPLY, self::OFFER_OK, self::OFFER_NG));
 		$where .= ' AND c.status IN (' .$status. ')';

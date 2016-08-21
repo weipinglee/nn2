@@ -12,7 +12,7 @@
           <img src="{views:images/icon/icon_jd.jpg}">
           <div class="jd_ts">
             <img src="{views:images/icon/icon_ts.jpg}"/>
-            <span>请确保手机通畅，以便于我们计算与您联系，并接收申诉结果。</span>
+            <span>请确保手机通畅，以便于我们与您联系，并接收申诉结果。</span>
           </div>
         </div>
 

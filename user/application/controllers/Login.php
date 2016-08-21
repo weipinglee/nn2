@@ -328,7 +328,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 		$model = new UserModel();
 		$info = $model->getPasswordInfo($uid);
 		if (time() - strtotime($info['create_time']) > 15*60) {
-			exit(json::encode(tool::getSuccInfo(0, '过期的验证')));
+			exit(json::encode(tool::getSuccInfo(0, '验证码过期')));
 		}
 		
 
@@ -344,7 +344,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 		$mobile = $this->getRequest()->getParam('mobile');
 		$mobile = safe::filter($mobile, 'int');
 
-		if (intval($mobile) <= 0) {
+		if (empty($mobile) ) {
 			exit('Error Request');
 		}
 
