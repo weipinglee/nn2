@@ -289,6 +289,9 @@ a:hover {
     color: #999;
     width: 59px;
     background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat right center #f7f7f7;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
 }
 .bodys input {
     height: 32px;

@@ -165,7 +165,9 @@
     <tr>
         <td>交收地点：</td>
         <td colspan="2">
+
             <span><input type="text" class='text' datatype="s1-30" value="{$offer['accept_area']}" errormsg="填写商品标题" name="accept_area"></span>
+
             <span></span>
         </td>
     </tr>

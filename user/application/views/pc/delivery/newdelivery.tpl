@@ -42,7 +42,7 @@
 							<li class="clearfix">
 								<label>预计提货日期：</label>
 								<div>
-					                <input name="expect_time" id="date_start" type="text" datatype="date" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" class="Wdate gyctht_input" >
+					                <input name="expect_time" id="date_start" type="text" datatype="date" onclick="WdatePicker({dateFmt:'yyyy-MM-dd', minDate:'%y-%M-%d'});" class="Wdate gyctht_input" >
 									记重方式：过磅
 						            <input type="hidden" id="weight_type" value="A">
 						         </div>

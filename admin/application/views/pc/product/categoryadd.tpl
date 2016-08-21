@@ -61,7 +61,7 @@
           <div class="formControls col-5" id="attr_box">
             {if:isset($attr_sel)&&!empty($attr_sel)}
                 {foreach:items=$attr_sel}
-                    <div ><input type="text"  value="{$item}"/> <input type="hidden" value="{$key}" name="attr_id[]"/><a href="javascript:void(0);" >删除</a></div>
+                    <div ><input type="text"  value="{$item}" readonly="readonly"/> <input type="hidden" value="{$key}" name="attr_id[]"/><a href="javascript:void(0);" >删除</a></div>
                 {/foreach}
             {/if}
           </div>
@@ -74,7 +74,7 @@
               <input type="hidden" name="attrs[]" value="2"/> -->
               <select id='all_attr'>
                   {if:!empty($attr)}
-                      {foreach: items=$attr}
+                      {foreach: items=$attr['list']}
                           <option value="{$item['id']}">{$item['name']}</option>
 
                       {/foreach}
@@ -87,7 +87,7 @@
       </div>
       <div class="row cl">
                         <label class="form-label col-2">图片：</label>
-                        <div class="formControls col-10">
+                        <div class="formControls col-5">
                             <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
                         </div>
                         <div>
