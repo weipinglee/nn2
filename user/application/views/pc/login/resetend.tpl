@@ -16,6 +16,23 @@
     </script>
 
 
+
+   <div class="toplog_bor none">
+    <div class="m_log w1200">
+        <div class="logoimg_left">
+            <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
+            <div class="word_box">找回密码</div>
+
+  
+
+        </div>
+         <div class="logoimg_right">
+            <img class="shouy" src="{views:images/password/iphone.png}"> 
+            <h3>服务热线：<b>400-6238-086</b></h3>
+         </div>
+        
+    </div>
+   </div> 
     <div class="zhaohui">
         <div class="w1200">
            <div class="step_box">

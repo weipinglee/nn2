@@ -25,24 +25,7 @@
         <li>交易时间&nbsp;09:00-18:00</li>
      </ul>  
     </ul>
-</div>
-
-   <div class="toplog_bor none">
-    <div class="m_log w1200">
-        <div class="logoimg_left">
-            <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
-            <div class="word_box">欢迎登录</div>
-
-  
-
-        </div>
-         <div class="logoimg_right">
-            <img class="shouy" src="{views:images/password/iphone.png}"> 
-            <h3>服务热线：<b>400-6238-086</b></h3>
-         </div>
-        
-    </div>
-   </div>             
+</div>            
 {content}
 
 <!--公用底部控件 开始-->
