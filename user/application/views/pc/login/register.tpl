@@ -11,6 +11,7 @@
     <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
     <script type="text/javascript" src="{views:js/common.js}"></script>
    <span style="display:none;"> {url:/login/doReg} </span>
+   <div class="regis_boxs">
     <div class="register"> 
       <div class="beinit">
         <span>已有账号?</span><a href="{url:/login/login}">立即登录</a>
@@ -110,7 +111,7 @@
           <div class="cot">
             <span class="cot_tit">验证码：</span>
 
-            <span><input class="text" style="width: 50px;display:block;float:left;" type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
+            <span><input class="text" style="width: 122px;display:block;float:left;margin-right: 4px; " type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
               <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img style="float:left;" src="{url:/login/getCaptcha}?w=200&h=50" /></a>
 
               <span></span>
@@ -200,6 +201,8 @@
       </div>
        <!--企业注册结束-->
     </div>
+   <div>
+
   </div>
   <div style=" clear:both"></div>
 </div>
