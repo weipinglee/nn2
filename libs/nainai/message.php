@@ -74,7 +74,7 @@ class message{
 	}
 	public function depositPay($order_id){
 		$title="保证金支付";
-		$message="您的订单".$order_id."需支付保证金";
+		$message="合同".$order_id."已支付";
 		return array(
 			'title'=>$title,
 			'content'=>$message);

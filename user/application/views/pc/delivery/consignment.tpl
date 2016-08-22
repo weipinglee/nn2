@@ -146,7 +146,7 @@
 									<td>{$info['price']}</td>
 									<td>{$info['num']}{$info['unit']}</td>
 									<td>{$info['amount']}</td>
-									<td>{$info['delivery_status']}</td>
+									<td>待发货</td>
 
 								</tr>
 							</tbody></table>

@@ -85,5 +85,44 @@ class Time
 
 	}
 
+	function _after_time($time = '',$total=0){ 
+		if($total < 0 || !$time) return false;
+	    $ttime = self::getDiffSec($time); 
+	    $ttime += $total;
+
+	    if($ttime < 0) return true;
+	    if($ttime >= 0 && $ttime < 60){ 
+	        return $ttime.'秒后'; 
+	    }    
+	    if($ttime > 60 && $ttime <120){ 
+	        return '1分钟后'; 
+	    } 
+	     
+	    $i = floor($ttime / 60);                            //分 
+	    $h = floor($ttime / 60 / 60);                       //时 
+	    $d = floor($ttime / 86400);                         //天 
+	    $m = floor($ttime / 2592000);                       //月 
+	    $y = floor($ttime / 60 / 60 / 24 / 365);            //年 
+	    if($i < 30){ 
+	        return $i.'分钟后'; 
+	    } 
+	    if($i > 30 && $i < 60){ 
+	        return '一小时后'; 
+	    } 
+	    if($h>=1 && $h < 24){ 
+	        return $h.'小时后'; 
+	    } 
+	    if($d>=1 && $d < 30){ 
+	        return $d.'天后'; 
+	    }    
+	    if($m>=1 && $m < 12){        
+	        return $m.'个月后'; 
+	    } 
+	    if($y){ 
+	        return $y.'年后'; 
+	    }    
+	    return true; 
+	     
+	} 
 
 }

@@ -16,6 +16,18 @@ class OrderController extends UcenterBaseController{
 		$this->entrust = new \nainai\order\EntrustOrder();
 	}
 
+	//取消合同
+	public function cancelContractAction(){
+		$order_id = safe::filter($this->_request->getParam('order_id'),'int');
+		$res = $this->deposit->sellerDeposit($order_id,false,$this->user_id);
+		if($res['success'] == 1){
+			$this->success('已取消合同');
+		}else{
+			$this->error($res['info']);
+		}
+		return false;
+	}
+
 	//买家支付尾款
 	public function buyerRetainageAction(){
 		if(IS_POST){
@@ -62,7 +74,7 @@ class OrderController extends UcenterBaseController{
 		$mess = new \nainai\message($id);
 		$res = $mess->send('newbankaccount');
 		if($res['code'] == 1){
-			$this->success('已通知买方开户');
+			$this->success('已通知卖方开户');
 		}else{
 			$this->error('通知失败');
 		}

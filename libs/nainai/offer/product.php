@@ -30,6 +30,7 @@ class product  {
     const DIVIDE = 1;//可拆分
     const UNDIVIDE = 0;//不可拆分
     //报盘类型
+    const PURCHASE_OFFER = 0;
     const FREE_OFFER  = 1;
     const DEPOSIT_OFFER = 2;
     const DEPUTE_OFFER  = 3;
@@ -52,6 +53,8 @@ class product  {
             self::DEPOSIT_OFFER => $this->getMode(self::DEPOSIT_OFFER),
             self::STORE_OFFER => $this->getMode(self::STORE_OFFER),
             self::DEPUTE_OFFER => $this->getMode(self::DEPUTE_OFFER),
+            self::PURCHASE_OFFER => $this->getMode(self::PURCHASE_OFFER),
+
         );
     }
 
@@ -118,6 +121,9 @@ class product  {
     //获取报盘模式文本
     public function getMode($mode){
         switch ($mode) {
+            case self::PURCHASE_OFFER:
+                $mode_txt = '采购报盘';
+                break;
             case self::FREE_OFFER:
                 $mode_txt = '自由报盘';
                 break;
@@ -676,7 +682,7 @@ class product  {
         $m_category = new Query('product_category');
         $m_category->where='status= :status';
         $m_category->bind=array('status'=>1);
-        $m_category->cache = 'm';
+        $m_category->cache = 'md';
         $c_list = $m_category->find();
         $result = $this->getNestedList($c_list);
 

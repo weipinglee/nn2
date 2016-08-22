@@ -68,7 +68,11 @@
 											<div class="div_heights">
 												<?php $i=0;?>
 												{foreach:items=$item['action'] item=$v}
-													<a href="{$v['url']}" style="color:blue">{$v['action']}</a>
+													{if:$v['url']}
+														<a confirm=1 href="{$v['url']}" style="color:blue">{$v['action']}</a>
+														{else:}
+														{$v['action']}
+													{/if}
 													<?php $i++;?>
 												{/foreach}
 												{if:!$i}{$item['title']}{/if}

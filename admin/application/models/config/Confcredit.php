@@ -37,7 +37,9 @@ class ConfcreditModel{
 		$Q = new Query('configs_credit');
 		$Q->page = $page;
 		$Q->pagesize = 5;
-		$Q->order = " time asc";
+
+		$Q->order = "sort asc";
+
 		$data = $Q->find();
 		$pageBar =  $Q->getPageBar();
 		return array('data'=>$data,'bar'=>$pageBar);

@@ -43,7 +43,7 @@
                              <tr>
                                 <td nowrap="nowrap"><span></span>购买人：</td>
                                 <td colspan="2">
-                                    {$info['userinfo']['true_name']}
+                                    {$info['buyer_name']}
                                 </td>
                             </tr>
                             

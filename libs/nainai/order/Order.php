@@ -11,6 +11,7 @@ use \Library\Query;
 use \Library\tool;
 use \Library\url;
 use \search\adminQuery;
+use \Library\Time;
 class Order{
 
 	//合同制状态常量
@@ -430,6 +431,7 @@ class Order{
 				$order_type = $info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST;
 				//合同状态置为生效
 				$orderData['contract_status'] = $order_type ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
+				$orderData['end_time'] = $order_type ? NULL : date('Y-m-d H:i:s',time());
 				$log_res = $this->payLog($order_id,$user_id,1,'卖家确认线下支付凭证');
 			}elseif($confirm === false){
 				//删除之前上传proof
@@ -886,7 +888,7 @@ class Order{
 		$query = new \Library\searchQuery('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join user as u2 on po.user_id = u2.id left join products as p on po.product_id = p.id left join company_info as ci on do.user_id = ci.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
 		if($where)$query->where = $where;
-		$query->fields = 'u2.username as po_username,po.mode,u.username as do_username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
+		$query->fields = 'po.type,u2.username as po_username,po.mode,u.username as do_username,do.*,p.name as product_name,p.img,p.unit,ci.company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 
 		 $query->order = "do.id desc";
@@ -895,7 +897,7 @@ class Order{
 		$product = new \nainai\offer\product();
 		foreach ($data['list'] as $key => &$value) {
 			$value['mode_txt'] = $product->getMode($value['mode']);
-			$value['type_txt'] = $product->gettype($value['mode']);
+			$value['type_txt'] = $product->gettype($value['type']);
 			$value['account'] = number_format(floatval($value['amount']) - floatval($value['reduce_amount']),2);
 			$value['amount'] = number_format(floatval($value['amount']),2);
 			$value['num'] = number_format(floatval($value['num']),2);
@@ -1156,7 +1158,7 @@ class Order{
 						$title = '质量合格';
 						$href = url::createUrl("/Order/sellerVerifyPage?order_id={$value['id']}");
 					}else{
-						$title = '扣减货款';
+						$title = '确认质量';
 						$href = url::createUrl("/Order/sellerVerify?order_id={$value['id']}&reduce=1");
 					}
 					break;
@@ -1192,6 +1194,14 @@ class Order{
 					break;
 				case self::CONTRACT_SELLER_DEPOSIT:
 					$title = '等待卖家支付保证金';
+					$action []= array('action'=>$title);
+					$_after_time = time::_after_time($value['pay_deposit_time'],30);
+					if($_after_time === true){
+						$action []= array('action'=>'取消合同','url'=>url::createUrl("/Order/cancelContract?order_id={$value['id']}"));
+					}
+					// else{
+					// 	$action []= array('action'=>$_after_time.'可以取消合同');
+					// }
 					break;
 				case self::CONTRACT_BUYER_RETAINAGE:
 					if(empty($value['proof'])){
