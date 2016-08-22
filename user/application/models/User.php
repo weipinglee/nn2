@@ -139,7 +139,7 @@ class UserModel{
 		}
 		if($res===true){
 			$data['id'] = $uID;
-			$resInfo = $this->getSuccInfo();
+			$resInfo = $this->getSuccInfo(1, $uID);
 		}
 		else{
 			$resInfo = $this->getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
@@ -601,10 +601,10 @@ class UserModel{
 		$code=rand(100000,999999);
 
 		//短信接口 TODO
-		// $hsms=new Library\Hsms();
-		// if(!$hsms->send($phone,$code)){
-		// 	return $this->getSuccInfo(0,'发送失败');
-		// }
+		$hsms=new Library\Hsms();
+		if(!$hsms->send($phone,$code)){
+			return $this->getSuccInfo(0,'发送失败');
+		}
 		//短信发送成功，保存验证信息
 		if ($save == 'database') {
 			if ($type == 'login') {
@@ -622,7 +622,7 @@ class UserModel{
 			session::set('mobileValidate',array('code'=>$code,'time'=>time(),'mobile'=>$phone));
 		}
 		
-		return $this->getSuccinfo(1,'发送成功', array('uid'=>$uid));
+		return $this->getSuccinfo(1,'发送成功');
 	}
 
 	/**

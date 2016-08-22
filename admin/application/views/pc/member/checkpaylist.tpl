@@ -1,9 +1,9 @@
 ﻿
         <div id="content" class="white">
-            <h1><img src="{views:img/icons/posts.png}" alt="" /> 会员管理</h1>
+            <h1><img src="{views:img/icons/posts.png}" alt="" /> 支付密码修改</h1>
 <div class="bloc">
     <div class="title">
-        会员列表
+        已审核列表
     </div>
     <div class="content">
         <div class="pd-20">
@@ -29,7 +29,7 @@
 
 				<td>{$item['id']}</td>
 				<td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
-				<td>{$item['true_name']}/{$item['company_name']}</td>
+				<td>{if:empty($item['name'])}{$item['company_name']}{else:}{$item['name']}{/if}</td>
 				<td>{$item['mobile']}</td>
 				<td>{$item['apply_time']}</td>
 				<td>{$item['status_txt']}</td>

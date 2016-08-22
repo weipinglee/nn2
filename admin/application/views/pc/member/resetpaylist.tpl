@@ -1,9 +1,9 @@
 ﻿
         <div id="content" class="white">
-            <h1><img src="{views:img/icons/posts.png}" alt="" /> 会员管理</h1>
+            <h1><img src="{views:img/icons/posts.png}" alt="" /> 支付密码修改</h1>
 <div class="bloc">
     <div class="title">
-        会员列表
+        重置密码列表
     </div>
     <div class="content">
         <div class="pd-20">

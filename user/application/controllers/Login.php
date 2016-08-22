@@ -68,7 +68,7 @@ class LoginController extends \Yaf\Controller_Abstract {
         $validPhoneCode = safe::filterPost('validPhoneCode','int');
         $phone = safe::filterPost('mobile','/^\d+$/');
         $data = array('err'=>0);
-        $data = self::checkMobileValidateCode($phone,$validPhoneCode);
+        // $data = self::checkMobileValidateCode($phone,$validPhoneCode);
         if($data['err'] == 1)
         {
             $res = array('success'=>0,'info'=>$data['info']);
@@ -113,6 +113,8 @@ class LoginController extends \Yaf\Controller_Abstract {
 			$credit = new \nainai\CreditConfig();
 			$credit->changeUserCredit($userData['id'],'register');
 			//$this->redirect('index');
+			$mess = new \nainai\message($res['info']);
+			$re = $mess->send('register');
 		}
 
 		die(json::encode($res));

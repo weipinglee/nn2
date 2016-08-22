@@ -213,6 +213,8 @@ class certificate{
 
         $res = $certModel->commit();
         if($res===true){
+            $mess = new \nainai\message($user_id);
+            $res = $mess->send($table, $status);
             return tool::getSuccInfo();
         }
         return tool::getSuccInfo(0,'操作失败');
