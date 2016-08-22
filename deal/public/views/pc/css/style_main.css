@@ -1123,13 +1123,14 @@
 	position: absolute;
 	height: auto;
 	overflow: hidden;
-	background: #EFEDEA;
-	border: 1px solid #D2CAB7;
+	background: #fff2e9;
+	border: 1px solid #eec2ab;
 	left: 120px;
 	display: none;
 	z-index: 9999999999999999999;
 	margin: 0 5px;
 	width: 120px;
+	top: 7px;
 }
 .titles p{
 	line-height:25px;

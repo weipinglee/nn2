@@ -114,7 +114,7 @@
  <!-- one -->
      <div class="service">
        <div class="support">
-         <h3>service&nbsp;<b>support</b></h3>
+         <h3>SERVICE&nbsp;<b>SUPPORT</b></h3>
          <h4>服务支持</h4>
          <div class="support_clude">
            <div class="supp_lef">
@@ -152,7 +152,7 @@
        </div>
        
   <!-- three -->
-       <div class="support">
+       <div class="support mone_bor">
          <div class="support_clude space">
            <div class="supp_lef">
               <img src="{views:images/storage/computer.png}" alt=""> 
