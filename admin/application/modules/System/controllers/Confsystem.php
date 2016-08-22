@@ -11,8 +11,8 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 
 	private $confcredit;
 	public function init(){
-		$this->confcredit = new \config\confcreditModel();
-		$this->confscaleOffer = new \config\confscaleOfferModel();
+		$this->confcredit = new \config\ConfcreditModel();
+		$this->confscaleOffer = new \config\ConfscaleOfferModel();
 		$this->getView()->setLayout('admin');
 		//echo $this->getViewPath();
 	}

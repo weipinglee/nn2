@@ -221,7 +221,11 @@ class OffersController extends PublicController {
 		else $order = '';
 
 		$data = $this->offer->getList($page, $condition,$order);
-
+		if ( ! empty($this->login)) {
+			$data['login'] = 1;
+		}else{
+			$data['login'] = 0;
+		}
 		echo json::encode($data);
 		exit();
 	}
