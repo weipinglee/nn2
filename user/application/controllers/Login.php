@@ -193,6 +193,11 @@ class LoginController extends \Yaf\Controller_Abstract {
         {
             die(JSON::encode(tool::getSuccInfo(0, '验证码错误')));
         }
+        $userObj = new M('user');
+        if($userObj->where('mobile="'.$phone.'"')->getFields('id'))
+        {
+            die(JSON::encode(tool::getSuccInfo(0, '该手机号已注册')));
+        }
         $text = rand(100000, 999999);
         session::set('mobileValidateReg', array('phone' => $phone, 'num' => $text, 'time' => time()));
         $hsms = new Hsms();
