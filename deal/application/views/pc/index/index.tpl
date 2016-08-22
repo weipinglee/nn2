@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                         {/foreach}
-                          
+
                         </div>
                         <!--所有分类 End-->
 <!-- 分类js strat-->
@@ -521,9 +521,12 @@
                                 <div class="ShopPro_Con">
                                     {foreach: items=$statcProList}
                                     <div class="ShopPro_item clearfix">
-                                        <span class="ShopPro_text"><a href="javascript:;">{$item['name']}</a></span>
+                                        <span class="ShopPro_text">{$item['name']}</a></span>
                                         <span class="ShopPro_change i_TextRed"><img class="shja" {if:$item['change_range'] == 0}src="{views:images/index/icon_line.png}"{elseif:abs($item['change_range']) <> $item['change_range']}src="{views:images/index/icon_down.png}"{else:}src="{views:images/index/icon_top.png}"{/if}/>{echo:abs($item['change_range'])}%</span>
                                         <span class="ShopPro_price i_TextRed">￥{$item['price']}</span>
+                                        <div class='titles'><p>
+                                                {$item['name']}
+                                            </p></div>
                                     </div>
                                     {/foreach}
                                 </div>

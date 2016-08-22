@@ -70,13 +70,19 @@ class FundoutController extends InitController {
 			$status = safe::filterPost('status', 'int');
 			$message = safe::filterPost('message');
 			$userName=safe::filterPost('user_name');
+			$user_id=safe::filterPost('user_id','int');
 			$fundOutModel = new fundOutModel();
 			$res = $fundOutModel->fundOutFirst($id, $status, $message);
 			if($res['code']==1){
 				$adminmsg=new \nainai\AdminMsg();
-				$content='用户'.$userName.'有一笔提现需要终审';
-				$adminmsg->createMsg('fundoutfinal',$id,$content);
 				$adminmsg->setStatus($this,$id);
+				if($status==1){
+					$content='用户'.$userName.'有一笔提现需要终审';
+					$adminmsg->createMsg('fundoutfinal',$id,$content);
+				}else {
+					$messObj=new \nainai\message($user_id);
+					$message->send('fundOutFail');
+				}
 			}
 			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
 		}
@@ -89,13 +95,19 @@ class FundoutController extends InitController {
 			$status = safe::filterPost('status', 'int');
 			$message = safe::filterPost('message');
 			$userName=safe::filterPost('user_name');
+			$user_id=safe::filterPost('user_id','int');
 			$fundOutModel = new fundOutModel();
 			$res = $fundOutModel->fundOutFinal($id, $status, $message);
 			if($res['code']==1){
 				$adminmsg=new \nainai\AdminMsg();
-				$content='用户'.$userName.'有一笔提现需要打款';
-				$adminmsg->createMsg('fundouttransfer',$id,$content);
 				$adminmsg->setStatus($this,$id);
+				if($status==1) {
+					$content = '用户' . $userName . '有一笔提现需要打款';
+					$adminmsg->createMsg('fundouttransfer', $id, $content);
+				}else{
+					$messObj=new \nainai\message($user_id);
+					$messObj->send('fundOutFail');
+				}
 			}
 			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
 		}
@@ -106,7 +118,7 @@ class FundoutController extends InitController {
 		if(IS_AJAX && IS_POST){
 			$id = safe::filterPost('out_id', 'int',0);
 			$proof = safe::filterPost('imgfile2');
-
+			$user_id=safe::filterPost('user_id');
 
 			if(!$id || $proof==''){
 				die(JSON::encode(tool::getSuccInfo(0,'请上传打款凭证'))) ;
@@ -119,6 +131,8 @@ class FundoutController extends InitController {
 				if($res['code']==1){
 					$adminmsg=new \nainai\AdminMsg();
 					$adminmsg->setStatus($this,$id);
+					$messObj=new \nainai\message($user_id);
+					$messObj->send('fundOutOk');
 				}
 			}
 			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));

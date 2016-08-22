@@ -70,18 +70,24 @@ class FundinController extends InitController {
 	//初审
 	public function offlineFirstAction() {
 		$id = safe::filterPost('re_id', 'int');
-
 		$status = safe::filterPost('status', 'int');
 		$mess  = safe::filterPost('message');
 		$userName=safe::filterPost('user_name');
+		$user_id=safe::filterPost('user_id','int');
 		$fundObj = new fundInModel();
 
 		$res = $fundObj->offLineFirst($id,$status,$mess);//初审操作
-		if($res['success']==1){
+		if($res['success']==1) {
 			$adminMsg = new \nainai\adminMsg();
-			$content='用户'.$userName.'有一笔入金需要终审';
-			$adminMsg->setStatus($this,$id);
-			$adminMsg->createMsg('fundinFinal',$id,$content);
+			$content = '用户' . $userName . '有一笔入金需要终审';
+			$adminMsg->setStatus($this, $id);
+			$messObj=new \nainai\message($user_id);
+
+			if ($status == 1) {
+				$adminMsg->createMsg('fundinFinal', $id, $content);
+			}else{
+				$messObj->send('fundInFail');
+			}
 		}
 		die(json::encode($res));
 	}
@@ -90,14 +96,18 @@ class FundinController extends InitController {
 		$id = safe::filterPost('re_id', 'int');
 		$status = safe::filterPost('status', 'int');
 		$mess  = safe::filterPost('message');
-
+		$user_id=safe::filterPost('user_id','int');
 		$fundObj = new fundInModel();
-
 		$res = $fundObj->offLineFinal($id,$status,$mess);//终审操作
 		if($res['success']==1){
 			$adminMsg = new \nainai\adminMsg();
-
 			$adminMsg->setStatus($this,$id);
+			$messObj=new \nainai\message($user_id);
+			if($status==1){
+				$messObj->send('fundInOk');
+			}else{
+				$messObj->send('fundInFail');
+			}
 
 		}
 		die(json::encode($res));

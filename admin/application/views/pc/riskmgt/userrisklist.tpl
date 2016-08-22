@@ -32,7 +32,7 @@
                                 <td>{if:$item['true_name']!=null}{$item['true_name']}{else:}{$item['company_name']}{/if}</td>
                                 <td>{$item['introduce']}</td>
                                 <td>{$item['record_time']}</td>
-                                    <td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a> <a title="编辑" href="{url:riskmgt/riskmgt/checkUserRisk?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> </td>
+                                    <td class="td-manage"><a title="编辑" href="{url:riskmgt/riskmgt/checkUserRisk?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> </td>
                             </tr>
                         {/foreach}
                         </tbody>

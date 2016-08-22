@@ -23,8 +23,8 @@
         </div>
         <div class="content">
             <div class="pd-20">
-                <form action="{url:system/friendlyLink/editLink}" method="post"  class="form form-horizontal"
-                      id="" auto_submit redirect_url="{url:system/friendlyLink/frdLinkList}">
+                <form action="{url:tool/friendlyLink/editLink}" method="post"  class="form form-horizontal"
+                      id="" auto_submit redirect_url="{url:tool/friendlyLink/frdLinkList}">
 
                     <div class="row cl">
                         <label class="form-label col-2">名称：</label>

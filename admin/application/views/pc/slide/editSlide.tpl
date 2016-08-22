@@ -23,8 +23,8 @@
         </div>
         <div class="content">
             <div class="pd-20">
-                <form action="{url:system/slide/editSlide}" method="post"  class="form form-horizontal"
-                      id="adPositionAdd" auto_submit redirect_url="{url:system/slide/slideList}">
+                <form action="{url:tool/slide/editSlide}" method="post"  class="form form-horizontal"
+                      id="adPositionAdd" auto_submit redirect_url="{url:tool/slide/slideList}">
 
                     <div class="row cl">
                         <label class="form-label col-2">名称：</label>
@@ -35,7 +35,7 @@
                     <div class="row cl">
                         <label class="form-label col-2">上传图片就替换原图片：</label>
                         <div class="formControls col-10">
-                            <input type="hidden" name="uploadUrl"  value="{url:system/slide/upload@admin}" />
+                            <input type="hidden" name="uploadUrl"  value="{url:tool/slide/upload@admin}" />
                             <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
                         </div>
                         <div>

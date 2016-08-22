@@ -1345,6 +1345,7 @@ class Order{
 					 left join user as u on u.id = of.user_id';
 		$Q->fields = 'u.username,of.type,p.name,p.unit,o.num,o.create_time';
 		$Q->where = 'o.contract_status='.self::CONTRACT_COMPLETE;
+		$Q->order=' o.create_time desc';
 		$Q->limit = $num;
 		$Q->cache = 'm';
 		$data = $Q->find();

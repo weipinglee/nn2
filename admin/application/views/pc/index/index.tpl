@@ -295,16 +295,16 @@
                                 <li><a href="{url:tool/help/helpList}" target="content">帮助列表</a></li>
                             </ul>
                         </li>
-                            <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
+                            <li><a href="{url:/tool/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
                                 <ul>
-                                    <li><a href="{url:/system/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
-                                    <li><a href="{url:/system/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
+                                    <li><a href="{url:/tool/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
+                                    <li><a href="{url:/tool/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{url:/system/slide/slideList}" target="content">幻灯片管理</a>
+                            <li><a href="{url:/tool/slide/slideList}" target="content">幻灯片管理</a>
                                 <ul>
-                                    <li><a href="{url:/system/slide/addSlide}" target="content">新增幻灯片</a></li>
-                                    <li><a href="{url:/system/slide/slideList}" target="content">幻灯片列表</a></li>
+                                    <li><a href="{url:/tool/slide/addSlide}" target="content">新增幻灯片</a></li>
+                                    <li><a href="{url:/tool/slide/slideList}" target="content">幻灯片列表</a></li>
                                 </ul>
                             </li>
                     </ul>
