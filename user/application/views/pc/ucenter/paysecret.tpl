@@ -2,7 +2,7 @@
 <div class="user_c">
 	<div class="user_zhxi">
 		<div class="zhxi_tit">
-			<p><a>账号管理</a>><a>{if:!empty($pay_secret)}修改支付密码{else:}设置支付密码{/if}</a></p>
+			<p><a>账户管理</a>><a>{if:!empty($pay_secret)}修改支付密码{else:}设置支付密码{/if}</a></p>
 		</div>
 		<div style="float:left">
 			<form action="{url:/ucenter/paysecret}" auto_submit redirect_url="{url:/ucenter/baseinfo}">

@@ -44,7 +44,7 @@ class productController extends InitController{
             $attr = $productModel->getAllAttr();
             if($cate_id){
                 $temp = array();
-                foreach($attr['list'] as $v)
+                foreach($attr as $v)
                 {
                     $temp[$v['id']] = $v['name'];
                 }

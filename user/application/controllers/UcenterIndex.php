@@ -15,12 +15,12 @@ class UcenterIndexController extends UcenterBaseController {
         $group = new \nainai\member();
 
        $groupData = $group->getUserGroup($this->user_id);//会员分组数据
-        //$creditGap = $group->getGroupCreditGap($this->user_id);//与更高等级的分组的差值
+        $creditGap = $group->getGroupCreditGap($this->user_id);//与更高等级的分组的差值
 
         $this->getView()->assign('username',$this->username);
 
         $this->getView()->assign('group',$groupData);
-        //$this->getView()->assign('creditGap',$creditGap);
+        $this->getView()->assign('creditGap',$creditGap);
 
         $this->getView()->assign('cert',$this->cert);
 

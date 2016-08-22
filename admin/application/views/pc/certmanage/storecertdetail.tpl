@@ -1,4 +1,4 @@
-﻿<script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
+<script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
 <script type="text/javascript" src="{views:js/validform/validform.js}"></script>
 <script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
 <script type="text/javascript" src="{views:js/layer/layer.js}"></script>
@@ -48,6 +48,13 @@
                         <td>{$cert['true_name']}</td>
                         <th>身份证号：</th>
                         <td>{$cert['identify_no']}</td>
+                    </tr>
+                    <tr>
+
+                        <th>地区：</th>
+                        <td>{areatext:data=$cert['area']}</td>
+                        <th>详细地址：</th>
+                        <td>{$cert['address']}</td>
                     </tr>
                     {else:}
                     <tr>

@@ -28,8 +28,8 @@
 												</div>
 											</li>
 											<li>
-												<img src="{views:/images/center/icon_yin.jpg}"/>
-											<span>距离升级还需{$creditGap}信誉分</span>
+												<!--<img src="{views:/images/center/icon_yin.jpg}"/>-->
+											&nbsp;<span>距离升级还需 {$creditGap} 信誉分</span>
 											</li>
 										</ul>
 									</td>

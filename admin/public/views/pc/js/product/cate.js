@@ -79,6 +79,20 @@ $(function() {
 
     });
 
-
+    //搜索属性
+    $('.js_blur_search').keyup(function(){
+        var _k = $(this).val()
+            ,_obj = $(this).prev('select').find('option');
+        $(_obj).each(function(){
+            if($(this).text().indexOf(_k) == -1)
+            {
+                $(this).hide();
+            }
+            else
+            {
+                $(this).show()
+            }
+        })
+    })
 
 })

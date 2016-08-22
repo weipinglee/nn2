@@ -73,6 +73,7 @@
              <!-- <input type="hidden" name="attrs[]" value="1"/>
               <input type="hidden" name="attrs[]" value="2"/> -->
               <select id='all_attr'>
+                <option value="0">--请选择--</option>
                   {if:!empty($attr)}
                       {foreach: items=$attr}
                           <option value="{$item['id']}">{$item['name']}</option>
@@ -81,6 +82,7 @@
                   {/if}
 
               </select>
+              <input type="text" class="js_blur_search">
 
           </div><a href="javascript:void(0)" onclick="addAttr()">添加</a>
           <div class="col-5"> </div>
