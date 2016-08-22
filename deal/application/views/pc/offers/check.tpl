@@ -109,9 +109,9 @@
                      <div class="bank_box" style="display:none;">
                        <label for=""><input type="radio" name="bank"/></label><img src="{views:images/password/bank_js.png}" alt="" />
                        
-                        <label for=""><input type="radio" name="bank"/></label><img src="images/password/bank_pa.png" alt="" />
+                        <label for=""><input type="radio" name="bank"/></label><img src="{views:images/password/bank_pa.png}" alt="" />
                         
-                        <label for=""><input type="radio" name="bank"/></label><img src="images/password/bank_zx.png" alt="" />
+                        <label for=""><input type="radio" name="bank"/></label><img src="{views:images/password/bank_zx.png}" alt="" />
                      </div>
              <script>
                  $(function(){
