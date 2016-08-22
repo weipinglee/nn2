@@ -1822,38 +1822,10 @@ a.for_cangdan:hover,a.for_cangdan:active{
 /*消息管理 strat*/
 .mail_table{
   margin-bottom: 20px;
+  font-size: 14px;
 }
 .mail_table a:hover {
 text-decoration:none;
-}
-.mail_table .tact{
-  margin: 17px 30px 0 30px;
-  line-height: 25px;
-}
-.mail_table .tact .right-a{
- position: absolute;
- top:20px;
- right: 10px;
-}
-.mail_table .cz-tab{
-  position: relative;
-  top: 17px;
-}
-.mail_table .data{
-  border: 1px solid #D61515;
-  margin: 0 10px;
-  border-radius: 10px;
-  width: 60px;
-}
-.mail_table .data .data_year{
-  line-height: 25px;
-  background: #D61515;
-  color: #fff;
-  border-radius: 10px 10px 0px 0px;
-}
-.mail_table .data .data_day{
-  font-size: 20px;
-line-height: 30px;
 }
 .mail_table tr td{
   vertical-align: top;
@@ -1864,21 +1836,105 @@ line-height: 30px;
 }
 .mail_table tr td:nth-child(3){
   text-align: right;
-  padding-right: 10px;
+  padding-right: 35px;
 }
-
-.mail_table .mail_cont{
-  padding: 25px 0 10px 10px;
-}
-.mail_table .mail_cont .up_jt{
-  display: block;
-  text-align: center;
-  font-size: 25px;
-}
-.pa-zy{
-  padding:0 10px; 
+.mail_table tr td .cz-tab{
+  font-size: 23px;
+  float: right;
+  padding-right: 60px;
 }
 /*消息管理 end*/
+
+/*系统消息修改后css start*/
+.mail_table .selck{
+  float: left;
+  padding-left: 25px;
+}
+.mail_table .bjdele{
+  float: left;
+  padding-left: 50px;
+}
+.mail_table .noinfor{
+  float: right;
+  padding-right: 50px;
+}
+.mail_table .tact{
+  text-align: left;
+  padding-left: 25px;
+  float: left;
+  width: 550px;
+}
+.mail_table .data{
+  float: left;
+}
+.check{
+  position: relative;
+  width: 20px;
+}
+.mail_table{
+  margin-top:25px; 
+}
+.mail_table tr{
+  height: 63px;
+  line-height: 63px;
+}
+.mail_table tr:first-child{
+  height: 45px;
+  line-height: 45px;
+  border-top: 1px solid #e6e6e6;
+  font-weight:normal;
+}
+.mail_table .jy_deal{
+    text-align: left;
+    padding: 20px 15px;
+    border: 1px solid #e6e6e6;
+    margin: 10px 30px;
+    line-height: 30px;
+    background: #fafafa;
+    position: relative;
+    display: none;
+}
+.mail_table .jy_deal .c-tip-arrow {
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    position: absolute;
+    top: -31px;
+    left: 80px;
+}
+
+.c-tip-arrow em, .c-tip-arrow ins {
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    position: absolute;
+    border: 15px solid transparent;
+    border-style: dashed dashed solid dashed;
+}
+.c-tip-arrow em {
+    border-bottom-color: #e6e6e6;
+}
+.c-tip-arrow ins {
+    border-bottom-color: #fafafa;
+    top: 2px;
+}
+.mail_table .jy_deal .jx_num{
+  margin-bottom: 15px;
+}
+.right-a:hover{
+  color: #D61515;
+}
+.right-a:hover .jy_deal{
+  display: block;
+}
+/*系统消息修改后css end*/
+
+
+
 /*搜索按钮*/
 .search_an{
   width: 44px;
