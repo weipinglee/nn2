@@ -20,7 +20,7 @@
 									</select></li>
 									<li>时间：<input class="Wdate" type="text" name="beginDate" value="{$beginDate}" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="{$endDate}" onclick="WdatePicker()">
 									</li>
-									<li> <input type="submit" value="搜索" class="chaz"></li>
+									<li> <input type="submit" value="查找" class="chaz"></li>
 								</ul>
 							</form>
 							<div style="clear:both;"></div>

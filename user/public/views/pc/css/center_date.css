@@ -135,6 +135,7 @@
 .rc_bate .jd_img{
 	position: relative;
 	left: 40px;
+    padding-right: 320px;
 }
 .rc_bate .jd_ts{
 	line-height: 26px;
