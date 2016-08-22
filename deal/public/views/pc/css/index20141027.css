@@ -102,7 +102,9 @@ a:hover {
 #index_nav {
 }
 #index_nav .page_width {
-    position: relative
+    position: relative;
+    height: 42px;  
+    border-bottom: 1px solid #f5f5f5;
 }
 
 #index_nav .all_steel {

@@ -26,7 +26,7 @@
 						<div class="zhxi_con">
                             <span class="con_tit"><i></i>短信验证码：</span>
                             <span><input type="text" name='mobileCode' id="phone" class="infos text gradient" placeholder="请输入验证码" style="float:left;"/></span><input class="send1" type="button" value="免费获取短信验证码" onClick="getMobileCode()"  style="float:left;"/>
-                            <div><input type="text" readonly="readonly" name="checkCode" class="mobile_no"/></div>
+                            <div><input type="text" readonly="readonly" name="checkCode" class="mobile_no" style="display:none;"/></div>
                         </div>
                     <div style="clear:both;"></div>
 						<div class="zhxi_con">

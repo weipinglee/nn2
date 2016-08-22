@@ -3,15 +3,16 @@
 	div#verify>p{width: 100%;line-height: 30px;}
 	
 	div#verify>a {
-    display: block;
     margin: 50px 0 0 50px;
-    padding: 10px 20px;
-    background-color: #d61515;
-    color: #fff;
-    width: 50px;
     text-align: center;
-    text-decoration: none;
-    border-radius: 4px;
+      font-size: 16px;
+      color: #fff;
+      background: #D61515;
+      display: block;
+      width: 120px;
+      height: 35px;
+      line-height: 35px;
+      border: 0px;
 }
 </style>
 

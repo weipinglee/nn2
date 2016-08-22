@@ -784,6 +784,7 @@ visibility: hidden;
 .chp_xx .methed li div input {
     height: 25px;
     width: 200px;
+    border: 1px solid #dfe5eb;
 }
 .chp_xx .methed li div p {
     margin: 10px 0;
@@ -1614,6 +1615,7 @@ margin: 0 10px;
 /*修改手机号，密码进度css*/
 .jd_img{
   text-align: center;
+  padding-right: 290px;
 }
 /*验证码*/
 .gradient{
