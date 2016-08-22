@@ -50,6 +50,12 @@
                                    {$info['num']}
                                 </td>
                             </tr>
+                            <tr >
+                                <td nowrap="nowrap"><span></span>申请提货时间：</td>
+                                <td colspan="2">
+                                    {$info['create_time']}
+                                </td>
+                            </tr>
                             <tr>
               					<td nowrap="nowrap"><span></span>预计提货时间：</td>
                 				<td colspan="2">
@@ -60,6 +66,12 @@
                                 <td nowrap="nowrap"><span></span>提货人：</td>
                                 <td colspan="2">
                                     {$info['delivery_man']}
+                                </td>
+                            </tr>
+                            <tr >
+                                <td nowrap="nowrap"><span></span>电话：</td>
+                                <td colspan="2">
+                                    {$info['phone']}
                                 </td>
                             </tr>
                             <tr>
@@ -80,12 +92,7 @@
                                     {$info['remark']}
                                 </td>
                             </tr>
-                            <tr >
-                                <td nowrap="nowrap"><span></span>申请提货时间：</td>
-                                <td colspan="2">
-                                    {$info['create_time']}
-                                </td>
-                            </tr>
+                            
                             {if:$info['delivery_time']}
                                 <tr >
                                     <td nowrap="nowrap"><span></span>发货时间：</td>

@@ -66,7 +66,8 @@ class DepositOrder extends Order{
 					//冻结买方帐户资金  payment=1 余额支付
 					$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
 					$note_type = $type==0 ? '订金' : '全款';
-					$note = '合同'.$note_id.$note_type.'支付 '.$info['amount'];
+					$pay_account = $type == 0 ? $pay_deposit : $info['amount'];
+					$note = '合同'.$note_id.$note_type.'支付 '.$pay_account;
 
 					$mess = new \nainai\message($offerInfo['user_id']);
 					$mess->send('depositPay',$info['order_no']);
@@ -110,29 +111,36 @@ class DepositOrder extends Order{
 			}
 			if($info['contract_status'] != self::CONTRACT_SELLER_DEPOSIT)
 				return tool::getSuccInfo(0,'合同状态有误');
-			if($seller != $user_id)
-				return tool::getSuccInfo(0,'订单卖家信息有误');
+			if(($pay === true && $seller != $user_id) || ($pay === false && $buyer != $user_id))
+				return tool::getSuccInfo(0,'订单用户信息有误');
 			try {
 				$this->order->beginTrans();
 				if($pay === false){
 					//未支付 合同取消
 					
-
 					$account = $this->base_account->get_account($info['buyer_deposit_payment']);
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);
+
+					$orderData['contract_status'] = self::CONTRACT_CANCEL;
+					$upd_res = $this->orderUpdate($orderData);
+
 					//扣除信誉值
 					$configs_credit = new \nainai\CreditConfig();
-					$configs_credit->changeUserCredit($seller,'cancel_contract');
-					
-					//将买方冻结资金解冻
-					$note = '卖方未支付合同'.$info['order_no'].'保证金 退还定金 '.$info['pay_deposit'];
-					$acc_res = $account->freezeRelease($buyer,floatval($info['pay_deposit']),$note);
+					$cre_res = $configs_credit->changeUserCredit($seller,'cancel_contract',$info['pay_deposit']);
+
 					//将商品数量解冻
 					$pro_res = $this->productsFreezeRelease($this->offerInfo($info['offer_id']),$info['num']);
 
-					$log_res = $this->payLog($order_id,$user_id,1,'卖方未支付保证金,合同作废,扣除信誉值');
-					$orderData['contract_status'] = self::CONTRACT_CANCEL;
+					$log_res = $this->payLog($order_id,$user_id,1,'买方取消合同,合同作废,扣除信誉值');
 
+					$res = $upd_res['success'] == 1 && $cre_res === true && $pro_res === true && $log_res === true ? true : $cre_res.$upd_res['info'].$pro_res.$log_res;
+
+					if($res === true){
+						//将买方冻结资金解冻
+						$note = '卖方未支付合同'.$info['order_no'].'保证金 退还定金 '.$info['pay_deposit'];
+						$res = $acc_res = $account->freezeRelease($buyer,floatval($info['pay_deposit']),$note);
+					}
+					
 				}elseif($pay === true){
 					//卖方支付保证金
 					

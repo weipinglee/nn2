@@ -27,6 +27,7 @@ class CreditConfig extends \nainai\Abstruct\ModelAbstract{
 		if (intval($userId) > 0 && is_string($operateName)) {
 
 			$configData = $this->model->fields('name, type, sign, value')->where('name=:name')->bind(array('name' => $operateName))->getObj();
+
 			$userData = $this->model->table('user')->fields('id, credit')->where('id=:id')->bind(array('id' => $userId))->getObj();
 			
 			if (!empty($configData) && !empty($userData)) {

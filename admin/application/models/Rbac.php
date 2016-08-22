@@ -46,10 +46,11 @@ class RbacModel{
 	 * 获取角色列表
 	 * @return [type] [description]
 	 */
-	public function roleList($page,$pagesize=5){
+	public function roleList($page,$pagesize=5,$where = ''){
 		$Q = new Query('admin_role');
 		$Q->page = $page;
 		$Q->pagesize = $pagesize;
+		if($where)$Q->where = $where;
 		$data = $Q->find();
 		$pageBar =  $Q->getPageBar();
 		return array('data'=>$data,'bar'=>$pageBar);

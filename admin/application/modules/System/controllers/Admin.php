@@ -50,7 +50,7 @@ class AdminController extends InitController {
             echo JSON::encode($res);
             return false;
 		}
-		$this->getView()->assign('admin_roles',$this->rbacModel->roleList(1,10000)['data']);
+		$this->getView()->assign('admin_roles',$this->rbacModel->roleList(1,10000,'status=0')['data']);
 		//$this->getView()->display('/adminUpdate.tpl');
 	}
 
