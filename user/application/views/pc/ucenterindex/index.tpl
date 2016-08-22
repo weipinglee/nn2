@@ -111,6 +111,7 @@
 
 						</div>
 					</div>
+					{if: $user_type == 1}
 					<!-- 最新销售合同 -->
 					<div class="user_nrz">
 						<div class="nrz_tit"><span>最新销售合同</span><a class="gengduo" href="{url:/contract/sellerList}">更多>></a></div>
@@ -158,6 +159,7 @@
 							
 						</div>
 					</div>
+					{/if}
 					<!-- 最新销售合同end -->
 					<!-- 关注推荐 start
 					<div class="user_nrz chp_xx">
