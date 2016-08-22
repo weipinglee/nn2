@@ -259,7 +259,7 @@ class product  {
         else{
             $this->_productObj->table('product_category');
         }
-        $category = $this->_productObj->fields('id,pid, name, unit, childname, attrs')->where($where)->select();
+        $category = $this->_productObj->fields('id,pid, name, unit, childname, attrs')->order('sort ASC,id DESC')->where($where)->select();
         return $category;
     }
 
