@@ -315,7 +315,7 @@ text-align: left;
     width: 170px;
     text-align: right;
     float: left;
-	line-height:30px;
+	line-height:38px;
 }
 .zhxi_con span.zhxi_addre select{
   width: 80px;
@@ -330,8 +330,15 @@ div.zhxi_con.font_set span i.bold{
 }
 .zhxi_con .text{
   height: 35px;
-  width: 152px;
+  width: 238px;
   font-family: 微软雅黑;
+  border: 1px solid #ccc;
+  padding: 0 6px;
+  color: #777;
+}
+#areabox select{
+  height: 38px;
+  color: #777;
 }
 .zhxi_con .text.potwt{
   width: 65px;

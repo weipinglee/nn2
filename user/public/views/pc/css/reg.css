@@ -14,6 +14,7 @@ button{cursor:pointer;}
 .register{
 	width:712px;
     margin: 0 auto;
+    position: relative;
    
 }
 .regis_boxs{
@@ -77,7 +78,7 @@ button{cursor:pointer;}
 
 /*注册内容*/
 .reg_cot{
-    margin: 30px auto;
+    margin:30px auto 0 auto;
 }
 .reg_cot .cot{
 	padding: 6px 0px;
@@ -95,10 +96,13 @@ button{cursor:pointer;}
     border: 1px solid #D8D5D5;
     background: #f2f2f2;
     font-size: 12px;
-    padding: 9px 6px 8px 6px;
+    padding: 7px 6px 7px 6px;
     color: #666666;
+    font-family: "Microsoft YaHei","微软雅黑";
 }
-
+.reg_cot .cot .jiaoyma:hover{
+    text-decoration: none;
+}
 .reg_cot .cot .cot_tit{
 	display: block;
     float: left;
@@ -164,6 +168,7 @@ button{cursor:pointer;}
     height: 31px;
     min-width: 65px;
     border: 1px solid #D8D5D5;
+    margin-right: -8px;
 }
 .background_img.bottom--{
     background: url(../images/password/bottom_img.png) no-repeat center;
