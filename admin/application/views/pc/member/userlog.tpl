@@ -3,7 +3,7 @@
             <h1><img src="{views:img/icons/posts.png}" alt="" /> 会员管理</h1>
 <div class="bloc">
     <div class="title">
-        会员列表
+        会员日志列表
     </div>
     <div class="content">
         <div class="pd-20">

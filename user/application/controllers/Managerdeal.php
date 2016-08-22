@@ -442,7 +442,6 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function doStoreOfferAction(){
         if (IS_POST) {
-
             $token = safe::filterPost('token');
             // if(!safe::checkToken($token))
              //    die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
@@ -465,7 +464,9 @@ class ManagerDealController extends UcenterBaseController {
                     'price'        => Safe::filterPost('price', 'float'),
                     'user_id'     => $this->user_id,
                     'insurance' => Safe::filterPost('insurance', 'int'),
-                    'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+                    'risk' =>implode(',', Safe::filterPost('risk', 'int')),
+                   'expire_time' =>  Safe::filterPost('expire_time'),
+                   'other' => Safe::filterPost('other'),
                 );
                 
                 if(!$offerData['risk']){

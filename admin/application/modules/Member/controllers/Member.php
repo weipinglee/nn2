@@ -207,7 +207,7 @@ class MemberController extends InitController {
 		$member=$memberModel->getOnLine($page);
 		//var_dump($member);
 		$memberObj=new \nainai\cert\certificate();
-		foreach($member[0] as $k=>$v){
+		foreach($member['list'] as $k=>$v){
 			//var_dump($v);
 			$status=$memberObj->getUserCertStatus($v['id']);
 			if(!empty($status)){
@@ -216,8 +216,8 @@ class MemberController extends InitController {
 				$member[0][$k]['status']='未认证';
 			}
 		}
-		$this->getView()->assign('member',$member[0]);
-		$this->getView()->assign('pageBar',$member[1]);
+		
+		$this->getView()->assign('data',$member);
 
 	}
 

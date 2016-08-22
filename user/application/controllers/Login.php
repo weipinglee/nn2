@@ -64,6 +64,10 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 * @return bool
 	 */
 	public function doRegAction(){
+		$agent = safe::filterPost('agent', 'int', 0);
+		if ($agent == 0) {
+			die(json::encode(\Library\tool::getSuccinfo(0, '请同意耐耐网注册协议')));
+		}
 		\Library\session::clear('login');
         $validPhoneCode = safe::filterPost('validPhoneCode','int');
         $phone = safe::filterPost('mobile','/^\d+$/');

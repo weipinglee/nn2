@@ -89,7 +89,7 @@
           </div>
            
            <div class="form-agreen">
-                    <div><input type="checkbox" name="agreen" checked="">我已阅读并同意<a href="{url:/login/agreement}" target="_bank" id="protocol">《耐耐网网站用户协议》</a> </div>
+                    <div><input type="checkbox" name="agent" value="1" checked="">我已阅读并同意<a href="{url:/login/agreement}" target="_bank" id="protocol">《耐耐网网站用户协议》</a> </div>
                     <div class="input-tip">
                         <span></span>
                     </div>
@@ -204,7 +204,7 @@
           </div>
          
            <div class="form-agreen">
-                    <div><input type="checkbox" name="agreen" checked="">我已阅读并同意<a href="{url:/login/agreement}" target="_bank" id="protocol">《耐耐网网站用户协议》</a> </div>
+                    <div><input type="checkbox" name="agent" value="1"  checked="">我已阅读并同意<a href="{url:/login/agreement}" target="_bank" id="protocol">《耐耐网网站用户协议》</a> </div>
                     <div class="input-tip">
                         <span></span>
                     </div>

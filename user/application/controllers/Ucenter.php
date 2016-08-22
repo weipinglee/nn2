@@ -735,15 +735,14 @@ class UcenterController extends UcenterBaseController {
 
     public function paysecretpersonAction(){
          if (IS_POST || IS_AJAX) {
-
             $model = new UserModel();
             $resetModel = new \nainai\user\ApplyResetpay();
             $info = $model->getUserInfo($this->user_id);
             $data = array(
                 'name' => safe::filterPost('name'),
                 'ident_no' => safe::filterPost('no'),
-                'ident_img' => safe::filterPost('noimg'),
-                'apply_img' => safe::filterPost('applyimg'),
+                'ident_img' => safe::filterPost('imgfile1'),
+                'apply_img' => safe::filterPost('imgfile2'),
                 'apply_time' => \Library\Time::getDateTime(),
                 'uid' => $this->user_id,
                 'status' => $resetModel::APPLY,
@@ -763,16 +762,17 @@ class UcenterController extends UcenterBaseController {
             $resetModel = new \nainai\user\ApplyResetpay();
             $info = $model->getUserInfo($this->user_id);
             $data = array(
-                'company_name' => safe::filterPost('name'),
-                'legal_person' => safe::filterPost('no'),
-                'ident_img' => safe::filterPost('noimg'),
-                'apply_img' => safe::filterPost('applyimg'),
+                'company_name' => safe::filterPost('company_name'),
+                'legal_person' => safe::filterPost('legal_person'),
+                'ident_img' => safe::filterPost('imgfile1'),
+                'apply_img' => safe::filterPost('imgfile2'),
                 'apply_time' => \Library\Time::getDateTime(),
                 'uid' => $this->user_id,
                 'status' => $resetModel::APPLY,
                 'type' => 1,
                 'mobile' => $info['mobile']
             );
+            var_dump($data);exit();
             $res = $resetModel->addApplyResetpay($data);
            $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
             exit(json::encode($res));

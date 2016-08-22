@@ -18,18 +18,18 @@
             <span>请填写真实准确的信息，有利于提高申诉成功率，耐耐网会保护您的个人信息。</span>
           </div>
         </div>
-
+ <form action="{url:/ucenter/paysecretperson}" method="post" auto_submit redirect_url="{url:/ucenter/paysecretend} " >
           <div class="bate-input clear">
             <span class="span_in_tit">
               真实姓名：
             </span>
-            <span class="input_span"><input type="text" class="wbk" id="txtname" /></span>
+            <span class="input_span"><input type="text" class="wbk" id="txtname" name="name" datatype="zh2-20" errormsg="请填写真实姓名" nullmsg="请填写真实姓名" /></span>
           </div>
           <div class="bate-input clear">
             <span class="span_in_tit">
               身份证号：
             </span>
-            <span class="input_span"><input type="text" class="wbk" id="txtno" /></span>
+            <span class="input_span"><input type="text" class="wbk" id="txtno" name="no" datatype="identify" errormsg="请填写身份证号" nullmsg="请填写身份证号" /></span>
           </div>
           <div class="bate-input clear">
             <span class="span_in_tit">
@@ -96,7 +96,9 @@
           <div class="bate-input clear">
           <input type='hidden' value='{url:/ucenter/paysecretperson}' id='findUrl'>
           <div class="bate-input clear">
-            <div class="but_div"><a class="but_in" href="#" id="btnSubmit3" />下一步</a></div>
+            <div class="but_div">
+<input type="submit" value="下一步" class="but_in">
           </div>
       </div>
     </div>
+    </form>
