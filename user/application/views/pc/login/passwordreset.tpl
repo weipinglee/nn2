@@ -38,6 +38,7 @@
             <input type="hidden" value="{url:/login/login}" name="url" id="txtUrl">
             <input type='hidden' value='{url:/login/getMobileCode}' id='codeUrl'>
             <input type='hidden' value='{url:/login/checkMobileCode}' id='findUrl'>
+            <input type='hidden' value='{url:/login/getUserInfo}' id='getUrl'>
 <form action="{url:/login/checkMobileCode}" method="post" id="647727080" auto_submit >                <ul>
                     <li><span class="error red"><span class="field-validation-valid" data-valmsg-for="txtMessage" data-valmsg-replace="true" id="txtMessage"></span></span></li>
                     <li>

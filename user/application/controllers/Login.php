@@ -305,15 +305,41 @@ class LoginController extends \Yaf\Controller_Abstract {
 		if (IS_POST || IS_AJAX) {
 			$mobile = safe::filterPost('mobile');
 			$code = safe::filterPost('code');
+			$uid = safe::filterPost('uid');
+
 			$captchaObj = new captcha();
 			if (!$captchaObj->check($code)) {
 				die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
 			}
 			$userObj = new UserModel();
-			$res = $userObj->getForgetMobileCode($mobile);
+			if (empty($mobile)) {
+				$res = $userObj->getSuccinfo(0, '手机号不存在用户');
+			}
+			
+			$user_id = $userObj->getMobileUserInfo($mobile);
+			if ($user_id == false) {
+				$res = $userObj->getSuccinfo(0, '手机号不存在用户');
+			}else{
+				if ($user_id == $uid) {
+					$res = $userObj->getMobileCode($mobile, 3, 'database', $uid, 'login');
+				}else{
+					$res = $userObj->getSuccinfo(0, '请求的用户不存在');
+				}
+			}
 			//var_dump($_SESSION);
 			die(JSON::encode($res));
 		}
+	}
+
+	public function getUserInfoAction(){
+		$mobile = safe::filterPost('mobile');
+		if (empty($mobile) ) {
+			exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
+		}
+
+		$userObj = new UserModel();
+		$uid = $userObj->getMobileUserInfo($mobile);
+		exit(json::encode(tool::getSuccInfo(1,  $uid)));
 	}
 
 	public function checkMobileCodeAction(){
@@ -321,8 +347,12 @@ class LoginController extends \Yaf\Controller_Abstract {
 		$uid = safe::filterPost('uid');
 		$mobile = safe::filterPost('mobile');
 
-		if (empty($uid) || empty($code)) {
-			exit(json::encode(tool::getSuccInfo(0, 'Error Request')));
+		if (empty($code)) {
+			exit(json::encode(tool::getSuccInfo(0, '请填写验证码')));
+		}
+
+		if (empty($uid) ) {
+			exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
 		}
 
 		$model = new UserModel();

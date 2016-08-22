@@ -566,7 +566,7 @@ class UserModel{
 	 * @param string $type 操作的类型
 	 * @return    [type]              [description]
 	 */
-	private function getMobileCode($phone,$type='', $save='session', $uid=0, $type='login'){
+	public function getMobileCode($phone,$type='', $save='session', $uid=0, $type='login'){
 		if ($save == 'database') {
 			if ($type == 'login') {
 				$fields = 'create_time';
@@ -601,10 +601,10 @@ class UserModel{
 		$code=rand(100000,999999);
 
 		//短信接口 TODO
-		$hsms=new Library\Hsms();
-		if(!$hsms->send($phone,$code)){
-			return $this->getSuccInfo(0,'发送失败');
-		}
+		// $hsms=new Library\Hsms();
+		// if(!$hsms->send($phone,$code)){
+		// 	return $this->getSuccInfo(0,'发送失败');
+		// }
 		//短信发送成功，保存验证信息
 		if ($save == 'database') {
 			if ($type == 'login') {
@@ -766,15 +766,7 @@ class UserModel{
 		if (!empty($mobile)) {
 			if (!empty($uid)) {
 				$res = $this->getMobileCode($mobile, 3, 'database', $uid, 'pay');
-			}else{
-				$uid = $this->getMobileUserInfo($mobile);
-				if ($uid == false) {
-					$res = $this->getSuccinfo(0, '手机号不存在用户');
-				}else{
-					$res = $this->getMobileCode($mobile, 3, 'database', $uid, 'login');
-				}
 			}
-			
 		}else{
 			$res = $this->getSuccinfo(0, '手机号不存在用户');
 		}

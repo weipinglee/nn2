@@ -1,8 +1,33 @@
 ﻿/// <reference path="../../core/jquery.extend.js" />
 
 $(function () {
-    var codeUrl=$('#codeUrl').val();
+     var codeUrl=$('#codeUrl').val();
     var findUrl=$('#findUrl').val();
+    var getUrl=$('#getUrl').val();
+
+    $('#txtMobile').blur(function () {
+       if (formValidator(1)) {
+            $.ajax({
+                type: "post",
+                url: getUrl,
+                data: {
+                    "mobile": $("#txtMobile").val()
+                },
+                dataType: "json",
+                success: function (msg) {
+                   // debugger;
+                    if(msg.success==1){
+                        $('#uid').val(msg.info)
+                    }else{
+                        alert(msg.info);
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    })
+   
     //提交前验证
     function formValidator($step) {
         if ($step == 1) {
@@ -167,8 +192,7 @@ $(function () {
             success: function (msg) {
                 if(msg.success==1){
                     time($('#yzmBtn'));
-                    $('#uid').val(msg.data.uid)
-                    alert(msg.info);
+                   alert(msg.info);
                 }else{
                     alert(msg.info);
                     $('#yzmBtn').attr('disabled',false);
