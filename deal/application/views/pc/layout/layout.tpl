@@ -102,7 +102,7 @@ z-index:1000;">
                 </li>
                 {/if}
                 <li>
-                    <a href="{url:/message/usermail@user}">消息中心</a><span class="line_l">|<span>
+                    <a href="{url:/message/usermail@user}">消息中心{if:$login==1}<em class="information">{$mess}</em>{/if}</a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>

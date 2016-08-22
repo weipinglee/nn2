@@ -69,7 +69,8 @@ class AccmanageController extends InitController {
 			$user_id = safe::filterPost('id','int');
 			if(!$user_id) $user_id = intval($this->_request->getParam('user_id'));
 			$status = safe::filterPost('status','int');
-			$res = $obj->bankVerify($user_id,$status);
+			$message=safe::filterPost('message');
+			$res = $obj->bankVerify($user_id,$status,$message);
 			if($res['success']==1)  $adminMsg = new \nainai\adminMsg();
 			$adminMsg->setStatus($this,$user_id);
 			die(json::encode($res));

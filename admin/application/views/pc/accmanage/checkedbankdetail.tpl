@@ -82,7 +82,12 @@
               <td colspan="5">{$bank['status_text']}</td>
 
             </tr>
-
+             <tr>
+                 <th>审核意见</th>
+                 <td scope="col" colspan="7">
+                     {$bank['message']}
+                 </td>
+             </tr>
              <tr>
                  <th>操作</th>
                  <th scope="col" colspan="7">
