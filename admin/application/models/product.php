@@ -68,7 +68,7 @@ class productModel extends baseModel{
 		switch($type){
 			case 1 : return '输入框';
 			case 2 : return '单选';
-			case 3 : return '多选';
+			case 3 : return '日期控件';
 			default : return '输入框';
 		}
 	}
@@ -77,7 +77,7 @@ class productModel extends baseModel{
 		return array(
 			1 => '输入框',
 			2 => '单选',
-			3 => '多选',
+			3 => '日期控件',
 		);
 	}
 
