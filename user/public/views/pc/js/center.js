@@ -164,7 +164,7 @@ jQuery(document).ready(function($){
 
 /*控制消息页面中详情显示和隐藏*/
 $(document).ready(function(){
-  $(".tact .right-a").click(function(){
+  $(".tact .right-a").mouseover(function(){
     $(".tact .right-a").removeClass("cold6");
     $(this).addClass("cold6");
     $(this).parents("tr td").find(".jy_deal").toggle();
