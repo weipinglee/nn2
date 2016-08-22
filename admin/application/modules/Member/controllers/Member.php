@@ -207,7 +207,7 @@ class MemberController extends InitController {
 		$member=$memberModel->getOnLine($page);
 		//var_dump($member);
 		$memberObj=new \nainai\cert\certificate();
-		foreach($member[0] as $k=>$v){
+		foreach($member['list'] as $k=>$v){
 			//var_dump($v);
 			$status=$memberObj->getUserCertStatus($v['id']);
 			if(!empty($status)){
@@ -216,8 +216,8 @@ class MemberController extends InitController {
 				$member[0][$k]['status']='未认证';
 			}
 		}
-		$this->getView()->assign('member',$member[0]);
-		$this->getView()->assign('pageBar',$member[1]);
+		
+		$this->getView()->assign('data',$member);
 
 	}
 
@@ -268,7 +268,7 @@ class MemberController extends InitController {
 	 */
 	public function checkPayListAction(){
 		$model = new \nainai\user\ApplyResetpay();
-		$condition = array('status' => implode(',', array($model::APPLY_OK, $model::APPLY_NO)));
+		$condition = array('status' => implode(',', array($model::APPLY_OK, $model::APPLY_NO, $model::APPLY_END)));
 
 		$data = $model->getList($condition);
 
@@ -280,7 +280,7 @@ class MemberController extends InitController {
 	 */
 	public function resetpayListAction(){
 		$model = new \nainai\user\ApplyResetpay();
-		$condition = array('status' => $model::APPLY_OK);
+		$condition = array('status' => implode(',', array($model::APPLY_OK,  $model::APPLY_END)));
 
 		$data = $model->getList($condition);
 
@@ -308,9 +308,15 @@ class MemberController extends InitController {
 			$model = new \nainai\user\ApplyResetpay();
 			$status = safe::filterPost('status', 'int');
 			$data = array('status' => ($status == 1) ? $model::APPLY_OK : $model::APPLY_NO);
-			$data['msg'] = safe::filterPost('msg');
+			$data['msg'] = safe::filterPost('msg');	
+
 
 			$res = $model->updateApplyResetpay($data, $id);
+			if ($res['success'] == 1 && $data['status'] == $model::APPLY_NO) {
+				$info = $model->getApplyResetpay($id, 'uid');
+				$mess = new \nainai\message($info['uid']);
+				$re = $mess->send('ApplyResetpay', 0);
+			}
 		}else{
 			$res = tool::getSuccInfo(0, 'Error iD');
 		}
@@ -338,6 +344,13 @@ class MemberController extends InitController {
 					$usermodel = new \nainai\user\User();
 					$data = array('pay_secret' => md5($pwd));
 					$res = $usermodel->updateUser($data, $info['uid']);
+					if ($res['success'] == 1 ) {
+						$data = array('status' => $model::APPLY_END);
+						$res = $model->updateApplyResetpay($data, $id);
+						$info = $model->getApplyResetpay($id, 'uid');
+						$mess = new \nainai\message($info['uid']);
+						$re = $mess->send('ApplyResetpay', 1);
+					}
 				}
 			}else{
 				$res = tool::getSuccInfo(0, 'Error status');

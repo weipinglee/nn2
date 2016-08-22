@@ -117,7 +117,10 @@ class productController extends InitController{
                 $attrData = $productModel->getAttrInfo($attr_id);
                 if(!empty($attrData))
                     $this->getView()->assign('attr',$attrData);
+
+
             }
+             $this->getView()->assign('select', $productModel->getTypeArray());
         }
     }
 

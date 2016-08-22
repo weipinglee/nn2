@@ -79,7 +79,9 @@
                  <th>操作</th>
                  <th scope="col" colspan="7">
                  <input type="hidden" name="id" value="{$data['id']}">
+                 {if: $data['status'] == \nainai\user\ApplyResetpay::APPLY_OK}
                  <input type="submit" class="btn btn-primary radius" value="重置密码"/>
+                 {/if}
                      <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>
              </tr>

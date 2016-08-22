@@ -139,7 +139,7 @@ class UserModel{
 		}
 		if($res===true){
 			$data['id'] = $uID;
-			$resInfo = $this->getSuccInfo();
+			$resInfo = $this->getSuccInfo(1, $uID);
 		}
 		else{
 			$resInfo = $this->getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
@@ -566,7 +566,7 @@ class UserModel{
 	 * @param string $type 操作的类型
 	 * @return    [type]              [description]
 	 */
-	private function getMobileCode($phone,$type='', $save='session', $uid=0, $type='login'){
+	public function getMobileCode($phone,$type='', $save='session', $uid=0, $type='login'){
 		if ($save == 'database') {
 			if ($type == 'login') {
 				$fields = 'create_time';
@@ -622,7 +622,7 @@ class UserModel{
 			session::set('mobileValidate',array('code'=>$code,'time'=>time(),'mobile'=>$phone));
 		}
 		
-		return $this->getSuccinfo(1,'发送成功', array('uid'=>$uid));
+		return $this->getSuccinfo(1,'发送成功');
 	}
 
 	/**
@@ -766,15 +766,7 @@ class UserModel{
 		if (!empty($mobile)) {
 			if (!empty($uid)) {
 				$res = $this->getMobileCode($mobile, 3, 'database', $uid, 'pay');
-			}else{
-				$uid = $this->getMobileUserInfo($mobile);
-				if ($uid == false) {
-					$res = $this->getSuccinfo(0, '手机号不存在用户');
-				}else{
-					$res = $this->getMobileCode($mobile, 3, 'database', $uid, 'login');
-				}
 			}
-			
 		}else{
 			$res = $this->getSuccinfo(0, '手机号不存在用户');
 		}

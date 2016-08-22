@@ -22,7 +22,12 @@ class message{
 		'fundOutOk',
 		'fundOutFail',
 		'accountOk',
-		'accountFail'
+		'accountFail',
+		'register',
+		'dealer',
+		'store_manager',
+		'ApplyResetpay',
+
 	);
 	/**
 	 * [__construct 构造方法]
@@ -42,7 +47,8 @@ class message{
 	 * @param   $param 订单id,
 	 * @return    [type]             [description]
 	 */
-	public function send($type,$param=""){
+
+	public function send($type,$param=0){
 		if(in_array($type, self::$type)){
 			$mess=call_user_func(array(__CLASS__,$type),$param);
 			$mess['user_id']=$this->user_id;
@@ -106,6 +112,7 @@ class message{
 			'title'=>$title,
 			'content'=>$message);
 	}
+
 	public function fundInOk(){
 		$title='入金审核结果';
 		$message='您好，你的入金申请已通过审核，请您关注资金动态';
@@ -146,13 +153,58 @@ class message{
 			'content'=>$message
 		);
 	}
-	public function accountFail(){
-		$title='开户审核结果';
-		$message='通过认证：很遗憾，您的开户申请未通过审核。';
+	public function accountFail()
+	{
+		$title = '开户审核结果';
+		$message = '通过认证：很遗憾，您的开户申请未通过审核。';
+		return array(
+			'title' => $title,
+			'content' => $message
+		);
+	}
+	//注册
+	public function register(){
+		$title = '注册提醒';
+		$message='（您好，您已注册成功。为了您更好的交易，请及时进行认证。 ）<a href=" ' .\Library\url::createUrl('/ucenter/dealcert'). ' ">点击消息，跳转到认证界面！</a>';
 		return array(
 			'title'=>$title,
-			'content'=>$message
-		);
+			'content'=>$message);
+	}
+	public function dealer($status){
+		$title = '交易商认证提醒';
+		if ($status == 2) {
+			$message = '您好，您已成功认证交易商。';
+		}else{
+			$message = '很遗憾，您申请的交易商认证未通过审核，您可以修改相关信息再次进行申请';
+		}
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+
+	public function store_manager($status){
+		$title = '仓库管理员认证提醒';
+		if ($status == 2) {
+			$message = '您好，您已成功认证仓库管理员。';
+		}else{
+			$message = '很遗憾，您申请的仓库管理员认证未通过审核，您可以修改相关信息再次进行申请';
+		}
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+
+	public function ApplyResetpay($status){
+		$title = '仓库管理员认证提醒';
+		if ($status == 0) {
+			$message = '很遗憾，您的忘记支付密码申诉未能通过审核。您可以修改相关信息再次进行申诉，或联系客服解决。';
+		}else{
+			$message = '您好，您的忘记支付密码申诉已通过审核。新密码已于短信的形式发送到你的手机，为了资金安全请您及时进行修改。';
+		}
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+
 	}
 	/**
 	 * [fundOut 提现通知]

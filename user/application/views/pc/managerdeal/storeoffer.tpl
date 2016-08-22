@@ -90,6 +90,16 @@
                                    <input type ="radio" name ="safe" style="width:auto;height:auto;"> 线下
                                </td> -->
                             </tr>
+                                <tr>
+        <td>有效期：</td>
+        <td colspan="2">
+             <span><input class="Wdate text" datatype="*" value="{$offer['expire_time']}" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"
+                           name="expire_time" value="">
+                 </span>
+            <span></span>
+        </td>
+
+    </tr>
                               <tr>
 <!--         <td nowrap="nowrap"><span></span>是否投保：</td>
         <td>
@@ -157,7 +167,12 @@
                                 <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,5}/" name="accept_day" style="width:50px;">天</span>
                             </td>
                             </tr>
-              			                      
+              			    <tr>
+        <td>补充条款：</td>
+        <td colspan="2">
+            <textarea name="other">{$offer['other']}</textarea>
+        </td>
+    </tr>                      
 
                         <tr>
                             <td></td>

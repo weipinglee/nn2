@@ -18,6 +18,7 @@ class ApplyResetpay extends \nainai\Abstruct\ModelAbstract {
 	const APPLY = 0;
 	const APPLY_OK = 1;
 	const APPLY_NO = 2;
+	const APPLY_END = 3;
 
 	protected $Rules = array(
 	    array('mobile','require','必须输入手机号')
@@ -36,6 +37,8 @@ class ApplyResetpay extends \nainai\Abstruct\ModelAbstract {
 				return '审核通过';
 			case self::APPLY_NO:
 				return '审核驳回';
+			case self::APPLY_END:
+				return '重置密码成功';
 			default:
 				return '未知';
 		}
