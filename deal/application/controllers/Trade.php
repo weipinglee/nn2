@@ -9,7 +9,7 @@ use \tool\http;
 use \Library\url;
 use \Library\safe;
 use \Library\tool;
-use \nainai\order\Order;
+use \nainai\order;
 use \Library\json;
 use \Library\M;
 class tradeController extends \nainai\controller\Base {
