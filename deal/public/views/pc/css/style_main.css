@@ -319,6 +319,7 @@
 /*商城推荐*/
 .ShopPro{
 	background: white;
+	position: relative;
 }
 .ShopPro_Tab{
 	border-bottom: 2px solid #c81623;

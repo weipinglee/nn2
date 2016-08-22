@@ -666,6 +666,14 @@ function updateItem(){
 
 	})
 }
+$(function(){
+	$(".ShopPro_item.clearfix").mouseover(function(){
+		$(this).find('div.titles').css('display','block');
+	});
+	$(".ShopPro_item.clearfix").mouseout(function(){
+		$(this).find('div.titles').css('display','none');
+	});
+})
 function fadeIn(obj){
 	var item = obj;
 	opa = 0;

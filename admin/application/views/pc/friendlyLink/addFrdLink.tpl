@@ -21,7 +21,7 @@
         </div>
         <div class="pd-20">
 
-            <form action="{url:system/friendlyLink/addFrdLink}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:system/friendlyLink/frdLinkList}">
+            <form action="{url:tool/friendlyLink/addFrdLink}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:tool/friendlyLink/frdLinkList}">
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span> 名称：</label>
                     <div class="formControls col-5">

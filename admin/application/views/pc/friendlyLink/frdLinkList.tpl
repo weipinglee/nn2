@@ -10,7 +10,7 @@
         </div>
         <div class="content">
             <div class="pd-20">
-                <div class="cl pd-5 bg-1 bk-gray"> <a class="btn btn-primary radius" href="{url:/system/friendlyLink/addFrdLink}"><i class=" icon-plus fa-plus"></i> 添加链接</a> </span>  </div>
+                <div class="cl pd-5 bg-1 bk-gray"> <a class="btn btn-primary radius" href="{url:/tool/friendlyLink/addFrdLink}"><i class=" icon-plus fa-plus"></i> 添加链接</a> </span>  </div>
                 <div class="mt-20">
                     <table class="table table-border table-bordered table-hover table-bg table-sort">
                         <thead>
@@ -40,11 +40,11 @@
                                 <td>{$item['order']}</td>
                                 <td class="td-manage">
                                     {if:$item['status'] == 1}
-                                        <a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=0 ajax_url="{url:system/friendlyLink/setStatus?id=$item['id']}"><i class="icon-pause fa-pause"></i></a>
+                                        <a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=0 ajax_url="{url:tool/friendlyLink/setStatus?id=$item['id']}"><i class="icon-pause fa-pause"></i></a>
                                     {elseif:$item['status'] == 0}
-                                        <a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:system/friendlyLink/setStatus?id=$item['id']}"><i class="icon-play fa-play"></i></a>
+                                        <a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:tool/friendlyLink/setStatus?id=$item['id']}"><i class="icon-play fa-play"></i></a>
                                     {/if}
-                                    <a title="编辑" href="{url:/system/friendlyLink/editLink}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+                                    <a title="编辑" href="{url:/tool/friendlyLink/editLink}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
                                     <a title="删除" href="javascript:void(0);" onclick="delFundOut('{$item['id']}',this)" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
                             </tr>
                         {/foreach}
@@ -53,7 +53,7 @@
                             function delFundOut(name,obj){
                                 var obj=$(obj);
                                 var name=name;
-                                var url="{url:/system/friendlyLink/del}";
+                                var url="{url:/tool/friendlyLink/del}";
                                 if(confirm("确定要删除吗")){
                                     $.ajax({
                                         type:'get',
