@@ -16,7 +16,13 @@ class message{
 		'fundOut',
 		'depositPay',
 		'newbankaccount',
-		'breakcontract'
+		'breakcontract',
+		'fundInOk',
+		'fundInFail',
+		'fundOutOk',
+		'fundOutFail',
+		'accountOk',
+		'accountFail'
 	);
 	/**
 	 * [__construct 构造方法]
@@ -36,7 +42,7 @@ class message{
 	 * @param   $param 订单id,
 	 * @return    [type]             [description]
 	 */
-	public function send($type,$param){
+	public function send($type,$param=""){
 		if(in_array($type, self::$type)){
 			$mess=call_user_func(array(__CLASS__,$type),$param);
 			$mess['user_id']=$this->user_id;
@@ -99,6 +105,54 @@ class message{
 		return array(
 			'title'=>$title,
 			'content'=>$message);
+	}
+	public function fundInOk(){
+		$title='入金审核结果';
+		$message='您好，你的入金申请已通过审核，请您关注资金动态';
+		return array(
+			'title'=>$title,
+			'content'=>$message
+			);
+	}
+	public function fundInFail(){
+		$title='入金审核结果';
+		$message='很遗憾，您的入金申请未通过审核';
+		return array(
+			'title'=>$title,
+			'content'=>$message
+		);
+	}
+	public function fundOutOk(){
+		$title='出金审核结果';
+		$message='审核通过：您好，您的出金申请已通过审核，已向您打款，请您关注资金动态。';
+		return array(
+			'title'=>$title,
+			'content'=>$message
+		);
+	}
+	public function fundOutFail(){
+		$title='出金审核结果';
+		$message='未通过认证：很遗憾，您的出金申请未通过审核。';
+		return array(
+			'title'=>$title,
+			'content'=>$message
+		);
+	}
+	public function accountOk(){
+		$title='开户审核结果';
+		$message='审核通过：您好，您的开户申请已通过审核。';
+		return array(
+			'title'=>$title,
+			'content'=>$message
+		);
+	}
+	public function accountFail(){
+		$title='开户审核结果';
+		$message='通过认证：很遗憾，您的开户申请未通过审核。';
+		return array(
+			'title'=>$title,
+			'content'=>$message
+		);
 	}
 	/**
 	 * [fundOut 提现通知]

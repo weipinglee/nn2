@@ -163,7 +163,7 @@
                 lay.msg('请上传图片');
                 return false;
             }
-            formacc.ajax_post("{$outInfo['url']}",{out_id:"{$outInfo['id']}",imgfile2:imgfile2},function(){
+            formacc.ajax_post("{$outInfo['url']}",{out_id:"{$outInfo['id']}",user_id:"{$outInfo['user_id']}",imgfile2:imgfile2},function(){
 
                     layer.msg("上传成功稍后自动跳转");
                     setTimeout(function(){
@@ -173,7 +173,7 @@
             });
         }
         function setStatus(status,msg,mess){
-            formacc.ajax_post("{$outInfo['url']}",{out_id:"{$outInfo['id']}",status:status,message:mess,user_name:"{$outInfo['username']}"},function(){
+            formacc.ajax_post("{$outInfo['url']}",{out_id:"{$outInfo['id']}",user_id:"{$outInfo['user_id']}",status:status,message:mess,user_name:"{$outInfo['username']}"},function(){
                 layer.msg(msg+"稍后自动跳转");
              setTimeout(function(){
                     if("{$outInfo['action']}"=='firstCheck'){
