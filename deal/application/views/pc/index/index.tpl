@@ -288,10 +288,10 @@
                                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                                                      </a>
                                                     {else:}
-                                                        <a href="{url:/offers/purchasedetails?id=$pro['id']}">
+                                                        <a href="{url:/trade/purchasedetails?id=$pro['id']}">
                                                             <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                                                         </a>
-                                                         <a href="{url:/offers/report?id=$pro['id']}">
+                                                         <a href="{url:/trade/report?id=$pro['id']}">
                                                               <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                                                         </a>
                                                     {/if}

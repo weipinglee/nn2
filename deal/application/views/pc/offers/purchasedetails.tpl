@@ -50,7 +50,7 @@
                   </div> -->
 
                     <div class="buy_btn baoj">
-                        <a href="{url:/offers/report?id=$data['id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即报价</b></a>
+                        <a href="{url:/trade/report?id=$data['id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即报价</b></a>
                     </div>
 
                 </div>

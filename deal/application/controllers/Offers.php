@@ -90,56 +90,7 @@ class OffersController extends PublicController {
 		$this->getView()->assign('mode', $mode);
 	}
 
-	//支付页面
-	public function checkAction(){
 
-		$id = safe::filter($this->_request->getParam('id'),'int',1);
-
-		$info = $this->offer->offerDetail($id);
-		if(empty($info)){
-			$this->error('报盘不存在或未通过审核');
-		}
-		if(time() > strtotime($info['expire_time'])){
-			$this->error('报盘不存在或已过期');
-		}
-
-		if($info['divide']==\nainai\offer\product::UNDIVIDE ){//不可拆分
-			$info['fixed'] = true;
-			$info['minimum'] = $info['quantity'];
-			$info['amount'] = $info['quantity'] * $info['price'];
-		}
-		else if($info['left'] <= $info['minimum']){//余量不够最小起订量
-			$info['fixed'] = true;
-			$info['minimum'] = $info['left'];
-			$info['amount'] = $info['left'] * $info['price'];
-		}
-		else{//可拆分且余量大于起订量
-			$info['fixed'] = false;
-			$info['amount'] = $info['minimum'] * $info['price'];
-		}
-		
-		$order_mode = new Order($info['mode']);
-		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
-		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));
-
-		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
-		//商品剩余数量
-		$pro = new \nainai\offer\product();
-
-		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
-		// echo '<pre>';var_dump($info);
-		//判断下是否能够申请保险
-		if($info['insurance'] == 0){
-			//已经申请了的不能在申请
-			$risk = new \nainai\insurance\RiskApply();
-			$data = $risk->getRiskApply(array('buyer_id' => $this->login['user_id'], 'offer_id' => $info['id']), 'id');
-			if (!empty($data)) {
-				$info['insurance'] = 1;
-			}
-		}
-		$this->getView()->assign('data',$info);
-
-	}
 	//计算定金
 	public function payDepositComAction(){
 		$num = safe::filterPost('num','floatval');
@@ -227,29 +178,7 @@ class OffersController extends PublicController {
 	}
 
 
-	/**
-	 * 报价页面
-	 */
-	public function reportAction(){
-		$id = $this->getRequest()->getParam('id');
-		$id = Safe::filter($id, 'int');
 
-		if (intval($id) > 0) {
-			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
-			$offerDetail = $PurchaseOfferModel->getOfferProductDetailDeal($id);
-
-			if(empty($offerDetail)){
-				$this->error('采购不存在');exit;
-			}
-
-
-			$this->getView()->assign('offer', $offerDetail[0]);
-			$this->getView()->assign('product', $offerDetail[1]);
-		}else{
-			$this->error('未知的采购报盘!');
-		}
-
-	}
 
 	public function offerDetailsAction(){
 		$id = $this->getRequest()->getParam('id');
