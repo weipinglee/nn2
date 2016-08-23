@@ -1849,3 +1849,19 @@ a.close:hover {
     display: block;
     line-height: 50px
 }
+.mostnew_date{
+    position: relative;
+    width: 1190px;
+    margin: 0 auto;
+}
+.mostnew_date .row1_clinch {
+    width: 238px;
+    height: 326px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    position: absolute;
+    z-index: 10;
+    top: -398px;
+    right: 0;
+    border-radius: 6px;
+}

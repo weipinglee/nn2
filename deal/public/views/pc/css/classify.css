@@ -112,6 +112,10 @@ a:hover,a:active {
     width: 941px;
     float: left;
 }
+#classify_lists{
+    width: 1190px;
+    margin: 0 auto;
+}
 .all-sort-list {
     position: relative;
     width: 200px;
