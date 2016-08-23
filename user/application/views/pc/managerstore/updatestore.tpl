@@ -364,6 +364,13 @@
                                     <img name="file2" src="{$detail['quality_thumb']}"/>
                                 </td>
                             </tr>
+                            <tr colspan="8">
+                                <td>
+                                    <div class="zhxi_con">
+                                        <span><input class="submit"  type="submit" value="签发"></span>
+                                    </div>
+                                </td>
+                            </tr>
 
                  </table>
                         
@@ -371,9 +378,7 @@
                 </div>
             </div><input type="hidden" id="ajaxGetAddress" value="{url:/Ucenter/ajaxGetStoreAddress}">
             
-                        <div class="zhxi_con">
-                            <span><input class="submit"  type="submit" value="签发"></span>
-                        </div>
+                        
                     </div>
 
                 </div>
