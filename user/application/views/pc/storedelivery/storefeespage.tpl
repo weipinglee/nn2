@@ -58,7 +58,7 @@
 									<th>图片</th>
 									<th>商品名称</th>
 									<th>商品价格</th>
-									<th>商品数量</th>
+									<th>提货数量</th>
 									<th>小计</th>
 									<th>配送</th>
 								</tr>
@@ -66,8 +66,8 @@
 									<td><img src="{$info['img_thumb']}"/></td>
 									<td>{$info['name']}</td>
 									<td>{$info['price']}</td>
-									<td>{$info['num']}{$info['unit']}</td>
-									<td>{$info['amount']}</td>
+									<td>{$info['delivery_num']}{$info['unit']}</td>
+									<td>{$info['delivery_amount']}</td>
 									<td>未发货</td>
 
 								</tr>

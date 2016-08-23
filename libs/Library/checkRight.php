@@ -46,7 +46,7 @@ class checkRight{
         session::merge('login',array('mobile'=>$data['mobile']));
        // Session::merge('login',array('pwd'=>$data['password']));
         session::merge('login',array('user_type'=>$data['type']));
-
+        
         //session数据计入数据库
         $sessID = session_id();
         $sessData = session::get('login');

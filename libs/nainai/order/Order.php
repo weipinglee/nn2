@@ -123,6 +123,8 @@ class Order{
 			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $info['user_id'] : $offerInfo['user_id'];
 			$mess = new \nainai\message($buyer);
 			$mess->send('breakcontract',$order_id);
+
+			//TODO 解冻买方剩余定金
 		} catch (\PDOException $e) {
 
 			$res = $e->getMessage();
@@ -989,7 +991,7 @@ class Order{
 	public function contractReview($offer_id,$num,$user_id = ''){
 		$query = new Query('product_offer as po');
 		$query->join = 'left join products as p on po.product_id = p.id';
-		$query->fields = 'po.type,po.user_id as offer_user,po.price,p.name,po.product_id,po.accept_area,p.cate_id,p.produce_area,p.unit';
+		$query->fields = 'po.type,po.user_id as offer_user,po.price,p.name,po.product_id,po.accept_area,po.other,p.cate_id,p.produce_area,p.unit';
 		$query->where = 'po.id = :id';
 		$query->bind = array('id'=>$offer_id);
 		$res = $query->getObj();	
@@ -1140,7 +1142,9 @@ class Order{
 					$title = '合同已作废';
 					break;
 				case self::CONTRACT_EFFECT:
-					$title = '合同生效,待提货';
+					$title = '合同生效,提货流程中';
+					$href = url::createUrl("/delivery/deliselllist");
+					$action []= array('action'=>$title,'url'=>$href);
 					break;
 				case self::CONTRACT_BUYER_RETAINAGE:
 					if(empty($value['proof'])){
@@ -1199,6 +1203,7 @@ class Order{
 					if($_after_time === true){
 						$action []= array('action'=>'取消合同','url'=>url::createUrl("/Order/cancelContract?order_id={$value['id']}"));
 					}
+					
 					// else{
 					// 	$action []= array('action'=>$_after_time.'可以取消合同');
 					// }
@@ -1220,7 +1225,7 @@ class Order{
 					$delivery = new \nainai\delivery\Delivery;
 					$left = $delivery->orderNumLeft($value['id']);
 					if(is_float($left) && $left > 0.2){
-						$title = '已生效,待提货';
+						$title = '提货';
 						$href = url::createUrl("/delivery/newDelivery?order_id={$value['id']}");
 						$action []= array('action'=>$title,'url'=>$href);
 					}else{

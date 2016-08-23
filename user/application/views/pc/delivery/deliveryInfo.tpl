@@ -115,18 +115,19 @@
                                     {$info['title']}
                                 </td>
                             </tr>   
+                            
+                            <tr>
+                                <td></td>
+                                <td colspan="2" class="btn">
 
-              				
-                      
-
-                        <tr>
-                            <td></td>
-                            <td colspan="2" class="btn">
-
-
-                                
-                            </td>
-                        </tr>
+                                    {foreach:items=$info['action']}
+                                        <!-- {if:$item['name'] != '查看'} -->
+                                        <a href="{$item['url']}">{$item['name']}</a>
+                                        <!-- {/if} -->
+                                    {/foreach}
+                                    
+                                </td>
+                            </tr>
                          </table>
                          </div>
                          </div>

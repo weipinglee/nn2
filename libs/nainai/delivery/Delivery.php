@@ -73,6 +73,8 @@ class Delivery{
 	 * @return array  结果数组
 	 */
 	public function deliveryList($user_id,$page,$is_seller = false){
+		$a = new \nainai\delivery\StoreDelivery();
+		$a->storeFees(15);
 		$t = $is_seller ? 'off' : 'po';
 		$t2 = $is_seller ? 'po' : 'off';
 		$query = new Query('order_sell as po');
@@ -86,8 +88,17 @@ class Delivery{
 		$query->pagesize = 10;
 		$data = $query->find();
 		$pageBar =  $query->getPageBar();
-		$arr = array();
 
+		$this->deliveryStatus($data,$is_seller);
+		// foreach ($arr as $key => $v) {
+		// 	array_splice($data, $key,0,array($v));
+		// }
+		// var_dump($data);
+		return array('data'=>$data,'bar'=>$pageBar);
+	}
+
+
+	public function deliveryStatus(&$data,$is_seller = false){
 		foreach ($data as $key => &$value) {
 			$href = '';
 			$action = array();
@@ -96,7 +107,6 @@ class Delivery{
 			$value['delivery_num'] = number_format($value['delivery_num'],2);
 			$value['num'] = number_format($value['num'],2);
 			$value['store_name'] = $value['mode'] == order\Order::ORDER_STORE ? (empty($value['store_name']) ? '无效仓库' : $value['store_name']) : '-';
-
 			switch ($value['status']) {
 				case -1:
 					if(!$is_seller){
@@ -151,17 +161,13 @@ class Delivery{
 					break;
 			}
 			// $this->addNewDelivery($value);
-			$action []= array('name'=>'查看','url'=>url::createUrl("/delivery/deliveryInfo?delivery_id={$value['delivery_id']}&title={$title}&order_no={$value['order_no']}"));
+			$is_seller = intval($is_seller);
+			$action []= array('name'=>'查看','url'=>url::createUrl("/delivery/deliveryInfo?delivery_id={$value['delivery_id']}&title={$title}&order_no={$value['order_no']}&is_seller={$is_seller}"));
 			$value['action'] = $action;
 			$value['title'] = $title;
 			$value['href'] = $href;
 
 		}
-		// foreach ($arr as $key => $v) {
-		// 	array_splice($data, $key,0,array($v));
-		// }
-		// var_dump($data);
-		return array('data'=>$data,'bar'=>$pageBar);
 	}
 
 	// private function addNewDelivery($value){
