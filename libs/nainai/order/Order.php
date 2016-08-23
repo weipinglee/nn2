@@ -6,6 +6,7 @@
  *
  */
 namespace nainai\order;
+use Library\cache\driver\Memcache;
 use \Library\M;
 use \Library\Query;
 use \Library\tool;
@@ -1339,6 +1340,11 @@ class Order{
 	 * @param $num
 	 */
 	public function getNewComplateTrade($num){
+		$memcache=new Memcache();
+		$res=$memcache->get('newComplateTrade');
+		if($res){
+			return unserialize($res);
+		}
 		$Q = new Query($this->order_table .' as o');
 		$Q->join = ' left join '.$this->offer_table.' as of on o.offer_id=of.id
 					 left join '.'products'.' as p on of.product_id = p.id
@@ -1349,6 +1355,7 @@ class Order{
 		$Q->limit = $num;
 		$Q->cache = 'm';
 		$data = $Q->find();
+		$memcache->set('newComplateTrade',serialize($data));
 		return $data;
 
 
@@ -1360,6 +1367,11 @@ class Order{
 	 * @return Array.num       成交量
 	 */
 	public function getOrderTotal($date='all'){
+		$memcache=new Memcache();
+		$orderTotal=$memcache->get('orderTotal'.$date);
+		if($orderTotal){
+			return unserialize($orderTotal);
+		}
 		$model = new M('order_sell');
 		$where = ' contract_status IN (' .implode(',', array(self::CONTRACT_EFFECT, self::CONTRACT_DELIVERY_COMPLETE, self::CONTRACT_VERIFY_QAULITY, self::CONTRACT_SELLER_VERIFY, self::CONTRACT_COMPLETE)). ')';
 		$bind = array();
@@ -1380,7 +1392,9 @@ class Order{
 				break;
 		}
 
-		return $model->fields('count(id) as num')->where($where)->bind($bind)->getObj();
+		$orderTotal=$model->fields('count(id) as num')->where($where)->bind($bind)->getObj();
+		$memcache->set('orderTotal'.$date,serialize($orderTotal));
+		return $orderTotal;
 	}
 
 

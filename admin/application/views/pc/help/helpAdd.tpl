@@ -98,7 +98,7 @@
                                 'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
                                 'print', 'preview', 'searchreplace', 'help', 'drafts'
                             ]],
-                                elementPathEnabled:false,maximumWords:100,initialFrameHeight:200,initialFrameWidth:1000});
+                                elementPathEnabled:false,maximumWords:100,initialFrameHeight:200,initialFrameWidth:800});
                         </script>
                         <textarea name="introduce" style="width:1000px;height:500px" id="introduce">{if:isset($helpInfo)}{$helpInfo['content']}{/if}</textarea>
                     </div>

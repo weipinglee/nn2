@@ -18,10 +18,7 @@ class PublicController extends \Yaf\Controller_Abstract{
           $res=$productModel->getAllCat();
           $res = array_slice($res,0,6);
           $this->getView()->assign('catList',$res);
-          
-          $frdLink = new \nainai\system\friendlyLink();
-          $frdData = $frdLink->getFrdLink(10);
-          $this->getView()->assign('frdData',$frdData);
+       //   $frdLink = new \nainai\system\friendlyLink();
           //获取帮助
           $helpModel=new \nainai\system\help();
           $helpList=$helpModel->getHelplist();
@@ -31,7 +28,7 @@ class PublicController extends \Yaf\Controller_Abstract{
           $this->getView()->assign('fuwuList',$fuwuList);
           //获取友情链接
           $frdLinkModel= new \nainai\system\friendlyLink();
-          $frdLinkList=$frdLinkModel->getFrdLink(6);
+          $frdLinkList=$frdLinkModel->getFrdLink(20);
           $this->getView()->assign('frdLinkList',$frdLinkList);
           if($isLogin){
                $this->login = \Library\session::get('login');

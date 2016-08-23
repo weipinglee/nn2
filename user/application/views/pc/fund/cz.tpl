@@ -26,8 +26,8 @@
 
 
                     <ul>
-                        <li class="hit">银行在线支付</li>
-                        <li>线下支付</li>
+                     <!--<li >银行在线支付</li> -->
+                        <li class="hit">线下支付</li>
                     </ul>
                     <div class="panes js_show_payment_choose">
                         
@@ -45,21 +45,22 @@
            $(function(){  
            $('.js_show_payment_choose').html($('.js_tab_choose>div:eq(0)').clone());   
                $('.tabPanel ul li').click(function(){
-                   $(this).addClass('hit').siblings().removeClass('hit');
-                   $('.js_show_payment_choose').html($('.js_tab_choose>div:eq('+$(this).index()+')').clone().css('display', 'block'));    
+
+                     $(this).addClass('hit').siblings().removeClass('hit');
+                   $('.js_show_payment_choose').html($('.js_tab_choose>div:eq('+$(this).index()+')').clone().css('display', 'block'));
                })
            })
            var submit_pay = "{url:/fund/doFundIn}";
            </script>
                     <div class="js_tab_choose" style="display: none;">
-                        <div class="pane" style="display:block">
+              <!--          <div class="pane" style="display:block">
 
                             <input type="hidden" name="payment_id" value="3">
                             <div class="zhxi_con">
                                 <span><input class="submit" type="submit" value="下一步"/></span>
                             </div>
-                        </div>
-                        <div class="pane">
+                        </div> -->
+                        <div class="pane" style="display: block;">
                             <div class="zhxi_con">
                                 <span class="con_tit">充值方式二：</span>
                                 <span>转账汇款</span>
@@ -73,7 +74,7 @@
 
                             <!-- 单据上传start -->
                             <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
-                            <div class="huikod">
+                            <div class="huikod" style="display: block">
 
                               <label for="female">上传汇款单据</label>
                                 <span class="input-file">选择文件<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" /></span>

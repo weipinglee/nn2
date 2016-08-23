@@ -86,8 +86,15 @@ class friendlyLink{
      * @param $num
      */
     public function getFrdLink($num){
+        $memcache=new \Library\cache\driver\Memcache();
+        $frdLink=$memcache->get('frdLink');
+        if($frdLink){
+            return unserialize($frdLink);
+        }
         $frdObj = $this->frdLinkObj;
-        return $frdObj->where(array('status'=>1))->order('`order` asc')->limit($num)->select();
+        $frdLink=$frdObj->where(array('status'=>1))->order('`order` asc')->limit($num)->select();
+        $memcache->set('frdLink',serialize($frdLink));
+        return $frdLink;
     }
 
     /**

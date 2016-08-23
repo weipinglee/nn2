@@ -10,6 +10,8 @@
 namespace Library;
 
 
+use Library\cache\driver\Memcache;
+
 class ad
 {
     //是否加载过js
@@ -36,12 +38,18 @@ class ad
      * @param $position 广告位名称
      */
     public static function getAdListByName($position){
+        $memcache=new Memcache();
+        $adList=$memcache->get('adList'.$position);
+        if($adList){
+            return unserialize($adList);
+        }
         $positionObject=array();
         $adList=array();
         $positionObject=self::getPositionInfo($position);
         if($positionObject){
             $adList=self::getAdList($positionObject['id']);
         }
+        $memcache->set('adList'.$position,serialize($adList));
         return $adList;
     }
     /**

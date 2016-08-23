@@ -7,6 +7,7 @@
  * Time: 9:49
  */
 namespace nainai;
+use Library\cache\driver\Memcache;
 use \Library\M;
 use Library\Query;
 use \Library\time;
@@ -311,6 +312,11 @@ class companyRec{
     }
     //返回所有的推荐信息，
     public static function getAllCompany(){
+        $memcache=new Memcache();
+        $allCompany=$memcache->get('allCompany');
+        if($allCompany){
+            return unserialize($allCompany);
+        }
         $cRecModel        = new \Library\Query('company_rec as r');
         $cRecModel->join  = 'left join company_info as i on r.user_id=i.user_id';
         $cRecModel->where = 'NOW() between r.start_time and r.end_time and r.status=1';
@@ -342,6 +348,7 @@ class companyRec{
                 }
 
         }
+        $memcache->set('allCompany',serialize($res));
        /* echo "<pre>";
         print_r($res);*/
       return $res;

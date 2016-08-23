@@ -7,6 +7,7 @@
  * Time: 15:20
  */
 namespace nainai;
+use Library\cache\driver\Memcache;
 use Library\M;
 use Library\Query;
 use Library\tool;
@@ -158,6 +159,11 @@ class SiteHelp
         return $res;
     }
     public static function getFuwuList(){
+        $memcache=new Memcache();
+        $fuwuList=$memcache->get('fuwuList');
+        if($fuwuList){
+            return unserialize($fuwuList);
+        }
         $helpCatObj=new M('help_category');
         $helpCatInfo=$helpCatObj->where(['name'=>'服务'])->getObj();
         if($helpCatInfo){
@@ -166,7 +172,10 @@ class SiteHelp
             $helpObj->limit=5;
             $helpObj->order='sort asc';
             $helpObj->bind=array('cat_id'=>$helpCatInfo['id']);
-            return $helpObj->find();
+
+            $fuwuList=$helpObj->find();
+            $memcache->set('fuwuList',serialize($fuwuList));
+            return $fuwuList;
         }
         return false;
 

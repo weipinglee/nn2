@@ -45,6 +45,11 @@ class offersModel extends \nainai\offer\product{
         END
      */
     public function getOfferCategoryList($cateId){
+        $memcache=new \Library\cache\driver\Memcache();
+        $res=$memcache->get('offerCategoryList'.$cateId);
+        if($res){
+            return unserialize($res);
+        }
         $query = new Query('product_offer as a');
         $query->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,kefu.qq';
         $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN admin_kefu as kefu on a.kefu = kefu.admin_id';
@@ -59,6 +64,7 @@ class offersModel extends \nainai\offer\product{
         foreach($categoryList as $k=>$v){
             $categoryList[$k]['mode']=$this->getMode($v['mode']);
         }
+        $memcache->set('offerCategoryList'.$cateId,serialize($categoryList));
         return $categoryList;
     }
 
@@ -249,7 +255,14 @@ class offersModel extends \nainai\offer\product{
      * @return Int
      */
     public function getOfferNum(){
-        return $this->offer->table('products')->fields('COUNT(id) as num ')->where('quantity-sell > 0')->getObj();
+        $memcache=new \Library\cache\driver\Memcache();
+        $offerNum=$memcache->get('offerNum');
+        if($offerNum){
+            return unserialize($offerNum);
+        }
+        $offerNum=$this->offer->table('products')->fields('COUNT(id) as num ')->where('quantity-sell > 0')->getObj();
+        $memcache->set('offerNum',serialize($offerNum));
+        return $offerNum;
     }
 
     /**
