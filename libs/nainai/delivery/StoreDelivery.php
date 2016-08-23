@@ -28,7 +28,7 @@ class StoreDelivery extends Delivery{
 	public function storeFees($delivery_id){
 		$query = new Query('product_delivery as pd');
 		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_list as sl on sp.store_id = sl.id left join products as p on po.product_id = p.id left join order_sell as o on pd.order_id = o.id';
-		$query->fields = 'p.img,pd.num as delivery_num,sp.store_price,sp.store_unit,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id';
+		$query->fields = 'p.img,pd.num as delivery_num,sp.store_price,sp.store_unit,sp.in_time,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
@@ -37,7 +37,6 @@ class StoreDelivery extends Delivery{
 		$res['photos'] = $photos[1];
 		$res['origphotos'] = $photos[0];
 		$res['img_thumb'] = $res['photos'][0];
-
 		$days = 1;
 		switch ($res['store_unit']) {
 
@@ -53,7 +52,11 @@ class StoreDelivery extends Delivery{
 				# code...
 				break;
 		}
-		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * abs(time::getDiffDays($res['rent_time']))/$days ,2);
+		$tmp_time = strtotime($res['in_time']);
+		$next_day = strtotime(date('Y-m-d',strtotime('next day',$tmp_time)));
+
+		$total_days = $next_day < time() ? ceil((time()-$next_day)/86400)+1 : 1.0;
+		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * $total_days/$days ,2);
 		$res['now_time'] = time::getDateTime();
 		return $res;
 	}

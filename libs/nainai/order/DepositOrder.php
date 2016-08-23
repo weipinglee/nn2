@@ -124,17 +124,17 @@ class DepositOrder extends Order{
 
 					$orderData['contract_status'] = self::CONTRACT_CANCEL;
 					$upd_res = $this->orderUpdate($orderData);
-
+					
 					//扣除信誉值
-					$configs_credit = new \nainai\CreditConfig();
-					$cre_res = $configs_credit->changeUserCredit($seller,'cancel_contract',$info['pay_deposit']);
-
+					// $configs_credit = new \nainai\CreditConfig();
+					// $cre_res = $configs_credit->changeUserCredit($seller,'cancel_contract',$info['pay_deposit']);
+					
 					//将商品数量解冻
 					$pro_res = $this->productsFreezeRelease($this->offerInfo($info['offer_id']),$info['num']);
 
 					$log_res = $this->payLog($order_id,$user_id,1,'买方取消合同,合同作废,扣除信誉值');
 
-					$res = $upd_res['success'] == 1 && $cre_res === true && $pro_res === true && $log_res === true ? true : $cre_res.$upd_res['info'].$pro_res.$log_res;
+					$res = $upd_res['success'] == 1  && $pro_res === true && $log_res === true ? true : $upd_res['info'].$pro_res.$log_res;
 
 					if($res === true){
 						//将买方冻结资金解冻
