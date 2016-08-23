@@ -38,6 +38,6 @@
                         </tbody>
 
                     </table>
-                    {$pageBar}
+                    {$data['bar']}
                 </div>
             </div>

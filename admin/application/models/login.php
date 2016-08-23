@@ -28,7 +28,7 @@ class loginModel{
 						$admin_session = new M('admin_session');
 						$admin_session->where(array('session_id'=>$user['session_id']))->delete();
 					}
-					$ip = tool::getIp();$ip = '124.166.246.120';
+					$ip = \Library\client::getIp();
 					$data = array('last_ip'=>$ip,'session_id' => session_id());
 					
 					//写入管理员表session与ip信息

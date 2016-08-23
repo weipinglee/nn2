@@ -21,7 +21,6 @@ class adminRiskModel
             return \Library\tool::getSuccInfo(0,'ip不正确');
         }
         $ipModel=new \nainai\riskMgt\userRisk();
-        $params['ip']='218.198.255.235';
         $cityInfo=$ipModel->getIpInfo($params['ip']);
         $adminRiskObj=new \Library\M('admin_often_use_address');
         if(!$adminRiskObj->where(['admin_id'=>$params['admin_id']])->getObj()){
