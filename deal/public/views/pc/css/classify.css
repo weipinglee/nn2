@@ -123,7 +123,6 @@ a:hover,a:active {
 .all-sort-list {
     position: relative;
     width: 200px;
-   /* border: 1px solid #c81623;*/
     border-top: none;
     padding: 0px;
     z-index: 3;
