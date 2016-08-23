@@ -73,7 +73,7 @@ class AccmanageController extends InitController {
 			$res = $obj->bankVerify($user_id,$status,$message);
 			if($res['success']==1)  $adminMsg = new \nainai\adminMsg();
 			$adminMsg->setStatus($this,$user_id);
-			$messObj=new \nainai\message();
+			$messObj=new \nainai\message($user_id);
 			if($status==1){
 				$messObj->send('accountOk');
 			}else{
