@@ -161,7 +161,8 @@ height: 63px;
 .comm_problem .dh_left .big_tit b {
     font-weight: normal;
     line-height: 25px;
-    margin-left: 3px;
+    margin-left: 10px;
+    font-size: 18px;
 }
 .comm_problem .dh_left ul li{
 	border-bottom: 1px dashed #e0e0e0;
@@ -180,9 +181,15 @@ height: 63px;
 }
 .comm_problem .dh_left .ul1 li .first-title{
 	padding: 0 50px 0 0px;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: normal;
 	color: #666;
+}
+.comm_problem_top .com_por_tit i.icon-home{
+    background: url("../images/index/icon_index.png2") no-repeat center;
+    display: block;
+    float: left;
+    width: 20px;
 }
 .comm_problem .dh_left .ul1 li .tow_tit i.icon-caret-down{
 	background: url(../images/icon/help_up.png) no-repeat center;

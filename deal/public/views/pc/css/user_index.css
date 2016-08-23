@@ -22,7 +22,7 @@ img{border:0px;}
 }
 .nav,.user_body .user_b{
   margin: 0 auto;
-	width: 1190px;
+	/*width: 1190px;*/
 }
 .nav{
   height: 60px;
@@ -572,7 +572,7 @@ visibility: hidden;
 }
 .class_jy {
     padding: 0px 15px;
-    border-bottom: 1px solid #e3e3e3;
+    /*border-bottom: 1px solid #e3e3e3;*/
     position: relative;
     overflow: hidden;
     float: left;

@@ -89,6 +89,7 @@ a:hover {
     height: 25px;
     color: #b1b1b1;
     font-family: '微软雅黑';
+    font-size: 12px;
 }
 #footer .footer_link ul li.footer_li a.fotter_a{
     color: #b1b1b1;
@@ -103,13 +104,21 @@ a:hover {
 }
 #footer .footer_link ul li.footer_li a.fotter_div b{
     color: #666;
+    font-size: 14px;
+    font-family: '微软雅黑';
 }
 #footer .footer_link ul.ewm_ul {
 	margin-right:50px; 
 }
+
 #footer .footer_link ul.ewm_ul li.ewm_li{
 	float: right;
 	margin: 50px 10px ;
+}
+#footer .footer_link ul.ewm_ul li.ewm_li b{
+    font-size: 14px;
+    font-family: '微软雅黑';
+    color: #666;
 }
 #footer .footer_link ul.ewm_ul li.ewm_li img{
     width: 120px;

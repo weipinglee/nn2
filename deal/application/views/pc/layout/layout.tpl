@@ -42,7 +42,7 @@
     <script src="{views:js/help.js}" type="text/javascript" ></script>
     <!-- 帮助页 常见问题end -->
 </head>
-<body style="background:#fff;">
+<body>
 
 
 
@@ -356,7 +356,7 @@ z-index:1000;">
             <ul>
                 {foreach: items=$helpList2}
                     <li class="footer_li">
-                        <a class="fotter_div" " target="_blank"><b>{$item['name']}</b></a>
+                        <a class="fotter_div" target="_blank"><b>{$item['name']}</b></a>
                         {foreach: items=$item['data'] item=$v key=$k}
                             <a class="fotter_a" href="{url:/help/help}?cat_id={$v['cat_id']}&id={$v['id']}" target="_blank">{$v['name']}</a>
                         {/foreach}

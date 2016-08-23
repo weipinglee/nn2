@@ -80,7 +80,6 @@ table {
 /* Remove Float */
 .clear {
     display: block;
-    height: 0;
     overflow: hidden;
     clear: both;
 }
@@ -106,7 +105,12 @@ a:hover,a:active {
     text-decoration: underline;
 }
 
-
+.pro_classify .cla_sty{
+    margin-top: 20px;
+    padding: 15px 0;
+    border-top: 5px solid #e3e3e3;
+    background: #fff;
+}
 
 .wrap {
     width: 941px;

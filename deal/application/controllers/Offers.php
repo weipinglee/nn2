@@ -84,7 +84,7 @@ class OffersController extends PublicController {
 		$type = $productModel->getTypeArray();
 		//获取报盘模式
 		$mode = $productModel->getModelArray();
-
+		unset($mode[0]);
 		$this->getView()->assign('cate', $category);
 		$this->getView()->assign('type', $type);
 		$this->getView()->assign('mode', $mode);

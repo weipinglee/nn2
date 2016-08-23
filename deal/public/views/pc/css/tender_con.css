@@ -7,6 +7,11 @@
 .tender_content .tender_top{
 	padding: 20px 5px;
 }
+.tender_content .tender_top a.te_a_col{
+	color: #999;
+	font-size: 14px;
+}
+
 .center_left{
 	float: left;
 	width: 75%;
