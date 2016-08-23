@@ -50,7 +50,7 @@
       <!--个人注册-->
       <div class="reg_cot gr_reg">
         <input name="checkUrl" value="{url:/login/checkIsOne}" type="hidden" />
-        <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/ucenter/baseinfo}">
+        <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/login/regsucced}">
           <input type="hidden" name="type" value="0"/>
           <div class="cot">
             <span class="cot_tit">用户名：</span>
@@ -105,7 +105,7 @@
        <!--个人注册结束-->
         <!--企业注册-->
       <div class="reg_cot qy_reg">
-        <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/ucenter/baseinfo}" >
+        <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/login/regsucced}" >
           <input type="hidden" name="type" value="1"/>
          <div class="cot">
             <span class="cot_tit">用户名：</span>

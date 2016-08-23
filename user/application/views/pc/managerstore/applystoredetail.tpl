@@ -34,7 +34,7 @@
                     </tr>
                     <tr>
                         <td colspan="2"> 租库价格</td>
-                        <td colspan="6"> {$storeDetail['store_price']}（/{$storeDetail['unit']}/{echo:\nainai\store::getTimeUnit($storeDetail['store_unit'])}） </td>
+                        <td colspan="6"> {$storeDetail['store_price']}（元/{$storeDetail['unit']}/{echo:\nainai\store::getTimeUnit($storeDetail['store_unit'])}） </td>
                     </tr>
                     <tr>
                         <td colspan="2">签发时间</td>

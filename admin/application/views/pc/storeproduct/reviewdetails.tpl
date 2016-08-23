@@ -68,7 +68,8 @@
                  <th>用户类型</th>
                  <td>{$user['user_type']}</td>
                  <th>租库价格</th>
-                 <td>{$detail['store_price']}/{$detail['unit']}/天</td>
+                 <td>{$detail['store_price']}
+（元/{$detail['unit']}/{echo:\nainai\store::getTimeUnit($detail['store_unit'])}）</td>
 
 
              </tr>

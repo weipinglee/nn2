@@ -416,6 +416,7 @@ class ManagerStoreController extends UcenterBaseController{
 
 
     		$store = new store();
+    		$storeProduct['status'] = $store::STOREMANAGER_SIGN;
     		$res = $store->updateStoreProduct( $productData,$storeProduct,$product_id, $id);
 
     		die(json::encode($res));
