@@ -15,8 +15,9 @@ return array(
     'rootDir'=>array(//子系统根目录物理路径
         'user'=>'E:\wamp\wamp\www\nnbug\user\public',
 		'admin'=>'E:\wamp\wamp\wwww\nnbug\admin\public',
+
     ),
-	 'sms'=>array(
+     'sms'=>array(
         'platform'=>'jianzhou',
         'account'=>'jzyy802',
         'password'=>'813813',

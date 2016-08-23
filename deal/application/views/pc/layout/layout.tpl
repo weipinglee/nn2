@@ -180,6 +180,168 @@ z-index:1000;">
     </div>
 </div>
 
+  <!-- 分类开始 -->
+
+
+
+<div id="classify_lists" {if:!isset($index) || $index!=1}style="display:none;"{/if}>
+    <div class="all-sort-list" >
+                        {set:$i=1;}
+                        {foreach: items=$catList}
+                            <div class="item" id="{$i}">
+                                <div class="icon-nh{$i}">&nbsp;</div>{set:$i = $i +1;}
+
+                                <h3>
+
+                                    <p class="fenlei-h1">{$item['name']}</p><p class="fenlei">
+
+                                        {for:from=0 upto=2 item=$num}
+                                            {if:isset($item['nested'][$num]['id'])}
+                                                <a href="{url:/offers/offerlist?cate=$item['nested'][$num]['id']}">{$item['nested'][$num]['name']}</a>&nbsp;
+                                            {/if}
+                                        {/for}
+
+                                    </p>
+                                </h3>
+                                <div class="item-list clearfix" style="top: 1px; display: none;">
+
+                                    <div class="subitem">
+                                        {foreach: items=$item['nested']}
+                                            <dl class="fore1">
+                                                <dt><a href="{url:/offers/offerlist?cate=$item['id']}">{$item['name']}</a></dt>
+
+                                                <dd>
+                                                    {foreach:items=$item['nested']}
+                                                        <em><a href="{url:/offers/offerlist?cate=$item['id']}">{$item['name']}</a></em>
+                                                    {/foreach}
+                                                </dd>
+                                            </dl>
+                                        {/foreach}
+                                    </div>
+                                    <!--
+                                    <div class="cat-right">
+                                        <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
+                                            <dt>推荐品牌出版商</dt>
+                                            <dd>
+                                                <ul>
+                                                    <li><a href="#" target="_blank">中华书局</a></li>
+                                                    <li><a href="#" target="_blank">人民邮电出版社</a></li>
+                                                    <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
+                                                    <li><a href="#" target="_blank">电子工业出版社</a></li>
+                                                    <li><a href="#" target="_blank">三联书店</a></li>
+                                                    <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </div>-->
+                                </div>
+                            </div>
+                        {/foreach}
+                </div>
+            </div>
+                        <!--所有分类 End-->
+ <!-- 分类js strat-->
+        <script type="text/javascript">
+
+
+                $('.all-sort-list > .item').hover(function () {
+                    var eq = $('.all-sort-list > .item').index(this),               //获取当前滑过是第几个元素
+                            h = $('.all-sort-list').offset().top,                       //获取当前下拉菜单距离窗口多少像素
+                            s = $(window).scrollTop(),                                  //获取游览器滚动了多少高度
+                            i = $(this).offset().top,
+                            id = $(this).attr('id');                               //当前元素滑过距离窗口多少像素
+
+                    try{
+                        item=parseInt(Aa(this, "item-list clearfix")[0].currentStyle['height']);
+                    }catch (er){item = ( $(this).children('.item-list').height());            //下拉菜单子类内容容器的高度
+                    }
+                    sort = $('.all-sort-list').height();                        //父类分类列表容器的高度
+
+                    if (item < sort) {                                             //如果子类的高度小于父类的高度
+                        /*if (eq == 0) {
+                            $(this).children('.item-list').css('top', (i - h));
+                        } else {
+                            $(this).children('.item-list').css('top', (i - h) + 1);
+                        }*/
+                    } else {
+                        if (s > h) {                                              //判断子类的显示位置，如果滚动的高度大于所有分类列表容器的高度
+                            if (i - s > 0) {                                         //则 继续判断当前滑过容器的位置 是否有一半超出窗口一半在窗口内显示的Bug,
+                                $(this).children('.item-list').css('top', 0);
+                            } else {
+                                $(this).children('.item-list').css('top', 0);
+                            }
+                        } else {
+                            $(this).children('.item-list').css('top', 0);
+                        }
+                    }
+
+
+                    $(this).addClass('hover');
+                    $(this).children('.item-list').css('display', 'block');
+                    $(this).children('.icon-nh' + id).addClass('icon-nh' + id + '-1');
+                }, function () {
+                    $(this).removeClass('hover');
+                    $(this).children('.item-list').css('display', 'none');
+                    var id = $(this).attr("id");
+                    //alert(id);
+                    $(this).children('.icon-nh' + id).removeClass('icon-nh' + id + '-1');
+                });
+                function Aa(a, b) {var c = a.getElementsByTagName("*");var d = [];for (var i = 0; i < c.length; i++) {if (c[i].className == b) {d.push(c[i]);}};return d;}
+                var item;
+
+
+            </script>
+      <!--   分类js end -->
+
+
+  <!--   分类js 隐藏 start -->
+
+       <script>
+
+              $(function(){
+                   
+                    a_all.mouseover(function(){show()});
+                    a_all.mouseout(function(){hide()});
+                    
+                    b_title.mouseover(function(){show()});
+                    b_title.mouseout(function(){hide()});
+                    });
+
+                    var a_all = $('.all_steel');
+                    var b_title = $('#classify_lists');
+                    
+                    var timer = null;
+                    function show(){
+                        clearInterval( timer );
+                        b_title.css('display','block')
+                    }
+                    function hide(){
+                        timer = setTimeout(function(){
+                            b_title.css('display','none')
+                        }, 200);
+                    }
+
+
+     </script>
+
+<!--   分类js 隐藏 end -->
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- 分类结束 -->
+
+
+
+
 {content}
 
 <!--公用底部控件 开始-->

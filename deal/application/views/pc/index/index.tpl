@@ -9,6 +9,7 @@
 
     <input type="hidden" id="UserID">
       <!-- 轮播大图 开始 -->
+
     <div class="banner">
         <!-- 代码 开始 -->
     <link href="{views:css/nav.css}" rel="stylesheet" />
@@ -36,8 +37,80 @@
              $('#inner').nav({ t: 2000, a: 1000, c: _c});
         </script>
         <!-- 代码 结束 -->
-      </div>
+      </div> 
     <!-- 轮播大图 结束 -->
+
+
+ 
+
+   <!--最新数据 开始-->
+  <div class="mostnew_date">
+   <div id="row1_clinch" class="row1_clinch">
+       <div class="clinch_tit">
+           <div class="tit_time">
+               <p id="time_year" class="time_year">{$year}<br><span class="time_month">{$month}/{$day}</span></p>
+               <!-- <p id="time_day" class="time_day">11</p> -->
+           </div>
+           <div class="tit_font">
+               <b>最新<span>数据</span></b>
+               <br>
+               RECENT DATAS</div>
+       </div>
+       <div class="data-list">
+           <div class="data-tit">
+               <div class="data">
+                   <p class="data_title">当前在线报盘</p>
+                   <p class="data_content">{$offer_num}</p>
+               </div>
+               <img class="data_img" src="{views:images/icon/data-img_03.png}"/>
+           </div>
+           <div class="data-tit">                            
+               <div class="data">
+                   <p class="data_title">当前成交量</p>
+                   <p class="data_content">{$order_num}</p>
+               </div>
+               <img class="data_img" src="{views:images/icon/data-img_06.png}"/>
+           </div>
+           <div class="data-tit">
+               <div class="data">
+                   <p class="data_title">昨日成交量</p>
+                   <p class="data_content">{$order_num_yes}</p>
+               </div>
+               <img class="data_img" src="{views:images/icon/data-img_08.png}"/>
+           </div>
+           <div class="data-tit">
+               <div class="data">
+                   <p class="data_title">当前入驻商家</p>
+                   <p class="data_content">{$all_user_num}位</p>
+               </div>
+               <img class="data_img" src="{views:images/icon/data-img_10.png}"/>
+           </div>
+       </div>                    
+   </div>
+  </div>  
+   <!--最新数据 结束-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!--主要内容 开始-->
 
                             </div>
@@ -47,160 +120,11 @@
             <div class="mainRow1">
                 <!--搜索条件 开始-->
                 <div class="wrap">
-                    <div class="all-sort-list">
-                        {set:$i=1;}
-                        {foreach: items=$catList}
-                            <div class="item" id="{$i}">
-                                <div class="icon-nh{$i}">&nbsp;</div>{set:$i = $i +1;}
+                    
+             
+ <!--搜索条件 结束-->
 
-                                <h3>
-
-                                    <p class="fenlei-h1">{$item['name']}</p><p class="fenlei">
-
-                                        {for:from=0 upto=2 item=$num}
-                                            {if:isset($item['nested'][$num]['id'])}
-                                                <a href="{url:/offers/offerlist?cate=$item['nested'][$num]['id']}">{$item['nested'][$num]['name']}</a>&nbsp;
-                                            {/if}
-                                        {/for}
-
-                                    </p>
-                                </h3>
-                                <div class="item-list clearfix" style="top: 1px; display: none;">
-
-                                    <div class="subitem">
-                                        {foreach: items=$item['nested']}
-                                            <dl class="fore1">
-                                                <dt><a href="{url:/offers/offerlist?cate=$item['id']}">{$item['name']}</a></dt>
-
-                                                <dd>
-                                                    {foreach:items=$item['nested']}
-                                                        <em><a href="{url:/offers/offerlist?cate=$item['id']}">{$item['name']}</a></em>
-                                                    {/foreach}
-                                                </dd>
-                                            </dl>
-                                        {/foreach}
-                                    </div>
-                                    <!--
-                                    <div class="cat-right">
-                                        <dl class="categorys-brands" clstag="homepage|keycount|home2013|0601d">
-                                            <dt>推荐品牌出版商</dt>
-                                            <dd>
-                                                <ul>
-                                                    <li><a href="#" target="_blank">中华书局</a></li>
-                                                    <li><a href="#" target="_blank">人民邮电出版社</a></li>
-                                                    <li><a href="#" target="_blank">上海世纪出版股份有限公司</a></li>
-                                                    <li><a href="#" target="_blank">电子工业出版社</a></li>
-                                                    <li><a href="#" target="_blank">三联书店</a></li>
-                                                    <li><a href="#" target="_blank">浙江少年儿童出版社</a></li>
-                                                </ul>
-                                            </dd>
-                                        </dl>
-                                    </div>-->
-                                </div>
-                            </div>
-                        {/foreach}
-
-                        </div>
-                        <!--所有分类 End-->
-<!-- 分类js strat-->
-<script type="text/javascript">
-
-
-                $('.all-sort-list > .item').hover(function () {
-                    var eq = $('.all-sort-list > .item').index(this),               //获取当前滑过是第几个元素
-                            h = $('.all-sort-list').offset().top,                       //获取当前下拉菜单距离窗口多少像素
-                            s = $(window).scrollTop(),                                  //获取游览器滚动了多少高度
-                            i = $(this).offset().top,
-                            id = $(this).attr('id');                               //当前元素滑过距离窗口多少像素
-
-                    try{
-                        item=parseInt(Aa(this, "item-list clearfix")[0].currentStyle['height']);
-                    }catch (er){item = ( $(this).children('.item-list').height());            //下拉菜单子类内容容器的高度
-                    }
-                    sort = $('.all-sort-list').height();                        //父类分类列表容器的高度
-
-                    if (item < sort) {                                             //如果子类的高度小于父类的高度
-                        /*if (eq == 0) {
-                            $(this).children('.item-list').css('top', (i - h));
-                        } else {
-                            $(this).children('.item-list').css('top', (i - h) + 1);
-                        }*/
-                    } else {
-                        if (s > h) {                                              //判断子类的显示位置，如果滚动的高度大于所有分类列表容器的高度
-                            if (i - s > 0) {                                         //则 继续判断当前滑过容器的位置 是否有一半超出窗口一半在窗口内显示的Bug,
-                                $(this).children('.item-list').css('top', (s - h) + 2);
-                            } else {
-                                $(this).children('.item-list').css('top', (s - h) - (-(i - s)) + 2);
-                            }
-                        } else {
-                            $(this).children('.item-list').css('top', 0);
-                        }
-                    }
-
-
-                    $(this).addClass('hover');
-                    $(this).children('.item-list').css('display', 'block');
-                    $(this).children('.icon-nh' + id).addClass('icon-nh' + id + '-1');
-                }, function () {
-                    $(this).removeClass('hover');
-                    $(this).children('.item-list').css('display', 'none');
-                    var id = $(this).attr("id");
-                    //alert(id);
-                    $(this).children('.icon-nh' + id).removeClass('icon-nh' + id + '-1');
-                });
-                function Aa(a, b) {var c = a.getElementsByTagName("*");var d = [];for (var i = 0; i < c.length; i++) {if (c[i].className == b) {d.push(c[i]);}};return d;}
-                var item;
-
-
-            </script>
-      <!--   分类js end -->
-                        
-                <!--搜索条件 结束-->
-
-                <!--最新数据 开始-->
-                <div id="row1_clinch" class="row1_clinch">
-                    <div class="clinch_tit">
-                        <div class="tit_time">
-                            <p id="time_year" class="time_year">{$year}<br><span class="time_month">{$month}/{$day}</span></p>
-                            <!-- <p id="time_day" class="time_day">11</p> -->
-                        </div>
-                        <div class="tit_font">
-                            <b>最新<span>数据</span></b>
-                            <br>
-                            RECENT DATAS</div>
-                    </div>
-                    <div class="data-list">
-                        <div class="data-tit">
-                            <div class="data">
-                                <p class="data_title">当前在线报盘</p>
-                                <p class="data_content">{$offer_num}</p>
-                            </div>
-                            <img class="data_img" src="{views:images/icon/data-img_03.png}"/>
-                        </div>
-                        <div class="data-tit">                            
-                            <div class="data">
-                                <p class="data_title">当前成交量</p>
-                                <p class="data_content">{$order_num}</p>
-                            </div>
-                            <img class="data_img" src="{views:images/icon/data-img_06.png}"/>
-                        </div>
-                        <div class="data-tit">
-                            <div class="data">
-                                <p class="data_title">昨日成交量</p>
-                                <p class="data_content">{$order_num_yes}</p>
-                            </div>
-                            <img class="data_img" src="{views:images/icon/data-img_08.png}"/>
-                        </div>
-                        <div class="data-tit">
-                            <div class="data">
-                                <p class="data_title">当前入驻商家</p>
-                                <p class="data_content">{$all_user_num}位</p>
-                            </div>
-                            <img class="data_img" src="{views:images/icon/data-img_10.png}"/>
-                        </div>
-                    </div>                    
-                </div>
-                <!--最新数据 结束-->
+                
             </div>
             <!-----第一行搜索  结束---->
             
