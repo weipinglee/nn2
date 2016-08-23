@@ -682,7 +682,7 @@ class product  {
         $m_category = new Query('product_category');
         $m_category->where='status= :status';
         $m_category->bind=array('status'=>1);
-        $m_category->cache = 'md';
+        $m_category->cache = 'm';
         $c_list = $m_category->find();
         $result = $this->getNestedList($c_list);
 
