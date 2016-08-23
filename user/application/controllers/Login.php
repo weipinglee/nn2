@@ -304,6 +304,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 			'password'=>$password
 		);
 		$userModel->updateUserInfo($data);
+		setcookie('mobile', '', 0);
 		$userLog=new \Library\userLog();
 		$userLog->addLog(['action'=>'找回密码操作','进行了找回密码操作']);
 		die(JSON::encode(\Library\tool::getSuccInfo(1,'修改成功', url::createUrl('/Login/resetend'))));
@@ -372,21 +373,20 @@ class LoginController extends \Yaf\Controller_Abstract {
 			exit(json::encode(tool::getSuccInfo(0, '验证码过期')));
 		}
 		
-
 		if ($info['code'] == $code) {
+			setcookie('mobile', $mobile, time() + 15*60);
 			$model->clearPassword($uid);
-			exit(json::encode(tool::getSuccInfo(1, 'success', url::createUrl('/Login/resetTo?mobile='.$mobile))));
+			exit(json::encode(tool::getSuccInfo(1, 'success', url::createUrl('/Login/resetTo'))));
 		}else{
 			exit(json::encode(tool::getSuccInfo(0, '验证码错误')));
 		}
 	}
 
 	public function resetToAction(){
-		$mobile = $this->getRequest()->getParam('mobile');
-		$mobile = safe::filter($mobile, 'int');
+		$mobile = isset($_COOKIE['mobile']) ? $_COOKIE['mobile'] : '';
 
 		if (empty($mobile) ) {
-			exit('Error Request');
+			$this->redirect('PasswordReset');
 		}
 
 		$this->getView()->assign('mobile', $mobile);

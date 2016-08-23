@@ -17,7 +17,14 @@ $(function () {
                 success: function (msg) {
                    // debugger;
                     if(msg.success==1){
-                        $('#uid').val(msg.info)
+                        $('#uid').val(msg.info);
+                        if (msg.info == '') {
+                            $('.error').find(".field-validation-error").html("【手机号】当前没有注册用户！");
+                            $('.error').find(".field-validation-valid").html("【手机号】当前没有注册用户！");
+                        }else{
+                            $('.error').find(".field-validation-error").html("");
+                            $('.error').find(".field-validation-valid").html("");
+                        }
                     }else{
                         alert(msg.info);
                     }
@@ -99,8 +106,15 @@ $(function () {
     })
 
     $("#btnSubmit").click(function () {
+        
         var self = $(this);
         if (formValidator(1)) {
+            
+            if ($("#txtCode").val() == '') {
+                $('.error').find(".field-validation-error").html("请填写校验码！");
+                $('.error').find(".field-validation-valid").html("请填写校验码！");
+                return false;
+            }
             //$("#txtPassWord").attr("value", encryptCode($("#txtPassWord").val()));
             //self.parents('form').submit();
 
