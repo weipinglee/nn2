@@ -6,6 +6,7 @@
  * Time: 13:31
  */
 namespace nainai\offer;
+use Library\cache\driver\Memcache;
 use \Library\M;
 use \Library\Time;
 use \Library\Query;
@@ -259,6 +260,11 @@ class product  {
      * 获取所有顶级分类
      */
     public function getTopCate($num=''){
+        $memcache=new Memcache();
+        $topCate=$memcache->get('topCate');
+        if($topCate){
+            return unserialize($topCate);
+        }
         $where  = array('status' => 1,'pid'=>0);
         if($num)
             $this->_productObj->table('product_category')->limit($num);
@@ -266,6 +272,7 @@ class product  {
             $this->_productObj->table('product_category');
         }
         $category = $this->_productObj->fields('id,pid, name, unit, childname, attrs')->order('sort ASC,id DESC')->where($where)->select();
+        $memcache->set('topCate',serialize($category));
         return $category;
     }
 
@@ -678,14 +685,19 @@ class product  {
         return $arr;
     }
     //获取分类列表
-    public function getAllCat() {
+    public function   getAllCat() {
+        $memcache=new Memcache();
+        $res=$memcache->get('allCat');
+        if($res){
+            return unserialize($res);
+        }
         $m_category = new Query('product_category');
         $m_category->where='status= :status';
         $m_category->bind=array('status'=>1);
         $m_category->cache = 'm';
         $c_list = $m_category->find();
         $result = $this->getNestedList($c_list);
-
+        $memcache->set('allCat',serialize($result));
         return $result;
     }
 

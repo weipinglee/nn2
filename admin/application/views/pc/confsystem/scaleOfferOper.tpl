@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red">*</span>保险金收取比例</label>
+                    <label class="form-label col-2"><span class="c-red">*</span>保证金收取比例</label>
                     <div class="formControls col-10">
                         <input type="text" id="website-title" placeholder="1~100%" name='deposite' value="{$info['deposite']}" class="input-text">
                     </div>

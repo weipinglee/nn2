@@ -14,6 +14,11 @@ class indexModel {
      * @param $num
      */
    public function getCreditMemberList($num){
+       $memcache=new \Library\cache\driver\Memcache();
+       $creditMemberList=$memcache->get('creditMemberList');
+       if($creditMemberList){
+           return unserialize($creditMemberList);
+       }
         $obj = new Query('user as u');
        $obj->join = 'left join company_info as c on u.id=c.user_id left join user_account as ua on u.id = ua.user_id';
        $obj->fields = 'u.id,u.credit,c.company_name,ua.credit as credit_money';
@@ -30,7 +35,7 @@ class indexModel {
                $data[$k]['icon'] = $group['icon'];
            }
        }
-
+        $memcache->set('creditMemberList',serialize($data));
        return $data;
    }
 
@@ -39,16 +44,30 @@ class indexModel {
      * @return Array.num 企业量
      */
     public function getTotalCompany(){
+        $memcache=new \Library\cache\driver\Memcache();
+        $totalCompany=$memcache->get('totalCompany');
+        if($totalCompany){
+            return unserialize($totalCompany);
+        }
         $mem = new M('user');
-        return $mem->fields(' COUNT(id) as num')->where(array('type'=>1))->getObj();
+        $totalCompany=$mem->fields(' COUNT(id) as num')->where(array('type'=>1))->getObj();
+        $memcache->set('totalCompany',serialize($totalCompany));
+        return $totalCompany;
     }
     /*
      * 获取所有用户的数量
      * */
 
     public function getAllUser(){
+        $memcache=new \Library\cache\driver\Memcache();
+        $allUser=$memcache->get('allUser');
+        if($allUser){
+            return unserialize($allUser);
+        }
         $userObj=new M('user');
-        return $userObj->fields('count(id) as num')->getObj();
+        $allUser=$userObj->fields('count(id) as num')->getObj();
+        $memcache->set('allUser',serialize($allUser));
+        return $allUser;
     }
 
 

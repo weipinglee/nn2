@@ -92,6 +92,7 @@ class advertModel
         if($adPoModel->data($data)->validate($this->adPositionRules)){
             if(!$this->checkAdPositionName(array('name'=>$data['name']))){
                 $res=$adPoModel->data($data)->add();
+
                 return $res ? tool::getSuccInfo(1, '添加成功') : tool::getSuccInfo(0, '添加失败');
             }else{
                 return tool::getSuccInfo(0,'名称存在');

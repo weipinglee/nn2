@@ -7,6 +7,7 @@
  * Time: 10:10
  */
 namespace nainai;
+use Library\cache\driver\Memcache;
 use Library\M;
 use Library\Query;
 use Library\tool;
@@ -253,12 +254,14 @@ class statistics{
         $statsModel=new M('static_market');
         $where=array('id'=>$id);
         $res=$statsModel->where($where)->delete();
+        $memcache=new Memcache();
         return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
 
     }
     public static function delStatsCate($id){
         $statsModel=new M('static_category');
         $where=array('id'=>$id);
+
         $res=$statsModel->where($where)->delete();
         return  $res?tool::getSuccInfo(1,'删除成功'):tool::getSuccInfo(0,'删除失败');
     }
@@ -284,8 +287,15 @@ class statistics{
         return $newStatcList;
     }
     public function getAllStatcList($type){
+        $memcache=new Memcache();
+        $allStatcList=$memcache->get('allStatcList');
+        if($allStatcList){
+            return unserialize($allStatcList);
+        }else{
+            $allStatcList=array();
+        }
         $productModel=new product();
-        $topCat=$productModel->getTopCate();
+        $topCat=$productModel->getTopCate(8);
         $marketObj=new Query('static_market as m');
         $marketObj->join='left join product_category as c on m.cate_id=c.id';
         $marketObj->fields='c.name,m.id,m.cate_id,m.type,m.ave_price,m.prev_price,m.low_price,m.high_price,date(m.create_time) as create_time,m.days';
@@ -342,6 +352,7 @@ class statistics{
                 $tmp[$k][$kk]=array_values($vv);
             }
         }
+        $memcache->set('allStatcList',serialize($tmp));
        return $tmp;
 
     }
@@ -364,6 +375,11 @@ class statistics{
      *
      * */
     public function getStaticTime($type){
+        $memcache=new Memcache();
+        $staticTime=$memcache->get('staticTime');
+        if($staticTime){
+            return unserialize($staticTime);
+        }
         $marketObj=new Query('static_market');
         $marketObj->fields='distinct date(create_time) as create_time';
         $marketObj->where='type= :type';
@@ -374,12 +390,18 @@ class statistics{
          foreach($time as $k=>$v){
             $res[$k]=$v['create_time'];
         }
+        $memcache->set('staticTime',serialize($res));
         return $res;
     }
     
     //获取热门商品数据
     public function getHotProductDataList($l=10)
     {
+        $memcache=new Memcache();
+        $hotProductDataList=$memcache->get('hotProductDataList');
+        if($hotProductDataList){
+            return unserialize($hotProductDataList);
+        }
         $query=new Query('products_stats_data as psd');
         $query->join='left join products_stats as ps on psd.products_stats_id=ps.id';
         $query->fields = 'ps.id, ps.name';
@@ -397,6 +419,7 @@ class statistics{
             $temp['name'] = $v['name'];
             $ret[] = $temp;
         }
+        $memcache->set('hotProductDataList',serialize($ret));
         return $ret;
     }
 }

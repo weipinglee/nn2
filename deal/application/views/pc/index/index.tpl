@@ -234,7 +234,7 @@
                             {foreach:items=$offerData}
                             <div class="i_proList{if:$i==0} show{/if}" id="offer{$key}">
                                 <ul>
-                                    <li class="i_ListTit">
+                                    <li class="i_ListTit" id="offer">
                                         <span class="i_w_1">品名</span>
                                         <span class="i_w_2">供求</span>
                                         <span class="i_w_3">类型</span>
@@ -581,7 +581,6 @@
                                         <li class="rank_tit">
                                             <span class="i_r_1">排名</span>
                                             <span class="i_r_2">用户</span>
-                                            <span class="i_r_3">认证</span>
                                             <span class="i_r_4">等级</span>
                                             <span class="i_r_5">信誉值</span>
                                         </li>
@@ -603,7 +602,6 @@
 
                                             </span>
                                                 <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
-                                                <span class="i_r_3">{if:$item['credit_money']>0}<img src="{views:images/rank_08.png}">{/if}</span>
                                                 <span class="i_r_4"><img style="margin-top: -17px;" src="{$item['icon']}"></span>
                                                 <span class="i_r_5">{$item['credit']}</span>
                                             </li>
@@ -742,4 +740,8 @@
 
         </div>
         <!-- 浮动楼层 end -->
+<script>
+    $(function() {
 
+    })
+ </script>

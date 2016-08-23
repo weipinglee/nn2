@@ -57,7 +57,7 @@
 							</div>
 							{if:$user_type!=1}
 							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>银行许可证： </span>
+								<span class="con_tit"><i>*</i>银行卡正面： </span>
 								<span>
 									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload}" />
                         			<span class="input-file">选择文件<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></span>

@@ -7,6 +7,7 @@
  * Time: 9:50
  */
 namespace nainai\system;
+use Library\cache\driver\Memcache;
 use Library\M;
 
 use Library\Query;
@@ -121,6 +122,8 @@ class slide{
 
         $data['status']=$params['status'];
         if($slideObj->where($where)->data($data)->update()){
+            $memcache=new Memcache();
+            $memcache->rm('indexSlide');
             return \Library\tool::getSuccInfo(1,'修改成功');
         }else{
             return \Library\tool::getSuccInfo(0,'修改失败');
@@ -132,9 +135,16 @@ class slide{
     }
 
     public static function getIndexSlide(){
+        $memcache=new Memcache();
+        $indexSlide=$memcache->get('indexSlide');
+        if(isset($indexSlide)&&$indexSlide){
+            $res=unserialize($indexSlide);
+            return $res;
+        }
         $slideObj=new M('slide');
-        return $slideObj->where(array('status'=>1))->order('`order` asc')->limit(5)->select();
-
+        $res=$slideObj->where(array('status'=>1))->order('`order` asc')->limit(5)->select();
+        $memcache->set('indexSlide',serialize($res));
+        return $res;
     }
 
 

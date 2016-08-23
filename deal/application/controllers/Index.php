@@ -39,17 +39,16 @@ class IndexController extends PublicController {
 		
 		//获取统计数据
 		$statcModel=new \nainai\statistics();
-		$statcCatList=$statcModel->getNewStatcList(1);
 		$statcCatList=$statcModel->getAllStatcList(1);
-		$statcTime=$statcModel->getStaticTime(1);
+        $statcTime=$statcModel->getStaticTime(1);
 		$this->getView()->assign('statcTime',\Library\json::encode($statcTime));
-		$statcProList=$statcModel->getHotProductDataList(10);
-		$topCat=$productModel->getTopCate(8);
-		$company=\nainai\companyRec::getAllCompany();
+        $statcProList=$statcModel->getHotProductDataList(10);
+        $topCat=$productModel->getTopCate(8);
+        $company=\nainai\companyRec::getAllCompany();
 
 		//获取信誉排行企业用户
 		$indexModel = new indexModel();
-		$creditMember = $indexModel->getCreditMemberList(10);
+        $creditMember = $indexModel->getCreditMemberList(10);
 
 		//获取首页最新完成的交易
 		$order = new \nainai\order\Order();
@@ -68,6 +67,7 @@ class IndexController extends PublicController {
 		//获取企业总数
 		$company_num = $indexModel->getTotalCompany();
 		$this->getView()->assign('company_num',$company_num['num']);
+        //获取注册的总数
 		$userNum=$indexModel->getAllUser();
 		$this->getView()->assign('all_user_num',$userNum['num']);
 		//获取当前和昨日成交量
@@ -82,7 +82,6 @@ class IndexController extends PublicController {
 				$adList[$k]['content'] = \Library\Thumb::getOrigImg($v['content']);
 			}
 		}
-
 		//获取所有的推荐商户信息
 		$allCompany=\nainai\companyRec::getAllCompanyOrderByType();
         //获取推荐商家的广告
@@ -220,5 +219,16 @@ class IndexController extends PublicController {
 
     public function storageAction(){
         $this->getView()->assign('cur','storage');
+    }
+    public function testAction(){
+        $memcache=new \Library\cache\driver\Memcache();
+        $memcache->set('a','123456');
+        $res=$memcache->get('a');
+       $memObj=new Memcache();
+        $memObj->connect('127.0.0.1','11211');
+        $res=$memObj->getextendedstats();
+        $memcache->clear();
+        echo "<pre>";
+        print_r($res);
     }
 }

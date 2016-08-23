@@ -9,13 +9,20 @@
 namespace nainai\system;
 
 
+use Library\M;
 use Library\Query;
+use Library\Session\Driver\Memcache;
 
 class help
 {
     public $helpLimit=4;
     public $helpCatLimit=4;
     public function getHelplist(){
+        $memcache=new \Library\cache\driver\Memcache();
+        $helpList=$memcache->get('helpList'.$this->helpCatLimit.$this->helpLimit);
+        if($helpList){
+            return unserialize($helpList);
+        }
         $helpCatObj=new Query('help_category');
         $helpCatObj->where="status=:status and name<>:name";
         $helpCatObj->bind=['status'=>1,'name'=>'服务'];
@@ -37,6 +44,7 @@ class help
             $helpList[$k]['name']=$v['name'];
             $helpList[$k]['data']=$helpObj->find();
         }
+        $memcache->set('helpList'.$this->helpCatLimit.$this->helpLimit,serialize($helpList));
         return $helpList;
     }
 }
