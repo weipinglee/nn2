@@ -299,18 +299,21 @@ z-index:1000;">
        <script>
 
               $(function(){
-                   
-                    a_all.mouseover(function(){show()});
-                    a_all.mouseout(function(){hide()});
-                    
-                    b_title.mouseover(function(){show()});
-                    b_title.mouseout(function(){hide()});
-                    });
+                   var _sign = $('input[name=js_sign_banner]').val();
+                   if(_sign != 1){
+                        a_all.mouseover(function(){show()});
+                        a_all.mouseout(function(){hide()});
+                        $('#classify_lists').find('.all-sort-list').css('position', 'absolute')
+                        b_title.mouseover(function(){show()});
+                        b_title.mouseout(function(){hide()});
+                   }
+              });
 
-                    var a_all = $('.all_steel');
-                    var b_title = $('#classify_lists');
-                    
-                    var timer = null;
+                        var a_all = $('.all_steel');
+                        var b_title = $('#classify_lists');
+                        
+                        var timer = null;
+                  
                     function show(){
                         clearInterval( timer );
                         b_title.css('display','block')
