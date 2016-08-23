@@ -1,4 +1,4 @@
-
+<input type="hidden" name="js_sign_banner" value="1">
     <!------------------导航 开始-------------------->
     <form method="post" action="" id="form1">
         <div class="aspNetHidden">
