@@ -82,5 +82,14 @@
     });
     function Aa(a, b) {var c = a.getElementsByTagName("*");var d = [];for (var i = 0; i < c.length; i++) {if (c[i].className == b) {d.push(c[i]);}};return d;}
     var item;
+    /*首页交易指数、交易市场处滑动样式*/
+    $(function(){
+     $(".i_leftTit ul li").mouseover(function (){  
+            $(this).addClass("li_select") 
+        }).mouseout(function (){  
+            $(this).removeClass("li_select")   
+        }); 
+});
+       /*首页交易指数、交易市场处滑动样式*/
 
   

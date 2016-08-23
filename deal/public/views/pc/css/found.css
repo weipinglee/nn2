@@ -72,9 +72,10 @@ select {
 	margin-right: 70px;
 }
 #mainContent .mainRow3 .found{
-	width: 650px;height:300px;padding:0 10px;
-	margin-left: 150px;
-	float:left;
+	width: 650px;
+    padding: 40px 10px 30px 10px;
+    margin-left: 150px;
+    float: left;
 }
 #mainContent .mainRow3 .found span{
 	margin-left: -14px;

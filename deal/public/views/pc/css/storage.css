@@ -28,7 +28,7 @@ h1,h2,h3,h4,h5{font-family: "Microsoft YaHei" ! important}
     height: auto;
     overflow: hidden;
     margin: 0 auto;
-    margin-top: 56px;
+    margin-top: 63px;
     margin-bottom: 30px;
 }
 .order_form table{
@@ -48,7 +48,7 @@ h1,h2,h3,h4,h5{font-family: "Microsoft YaHei" ! important}
 	font-size: 20px;
 	color: #6b6b6b;
 	font-weight: normal;
-	margin-bottom: 48px;
+	margin-bottom: 55px;
 }
 }
 .order_form table { border-collapse: collapse;
@@ -128,7 +128,7 @@ tr.form_infoma{
 	font-size: 26px;
 	text-align: center;
 	color: #c81623;
-	margin-top: 56px;
+	margin-top: 63px;
 }
 .support h3 b{
 	color: #333333;

@@ -25,7 +25,7 @@
                     <div class="page_width">
 
            <div class="pro_classify">
-            <div class="class_re">
+            <!-- <div class="class_re">
                 <h3>
 
                 </h3>
@@ -33,7 +33,8 @@
                 <div class="st_ext">
 
                 </div>
-            </div>
+            </div> -->
+            <div class="clearfix cla_sty">
                 <input type="hidden" name="attr_url" value="{url:/Offers/ajaxGetCategory}"  />
                <input type="hidden" name="sort" value="default" />
                 <input type="hidden" name="img_url" value="{views:}"  />
@@ -81,7 +82,7 @@
             </div>
 
             {/if}
-
+        </div>
                <script  type='text/html' id='cateTemplate'>
                    <div class="class_jy" id="level1" >
                        <span class="jy_title"><%=childname%>：</span>
@@ -95,6 +96,7 @@
 
                    </div>
                </script>
+
 
 <!-- 分类 end -->
 <!-- 产品 start -->

@@ -40,7 +40,7 @@ a{cursor: pointer;text-decoration: none;}
 .pro_classify .class_re .st_ext{float: left;padding-left: 10px;}
 .pro_classify .class_jy {
 	padding: 0px 15px;
-border-bottom: 1px solid #e3e3e3;
+/*border-bottom: 1px solid #e3e3e3;*/
 position: relative;
 }
 .pro_classify .class_jy .jy_title{
@@ -131,9 +131,12 @@ text-align: right;
 	background: url(../images/icon/join.png) no-repeat;
 	padding-left: 25px;
 }
-
+li.but_left .ser_img_1{
+	margin-top: 6px;
+}
 .pro_main{
-	margin-top: 155px;
+	margin-top: 15px;
+	background: #fff;
 }
 .pro_main .pro_sort{
 	padding: 6px 8px;

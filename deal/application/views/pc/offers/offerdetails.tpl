@@ -8,7 +8,9 @@
             <!-- 未登录招标内容start -->
            <div class="tender_content">
                 <div class="tender_top">
-                    <b>我的位置：</b><span>现货大厅> </span>  <span>商品详情</span>
+                    <span><a class="te_a_col" href="">现货大厅</a></span>
+                    <span>></span>  
+                    <span><a class="te_a_col" href="">商品详情</a></span>
                 </div>
 
 
@@ -59,7 +61,10 @@
 
                 </div>
                 <div style="clear:both;"></div>
-                <div class="cont_1">
+                
+            </div>
+
+            <div class="cont_1">
                     <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>产品参数</span></h5>
                     <table>
                         <tr>                <th colspan="2">商品明细</th>            </tr>
@@ -156,7 +161,7 @@
 
                     <!--<h5 class="tit"><i><img src="{views:images/pro_show_04.jpg}"></i><span>质量标准</span></h5>
                     <table>
-						
+                        
                         <tr>
                             <td>质量标准</td>
                             <td></td>
@@ -168,6 +173,7 @@
                     </style>
                     <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
                     {foreach:items=$data['origphotos']}
+                <div class="clearfix">
                     <p class="pro_pic" >
                         <a name='fff' href='javascript:void(0);' onclick='picBig(this);'>
                             <img src="{$item}" width="80px"height="80px" style="margin:20px;float:left;" class="pro_apic"></a>
@@ -184,6 +190,7 @@
                         </span>
                     </p>
                     {/if}
+                </div>
 
 
                     <div id="divCenter" align="center">
@@ -204,14 +211,6 @@
                     }
                     </script>
                 </div>
-
-
-
-
-
-            </div>
-
-
       <!-- content end -->
 
 
