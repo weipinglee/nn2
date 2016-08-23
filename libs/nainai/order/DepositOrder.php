@@ -37,6 +37,7 @@ class DepositOrder extends Order{
 			$orderData['id'] = $order_id;
 			$orderData['contract_status'] = self::CONTRACT_SELLER_DEPOSIT;//合同状态置为等待卖方保证金支付
 			$orderData['buyer_deposit_payment'] = $payment;
+			$orderData['pay_deposit_time'] = date('Y-m-d H:i:s',time());
 			if($type == 0){
 				//定金支付
 				$pay_deposit = $this->payDeposit($info);
