@@ -174,3 +174,24 @@ $(document).ready(function(){
 
 
 /*控制消息页面中详情显示和隐藏 end*/
+
+
+
+//密码修改页面说明框 鼠标的移入移出  
+        $(".ck_span").mouseover(function (){  
+            $(".cksl_bk").show();  
+        }).mouseout(function (){  
+            $(".cksl_bk").hide();  
+        }); 
+        //鼠标的移入移出  
+        $(".ck_span2").mouseover(function (){  
+            $(".cksl_bk2").show();  
+        }).mouseout(function (){  
+            $(".cksl_bk2").hide();  
+        });  
+        //鼠标的移入移出  
+        $(".ck_span3").mouseover(function (){  
+            $(".cksl_bk3").show();  
+        }).mouseout(function (){  
+            $(".cksl_bk3").hide();  
+        });  
