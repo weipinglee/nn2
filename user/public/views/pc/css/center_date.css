@@ -75,9 +75,9 @@
 /*个人中心主要信息*/
 .right_c{
 	float: left;
-	width: 970px;
-	background: #fff;
-	margin: 10px 0px;
+        margin: 0 0px 10px 20px;
+        width: 81%;
+        border: 1px solid #c0c0c0;
 }
 .right_c .r_c_title{
 	height: 35px;

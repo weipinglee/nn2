@@ -1,5 +1,4 @@
-﻿
-<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
+﻿<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
 <script type="text/javascript" src="{views:js/product/storeproduct.js}"></script>
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />

@@ -54,33 +54,33 @@
 					<div {if:!empty($data)}style="display:block"{else:}style="display: none"{/if} id="invoice2">
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>发票抬头：</span>
-								<span>{$data['title']}
+								<span class="con_con">{$data['title']}
                                 </span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>纳税人识别号：</span>
-								<span>{$data['tax_no']}</span>
+								<span class="con_con">{$data['tax_no']}</span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>地址：</span>
-								<span>{$data['address']}</span>
+								<span class="con_con">{$data['address']}</span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>电话：</span>
-								<span>{$data['phone']}</span>
+								<span class="con_con">{$data['phone']}</span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>开户行：</span>
-								<span>{$data['bank_name']}</span>
+								<span class="con_con">{$data['bank_name']}</span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>银行账户：</span>
-								<span>{$data['bank_no']}</span>
+								<span class="con_con">{$data['bank_no']}</span>
 								<span></span>
 							</div>
 							<div class="zhxi_con">

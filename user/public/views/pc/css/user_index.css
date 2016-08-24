@@ -317,6 +317,13 @@ text-align: left;
     float: left;
 	line-height:38px;
 }
+.zhxi_con span.con_con{
+   display: block;
+    width: 790px;
+    text-align: left;
+    float: left;
+  line-height:38px;
+}
 .zhxi_con span.zhxi_addre select{
   width: 80px;
   height: 30px;
@@ -2067,7 +2074,7 @@ position:relative;
 cursor: pointer;width: 68px;height: 21px;border:1px solid #949494;display: inline-block;
 color: #000;font-size: 12px;text-align: center;
 line-height: 21px;vertical-align: middle;background-color: #eaeaea;
-border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;
+border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;top:13px;
 }
 .input-file input,
 .input-file .doc{

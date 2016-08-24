@@ -166,27 +166,10 @@
                 {/if}
             </div>
             <!--end左侧导航-->
-            <div id="cont">
-                {content}
-            </div>
+            <div id="cont">{content}</div>
 
 				<!--end中间内容-->	
-			<!--start右侧广告-->			
-		<!--	<div class="user_r">
-				<div class="wrap_con">
-					<div class="tit clearfix">
-						<h3>公告</h3>
-					</div>
-					<div class="con">
-						<div class="con_medal clearfix">
-							<ul>
-								<li><a>暂无勋章</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>-->
-			<!--end右侧广告-->
+			
 		</div>
 	</div>
 <script type="text/javascript">
