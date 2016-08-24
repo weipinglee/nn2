@@ -349,6 +349,7 @@
 	line-height: 40px;
 	border-bottom: 1px dashed #ccc;
 	padding: 0 8px;
+	position: relative;
 }
 .ShopPro_item span{
 	display: block;
@@ -1147,7 +1148,10 @@
 	padding:0 5px;
 }
 
-
+.titles.hot{
+	width: 115px;
+	left: 40px;
+}
 
 
 
