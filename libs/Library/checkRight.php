@@ -101,7 +101,26 @@ class checkRight{
                 else{
                     $controller = $obj->getRequest()->getControllerName();
                     $action     = $obj->getRequest()->getActionName();
-                    $callBack = url::createUrl('/'.$controller.'/'.$action);
+                    $param = $obj->getRequest()->getParams();
+                    $params = '';
+                    if(!empty($param)){
+                        $params = '?';
+                        foreach($param as $key=>$val){
+                            $params .= $key.'='.$val.'&';
+                        }
+                        $params = rtrim($params,'&');
+                    }
+                    $callBack = url::createUrl('/'.$controller.'/'.$action.$params);
+
+                    if(!empty($_GET)){
+                        $gets = '?';
+                        foreach($_GET as $key => $val){
+                            $gets .= $key .'='. $val.'&';
+                        }
+                        $gets = rtrim($gets,'&');
+                        $callBack .= $gets;
+                    }
+
                 }
 
                 if(IS_AJAX){
