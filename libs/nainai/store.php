@@ -289,7 +289,14 @@ class store{
             $store['user_time'] = \Library\Time::getDateTime();
             $store['msg'] = $msg;
             $res = $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
-            
+
+            $info = $this->getUserStoreDetail($id, $user_id);
+            $param = array('type' => 'check');
+            $param['status'] = $store['status'];
+            $param['user_id'] = $info['sign_user'];
+            $param['name'] = $info['product_name'];
+            $obj = new \nainai\message($param['user_id']);
+            $re = $obj->send('store', $param);
             $log = array();
             $log['action'] = '用户确认仓单';
             $log['content'] = '用户' . $username . ',修改仓单' . $id . '状态为:' . $this->getStatusText($store['status']);
@@ -443,6 +450,10 @@ class store{
 
                             $adminMsg = new \nainai\AdminMsg();
                             $adminMsg->createMsg('checkoffer',$id,$content,$title);
+
+                            $param['name'] = $productData[0]['name'];
+                            $obj = new \nainai\message($storeData['user_id']);
+                            $res = $obj->send('store', $param);
                 }
             }
             $res = $storeProductObj->commit();

@@ -269,7 +269,8 @@ class ManagerStoreController extends UcenterBaseController{
 				'sign_time' => \Library\time::getDateTime(),
 				'package'   => safe::filterPost('package','int'),
 				'confirm'   => \Library\tool::setImgApp(safe::filterPost('imgfile1')),
-				'quality'   => \Library\tool::setImgApp(safe::filterPost('imgfile2'))
+				'quality'   => \Library\tool::setImgApp(safe::filterPost('imgfile2')),
+				'sign_user' => $this->user_id
 			);
 			if ($storeProduct['package']) {
 				$storeProduct['package_unit'] = safe::filterPost('packUnit');

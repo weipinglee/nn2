@@ -118,7 +118,7 @@ class OfferManageModel extends \nainai\offer\product{
 		if(!($id = intval($id))) return tool::getSuccInfo(0,'参数错误');
 		$status = isset($status) ? intval($status) : 1;
 
-		$offerData = $this->offer->where(array('id'=>$id))->fields('user_id,acc_type,mode,offer_fee,status')->getObj();
+		$offerData = $this->offer->where(array('id'=>$id))->fields('user_id,acc_type,mode,offer_fee,status,product_id,type')->getObj();
 
 		if($offerData['status']!=self::OFFER_APPLY){
 			return tool::getSuccInfo(0,'该报盘已审核');
@@ -148,6 +148,11 @@ class OfferManageModel extends \nainai\offer\product{
 				$log = new \Library\log();
 				$log->addLog(array('table'=>'报盘','type'=>'check','id'=>$id,'check_text'=>$this->getStatus($status)));
 
+				$param = array('mode' => $offerData['mode'], 'offer_fee'=>$offerData['offer_fee'], 'status'=>$status);
+				$param['name'] = $this->offer->table('products')->where(array('id'=>$offerData['product_id']))->getField('name');
+				$param['type'] = $offerData['type'];
+				$obj = new \nainai\message($offerData['user_id']);
+				$res = $obj->send('offer', $param);
 				if($status==self::OFFER_OK){//审核通过增加信誉值
 					$credit = new \nainai\CreditConfig();
 					$credit->changeUserCredit($offerData['user_id'],'product');
@@ -155,7 +160,7 @@ class OfferManageModel extends \nainai\offer\product{
 			}
 			else{//付款发生错误
 				$this->offer->rollBack();
-				return tool::getSuccInfo(0,isset($res['info'])?$res['info'] : '系统错误');
+				return tool::getSuccInfo(0,isset($res)?$res : '系统错误');
 			}
 
 			$res = $this->offer->commit();
