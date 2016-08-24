@@ -317,6 +317,13 @@ text-align: left;
     float: left;
 	line-height:38px;
 }
+.zhxi_con span.con_con{
+   display: block;
+    width: 790px;
+    text-align: left;
+    float: left;
+  line-height:38px;
+}
 .zhxi_con span.zhxi_addre select{
   width: 80px;
   height: 30px;
@@ -1404,10 +1411,14 @@ padding: 8px 15px;
   color: #fff;
   border: 1px solid #d61515;
   font-size: 16px;
-  padding: 5px 30px;
   margin: 5px 10px;
   cursor: pointer;
     font-family: 微软雅黑;
+    width: 120px;
+    height: 35px;
+    display: block;
+    float: left;
+    line-height: 35px;
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn input{  
     background: #d61515;
@@ -2066,7 +2077,7 @@ position:relative;
 cursor: pointer;width: 68px;height: 21px;border:1px solid #949494;display: inline-block;
 color: #000;font-size: 12px;text-align: center;
 line-height: 21px;vertical-align: middle;background-color: #eaeaea;
-border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;
+border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;top:13px;
 }
 .input-file input,
 .input-file .doc{

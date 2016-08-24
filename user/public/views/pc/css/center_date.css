@@ -75,9 +75,9 @@
 /*个人中心主要信息*/
 .right_c{
 	float: left;
-	width: 970px;
-	background: #fff;
-	margin: 10px 0px;
+        margin: 0 0px 10px 20px;
+        width: 81%;
+        border: 1px solid #c0c0c0;
 }
 .right_c .r_c_title{
 	height: 35px;
@@ -129,8 +129,13 @@
 .rc_bate .bate-input .but_div .but_in{
 	background: #b61515;
 	color: #fff;
-	border: 1px solid #b70000;
-	padding:10px 30px;
+	border: 1px solid #b61515;
+            display: block;
+            width: 120px;
+            height: 35px;
+            line-height: 35px;
+            font-size: 16px;
+
 }
 .rc_bate .jd_img{
 	position: relative;
@@ -184,7 +189,8 @@
     height: 150px;
 }
 .input_span .sfz_img img{
-	width: 100%;
+	width: 280px;
+    height: 150px;
 }
 .cksl{
 	float: left;

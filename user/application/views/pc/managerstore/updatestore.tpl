@@ -242,15 +242,20 @@
                             <input type="hidden" name='id' id="cate_id" value="{$detail['id']}">
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="8">
+                                <div class="zhxi_con">
+                                    <span><input class="submit next_step"  type="button"  value="下一步"/></span>
+                                </div>
+                            </td>
+                        </tr>
                          
                  </table>
                         
                     </div>
                 </div>
             </div>
-                        <div class="zhxi_con">
-                            <span><input class="submit next_step"  type="button"  value="下一步"/></span>
-                        </div>
+                        
 
                     </div>
 

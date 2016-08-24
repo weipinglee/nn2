@@ -676,6 +676,24 @@
 	width: 0;
 	margin-left: -5px;
 }
+.i_leftTit ul li a.eml em{
+	border-color: transparent  transparent #0869c6  transparent;
+	border-style: solid;
+	border-width: 5px;
+	height: 0;
+	left: 50%;
+	overflow: hidden;
+	position: absolute;
+	bottom: -8px;
+	width: 0;
+	margin-left: -5px;
+}
+.i_leftTit ul li.li_select a .em2{
+	 border-color: transparent transparent #ffab2d transparent !important;
+}
+.i_leftTit ul li a.eml .em2{
+	 border-color: transparent transparent #ffab2d transparent !important;
+}
 #floor-2 .i_leftTit ul li.li_select a em{
 	border-color: transparent transparent #ffab2d transparent;
 }
@@ -2822,9 +2840,7 @@ text-indent: 1em;
 	border-bottom: 2px solid #c81623; 
 	margin-bottom: 35px;
 }
-.em2{
-	 border-color: transparent transparent #ffab2d transparent !important;
-}
+
 /*商家推荐*/
 .i_market_comm {
     width: 1190px;

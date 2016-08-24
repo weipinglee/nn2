@@ -302,7 +302,7 @@
                                 <ul>
                                     <ul>
                                         {foreach:items=$topCat}
-                                            <li {if:$key==0}class='li_select'{/if} onclick="statistics({$item['id']},this)" ><a attr="{$item['id']}"href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+                                            <li {if:$key==0}class='li_select'{/if} onclick="statistics({$item['id']},this)" ><a attr="{$item['id']}"href="javascript:void(0)"><em class="em2"></em><span></span>{$item['name']}</a></li>
 
                                         {/foreach}
                                     </ul>

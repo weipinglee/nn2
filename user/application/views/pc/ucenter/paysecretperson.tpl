@@ -35,7 +35,7 @@
             <span class="span_in_tit">
               上传身份证：
             </span>
-            <span class="input_span">
+            <span class="input-file" class="float:left;">选择文件
               <!-- <a class="flie_a">上传本人身份证照片</a> -->
                <input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" value="上传本人身份证照片" >
                <input type="hidden" name="imgfile1" value="" datatype="*" id="noimg" nullmsg="上传身份证" />
@@ -69,7 +69,7 @@
             <span class="span_in_tit">
               上传申请单
             </span>
-            <span class="input_span">
+            <span class="input-file" class="float:left;">选择文件
               <input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" >
               <input type="hidden" name="imgfile2" value="" datatype="*" id="applyimg" nullmsg="上传申请单" />
             </span> 
