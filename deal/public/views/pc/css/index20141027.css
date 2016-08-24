@@ -1859,7 +1859,6 @@ a.close:hover {
     width: 238px;
     height: 326px;
     overflow: hidden;
-    border: 1px solid #ccc;
     position: absolute;
     z-index: 10;
     top: -398px;
