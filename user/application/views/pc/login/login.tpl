@@ -51,7 +51,7 @@
        <a id='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}',$(this).find('img'))"><img src="{url:/login/getCaptcha}" /></a>
         </div>
         <div class="mamory">
-          <!-- <span><label for=""><input type="checkbox" checked="checked"></label>记住密码</span> -->
+          <span><label for=""><input type="checkbox" checked="checked"></label>记住密码</span>
           <a href="{url:/login/PasswordReset}">忘记密码?</a>
         </div>
         <div class="bottom">

@@ -37,7 +37,18 @@
     });
 }(jQuery));
 
+ /*首页交易指数、交易市场处滑动样式*/
+$(function(){
+     $(".i_leftTit ul li a").mouseover(function (){  
+            $(this).addClass("eml") 
+        }).mouseout(function (){  
+            $(this).removeClass("eml")   
+        }); 
+})
 
+       /*首页交易指数、交易市场处滑动样式*/
+
+  
 
 
   

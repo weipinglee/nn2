@@ -57,9 +57,7 @@
 
 
                     <li><input type="button" value="下一步" class="tj_btn" id="btnSubmit"></li>
-                    <li>
-                        <img src="{views:images/password/zhucbj.png}" style="width:100%;"/>
-                    </li>
+                    
                 </ul>
 </form>        </div>
     </div>

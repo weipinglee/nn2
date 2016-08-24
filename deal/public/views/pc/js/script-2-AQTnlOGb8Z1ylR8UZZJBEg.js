@@ -559,6 +559,11 @@ function switchPanel(){//报盘内容切换
 			pars.find(".i_proList").eq(nth).addClass("show");
 		}
 	})
+	$(".i_leftTit ul li").mouseover(function (){  
+           $(this).addClass("li_select") 
+    }).mouseout(function (){  
+            $(this).removeClass("li_select")   
+    }); 
 }
 
 function switchNews(){//看点内容切换

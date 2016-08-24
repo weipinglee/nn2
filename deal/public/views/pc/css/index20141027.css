@@ -95,7 +95,8 @@ a:hover {
 #mainContent .mainRow4 {
     margin-top: 12px;
     width: 1190px;
-    float: left
+    float: left;
+    margin-bottom:12px;
 }
 
 /*第四行 热点资讯*/
@@ -1859,6 +1860,7 @@ a.close:hover {
     width: 238px;
     height: 326px;
     overflow: hidden;
+    border: 1px solid #ccc;
     position: absolute;
     z-index: 10;
     top: -398px;
