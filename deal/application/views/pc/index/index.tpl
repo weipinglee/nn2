@@ -448,7 +448,7 @@
                                         <span class="ShopPro_text">{$item['name']}</a></span>
                                         <span class="ShopPro_change i_TextRed"><img class="shja" {if:$item['change_range'] == 0}src="{views:images/index/icon_line.png}"{elseif:abs($item['change_range']) <> $item['change_range']}src="{views:images/index/icon_down.png}"{else:}src="{views:images/index/icon_top.png}"{/if}/>{echo:abs($item['change_range'])}%</span>
                                         <span class="ShopPro_price i_TextRed">￥{$item['price']}</span>
-                                        <div class='titles'><p>
+                                        <div class='titles hot'><p>
                                                 {$item['name']}
                                             </p></div>
                                     </div>
