@@ -81,7 +81,7 @@ button.button{height:40px;padding:0 10px;line-height:normal;}
 
 
 .reg-form{width:328px;height:280px;margin:auto;}
-.reg-form .mamory{margin-bottom: 20px;}
+.reg-form .mamory{margin-bottom: 20px;height: 21px;}
 .reg-form .cell{position:relative;height:40px;margin-bottom:22px;zoom:1;}
 .reg-form .cell.vcode{margin-bottom:5px; }
 .reg-form .mamory input{position: relative;top: 2px;}
