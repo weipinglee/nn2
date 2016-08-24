@@ -275,6 +275,7 @@ class ManagerStoreController extends UcenterBaseController{
 				$storeProduct['package_unit'] = safe::filterPost('packUnit');
 				$storeProduct['package_num'] = safe::filterPost('packNumber', 'float');
 				$storeProduct['package_weight'] = safe::filterPost('packWeight', 'float');
+				$storeProduct['package_units'] = safe::filterPost('pageUnits');
 			}
 			$productData = $this->getProductData();
 			$productData[0]['user_id'] = $user_id;

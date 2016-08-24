@@ -94,7 +94,7 @@
                         <tr  >
                             <td colspan="2">包装重量：</td>
                             <td colspan="6">
-                                {$storeDetail['package_weight']}({$storeDetail['unit']})
+                                {$storeDetail['package_weight']}({$storeDetail['package_units']})
                             </td>
                         </tr>
                     {/if}
@@ -187,6 +187,18 @@
                         </tr>
                     </form>
                         {else:}
+                        <tr>
+                            <td colspan="2">用户审核意见：</td>
+                            <td colspan="6">
+                            {$storeDetail['msg']}
+                            </td>
+                        </tr>
+                         <tr>
+                            <td colspan="2">管理员审核意见：</td>
+                            <td colspan="6">
+                            {$storeDetail['admin_msg']}
+                            </td>
+                        </tr>
                         <tr>
                             <td colspan="8" class="btn">
                                 <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>

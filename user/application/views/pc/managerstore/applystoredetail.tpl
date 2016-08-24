@@ -85,7 +85,7 @@
                         <tr  >
                             <td colspan="2">包装重量：</td>
                             <td colspan="6">
-                                {$storeDetail['package_weight']}({$storeDetail['unit']})
+                                {$storeDetail['package_weight']}({$storeDetail['package_units']})
                             </td>
                         </tr>
                     {/if}
@@ -129,6 +129,14 @@
                     <tr>
                         <td colspan="2">商品描述</td>
                         <td colspan="6">{$storeDetail['note']}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">用户审核意见</td>
+                        <td colspan="6">{$storeDetail['msg']}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">管理员审核意见</td>
+                        <td colspan="6">{$storeDetail['admin_msg']}</td>
                     </tr>
                     <tr>
                         <td colspan="2">图片预览</td>
