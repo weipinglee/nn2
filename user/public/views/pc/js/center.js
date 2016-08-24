@@ -162,15 +162,26 @@ jQuery(document).ready(function($){
             return param;
         }
 
-/*控制消息页面中详情显示和隐藏*/
-$(document).ready(function(){
-  $(".tact .right-a").mouseover(function(){
-    $(".tact .right-a").removeClass("cold6");
-    $(this).addClass("cold6");
-    $(this).parents("tr td").find(".jy_deal").toggle();
-  });
-   
-});
 
+ /*控制消息页面中详情显示和隐藏 start*/ 
+                          $(function (){
+                            $('.tact').each(function(){
+                                $(this).mouseover(function(){
+                                    $(this).closest('.clear').next('.jy_deal').show();
+                                })
+                                $(this).mouseout(function(){
+                                    $(this).closest('.clear').next('.jy_deal').hide();
+                                })
+                            })
+                            $('.jy_deal').each(function(){
+                                $(this).mouseover(function(){
+                                    $(this).show();
+                                })
+                                $(this).mouseout(function(){
+                                    $(this).hide();
+                                })
+                            })
+                        })
+                                   
 
-/*控制消息页面中详情显示和隐藏 end*/
+             /*控制消息页面中详情显示和隐藏 end*/ 

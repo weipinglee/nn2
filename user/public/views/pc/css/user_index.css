@@ -1894,7 +1894,7 @@ text-decoration:none;
     text-align: left;
     padding: 20px 15px;
     border: 1px solid #e6e6e6;
-    margin: 60px 25px;
+    margin: 60px 25px 10px 25px;
     line-height: 30px;
     background: #fafafa;
     position: relative;
@@ -1923,6 +1923,8 @@ text-decoration:none;
 }
 .c-tip-arrow em {
     border-bottom-color: #e6e6e6;
+    position: absolute;
+    top: 1px;
 }
 .c-tip-arrow ins {
     border-bottom-color: #fafafa;

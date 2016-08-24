@@ -278,7 +278,7 @@
                                             {/if}
                                             <b>{$item['name']}{$item['num']}{$item['unit']}</b>
                                             <span>{$time}</span>
-                                            <div class="titles"><p>{$item['name']}{$item['num']}{$item['unit']}</p></div>
+                                            <div class="titles"><b></b><p>{$item['name']}{$item['num']}{$item['unit']}</p></div>
                                         </li>
 
 
@@ -302,7 +302,8 @@
                                 <ul>
                                     <ul>
                                         {foreach:items=$topCat}
-                                            <li {if:$key==0}class='li_select'{/if} onclick="statistics({$item['id']},this)" ><a attr="{$item['id']}"href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
+                                            <li {if:$key==0}class='li_select'{/if} onclick="statistics({$item['id']},this)" ><a attr="{$item['id']}"href="javascript:void(0)">
+                                              <em class="oringin"></em><span></span>{$item['name']}</a></li>
 
                                         {/foreach}
                                     </ul>
@@ -483,7 +484,7 @@
                                         auto: true,
                                         autoControls: true,
                                         minSlides: 1,
-                                        maxSlides: 3,
+                                        maxSlides: 4,
                                         slideMargin: 10
                                       });
                                     });
@@ -494,7 +495,7 @@
                         <!--大家都在做什么-->
                         <div class="i_market_right">
                                     
-                            <div class="ShopPro">
+                            <div class="ShopPro credit">
                                 <div class="ShopPro_Tab clearfix">
                                     <ul>
                                         <li class="selected">信誉排行</li>

@@ -185,7 +185,7 @@
             </p>
         </div>
         <!-- 温馨提示end-->
-
+  </div> </div></div> </div>
             <script src="{views:js/product/attr.js}"></script>
                   
            <script type="text/html" id="productTemplate">

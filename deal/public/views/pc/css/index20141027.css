@@ -1857,9 +1857,9 @@ a.close:hover {
 }
 .mostnew_date .row1_clinch {
     width: 238px;
-    height: 326px;
+    height: 325px;
     overflow: hidden;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     position: absolute;
     z-index: 10;
     top: -398px;

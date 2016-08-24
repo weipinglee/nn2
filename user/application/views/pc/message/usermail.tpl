@@ -58,6 +58,7 @@
 
                         </div>
                         
+                       
                         <div class="page_num clear">
                            <div class="pages_bar">
                                {$pageBar}

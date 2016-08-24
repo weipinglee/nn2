@@ -153,13 +153,13 @@ tr.form_infoma{
 .support_clude .supp_rig{
 	float: left;
 	width: 50%;
-	padding-top: 35px;
 }
 .support_clude .supp_rig h3{
 	color: #06abe1;
 	font-size: 24px;
 	font-weight: normal;
 	text-align: left;
+	margin-top: 8px; 
 }
  .supp_rig .supp_text{
     text-align: left;

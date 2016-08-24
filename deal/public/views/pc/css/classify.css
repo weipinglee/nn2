@@ -229,6 +229,7 @@ a:hover,a:active {
 }
 .all-sort-list .item a {
     text-decoration: none;
+    color: #666;
 }
 .all-sort-list .item a:hover {
     font-weight: bold;
