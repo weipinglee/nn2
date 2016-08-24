@@ -295,9 +295,18 @@ class LoginController extends \Yaf\Controller_Abstract {
 		$mobile= safe::filterPost('mobile','/^\d+$/');
 		$password = safe::filterPost('password');
 
-		if (empty($mobile) || empty($password)) {
-			exit(json::encode(tool::getSuccInfo(0, 'Error Request')));
+		if (empty($password)) {
+			exit(json::encode(tool::getSuccInfo(0, '请填写密码')));
 		}
+
+		if (empty($mobile) ) {
+			exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
+		}
+
+		if ( empty(\Library\session::get('mobile')) ) {
+			exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
+		}
+
 		$userModel=new UserModel();
 		$uid = $userModel->getMobileUserInfo($mobile);
 		if(empty($uid)){
@@ -307,12 +316,15 @@ class LoginController extends \Yaf\Controller_Abstract {
 		if (empty($info) OR !empty($info['code'])) {
 			die(JSON::encode(\Library\tool::getSuccInfo(0,'Error Request')));
 		}
+		if (time() - strtotime($info['create_time'])  > 15*60){
+			die(JSON::encode(\Library\tool::getSuccInfo(0,'验证吗过期')));
+		}
 		$data=array(
 			'id'=>$uid,
 			'password'=>$password
 		);
 		$userModel->updateUserInfo($data);
-		setcookie('mobile', '', 0);
+		\Library\session::clear('mobile');
 		$userLog=new \Library\userLog();
 		$userLog->addLog(['action'=>'找回密码操作','进行了找回密码操作']);
 		die(JSON::encode(\Library\tool::getSuccInfo(1,'修改成功', url::createUrl('/Login/resetend'))));
@@ -382,7 +394,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 		}
 		
 		if ($info['code'] == $code) {
-			setcookie('mobile', $mobile, time() + 15*60);
+			\Library\session::set('mobile', $mobile);
 			$model->clearPassword($uid);
 			exit(json::encode(tool::getSuccInfo(1, 'success', url::createUrl('/Login/resetTo'))));
 		}else{
@@ -391,8 +403,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	}
 
 	public function resetToAction(){
-		$mobile = isset($_COOKIE['mobile']) ? $_COOKIE['mobile'] : '';
-
+		$mobile = \Library\session::get('mobile');
 		if (empty($mobile) ) {
 			$this->redirect('PasswordReset');
 		}

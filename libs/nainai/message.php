@@ -27,6 +27,8 @@ class message{
 		'dealer',
 		'store_manager',
 		'ApplyResetpay',
+		'offer',
+		'store'
 
 	);
 	/**
@@ -205,6 +207,74 @@ class message{
 			'title'=>$title,
 			'content'=>$message);
 
+	}
+
+	public function offer($param){
+		$title = '报盘审核';
+
+		if ($param['type'] == \nainai\offer\product::TYPE_BUY) {
+			if ($param['status'] == \nainai\offer\product::OFFER_OK) {
+				$message = '您好，您的“' .$param['name']. '”报盘信息已通过审核。<a href="' .\Library\url::createUrl('/purchase/lists@user'). '">跳转到采购列表</a>';
+			}else{
+				$message = '很遗憾，您的“' .$param['name']. '”报盘信息未通过审核。<a href="' .\Library\url::createUrl('/purchase/lists@user'). '">跳转到采购列表</a>';
+			}
+		}else{
+			if ($param['mode'] == \nainai\offer\product::DEPOSIT_OFFER) {
+				if ($param['status'] == \nainai\offer\product::OFFER_OK) {
+					$message = '您好，您的“' .$param['name']. '”报盘信息已通过审核。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
+				}else{
+					$message = '很遗憾，您的“' .$param['name']. '”报盘信息未通过审核。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
+				}
+			}elseif ($param['mode'] == \nainai\offer\product::FREE_OFFER) {
+				if ($param['status'] == \nainai\offer\product::OFFER_OK) {
+					$message = '您好，您的“' .$param['name']. '”报盘信息已通过审核。已收取您' .$param['offer_fee']. '元的报盘费。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
+				}else{
+					$message = '很遗憾，您的“' .$param['name']. '”报盘信息未通过审核。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
+				}
+			}
+			elseif ($param['mode'] == \nainai\offer\product::STORE_OFFER) {
+				if ($param['status'] == \nainai\offer\product::OFFER_OK) {
+					$message = '您好，您的“' .$param['name']. '”报盘信息已通过审核。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
+				}else{
+					$message = '很遗憾，您的“' .$param['name']. '”报盘信息未通过审核。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
+				}
+			}
+		}
+
+
+		
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+
+	public function store($param){
+		$title = '仓单审核';
+		if ($param['type'] == 'check') {
+			if ($param['status'] == \nainai\store::USER_AGREE) {
+				$message = '您好，”'.$param['name'].'”仓单，卖家已经审核通过<a href="' .\Library\url::createUrl('/managerstore/applystorelist'). '">跳转到仓单列表页</a>';
+			}else{
+				$message = '很遗憾，“'.$param['name'].'”仓单 卖家审核未通过。<a href="' .\Library\url::createUrl('/managerstore/applystorelist'). '">跳转到仓单列表页</a>';
+			}
+		}elseif ($param['type'] == 'admin_check') {
+			if ($param['status'] == \nainai\store::MARKET_AGREE) {
+				$message = '您好，”'.$param['name'].'”仓单，平台已经审核通过，您可以进行仓单报盘了<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist@user'). '">跳转到仓单列表页</a>';
+			}else{
+				$message = '很遗憾，“'.$param['name'].'”仓单 后台审核未通过，您可以联系仓库管理员修改相关信息再次进行签发。<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist@user'). '">跳转到仓单列表页</a>';
+			}
+		}elseif ($param['type'] == 'for_sign') {
+			if ($param['status'] == \nainai\store::MARKET_AGREE) {
+				$message = '您好，”'.$param['name'].'”仓单，平台已经审核通过<a href="' .\Library\url::createUrl('/managerstore/applystorelist@user'). '">跳转到仓单列表页</a>';
+			}else{
+				$message = '很遗憾，“'.$param['name'].'”仓单 后台审核未通过。<a href="' .\Library\url::createUrl('/managerstore/applystorelist@user'). '">跳转到仓单列表页</a>';
+			}
+		}
+		else{
+			$message = '您好，”'.$param['name'].'”仓单，仓库管理员已经进行签发，请您及时进行确认.<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist'). '">跳转到仓单列表页</a>';
+		}
+		return array(
+			'title'=>$title,
+			'content'=>$message);
 	}
 	/**
 	 * [fundOut 提现通知]

@@ -86,15 +86,23 @@ class storeProductModel extends \nainai\store{
                 $obj->rollBack();
                 return tool::getSuccInfo(0,'数据错误');
             }
-            else{
-
-            }
+            
+            $detail = $this->getUserStoreDetail($id);
+            $param = array('type' => 'admin_check');
+            $param['status'] = $store['status'];
+            $param['user_id'] = $detail['user_id'];
+            $param['name'] = $detail['product_name'];
+            $message = new \nainai\message($param['user_id']);
+            $re = $message->send('store', $param);
+            $param['type'] = 'for_sign';
+            $message = new \nainai\message($detail['sign_user']);
+            $re = $message->send('store', $param);
             $log = new \Library\log();
             $log->addLog(array('table'=>'store_product','type'=>'check','id'=>$id,'check_text'=>$this->getStatusText($store['status'])));
 
             $res = $obj->commit();
             if($res){
-                return tool::getSuccInfo();
+                return tool::getSuccInfo(0,'系统繁忙');
             }
             else return tool::getSuccInfo(0,'系统繁忙');
         }

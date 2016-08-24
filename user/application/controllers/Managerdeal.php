@@ -838,8 +838,9 @@ class ManagerDealController extends UcenterBaseController {
         $id = Safe::filter($id, 'int', 0);
 
         if (intval($id) > 0) {
-            $store = new store();
-            $data = $store->getManagerStoreDetail($id,$this->user_id);
+             $stObj = new store();
+            $data = $stObj->getUserStoreDetail($id,$this->user_id);
+            // $data = $stObj->getManagerStoreDetail($id,$this->user_id);
             $mem = new \nainai\member();
             $userData = $mem->getUserDetail($data['user_id']);
             $this->getView()->assign('user', $userData);

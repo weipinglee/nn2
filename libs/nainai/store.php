@@ -92,7 +92,7 @@ class store{
     public function getManagerStoreDetail($id,$user_id){
         $store_id = $this->getManagerStoreId($user_id);//根据$user_id获取
         $query = new Query('store_products as a');
-        $query->fields = 'a.id as sid,a.user_id,a.cang_pos,a.sign_time,a.user_time,a.market_time,a.store_unit,a.check_org,a.check_no,a.confirm,a.product_id,a.status,a.package,a.package_unit,a.package_num,a.package_weight, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid,  d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time, a.quality, a.store_price';
+        $query->fields = 'a.id as sid,a.user_id,a.cang_pos,a.sign_time,a.user_time,a.market_time,a.store_unit,a.check_org,a.check_no,a.confirm,a.product_id,a.status,a.package,a.package_unit,a.package_num,a.package_weight, b.name as pname, c.name as cname, b.attribute, b.produce_area, b.create_time, b.quantity, b.unit, b.id as pid,  d.name as sname, b.note, a.store_pos, a.in_time, a.rent_time, a.quality, a.store_price,a.package_units,a.msg,a.admin_msg';
         $query->join = ' LEFT JOIN products as b ON a.product_id = b.id LEFT JOIN product_category  as c  ON b.cate_id=c.id LEFT JOIN store_list as d ON a.store_id=d.id';
         $query->where = ' a.id=:id AND a.store_id=:store_id';
         $query->bind = array('id' => $id,'store_id'=>$store_id);
@@ -289,7 +289,14 @@ class store{
             $store['user_time'] = \Library\Time::getDateTime();
             $store['msg'] = $msg;
             $res = $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
-            
+
+            $info = $this->getUserStoreDetail($id, $user_id);
+            $param = array('type' => 'check');
+            $param['status'] = $store['status'];
+            $param['user_id'] = $info['sign_user'];
+            $param['name'] = $info['product_name'];
+            $obj = new \nainai\message($param['user_id']);
+            $re = $obj->send('store', $param);
             $log = array();
             $log['action'] = '用户确认仓单';
             $log['content'] = '用户' . $username . ',修改仓单' . $id . '状态为:' . $this->getStatusText($store['status']);
@@ -371,7 +378,6 @@ class store{
             $query->bind = array('id' => $id);
         }
         $detail =  $query->getObj();//仓单详情，不包括商品
-
          if(empty($detail)){
             return false;
         }
@@ -442,8 +448,12 @@ class store{
                             $title =    '仓单签发审核';
                             $content = '仓单签发' . $productData[0]['name'] . '需要审核';
 
-                            $adminMsg = new \nainai\adminMsg();
+                            $adminMsg = new \nainai\AdminMsg();
                             $adminMsg->createMsg('checkoffer',$id,$content,$title);
+
+                            $param['name'] = $productData[0]['name'];
+                            $obj = new \nainai\message($storeData['user_id']);
+                            $res = $obj->send('store', $param);
                 }
             }
             $res = $storeProductObj->commit();

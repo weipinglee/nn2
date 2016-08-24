@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <td><span>仓库名称</span></td>
-          <td><span>{$storeDetail['sname']}</span></td>
+          <td><span>{$storeDetail['store_name']}</span></td>
         </tr>
         <tr>
           <td><span>状态</span></td>
@@ -43,7 +43,7 @@
         </tr>
         <tr>
           <td><span>租库价格</span></td>
-          <td><span>{$storeDetail['store_price']}（/{$storeDetail['unit']}/天）</span></td>
+          <td><span>{$storeDetail['store_price']}（元/{$storeDetail['unit']}/天）</span></td>
         </tr>
         <tr>
           <td><span>签发时间</span></td>
@@ -88,7 +88,7 @@
         </tr>
         <tr>
           <td><span>包装重量</span></td>
-          <td><span> {$storeDetail['package_weight']}({$storeDetail['unit']})</span></td>
+          <td><span> {$storeDetail['package_weight']}({$storeDetail['package_units']})</span></td>
         </tr>
         {/if}
         <tr class="tr_title">
@@ -96,7 +96,7 @@
         </tr>
         <tr>
           <td><span>商品名称</span></td>
-          <td><span>  {$storeDetail['pname']}</span></td>
+          <td><span>  {$storeDetail['product_name']}</span></td>
         </tr>
         <tr>
           <td><span>属性</span></td>
@@ -125,6 +125,14 @@
         <tr>
           <td><span>商品描述</span></td>
           <td><span>{$storeDetail['note']}</span></td>
+        </tr>
+        <tr>
+          <td><span>用户审核意见</span></td>
+          <td><span>{$storeDetail['msg']}</span></td>
+        </tr>
+        <tr>
+          <td><span>管理员审核意见</span></td>
+          <td><span>{$storeDetail['admin_msg']}</span></td>
         </tr>
         <tr>
           <td><span>图片预览</span></td>
