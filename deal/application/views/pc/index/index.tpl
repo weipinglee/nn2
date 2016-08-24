@@ -20,7 +20,7 @@
                 {foreach: items=$indexSlide}
                 <div class="event-item" style="{if:$key==0}display: block;{else:}display:none;{/if}background:{$item['bgcolor']}">
                     <a target="_blank" href="javascript:;">
-                        <img src="{$item['img']}" class="photo" style="width: 100%; height: 470px;margin:0 auto" alt="{$itme['name']}" />
+                        <img src="{$item['img']}" class="photo" style="margin:0 auto" alt="{$itme['name']}" /><!-- width: 100%; height: 470px; -->
                     </a>
                 </div>
                 {/foreach}
