@@ -1412,10 +1412,14 @@ padding: 8px 15px;
   color: #fff;
   border: 1px solid #d61515;
   font-size: 16px;
-  padding: 5px 30px;
   margin: 5px 10px;
   cursor: pointer;
     font-family: 微软雅黑;
+    width: 120px;
+    height: 35px;
+    display: block;
+    float: left;
+    line-height: 35px;
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn input{  
     background: #d61515;
