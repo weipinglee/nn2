@@ -451,7 +451,8 @@
                                         <span class="ShopPro_text">{$item['name']}</a></span>
                                         <span class="ShopPro_change i_TextRed"><img class="shja" {if:$item['change_range'] == 0}src="{views:images/index/icon_line.png}"{elseif:abs($item['change_range']) <> $item['change_range']}src="{views:images/index/icon_down.png}"{else:}src="{views:images/index/icon_top.png}"{/if}/>{echo:abs($item['change_range'])}%</span>
                                         <span class="ShopPro_price i_TextRed">￥{$item['price']}</span>
-                                        <div class='titles hot'><p>
+                                        <div class='titles hot'>   <i></i>
+                                          <p>
                                                 {$item['name']}
                                             </p></div>
                                     </div>
@@ -488,7 +489,7 @@
                                         auto: true,
                                         autoControls: true,
                                         minSlides: 1,
-                                        maxSlides: 3,
+                                        maxSlides: 4,
                                         slideMargin: 10
                                       });
                                     });
@@ -622,6 +623,7 @@
                     <li class="ul_tit"><b>友情链接</b></li>
                     {set: $sum=count($frdLinkList)}
                     {foreach: items=$frdLinkList}
+                      <ul class="lin_lists">
                         <li class="li_txt">
                             <a class="li_a" href="{$item['link']}">{$item['name']}</a>
                         </li>
@@ -629,6 +631,7 @@
                             <li class="li_l">
                                 <span class="span_l">|</span>
                             </li>
+                       </ul>     
                         {/if}
                     {/foreach}
                 </ul>

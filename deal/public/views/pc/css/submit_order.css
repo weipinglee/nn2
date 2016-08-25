@@ -1193,6 +1193,7 @@ tr.form_infoma{
     width: 140px; 
     height: 36px;
     margin-right: 20px;
+    vertical-align: middle;
 }
 .intur_box{
     margin: 20px 3px 12px 0;

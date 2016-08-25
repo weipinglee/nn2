@@ -2007,6 +2007,8 @@ text-decoration:none;
     position: relative;
     top: 10px;
     color: #999999;
+    float: left;
+    margin-left: 176px;
 }
 .offer.public img{
   width: 62px;
