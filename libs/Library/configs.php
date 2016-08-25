@@ -21,6 +21,6 @@ return array(
         'platform'=>'jianzhou',
         'account'=>'jzyy802',
         'password'=>'813813',
-        'sign'=>'【建周科技】',
+        'sign'=>'【耐耐网】',
     )
 );
