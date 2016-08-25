@@ -150,7 +150,8 @@
                                 {/foreach}
                        <!--         <li class="li_select" onclick="showOffers(1,$(this))"><a href="javascript:void(0)"><em></em><span></span>冶金化工市场</a></li>
                             </ul> -->
-                            <span class="i_more"><a rel="{url:/offers/offerlist}" href="{url:/offers/offerlist}">更多&gt;&gt;</a></span>
+                            </ul>
+                          <span class="i_more"><a rel="{url:/offers/offerlist}" href="{url:/offers/offerlist}">更多&gt;&gt;</a></span>  
                         </div>
 
                         <div class="i_leftCon" id="offer_list">

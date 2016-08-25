@@ -646,12 +646,12 @@
 }
 .i_leftTit ul{
 	float: left;
-	margin-left: 63px;
 }
 .i_leftTit ul li{
 	float: left;
 	margin-right: 15px;
 }
+
 .i_leftTit ul li a{
 	display: block;
 	position: relative;
