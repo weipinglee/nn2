@@ -321,6 +321,10 @@
 	background: white;
 	position: relative;
 }
+.ShopPro.six{
+	height: 316px;
+    overflow: hidden;
+}
 .ShopPro_Tab{
 	border-bottom: 2px solid #c81623;
 }
@@ -642,12 +646,12 @@
 }
 .i_leftTit ul{
 	float: left;
-	margin-left: 63px;
 }
 .i_leftTit ul li{
 	float: left;
 	margin-right: 15px;
 }
+
 .i_leftTit ul li a{
 	display: block;
 	position: relative;
@@ -2866,18 +2870,18 @@ text-indent: 1em;
 }
 .i_leftTit_sj{
 	border-bottom: 2px solid #c81623; 
-	margin-bottom: 35px;
+	margin-bottom: 45px;
 }
 
 /*商家推荐*/
 .i_market_comm {
     width: 1190px;
-    height: 361px;
+    height: 316px;
     margin: 20px auto 0 auto;
 }
 .i_market_lef_t_comm {
     width: 910px;
-    height: 361px;
+    height: 316px;
     float: left;
     background: #fff;
     box-shadow: 0px 3px 10px 1px #Ebebeb;
