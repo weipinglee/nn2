@@ -1934,6 +1934,8 @@ text-decoration:none;
 }
 .c-tip-arrow em {
     border-bottom-color: #e6e6e6;
+    position: absolute;
+    top: 1px;
 }
 .c-tip-arrow ins {
     border-bottom-color: #fafafa;
@@ -2096,3 +2098,10 @@ cursor: pointer;
 .controlAll{position: relative;top:3px;width: 24px;}
 
 .clear{clear: both;}
+
+.user_c_list.news{
+  margin-top: -36px;
+}
+.user_c.sign{
+  margin-top: -16px;
+}

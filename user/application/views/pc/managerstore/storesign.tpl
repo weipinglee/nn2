@@ -6,7 +6,7 @@
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
 <form action="{url:/ManagerStore/doStoreSign}" method="post" auto_submit="1" redirect_url="{url:/managerstore/applystorelist?type=2}">
 
-            <div class="user_c">
+            <div class="user_c sign">
                 <div class="user_zhxi">
 
                     <div class="zhxi_tit">

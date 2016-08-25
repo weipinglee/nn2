@@ -1,7 +1,7 @@
 ﻿{set: $mess=new \nainai\message($userId)}
 	<div class="user_body">
             <!-- 中间内容strat -->
-			<div class="user_c_list">
+			<div class="user_c_list news">
                 <div class="user_zhxi">
                     <div class="zhxi_tit">
                         <p><a>消息管理</a>><a>系统消息</a></p>
@@ -58,6 +58,7 @@
 
                         </div>
                         
+                       
                         <div class="page_num clear">
                            <div class="pages_bar">
                                {$pageBar}

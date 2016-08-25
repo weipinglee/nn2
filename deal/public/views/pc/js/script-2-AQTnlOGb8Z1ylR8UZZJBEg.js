@@ -662,10 +662,10 @@ function updateItem(){
 	},timeslot);
 	$(".items_container.yichi").find("li").mouseover(function(){
 		clearInterval(update);
-		$(this).find('div').css('display','block');
+		$(this).find('div.titles').css('display','block');
 	});
 	$(".items_container.yichi").find("li").mouseout(function(){
-		$(this).find('div').css('display','none');
+		$(this).find('div.titles').css('display','none');
 		clearInterval(update);
 		update=setInterval(d,timeslot);
 
