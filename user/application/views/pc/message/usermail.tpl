@@ -26,13 +26,14 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <input type="hidden" name="url" id="messUrl" value="{url:message/readMess}" />
                                 {foreach:items=$messList}
                                 <tr>
                                     <td>
                                         <div class="clear">
-                                            <div class="tact">
+                                            <div class="tact" messID="{$item['id']}">
                                                 <input value="{$item['id']}" type="checkbox" name="checkbox" class="check"/>
-                                                <a class="right-a" href="javascript:void(0)" onmouseover="readMess({$item['id']},this)">{$item['title']}</a>
+                                               <a class="right-a" {if:$item['write_time']==null} style="color: red" {/if} href="javascript:void(0)" >{$item['title']}</a>
                                             </div>
                                             <div class="colab data">
                                                 {set:$year=date('Y-m-d',strtotime($item['send_time']))}
@@ -181,6 +182,7 @@
                     url:"{url:/message/NeedCountMessage}",
                     success:function(msg){
                         $('#nm').html(msg+'个');
+                        $('.information').html(msg);
                     }
                 })
             }

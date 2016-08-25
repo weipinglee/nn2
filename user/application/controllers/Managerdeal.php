@@ -119,11 +119,22 @@ class ManagerDealController extends UcenterBaseController {
      *
      */
     public function freeOfferAction(){
-        $token =  \Library\safe::createToken();
-        $this->getView()->assign('token',$token);
-
         $freeObj = new freeOffer();
         $freeFee = $freeObj->getFee($this->user_id);
+
+        $fund  = new \nainai\fund\agentAccount();
+        if ($fund->getActive($this->user_id) < $freeFee) {
+            $this->redirect(url::createUrl('/fund/cz'));
+        }
+
+        $user = new \nainai\user\User();
+        $pay = $user->getUser(array('id' => $this->user_id), 'pay_secret');
+        if (empty($pay['pay_secret'])) {
+            $this->error('请先设置支付密码', url::createUrl('/ucenter/paysecret'));
+        }
+
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
 
         $this->getView()->assign('fee',$freeFee);
         $this->productAddAction();

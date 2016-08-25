@@ -167,6 +167,22 @@ jQuery(document).ready(function($){
                             $('.tact').each(function(){
                                 $(this).mouseover(function(){
                                     $(this).closest('.clear').next('.jy_deal').show();
+                                    var _this=$(this);
+                                    var id=$(this).attr('messID');
+                                    var url=$('#messUrl').val();
+                                    $.ajax(
+                                        {   type:'post',
+                                            url:url,
+                                            data:{id:id},
+                                            dataType:'json',
+                                            success:function(msg){
+                                                if(msg.success==1){
+                                                    _this.find('a').css('color','#777');
+                                                    getNeedMessage();
+                                                }
+                                            }
+                                        }
+                                    )
                                 })
                                 $(this).mouseout(function(){
                                     $(this).closest('.clear').next('.jy_deal').hide();
