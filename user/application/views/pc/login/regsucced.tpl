@@ -36,7 +36,7 @@
     </div>
     <div class="two_btn">
       <a class="reging" href="{url:/ucenter/dealcert}">进行认证</a>
-      <a class="faleindex" href="{url:/ucenter/index}">回到首页</a>
+      <a class="faleindex" href="{url:/index/index@deal}">回到首页</a>
     </div>
 
     
