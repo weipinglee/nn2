@@ -148,7 +148,7 @@ a:hover {
    /* display: block;
     width: 110px;*/
     text-align: center;
-    padding: 5px 20px;
+    padding: 8px 20px;
     color: #666;
     font-size: 16px;
 }
@@ -1827,6 +1827,10 @@ a.close:hover {
     border-bottom:1px solid #e6e6e6; 
     border-top:1px solid #e6e6e6; 
 }
+.div_flink .lin_lists {
+    float: left;
+    width: 1025px;
+}
 .div_flink ul li{
     float: left;
 }
@@ -1835,6 +1839,7 @@ a.close:hover {
     font-size: 16px;
     color: #666;
     text-align: center;
+    float: left;
 }
 .div_flink ul li.li_txt a.li_a{
     padding: 0 15px;

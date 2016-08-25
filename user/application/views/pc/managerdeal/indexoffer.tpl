@@ -14,7 +14,7 @@
 							<p class="of_title1">
 								<span class="title1_a public">保证金报盘</span>
 							</p>
-							<p class="of_title2 public">保证金报盘的好处</p>
+							<p class="of_title2 public">履约有保障，货物交收更及时</p>
 							<!-- <p class="of_title1">保证金报盘优点</p> -->
 						</div>
 						<div class="offer public" onclick="window.open('{url:/ManagerDeal/freeOffer}')">
@@ -24,7 +24,7 @@
 							<p class="of_title1">
 								<span class="title1_a public">自由报盘</span>
 							</p>
-							<p class="of_title2 public">自由报盘的好处</p>
+							<p class="of_title2 public">交易不受限制，交收方式更灵活</p>
 							<!-- <p class="of_title1">自由报盘有什么吗</p> -->
 						</div>
 						<div class="offer public" onclick="window.open('{url:/ManagerDeal/storeOffer}')">
@@ -34,7 +34,7 @@
 							<p class="of_title1">
 								<span class="title1_a public">仓单报盘</span>
 							</p>
-							<p class="of_title2 public">仓单报盘的好处</p>
+							<p class="of_title2 public">降低交易成本，货物质量有保证</p>
 							<!-- <p class="of_title1">仓单报盘有什么吗</p> -->
 						</div>
 						<div class="offer public" onclick="window.open('{url:/ManagerDeal/deputeOffer}')">
@@ -44,7 +44,7 @@
 							<p class="of_title1">
 								<span class="title1_a public">委托报盘</span>
 							</p>
-							<p class="of_title2 public">委托报盘的好处</p>
+							<p class="of_title2 public">即将上线，敬请期待</p>
 							<!-- <p class="of_title1">委托报盘有什么吗</p> -->
 						</div>
 						

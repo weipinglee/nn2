@@ -379,12 +379,12 @@
 	margin: 10px 0 0 5px;
 }
 .ShopPro_item span.ShopPro_price{
-	float: right;width: 100px;
+	float: right;width: 88px;
 	overflow: hidden;
 	text-overflow:ellipsis ;
 }
 .ShopPro_item span.ShopPro_change{
-	float: right;width: 50px;
+	float: right;width: 54px;
 }
 .ShopPro_item span.ShopPro_change .shja{
 	position: relative;
@@ -604,10 +604,10 @@
 .i_market{
 	width: 1190px;
 	height: 488px;
-	margin: 30px auto 0 auto;
+	margin: 20px auto 0 auto;
 }
 .i_market_left{
-	width: 910px;
+	width: 920px;
 	padding: 0;
 	height: 490px;
 	float: left;
@@ -2870,7 +2870,7 @@ text-indent: 1em;
 }
 .i_leftTit_sj{
 	border-bottom: 2px solid #c81623; 
-	margin-bottom: 45px;
+	margin-bottom: 28px;
 }
 
 /*商家推荐*/
@@ -2880,7 +2880,7 @@ text-indent: 1em;
     margin: 20px auto 0 auto;
 }
 .i_market_lef_t_comm {
-    width: 910px;
+    width: 920px;
     height: 316px;
     float: left;
     background: #fff;
