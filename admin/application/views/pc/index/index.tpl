@@ -240,11 +240,17 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 统计管理</a>
                     <ul>
-                        <li><a target="content">市场统计</a>
+                   <!--     <li><a target="content">市场统计</a>
                             <ul>
                                 <li><a href="{url:information/marketStats/cateList}" target="content">统计项列表</a></li>
                                 <li><a href="{url:information/marketStats/marketStatsList}" target="content">市场统计</a></li>
+                            </ul> -->
+                            <li><a target="content">市场统计</a>
+                            <ul>
+                                <li><a href="{url:information/statsMarket/statsMarketList}" target="content">统计项列表</a></li>
+                                <li><a href="{url:information/statsMarket/statsList}" target="content">市场统计数据</a></li>
                             </ul>
+                            </li>
                         </li>
                         <li><a target="content">商品指导价</a>
                             <ul>

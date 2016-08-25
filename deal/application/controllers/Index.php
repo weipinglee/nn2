@@ -39,8 +39,12 @@ class IndexController extends PublicController {
 		
 		//获取统计数据
 		$statcModel=new \nainai\statistics();
-		$statcCatList=$statcModel->getAllStatcList(1);
-        $statcTime=$statcModel->getStaticTime(1);
+		//$statcCatList=$statcModel->getAllStatcList(1);
+        $statsMarketModel=new \nainai\statsMarket();
+        $allStatsData=$statsMarketModel->getAllStatsList();
+        $statcTime=$allStatsData[1];
+        //$statcTime=$statsMarketModel->getStaticTime();
+        $statcCatList=$allStatsData[0];
 		$this->getView()->assign('statcTime',\Library\json::encode($statcTime));
         $statcProList=$statcModel->getHotProductDataList(10);
         $topCat=$productModel->getTopCate(8);
@@ -214,21 +218,19 @@ class IndexController extends PublicController {
 
 
     public function helpAction(){
-
+        $statsModel=new \nainai\statsMarket();
+        $res=$statsModel->getAllStatsList();
+        var_dump($res);
     }
 
     public function storageAction(){
         $this->getView()->assign('cur','storage');
     }
     public function testAction(){
-        $memcache=new \Library\cache\driver\Memcache();
-        $memcache->set('a','123456');
-        $res=$memcache->get('a');
-       $memObj=new Memcache();
-        $memObj->connect('127.0.0.1','11211');
-        $res=$memObj->getextendedstats();
-        $memcache->clear();
+        $statcModel=new \nainai\statistics();
+        $res=$statcModel->getAllStatcList(1);
         echo "<pre>";
         print_r($res);
+        die;
     }
 }
