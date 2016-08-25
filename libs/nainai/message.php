@@ -65,6 +65,14 @@ class message{
 			return $this->messCode['typeWrong'];
 		}
 	}
+
+	public function common($content){
+		$title = '提醒';
+		return array(
+			'title'=>$title,
+			'content'=>$content);
+	}
+
 	/**
 	 * [order_pay 支付通知]
 	 * @param     [type]      $order_id 
@@ -77,6 +85,8 @@ class message{
 			'title'=>$title,
 			'content'=>$message);
 	}
+
+	
 	public function breakcontract($order_id){
 		$title="违约";
 		$message="您的订单".$order_id."已被判为违约";

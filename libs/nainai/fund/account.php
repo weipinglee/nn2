@@ -78,7 +78,7 @@ class account{
      * @param float $num ×ªÕËµÄ½ð¶î
      *
      */
-    protected function freezePay($from,$to,$num,$freezeno=''){
+    protected function freezePay($from,$to,$num,$note='',$amount=''){
 
     }
 
