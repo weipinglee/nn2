@@ -278,7 +278,9 @@
                                             {/if}
                                             <b>{$item['name']}{$item['num']}{$item['unit']}</b>
                                             <span>{$time}</span>
-                                            <div class="titles"><p>{$item['name']}{$item['num']}{$item['unit']}</p></div>
+                                            <div class="titles"> <i></i>
+                                              <p>{$item['name']}{$item['num']}{$item['unit']}</p>
+                                            </div>
                                         </li>
 
 
@@ -442,7 +444,7 @@
                                         <li class="selected">热门商品</li>
                                     </ul>
                                 </div>
-                                <div class="ShopPro_Con">
+                               <!--  <div class="ShopPro_Con">
                                     {foreach: items=$statcProList}
                                     <div class="ShopPro_item clearfix">
                                         <span class="ShopPro_text">{$item['name']}</a></span>
@@ -453,7 +455,27 @@
                                             </p></div>
                                     </div>
                                     {/foreach}
-                                </div>
+                                </div> -->
+
+                                <div class="ShopPro_Con">
+                                                                        <div class="ShopPro_item clearfix">
+                                        <span class="ShopPro_text">昵图网1dfhhdhdghdghdghdg</span>
+                                        <span class="ShopPro_change i_TextRed"><img class="shja" src="/nn2/deal/public/views/pc/images/index/icon_line.png">0%</span>
+                                        <span class="ShopPro_price i_TextRed">￥100.00</span>
+                                        <div class="titles hot" style="display: none;">  <i></i>
+                                          <p>
+                                                昵图网1dfhhdhdghdghdghdg                                            </p></div>
+                                    </div>
+                                                                        <div class="ShopPro_item clearfix">
+                                        <span class="ShopPro_text">商品1</span>
+                                        <span class="ShopPro_change i_TextRed"><img class="shja" src="/nn2/deal/public/views/pc/images/index/icon_line.png">0%</span>
+                                        <span class="ShopPro_price i_TextRed">￥100.00</span>
+                                        <div class="titles hot" style="display: none;">  <i></i>
+                                          <p>
+                                                商品1                                            
+                                              </p></div>
+                                    </div>
+                                                                    </div>
                             </div>              
                         </div>
                     </div>

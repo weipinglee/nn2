@@ -13,7 +13,7 @@ class HelpController extends PublicController
         $helpModel=new \nainai\system\help();
         $helpModel->helpLimit='';
         $helpModel->helpCatLimit='';
-        $helpList=$helpModel->getHelplist();
+        $helpList=$helpModel->getAllHelplist();
         $this->getView()->assign('helpList',$helpList);
         $cat_id=\Library\safe::filterGet('cat_id');
         $id=\Library\safe::filterGet('id','int');

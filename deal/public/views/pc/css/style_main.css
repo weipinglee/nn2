@@ -1149,30 +1149,58 @@
 }
 
 .titles {
-	position: absolute;
+	position: relative;
 	height: auto;
-	overflow: hidden;
-	background: #fff2e9;
-	border: 1px solid #eec2ab;
-	left: 120px;
 	display: none;
-	z-index: 9999999999999999999;
-	margin: 0 5px;
-	width: 120px;
-	top: 7px;
 }
-.titles p{
-	line-height:25px;
-	padding:0 5px;
+.iConWrap ul li .titles i {
+    background: url(../images/index/jiao.png) no-repeat left;
+    width: 5px;
+    height: 8px;
+    position: absolute;
+    right: 126px;
+    z-index: 99;
+    top: 15px;
+}
+.titles p {
+    line-height: 25px;
+    padding: 0 5px;
+    background: #fff2e9;
+    border: 1px solid #eec2ab;
+    left: 108px;
+    z-index: 9;
+    margin: 0 5px;
+    width: 115px;
+    top: 8px;
+    position: absolute;
 }
 
 .titles.hot{
-	width: 115px;
-	left: 40px;
+	position: relative;
+	height: auto;
+	display: none;
 }
-
-
-
+.titles.hot i {
+    background: url(../images/index/jiao.png) no-repeat left;
+    width: 5px;
+    height: 8px;
+    position: absolute;
+    left: 43px;
+    z-index: 99;
+    top: 15px;
+}
+.titles.hot p {
+    line-height: 25px;
+    padding: 0 5px;
+    background: #fff2e9;
+    border: 1px solid #eec2ab;
+    left: 42px;
+    z-index: 9;
+    margin: 0 5px;
+    width: 115px;
+    top: 8px;
+    position: absolute;
+}
 
 .iConWrap2{
 	margin: 18px 0 0 0;
