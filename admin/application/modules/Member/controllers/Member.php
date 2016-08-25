@@ -349,7 +349,7 @@ class MemberController extends InitController {
 						$res = $model->updateApplyResetpay($data, $id);
 						$info = $model->getApplyResetpay($id, 'uid');
 						$mess = new \nainai\message($info['uid']);
-						$re = $mess->send('ApplyResetpay', 1);
+						$res = $mess->send('ApplyResetpay', 1);
 					}
 				}
 			}else{
