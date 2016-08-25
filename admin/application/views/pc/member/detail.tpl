@@ -43,7 +43,7 @@
                 <th>联系人</th>
                 <td>{$user['contact']}</td>
                 <th>联系人电话</th>
-                <td>{$user['contact']}</td>
+                <td>{$user['contact_phone']}</td>
                 {else:}
                     <th>联系人电话</th>
                     <td>{$user['mobile']}</td>
