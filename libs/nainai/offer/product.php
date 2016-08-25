@@ -587,6 +587,14 @@ class product  {
                     $adminMsg = new \nainai\AdminMsg();
                     $adminMsg->createMsg('checkoffer',$id,$content,$title);
 
+                    if ($productOffer['mode'] == self::DEPOSIT_OFFER) {
+                        $operate = 'free_offer';
+                    }else{
+                        $operate = 'offer';
+                    }
+                    $credit = new \nainai\CreditConfig();
+                    $credit->changeUserCredit($productOffer['user_id'], $operate);
+
                     $log = array();
                     $log['action'] = $this->getMode($productOffer['mode']) ;
                     $log['content'] = '用户' . $productData[2] . '添加' . $this->getMode($productOffer['mode'])  . ':' .$productData[0]['name'];

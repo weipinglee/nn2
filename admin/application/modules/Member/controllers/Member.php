@@ -334,7 +334,7 @@ class MemberController extends InitController {
 			$pwd = rand(10000000,99999999);
 			$model = new \nainai\user\ApplyResetpay();
 			$info = $model->getDetail($id);
-			$str = '【耐耐网】客服人员已将您的支付密码进行重置，新密码为：'. $pwd .'。为了您的账户安全请及时进行修改。';
+			$str = "【耐耐网】客服人员已将您的支付密码进行重置，新密码为：{$pwd}。为了您的账户安全请及时进行修改。";
 
 			if ($info['status'] == $model::APPLY_OK) {
 				$hsms=new Library\Hsms();

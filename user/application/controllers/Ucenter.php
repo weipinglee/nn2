@@ -741,8 +741,8 @@ class UcenterController extends UcenterBaseController {
             $data = array(
                 'name' => safe::filterPost('name'),
                 'ident_no' => safe::filterPost('no'),
-                'ident_img' => safe::filterPost('imgfile1'),
-                'apply_img' => safe::filterPost('imgfile2'),
+                'ident_img' => Tool::setImgApp(safe::filterPost('imgfile1')),
+                'apply_img' => Tool::setImgApp(safe::filterPost('imgfile2')),
                 'apply_time' => \Library\Time::getDateTime(),
                 'uid' => $this->user_id,
                 'status' => $resetModel::APPLY,
@@ -764,8 +764,8 @@ class UcenterController extends UcenterBaseController {
             $data = array(
                 'company_name' => safe::filterPost('company_name'),
                 'legal_person' => safe::filterPost('legal_person'),
-                'ident_img' => safe::filterPost('imgfile1'),
-                'apply_img' => safe::filterPost('imgfile2'),
+                'ident_img' => Tool::setImgApp(safe::filterPost('imgfile1')),
+                'apply_img' => Tool::setImgApp(safe::filterPost('imgfile2')),
                 'apply_time' => \Library\Time::getDateTime(),
                 'uid' => $this->user_id,
                 'status' => $resetModel::APPLY,

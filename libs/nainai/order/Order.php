@@ -124,6 +124,8 @@ class Order{
 			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $info['user_id'] : $offerInfo['user_id'];
 			$mess = new \nainai\message($buyer);
 			$mess->send('breakcontract',$order_id);
+			$credit = new \nainai\CreditConfig();
+                   		$credit->changeUserCredit($info['user_id'], 'buyer_break');
 
 			//TODO 解冻买方剩余定金
 		} catch (\PDOException $e) {
@@ -162,6 +164,9 @@ class Order{
 				$seller = $offerInfo['type'] == 2 ? $info['user_id'] : $offerInfo['user_id'];
 				$mess = new \nainai\message($seller);
 				$mess->send('breakcontract',$order_id);
+
+				$credit = new \nainai\CreditConfig();
+                   			$credit->changeUserCredit($offerInfo['user_id'], 'seller_break');
 			}else{
 				$res = (bool)$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
 			}
