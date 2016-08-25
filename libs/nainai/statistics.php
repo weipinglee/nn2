@@ -298,7 +298,7 @@ class statistics{
         $topCat=$productModel->getTopCate(8);
         $marketObj=new Query('static_market as m');
         $marketObj->join='left join product_category as c on m.cate_id=c.id';
-        $marketObj->fields='c.name,m.id,m.cate_id,m.type,m.ave_price,m.prev_price,m.low_price,m.high_price,date(m.create_time) as create_time,m.days';
+        $marketObj->fields='c.name,c.id,m.ave_price,date(m.create_time) as create_time';
         $marketObj->order='m.create_time';
         $marketObj->where='m.type= :type and find_in_set(m.cate_id,getChildLists(:cid))';
         foreach($topCat as $k=>$v) {
@@ -306,15 +306,15 @@ class statistics{
             $allStatcList[$v['id']]=$marketObj->find();
         }
        // print_r($allStatcList);die;
-        $staticTimes=$this->getStaticTime(1);
+       // $staticTimes=$this->getStaticTime(1);
        //print_r($staticTimes);die;
         $tmp=array();
         $res=array();
         foreach($allStatcList as $k=>$v){
 
             foreach($v as $kk=>$vv){
-                    $tmp[$k][$vv['name']][$vv['create_time']]=array();
-                    foreach($tmp[$k] as $kkk=>$vvv){
+                    $tmp[$k][$vv['name']][]=$vv;
+                    /*foreach($tmp[$k] as $kkk=>$vvv){
                         if($vv['name']==$kkk){
                             foreach($tmp[$k][$vv['name']] as $kkkk=>$vvvv){
                                 if($vv['create_time']==$kkkk){
@@ -322,10 +322,10 @@ class statistics{
                                 }
                             }
                         }
-                    }
+                    }*/
             }
         }
-        foreach($tmp as $k=>$v){
+        /*foreach($tmp as $k=>$v){
             foreach($tmp[$k] as $kk=>$vv){
                 ksort($vv);
                 $tmp[$k][$kk]=$vv;
@@ -351,7 +351,7 @@ class statistics{
             foreach($tmp[$k] as $kk=>$vv){
                 $tmp[$k][$kk]=array_values($vv);
             }
-        }
+        }*/
         $memcache->set('allStatcList',serialize($tmp));
        return $tmp;
 

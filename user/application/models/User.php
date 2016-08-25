@@ -599,7 +599,7 @@ class UserModel{
 		}
 		
 		$code=rand(100000,999999);
-        $text = "验证码为: {$code},请尽快操作，如果不是本人操作，请不必理会。";
+        $text = "您申请的校验码为 {$code},请尽快操作，妥善保管，如非本人操作，请忽略此信息。";
 		//短信接口 TODO
 		$hsms=new Library\Hsms();
 		if(!$hsms->send($phone,$text)){
