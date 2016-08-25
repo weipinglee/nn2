@@ -763,6 +763,8 @@ class ManagerDealController extends UcenterBaseController {
 
             $res = $model->update($data, $id);
             if ($res['success'] == 1) {
+                    $credit = new \nainai\CreditConfig();
+                    $credit->changeUserCredit($this->user_id, 'cancel_offer');
                     $log = array();
                     $log['action'] = '撤销报盘' ;
                     $log['content'] = '用户:' . $this->username. ',撤销报盘id为' . $id . '的报盘';
