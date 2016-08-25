@@ -640,7 +640,7 @@
 	color: #0869c6;
 }
 .i_leftTit ul{
-	float: left;
+	/*float: left;*/
 	margin-left: 63px;
 }
 .i_leftTit ul li{
