@@ -72,7 +72,7 @@
                 </li>
                 {/if}
                 <li>
-                    <a href="{url:/message/usermail@user}">消息中心{if:$mess!=0}<em> class="information">{$mess}</em>{/if}</a><span class="line_l">|<span>
+                    <a href="{url:/message/usermail@user}">消息中心{if:$mess!=0}<em class="information">{$mess}</em>{/if}</a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="{views:images/icon/icon_iphon.png}"/>
