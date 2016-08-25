@@ -16,7 +16,7 @@
 
 .bx-wrapper {
 	position: relative;
-	margin: 10px auto 0 auto;
+	margin: 0px auto 0 auto;
 	padding: 0;
 	*zoom: 1;
 }
@@ -38,7 +38,7 @@
 
 .bx-wrapper .bx-viewport {
 	-moz-box-shadow: 0 0 5px #ccc;
-	left: -5px;
+	left: 0px;
 	background: #fff;
 	
 	/*fix other elements on the page moving (on Chrome)*/
