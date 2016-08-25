@@ -1,0 +1,57 @@
+    <script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
+<script type="text/javascript" src="{views:js/layer/layer.js}"></script>
+<script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
+        <div id="content" class="white">
+            <h1><img src="{views:img/icons/posts.png}" alt="" /> 市场统计管理</h1>
+<div class="bloc">
+    <div class="title">
+        市场统计项列表
+    </div>
+    <div class="content">
+        <div class="pd-20">
+
+     <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a>  --><a class="btn btn-primary radius" href="{url:information/statsMarket/addStatsMarket}"><i class=" icon-plus fa-plus"></i> 添加统计商品</a> </span>  </div>
+    <div class="mt-20">
+    <table class="table table-border table-bordered table-hover table-bg table-sort">
+        <thead>
+            <tr class="text-c">
+                <!-- <th width="25"><input type="checkbox" name="checkall" value=""></th> -->
+                <th width="150">商品名称</th>
+                <th width="100">添加时间</th>
+                <th width="80">是否开启</th>
+                <th width="200">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach:items=$data}
+            <tr class="text-c">
+                <!-- <td><input type="checkbox" value="" name="check"></td> -->
+
+                <td>{$item['name']}</td>
+                <td>{$item['create_time']}</td>
+                <td>
+                    {if:$item['status'] == 1}
+
+                        <span class="label label-success radius">已启用</span>
+                    {else:}
+                        <span class="label label-error radius">停用</span>
+                    {/if}
+                </td>
+                <td class="td-manage">
+                    {if:$item['status'] == 1}
+                        <a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=0 ajax_url="{url:information/statsMarket/setStatus?id=$item['id']}"><i class="icon-pause fa-pause"></i></a>
+                    {elseif:$item['status'] == 0}
+                        <a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:information/statsMarket/setStatus?id=$item['id']}"><i class="icon-play fa-play"></i></a>
+                    {/if}
+                    <a title="编辑" href="{url:information/statsMarket/addStatsMarket}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+                    <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:information/statsMarket/delStatsMarket}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
+                    <a title="添加统计数据" href="{url:information/statsMarket/addStats}?pro_id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+                </td>
+            </tr>
+        {/foreach}
+        </tbody>
+
+    </table>
+        {$pageBar}
+    </div>
+</div>

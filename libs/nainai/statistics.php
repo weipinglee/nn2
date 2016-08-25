@@ -287,13 +287,13 @@ class statistics{
         return $newStatcList;
     }
     public function getAllStatcList($type){
-        $memcache=new Memcache();
+        $memcache=new Memcache();/*
         $allStatcList=$memcache->get('allStatcList');
         if($allStatcList){
             return unserialize($allStatcList);
         }else{
             $allStatcList=array();
-        }
+        }*/
         $productModel=new product();
         $topCat=$productModel->getTopCate(8);
         $marketObj=new Query('static_market as m');
@@ -376,10 +376,10 @@ class statistics{
      * */
     public function getStaticTime($type){
         $memcache=new Memcache();
-        $staticTime=$memcache->get('staticTime');
+     /*   $staticTime=$memcache->get('staticTime');
         if($staticTime){
             return unserialize($staticTime);
-        }
+        }*/
         $marketObj=new Query('static_market');
         $marketObj->fields='distinct date(create_time) as create_time';
         $marketObj->where='type= :type';

@@ -332,19 +332,19 @@
                                     var j=0;
                                     var chart;
                                     var text;
-                                    if(statisList[id]!=undefined){
+                                    if(statisList[id]!=undefined&&categories[id]!=undefined){
                                         text='市场指数';
                                         $.each(statisList[id],function(index,value){
                                             var data=new Array();
                                             for(var i=0;i<value.length;i++){
-                                                var ave_price=parseInt(value[i].ave_price,10);
-                                                data[i]=ave_price;
+                                                var price=parseInt(value[i].price,10);
+                                                data[i]=price;
                                             }
                                             series[j]={name:index,data:data};
                                             j++;
                                         });
                                     }else {
-                                        categories=null;series=[{
+                                        categories[id]=null;series=[{
                                             type:'line',
                                             name:'',
                                             data:[]
@@ -385,7 +385,7 @@
                                             }
                                         },
                                         xAxis: {
-                                            categories: categories
+                                            categories: categories[id]
                                         },
                                         yAxis: {
                                             title: {
