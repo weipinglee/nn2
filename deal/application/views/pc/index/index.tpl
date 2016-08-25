@@ -444,7 +444,7 @@
                                         <li class="selected">热门商品</li>
                                     </ul>
                                 </div>
-                               <!--  <div class="ShopPro_Con">
+                                <div class="ShopPro_Con">
                                     {foreach: items=$statcProList}
                                     <div class="ShopPro_item clearfix">
                                         <span class="ShopPro_text">{$item['name']}</a></span>
@@ -455,27 +455,9 @@
                                             </p></div>
                                     </div>
                                     {/foreach}
-                                </div> -->
+                                </div> 
 
-                                <div class="ShopPro_Con">
-                                                                        <div class="ShopPro_item clearfix">
-                                        <span class="ShopPro_text">昵图网1dfhhdhdghdghdghdg</span>
-                                        <span class="ShopPro_change i_TextRed"><img class="shja" src="/nn2/deal/public/views/pc/images/index/icon_line.png">0%</span>
-                                        <span class="ShopPro_price i_TextRed">￥100.00</span>
-                                        <div class="titles hot" style="display: none;">  <i></i>
-                                          <p>
-                                                昵图网1dfhhdhdghdghdghdg                                            </p></div>
-                                    </div>
-                                                                        <div class="ShopPro_item clearfix">
-                                        <span class="ShopPro_text">商品1</span>
-                                        <span class="ShopPro_change i_TextRed"><img class="shja" src="/nn2/deal/public/views/pc/images/index/icon_line.png">0%</span>
-                                        <span class="ShopPro_price i_TextRed">￥100.00</span>
-                                        <div class="titles hot" style="display: none;">  <i></i>
-                                          <p>
-                                                商品1                                            
-                                              </p></div>
-                                    </div>
-                                                                    </div>
+                               
                             </div>              
                         </div>
                     </div>
@@ -516,7 +498,7 @@
                         <!--大家都在做什么-->
                         <div class="i_market_right">
                                     
-                            <div class="ShopPro">
+                            <div class="ShopPro six">
                                 <div class="ShopPro_Tab clearfix">
                                     <ul>
                                         <li class="selected">信誉排行</li>
@@ -656,28 +638,51 @@
         <!-- 浮动楼层 -->
 <link rel="stylesheet" type="text/css" href="{views:css/global_site_index_new.css}">
 <div class="floor_left_box" id="floornav" data-tpa="YHD_HOMEPAGE_FLOORNAV" style="display: block;">
-
-            <a href="#floor-1" data="#floor-1" rel="floor-1" class="cur">
-                <i class="left_iconfont " display="block"><img src="{views:images/floor_01.png}">交易市场</i>
-                <em class="two_line" display="none"><img src="{views:images/floor_cur_01.png}">交易市场</em>
-            </a>
-            <a href="#floor-2" data="#floor-2" rel="floor-2" class="">
-                <i class="left_iconfont " display="none"><img src="{views:images/floor_02.png}">市场指数</i>
-                <em class="two_line" display="black"><img src="{views:images/floor_cur_02.png}">市场指数</em>
-            </a>
-            <a href="#floor-3" data="#floor-3" rel="floor-3" class="">
-                <i class="left_iconfont " display="none"><img src="{views:images/floor_030.png}">推荐商家</i>
-                <em class="two_line" display="black"><img src="{views:images/floor_cur_030.png}">推荐商家</em>
-            </a>
-            <a href="" data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur">
-                <i class="left_iconfont " display="none"><img src="{views:images/floor_04.png}">客服</i>
-                <em class="two_line" display="black"><img src="{views:images/floor_cur_04.png}">客服</em>
-            </a>
-            <div class="show_div">
-                <a href="" class="fhdb_a" data="#toTop" rel="toTop">
-                    <i class="left_iconfont " display="none"><img src="{views:images/floor_05.png}">返回顶部</i>
-                    <em class="two_line" display="black"><img src="{views:images/floor_cur_05.png}">返回顶部</em>
+              <div class="show_div">
+                <a href="#floor-1" data="#floor-1" rel="floor-1" class="cur fhdb_a">
+                    <i class="left_iconfont " display="block"><img src="{views:images/floor_01.png}">交易市场</i>
+                    <em class="two_line" display="none"><img src="{views:images/floor_cur_01.png}">交易市场</em>
                 </a>
+                 <div class="hover_div">
+                    <em></em>
+                    <a href="" data="#toTop" rel="toTop" class="hove_a">交易市场</a>
+                </div>
+              </div>
+              <div class="show_div">
+              <a href="#floor-2" data="#floor-2" rel="floor-2" class="fhdb_a">
+                  <i class="left_iconfont " display="none"><img src="{views:images/floor_02.png}">市场指数</i>
+                  <em class="two_line" display="black"><img src="{views:images/floor_cur_02.png}">市场指数</em>
+              </a>
+               <div class="hover_div">
+                    <em></em>
+                    <a href="" data="#toTop" rel="toTop" class="hove_a">市场指数</a>
+                </div>
+              </div>
+              <div class="show_div">
+              <a href="#floor-3" data="#floor-3" rel="floor-3" class="fhdb_a">
+                  <i class="left_iconfont " display="none"><img src="{views:images/floor_030.png}">推荐商家</i>
+                  <em class="two_line" display="black"><img src="{views:images/floor_cur_030.png}">推荐商家</em>
+              </a>
+                <div class="hover_div">
+                    <em></em>
+                    <a href="" data="#toTop" rel="toTop" class="hove_a">推荐商家</a>
+                </div>
+              </div>
+            <div class="show_div">
+              <a href="" data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur fhdb_a">
+                  <i class="left_iconfont " display="none"><img src="{views:images/floor_04.png}">客服</i>
+                  <em class="two_line" display="black"><img src="{views:images/floor_cur_04.png}">客服</em>
+              </a>
+               <div class="hover_div">
+                    <em></em>
+                    <a href="" data="#toTop" rel="toTop" class="hove_a">联系客服</a>
+                </div>
+            </div>
+            <div class="show_div">
+                  <a href="" class="fhdb_a" data="#toTop" rel="toTop">
+                      <i class="left_iconfont " display="none"><img src="{views:images/floor_05.png}">返回顶部</i>
+                      <em class="two_line" display="black"><img src="{views:images/floor_cur_05.png}">返回顶部</em>
+                  </a>
                 <div class="hover_div">
                     <em></em>
                     <a href="" data="#toTop" rel="toTop" class="hove_a">返回顶部</a>
@@ -686,8 +691,4 @@
 
         </div>
         <!-- 浮动楼层 end -->
-<script>
-    $(function() {
 
-    })
- </script>
