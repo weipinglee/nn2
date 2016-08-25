@@ -22,7 +22,7 @@ class UcenterController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
-		 header('Location:'.url::createUrl('/ucenterindex/index'));
+		 // header('Location:'.url::createUrl('/ucenterindex/index'));
     }
 
     public function baseInfoAction(){
@@ -750,6 +750,9 @@ class UcenterController extends UcenterBaseController {
                 'mobile' => $info['mobile']
             );
             $res = $resetModel->addApplyResetpay($data);
+            if ($res['success']) {
+                $res['info'] = '操作成功！';
+            }
            $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
             exit(json::encode($res));
         }
@@ -772,8 +775,10 @@ class UcenterController extends UcenterBaseController {
                 'type' => 1,
                 'mobile' => $info['mobile']
             );
-            var_dump($data);exit();
             $res = $resetModel->addApplyResetpay($data);
+            if ($res['success']) {
+                $res['info'] = '操作成功！';
+            }
            $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
             exit(json::encode($res));
         }
@@ -782,6 +787,7 @@ class UcenterController extends UcenterBaseController {
     public function paysecretendAction(){
 
     }
+
 
 
 }
