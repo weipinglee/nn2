@@ -203,6 +203,7 @@ jQuery(document).ready(function($){
 
 
 //密码修改页面说明框 鼠标的移入移出  
+       $(function(){
         $(".ck_span").mouseover(function (){  
             $(".cksl_bk").show();  
         }).mouseout(function (){  
@@ -220,3 +221,5 @@ jQuery(document).ready(function($){
         }).mouseout(function (){  
             $(".cksl_bk3").hide();  
         });  
+       }) 
+   
