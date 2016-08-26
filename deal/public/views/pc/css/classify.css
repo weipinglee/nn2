@@ -119,17 +119,18 @@ a:hover,a:active {
 #classify_lists{
     width: 1190px;
     margin: 0 auto;
+    position: relative;
+    top: -1px;
 }
 .all-sort-list {
     position: relative;
     width: 200px;
     border-top: none;
     padding: 0px;
-    z-index: 3;
+    z-index: 999999999999999999999;
     background: #fff;
     height: 470px;
     width: 220px;
-    top: -1px;
 }
 .all-sort-list .item {
     height: 46px;
@@ -252,7 +253,7 @@ div.item h3 p.fenlei a:hover {
     height: 466px;
     _height: 466px;
     background: #FFF;
-    left: 221px;
+    left: 220px;
     border: 1px solid #DDD;
     top: 3px;
 }
