@@ -102,7 +102,7 @@ class storeProductModel extends \nainai\store{
 
             $res = $obj->commit();
             if($res){
-                return tool::getSuccInfo(0,'系统繁忙');
+                return tool::getSuccInfo();
             }
             else return tool::getSuccInfo(0,'系统繁忙');
         }
