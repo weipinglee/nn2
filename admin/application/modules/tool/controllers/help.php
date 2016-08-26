@@ -47,6 +47,8 @@ class helpController extends Yaf\Controller_Abstract{
             if($data['cat_id']==0){
                 die(\Library\json::encode(['success'=>0,'info'=>'请选择分类']));
             }
+            ini_set('post_max_size','100M');
+            ini_set('upload_max_filesize','100M');
             $data['time']=date('Y-m-d H:i:s',time());
             $data['sort']=\Library\safe::filterPost('sort','int');
             $data['link']=\Library\safe::filterPost('link');
