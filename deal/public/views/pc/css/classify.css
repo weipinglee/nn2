@@ -119,6 +119,7 @@ a:hover,a:active {
 #classify_lists{
     width: 1190px;
     margin: 0 auto;
+    height: 470px;
 }
 .all-sort-list {
     position: relative;

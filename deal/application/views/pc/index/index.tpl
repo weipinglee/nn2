@@ -623,18 +623,18 @@
                 <ul>
                     <li class="ul_tit"><b>友情链接</b></li>
                     {set: $sum=count($frdLinkList)}
+                    <ul class="lin_lists">
                     {foreach: items=$frdLinkList}
-                      <ul class="lin_lists">
                         <li class="li_txt">
                             <a class="li_a" href="{$item['link']}">{$item['name']}</a>
                         </li>
                         {if:$key!=$sum-1}
                             <li class="li_l">
                                 <span class="span_l">|</span>
-                            </li>
-                       </ul>     
+                            </li>    
                         {/if}
                     {/foreach}
+                    </ul> 
                 </ul>
             </div>
         </div>
