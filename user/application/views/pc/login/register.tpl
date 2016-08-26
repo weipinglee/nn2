@@ -54,22 +54,22 @@
           <input type="hidden" name="type" value="0"/>
           <div class="cot">
             <span class="cot_tit">用户名：</span>
-            <span><input class="text" type="text" name="username" datatype="/^[a-zA-Z0-9_]{3,30}$/" nullmsg="请填写用户名" errormsg="请使用3-30位字母数字下划线的组合"/></span>
+            <span><input class="text" type="text" name="username" nullmsg="请填写用户名"  datatype="/^[a-zA-Z0-9_]{3,30}$/" errormsg="请填写3-30位英文字母、数字" /></span>
             <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit">密码：</span>
-            <span><input class="text" type="password" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
+            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" nullmsg='请输入密码' errormsg="6-15位非空字符" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
               <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit">确认密码：</span>
-            <span><input class="text" type="password" name="repassword" datatype="*" recheck="password" nullmsg="请重复填写密码" errormsg="两次密码输入不一致" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
+            <span><input class="text" type="password" name="repassword" datatype="*" nullmsg="请确认密码" errormsg="两次密码输入不一致" recheck="password" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
               <span></span>
           </div>
           <div class="cot">
             <span class="cot_tit">手机号：</span>
-            <span><input class="text" type="text" name="mobile" maxlength="11" datatype="mobile" nullmsg="请填写手机号" errormsg="手机号格式错误"/></span>
+            <span><input class="text" type="text" name="mobile" maxlength="11" datatype="mobile" nullmsg="请输入手机号" errormsg="请正确填写手机号"/></span>
               <span></span>
           </div>
           <div class="cot">
