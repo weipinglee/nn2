@@ -261,7 +261,7 @@ class product  {
      */
     public function getTopCate($num=''){
         $memcache=new Memcache();
-        $topCate=$memcache->get('topCate');
+        $topCate=array();
         if($topCate){
             return unserialize($topCate);
         }
