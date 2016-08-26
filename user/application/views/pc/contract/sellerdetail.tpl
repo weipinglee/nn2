@@ -51,6 +51,10 @@
 								<span>&nbsp;{$info['buyer_name']}</span>
 							</div>
 							<div class="sj_detal">
+								<b class="sj_de_tit">联系电话：</b>
+								<span>&nbsp;{$info['buyer_phone']}</span>
+							</div>
+							<div class="sj_detal">
 								<b class="sj_de_tit">地址：</b>
 								<span id='area'>&nbsp;{areatext:data=$info['userinfo']['area'] id=area}</span>&emsp;{$info['userinfo']['address']}
 							</div>

@@ -146,7 +146,6 @@ class zx extends account{
     public function freeze($user_id,$num,$note=''){
         $clientID = tool::create_uuid($user_id);
         return $this->bankTransfer($clientID,$num,$user_id,0,'freeze');
-
     }
 
     
@@ -155,7 +154,7 @@ class zx extends account{
      * @param int $user_id
      * @param float $num 释放金额
      */
-
+    
     public function freezeRelease($user_id,$num,$time=''){
         $freeze_records = $this->freezeTrans($user_id,$time);
         $djcode = $this->getFreezeCode($freeze_records,$num);
@@ -172,13 +171,13 @@ class zx extends account{
      *
      */
 
-    public function freezePay($from,$to=0,$num,$time=''){
+    public function freezePay($from,$to=0,$num,$time='',$amount=''){
         $freeze_records = $this->freezeTrans($from,$time);//加缓存TODO
         if(is_array($num)){
             $temp = array();
             $freeze_nos = array();
-            foreach ($num as $value) {
-                $code = $this->getFreezeCode($freeze_records,$value,$temp);
+            foreach ($num as $key=>$value) {
+                $code = $this->getFreezeCode($freeze_records,$amount ? $amount[$key] : $value,$temp);
                 if($code){
                     $freeze_nos [$value]= $code;
                     $temp []= $value;
@@ -194,9 +193,9 @@ class zx extends account{
                 }
             }
         }else{
-            $code = $this->getFreezeCode($freeze_records,$num);
-            if(!$code) return '冻结信息获取错误:'.$num;
-            $res = $this->bankTransfer('',$amount,$from,$to,'freezePay','',$code); 
+            $code = $this->getFreezeCode($freeze_records,$amount ? $amount : $num);
+            if(!$code) return '冻结信息获取错误:'.($amount ? $amount : $Num);
+            $res = $this->bankTransfer('',$num,$from,$to,'freezePay','',$code); 
             if($res !== true){
                 return $res['info'];
             }  
@@ -453,11 +452,11 @@ class zx extends account{
      * @return array 
      */
     public function freezeTrans($user_id,$date){
-        $date = strlen($date)<=8 ? $date : '20160101';
+        $date = strlen($date)<=8 ? $date : '';
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
        // var_dump($payAccInfo);exit;
-        $starDate = date('Ymd',strtotime($date));
-        $endDate = date('Ymd',(strtotime($date)+86400*90)>time() ? time() : strtotime($date)+86400*90);
+        $starDate = $date ? date('Ymd',strtotime($date)) : date('Ymd',time()-86400*90);
+        $endDate = $date ? date('Ymd',strtotime($date)+86400*90) : date('Ymd',time());
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLSFRZQR</action>
@@ -477,6 +476,7 @@ class zx extends account{
      * @return array:账户余额数组 string:错误信息
      */
     public function attachBalance($user_id){
+
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
 
         $xml = self::XML_PREFIX."
@@ -488,6 +488,7 @@ class zx extends account{
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
         $res = $this->attachAccount->curl($xml);
+        
         // return $res;
         return $res['row'] ? $res['row'] : array();
 
