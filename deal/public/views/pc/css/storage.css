@@ -153,7 +153,9 @@ tr.form_infoma{
 .support_clude .supp_rig{
 	float: left;
 	width: 50%;
-	padding-top: 35px;
+}
+.support_clude .supp_rig h3{
+	margin:0;
 }
 .support_clude .supp_rig h3{
 	color: #06abe1;

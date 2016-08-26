@@ -4,6 +4,7 @@ create table if not exists `market_stats`(
   `cate_id` int(11) not null default 0 comment '所属的分类',
   `status` tinyint(2) not null default 0 comment '0关闭，1开启',
   `is_del` tinyint(2) not null default 0 comment '1删除，0没删除',
+  `create_time` datetime not null default now() comment '时间'
   primary key(`id`)
 )engine=innodb charset=utf8;
 create table if not exists `market_stats_data`(

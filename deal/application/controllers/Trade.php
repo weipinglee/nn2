@@ -57,7 +57,6 @@ class tradeController extends \nainai\controller\Base {
 		}
 
 
-
 		
 		//判断用户账户类型
 		if(in_array($offer_type,array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT))){
@@ -97,6 +96,7 @@ class tradeController extends \nainai\controller\Base {
 				$orderData['risk'] = $data['risk'];
 			}
 		}
+		
 
 		//判断是否需要开具发票
 		$orderData['invoice'] = $invoice == 1 ? 1 : 0;
@@ -116,6 +116,7 @@ class tradeController extends \nainai\controller\Base {
 			$order->beginTrans();
 
 			$gen_res = $order_mode->geneOrder($orderData);
+
 			if($gen_res['success'] == 1){
 				$order_id = $gen_res['order_id'];
 				if($offer_type == order\Order::ORDER_FREE || $offer_type == order\Order::ORDER_ENTRUST){
@@ -150,7 +151,7 @@ class tradeController extends \nainai\controller\Base {
 			}
 		} catch (\PDOException $e) {
 			$order->rollBack();
-			$this->error($e->getMessage());
+			die(json::encode(tool::getSuccInfo(0,$e->getMessage())));
 		}
 		
 		return false;

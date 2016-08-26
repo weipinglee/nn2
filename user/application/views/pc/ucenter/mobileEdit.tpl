@@ -49,6 +49,7 @@
             $("input[name='checkCode']").val('验证码不正确');
             return false;          
         }
+
         var mobile=$('#mobile').val();
         $.ajax(
                 {
@@ -63,12 +64,29 @@
                             alert(msg['info']);
                         }else{
                             $('#image').click();
+                            time($('.send1'));
                             alert(msg['info']);
                         }
                     }
                 }
 
             );
+        var wait = 60;
+        function time(o) {
+
+            if (wait == 0) {
+                o.attr('disabled', false);
+                $(o).val('获取验证码');
+                wait = 60;
+            } else {
+                o.attr('disabled', true);
+                $(o).val("重新发送(" + wait + ")");
+                wait--;
+                setTimeout(function () {
+                    time(o);
+                }, 1000)
+            }
+        }
     }
    function checkMobileCode(){
         var code=$('#phone').val();

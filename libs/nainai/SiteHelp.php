@@ -84,7 +84,8 @@ class SiteHelp
                     return \Library\tool::getSuccInfo(0,'名称重复');
                 }
             }
-            return \Library\tool::getSuccInfo(0,'非法操作');
+            $helpObj->data($data)->where(['id'=>$data['id']])->update();
+            return \Library\tool::getSuccInfo(1,'修改成功');
         }else{
             $error=$helpObj->getError();
             return \Library\tool::getSuccInfo(0,'修改失败原因为:'.$error);

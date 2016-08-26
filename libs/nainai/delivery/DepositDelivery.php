@@ -30,11 +30,12 @@ class DepositDelivery extends Delivery{
 		//获取提货id对应报盘信息
 		$query = new Query('product_delivery as pd');
 		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join order_sell as o on o.offer_id = po.id';
-		$query->fields = 'pd.*,po.user_id,po.mode,po.type,o.user_id as tmp_id';
+		$query->fields = 'pd.*,po.user_id,po.mode,po.type,o.user_id as tmp_id,o.order_no';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
-		$seller = $res['type'] == 1 ? $res['user_id'] : $res['tmp_id'];
+		$seller = $res['type'] == \nainai\offer\product::TYPE_SELL ? $res['user_id'] : $res['tmp_id'];
+		$buyer = $res['type'] == \nainai\offer\product::TYPE_SELL ? $res['tmp_id'] : $res['user_id'];
 		if($seller != $seller_id) $error = '当前操作用户有误';
 		if(!in_array($res['mode'],array(order\Order::ORDER_DEPOSIT,order\Order::ORDER_PURCHASE))) $error = '订单类型错误';
 
@@ -43,11 +44,16 @@ class DepositDelivery extends Delivery{
 		if(!isset($error)){
 			$deliveryData['id'] = $delivery_id;
 			$deliveryData['status'] = parent::DELIVERY_BUYER_CONFIRM;//提货状态置为已发货，等待买家确认
+			$mess_buyer = new \nainai\message($buyer);
+			$jump_url = "<a href='".url::createUrl('/delivery/deliBuyList')."'>跳转到提单列表</a>";
+			$content = '合同'.$res['order_no'].',卖方已发货,请您在收到货物之后及时进行确认收货,并进行质量确认。'.$jump_url;
+			$mess_buyer->send('common',$content);
+			
 			return $this->deliveryUpdate($deliveryData);
 		}else{
 			return tool::getSuccInfo(0,$error);
 		}
-	
+		
 	}
 
 	/**

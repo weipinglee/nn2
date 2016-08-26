@@ -218,19 +218,10 @@ class IndexController extends PublicController {
 
 
     public function helpAction(){
-        $statsModel=new \nainai\statsMarket();
-        $res=$statsModel->getAllStatsList();
-        var_dump($res);
     }
 
     public function storageAction(){
         $this->getView()->assign('cur','storage');
     }
-    public function testAction(){
-        $statcModel=new \nainai\statistics();
-        $res=$statcModel->getAllStatcList(1);
-        echo "<pre>";
-        print_r($res);
-        die;
-    }
+
 }

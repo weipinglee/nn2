@@ -36,14 +36,14 @@
             <span class="span_in_tit">
               上传身份证：
             </span>
-            <span class="input-file" style="float:left;">选择文件
+            <span class="input-file" style="float:left;top:13px;">选择文件
               <!-- <a class="flie_a">上传本人身份证照片</a> -->
                <input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" value="上传本人身份证照片" >
                <input type="hidden" name="imgfile1" value="" datatype="*" id="noimg" nullmsg="上传身份证" />
             </span> 
             <div class="cksl">
               <a class="ck_span">参考示例</a>
-              <div class="cksl_bk">
+              <div class="cksl_bk" style="background: #fff; z-index: 99;">
                 <div class="c-tip-arrow"><em></em><ins></ins></div>
                 <h4 class="cksl_title">示例</h4>
                 <div class="cksl_img">
@@ -70,13 +70,13 @@
             <span class="span_in_tit">
               上传申请单
             </span>
-            <span class="input-file" style="float:left;">选择文件
+            <span class="input-file" style="float:left;top:13px;">选择文件
               <input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" >
               <input type="hidden" name="imgfile2" value="" datatype="*" id="applyimg" nullmsg="上传申请单" />
             </span> 
             <div class="cksl">
               <a class="ck_span2">要求说明</a>
-              <div class="cksl_bk2">
+              <div class="cksl_bk2" style="background: #fff; z-index: 99;">
                 <div class="c-tip-arrow"><em></em><ins></ins></div>
                 <h4 class="cksl_title2">要求说明</h4>
                 <div class="cksl_ts">申请单内容至少包括申请人、原因,上传时请保证申请单图片上所有说明信息清晰可见，（企业账号需加盖企业公章），图片大小不超过2M</div>

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{views:content/settings/style.css}" />
 <link rel="stylesheet" type="text/css" href="{views:css/H-ui.admin.css}">
 <script type="text/javascript" charset="utf-8" src="{views:js/ueditor/ueditor.config.js}"></script>
-<script type="text/javascript" charset="UTF-8" src="{views:js/ueditor/ueditor.all.min.js}"></script>
+<script type="text/javascript" charset="UTF-8" src="{views:js/ueditor/ueditor.all.js}"></script>
 <script type="text/javascript" charset="UTF-8" src="{views:js/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
