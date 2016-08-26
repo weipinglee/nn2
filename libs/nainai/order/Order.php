@@ -709,7 +709,7 @@ class Order{
 		$err = $this->paylog->getError();
 		return  intval($res) > 0 ? true : (!empty($err) ? $err : '日志记录失败');
 	}
-
+	
 	/**
 	 * 买方确认货物质量
 	 * @param  int $order_id 订单id
@@ -726,7 +726,7 @@ class Order{
 				$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
 				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order['user_id'];
 				if($reduceData['reduce_amount'] >= $order['pay_deposit'])
-					return tool::getSuccInfo(0,'扣减货款超过定金数额');
+					return tool::getSuccInfo(0,'扣减货款不能超过或等于定金数额');
 				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'操作用户错误');
 				$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//状态置为买家已确认质量

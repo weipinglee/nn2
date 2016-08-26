@@ -22,9 +22,8 @@
         <script type="text/javascript" src="{views:content/settings/main.js}"></script>
 		  <script type="text/javascript">
 		  $(function(){
-		  var h = $(window).height() -42;
-
-				$('iframe').attr('height',h+'px');
+		      var h = $(window).height() -42;
+		      $('iframe').attr('height',h+'px');
 		  })
 				
 		
@@ -117,7 +116,7 @@
                         </li>-->
 
                         <li><a href="{url:member/usergroup/groupList}" target="content">会员等级</a></li>
-                        <li><a href='javascript:voie(0)' target="content">会员管理</a>
+                        <li><a target="content">会员管理</a>
                             <ul>
                                 <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
                                 <li><a href="{url:member/member/OnLineList}" target="content">在线会员信息</a></li>
@@ -125,28 +124,28 @@
                             </ul>
                         </li>
 
-                        <li><a href='javascript:voie(0)' target="content">菜单管理</a>
+                        <li><a target="content">菜单管理</a>
                          <ul>
                                 <li><a href="{url:member/Menu/MenuList}" target="content"> 菜单列表</a></li>
                                 <li><a href="{url:member/Menu/addMenu}" target="content">菜单添加</a></li>
                                 <li><a href="{url:member/Menu/menuRoleList}" target="content">菜单角色列表</a></li>
                             </ul>
                             </li>
-                        <li><a href='javascript:voie(0)' target="content">代理商管理</a>
+                        <li><a target="content">代理商管理</a>
                             <ul>
                                 <li><a href="{url:member/agent/agentList}" target="content">代理商列表</a></li>
                                 <li><a href="{url:member/agent/addAgent}" target="content">代理商添加</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href='javascript:voie(0)' target="content">推荐商户</a>
+                            <a target="content">推荐商户</a>
                             <ul>
                                 <li><a href="{url:member/companyRec/recList}" target="content" >推荐商户</a></li>
                                 <li><a href="{url:member/companyRec/recAdd}" target="content" >添加推荐</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href='javascript:voie(0)' target="content">支付密码修改</a>
+                            <a target="content">支付密码修改</a>
                             <ul>
                                 <li><a href="{url:member/member/applyPayList}" target="content" >待审核</a></li>
                                 <li><a href="{url:member/member/resetpayList}" target="content" >重置密码</a></li>
