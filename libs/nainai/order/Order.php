@@ -719,7 +719,7 @@ class Order{
 		$err = $this->paylog->getError();
 		return  intval($res) > 0 ? true : (!empty($err) ? $err : '日志记录失败');
 	}
-
+	
 	/**
 	 * 买方确认货物质量
 	 * @param  int $order_id 订单id
@@ -736,7 +736,7 @@ class Order{
 				$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
 				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order['user_id'];
 				if($reduceData['reduce_amount'] >= $order['pay_deposit'])
-					return tool::getSuccInfo(0,'扣减货款超过定金数额');
+					return tool::getSuccInfo(0,'扣减货款不能超过或等于定金数额');
 				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'操作用户错误');
 				$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//状态置为买家已确认质量
@@ -883,7 +883,7 @@ class Order{
 				$orderData['end_time'] = date('Y-m-d H:i:s',time());
 				$orderData['id'] = $order_id;
 
-				try {
+				try {	
 					$this->order->beginTrans();
 					$res = $this->orderUpdate($orderData);
 					if($res['success'] == 1){
@@ -908,7 +908,6 @@ class Order{
 						if($cond){
 							$note = '买方确认合同完成'.$info['order_no'].'解冻卖方保证金 '.$order['seller_deposit'];
 							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit'],$note) : true;
-
 							if($r1 === true){
 								$note = '买方确认合同完成'.$info['order_no'].'解冻支付定金的40% '.number_format(($order['pay_deposit']-$reduce_amount)*0.4,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 								$r2 = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$reduce_amount)*0.4,$note,0.4*$order['pay_deposit']+0.6*$reduce_amount);
@@ -935,9 +934,11 @@ class Order{
 
 										//信誉值增加
 										$configs_credit = new \nainai\CreditConfig();
-										$configs_credit->changeUserCredit($seller,'cert_contract',$order['amount']);
-										$configs_credit->changeUserCredit($buyer,'cert_contract',$order['amount']);
+										$a = $configs_credit->changeUserCredit($seller,'cert_contract',$order['amount']);
+										$configs_credit = new \nainai\CreditConfig();
+										$b = $configs_credit->changeUserCredit($buyer,'cert_contract',$order['amount']);
 										
+
 									}
 								}
 							}else{

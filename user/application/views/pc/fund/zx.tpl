@@ -10,7 +10,8 @@
 						<div class="zj_gl">
 							<div class="zj_l">
 								<a href="{url:/Fund/zxpage}" class="zj_a cz">{if:isset($balance['SJAMT'])}账户信息{else:}开通{/if}</a>
-								{if:isset($balance['SJAMT'])}<a href="{url:/Fund/tx}" class="zj_a tx">提现</a>
+								{if:!isset($balance['SJAMT'])}
+								<a href="{url:/Fund/zxtx}" class="zj_a tx">提现</a>
 								<p class="re_t">结算账号资金总额</p>
 								<h1 class="rental">￥{echo:$balance['SJAMT']}</h1>
 								{/if}

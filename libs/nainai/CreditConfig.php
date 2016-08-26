@@ -27,7 +27,6 @@ class CreditConfig extends \nainai\Abstruct\ModelAbstract{
 		if (intval($userId) > 0 && is_string($operateName)) {
 
 			$configData = $this->model->table($this->tableName)->fields('name, type, sign, value')->where('name=:name')->bind(array('name' => $operateName))->getObj();
-
 			$userData = $this->model->table('user')->fields('id, credit')->where('id=:id')->bind(array('id' => $userId))->getObj();
 			
 			if (!empty($configData) && !empty($userData)) {
@@ -58,8 +57,10 @@ class CreditConfig extends \nainai\Abstruct\ModelAbstract{
 						break;
 				}
 				$res = (bool)$this->model->data(array('credit' => $userData['credit']))->where('id=:id')->bind(array('id' => $userId))->update();
+				$res = true;
+
 				if ($res === TRUE) {
-					$this->addCreditLog($logData);
+					$b = $this->addCreditLog($logData);
 					return TRUE;
 				}
 			}

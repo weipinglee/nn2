@@ -16,7 +16,6 @@
 									<td width="180px">产品详情</td>
 									<td width="260px">金额及付款方式</td>
 									<td width="200px">主要指标</td>
-									<td>买家信息</td>
 									<td>交易操作</td>
 								</tr>
                                 <tr>
@@ -53,7 +52,6 @@
 											<!-- <div class="div_heights colA39F9F">等级折扣：￥10.00</div> -->
 											<div class="hr"></div>
 											<!-- <div class="div_heights">保证金支付（{$item['percent']}%）</div> -->
-
 										</td>
 										<td>
 											<!-- <div class="div_heights">规格：230*114*65</div> -->
@@ -61,10 +59,6 @@
 											<div class="div_heights">数量：{$item['num']}{$item['unit']}</div>
 										</td>
 										<td>
-											<div class="div_heights">{$item['username']} <i class="icon-user-md "></i></div>
-										</td>
-										<td>
-											
 											<div class="div_heights">
 												{if:$item['action_href']}
 													<a href='{$item['action_href']}'><b>{$item['action']}<b></a>

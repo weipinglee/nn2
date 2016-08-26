@@ -47,7 +47,7 @@
 									</td>
 
 									<td>
-										<div class="div_heights Place"><span>{$ContractData['usercn']['username']}</span> 
+										<div class="div_heights Place"><span>{$ContractData['sellcn']['username']}</span> 
 
 										</div>
 										
