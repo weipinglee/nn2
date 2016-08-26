@@ -58,7 +58,7 @@ ul.nav-list{
     display: block;
     padding: 0 26px;
     color: #fff;
-    font-size: 20px;
+    font-size: 16px;
 }
 .nav-list li a.cur {
     background: #a30e0e;

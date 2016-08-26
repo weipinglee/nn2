@@ -1652,10 +1652,11 @@ background: #cd5c5c;
 border: 0;
 }
 .send1{
-  padding:10px;
+  padding:9px;
 border: 1px solid #c0c0c0;
 margin-left: 5px;
 background:#F4F1F1;
+color: #777;
 }
 /*修改手机号，密码进度css end*/
 /*去掉右侧广告 表格样式(合同列表)*/
