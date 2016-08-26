@@ -1829,6 +1829,7 @@ a.close:hover {
 }
 .div_flink .lin_lists {
     float: left;
+    width: 1025px;
 }
 .div_flink ul li{
     float: left;
