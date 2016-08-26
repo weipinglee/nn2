@@ -75,7 +75,6 @@ class OffersController extends PublicController {
 		$search = $this->getRequest()->getParam('content');
 		$search = safe::filter($search);
 		$this->getView()->assign('search',$search);
-
 		//获取商品顶级分类
 		$productModel = new product();
 		$category = $productModel->getTopCate();
@@ -87,7 +86,7 @@ class OffersController extends PublicController {
 		$this->getView()->assign('cate', $category);
 		$this->getView()->assign('type', $type);
 		$this->getView()->assign('mode', $mode);
-		$this->getView()->assign('user_type', $this->user_type);
+		$this->getView()->assign('user_type', $this->login['user_type']);
 	}
 
 
