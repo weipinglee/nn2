@@ -42,7 +42,6 @@
     }
 
     function clearCache(url){
-        $('a[name=clearCache]').text('清除缓存中...');
         $.ajax({
             type : 'post',
             url : url,
@@ -57,7 +56,6 @@
                 }
             },
             complete : function(){
-                $('a[name=clearCache]').text('清除缓存');
             }
         })
     }
