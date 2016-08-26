@@ -94,7 +94,7 @@ select {
 }
 
 .submit_edit{
-	width: 130px;
+	width: 102px;
 	height: 39px;
 	background: #D61525;
 	color: #FFF;
@@ -104,7 +104,6 @@ select {
 	display: block;
 	text-align: center;
 	line-height: 39px;
-	border-radius: 3px;
 }
 
 #placeProv,#placeCity,#placeDistrict{height: 31px; min-width: 83px;}

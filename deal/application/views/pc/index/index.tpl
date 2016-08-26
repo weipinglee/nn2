@@ -612,7 +612,7 @@
                     <ul>
                         {foreach:items=$fuwuList}
                             <li class="iServiceTit">
-                                <div class="fw_img"><img src="{echo:\Library\Thumb::get($item['img'])}"/></div>
+                                <div class="fw_img"><img src="{echo:\Library\Thumb::get($item['img'])}" onerror="{views:images/index/kongbai.png}"/></div>
                                 <div class="wi_fw"><a href="{url:help/help}?cat_id={$item['cat_id']}&id={$item['id']}">{$item['name']}</a></div>
                             </li>
                         {/foreach}
