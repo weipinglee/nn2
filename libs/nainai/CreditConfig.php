@@ -26,7 +26,7 @@ class CreditConfig extends \nainai\Abstruct\ModelAbstract{
 	public function changeUserCredit($userId, $operateName, $value=0, $note=''){
 		if (intval($userId) > 0 && is_string($operateName)) {
 
-			$configData = $this->model->fields('name, type, sign, value')->where('name=:name')->bind(array('name' => $operateName))->getObj();
+			$configData = $this->model->table($this->tableName)->fields('name, type, sign, value')->where('name=:name')->bind(array('name' => $operateName))->getObj();
 
 			$userData = $this->model->table('user')->fields('id, credit')->where('id=:id')->bind(array('id' => $userId))->getObj();
 			

@@ -218,8 +218,6 @@ class IndexController extends PublicController {
 
 
     public function helpAction(){
-        $memcache=new \Library\cache\driver\Memcache();
-        $memcache->clear();
     }
 
     public function storageAction(){

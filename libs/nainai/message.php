@@ -28,7 +28,8 @@ class message{
 		'store_manager',
 		'ApplyResetpay',
 		'offer',
-		'store'
+		'store',
+        'common'
 
 	);
 	/**

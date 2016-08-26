@@ -39,7 +39,8 @@
                 <a href="#">{$info['name']}</a>
                 |
                 <a href="{url:/login/logout}">退出</a>
-                <a href="">返回网站首页</a>
+                <a href="{url:/index/index@deal}">返回网站首页</a>
+                <a name='clearCache' href="javascript:void(0)" onclick="clearCache('{url:/index/clearCache}')">清除缓存</a>
             </div>
           <!--   <div class="right">
                 <form action="#" id="search" class="search placeholder">

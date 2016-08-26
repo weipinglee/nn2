@@ -71,7 +71,7 @@
                     <label class="form-label col-3"><span class="c-red">*</span>图片：</label>
                     <div class="formControls col-5">
                         <div class="">
-                            <input type="hidden" name="uploadUrl"  value="{url:system/slide/upload@admin}" />
+                            <input type="hidden" name="uploadUrl"  value="{url:tool/slide/upload@admin}" />
                             <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" />
                         </div>
                         <div>
