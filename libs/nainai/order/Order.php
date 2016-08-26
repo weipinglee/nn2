@@ -873,7 +873,7 @@ class Order{
 				$orderData['end_time'] = date('Y-m-d H:i:s',time());
 				$orderData['id'] = $order_id;
 
-				try {
+				try {	
 					$this->order->beginTrans();
 					$res = $this->orderUpdate($orderData);
 					if($res['success'] == 1){
@@ -898,7 +898,6 @@ class Order{
 						if($cond){
 							$note = '买方确认合同完成'.$info['order_no'].'解冻卖方保证金 '.$order['seller_deposit'];
 							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit'],$note) : true;
-
 							if($r1 === true){
 								$note = '买方确认合同完成'.$info['order_no'].'解冻支付定金的40% '.number_format(($order['pay_deposit']-$reduce_amount)*0.4,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 								$r2 = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$reduce_amount)*0.4,$note,0.4*$order['pay_deposit']+0.6*$reduce_amount);
@@ -925,9 +924,11 @@ class Order{
 
 										//信誉值增加
 										$configs_credit = new \nainai\CreditConfig();
-										$configs_credit->changeUserCredit($seller,'cert_contract',$order['amount']);
-										$configs_credit->changeUserCredit($buyer,'cert_contract',$order['amount']);
+										$a = $configs_credit->changeUserCredit($seller,'cert_contract',$order['amount']);
+										$configs_credit = new \nainai\CreditConfig();
+										$b = $configs_credit->changeUserCredit($buyer,'cert_contract',$order['amount']);
 										
+
 									}
 								}
 							}else{

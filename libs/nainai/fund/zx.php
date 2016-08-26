@@ -118,7 +118,7 @@ class zx extends account{
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLFNDOUT</action>
-                    <userName>".self::USERNAME."</userName>
+                <userName>".self::USERNAME."</userName>
                 <clientID>{$clientID}</clientID>
                 <accountNo>{$accInfo['no']}</accountNo>
                 <recvAccNo></recvAccNo>

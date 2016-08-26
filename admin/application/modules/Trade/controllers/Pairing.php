@@ -11,10 +11,21 @@ use \Library\session;
 class PairingController extends Yaf\Controller_Abstract{
 
 	private $pairing;
+	private $order;
 	public function init(){
 		$this->pairing = new pairingModel();
+		$this->order = new \nainai\order\Order();
 		$this->getView()->setLayout('admin');
 		//echo $this->getViewPath();
+	}
+
+	public function allContractListAction(){
+		$page = safe::filterGet('page','int',1);
+		$name = safe::filter($this->_request->getParam('name'));
+
+		$list = $this->order->memberContractList($page,$name ? 'do.order_no like "%'.$name.'%"' : '');
+		// var_dump($list);
+		$this->getView()->assign('data',$list);
 	}
 
 	//获取所有状态为已生效及之后（不为已完成）状态的合同

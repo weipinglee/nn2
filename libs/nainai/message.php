@@ -12,6 +12,7 @@ class message{
 	private $user_id="";
 	//通知类型
 	private static $type=array(
+		'common',
 		'orderPay',
 		'fundOut',
 		'depositPay',

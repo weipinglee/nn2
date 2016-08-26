@@ -185,13 +185,14 @@ class DepositOrder extends Order{
 						}
 
 						$upd_res = $this->orderUpdate($orderData);
+
 						if($upd_res['success'] == 1){
 							$log_res = $this->payLog($order_id,$user_id,1,'卖方支付保证金');
 							//信誉值增加
 							$configs_credit = new \nainai\CreditConfig();
 							$cre_res = $configs_credit->changeUserCredit($seller,'cert_margin',$seller_deposit);
 							
-							$res = $cre_res && $log_res === true ? true : $log_res.$cre_res;
+							$res = ($cre_res && $log_res === true) ? true : $log_res.$cre_res;
 						}else{
 							$res = $upd_res['info'];
 						}

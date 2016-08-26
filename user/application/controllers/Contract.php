@@ -147,10 +147,11 @@ class ContractController extends UcenterBaseController{
 				}
 			}
 			$type = Safe::filterPost('type');
-
-			$buyer_id = $type == \nainai\offer\product::TYPE_SELL ? Safe::filterPost('user_id','int'):Safe::filterPost('offer_user','int');
-			$seller_id = $type == \nainai\offer\product::TYPE_BUY ? Safe::filterPost('user_id','int'):Safe::filterPost('offer_user','int');
-
+			$user_id = Safe::filterPost('user_id','int');
+			$offer_user = Safe::filterPost('offer_user','int');
+			$buyer_id = $type == \nainai\offer\product::TYPE_SELL ? $user_id : $offer_user;
+			$seller_id = $type == \nainai\offer\product::TYPE_SELL ? $offer_user : $user_id;
+			
 			if($buyer_id == $this->user_id){
 				$complain_type = \nainai\order\OrderComplain::BUYCOMPLAIN;
 			}elseif($seller_id == $this->user_id){

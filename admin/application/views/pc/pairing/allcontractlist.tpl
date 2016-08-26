@@ -62,7 +62,7 @@
 	;$(function(){
 		$('.search-admin').click(function(){
 			var name = $(this).siblings('input').val();
-			window.location.href = "{url:/trade/contract/contractList}"+"/name/"+name;
+			window.location.href = "{url:/trade/pairing/allcontractList}"+"/name/"+name;
 		});
 	})
 </script>
