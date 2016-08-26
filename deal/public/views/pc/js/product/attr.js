@@ -36,6 +36,16 @@ $(document).ready(function(){
 
 })
 
+function report($url){
+    var val = $('input[name="user_type"]').val();
+    if (val == 1) {
+        window.location.href= $url; 
+    }else{
+        layer.msg('个人用户不能报价');
+    }
+    
+}
+
 var getting = false;
 //异步获取商品信息
 function getCategory(cond){
