@@ -14,3 +14,8 @@ create table if not exists `market_stats_data`(
   `create_time` datetime not null default now() comment '统计的时间',
   primary key(`id`)
 )engine=innodb charset=utf8;
+create table text2(
+  `id` text,
+  `name` VARCHAR(20),
+  PRIMARY key(`id`)
+)engine=innodb charset=utf8;

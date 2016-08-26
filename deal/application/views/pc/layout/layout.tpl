@@ -206,7 +206,8 @@ z-index:1000;">
                                 <div class="item-list clearfix" style="top: 1px; display: none;">
 
                                     <div class="subitem">
-                                        {foreach: items=$item['nested']}
+                                        {foreach: items=$item['nested'] key=$kk}
+                                            {if:$kk<=11}
                                             <dl class="fore1">
                                                 <dt><a href="{url:/offers/offerlist?cate=$item['id']}">{$item['name']}</a></dt>
 
@@ -216,6 +217,7 @@ z-index:1000;">
                                                     {/foreach}
                                                 </dd>
                                             </dl>
+                                            {/if}
                                         {/foreach}
                                     </div>
                                     <!--
