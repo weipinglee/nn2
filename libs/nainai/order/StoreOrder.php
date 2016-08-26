@@ -62,6 +62,10 @@ class StoreOrder extends Order{
 					$note = '合同'.$note_id.$note_type.'支付 '.$info['amount'];
 					$acc_res = $account->freeze($info['user_id'],$orderData['pay_deposit'],$note);
 					if($acc_res === true){
+						$mess = new \nainai\message($info['user_id']);
+						$content = $type == 0 ? '(合同'.$info['order_no'].'已支付定金,请您及时支付尾款)' : '(合同'.$info['order_no'].'已生效,您可以申请提货了)';
+						$content .= "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+						$mess->send('common',$content);
 						$log_res = $this->payLog($order_id,$user_id,0,'买方支付预付款--'.($type == 0 ? '定金' : '全款'));
 						$res = $log_res === true ? true : $log_res;
 					}else{

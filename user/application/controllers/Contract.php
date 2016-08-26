@@ -45,14 +45,14 @@ class ContractController extends UcenterBaseController{
 		$id = safe::filter($this->_request->getParam('id'),'int');
 		$order = new \nainai\order\Order();
 		$info = $order->contractDetail($id,'seller');
-
+		// tool::pre_dump($info);
 		$invoice = $order->orderInvoiceInfo($info);
 		$info['complain'] = $order->canComplain($info);
 		//判断是否可以购买保险
 		if ($info['contract_status'] == $order::CONTRACT_EFFECT && !empty($info['risk'])) {
 			$info['insurance'] = 1;
 		}
-
+		
 		$this->getView()->assign('show_delivery',in_array($info['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE)) ? true : false);
 		$this->getView()->assign('info',$info);
 		$this->getView()->assign('invoice',$invoice);
@@ -148,8 +148,8 @@ class ContractController extends UcenterBaseController{
 			}
 			$type = Safe::filterPost('type');
 
-			$buyer_id = $type == \nainai\offer\product::TYPE_SELL ? Safe::filterPost('user_id','int'):Safe::filterPost('offer_user','int');
-			$seller_id = $type == \nainai\offer\product::TYPE_BUY ? Safe::filterPost('user_id','int'):Safe::filterPost('offer_user','int');
+			$buyer_id = $type == \nainai\offer\product::TYPE_BUY ? Safe::filterPost('user_id','int'):Safe::filterPost('offer_user','int');
+			$seller_id = $type == \nainai\offer\product:: TYPE_SELL? Safe::filterPost('offer_user','int') : Safe::filterPost('user_id','int');
 
 			if($buyer_id == $this->user_id){
 				$complain_type = \nainai\order\OrderComplain::BUYCOMPLAIN;
@@ -158,8 +158,7 @@ class ContractController extends UcenterBaseController{
 			}else{
 				die(json::encode(tool::getSuccInfo(0,'请不要申诉与你无关的合同')));
 			}
-			$complain_type = $type == 1 ? \nainai\order\OrderComplain::SELLCOMPLAIN : \nainai\order\OrderComplain::BUYCOMPLAIN;
-
+			
 			// //判断是否是当前买方或者卖方申请的
 			// switch ($complain_type) {
 			// 	case \nainai\order\OrderComplain::BUYCOMPLAIN:
@@ -195,7 +194,6 @@ class ContractController extends UcenterBaseController{
 			if (intval($id) > 0) {
 				$ContractData = array();
 				$ContractData = $complainModel->getUcenterContract($id,$this->user_id);
-
 				if (empty($ContractData)) {//没有这合同直接跳转
 					$this->error('无效的合同！');
 				}

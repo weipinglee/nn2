@@ -28,8 +28,8 @@ class DepositOrder extends Order{
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
-			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($info['user_id']) : $this->sellerUserid($order_id);
-			
+			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($info['user_id']) : intval($offerInfo['user_id']);
+			$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($offerInfo['user_id']) : intval($info['user_id']);
 			if($info['contract_status'] != self::CONTRACT_NOTFORM)
 				return tool::getSuccInfo(0,'合同状态有误');
 			if($buyer != $user_id)
@@ -70,8 +70,13 @@ class DepositOrder extends Order{
 					$pay_account = $type == 0 ? $pay_deposit : $info['amount'];
 					$note = '合同'.$note_id.$note_type.'支付 '.$pay_account;
 
-					$mess = new \nainai\message($offerInfo['user_id']);
-					$mess->send('depositPay',$info['order_no']);
+					// $mess_seller = new \nainai\message($seller);
+					// // $mess->send('depositPay',$info['order_no']);
+					// $content = '合同'.$info['order_no'].'已支付'.$note_type.',报价方将在60分钟内';
+
+					$mess_buyer = new \nainai\message($buyer);
+					$content = '合同'.$info['order_no'].'已支付'.$note_type.',报价方将在60分钟内支付保证金,超过时间之后,您可以取消合同';
+					$mess_buyer->send('common',$content);
 
 					$account = $this->base_account->get_account($payment);
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);
@@ -110,6 +115,9 @@ class DepositOrder extends Order{
 				$seller = intval($info['user_id']);
 				$buyer = $tmp;
 			}
+			$mess_buyer = new \nainai\message($buyer);
+			$mess_seller = new \nainai\message($seller);
+
 			if($info['contract_status'] != self::CONTRACT_SELLER_DEPOSIT)
 				return tool::getSuccInfo(0,'合同状态有误');
 			if(($pay === true && $seller != $user_id) || ($pay === false && $buyer != $user_id))
@@ -140,6 +148,12 @@ class DepositOrder extends Order{
 						//将买方冻结资金解冻
 						$note = '卖方未支付合同'.$info['order_no'].'保证金 退还定金 '.$info['pay_deposit'];
 						$res = $acc_res = $account->freezeRelease($buyer,floatval($info['pay_deposit']),$note);
+
+						$content = '合同'.$info['order_no'].'已取消。根据交易规则，已退还您支付的预付款。请您关注资金动态。';
+						$mess_buyer->send('common',$content);
+
+						$content = '合同'.$info['order_no'].',由于您未及时支付保证金，买方已取消合同';
+						$mess_seller->send('common',$content);
 					}
 					
 				}elseif($pay === true){
@@ -173,7 +187,11 @@ class DepositOrder extends Order{
 						$upd_res = $this->orderUpdate($orderData);
 						if($upd_res['success'] == 1){
 							$log_res = $this->payLog($order_id,$user_id,1,'卖方支付保证金');
-							$res = $log_res === true ? true : $log_res;
+							//信誉值增加
+							$configs_credit = new \nainai\CreditConfig();
+							$cre_res = $configs_credit->changeUserCredit($seller,'cert_margin',$seller_deposit);
+							
+							$res = $cre_res && $log_res === true ? true : $log_res.$cre_res;
 						}else{
 							$res = $upd_res['info'];
 						}
@@ -183,6 +201,9 @@ class DepositOrder extends Order{
 							if(!is_object($account)) return tool::getSuccInfo(0,$account);
 							$res = $account->freeze($seller,$seller_deposit,$note);
 							
+							$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+							$content = '合同'.$info['order_no'].'报价方已支付保证金,请您及时支付尾款。'.$jump_url;
+							$mess_buyer->send('common',$content);
 						}
 					}else{
 						$res = $seller;

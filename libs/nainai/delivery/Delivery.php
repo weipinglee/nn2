@@ -281,7 +281,8 @@ class Delivery{
 		$order_info = $this->order->where(array('id'=>$deliveryData['order_id']))->fields('contract_status,mode,user_id,offer_id')->getObj();
 		if(!empty($order_info)){
 			$offerInfo = $this->order_model->offerInfo($order_info['offer_id']);
-			$buyer = $offerInfo['type'] == 1 ? $order_info['user_id'] : $offerInfo['user_id'];
+			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order_info['user_id'] : $offerInfo['user_id'];
+			$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order_info['user_id'];
 			if($buyer == $deliveryData['user_id']){
 				$contract_status = $order_info['contract_status'];
 				//订单合同状态须为已生效,订单类型须为保证金或者仓单
@@ -294,6 +295,15 @@ class Delivery{
 						$deliveryData['offer_id'] = $order_info['offer_id'];
 						$deliveryData['create_time'] = date('Y-m-d H:i:s',time());
 						$res = $this->deliveryUpdate($deliveryData);
+						$mess_seller = new \nainai\message($seller);
+						$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$deliveryData['order_id'])."'>跳转到合同详情页</a>";
+						if($order_info['mode'] == \nainai\order\Order::ORDER_STORE){
+							$content = '(合同'.$order_info['order_no'].'买方已申请提货，请您及时进行发货处理。)'.$jump_url;
+							$mess_seller->send('common',$content);
+						}else{
+							$content = '(合同'.$order_info['order_no'].'买方已申请提货，请您及时进行确认并支付仓库费，并通知仓库管理员进行发货处理。)'.$jump_url;
+							$mess_seller->send('common',$content);
+						}
 					}
 				}else{
 					$error = '订单状态有误';

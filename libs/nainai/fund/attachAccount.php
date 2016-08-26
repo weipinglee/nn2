@@ -35,7 +35,7 @@ class attachAccount{
 	public function attachInfo($user_id,$bank='zx'){
 		return $this->attachTable->where(array('bank'=>$bank,'user_id'=>$user_id))->getObj();
 	}
-
+	
 	/**
 	 * curl模拟post提交
 	 * @param  array  $data 数据
@@ -44,7 +44,7 @@ class attachAccount{
 
 		$header []= "Content-type:text/xml;charset=gbk";
 
-		$url = 'http://192.168.2.12:6789';
+		$url = 'http://192.168.2.32:6789';
 		$ch = curl_init($url);
 		curl_setopt($ch,CURLOPT_URL,$url);
 		curl_setopt($ch,CURLOPT_POST,1);
