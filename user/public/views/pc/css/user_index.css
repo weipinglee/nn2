@@ -96,6 +96,7 @@ img{border:0px;}
 }
 .user_l,.user_c,.user_r{
   float: left;
+  background: #fff;
 }
 .user_body .user_b:before,.user_l:before: {
   clear: none;
