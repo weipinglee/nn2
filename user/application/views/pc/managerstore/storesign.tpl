@@ -200,7 +200,7 @@
                                
 
                             <tr>
-                                <td>上传图片：</td>
+                                <td style="vertical-align:top;">上传图片：</td>
                                 <td>
                                    {include:layout/webuploader.tpl}
                                  </td>

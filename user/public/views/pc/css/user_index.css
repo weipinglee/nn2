@@ -96,6 +96,7 @@ img{border:0px;}
 }
 .user_l,.user_c,.user_r{
   float: left;
+  background: #fff;
 }
 .user_body .user_b:before,.user_l:before: {
   clear: none;
@@ -1419,6 +1420,7 @@ padding: 8px 15px;
     display: block;
     float: left;
     line-height: 35px;
+    text-align: center;
 }
 .center_tabl  .table2  .cg_fb,.center_tabl .btn input{  
     background: #d61515;

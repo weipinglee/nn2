@@ -78,16 +78,18 @@
         margin: 0 0px 10px 20px;
         width: 81%;
         border: 1px solid #c0c0c0;
+        background: #fff;
 }
 .right_c .r_c_title{
 	height: 35px;
-	line-height: 35px;
+	line-height: 38px;
 	border-bottom: 2px solid #e6e6e6;
 	padding-top:10px 
 }
 .right_c .r_c_title .tit_span{
 	padding: 6px 20px;
 	border-bottom: 2px solid #d61515;
+        font-size: 16px;
 	font-family: '微软雅黑';
 
 }
@@ -135,6 +137,7 @@
             height: 35px;
             line-height: 35px;
             font-size: 16px;
+            text-align: center;
 
 }
 .rc_bate .jd_img{

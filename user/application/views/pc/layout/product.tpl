@@ -93,7 +93,7 @@
 
 
     <tr>
-        <td>上传图片：</td>
+        <td style="vertical-align:top;">上传图片：</td>
         <td>
 
             <script type="text/javascript" src="{root:/js/webuploader/webuploader.js}"></script>

@@ -559,7 +559,7 @@ function switchPanel(){//报盘内容切换
 			pars.find(".i_proList").eq(nth).addClass("show");
 		}
 	})
-	
+
 }
 
 function switchNews(){//看点内容切换
