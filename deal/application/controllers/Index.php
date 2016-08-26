@@ -218,9 +218,6 @@ class IndexController extends PublicController {
 
 
     public function helpAction(){
-       $a=1;
-        $b=floatval($a);
-        var_dump($b);
     }
 
     public function storageAction(){
