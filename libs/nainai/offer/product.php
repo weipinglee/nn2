@@ -265,13 +265,13 @@ class product  {
         if($topCate){
             return unserialize($topCate);
         }
-       // $where  = array();
+        $where  = array('status' => 1, 'is_del' => 0,'pid'=>0);
         if($num)
             $this->_productObj->table('product_category')->limit($num);
         else{
             $this->_productObj->table('product_category');
         }
-        $category = $this->_productObj->fields('id,pid, name, unit, childname, attrs')->order('sort ASC,id DESC')->where('status=1 AND is_del=0 AND pid=0')->select();
+        $category = $this->_productObj->fields('id,pid, name, unit, childname, attrs')->order('sort ASC,id DESC')->where($where)->select();
         $memcache->set('topCate',serialize($category));
         return $category;
     }
