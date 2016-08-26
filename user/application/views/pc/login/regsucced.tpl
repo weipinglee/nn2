@@ -8,7 +8,7 @@
 </script>
 
 
-   <div class="toplog_bor none">
+   <div class="toplog_bor">
     <div class="m_log w1200">
         <div class="logoimg_left">
             <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
