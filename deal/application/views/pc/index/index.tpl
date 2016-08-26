@@ -209,11 +209,11 @@
                                                         <a href="{url:/offers/offerdetails?id=$pro['id']&pid=$pro['product_id']}">
                                                             <img class="ckxq" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                                                         </a>
-                                                     <a href="{url:/offers/check?id=$pro['id']&pid=$pro['product_id']}">
+                                                     <a href="{url:/trade/check?id=$pro['id']&pid=$pro['product_id']}">
                                                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                                                      </a>
                                                     {else:}
-                                                        <a href="{url:/trade/purchasedetails?id=$pro['id']}">
+                                                        <a href="{url:/offers/purchasedetails?id=$pro['id']}">
                                                             <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                                                         </a>
                                                          <a href="{url:/trade/report?id=$pro['id']}">
