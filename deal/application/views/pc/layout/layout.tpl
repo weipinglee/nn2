@@ -387,15 +387,21 @@ z-index:1000;">
     </div>
     <div class="fotter_bq ">
         <div>
-            Copyright&nbsp;&nbsp; © 2000-2016&nbsp;&nbsp;耐耐云商科技有限公司&nbsp;
-            版权所有&nbsp;&nbsp 网站备案/许可证号:沪ICP备15028925号
+            Copyright&nbsp;&nbsp; © 2000-2015&nbsp;&nbsp;耐耐云商科技有限公司&nbsp;
+            版权所有&nbsp;&nbsp; 网站备案/许可证号:沪ICP备15028925号
         </div>
         <div>
             服务电话：4006238086 地址:上海浦东新区唐镇上丰路977号b座
         </div>
         <div>
             增值电信业务经营许可证沪B2-20150196
-            </div>
+        </div>
+        <div>
+            违法信息举报邮箱：shensu@nainaiwang.com
+        </div>
+        <div>
+            技术支持：耐耐云商科技有限公司技术部
+        </div>
     </div>
 
 </div>
