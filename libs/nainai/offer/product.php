@@ -265,7 +265,7 @@ class product  {
         if($topCate){
             return unserialize($topCate);
         }
-        $where  = array('status' => 1, 'is_del' => 0,'pid'=>0);
+        $where  = array('status' => 1,'pid'=>0);
         if($num)
             $this->_productObj->table('product_category')->limit($num);
         else{
