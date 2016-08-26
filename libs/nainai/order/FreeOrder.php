@@ -46,7 +46,7 @@ class FreeOrder extends Order{
 
 			$buyer = $orderData['user_id'];
 			$seller = $offer_info['user_id'];
-			$bankinfo = $this->order->userBankInfo($seller);
+			$bankinfo = $this->userBankInfo($seller);
 
 			$mess_buyer = new \nainai\message($buyer);
 			$content = '合同'.$orderData['order_no'].'已形成,请您尽快完成线下支付,并上传支付凭证';
