@@ -142,7 +142,7 @@ class slide{
             return $res;
         }
         $slideObj=new M('slide');
-        $res=$slideObj->where(array('status'=>1))->order('`order` asc')->limit(5)->select();
+        $res=$slideObj->where(array('status'=>1))->order('`order` asc')->select();
         $memcache->set('indexSlide',serialize($res));
         return $res;
     }

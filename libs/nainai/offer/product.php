@@ -261,18 +261,19 @@ class product  {
      */
     public function getTopCate($num=''){
         $memcache=new Memcache();
-        $topCate=$memcache->get('topCate');
-        if($topCate){
+        $topCate=$memcache->get('topCate'.$num);
+          if($topCate){
             return unserialize($topCate);
         }
-        $where  = array('status' => 1,'pid'=>0);
+        $where  = array('status' => 1,'is_del'=>0,'pid'=>0);
         if($num)
             $this->_productObj->table('product_category')->limit($num);
         else{
             $this->_productObj->table('product_category');
         }
+      //  $this->_productObj->limit=$num==''?500:$num;
         $category = $this->_productObj->fields('id,pid, name, unit, childname, attrs')->order('sort ASC,id DESC')->where($where)->select();
-        $memcache->set('topCate',serialize($category));
+        $memcache->set('topCate'.$num,serialize($category));
         return $category;
     }
 
