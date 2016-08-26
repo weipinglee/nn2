@@ -852,7 +852,7 @@ class ManagerDealController extends UcenterBaseController {
 
         if (intval($id) > 0) {
              $stObj = new store();
-            $data = $stObj->getUserStoreDetail($id,$this->user_id);
+            $data = $stObj->getUserStoreDetail($id, 0);
             // $data = $stObj->getManagerStoreDetail($id,$this->user_id);
             $mem = new \nainai\member();
             $userData = $mem->getUserDetail($data['user_id']);
