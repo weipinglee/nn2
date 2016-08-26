@@ -5,7 +5,7 @@
 <link href="{views:css/center_date.css}" rel="stylesheet" type="text/css" />
     <div class="right_c">
       <div class="r_c_title">
-        <a class="tit_span">支付密码申诉找回</a>
+        <a class="tit_span">支付密码申诉找回pp</a>
       </div>
       <div class="rc_bate">
         <div class="jd_img">
