@@ -41,5 +41,26 @@
       window.frames['content'].location.href = url;
     }
 
+    function clearCache(url){
+        $('a[name=clearCache]').text('清除缓存中...');
+        $.ajax({
+            type : 'post',
+            url : url,
+            dataType : 'json',
+            success : function(data){
+                if(data['success']==1){
+                    layer.msg('清除成功');
+
+                }
+                else{
+                    layer.msg('清除失败');
+                }
+            },
+            complete : function(){
+                $('a[name=clearCache]').text('清除缓存');
+            }
+        })
+    }
+
 
 

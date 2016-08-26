@@ -129,6 +129,20 @@ class IndexController extends InitController {
 
 	}
 
+	/**
+	 * 清除缓存
+	 */
+	public function clearCacheAction(){
+		if(IS_POST){
+			$cache = new \Library\cache\Cache('m');
+			if($cache->clear()){
+				die(json::encode(\Library\tool::getSuccInfo()));
+			}
+			die(json::encode(\Library\tool::getSuccInfo(0,'操作失败')));
+		}
+
+	}
+
 
 
 
