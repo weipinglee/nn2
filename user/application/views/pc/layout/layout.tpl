@@ -31,7 +31,7 @@
 <!--公用底部控件 开始-->
 <div class="background_img bottom"></div>
     <div class="w1200 secondaryend">
-    <p>Copyright 2014-2016 耐耐云商科技有限公司 www.nainaiwang.cn All Rights Reserved </p>
+    <p>Copyright&nbsp;&nbsp; © 2000-2015&nbsp;&nbsp;耐耐云商科技有限公司&nbsp;版权所有</p>
     <p>
         <a href="#" target="_blank" style="color: #666666;">沪ICP备15028925号</a>
         <a href="#" target="_blank" style="color: #006aa8;">ICP许可证</a>
