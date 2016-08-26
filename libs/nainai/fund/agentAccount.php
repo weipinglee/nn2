@@ -258,7 +258,7 @@ use \Library\Time;
      * @param float $num 转账的金额
      *
      */
-    public function freezePay($from,$to=0,$num,$note=''){
+    public function freezePay($from,$to=0,$num,$note='',$amount=''){
         $num = floatval($num);
         if($num > 0){
 
