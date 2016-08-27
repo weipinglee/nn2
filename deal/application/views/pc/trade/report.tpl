@@ -193,8 +193,18 @@ body{_padding-top:30px;}
                     {/if}
 
                 </div>
-                <div class="sunmit_btn"><a href="javascript:void(0)" onclick="$(this).parents('form').submit()">提交</a></div>
-
+                <div class="sunmit_btn"><a href="javascript:void(0)">提交</a></div>
+                <script type="text/javascript">
+                    $(function(){
+                        $('.sunmit_btn a').click(function(){
+                            if({$user_id} == 0){
+                                window.location.href='{url:/login/login@user}'+'?callback='+window.location.href;
+                            }else{
+                                $(this).parents('form').submit();
+                            }
+                        });
+                    });
+                </script>
                 </form>
             </div>
        </div> 

@@ -101,7 +101,7 @@ class tradeController extends \nainai\controller\Base {
 
 		//判断是否需要开具发票
 		$orderData['invoice'] = $invoice == 1 ? 1 : 0;
-		
+
 		//判断用户是否填写发票所需信息
 		if($orderData['invoice']){
 			$user_invoice = new \nainai\user\UserInvoice();
@@ -231,6 +231,7 @@ class tradeController extends \nainai\controller\Base {
 			$this->getView()->setLayout('');
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
+			$this->getView()->assign('user_id', $this->user_id ? $this->user_id : 0);
 		}else{
 			$this->error('未知的采购报盘!');
 		}
