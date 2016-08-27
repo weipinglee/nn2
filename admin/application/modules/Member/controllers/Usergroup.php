@@ -40,7 +40,7 @@ class UsergroupController extends Yaf\Controller_Abstract{
 			$usergroupData['icon']     = tool::setImgApp(safe::filterPost('imgfile2'));
 			$usergroupData['caution_fee']      = safe::filterPost('caution_fee','int');
 			$usergroupData['free_fee']      = safe::filterPost('free_fee','int');
-			$usergroupData['depute_fee']      = safe::filterPost('depute_fee','int');
+			$usergroupData['depute_fee']      = safe::filterPost('depute_fee');
 			$usergroupData['create_time']    = date("Y-m-d H:i:s",time());
             $res = $this->usergroupModel->usergroupUpdate($usergroupData);
             echo JSON::encode($res);
@@ -59,7 +59,7 @@ class UsergroupController extends Yaf\Controller_Abstract{
 			$usergroupData['icon'] = tool::setImgApp(safe::filterPost('imgfile2'));
 			$usergroupData['caution_fee'] = safe::filterPost('caution_fee','int');
 			$usergroupData['free_fee'] = safe::filterPost('free_fee','int');
-			$usergroupData['depute_fee'] = safe::filterPost('depute_fee','int');
+			$usergroupData['depute_fee'] = safe::filterPost('depute_fee');
 			$res = $this->usergroupModel->usergroupUpdate($usergroupData);
 
             echo JSON::encode($res);

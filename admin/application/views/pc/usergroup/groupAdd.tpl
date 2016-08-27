@@ -77,7 +77,7 @@
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>委托报盘手续费比率：</label>
       <div class="formControls col-5">
-        <input type="text" class="input-text"  name="depute_fee" id="depute_fee" datatype="n" nullmsg="请输入委托报盘手续费比率！">
+        <input type="text" class="input-text"  name="depute_fee" id="depute_fee" datatype="float" nullmsg="请输入委托报盘手续费比率！">
       </div>
       <div class="col-4"> </div>
     </div>
