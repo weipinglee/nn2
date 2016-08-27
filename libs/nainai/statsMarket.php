@@ -128,6 +128,11 @@ class statsMarket
         $pageBar=$statsObj->getPageBar();
         return [$data,$pageBar];
     }
+    public function delStats($id){
+        $statsObj=new M('market_stats_data');
+        $statsObj->where(['id'=>$id])->delete();
+        return tool::getSuccInfo(1,'删除成功');
+    }
     public function getAllStatsList(){
   /*      $memcache=new \Library\cache\driver\Memcache();
         $allStatcList=$memcache->get('allStatcList');
