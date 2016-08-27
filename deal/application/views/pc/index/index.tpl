@@ -622,13 +622,13 @@ $(function(){
                 </div>
               </div>
             <div class="show_div">
-              <a href="" data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur fhdb_a">
+              <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur fhdb_a">
                   <i class="left_iconfont " display="none"><img src="{views:images/floor_04.png}">客服</i>
                   <em class="two_line" display="black"><img src="{views:images/floor_cur_04.png}">客服</em>
               </a>
                <div class="hover_div">
                     <em></em>
-                    <a href="" data="#toTop" rel="toTop" class="hove_a">联系客服</a>
+                    <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" data="#toTop" rel="toTop" class="hove_a">联系客服</a>
                 </div>
             </div>
             <div class="show_div">
