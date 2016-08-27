@@ -625,7 +625,7 @@
                     <ul class="lin_lists">
                     {foreach: items=$frdLinkList}
                         <li class="li_txt">
-                            <a class="li_a" href="{$item['link']}">{$item['name']}</a>
+                            <a class="li_a" href="{$item['link']}" target="_blank">{$item['name']}</a>
                         </li>
                         {if:$key!=$sum-1}
                             <li class="li_l">
