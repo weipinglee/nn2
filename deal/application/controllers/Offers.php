@@ -42,6 +42,7 @@ class OffersController extends PublicController {
 		$this->getView()->assign('amount',$amount);
 		$this->getView()->assign('info',$info);
 		$this->getView()->assign('pay_deposit',$pay_deposit);
+		$this->getView()->setLayout('');
 	}
 
 	//列表
