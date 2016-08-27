@@ -22,7 +22,7 @@ class UcenterController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
-		 // header('Location:'.url::createUrl('/ucenterindex/index'));
+		  header('Location:'.url::createUrl('/ucenterindex/index'));
     }
 
     public function baseInfoAction(){
