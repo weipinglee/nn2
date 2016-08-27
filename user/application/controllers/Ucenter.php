@@ -24,7 +24,7 @@ class UcenterController extends UcenterBaseController {
     public function indexAction(){
 		 header('Location:'.url::createUrl('/ucenterindex/index'));
     }
-
+    
     public function baseInfoAction(){
         $userModel = new UserModel();
         $userData = $userModel->getUserInfo($this->user_id);
