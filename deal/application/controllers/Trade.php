@@ -12,7 +12,7 @@ use \Library\tool;
 use \nainai\order;
 use \Library\json;
 use \Library\M;
-class tradeController extends \nainai\controller\Base {
+class tradeController extends PublicController {
 
 	private $offer;
 
