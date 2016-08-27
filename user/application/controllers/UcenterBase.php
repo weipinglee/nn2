@@ -46,6 +46,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$actionName = $this->_request->getActionName();
 		$a = new \nainai\subAccount();
 		$res = $a->AccessDecision($controllerName,$actionName);
+        
 		if(!$res){
 			//子账户无权限则跳转到首页
 			$this->error('无权限',url::createUrl('/Ucenter/index'));

@@ -719,7 +719,7 @@ class Order{
 		$err = $this->paylog->getError();
 		return  intval($res) > 0 ? true : (!empty($err) ? $err : '日志记录失败');
 	}
-	
+
 	/**
 	 * 买方确认货物质量
 	 * @param  int $order_id 订单id

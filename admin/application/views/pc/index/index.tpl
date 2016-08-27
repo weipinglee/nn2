@@ -66,22 +66,22 @@
                     <ul>
                         <li class="current"><a target="content">权限管理</a>
                             <ul>
-                                <li><a href="{url:/system/rbac/roleList}" target="content">管理员分组</a></li>
-                                <li><a href="{url:/system/rbac/accessList}" target="content">权限分配</a></li>
+                                <li><a href="{url:system/rbac/roleList}" target="content">管理员分组</a></li>
+                                <li><a href="{url:system/rbac/accessList}" target="content">权限分配</a></li>
                             </ul>
                         </li>
                         <li><a target="content">系统配置项</a>
                             <ul>
-                                <li><a href="{url:/system/Confsystem/creditList}" target="content">信誉值配置列表</a></li>
-                                <li><a href="{url:/system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
-                                <li><a href="{url:/system/Confsystem/generalList}" target="content">一般设置</a></li>
+                                <li><a href="{url:system/Confsystem/creditList}" target="content">信誉值配置列表</a></li>
+                                <li><a href="{url:system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
+                                <li><a href="{url:system/Confsystem/generalList}" target="content">一般设置</a></li>
                             </ul>
                         </li>
                         <li><a target="content">管理员信息</a>
                             <ul>
-                                <li><a href="{url:/system/admin/adminAdd}" target="content">新增管理员</a></li>
-                                <li><a href="{url:/system/admin/adminList}" target="content">管理员列表</a></li>
-                                <li><a href="{url:/system/admin/logList}" target="content">管理员操作记录</a></li>
+                                <li><a href="{url:system/admin/adminAdd}" target="content">新增管理员</a></li>
+                                <li><a href="{url:system/admin/adminList}" target="content">管理员列表</a></li>
+                                <li><a href="{url:system/admin/logList}" target="content">管理员操作记录</a></li>
                             </ul>
                         </li>
                         <!-- <li><a  target="content">系统设置</a></li> -->
@@ -111,8 +111,8 @@
                         <!--
                         <li><a href='' target="content">子账户权限管理</a>
                             <ul>
-                                <li><a href="{url:/member/subRoleList}" target="content">角色列表</a></li>
-                                <li><a href="{url:/member/roleAdd}" target="content">添加角色</a></li>
+                                <li><a href="{url:member/subRoleList}" target="content">角色列表</a></li>
+                                <li><a href="{url:member/roleAdd}" target="content">添加角色</a></li>
                             </ul>
                         </li>-->
 
@@ -169,18 +169,18 @@
 
                         <li><a target="content">报盘管理</a>
                             <ul>
-                                <li><a href="{url:/trade/OfferManage/kefuOfferList}" target="content">客服报盘列表</a></li>
-                                <li><a href="{url:/trade/OfferManage/offerList}" target="content">报盘管理</a></li>
-                                <li><a href="{url:/trade/OfferManage/offerReview}" target="content">报盘审核</a></li>
-                                <li><a href="{url:/trade/OfferManage/expireOfferList}" target="content">历史报盘信息查询</a></li>
-                                <li><a href="{url:/trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
-                                <li><a href="{url:/trade/OfferManage/cancelList}" target="content">撤销报盘列表</a></li>
+                                <li><a href="{url:trade/OfferManage/kefuOfferList}" target="content">客服报盘列表</a></li>
+                                <li><a href="{url:trade/OfferManage/offerList}" target="content">报盘管理</a></li>
+                                <li><a href="{url:trade/OfferManage/offerReview}" target="content">报盘审核</a></li>
+                                <li><a href="{url:trade/OfferManage/expireOfferList}" target="content">历史报盘信息查询</a></li>
+                                <li><a href="{url:trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
+                                <li><a href="{url:trade/OfferManage/cancelList}" target="content">撤销报盘列表</a></li>
                             </ul>
                         </li>
                         <li><a target="content">保险管理</a>
                             <ul>
-                                <li><a href="{url:/trade/Insurance/insuranceList}" target="content">保险产品列表</a></li>
-                                <li><a href="{url:/trade/Insurance/rateList}" target="content">产品费率列表</a></li>
+                                <li><a href="{url:trade/Insurance/insuranceList}" target="content">保险产品列表</a></li>
+                                <li><a href="{url:trade/Insurance/rateList}" target="content">产品费率列表</a></li>
                             </ul>
                         </li>
                         <li><a target="content">合同管理</a>
@@ -301,16 +301,16 @@
                                 <li><a href="{url:tool/help/helpList}" target="content">帮助列表</a></li>
                             </ul>
                         </li>
-                            <li><a href="{url:/tool/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
+                            <li><a href="{url:tool/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
                                 <ul>
-                                    <li><a href="{url:/tool/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
-                                    <li><a href="{url:/tool/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
+                                    <li><a href="{url:tool/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
+                                    <li><a href="{url:tool/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{url:/tool/slide/slideList}" target="content">幻灯片管理</a>
+                            <li><a href="{url:tool/slide/slideList}" target="content">幻灯片管理</a>
                                 <ul>
-                                    <li><a href="{url:/tool/slide/addSlide}" target="content">新增幻灯片</a></li>
-                                    <li><a href="{url:/tool/slide/slideList}" target="content">幻灯片列表</a></li>
+                                    <li><a href="{url:tool/slide/addSlide}" target="content">新增幻灯片</a></li>
+                                    <li><a href="{url:tool/slide/slideList}" target="content">幻灯片列表</a></li>
                                 </ul>
                             </li>
                     </ul>
@@ -342,12 +342,13 @@
                         if($(this).attr('no_access') != 'no_access'){
                             var flag = 0;
                             if(href){
-                                var menu_len = menus.length;
-                                for(var i=0;i<menu_len;i++){
+                                for(var i=0;i<menus.length;i++){
                                     var href = href.toLocaleLowerCase();
-                                    var len = menu_len-href.length;
+                                    var len = menus[i].length-href.length;
                                     // if(href.indexOf(menus[i]) > 0){
-                                    if(menus[i].lastIndexOf(href) == len){
+                                    // console.log(menus[i].lastIndexOf(href));
+                                    
+                                    if(href.lastIndexOf(menus[i]) == -len){
                                         flag = 1;
                                     }
                                 }
@@ -405,7 +406,7 @@
               CONTENT 
                         --> 
         <div class="main_content" id="content_1" >
-            <iframe class="white" scrolling="yes" frameborder="0" src="{url:/index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="728px"  id="iframe" style="overflow-y:scroll;"></iframe>
+            <iframe class="white" scrolling="yes" frameborder="0" src="{url:index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="728px"  id="iframe" style="overflow-y:scroll;"></iframe>
 
      </div>
 </div>
