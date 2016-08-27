@@ -195,7 +195,7 @@
                         <td colspan="8">
                            
                             <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
-                              <a class="btoncomit submit_chag" href="{url:/managerstore/updateStore}?{set: echo http_build_query(array('id'=>$storeDetail['sid']))}" >修改仓单</a>
+                              <a class="btoncomit submit_chag" href="{url:/managerstore/updateStore}?{set: echo http_build_query(array('id'=>$storeDetail['sid']))}" style="margin:5px 10px;">修改仓单</a>
                         </td>
 
                     </tr>
