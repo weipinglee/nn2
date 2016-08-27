@@ -55,7 +55,7 @@
             <div class="pro_con_right">
                 <div class="right_conten">
                     <div class="con_time">
-                        <h1>{$helpInfo['name']}</h1>
+                        <h1 style="padding: 13px 18px;font-size: 16px;border-bottom: 2px solid #d61515;position: absolute;height: 20px;">{$helpInfo['name']}</h1>
                     </div>
                     <div class="text_word">
                             {$helpInfo['content']}
