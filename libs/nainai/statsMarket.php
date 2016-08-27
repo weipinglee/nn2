@@ -135,12 +135,13 @@ class statsMarket
     }
     public function getAllStatsList(){
         $memcache=new \Library\cache\driver\Memcache();
-        $allStatcList=$memcache->get('allStatcList');
+        /*$allStatcList=$memcache->get('allStatcList');
         if($allStatcList){
             return unserialize($allStatcList);
         }else{
             $allStatcList=array();
-        }
+        }*/
+        $allStatcList = array();
         $productModel=new product();
         $topCat=$productModel->getTopCate(8);
         $marketObj=new Query('market_stats_data as s');
