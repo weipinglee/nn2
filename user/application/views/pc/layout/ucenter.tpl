@@ -68,7 +68,12 @@
                    <a href="{url:/ucenterindex/index@user}">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
-                   <a href="{url:/contract/buyerList}">我的合同</a><span class="line_l">|<span>
+                    {if:$usertype==1}
+                        <a href="{url:/contract/sellerList}">我的合同</a>
+                    {else:}
+                        <a href="{url:/contract/buyerList}">我的合同</a>
+                    {/if}
+                    <span class="line_l">|<span>
                 </li>
                 {/if}
                 <li>

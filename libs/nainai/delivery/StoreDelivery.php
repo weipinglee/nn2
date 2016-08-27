@@ -224,7 +224,7 @@ class StoreDelivery extends Delivery{
 					$order->beginTrans();
 					$this->deliveryUpdate($deliveryData);
 					$this->orderObj->orderUpdate(array('id'=>$delivery['order_id'],'contract_status'=>order\Order::CONTRACT_DELIVERY_COMPLETE));
-					$offerInfo = $this->
+					
 					$buyer = $delivery['type'] == \nainai\offer\product::TYPE_SELL ? $delivery['user_id'] : $delivery['offer_user'];
 					$mess_buyer = new \nainai\message($buyer);
 					$jump_url = "<a href='".url::createUrl('/delivery/deliBuyList')."'>跳转到提单列表</a>";

@@ -342,9 +342,12 @@
                         if($(this).attr('no_access') != 'no_access'){
                             var flag = 0;
                             if(href){
-                                for(var i=0;i<menus.length;i++){
+                                var menu_len = menus.length;
+                                for(var i=0;i<menu_len;i++){
                                     var href = href.toLocaleLowerCase();
-                                    if(href.indexOf(menus[i]) > 0){
+                                    var len = menu_len-href.length;
+                                    // if(href.indexOf(menus[i]) > 0){
+                                    if(menus[i].lastIndexOf(href) == len){
                                         flag = 1;
                                     }
                                 }

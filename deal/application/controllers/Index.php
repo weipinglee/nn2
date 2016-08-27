@@ -58,13 +58,6 @@ class IndexController extends PublicController {
 		$order = new \nainai\order\Order();
 		$newTrade = $order->getNewComplateTrade(20);
 		$offer = new OffersModel();
-		$offerCateData = array();
-		foreach($topCat as $k=>$v){
-
-			$offerCateData[$v['id']] = $offer->getOfferCategoryList($v['id']);
-
-		}
-
 		//获取报盘总数
 		$offer_num = $offer->getOfferNum();
 		$this->getView()->assign('offer_num',$offer_num['num']);
@@ -106,7 +99,6 @@ class IndexController extends PublicController {
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
 		$this->getView()->assign('newTrade',$newTrade);
-		$this->getView()->assign('offerData',$offerCateData);
 		$this->getView()->assign('order_num',$order_num['num']);
 		$this->getView()->assign('order_num_yes',$order_num_yes['num']);
 		$this->getView()->assign('year',$year);
@@ -223,5 +215,18 @@ class IndexController extends PublicController {
     public function storageAction(){
         $this->getView()->assign('cur','storage');
     }
-
+    
+    //获取首页交易市场数据
+    public function getCateOfferListAction()
+    {
+        $id = safe::filterPost('id', 'int');
+        $offer = new OffersModel();
+        $data = $offer->getOfferCategoryList($id);
+        foreach($data as $k => $v)
+        {
+            $data[$k]['produce_area'] = substr($v['produce_area'],0,2);
+        }
+       // var_dump($data);
+        die(json::encode($data));
+    }
 }

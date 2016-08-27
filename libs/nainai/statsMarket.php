@@ -128,14 +128,19 @@ class statsMarket
         $pageBar=$statsObj->getPageBar();
         return [$data,$pageBar];
     }
+    public function delStats($id){
+        $statsObj=new M('market_stats_data');
+        $statsObj->where(['id'=>$id])->delete();
+        return tool::getSuccInfo(1,'删除成功');
+    }
     public function getAllStatsList(){
-  /*      $memcache=new \Library\cache\driver\Memcache();
+        $memcache=new \Library\cache\driver\Memcache();
         $allStatcList=$memcache->get('allStatcList');
         if($allStatcList){
             return unserialize($allStatcList);
         }else{
             $allStatcList=array();
-        }*/
+        }
         $productModel=new product();
         $topCat=$productModel->getTopCate(8);
         $marketObj=new Query('market_stats_data as s');
@@ -148,57 +153,16 @@ class statsMarket
             $allStatcList[$v['id']]=$marketObj->find();
             $staticTimes[$v['id']]=$this->getStaticTime($v['id']);
         }
-       // echo '<pre>';
-
-      //  print_r($allStatcList);
-
-        //print_r($staticTimes);
         $tmp=array();
-        $res=array();
         foreach($allStatcList as $k=>$v){
 
             foreach($v as $kk=>$vv){
-                $tmp[$k][$vv['name']][$vv['create_time']]=array();
-                foreach($tmp[$k] as $kkk=>$vvv){
-                    if($vv['name']==$kkk){
-                        foreach($tmp[$k][$vv['name']] as $kkkk=>$vvvv){
-                            if($vv['create_time']==$kkkk){
-                                $tmp[$k][$vv['name']][$vv['create_time']]=$vv;
-                            }
-                        }
-                    }
-                }
+                $tmp[$k][$vv['name']][]=$vv;
             }
         }
-        foreach($tmp as $k=>$v){
-            foreach($tmp[$k] as $kk=>$vv){
-                ksort($vv);
-                $tmp[$k][$kk]=$vv;
-            }
-        }
-        foreach($tmp as $k=>$v){
-            foreach($tmp[$k] as $kk=>$vv){
-                foreach($tmp[$k][$kk] as $kkk=>$vvv){
-                    foreach($staticTimes[$k] as $kkkk=>$vvvv){
-                        if(!isset($tmp[$k][$kk][$vvvv])){
-                            $tmp[$k][$kk][$vvvv]['price']=NULL;
-                        }
-                    }
-
-                }
-            }
-        }
-        foreach($tmp as $k=>$v){
-            foreach($tmp[$k] as $kk=>$vv){
-                ksort($vv);
-                $tmp[$k][$kk]=$vv;
-            }
-            foreach($tmp[$k] as $kk=>$vv){
-                $tmp[$k][$kk]=array_values($vv);
-            }
-        }
-     //   $memcache->set('allStatcList',serialize($tmp));
-        return [$tmp,$staticTimes];
+        $res=[$tmp,$staticTimes];
+        $memcache->set('allStatcList',serialize($res));
+        return $res;
 
     }
     public function getStaticTime($cid){

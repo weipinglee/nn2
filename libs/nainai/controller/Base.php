@@ -24,6 +24,7 @@ class Base extends \Yaf\Controller_Abstract{
 		 if(isset($this->user_id) && $this->user_id>0){
 			 $this->getView()->assign('login',1);
 			 $this->getView()->assign('username',$this->username);
+			 $this->getView()->assign('usertype',$this->user_type);
 		 }else $this->getView()->assign('login',0);
 		  //需要认证的方法未认证则跳转到认证页面
 	   if($this->certType!==null  && (!isset($this->cert[$this->certType]) || $this->cert[$this->certType]==0))

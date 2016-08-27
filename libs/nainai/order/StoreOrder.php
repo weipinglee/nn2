@@ -59,7 +59,8 @@ class StoreOrder extends Order{
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);
 					$note_id = isset($info['order_no']) ? $info['order_no'] : $order_id;
 					$note_type = $type==0 ? '订金' : '全款';
-					$note = '合同'.$note_id.$note_type.'支付 '.$info['amount'];
+					$pay_account = $type == 0 ? $pay_deposit : $info['amount'];
+					$note = '合同'.$note_id.$note_type.'支付 '.$pay_account;
 					$acc_res = $account->freeze($info['user_id'],$orderData['pay_deposit'],$note);
 					if($acc_res === true){
 						$mess = new \nainai\message($info['user_id']);

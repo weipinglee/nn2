@@ -117,4 +117,11 @@ class statsMarketController extends Yaf\Controller_Abstract
         $this->getView()->assign('data',$res[0]);
         $this->getView()->assign('pageBar',$res[1]);
     }
+    public function  delStatsAction(){
+        $id=Library\safe::filterGet('id','int');
+        if(!$id)$id=intval($this->_request->getParam('id'));
+        $statsModel=new \nainai\statsMarket();
+        $res=$statsModel->delStats($id);
+        die(\Library\json::encode($res));
+    }
 }

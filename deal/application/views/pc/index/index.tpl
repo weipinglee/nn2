@@ -1,4 +1,12 @@
+<script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
 <input type="hidden" name="js_sign_banner" value="1">
+<script type="text/javascript">
+$(function(){
+    $('.js_rep_offer .li_select').trigger('click');
+    $('.js_rep_offer .li_select').trigger('click');
+})
+
+</script>
     <!------------------导航 开始-------------------->
     <form method="post" action="" id="form1">
         <div class="aspNetHidden">
@@ -89,28 +97,6 @@
    </div>
   </div>  
    <!--最新数据 结束-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!--主要内容 开始-->
 
                             </div>
@@ -143,7 +129,7 @@
 
                         <div class="i_leftTit clearfix">
                             <div class="i_left_title" name="1" id="item1">交易市场</div>
-                            <ul>
+                            <ul class="js_rep_offer">
                                 {foreach:items=$topCat}
                                     <li class="{if:$key==0}li_select{/if}" onclick="showOffers({$item['id']},$(this))"><a href="javascript:void(0)"><em></em><span></span>{$item['name']}</a></li>
 
@@ -155,9 +141,7 @@
                         </div>
 
                         <div class="i_leftCon" id="offer_list">
-                            {set:$i=0}
-                            {foreach:items=$offerData}
-                            <div class="i_proList{if:$i==0} show{/if}" id="offer{$key}">
+                            <div class="i_proList show">
                                 <ul>
                                     <li class="i_ListTit" id="offer">
                                         <span class="i_w_1">品名</span>
@@ -171,70 +155,14 @@
                                         <span class="i_w_9">咨询</span>
                                         <span class="i_w_10">操作</span>
                                     </li>
-                                    {foreach:items=$item $key=$pid item=$pro}
-                                        <li>
-                                            <span class="i_w_1 ">{$pro['pname']}</span>
-                                            {if:$pro['type']==1}
-                                                <span class="i_w_2 i_TextGreen">
-                                                   供
-                                                </span>
-                                            {else:}
-                                                <span class="i_w_2 i_TextRed">
-                                                   求
-                                                </span>
-                                            {/if}
-                                            <span class="i_w_3">
-                                                  {$pro['mode']}
-                                            </span>
-                                            <span class="i_w_4" id="area{$key}{$pid}">{set:$id='area'.$key.$pid;$area_data = substr($pro['produce_area'],0,2)}{areatext:data=$area_data id=$id}</span>
-                                            <span class="i_w_5">{$pro['accept_area']}</span>
-                                            <span class="i_w_6">{$pro['quantity']}</span>
-                                            <span class="i_w_7">{echo:$pro['quantity']-$pro['sell']-$pro['freeze']}</span>
-                                            <span class="i_w_8">￥{$pro['price']}</span>
-                                            <span class="i_w_9">
-                                                {if:$pro['qq']!=''}
-                                                    <a href="tencent://message/?uin={$pro['qq']}&Site=qq&Menu=yes"><img style="vertical-align:middle;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
-                                                    </a>
-                                                        {else:}
-                                                         <img style="vertical-align:middle;" src="{views:images/icon/QQgray16X16.png}" class="ser_img"/>
-                                                    </a>
-
-                                                {/if}
-</span>
-
-
-                                            <span class="i_w_10">
-                                                {if:$pro['quantity']-$pro['sell']-$pro['freeze']>0}
-                                                    {if:$pro['type']==1}
-                                                        <a href="{url:/offers/offerdetails?id=$pro['id']&pid=$pro['product_id']}">
-                                                            <img class="ckxq" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                                                        </a>
-                                                     <a href="{url:/trade/check?id=$pro['id']&pid=$pro['product_id']}">
-                                                         <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
-                                                     </a>
-                                                    {else:}
-                                                        <a href="{url:/offers/purchasedetails?id=$pro['id']}">
-                                                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                                                        </a>
-                                                         <a href="{url:/trade/report?id=$pro['id']}">
-                                                              <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
-                                                        </a>
-                                                    {/if}
-                                                                                                    {else:}
-                                                <img src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
-                                                {/if}
-                                                </span>
-                                        </li>
-                                    {/foreach}
+                                </ul>
+                                <ul id="offerRowBox">
+                                
                                 </ul>
                             </div>
-                                {set:$i=$i+1;}
-                            {/foreach}
 
                            <!-- 广告轮播 Swiper -->
                            <link rel="stylesheet" href="{views:css/swiper.min.css}">
-                            <!-- Swiper JS -->
-                            <script src="{views:js/jquery.bxslider.js}"></script>
                            <div style="width:100%;height:1px;background:#ccc;margin:10px 0;"></div>
                              <div class="slider4">
                                  {foreach: items=$adList}
@@ -242,10 +170,12 @@
                                  {/foreach}
                                 </div>
              
-
+                            <!-- Swiper JS -->
+                            <script src="{views:js/jquery.bxslider.js}"></script>
 
                             <!-- Initialize Swiper -->
                             <script>
+                              $(document).ready(function(){
                                 $('.slider4').bxSlider({
                                   slideWidth: 215,
                                   minSlides: 2,
@@ -255,6 +185,7 @@
                                   auto: true,
                                   slideMargin: 10
                                 });
+                              });
                             </script>
                         </div>
 
@@ -473,27 +404,29 @@
                                 <div class="i_left_title " name="1" id="item3">推荐商家</div>
                             </div>
 
+                        
                            
 
-                             <div class="slider2">
+                                  <div class="slider4 recommend">
                                  {foreach: items=$allCompanyAd}
                                 <div class="slide"><img src="{$item['content']}"></div>
                                  {/foreach}
 
                                 
                              </div>
-                                <script type="text/javascript">
-                                    $(document).ready(function(){
-                                      $('.slider2').bxSlider({
-                                        slideWidth: 300, 
-                                        auto: true,
-                                        autoControls: true,
-                                        minSlides: 1,
-                                        maxSlides: 4,
-                                        slideMargin: 10
-                                      });
-                                    });
-                                </script>
+                                 <script>
+                              $(document).ready(function(){
+                                $('.slider4').bxSlider({
+                                  slideWidth: 215,
+                                  minSlides: 2,
+                                  maxSlides: 4,
+                                  moveSlides: 1,
+                                  startSlide: 1,
+                                  auto: true,
+                                  slideMargin: 10
+                                });
+                              });
+                            </script>
 
                         </div>
 
@@ -592,8 +525,24 @@
                 function showOffers(id,obj){
                     obj.siblings().removeClass('li_select');
                     obj.addClass('li_select');
-                    $('[id^=offer]').removeClass('show');
-                    $('#offer'+id).addClass('show');
+                    /*$('[id^=offer]').removeClass('show');
+                    $('#offer'+id).addClass('show');*/
+                    $.ajax({
+                        type: "POST",
+                        url: "{url:/index/getCateOfferList}",
+                        data: {id: id},
+                        dataType: "json",
+                        success: function(data){
+                            //$('#offerRowBox').empty();
+                            template.helper('getAreaText', function(area_data){  
+                                   var areatextObj = new Area();
+                                   var text = areatextObj.getAreaText(area_data);
+                                   return text;
+                            });  
+                            var offerRowHtml = template.render('offerRowTemplate',{data:data});
+                            $('#offerRowBox').html(offerRowHtml);
+                        }
+                    })
 
                 }
             </script>
@@ -625,7 +574,7 @@
                     <ul class="lin_lists">
                     {foreach: items=$frdLinkList}
                         <li class="li_txt">
-                            <a class="li_a" href="{$item['link']}">{$item['name']}</a>
+                            <a class="li_a" href="{$item['link']}" target="_blank">{$item['name']}</a>
                         </li>
                         {if:$key!=$sum-1}
                             <li class="li_l">
@@ -673,13 +622,13 @@
                 </div>
               </div>
             <div class="show_div">
-              <a href="" data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur fhdb_a">
+              <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur fhdb_a">
                   <i class="left_iconfont " display="none"><img src="{views:images/floor_04.png}">客服</i>
                   <em class="two_line" display="black"><img src="{views:images/floor_cur_04.png}">客服</em>
               </a>
                <div class="hover_div">
                     <em></em>
-                    <a href="" data="#toTop" rel="toTop" class="hove_a">联系客服</a>
+                    <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" data="#toTop" rel="toTop" class="hove_a">联系客服</a>
                 </div>
             </div>
             <div class="show_div">
@@ -695,4 +644,60 @@
 
         </div>
         <!-- 浮动楼层 end -->
+<script type='text/html' id='offerRowTemplate'>
+<%for (var i=0;i<data.length;i++) { %>
+        <li>
+            <span class="i_w_1 "><%=data[i].pname%></span>
+            <%if (data[i].type==1) { %>
+                <span class="i_w_2 i_TextGreen">
+                   供
+                </span>
+            <%}else { %>
+                <span class="i_w_2 i_TextRed">
+                   求
+                </span>
+            <% } %>
+            <span class="i_w_3">
+                  <%=data[i].mode%>
+            </span>
+            <span class="i_w_4" id="area<%=i%>"><%=getAreaText(data[i].produce_area)%></span>
+            <span class="i_w_5"><%=data[i].accept_area%></span>
+            <span class="i_w_6"><%=data[i].quantity%></span>
+            <span class="i_w_7"><%=data[i].quantity-data[i].sell-data[i].freeze%></span>
+            <span class="i_w_8">￥<%=data[i].price%></span>
+            <span class="i_w_9">
+                <%if (data[i].qq!='') { %>
+                    <a href="tencent://message/?uin=<%=data[i].qq%>&Site=qq&Menu=yes"><img style="vertical-align:middle;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
+                    </a>
+                        <%}else { %>
+                         <img style="vertical-align:middle;" src="{views:images/icon/QQgray16X16.png}" class="ser_img"/>
+                    </a>
 
+                <% } %>
+</span>
+
+
+            <span class="i_w_10">
+                <%if (data[i].quantity - data[i].sell - data[i].freeze>1) { %>
+                    <%if (data[i].type==1) { %>
+                        <a href="{url:/offers/offerdetails?id=<%=data[i].id%>&pid=<%=data[i].product_id%>}">
+                            <img class="ckxq" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                        </a>
+                     <a href="{url:/trade/check?id=<%=data[i].id%>&pid=<%=data[i].product_id%>}">
+                         <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
+                     </a>
+                    <%}else { %>
+                        <a href="{url:/offers/purchasedetails?id=<%=data[i].id%>}">
+                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
+                        </a>
+                         <a href="{url:/trade/report?id=<%=data[i].id%>}">
+                              <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
+                        </a>
+                    <% } %>
+                    <%}else { %>
+                <img src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
+                <% } %>
+                </span>
+        </li>
+<% } %>
+</script>
