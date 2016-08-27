@@ -26,7 +26,7 @@
 								<b>状态:</b><span>{$info['title']}</span>
 							</div>
 							<div class="detail_chj">
-								<a  href="{url:/contract/contract?order_id=$info['id']}"><input class="fk_butt" target='_blank' type="button" value="合同预览"/></a>
+								<a  href="{url:/contract/contract?order_id=$info['id']}" target='_blank'><input class="fk_butt"  type="button" value="合同预览"/></a>
 								<!-- <input class="qx_butt" type="button" value="取消订单"/> -->
 								{if:$info['complain']==1}
 									<a  href="{url:/contract/complainContract}?id={$info['id']}"><input class="fk_butt" type="button" value="我要申诉"/></a>
