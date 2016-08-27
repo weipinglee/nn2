@@ -404,27 +404,29 @@ $(function(){
                                 <div class="i_left_title " name="1" id="item3">推荐商家</div>
                             </div>
 
+                        
                            
 
-                             <div class="slider2">
+                                  <div class="slider4 recommend">
                                  {foreach: items=$allCompanyAd}
                                 <div class="slide"><img src="{$item['content']}"></div>
                                  {/foreach}
 
                                 
                              </div>
-                                <script type="text/javascript">
-                                    $(document).ready(function(){
-                                      $('.slider2').bxSlider({
-                                        slideWidth: 300, 
-                                        auto: true,
-                                        autoControls: true,
-                                        minSlides: 1,
-                                        maxSlides: 4,
-                                        slideMargin: 10
-                                      });
-                                    });
-                                </script>
+                                 <script>
+                              $(document).ready(function(){
+                                $('.slider4').bxSlider({
+                                  slideWidth: 215,
+                                  minSlides: 2,
+                                  maxSlides: 4,
+                                  moveSlides: 1,
+                                  startSlide: 1,
+                                  auto: true,
+                                  slideMargin: 10
+                                });
+                              });
+                            </script>
 
                         </div>
 
