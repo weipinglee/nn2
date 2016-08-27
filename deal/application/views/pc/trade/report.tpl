@@ -17,6 +17,8 @@
     <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
     <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
     <script type="text/javascript" src="{root:js/layer/extend/layer.ext.js}"></script>
+    <script type="text/javascript" src="{views:js/area/Area.js}" ></script>
+    <script type="text/javascript" src="{views:js/area/AreaData_min.js}" ></script>
     <!--[if lte IE 6]>
 <script>
 $(function(){
