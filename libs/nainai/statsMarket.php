@@ -160,8 +160,9 @@ class statsMarket
                 $tmp[$k][$vv['name']][]=$vv;
             }
         }
-        $memcache->set('allStatcList',serialize($tmp));
-        return [$tmp,$staticTimes];
+        $res=[$tmp,$staticTimes];
+        $memcache->set('allStatcList',serialize($res));
+        return $res;
 
     }
     public function getStaticTime($cid){
