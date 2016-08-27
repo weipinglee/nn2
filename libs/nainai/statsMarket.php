@@ -134,13 +134,13 @@ class statsMarket
         return tool::getSuccInfo(1,'删除成功');
     }
     public function getAllStatsList(){
-  /*      $memcache=new \Library\cache\driver\Memcache();
+        $memcache=new \Library\cache\driver\Memcache();
         $allStatcList=$memcache->get('allStatcList');
         if($allStatcList){
             return unserialize($allStatcList);
         }else{
             $allStatcList=array();
-        }*/
+        }
         $productModel=new product();
         $topCat=$productModel->getTopCate(8);
         $marketObj=new Query('market_stats_data as s');
@@ -163,7 +163,8 @@ class statsMarket
         foreach($allStatcList as $k=>$v){
 
             foreach($v as $kk=>$vv){
-                $tmp[$k][$vv['name']][$vv['create_time']]=array();
+                $tmp[$k][$vv['name']][]=$vv;
+                /*$tmp[$k][$vv['name']][$vv['create_time']]=array();
                 foreach($tmp[$k] as $kkk=>$vvv){
                     if($vv['name']==$kkk){
                         foreach($tmp[$k][$vv['name']] as $kkkk=>$vvvv){
@@ -172,10 +173,10 @@ class statsMarket
                             }
                         }
                     }
-                }
+                }*/
             }
         }
-        foreach($tmp as $k=>$v){
+        /*foreach($tmp as $k=>$v){
             foreach($tmp[$k] as $kk=>$vv){
                 ksort($vv);
                 $tmp[$k][$kk]=$vv;
@@ -201,7 +202,7 @@ class statsMarket
             foreach($tmp[$k] as $kk=>$vv){
                 $tmp[$k][$kk]=array_values($vv);
             }
-        }
+        }*/
      //   $memcache->set('allStatcList',serialize($tmp));
         return [$tmp,$staticTimes];
 
