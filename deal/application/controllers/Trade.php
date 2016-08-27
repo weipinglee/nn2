@@ -25,6 +25,7 @@ class tradeController extends \nainai\controller\Base {
 
 	//付款
 	public function buyerPayAction(){
+
 		$id = safe::filterPost('id','int');
 		$num = safe::filterPost('num');
 		$paytype = safe::filterPost('paytype');
@@ -100,7 +101,7 @@ class tradeController extends \nainai\controller\Base {
 
 		//判断是否需要开具发票
 		$orderData['invoice'] = $invoice == 1 ? 1 : 0;
-
+		
 		//判断用户是否填写发票所需信息
 		if($orderData['invoice']){
 			$user_invoice = new \nainai\user\UserInvoice();
@@ -199,12 +200,15 @@ class tradeController extends \nainai\controller\Base {
 		if($info['insurance'] == 0){
 			//已经申请了的不能在申请
 			$risk = new \nainai\insurance\RiskApply();
-			$data = $risk->getRiskApply(array('buyer_id' => $this->login['user_id'], 'offer_id' => $info['id']), 'id');
+			$data = $risk->getRiskApply(array('buyer_id' => $this->user_id, 'offer_id' => $info['id']), 'id');
 			if (!empty($data)) {
 				$info['insurance'] = 1;
 			}
 		}
+
+		$this->getView()->assign('user_id',$this->user_id ? $this->user_id : 0);
 		$this->getView()->assign('data',$info);
+		$this->getView()->setLayout('');
 
 	}
 
@@ -212,6 +216,7 @@ class tradeController extends \nainai\controller\Base {
 	 * 报价页面
 	 */
 	public function reportAction(){
+
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int');
 
@@ -223,7 +228,7 @@ class tradeController extends \nainai\controller\Base {
 				$this->error('采购不存在');exit;
 			}
 
-
+			$this->getView()->setLayout('');
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
 		}else{
