@@ -31,10 +31,12 @@
 <!--公用底部控件 开始-->
 <div class="background_img bottom"></div>
     <div class="w1200 secondaryend">
-    <p>Copyright&nbsp;&nbsp; © 2000-2015&nbsp;&nbsp;耐耐云商科技有限公司&nbsp;版权所有</p>
+    <p>Copyright&nbsp;&nbsp; © 2000-2016&nbsp;&nbsp;耐耐云商科技有限公司&nbsp;版权所有&nbsp;&nbsp;网站备案/许可证号：沪ICP备15028925号</p>
+    <p>服务电话：4006238086&nbsp;地址：上海浦东新区唐镇上丰路977号B座</p>
     <p>
-        <a href="#" target="_blank" style="color: #666666;">沪ICP备15028925号</a>
-        <a href="#" target="_blank" style="color: #006aa8;">ICP许可证</a>
+        增值电信业务经营许可证沪B2-20150196
+        <!-- <a href="#" target="_blank" style="color: #666666;">沪ICP备15028925号</a>
+        <a href="#" target="_blank" style="color: #006aa8;">ICP许可证</a> -->
     </p>
 </div>
 </body>
