@@ -250,13 +250,13 @@ display: none;
 	margin-left: 10px;
 	background: #fff;
 }
-.comm_problem .pro_con_right .right_conten h1 {
+/*.comm_problem .pro_con_right .right_conten h1 {
     padding: 13px 18px;
     font-size: 16px;
     border-bottom: 2px solid #d61515;
     position: absolute;
     height: 20px;
-}
+}*/
 .pro_con_right .right_conten .con_time {
     border-bottom: 1px solid #e6e6e6;
     position: relative;
@@ -272,23 +272,23 @@ display: none;
 	min-height: 380px;
 }
 .text_word p{
-	font-size: 14px;
+	/*font-size: 14px;
 	color: #666666;
     text-indent: 2em;
-    line-height: 35px;
+    line-height: 35px;*/
 }
 .text_word .text_bottom .word_left{
-	width: 50%;
+	/*width: 50%;
 	overflow: hidden;
-	float: left;
+	float: left;*/
 }
 .text_word .text_bottom .word_right{
-    float: left;
+    /*float: left;
     width: 50%;
-    text-align: center;
+    text-align: center;*/
 }
 .text_word .text_bottom .word_right img{
-	width: 363px;
-	height: 522px;
+	/*width: 363px;
+	height: 522px;*/
 }
 

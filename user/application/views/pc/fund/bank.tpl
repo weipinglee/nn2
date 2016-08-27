@@ -13,7 +13,7 @@
 						<form action="{url:/fund/bank}" enctype="multipart/form-data" method='post' auto_submit>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>开户状态：</span>
-								<span>{$status}</span>
+								<span class="con_con">{$status}</span>
 
 
 							</div>
@@ -25,7 +25,7 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>银行卡类型：</span>
-								<span><select class="text" type="text" name="card_type" datatype="n1-2" >
+								<span><select class="text" type="text" name="card_type" datatype="n1-2" style="width:250px;">
 										{foreach:items=$type}
 										<option value="{$key}" {if:$key==$bank['card_type']}selected{/if}>{$item}</option>
 										{/foreach}
@@ -60,7 +60,7 @@
 								<span class="con_tit"><i>*</i>银行卡正面： </span>
 								<span>
 									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload}" />
-                        			<span class="input-file">选择文件<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></span>
+                        			<span class="input-file" style="top:0;">选择文件<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></span>
 
 								</span>
 							</div>
@@ -69,7 +69,7 @@
 									<span class="con_tit"><i>*</i>请上传公司的银行许可证： </span>
 								<span>
 									 <input type="hidden" name="uploadUrl"  value="{url:/fund/upload}" />
-                        			 <span class="input-file">选择文件<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></span>
+                        			 <span class="input-file" style="top:0;">选择文件<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></span>
 								</span>
 									<p class="con_title"></p>
 								</div>
@@ -91,30 +91,30 @@
 					<div id="bank2" {if: $status=='未申请'} style="display: none" {/if}>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>开户状态：</span>
-								<span>{$status}</span>
+								<span class="con_con">{$status}</span>
 
 
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>开户银行：</span>
-								<span>{$bank['bank_name']}</span>
+								<span class="con_con">{$bank['bank_name']}</span>
 								<span></span>
 
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>银行卡类型：</span>
-								<span>{$type[$bank['card_type']]}</span>
+								<span class="con_con">{$type[$bank['card_type']]}</span>
 
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>{if: $user_type==1}公司名称：{else:}姓名：{/if}</span>
-								<span>{$bank['true_name']}</span>
+								<span class="con_con">{$bank['true_name']}</span>
 								<span></span>
 							</div>
 							{if: $user_type!=1}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>身份证：</span>
-								<span>
+								<span class="con_con">
 									{$bank['identify_no']}
 								</span>
 								<span></span>
@@ -123,14 +123,14 @@
 							{/if}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>银行账号：</span>
-								<span>{$bank['card_no']}
+								<span class="con_con">{$bank['card_no']}
 								<span></span>
 
 							</div>
 						{if:$user_type!=1}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>打款凭证： </span>
-								<span>
+								<span class="con_tit">
 									<img name="file2" src="{$bank['proof_thumb']}"/>
 
 								</span>
@@ -138,7 +138,7 @@
 							{else:}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>公司的银行许可证： </span>
-								<span>
+								<span class="con_tit">
 									<img name="file2" src="{$bank['proof_thumb']}"/>
 
 								</span>
