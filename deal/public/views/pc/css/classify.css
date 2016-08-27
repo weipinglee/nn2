@@ -233,6 +233,7 @@ a:hover,a:active {
 }
 .all-sort-list .item a {
     text-decoration: none;
+    color: #666;
 }
 .all-sort-list .item a:hover {
     font-weight: bold;
@@ -276,7 +277,7 @@ div.item h3 p.fenlei a:hover {
     border-top: none;
 }
 .item-list .subitem dt {
-    width: 54px;
+    width: 154px;
     line-height: 22px;
     text-align: left;
     padding: 3px 6px 0px 0px;
