@@ -185,7 +185,7 @@ $(function(){
                                   auto: true,
                                   slideMargin: 10
                                 });
-                           
+
                             </script>
                         </div>
 
