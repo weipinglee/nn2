@@ -163,6 +163,7 @@ $(function(){
 
                            <!-- 广告轮播 Swiper -->
                            <link rel="stylesheet" href="{views:css/swiper.min.css}">
+                            <script src="{views:js/jquery.bxslider.js}"></script>
                            <div style="width:100%;height:1px;background:#ccc;margin:10px 0;"></div>
                              <div class="slider4">
                                  {foreach: items=$adList}
@@ -171,11 +172,10 @@ $(function(){
                                 </div>
              
                             <!-- Swiper JS -->
-                            <script src="{views:js/jquery.bxslider.js}"></script>
+
 
                             <!-- Initialize Swiper -->
                             <script>
-                              $(document).ready(function(){
                                 $('.slider4').bxSlider({
                                   slideWidth: 215,
                                   minSlides: 2,
@@ -185,7 +185,7 @@ $(function(){
                                   auto: true,
                                   slideMargin: 10
                                 });
-                              });
+                           
                             </script>
                         </div>
 
