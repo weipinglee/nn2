@@ -41,11 +41,11 @@
                 <ul class="ul1">
                     {foreach: items=$helpList}
                     <li class="ul1_li">
-                        <a class="tow_tit"><b class="first-title">{$item['name']}</b><i class="icon-caret-down"></i></a>
+                        <a href="javascript:;" class="tow_tit"><b class="first-title">{$item['name']}</b><i class="icon-caret-down"></i></a>
 
                         <ul class="ul2">
                             {foreach:items=$item['data'] item=$v}
-                            <li><a {if:$helpInfo['name']==$v['name']} class="a_cur" {/if}href="{url:/help/help}?id={$v['id']}&cat_id={$item['cat_id']}">{$v['name']}</a></li>
+                            <li><a href="javascript:;" {if:$helpInfo['name']==$v['name']} class="a_cur" {/if}href="{url:/help/help}?id={$v['id']}&cat_id={$item['cat_id']}">{$v['name']}</a></li>
                             {/foreach}
                         </ul>
                     </li>
