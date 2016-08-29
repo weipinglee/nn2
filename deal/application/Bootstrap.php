@@ -12,6 +12,12 @@ use \Library\Session\Driver\Db;
 class Bootstrap extends \Yaf\Bootstrap_Abstract{
 
     public function _initConfig(Yaf\Dispatcher $dispatcher) {
+		if(\Library\tool::getConfig('error')){
+			error_reporting(E_ALL);
+		}
+		else{
+			error_reporting(0);
+		}
 		//把配置保存起来
 		$this->config = Yaf\Application::app()->getConfig();
 		Yaf\Registry::set('config', $this->config);
