@@ -3,6 +3,7 @@
  <head>
         <title>交易管理后台</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="x-ua-compatible" content="IE=edge" >
 
         
         <!-- jQuery AND jQueryUI -->
