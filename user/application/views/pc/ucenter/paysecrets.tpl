@@ -29,7 +29,7 @@
             <div class="input_span">
               <input id="inputCode" placeholder="请输入验证码" type="text" id="inputCode" class="gradient wbk">
               <!-- <span id="code" class="mycode" style="overflow: hidden;"> -->
-                <img id="image"src="{url:/login/getCaptcha}" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()" style="width: 86px;height: 37px;border: 1px solid #c0c0c0;margin-left: 5px;margin-top: 5px;"/>
+                <img id="image"src="{url:/login/getCaptcha}" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()" style="width: 86px;height: 35px;border: 1px solid #c0c0c0;margin-left: 5px;margin-top: 8px;"/>
               <!-- </span> -->
 
               <!-- <input type="button" class="yzm_submit" value="确定" id="submit"> -->
