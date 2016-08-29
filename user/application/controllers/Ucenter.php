@@ -521,7 +521,7 @@ class UcenterController extends UcenterBaseController {
     public function mobileEditAction(){
       /*  $this->getView()->setLayout('ucenter');*/
         $userId=$this->user_id;
-        $userObj=new userModel();
+        $userObj=new UserModel();
         $userInfo=$userObj::getUserInfo($userId);
         $this->getView()->assign('userInfo',$userInfo);
 
@@ -531,7 +531,7 @@ class UcenterController extends UcenterBaseController {
         if(IS_AJAX||IS_POST){
             $code=safe::filterPost('mobileCode');
 
-            $userObj=new userModel();
+            $userObj=new UserModel();
             $res = $userObj->getOldMobileCode($this->user_id,$code);
 
             die(JSON::encode($res));
@@ -544,7 +544,7 @@ class UcenterController extends UcenterBaseController {
     public function getNewMobileCodeAction(){
         if(IS_AJAX||IS_POST){
 
-            $userObj=new userModel();
+            $userObj=new UserModel();
             $mobile=safe::filterPost('mobile','/^\d+$/');
             $code=safe::filterPost('mobileCode');
             $res=$userObj->getNewMobileCode($this->user_id,$code,$mobile);
@@ -558,7 +558,7 @@ class UcenterController extends UcenterBaseController {
     public function checkMobileCodeAction(){
         if(IS_POST||IS_AJAX) {
             $code = safe::filterPost('mobileCode', 'int');
-            $userObj = new userModel();
+            $userObj = new UserModel();
             $res = $userObj->checkMobileFirst($this->user_id,$code);
             die(JSON::encode($res));
         }else{
@@ -567,7 +567,7 @@ class UcenterController extends UcenterBaseController {
     }
     //验证第一步是否通过
     private function checkFirstStep(){
-        $userObj=new userModel();
+        $userObj=new UserModel();
         return $userObj->checkFirst($this->user_id);
     }
     //更换新手机
@@ -575,7 +575,7 @@ class UcenterController extends UcenterBaseController {
         $firstCheck = $this->checkFirstStep();
         if($firstCheck){
             $userId=$this->user_id;
-            $userObj=new userModel();
+            $userObj=new UserModel();
             $userInfo=$userObj::getUserInfo($userId);
             $this->getView()->assign('userInfo',$userInfo);
         }else{
@@ -588,7 +588,7 @@ class UcenterController extends UcenterBaseController {
     //手机修改成功
     public function MobileSuccessAction(){
         if(IS_POST||IS_AJAX){
-            $userObj=new userModel();
+            $userObj=new UserModel();
             $code=safe::filterPost('mobileCode');
             $newMobile= safe::filterPost('mobile','/^\d+$/');
             $res = $userObj->checkMobileSecond($this->user_id,$code,$newMobile);
@@ -598,12 +598,12 @@ class UcenterController extends UcenterBaseController {
             }
             die(json::encode($res));
         }else{
-            $userObj=new userModel();
+            $userObj=new UserModel();
             $userInfo=$userObj->getUserInfo($this->user_id);
-            $checkRes=\Library\session::get('mobileValidRes2');
+            $checkRes=\Library\session::get('mobileValidate');
             if($checkRes['mobile']==$userInfo['mobile']&&time()-$checkRes['time']<1800){
                 //清除验证结果
-                \Library\session::clear('mobileValidRes2');
+                \Library\session::clear('mobileValidate');
                 $this->getView()->assign('userInfo',$userInfo);
             }else{
                 //var_dump($_SESSION);
