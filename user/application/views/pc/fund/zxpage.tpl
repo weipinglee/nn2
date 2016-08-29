@@ -66,7 +66,7 @@
 								
 							</div>
 							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>邮件地址：</span>
+								<span class="con_tit"><i>*</i>电子邮箱：</span>
 								<span><input class="text" type="text" name="mail_address" datatype="*" value="{$info['mail_address']}" /></span>
 								<span></span>
 								

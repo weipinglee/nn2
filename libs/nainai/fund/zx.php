@@ -320,7 +320,8 @@ class zx extends account{
 
                 //成功  插入数据
                 $data['no'] = $res['subAccNo'];
-                $data['name'] = iconv('utf-8','gbk',$res['subAccNm']);
+                // $data['name'] = iconv('utf-8','gbk',$res['subAccNm']);
+                $data['name'] = $res['subAccNm'];
 
                 $res = $this->attachAccount->addAttach($data);
 
@@ -492,7 +493,6 @@ class zx extends account{
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
         $res = $this->attachAccount->curl($xml);
-        
         // return $res;
         return $res['row'] ? $res['row'] : array();
 

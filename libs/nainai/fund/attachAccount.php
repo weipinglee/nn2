@@ -41,10 +41,10 @@ class attachAccount{
 	 * @param  array  $data 数据
 	 */
 	public function curl($xml){
-
+		$xml = iconv('UTF-8','GBK',$xml);
 		$header []= "Content-type:text/xml;charset=gbk";
 
-		$url = 'http://192.168.2.32:6789';
+		$url = 'http://192.168.2.11:6789';
 		$ch = curl_init($url);
 		curl_setopt($ch,CURLOPT_URL,$url);
 		curl_setopt($ch,CURLOPT_POST,1);

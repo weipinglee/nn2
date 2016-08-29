@@ -50,6 +50,7 @@ class FundController extends UcenterBaseController {
 	//中信银行签约账户
 	public function zxAction(){
 		$zx = new \nainai\fund\zx();
+		$data = $zx->attachAccountInfo($this->user_id);
 		$balance = $zx->attachBalance($this->user_id);
 		$details = $zx->attachTransDetails($this->user_id);
 		// echo '<pre>';var_dump($details);exit;
@@ -63,8 +64,8 @@ class FundController extends UcenterBaseController {
 				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['TRANTYPE']);
 			}
 		}
-
 		$this->getView()->assign('balance',$balance);
+		$this->getView()->assign('no',$data['no']);
 		$this->getView()->assign('flow',$details['row']);
 		// echo '<pre>';var_dump($details['row']);exit;
 

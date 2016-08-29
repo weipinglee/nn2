@@ -114,6 +114,16 @@ class RbacController extends InitController{
 	}
 
 	/**
+	 * 删除节点
+	 */
+	public function nodeDelAction(){
+		$node_id = safe::filterPost('node_id');
+
+		$res = $this->rbacModel->nodeDel($node_id);
+		echo JSON::encode($res);exit;
+	}
+
+	/**
 	 * 获取指定模块下控制器列表
 	 * @return [type] [description]
 	 */
