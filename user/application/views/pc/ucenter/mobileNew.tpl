@@ -1,4 +1,4 @@
-﻿
+
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
@@ -15,20 +15,20 @@
                             <span class="con_tit"><i></i>验证码：</span>
                               <div>
 
-                                <input id="inputCode" style="border:1px solid #ccc;"  placeholder="请输入验证码" type="text" class="gradient">
-                                <img id="image" style="height:36px;border:1px solid #ccc;" width="" height="45" src="{url:/login/getCaptcha}" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()" />
+                                <input id="inputCode" style="border:1px solid #ccc;width:173px;"  placeholder="请输入验证码" type="text" class="gradient">
+                                <img id="image" style="height:36px;border:1px solid #ccc;width:87px;margin-left:2px;" src="{url:/login/getCaptcha}" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()" />
                             </div>
                         </div>   
                         <div class="zhxi_con">
                             <span class="con_tit"><i></i>新手机号码：</span>
-                            <span><input style="width:252px;" class="text" placeholder="请输入手机号码" type="text" id='mobile_no' name="mobile"> </span>
+                            <span><input style="width:264px;" class="text" placeholder="请输入手机号码" type="text" id='mobile_no' name="mobile"> </span>
                             <div><input type="text" readonly="readonly" name="checkh" class="mobile_no"/></div>
                            
                         </span></div>
 
 						<div class="zhxi_con">
                             <span class="con_tit"><i></i>短信校验码：</span>
-                            <span><input type="text" style="width:105px;" id="phoneCode" name='mobileCode' class="infos text" placeholder="请输入校验码"></span><input class="send1" id="btnSendCode" type="button" value="免费获取短信校验码" onClick="getMobileCode()" />
+                            <span><input type="text" style="width:173px;" id="phoneCode" name='mobileCode' class="infos text" placeholder="请输入校验码"></span><input class="send1" id="btnSendCode" type="button" value="获取校验码" onClick="getMobileCode()" />
                             <div><input type="text" readonly="readonly" name="checkCode" class="mobile_no"/></div>
                         </div>
 						<div class="zhxi_con">
