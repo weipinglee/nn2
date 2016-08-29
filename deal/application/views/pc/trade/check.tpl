@@ -1,6 +1,28 @@
+   <div class="toplog_bor">
+    <div class="m_log w1200">
+        <div class="logoimg_left">
+            <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
+            <div class="word_box">确认订单</div>
+        </div>
+         <div class="logoimg_box">
+           <div class="sure_order">
+            <img class="" src="{views:images/password/small_1s.png}"> 
+            <p>确认订单</p>
+           </div>
+            <div class="pay_order">
+            <img class="" src="{views:images/password/small_2h.png}"> 
+            <p>支付货款</p>
+           </div>
+            <div class="plete_order">
+            <img class="" src="{views:images/password/small_3h.png}"> 
+            <p>支付完成</p>
+           </div>
+         </div>
+        
+    </div>
+   </div> 
+<div class="clearfix"></div> 
 
-<link rel="stylesheet" type="text/css" href="{views:css/password_new.css}">
-<link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
 <form method="post" {if:$data['show_payment']}pay_secret="1"{/if} auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
 
     <!--主要内容 开始-->
@@ -10,7 +32,7 @@
 
          <div class="submit_word">
                <h3 class="sure_oder">填写并核对订单信息</h3>
-               <a id="contract_review" href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}">
+               <a id="contract_review" href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" target='_blank'>
                <img src="{views:images/password/eye_b.png}" alt="" />
                <i>合同预览</i>
                </a>
@@ -213,10 +235,14 @@
                     });
 
                     $('.btoncomit').click(function(){
-                        var flag = isnum_valid();
-                        if(flag) {
-                            $(this).parents('form').submit();
+                        if({$user_id} == 0){
+                          window.location.href='{url:/login/login@user}'+'?callback='+window.location.href;
+                        }else{
+                          if(isnum_valid()) {
+                              $(this).parents('form').submit();
+                          }  
                         }
+                        
 
 
                     });
@@ -341,4 +367,7 @@
 
 
             </script>
+
+
+
 

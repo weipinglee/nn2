@@ -112,29 +112,30 @@ class zx extends account{
      }
 
     
-     public function out($user_id){
-        $accInfo = $this->attachAccount->attachInfo($user_id);
-        $clientID = tool::create_uuid($user_id);
+     public function out($data){
+        $accInfo = $this->attachAccount->attachInfo($data['user_id']);
+        $clientID = tool::create_uuid($data['user_id']);
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLFNDOUT</action>
-                    <userName>".self::USERNAME."</userName>
+                <userName>".self::USERNAME."</userName>
                 <clientID>{$clientID}</clientID>
                 <accountNo>{$accInfo['no']}</accountNo>
-                <recvAccNo></recvAccNo>
-                <recvAccNm></recvAccNm><!--收款账户名称varchar(122)-->
-                <tranAmt></tranAmt><!--交易金额decimal(15,2)-->
-                <sameBank></sameBank><!--中信标识char(1) 0：本行 1： 他行-->
-                <!--收款账户开户行信息begin-->
-                <!--收款账户若为他行，则收款账户开户行支付联行号与收款账户开户行名至少一项不为空-->
-                <recvTgfi></recvTgfi><!--收款账户开户行支付联行号varchar(20)-->
-                <recvBankNm></recvBankNm><!--收款账户开户行名varchar (122)-->
-                <!--收款账户开户行信息end-->
-                <memo></memo><!--摘要varchar(102) 可空-->
-                <preFlg></preFlg><!--预约标志（0：非预约1：预约）char(1)-->
-                <preDate></preDate><!--预约日期（格式：YYYYMMDD 预约时非空）char(8)-->
-                <preTime></preTime><!--预约时间（格式：hhmmss 预约时非空，只限100000、120000、140000、160000四个时间点）char(6)-->
+                <recvAccNo>{$data['recvaccno']}</recvAccNo>
+                <recvAccNm>{$data['recvaccnm']}</recvAccNm>
+                <tranAmt>{$data['num']}</tranAmt>
+                <sameBank>{$data['samebank']}</sameBank>
+
+                <recvTgfi>{$data['recvtgfi']}</recvTgfi>
+                <recvBankNm>{$data['recvbanknm']}</recvBankNm>
+                
+                <memo></memo>
+                <preFlg>0</preFlg>
+                <preDate></preDate>
+                <preTime></preTime>
             </stream>";
+
+        return $this->attachAccount->curl($xml);
      }
 
     /**
@@ -172,11 +173,13 @@ class zx extends account{
      */
 
     public function freezePay($from,$to=0,$num,$time='',$amount=''){
+        $amount = number_format($amount,2);
         $freeze_records = $this->freezeTrans($from,$time);//加缓存TODO
         if(is_array($num)){
             $temp = array();
             $freeze_nos = array();
             foreach ($num as $key=>$value) {
+                $value = number_format($value,2);
                 $code = $this->getFreezeCode($freeze_records,$amount ? $amount[$key] : $value,$temp);
                 if($code){
                     $freeze_nos [$value]= $code;
@@ -193,6 +196,7 @@ class zx extends account{
                 }
             }
         }else{
+            $num = number_format($num,2);
             $code = $this->getFreezeCode($freeze_records,$amount ? $amount : $num);
             if(!$code) return '冻结信息获取错误:'.($amount ? $amount : $Num);
             $res = $this->bankTransfer('',$num,$from,$to,'freezePay','',$code); 

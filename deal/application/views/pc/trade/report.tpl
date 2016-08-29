@@ -1,5 +1,21 @@
-<link rel="stylesheet" type="text/css" href="{views:css/password_new.css}">
-<link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
+   <div class="toplog_bor">
+    <div class="m_log w1200">
+        <div class="logoimg_left">
+            <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
+            <div class="word_box">报价单</div>
+        </div>
+         <div class="logoimg_right">
+            <img class="shouy" src="{views:images/password/iphone.png}"> 
+            <h3>服务热线：<b>400-6238-086</b></h3>
+         </div>
+        
+    </div>
+   </div> 
+<div class="clearfix"></div>
+
+
+
+
 
 <!------------------logo 结束-------------------->
    
@@ -92,14 +108,26 @@
                     {/if}
 
                 </div>
-                <div class="sunmit_btn"><a href="javascript:void(0)" onclick="$(this).parents('form').submit()">提交</a></div>
-
+                <div class="sunmit_btn"><a href="javascript:void(0)">提交</a></div>
+                <script type="text/javascript">
+                    $(function(){
+                        $('.sunmit_btn a').click(function(){
+                            if({$user_id} == 0){
+                                window.location.href='{url:/login/login@user}'+'?callback='+window.location.href;
+                            }else{
+                                $(this).parents('form').submit();
+                            }
+                        });
+                    });
+                </script>
                 </form>
             </div>
        </div> 
        </div>
    </div>
-       <!------------------订单 结束-------------------->
+
+
+
 
 
 

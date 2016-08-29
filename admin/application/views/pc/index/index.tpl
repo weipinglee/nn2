@@ -3,6 +3,7 @@
  <head>
         <title>交易管理后台</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="x-ua-compatible" content="IE=edge" >
 
         
         <!-- jQuery AND jQueryUI -->
@@ -22,9 +23,8 @@
         <script type="text/javascript" src="{views:content/settings/main.js}"></script>
 		  <script type="text/javascript">
 		  $(function(){
-		  var h = $(window).height() -42;
-
-				$('iframe').attr('height',h+'px');
+		      var h = $(window).height() -42;
+		      $('iframe').attr('height',h+'px');
 		  })
 				
 		
@@ -67,22 +67,22 @@
                     <ul>
                         <li class="current"><a target="content">权限管理</a>
                             <ul>
-                                <li><a href="{url:/system/rbac/roleList}" target="content">管理员分组</a></li>
-                                <li><a href="{url:/system/rbac/accessList}" target="content">权限分配</a></li>
+                                <li><a href="{url:system/rbac/roleList}" target="content">管理员分组</a></li>
+                                <li><a href="{url:system/rbac/accessList}" target="content">权限分配</a></li>
                             </ul>
                         </li>
                         <li><a target="content">系统配置项</a>
                             <ul>
-                                <li><a href="{url:/system/Confsystem/creditList}" target="content">信誉值配置列表</a></li>
-                                <li><a href="{url:/system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
-                                <li><a href="{url:/system/Confsystem/generalList}" target="content">一般设置</a></li>
+                                <li><a href="{url:system/Confsystem/creditList}" target="content">信誉值配置列表</a></li>
+                                <li><a href="{url:system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
+                                <li><a href="{url:system/Confsystem/generalList}" target="content">一般设置</a></li>
                             </ul>
                         </li>
                         <li><a target="content">管理员信息</a>
                             <ul>
-                                <li><a href="{url:/system/admin/adminAdd}" target="content">新增管理员</a></li>
-                                <li><a href="{url:/system/admin/adminList}" target="content">管理员列表</a></li>
-                                <li><a href="{url:/system/admin/logList}" target="content">管理员操作记录</a></li>
+                                <li><a href="{url:system/admin/adminAdd}" target="content">新增管理员</a></li>
+                                <li><a href="{url:system/admin/adminList}" target="content">管理员列表</a></li>
+                                <li><a href="{url:system/admin/logList}" target="content">管理员操作记录</a></li>
                             </ul>
                         </li>
                         <!-- <li><a  target="content">系统设置</a></li> -->
@@ -112,13 +112,13 @@
                         <!--
                         <li><a href='' target="content">子账户权限管理</a>
                             <ul>
-                                <li><a href="{url:/member/subRoleList}" target="content">角色列表</a></li>
-                                <li><a href="{url:/member/roleAdd}" target="content">添加角色</a></li>
+                                <li><a href="{url:member/subRoleList}" target="content">角色列表</a></li>
+                                <li><a href="{url:member/roleAdd}" target="content">添加角色</a></li>
                             </ul>
                         </li>-->
 
                         <li><a href="{url:member/usergroup/groupList}" target="content">会员等级</a></li>
-                        <li><a href='javascript:voie(0)' target="content">会员管理</a>
+                        <li><a target="content">会员管理</a>
                             <ul>
                                 <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
                                 <li><a href="{url:member/member/OnLineList}" target="content">在线会员信息</a></li>
@@ -126,28 +126,28 @@
                             </ul>
                         </li>
 
-                        <li><a href='javascript:voie(0)' target="content">菜单管理</a>
+                        <li><a target="content">菜单管理</a>
                          <ul>
                                 <li><a href="{url:member/Menu/MenuList}" target="content"> 菜单列表</a></li>
                                 <li><a href="{url:member/Menu/addMenu}" target="content">菜单添加</a></li>
                                 <li><a href="{url:member/Menu/menuRoleList}" target="content">菜单角色列表</a></li>
                             </ul>
                             </li>
-                        <li><a href='javascript:voie(0)' target="content">代理商管理</a>
+                        <li><a target="content">代理商管理</a>
                             <ul>
                                 <li><a href="{url:member/agent/agentList}" target="content">代理商列表</a></li>
                                 <li><a href="{url:member/agent/addAgent}" target="content">代理商添加</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href='javascript:voie(0)' target="content">推荐商户</a>
+                            <a target="content">推荐商户</a>
                             <ul>
                                 <li><a href="{url:member/companyRec/recList}" target="content" >推荐商户</a></li>
                                 <li><a href="{url:member/companyRec/recAdd}" target="content" >添加推荐</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href='javascript:voie(0)' target="content">支付密码修改</a>
+                            <a target="content">支付密码修改</a>
                             <ul>
                                 <li><a href="{url:member/member/applyPayList}" target="content" >待审核</a></li>
                                 <li><a href="{url:member/member/resetpayList}" target="content" >重置密码</a></li>
@@ -170,23 +170,23 @@
 
                         <li><a target="content">报盘管理</a>
                             <ul>
-                                <li><a href="{url:/trade/OfferManage/kefuOfferList}" target="content">客服报盘列表</a></li>
-                                <li><a href="{url:/trade/OfferManage/offerList}" target="content">报盘管理</a></li>
-                                <li><a href="{url:/trade/OfferManage/offerReview}" target="content">报盘审核</a></li>
-                                <li><a href="{url:/trade/OfferManage/expireOfferList}" target="content">历史报盘信息查询</a></li>
-                                <li><a href="{url:/trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
-                                <li><a href="{url:/trade/OfferManage/cancelList}" target="content">撤销报盘列表</a></li>
+                                <li><a href="{url:trade/OfferManage/kefuOfferList}" target="content">客服报盘列表</a></li>
+                                <li><a href="{url:trade/OfferManage/offerList}" target="content">报盘管理</a></li>
+                                <li><a href="{url:trade/OfferManage/offerReview}" target="content">报盘审核</a></li>
+                                <li><a href="{url:trade/OfferManage/expireOfferList}" target="content">历史报盘信息查询</a></li>
+                                <li><a href="{url:trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
+                                <li><a href="{url:trade/OfferManage/cancelList}" target="content">撤销报盘列表</a></li>
                             </ul>
                         </li>
                         <li><a target="content">保险管理</a>
                             <ul>
-                                <li><a href="{url:/trade/Insurance/insuranceList}" target="content">保险产品列表</a></li>
-                                <li><a href="{url:/trade/Insurance/rateList}" target="content">产品费率列表</a></li>
+                                <li><a href="{url:trade/Insurance/insuranceList}" target="content">保险产品列表</a></li>
+                                <li><a href="{url:trade/Insurance/rateList}" target="content">产品费率列表</a></li>
                             </ul>
                         </li>
                         <li><a target="content">合同管理</a>
                             <ul>
-                                <li><a href="{url:trade/contract/contractList}" target="content">合同列表</a></li>
+                                <li><a href="{url:trade/pairing/allcontractList}" target="content">合同列表</a></li>
                                 <li><a href="{url:trade/pairing/contractList}" target="content">添加撮合人</a></li>
                                 <li><a href="{url:trade/pairing/pairingContractList}" target="content">未完成撮合合同列表</a></li>
                                 <li><a href="{url:trade/pairing/pairingContractComList}" target="content">已完成撮合合同列表</a></li>
@@ -302,16 +302,16 @@
                                 <li><a href="{url:tool/help/helpList}" target="content">帮助列表</a></li>
                             </ul>
                         </li>
-                            <li><a href="{url:/tool/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
+                            <li><a href="{url:tool/friendlyLink/frdLinkList}" target="content">友情链接管理</a>
                                 <ul>
-                                    <li><a href="{url:/tool/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
-                                    <li><a href="{url:/tool/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
+                                    <li><a href="{url:tool/friendlyLink/addFrdLink}" target="content">新增友情链接</a></li>
+                                    <li><a href="{url:tool/friendlyLink/frdLinkList}" target="content">友情链接列表</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{url:/tool/slide/slideList}" target="content">幻灯片管理</a>
+                            <li><a href="{url:tool/slide/slideList}" target="content">幻灯片管理</a>
                                 <ul>
-                                    <li><a href="{url:/tool/slide/addSlide}" target="content">新增幻灯片</a></li>
-                                    <li><a href="{url:/tool/slide/slideList}" target="content">幻灯片列表</a></li>
+                                    <li><a href="{url:tool/slide/addSlide}" target="content">新增幻灯片</a></li>
+                                    <li><a href="{url:tool/slide/slideList}" target="content">幻灯片列表</a></li>
                                 </ul>
                             </li>
                     </ul>
@@ -345,7 +345,11 @@
                             if(href){
                                 for(var i=0;i<menus.length;i++){
                                     var href = href.toLocaleLowerCase();
-                                    if(href.indexOf(menus[i]) > 0){
+                                    var len = menus[i].length-href.length;
+                                    // if(href.indexOf(menus[i]) > 0){
+                                    // console.log(menus[i].lastIndexOf(href));
+                                    
+                                    if(href.lastIndexOf(menus[i]) == -len){
                                         flag = 1;
                                     }
                                 }
@@ -403,7 +407,7 @@
               CONTENT 
                         --> 
         <div class="main_content" id="content_1" >
-            <iframe class="white" scrolling="yes" frameborder="0" src="{url:/index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="728px"  id="iframe" style="overflow-y:scroll;"></iframe>
+            <iframe class="white" scrolling="yes" frameborder="0" src="{url:index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="728px"  id="iframe" style="overflow-y:scroll;"></iframe>
 
      </div>
 </div>

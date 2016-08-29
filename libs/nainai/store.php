@@ -487,6 +487,7 @@ class store{
                     foreach ($imgData as $key => $imgUrl) {
                         $imgData[$key]['products_id'] = $product_id;
                     }
+                    $storeProductObj->table('product_photos')->where(array('products_id'=>$product_id))->delete();
                     $storeProductObj->table('product_photos')->data($imgData)->adds(1);
 
                 }

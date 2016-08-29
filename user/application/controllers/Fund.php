@@ -93,6 +93,27 @@ class FundController extends UcenterBaseController {
 		}
 	}
 
+	public function zxtxAction(){
+
+	}
+
+	public function zxtxHandleAction(){
+		if(IS_POST){
+			$data = array(
+			'num'=>safe::filterPost('num'),
+			'recvaccno'=>safe::filterPost('recvaccno'),
+			'recvaccnm'=>safe::filterPost('recvaccnm'),
+			'samebank'=>safe::filterPost('samebank'),
+			'recvtgfi'=>safe::filterPost('recvtgfi'),
+			'recvbanknm'=>safe::filterPost('recvbanknm'));
+			$zx = new \nainai\fund\zx();
+			$res = $zx->out($data);
+			var_dump($res);exit;
+			die(JSON::encode($res));
+		}
+		return false;
+	}
+
 	//处理充值操作
 	public function doFundInAction() {
 

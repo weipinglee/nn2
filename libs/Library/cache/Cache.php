@@ -50,22 +50,7 @@ class Cache {
         }
     }
 
-    /**
-     * 连接缓存
-     * @access public
-     * @param string $type 缓存类型
-     * @param array $options  配置数组
-     * @return object
-     */
-    public function connect($type='',$options=array()) {
-        if(empty($type))  $type = C('DATA_CACHE_TYPE');
-        $class  =   strpos($type,'\\')? $type : 'Think\\Cache\\Driver\\'.ucwords(strtolower($type));            
-        if(class_exists($class))
-            $cache = new $class($options);
-        else
-            // E(L('_CACHE_TYPE_INVALID_').':'.$type);
-        return $cache;
-    }
+
 
     /**
      * 取得缓存类实例

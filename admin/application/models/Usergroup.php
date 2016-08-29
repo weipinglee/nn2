@@ -26,7 +26,7 @@ class UsergroupModel{
 		array('credit','number','信誉值分界线格式错误',0,'regex'),
 		array('caution_fee','/^([1-9][0-9]?|100)$/','保证金比率格式错误',0,'regex'),
 		array('free_fee','/^([1-9][0-9]?|100)$/','自由报盘费用比率格式错误',0,'regex'),
-		array('depute_fee','/^([1-9][0-9]?|100)$/','委托报盘手续费比率格式错误',0,'regex'),
+		//array('depute_fee','/^([1-9][0-9]?|100)$/','委托报盘手续费比率格式错误',0,'regex'),
 		// array('create_time','date','创建时间格式错误',1,'regex'),
 	);
 

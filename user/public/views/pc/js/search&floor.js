@@ -20,7 +20,6 @@ $(function () {
         var windowHeight = $(window).height();
         var contentItems = $("#mainContent").find(".i_market .i_market_left");
         var currentItem = "";
-        console.info(scrollTop);
         if (scrollTop + windowHeight == documentHeight) {
             currentItem = "#" + contentItems.last().attr("id");
         } else {

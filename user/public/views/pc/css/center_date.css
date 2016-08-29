@@ -198,7 +198,7 @@
 .cksl{
 	float: left;
     line-height: 50px;
-    padding-left: 10px;
+    padding-left: 150px;
     position: relative;
 }
 .cksl a.ck_span,.cksl a.ck_span2,.cksl a.ck_span3{
@@ -235,6 +235,8 @@
     box-shadow: 1px 1px 2px 3px #f3f3f3;
    	-webkit-box-shadow:1px 1px 2px 3px #f3f3f3; /*-----这是兼容谷歌浏览器*/
 	-moz-box-shadow:1px 1px 2px 3px #f3f3f3; /*--------这是兼容火狐浏览器*/
+    background: #fff;
+    z-index: 999;
 }
 .cksl .cksl_img img{
 	width: 300px;

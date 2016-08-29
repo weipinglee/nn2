@@ -1166,7 +1166,7 @@ tr.form_infoma{
 
 .counter{
     float: left;
-    margin: 0 30px;
+    margin: 0 20px;
     border: 1px solid #e6e6e6;
     border-radius: 3px;
     background: #fff;
@@ -1185,7 +1185,7 @@ tr.form_infoma{
 }
 .counter #text_box{
     border-bottom: 1px solid #e6e6e6;
-    width: 30px;
+    width: 50px;
 }
 .order_form.suo{
     margin-bottom: 35px;

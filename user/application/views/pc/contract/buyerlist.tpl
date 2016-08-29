@@ -16,7 +16,6 @@
 									<td width="180px">产品详情</td>
 									<th width="260px">金额及付款方式</th>
 									<th width="200px">主要指标</td>
-									<th>买家信息</th>
 									<th>交易操作</th>
 								</tr>
                                 <tr>
@@ -59,9 +58,6 @@
 											<!-- <div class="div_heights">规格：230*114*65</div>
 											<div class="div_heights">材质：高铝质</div> -->
 											<div class="div_heights">数量：{$item['num']}{$item['unit']}</div>
-										</td>
-										<td>
-											<div class="div_heights">{$item['username']} <i class="icon-user-md "></i></div>
 										</td>
 										<td>
 											

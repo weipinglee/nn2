@@ -736,7 +736,7 @@ class Order{
 				$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
 				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order['user_id'];
 				if($reduceData['reduce_amount'] >= $order['pay_deposit'])
-					return tool::getSuccInfo(0,'扣减货款超过定金数额');
+					return tool::getSuccInfo(0,'扣减货款不能超过或等于定金数额');
 				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'操作用户错误');
 				$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//状态置为买家已确认质量
@@ -808,20 +808,21 @@ class Order{
 						$amount = floatval($amount*0.6) ;
 
 						$res = $this->payLog($order_id,$user_id,0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
-
+						
 						if($res === true){
 							$account_deposit = $this->base_account->get_account($order['buyer_deposit_payment']);
 							$account_retainage = $this->base_account->get_account($order['retainage_payment']);
 							$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage) : is_object($account_deposit);
 
 							if($cond){
-								$note = '卖方确认质量合格'.$info['order_no'].'解冻支付定金的60% '.number_format(($order['pay_deposit']-$order['reduce_amount'])*0.6,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+								$deposit_intro = $order['pay_deposit'] == $order['amount'] ? '货款' : '定金';
+								$note = '卖方确认质量合格'.$order['order_no'].'解冻支付'.$deposit_intro.'的60% '.number_format(($order['pay_deposit']-$order['reduce_amount'])*0.6,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 								$deposit_res = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6,$note,$order['pay_deposit']);
 
 								if($deposit_res !== true) {
 									$error = $deposit_res;
 								}else{
-									$note = '卖方确认质量合格'.$info['order_no'].'解冻支付尾款的60% '.number_format($order['pay_retainage']*0.6,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+									$note = '卖方确认质量合格'.$order['order_no'].'解冻支付尾款的60% '.number_format($order['pay_retainage']*0.6,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 									$retainage_res = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.6,$note,$order['pay_retainage']) : true;
 									$error = $retainage_res === true ? '' : $retainage_res;
 
@@ -883,7 +884,7 @@ class Order{
 				$orderData['end_time'] = date('Y-m-d H:i:s',time());
 				$orderData['id'] = $order_id;
 
-				try {
+				try {	
 					$this->order->beginTrans();
 					$res = $this->orderUpdate($orderData);
 					if($res['success'] == 1){
@@ -906,22 +907,22 @@ class Order{
 						$cond =  $order['pay_retainage'] ? is_object($account_deposit) && is_object($account_retainage): is_object($account_deposit);
 						$cond = $order['seller_deposit'] ? $cond && is_object($account_seller_deposit) : $cond;
 						if($cond){
-							$note = '买方确认合同完成'.$info['order_no'].'解冻卖方保证金 '.$order['seller_deposit'];
+							$note = '买方确认合同完成'.$order['order_no'].'解冻卖方保证金 '.$order['seller_deposit'];
 							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit'],$note) : true;
-
 							if($r1 === true){
-								$note = '买方确认合同完成'.$info['order_no'].'解冻支付定金的40% '.number_format(($order['pay_deposit']-$reduce_amount)*0.4,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+								$deposit_intro = $order['pay_deposit'] == $order['amount'] ? '货款' : '定金';
+								$note = '买方确认合同完成'.$order['order_no'].'解冻支付'.$deposit_intro.'的40% '.number_format(($order['pay_deposit']-$reduce_amount)*0.4,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 								$r2 = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$reduce_amount)*0.4,$note,0.4*$order['pay_deposit']+0.6*$reduce_amount);
 								
 								if($r2 !== true){
 									$error = $r2;
 								}else{
-									$note = '买方确认合同完成'.$info['order_no'].'解冻支付尾款的40% '.number_format($order['pay_retainage']*0.4,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+									$note = '买方确认合同完成'.$order['order_no'].'解冻支付尾款的40% '.number_format($order['pay_retainage']*0.4,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 									$r3 = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.4,$note) : true;	
 									if($r3 !== true){
 										$error = $r3;
 									}else{
-										$note = '买方确认合同完成'.$info['order_no'].'解冻扣减货款 '.$reduce_amount;
+										$note = '买方确认合同完成'.$order['order_no'].'解冻扣减货款 '.$reduce_amount;
 										$r4 = $reduce_amount > 0 ? $account_deposit->freezeRelease($buyer,$reduce_amount,$note) : true;			
 										$error = $r4 === true ? '' : $r4;
 
@@ -935,9 +936,11 @@ class Order{
 
 										//信誉值增加
 										$configs_credit = new \nainai\CreditConfig();
-										$configs_credit->changeUserCredit($seller,'cert_contract',$order['amount']);
-										$configs_credit->changeUserCredit($buyer,'cert_contract',$order['amount']);
+										$a = $configs_credit->changeUserCredit($seller,'cert_contract',$order['amount']);
+										$configs_credit = new \nainai\CreditConfig();
+										$b = $configs_credit->changeUserCredit($buyer,'cert_contract',$order['amount']);
 										
+
 									}
 								}
 							}else{

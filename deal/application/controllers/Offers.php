@@ -42,6 +42,7 @@ class OffersController extends PublicController {
 		$this->getView()->assign('amount',$amount);
 		$this->getView()->assign('info',$info);
 		$this->getView()->assign('pay_deposit',$pay_deposit);
+		$this->getView()->setLayout('layout2');
 	}
 
 	//列表
@@ -75,7 +76,6 @@ class OffersController extends PublicController {
 		$search = $this->getRequest()->getParam('content');
 		$search = safe::filter($search);
 		$this->getView()->assign('search',$search);
-
 		//获取商品顶级分类
 		$productModel = new product();
 		$category = $productModel->getTopCate();
@@ -87,7 +87,7 @@ class OffersController extends PublicController {
 		$this->getView()->assign('cate', $category);
 		$this->getView()->assign('type', $type);
 		$this->getView()->assign('mode', $mode);
-		$this->getView()->assign('user_type', $this->user_type);
+		$this->getView()->assign('user_type', $this->login['user_type']);
 	}
 
 
@@ -250,6 +250,7 @@ class OffersController extends PublicController {
 			$this->getView()->assign('data',$info);
 			$this->getView()->assign('user',$userData);
 			$this->getView()->assign('kefu',$kefuData);
+			$this->getView()->assign('user_type', $this->login['user_type']);
 		}
 	}
 

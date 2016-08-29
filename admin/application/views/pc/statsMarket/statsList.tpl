@@ -16,7 +16,6 @@
 				<!-- <th width="25"><input type="checkbox" name="checkall" value=""></th> -->
 				<th width="150">商品名称</th>
                 <th width="100">价格</th>
-                <th width="100">变化幅度</th>
 				<th width="80">统计时间</th>
 				<th width="200">操作</th>
 			</tr>
@@ -28,7 +27,6 @@
 
 				<td>{$item['name']}</td>
                 <td>{$item['price']}</td>
-                <td>{$item['change_range']}%</td>
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
                     <a title="编辑" href="{url:information/statsMarket/addStats}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
@@ -39,7 +37,7 @@
 		</tbody>
 
 	</table>
-		{$bar}
+		{$pageBar}
 	</div>
 </div>
 

@@ -1,6 +1,28 @@
-
-<link rel="stylesheet" type="text/css" href="{views:css/password_new.css}">
-<link rel="stylesheet" type="text/css" href="{views:css/submit_order.css}"/>
+   <div class="toplog_bor">
+    <div class="m_log w1200">
+        <div class="logoimg_left">
+            <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
+            <div class="word_box">支付完成</div>
+        </div>
+         <div class="logoimg_box">
+           <div class="sure_order">
+            <img class="" src="{views:images/password/small_1q.png}"> 
+            <p>确认订单</p>
+           </div>
+            <div class="pay_order">
+            <img class="" src="{views:images/password/small_2q.png}"> 
+            <p>支付货款</p>
+           </div>
+            <div class="plete_order">
+            <img class="" src="{views:images/password/small_3s.png}"> 
+            <p>支付完成</p>
+           </div>
+         </div>
+        
+    </div>
+   </div> 
+<div class="clearfix"></div> 
+ 
 
     <!--主要内容 开始-->
     <div id="mainContent" style="background:#FFF;"> 
@@ -27,4 +49,5 @@
 
     </div> 
     <div class="line_dashed"></div>
-    <!--主要内容 结束-->
+
+

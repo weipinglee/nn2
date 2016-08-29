@@ -1,6 +1,7 @@
 <link rel="stylesheet" type="text/css" href="{views:css/offer_ask.css}"/>
 <link href="{views:css/pro_show.css}" rel="stylesheet">
 <link href="{views:css/tender_con.css}" rel="stylesheet">
+<script src="{views:js/product/attr.js}"></script>
     <!--主要内容 开始-->
     <div id="mainContent">
         <div class="page_width">
@@ -36,6 +37,7 @@
                     </div>
                     {/if}
 
+        <input type='hidden' name='user_type' value="{$user_type}">
                 </div>
                 <div class="offer_right">
                     <ul>
@@ -48,9 +50,9 @@
                     <input id="text_box" name="" type="text" value="1">  
                     <input id="add" name="" type="button" value="+">  
                   </div> -->
-
+                  
                     <div class="buy_btn baoj">
-                        <a href="{url:/trade/report?id=$data['id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即报价</b></a>
+                        <a href="#" onclick="report('{url:/trade/report?id=$data['id']}')" ><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即报价</b></a>
                     </div>
 
                 </div>

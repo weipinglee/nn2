@@ -19,12 +19,26 @@ class tradeController extends \nainai\controller\Base {
 	protected $certType = 'deal';
 	public function init(){
 		parent::init();
+        $right = new \Library\checkRight();
+        $isLogin = $right->checkLogin();
+        if($isLogin){
+           $this->login = \Library\session::get('login');
+           //获取未读消息
+           $messObj=new \nainai\message($this->login['user_id']);
+           $mess=$messObj->getCountMessage();
+           $this->getView()->assign('mess',$mess);
+           $this->getView()->assign('login',1);
+           $this->getView()->assign('username',$this->login['username']);
+        }else{
+            $this->getView()->assign('login',0);
+        }
 		$this->getView()->setLayout('layout');
 		$this->offer = new OffersModel();
 	}
 
 	//付款
 	public function buyerPayAction(){
+
 		$id = safe::filterPost('id','int');
 		$num = safe::filterPost('num');
 		$paytype = safe::filterPost('paytype');
@@ -159,6 +173,7 @@ class tradeController extends \nainai\controller\Base {
 
 	//支付页面
 	public function checkAction(){
+		$this->getView()->setLayout('layout2');
 
 		$id = safe::filter($this->_request->getParam('id'),'int',1);
 
@@ -199,12 +214,15 @@ class tradeController extends \nainai\controller\Base {
 		if($info['insurance'] == 0){
 			//已经申请了的不能在申请
 			$risk = new \nainai\insurance\RiskApply();
-			$data = $risk->getRiskApply(array('buyer_id' => $this->login['user_id'], 'offer_id' => $info['id']), 'id');
+			$data = $risk->getRiskApply(array('buyer_id' => $this->user_id, 'offer_id' => $info['id']), 'id');
 			if (!empty($data)) {
 				$info['insurance'] = 1;
 			}
 		}
+
+		$this->getView()->assign('user_id',$this->user_id ? $this->user_id : 0);
 		$this->getView()->assign('data',$info);
+
 
 	}
 
@@ -226,12 +244,14 @@ class tradeController extends \nainai\controller\Base {
 				$this->error('采购不存在');exit;
 			}
 
-
+			$this->getView()->setLayout('');
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
+			$this->getView()->assign('user_id', $this->user_id ? $this->user_id : 0);
 		}else{
 			$this->error('未知的采购报盘!');
 		}
+		$this->getView()->setLayout('layout2');
 
 	}
 

@@ -40,7 +40,7 @@ class fundModel extends \nainai\user\UserBank{
 
         $amount = $data['amount'];
         $withdrawRequest = new M('withdraw_request');
-        if ($userFund != 0 && $userFund > $amount) {
+        if ($userFund != 0 && $userFund >= $amount) {
             $check = $withdrawRequest->validate($this->outFundRules,$data);
             if(false == $check)
                  return tool::getSuccInfo(0,$withdrawRequest->getError());
