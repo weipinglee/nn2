@@ -19,6 +19,20 @@ class tradeController extends \nainai\controller\Base {
 	protected $certType = 'deal';
 	public function init(){
 		parent::init();
+		$right = new \Library\checkRight();
+        $isLogin = $right->checkLogin();
+		if($isLogin){
+           $this->login = \Library\session::get('login');
+           //获取未读消息
+           $messObj=new \nainai\message($this->login['user_id']);
+           $mess=$messObj->getCountMessage();
+           $this->getView()->assign('mess',$mess);
+           $this->getView()->assign('login',1);
+           $this->getView()->assign('username',$this->login['username']);
+        }else{
+            $this->getView()->assign('login',0);
+        }
+
 		$this->getView()->setLayout('layout');
 		$this->offer = new OffersModel();
 	}
