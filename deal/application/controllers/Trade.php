@@ -175,6 +175,7 @@ class tradeController extends \nainai\controller\Base {
 	//支付页面
 	public function checkAction(){
 
+		$this->getView()->setLayout('layout2');
 		$id = safe::filter($this->_request->getParam('id'),'int',1);
 
 		$info = $this->offer->offerDetail($id);
@@ -222,7 +223,7 @@ class tradeController extends \nainai\controller\Base {
 
 		$this->getView()->assign('user_id',$this->user_id ? $this->user_id : 0);
 		$this->getView()->assign('data',$info);
-		$this->getView()->setLayout('');
+		
 
 	}
 
@@ -249,7 +250,7 @@ class tradeController extends \nainai\controller\Base {
 		}else{
 			$this->error('未知的采购报盘!');
 		}
-
+		$this->getView()->setLayout('layout2');
 	}
 
 

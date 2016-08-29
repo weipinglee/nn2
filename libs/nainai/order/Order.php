@@ -798,7 +798,7 @@ class Order{
 						$amount = floatval($amount*0.6) ;
 
 						$res = $this->payLog($order_id,$user_id,0,'卖家确认提货质量'.($reduce_amount ? "（扣减款项：$reduce_amount)" : ''));
-
+						
 						if($res === true){
 							$account_deposit = $this->base_account->get_account($order['buyer_deposit_payment']);
 							$account_retainage = $this->base_account->get_account($order['retainage_payment']);
