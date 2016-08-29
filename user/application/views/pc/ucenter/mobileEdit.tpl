@@ -17,7 +17,7 @@
                               <div>
 
                                 <input id="inputCode" placeholder="请输入验证码" type="text" class="gradient" style="float:left;width: 238px;">
-                                <img id='image' width="140px" height="37px" src="{url:/login/getCaptcha}" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()" style="border:1px solid #c0c0c0;float:left;margin-left:5px;"/>
+                                <img id='image' width="140px" height="37px" src="{url:/login/getCaptcha}" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()" style="border:1px solid #c0c0c0;float:left;margin-left:5px;width:83px;"/>
                               <!--   <input type="button" class="yzm_submit" value="确定" id="submit"> -->
                             </div>
                         </div>
@@ -25,7 +25,7 @@
 
 						<div class="zhxi_con">
                             <span class="con_tit"><i></i>短信校验码：</span>
-                            <span><input type="text" name='mobileCode' id="phone" class="infos text gradient" placeholder="请输入校验码" style="float:left;"/></span><input class="send1" type="button" value="免费获取短信校验码" onClick="getMobileCode()"  style="float:left;"/>
+                            <span><input type="text" name='mobileCode' id="phone" class="infos text gradient" placeholder="请输入校验码" style="float:left;"/></span><input class="send1" type="button" value="获取校验码" onClick="getMobileCode()"  style="float:left;"/>
                             <div><input type="text" readonly="readonly" name="checkCode" class="mobile_no" style="display:none;"/></div>
                         </div>
                     <div style="clear:both;"></div>

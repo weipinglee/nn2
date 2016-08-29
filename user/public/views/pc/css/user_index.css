@@ -318,6 +318,9 @@ text-align: left;
     float: left;
 	line-height:38px;
 }
+.zhxi_con span.con_tit.line{
+    line-height: 31px;
+}
 .zhxi_con span.con_con{
    display: block;
     width: 790px;

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0038)http://www.nainaiwang.com/#index_banner6 -->
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" /><title>
         耐耐网
     </title><meta name="Keywords" content="耐火材料、耐耐网"><meta name="Description" content="耐火材料、耐耐网">
     <script type="text/javascript" defer="" async="" src="{views:js/uta.js}"></script>
@@ -95,12 +95,14 @@ z-index:1000;">
 <div id="footer">
 
     <div class="fotter_bq ">
-        <div>
-            Copyright&nbsp;&nbsp; © 2009-2016&nbsp;&nbsp;<a href="http://www.nainaiwang.com/" target="_blank" >nainaiwang.com</a>&nbsp;耐耐云商科技有限公司&nbsp;
-            版权所有
+         <div>
+            Copyright&nbsp;&nbsp; © 2000-2015&nbsp;&nbsp;耐耐云商科技有限公司&nbsp;版权所有&nbsp;&nbsp; 网站备案/许可证号:沪ICP备15028925号
         </div>
         <div>
-            网站备案/许可证号:沪ICP备15028925号
+            服务电话：4006238086 地址:上海浦东新区唐镇上丰路977号b座
+        </div>
+        <div>
+            增值电信业务经营许可证沪B2-20150196
         </div>
     </div>
 
