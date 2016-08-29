@@ -677,6 +677,12 @@ class UcenterController extends UcenterBaseController {
      * 支付密码step1
      */
     public function paysecretsAction(){
+        $resetModel = new \nainai\user\ApplyResetpay();
+        $info = $resetModel->getApplyResetpay(array('uid' => $this->user_id, 'status' => $resetModel::APPLY), 'id');
+        if (intval($info['id']) > 0) {
+            $this->redirect('paysecretend');
+        }
+
         $model = new UserModel();
         $info = $model->getUserInfo($this->user_id);
 
@@ -690,7 +696,7 @@ class UcenterController extends UcenterBaseController {
             $code = safe::filterPost('code');
             $captchaObj = new captcha();
             if (!$captchaObj->check($code)) {
-                // die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
+                die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
             }
             $userObj = new UserModel();
             $info = $userObj->getUserInfo($this->user_id);
@@ -756,6 +762,12 @@ class UcenterController extends UcenterBaseController {
            $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
             exit(json::encode($res));
         }
+
+        $resetModel = new \nainai\user\ApplyResetpay();
+        $info = $resetModel->getApplyResetpay(array('uid' => $this->user_id, 'status' => $resetModel::APPLY), 'id');
+        if (intval($info['id']) > 0) {
+            $this->redirect('paysecretend');
+        }
     }
 
     public function paysecretcompanyAction(){
@@ -781,6 +793,12 @@ class UcenterController extends UcenterBaseController {
             }
            $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
             exit(json::encode($res));
+        }
+
+        $resetModel = new \nainai\user\ApplyResetpay();
+        $info = $resetModel->getApplyResetpay(array('uid' => $this->user_id, 'status' => $resetModel::APPLY), 'id');
+        if (intval($info['id']) > 0) {
+            $this->redirect('paysecretend');
         }
     }
 

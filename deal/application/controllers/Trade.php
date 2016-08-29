@@ -211,9 +211,6 @@ class tradeController extends \nainai\controller\Base {
 	 * 报价页面
 	 */
 	public function reportAction(){
-		if($this->user_type==0){
-			$this->error('个人用户不能报价');exit;
-		}
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int');
 
