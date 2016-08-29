@@ -17,36 +17,6 @@
 <body>
     
    <!------------------公用头部控件 开始-------------------->
- <div class="login_top">
-    <ul class="w1200">
-      <ul class="topnav_left">
-        <li><a href="{url:/index/index@deal}"><img class="shouy mobil" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
-        <li class="space">
-          {if:$username}您好，
-                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">{$username}</a>
-                {else:}
-                <span>您好，欢迎进入耐耐网</span>
-            {/if}
-        </li>
-        {if:$login==0}
-            <li><a href="{url:/login/login@user}" target="_blank">请登录</a></li>
-            <li><a href="{url:/login/register@user}" target="_blank">欢迎注册</a></li>
-            {else:}
-            <li><a href="{url:/login/logOut@user}" target="_blank">退出</a></li>
-        {/if}
-      </ul>
-      <div class="topnav_right">
-      <ul >
-        <!-- <li><a href="">会员中心</a><i>|</i></li>
-        <li><a href="">我的合同</a><i>|</i></li> -->
-        <li><a href="{url:/message/usermail@user}">消息中心{if:$login==1}<em class="information">{$mess}</em>{/if}</a><i>|</i></li>
-        <!-- <li><a href=""><img class="shouy mobil" src="{views:images/password/mobile.png}">手机版</a><i>|</i></li> -->
-        <li><a href="javascript:;" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><i>|</i></li>
-        <li>交易时间&nbsp;09:00-18:00</li>
-     </ul> 
-     </div>
-    </ul>
-</div>
    <div class="toplog_bor">
     <div class="m_log w1200">
         <div class="logoimg_left">
