@@ -119,7 +119,7 @@ class store{
      */
     public static function getStoretList(){
         $storeModel = new M('store_list');
-        $where  = array('status' => 1);
+        $where  = array('status' => 1,'is_del'=>0);
         return $storeModel->table('store_list')->fields('id, name, short_name, area, address')->where($where)->select();
     }
 
