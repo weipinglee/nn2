@@ -201,7 +201,7 @@
           </div>
           <div class="cot">
             <span class="cot_tit">联系电话：</span>
-            <span><input class="text" type="text" name="contact_phone" datatype="m" nullmsg="请填写联系人电话 " errormsg="请正确填写联系人电话"/></span>
+            <span><input class="text" type="text" name="contact_phone" datatype="mobile" nullmsg="请填写联系人电话 " errormsg="请正确填写联系人电话"/></span>
 			<span></span>
           </div>
          
