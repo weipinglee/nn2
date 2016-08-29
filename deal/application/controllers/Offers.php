@@ -250,6 +250,7 @@ class OffersController extends PublicController {
 			$this->getView()->assign('data',$info);
 			$this->getView()->assign('user',$userData);
 			$this->getView()->assign('kefu',$kefuData);
+			$this->getView()->assign('user_type', $this->login['user_type']);
 		}
 	}
 
