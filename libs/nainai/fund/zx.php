@@ -173,11 +173,13 @@ class zx extends account{
      */
 
     public function freezePay($from,$to=0,$num,$time='',$amount=''){
+        $amount = number_format($amount,2);
         $freeze_records = $this->freezeTrans($from,$time);//加缓存TODO
         if(is_array($num)){
             $temp = array();
             $freeze_nos = array();
             foreach ($num as $key=>$value) {
+                $value = number_format($value,2);
                 $code = $this->getFreezeCode($freeze_records,$amount ? $amount[$key] : $value,$temp);
                 if($code){
                     $freeze_nos [$value]= $code;
@@ -194,6 +196,7 @@ class zx extends account{
                 }
             }
         }else{
+            $num = number_format($num,2);
             $code = $this->getFreezeCode($freeze_records,$amount ? $amount : $num);
             if(!$code) return '冻结信息获取错误:'.($amount ? $amount : $Num);
             $res = $this->bankTransfer('',$num,$from,$to,'freezePay','',$code); 

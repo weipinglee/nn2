@@ -128,7 +128,6 @@ function getCategory(cond){
                     var page = href[1];
                     $(this).attr('href','javascript:void(0)').attr('title',page);
 
-
                 })
 
                 $('.pages_bar').find('a').on('click',function(){
