@@ -159,7 +159,7 @@
                             <tr>
                         <td>交收地点：</td>
                             <td colspan="2">
-                                <input type="text" class='text' datatype="s2-100" errormsg="请填写有效地址" name="accept_area">
+                                <input type="text" class='text' datatype="s2-30" errormsg="请填写有效地址" nullmsg="请填写交收地点" name="accept_area">
                             </td>
                             </tr>
                             <td>交收时间：</td>
