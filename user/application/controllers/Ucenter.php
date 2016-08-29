@@ -600,10 +600,10 @@ class UcenterController extends UcenterBaseController {
         }else{
             $userObj=new UserModel();
             $userInfo=$userObj->getUserInfo($this->user_id);
-            $checkRes=\Library\session::get('mobileValidate');
+            $checkRes=\Library\session::get('mobileValidRes2');
             if($checkRes['mobile']==$userInfo['mobile']&&time()-$checkRes['time']<1800){
                 //清除验证结果
-                \Library\session::clear('mobileValidate');
+                \Library\session::clear('mobileValidRes2');
                 $this->getView()->assign('userInfo',$userInfo);
             }else{
                 //var_dump($_SESSION);
