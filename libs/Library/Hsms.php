@@ -78,21 +78,18 @@ class Hsms
 	{
 		self::$smsInstance = self::getSmsInstance();
 
-		if(preg_match('/^\d{11}$/',$mobile) && $content)
-		{
+		if(preg_match('/^\d{11}$/',$mobile) && $content) {
 			$ip = tool::getIp();
-			/*if($ip)
-			{
-				$mobileKey = md5($mobile.$ip);
-				$sendTime  = \Library\session::get($mobileKey);
-				if($sendTime && time() - $sendTime < 60)
-				{
+			if ($ip) {
+				$mobileKey = md5($mobile . $ip);
+				$sendTime = \Library\session::get($mobileKey);
+				if ($sendTime && time() - $sendTime < 60) {
 					return false;
 				}
-				\Library\session::set($mobileKey,time());*/
-				return self::$smsInstance->send($mobile,$content);
+				\Library\session::set($mobileKey, time());
+				return self::$smsInstance->send($mobile, $content);
 			}
-
+		}
 		return false;
 	}
 }
