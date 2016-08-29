@@ -154,6 +154,7 @@ class RbacModel{
 		return $resInfo;		
 	}
 
+
 	/**
 	 * 获取所有模块列表
 	 * @return [type] [description]
@@ -347,6 +348,27 @@ class RbacModel{
 			$log->addLog(array('content'=>'添加了一个权限节点'));
 		}
 		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res && is_string($res) ? $res : '未知错误,请重试');
+	}
+
+	//节点的子节点信息
+	public function nodeChild($id){
+		return count($this->node->where(array('pid'=>$id))->select());
+	}
+
+	public function singleNodeDel($id){
+		return $this->node->where(array('id'=>$id))->delete() ? true : '删除失败';
+	}
+
+	/**
+	 * 删除节点
+	 * @param  int $node_id 节点id
+	 * @return array
+	 */
+	public function nodeDel($node_id){
+		$child = $this->nodeChild($node_id);
+		$res = $child > 0 ? '有子节点,无法删除' : $this->singleNodeDel($node_id);
+		
+		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res);
 	}
 
 	/**
