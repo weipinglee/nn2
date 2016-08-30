@@ -32,7 +32,8 @@
 									<a  href="{url:/contract/complainContract}?id={$info['id']}"><input class="fk_butt" type="button" value="我要申诉"/></a>
 								{/if}
 								{foreach:items=$info['action']}
-									{if:isset($item['url'])}<input class="fk_butt" type="button" {if:$item['confirm']}confirm=1{/if}  href="{$item['url']}" value="{$item['action']}"/>{/if}
+									{if:isset($item['url'])}
+									<a href="{$item['url']}" {if:$item['confirm']}confirm=1{/if}><input class="fk_butt" type="button" value="{$item['action']}"/></a>{/if}
 								{/foreach}
 								
 							</div>

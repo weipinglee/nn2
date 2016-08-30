@@ -59,7 +59,7 @@ nn_panduo.formacc.prototype = {
 		var f_href;
 		$("[confirm]").click(function(){
 			var href = $(this).attr('href');
-			var title = $(this).attr('value') ? $(this).attr('value') : $(this).text();
+			var title = $(this).val() ? $(this).val() : $(this).text();
 			if(href){
 				var _this = this;
 				(function(){

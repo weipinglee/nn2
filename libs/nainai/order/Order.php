@@ -1308,7 +1308,7 @@ class Order{
 					if(empty($value['proof'])){
 						$title = '支付尾款';
 						$href = url::createUrl("/Order/buyerRetainage?order_id={$value['id']}");
-						$action []= array('action'=>$title,'url'=>$href,'confirm'=>1);
+						$action []= array('action'=>$title,'url'=>$href);
 					}else{
 						$title = '等待确认线下支付凭证';
 					}
