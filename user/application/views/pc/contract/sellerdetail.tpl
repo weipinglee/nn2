@@ -34,7 +34,7 @@
 								{if:$info['complain']==1}
 									<a  href="{url:/contract/complainContract}?id={$info['id']}"><input class="fk_butt" type="button" value="我要申诉"/></a>
 								{/if}
-								{if:$info['action_href']}<input class="fk_butt" type="button" href="{$info['action_href']}" {if:$info['confirm']}confirm=1{/if} value="{$info['action']}"/>{/if}
+								{if:$info['action_href']}<a href="{$info['action_href']}" {if:$info['confirm']}confirm=1{/if}><input class="fk_butt" type="button" value="{$info['action']}"/></a>{/if}
 								{if: isset($info['insurance']) && $info['insurance'] == 1}
 								<!-- <a  href="{url:/Insurance/buyList}?id={$info['id']}"><input class="fk_butt" type="button" value="购买保险"/></a> -->
 								{/if}
