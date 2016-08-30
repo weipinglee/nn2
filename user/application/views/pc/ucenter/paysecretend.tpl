@@ -2,6 +2,9 @@
 <link href="{views:css/center_top.css}" rel="stylesheet" type="text/css" />
 <!-- 基本信息css -->
 <link href="{views:css/center_date.css}" rel="stylesheet" type="text/css" />
+    <style>
+       body{ background: #fff;}
+    </style>
     <!-- 中间右部内容 -->
     <div class="right_c">
       <div class="r_c_title">

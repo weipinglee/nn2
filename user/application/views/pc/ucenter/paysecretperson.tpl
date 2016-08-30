@@ -43,7 +43,7 @@
             </span> 
             <div class="cksl">
               <a class="ck_span">参考示例</a>
-              <div class="cksl_bk" style="background: #fff; z-index: 99;">
+              <div class="cksl_bk" style="background: #fff; z-index: 99; margin-left:120px;">
                 <div class="c-tip-arrow"><em></em><ins></ins></div>
                 <h4 class="cksl_title">示例</h4>
                 <div class="cksl_img">
@@ -76,7 +76,7 @@
             </span> 
             <div class="cksl">
               <a class="ck_span2">要求说明</a>
-              <div class="cksl_bk2" style="background: #fff; z-index: 99;">
+              <div class="cksl_bk2" style="background: #fff; z-index: 99;margin-left:120px;">
                 <div class="c-tip-arrow"><em></em><ins></ins></div>
                 <h4 class="cksl_title2">要求说明</h4>
                 <div class="cksl_ts">申请单内容至少包括申请人、原因,上传时请保证申请单图片上所有说明信息清晰可见，（企业账号需加盖企业公章），图片大小不超过2M</div>
