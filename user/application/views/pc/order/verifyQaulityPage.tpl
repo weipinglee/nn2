@@ -21,7 +21,7 @@
 
 				</div>
 				<div class="zhxi_con">
-					<span><input class="submit" type="submit" value="提交"/></span>
+					<span><input class="submit" confirm=1 type="submit" value="提交"/></span>
 				</div>
 			</form>
 		</div>

@@ -28,7 +28,7 @@
 					<td style="color:#079207;">{$item['title']}</td>
 					<td>
 						{foreach:items=$item['action'] item=$v}
-							<a href="{$v['url']}">{$v['name']}</a>&nbsp;
+							<a href="{$v['url']}" confirm>{$v['name']}</a>&nbsp;
 						{/foreach}
 					</td>
 				</tr>
