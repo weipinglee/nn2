@@ -105,7 +105,7 @@
 			                              <input type="hidden"  name="imgimage" value="" pattern="required" alt="请上传图片" />
 			                            </span><!--img name属性与上传控件id相同-->
 			            							<!-- <input class="uplod" type="file" name='proof' onchange="previewImage(this)" /> -->
-			                          <span class="input-file">选择文件<input type="file" name="image" id="image"  onchange="javascript:uploadImg(this);" /></span>
+			                          <span class="input-file" style="top:0;">选择文件<input type="file" name="image" id="image"  onchange="javascript:uploadImg(this);" /></span>
 			                          
 			                          <input type="hidden" value="{url:/ucenter/upload}" name="uploadUrl"/>
 
