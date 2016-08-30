@@ -24,7 +24,7 @@
 					<form method="post" action="{url:/ucenter/doStoreCert}" auto_submit>
 						<div class="re_xx">
 								<div class="zhxi_con">
-									<span class="con_tit"><i></i>选择仓库：</span>
+									<span class="con_tit line"><i></i>选择仓库：</span>
 									<span><select name="store_id" id="store_id" datatype="/[1-9][0-9]*/" errormsg="请选择仓库">
 											<option value="0" >请选择</option>
 											{foreach:items=$store}
@@ -37,7 +37,7 @@
 
 								</div>
 								<div class="zhxi_con" id="address">
-									<span class="con_tit">仓库地址：</span>
+									<span class="con_tit line">仓库地址：</span>
 									<span>
 
 									</span>

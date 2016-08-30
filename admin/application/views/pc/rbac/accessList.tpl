@@ -11,6 +11,8 @@
 	.node_tree .v2{text-indent: 2em;font-weight: bolder;}
 	.node_tree .v3{padding-left: 50px;}
 	.node_tree .ins{margin-left:-35px;}
+	.v3_li{position: relative;}
+	b.del{cursor: pointer;}
 </style>
 <form action="{url:system/rbac/accessAdd}" method="post" class="form form-horizontal" id="form-access-add" no_redirect="1" auto_submit>
 <div class="bloc" style="margin-top: 20px;">
@@ -39,11 +41,13 @@
 				{foreach:$items=$node_tree key=$k}
 				<!-- 模块 -->
 				<div class='root'>
-					<div class='v1'><input type="checkbox" name="node_id[]" value="{$item['id']}" {if:in_array($item['id'],$access_array)}checked='checked'{/if}/>&nbsp;{$item['title']}</div>
+					<div class='v1'><input type="checkbox" name="node_id[]" value="{$item['id']}" {if:in_array($item['id'],$access_array)}checked='checked'{/if}/>&nbsp;{$item['title']}
+					{if:!$item['_child']}<b class='del' node_id="{$item['id']}">x</b>{/if}</div>
 					{foreach:$items=$item['_child'] item=$v1 key=$k1}
 					<!-- 控制器 -->
 						<div class='controller'>
-							<div class='v2'><span><input type="checkbox" name="node_id[]" value="{$v1['id']}" {if:in_array($v1['id'],$access_array)}checked='checked'{/if}/>&nbsp;{$v1['title']}</span>
+							<div class='v2'><span><input type="checkbox" name="node_id[]" value="{$v1['id']}" {if:in_array($v1['id'],$access_array)}checked='checked'{/if}/>&nbsp;{$v1['title']}
+							{if:!$v1['_child']}<b class='del' node_id="{$v1['id']}">x</b>{/if}</span>
 							</div>
 							<div class='v3'>
 								
@@ -53,7 +57,10 @@
 									<div class='ins'><input type="checkbox"/>&nbsp;[{$k2}]</div>
 									<!-- action -->
 									{foreach:$items=$v2 item=$v3 }
-										<li><input type="checkbox" name="node_id[]" value="{$v3['id']}" {if:in_array($v3['id'],$access_array)}checked='checked'{/if}/>&nbsp;{$v3['title']}</li>
+										<li class='v3_li'>
+											<input type="checkbox" name="node_id[]" value="{$v3['id']}" {if:in_array($v3['id'],$access_array)}checked='checked'{/if}/>&nbsp;{$v3['title']}
+											<b class='del' node_id="{$v3['id']}">x</b>
+										</li>
 									{/foreach}
 									</ul>	
 									<div class='clearfix'></div>
@@ -125,6 +132,41 @@
 			var role_id = $(this).val();
 			var rec_url = url+'?role_id='+role_id;
 			window.location.href=rec_url;
+		});
+
+
+
+		$('b.del').click(function(){
+			var _this = $(this);
+			var url = "{url:system/rbac/nodeDel}";
+			layer.confirm('确认删除',{
+				shade:false
+			},function(){
+				layer.closeAll();
+				layer.load(2);
+				var node_id = _this.attr('node_id');
+
+				$.ajax({
+					type:'post',
+					data:{node_id:node_id},
+					url:url,
+					success:function(data){
+						layer.closeAll();
+						
+						if(data.success == 1){
+							window.location.reload();
+						}else{
+							layer.msg(data.info);
+						}
+
+					},
+					error:function(){
+						layer.closeAll();
+						layer.msg('服务器错误');
+					},
+					dataType:'json'
+				});
+			});
 		});
 	})
 

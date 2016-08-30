@@ -78,6 +78,11 @@ class DepositOrder extends Order{
 					$content = '合同'.$info['order_no'].'已支付'.$note_type.',报价方将在60分钟内支付保证金,超过时间之后,您可以取消合同';
 					$mess_buyer->send('common',$content);
 
+					$mess_seller = new \nainai\message($seller);
+					$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+					$content = '合同'.$info['order_no'].',需要支付保证金,请您及时进行支付。如果60分钟之后您未进行支付,买方有可能会取消合同.'.$jump_url;
+					$mess_seller->send('common',$content);
+
 					$account = $this->base_account->get_account($payment);
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);
 					$res = $account->freeze($buyer,$orderData['pay_deposit'],$note);

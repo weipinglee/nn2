@@ -1,4 +1,4 @@
-﻿
+
 			<!--start中间内容-->	
 
 <script type="text/javascript" src='{root:js/upload/ajaxfileupload.js}'></script>
@@ -144,7 +144,7 @@
 								</span>
 							</div>
 						{/if}
-							<div class="zhxi_con"  style="cursor:hand">
+							<div class="zhxi_con"  style="cursor:hand;clear:both;">
 								<span><input class="submit_zz" type="button" id="bankBtn" value="修改" ></span>
 							</div>
 					</div>

@@ -29,7 +29,7 @@ class OfferManageModel extends \nainai\offer\product{
 					left join company_info as c on u.id = c.user_id left join person_info as per on u.id = per.user_id";
 		$Q->fields = "o.*,u.username,p.quantity,p.unit,p.name,per.true_name,c.company_name";
 		// $Q->order = 'apply_time desc';
-
+		
 		if($where) $Q->where = $where;
 		// $Q->order = "sort";
 		$sql = 'select count(*) as count from product_offer as o '.($where ? ' where '.$where : '');

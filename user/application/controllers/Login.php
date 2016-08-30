@@ -345,17 +345,17 @@ class LoginController extends \Yaf\Controller_Abstract {
 			}
 			$userObj = new UserModel();
 			if (empty($mobile)) {
-				$res = $userObj->getSuccinfo(0, '手机号不存在用户');
+				$res = tool::getSuccInfo(0, '手机号不存在用户');
 			}
 			
 			$user_id = $userObj->getMobileUserInfo($mobile);
 			if ($user_id == false) {
-				$res = $userObj->getSuccinfo(0, '手机号不存在用户');
+				$res = tool::getSuccInfo(0, '手机号不存在用户');
 			}else{
 				if ($user_id == $uid) {
 					$res = $userObj->getMobileCode($mobile, 3, 'database', $uid, 'login');
 				}else{
-					$res = $userObj->getSuccinfo(0, '请求的用户不存在');
+					$res = tool::getSuccInfo(0, '请求的用户不存在');
 				}
 			}
 			//var_dump($_SESSION);

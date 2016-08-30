@@ -91,6 +91,10 @@ class searchConfig {
         'product_attribute' => array(
             'like' => array('name','名称'),
              'select' => array('type','类型')
+        ),
+        'store_products' => array(
+            'time' => array('a.sign_time','签发时间'),
+            'like' => array('c.name','商品名称')
         )
     );
 
