@@ -1,4 +1,4 @@
-		<form method="post" action="{url:/Delivery/geneDelivery}" auto_submit redirect_url="{url:delivery/delibuylist}">
+		<form method="post" action="{url:/Delivery/geneDelivery}" auto_submit=1 redirect_url="{url:delivery/delibuylist}">
 			<!--start中间内容-->	
 			<div class="user_c_list">
 				<div class="user_zhxi">

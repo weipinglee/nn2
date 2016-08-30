@@ -56,17 +56,22 @@ nn_panduo.formacc.prototype = {
 	},
 	//绑定按钮确认弹窗时间
 	bind_confirm:function(){
+		var f_href;
 		$("[confirm]").click(function(){
 			var href = $(this).attr('href');
+			
 			if(href){
 				var _this = this;
-				$(this).attr('href','javascript:;');
-				layer.confirm('确认',{shade:false},function(flag){
-					layer.closeAll();
-					window.location.href = href;
-				},function(){
-					$(_this).attr('href',href);
-				});
+				(function(){
+					if(href != 'javascript:;') f_href = href;
+					$(_this).attr('href','javascript:;');
+					layer.confirm('确认',{shade:false},function(flag){
+						layer.closeAll();
+						window.location.href = f_href;
+					},function(){
+						$(_this).attr('href',f_href);
+					});
+				})(href,_this);
 			}
 		});
 	},

@@ -1221,6 +1221,7 @@ class Order{
 			//根据合同状态得出对应操作
 			$contract_status = $value['contract_status'];
 			$href = '';
+			$confirm = 0;
 			switch ($contract_status) {
 				case self::CONTRACT_NOTFORM:
 					$title = '等待买方付款';
@@ -1270,6 +1271,7 @@ class Order{
 
 			$value['action'] = $title;
 			$value['action_href'] = $href;
+			$value['confirm'] = $confirm;
 		}
 	}
 
@@ -1292,7 +1294,7 @@ class Order{
 					$action []= array('action'=>$title);
 					$_after_time = time::_after_time($value['pay_deposit_time'],30);
 					if($_after_time === true){
-						$action []= array('action'=>'取消合同','url'=>url::createUrl("/Order/cancelContract?order_id={$value['id']}"));
+						$action []= array('action'=>'取消合同','confirm' => 1,'url'=>url::createUrl("/Order/cancelContract?order_id={$value['id']}"));
 					}
 
 					// else{
@@ -1330,7 +1332,7 @@ class Order{
 					break;
 				case self::CONTRACT_DELIVERY_COMPLETE:
 					$title = '确认提货质量';
-					$action []= array('action'=>'质量合格','url'=>url::createUrl("/Order/verifyQaulity?order_id={$value['id']}"));
+					$action []= array('action'=>'质量合格','url'=>url::createUrl("/Order/verifyQaulity?order_id={$value['id']}"),'confirm'=>1);
 					$action []= array('action'=>'扣减货款','url'=>url::createUrl("/Order/verifyQaulityPage?order_id={$value['id']}"));
 					break;
 				case self::CONTRACT_VERIFY_QAULITY:
@@ -1338,8 +1340,8 @@ class Order{
 					break;
 				case self::CONTRACT_SELLER_VERIFY:
 					$title = '确认合同结束';
-					$href = url::createUrl("/Order/contractComplete?order_id={$value['id']}&action_confirm=1&info=确认合同结束");
-					$action []= array('action'=>$title,'url'=>$href);
+					$href = url::createUrl("/Order/contractComplete?order_id={$value['id']}");
+					$action []= array('action'=>$title,'url'=>$href,'confirm'=>1);
 					break;
 				default:
 					$title = '未知状态';
