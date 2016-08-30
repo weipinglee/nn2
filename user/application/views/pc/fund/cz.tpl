@@ -63,7 +63,7 @@
                         <div class="pane" style="display: block;">
                             <div class="zhxi_con">
                                 <span class="con_tit">充值方式二：</span>
-                                <span>转账汇款</span>
+                                <span class="remit">转账汇款</span>
                             </div>
                             <div class="zhxi_con">
                                 {foreach:items=$acc}
@@ -77,7 +77,7 @@
                             <div class="huikod" style="display: block">
 
                               <label for="female">上传汇款单据</label>
-                                <span class="input-file">选择文件<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" /></span>
+                                <span class="input-file choose">选择文件<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" /></span>
                                 <div id="preview">
                                     <img name="file1" src=""/>
                                     <input type="hidden"  name="imgfile1" datatype="*"  />
