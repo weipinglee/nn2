@@ -11,22 +11,16 @@ use \Library\url;
 class ComplainController extends InitController{
 
 	/**
-	 * 申述列表
+	 * 未处理申述列表
 	 */
-	public function complainListAction(){
+	public function uncomplainListAction(){
 		$page = Safe::filterGet('page', 'int', 0);
-		$status = $this->getRequest()->getParam('status');
 
 		$condition = array(
 			'where' => 'FIND_IN_SET(a.status, :status)',
-			'bind' => array('status' => ($status==0) ? implode(',', array(
+			'bind' => array('status' => implode(',', array(
 				 \nainai\order\OrderComplain::APPLYCOMPLAIN,
 				 \nainai\order\OrderComplain::INTERVENECOMPLAIN,
-				))  : implode(',', array(
-				\nainai\order\OrderComplain::DONTCOMPLAIN,
-				\nainai\order\OrderComplain::CONFERCOMPLAIN,
-				\nainai\order\OrderComplain::BUYBREAKCOMPLAIN,
-				\nainai\order\OrderComplain::SELLBREAKCOMPLAIN
 				))
 			)
 		);
@@ -42,7 +36,39 @@ class ComplainController extends InitController{
 		$complainList = $complainModel->getComplainList($condition);
 
 		$this->getView()->assign('data', $complainList);
-		$this->getView()->assign('status', $status);
+		$this->getView()->assign('status', 0);
+	}
+
+	/**
+	 * 已处理申述列表
+	 */
+	public function complainListAction(){
+		$page = Safe::filterGet('page', 'int', 0);
+		$status = $this->getRequest()->getParam('status');
+
+		$condition = array(
+			'where' => 'FIND_IN_SET(a.status, :status)',
+			'bind' => array('status' => implode(',', array(
+				\nainai\order\OrderComplain::DONTCOMPLAIN,
+				\nainai\order\OrderComplain::CONFERCOMPLAIN,
+				\nainai\order\OrderComplain::BUYBREAKCOMPLAIN,
+				\nainai\order\OrderComplain::SELLBREAKCOMPLAIN
+				))
+			)
+		);
+
+		if (!empty(Safe::filterPost('order_no'))) {
+			$condition['where'] .= ' AND order_no=:order_no';
+			$condition['bind']['order_no'] = Safe::filterPost('order_no');
+			$this->getView()->assign('order_no', $condition['bind']['order_no']);
+		}
+
+		$complainModel = new \nainai\order\OrderComplain();
+		
+		$complainList = $complainModel->getComplainList($condition);
+
+		$this->getView()->assign('data', $complainList);
+		$this->getView()->assign('status', 1);
 	}
 
 	/**

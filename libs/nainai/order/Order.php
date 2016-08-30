@@ -822,7 +822,7 @@ class Order{
 								if($deposit_res !== true) {
 									$error = $deposit_res;
 								}else{
-									$note = '卖方确认质量合格'.$order['order_no'].'解冻支付尾款的60% '.number_format($order['pay_retainage']*0.6,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+									$note = '卖方确认质量合格'.$order['order_no'].'解冻支付尾款的60% '.number_format($order['pay_retainage']*0.6,2);
 									$retainage_res = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.6,$note,$order['pay_retainage']) : true;
 									$error = $retainage_res === true ? '' : $retainage_res;
 
@@ -917,7 +917,7 @@ class Order{
 								if($r2 !== true){
 									$error = $r2;
 								}else{
-									$note = '买方确认合同完成'.$order['order_no'].'解冻支付尾款的40% '.number_format($order['pay_retainage']*0.4,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+									$note = '买方确认合同完成'.$order['order_no'].'解冻支付尾款的40% '.number_format($order['pay_retainage']*0.4,2);
 									$r3 = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.4,$note) : true;	
 									if($r3 !== true){
 										$error = $r3;
