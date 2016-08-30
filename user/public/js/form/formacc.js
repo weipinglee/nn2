@@ -54,6 +54,22 @@ nn_panduo.formacc.prototype = {
         });
         // $("select[name='type']").find("option[value='{$info['type']}']").attr("selected",'selected');
 	},
+	//绑定按钮确认弹窗时间
+	bind_confirm:function(){
+		$("[confirm]").click(function(){
+			var href = $(this).attr('href');
+			if(href){
+				var _this = this;
+				$(this).attr('href','javascript:;');
+				layer.confirm('确认',{shade:false},function(flag){
+					layer.closeAll();
+					window.location.href = href;
+				},function(){
+					$(_this).attr('href',href);
+				});
+			}
+		});
+	},
 	/**
 	 * 表单提交
 	 * @type {Object}
@@ -296,9 +312,9 @@ nn_panduo.formacc.prototype = {
 
 $(function(){
 
-	 formacc = new nn_panduo.formacc();
+	formacc = new nn_panduo.formacc();
 	formacc.bind_status_handle();
-
+	formacc.bind_confirm();
 	formacc.form_init();
 	//地址验证，根据是两级或三级动态调整验证规则
 	if($('#areabox').length && $('#areabox').length>0){
