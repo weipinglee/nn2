@@ -63,7 +63,8 @@
                         <div class="pane" style="display: block;">
                             <div class="zhxi_con">
                                 <span class="con_tit">充值方式二：</span>
-                                <span class="remit">转账汇款</span>
+                                <span class="con_con" style="float:none;">转账汇款</span>
+
                             </div>
                             <div class="zhxi_con">
                                 {foreach:items=$acc}
@@ -77,7 +78,9 @@
                             <div class="huikod" style="display: block">
 
                               <label for="female">上传汇款单据</label>
-                                <span class="input-file choose">选择文件<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" /></span>
+
+                                <span class="input-file" style="top:0;">选择文件<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" /></span>
+
                                 <div id="preview">
                                     <img name="file1" src=""/>
                                     <input type="hidden"  name="imgfile1" datatype="*"  />
@@ -113,7 +116,11 @@
                         </form>
                     </div>
                     <div class="jy_xq">
+<<<<<<< HEAD
                         <table cellpadding="0" cellspacing="0" style="margin:20px auto;width:942px;border-top:1px #dcdcdc solid;border-left: 1px #dcdcdc solid;text-align: center;">
+=======
+                        <table cellpadding="0" cellspacing="0" style="">
+>>>>>>> origin/lpf830
                             <tr>
                                 <th>交易号</th>
                                 <th>交易时间</th>

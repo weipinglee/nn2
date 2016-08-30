@@ -371,9 +371,9 @@ $(function(){
                         <!--大家都在做什么-->
                         <div class="i_market_right">
                             <div class="ShopPro">
-                                <div class="ShopPro_Tab clearfix">
+                                <div class="ShopPro_Tab clearfix" style="border-bottom:2px solid #ffab2d;">
                                     <ul>
-                                        <li class="selected">热门商品</li>
+                                        <li class="selected" style="color:#ffab2d;">热门商品</li>
                                     </ul>
                                 </div>
                                 <div class="ShopPro_Con">
