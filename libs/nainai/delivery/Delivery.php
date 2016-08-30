@@ -137,8 +137,8 @@ class Delivery{
 				case self::DELIVERY_BUYER_CONFIRM:
 					if(!$is_seller){
 						$title = '确认收货';
-						$href = url::createUrl('/depositDelivery/buyerConfirm?action_confirm=1&info=确认本轮收货&id='.$value['delivery_id']);
-						$action []= array('name'=>'确认本轮收货','url'=>$href);
+						$href = url::createUrl('/depositDelivery/buyerConfirm?id='.$value['delivery_id']);
+						$action []= array('name'=>'确认本轮收货','url'=>$href,'confirm'=>1);
 					}else{
 						$title = '等待买家收货';
 					}
