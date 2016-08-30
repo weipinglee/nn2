@@ -245,14 +245,14 @@
                             <ul>
                                 <li><a href="{url:information/marketStats/cateList}" target="content">统计项列表</a></li>
                                 <li><a href="{url:information/marketStats/marketStatsList}" target="content">市场统计</a></li>
-                            </ul> -->
+                            </ul> </li>-->
                             <li><a target="content">市场统计</a>
                             <ul>
                                 <li><a href="{url:information/statsMarket/statsMarketList}" target="content">统计项列表</a></li>
                                 <li><a href="{url:information/statsMarket/statsList}" target="content">市场统计数据</a></li>
                             </ul>
                             </li>
-                        </li>
+                        
                         <li><a target="content">商品指导价</a>
                             <ul>
                                 <li><a href="{url:information/productStats/productStatsList}" target="content">统计项</a></li>
