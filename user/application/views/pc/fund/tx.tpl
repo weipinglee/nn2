@@ -45,7 +45,7 @@
 						</form>
 					</div>
 					<div class="jy_xq">
-						<table cellpadding="0" cellspacing="0" style="margin:20px auto;width:725px;border-top:1px #dcdcdc solid;border-left: 1px #dcdcdc solid;text-align: center;">
+						<table cellpadding="0" cellspacing="0" style="margin:20px auto;width:942px;border-top:1px #dcdcdc solid;border-left: 1px #dcdcdc solid;text-align: center;">
 							<tr>
 								<th>交易号</th>
 								<th>交易时间</th>
