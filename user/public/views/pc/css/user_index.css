@@ -318,6 +318,10 @@ text-align: left;
     float: left;
 	line-height:38px;
 }
+.zhxi_con span.remit{
+  margin-top: 4px;
+  display: block;
+}
 .zhxi_con span.con_tit.line{
     line-height: 31px;
 }
@@ -2088,6 +2092,9 @@ cursor: pointer;width: 68px;height: 21px;border:1px solid #949494;display: inlin
 color: #000;font-size: 12px;text-align: center;
 line-height: 21px;vertical-align: middle;background-color: #eaeaea;
 border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;top:13px;
+}
+.input-file.choose{
+  top:-1px;
 }
 .input-file input,
 .input-file .doc{
