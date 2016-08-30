@@ -65,7 +65,7 @@
 												<?php $i=0;?>
 												{foreach:items=$item['action'] item=$v}
 													{if:$v['url']}
-														<a confirm=1 href="{$v['url']}" style="color:blue">{$v['action']}</a>
+														<a {if:$v['confirm']}confirm=1{/if} href="{$v['url']}" style="color:blue">{$v['action']}</a>
 														{else:}
 														{$v['action']}
 													{/if}

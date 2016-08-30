@@ -82,7 +82,7 @@
 											
 											<div class="div_heights">
 												{if:$item['action_href']}
-													<a href='{$item['action_href']}'><b>{$item['action']}<b></a>
+													<a href='{$item['action_href']}' {if:$item['confirm']}confirm=1{/if}><b>{$item['action']}<b></a>
 												{else:}
 													{$item['action']}
 												{/if}
