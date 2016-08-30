@@ -281,22 +281,24 @@ a:hover {
 .search_xz {
     position: absolute;
     z-index: 10;
-    border: 1px solid #bababa;
     border-right: 0;
     width: 69px;
 }
 
 
 .search_select {
-    height: 34px;
-    padding: 7px;
+    height: 36px;
+    padding: 0 0 0 15px;
     border: 0;
     color: #999;
-    width: 70px;
+    width: 71px;
     background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat right center #f7f7f7;
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
+    border: 1px solid #bababa;
+    border-right: none;
+    text-align: left;
 }
 .bodys input {
     height: 34px;
