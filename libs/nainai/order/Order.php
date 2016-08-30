@@ -401,7 +401,7 @@ class Order{
 								// $mess->send('buyerRetainage',$info['order_no']);
 								
 								$mess_buyer = new \nainai\message($buyer);
-								$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+								$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 								$content = '(合同'.$info['order_no'].'已生效，您可以申请提货了。)'.$jump_url;
 								$mess_buyer->send('common',$content);
 								$res = $log_res;
@@ -419,7 +419,7 @@ class Order{
 							$orderData['proof'] = $proof;
 							$upd_res = $this->orderUpdate($orderData);
 							if($upd_res['success'] == 1){
-								$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+								$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 								$content = $sim_oper ? '(合同'.$info['order_no'].',买方已支付货款,请您及时进行凭证确认,并关注资金动态。)'.$jump_url:'(合同'.$info['order_no'].',买家已支付尾款。请您及时确认并关注资金动态)'.$jump_url;
 								$mess->send('common',$content);
 								$log_res = $this->payLog($order_id,$user_id,0,'买家上传线下支付凭证');
@@ -492,7 +492,7 @@ class Order{
 					$content = '合同'.$info['order_no'].'，合同已完成。交收流程请您在线下进行操作。';
 					$mess_seller->send('common',$content);
 				}else{
-					$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+					$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 					$content = '(合同'.$info['order_no'].'已生效，您可以申请提货了。)'.$jump_url;
 					$mess_buyer->send('common',$content);
 				}
@@ -753,7 +753,7 @@ class Order{
 						$log_res = $this->payLog($order_id,$user_id,0,'买家确认提货质量'.($reduceData['reduce_amount'] ? "（扣减款项：{$reduceData['reduce_amount']})" : ''));
 						if($log_res === true){
 							$mess = new \nainai\message($seller);
-							$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+							$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 							$content = '(合同'.$order['order_no'].',买方已进行质量确认,请您及时核实信息。)'.$jump_url;
 							$mess->send('common',$content);
 							$this->order->commit();
@@ -831,7 +831,7 @@ class Order{
 									$mess_seller->send('common',$content);
 
 									$mess_buyer = new \nainai\message($buyer);
-									$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+									$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 									$content = '(合同'.$order['order_no'].',卖方已进行质量确认,该合同的60%货款将支付给卖方。请您及时关注资金动态，并进行合同确认)'.$jump_url;
 									$mess_buyer->send('common',$content);
 								}
