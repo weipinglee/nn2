@@ -132,7 +132,7 @@ function getCategory(cate,attr){
         'type' : 'post',
         'data' : {pid : cate_id},
         'dataType': 'json',
-        success:function(data){
+        success:function(data){//alert(JSON.stringify(data));
             if(click){
                 var this_div =  _this.parents('.class_jy');
                 this_div.nextAll('.class_jy').remove();

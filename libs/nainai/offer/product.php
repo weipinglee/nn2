@@ -216,7 +216,7 @@ class product  {
      */
     public function getCategoryLevel($pid = 0){
         $where  = array('status' => 1,'is_del'=>0);
-        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
+        $category = $this->_productObj->table('product_category')->limit(10000)->cache('m')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
 
         $res = $this->generateTree($category);
 

@@ -331,9 +331,6 @@ class ManagerDealController extends UcenterBaseController {
     }
 
 
-
-
-
     /**
      * Ajax获取仓单报盘页面的商品详情
      * @return 
