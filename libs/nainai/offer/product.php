@@ -209,20 +209,37 @@ class product  {
         $this->_errorInfo = $mess;
     }
 
-    /**
-     * 获取默认的分级的分类
-     * @param int $gid
-     * @return array array('chain'=>,'default'=>,1=>,2=>);
-     */
     public function getCategoryLevel($pid = 0){
-        $where  = array('status' => 1,'is_del'=>0);
+        $where  = array('status' => 1,'is_del'=>0,'pid'=>$pid);
+        static $res = array();
+        if(empty($res)){
+            $childName = $this->_productObj->table('product_category')->where(array('id'=>$pid))->getField('childname');
+            $res['childname'] = $childName;
+        }
+
         $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
 
-        $res = $this->generateTree($category);
+        if(!empty($category)){
+            $res['defaultCate'] = $category[0]['id'];
+            $res['unit'] = $category[0]['unit'];
+            $res['cate'][]['show'] = $category;
+            if($category[0]['attrs']){
+                if(empty($res['attr'])){
+                    $res['attr'] = explode(',',$category[0]['attrs']);
+                }
+                else{
+                    $res['attr'] = array_merge($res['attr'],explode(',',$category[0]['attrs']));
+                }
+            }
 
-        return  $this->getCateChain($pid,$res);
 
+            $this->getCategoryLevel($category[0]['id']);
+        }
+
+
+        return  $res;
     }
+
 
     /**
      * 获取指定的分类层级
