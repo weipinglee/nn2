@@ -65,7 +65,8 @@ nn_panduo.formacc.prototype = {
 				(function(){
 					if(href != 'javascript:;') f_href = href;
 					$(_this).attr('href','javascript:;');
-					layer.confirm('确认'+title+'?',{shade:false,title:false},function(flag){
+					title = title.indexOf('确认') >= 0 ? title+'?' : '确认'+title+'?';
+					layer.confirm(title,{shade:false,title:false},function(flag){
 						layer.closeAll();
 						window.location.href = f_href;
 					},function(){
