@@ -7,18 +7,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-			<form action="{url:store/storeproduct/getList}" method="get" >
-	<div class="text-c"> 日期范围：
-
-			<input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" name="begin" style="width:120px;" value="{$_GET['begin']}">
-			-
-			<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" name="end" style="width:120px;" value="{$_GET['end']}">
-			<input type="text" class="input-text" style="width:250px" placeholder="输入商品名称" id="" name="product_name" value="{$_GET['product_name']}">
-			<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜仓单</button>
-
-
-	</div>
-					</form>
+		{include:layout/search.tpl}
 	 <div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -35,7 +24,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$list['list']}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 				<td><input type="checkbox" value="" name="check"></td>
 				<td>{$item['id']}</td>
@@ -64,6 +53,6 @@
 		</tbody>
 
 	</table>
-		{$list['bar']}
+		{$data['bar']}
 	</div>
 </div>

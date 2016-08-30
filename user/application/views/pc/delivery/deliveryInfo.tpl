@@ -122,7 +122,7 @@
 
                                     {foreach:items=$info['action']}
                                         <!-- {if:$item['name'] != '查看'} -->
-                                        <a href="{$item['url']}">{$item['name']}</a>
+                                        <a href="{$item['url']}" confirm>{$item['name']}</a>
                                         <!-- {/if} -->
                                     {/foreach}
                                     

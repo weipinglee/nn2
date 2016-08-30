@@ -61,7 +61,7 @@
 										<td>
 											<div class="div_heights">
 												{if:$item['action_href']}
-													<a href='{$item['action_href']}'><b>{$item['action']}<b></a>
+													<a href='{$item['action_href']}' confirm><b>{$item['action']}<b></a>
 												{else:}
 													{$item['action']}
 												{/if}

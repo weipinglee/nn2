@@ -31,7 +31,7 @@
 									<a  href="{url:/contract/complainContract}?id={$info['id']}"><input class="fk_butt" type="button" value="我要申诉"/></a>
 								{/if}
 								{if:isset($info['action'][0]['url'])}<input class="fk_butt" type="button" url="{$info['action'][0]['url']}" onclick="window.location.href='{$info['action'][0]['url']}'" value="{$info['title']}"/>{/if} -->
-								<a href="{url:/depositDelivery/sellerConsignment?id=$info['delivery_id']&action_confirm=1&info=确认发货"}><input class="fk_butt" type="button" value="发货"/></a>
+								<a href="{url:/depositDelivery/sellerConsignment?id=$info['delivery_id']}" confirm><input class="fk_butt" type="button" value="发货"/></a>
 							</div>
 						</div>
 						<div class="sjxx">
@@ -160,7 +160,7 @@
 			<script type="text/javascript">
 				$(function(){
 					$('.fk_butt').click(function(){
-						window.location.href = $(this).attr('url');
+						// window.location.href = $(this).attr('url');
 					});
 				})
 			</script>

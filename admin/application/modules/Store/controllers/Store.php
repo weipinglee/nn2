@@ -22,7 +22,7 @@ class storeController extends Yaf\Controller_Abstract{
         $pageData = $storeModel->getStoreList($page);
 
         $storeType = $storeModel->getStoreType();
-        $this->getView()->assign('store',$pageData['data']);
+        $this->getView()->assign('data',$pageData);
         $this->getView()->assign('store_type',$storeType);
         $this->getView()->assign('bar',$pageData['bar']);
 
