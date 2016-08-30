@@ -59,13 +59,13 @@ nn_panduo.formacc.prototype = {
 		var f_href;
 		$("[confirm]").click(function(){
 			var href = $(this).attr('href');
-			
+			var title = $(this).attr('value') ? $(this).attr('value') : $(this).text();
 			if(href){
 				var _this = this;
 				(function(){
 					if(href != 'javascript:;') f_href = href;
 					$(_this).attr('href','javascript:;');
-					layer.confirm('确认',{shade:false},function(flag){
+					layer.confirm('确认'+title+'?',{shade:false,title:false},function(flag){
 						layer.closeAll();
 						window.location.href = f_href;
 					},function(){
