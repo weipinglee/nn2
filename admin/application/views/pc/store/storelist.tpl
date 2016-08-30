@@ -8,10 +8,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入仓库名称" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="icon-search fa-search"></i> 搜仓库</button>
-	</div>
+        {include:layout/search.tpl}
 	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"><a class="btn btn-primary radius" href="{url:store/store/storeAdd}"><i class=" icon-plus fa-plus"></i> 添加仓库</a> </span>  </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -29,7 +26,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$store}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 				<td><input type="checkbox" value="" name="check"></td>
 				<td>{$item['id']}</td>
@@ -61,6 +58,6 @@
 		</tbody>
 
 	</table>
-		{$bar}
+		{$data['bar']}
 	</div>
 </div>
