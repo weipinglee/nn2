@@ -194,8 +194,8 @@
                         </li>
                         <li><a  target="content">申诉管理</a>
                             <ul>
-                                <li><a href="{url:trade/complain/complainList?=&status=0}" target="content">未处理申述列表</a></li>
-                                <li><a href="{url:trade/complain/complainList?=&status=1}" target="content">已处理申述列表</a></li>
+                                <li><a href="{url:trade/complain/uncomplainList}" target="content">未处理申述列表</a></li>
+                                <li><a href="{url:trade/complain/complainList}" target="content">已处理申述列表</a></li>
                             </ul>
                         </li>
                         <li><a href="{url:trade/found/foundList}" target="content">找货信息列表</a>

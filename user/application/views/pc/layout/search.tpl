@@ -29,7 +29,7 @@
 
             <li> {$data['search']['select']}：
                 <select  name="select" style="width:60px;">
-                    <option value="0">全部</option>
+                    <option value="all">全部</option>
                     {foreach:items=$data['search']['selectData']}
                         <option value="{$key}" {if:$select==$key}selected=true{/if}>{$item}</option>
                     {/foreach}

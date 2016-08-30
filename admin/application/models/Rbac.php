@@ -34,12 +34,12 @@ class RbacModel{
 	//节点规则
 	protected $nodeRules = array(
 		array('id','number','id错误',0,'regex'),
-		array('module_name','/^\S{2,20}$/','模块名格式错误',0,'regex'),
-		array('controller_name','/^\S{2,20}$/','控制器名格式错误',0,'regex'),
-		array('action_name','/^\S{2,20}$/','动作方法名格式错误',0,'regex'),
-		array('module_title','/^\S{2,20}$/','模块标题格式错误',0,'regex'),
-		array('controller_title','/^\S{2,20}$/','控制器格式错误',0,'regex'),
-		array('action_title','/^\S{2,40}$/','动作方法标题格式错误',0,'regex'),
+		array('module_name','/^\S{2,50}$/','模块名格式错误',0,'regex'),
+		array('controller_name','/^\S{2,50}$/','控制器名格式错误',0,'regex'),
+		array('action_name','/^\S{2,50}$/','动作方法名格式错误',0,'regex'),
+		array('module_title','/^\S{2,50}$/','模块标题格式错误',0,'regex'),
+		array('controller_title','/^\S{2,50}$/','控制器格式错误',0,'regex'),
+		array('action_title','/^\S{2,50}$/','动作方法标题格式错误',0,'regex'),
 	);
 
 	/**

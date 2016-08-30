@@ -32,7 +32,7 @@
 									<a  href="{url:/contract/complainContract}?id={$info['id']}"><input class="fk_butt" type="button" value="我要申诉"/></a>
 								{/if}
 								{foreach:items=$info['action']}
-									{if:isset($item['url'])}<input class="fk_butt" type="button" url="{$item['url']}" onclick="window.location.href='{$info['action'][0]['url']}'" value="{$item['action']}"/>{/if}
+									{if:isset($item['url'])}<input class="fk_butt" type="button" confirm url="{$item['url']}" href="{$info['action'][0]['url']}" value="{$item['action']}"/>{/if}
 								{/foreach}
 								
 							</div>
