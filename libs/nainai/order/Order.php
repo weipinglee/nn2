@@ -366,8 +366,10 @@ class Order{
 	 * @return array  操作信息
 	 */
 	public function buyerRetainage($order_id,$user_id,$payment='online',$proof = '',$account=0){
+		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$info = $this->orderInfo(intval($order_id));
 		$offerInfo = $this->offerInfo($info['offer_id']);
+
 		if(is_array($info) && isset($info['contract_status'])){
 			$seller = $this->sellerUserid($order_id);
 			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($info['user_id']) : $seller;
@@ -456,6 +458,7 @@ class Order{
 	 * @return array  结果信息数组
 	 */
 	public function confirmProof($order_id,$user_id,$confirm = true){
+		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){
@@ -1305,7 +1308,7 @@ class Order{
 					if(empty($value['proof'])){
 						$title = '支付尾款';
 						$href = url::createUrl("/Order/buyerRetainage?order_id={$value['id']}");
-						$action []= array('action'=>$title,'url'=>$href);
+						$action []= array('action'=>$title,'url'=>$href,'confirm'=>1);
 					}else{
 						$title = '等待确认线下支付凭证';
 					}
