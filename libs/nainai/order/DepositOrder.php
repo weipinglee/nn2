@@ -79,7 +79,7 @@ class DepositOrder extends Order{
 					$mess_buyer->send('common',$content);
 
 					$mess_seller = new \nainai\message($seller);
-					$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+					$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 					$content = '合同'.$info['order_no'].',需要支付保证金,请您及时进行支付。如果60分钟之后您未进行支付,买方有可能会取消合同.'.$jump_url;
 					$mess_seller->send('common',$content);
 
@@ -207,7 +207,7 @@ class DepositOrder extends Order{
 							if(!is_object($account)) return tool::getSuccInfo(0,$account);
 							$res = $account->freeze($seller,$seller_deposit,$note);
 							
-							$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+							$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 							$content = '合同'.$info['order_no'].'报价方已支付保证金,请您及时支付尾款。'.$jump_url;
 							$mess_buyer->send('common',$content);
 						}
