@@ -77,20 +77,23 @@ class productController extends InitController{
     public function categoryListAction(){
         $productModel = new productModel();
         $cateTree = $productModel->getCateTree();//??ȡ??????
-        $attrs    = $productModel->getAttr();//??ȡ????????
-
+        $attrs    = $productModel->getAllAttr();//??ȡ????????
+        $tmp = array();
+        foreach($attrs as $v)
+        {
+            $tmp[$v['id']] = $v['name'];
+        }
         //??????????????idת??Ϊ????????
         foreach($cateTree as $key=>$val){
             $temp = '';
             $attr = explode(',',$val['attrs']);
             foreach($attr as $k=>$v){
-                $temp .= isset($attrs['list'][$attr[$k]]['name']) ? $attrs['list'][$attr[$k]]['name'] .',' : '';
+                $temp .= isset($tmp[$attr[$k]]) ? $tmp[$attr[$k]] .',' : '';
             }
             $temp = rtrim($temp,',');
             $cateTree[$key]['attrs'] =$temp;
 
         }
-
         $this->getView()->assign('cate',$cateTree);
     }
 
