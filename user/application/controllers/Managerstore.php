@@ -389,7 +389,7 @@ class ManagerStoreController extends UcenterBaseController{
     		$product_id = safe::filterPost('product_id');
     		$id = safe::filterPost('id');
     		if (empty($product_id) || empty($id)) {
-    			$this->error('错误的请求方式!');
+    			die(json::encode(\Library\Tool::getSuccInfo(0, '错误的请求方式!')));
     		}
     		$storeProduct = array(
     			'store_pos' => safe::filterPost('pos'),
