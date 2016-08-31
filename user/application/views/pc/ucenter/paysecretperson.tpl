@@ -6,7 +6,7 @@
 <link href="{views:css/center_top.css}" rel="stylesheet" type="text/css" />
 <!-- 基本信息css -->
 <link href="{views:css/center_date.css}" rel="stylesheet" type="text/css" />
-<style type="text/css">.input-file{float: left;}</style>
+<style type="text/css">.input-file{float: left;} body{background: #fff;}</style>
     <div class="right_c">
       <div class="r_c_title">
         <a class="tit_span">支付密码申诉找回</a>
@@ -68,7 +68,7 @@
 
           <div class="bate-input clear">
             <span class="span_in_tit">
-              上传申请单
+              上传申请单：
             </span>
             <span class="input-file" style="float:left;top:13px;">选择文件
               <input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" >

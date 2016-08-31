@@ -1379,8 +1379,11 @@ line-height: 25px;
 .success_text{
   margin: 30px auto;
 }
+.user_zhxi.minh{
+  min-height: 350px;
+}
 .success_text p{
-  width: 400px;
+  width: 600px;
   margin: auto;
   padding: 5px 0;
 }
