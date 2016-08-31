@@ -25,7 +25,7 @@ class FundController extends UcenterBaseController {
 		$cond['no'] = safe::filterGet('Sn');
 
 		if($cond['begin'] || $cond['end']){
-			$where = array('begin'=>$cond['begin'],'end'=>$cond['end']);
+			$where = array('begin'=>$cond['begin'],'end'=>\Library\time::getDateTime('',strtotime($cond['end'])+24*3600-1));
 		}
 		else if($cond['day']){
 			$where['begin'] = \Library\time::getDateTime('',time()-$cond['day']*24*3600);
@@ -33,7 +33,6 @@ class FundController extends UcenterBaseController {
 
 		if($cond['no'])
 			$where['no'] = $cond['no'];
-
 		$fundObj = \nainai\fund::createFund(1);
 
 		$active = $fundObj->getActive($this->user_id);

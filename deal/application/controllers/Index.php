@@ -226,7 +226,6 @@ class IndexController extends PublicController {
         {
             $data[$k]['produce_area'] = substr($v['produce_area'],0,2);
         }
-       // var_dump($data);
         die(json::encode($data));
     }
 }

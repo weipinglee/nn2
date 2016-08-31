@@ -656,11 +656,11 @@ class product  {
         if($res){
             return unserialize($res);
         }
-        $m_category = new Query('product_category');
-        $m_category->where='status= :status';
-        $m_category->bind=array('status'=>1);
+        $m_category = new M('product_category');
+        //$m_category->where='status= :status';
+        //$m_category->bind=array('status'=>1);
         $m_category->cache = 'm';
-        $c_list = $m_category->find();
+        $c_list = $m_category->where('is_del = 0 and status = 1')->order('sort ASC,id DESC')->select();
         $result = $this->getNestedList($c_list);
         $memcache->set('allCat',serialize($result));
         return $result;

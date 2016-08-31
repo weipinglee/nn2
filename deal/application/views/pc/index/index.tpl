@@ -666,7 +666,7 @@ $(function(){
             <span class="i_w_7"><%=data[i].quantity-data[i].sell-data[i].freeze%></span>
             <span class="i_w_8">￥<%=data[i].price%></span>
             <span class="i_w_9">
-                <%if (data[i].qq!='') { %>
+                <%if (data[i].qq) { %>
                     <a href="tencent://message/?uin=<%=data[i].qq%>&Site=qq&Menu=yes"><img style="vertical-align:middle;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
                     </a>
                         <%}else { %>
