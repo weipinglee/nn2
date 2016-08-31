@@ -102,7 +102,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>单位：</td>
         <td>
-            <span><input type="text" name="unit" /></span>
+            <span><input class="text" type="text" name="unit" /></span>
             <span></span>
         </td>
 
