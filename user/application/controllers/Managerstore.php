@@ -283,6 +283,10 @@ class ManagerStoreController extends UcenterBaseController{
 
 			$store = new store();
 			$res = $store->createStoreProduct( $productData,$storeProduct,$this->user_id);
+			if($res['success']==1){
+				$log = new \Library\userLog();
+				$log->addLog(array('action'=>'仓单签发','content'=>'签发了id为'.$res['id'].'的仓单'));
+			}
 			die(json::encode($res)) ;
 		}
 		$this->redirect('ManagerStoreList');
@@ -419,6 +423,10 @@ class ManagerStoreController extends UcenterBaseController{
     		$storeProduct['status'] = $store::STOREMANAGER_SIGN;
     		$res = $store->updateStoreProduct( $productData,$storeProduct,$product_id, $id);
 
+			if($res['success']==1){
+				$log = new \Library\userLog();
+				$log->addLog(array('action'=>'仓单签发','content'=>'修改了id为'.$id.'的仓单'));
+			}
     		die(json::encode($res));
     	}
     }
