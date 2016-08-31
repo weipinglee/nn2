@@ -108,6 +108,7 @@ class DepositOrder extends Order{
 	 * @return array   结果信息数组
 	 */
 	public function sellerDeposit($order_id,$pay = true,$user_id,$payment=self::PAYMENT_AGENT){
+		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		if(is_array($info) && isset($info['contract_status'])){

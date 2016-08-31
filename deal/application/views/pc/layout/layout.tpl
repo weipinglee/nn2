@@ -44,6 +44,30 @@
     <link rel="stylesheet" type="text/css" href="{views:css/help.css}"/>
     <script src="{views:js/help.js}" type="text/javascript" ></script>
     <!-- 帮助页 常见问题end -->
+
+    <style>
+            #search_list{
+                width: 70px;
+                margin:0 auto;
+                border:1px solid #bababa;
+                border-top: none;
+                display: none;
+                overflow: hidden;
+                height: 40px;
+                position: absolute;
+                top: 35px;
+            }
+         #search_list li {
+            padding: 0 0 0 15px;
+            color: #999;
+            background: #FFF;
+            width: 70px;
+            height: 20px;
+            line-height: 20px;
+            clear: both;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -138,19 +162,61 @@ z-index:1000;">
         <script type="text/javascript" src="{views:js/search&floor.js}"></script>
         <div class="searchbox">
             <div class="search_xz">
-                <select class="search_select" name="type">
+               <!--  <select class="search_select" name="type">
                     <option value="gong" {if:isset($searchtype) && $searchtype==1}selected{/if}>供应</option>
                     <option value="qiu" {if:isset($searchtype) && $searchtype==2}selected{/if}>求购</option>
-                </select>
+                </select> -->
+                {if:isset($searchtype) && $searchtype==2}
+                <input type="button" class="search_select" value="求购">
+                {else:}
+                <input type="button" class="search_select" value="供应">
+                {/if}
+                <input type="hidden" name="type" value=""/>
+                     <ul id="search_list">
+                        <li js_data="gong">供应</li>
+                        <li js_data="qiu">求购</li>
+                      </ul> 
+
             </div>
             <div class="bodys">
                 <p class="keyword_0"><input type="text" {if:isset($search)}value="{$search}"{/if} name="content" placeholder="请输入关键词查询" value="" id=""  /><a href="javascript:void(0)" onclick="searchGoods()"><button class="one1">搜索</button></a></p>
             </div>
-        </div>
+        </div>  
+        <script>
+         $(function(){
+                $(".search_select").click(function(){
+                    if($("#search_list").is(":hidden")){
+                        $("#search_list").show()
+                    }else{
+                    $("#search_list").show()
+                     }
+                })
+                $("#search_list li").each(function(){
+                    $(this).hover(function(){ 
+                        $(this).css('background','#f7f7f7');
+                     },function(){ 
+                        $(this).css('background','#FFF');
+                     }) 
+                       
+                })
+                $("#search_list li").each(function(){
+                    var _t = $(this)
+                        ,_v = _t.attr('js_data');
+                     _t.click(function(){
+                        $('.search_select').val(_t.text());
+                        $('input[name=type]').val(_v);
+                        $('#search_list').hide();
+                     })
+                })
+                
+
+         });
+
+        </script>
 
         <script type="text/javascript">
             function searchGoods(){
-                var type = $('select[name=type]').val();
+                var type = $('input[name=type]').val();
                 var content = $('input[name=content]').val();
                 if(content=='')return false;
                 window.location.href='{url:/offers/offerList}/type/'+type+'/content/'+content;

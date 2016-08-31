@@ -249,13 +249,13 @@ class LoginController extends \Yaf\Controller_Abstract {
                 $data['errorCode'] = 5;
             }
             else{
-                if(!$captchaObj->check($captcha)){//验证码是否正确
-                    $data['errorCode'] = 4;
-                }
-                else{//登录成功
+                // if(!$captchaObj->check($captcha)){//验证码是否正确
+                //     $data['errorCode'] = 4;
+                // }
+                // else{//登录成功
                     $checkRight = new checkRight();
                     $checkRight->loginAfter($userData);
-                }
+                // }
             }
 			
 
