@@ -217,7 +217,7 @@
                                 <li><a href="{url:balance/fundIn/checkedOfflineList}" target="content">线下已审核</a></li>
                             </ul>
                         </li>
-                        <li><a href="{url:balance/fundOut/fundOutList}" target="content">出金审核</a>
+                        <li><a target="content">出金审核</a>
                             <ul>
                                 <li><a href="{url:balance/fundOut/checkFundOutList}" target="content">出金待审核</a></li>
                                 <li><a href="{url:balance/fundOut/checkedFundOutList}" target="content">出金已审核</a></li>

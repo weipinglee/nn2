@@ -33,7 +33,7 @@
 
 				<td>{if:!empty($item['attribute'])}
 					{foreach:items=$item['attribute'] key=$k item=$v}
-						{$list['attrs'][$k]}:{$v}</br>
+						{$data['attrs'][$k]}:{$v}</br>
 					{/foreach}
 					{/if}
 

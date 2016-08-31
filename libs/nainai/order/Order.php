@@ -107,6 +107,8 @@ class Order{
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		$delivery = new \nainai\delivery\Delivery();
+		$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $info['user_id'];
+		$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $info['user_id'] : $offerInfo['user_id'];
 		if($info['pay_deposit'] < floatval($info['amount'] * 0.1)){
 			//定金小于总货款10%
 			$pay_break = $info['pay_deposit'];
@@ -119,7 +121,9 @@ class Order{
 		try {
 			$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
 			//买方支付卖方违约金
-			$this->account->freezePay($info['user_id'],$offerInfo['user_id'],$pay_break);
+			$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
+			// $account_retainage = $this->base_account->get_account($info['retainage_payment']);
+			
 			$product_left = $delivery->orderNumLeft($order_id,false,true);
 			$res = $this->productsFreezeRelease($offerInfo,$product_left);
 
@@ -138,8 +142,11 @@ class Order{
 			$content = '合同'.$info['order_no'].',申诉结果为：买方违约，合同终止。根据交易规则，买方将支付您'.$pay_title.',请您关注资金动态。';
 			$mess_seller->send('common',$content);
 			// $mess->send('breakcontract',$order_id);
-
-
+			if(is_object($account_deposit)){
+				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$info['pay_deposit']);
+			}else{
+				$res = '无效定金支付方式';
+			}
 			//TODO 解冻买方剩余定金
 		} catch (\PDOException $e) {
 
@@ -163,18 +170,14 @@ class Order{
 			$mess_buyer = new \nainai\message($buyer);
 			$mess_seller = new \nainai\message($seller);
 
-			if($info['mode'] == self::ORDER_DEPOSIT){
+			$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
+			$account_retainage = $this->base_account->get_account($info['retainage_payment']);
+			$account_seller_deposit = $this->base_account->get_account($info['seller_deposit_payment']);
+
+			if($info['mode'] == self::ORDER_DEPOSIT || $info['mode'] == self::ORDER_PURCHASE){
 				$seller_deposit = floatval($info['seller_deposit']);
-				//将卖方保证金支付10%支付给买方 解冻货物
-				$res = $this->account->freezePay($offerInfo['user_id'],$info['user_id'],$seller_deposit * 0.1);
-				if (is_string($res)) {
-					return $res;
-				}
-				//解冻卖方货款   线下支付？？？
-				$res = $this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
-				if (is_string($res)) {
-					return $res;
-				}
+				// $res = $this->account->freezePay($offerInfo['user_id'],$info['user_id'],$seller_deposit * 0.1);
+				
 				//解冻未提货货物
 				$product_left = $delivery->orderNumLeft($order_id,false,true);
 				$this->productsFreezeRelease($offerInfo,$product_left);
@@ -187,15 +190,34 @@ class Order{
 
 				$content = '合同'.$info['order_no'].',申诉结果为：卖方违约，合同终止。根据交易规则，将扣除您该合同保证金10%给买方,请您关注资金动态。';
 				$mess_seller->send('common',$content);
-
+				//将卖方保证金支付10%支付给买方 解冻货物
+				if(is_object($account_seller_deposit)){
+					$res = $account_seller_deposit->freezePay($seller,$buyer,$seller_deposit*0.1,'申诉,卖方违约,支付买方保证金10%,'.$seller_deposit*0.1,$seller_deposit);
+					if (is_string($res)) {
+						return $res;
+					}
+				}
 			}else{
 				$content = '合同'.$info['order_no'].',申诉结果为：卖方违约，合同终止。';
 				$mess_buyer->send('common',$content);
 				$mess_seller->send('common',$content);
 
-				$res = (bool)$this->account->freezeRelease($info['user_id'],floatval($info['pay_deposit']) + floatval($info['pay_retainage']));
 			}
 			$res = (bool)$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
+			//解冻买方货款   线下支付？？？
+			if(is_object($account_deposit)){
+				$res = $account_deposit->freezeRelease($buyer,$info['pay_deposit']);	
+				if (is_string($res)) {
+					return $res;
+				}
+			}
+
+			if(is_object($account_retainage)){
+				$res = $info['pay_retainage'] ? $account_retainage->freezeRelease($buyer,$info['pay_retainage']) : true;
+				if (is_string($res)) {
+					return $res;
+				}
+			}
 		} catch (\PDOException $e) {
 
 			$res = $e->getMessage();

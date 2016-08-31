@@ -129,7 +129,7 @@ class ManagerStoreController extends UcenterBaseController{
 		$this->getView()->assign('categorys', $category['cate']);
 		$this->getView()->assign('attrs', $attr);
 		$this->getView()->assign('unit', $category['unit']);
-		$this->getView()->assign('cate_id', $category['default']);
+		$this->getView()->assign('cate_id', $category['defaultCate']);
 	}
 
 	//仓单签发
@@ -359,7 +359,7 @@ class ManagerStoreController extends UcenterBaseController{
     	$id = Safe::filterGet('id','int',0);
     	if($id){
     		$stObj = new store();
-    		$detail = $stObj->getUserStoreDetail($id,$this->user_id);
+    		$detail = $stObj->getManagerStoreDetail($id,$this->user_id);
 
 			$cate_sel = array();//商品所属的各级分类
 			foreach($detail['cate'] as $k=>$v){

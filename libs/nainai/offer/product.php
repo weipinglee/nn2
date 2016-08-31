@@ -210,48 +210,68 @@ class product  {
     }
 
     /**
-     * 获取默认的分级的分类
-     * @param int $gid
-     * @return array array('chain'=>,'default'=>,1=>,2=>);
+     * 获取层级分类
+     * @param int $pid
+     * @return mixed
      */
     public function getCategoryLevel($pid = 0){
-        $where  = array('status' => 1,'is_del'=>0);
-        $category = $this->_productObj->table('product_category')->limit(10000)->cache('m')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
+        $where  = array('status' => 1,'is_del'=>0,'pid'=>$pid);
+        static $res = array();
+        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
+        $childName = '';
 
-        $res = $this->generateTree($category);
+        if(empty($res) && $pid!=0){
+            $cate = $this->_productObj->table('product_category')->where(array('id'=>$pid))->fields('childname,pid')->getObj();
 
-        return  $this->getCateChain($pid,$res);
+            $childName = $cate['childname'];
+            $res['chain'] = array($pid);
+            while($cate['pid']!=0){
+                array_unshift($res['chain'],$cate['pid']) ;
+                $cate['pid'] = $this->_productObj->table('product_category')->where(array('id'=>$cate['pid']))->getField('pid');
+            }
 
+        }
+
+        if(!empty($category)){
+            $res['defaultCate'] = $category[0]['id'];
+            $res['unit'] = $category[0]['unit'];
+            $res['cate'][]['show'] = $category;
+            $res['chain'][] = $category[0]['id'];
+            $this->getCategoryLevel($category[0]['id']);
+        }
+        else{
+            $res['defaultCate'] = $pid;
+        }
+        $res['childname'] = $childName;
+
+        return  $res;
     }
+
 
     /**
      * 获取指定的分类层级
      * @param array $cate array(2,3,4)，2是顶级分类，3是2的下级分类，。。。
      */
     public function getCategoryLevelSpec($cate){
+        array_unshift($cate,0);
         $where  = array('status' => 1,'is_del'=>0);
-        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
-
-        $res = $this->generateTree($category);
-        $cates = array();
-        $cates[0] = $res;
-        $i=0;
-        $childName = '市场分类';
-        while(!empty($cates[$i])){
-            $cates[$i]['childname'] = $childName;
-            foreach($cates[$i] as $key=>$val){
-                if(!is_int($key))continue;
-                if($cate[$i]==$val['id'] && !empty($cates[$i][$key]['child'])){
-                    $cates[$i+1] = $cates[$i][$key]['child'];
-                    $childName = $val['childname'];
-                }
-                unset($cates[$i][$key]['child']);
-
+        $res = array();
+        foreach($cate as $key=>$val){
+            $where['pid'] = $val;
+            $res[$key] = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
+            if(empty($res[$key])){
+                unset($res[$key]);
+                break;
             }
-
-            $i++;
+            if($val==0)
+                $res[$key]['childname'] = '市场分类';
+            else{
+                $childName = $this->_productObj->table('product_category')->where(array('id'=>$val))->getField('childname');
+                $res[$key]['childname'] = $childName ? $childName : '商品分类';
+            }
         }
-        return $cates;
+
+        return $res;
 
 
     }
@@ -296,61 +316,6 @@ class product  {
     }
 
 
-    /**
-     * 获取下级所有分类，以及分类链
-     * @param $pid
-     * @param $category
-     * @return mixed
-     */
-    private function getCateChain($pid,$category){
-         static $chain = array();
-        static $res = array();
-        $len = count($category);
-        $step = 0;
-        if($pid!=0){
-            foreach($category as $k=>$v){
-                
-                $step += 1;
-                $chain[] = $k;
-                if($k!=$pid && !empty($category[$k]['child'])){
-                    $this->getCateChain($pid,$category[$k]['child']);
-                }
-                else if($k!=$pid && empty($category[$k]['child'])){//不等于pid且无下级分类
-                    array_pop($chain);
-                }
-                else if($k==$pid){
-                    $pidChain = $chain;
-                    $cate = $this->getchildCate($category[$k]['child']);
-                    $res['childname'] = $v['childname'];
-                    if(empty($cate)){
-                        $res['chain'] = $pidChain;
-                        $res['cate']  = array();
-                        $res['defaultCate'] = $pid;
-                        $res['unit'] = $v['unit'];
-                    }
-                    else{
-                        $res['chain'] = array_merge($pidChain,$cate[1]);
-                        $res['cate']  = $cate[0];
-                        $res['defaultCate'] = $cate[1][count($cate[1])-1];
-                        $res['unit'] = $cate[2];
-                    }
-
-                }
-                if($len==$step)array_pop($chain);
-            }
-        }
-        else{
-            $cate = $this->getchildCate($category);
-            $res['childname'] = $v['childname'];
-            $res['chain'] = $cate[1];
-            $res['cate']  = $cate[0];
-            $res['default'] = $cate[1][count($cate[1])-1];
-            $res['unit'] = $cate[2];
-
-        }
-
-        return $res;
-    }
 
     /**
      * 获取下级所有分类，以及下级所有第一个分类id,单位
@@ -649,23 +614,15 @@ class product  {
     public function getParents($cate_id){
         if(!($cate_id && $cate_id>0)) return array();
         $m = new M('product_category');
-        $data = $m->select();
-        $res = $this->listParents($data,$cate_id);
+        $res = array();
+        while($cate_id!=0){
+            $cate = $m->where(array('id'=>$cate_id))->fields('pid,id,name')->getObj();
+            array_unshift($res,array('id'=>$cate['id'],'name'=>$cate['name']));
+            $cate_id = $cate['pid'];
+        }
         return $res;
     }
 
-    private function listParents($data,$id,$parents = array()){
-        foreach ($data as $key => $value) {
-            if($value['id'] == $id){
-                $parents []= array('id'=>$id,'name'=>$value['name']);
-                $pid = $value['pid'];
-                if($pid != 0){
-                    $parents = $this->listParents($data,$pid,$parents);
-                }
-            }
-        }
-        return $parents;
-    }
 
 
     /**

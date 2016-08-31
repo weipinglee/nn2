@@ -43,15 +43,10 @@
                     	<div class="mx_l">结算账户资金明细</div>
 						<form action="{url:/Fund/index}" method="GET" name="">
                         <div class="mx_r">
-							 交易时间：<input class="Wdate" name="begin" type="text" value="{$cond['begin']}" onClick="WdatePicker()">
+							 交易时间：<input class="Wdate" name="startDate" type="text" value="{$startDate}" onClick="WdatePicker()">
 							<span class="js_span1">-</span>
-							<input class="Wdate" type="text" name="end" value="{$cond['end']}" onClick="WdatePicker()">
-							<span class="js_span2">交易号：</span><input type="text" value="{$cond['no']}" name="Sn">
-							<select name="day" >
-								<option value="7" {if:$cond['day']==7}selected{/if}>一周内</option>
-								<option value="30" {if:$cond['day']==30}selected{/if}>一个月内</option>
-								<option value="365" {if:$cond['day']==365}selected{/if}>一年内</option>
-							</select>
+							<input class="Wdate" type="text" name="endDate" value="{$endDate}" onClick="WdatePicker()">
+							
 							<button type="submit" class="search_an">搜索</button> 					
 						</div>
 							</form>
