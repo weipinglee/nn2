@@ -213,8 +213,14 @@ class product  {
         $where  = array('status' => 1,'is_del'=>0,'pid'=>$pid);
         static $res = array();
         if(empty($res)){
-            $childName = $this->_productObj->table('product_category')->where(array('id'=>$pid))->getField('childname');
-            $res['childname'] = $childName;
+            $cate = $this->_productObj->table('product_category')->where(array('id'=>$pid))->fields('childname,pid')->getObj();
+            $res['childname'] = $cate['childname'];
+            $res['chain'] = array($pid);
+            while($cate['pid']!=0){
+                array_unshift($res['chain'],$cate['pid']) ;
+                $cate['pid'] = $this->_productObj->table('product_category')->where(array('id'=>$cate['pid']))->getField('pid');
+            }
+
         }
 
         $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
@@ -223,16 +229,7 @@ class product  {
             $res['defaultCate'] = $category[0]['id'];
             $res['unit'] = $category[0]['unit'];
             $res['cate'][]['show'] = $category;
-            if($category[0]['attrs']){
-                if(empty($res['attr'])){
-                    $res['attr'] = explode(',',$category[0]['attrs']);
-                }
-                else{
-                    $res['attr'] = array_merge($res['attr'],explode(',',$category[0]['attrs']));
-                }
-            }
-
-
+            $res['chain'][] = $category['pid'];
             $this->getCategoryLevel($category[0]['id']);
         }
 
@@ -313,61 +310,6 @@ class product  {
     }
 
 
-    /**
-     * 获取下级所有分类，以及分类链
-     * @param $pid
-     * @param $category
-     * @return mixed
-     */
-    private function getCateChain($pid,$category){
-         static $chain = array();
-        static $res = array();
-        $len = count($category);
-        $step = 0;
-        if($pid!=0){
-            foreach($category as $k=>$v){
-                
-                $step += 1;
-                $chain[] = $k;
-                if($k!=$pid && !empty($category[$k]['child'])){
-                    $this->getCateChain($pid,$category[$k]['child']);
-                }
-                else if($k!=$pid && empty($category[$k]['child'])){//不等于pid且无下级分类
-                    array_pop($chain);
-                }
-                else if($k==$pid){
-                    $pidChain = $chain;
-                    $cate = $this->getchildCate($category[$k]['child']);
-                    $res['childname'] = $v['childname'];
-                    if(empty($cate)){
-                        $res['chain'] = $pidChain;
-                        $res['cate']  = array();
-                        $res['defaultCate'] = $pid;
-                        $res['unit'] = $v['unit'];
-                    }
-                    else{
-                        $res['chain'] = array_merge($pidChain,$cate[1]);
-                        $res['cate']  = $cate[0];
-                        $res['defaultCate'] = $cate[1][count($cate[1])-1];
-                        $res['unit'] = $cate[2];
-                    }
-
-                }
-                if($len==$step)array_pop($chain);
-            }
-        }
-        else{
-            $cate = $this->getchildCate($category);
-            $res['childname'] = $v['childname'];
-            $res['chain'] = $cate[1];
-            $res['cate']  = $cate[0];
-            $res['default'] = $cate[1][count($cate[1])-1];
-            $res['unit'] = $cate[2];
-
-        }
-
-        return $res;
-    }
 
     /**
      * 获取下级所有分类，以及下级所有第一个分类id,单位
