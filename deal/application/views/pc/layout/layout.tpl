@@ -173,7 +173,6 @@ z-index:1000;">
                 <input type="button" class="search_select" value="供应">
                 <input type="hidden" name="type" value="gong"/>
                 {/if}
-                
                      <ul id="search_list">
                         <li js_data="gong">供应</li>
                         <li js_data="qiu">求购</li>
