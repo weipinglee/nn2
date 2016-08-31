@@ -276,7 +276,7 @@
                                 <td nowrap="nowrap"><span></span>库位：</td>
                                 <td colspan="2"> 
                                     <span>
-                                        <input class="text" value="{$detail['store_pos']}" type="text" name="pos" datatype="*2-20" errormsg="库位请填写1-20位字符" />
+                                        <input class="text" value="{$detail['store_pos']}" type="text" name="pos" datatype="*1-20" errormsg="库位请填写1-20位字符" />
                                     </span>
                                     <span></span>
                                 </td>
@@ -349,7 +349,7 @@
                                 <td>
                                     <div class="zhxi_con">
                                         <span class="input-file">选择文件<input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
-                                        <input type="hidden" name="imgfile1" value="confirm" datatype="*" nullmsg="请上传签字入库单" />
+                                        <input type="hidden" name="imgfile1" value="{$detail['confirm']}" datatype="*" nullmsg="请上传签字入库单" />
 
                                     </div>
                                    

@@ -360,7 +360,6 @@ class ManagerStoreController extends UcenterBaseController{
     	if($id){
     		$stObj = new store();
     		$detail = $stObj->getManagerStoreDetail($id,$this->user_id);
-
 			$cate_sel = array();//商品所属的各级分类
 			foreach($detail['cate'] as $k=>$v){
 				$cate_sel[] = $v['id'];
@@ -389,7 +388,7 @@ class ManagerStoreController extends UcenterBaseController{
     		$product_id = safe::filterPost('product_id');
     		$id = safe::filterPost('id');
     		if (empty($product_id) || empty($id)) {
-    			$this->error('错误的请求方式!');
+    			die(json::encode(\Library\Tool::getSuccInfo(0, '错误的请求方式!')));
     		}
     		$storeProduct = array(
     			'store_pos' => safe::filterPost('pos'),
@@ -415,8 +414,7 @@ class ManagerStoreController extends UcenterBaseController{
     		}
 
     		$productData = $this->getProductData();
-
-
+    		unset($productData[0]['produce_area']);
     		$store = new store();
     		$storeProduct['status'] = $store::STOREMANAGER_SIGN;
     		$res = $store->updateStoreProduct( $productData,$storeProduct,$product_id, $id);
