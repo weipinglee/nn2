@@ -349,7 +349,7 @@
                                 <td>
                                     <div class="zhxi_con">
                                         <span class="input-file">选择文件<input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
-                                        <input type="hidden" name="imgfile1" value="confirm" datatype="*" nullmsg="请上传签字入库单" />
+                                        <input type="hidden" name="imgfile1" value="{$detail['confirm']}" datatype="*" nullmsg="请上传签字入库单" />
 
                                     </div>
                                    
