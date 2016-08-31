@@ -25,7 +25,7 @@ class storeProductController extends Yaf\Controller_Abstract{
         $obj = new storeProductModel();
        $data = $obj->getList($page);
 
-       $this->getView()->assign('list',$data);
+       $this->getView()->assign('data',$data);
     }
 
     /**

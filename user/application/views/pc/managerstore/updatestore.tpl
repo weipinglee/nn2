@@ -94,7 +94,7 @@
                                 <ul>
 
                                     {foreach: items=$category item=$cate}
-                                    <li value="{$cate['id']}"  {if: $key==$cate_sel[$level]} class="a_choose"{/if}  ><a>{$cate['name']}</a></li>
+                                    <li value="{$cate['id']}"  {if: $cate['id']==$cate_sel[$level]} class="a_choose"{/if}  ><a>{$cate['name']}</a></li>
                                     {/foreach}
                                 </ul>
 
