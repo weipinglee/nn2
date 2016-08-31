@@ -100,7 +100,6 @@
               </td>
               </tr>
              {/if}
-                 <th>处理结果</th>
                  <input type="hidden"  name='id' value="{$detail['id']}" />
                  <input type="hidden"  name='oid' value="{$detail['oid']}" />
                   <th scope="col" colspan="7">
