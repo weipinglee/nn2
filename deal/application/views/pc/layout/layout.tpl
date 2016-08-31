@@ -166,10 +166,15 @@ z-index:1000;">
                     <option value="gong" {if:isset($searchtype) && $searchtype==1}selected{/if}>供应</option>
                     <option value="qiu" {if:isset($searchtype) && $searchtype==2}selected{/if}>求购</option>
                 </select> -->
-                <input type="button" class="search_select" name="type" value="供应">
+                {if:isset($searchtype) && $searchtype==2}
+                <input type="button" class="search_select" value="求购">
+                {else:}
+                <input type="button" class="search_select" value="供应">
+                {/if}
+                <input type="hidden" name="type" value=""/>
                      <ul id="search_list">
-                        <li>供应</li>
-                        <li>求购</li>
+                        <li js_data="gong">供应</li>
+                        <li js_data="qiu">求购</li>
                       </ul> 
 
             </div>
@@ -195,9 +200,11 @@ z-index:1000;">
                        
                 })
                 $("#search_list li").each(function(){
-                    var _t = $(this);
+                    var _t = $(this)
+                        ,_v = _t.attr('js_data');
                      _t.click(function(){
-                        $('.search_select').val(_t.text())
+                        $('.search_select').val(_t.text());
+                        $('input[name=type]').val(_v);
                         $('#search_list').hide();
                      })
                 })
@@ -209,7 +216,7 @@ z-index:1000;">
 
         <script type="text/javascript">
             function searchGoods(){
-                var type = $('select[name=type]').val();
+                var type = $('input[name=type]').val();
                 var content = $('input[name=content]').val();
                 if(content=='')return false;
                 window.location.href='{url:/offers/offerList}/type/'+type+'/content/'+content;
