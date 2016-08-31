@@ -10,6 +10,11 @@
 						</p>
 					</div>
 					<div class="pay_cot">
+						<div class="zhxi_con">
+							<span class="con_tit"><i></i>可提现金额：</span>
+							<span><input class="text" type="text" disabled="disabled" style="border:none;" value="￥{$active}" /></span>
+							<span></span>
+						</div>
 
 						<div class="zhxi_con">
 							<span class="con_tit"><i>*</i>提现金额：</span>

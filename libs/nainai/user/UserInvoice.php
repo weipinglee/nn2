@@ -66,7 +66,20 @@ class UserInvoice extends \nainai\Abstruct\ModelAbstract {
 	 * @param  array $data 发票信息数组
 	 */
 	public function geneInvoice($data){
-		return $this->order_invoice->data($data)->add() ? true : false;
+		$order = new \nainai\order\Order();
+		$order_info = $order->orderInfo($data['order_id']);
+		if($order_info['user_id']){
+			$res = $this->order_invoice->data($data)->add() ? true : false;
+			if($res === true){
+				$mess = new \nainai\message($order_info['user_id']);
+				$content = '合同'.$order_info['order_no'].',卖家已开具并邮寄发票。请注意查收。';
+				return true;
+			}else{
+				return $res;
+			}
+		}else{
+			return false;
+		}
 	}
 
 

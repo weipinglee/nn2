@@ -253,6 +253,12 @@ class FundController extends UcenterBaseController {
 		foreach($fundOutList[0] as $k=>$v){
 			$fundOutList[0][$k]['status']=fundModel::getFundOutStatusText($v['status']);
 		}
+
+		$fundObj = \nainai\fund::createFund(1);
+
+		$active = $fundObj->getActive($this->user_id);
+
+		$this->getView()->assign('active',$active);
 		$this->getView()->assign('pageBar',$fundOutList[1]);
 		$this->getView()->assign('flow',$fundOutList[0]);
 		$token =  \Library\safe::createToken();

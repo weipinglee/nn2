@@ -298,10 +298,10 @@ class Delivery{
 						$mess_seller = new \nainai\message($seller);
 						$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$deliveryData['order_id'])."'>跳转到合同详情页</a>";
 						if($order_info['mode'] == \nainai\order\Order::ORDER_STORE){
-							$content = '(合同'.$order_info['order_no'].'买方已申请提货，请您及时进行发货处理。)'.$jump_url;
+							$content = '(合同'.$order_info['order_no'].'买方已申请提货，请您及时进行确认并支付仓库费，并通知仓库管理员进行发货处理。)'.$jump_url;
 							$mess_seller->send('common',$content);
 						}else{
-							$content = '(合同'.$order_info['order_no'].'买方已申请提货，请您及时进行确认并支付仓库费，并通知仓库管理员进行发货处理。)'.$jump_url;
+							$content = '(合同'.$order_info['order_no'].'买方已申请提货，请您及时进行发货处理。)'.$jump_url;
 							$mess_seller->send('common',$content);
 						}
 					}
