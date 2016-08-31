@@ -233,7 +233,7 @@ class product  {
         }
 
         if(!empty($category)){
-            $res['default'] = $category[0]['id'];
+            $res['defaultCate'] = $category[0]['id'];
             $res['unit'] = $category[0]['unit'];
             $res['cate'][]['show'] = $category;
             $res['chain'][] = $category[0]['id'];
