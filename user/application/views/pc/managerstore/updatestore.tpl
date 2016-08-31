@@ -239,7 +239,7 @@
                             <td colspan="2" class="btn">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$detail['cate_id']}">
                             <input type="hidden" name='product_id' id="cate_id" value="{$detail['product_id']}">
-                            <input type="hidden" name='id' id="cate_id" value="{$detail['id']}">
+                            <input type="hidden" name='id' id="cate_id" value="{$detail['sid']}">
                             </td>
                         </tr>
                         <tr>

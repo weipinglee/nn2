@@ -364,6 +364,8 @@ class ManagerStoreController extends UcenterBaseController{
     	if($id){
     		$stObj = new store();
     		$detail = $stObj->getManagerStoreDetail($id,$this->user_id);
+
+    
 			$cate_sel = array();//商品所属的各级分类
 			foreach($detail['cate'] as $k=>$v){
 				$cate_sel[] = $v['id'];
@@ -416,7 +418,6 @@ class ManagerStoreController extends UcenterBaseController{
     		if (!empty(safe::filterPost('imgfile2'))) {
     			$storeProduct['quality'] = \Library\tool::setImgApp(safe::filterPost('imgfile2'));
     		}
-
     		$productData = $this->getProductData();
     		unset($productData[0]['produce_area']);
     		$store = new store();
