@@ -276,7 +276,7 @@
                                 <td nowrap="nowrap"><span></span>库位：</td>
                                 <td colspan="2"> 
                                     <span>
-                                        <input class="text" value="{$detail['store_pos']}" type="text" name="pos" datatype="*2-20" errormsg="库位请填写1-20位字符" />
+                                        <input class="text" value="{$detail['store_pos']}" type="text" name="pos" datatype="*1-20" errormsg="库位请填写1-20位字符" />
                                     </span>
                                     <span></span>
                                 </td>
