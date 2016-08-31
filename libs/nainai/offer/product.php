@@ -223,7 +223,6 @@ class product  {
         if(empty($res) && $pid!=0){
             $cate = $this->_productObj->table('product_category')->where(array('id'=>$pid))->fields('childname,pid')->getObj();
 
-
             $childName = $cate['childname'];
             $res['chain'] = array($pid);
             while($cate['pid']!=0){
@@ -612,23 +611,14 @@ class product  {
     public function getParents($cate_id){
         if(!($cate_id && $cate_id>0)) return array();
         $m = new M('product_category');
-        $data = $m->select();
-        $res = $this->listParents($data,$cate_id);
+        $res = array();
+        while($cate_id!=0){
+            array_unshift($res,$cate_id);
+            $cate_id = $m->where(array('id'=>$cate_id))->getField('pid');
+        }
         return $res;
     }
 
-    private function listParents($data,$id,$parents = array()){
-        foreach ($data as $key => $value) {
-            if($value['id'] == $id){
-                $parents []= array('id'=>$id,'name'=>$value['name']);
-                $pid = $value['pid'];
-                if($pid != 0){
-                    $parents = $this->listParents($data,$pid,$parents);
-                }
-            }
-        }
-        return $parents;
-    }
 
 
     /**

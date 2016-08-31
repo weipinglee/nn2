@@ -359,7 +359,7 @@ class ManagerStoreController extends UcenterBaseController{
     	$id = Safe::filterGet('id','int',0);
     	if($id){
     		$stObj = new store();
-    		$detail = $stObj->getUserStoreDetail($id,$this->user_id);
+    		$detail = $stObj->getManagerStoreDetail($id,$this->user_id);
 
 			$cate_sel = array();//商品所属的各级分类
 			foreach($detail['cate'] as $k=>$v){
