@@ -613,8 +613,9 @@ class product  {
         $m = new M('product_category');
         $res = array();
         while($cate_id!=0){
-            array_unshift($res,$cate_id);
-            $cate_id = $m->where(array('id'=>$cate_id))->getField('pid');
+            $cate = $m->where(array('id'=>$cate_id))->getField('pid,id,name');
+            array_unshift($res,array('id'=>$cate['id'],'name'=>$cate['name']));
+            $cate_id = $cate['pid'];
         }
         return $res;
     }
