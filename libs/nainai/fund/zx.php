@@ -503,10 +503,15 @@ class zx extends account{
      * @param  int $user_id 用户id
      * @return array:明细信息数组 string:错误信息
      */
-    public function attachTransDetails($user_id,$where=array('startDate'=>'20160601','endDate'=>'20160726')){
+    public function attachTransDetails($user_id,$startDate='',$endDate=''){
+        $startDate = $startDate ? date('Ymd',strtotime($startDate)) : date('Ymd',time()-86400*90);
+        $endDate = $endDate ? date('Ymd',strtotime($endDate) < time() ? strtotime($endDate) : time()) : date('Ymd',time());
+
+        // var_dump($startDate);
+        // var_dump($endDate);
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
         if(!$payAccInfo) return array();
-
+        // var_dump($payAccInfo);exit;
         $xml = self::XML_PREFIX."
             <stream>
             <action>DLSTRNDT</action>
@@ -515,8 +520,8 @@ class zx extends account{
 
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
                 <queryType></queryType>
-                <startDate>{$where['startDate']}</startDate>
-                <endDate>{$where['endDate']}</endDate>
+                <startDate>{$startDate}</startDate>
+                <endDate>{$endDate}</endDate>
                 <tranType></tranType>
                 <startRecord></startRecord>
                 <pageNumber></pageNumber>
@@ -531,16 +536,20 @@ class zx extends account{
      * @param  int $user_id 用户id
      * @return array:明细信息数组 string:错误信息
      */
-    public function attachOperDetails($user_id,$where=array('startDate'=>'20160601','endDate'=>'20160726')){
+    public function attachOperDetails($user_id,$startDate='',$endDate=''){
+        $startDate = $startDate ? date('Ymd',strtotime($startDate)) : date('Ymd',time()-86400*90);
+        $endDate = $endDate ? date('Ymd',strtotime($endDate) < time() ? strtotime($endDate) : time()) : date('Ymd',time());
+
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
+        // var_dump($payAccInfo);exit;
         $xml = self::XML_PREFIX."
             <stream>
             <action>DLPTDTQY</action>
                 <userName>".self::USERNAME."</userName>
                 <mainAccNo>".self::MAINACC."</mainAccNo>
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
-                <startDate>{$where['startDate']}</startDate>
-                <endDate>{$where['endDate']}</endDate>
+                <startDate>{$startDate}</startDate>
+                <endDate>{$endDate}</endDate>
                 <startRecord>1</startRecord>
                 <pageNumber>10</pageNumber>
             </stream>";
