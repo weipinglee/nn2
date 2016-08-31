@@ -257,8 +257,8 @@ function bindRules(){
         {
             ele:"input[name^=attribute]",
             datatype:"*1-20",
-            nullmsg:"请填写规格！",
-            errormsg:"请填写规格！"
+            nullmsg:"请填写信息！",
+            errormsg:"请填写信息！"
         }
     ];
     formacc.addRule(rules);
