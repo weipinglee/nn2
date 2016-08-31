@@ -209,12 +209,22 @@ class product  {
         $this->_errorInfo = $mess;
     }
 
+    /**
+     * 获取层级分类
+     * @param int $pid
+     * @return mixed
+     */
     public function getCategoryLevel($pid = 0){
         $where  = array('status' => 1,'is_del'=>0,'pid'=>$pid);
         static $res = array();
-        if(empty($res)){
+
+        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
+        $childName = '';
+
+        if(empty($res) && $pid!=0){
             $cate = $this->_productObj->table('product_category')->where(array('id'=>$pid))->fields('childname,pid')->getObj();
-            $res['childname'] = $cate['childname'];
+
+            $childName = $cate['childname'];
             $res['chain'] = array($pid);
             while($cate['pid']!=0){
                 array_unshift($res['chain'],$cate['pid']) ;
@@ -223,16 +233,14 @@ class product  {
 
         }
 
-        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
-
         if(!empty($category)){
-            $res['defaultCate'] = $category[0]['id'];
+            $res['default'] = $category[0]['id'];
             $res['unit'] = $category[0]['unit'];
             $res['cate'][]['show'] = $category;
-            $res['chain'][] = $category['pid'];
+            $res['chain'][] = $category[0]['id'];
             $this->getCategoryLevel($category[0]['id']);
         }
-
+        $res['childname'] = $childName;
 
         return  $res;
     }

@@ -71,9 +71,6 @@ class ManagerDealController extends UcenterBaseController {
      * 商品添加页面展示
      */
     private function productAddAction(){
-        
-        $category = array();
-
         //获取商品分类信息，默认取第一个分类信息
         $productModel = new product();
         $category = $productModel->getCategoryLevel();
@@ -92,13 +89,9 @@ class ManagerDealController extends UcenterBaseController {
             }
             $key --;
         }while($key > 0);
-        $attr = $productModel->getProductAttr($category['chain']);
-        $attr = array_reverse($attr);
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('categorys', $category['cate']);
         $this->getView()->assign('risk_data', $risks);
-        $this->getView()->assign('attrs', $attr);
-        $this->getView()->assign('unit', $category['unit']);
         $this->getView()->assign('cate_id', $category['default']);
     }
 
