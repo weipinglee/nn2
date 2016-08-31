@@ -24,7 +24,8 @@ class StoreOrder extends Order{
 	 */
 	public function buyerDeposit($order_id,$type,$user_id,$payment=self::PAYMENT_AGENT){
 		$info = $this->orderInfo($order_id);
-		if(is_array($info) && isset($info['contract_status'])){
+		$offerInfo = $this->offerInfo($info['offer_id']);
+		if(is_array($info) && isset($info['contract_status']) && isset($offerInfo)){
 			if($info['contract_status'] != self::CONTRACT_NOTFORM)
 				return tool::getSuccInfo(0,'合同状态有误');
 			if($info['user_id'] != $user_id)
@@ -67,6 +68,10 @@ class StoreOrder extends Order{
 						$content = $type == 0 ? '(合同'.$info['order_no'].'已支付定金,请您及时支付尾款)' : '(合同'.$info['order_no'].'已生效,您可以申请提货了)';
 						$content .= "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
 						$mess->send('common',$content);
+
+						$mess_seller = new \nainai\message($offerInfo['user_id']);
+						$content = $type == 0 ? '合同'.$info['order_no'].',买方已支付定金,等待其支付尾款' : '合同'.$info['order_no'].'已支付全款,等待其提货申请';
+						$mess_seller->send('common',$content);
 						$log_res = $this->payLog($order_id,$user_id,0,'买方支付预付款--'.($type == 0 ? '定金' : '全款'));
 						$res = $log_res === true ? true : $log_res;
 					}else{
