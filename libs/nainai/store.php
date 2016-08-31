@@ -453,7 +453,7 @@ class store{
 
                             $param['name'] = $productData[0]['name'];
                             $obj = new \nainai\message($storeData['user_id']);
-                            $res = $obj->send('store', $param);
+                            $obj->send('store', $param);
                 }
             }
             $res = $storeProductObj->commit();
@@ -463,7 +463,7 @@ class store{
             $res = $storeProductObj->getError();
         }
         if($res===true){
-            $resInfo = Tool::getSuccInfo(1, 'success');
+            $resInfo = Tool::getSuccInfo(1, 'success','',$id);
         }
         else{
             $resInfo = Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
