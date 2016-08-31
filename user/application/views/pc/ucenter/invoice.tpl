@@ -29,7 +29,7 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>电话：</span>
-								<span><input class="text" type="text" name="tel" value="{$data['phone']}" datatype="/^[0-9\-]{11}$/" errormsg="格式错误">
+								<span><input class="text" type="text" name="tel" value="{$data['phone']}" datatype="/^[0-9\-]{6,15}$/" errormsg="格式错误">
 								</span>
                                 <span></span>
 							</div>
