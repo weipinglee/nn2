@@ -437,8 +437,7 @@ class product  {
         }
 
         //获取所属分类
-        $cates = $this->getParents($detail['cate_id']);
-        $detail['cate'] = array_reverse($cates);
+        $detail['cate'] = $this->getParents($detail['cate_id']);
         foreach ($detail['cate'] as $key => $value) {
             $detail['cate_chain'] .= $value['name'].'/';    
         }
