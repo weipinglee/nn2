@@ -251,29 +251,25 @@ class product  {
      * @param array $cate array(2,3,4)，2是顶级分类，3是2的下级分类，。。。
      */
     public function getCategoryLevelSpec($cate){
+        array_unshift($cate,0);
         $where  = array('status' => 1,'is_del'=>0);
-        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
-
-        $res = $this->generateTree($category);
-        $cates = array();
-        $cates[0] = $res;
-        $i=0;
-        $childName = '市场分类';
-        while(!empty($cates[$i])){
-            $cates[$i]['childname'] = $childName;
-            foreach($cates[$i] as $key=>$val){
-                if(!is_int($key))continue;
-                if($cate[$i]==$val['id'] && !empty($cates[$i][$key]['child'])){
-                    $cates[$i+1] = $cates[$i][$key]['child'];
-                    $childName = $val['childname'];
-                }
-                unset($cates[$i][$key]['child']);
-
+        $res = array();
+        foreach($cate as $key=>$val){
+            $where['pid'] = $val;
+            $res[$key] = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
+            if(empty($res[$key])){
+                unset($res[$key]);
+                break;
             }
-
-            $i++;
+            if($val==0)
+                $res[$key]['childname'] = '市场分类';
+            else{
+                $childName = $this->_productObj->table('product_category')->where(array('id'=>$val))->getField('childname');
+                $res[$key]['childname'] = $childName ? $childName : '商品分类';
+            }
         }
-        return $cates;
+
+        return $res;
 
 
     }
