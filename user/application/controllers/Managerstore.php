@@ -129,7 +129,7 @@ class ManagerStoreController extends UcenterBaseController{
 		$this->getView()->assign('categorys', $category['cate']);
 		$this->getView()->assign('attrs', $attr);
 		$this->getView()->assign('unit', $category['unit']);
-		$this->getView()->assign('cate_id', $category['defaultCate']);
+		$this->getView()->assign('cate_id', $category['default']);
 	}
 
 	//仓单签发
@@ -359,7 +359,8 @@ class ManagerStoreController extends UcenterBaseController{
     	$id = Safe::filterGet('id','int',0);
     	if($id){
     		$stObj = new store();
-    		$detail = $stObj->getManagerStoreDetail($id,$this->user_id);
+    		$detail = $stObj->getUserStoreDetail($id,$this->user_id);
+    
 			$cate_sel = array();//商品所属的各级分类
 			foreach($detail['cate'] as $k=>$v){
 				$cate_sel[] = $v['id'];
@@ -412,7 +413,6 @@ class ManagerStoreController extends UcenterBaseController{
     		if (!empty(safe::filterPost('imgfile2'))) {
     			$storeProduct['quality'] = \Library\tool::setImgApp(safe::filterPost('imgfile2'));
     		}
-
     		$productData = $this->getProductData();
     		unset($productData[0]['produce_area']);
     		$store = new store();
