@@ -92,7 +92,7 @@ class ManagerDealController extends UcenterBaseController {
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('categorys', $category['cate']);
         $this->getView()->assign('risk_data', $risks);
-        $this->getView()->assign('cate_id', $category['default']);
+        $this->getView()->assign('cate_id', $category['defaultCate']);
     }
 
     //检查报盘规则

@@ -129,7 +129,7 @@ class ManagerStoreController extends UcenterBaseController{
 		$this->getView()->assign('categorys', $category['cate']);
 		$this->getView()->assign('attrs', $attr);
 		$this->getView()->assign('unit', $category['unit']);
-		$this->getView()->assign('cate_id', $category['default']);
+		$this->getView()->assign('cate_id', $category['defaultCate']);
 	}
 
 	//仓单签发
