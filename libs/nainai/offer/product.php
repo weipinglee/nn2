@@ -239,6 +239,9 @@ class product  {
             $res['chain'][] = $category[0]['id'];
             $this->getCategoryLevel($category[0]['id']);
         }
+        else{
+            $res['defaultCate'] = $pid;
+        }
         $res['childname'] = $childName;
 
         return  $res;
