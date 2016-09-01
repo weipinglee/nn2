@@ -141,11 +141,12 @@ class Order{
 			$content = '合同'.$info['order_no'].',申诉结果为：买方违约，合同终止。根据交易规则，买方将支付您'.$pay_title.',请您关注资金动态。';
 			$mess_seller->send('common',$content);
 			// $mess->send('breakcontract',$order_id);
-			//买方支付卖方违约金
+			//买方支付卖方违约金 
 			if(is_object($account_deposit) && $res === true){
 				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$pay_deposit);
 				if($res === true){
-					$res = $pay_break == $pay_deposit ? true : $account_deposit->freezeRelease($buyer,$pay_deposit-$pay_break,'申诉,买方违约,解冻剩余定金'.$pay_deposit-$pay_break);
+					$deposit_left = $pay_deposit-$pay_break;
+					$res = $pay_break == $pay_deposit ? true : $account_deposit->freezeRelease($buyer,$deposit_left,'申诉,买方违约,解冻剩余定金'.$deposit_left);
 				}
 			}else{
 				$res = '无效定金支付方式';
