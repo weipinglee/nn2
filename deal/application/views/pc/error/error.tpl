@@ -10,13 +10,13 @@
     <link href="{views:css/404/iconfont.css}" rel="stylesheet" type="text/css" />
     <link href="{views:css/404/H-ui.min.css}" rel="stylesheet" type="text/css" />
     <link href="{views:css/404/H-ui.admin.css}" rel="stylesheet" type="text/css" />
-    <title>ๆจ่ฎฟ้—ฎ็้กต้ขไธๅญๅจ</title>
+    <title>ฤ๚ทรฮสตฤาณรๆฒปดๆิฺ</title>
 </head>
 <body>
 <section class="page-404 minWP text-c">
     <p class="error-title"><i class="Hui-iconfont va-m" style="font-size:80px">&#xe656;</i><span class="va-m"> 404</span></p>
-    <p class="error-description">ไธๅฅฝๆๆ€๏ผๆจ่ฎฟ้—ฎ็้กต้ขไธๅญๅจ~</p>
-    <p class="error-info">ๆจๅฏไปฅ๏ผ<a href="javascript:;" onclick="history.go(-1)" class="c-primary">&lt; ่ฟ”ๅไธไธ€้กต</a><span class="ml-20">|</span><a href="{url:/index/index}" class="c-primary ml-20">ๅป้ฆ–้กต &gt;</a></p>
+    <p class="error-description">ฒปบราโหผฃฌฤ๚ทรฮสตฤาณรๆฒปดๆิฺ~</p>
+    <p class="error-info">ฤ๚ฟษาิฃบ<a href="javascript:;" onclick="history.go(-1)" class="c-primary">&lt; ทตปุษฯาปาณ</a><span class="ml-20">|</span><a href="{url:/index/index}" class="c-primary ml-20">ศฅสืาณ &gt;</a></p>
 </section>
 </body>
 </html>
