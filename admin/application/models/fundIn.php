@@ -221,7 +221,7 @@ class fundInModel{
                 $data['status'] = self::OFFLINE_FINAL_OK;
                 $fundObj = fund::createFund(1);//实例化代理账户对象
 
-                $fundRes = $fundObj->in($reInfo['user_id'],floatval($reInfo['amount']));//入金操作
+                $fundRes = $fundObj->in($reInfo['user_id'],floatval($reInfo['amount']),'线下入金');//入金操作
 
             }
             else{
