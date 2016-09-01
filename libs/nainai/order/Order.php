@@ -107,13 +107,14 @@ class Order{
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		$delivery = new \nainai\delivery\Delivery();
+		$deposit_title = $info['pay_deposit'] == $info['amount'] ? '货款' : '定金';
 		$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $info['user_id'];
 		$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $info['user_id'] : $offerInfo['user_id'];
 		$pay_deposit = number_format($info['pay_deposit'],2);
 		if($pay_deposit <= floatval($info['amount'] * 0.1)){
 			//定金小于总货款10%
 			$pay_break = $pay_deposit;
-			$pay_title = '该合同全部定金';
+			$pay_title = '该合同全部'.$deposit_title;
 		}else{
 			$pay_break = floatval($info['amount']) * 0.1;
 			$pay_title = '该合同总货款的10%';
@@ -146,7 +147,7 @@ class Order{
 				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$pay_deposit);
 				if($res === true){
 					$deposit_left = $pay_deposit-$pay_break;
-					$res = $pay_break == $pay_deposit ? true : $account_deposit->freezeRelease($buyer,$deposit_left,'申诉,买方违约,解冻剩余定金'.$deposit_left);
+					$res = $pay_break == $pay_deposit ? true : $account_deposit->freezeRelease($buyer,$deposit_left,'申诉,买方违约,解冻剩余'.$deposit_title.$deposit_left);
 				}
 			}else{
 				$res = '无效定金支付方式';
@@ -174,6 +175,7 @@ class Order{
 	public function sellerBreakContract($order_id){
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
+		$deposit_title = $info['pay_deposit'] == $info['amount'] ? '货款' : '定金';
 		$delivery = new \nainai\delivery\Delivery();
 		try {
 			$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $info['user_id'];
@@ -221,7 +223,7 @@ class Order{
 			$res = (bool)$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
 			//解冻买方货款   线下支付？？？
 			if(is_object($account_deposit) && $res === true){
-				$res = $account_deposit->freezeRelease($buyer,$info['pay_deposit'],'申诉,卖方违约,解冻定金'.number_format($info['pay_deposit'],2));
+				$res = $account_deposit->freezeRelease($buyer,$info['pay_deposit'],'申诉,卖方违约,解冻'.$deposit_title.number_format($info['pay_deposit'],2));
 			}
 
 			if(is_object($account_retainage) && $res === true){
