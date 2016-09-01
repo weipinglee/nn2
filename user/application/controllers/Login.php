@@ -28,13 +28,12 @@ class LoginController extends \Yaf\Controller_Abstract {
      * 对于如下的例子, 当访问http://yourhost/yar-demo/index/index/index/name/root 的时候, 你就会发现不同
      */
 	public function indexAction() {
-
+        echo $this->getViewPath();
 	}
 
 	public function captchaAction(){
 		$ca = new \Library\captcha();
 		$ca->CreateImage();
-        exit;
 	}
 
 	/**
@@ -180,12 +179,11 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 * 生成验证码
 	 */
 	public function getCaptchaAction(){
-        $this->getView()->setLayout('');
+
         $w = safe::filterGet('w','int', 150);
         $h = safe::filterGet('h','int', 50);
 		$ca = new \Library\captcha(array('width' => $w, 'height' => $h));
 		$ca->CreateImage();
-        exit;
 	}
     
 
