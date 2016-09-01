@@ -87,31 +87,35 @@ nn_panduo.formacc.prototype = {
 					var data = $(curform).serialize();
 					var pay_secret = $(curform).attr('pay_secret');
 					if(pay_secret){
-						layer.config({
-							extend: 'extend/layer.ext.js'
-						});
-						layer.prompt({title:'请输入支付密码',formType:1},function(pass){
-
+						_this.ajax_post('/nn2/user/public/ucenter/hasPaySecret',{password:'pass'},function(){
 							layer.closeAll();
-							data += '&pay_secret=' + pass;
-							// console.log(data);
-							layer.load(2,{shade:[0.1,'gray']});
-							_this.ajax_post(url,data,function(){
+							layer.config({
+								extend: 'extend/layer.ext.js'
+							});
+							layer.prompt({title:'请输入支付密码',formType:1},function(pass){
+
 								layer.closeAll();
-								if(!_this.no_redirect){
-									layer.msg("操作成功!稍后自动跳转");
-									setTimeout(function(){
-										if(_this.redirect_url){
-											window.location.href=_this.redirect_url;
-										}else{
-											window.location.reload();
-										}
-									},1000);
-								}else{
-									layer.msg('操作成功！');
-								}
+								data += '&pay_secret=' + pass;
+								// console.log(data);
+								layer.load(2,{shade:[0.1,'gray']});
+								_this.ajax_post(url,data,function(){
+									layer.closeAll();
+									if(!_this.no_redirect){
+										layer.msg("操作成功!稍后自动跳转");
+										setTimeout(function(){
+											if(_this.redirect_url){
+												window.location.href=_this.redirect_url;
+											}else{
+												window.location.reload();
+											}
+										},1000);
+									}else{
+										layer.msg('操作成功！');
+									}
+								});
 							});
 						});
+						
 
 					}else{
 						layer.load();

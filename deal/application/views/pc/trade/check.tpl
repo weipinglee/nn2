@@ -211,9 +211,6 @@
     <script type="text/javascript">
                 
                 $(function(){
-                    if(window.location.href.indexOf('refreshed')<0){
-                      window.location.href = window.location.href+'/refreshed/1';
-                    }
                     var num_input = $('input[name=num]');
                     var deposit_text = $('.pay_deposit');
                     var prod_amount = $('.prod_amount');
@@ -228,6 +225,8 @@
                     var temp_deposit = deposit_text.eq(1).text();
                     var paytype = 0;
                     var global_num = minimum;
+
+                    check();
 
                     bindmin();
                     bindadd();

@@ -32,7 +32,7 @@ class Base extends \Yaf\Controller_Abstract{
 		   $url = url::createUrl('/ucenter/'.self::$certPage[$this->certType].'@user');
 		   if(IS_AJAX){
 			   die(\Library\json::encode(\Library\tool::getSuccInfo(0,'请先进行相关的资质认证',$url)));
-
+			
 		   }else{
 			   $this->redirect($url);exit;
 
