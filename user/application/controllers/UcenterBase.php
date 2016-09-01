@@ -58,7 +58,6 @@ class UcenterBaseController extends \nainai\controller\Base{
         //判断是否需要支付密码
         if(IS_POST && in_array(strtolower($controllerName).'/'.strtolower($actionName),$secret_url)){
             $pay_secret = safe::filterPost('pay_secret') ? safe::filterPost('pay_secret') : safe::filter($this->_request->getParam('pay_secret'));
-            echo 1;exit;
             if(!$pay_secret){
                 IS_AJAX ? die(json::encode(tool::getSuccInfo(0,'请输入支付密码'))) : $this->error('请输入支付密码');die;
             }
@@ -129,7 +128,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     			}else{
     				$controllerName = $list['id'];
     			}
-
+                
     			//生成头菜单对应的子菜单数据格式
     			if ($list['pid'] == $pid && $pid > 0) {
     				$menu[$id] = array('url' => $list['menu_url'], 'title' => $list['menu_zn'], 'id'=>$list['id'], 'action'=>strtolower($urlpath[0]), 'list' => '');

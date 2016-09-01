@@ -142,7 +142,7 @@ class Order{
 			$mess_seller->send('common',$content);
 			// $mess->send('breakcontract',$order_id);
 			//买方支付卖方违约金 
-			if(is_object($account_deposit) && $res === true){
+			if(is_object($account_deposit)){
 				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$pay_deposit);
 				if($res === true){
 					$deposit_left = $pay_deposit-$pay_break;
@@ -203,11 +203,11 @@ class Order{
 				$mess_seller->send('common',$content);
 				//将卖方保证金支付10%支付给买方 解冻货物
 				if(is_object($account_seller_deposit)){
-					$res = $account_seller_deposit->freezePay($seller,$buyer,$seller_deposit*0.1,'申诉,卖方违约,支付买方保证金10%,'.number_format($seller_deposit*0.1,2),$seller_deposit);
+					$res = $seller_deposit ? $account_seller_deposit->freezePay($seller,$buyer,$seller_deposit*0.1,'申诉,卖方违约,支付买方保证金10%,'.number_format($seller_deposit*0.1,2),$seller_deposit) : true;
 					if (is_string($res)) {
 						return $res;
 					}else{
-						$res = $account_seller_deposit->freezeRelease($seller,$seller_deposit*0.9,'申诉,卖方违约,解冻剩余保证金,'.number_format($seller_deposit*0.9,2));
+						$res = $seller_deposit ? $account_seller_deposit->freezeRelease($seller,$seller_deposit*0.9,'申诉,卖方违约,解冻剩余保证金,'.number_format($seller_deposit*0.9,2)) : true;
 					}
 				}else{
 					$res = '无效保证金支付方式';
@@ -301,9 +301,9 @@ class Order{
 		}
 
 		$offer_info = $this->offerInfo($orderData['offer_id']);
-		if($offer_info['user_id'] == $orderData['user_id']){
-			return tool::getSuccInfo(0,'买方卖方为同一人');
-		}
+		// if($offer_info['user_id'] == $orderData['user_id']){
+		// 	return tool::getSuccInfo(0,'买方卖方为同一人');
+		// }
 		
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
