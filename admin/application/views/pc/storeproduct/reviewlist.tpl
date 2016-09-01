@@ -25,7 +25,7 @@
 				<th width="80">商品名称</th>
 				<th width="100">市场分类</th>
 				<th width="150">规格</th>
-				<th width="150">重量</th>
+				<th width="150">数量</th>
 				<th width="130">仓库</th>
 				<th width="70">状态</th>
 				<th width="100">操作</th>

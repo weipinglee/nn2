@@ -95,7 +95,7 @@ z-index:1000;">
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="{views:images/index/icon_index.png}"/>
-                <a rel="external nofollow" href="{url:/index/index@useruser}" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="{url:/index/index@deal}" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
@@ -168,10 +168,11 @@ z-index:1000;">
                 </select> -->
                 {if:isset($searchtype) && $searchtype==2}
                 <input type="button" class="search_select" value="求购">
+                <input type="hidden" name="type" value="qiu"/>
                 {else:}
                 <input type="button" class="search_select" value="供应">
+                <input type="hidden" name="type" value="gong"/>
                 {/if}
-                <input type="hidden" name="type" value="1"/>
                      <ul id="search_list">
                         <li js_data="gong">供应</li>
                         <li js_data="qiu">求购</li>

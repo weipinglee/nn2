@@ -109,30 +109,29 @@ class Order{
 		$delivery = new \nainai\delivery\Delivery();
 		$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $info['user_id'];
 		$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $info['user_id'] : $offerInfo['user_id'];
-		if($info['pay_deposit'] < floatval($info['amount'] * 0.1)){
+		$pay_deposit = number_format($info['pay_deposit'],2);
+		if($pay_deposit <= floatval($info['amount'] * 0.1)){
 			//定金小于总货款10%
-			$pay_break = $info['pay_deposit'];
+			$pay_break = $pay_deposit;
 			$pay_title = '该合同全部定金';
 		}else{
 			$pay_break = floatval($info['amount']) * 0.1;
 			$pay_title = '该合同总货款的10%';
 		}
-
+		$pay_break = number_format($pay_break,2);
 		try {
 			$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
-			//买方支付卖方违约金
+			
 			$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
-			// $account_retainage = $this->base_account->get_account($info['retainage_payment']);
+			$account_retainage = $this->base_account->get_account($info['retainage_payment']);
+			$account_seller_deposit = $this->base_account->get_account($info['seller_deposit_payment']);
 			
 			$product_left = $delivery->orderNumLeft($order_id,false,true);
-			$res = $this->productsFreezeRelease($offerInfo,$product_left);
 
-			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $info['user_id'] : $offerInfo['user_id'];
+			$res = $this->productsFreezeRelease($offerInfo,$product_left);
 
 			$credit = new \nainai\CreditConfig();
             $credit->changeUserCredit($info['user_id'], 'buyer_break');
-
-			$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $info['user_id'];
 
 			$mess_buyer = new \nainai\message($buyer);
 			$content = '合同'.$info['order_no'].',申诉结果为：买方违约，合同终止。根据交易规则，将扣除您'.$pay_title.'给卖方,请您关注资金动态。';
@@ -142,15 +141,26 @@ class Order{
 			$content = '合同'.$info['order_no'].',申诉结果为：买方违约，合同终止。根据交易规则，买方将支付您'.$pay_title.',请您关注资金动态。';
 			$mess_seller->send('common',$content);
 			// $mess->send('breakcontract',$order_id);
-			if(is_object($account_deposit)){
-				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$info['pay_deposit']);
+			//买方支付卖方违约金
+			if(is_object($account_deposit) && $res === true){
+				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$pay_deposit);
+				if($res === true){
+					$res = $pay_break == $pay_deposit ? true : $account_deposit->freezeRelease($buyer,$pay_deposit-$pay_break,'申诉,买方违约,解冻剩余定金'.$pay_deposit-$pay_break);
+				}
 			}else{
 				$res = '无效定金支付方式';
 			}
-			//TODO 解冻买方剩余定金
+
+			if(is_object($account_retainage) && $res === true){
+				$res = $info['pay_retainage'] ? $account_retainage->freezeRelease($buyer,$info['pay_retainage'],'申诉,买方违约,解冻尾款'.number_format($info['pay_retainage'],2)) : true;
+			}
+
+			if(is_object($account_seller_deposit) && $res === true){
+				$res = $info['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$info['seller_deposit'],'申诉,买方违约,解冻保证金'.number_format($info['seller_deposit'],2)) : true;
+			}
 		} catch (\PDOException $e) {
 
-			$res = $e->getMessage();
+			$res = $e->getMessage(); 
 		}
 		return $res ;
 	}
@@ -192,10 +202,14 @@ class Order{
 				$mess_seller->send('common',$content);
 				//将卖方保证金支付10%支付给买方 解冻货物
 				if(is_object($account_seller_deposit)){
-					$res = $account_seller_deposit->freezePay($seller,$buyer,$seller_deposit*0.1,'申诉,卖方违约,支付买方保证金10%,'.$seller_deposit*0.1,$seller_deposit);
+					$res = $account_seller_deposit->freezePay($seller,$buyer,$seller_deposit*0.1,'申诉,卖方违约,支付买方保证金10%,'.number_format($seller_deposit*0.1,2),$seller_deposit);
 					if (is_string($res)) {
 						return $res;
+					}else{
+						$res = $account_seller_deposit->freezeRelease($seller,$seller_deposit*0.9,'申诉,卖方违约,解冻剩余保证金,'.number_format($seller_deposit*0.9,2));
 					}
+				}else{
+					$res = '无效保证金支付方式';
 				}
 			}else{
 				$content = '合同'.$info['order_no'].',申诉结果为：卖方违约，合同终止。';
@@ -205,18 +219,12 @@ class Order{
 			}
 			$res = (bool)$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
 			//解冻买方货款   线下支付？？？
-			if(is_object($account_deposit)){
-				$res = $account_deposit->freezeRelease($buyer,$info['pay_deposit']);	
-				if (is_string($res)) {
-					return $res;
-				}
+			if(is_object($account_deposit) && $res === true){
+				$res = $account_deposit->freezeRelease($buyer,$info['pay_deposit'],'申诉,卖方违约,解冻定金'.number_format($info['pay_deposit'],2));
 			}
 
-			if(is_object($account_retainage)){
-				$res = $info['pay_retainage'] ? $account_retainage->freezeRelease($buyer,$info['pay_retainage']) : true;
-				if (is_string($res)) {
-					return $res;
-				}
+			if(is_object($account_retainage) && $res === true){
+				$res = $info['pay_retainage'] ? $account_retainage->freezeRelease($buyer,$info['pay_retainage'],'申诉,卖方违约,解冻尾款'.number_format($info['pay_retainage'],2)) : true;
 			}
 		} catch (\PDOException $e) {
 

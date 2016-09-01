@@ -49,7 +49,7 @@ z-index:1000;">
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="images/index/icon_index.png"/>
-                <a rel="external nofollow" href="index.html" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="{url:/index/index@deal}" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
