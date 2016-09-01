@@ -141,7 +141,7 @@ class Order{
 			$content = '合同'.$info['order_no'].',申诉结果为：买方违约，合同终止。根据交易规则，买方将支付您'.$pay_title.',请您关注资金动态。';
 			$mess_seller->send('common',$content);
 			// $mess->send('breakcontract',$order_id);
-			//买方支付卖方违约金
+			//买方支付卖方违约金 
 			if(is_object($account_deposit) && $res === true){
 				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$pay_deposit);
 				if($res === true){
