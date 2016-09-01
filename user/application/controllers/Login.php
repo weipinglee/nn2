@@ -71,8 +71,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 		\Library\session::clear('login');
         $validPhoneCode = safe::filterPost('validPhoneCode','int');
         $phone = safe::filterPost('mobile','/^\d+$/');
-        $data = array('err'=>0);
-        // $data = self::checkMobileValidateCode($phone,$validPhoneCode);
+         $data = self::checkMobileValidateCode($phone,$validPhoneCode);
         if($data['err'] == 1)
         {
             $res = array('success'=>0,'info'=>$data['info']);
