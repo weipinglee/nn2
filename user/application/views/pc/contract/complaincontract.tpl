@@ -33,7 +33,7 @@
 												</a>
 											{/if}
 										</div>
-									</td>
+									</td> 
 									<td>
 										<div class="div_heights">
 
