@@ -73,7 +73,7 @@
 							<td>{$item['time']}</td>
 							<td>{$item['fund_in']}</td>
 							<td>{$item['fund_out']}</td>
-							<td>{echo:$item['total'] -$item['active'] }</td>
+							<td>{echo:round($item['total'] -$item['active'],2) }</td>
 							<td>{$item['total']}</td>
 							<td>{$item['active']}</td>
 							<td>{$item['note']}</td>
