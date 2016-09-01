@@ -13,7 +13,7 @@ use \nainai\order;
 use \Library\json;
 use \Library\M;
 class tradeController extends \nainai\controller\Base {
-
+ 
 	private $offer;
 
 	protected $certType = 'deal';

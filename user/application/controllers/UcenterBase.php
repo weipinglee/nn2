@@ -26,7 +26,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 		'deal'=>'dealcert',
 		'store'=>'storecert'
 	);
-
+ 
 	/**
 	 * 设置对话框中返回的url
 	 * @var [type]

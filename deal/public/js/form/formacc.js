@@ -82,7 +82,7 @@ nn_panduo.formacc.prototype = {
 					}
 
 				},
-				beforeSubmit:function(curform){
+				beforeSubmit:function(curform){ 
 					var url = $(curform).attr('action');
 					var data = $(curform).serialize();
 					var pay_secret = $(curform).attr('pay_secret');

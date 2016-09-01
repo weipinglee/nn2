@@ -20,7 +20,7 @@
 						<span class="con_tit"><i>*</i>重复支付密码：</span>
 						<span><input class="text" type="password"  name="re_secret" datatype='*' recheck='new_secret' errormsg='两次输入的密码不一致'/></span>
 					<span></span>
-					</div>
+					</div> 
 					<input type="hidden" name="oper" value="edit"/>
 					<div class="zhxi_con">
 						<span><input class="submit_edit" type="submit" value="修改"/></span>

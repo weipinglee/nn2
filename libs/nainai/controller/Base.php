@@ -15,7 +15,7 @@ class Base extends \Yaf\Controller_Abstract{
 	private static $certPage = array(
 		'deal'=>'dealcert',
 		'store'=>'storecert'
-	);
+	); 
 
 	 protected function init(){
 		$right = new checkRight();

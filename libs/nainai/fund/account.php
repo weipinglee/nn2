@@ -24,7 +24,7 @@ class account{
             default:
                 return '无效支付方式';
                 break;
-        }
+        } 
     }
 
     /**

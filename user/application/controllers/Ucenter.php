@@ -58,7 +58,7 @@ class UcenterController extends UcenterBaseController {
                         $error = '两次输入的密码不一致';
                     $userData['pay_secret'] = md5($pay_secret);
                     $info = '新增支付密码成功';
-                    break;
+                    break; 
                 case 'edit':
                     $ori_secret = safe::filterPost('ori_secret');
                     $new_secret = safe::filterPost('new_secret');

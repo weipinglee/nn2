@@ -27,7 +27,7 @@ class member{
         }
         return isset(self::$userType[$type]) ? self::$userType[$type] : '未知';
     }
-
+ 
     //获取企业所有性质
     public function getComNature(){
         return $compNature = array(

@@ -118,7 +118,7 @@ nn_panduo.formacc.prototype = {
 		        var url = $(curform).attr('action');
 		        var data = $(curform).serialize();
 		        var pay_secret = $(curform).attr('pay_secret');
-		        
+		         
 		        if(pay_secret){
 		        	_this.ajax_post('/nn2/user/public/ucenter/hasPaySecret',{password:'pass'},function(){
 						layer.closeAll();
