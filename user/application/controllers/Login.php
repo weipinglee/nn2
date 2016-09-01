@@ -34,6 +34,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	public function captchaAction(){
 		$ca = new \Library\captcha();
 		$ca->CreateImage();
+        exit;
 	}
 
 	/**
@@ -184,6 +185,7 @@ class LoginController extends \Yaf\Controller_Abstract {
         $h = safe::filterGet('h','int', 50);
 		$ca = new \Library\captcha(array('width' => $w, 'height' => $h));
 		$ca->CreateImage();
+        exit;
 	}
     
 
