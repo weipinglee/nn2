@@ -663,7 +663,7 @@ $(function(){
             <span class="i_w_10">
                 <%if (data[i].quantity - data[i].sell - data[i].freeze>1) { %>
                     <%if (data[i].type==1) { %>
-                        <a href="{url:/offers/offerdetails?id=<%=data[i].id%>&pid=<%=data[i].product_id%>}">
+                        <a class="<%=data[i].id%>" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
                             <img class="ckxq" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                         </a>
                      <a href="{url:/trade/check?id=<%=data[i].id%>&pid=<%=data[i].product_id%>}">
