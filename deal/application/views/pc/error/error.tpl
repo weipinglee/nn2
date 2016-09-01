@@ -8,8 +8,8 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
     <link href="{views:css/404/iconfont.css}" rel="stylesheet" type="text/css" />
-    <link href="{views:css/404/css/H-ui.min.css}" rel="stylesheet" type="text/css" />
-    <link href="{views:css/404/css/H-ui.admin.css}" rel="stylesheet" type="text/css" />
+    <link href="{views:css/404/H-ui.min.css}" rel="stylesheet" type="text/css" />
+    <link href="{views:css/404/H-ui.admin.css}" rel="stylesheet" type="text/css" />
     <title>您访问的页面不存在</title>
 </head>
 <body>
