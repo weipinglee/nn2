@@ -22,7 +22,7 @@
 								</tr>
 
 								<tr>
-									<td><div class="div_heights">
+									<td><div class="div_heights"> 
 											{if:$ContractData=='sell'}
 											<a href="{url:/contract/sellerdetail?id=$ContractData['id']}">
 												{$ContractData['order_no']}
