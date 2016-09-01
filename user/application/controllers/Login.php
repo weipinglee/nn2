@@ -71,8 +71,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 		\Library\session::clear('login');
         $validPhoneCode = safe::filterPost('validPhoneCode','int');
         $phone = safe::filterPost('mobile','/^\d+$/');
-        $data = array('err'=>0);
-        // $data = self::checkMobileValidateCode($phone,$validPhoneCode);
+         $data = self::checkMobileValidateCode($phone,$validPhoneCode);
         if($data['err'] == 1)
         {
             $res = array('success'=>0,'info'=>$data['info']);
@@ -249,13 +248,13 @@ class LoginController extends \Yaf\Controller_Abstract {
                 $data['errorCode'] = 5;
             }
             else{
-                // if(!$captchaObj->check($captcha)){//验证码是否正确
-                //     $data['errorCode'] = 4;
-                // }
-                // else{//登录成功
+                 if(!$captchaObj->check($captcha)){//验证码是否正确
+                     $data['errorCode'] = 4;
+                 }
+                 else{//登录成功
                     $checkRight = new checkRight();
                     $checkRight->loginAfter($userData);
-                // }
+                 }
             }
 			
 

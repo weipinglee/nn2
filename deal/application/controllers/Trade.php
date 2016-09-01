@@ -13,7 +13,7 @@ use \nainai\order;
 use \Library\json;
 use \Library\M;
 class tradeController extends \nainai\controller\Base {
-
+ 
 	private $offer;
 
 	protected $certType = 'deal';
@@ -92,6 +92,13 @@ class tradeController extends \nainai\controller\Base {
 		}
 		$user_id = $this->user_id;
 		
+		$zhi = new \nainai\member();
+		$pay_secret = safe::filterPost('pay_secret');
+		
+		if(!$zhi->validPaymentPassword($pay_secret,$user_id)){
+			die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
+		}
+		
 		$orderData['payment'] = $account;
 		$orderData['offer_id'] = $id;
 		$orderData['num'] = $num;
@@ -141,11 +148,6 @@ class tradeController extends \nainai\controller\Base {
 					$url = url::createUrl('/offers/paySuccess?id='.$order_id.'&order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证');
 					die(json::encode(tool::getSuccInfo(1,'操作成功,稍后跳转',$url)));
 				}else{
-					$zhi = new \nainai\member();
-					$pay_secret = safe::filterPost('pay_secret');
-					if(!$zhi->validPaymentPassword($pay_secret,$this->user_id)){
-						die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
-					}
 
 					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id,$account);
 

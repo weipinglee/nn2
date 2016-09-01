@@ -48,7 +48,7 @@
         <div class="cell vcode">
           <img class="vcode_img" src="{views:images/password/yanzm.png}">
           <input type="text" name="code" id="js-mobile_vcode_ipt" class="text" maxlength="4" placeholder="验证码"/>
-       <a id='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}',$(this).find('img'))"><img src="{url:/login/getCaptcha}" /></a>
+       <a id='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img src="{url:/login/getCaptcha}?w=200&h=50" /></a>
         </div>
         <div class="mamory">
           <!-- <span><label for=""><input type="checkbox" checked="checked"></label>记住密码</span> -->

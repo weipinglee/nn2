@@ -27,7 +27,7 @@ class member{
         }
         return isset(self::$userType[$type]) ? self::$userType[$type] : '未知';
     }
-
+ 
     //获取企业所有性质
     public function getComNature(){
         return $compNature = array(
@@ -160,7 +160,7 @@ class member{
         $user = new M('user');
         $pay_secret = $user->where(array('id'=>$user_id))->getField('pay_secret');
         if($pay_secret==''){
-            $url = \Library\url::createUrl('/ucenter/paysecret@user');
+            $url = \Library\url::createUrl('/ucenter/paysecret@user').'?callback='.$_SERVER['HTTP_REFERER'];
             IS_AJAX ? die(\Library\json::encode(\Library\tool::getSuccInfo(0,'请先设置支付密码',$url))) : die('<script type="text/javascript" >window.location.href="'.$url.'"</script>');
         }
         if(md5($password) == $pay_secret){

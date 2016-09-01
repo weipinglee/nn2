@@ -22,7 +22,7 @@
     </div>
    </div> 
 <div class="clearfix"></div> 
-
+ 
 <form method="post" {if:$data['show_payment']}pay_secret="1"{/if} auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
 
     <!--主要内容 开始-->
@@ -211,9 +211,6 @@
     <script type="text/javascript">
                 
                 $(function(){
-                    if(window.location.href.indexOf('refreshed')<0){
-                      window.location.href = window.location.href+'/refreshed/1';
-                    }
                     var num_input = $('input[name=num]');
                     var deposit_text = $('.pay_deposit');
                     var prod_amount = $('.prod_amount');
@@ -228,6 +225,8 @@
                     var temp_deposit = deposit_text.eq(1).text();
                     var paytype = 0;
                     var global_num = minimum;
+
+                    check();
 
                     bindmin();
                     bindadd();

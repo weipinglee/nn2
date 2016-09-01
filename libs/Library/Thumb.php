@@ -60,7 +60,7 @@ class Thumb
 	 * @param $imgSrc
 	 * @return string
 	 */
-	public static function getOrigImg($imgSrc){
+	public static function getOrigImg($imgSrc,$make=1){
 		if($imgSrc=='')
 			return '';
 		$imgArr = explode('@',$imgSrc);
@@ -69,6 +69,10 @@ class Thumb
 
 		}else{
 			$sourcePath = url::getBaseUrl().'/'.trim($imgSrc,'/');
+		}
+		if($make==1){
+			$imgData = getimagesize($sourcePath);
+			return self::get($imgSrc,$imgData[0],$imgData[1]);
 		}
 
 		return $sourcePath;
