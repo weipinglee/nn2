@@ -170,23 +170,6 @@ $(function(){
                                   <div class="slide"><img src="{$item['content']}" /></div>
                                  {/foreach}
                                 </div>
-             
-                            <!-- Swiper JS -->
-
-
-                            <!-- Initialize Swiper -->
-                            <script>
-                                $('.slider4').bxSlider({
-                                  slideWidth: 215,
-                                  minSlides: 2,
-                                  maxSlides: 4,
-                                  moveSlides: 1,
-                                  startSlide: 1,
-                                  auto: true,
-                                  slideMargin: 10
-                                });
-
-                            </script>
                         </div>
 
                     </div>
