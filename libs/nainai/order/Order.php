@@ -145,7 +145,8 @@ class Order{
 			if(is_object($account_deposit) && $res === true){
 				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$pay_deposit);
 				if($res === true){
-					$res = $pay_break == $pay_deposit ? true : $account_deposit->freezeRelease($buyer,$pay_deposit-$pay_break,'申诉,买方违约,解冻剩余定金'.$pay_deposit-$pay_break);
+					$deposit_left = $pay_deposit-$pay_break;
+					$res = $pay_break == $pay_deposit ? true : $account_deposit->freezeRelease($buyer,$deposit_left,'申诉,买方违约,解冻剩余定金'.$deposit_left);
 				}
 			}else{
 				$res = '无效定金支付方式';
