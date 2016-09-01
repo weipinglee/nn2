@@ -150,7 +150,7 @@ class Order{
 			}else{
 				$res = '无效定金支付方式';
 			}
-			
+
 			if(is_object($account_retainage) && $res === true){
 				$res = $info['pay_retainage'] ? $account_retainage->freezeRelease($buyer,$info['pay_retainage'],'申诉,买方违约,解冻尾款'.number_format($info['pay_retainage'],2)) : true;
 			}
@@ -160,7 +160,7 @@ class Order{
 			}
 		} catch (\PDOException $e) {
 
-			$res = $e->getMessage();
+			$res = $e->getMessage(); 
 		}
 		return $res ;
 	}
