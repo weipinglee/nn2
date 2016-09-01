@@ -179,7 +179,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 * 生成验证码
 	 */
 	public function getCaptchaAction(){
-
+        $this->getView()->setLayout('');
         $w = safe::filterGet('w','int', 150);
         $h = safe::filterGet('h','int', 50);
 		$ca = new \Library\captcha(array('width' => $w, 'height' => $h));
