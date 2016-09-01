@@ -1326,7 +1326,7 @@ class Order{
 				case self::CONTRACT_SELLER_DEPOSIT:
 					$title = '等待卖家支付保证金';
 					$action []= array('action'=>$title);
-					$_after_time = time::_after_time($value['pay_deposit_time'],30);
+					$_after_time = time::_after_time($value['pay_deposit_time'],3600);
 					if($_after_time === true){
 						$action []= array('action'=>'取消合同','confirm' => 1,'url'=>url::createUrl("/Order/cancelContract?order_id={$value['id']}"));
 					}

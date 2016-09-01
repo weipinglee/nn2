@@ -15,7 +15,7 @@
 								  <th>合同编号</th>
 								  <th width="180px">产品名</th>
 								  <th>价格</th>
-								  <th>卖家</th>
+								  <!-- <th>卖家</th> -->
 								</tr>
 								<tr>
 								  <td colspan="6">&nbsp;</td>
@@ -46,12 +46,12 @@
 
 									</td>
 
-									<td>
+									<!-- <td>
 										<div class="div_heights Place"><span>{$ContractData['sellcn']['username']}</span> 
 
 										</div>
 										
-									</td>
+									</td> -->
 
 								</tr>
 							</table>
