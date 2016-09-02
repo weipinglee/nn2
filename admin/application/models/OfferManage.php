@@ -153,9 +153,9 @@ class OfferManageModel extends \nainai\offer\product{
 				$param['type'] = $offerData['type'];
 				$obj = new \nainai\message($offerData['user_id']);
 				$res = $obj->send('offer', $param);
-				if($status==self::OFFER_OK){//审核通过增加信誉值
+				if($status==self::OFFER_OK && $offerData['mode'] == self::FREE_OFFER){//审核通过增加信誉值
 					$credit = new \nainai\CreditConfig();
-					$credit->changeUserCredit($offerData['user_id'],'product');
+					$credit->changeUserCredit($offerData['user_id'],'cert_free');
 				}
 			}
 			else{//付款发生错误
