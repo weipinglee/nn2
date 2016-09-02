@@ -1063,7 +1063,7 @@ class Order{
 		$data = $query->find();
 
 		foreach ($data['list'] as $key => &$value) {
-			$value['company_name'] = $value['type'] == \nainai\offer\product::TYPE_BUY ? $value['do_company_name'] : $value['po_company_name'];
+			$value['company_name'] = $value['type'] == \nainai\offer\product::TYPE_BUY ? $value['po_company_name'] : $value['do_company_name'];
 		}
 		$this->sellerContractStatus($data['list']);
 		// tool::pre_dump($data);
