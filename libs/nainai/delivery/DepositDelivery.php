@@ -45,7 +45,7 @@ class DepositDelivery extends Delivery{
 			$deliveryData['id'] = $delivery_id;
 			$deliveryData['status'] = parent::DELIVERY_BUYER_CONFIRM;//提货状态置为已发货，等待买家确认
 			$mess_buyer = new \nainai\message($buyer);
-			$jump_url = "<a href='".url::createUrl('/delivery/deliBuyList')."'>跳转到提单列表</a>";
+			$jump_url = "<a href='".url::createUrl('/delivery/deliBuyList@user')."'>跳转到提单列表</a>";
 			$content = '合同'.$res['order_no'].',卖方已发货,请您在收到货物之后及时进行确认收货,并进行质量确认。'.$jump_url;
 			$mess_buyer->send('common',$content);
 			

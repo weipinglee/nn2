@@ -227,7 +227,7 @@ class StoreDelivery extends Delivery{
 					
 					$buyer = $delivery['type'] == \nainai\offer\product::TYPE_SELL ? $delivery['user_id'] : $delivery['offer_user'];
 					$mess_buyer = new \nainai\message($buyer);
-					$jump_url = "<a href='".url::createUrl('/delivery/deliBuyList')."'>跳转到提单列表</a>";
+					$jump_url = "<a href='".url::createUrl('/delivery/deliBuyList@user')."'>跳转到提单列表</a>";
 					$content = '(合同'.$delivery['order_no'].',已提货完成,请您及时进行质量确认)'.$jump_url;
 					$mess_buyer->send('common',$content);
 					$order->commit();	
