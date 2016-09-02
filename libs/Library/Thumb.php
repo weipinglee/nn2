@@ -70,10 +70,10 @@ class Thumb
 		}else{
 			$sourcePath = url::getBaseUrl().'/'.trim($imgSrc,'/');
 		}
-		if($make==1){
-			$imgData = getimagesize($sourcePath);
-			return self::get($imgSrc,$imgData[0],$imgData[1]);
-		}
+//		if($make==1){
+//			$imgData = getimagesize($sourcePath);
+//			return self::get($imgSrc,$imgData[0],$imgData[1]);
+//		}
 
 		return $sourcePath;
 	}
