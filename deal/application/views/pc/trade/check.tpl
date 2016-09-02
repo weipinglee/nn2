@@ -23,7 +23,7 @@
    </div> 
 <div class="clearfix"></div> 
  
-<form method="post" {if:$data['show_payment']}pay_secret="1" has_secret="{url:/trade/hasPaySecret@user}"{/if} auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
+<form method="post" {if:$data['show_payment']}pay_secret="1" has_secret="{url:/trade/hasPaySecret@deal}"{/if} auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
 
     <!--主要内容 开始-->
     <div id="mainContent" style="background:#FFF;"> 
