@@ -666,14 +666,14 @@ $(function(){
                         <a class="<%=data[i].id%>" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
                             <img class="ckxq" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                         </a>
-                     <a href="{url:/trade/check?id=<%=data[i].id%>&pid=<%=data[i].product_id%>}">
+                     <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>">
                          <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                      </a>
                     <%}else { %>
-                        <a href="{url:/offers/purchasedetails?id=<%=data[i].id%>}">
+                        <a href="{url:/offers/purchasedetails}/id/<%=data[i].id%>">
                             <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
                         </a>
-                         <a href="{url:/trade/report?id=<%=data[i].id%>}">
+                         <a href="{url:/trade/report}/id/<%=data[i].id%>">
                               <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
                         </a>
                     <% } %>
