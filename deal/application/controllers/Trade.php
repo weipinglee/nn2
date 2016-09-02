@@ -306,5 +306,12 @@ class tradeController extends \nainai\controller\Base {
 		}
 	}
 
+	//用户是否设置支付密码
+	public function hasPaySecretAction(){
+		$pass = safe::filterPost('password');
+		$member = new \nainai\member();
+		die(json::encode(tool::getSuccInfo(1,(int)$member->validPaymentPassword($pass))));
+	}
+
 
 }
