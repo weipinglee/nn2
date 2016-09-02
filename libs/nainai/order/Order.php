@@ -1044,7 +1044,15 @@ class Order{
 	 */
 	public function sellerContractList($user_id,$page){
 		$query = new \Library\searchQuery('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci1 on do.user_id = ci1.user_id left join company_info as ci2 on po.user_id = ci2.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id
+						left join user as u on u.id = do.user_id
+						left join products as p on po.product_id = p.id
+						left join company_info as ci1 on do.user_id = ci1.user_id
+						left join company_info as ci2 on po.user_id = ci2.user_id
+						left join product_category as pc on p.cate_id = pc.id
+						left join store_products as sp on sp.product_id = p.id
+						left join store_list as sl on sp.store_id = sl.id
+						left join person_info as pi on pi.user_id = do.user_id';
 		$query->where = '((po.user_id = :user_id and po.type = '.\nainai\offer\product::TYPE_SELL.') or (do.user_id = :seller_id and po.type = '.\nainai\offer\product::TYPE_BUY.'))';
 		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci1.company_name as do_company_name,ci2.company_name as po_company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
@@ -1055,7 +1063,7 @@ class Order{
 		$data = $query->find();
 
 		foreach ($data['list'] as $key => &$value) {
-			$value['company_name'] = $value['type'] == \nainai\offer\product::TYPE_SELL ? $value['do_company_name'] : $value['po_company_name'];
+			$value['company_name'] = $value['type'] == \nainai\offer\product::TYPE_BUY ? $value['do_company_name'] : $value['po_company_name'];
 		}
 		$this->sellerContractStatus($data['list']);
 		// tool::pre_dump($data);

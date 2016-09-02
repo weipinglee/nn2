@@ -204,7 +204,7 @@ class LoginController extends \Yaf\Controller_Abstract {
         }
         $temp = rand(100000, 999999);
         $text = "您申请的校验码为 {$temp},请尽快操作，妥善保管，如非本人操作，请忽略此信息。";
-        session::set('mobileValidateReg', array('phone' => $phone, 'num' => $text, 'time' => time()));
+        session::set('mobileValidateReg', array('phone' => $phone, 'num' => $temp, 'time' => time()));
         $hsms = new Hsms();
         if (!$hsms->send($phone, $text))
         {
