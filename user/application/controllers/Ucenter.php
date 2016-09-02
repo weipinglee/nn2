@@ -45,6 +45,7 @@ class UcenterController extends UcenterBaseController {
         $userInfo = $userModel->getUserInfo($this->user_id);
         if(IS_POST){
             $oper = safe::filterPost('oper','trim');
+            $callback = safe::filterPost('callback','trim');
             $userData['id'] = $this->user_id;
             $error = '';
             switch ($oper) {
@@ -56,7 +57,8 @@ class UcenterController extends UcenterBaseController {
                     if($re_secret != $pay_secret)
                         $error = '两次输入的密码不一致';
                     $userData['pay_secret'] = md5($pay_secret);
-                    break;
+                    $info = '新增支付密码成功';
+                    break; 
                 case 'edit':
                     $ori_secret = safe::filterPost('ori_secret');
                     $new_secret = safe::filterPost('new_secret');
@@ -66,20 +68,35 @@ class UcenterController extends UcenterBaseController {
                     if($userInfo['pay_secret'] != md5($ori_secret))
                         $error = '原始密码错误';
                     $userData['pay_secret'] = md5($new_secret);
+                    $info = '更新支付密码成功';
                     break;
                 default:
                     $error = '未知操作';
                     break;
             }
             $res = empty($error) ? $userModel->updateUserInfo($userData) : tool::getSuccInfo(0,$error);
+            if($callback){
+                $res['returnUrl'] = $callback;
+            }
             if($res['success']==1){
+                $res['info'] = $info;
                 $userLog=new \Library\userLog();
                 $userLog->addLog(['action'=>'支付密码编辑','content'=>'编辑了支付密码']);
             }
             die(JSON::encode($res));
         }else{
+            $callback = safe::filterGet('callback');
+
             $this->getView()->assign('pay_secret',$userInfo['pay_secret']);
+            $this->getView()->assign('callback',$callback);
         }
+    }
+
+    //用户是否设置支付密码
+    public function hasPaySecretAction(){
+        $pass = safe::filterPost('password');
+        $member = new \nainai\member();
+        die(json::encode(tool::getSuccInfo(1,(int)$member->validPaymentPassword($pass))));
     }
 
     public function dobaseAction(){

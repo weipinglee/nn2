@@ -107,32 +107,32 @@ class Order{
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
 		$delivery = new \nainai\delivery\Delivery();
+		$deposit_title = $info['pay_deposit'] == $info['amount'] ? '货款' : '定金';
 		$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $info['user_id'];
 		$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $info['user_id'] : $offerInfo['user_id'];
-		if($info['pay_deposit'] < floatval($info['amount'] * 0.1)){
+		$pay_deposit = number_format($info['pay_deposit'],2);
+		if($pay_deposit <= floatval($info['amount'] * 0.1)){
 			//定金小于总货款10%
-			$pay_break = $info['pay_deposit'];
-			$pay_title = '该合同全部定金';
+			$pay_break = $pay_deposit;
+			$pay_title = '该合同全部'.$deposit_title;
 		}else{
 			$pay_break = floatval($info['amount']) * 0.1;
 			$pay_title = '该合同总货款的10%';
 		}
-
+		$pay_break = number_format($pay_break,2);
 		try {
 			$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
-			//买方支付卖方违约金
+			
 			$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
-			// $account_retainage = $this->base_account->get_account($info['retainage_payment']);
+			$account_retainage = $this->base_account->get_account($info['retainage_payment']);
+			$account_seller_deposit = $this->base_account->get_account($info['seller_deposit_payment']);
 			
 			$product_left = $delivery->orderNumLeft($order_id,false,true);
-			$res = $this->productsFreezeRelease($offerInfo,$product_left);
 
-			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $info['user_id'] : $offerInfo['user_id'];
+			$res = $this->productsFreezeRelease($offerInfo,$product_left);
 
 			$credit = new \nainai\CreditConfig();
             $credit->changeUserCredit($info['user_id'], 'buyer_break');
-
-			$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $info['user_id'];
 
 			$mess_buyer = new \nainai\message($buyer);
 			$content = '合同'.$info['order_no'].',申诉结果为：买方违约，合同终止。根据交易规则，将扣除您'.$pay_title.'给卖方,请您关注资金动态。';
@@ -142,15 +142,27 @@ class Order{
 			$content = '合同'.$info['order_no'].',申诉结果为：买方违约，合同终止。根据交易规则，买方将支付您'.$pay_title.',请您关注资金动态。';
 			$mess_seller->send('common',$content);
 			// $mess->send('breakcontract',$order_id);
+			//买方支付卖方违约金 
 			if(is_object($account_deposit)){
-				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$info['pay_deposit']);
+				$res = $account_deposit->freezePay($buyer,$seller,$pay_break,'申诉,买方违约,支付卖方'.$pay_title.','.$pay_break,$pay_deposit);
+				if($res === true){
+					$deposit_left = $pay_deposit-$pay_break;
+					$res = $pay_break == $pay_deposit ? true : $account_deposit->freezeRelease($buyer,$deposit_left,'申诉,买方违约,解冻剩余'.$deposit_title.$deposit_left);
+				}
 			}else{
 				$res = '无效定金支付方式';
 			}
-			//TODO 解冻买方剩余定金
+
+			if(is_object($account_retainage) && $res === true){
+				$res = $info['pay_retainage'] ? $account_retainage->freezeRelease($buyer,$info['pay_retainage'],'申诉,买方违约,解冻尾款'.number_format($info['pay_retainage'],2)) : true;
+			}
+
+			if(is_object($account_seller_deposit) && $res === true){
+				$res = $info['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$info['seller_deposit'],'申诉,买方违约,解冻保证金'.number_format($info['seller_deposit'],2)) : true;
+			}
 		} catch (\PDOException $e) {
 
-			$res = $e->getMessage();
+			$res = $e->getMessage(); 
 		}
 		return $res ;
 	}
@@ -163,6 +175,7 @@ class Order{
 	public function sellerBreakContract($order_id){
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
+		$deposit_title = $info['pay_deposit'] == $info['amount'] ? '货款' : '定金';
 		$delivery = new \nainai\delivery\Delivery();
 		try {
 			$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $info['user_id'];
@@ -192,10 +205,14 @@ class Order{
 				$mess_seller->send('common',$content);
 				//将卖方保证金支付10%支付给买方 解冻货物
 				if(is_object($account_seller_deposit)){
-					$res = $account_seller_deposit->freezePay($seller,$buyer,$seller_deposit*0.1,'申诉,卖方违约,支付买方保证金10%,'.$seller_deposit*0.1,$seller_deposit);
+					$res = $seller_deposit ? $account_seller_deposit->freezePay($seller,$buyer,$seller_deposit*0.1,'申诉,卖方违约,支付买方保证金10%,'.number_format($seller_deposit*0.1,2),$seller_deposit) : true;
 					if (is_string($res)) {
 						return $res;
+					}else{
+						$res = $seller_deposit ? $account_seller_deposit->freezeRelease($seller,$seller_deposit*0.9,'申诉,卖方违约,解冻剩余保证金,'.number_format($seller_deposit*0.9,2)) : true;
 					}
+				}else{
+					$res = '无效保证金支付方式';
 				}
 			}else{
 				$content = '合同'.$info['order_no'].',申诉结果为：卖方违约，合同终止。';
@@ -205,18 +222,12 @@ class Order{
 			}
 			$res = (bool)$this->order->data(array('id'=>$order_id,'contract_status'=>self::CONTRACT_CANCEL))->update();
 			//解冻买方货款   线下支付？？？
-			if(is_object($account_deposit)){
-				$res = $account_deposit->freezeRelease($buyer,$info['pay_deposit']);	
-				if (is_string($res)) {
-					return $res;
-				}
+			if(is_object($account_deposit) && $res === true){
+				$res = $account_deposit->freezeRelease($buyer,$info['pay_deposit'],'申诉,卖方违约,解冻'.$deposit_title.number_format($info['pay_deposit'],2));
 			}
 
-			if(is_object($account_retainage)){
-				$res = $info['pay_retainage'] ? $account_retainage->freezeRelease($buyer,$info['pay_retainage']) : true;
-				if (is_string($res)) {
-					return $res;
-				}
+			if(is_object($account_retainage) && $res === true){
+				$res = $info['pay_retainage'] ? $account_retainage->freezeRelease($buyer,$info['pay_retainage'],'申诉,卖方违约,解冻尾款'.number_format($info['pay_retainage'],2)) : true;
 			}
 		} catch (\PDOException $e) {
 
@@ -292,9 +303,9 @@ class Order{
 		}
 
 		$offer_info = $this->offerInfo($orderData['offer_id']);
-		if($offer_info['user_id'] == $orderData['user_id']){
-			return tool::getSuccInfo(0,'买方卖方为同一人');
-		}
+		// if($offer_info['user_id'] == $orderData['user_id']){
+		// 	return tool::getSuccInfo(0,'买方卖方为同一人');
+		// }
 		
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
@@ -1033,7 +1044,15 @@ class Order{
 	 */
 	public function sellerContractList($user_id,$page){
 		$query = new \Library\searchQuery('order_sell as do');
-		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join company_info as ci1 on do.user_id = ci1.user_id left join company_info as ci2 on po.user_id = ci2.user_id left join product_category as pc on p.cate_id = pc.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sp.store_id = sl.id left join person_info as pi on pi.user_id = do.user_id';
+		$query->join  = 'left join product_offer as po on do.offer_id = po.id
+						left join user as u on u.id = do.user_id
+						left join products as p on po.product_id = p.id
+						left join company_info as ci1 on do.user_id = ci1.user_id
+						left join company_info as ci2 on po.user_id = ci2.user_id
+						left join product_category as pc on p.cate_id = pc.id
+						left join store_products as sp on sp.product_id = p.id
+						left join store_list as sl on sp.store_id = sl.id
+						left join person_info as pi on pi.user_id = do.user_id';
 		$query->where = '((po.user_id = :user_id and po.type = '.\nainai\offer\product::TYPE_SELL.') or (do.user_id = :seller_id and po.type = '.\nainai\offer\product::TYPE_BUY.'))';
 		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci1.company_name as do_company_name,ci2.company_name as po_company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
@@ -1314,10 +1333,10 @@ class Order{
 				case self::CONTRACT_NOTFORM:
 					$title = '未支付定金';
 					break;
-				case self::CONTRACT_SELLER_DEPOSIT:
+				case self::CONTRACT_SELLER_DEPOSIT:   
 					$title = '等待卖家支付保证金';
 					$action []= array('action'=>$title);
-					$_after_time = time::_after_time($value['pay_deposit_time'],30);
+					$_after_time = time::_after_time($value['pay_deposit_time'],3600);
 					if($_after_time === true){
 						$action []= array('action'=>'取消合同','confirm' => 1,'url'=>url::createUrl("/Order/cancelContract?order_id={$value['id']}"));
 					}

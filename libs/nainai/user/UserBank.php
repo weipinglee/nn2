@@ -22,6 +22,13 @@ class UserBank
         self::BANK_NG => '审核驳回',
 
     );
+    
+    public static $message_text = array(
+        self::BANK_APPLY => '',
+        self::BANK_OK => '',
+        self::BANK_NG => 1,  //显示审核意见
+
+    );
     protected $outFundRules = array(
         array('id', 'number', 'id错误', 0, 'regex'),
         array('user_id', 'number', '', 0, 'regex'),

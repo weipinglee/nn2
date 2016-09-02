@@ -89,12 +89,20 @@
 						</form>
 					</div>
 					<div id="bank2" {if: $status=='未申请'} style="display: none" {/if}>
+                            <div class="zhxi_con">
+                                <span class="con_tit"><i>*</i>开户状态：</span>
+                                <span class="con_con">{$status}</span>
+
+
+                            </div>
+                            {if:$bank['message']}
 							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>开户状态：</span>
-								<span class="con_con">{$status}</span>
+								<span class="con_tit"><i>*</i>审核意见：</span>
+								<span class="con_con">{$bank['message']}</span>
 
 
 							</div>
+                            {/if}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>开户银行：</span>
 								<span class="con_con">{$bank['bank_name']}</span>

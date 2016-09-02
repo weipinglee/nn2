@@ -332,12 +332,12 @@ class FundController extends UcenterBaseController {
 				$data['proof_thumb'] = \Library\thumb::get($data['proof'],180,180);
 				$this->getView()->assign('bank',$data);
 				$status = fundModel::$status_text[$data['status']];
+                $data['message'] = fundModel::$message_text[$data['status']] ? $data['message'] : '';
 			}
 			else
 				$status = '未申请';
 			$this->getView()->assign('status',$status);
 			$this->getView()->assign('user_type',$this->user_type);
-
 			$type = $fundModel->getCardType();
 			$this->getView()->assign('type',$type);
 		}

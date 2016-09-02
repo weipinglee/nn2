@@ -26,7 +26,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 		'deal'=>'dealcert',
 		'store'=>'storecert'
 	);
-
+ 
 	/**
 	 * 设置对话框中返回的url
 	 * @var [type]
@@ -128,7 +128,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     			}else{
     				$controllerName = $list['id'];
     			}
-
+                
     			//生成头菜单对应的子菜单数据格式
     			if ($list['pid'] == $pid && $pid > 0) {
     				$menu[$id] = array('url' => $list['menu_url'], 'title' => $list['menu_zn'], 'id'=>$list['id'], 'action'=>strtolower($urlpath[0]), 'list' => '');
