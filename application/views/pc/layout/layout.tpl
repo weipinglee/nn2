@@ -433,8 +433,14 @@ z-index:1000;">
                     <li class="footer_li">
                         <a class="fotter_div" target="_blank"><b>{$item['name']}</b></a>
                         {foreach: items=$item['data'] item=$v key=$k}
-                            <a class="fotter_a" href="{url:/help/help}?cat_id={$v['cat_id']}&id={$v['id']}" target="_blank">{$v['name']}</a>
-                        {/foreach}
+                            {if:$v['link']}
+                                <a class="fotter_a" href="{$v['link']}" target="_blank">{$v['name']}</a>
+
+                            {else:}
+                                <a class="fotter_a" href="{url:/help/help}?cat_id={$v['cat_id']}&id={$v['id']}" target="_blank">{$v['name']}</a>
+
+                            {/if}
+                         {/foreach}
                     </li>
                 {/foreach}
 
