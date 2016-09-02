@@ -1054,7 +1054,7 @@ class Order{
 						left join store_list as sl on sp.store_id = sl.id
 						left join person_info as pi on pi.user_id = do.user_id';
 		$query->where = '((po.user_id = :user_id and po.type = '.\nainai\offer\product::TYPE_SELL.') or (do.user_id = :seller_id and po.type = '.\nainai\offer\product::TYPE_BUY.'))';
-		$query->fields = 'u.username,do.*,p.name as product_name,p.img,p.unit,ci1.company_name as do_company_name,ci2.company_name as po_company_name,pc.percent,sl.name as store_name,pi.true_name';
+		$query->fields = 'u.username,do.*,p.name as product_name,po.type,p.img,p.unit,ci1.company_name as do_company_name,ci2.company_name as po_company_name,pc.percent,sl.name as store_name,pi.true_name';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 		$query->bind  = array('user_id'=>$user_id,'seller_id'=>$user_id);
 		$query->page  = $page;
