@@ -16,7 +16,7 @@ class market{
     protected $actions = array(
         'deal' => array(
             'index/trade/doreport',
-            'index/trade/buyerPay'
+            'index/trade/buyerpay'
 
         ),
         'user' => array(
