@@ -307,6 +307,10 @@ OEF;
                     $attr = $this->getAttrs($matches[4]);
                     if(!isset($attr['thumb'])) $attr['thumb'] = '';
                     if(!isset($attr['orig'])) $attr['orig'] = $attr['thumb'];
+                    if(substr($attr['thumb'],0,1) == '$')
+                        $attr['thumb'] = '<?php echo '.$attr['thumb'].' ; ?>';
+                    if(substr($attr['orig'],0,1) == '$')
+                        $attr['orig'] = '<?php echo '.$attr['orig'].' ; ?>';
                     return   <<< OEF
                     <a target="_blank" href="{$attr['orig']}"><img src="{$attr['thumb']}"></a>
 OEF;
