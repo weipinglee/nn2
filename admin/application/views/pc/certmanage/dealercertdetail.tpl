@@ -39,9 +39,9 @@
 					 </tr>
 					 <tr>
 						 <th>身份证正面：</th>
-						 <td>{img: thumb=$cert['identify_front_thumb'] }</td>
+						 <td>{img: thumb=$cert['identify_front_thumb'] orig=$cert['identify_front_orig']}</td>
 						 <th>身份证背面：</th>
-						 <td>{img: thumb=$cert['identify_back_thumb'] }</td>
+						 <td>{img: thumb=$cert['identify_back_thumb'] orig=$cert['identify_back_orig']}</td>
 						 <th>详细地址：</th>
 						 <td>{$cert['address']}</td>
 					 </tr>
@@ -77,11 +77,11 @@
 
 					 <tr>
 						 <th>营业执照：</th>
-						 <td>{img: thumb=$cert['cert_bl_thumb'] }</td>
+						 <td>{img: thumb=$cert['cert_bl_thumb'] orig=$cert['cert_bl_orig']}</td>
 						 <th>组织机构代码：</th>
-						 <td><img src="{$cert['cert_oc_thumb']}" /></td>
+						 <td>{img: thumb=$cert['cert_oc_thumb'] orig=$cert['cert_oc_orig']}</td>
 						 <th>税务登记证：</th>
-						 <td><img src="{$cert['cert_tax_thumb']}" /></td>
+						 <td>{img: thumb=$cert['cert_tax_thumb'] orig=$cert['cert_tax_orig']}</td>
 
 					 </tr>
 
