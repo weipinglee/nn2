@@ -130,7 +130,7 @@ class witty{
 
             $content = preg_replace_callback('/{include:([\/a-zA-Z0-9_\.]+)}/',array($this,'includeFile'), $content);
 
-            $content = preg_replace_callback('/{(\/?)(\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|areatext|area)\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
+            $content = preg_replace_callback('/{(\/?)(\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|areatext|img|area)\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
 
 
 
@@ -312,7 +312,7 @@ OEF;
                     if(substr($attr['orig'],0,1) == '$')
                         $attr['orig'] = '<?php echo '.$attr['orig'].' ; ?>';
                     return   <<< OEF
-                    <a target="_blank" href="{$attr['orig']}"><img src="{$attr['thumb']}"></a>
+                    <a target="_blank" href="{$attr['orig']}"><img src="{$attr['thumb']}" /></a>
 OEF;
 
                 }
