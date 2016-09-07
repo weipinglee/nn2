@@ -303,7 +303,7 @@ OEF;
                 }
                 break;
 
-                case 'img' : {
+                case 'img:' : {
                     $attr = $this->getAttrs($matches[4]);
                     if(!isset($attr['thumb'])) $attr['thumb'] = '';
                     if(!isset($attr['orig'])) $attr['orig'] = $attr['thumb'];
