@@ -130,7 +130,12 @@ class witty{
 
             $content = preg_replace_callback('/{include:([\/a-zA-Z0-9_\.]+)}/',array($this,'includeFile'), $content);
 
-            $content = preg_replace_callback('/{(\/?)(\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|areatext|img|area)\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
+            //第二个捕获子组
+            $preg_str = '\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|areatext|img|area';
+
+            $preg_str .= implode('|',get_class_methods('\Library\views\tags'));
+
+            $content = preg_replace_callback('/{(\/?)('.$preg_str.')\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
 
 
 
@@ -176,6 +181,13 @@ class witty{
     private function translate($matches){
         if($matches[1]!=='/')
         {
+
+            $tagObj = new \Library\views\tags;
+            if(method_exists($tagObj,$matches[2])){
+                $attr = $this->getAttrs($matches[4]);
+                return call_user_func_array(array($tagObj,$matches[2]),$attr);
+            }
+
             switch($matches[2].$matches[3])
             {
 
@@ -245,80 +257,6 @@ class witty{
                     return url::getScriptDir().'/'.trim(trim($matches[4]),'/');
                 }
                 break;
-                case 'area:' : {
-                    $attr = $this->getAttrs($matches[4]);
-                    if(!isset($attr['data'])) $attr['data'] = '';
-                     if(!isset($attr['provinceID'])) $attr['provinceID'] = 'seachprov';
-                    if(!isset($attr['cityID']))$attr['cityID'] = 'seachcity';
-                    if(!isset($attr['districtID']))$attr['districtID'] = 'seachdistrict';
-                    if(!isset($attr['inputName'])) $attr['inputName'] = 'area';
-                    if(substr($attr['data'],0,1) == '$')
-                        $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
-
-            return   <<< OEF
-                <script type="text/javascript">
-                 {$attr['inputName']}Obj = new Area();
-
-                  $(function () {
-                     {$attr['inputName']}Obj.initComplexArea('{$attr['provinceID']}', '{$attr['cityID']}', '{$attr['districtID']}', '{$attr['data']}','{$attr['inputName']}');
-                  });
-                </script>
-			 <select  id="{$attr['provinceID']}"  onchange=" {$attr['inputName']}Obj.changeComplexProvince(this.value, '{$attr['cityID']}', '{$attr['districtID']}');">
-              </select>&nbsp;&nbsp;
-              <select  id="{$attr['cityID']}"  onchange=" {$attr['inputName']}Obj.changeCity(this.value,'{$attr['districtID']}','{$attr['districtID']}');">
-              </select>&nbsp;&nbsp;<span id='{$attr['districtID']}_div' >
-               <select   id="{$attr['districtID']}"  onchange=" {$attr['inputName']}Obj.changeDistrict(this.value);">
-               </select></span>
-               <input type="hidden"  name="{$attr['inputName']}" {$attr['pattern']} alt="{$attr['alt']}" value='{$attr['data']}' />
-                <span></span>
-OEF;
-                }
-                break;
-
-                case 'areatext:' : {
-                    $attr = $this->getAttrs($matches[4]);
-                    if(!isset($attr['data'])) $attr['data'] = '';
-                    if(!isset($attr['id'])) $attr['id'] = '';
-                    if(!isset($attr['delimiter'])) $attr['delimiter'] = ' ';
-                    if(substr($attr['data'],0,1) == '$')
-                        $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
-                    if(substr($attr['id'],0,1) == '$')
-                        $attr['id'] = '<?php echo '.$attr['id'].' ; ?>';
-
-                    return   <<< OEF
-                    <span id="areatext{$attr['id']}">
-                        <script type="text/javascript">
-                         ( function(){
-                            var areatextObj = new Area();
-                            var text = areatextObj.getAreaText('{$attr['data']}','{$attr['delimiter']}');
-                            $('#areatext{$attr['id']}').html(text);
-
-                            })()
-                        </script>
-                     </span>
-
-
-OEF;
-
-                }
-                break;
-
-                case 'img:' : {
-                    $attr = $this->getAttrs($matches[4]);
-                    if(!isset($attr['thumb'])) $attr['thumb'] = '';
-                    if(!isset($attr['orig'])) $attr['orig'] = $attr['thumb'];
-                    if(substr($attr['thumb'],0,1) == '$')
-                        $attr['thumb'] = '<?php echo '.$attr['thumb'].' ; ?>';
-                    if(substr($attr['orig'],0,1) == '$')
-                        $attr['orig'] = '<?php echo '.$attr['orig'].' ; ?>';
-                    return   <<< OEF
-                    <a target="_blank" href="{$attr['orig']}"><img src="{$attr['thumb']}" /></a>
-OEF;
-
-                }
-                break;
-
-
                 default:
                 {
                     return $matches[0];
