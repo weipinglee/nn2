@@ -26,7 +26,7 @@
                 
 <div class="bloc" style="width: 30%;margin:0 auto;margin-top: 200px;">
    <div class="pd-20">
-  <form action="{url:/login/loginHandler}" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="{url:/index/index}">
+  <form action="{url:/login/loginHandler}" method="post" class="form form-horizontal" id="form-admin-add" auto_submit redirect_url="{url:/index/index@admin}">
     
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>用户名：</label>

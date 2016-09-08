@@ -5,6 +5,10 @@
  * Date: 2016/9/8
  * Time: 上午 9:22
  */
+
+/**
+ * 注意：area、areatext这种一个包含另一个的方法，长的要放在前面
+ */
 namespace Library\views;
 class tags{
 
@@ -25,6 +29,34 @@ class tags{
 OEF;
     }
 
+    /**
+     * 地址显示文本
+     * @return string
+     */
+    public function areatext($attr=array()){
+        if(!isset($attr['data'])) $attr['data'] = '';
+        if(!isset($attr['id'])) $attr['id'] = '';
+        if(!isset($attr['delimiter'])) $attr['delimiter'] = ' ';
+        if(substr($attr['data'],0,1) == '$')
+            $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
+        if(substr($attr['id'],0,1) == '$')
+            $attr['id'] = '<?php echo '.$attr['id'].' ; ?>';
+
+        return   <<< OEF
+                    <span id="areatext{$attr['id']}">
+                        <script type="text/javascript">
+                         ( function(){
+                            var areatextObj = new Area();
+                            var text = areatextObj.getAreaText('{$attr['data']}','{$attr['delimiter']}');
+                            $('#areatext{$attr['id']}').html(text);
+
+                            })()
+                        </script>
+                     </span>
+
+
+OEF;
+    }
     /**
      * 地址选择框
      * @param array $attr
@@ -58,34 +90,7 @@ OEF;
 OEF;
     }
 
-    /**
-     * 地址显示文本
-     * @return string
-     */
-    public function areatext($attr=array()){
-        if(!isset($attr['data'])) $attr['data'] = '';
-        if(!isset($attr['id'])) $attr['id'] = '';
-        if(!isset($attr['delimiter'])) $attr['delimiter'] = ' ';
-        if(substr($attr['data'],0,1) == '$')
-            $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
-        if(substr($attr['id'],0,1) == '$')
-            $attr['id'] = '<?php echo '.$attr['id'].' ; ?>';
 
-        return   <<< OEF
-                    <span id="areatext{$attr['id']}">
-                        <script type="text/javascript">
-                         ( function(){
-                            var areatextObj = new Area();
-                            var text = areatextObj.getAreaText('{$attr['data']}','{$attr['delimiter']}');
-                            $('#areatext{$attr['id']}').html(text);
-
-                            })()
-                        </script>
-                     </span>
-
-
-OEF;
-    }
 
 
 
