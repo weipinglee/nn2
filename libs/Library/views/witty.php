@@ -131,13 +131,11 @@ class witty{
             $content = preg_replace_callback('/{include:([\/a-zA-Z0-9_\.]+)}/',array($this,'includeFile'), $content);
 
             //第二个捕获子组
-            $preg_str = '\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|areatext|img|area';
+            $preg_str = '\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|';
 
             $preg_str .= implode('|',get_class_methods('\Library\views\tags'));
 
             $content = preg_replace_callback('/{(\/?)('.$preg_str.')\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
-
-
 
             if (!file_put_contents($parse_file, $content) ) {
                 exit('编译文件生成出错！');
@@ -181,11 +179,10 @@ class witty{
     private function translate($matches){
         if($matches[1]!=='/')
         {
-
-            $tagObj = new \Library\views\tags;
+            $tagObj = new tags();
             if(method_exists($tagObj,$matches[2])){
                 $attr = $this->getAttrs($matches[4]);
-                return call_user_func_array(array($tagObj,$matches[2]),$attr);
+                return call_user_func_array(array($tagObj,$matches[2]),array($attr));
             }
 
             switch($matches[2].$matches[3])
