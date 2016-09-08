@@ -324,6 +324,8 @@ class certificate{
         $result = $um->where(array('user_id'=>$user_id))->getObj();
         $result['identify_front_thumb'] = Thumb::get($result['identify_front'],180,180);
         $result['identify_back_thumb'] = Thumb::get($result['identify_back'],180,180);
+        $result['identify_front_orig'] = Thumb::getOrigImg($result['identify_front']);
+        $result['identify_back_orig'] = Thumb::getOrigImg($result['identify_back']);
         return $result;
     }
 
@@ -337,6 +339,10 @@ class certificate{
         $result['cert_oc_thumb'] = Thumb::get($result['cert_oc'],180,180);
         $result['cert_bl_thumb'] = Thumb::get($result['cert_bl'],180,180);
         $result['cert_tax_thumb'] = Thumb::get($result['cert_tax'],180,180);
+
+        $result['cert_oc_orig'] = Thumb::getOrigImg($result['cert_oc']);
+        $result['cert_bl_orig'] = Thumb::getOrigImg($result['cert_bl']);
+        $result['cert_tax_orig'] = Thumb::getOrigImg($result['cert_tax']);
         return $result;
     }
 

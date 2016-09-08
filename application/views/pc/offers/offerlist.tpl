@@ -182,8 +182,8 @@
         <input type='hidden' name='user_type' value="{$user_type}">
             <hr style="border:1px dashed #ccc;border-bottom:0;border-right:0;
             border-left:0;">
-            <p class="wx_tit"><b>温馨提示：</b>请您在交易前自行与资源发布者进行确认！耐耐网仅提供免费发布渠道，并不对资源发布作任何审查。使用资源单频道进行交易所存在的风险及产生的后果由您与发布者自行承担。
-            </p>
+            <!--<p class="wx_tit"><b>温馨提示：</b>请您在交易前自行与资源发布者进行确认！耐耐网仅提供免费发布渠道，并不对资源发布作任何审查。使用资源单频道进行交易所存在的风险及产生的后果由您与发布者自行承担。
+            </p>-->
         </div> </div> </div> </div>
         <!-- 温馨提示end-->
 
