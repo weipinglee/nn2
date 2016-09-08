@@ -1,15 +1,15 @@
 <?php
 /**
- * ÐÂÔö±êÇ©
+ * æ–°å¢žæ ‡ç­¾
  * author:liweiping
  * Date: 2016/9/8
- * Time: ÉÏÎç 9:22
+ * Time: ä¸Šåˆ 9:22
  */
 namespace Library\views;
 class tags{
 
     /**
-     * img±êÇ©
+     * imgæ ‡ç­¾
      * @param array $attr
      * @return string
      */
@@ -26,7 +26,7 @@ OEF;
     }
 
     /**
-     * µØÖ·Ñ¡Ôñ¿ò
+     * åœ°å€é€‰æ‹©æ¡†
      * @param array $attr
      * @return string
      */
@@ -59,7 +59,7 @@ OEF;
     }
 
     /**
-     * µØÖ·ÏÔÊ¾ÎÄ±¾
+     * åœ°å€æ˜¾ç¤ºæ–‡æœ¬
      * @return string
      */
     public function areatext($attr=array()){
