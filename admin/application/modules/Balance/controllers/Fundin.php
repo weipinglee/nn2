@@ -58,7 +58,7 @@ class FundinController extends InitController {
 		if(!$id) $id = intval($this->_request->getParam('id'));
 		$fundObj = new fundInModel();
 		$data = $fundObj->offLineDetail($id);
-		$data['proot'] = \Library\Thumb::get($data['proot'],300,200);
+
 		$controllerName = $this->getRequest()->getControllerName();
 		$moduleName = $this->getRequest()->getModuleName();
 		$data['url'] = \Library\url::createUrl($moduleName.'/'.$controllerName.'/'.$data['action']);

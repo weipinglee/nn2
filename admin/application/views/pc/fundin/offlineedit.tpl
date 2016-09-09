@@ -51,7 +51,7 @@
                 <tr>
 
                     <th>凭证：</th>
-                    <td><img src='{$reInfo['proot']}'>  </td>
+                    <td>{img:data=$reInfo['proot'] width=200 height=200}  </td>
                     <th></th>
                     <td> </td>
                 </tr>
