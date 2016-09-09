@@ -314,16 +314,11 @@ OEF;
                         $attr['thumb'] = '<?php echo '.$attr['thumb'].' ; ?>';
                     if(substr($attr['orig'],0,1) == '$')
                         $attr['orig'] = '<?php echo '.$attr['orig'].' ; ?>';
-                    if(substr($attr['data'],0,1) == '$')
-                        $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
-                    if($attr['data']){
-                        $attr['orig'] = \Library\Thumb::getOrigImg($attr['data']);
-                    }
-                    if(!$attr['thumb'] && $attr['width'] && $attr['height']){
-                        $attr['thumb'] = \Library\Thumb::get($attr['orig'],$attr['width'],$attr['height']);
-                    }
 
                     return   <<< OEF
+                    <?php if({$attr['data']}){$attr['orig']}=\Library\Thumb::getOrigImg({$attr['data']});
+                    if(!{$attr['thumb']} && {$attr['width']} && {$attr['height']})
+                    {$attr['thumb']} = \Library\Thumb::get({$attr['orig']},{$attr['width']},{$attr['height']});
                     <a target="_blank" href="{$attr['orig']}"><img src="{$attr['thumb']}" /></a>
 OEF;
 
