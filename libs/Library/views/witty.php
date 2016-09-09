@@ -307,10 +307,22 @@ OEF;
                     $attr = $this->getAttrs($matches[4]);
                     if(!isset($attr['thumb'])) $attr['thumb'] = '';
                     if(!isset($attr['orig'])) $attr['orig'] = $attr['thumb'];
+                    if(!isset($attr['data'])) $attr['data'] = '';
+                    if(!isset($attr['width'])) $attr['width'] = '';
+                    if(!isset($attr['height'])) $attr['height'] = '';
                     if(substr($attr['thumb'],0,1) == '$')
                         $attr['thumb'] = '<?php echo '.$attr['thumb'].' ; ?>';
                     if(substr($attr['orig'],0,1) == '$')
                         $attr['orig'] = '<?php echo '.$attr['orig'].' ; ?>';
+                    if(substr($attr['data'],0,1) == '$')
+                        $attr['data'] = '<?php echo '.$attr['data'].' ; ?>';
+                    if($attr['data']){
+                        $attr['orig'] = \Library\Thumb::getOrigImg($attr['data']);
+                    }
+                    if(!$attr['thumb'] && $attr['width'] && $attr['height']){
+                        $attr['thumb'] = \Library\Thumb::get($attr['orig'],$attr['width'],$attr['height']);
+                    }
+
                     return   <<< OEF
                     <a target="_blank" href="{$attr['orig']}"><img src="{$attr['thumb']}" /></a>
 OEF;
