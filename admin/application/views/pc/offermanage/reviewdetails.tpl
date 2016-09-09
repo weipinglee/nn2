@@ -139,7 +139,7 @@
                  <th>图片</th>
 
                  <td>
-                     {foreach:items=$info['origphotos']}
+                     {foreach:items=$info['imgData']}
                          {img:data=$item width=100 height=100}
                       {/foreach}
                  </td>
