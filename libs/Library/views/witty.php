@@ -305,8 +305,8 @@ OEF;
 
                 case 'img:' : {
                     $attr = $this->getAttrs($matches[4]);
-                    if(!isset($attr['thumb'])) $attr['thumb'] = '';
-                    if(!isset($attr['orig'])) $attr['orig'] = $attr['thumb'];
+                    if(!isset($attr['orig'])) $attr['orig'] = '';
+                    if(!isset($attr['thumb'])) $attr['thumb'] = $attr['orig'];
                     if(!isset($attr['data'])) $attr['data'] = '';
                     if(!isset($attr['width'])) $attr['width'] = '';
                     if(!isset($attr['height'])) $attr['height'] = '';
@@ -314,13 +314,20 @@ OEF;
                         $attr['thumb'] = '<?php echo '.$attr['thumb'].' ; ?>';
                     if(substr($attr['orig'],0,1) == '$')
                         $attr['orig'] = '<?php echo '.$attr['orig'].' ; ?>';
-
-                    return   <<< OEF
-                    <?php if({$attr['data']}){$attr['orig']}=\Library\Thumb::getOrigImg({$attr['data']});
-                    if(!{$attr['thumb']} && {$attr['width']} && {$attr['height']})
-                    {$attr['thumb']} = \Library\Thumb::get({$attr['orig']},{$attr['width']},{$attr['height']});
-                    <a target="_blank" href="{$attr['orig']}"><img src="{$attr['thumb']}" /></a>
+                    if($attr['orig'] )
+                        return <<< OEF
+                         <a target="_blank" href="{$attr['orig']}"><img src="{$attr['thumb']}" /></a>
 OEF;
+
+                    if($attr['data'])
+                    return   '
+                    <?php if('.$attr['data'].')$org=\Library\Thumb::getOrigImg('.$attr['data'].');
+                    if('.$attr['width'].' && '.$attr['height'].')
+                    $thumb = \Library\Thumb::get('.$attr['data'].','.$attr['width'].','.$attr['height'].');
+                    else $thumb = $org ;
+                    ?>
+                    <a target="_blank" href="<?php echo $org ;?>"><img src="<?php echo $thumb ;?>" /></a>
+';
 
                 }
                 break;
