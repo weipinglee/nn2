@@ -56,8 +56,8 @@
                     <div class="col-4"> </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">注册时间：</label>
-                    <div class="formControls col-2">
+                    <label class="form-label col-3">注册时间：</label>
+                    <div class="formControls col-5">
                         <input class="Wdate input-text"  onclick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="create_time" />
                     </div>
                 </div>
@@ -91,14 +91,14 @@
                     <div class="col-4"> </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">申请时间：</label>
-                    <div class="formControls col-2">
+                    <label class="form-label col-3">申请时间：</label>
+                    <div class="formControls col-5">
                         <input class="Wdate input-text"  onclick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="apply_time" />
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">审核时间：</label>
-                    <div class="formControls col-2">
+                    <label class="form-label col-3">审核时间：</label>
+                    <div class="formControls col-5">
                         <input class="Wdate input-text"  onclick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="verify_time" />
                     </div>
                 </div>
@@ -129,20 +129,20 @@
                     <div class="col-4"> </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">申请时间：</label>
-                    <div class="formControls col-2">
+                    <label class="form-label col-3">申请时间：</label>
+                    <div class="formControls col-5">
                         <input class="Wdate input-text"  onclick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="apply_time_1" />
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">审核时间：</label>
-                    <div class="formControls col-2">
+                    <label class="form-label col-3">审核时间：</label>
+                    <div class="formControls col-5">
                         <input class="Wdate input-text"  onclick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="verify_time_1" />
                     </div>
                 </div>
 
-
-                <span id="company" >========================公司信息==========================================================</span>
+                <div id="company">
+                <span  >========================公司信息==========================================================</span>
 
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span>公司名称：</label>
@@ -231,8 +231,8 @@
                 </div>
 
                 <div class="row cl">
-                    <label class="form-label col-2">税务登记证：</label>
-                    <div class="formControls col-10">
+                    <label class="form-label col-3">税务登记证：</label>
+                    <div class="formControls col-5">
                         <input type='file' name="file1" id="file1"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
                     </div>
                     <div>
@@ -242,8 +242,8 @@
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">营业执照：</label>
-                    <div class="formControls col-10">
+                    <label class="form-label col-3">营业执照：</label>
+                    <div class="formControls col-5">
                         <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
                     </div>
                     <div>
@@ -253,8 +253,8 @@
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">组织机构代码证：</label>
-                    <div class="formControls col-10">
+                    <label class="form-label col-3">组织机构代码证：</label>
+                    <div class="formControls col-5">
                         <input type='file' name="file3" id="file3"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
                     </div>
                     <div>
@@ -263,60 +263,63 @@
 
                     </div>
                 </div>
-                <span id="person" >========================个人信息==========================================================</span>
+              </div>
+                <div id="person" style="display:none">
+                    <span  >========================个人信息==========================================================</span>
+                    <div class="row cl">
+                        <label class="form-label col-3"><span class="c-red">*</span>姓名：</label>
+                        <div class="formControls col-5">
+                            <input type="text" class="input-text" value="" name="true_name"   nullmsg="请输入！">
+                        </div>
+                        <div class="col-4"> </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-3"><span class="c-red">*</span>身份证号：</label>
+                        <div class="formControls col-5">
+                            <input type="text" class="input-text" value="" name="identify_no"   nullmsg="请输入！">
+                        </div>
+                        <div class="col-4"> </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-3"><span class="c-red">*</span>地区：</label>
+                        <div class="formControls col-5">
+                            {area:inputName=area1 provinceID=pro cityID=city districtID=district}
+                        </div>
+                        <div class="col-4"> </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-3"><span class="c-red">*</span>地址：</label>
+                        <div class="formControls col-5">
+                            <input type="text" class="input-text" value="" name="address1"   nullmsg="请输入！">
+                        </div>
+                        <div class="col-4"> </div>
+                    </div>
 
-                <div class="row cl">
-                    <label class="form-label col-3"><span class="c-red">*</span>姓名：</label>
-                    <div class="formControls col-5">
-                        <input type="text" class="input-text" value="" name="true_name"   nullmsg="请输入！">
-                    </div>
-                    <div class="col-4"> </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-3"><span class="c-red">*</span>身份证号：</label>
-                    <div class="formControls col-5">
-                        <input type="text" class="input-text" value="" name="identify_no"   nullmsg="请输入！">
-                    </div>
-                    <div class="col-4"> </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-3"><span class="c-red">*</span>地区：</label>
-                    <div class="formControls col-5">
-                       {area:inputName=area1}
-                    </div>
-                    <div class="col-4"> </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-3"><span class="c-red">*</span>地址：</label>
-                    <div class="formControls col-5">
-                        <input type="text" class="input-text" value="" name="address1"   nullmsg="请输入！">
-                    </div>
-                    <div class="col-4"> </div>
-                </div>
+                    <div class="row cl">
+                        <label class="form-label col-3">身份证正面：</label>
+                        <div class="formControls col-5">
+                            <input type='file' name="file4" id="file4"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
+                        </div>
+                        <div>
+                            <img name="file4" />
+                            <input type="hidden" name="imgfile4"  />
 
-                <div class="row cl">
-                    <label class="form-label col-2">身份证正面：</label>
-                    <div class="formControls col-10">
-                        <input type='file' name="file4" id="file4"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
+                        </div>
                     </div>
-                    <div>
-                        <img name="file4" />
-                        <input type="hidden" name="imgfile4"  />
 
+                    <div class="row cl">
+                        <label class="form-label col-3">身份证背面：</label>
+                        <div class="formControls col-5">
+                            <input type='file' name="file5" id="file5"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
+                        </div>
+                        <div>
+                            <img name="file5" />
+                            <input type="hidden" name="imgfile5"  />
+
+                        </div>
                     </div>
                 </div>
 
-                <div class="row cl">
-                    <label class="form-label col-2">身份证背面：</label>
-                    <div class="formControls col-10">
-                        <input type='file' name="file5" id="file5"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
-                    </div>
-                    <div>
-                        <img name="file5" />
-                        <input type="hidden" name="imgfile5"  />
-
-                    </div>
-                </div>
 
                 <span id="person" >========================开户信息==========================================================</span>
                 <div class="row cl">
@@ -371,8 +374,8 @@
                     <div class="col-4"> </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">银行卡正面：</label>
-                    <div class="formControls col-10">
+                    <label class="form-label col-3">银行卡正面：</label>
+                    <div class="formControls col-5">
                         <input type='file' name="file6" id="file6"  onchange="javascript:uploadImg(this,'{url:/index/upload}');" />
                     </div>
                     <div>
@@ -382,14 +385,14 @@
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">申请时间：</label>
-                    <div class="formControls col-2">
+                    <label class="form-label col-3">申请时间：</label>
+                    <div class="formControls col-5">
                         <input class="Wdate input-text"  onclick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="apply_time_2" />
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">审核时间：</label>
-                    <div class="formControls col-2">
+                    <label class="form-label col-3">审核时间：</label>
+                    <div class="formControls col-5">
                         <input class="Wdate input-text"  onclick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="check_time" />
                     </div>
                 </div>
@@ -494,8 +497,8 @@
                     <div class="col-4"> </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2">开户时间：</label>
-                    <div class="formControls col-2">
+                    <label class="form-label col-3">开户时间：</label>
+                    <div class="formControls col-5">
                         <input class="Wdate input-text"  onclick="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="time" />
                     </div>
                 </div>
@@ -511,3 +514,19 @@
 </div>
 
 </div>
+<script type="text/javascript">
+    $(function(){
+        $('select[name=type]').change(function() {
+            var type = $(this).val();
+            if(type==1){
+                $('#company').show();
+                $('#person').hide();
+            }
+            else{
+                $('#company').hide();
+                $('#person').show();
+
+            }
+        })
+    })
+</script>
