@@ -71,11 +71,11 @@
 								<span></span>
 								
 							</div>
-							{if:!$info}
+
 							<div class="zhxi_con">	
 								<span><input class="submit_zz" type="submit" value="提交"></span>
 							</div>
-							{/if}
+
 						</form>
 					</div>
 					
