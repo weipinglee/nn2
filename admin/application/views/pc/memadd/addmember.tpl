@@ -224,7 +224,7 @@
                 <div class="row cl">
                     <label class="form-label col-3"><span class="c-red">*</span>详细地址：</label>
                     <div class="formControls col-5">
-                        <input type="hidden" class="input-text" value="" name="address"  nullmsg="请输入地址：！">
+                        <input type="text" class="input-text" value="" name="address"  nullmsg="请输入地址：！">
 
                     </div>
                     <div class="col-4"> </div>
