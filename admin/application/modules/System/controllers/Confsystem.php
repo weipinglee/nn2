@@ -179,6 +179,85 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 
 	}
 
+	public function entrustListAction(){
+		$model = new \nainai\system\EntrustSetting();
+		$data = $model->getList();
+
+		$this->getView()->assign('data',$data);
+	}
+
+	public function entrustaddAction(){
+		if (IS_AJAX) {
+			$data = array(
+				'type' => safe::filterPost('type'),
+				'value' => safe::filterPost('value'),
+				'cate_id' => safe::filterPost('cate_id'),
+				'create_time' => \Library\Time::getDateTime(),
+				'note' => safe::filterPost('note'),
+				'status' => safe::filterPost('status')
+			);
+			$model = new \nainai\system\EntrustSetting();
+			$res = $model->addEntrustSetting($data);
+			exit(JSON::encode($res));
+		}
+		$productModel = new productModel();
+		$cateTree = $productModel->getCateTree();//获取分类树
+
+		$model = new \nainai\system\EntrustSetting();
+		$data = $model->getcatelist();
+		$this->getView()->assign('data',$data);
+               	$this->getView()->assign('tree',$cateTree);
+	}
+
+	public function entrustupdatestatusAction(){
+		$id = $this->getRequest()->getParam('id');
+		$status = safe::filterPost('status','int',0);
+		$id = Safe::filter($id, 'int', 0);
+
+
+		$agentData = array(
+			'status' => $status
+		);
+
+		$agentModel = new \nainai\system\EntrustSetting();
+		$returnData = $agentModel->updateEntrustSetting($agentData, $id);
+
+		die(json::encode($returnData));
+	}
+
+	public function entrustdelAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int', 0);
+
+		$agentModel = new \nainai\system\EntrustSetting();
+		$returnData = $agentModel->deleteEntrustSetting($id);
+
+		die(json::encode($returnData));
+	}
+
+	public function entrustupdateAction(){
+		if (IS_AJAX) {
+			$id = safe::filterPost('id');
+			$data = array(
+				'type' => safe::filterPost('type'),
+				'value' => safe::filterPost('value'),
+				'cate_id' => safe::filterPost('cate_id'),
+				'create_time' => \Library\Time::getDateTime(),
+				'note' => safe::filterPost('note'),
+				'status' => safe::filterPost('status')
+			);
+			$model = new \nainai\system\EntrustSetting();
+			$res = $model->updateEntrustSetting($data, $id);
+			exit(JSON::encode($res));
+		}
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int', 0);
+
+		$agentModel = new \nainai\system\EntrustSetting();
+		$detail = $agentModel->getDetail($id);
+               	$this->getView()->assign('detail',$detail[0]);
+	}
+
 
 
 

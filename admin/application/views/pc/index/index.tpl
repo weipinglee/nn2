@@ -75,6 +75,7 @@
                             <ul>
                                 <li><a href="{url:system/Confsystem/creditList}" target="content">信誉值配置列表</a></li>
                                 <li><a href="{url:system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
+                                <li><a href="{url:system/Confsystem/entrustList}" target="content">委托费率设置</a></li>
                                 <li><a href="{url:system/Confsystem/generalList}" target="content">一般设置</a></li>
                             </ul>
                         </li>
