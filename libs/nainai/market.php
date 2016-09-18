@@ -22,7 +22,7 @@ class market{
         'user' => array(
             'index/fund/dofundout',
             'index/fund/dofundin',
-            'index/managerdeal/dodepositeoffer',
+            'index/managerdeal/dodepositoffer',
             'index/managerdeal/dofreeoffer',
             'index/managerdeal/dostoreoffer',
             'index/managerdeal/dodeputeoffer',
@@ -64,19 +64,30 @@ class market{
         ),
     );
 
-    protected $start_time = '09:00:00';//开市时间
-
-    protected $end_time = '23:00:00';//闭市时间
 
     /**
      * 判断是否处于开市时间
      *
      */
     private function checkTime(){
-        $start = strtotime(date('Y-m-d',time()).' '.$this->start_time);
-        $end   = strtotime(date('Y-m-d',time()).' '.$this->end_time);
+        $model = new \nainai\system\DealSetting();
+        $deal = $model->getDealSetting(1);
+        $deal['weeks'] = explode(',', $deal['weeks']);
+        $week = date('w');
+        $start = strtotime(date('Y-m-d',time()).' '. $deal['start_time']);
+        $end   = strtotime(date('Y-m-d',time()).' '.$deal['end_time']);
 
-        if(time() >= $start && time() <= $end){
+        if ($deal['is_operate'] == 1) {
+            if ($deal['operate_time'] != $week && in_array($week, $deal['weeks']) && time()>$end) {
+                $data['is_operate'] = 0;
+                $model->updateDealSetting($data, 1);
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        if( in_array($week, $deal['weeks']) && (time() >= $start && time() <= $end)) {
             return true;
         }
         return false;
@@ -93,7 +104,6 @@ class market{
             if($appName && !empty($this->actions[$appName])){
                 $url = $request->getModuleName().'/'.$request->getControllerName().'/'.$request->getActionName();
                 $url = strtolower($url);
-
                 if(in_array($url,$this->actions[$appName])){//该动作不能操作
                     return false;
                 }

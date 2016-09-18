@@ -205,6 +205,12 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>
                     <ul>
+                     <li><a  target="content">开闭市设置</a>
+                            <ul>
+                                <li><a href="{url:balance/Open/day}" target="content">日结</a></li>
+                                <li><a href="{url:balance/Open/calendar}" target="content">交易日历</a></li>
+                            </ul>
+                        </li>
                         <li><a  target="content">会员开户管理</a>
                             <ul>
                                 <li><a href="{url:balance/accManage/checkbankList}" target="content">待审核</a></li>
