@@ -53,7 +53,7 @@
                     <td>{$item['quantity']}</td>
                     <td>{$item['price']}</td>
                     <td>{$item['status_txt']}</td>
-                     <td class="td-manage"> <a title="查看" href="{url:trade/OfferManage/offerDetails?id=$item['id']&user=$item['username']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open fa-eye-open"></i></a> <a title="删除" ajax_status=-1 ajax_url="{url:trade/OfferManage/logicDel?id=$item['id']}"  class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
+                     <td class="td-manage"> <a title="查看" href="{url:trade/OfferManage/offerDetails?id=$item['id']&user=$item['username']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open fa-eye"></i></a> <a title="删除" ajax_status=-1 ajax_url="{url:trade/OfferManage/logicDel?id=$item['id']}"  class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
                 </tr>
            {/foreach}
         </tbody>

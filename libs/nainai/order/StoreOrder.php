@@ -66,7 +66,7 @@ class StoreOrder extends Order{
 					if($acc_res === true){
 						$mess = new \nainai\message($info['user_id']);
 						$content = $type == 0 ? '(合同'.$info['order_no'].'已支付定金,请您及时支付尾款)' : '(合同'.$info['order_no'].'已生效,您可以申请提货了)';
-						$content .= "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id)."'>跳转到合同详情页</a>";
+						$content .= "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 						$mess->send('common',$content);
 
 						$mess_seller = new \nainai\message($offerInfo['user_id']);

@@ -24,7 +24,7 @@ class wittyAdapter implements \Yaf\View_Interface {
 		//初始化目录
 		$client = client::getDevice();
 		$tpl_dir = $client=='pc' ?  $config['tpl_dir'].'/pc/' : $config['tpl_dir'].'/mobile/' ;
-		
+		$tpl_dir =   $config['tpl_dir'].'/pc/';//开通手机端了删掉这行
 		$this->witty->setTplDir($tpl_dir);
 		$this->witty->setLayoutDir($tpl_dir.'/layout/');
 		$this->witty->setCompileDir($config['compile_dir']);

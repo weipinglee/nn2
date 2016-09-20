@@ -53,10 +53,10 @@
                 <th>申述凭证</th>
                 <td colspan="5">
                         <ul>
-                        {if: !empty($detail['proof'])}
+                        {if: !empty($detail['img'])}
                             <li>
-                        {foreach: items=$detail['proof']  item=$img}
-                        <img src="{$img}">
+                        {foreach: items=$detail['img']  item=$img}
+                        {img:data=$img width=100 height=100}
                         {/foreach}
                             </li>
                         {/if}

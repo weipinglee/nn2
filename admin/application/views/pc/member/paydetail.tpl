@@ -41,9 +41,9 @@
 
             <tr>
                  <th>身份证照片</th>
-                 <td colspan="2"><img src="{$data['ident_img']}"></td>
+                 <td colspan="2">{img:thumb=$data['ident_img'] orig=$data['ident_img_orig']}</td>
                  <th>申请单图片</th>
-                 <td colspan="2"><img src="{$data['apply_img']}"></td>
+                 <td colspan="2">{img:thumb=$data['apply_img'] orig=$data['apply_img_orig']}</td>
             </tr>
 
             {if: $data['status'] == \nainai\user\ApplyResetpay::APPLY}

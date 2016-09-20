@@ -99,7 +99,7 @@ class StoreDelivery extends Delivery{
 						$acc_res = $this->account->payMarket($res['user_id'],$store_fee,$note);//?支付到市场？
 						if($acc_res === true){
 							$pay_detail = new \nainai\fund\paytoMarket();
-							$pay_detail->paytoMarket($seller_id,$res['type'],1,$res['offer_id'],$store_fee,$note,$res['order_no']);
+							$pay_detail->paytoMarket($seller_id,$res['mode'],1,$res['offer_id'],$store_fee,$note,$res['order_no']);
 							// $mess_admin = new \nainai\message($seller);
 							// $jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$deliveryData['order_id'])."'>跳转到合同详情页</a>";
 							// $content = '合同'.$res['order_no'].',卖方已确认并支付仓库费,请您关注资金动态,并进行发货处理';
@@ -227,7 +227,7 @@ class StoreDelivery extends Delivery{
 					
 					$buyer = $delivery['type'] == \nainai\offer\product::TYPE_SELL ? $delivery['user_id'] : $delivery['offer_user'];
 					$mess_buyer = new \nainai\message($buyer);
-					$jump_url = "<a href='".url::createUrl('/delivery/deliBuyList')."'>跳转到提单列表</a>";
+					$jump_url = "<a href='".url::createUrl('/delivery/deliBuyList@user')."'>跳转到提单列表</a>";
 					$content = '(合同'.$delivery['order_no'].',已提货完成,请您及时进行质量确认)'.$jump_url;
 					$mess_buyer->send('common',$content);
 					$order->commit();	

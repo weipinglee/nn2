@@ -73,7 +73,7 @@
                 <th>凭证</th>
                 <td colspan="5">
                         <ul>
-                        <li><img src="{$bank['thumb']}"></li>
+                        <li>{img:data=$bank['proof'] width=200 height=200}</li>
                 </td>
             </tr>
             <tr>

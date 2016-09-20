@@ -70,6 +70,8 @@ class ApplyResetpay extends \nainai\Abstruct\ModelAbstract {
 
 			$res = $Q->getObj();
 			$res['status_txt'] = $this->getStatusTxt($res['status']);
+			$res['ident_img_orig'] = Thumb::getOrigImg($res['ident_img']);
+			$res['apply_img_orig'] = Thumb::getOrigImg($res['apply_img']);
 			$res['ident_img'] = Thumb::get($res['ident_img'], 150,150);
 			$res['apply_img'] = Thumb::get($res['apply_img'], 150,150);
 		}

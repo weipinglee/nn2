@@ -160,6 +160,7 @@ class OrderComplain extends \nainai\Abstruct\ModelAbstract{
         			if (!empty($detail['proof'])) {
         				foreach ($detail['proof'] as  $key => $value) {
 	        				$detail['proof'][$key] = Thumb::get($value,100,100);
+							$detail['img'][$key] = $value;
 	        			}
         			}
         			

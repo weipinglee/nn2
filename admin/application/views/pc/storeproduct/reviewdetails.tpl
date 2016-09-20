@@ -98,9 +98,9 @@
                 <tr>
                      <th>图片</th>
                      <td>
-                         {if:!empty($detail['photos'])}
-                             {foreach:items=$detail['photos']}
-                                 <img src="{$item}" width="100"/>
+                         {if:!empty($detail['imgData'])}
+                             {foreach:items=$detail['imgData']}
+                                 {img:data=$item width=200 height=200}
                              {/foreach}
                          {/if}
                      </td>
@@ -111,10 +111,10 @@
              </tr>
              <tr>
               <th>签字入库单</th>
-                    <td><img src="{$detail['confirm_thumb']}" /></td>
+                    <td>{img:data=$detail['confirm'] width=200 height=200}</td>
                  <th>质检证书：</th>
                      <td>
-                     <img src="{$detail['quality_thumb']}" />
+                         {img:data=$detail['quality'] width=200 height=200}
                      </td>
                      <th></th>
                      <td></td>
