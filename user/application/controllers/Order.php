@@ -156,13 +156,16 @@ class OrderController extends UcenterBaseController{
 	public function sellerVerifyAction(){
 		$reduce = safe::filter($this->_request->getParam('reduce'));
 		$order_id = safe::filter($this->_request->getParam('order_id'));
-
+		$disagree = safe::filter($this->_request->getParam('disagree'));
+		
 		if(!$reduce){
-			$res = $this->order->sellerVerify($order_id,$this->user_id);
-			if($res['success'] == 1)
-				$this->success('已确认货物质量',url::createUrl('/Contract/sellerlist'));
-			else 
+			$res = $this->order->sellerVerify($order_id,$this->user_id,$disagree ? false : true);
+			if($res['success'] == 1){
+				$suc_info = $disagree ? '已驳回扣款请求' : '已确认货物质量';
+				$this->success($suc_info,url::createUrl('/Contract/sellerlist'));
+			}else {
 				$this->error($res['info']);
+			}
 			return false;
 		}else{
 			$info = $this->order->orderInfo($order_id);

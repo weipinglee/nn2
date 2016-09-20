@@ -318,6 +318,15 @@ class Delivery{
 	}
 
 	/**
+	 * 获取订单提货完成时间
+	 * @param  int $order_id 订单id
+	 * @return string 完成时间 Y-m-d H:i:s
+	 */
+	public function deliveryCompleteTime($order_id){
+		return $this->delivery->where(array('order_id'=>$order_id,'status'=>self::DELIVERY_COMPLETE))->getField('create_time');
+	}
+
+	/**
 	 * 检验当前提货申请货物数量是否合法		
 	 * @param  int $order_id 待提货订单id
 	 * @param  float $num    申请提货数量

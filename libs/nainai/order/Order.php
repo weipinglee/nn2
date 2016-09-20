@@ -51,6 +51,7 @@ class Order{
 	protected $user_invoice;//用户发票类
 	protected $zx;//中信银行签约类
 	protected $base_account;
+	protected $delivery;
 	/**
 	 * 规则
 	 */
@@ -76,6 +77,7 @@ class Order{
 		$this->base_account = new \nainai\fund\account();
 		$this->user_invoice = new \nainai\user\UserInvoice();
 		$this->zx = new \nainai\fund\zx();
+		$this->delivery = new \nainai\delivery\Delivery();
 	}	
 
 	/**
@@ -818,13 +820,22 @@ class Order{
 	 * 卖家确认买家扣减货款信息
 	 * @param  int $order_id 订单Id
 	 * @param  int $user_id  当前用户
+	 * @param  boolean $agree 是否同意
 	 * @return array 结果数组
 	 */
-	public function sellerVerify($order_id,$user_id){
+	public function sellerVerify($order_id,$user_id,$agree = true){
 		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$order = $this->orderInfo($order_id);
 		if($order && in_array($order['mode'],array(self::ORDER_DEPOSIT,self::ORDER_STORE,self::ORDER_PURCHASE))){
-			if($order['contract_status'] == self::CONTRACT_VERIFY_QAULITY){
+			if($order['contract_status'] == self::CONTRACT_VERIFY_QAULITY || $order['contract_status'] == self::CONTRACT_DELIVERY_COMPLETE){
+				$orderData['id'] = $order_id;
+				if($agree === false && floatval($order['reduce_amount'])){
+					//卖家不同意扣减
+					$orderData['contract_status'] = self::CONTRACT_DELIVERY_COMPLETE;
+					$orderData['reduce_amount'] = NULL;
+					$orderData['reduce_remark'] = NULL;
+					return $this->orderUpdate($orderData);
+				}
 				$offerInfo = $this->offerInfo($order['offer_id']);
 				$buyer  = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
 				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order['user_id'];
@@ -832,7 +843,7 @@ class Order{
 					return tool::getSuccInfo(0,'操作用户错误');
 				
 				$orderData['contract_status'] = self::CONTRACT_SELLER_VERIFY;//状态置为卖家已确认质量
-				$orderData['id'] = $order_id;
+				
 
 				try {
 					$this->order->beginTrans();
@@ -1284,6 +1295,15 @@ class Order{
 					break;
 				case self::CONTRACT_DELIVERY_COMPLETE:
 					$title = '提货已完成';
+					$delivery_time = $this->delivery->deliveryCompleteTime($value['id']);
+					$_after_time = time::_after_time($delivery_time,30);
+					if($_after_time === true){
+						$title = '强制质量合格';
+						$href = url::createUrl("/Order/sellerVerify?order_id={$value['id']}");
+						// $action []= array('action'=>'质量合格','confirm' => 1,'url'=>url::createUrl("/Order/cancelContract?order_id={$value['id']}"));
+						$confirm = 1;
+					}
+
 					break;
 				case self::CONTRACT_VERIFY_QAULITY:
 					if(empty($value['reduce_amount'])) {

@@ -230,7 +230,6 @@ class LoginController extends \Yaf\Controller_Abstract {
 			$account = safe::filterPost('account');
 			$password = $_POST['password'];
 			$captcha  = safe::filterPost('captcha');
-
 			$data=array('errorCode'=>0);
 			$captchaObj = new captcha();
 
