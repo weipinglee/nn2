@@ -112,9 +112,11 @@ use \Library\Time;
       * @param int $where 查询条件 ‘begin'开始时间，’end'结束时间，'no'序列号
       */
      public function getFundFlow($user_id=0,$cond=array()){
-         if($user_id){
-             $where = 'user_id = :user_id ';
-             $cond['user_id'] = $user_id;
+            $where = ' 1 ';
+            if($user_id){
+                 $where .= ' AND user_id = :user_id ';
+                 $cond['user_id'] = $user_id;
+             }
              if(isset($cond['begin'])&& $cond['begin']!=''){
                  $where .= ' AND time > :begin';
              }
@@ -138,7 +140,7 @@ use \Library\Time;
              $this->flowModel->bind($cond);
 
              return $this->flowModel->where($where)->bind($cond)->order('id DESC')->select();
-         }
+         
      }
     /**
   * 入金操作

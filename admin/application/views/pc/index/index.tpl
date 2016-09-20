@@ -124,6 +124,7 @@
                                 <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
                                 <li><a href="{url:member/member/OnLineList}" target="content">在线会员信息</a></li>
                                 <li><a href="{url:member/member/userlog}" target="content">会员日志列表</a></li>
+                                <li><a href="{url:member/member/userfund}" target="content">会员资金列表</a></li>
                             </ul>
                         </li>
 

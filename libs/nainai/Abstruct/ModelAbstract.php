@@ -173,7 +173,16 @@ abstract class ModelAbstract{
 
 			}
 			break;
-
+			case 'adds':
+				$res = $this->model->data($args[0])->adds(0);
+				
+				if(intval($res) > 0){
+					return Tool::getSuccInfo(1, $res);
+				 }
+				else{
+						return Tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+				 }
+				break;
 			
 			default:
 				throw new \Exception("Unknow Method", 1);exit();

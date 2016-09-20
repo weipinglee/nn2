@@ -16,7 +16,7 @@
     </div>
     <div class="content dashboard">
         <div>
-            <form action="{url:balance/open/day}" method="post" class="form form-horizontal" id="form-scaleoffer-add" auto_submit no_redirect='1'>
+            <form action="{url:balance/open/day}" method="post" class="form form-horizontal" id="form-scaleoffer-add" auto_submit redirect_url='{url:balance/open/day}'>
         <div id="tab-system" class="HuiTab">
             
             <div class="tabCon" style="display: block;">

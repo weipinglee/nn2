@@ -72,6 +72,9 @@ class market{
     private function checkTime(){
         $model = new \nainai\system\DealSetting();
         $deal = $model->getDealSetting(1);
+        if (empty($deal)) { //如果没有设置开闭市
+            return true;
+        }
         $deal['weeks'] = explode(',', $deal['weeks']);
         $week = date('w');
         $start = strtotime(date('Y-m-d',time()).' '. $deal['start_time']);
