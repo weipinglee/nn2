@@ -98,6 +98,26 @@ class AdminController extends InitController {
 	    }
 	}
 
+	public function comadminPwdAction(){
+		if(IS_AJAX){
+			$adminData['id'] = safe::filterPost("admin-id");
+			$adminData['password'] = sha1(safe::filterPost("admin-pwd"));
+			$ori_password = sha1(safe::filterPost("ori-pwd"));
+
+			$info = $this->adminModel->getAdminInfo($adminData['id']);
+			if($info['password'] != $ori_password)
+				die(json::encode(tool::getSuccInfo(0,'原密码错误')));
+			$res = $this->adminModel->adminUpdate($adminData);
+
+	        echo JSON::encode($res);
+	        return false;
+	    }else{
+	    	$id = intval($this->_request->getParam('id'));
+			$admin_info = $this->adminModel->getAdminInfo($id);
+			$this->getView()->assign('info',$admin_info);
+	    }
+	}
+
 	/**
 	 * 设置数据状态
 	 */
