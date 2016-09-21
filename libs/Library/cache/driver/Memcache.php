@@ -33,9 +33,9 @@ class Memcache extends \Library\cache\Cache {
         $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   "nn2_";
         $this->options['length'] =  0;//isset($options['length'])?  $options['length']  :   0;
 
-        $this->handler      =   new \Memcache();
-        $this->handler->connect('localhost', 11211);
-        $options['lib_options'] && $this->handler->setOptions($options['lib_options']);
+        // $this->handler      =   new \Memcache();
+        // $this->handler->connect('localhost', 11211);
+        // $options['lib_options'] && $this->handler->setOptions($options['lib_options']);
     }
 
     /**
@@ -45,7 +45,7 @@ class Memcache extends \Library\cache\Cache {
      * @return mixed
      */
     public function get($name) {
-        return $this->handler->get($this->options['prefix'].$name);
+        // return $this->handler->get($this->options['prefix'].$name);
     }
 
     /**
@@ -57,18 +57,18 @@ class Memcache extends \Library\cache\Cache {
      * @return boolean
      */
     public function set($name, $value, $expire = null) {
-        if(is_null($expire)) {
-            $expire  =  $this->options['expire'];
-        }
-        $name   =   $this->options['prefix'].$name;
-        if($this->handler->set($name, $value,0, $expire)) {
-            if($this->options['length']>0) {
-                // 记录缓存队列
-                $this->queue($name);
-            }
-            return true;
-        }
-        return false;
+        // if(is_null($expire)) {
+        //     $expire  =  $this->options['expire'];
+        // }
+        // $name   =   $this->options['prefix'].$name;
+        // if($this->handler->set($name, $value,0, $expire)) {
+        //     if($this->options['length']>0) {
+        //         // 记录缓存队列
+        //         $this->queue($name);
+        //     }
+        //     return true;
+        // }
+        // return false;
     }
 
     /**
@@ -78,10 +78,10 @@ class Memcache extends \Library\cache\Cache {
      * @return boolean
      */
     public function rm($name, $ttl = false) {
-        $name   =   $this->options['prefix'].$name;
-        return $ttl === false ?
-        $this->handler->delete($name) :
-        $this->handler->delete($name, $ttl);
+        // $name   =   $this->options['prefix'].$name;
+        // return $ttl === false ?
+        // $this->handler->delete($name) :
+        // $this->handler->delete($name, $ttl);
     }
 
     /**
@@ -90,6 +90,6 @@ class Memcache extends \Library\cache\Cache {
      * @return boolean
      */
     public function clear() {
-        return $this->handler->flush();
+        // return $this->handler->flush();
     }
 }

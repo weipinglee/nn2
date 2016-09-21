@@ -7,7 +7,9 @@
  */
 class SamplePlugin extends Yaf\Plugin_Abstract {
 
-	public function routerStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
+	public function routerStartup(\Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
+		$static = new \nainai\statistics();
+		$static->createStatistics();
 
 	}
 
@@ -23,11 +25,9 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 				$response->setRedirect(\Library\url::createUrl("/oper/error?info=现在已闭市，无法操作"));
 			}
 		}
-
 	}
 
 	public function dispatchLoopStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-
 	}
 
 	public function preDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
@@ -39,6 +39,6 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 	}
 
 	public function dispatchLoopShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-
+		//echo $request->getActionName();
 	}
 }

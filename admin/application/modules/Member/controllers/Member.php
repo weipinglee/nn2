@@ -371,5 +371,11 @@ class MemberController extends InitController {
 		$this->getView()->assign('data', $data);
 	}
 
+	public function userfundAction(){
+		$model = new \nainai\fund\DealTotal();
+		$data = $model->getList();
+		$this->getView()->assign('data', $data);
+	}
+
 
 }

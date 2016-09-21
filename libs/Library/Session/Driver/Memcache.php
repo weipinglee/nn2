@@ -19,14 +19,14 @@ class Memcache {
             'timeout'       => C('SESSION_TIMEOUT') ? C('SESSION_TIMEOUT') : 1,
             'persistent'    => C('SESSION_PERSISTENT') ? C('SESSION_PERSISTENT') : 0
         );
-		$this->handle       = new \Memcache;
-        $hosts              = explode(',', C('MEMCACHE_HOST'));
-        $ports              = explode(',', C('MEMCACHE_PORT'));
-        foreach ($hosts as $i=>$host) {
-            $port           = isset($ports[$i]) ? $ports[$i] : $ports[0];
-            $this->handle->addServer($host, $port, true, 1, $options['timeout']);
-        }
-		return true;
+		// $this->handle       = new \Memcache;
+  //       $hosts              = explode(',', C('MEMCACHE_HOST'));
+  //       $ports              = explode(',', C('MEMCACHE_PORT'));
+  //       foreach ($hosts as $i=>$host) {
+  //           $port           = isset($ports[$i]) ? $ports[$i] : $ports[0];
+  //           $this->handle->addServer($host, $port, true, 1, $options['timeout']);
+  //       }
+		// return true;
 	}
 
     /**
@@ -34,10 +34,10 @@ class Memcache {
      * @access public 
      */
 	public function close() {
-		$this->gc(ini_get('session.gc_maxlifetime'));
-		$this->handle->close();
-		$this->handle       = null;
-		return true;
+		// $this->gc(ini_get('session.gc_maxlifetime'));
+		// $this->handle->close();
+		// $this->handle       = null;
+		// return true;
 	}
 
     /**
@@ -46,7 +46,7 @@ class Memcache {
      * @param string $sessID 
      */
 	public function read($sessID) {
-        return $this->handle->get($this->sessionName.$sessID);
+        // return $this->handle->get($this->sessionName.$sessID);
 	}
 
     /**
@@ -56,7 +56,7 @@ class Memcache {
      * @param String $sessData  
      */
 	public function write($sessID, $sessData) {
-		return $this->handle->set($this->sessionName.$sessID, $sessData, 0, $this->lifeTime);
+		// return $this->handle->set($this->sessionName.$sessID, $sessData, 0, $this->lifeTime);
 	}
 
     /**
@@ -65,7 +65,7 @@ class Memcache {
      * @param string $sessID 
      */
 	public function destroy($sessID) {
-		return $this->handle->delete($this->sessionName.$sessID);
+		// return $this->handle->delete($this->sessionName.$sessID);
 	}
 
     /**

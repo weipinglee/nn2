@@ -75,6 +75,7 @@
                             <ul>
                                 <li><a href="{url:system/Confsystem/creditList}" target="content">信誉值配置列表</a></li>
                                 <li><a href="{url:system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
+                                <li><a href="{url:system/Confsystem/entrustList}" target="content">委托费率设置</a></li>
                                 <li><a href="{url:system/Confsystem/generalList}" target="content">一般设置</a></li>
                             </ul>
                         </li>
@@ -123,6 +124,7 @@
                                 <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
                                 <li><a href="{url:member/member/OnLineList}" target="content">在线会员信息</a></li>
                                 <li><a href="{url:member/member/userlog}" target="content">会员日志列表</a></li>
+                                <li><a href="{url:member/member/userfund}" target="content">会员资金列表</a></li>
                             </ul>
                         </li>
 
@@ -204,6 +206,12 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>
                     <ul>
+                     <li><a  target="content">开闭市设置</a>
+                            <ul>
+                                <li><a href="{url:balance/Open/day}" target="content">日结</a></li>
+                                <li><a href="{url:balance/Open/calendar}" target="content">交易日历</a></li>
+                            </ul>
+                        </li>
                         <li><a  target="content">会员开户管理</a>
                             <ul>
                                 <li><a href="{url:balance/accManage/checkbankList}" target="content">待审核</a></li>

@@ -99,6 +99,12 @@ class searchConfig {
         'store_list' => array(
             'like' => array('name','仓库名称')
         ),
+        'entrust_setting' => array(
+            'like' => array('b.name','商品类别')
+        ),
+         'deal_total' => array(
+            'like' => array('u.username','用户名')
+        ),
     );
 
     public static function config($tableName=''){
