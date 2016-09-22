@@ -24,8 +24,7 @@ class OpenController extends InitController {
 						$res = \Library\Tool::getSuccInfo(0, '请选择下次日结时间！');
 					}else{
 						$detail = $model->getDealSetting(1);
-
-						if (!empty($detail['daily']) && strtotime(date('Y-m-d')) != strtotime($detail['daily'])) {
+						if (!empty($detail['daily']) && $detail['daily'] != 0 && strtotime(date('Y-m-d')) != strtotime($detail['daily'])) {
 							$res = \Library\Tool::getSuccInfo(0, '今天不是日结时间，不能日结！');
 							exit(json::encode($res));
 						}
@@ -36,7 +35,7 @@ class OpenController extends InitController {
 						}
 
 						$fundObj = \nainai\fund::createFund(1);
-						if (empty($data['last_daily'])) {
+						if (empty($data['last_daily']) || $data['last_daily'] == 0) {
 							$data['last_daily'] = \Library\Time::getDateTime();
 						}else{
 							$data['last_daily'] .= ' ' . date('H:i:s');
@@ -107,7 +106,6 @@ class OpenController extends InitController {
 
 		$detail = $model->getDealSetting(1);
 		$detail['weeks'] = explode(',', $detail['weeks']);
-
 		$week = date('w');
 	        	$start = strtotime(date('Y-m-d',time()).' '. $detail['start_time']);
 	        	$end   = strtotime(date('Y-m-d',time()).' '.$detail['end_time']);
