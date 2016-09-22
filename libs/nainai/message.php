@@ -30,7 +30,8 @@ class message{
 		'ApplyResetpay',
 		'offer',
 		'store',
-        'common'
+        'common',
+		'credentials'
 
 	);
 	/**
@@ -89,7 +90,14 @@ class message{
 			'title'=>$title,
 			'content'=>$message);
 	}
-
+	public function credentials(){
+		$title='交易提醒';
+		$message='有客户购买您的商品,请您及时完善您的资质信息';
+		return array(
+			'title'=>$title,
+			'content'=>$message
+		);
+	}
 	
 	public function breakcontract($order_id){
 		$title="违约";
@@ -188,7 +196,10 @@ class message{
 		$title = '交易商认证提醒';
 		if ($status == 2) {
 			$message = '您好，您已成功认证交易商。';
-		}else{
+		}elseif($status==4){
+			$message='您好，您申请的交易商认证已通过初审,请您及时完善您的信息，以免影响您的交易';
+		}
+		else{
 			$message = '很遗憾，您申请的交易商认证未通过审核，您可以修改相关信息再次进行申请';
 		}
 		return array(

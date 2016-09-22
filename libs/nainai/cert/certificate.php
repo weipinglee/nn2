@@ -19,6 +19,7 @@ class certificate{
     const CERT_BEFORE  =  -1; //表示从未发起认证,不存在认证数据
     const CERT_INIT    =   0; //未发起认证,修改资料后为此状态
     const CERT_APPLY   =   1; //发起申请认证
+    const CERT_FIRST_OK=4;  //初审通过
     const CERT_SUCCESS =   2; //后台确认认证通过
     const CERT_FAIL    =   3; //后台拒绝认证
 
@@ -65,8 +66,8 @@ class certificate{
         self::CERT_INIT => '认证失效,需重新认证',
         self::CERT_APPLY => '等待后台审核',
         self::CERT_SUCCESS => '认证成功',
-        self::CERT_FAIL => '后台审核驳回'
-
+        self::CERT_FAIL => '后台审核驳回',
+        self::CERT_FIRST_OK=>'初审通过'
     );
 
     protected static $certFields = array();
@@ -199,7 +200,7 @@ class certificate{
         $table = self::getCertTable($type);
         $certModel = new M($table);
         $certModel->beginTrans();
-        $status = $result==1 ? self::CERT_SUCCESS : self::CERT_FAIL;
+        $status = $result==1 ? self::CERT_SUCCESS : ($result==2?self::CERT_FIRST_OK:self::CERT_FAIL);
         $certModel->data(array('status'=>$status,'message'=>$info,'verify_time'=>Time::getDateTime()))->where(array('user_id'=>$user_id))->update();
 
         $this->chgCertStatus($user_id,$certModel);
@@ -210,7 +211,6 @@ class certificate{
             $credit = new \nainai\CreditConfig();
             $credit->changeUserCredit($user_id,self::$creditConf[$type]);
         }
-
         $res = $certModel->commit();
         if($res===true){
             $mess = new \nainai\message($user_id);
@@ -356,7 +356,7 @@ class certificate{
         $result = array();
         foreach(self::$certTable as $type=>$table){
             $status = $obj->table($table)->where(array('user_id'=>$user_id))->getField('status');
-            $result[$type] = $status==self::CERT_SUCCESS ? 1 : 0;
+            $result[$type] = $status==self::CERT_SUCCESS ? 1 : ($status==self::CERT_FIRST_OK?1:0);
         }
         return $result;
     }

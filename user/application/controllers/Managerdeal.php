@@ -60,7 +60,10 @@ class ManagerDealController extends UcenterBaseController {
      * @return
      */
     public function indexOfferAction(){
+        $certObj=new \nainai\cert\certificate();
+        $certStatus=$certObj->getCertStatus($this->user_id,'deal');
 
+        $this->getView()->assign('certStatus',$certStatus);
     }
 
     public function addSuccessAction(){
@@ -89,6 +92,7 @@ class ManagerDealController extends UcenterBaseController {
             }
             $key --;
         }while($key > 0);
+
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('categorys', $category['cate']);
         $this->getView()->assign('risk_data', $risks);
@@ -193,6 +197,7 @@ class ManagerDealController extends UcenterBaseController {
         $this->getView()->assign('token',$token);
 
         $depositObj = new \nainai\offer\depositOffer();
+
         $rate = $depositObj->getDepositRate($this->user_id);
         $this->getView()->assign('rate',$rate);
         $this->productAddAction();
