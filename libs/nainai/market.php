@@ -66,7 +66,7 @@ class market{
 
     protected $start_time = '09:00:00';//开市时间
 
-    protected $end_time = '23:00:00';//闭市时间
+    protected $end_time = '17:30:00';//闭市时间
 
     /**
      * 判断是否处于开市时间

@@ -53,6 +53,7 @@ $(function(){
 
    <!--最新数据 开始-->
   <div class="mostnew_date">
+  <!--
    <div id="row1_clinch" class="row1_clinch">
        <div class="clinch_tit">
            <div class="tit_time">
@@ -95,6 +96,7 @@ $(function(){
            </div>
        </div>                    
    </div>
+   -->
   </div>  
    <!--最新数据 结束-->
     <!--主要内容 开始-->
