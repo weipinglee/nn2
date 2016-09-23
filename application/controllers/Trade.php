@@ -134,7 +134,8 @@ class tradeController extends \nainai\controller\Base {
 
 			if($gen_res['success'] == 1){
 				$order_id = $gen_res['order_id'];
-				if($offer_type == order\Order::ORDER_FREE || $offer_type == order\Order::ORDER_ENTRUST){
+
+				if($offer_type == order\Order::ORDER_FREE){
 
 					$order->commit();
 					
@@ -150,14 +151,13 @@ class tradeController extends \nainai\controller\Base {
 						die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
 					}
 					$pay_res = $order_mode->buyerDeposit($gen_res['order_id'],$paytype,$user_id,$account);
-
 					if($pay_res['success'] == 1){
-						$this->offer->commit();
+						$order->commit();
 						$url = url::createUrl('/offers/paySuccess?id='.$order_id.'&order_no='.$orderData['order_no'].'&amount='.$pay_res['amount'].'&payed='.$pay_res['pay_deposit']);
 						die(json::encode(tool::getSuccInfo(1,'支付成功,稍后跳转',$url)));
 
 					}else{
-						$this->offer->rollBack();
+						$order->rollBack();
 						die(json::encode(tool::getSuccInfo(0,'预付定金失败:'.$pay_res['info'])));
 
 					}
@@ -206,7 +206,7 @@ class tradeController extends \nainai\controller\Base {
 		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
 		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));
 
-		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT)) ? 1 : 0;
+		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0;
 		//商品剩余数量
 		$pro = new \nainai\offer\product();
 

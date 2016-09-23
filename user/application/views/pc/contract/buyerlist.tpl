@@ -1,4 +1,3 @@
-	
 			<!--start中间内容-->	
 			<div class="user_c_list">
 				<div class="user_zhxi">

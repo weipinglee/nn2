@@ -62,10 +62,7 @@ class Order{
 	);
 
 
-
-
 	public function __construct($order_type = 0){
-
 		$this->order_type = $order_type;
 		$this->order_table = 'order_sell';
 		$this->offer_table = 'product_offer';
@@ -496,56 +493,65 @@ class Order{
 		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$info = $this->orderInfo($order_id);
 		$offerInfo = $this->offerInfo($info['offer_id']);
-		if(is_array($info) && isset($info['contract_status'])){
-			$sim_oper = in_array($info['mode'],array(self::ORDER_ENTRUST,self::ORDER_FREE));
-			if(!$sim_oper && $info['contract_status'] != self::CONTRACT_BUYER_RETAINAGE){
-				return tool::getSuccInfo(0,'合同状态有误');
-			}
-			$seller_tmp = $this->sellerUserid($order_id);
-			$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $seller_tmp : intval($info['user_id']);
-			$buyer  = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($info['user_id']) : $seller_tmp;
 
-			if($seller != $user_id)
-				return tool::getSuccInfo(0,'订单卖家信息有误');
-
-			if(empty($info['proof'])){
-				return tool::getSuccInfo(0,'无效支付凭证');
-			}
-			$orderData['id'] = $order_id;
-			//发送提示信息买家  
-			$mess_seller = new \nainai\message($seller);
-			$mess_buyer = new \nainai\message($buyer);
-			if($confirm === true){
-				//卖家确认收款
-				
-				$order_type = $info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST;
-				//合同状态置为生效
-				$orderData['contract_status'] = $order_type ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
-				$orderData['end_time'] = $order_type ? NULL : date('Y-m-d H:i:s',time());
-				$log_res = $this->payLog($order_id,$user_id,1,'卖家确认线下支付凭证');
-				
-				if($sim_oper){
-					$content = '合同'.$info['order_no'].'卖家已确认收款,合同完成。交收流程请您在线下进行操作。';
-					$mess_buyer->send('common',$content);
-					$content = '合同'.$info['order_no'].'，合同已完成。交收流程请您在线下进行操作。';
-					$mess_seller->send('common',$content);
-				}else{
-					$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
-					$content = '(合同'.$info['order_no'].'已生效，您可以申请提货了。)'.$jump_url;
-					$mess_buyer->send('common',$content);
+		try {
+			$this->order->beginTrans();
+			if(is_array($info) && isset($info['contract_status'])){
+				$sim_oper = in_array($info['mode'],array(self::ORDER_ENTRUST,self::ORDER_FREE));
+				if(!$sim_oper && $info['contract_status'] != self::CONTRACT_BUYER_RETAINAGE){
+					return tool::getSuccInfo(0,'合同状态有误');
 				}
-			}elseif($confirm === false){
-				//删除之前上传proof
-				$orderData['proof'] = null;
-				$log_res = $this->payLog($order_id,$user_id,1,'线下支付凭证无效');
-				
-			}else{
-				$res = '参数错误';
-			}
+				$seller_tmp = $this->sellerUserid($order_id);
+				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $seller_tmp : intval($info['user_id']);
+				$buyer  = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($info['user_id']) : $seller_tmp;
 
-			if(!isset($res)){
-				try {
-					$this->order->beginTrans();
+				if($seller != $user_id)
+					return tool::getSuccInfo(0,'订单卖家信息有误');
+
+				if(empty($info['proof'])){
+					return tool::getSuccInfo(0,'无效支付凭证');
+				}
+				$orderData['id'] = $order_id;
+				//发送提示信息买家  
+				$mess_seller = new \nainai\message($seller);
+				$mess_buyer = new \nainai\message($buyer);
+				if($confirm === true){
+					//卖家确认收款
+					
+					$order_type = $info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST;
+					//合同状态置为生效
+					$orderData['contract_status'] = $order_type ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
+					$orderData['end_time'] = $order_type ? NULL : date('Y-m-d H:i:s',time());
+					$log_res = $this->payLog($order_id,$user_id,1,'卖家确认线下支付凭证');
+					
+					if($sim_oper){
+						$content = '合同'.$info['order_no'].'卖家已确认收款,合同完成。交收流程请您在线下进行操作。';
+						$mess_buyer->send('common',$content);
+						$content = '合同'.$info['order_no'].'，合同已完成。交收流程请您在线下进行操作。';
+						$mess_seller->send('common',$content);
+					}else{
+						$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
+						$content = '(合同'.$info['order_no'].'已生效，您可以申请提货了。)'.$jump_url;
+						$mess_buyer->send('common',$content);
+					}
+				}elseif($confirm === false){
+					//删除之前上传proof
+					$orderData['proof'] = null;
+					$log_res = $this->payLog($order_id,$user_id,1,'线下支付凭证无效');
+					
+				}else{
+					$res = '参数错误';
+				}
+
+				if($info['mode'] == self::ORDER_ENTRUST){
+					$note = '买方确认合同完成'.$info['order_no'].'支付给平台委托金 '.$info['seller_deposit'];
+
+					$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
+					if($pay_res !== true ) $rs = $pay_res;
+				}
+
+				if(!isset($res)){
+					
 					$upd_res = $this->orderUpdate($orderData);
 					if($upd_res['success'] == 1){
 						$pdo_res = $order_type ? true : $this->productsFreezeToSell($offerInfo,$info['num']);
@@ -559,16 +565,17 @@ class Order{
 						$this->order->rollBack();
 						$res = $upd_res['info'];
 					}
-				} catch (PDOException $e) {
-					$this->order->rollBack();
-					$res = $e->getMessage();
 				}
+
+			}else{
+				$res = '无效订单id';
 			}
 
-		}else{
-			$res = '无效订单id';
+			$res = $res ? $res : $this->order->commit();
+		}catch(Exception $e){
+			$this->order->rollBack();
+			$res = $e->getMessage();
 		}
-
 		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res ? $res : '未知错误');
 	}
 
@@ -1268,6 +1275,21 @@ class Order{
 	}
 
 	/**
+     * 根据订单id获取对应委托金比例
+     * @param  int $order_id 订单id
+     * @return float 
+     */
+    public function entrustFee($order_id){
+     	$query = new Query('order_sell as o');
+     	$query->join = 'left join product_offer as po on o.offer_id = po.id left join products as p on p.id = po.product_id left join entrust_setting as e on e.cate_id = p.cate_id';
+     	$query->fields = 'e.type,e.value';
+     	$query->where = 'e.status=1 and o.id=:id';
+     	$query->bind = array('id'=>$order_id);
+     	$res = $query->getObj();
+     	return $res ? $res : array();
+    }
+
+	/**
 	 * 获取销售合同状态
 	 * @param  array &$data 销售合同订单数组
 	 */
@@ -1282,8 +1304,8 @@ class Order{
 					$title = '等待买方付款';
 					break;	
 				case self::CONTRACT_SELLER_DEPOSIT:
-					$title = '支付保证金';
-					$href  = url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']);
+					$title = $value['mode'] == self::ORDER_DEPOSIT ? '支付保证金' : '支付委托金';
+					$href  = $value['mode'] == self::ORDER_DEPOSIT ? url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']) : url::createUrl('/Deposit/sellerEntrustDeposit?order_id='.$value['id']);
 					break;
 				case self::CONTRACT_CANCEL:
 					$title = '合同已作废';
@@ -1354,7 +1376,7 @@ class Order{
 					$title = '未支付定金';
 					break;
 				case self::CONTRACT_SELLER_DEPOSIT:   
-					$title = '等待卖家支付保证金';
+					$title = $value['mode'] == self::ORDER_DEPOSIT ? '等待卖家支付保证金' : '等待卖家支付委托金';
 					$action []= array('action'=>$title);
 					$_after_time = time::_after_time($value['pay_deposit_time'],3600);
 					if($_after_time === true){
