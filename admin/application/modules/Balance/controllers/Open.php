@@ -67,7 +67,6 @@ class OpenController extends InitController {
 						}
 						$deal = new \nainai\fund\DealTotal();
 						$preData = $deal->getLastList();//获取上次日结数据
-						d($preData);
 						foreach ($fundData as $key => &$value) {
 							$value['end_fund'] = $value['use_fund'] + $value['freeze_fund'];
 							if ( ! empty($preData[$value['user_id']])) {
