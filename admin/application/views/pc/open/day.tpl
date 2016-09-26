@@ -31,7 +31,7 @@
                 <div class="row cl">
                     <label class="form-label col-2"><span class="c-red">*</span>下一日结时间</label>
                     <div class="formControls col-10">
-                    <input type="text" name="nexttime" onclick="WdatePicker()">
+                    <input type="text" name="nexttime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd', minDate:'%y-%M-%d'})">
                     </div>
                 </div>
 
