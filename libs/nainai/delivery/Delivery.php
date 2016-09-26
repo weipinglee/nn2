@@ -49,7 +49,6 @@ class Delivery{
 		$this->delivery = new M('product_delivery');
 		$this->offer = new M('product_offer');
 		$this->account = new \nainai\fund\agentAccount();
-		$this->order_model = new \nainai\order\Order();
 	}	
 
 	/**
@@ -230,13 +229,14 @@ class Delivery{
 			if(isset($data['id']) && $data['id']>0){
 				$id = $data['id'];
 				$info = $this->deliveryInfo($id);
-				if($info && $this->order_model->orderComplain($info['order_id'])) return tool::getSuccInfo(0,'申述处理中');
+				$order_model = new \nainai\order\Order();
+				if($info && $order_model->orderComplain($info['order_id'])) return tool::getSuccInfo(0,'申述处理中');
 				//编辑
 				unset($data['id']);
 				$res = $delivery->where(array('id'=>$id))->data($data)->update();
 				$res = $res>0 ? true : ($delivery->getError() ? $delivery->getError() : '数据未修改');
 			}else{
-				if($this->order_model->orderComplain($data['order_id'])) return tool::getSuccInfo(0,'申述处理中');
+				if($order_model->orderComplain($data['order_id'])) return tool::getSuccInfo(0,'申述处理中');
 				try {
 					$delivery->beginTrans();
 					$delivery_id = $delivery->data($data)->add();
@@ -280,7 +280,8 @@ class Delivery{
 		$deliveryData['status'] = self::DELIVERY_APPLY;
 		$order_info = $this->order->where(array('id'=>$deliveryData['order_id']))->fields('contract_status,mode,user_id,offer_id')->getObj();
 		if(!empty($order_info)){
-			$offerInfo = $this->order_model->offerInfo($order_info['offer_id']);
+			$order_model = new \nainai\order\Order();
+			$offerInfo = $order_model->offerInfo($order_info['offer_id']);
 			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order_info['user_id'] : $offerInfo['user_id'];
 			$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order_info['user_id'];
 			if($buyer == $deliveryData['user_id']){
@@ -315,6 +316,15 @@ class Delivery{
 			$error = '无效订单';
 		}
 		return isset($res) ? $res : tool::getSuccInfo(0,$error);
+	}
+
+	/**
+	 * 获取订单提货完成时间
+	 * @param  int $order_id 订单id
+	 * @return string 完成时间 Y-m-d H:i:s
+	 */
+	public function deliveryCompleteTime($order_id){
+		return $this->delivery->where(array('order_id'=>$order_id,'status'=>self::DELIVERY_COMPLETE))->getField('create_time');
 	}
 
 	/**

@@ -18,7 +18,7 @@ class IndexController extends InitController {
 			// $menus = \Library\Session::get('admin_menus');
 			$menus = rbac::accessMenu();
 			$this->getView()->assign('menus',JSON::encode($menus));
-		}else{
+		}else{ 
 			$this->getView()->assign('menus','admin');
 		}
 		

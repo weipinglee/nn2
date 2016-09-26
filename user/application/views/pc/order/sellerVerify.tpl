@@ -9,6 +9,7 @@
       color: #fff;
       background: #D61515;
       display: block;
+      float:left;
       width: 120px;
       height: 35px;
       line-height: 35px;
@@ -20,5 +21,6 @@
 	<p>扣减金额：&emsp;{$data['reduce_amount']}</p>
 	<p>说明&emsp;&emsp;：&emsp;{$data['reduce_remark']}</p>
 
-	<a href="{url:/Order/sellerVerify?order_id=$data['id']}" confirm>确认</a>	
+  <a href="{url:/Order/sellerVerify?order_id=$data['id']}" confirm>同意</a> 
+	<a href="{url:/Order/sellerVerify?order_id=$data['id']&disagree=1}" confirm>不同意</a>	
 </div>   
