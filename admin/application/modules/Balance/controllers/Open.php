@@ -12,7 +12,7 @@ class OpenController extends InitController {
 
 		if (IS_AJAX) {
 			$type = Safe::filterPost('type');
-
+			$detail = $model->getDealSetting(1);
 			switch ($type) {
 				case 'submit':
 					$data = array(
@@ -23,13 +23,13 @@ class OpenController extends InitController {
 					if (empty($data['daily'])) {
 						$res = \Library\Tool::getSuccInfo(0, '请选择下次日结时间！');
 					}else{
-						$detail = $model->getDealSetting(1);
-						if (!empty($detail['daily']) && $detail['daily'] != 0 && strtotime(date('Y-m-d')) != strtotime($detail['daily'])) {
+						
+						if (!empty($detail['daily']) && $detail['daily'] != 0 && strtotime(date('Y-m-d')) < strtotime($detail['daily'])) {
 							$res = \Library\Tool::getSuccInfo(0, '今天不是日结时间，不能日结！');
 							exit(json::encode($res));
 						}
 
-						if (!empty($detail['daily']) && time() < strtotime($detail['daily'] . $detail['end_time'])) {
+						if (time() < strtotime(date('Y-m-d') . $detail['end_time'])) {
 							$res = \Library\Tool::getSuccInfo(0, '还没有闭市，不能日结！');
 							exit(json::encode($res));
 						}
@@ -42,6 +42,7 @@ class OpenController extends InitController {
 						}
 						//统计上次日结到这次日结的交易流水
 						$condition = array('end' => $data['last_daily'], 'begin' => $detail['last_daily']);
+						
 						$flowData = $fundObj->getFundFlow(0, $condition);
 						$fundData = array();
 						foreach ($flowData as $key => $value) {
@@ -53,29 +54,29 @@ class OpenController extends InitController {
 								$fundData[$value['user_id']]['today_out'] = 0;
 								$fundData[$value['user_id']]['freeze_fund'] = 0;
 								$fundData[$value['user_id']]['thaw_fund'] = 0;
-							}else{
-								$fundData[$value['user_id']]['today_in'] += $value['fund_in'];
-								$fundData[$value['user_id']]['today_out'] += $value['fund_out'];
+							}
 
-								if (bccomp($value['freeze'], 0) == 1) {
-									$fundData[$value['user_id']]['freeze_fund'] += $value['freeze'];
-								}elseif (bccomp($value['freeze'], 0) == -1) {
-									$fundData[$value['user_id']]['thaw_fund'] += abs($value['freeze']);
-								}
+							$fundData[$value['user_id']]['today_in'] += $value['fund_in'];
+							$fundData[$value['user_id']]['today_out'] += $value['fund_out'];
+
+							if (bccomp($value['freeze'], 0) == 1) {
+								$fundData[$value['user_id']]['freeze_fund'] += $value['freeze'];
+							}elseif (bccomp($value['freeze'], 0) == -1) {
+								$fundData[$value['user_id']]['thaw_fund'] += abs($value['freeze']);
 							}
 						}
 						$deal = new \nainai\fund\DealTotal();
-						$preData = $deal->getLastList($detail['last_daily']);//获取上次日结数据
-
+						$preData = $deal->getLastList();//获取上次日结数据
+						d($preData);
 						foreach ($fundData as $key => &$value) {
 							$value['end_fund'] = $value['use_fund'] + $value['freeze_fund'];
 							if ( ! empty($preData[$value['user_id']])) {
 								//期初资金：前一个交易日的期末资金
 								$value['begin_fund'] = $preData[$value['user_id']]['end_fund'];
 								//期初冻结资金,前一个交易日的期末冻结资金
-								$value['begin_freeze_fund'] = $preData[$value['user_id']]['begin_freeze_fund'];
+								$value['begin_freeze_fund'] = abs($preData[$value['user_id']]['end_freeze_fund']);
 								//期末冻结资金：是指到当天交易日为止的冻结资金，获取上次统计的期末冻结资金
-								$value['end_freeze_fund'] = $preData[$value['user_id']]['end_freeze_fund'];
+								$value['end_freeze_fund'] = abs($preData[$value['user_id']]['end_freeze_fund']);
 							}else{
 								//如果第一次统计，没有以前的数据
 								$value['begin_fund'] = 0;
@@ -90,6 +91,10 @@ class OpenController extends InitController {
 					}
 					break;
 				case 'daily':
+					if (time() < strtotime(date('Y-m-d') . $detail['end_time'])) {
+						$res = \Library\Tool::getSuccInfo(0, '还没有闭市，不能手工开市！');
+						exit(json::encode($res));
+					}
 					$data = array(
  						'is_operate' => 1,
  						'operate_time' => date('w')
@@ -110,7 +115,7 @@ class OpenController extends InitController {
 	        	$start = strtotime(date('Y-m-d',time()).' '. $detail['start_time']);
 	        	$end   = strtotime(date('Y-m-d',time()).' '.$detail['end_time']);
 
-	        	if( in_array($week, $detail['weeks']) && (time() >= $start && time() <= $end)) {
+	        	if( ( in_array($week, $detail['weeks']) && (time() >= $start && time() <= $end) ) || $detail['is_operate'] == 1) {
 		         $detail['status'] = '交易状态';
 		}else{
 			$detail['status'] = '闭市状态';
