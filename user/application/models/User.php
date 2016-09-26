@@ -75,8 +75,8 @@ class UserModel{
 		array('tax_no','require','请填写税号'),
 		array('qq','number','请正确填写qq',2,'regex'),
 		array('cert_bl','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
-		array('cert_oc','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
-		array('cert_tax','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
+	/*	array('cert_oc','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
+		array('cert_tax','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),*/
 		array('business','/.{1,100}/','请填写主营品种'),
 
 	);
