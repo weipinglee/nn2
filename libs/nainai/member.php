@@ -74,6 +74,7 @@ class member{
     public  function getUserGroup($user_id){
         $userObj = new M('user');
         $credit = $userObj->where(array('id'=>$user_id))->getField('credit');
+
         if($credit!==false){
             $group = $userObj->table('user_group')->where('credit <=:credit')->bind(array('credit'=>$credit))->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit DESC')->getObj();
            if(empty($group)){

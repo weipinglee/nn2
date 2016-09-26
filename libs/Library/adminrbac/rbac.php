@@ -39,18 +39,18 @@ class rbac
             $_module = array();
             $_controller['no'] = explode(',', strtolower(self::$rbac_config['no_auth_controller']));
             
-            
             //检查当前操作是否需要认证
             if ((!empty($_controller['no']) && in_array(strtolower(self::$dispatcher->controller), $_controller['no'])) ) {
+
                 return false;
             } else {
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
-
+    
     //权限认证的过滤器方法
     public static function AccessDecision($module,$controller,$action)
     {
