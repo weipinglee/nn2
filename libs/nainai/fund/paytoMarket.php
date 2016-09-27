@@ -47,6 +47,7 @@ class paytoMarket{
 			$value['charge_type_text'] = $this->getCharge(intval($value['charge_type']));
 			$value['mode_text'] = $product->getMode($value['offer_type']);
 		}
+		$query->downExcel($res['list'], 'payto_market', '收费明细');
 		return $res;
 	}
 
