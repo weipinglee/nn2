@@ -220,7 +220,7 @@ class message{
 	}
 
 	public function ApplyResetpay($status){
-		$title = '仓库管理员认证提醒';
+		$title = '提醒';
 		if ($status == 0) {
 			$message = '很遗憾，您的忘记支付密码申诉未能通过审核。您可以修改相关信息再次进行申诉，或联系客服解决。';
 		}else{
@@ -242,20 +242,13 @@ class message{
 				$message = '很遗憾，您的“' .$param['name']. '”报盘信息未通过审核。<a href="' .\Library\url::createUrl('/purchase/lists@user'). '">跳转到采购列表</a>';
 			}
 		}else{
-			if ($param['mode'] == \nainai\offer\product::DEPOSIT_OFFER) {
-				if ($param['status'] == \nainai\offer\product::OFFER_OK) {
-					$message = '您好，您的“' .$param['name']. '”报盘信息已通过审核。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
-				}else{
-					$message = '很遗憾，您的“' .$param['name']. '”报盘信息未通过审核。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
-				}
-			}elseif ($param['mode'] == \nainai\offer\product::FREE_OFFER) {
+			if ($param['mode'] == \nainai\offer\product::FREE_OFFER) {
 				if ($param['status'] == \nainai\offer\product::OFFER_OK) {
 					$message = '您好，您的“' .$param['name']. '”报盘信息已通过审核。已收取您' .$param['offer_fee']. '元的报盘费。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
 				}else{
 					$message = '很遗憾，您的“' .$param['name']. '”报盘信息未通过审核。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
 				}
-			}
-			elseif ($param['mode'] == \nainai\offer\product::STORE_OFFER) {
+			}else {
 				if ($param['status'] == \nainai\offer\product::OFFER_OK) {
 					$message = '您好，您的“' .$param['name']. '”报盘信息已通过审核。<a href="' .\Library\url::createUrl('/managerdeal/productlist@user'). '">跳转到销售列表</a>';
 				}else{
@@ -263,8 +256,6 @@ class message{
 				}
 			}
 		}
-
-
 		
 		return array(
 			'title'=>$title,
