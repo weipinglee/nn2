@@ -84,7 +84,7 @@
                         </tr>
                         {/foreach}
                         <tr>
-                            <td>详情</td>
+                            <td style="width:15%;">详情</td>
                             <td>{$data['note']}</td>
                         </tr>
                         <tr>
