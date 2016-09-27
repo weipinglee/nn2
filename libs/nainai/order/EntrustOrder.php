@@ -90,7 +90,7 @@ class entrustOrder extends Order{
 			}
 			$clientID = tool::create_uuid($buyer);
 			$orderData['buyer_deposit_clientid'] = $payment == self::PAYMENT_BANK ? $clientID : '';
-
+			
 			$upd_res = $this->orderUpdate($orderData);
 			if($upd_res['success'] == 1){
 
@@ -106,7 +106,7 @@ class entrustOrder extends Order{
 					// $mess_seller = new \nainai\message($seller);
 					// // $mess->send('depositPay',$info['order_no']);
 					// $content = '合同'.$info['order_no'].'已支付'.$note_type.',报价方将在60分钟内';
-
+					
 					$mess_buyer = new \nainai\message($buyer);
 					$content = '合同'.$info['order_no'].'已支付'.$note_type.',卖方将在60分钟内支付委托金,超过时间之后,您可以取消合同';
 					$mess_buyer->send('common',$content);

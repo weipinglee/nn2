@@ -54,7 +54,8 @@ class FundController extends UcenterBaseController {
 		$zx = new \nainai\fund\zx();
 		$data = $zx->attachAccountInfo($this->user_id);
 		$balance = $zx->attachBalance($this->user_id);
-		$details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
+		// $details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
+		$details = $zx->attachOperDetails($this->user_id,$startDate,$endDate);
 		
 		// echo '<pre>';var_dump($details);exit;
 

@@ -86,7 +86,7 @@
 					 </tr>
 
 				 {/if}
-				 {if:$cert['cert_status']==\nainai\cert\certificate::CERT_APPLY}
+				 {if:$cert['cert_status']==\nainai\cert\certificate::CERT_APPLY||$cert['cert_status']==\nainai\cert\certificate::CERT_FIRST_OK}
 
 					 <tr>
 						 <th scope="col" colspan="1">
@@ -111,9 +111,11 @@
 						 <th>审核结果</th>
 						 <th scope="col" colspan="7">
 							 <input type="hidden" name="user_id" value="{$cert['user_id']}" />
-							 <label><input type="radio" name="status" value="1" checked/>通过</label>
+							 {if:$cert['cert_status']==\nainai\cert\certificate::CERT_APPLY&&$cert['type']==1}
+							 <label><input type="radio" name="status" value="2" checked/>初审通过</label>
+							 {/if}
+							 <label><input type="radio" name="status" value="1">终审通过</label>
 							 <label><input type="radio" name="status" value="0"/>驳回</label>
-
 
 						 </th>
 					 </tr>

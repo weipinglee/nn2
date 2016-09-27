@@ -541,6 +541,7 @@ class zx extends account{
         $endDate = $endDate ? date('Ymd',strtotime($endDate) < time() ? strtotime($endDate) : time()) : date('Ymd',time());
 
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
+        if(!$payAccInfo) return array();
         // var_dump($payAccInfo);exit;
         $xml = self::XML_PREFIX."
             <stream>
@@ -550,8 +551,8 @@ class zx extends account{
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
                 <startDate>{$startDate}</startDate>
                 <endDate>{$endDate}</endDate>
-                <startRecord>1</startRecord>
-                <pageNumber>10</pageNumber>
+                <startRecord></startRecord>
+                <pageNumber></pageNumber>
             </stream>";
         $res = $this->attachAccount->curl($xml);
         return $res;
@@ -564,7 +565,7 @@ class zx extends account{
      * @return string 
      */
     public function orderRes($clientID){
-
+        
     }
 
     /**

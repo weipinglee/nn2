@@ -221,7 +221,7 @@
                     var price = {$data['price']};
                     var minimum_deposit = {$data['minimum_deposit']};
                     var left_deposit = {$data['left_deposit']};
-                    var minimum_step = {$data['minstep']};
+                    var minimum_step = 1;
                     var temp_deposit = deposit_text.eq(1).text();
                     var paytype = 0;
                     var global_num = minimum;
@@ -237,6 +237,7 @@
                     });
 
                     $('.btoncomit').click(function(){
+
                         if({$user_id} == 0){
                           window.location.href='{url:/login/login@user}'+'?callback='+window.location.href;
                         }else{

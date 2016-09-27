@@ -46,8 +46,14 @@ class tradeController extends \nainai\controller\Base {
 		$invoice = safe::filterPost('invoice');
 
 		$detail = $this->offer->offerDetail($id);
+		$certObj=new \nainai\cert\certificate();
+		$certStatus=$certObj->getCertStatus($detail['user_id'],'deal');
+		if($certStatus['status']==4){
+			$mess=new \nainai\message($detail['user_id']);
+			$mess->send('credentials');
+			die(json::encode(tool::getSuccInfo(0,'该商品的发布商家资质不够，暂时不能购买')));
+		}
 		$offer_type = intval($detail['mode']);
-
 		switch ($offer_type) {
 			case order\Order::ORDER_FREE:
 				//自由报盘
