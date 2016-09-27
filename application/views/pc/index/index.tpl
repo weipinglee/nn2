@@ -52,7 +52,8 @@ $(function(){
  
 
    <!--最新数据 开始-->
-  <div class="mostnew_date">
+  <div class="mostnew_date" style="display:none">
+  
    <div id="row1_clinch" class="row1_clinch">
        <div class="clinch_tit">
            <div class="tit_time">
@@ -95,6 +96,7 @@ $(function(){
            </div>
        </div>                    
    </div>
+   
   </div>  
    <!--最新数据 结束-->
     <!--主要内容 开始-->
@@ -661,7 +663,7 @@ $(function(){
 
 
             <span class="i_w_10">
-                <%if (data[i].quantity - data[i].sell - data[i].freeze>1) { %>
+                <%if (data[i].quantity - data[i].sell - data[i].freeze>0) { %>
                     <%if (data[i].type==1) { %>
                         <a class="<%=data[i].id%>" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
                             <img class="ckxq" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
