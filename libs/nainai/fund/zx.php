@@ -551,8 +551,8 @@ class zx extends account{
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
                 <startDate>{$startDate}</startDate>
                 <endDate>{$endDate}</endDate>
-                <startRecord></startRecord>
-                <pageNumber></pageNumber>
+                <startRecord>1</startRecord>
+                <pageNumber>10</pageNumber>
             </stream>";
         $res = $this->attachAccount->curl($xml);
         return $res;

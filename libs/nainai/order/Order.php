@@ -548,7 +548,7 @@ class Order{
 
 					$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
 					if($pay_res !== true ) $res = $pay_res;
-
+					
 					$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
 					if(is_object($account_deposit)){
 						$note = '合同'.$info['order_no'].'完成,支付定金'.$info['pay_deposit'];
