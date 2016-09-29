@@ -541,6 +541,7 @@ class zx extends account{
         $endDate = $endDate ? date('Ymd',strtotime($endDate) < time() ? strtotime($endDate) : time()) : date('Ymd',time());
 
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
+        if(!$payAccInfo) return array();
         // var_dump($payAccInfo);exit;
         $xml = self::XML_PREFIX."
             <stream>
@@ -564,7 +565,7 @@ class zx extends account{
      * @return string 
      */
     public function orderRes($clientID){
-
+        
     }
 
     /**

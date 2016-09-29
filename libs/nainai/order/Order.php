@@ -544,10 +544,19 @@ class Order{
 				}
 
 				if($info['mode'] == self::ORDER_ENTRUST){
-					$note = '买方确认合同完成'.$info['order_no'].'支付给平台委托金 '.$info['seller_deposit'];
+					$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
 
 					$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
-					if($pay_res !== true ) $rs = $pay_res;
+					if($pay_res !== true ) $res = $pay_res;
+					
+					$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
+					if(is_object($account_deposit)){
+						$note = '合同'.$info['order_no'].'完成,支付定金'.$info['pay_deposit'];
+						$fpay_res = $account_deposit->freezePay($buyer,$seller,$info['pay_deposit'],$note);
+						if($fpay_res !== true ) $res = $fpay_res;
+					}else{
+						$res = '无效定金支付方式';
+					}
 				}
 
 				if(!isset($res)){
