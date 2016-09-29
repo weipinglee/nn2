@@ -22,6 +22,10 @@ class searchConfig {
         'order_complain' => array(
             'time' => array('a.apply_time','申请时间'),
             'like' => array('b.order_no','订单号'),
+        ),
+        'user' => array(
+            'time' => array('create_time','创建时间'),
+            'like' => array('username','用户名'),
         )
 
     );

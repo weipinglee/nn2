@@ -14,7 +14,6 @@ class MenuController extends InitController {
 	public function MenuListAction(){
 		$menuModel = new \nainai\user\Menu();
 		$menuList = $menuModel->getMenuList();
-
 		$menuList = $menuModel::getTreeList($menuList);
 
 		$this->getView()->assign('lists', $menuModel::$treeList);
@@ -32,7 +31,9 @@ class MenuController extends InitController {
 				'menu_url' => Safe::filterPost('url'),
 				'pid' => Safe::filterPost('pid', 'int'),
 				'create_time' => \Library\Time::getDateTime(),
-				'sort' => Safe::filterPost('sort', 'int')
+				'sort' => Safe::filterPost('sort', 'int'),
+				'status' => Safe::filterPost('status', 'int'),
+				'position' => Safe::filterPost('position', 'int'),
 			);
 
 			$returnData = $menuModel->addMenu($menuData);
@@ -59,7 +60,9 @@ class MenuController extends InitController {
 				$menuData = array(
 					'menu_zn' => Safe::filterPost('name'),
 					'menu_url' => Safe::filterPost('url'),
-					'sort' => Safe::filterPost('sort', 'int')
+					'sort' => Safe::filterPost('sort', 'int'),
+					'status' => Safe::filterPost('status', 'int'),
+					'position' => Safe::filterPost('position', 'int'),
 				);
 
 				$menuModel = new \nainai\user\Menu();
@@ -205,19 +208,12 @@ class MenuController extends InitController {
 
 		if (IS_POST) {
 			$usergroupData = array(
-				'purview' => serialize(Safe::filterPost('menuIds', 'int')),
+				'purview' => serialize(Safe::filterPost('node_id', 'int')),
 			);
-
 			$id = Safe::filterPost('id', 'int');
 			$menuModel = new \nainai\user\MenuRole();
 			$res = $menuModel->updateMenuRole($usergroupData, $id);
-
-			if ($res['success'] == 1) {
-				$this->redirect('menuRoleList');
-			}else{
-				echo $res['info'];
-			}
-			exit();
+			exit(json::encode($res));
 		}
 		
 		$id = $this->_request->getParam('id');
@@ -233,10 +229,10 @@ class MenuController extends InitController {
 
 		$menuModel = new \nainai\user\Menu();
 		$menuList = $menuModel->getMenuList();
-		$menuList = $menuModel::getTreeList($menuList);
 
-		$this->getView()->assign('usergroupInfo', $roleInfo);
-		$this->getView()->assign('lists', $menuModel::$treeList);
+		$menuModel->createTreeMenu($menuList, 0, 1);
+		$this->getView()->assign('roleInfo', $roleInfo);
+		$this->getView()->assign('lists', $menuModel->menu);
 		$this->getView()->assign('icon', $menuModel->getIcon());
 	}
 

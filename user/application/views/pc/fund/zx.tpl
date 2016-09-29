@@ -61,18 +61,26 @@
 							<th>账户余额</th>
 				            <th>对方账号</th>
 				            <th>对方账户名</th>
+				            <th>打印校验码</th>
 				        </tr>
 						{foreach:items=$flow }
 						<tr>
 
-							<td>{$item['HOSTFLW']}</td>
+							<!-- <td>{$item['HOSTFLW']}</td>
 							<td>{$item['TRANDATE']}{$item['TRANTIME']}</td>
 							<td>{$item['TRANTYPE_TEXT']}</td>
 							<td>{$item['TRANAMT']}</td>
 							<td>{$item['ACCBAL']}</td>
 							<td>{$item['OPPACCNO']}</td>
-							<td>{$item['OPPACCNAME']}</td>
-
+							<td>{$item['OPPACCNAME']}</td> -->
+							<td>{$item['tellerNo']}</td>
+							<td>{$item['tranDate']}{$item['tranTime']}</td>
+							<td>{$item['TRANTYPE_TEXT']}</td>
+							<td>{$item['tranAmt']}</td>
+							<td>{$item['accBalAmt']}</td>
+							<td>{$item['accountNo']}</td>
+							<td>{$item['accountNm']}</td>
+							<td>{$item['verifyCode']}</td>
 						</tr>
 						{/foreach}
                     </table>

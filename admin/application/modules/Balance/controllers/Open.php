@@ -133,11 +133,14 @@ class OpenController extends InitController {
 				'end_time' => Safe::filterPost('end_time'),
 			);
 			$res = $model->updateDealSetting($data, 1);
+			$admin_info = admintool\admin::sessionInfo();
+
+			$userLog=new \Library\userLog();
+			$userLog->addLog(['action'=>'开闭市操作','content'=>$admin_info['name'] . '设置了开市时间为：' .$data['start_time']. '闭市时间为：' . $data['end_time']]);
 			exit(json::encode($res));
 		}
 		
 		$deal = $model->getDealSetting(1);
-
 		if (empty($deal)) {
 			$deal = array(
 				'weeks' => '1, 2, 3, 4, 5',

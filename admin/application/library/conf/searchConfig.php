@@ -77,7 +77,8 @@ class searchConfig {
              'time' => array('r.apply_time','申请时间'),
         ),
         'payto_market' => array(
-            'like' => array('u.username','用户名')
+            'like' => array('u.username','用户名'),
+            'down' => 1
         ),
         'admin_alerted_record' => array(
             'like' => array('a.name','管理员用户名')
@@ -104,7 +105,7 @@ class searchConfig {
         ),
          'deal_total' => array(
             'like' => array('u.username','用户名')
-        ),
+        )
     );
 
     public static function config($tableName=''){

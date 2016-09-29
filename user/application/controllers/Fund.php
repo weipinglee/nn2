@@ -54,17 +54,18 @@ class FundController extends UcenterBaseController {
 		$zx = new \nainai\fund\zx();
 		$data = $zx->attachAccountInfo($this->user_id);
 		$balance = $zx->attachBalance($this->user_id);
-		$details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
-		
+		// $details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
+		$details = $zx->attachOperDetails($this->user_id,$startDate,$endDate);
+		// echo '<pre>';var_dump($details['row']);
 		// echo '<pre>';var_dump($details);exit;
 
 		if($details['returnRecords'] == 1){
-			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['TRANTYPE']);
+			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
 			$details['row'] = array($details['row']);
 		}else{
 			foreach ($details['row'] as $key => &$value) {
 				$value = (array)$value;
-				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['TRANTYPE']);
+				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['tranType']);
 			}
 		}
 		$this->getView()->assign('balance',$balance);

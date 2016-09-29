@@ -42,7 +42,7 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	* 分类的修饰图形
 	* @var array
 	*/
-	private $_icon = array( 1=>'│', 2=>'├', 3=>'└');
+	private $_icon = array( 0 => '', 1=>'│', 2=>'├', 3=>'└');
 
 	public function getIcon(){
 		return $this->_icon;
@@ -53,7 +53,7 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	 * @return [Array] 
 	 */
 	public function getMenuList(){
-		return $this->model->fields('id, menu_zn, pid')->order('pid asc, sort asc')->select();
+		return $this->model->fields('id, menu_zn, pid,status,menu_url, position')->order('pid asc, sort desc')->select();
 	}
 	
 
@@ -85,8 +85,8 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	 * @param  integer $level    [分类的等级，根据等级从分类修饰图形获取图形]
 	 * @return Boolean 是否获取成功
 	 */
-	public function getGuideCategoryOption($selectId = 0, $pid = 0, $level=0){
-		$list = $this->model->fields('id, menu_zn, pid')->where('pid=:id')->bind(array('id'=>$pid))->order('pid asc, sort desc')->limit('100')->select();
+	public function getGuideCategoryOption($selectId = 0, $pid = 0, $level=-1){
+		$list = $this->model->fields('id, menu_zn, pid')->where('pid=:id AND status=1')->bind(array('id'=>$pid))->order('pid asc, sort desc')->limit('100')->select();
 		if (empty($list)) {
 			return false;
 		}
@@ -112,59 +112,190 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	 */
 	public function getUserMenuList($uid,$cert=array(),$user_type=1){
 		$menuList = array();
-
 		if (intval($uid) > 0) {
 			$userPur = array();
 			//获取各个认证角色的角色id
 			$roleIds = array();
 			if(!empty($cert)){
-				$roleIds['public'] = $this->publicRole;
-				$where = 'cert in (:public';
-				if(isset($cert['deal']) && $cert['deal']==1){//交易商认证特殊处理，根据个人还是企业获取不同的菜单
-					$roleIds['deal'] = 'deal_'.$user_type;
-					$where .= ',:deal';
-					unset($cert['deal']);
-				}
-				foreach($cert as $key=>$val){
-					if($val==1){
-						$roleIds[$key] = $key;
-						$where .= ',:'.$key;
+				$user = $this->model->table('user')->where(array('id'=>$uid))->fields('gid,pid')->getObj();
+
+				if($user['pid'] != 0){//子账户权限
+					$userPur = unserialize($user['gid']);
+				}else{
+					$roleIds['public'] = $this->publicRole;
+					$where = 'cert in (:public';
+					if(isset($cert['deal']) && $cert['deal']==1){//交易商认证特殊处理，根据个人还是企业获取不同的菜单
+						$roleIds['deal'] = 'deal_'.$user_type;
+						$where .= ',:deal';
+						unset($cert['deal']);
+					}
+					foreach($cert as $key=>$val){
+						if($val==1){
+							$roleIds[$key] = $key;
+							$where .= ',:'.$key;
+						}
+
 					}
 
+					$where .= ')';
+					
+					$right = $this->model->table($this->menuRoleTable)->where($where)->bind($roleIds)->getFields('purview');
+
+					foreach($right as $k=>$v){
+						$userPur = array_merge($userPur,unserialize($v));
+					}
 				}
-
-				$where .= ')';
-				
-				$right = $this->model->table($this->menuRoleTable)->where($where)->bind($roleIds)->getFields('purview');
-
-			}else{
-				//子账户权限
-				$user = $this->model->table('user')->where(array('id'=>$uid))->fields('gid,pid')->getObj();
-				if($user['pid']){
-					$gid = unserialize($user['gid']);
-					$right = $this->model->table($this->menuRoleTable)->where('FIND_IN_SET(id, :ids)')->bind(array('ids'=>implode(',',$gid)))->getFields('purview');
-				}else{
-					return true;
-				}
-
-			}
-
-			foreach($right as $k=>$v){
-				$userPur = array_merge($userPur,unserialize($v));
 			}
 			
-			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
-
+			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url,status, position')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
+			
 			foreach($menuList as $k=>$v){
 				if($v['menu_url']!='')
 					$menuList[$k]['menu_url'] = \Library\url::createUrl($menuList[$k]['menu_url']);
-				$menuList[$k]['url'] = $menuList[$k]['menu_url'];
+				// $menuList[$k]['url'] = $menuList[$k]['menu_url'];
 			}
-
 		}
 
 		return $menuList;
 	}
+
+	/**
+         * 生成的菜单数据格式
+         * @var name [<菜单名称>]
+         * @var url   [<菜单url>]
+         * @var controller 控制器名称
+         * @var list [<子菜单的数据，key和父级菜单一致>]
+         */
+	public $menu = array();
+
+	public $actions = array();
+
+	/**
+	 * 生成菜单数据格式
+	 * @param  [Array]  &$menuList 菜单数据列表
+	 * @param  integer $pid       [上级菜单id]
+	 * @param int $is_show 是否显示隐藏菜单
+	 * @return [Array]             菜单格式数据
+	 */
+	public function createTreeMenu(&$menuList, $pid=0, $is_show=0, $position=0){
+		$menu = array($pid => array());
+		foreach ($menuList as $key => $list) {
+			if ($list['position'] != $position && $is_show == 0) {
+				continue;
+			}
+			$id = $list['id'];
+    			$urlpath = parse_url($list['menu_url']);
+			$urlpath = array_reverse(explode('/', $urlpath['path']));
+
+    			if (count($urlpath) > 1) {
+    				$controllerName = strtolower($urlpath[1]);
+    			}else{
+    				$controllerName = $list['id'];
+    			}
+                
+    			//生成头菜单对应的子菜单数据格式
+    			if ($list['pid'] == $pid && $pid > 0) {
+    				$this->actions[$pid][] = strtolower($urlpath[0]);
+    				if ($list['status'] == 0 && $is_show == 0) {
+    					continue;
+    				}
+    				$menu[$id] = array('url' => $list['menu_url'], 'title' => $list['menu_zn'], 'id'=>$list['id'],  'list' => '');
+    				unset($menuList[$key]);
+    				//获取菜单对应的子菜单数据列表
+    				$menu[$id]['list'] = $this->createTreeMenu($menuList, $id, $is_show);
+    				if (!empty($menu[$id]['list'][$id])) {
+    					$menu[$pid] = array_merge($menu[$pid], $menu[$id]['list'][$id]);
+    				}
+    				$menu[$id]['action'] = isset($this->actions[$id]) ? $this->actions[$id] : array();
+    				$menu[$id]['action'][] = strtolower($urlpath[0]);
+    				array_push($menu[$pid], $controllerName);
+    				unset($menu[$id]['list'][$id]);
+    			}
+
+    			//头部菜单加入到菜单格式中
+    			if ($pid == 0 && $list['pid'] == $pid) {
+    				if ($list['status'] == 0 && $is_show == 0) {//菜单不显示
+    					continue;
+    				}
+    				$menu = array('url' => $list['menu_url'], 'title' => $list['menu_zn'], 'id'=>$list['id'], 'action'=>strtolower($urlpath[0]), 'list' => array(), 'controller' => array());
+    				
+    				unset($menuList[$key]);
+    				//获取菜单对应的子菜单数据列表
+    				$menu['list'] = $this->createTreeMenu($menuList, $menu['id'], $is_show);
+    				if (!empty($menu['list'][$id])) { //将子菜单的控制器名统一加入到头菜单中，以作标示是否被选中
+    					$menu['controller'] = array_merge($menu['controller'], $menu['list'][$id]);
+    				}
+    				array_push($menu['controller'], $controllerName);
+    				$menu['controller'] = array_unique($menu['controller']);		
+    				unset($menu['list'][$id]);
+    				$this->menu[$controllerName] = $menu;
+    			}
+    		}
+
+    		if ($pid > 0 && !empty($menu)) { //如果是子菜单数据，就返回到上级菜单中
+    			return $menu;
+    		}
+	}
+
+	/**
+	 * 将菜单格式数据，生成HTML中展示的菜单数据
+	 * @return [Array.top] [头菜单数据]
+	 * @return [Array.left] [左侧菜单数据]
+	 */
+	public function createHtmlMenu($controllerName){
+		$menu = array('top' => array(), 'left' => array());
+		$controllerName = strtolower($controllerName);
+		foreach ($this->menu as $controller => $list) {
+                         $list['isSelect'] = 0;
+			//判断当前访问的控制器是否是这个头菜单，或者对应的子菜单的链接
+			if (!empty($list['controller']) && in_array($controllerName, $list['controller'])) {
+				$list['isSelect'] = 1;
+				array_unshift($list['list'], array('title' => $list['title']));
+				$menu['left'] = $list['list'];
+			}
+
+			unset($list['list']);
+			$menu['top'][$controller] = $list; 
+		}
+		return $menu;
+	}
+
+	public $navi;
+	/**
+	 * 获取菜单的导航信息
+	 * @param  Array  &$menuList 菜单数组
+	 * @param  string  $url       当前url
+	 * @param  integer $id        菜单id
+	 * @return string             菜单导航链接
+	 */
+	public function getMenuNavi(&$menuList, $url, $id = 0){
+		$navi = '<p>';
+		foreach ($menuList as $list) {
+		 	if (stripos($list['menu_url'],$url) > 0) {
+		 		$this->navi[] = $list;
+		 		$this->getMenuNavi($menuList, '', $list['pid']);
+		 		break;
+		 	}
+
+		 	if ($list['id'] == $id) {
+		 		$this->navi[] = $list;
+		 		return true;
+		 	}
+		 }
+		 if ($id == 0) {
+		 	$this->navi = array_reverse($this->navi);
+		 	$count = count($this->navi);
+			 foreach ($this->navi as $key => $value) {
+			 	$navi .= '<a href="'. $value['menu_url'] .'">' .$value['menu_zn']. '</a>';
+			 	if (++$key < $count) {
+			 		$navi .= '>';
+			 	}
+			 }
+			 $navi .= '</p>';
+		 }
+		 return $navi;
+	}
+
 
 
 }
