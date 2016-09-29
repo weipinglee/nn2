@@ -45,8 +45,8 @@
 						<div class="zhxi_con">
 							<span class="con_tit">状态：</span>
 							<span>
-									<input type="radio" name="status" {if:$user['status']==1}checked{/if} value="1"/>开启
-									<input type="radio" name="status" {if:$user['status']==0}checked{/if} value="0"/>关闭
+									<input type="radio" name="status" {if:$user['status']==1}checked{/if} value="1"/>关闭
+									<input type="radio" name="status" {if:$user['status']==0}checked{/if} value="0"/>开启
 							</span>
 						</div>
 

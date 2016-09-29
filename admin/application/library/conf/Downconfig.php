@@ -48,6 +48,9 @@ class Downconfig
               case 'order_sell':
                 $config = array('order_no' => '订单编号', 'create_time' => '合同开始日期', 'end_time' => '合同完成日期', 'product_name' => '商品名称', 'buyer_name' => '买方名称', 'seller_name' => '卖方名称', 'mode_txt' => '交易方式', 'type_txt' => '报盘方式', 'num' => '成交数量', 'amount' => '合同金额', 'reduce_amount' => '质量扣款金额', 'account' => '结算金额', 'title' => '合同状态');
                 break;
+                case 'payto_market':
+                  $config = array('id' => 'id', 'mode_text' => '订单类型', 'charge_type_text' => '收费类型', 'num' => '金额', 'order_no' => '所属订单', 'create_time' => '时间');
+                  break;
           }
           return $config;
      }

@@ -331,8 +331,8 @@ class UserModel{
 	 */
 	public function checkUser($userAcc,$password){
 
-		$where = 'username=:username AND password = :password OR mobile=:mobile AND password = :password';
-		return self::$userObj->fields('id,username,mobile,password,type')->where($where)->bind(array('username'=>$userAcc,'password'=>sha1($password),'mobile'=>$userAcc))->getObj();
+		$where = 'username=:username AND password = :password OR mobile=:mobile AND password = :password AND status=:status';
+		return self::$userObj->fields('id,username,mobile,password,type')->where($where)->bind(array('username'=>$userAcc,'password'=>sha1($password),'mobile'=>$userAcc, 'status' => \nainai\user\User::NOMAL))->getObj();
 
 	}
 

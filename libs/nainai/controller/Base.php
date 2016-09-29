@@ -11,6 +11,8 @@ class Base extends \Yaf\Controller_Abstract{
 
 	protected $certType = null;
 
+	protected $menuList;
+
 	//认证页面方法，检测到未认证跳转到该位置
 	private static $certPage = array(
 		'deal'=>'dealcert',
@@ -24,6 +26,30 @@ class Base extends \Yaf\Controller_Abstract{
 			 $this->getView()->assign('login',1);
 			 $this->getView()->assign('username',$this->username);
 			 $this->getView()->assign('usertype',$this->user_type);
+
+			 $MenuModel = new \nainai\user\Menu();
+			 $this->menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
+			 $controllerName = $this->_request->getControllerName();
+			 $actionName = $this->_request->getActionName();
+			 $url = $controllerName.'/'.$actionName;
+			 $navi = $MenuModel->getMenuNavi($this->menuList, $url);
+			 $this->getView()->assign('navi', $navi);
+                    		//判断是否有操作菜单的权限
+			 $hand = FALSE;
+			 foreach ($this->menuList as $list) {
+			 	if (stripos($list['menu_url'],$url) > 0) {
+			 		$hand = TRUE;
+			 		break;
+			 	}
+			 }
+			 if ($hand == FALSE) {
+			 	if(IS_AJAX || IS_POST){
+			 		die(\Library\json::encode(\Library\tool::getSuccInfo(0,'无权限操作！')));
+			 	}
+			 	else{
+			 		$this->error('无权限操作！');exit();
+			 	}
+			 }
 		 }else $this->getView()->assign('login',0);
 		  //需要认证的方法未认证则跳转到认证页面
 	   if($this->certType!==null  && (!isset($this->cert[$this->certType]) || $this->cert[$this->certType]==0))

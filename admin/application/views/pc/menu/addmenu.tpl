@@ -30,6 +30,13 @@
                         <input type="text" class="input-text" value="" placeholder="" id="" name="url">
                     </div>
                 </div>
+
+                <div class="row cl">
+                    <label class="form-label col-2">菜单位置：</label>
+                    <div class="formControls col-10">
+                        <input type="radio" name="position" value="0" checked>用户中心<input type="radio" name="position" value="1">首页
+                    </div>
+                </div>
                 
                 <div class="row cl">
                     <label class="form-label col-2"><span class="c-red">*</span>上级分类:</label>
@@ -47,6 +54,14 @@
                         <input type="text" class="input-text" value="" placeholder="" id="" name="sort">
                     </div>
                 </div>
+
+                  <div class="row cl">
+                    <label class="form-label col-2">是否显示：</label>
+                    <div class="formControls col-10">
+                    <input type="radio" name="status" value="0" checked>否<input type="radio" name="status" value="1">是
+                    </div>
+                </div>
+
 
                 <div class="row cl">
                     <div class="col-10 col-offset-2">

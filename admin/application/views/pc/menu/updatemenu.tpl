@@ -30,6 +30,13 @@
                         <input type="text" class="input-text" value="{$detail['menu_url']}" placeholder="" id="" name="url">
                     </div>
                 </div>
+
+                <div class="row cl">
+                    <label class="form-label col-2">菜单位置：</label>
+                    <div class="formControls col-10">
+                        <input type="radio" name="position" value="0" {if:$detail['position'] == 0}checked{/if}>用户中心<input type="radio" name="position" value="1" {if:$detail['position'] == 1}checked{/if}>首页
+                    </div>
+                </div>
                 
                 <div class="row cl">
                     <label class="form-label col-2"><span class="c-red">*</span>上级分类：</label>
@@ -46,6 +53,12 @@
                     <div class="formControls col-10">
                     <input type="hidden" class="input-text" value="{$detail['id']}" placeholder="" id="" name="id">
                         <input type="text" class="input-text" value="{$detail['sort']}" placeholder="" id="" name="sort">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-2">是否显示：</label>
+                    <div class="formControls col-10">
+                    <input type="radio" name="status" value="0" {if:$detail['status'] == 0}checked{/if}>否<input type="radio" name="status" value="1" {if:$detail['status'] == 1}checked{/if}>是
                     </div>
                 </div>
 
