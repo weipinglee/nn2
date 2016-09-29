@@ -16,6 +16,8 @@
       <tr class="text-c">
         <th width="25"><input type="checkbox" name="checkall" value=""></th>
         <th width="80">菜单名</th>
+        <th width="80">菜单位置</th>
+        <th width="80">是否显示</th>
         <th width="100">操作</th>
       </tr>
     </thead>
@@ -28,6 +30,20 @@
         {set: echo str_repeat('&nbsp;&nbsp;', $list['level'] * 5)} 
         {if: !empty($icon[$list['level']])}{$icon[$list['level']]} {/if}
         {$list['menu_zn']}
+        </td>
+        <td>
+        {if:$list['position'] == 1}
+          首页
+        {else:}
+          用户中心
+        {/if}
+        </td>
+        <td>
+        {if:$list['status'] == 1}
+          是
+        {else:}
+          否
+        {/if}
         </td>
         <td class="td-manage">
           <a title="编辑" href="{url: member/Menu/updateMenu?id=$list['id']}" class="ml-5" style="text-decoration:none">

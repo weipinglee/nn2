@@ -25,6 +25,7 @@ class User extends \nainai\Abstruct\ModelAbstract {
      * 会员状态，锁定挂起
      */
     const LOCK = 1;
+
 	
      /**
       * 获取id对应的用户名
@@ -43,4 +44,21 @@ class User extends \nainai\Abstruct\ModelAbstract {
           }
           return $names;
      }
+
+     public function getSubaccList($user_id){
+        $Q = new \Library\searchQuery($this->tableName);
+        $Q->fields = 'id, username, mobile, email, create_time, status';
+        $Q->where = 'pid=:user_id ';
+        $Q->bind = array('user_id' => $user_id);
+        $lists = $Q->find();
+        foreach ($lists['list'] as $key => &$value) {
+          if ($value['status'] == self::NOMAL) {
+            $value['status_text'] = '正常';
+          }elseif($value['status'] == self::LOCK){
+            $value['status_text'] = '删除';
+          }
+        }
+        return $lists;
+     }
+
 }

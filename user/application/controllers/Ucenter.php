@@ -824,5 +824,38 @@ class UcenterController extends UcenterBaseController {
     }
 
 
+    public function subaccListAction(){
+        $model = new \nainai\user\User();
+        $data = $model->getSubaccList($this->user_id);
+        $this->getView()->assign('data',$data);
+    }
+
+    public function subaccpowAction(){
+            if (IS_POST) {
+            $data = array(
+                'gid' => serialize(Safe::filterPost('menuIds', 'int')),
+            );
+            $id = Safe::filterPost('id', 'int');
+            $model = new \nainai\user\User();
+            $res = $model->updateUser($data, $id);
+            exit(json::encode($res));
+        }
+        $id = $this->_request->getParam('id');
+        $id = Safe::filter($id, 'int', 0);
+        if (intval($id) <= 0) {
+            $this->error('错误的访问方式');
+        }
+        $userModel = new \nainai\user\User();
+        $info = $userModel->getUser($id, 'id, gid');
+        $info['gid'] = unserialize($info['gid']);
+
+        $menuModel = new \nainai\user\Menu();
+        $menuList = $menuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
+
+        $menuList = $menuModel->createTreeMenu($menuList, 0, 1);
+        $this->getView()->assign('lists', $menuModel->menu);
+        $this->getView()->assign('roleInfo', $info);
+    }
+
 
 }

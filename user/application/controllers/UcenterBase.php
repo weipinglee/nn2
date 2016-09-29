@@ -41,16 +41,9 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 	protected function init(){
 		parent::init();//继承父类的方法，检测是否登录和角色
-        $this->getView()->setLayout('layout');
-        $controllerName = $this->_request->getControllerName();
+                    $this->getView()->setLayout('layout');
+                    $controllerName = $this->_request->getControllerName();
 		$actionName = $this->_request->getActionName();
-		$a = new \nainai\subAccount();
-		$res = $a->AccessDecision($controllerName,$actionName);
-        
-		if(!$res){
-			//子账户无权限则跳转到首页
-			$this->error('无权限',url::createUrl('/Ucenter/index'));
-		}
 
         $user = new \nainai\member();
         $secret_url = $user->getSecretUrl();
@@ -80,116 +73,26 @@ class UcenterBaseController extends \nainai\controller\Base{
 
 		$this->getView()->setLayout('ucenter');
 		//获取菜单数据
-		$MenuModel = new \nainai\user\Menu();
-		$menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
-
-		$this->createTreeMenu($menuList);
-		$menu = $this->createHtmlMenu();
-
+                    $MenuModel = new \nainai\user\Menu();
+		$MenuModel->createTreeMenu($this->menuList);
+		$menu = $MenuModel->createHtmlMenu($controllerName);
 		$this->getView()->assign('topArray', $menu['top']);
 		$this->getView()->assign('leftArray', $menu['left']);
-		$action = strtolower($this->getRequest()->getActionName());
+                    $model = new \nainai\system\DealSetting();
+                    $deal = $model->getDealSetting(1);
         
 		// 判断该方法买家是否能操作，如果不能，跳转到用户中心首页
 		 if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
 		 	$this->redirect(url::createUrl('/ucenter/index'));
 		 }
-
-		$this->getView()->assign('action', $action);
+		$this->getView()->assign('action', $actionName);
+                    $this->getView()->assign('deal', $deal);
 		$mess=new \nainai\message($this->user_id);
 		$countNeedMess=$mess->getCountMessage();
 		$this->getView()->assign('mess',$countNeedMess);
 	}
 
-	/**
-         * 生成的菜单数据格式
-         * @var name [<菜单名称>]
-         * @var url   [<菜单url>]
-         * @var controller 控制器名称
-         * @var list [<子菜单的数据，key和父级菜单一致>]
-         */
-	public $menu = array();
-
-	/**
-	 * 生成菜单数据格式
-	 * @param  [Array]  &$menuList 菜单数据列表
-	 * @param  integer $pid       [上级菜单id]
-	 * @return [Array]             菜单格式数据
-	 */
-	public function createTreeMenu(&$menuList, $pid=0){
-		$menu = array($pid => array());
-		foreach ($menuList as $key => $list) {
-			$id = $list['id'];
-    			$urlpath = parse_url($list['menu_url']);
-			$urlpath = array_reverse(explode('/', $urlpath['path']));
-
-    			if (count($urlpath) > 1) {
-    				$controllerName = strtolower($urlpath[1]);
-    			}else{
-    				$controllerName = $list['id'];
-    			}
-                
-    			//生成头菜单对应的子菜单数据格式
-    			if ($list['pid'] == $pid && $pid > 0) {
-    				$menu[$id] = array('url' => $list['menu_url'], 'title' => $list['menu_zn'], 'id'=>$list['id'], 'action'=>strtolower($urlpath[0]), 'list' => '');
-    				unset($menuList[$key]);
-    				//获取菜单对应的子菜单数据列表
-    				$menu[$id]['list'] = $this->createTreeMenu($menuList, $id);
-
-    				if (!empty($menu[$id]['list'][$id])) {
-    					$menu[$pid] = array_merge($menu[$pid], $menu[$id]['list'][$id]);
-    				}
-    				array_push($menu[$pid], $controllerName);
-    				unset($menu[$id]['list'][$id]);
-    			}
-
-    			//头部菜单加入到菜单格式中
-    			if ($pid == 0 && $list['pid'] == $pid) {
-    				$menu = array('url' => $list['menu_url'], 'title' => $list['menu_zn'], 'id'=>$list['id'], 'action'=>strtolower($urlpath[0]), 'list' => array(), 'controller' => array());
-    				
-    				unset($menuList[$key]);
-    				//获取菜单对应的子菜单数据列表
-    				$menu['list'] = $this->createTreeMenu($menuList, $menu['id']);
-    				if (!empty($menu['list'][$id])) { //将子菜单的控制器名统一加入到头菜单中，以作标示是否被选中
-    					$menu['controller'] = array_merge($menu['controller'], $menu['list'][$id]);
-    				}
-    				array_push($menu['controller'], $controllerName);
-    				$menu['controller'] = array_unique($menu['controller']);		
-    				unset($menu['list'][$id]);
-    				$this->menu[$controllerName] = $menu;
-    			}
-    		}
-
-    		if ($pid > 0 && !empty($menu)) { //如果是子菜单数据，就返回到上级菜单中
-    			return $menu;
-    		}
-	}
-
-	/**
-	 * 将菜单格式数据，生成HTML中展示的菜单数据
-	 * @return [Array.top] [头菜单数据]
-	 * @return [Array.left] [左侧菜单数据]
-	 */
-	public function createHtmlMenu(){
-		$menu = array('top' => array(), 'left' => array());
-		$controllerName = $this->getRequest()->getControllerName();
-		$controllerName = strtolower($controllerName);
-
-		foreach ($this->menu as $controller => $list) {
-                         $list['isSelect'] = 0;
-			//判断当前访问的控制器是否是这个头菜单，或者对应的子菜单的链接
-			if (!empty($list['controller']) && in_array($controllerName, $list['controller'])) {
-				$list['isSelect'] = 1;
-				array_unshift($list['list'], array('title' => $list['title']));
-				$menu['left'] = $list['list'];
-			}
-
-			unset($list['list']);
-			$menu['top'][$controller] = $list; 
-		}
-		return $menu;
-	}
-
+	
 
     	/**
     	 * 设置处理成功后返回的结果
@@ -234,6 +137,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     		}
     		
     		$this->redirect(url::createUrl("/Oper/success?info={$info}&redirect={$redirect}"));
+                exit();
     	}
 
     	protected function error($info = '操作失败！',$redirect = ''){
@@ -242,6 +146,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     			$redirect = str_replace('%','||',urlencode($redirect));
     		}
     		$this->redirect(url::createUrl("/Oper/error?info={$info}&redirect={$redirect}"));
+                    exit();
     	}
 
     	protected function confirm($info = '确认此项操作？',$redirect = ''){

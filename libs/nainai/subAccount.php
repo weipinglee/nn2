@@ -20,22 +20,22 @@ class subAccount{
 		$user_session = session::get('login');
 		$access = false;
 		$MenuModel = new \nainai\user\Menu();
-    	$menuList = $MenuModel->getUserMenuList($user_session['user_id']);
-    	if($menuList === true){
-    		$access = true;
-    	}else{
-	    	if($controller == 'oper' ||($controller == 'ucenter' && $action == 'index')){
+    		$menuList = $MenuModel->getUserMenuList($user_session['user_id']);
+	    	if($menuList === true){
 	    		$access = true;
-	       	}else{
-		    	foreach ($menuList as $key => $value) {
-		    		if(stripos($value['url'],$controller.'/'.$action)){
-		    			$access = true;
-		    			break;
-		    		}
-		    	}
-		    }
+	    	}else{
+		    	if($controller == 'oper' ||($controller == 'ucenter' && $action == 'index')){
+		    		$access = true;
+		       	}else{
+			    	foreach ($menuList as $key => $value) {
+			    		if(stripos($value['url'],$controller.'/'.$action)){
+			    			$access = true;
+			    			break;
+			    		}
+			    	}
+			}
 		}
-    	return $access;
+	    	return $access;
 	}
 
 }
