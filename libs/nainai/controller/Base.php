@@ -42,7 +42,7 @@ class Base extends \Yaf\Controller_Abstract{
 			 		break;
 			 	}
 			 }
-			 if ($hand == FALSE) {
+			 if ($hand == FALSE && $this->pid!=0) {
 			 	if(IS_AJAX || IS_POST){
 			 		die(\Library\json::encode(\Library\tool::getSuccInfo(0,'无权限操作！')));
 			 	}
