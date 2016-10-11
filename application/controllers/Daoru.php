@@ -20,6 +20,8 @@ class DaoruController extends \Yaf\Controller_Abstract
        $this->createOracleData(1);//生成基本的user表
         $this->getMysqlData();//mysql数据表写进去
         $this->createOracleData(2); //更新oracle的数据
+
+
         $res = $model->commit();
         if($res){
             echo 'ok';
@@ -64,6 +66,27 @@ class DaoruController extends \Yaf\Controller_Abstract
     }
 
     /**
+     * 更新个人用户身份证图片
+     */
+    public function updatePersonAction(){
+        $obj = new \Library\Query('ask_identity_certificate as a');
+        $obj->join = 'left join csm_member as m on a.MEMBERID = m.USERCODE
+                          left join user as u on m.TRADECODE = u.user_no ';
+        $obj->where = 'u.type = 0 and a.IDCARDFRONT != "null" and a.IDCARDFRONT != ""';
+        $obj->fields = 'u.id,u.type,a.idcardfront,a.idcardback';
+        $data = $obj->find();
+
+        $model = new M('person_info');
+        $model->beginTrans();
+        foreach($data as $key=>$val){
+            $model->data(array('identify_front'=>'upload/zhengda/'.$data[$key]['idcardfront'].'@user','identify_back'=>'upload/zhengda/'.$data[$key]['idcardback'].'@user'))
+                ->where(array('user_id'=>$data[$key]['id']))->update();
+
+        }
+        $model->commit();
+
+    }
+    /**
      * 生成 初始化的user表数据
      * @param array tb_cus_firm的一条数据
      */
@@ -83,9 +106,9 @@ class DaoruController extends \Yaf\Controller_Abstract
             $user->table('company_info');
             $companyData = array(
                 'legal_person'=>$arr['LEGAL_MAN_NAME'],
-                'cert_oc' => $arr['PICTURE1']!='null' ? 'upload'.$arr['PICTURE1'].'@user' : '',
-                'cert_bl' => $arr['PICTURE1']!='null' ? 'upload'.$arr['PICTURE2'].'@user' : '',
-                'cert_tax' => $arr['PICTURE1']!='null' ? 'upload'.$arr['PICTURE3'].'@user' : '',
+                'cert_oc' => $arr['PICTURE1']!='null' ? 'upload/zhengda/upload'.$arr['PICTURE1'].'@user' : '',
+                'cert_bl' => $arr['PICTURE1']!='null' ? 'upload/zhengda/upload'.$arr['PICTURE2'].'@user' : '',
+                'cert_tax' => $arr['PICTURE1']!='null' ? 'upload/zhengda/upload'.$arr['PICTURE3'].'@user' : '',
             );
             $user->data($companyData)->where(array('user_id'=>$arr['CUSTOMER_KEY']))->update();
 
