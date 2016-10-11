@@ -6,6 +6,8 @@
     <file url="file://$PROJECT_DIR$/admin/application/models/config/configs.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin/application/models/storeProduct.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin/application/views/pc/layout/admin.tpl" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/application/controllers/Daoru.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/Library/Hsms.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/Library/M.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/Library/check.php" charset="UTF-8" />
@@ -20,6 +22,7 @@
     <file url="file://$PROJECT_DIR$/libs/nainai/message.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/nainai/offer/freeOffer.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/nainai/offer/storeOffer.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/nainai/oldData.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/nainai/user/UserBank.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/application/controllers/Message.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/application/library/conf/searchConfig.php" charset="UTF-8" />
