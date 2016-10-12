@@ -103,7 +103,7 @@
 									<tr>
 										<td colspan="4">
 											<img src="{views:/images/center/no-data.png}">
-											<p class="no-data">暂无销售合同</p>
+											<p class="no-data">暂无购买合同</p>
 										</td>
 									</tr>
 								</table>

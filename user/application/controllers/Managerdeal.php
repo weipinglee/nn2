@@ -132,7 +132,8 @@ class ManagerDealController extends UcenterBaseController {
 
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
-
+        $offer = array('divide' => 1);
+        $this->getView()->assign('offer',$offer);
         $this->getView()->assign('fee',$freeFee);
         $this->productAddAction();
     }
@@ -199,7 +200,9 @@ class ManagerDealController extends UcenterBaseController {
         $depositObj = new \nainai\offer\depositOffer();
 
         $rate = $depositObj->getDepositRate($this->user_id);
+        $offer = array('divide' => 1);
         $this->getView()->assign('rate',$rate);
+        $this->getView()->assign('offer',$offer);
         $this->productAddAction();
     }
 
@@ -265,6 +268,8 @@ class ManagerDealController extends UcenterBaseController {
         $Obj = new \nainai\offer\deputeOffer();
         $rate = $Obj->getFeeRate($this->user_id);
         $this->getView()->assign('rate',$rate);
+        $offer = array('divide' => 1);
+        $this->getView()->assign('offer',$offer);
         $this->productAddAction();
     }
 

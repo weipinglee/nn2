@@ -55,7 +55,7 @@ class User extends \nainai\Abstruct\ModelAbstract {
           if ($value['status'] == self::NOMAL) {
             $value['status_text'] = '正常';
           }elseif($value['status'] == self::LOCK){
-            $value['status_text'] = '删除';
+            $value['status_text'] = '异常';
           }
         }
         return $lists;
