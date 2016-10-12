@@ -208,7 +208,7 @@ class PurchaseController extends UcenterBaseController{
 		    $this->getView()->assign('name', $name);
 		}
 
-		if (!empty($status) && $status != 9) {
+		if (isset($status) && $status != 9) {
 		    $where .= ' AND p.status=:status';
 		    $bind['status'] = $status;
 		    $this->getView()->assign('s', $status);
@@ -216,16 +216,15 @@ class PurchaseController extends UcenterBaseController{
 
 		if (!empty($beginDate)) {
 		    $where .= ' AND p.create_time>=:beginDate';
-		    $bind['beginDate'] = $beginDate;
+		    $bind['beginDate'] = $beginDate . ' 00:00:00';
 		    $this->getView()->assign('beginDate', $beginDate);
 		}
 
 		if (!empty($endDate)) {
 		    $where .= ' AND p.create_time<=:endDate';
-		    $bind['endDate'] = $endDate;
+		    $bind['endDate'] = $endDate . ' 23:59:59';
 		    $this->getView()->assign('endDate', $endDate);
 		}
-
 		$Model = new \nainai\offer\PurchaseReport();
 		$reportLists = $Model->getLists($page, $this->pagesize, $where, $bind);
 

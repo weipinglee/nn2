@@ -81,14 +81,18 @@ class searchConfig {
             'down' => 1
         ),
         'admin_alerted_record' => array(
-            'like' => array('a.name','管理员用户名')
+            'like' => array('a.name','管理员用户名'),
+            'time' => array('ar.record_time','预警时间')
         ),
 
         'user_log' => array(
             'like'=>array('u.username','用户名'),
             'down' => 1
         ),
-        'user_alerted_record' => array('like' => array('u.username','用户名')),
+        'user_alerted_record' => array('like' => array('u.username','用户名'),
+            'time' => array('r.record_time','预警时间'),
+
+            ),
         'product_attribute' => array(
             'like' => array('name','名称'),
              'select' => array('type','类型')

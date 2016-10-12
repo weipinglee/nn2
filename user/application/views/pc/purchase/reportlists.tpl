@@ -20,7 +20,7 @@
 											<option value="{$key}" {if: isset($s) && $key===$s}selected{/if}>{$item}</option>
 										{/foreach}
 									</select></li>
-									<li>申请时间：<input class="Wdate" type="text" name="beginDate" value="{$beginData}" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="{$endDate}" onclick="WdatePicker()">
+									<li>申请时间：<input class="Wdate" type="text" name="beginDate" value="{$beginDate}" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="{$endDate}" onclick="WdatePicker()">
 									</li>
 									<input type="hidden" name="id" value="{$id}">
 									<li><input type="submit" value="查找" class="chaz"></li>
