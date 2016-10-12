@@ -42,13 +42,13 @@
 							<span><input class="text" type="password" name="repassword"    datatype="*" errormsg="两次密码输入不一致" recheck="password"   /></span>
 							<span></span>
 						</div>
-						<div class="zhxi_con">
+						<!-- <div class="zhxi_con">
 							<span class="con_tit">状态：</span>
 							<span>
 									<input type="radio" name="status" {if:$user['status']==1}checked{/if} value="1"/>关闭
 									<input type="radio" name="status" {if:$user['status']==0}checked{/if} value="0"/>开启
 							</span>
-						</div>
+						</div> -->
 
 
 
