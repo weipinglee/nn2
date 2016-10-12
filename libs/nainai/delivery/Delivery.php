@@ -226,10 +226,11 @@ class Delivery{
 	final protected function deliveryUpdate($data){
 		$delivery = $this->delivery;
 		if($delivery->data($data)->validate($this->deliveryRules)){
+			$order_model = new \nainai\order\Order();
 			if(isset($data['id']) && $data['id']>0){
 				$id = $data['id'];
 				$info = $this->deliveryInfo($id);
-				$order_model = new \nainai\order\Order();
+				
 				if($info && $order_model->orderComplain($info['order_id'])) return tool::getSuccInfo(0,'申述处理中');
 				//编辑
 				unset($data['id']);

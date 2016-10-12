@@ -881,7 +881,7 @@ class Order{
 								$deposit_intro = $order['pay_deposit'] == $order['amount'] ? '货款' : '定金';
 								$note = '卖方确认质量合格'.$order['order_no'].'解冻支付'.$deposit_intro.'的60% '.number_format(($order['pay_deposit']-$order['reduce_amount'])*0.6,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
 								$deposit_res = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6,$note,$order['pay_deposit']);
-
+								
 								if($deposit_res !== true) {
 									$error = $deposit_res;
 								}else{
