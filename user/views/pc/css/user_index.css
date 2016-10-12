@@ -292,7 +292,7 @@ text-align: left;
 	padding:0 5px;
   font-style: normal;
 }
-.zhxi_con span.con_tit{
+.zhxi_con .con_tit{
 	display: block;
     width: 170px;
     text-align: right;
@@ -303,7 +303,7 @@ text-align: left;
   margin-top: 4px;
   display: block;
 }
-.zhxi_con span.con_tit.line{
+.zhxi_con .con_tit.line{
     line-height: 31px;
 }
 .zhxi_con span.con_con{
@@ -591,7 +591,7 @@ div.zhxi_con.font_set span i.bold{
     text-align: center;
 }
 .zf_two{
-  padding-left: 170px; 
+  padding-left: 45px; 
 }
 .zf_two span{
   display: block;
@@ -605,6 +605,110 @@ height: 0;
 clear: both; 
 visibility: hidden; 
 }
+/*充值页面单选按钮样式*/
+ .choice{  
+      position: relative;  
+  }  
+  .choice .radio{  
+      position: relative;  
+      display: inline-block;  
+      font-weight: 400;   
+      padding-left: 25px;  
+      cursor: pointer;  
+  }  
+  .choice .radio input{  
+      position: absolute;  
+      left: -9999px;  
+  }  
+  .choice .radio i{  
+      display: block;  
+      position: absolute;  
+      top: 9px;  
+      left: 8px;  
+      width: 10px;  
+      height: 10px;  
+      outline: 0;  
+      border: 1px solid #ff6217;  
+      /*background: #ff6217; */ 
+      border-radius: 50%;  
+      transition: border-color .3s  
+      -webkit-transition: border-color .3s;  
+  }  
+  .choice .radio input:checked+i{  
+      border-color: #ff6217;  
+  }  
+  .choice .radio input+i:after{  
+      position: absolute;  
+      content: '';  
+      top: 2px;  
+      left: 2px;  
+      width: 6px;  
+      height: 6px;  
+      border-radius: 50%;  
+      background-color: #ff6217;  
+      opacity: 0;  
+      transition: opacity .1s;  
+      -webkit-transition: opacity .1s;  
+  }  
+  .choice .radio input:checked+i:after{  
+      opacity: 1;  
+  }  
+
+   .zf_two .bank_choice label{  
+      display: block;  
+      position: relative;
+      float: left;
+      margin:5px 6px 0 0; 
+      width: 100px;  
+      height: 30px;  
+      padding: 3px;
+      outline: 0;  
+      border-radius: 0%;  
+      border: 1px solid #bcbcbc;  
+      text-align: center;
+      /*background: #ff6217; */ 
+  }   
+   .zf_two .bank_choice .radiochecked{  
+      border-color: #ff6217;  
+  } 
+   .zf_two .bank_choice .radiochecked i{
+    display: block;
+    width: 15px;
+    height: 14px;
+    background: url(../images/order/righbt-1.png) no-repeat 0 0;
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+   }
+
+   .zf_two .pay_choice{
+    width: 563px;
+    height: 200px;
+    border: 1px solid #bcbcbc;
+   }
+   .zf_two .pay_choice label{  
+      display: block;  
+      position: relative;
+      float: left;
+      margin:5px 6px 0 0; 
+      width: 100px;  
+      height: 30px;  
+      outline: 0;  
+      color: #666;
+      border-radius: 0%;  
+      border: 0;  
+      text-align: center;
+      /*background: #ff6217; */ 
+  }   
+   .zf_two .pay_choice .radiochecked{        
+      color: #ff6217;
+  } 
+
+  .dis-none{
+    display: none;
+  }
+
+
 /*详情备注*/
 .user_xqbz .user_bz{
 	margin: 10px 100px;
@@ -1798,7 +1902,7 @@ a.for_cangdan:hover,a.for_cangdan:active{
 /*tabqiehuan*/
 .tabPanel ul{height:30px;border-bottom:1px solid #aaa;}
 .tabPanel ul li{
-  float:left;margin:0 2px 0 0;border:1px solid #aaa;font-size:11px;height:29px;line-height:30px;width:111px;text-align:center;cursor:pointer;
+  float:left;margin:0 2px 0 0;border:1px solid #aaa;font-size:14px;height:29px;line-height:30px;width:111px;text-align:center;cursor:pointer;
   text-shadow:0 1px 0 #fff;
   border-radius:4px 4px 0 0;
   box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.5);

@@ -26,8 +26,8 @@
 
 
                     <ul>
-                     <!--<li >银行在线支付</li> -->
-                        <li class="hit">线下支付</li>
+                        <li class="hit">银行在线支付</li> 
+                        <li>线下支付</li>
                     </ul>
                     <div class="panes js_show_payment_choose">
                         
@@ -53,14 +53,14 @@
            var submit_pay = "{url:/fund/doFundIn}";
            </script>
                     <div class="js_tab_choose" style="display: none;">
-              <!--          <div class="pane" style="display:block">
+                       <div class="pane" style="display:block">
 
                             <input type="hidden" name="payment_id" value="3">
                             <div class="zhxi_con">
                                 <span><input class="submit" type="submit" value="下一步"/></span>
                             </div>
-                        </div> -->
-                        <div class="pane" style="display: block;">
+                        </div>
+                        <div class="pane">
                             <div class="zhxi_con">
                                 <!-- <span class="con_tit">充值方式二：</span>
                                 <span class="con_con" style="float:none;">转账汇款</span> -->
