@@ -37,11 +37,15 @@ class Base extends \Yaf\Controller_Abstract{
 			 $this->getView()->assign('navi', $navi);
                     		//判断是否有操作菜单的权限
 			 $hand = FALSE;
-			 foreach ($this->menuList as $list) {
-			 	if (stripos($list['menu_url'],$url) > 0) {
-			 		$hand = TRUE;
-			 		break;
-			 	}
+			 if ($url == 'Oper/success' || $url == 'Oper/error' ) {
+			 	$hand = TRUE;
+			 }else{
+			 	foreach ($this->menuList as $list) {
+				 	if (stripos($list['menu_url'],$url) > 0) {
+				 		$hand = TRUE;
+				 		break;
+				 	}
+				 }
 			 }
 			 if ($hand == FALSE) {
 			 	if(IS_AJAX || IS_POST){

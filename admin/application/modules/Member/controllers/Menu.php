@@ -43,7 +43,6 @@ class MenuController extends InitController {
 			}else{
 				echo $returnData['info'];
 			}
-			exit();
 		}
 
 		$menuModel->getGuideCategoryOption();
@@ -62,9 +61,9 @@ class MenuController extends InitController {
 					'menu_url' => Safe::filterPost('url'),
 					'sort' => Safe::filterPost('sort', 'int'),
 					'status' => Safe::filterPost('status', 'int'),
+					'pid' => Safe::filterPost('pid', 'int'),
 					'position' => Safe::filterPost('position', 'int'),
 				);
-
 				$menuModel = new \nainai\user\Menu();
 				$returnData = $menuModel->updateMenu($menuData, $id);
 

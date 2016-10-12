@@ -32,7 +32,7 @@ class UcenterController extends UcenterBaseController {
     }
 
     public function baseEditAction(){
-        $userModel = new userModel();
+        $userModel = new UserModel();
         $userData = $userModel->getUserInfo($this->user_id);
         $this->getView()->assign('user',$userData);
     }
@@ -105,7 +105,7 @@ class UcenterController extends UcenterBaseController {
         $data['username'] = safe::filterPost('username');
         $data['email'] = safe::filterPost('email');
 
-        $userModel = new userModel();
+        $userModel = new UserModel();
         $res = $userModel->updateUserInfo($data);
         if($res['success']==1){
             $userLog=new \Library\userLog();
@@ -472,7 +472,7 @@ class UcenterController extends UcenterBaseController {
             $data['password'] = safe::filterPost('password','/^\S{6,20}$/');
             $data['repassword'] = safe::filterPost('repassword','/^\S{6,20}$/');
             $data['head_photo'] = tool::setImgApp(safe::filterPost('imgfile1'));
-            $data['status']     = safe::filterPost('status','int');
+            $data['status']     = \nainai\user\USER::LOCK;
             $userModel = new UserModel();
             if($data['user_id']==0)//新增子账户
                  $res = $userModel->subAccReg($data);
