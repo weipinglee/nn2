@@ -22,7 +22,7 @@
               手机号：
             </span>
             <span class="input_span">{$info['mobile']}</span>
-            <span><a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" >忘记手机号，试试联系客服</a></span>
+            <span class="input_span" style="padding-left:10px;">已更换手机号？请<a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" style="color:#266cc2;">联系客服</a></span>
           </div>
           <div class="bate-input clear">
             <span class="span_in_tit">
