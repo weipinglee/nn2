@@ -139,6 +139,10 @@
                                <td>交收时间</td>
                                <td>T+{$offer['accept_day']}天</td>
                            </tr>
+                           <tr>
+                               <td>记重方式</td>
+                               <td>{$offer['weight_type']}</td>
+                           </tr>
                             <tr>
                                 <td>产品描述</td>
                                 <td>{$product['note']}</td>

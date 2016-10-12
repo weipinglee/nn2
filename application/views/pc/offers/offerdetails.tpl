@@ -84,7 +84,7 @@
                         </tr>
                         {/foreach}
                         <tr>
-                            <td>详情</td>
+                            <td style="width:15%;">详情</td>
                             <td>{$data['note']}</td>
                         </tr>
                         <tr>
@@ -118,7 +118,7 @@
                         {/if}
                         <tr>
                             <td>计重方式</td>
-                            <td>理论计值</td>
+                            <td>{$data['weight_type']}</td>
                         </tr>
                         <tr>
                             <td>可否拆分</td>
