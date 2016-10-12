@@ -471,6 +471,7 @@ class UcenterController extends UcenterBaseController {
             $data['password'] = safe::filterPost('password','/^\S{6,20}$/');
             $data['repassword'] = safe::filterPost('repassword','/^\S{6,20}$/');
             $data['head_photo'] = tool::setImgApp(safe::filterPost('imgfile1'));
+            $data['create_time'] = \Library\Time::getDateTime();
             $data['status']     = \nainai\user\USER::NOMAL;
             $userModel = new UserModel();
             if($data['user_id']==0)//新增子账户
