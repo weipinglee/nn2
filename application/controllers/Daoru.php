@@ -41,6 +41,7 @@ class DaoruController extends \Yaf\Controller_Abstract
         $data_arr = explode(');',$string);
         $fields = explode(', ','CUSTOMER_KEY, MARKET_KEY, CONT_MARKET_KEY, CUSTOMER_ID, CUSTOMER_NAME, CUSTOMER_CUTNAME, ACCOUNT_PASSWD, PRINT_ACC_STATUS, PRINT_STATUS, IS_DELETE, CUSTOMER_STATUS, CREDIT_GRADE, TRADE_PERIOD, TRADE_MAXNUM, PACT_NUM, REGISTER_DATE, LAST_LOGIN_DATE, LAST_LOGIN_TIME, CERTIFICATE_VALID_DATE, CERTIFICATE_ANNUL_DATE, MARKET_VALID_DATE, MARKET_ANNUL_DATE, MARKET_CHECK_TYPE, COMPANY_KIND, CERTIFICATE, REGISTER_ADDRESS, CUSTOMER_SEX, OPEN_BANK_NAME, OPEN_BANK_NUMBER, LEGAL_MAN_NAME, LEGAL_MAN_IDENTITY, LEGAL_MAN_PHONE, LEGAL_MAN_MOBILE, LEGAL_MAN_FAX, LEGAL_MAN_EMAIL, TRADE_MAN_NAME, TRADE_MAN_IDENTITY, TRADE_MAN_PHONE, TRADE_MAN_MOBILE, TRADE_MAN_EMAIL, FAX, PROVINCE_AREA_KEY, CITY_AREA_KEY, COUNTY_AREA_KEY, COMMUNICATE_ADDRESS, ZIP_CODE, BUSINESS_RANGE, NO_TRADE_TYPE, NO_TRADE_BED, HAND_INFO, ONLINE_MARK, ONLINE_IP, SESSIONID, CERTIFICATE_CODE, BUS_ADMIN_NAME, ENROLL_MONEY, PROPERTY_SCALE, DEVELOP_STAGE, CUS_TRADE_KIND, COMPANY_REG_DATE, COMPANY_TYPE, ORDER_NUM, IS_BID_PUBLISH, IS_BID_PARTAKE, IS_REC_SMS, KF_CUSTOMER_KEY, CUS_RANK_NUM, TRADE_RANK_NUM, FINANCE_RANK_NUM, CREDIT_RANK_NUM, QQ, BORNDATE, WEB_USERID, JOIN_TYPE, CUS_NOTE_GROUP, IS_RET_MONEY, MY_ROLE, SELF_CARS_NUM, CAR_ID, CONTROL_CARS_NUM, MAIN_CAR_TYPE, RIPE_LINE, DPT_KEY, DPT_NAMES, BANK_NO, OPEN_ACCOUNT_BANK, AUTHENTICATE_STA, REC_NAME, REC_ADDRESS, REC_TEL, PICTURE1, PICTURE2, PICTURE3, BACK_CAUSE, TAXPAYER_NUM, IS_INTERIOR, OPEN_BANK_USERNAME, SIGN_CARD_TYPE, SIGN_CARD_NUM, USER_TYPE, PLACE_AREA, CUSTOMER_NAME_SPELL, ENTERPRISE_BRIEF, OFFICE_WORK_PHONE, PROFESSION, OFFICE_WORK_ADDRESS, OFFICE_WORK_MOBILE, PICTURE0, TAX_REG_CERTIFICATE, ENTERPRISE_WEB_URL');
         $userObj = new M('user');
+        $dealObj = new M('dealer');
 
         array_pop($data_arr);
         foreach($data_arr as $key=>$val){
@@ -55,6 +56,7 @@ class DaoruController extends \Yaf\Controller_Abstract
 
             if($type==1){
                 $this->createUser($temp1,$userObj);
+                $this->createCert($temp1,$dealObj);
             }
             elseif($type==2){
                 $this->updateTbCus($temp1,$userObj);
@@ -94,6 +96,29 @@ class DaoruController extends \Yaf\Controller_Abstract
         if(!empty($arr)){
             $data = array('id'=>$arr['CUSTOMER_KEY'],'username'=>$arr['CUSTOMER_CUTNAME'],'user_no'=>$arr['CUSTOMER_ID']);
             $user->data($data)->add();
+
+
+
+        }
+    }
+    //生成认证交易商的数据
+    public function createCert($arr,$deal){
+        if(!empty($arr)){
+            if($arr['AUTHENTICATE_STA']=='N'){//N代表申请待审核
+                $status  = 1;
+            }
+            elseif($arr['AUTHENTICATE_STA']=='B'){//被驳回
+                $status  = 3;
+            }
+            elseif($arr['AUTHENTICATE_STA']=='Y'){
+                $status  = 2;
+            }
+            else{
+                return false;
+            }
+
+            $data = array('user_id'=>$arr['CUSTOMER_KEY'],'status'=>$status,'message'=>$arr['BACK_CAUSE']);
+            $deal->data($data)->add();
         }
     }
 
