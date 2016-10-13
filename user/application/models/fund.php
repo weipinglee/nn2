@@ -37,7 +37,6 @@ class fundModel extends \nainai\user\UserBank{
 
         $fundModel = \nainai\fund::createFund(1);
         $userFund = $fundModel->getActive($user_id);
-
         $amount = $data['amount'];
         $withdrawRequest = new M('withdraw_request');
         if ($userFund != 0 && $userFund >= $amount) {
@@ -49,7 +48,7 @@ class fundModel extends \nainai\user\UserBank{
             $id=$withdrawRequest->data($data)->add();
 
             //冻结资金
-            $fundModel->freeze($user_id, $amount);
+            $fundModel->freeze($user_id, $amount, $data['note']);
 
             $res = $withdrawRequest->commit();
             if($res){
