@@ -12,7 +12,7 @@ class DaoruController extends \Yaf\Controller_Abstract
 {
 
     /**
-     * get oracle database tb_cus_firm table data
+     * get oracle and mysql database tb_cus_firm table data
      */
     public function getDataAction(){
         $model = new M('user');
@@ -35,6 +35,39 @@ class DaoruController extends \Yaf\Controller_Abstract
 
     }
 
+    /**
+     * 生产账户余额
+     */
+    public function createAccDataAction(){
+        //获取账户金额
+        $rijieObj = new M('tb_cus_account_his');
+        $accObj = new M('user_account');
+        $accData = $rijieObj->select();
+        $accObj->beginTrans();
+        foreach($accData as $key=>$val){
+            if($val['ACCOUNT_TYPE']=='F1' && $val['CURRENCY_TYPE']=='A'){//现金人民币的账户
+                $data = array('fund'=>$val['CANOUT_MONEY'],'freeze'=>$val['CUR_FREEZE']);
+                $where = array('user_id'=>$val['CUSTOMER_KEY']);
+
+            }
+            elseif($val['ACCOUNT_TYPE']=='F5' && $val['CURRENCY_TYPE']=='A'){//票据账户 人民币
+                $data = array('ticket'=>$val['CANOUT_MONEY'],'ticket_freeze'=>$val['CUR_FREEZE']);
+                $where = array('user_id'=>$val['CUSTOMER_KEY']);
+            }
+            $accObj->where($where)->data($data)->update();
+
+        }
+        $res = $accObj->commit();
+        if($res){
+            echo 'ok';
+        }
+        else echo 'ng';
+
+    }
+
+    /**
+     * @param $type int 1:生成基本数据，2：更新tb_cus_firm的数据
+     */
     public function createOracleData($type){
         $dataModel = new \nainai\oldData();
         $string = $dataModel->getData();
@@ -188,6 +221,8 @@ class DaoruController extends \Yaf\Controller_Abstract
             );
             $userUpdate['type'] = $data[$key]['MEBERTYPE']==2 ? 0 : 1;
             $userObj->where(array('id'=>$user_id))->data($userUpdate)->update();
+
+
             $accountObj->data(array('user_id'=>$user_id))->add();
             $bankObj->data(array('user_id'=>$user_id,'card_type'=>1))->add();
             $invoiceObj->data(array('user_id'=>$user_id,'address'=>$data[$key]['address']))->add();
