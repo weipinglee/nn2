@@ -95,26 +95,26 @@ z-index:1000;">
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="/nn2/views/pc/images/index/icon_index.png"/>
-                <a rel="external nofollow" href="http://localhost/nn2//list/:name-:value/" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="http://124.166.246.120:8000/nn2/index/index" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
             <?php if($username){?>您好，
-                <a rel="external nofollow"  href="http://localhost/nn2/user/public/ucenterindex/index"  target="_blank" class=""><?php echo isset($username)?$username:"";?></a>
+                <a rel="external nofollow"  href="http://124.166.246.120:8000/nn2/user/ucenterindex/index"  target="_blank" class=""><?php echo isset($username)?$username:"";?></a>
                 <?php }else{?>
                 <span>您好，欢迎进入耐耐网</span>
                 <?php }?>
             </div>
             <?php if($login==0){?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/login" target="_blank" class="topnav_login">请登录</a>
+                <a rel="external nofollow" href="http://124.166.246.120:8000/nn2/user/login/login" target="_blank" class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
-                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/register" target="_blank">免费注册</a>
+                <a rel="external nofollow" href="http://124.166.246.120:8000/nn2/user/reg" target="_blank">免费注册</a>
             </div>
             <?php }else{?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/logout" target="_blank" class="topnav_login">退出</a>
+                <a rel="external nofollow" href="http://124.166.246.120:8000/nn2/user/login/logout" target="_blank" class="topnav_login">退出</a>
             </div>
             <?php }?>
         </div>
@@ -122,14 +122,14 @@ z-index:1000;">
             <ul>
                 <?php if($login!=0){?>
                  <li>
-                   <a href="http://localhost/nn2/user/public/ucenterindex/index">会员中心</a><span class="line_l">|<span>
+                   <a href="http://124.166.246.120:8000/nn2/user/ucenterindex/index">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
-                   <a href="http://localhost/nn2/user/public/contract/buyerlist">我的合同</a><span class="line_l">|<span>
+                   <a href="http://124.166.246.120:8000/nn2/user/contract/buyerlist">我的合同</a><span class="line_l">|<span>
                 </li>
                 <?php }?>
                 <li>
-                    <a href="http://localhost/nn2/user/public/message/usermail">消息中心<?php if($login==1&&$mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
+                    <a href="http://124.166.246.120:8000/nn2/user/message/usermail">消息中心<?php if($login==1&&$mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="/nn2/views/pc/images/index/icon_iphon.png"/>
@@ -155,7 +155,7 @@ z-index:1000;">
     <div class="page_width">
         <div class="index_logo">
             <h1>
-                <a href="http://localhost/nn2//list/:name-:value/"></a>
+                <a href="http://124.166.246.120:8000/nn2/index/index"></a>
             </h1>
         </div>
 
@@ -220,7 +220,7 @@ z-index:1000;">
                 var type = $('input[name=type]').val();
                 var content = $('input[name=content]').val();
                 if(content=='')return false;
-                window.location.href='http://localhost/nn2/offers/offerlist/type/'+type+'/content/'+content;
+                window.location.href='http://124.166.246.120:8000/nn2/offers/offerlist/type/'+type+'/content/'+content;
             }
             document.onkeydown=function(event){
                 e = event ? event :(window.event ? window.event : null);
@@ -242,10 +242,10 @@ z-index:1000;">
 
 
         <ul class="nav">
-            <li <?php if(!isset($cur) || $cur=='index'){?>class="current"<?php }?>><a href="http://localhost/nn2//list/:name-:value/">首页</a></li>
-            <li <?php if(isset($cur) && $cur=='offerlist'){?>class="current"<?php }?>><a href="http://localhost/nn2/offers/offerlist" target="_blank">交易中心</a></li>
-            <li <?php if(isset($cur) && $cur=='storage'){?>class="current"<?php }?>><a href="http://localhost/nn2/index/storage" target="_blank">仓储专区</a></li>
-            <li <?php if(isset($cur) && $cur=='found'){?>class="current"<?php }?>><a href="http://localhost/nn2/index/found" target="_blank">帮我找</a></li>
+            <li <?php if(!isset($cur) || $cur=='index'){?>class="current"<?php }?>><a href="http://124.166.246.120:8000/nn2/index/index">首页</a></li>
+            <li <?php if(isset($cur) && $cur=='offerlist'){?>class="current"<?php }?>><a href="http://124.166.246.120:8000/nn2/offers/offerlist" target="_blank">交易中心</a></li>
+            <li <?php if(isset($cur) && $cur=='storage'){?>class="current"<?php }?>><a href="http://124.166.246.120:8000/nn2/index/storage" target="_blank">仓储专区</a></li>
+            <li <?php if(isset($cur) && $cur=='found'){?>class="current"<?php }?>><a href="http://124.166.246.120:8000/nn2/index/found" target="_blank">帮我找</a></li>
         </ul>
     </div>
 </div>
@@ -267,7 +267,7 @@ z-index:1000;">
 
                                         <?php for($num = 0 ; $num<=2 ; $num = $num+1){?>
                                             <?php if(isset($item['nested'][$num]['id'])){?>
-                                                <a href="http://localhost/nn2/offers/offerlist/cate/<?php echo $item['nested'][$num]['id'];?>"><?php echo isset($item['nested'][$num]['name'])?$item['nested'][$num]['name']:"";?></a>&nbsp;
+                                                <a href="http://124.166.246.120:8000/nn2/offers/offerlist/cate/<?php echo $item['nested'][$num]['id'];?>"><?php echo isset($item['nested'][$num]['name'])?$item['nested'][$num]['name']:"";?></a>&nbsp;
                                             <?php }?>
                                         <?php }?>
 
@@ -279,11 +279,11 @@ z-index:1000;">
                                         <?php if(!empty($item['nested'])) foreach($item['nested'] as $kk => $item){?>
                                             <?php if($kk<=11){?>
                                             <dl class="fore1">
-                                                <dt><a href="http://localhost/nn2/offers/offerlist/cate/<?php echo $item['id'];?>"><?php echo isset($item['name'])?$item['name']:"";?></a></dt>
+                                                <dt><a href="http://124.166.246.120:8000/nn2/offers/offerlist/cate/<?php echo $item['id'];?>"><?php echo isset($item['name'])?$item['name']:"";?></a></dt>
 
                                                 <dd>
                                                     <?php if(!empty($item['nested'])) foreach($item['nested'] as $key => $item){?>
-                                                        <em><a href="http://localhost/nn2/offers/offerlist/cate/<?php echo $item['id'];?>"><?php echo isset($item['name'])?$item['name']:"";?></a></em>
+                                                        <em><a href="http://124.166.246.120:8000/nn2/offers/offerlist/cate/<?php echo $item['id'];?>"><?php echo isset($item['name'])?$item['name']:"";?></a></em>
                                                     <?php }?>
                                                 </dd>
                                             </dl>
@@ -471,7 +471,8 @@ $(function(){
  
 
    <!--最新数据 开始-->
-  <div class="mostnew_date">
+  <div class="mostnew_date" style="display:none">
+  
    <div id="row1_clinch" class="row1_clinch">
        <div class="clinch_tit">
            <div class="tit_time">
@@ -514,6 +515,7 @@ $(function(){
            </div>
        </div>                    
    </div>
+   
   </div>  
    <!--最新数据 结束-->
     <!--主要内容 开始-->
@@ -556,7 +558,7 @@ $(function(){
                        <!--         <li class="li_select" onclick="showOffers(1,$(this))"><a href="javascript:void(0)"><em></em><span></span>冶金化工市场</a></li>
                             </ul> -->
                             </ul>
-                          <span class="i_more"><a rel="http://localhost/nn2/offers/offerlist" href="http://localhost/nn2/offers/offerlist">更多&gt;&gt;</a></span>  
+                          <span class="i_more"><a rel="http://124.166.246.120:8000/nn2/offers/offerlist" href="http://124.166.246.120:8000/nn2/offers/offerlist">更多&gt;&gt;</a></span>  
                         </div>
 
                         <div class="i_leftCon" id="offer_list">
@@ -696,7 +698,7 @@ $(function(){
                                         },
                                         credits:{
                                             text:'耐耐网',
-                                            href:'http://localhost/nn2//list/:name-:value/'
+                                            href:'http://124.166.246.120:8000/nn2/index/index'
                                         },
                                         subtitle: {
                                             text: 'www.nainaiwang.com',
@@ -931,7 +933,7 @@ $(function(){
                     $('#offer'+id).addClass('show');*/
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost/nn2/index/getcateofferlist",
+                        url: "http://124.166.246.120:8000/nn2/index/getcateofferlist",
                         data: {id: id},
                         dataType: "json",
                         success: function(data){
@@ -963,7 +965,7 @@ $(function(){
                         <?php if(!empty($fuwuList)) foreach($fuwuList as $key => $item){?>
                             <li class="iServiceTit">
                                 <div class="fw_img"><img src="<?php echo \Library\Thumb::get($item['img']);?>" onerror="/nn2/views/pc/images/index/kongbai.png"/></div>
-                                <div class="wi_fw"><a href="http://localhost/nn2/help/help/index?cat_id=<?php echo isset($item['cat_id'])?$item['cat_id']:"";?>&id=<?php echo isset($item['id'])?$item['id']:"";?>"><?php echo isset($item['name'])?$item['name']:"";?></a></div>
+                                <div class="wi_fw"><a href="http://124.166.246.120:8000/nn2/help/help/index?cat_id=<?php echo isset($item['cat_id'])?$item['cat_id']:"";?>&id=<?php echo isset($item['id'])?$item['id']:"";?>"><?php echo isset($item['name'])?$item['name']:"";?></a></div>
                             </li>
                         <?php }?>
                     </ul>
@@ -1080,19 +1082,19 @@ $(function(){
 
 
             <span class="i_w_10">
-                <%if (data[i].quantity - data[i].sell - data[i].freeze>1) { %>
+                <%if (data[i].quantity - data[i].sell - data[i].freeze>0) { %>
                     <%if (data[i].type==1) { %>
-                        <a class="<%=data[i].id%>" href="http://localhost/nn2/offers/offerdetails/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                        <a class="<%=data[i].id%>" href="http://124.166.246.120:8000/nn2/offers/offerdetails/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
                             <img class="ckxq" src="/nn2/views/pc/images/icon/ico_sc1.png" class="ser_img" alt="查看详情"/>
                         </a>
-                     <a href="http://localhost/nn2/trade/check/id/<%=data[i].id%>/pid/<%=data[i].product_id%>">
+                     <a href="http://124.166.246.120:8000/nn2/trade/check/id/<%=data[i].id%>/pid/<%=data[i].product_id%>">
                          <img src="/nn2/views/pc/images/icon/ico_sc3.png" class="ser_img" alt="下单"/>
                      </a>
                     <%}else { %>
-                        <a href="http://localhost/nn2/offers/purchasedetails/id/<%=data[i].id%>">
+                        <a href="http://124.166.246.120:8000/nn2/offers/purchasedetails/id/<%=data[i].id%>">
                             <img src="/nn2/views/pc/images/icon/ico_sc1.png" class="ser_img" alt="查看详情"/>
                         </a>
-                         <a href="http://localhost/nn2/trade/report/id/<%=data[i].id%>">
+                         <a href="http://124.166.246.120:8000/nn2/trade/report/id/<%=data[i].id%>">
                               <img src="/nn2/views/pc/images/icon/ico_sc3.png" class="ser_img" alt="下单"/>
                         </a>
                     <% } %>
@@ -1123,7 +1125,7 @@ $(function(){
                                 <a class="fotter_a" href="<?php echo isset($v['link'])?$v['link']:"";?>" target="_blank"><?php echo isset($v['name'])?$v['name']:"";?></a>
 
                             <?php }else{?>
-                                <a class="fotter_a" href="http://localhost/nn2/help/help?cat_id=<?php echo isset($v['cat_id'])?$v['cat_id']:"";?>&id=<?php echo isset($v['id'])?$v['id']:"";?>" target="_blank"><?php echo isset($v['name'])?$v['name']:"";?></a>
+                                <a class="fotter_a" href="http://124.166.246.120:8000/nn2/help/help?cat_id=<?php echo isset($v['cat_id'])?$v['cat_id']:"";?>&id=<?php echo isset($v['id'])?$v['id']:"";?>" target="_blank"><?php echo isset($v['name'])?$v['name']:"";?></a>
 
                             <?php }?>
                          <?php }?>

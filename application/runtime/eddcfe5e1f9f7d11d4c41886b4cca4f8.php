@@ -61,26 +61,26 @@ z-index:1000;">
  <div class="login_top">
     <ul class="w1200">
       <ul class="topnav_left">
-        <li><a href="http://localhost/nn2//list/:name-:value/"><img class="shouy mobil" src="/nn2/views/pc/images/password/shouy.png">耐耐网首页</a></li>
+        <li><a href="http://124.166.246.120:8000/nn2/index/index"><img class="shouy mobil" src="/nn2/views/pc/images/password/shouy.png">耐耐网首页</a></li>
         <li class="space">
           <?php if($username){?>您好，
-                <a rel="external nofollow"  href="http://localhost/nn2/user/ucenterindex/index"  target="_blank" class=""><?php echo isset($username)?$username:"";?></a>
+                <a rel="external nofollow"  href="http://124.166.246.120:8000/nn2/user/ucenterindex/index"  target="_blank" class=""><?php echo isset($username)?$username:"";?></a>
                 <?php }else{?>
                 <span>您好，欢迎进入耐耐网</span>
             <?php }?>
         </li>
         <?php if($login==0){?>
-            <li><a href="http://localhost/nn2/user/login/login" target="_blank">请登录</a></li>
-            <li><a href="http://localhost/nn2/user/login/register" target="_blank">欢迎注册</a></li>
+            <li><a href="http://124.166.246.120:8000/nn2/user/login/login" target="_blank">请登录</a></li>
+            <li><a href="http://124.166.246.120:8000/nn2/user/reg" target="_blank">欢迎注册</a></li>
             <?php }else{?>
-            <li><a href="http://localhost/nn2/user/login/logout" target="_blank">退出</a></li>
+            <li><a href="http://124.166.246.120:8000/nn2/user/login/logout" target="_blank">退出</a></li>
         <?php }?>
       </ul>
       <div class="topnav_right">
       <ul >
         <!-- <li><a href="">会员中心</a><i>|</i></li>
         <li><a href="">我的合同</a><i>|</i></li> -->
-        <li><a href="http://localhost/nn2/user/message/usermail">消息中心<?php if($login==1){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><i>|</i></li>
+        <li><a href="http://124.166.246.120:8000/nn2/user/message/usermail">消息中心<?php if($login==1){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><i>|</i></li>
         <!-- <li><a href=""><img class="shouy mobil" src="/nn2/views/pc/images/password/mobile.png">手机版</a><i>|</i></li> -->
         <li><a href="javascript:;" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><i>|</i></li>
         <li>交易时间&nbsp;09:00-18:00</li>
@@ -114,7 +114,7 @@ z-index:1000;">
    </div> 
 <div class="clearfix"></div> 
  
-<form method="post" <?php if($data['show_payment']){?>pay_secret="1" has_secret="http://localhost/nn2/trade/haspaysecret"<?php }?> auto_submit="1" action='http://localhost/nn2/trade/buyerpay?callback=http://localhost/nn2/offers/check/id/<?php echo $data['id'];?>/pid/<?php echo $data['product_id'];?>'>
+<form method="post" <?php if($data['show_payment']){?>pay_secret="1" has_secret="http://124.166.246.120:8000/nn2/index.php/trade/hasPaySecret/"<?php }?> auto_submit="1" action='http://124.166.246.120:8000/nn2/index.php/trade/buyerPay/?callback=http://124.166.246.120:8000/nn2/offers/check/id/<?php echo $data['id'];?>/pid/<?php echo $data['product_id'];?>'>
 
     <!--主要内容 开始-->
     <div id="mainContent" style="background:#FFF;"> 
@@ -123,7 +123,7 @@ z-index:1000;">
 
          <div class="submit_word">
                <h3 class="sure_oder">填写并核对订单信息</h3>
-               <a id="contract_review" href="http://localhost/nn2/user/contract/contract/offer_id/<?php echo $data['id'];?>/num/<?php echo $data['minimum'];?>" target='_blank'>
+               <a id="contract_review" href="http://124.166.246.120:8000/nn2/user/contract/contract/offer_id/<?php echo $data['id'];?>/num/<?php echo $data['minimum'];?>" target='_blank'>
                <img src="/nn2/views/pc/images/password/eye_b.png" alt="" />
                <i>合同预览</i>
                </a>
@@ -278,7 +278,7 @@ z-index:1000;">
                 <a style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="javascript:;">已成交</a>
              <?php }else{?>
                  <?php if( $data['insurance'] == 0){?>
-                   <!--  <a  style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="http://localhost/nn2/user/insurance/apply?<?php  echo http_build_query(array('id' => $data['id'])); ?>" >申请保险</a> -->
+                   <!--  <a  style="display:block;padding: 8px 20px;background: gray;margin-top:20px;color:#fff;border-radius: 5px;font-size:16px;" href="http://124.166.246.120:8000/nn2/user/insurance/apply?<?php  echo http_build_query(array('id' => $data['id'])); ?>" >申请保险</a> -->
                 <?php }?>
                 <a class="btoncomit" href="javascript:;" >提交订单</a>
              <?php }?>
@@ -330,7 +330,7 @@ z-index:1000;">
                     $('.btoncomit').click(function(){
 
                         if(<?php echo isset($user_id)?$user_id:"";?> == 0){
-                          window.location.href='http://localhost/nn2/user/login/login'+'?callback='+window.location.href;
+                          window.location.href='http://124.166.246.120:8000/nn2/user/login/login'+'?callback='+window.location.href;
                         }else{
                           if(isnum_valid()) {
                               $(this).parents('form').submit();
@@ -414,7 +414,7 @@ z-index:1000;">
                           layer.load(2);
                           unbindmin();
                           unbindadd();
-                          $.post("http://localhost/nn2/offers/paydepositcom",{id:id,num:num,price:price},function(data){
+                          $.post("http://124.166.246.120:8000/nn2/offers/paydepositcom",{id:id,num:num,price:price},function(data){
                               layer.closeAll();
                               bindmin();
                               bindadd();

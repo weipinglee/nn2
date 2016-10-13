@@ -230,7 +230,6 @@ class Delivery{
 			if(isset($data['id']) && $data['id']>0){
 				$id = $data['id'];
 				$info = $this->deliveryInfo($id);
-				
 				if($info && $order_model->orderComplain($info['order_id'])) return tool::getSuccInfo(0,'申述处理中');
 				//编辑
 				unset($data['id']);
