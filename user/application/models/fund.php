@@ -48,7 +48,7 @@ class fundModel extends \nainai\user\UserBank{
             $id=$withdrawRequest->data($data)->add();
 
             //冻结资金
-            $fundModel->freeze($user_id, $amount, $data['note']);
+            $fundModel->freeze($user_id, $amount, '提现冻结,金额：'.$amount);
 
             $res = $withdrawRequest->commit();
             if($res){
