@@ -118,19 +118,19 @@
                             <td>
 
                                 <select name="divide" id="divide">
-                                    <option value="1"  >是</option>
-                                    <option value="0" selected >否</option>
+                                    <option value="1" selected >是</option>
+                                    <option value="0"  >否</option>
                                 </select>
                             </td>
                             </tr>
-                            <tr class='nowrap1' style="display:none">
+                            <tr class='nowrap1' >
                                 <td><span>*</span>最小起订量：</td>
                                 <td>
                                     <span><input name="minimum" id="" type="text"  /></span>
                                     <span></span>
                                 </td>
                             </tr>
-                            <tr class='nowrap1' style="display:none" >
+                            <tr class='nowrap1'  >
                                 <td><span>*</span>最小递增量：</td>
                                 <td>
                                     <span><input name="minstep" id="" type="text"  /></span>
