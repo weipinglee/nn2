@@ -2,11 +2,23 @@
 <style type="text/css">
 	.node_tree li {float: left;text-decoration: none;list-style: none;}
 	.clearfix{clear: left;}
-	.node_tree .v1{background-color: #14A8FF;border: 1px solid #ddd;padding: 3px 6px;color: #fff;border-radius: 3px;font-weight: border;margin-bottom: 5px;margin-top: 5px;}
-	.node_tree .v2{text-indent: 2em;font-weight: bolder;}
-	.node_tree .v3{padding-left: 50px;}
-	.v3_li{position: relative;padding-left: 25px;}
+	.node_tree .v1{background-color: #F4F2F2;margin:5px 10px;padding: 15px 10px;color: #666;border-radius: 3px;font-size: 16px;}
+	.node_tree .v2{text-indent: 2em;font-weight: bolder;padding: 5px 10px;}
+	.node_tree .v2 span{font-size: 16px;}
+	.node_tree .v3{padding-left: 50px;}	
+	.node_tree .v3 .ins{font-size: 16px;line-height: 35px;}
+	.v3_li{position: relative;padding-left: 25px;font-size: 16px;}
 	b.del{cursor: pointer;}
+	input.btn-primary{
+		background: #d61515;
+		color: #fff;
+		border: 1px solid #d61515;
+		font-size: 20px;
+		padding: 8px 30px;
+		margin: 5px 10px;
+		cursor: pointer;
+		margin-left: 105px;
+	}
 </style>
 <div class="user_c">
 	<div class="user_zhxi">
@@ -15,25 +27,25 @@
 		</div>
 		<div class="xx_center">
 		<form action="{url:/ucenter/subaccpow}" method="post" class="form form-horizontal" id="form-access-add" no_redirect="1" auto_submit>
-			<div class='node_tree'>
+			<div class='node_tree' style="font-size:16px;">
 				<input type="hidden" name="id" value="{$roleInfo['id']}" />
 				{foreach:$items=$lists key=$k}
 				<!-- 模块 -->
 				<div class='root'>
-					<div class='v1'><input type="checkbox" name="menuIds[]" value="{$item['id']}" {if: !empty($roleInfo['gid']) && in_array($item['id'],$roleInfo['gid'])}checked='checked'{/if}/>&nbsp;{$item['title']}</div>
+					<div class='v1'><input type="checkbox" name="menuIds[]" value="{$item['id']}" {if: !empty($roleInfo['gid']) && in_array($item['id'],$roleInfo['gid'])}checked='checked'{/if}/>&nbsp;&nbsp;&nbsp;&nbsp;{$item['title']}</div>
 					{foreach:$items=$item['list'] item=$v1 key=$k1}
 					<!-- 控制器 -->
 						<div class='controller'>
-							<div class='v2'><span><input type="checkbox" name="menuIds[]" value="{$v1['id']}" {if: !empty($roleInfo['gid']) && in_array($v1['id'],$roleInfo['gid'])}checked='checked'{/if}/>&nbsp;{$v1['title']}</span>
+							<div class='v2'><input type="checkbox" name="menuIds[]" value="{$v1['id']}" {if: !empty($roleInfo['gid']) && in_array($v1['id'],$roleInfo['gid'])}checked='checked'{/if}/>&nbsp;&nbsp;&nbsp;&nbsp;{$v1['title']}
 							</div>
 							<div class='v3'>
 								{foreach:$items=$v1['list'] item=$v2 key=$k2}
 									<ul>
-									<div class='ins'><input type="checkbox" {if: !empty($roleInfo['gid']) && in_array($v2['id'],$roleInfo['gid'])}checked='checked'{/if} name="menuIds[]" value="{$v2['id']}" />&nbsp;[{$v2['title']}]</div>
+									<div class='ins'><input type="checkbox" {if: !empty($roleInfo['gid']) && in_array($v2['id'],$roleInfo['gid'])}checked='checked'{/if} name="menuIds[]" value="{$v2['id']}" />&nbsp;&nbsp;&nbsp;&nbsp;[{$v2['title']}]</div>
 									<!-- action -->
 									{foreach:$items=$v2['list'] item=$v3 }
 										<li class='v3_li'>
-											<input type="checkbox" name="menuIds[]" value="{$v3['id']}"  {if: !empty($roleInfo['gid']) && in_array($v3['id'],$roleInfo['gid'])}checked='checked'{/if}/>&nbsp;{$v3['title']}
+											<input type="checkbox" name="menuIds[]" value="{$v3['id']}"  {if: !empty($roleInfo['gid']) && in_array($v3['id'],$roleInfo['gid'])}checked='checked'{/if}/>&nbsp;&nbsp;&nbsp;&nbsp;{$v3['title']}
 										</li>
 									{/foreach}
 									</ul>	
@@ -48,7 +60,7 @@
 				{/foreach}
 			</div>
 			<div class="col-9 col-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<input class="btn btn-primary radius" type="submit" value="提交">
 			</div>
 			</form>
 		</div>

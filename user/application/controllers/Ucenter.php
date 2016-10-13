@@ -32,7 +32,7 @@ class UcenterController extends UcenterBaseController {
     }
 
     public function baseEditAction(){
-        $userModel = new userModel();
+        $userModel = new UserModel();
         $userData = $userModel->getUserInfo($this->user_id);
         $this->getView()->assign('user',$userData);
     }
@@ -105,7 +105,7 @@ class UcenterController extends UcenterBaseController {
         $data['username'] = safe::filterPost('username');
         $data['email'] = safe::filterPost('email');
 
-        $userModel = new userModel();
+        $userModel = new UserModel();
         $res = $userModel->updateUserInfo($data);
         if($res['success']==1){
             $userLog=new \Library\userLog();
@@ -464,7 +464,6 @@ class UcenterController extends UcenterBaseController {
     public function doSubAccAction(){
         if(IS_POST){
             $data = array();
-            $data['user_id'] = safe::filterPost('id','int',0);
             $data['pid'] = $this->user_id;
             $data['username'] = safe::filterPost('username');
             $data['mobile'] = safe::filterPost('mobile','/^\d+$/');
@@ -472,7 +471,8 @@ class UcenterController extends UcenterBaseController {
             $data['password'] = safe::filterPost('password','/^\S{6,20}$/');
             $data['repassword'] = safe::filterPost('repassword','/^\S{6,20}$/');
             $data['head_photo'] = tool::setImgApp(safe::filterPost('imgfile1'));
-            $data['status']     = safe::filterPost('status','int');
+            $data['create_time'] = \Library\Time::getDateTime();
+            $data['status']     = \nainai\user\USER::NOMAL;
             $userModel = new UserModel();
             if($data['user_id']==0)//新增子账户
                  $res = $userModel->subAccReg($data);

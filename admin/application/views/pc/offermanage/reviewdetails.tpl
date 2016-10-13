@@ -39,8 +39,8 @@
                  <td>{$info['product_name']}</td>
                  <th>商品产地</th>
                  <td id="area">{areatext: data=$info['produce_area'] id=area}</td>
-                 <th></th>
-                 <td></td>
+                 <th>记重方式</th>
+                 <td>{$info['weight_type']}</td>
 
              </tr>
              <tr>

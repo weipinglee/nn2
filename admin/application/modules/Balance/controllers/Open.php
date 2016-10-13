@@ -99,6 +99,13 @@ class OpenController extends InitController {
  						'operate_time' => date('w')
 					);
 					$res = $model->updateDealSetting($data, 1);
+
+					if ($res['success'] == 1) {
+						$admin_info = admintool\admin::sessionInfo();
+
+						$userLog=new \Library\log();
+						$userLog->addLog(['action'=>'手工开市','content'=>$admin_info['name'] . '进行了手工开市']);
+					}
 					break;
 				
 				default:
@@ -133,10 +140,12 @@ class OpenController extends InitController {
 				'end_time' => Safe::filterPost('end_time'),
 			);
 			$res = $model->updateDealSetting($data, 1);
-			$admin_info = admintool\admin::sessionInfo();
+			if ($res['success'] == 1) {
+				$admin_info = admintool\admin::sessionInfo();
 
-			$userLog=new \Library\userLog();
-			$userLog->addLog(['action'=>'开闭市操作','content'=>$admin_info['name'] . '设置了开市时间为：' .$data['start_time']. '闭市时间为：' . $data['end_time']]);
+				$userLog=new \Library\log();
+				$userLog->addLog(['action'=>'开闭市操作','content'=>$admin_info['name'] . '设置了开市时间为：' .$data['start_time']. '闭市时间为：' . $data['end_time']]);
+			}
 			exit(json::encode($res));
 		}
 		

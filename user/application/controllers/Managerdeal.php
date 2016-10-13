@@ -132,7 +132,8 @@ class ManagerDealController extends UcenterBaseController {
 
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
-
+        $offer = array('divide' => 1);
+        $this->getView()->assign('offer',$offer);
         $this->getView()->assign('fee',$freeFee);
         $this->productAddAction();
     }
@@ -157,7 +158,8 @@ class ManagerDealController extends UcenterBaseController {
                 'divide'      => Safe::filterPost('divide', 'int'),
                 'minimum'     => (safe::filterPost('divide', 'int') == 1) ? Safe::filterPost('minimum', 'float') : 0,
                 'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
-
+                
+                 'weight_type' => Safe::filterPost('weight_type'),
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
@@ -199,7 +201,9 @@ class ManagerDealController extends UcenterBaseController {
         $depositObj = new \nainai\offer\depositOffer();
 
         $rate = $depositObj->getDepositRate($this->user_id);
+        $offer = array('divide' => 1);
         $this->getView()->assign('rate',$rate);
+        $this->getView()->assign('offer',$offer);
         $this->productAddAction();
     }
 
@@ -211,7 +215,7 @@ class ManagerDealController extends UcenterBaseController {
         if(IS_POST){
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
-                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+                 // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $offer_id = safe::filterPost('offer_id','int',0);
             $depositObj = new depositOffer($this->user_id);
             $res = $this->offerCheck();
@@ -226,6 +230,7 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_day' => safe::filterPost('accept_day', 'int'),
                 'price'        => safe::filterPost('price', 'float'),
                  'insurance' => Safe::filterPost('insurance', 'int',''),
+                 'weight_type' => Safe::filterPost('weight_type'),
 
                 'risk' =>implode(',', Safe::filterPost('risk', 'int')),
                 'expire_time' =>  Safe::filterPost('expire_time'),
@@ -235,7 +240,6 @@ class ManagerDealController extends UcenterBaseController {
             if(!$offerData['risk']){
                 $offerData['risk'] = '';
             }
-
             $productData = $this->getProductData();
 
             if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
@@ -265,6 +269,8 @@ class ManagerDealController extends UcenterBaseController {
         $Obj = new \nainai\offer\deputeOffer();
         $rate = $Obj->getFeeRate($this->user_id);
         $this->getView()->assign('rate',$rate);
+        $offer = array('divide' => 1);
+        $this->getView()->assign('offer',$offer);
         $this->productAddAction();
     }
 
@@ -284,7 +290,8 @@ class ManagerDealController extends UcenterBaseController {
                 'divide'      => Safe::filterPost('divide', 'int'),
                 'minimum'     => (safe::filterPost('divide', 'int') == 1) ? Safe::filterPost('minimum', 'float') : 0,
                 'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
-
+                
+                 'weight_type' => Safe::filterPost('weight_type'),
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
@@ -682,7 +689,6 @@ class ManagerDealController extends UcenterBaseController {
                     $updateUrl = url::createUrl('/managerdeal/updatestoreoffer?id='.$offerDetail[0]['id']);
                 $this->getView()->assign('updateUrl',$updateUrl);
             }
-
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
 
