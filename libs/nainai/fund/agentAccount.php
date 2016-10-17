@@ -300,7 +300,7 @@ use \Library\Time;
     public function payMarket($user_id,$num,$note=''){
         $num = floatval($num);
         if($num > 0){
-
+            
             $fund = $this->agentModel->where(array('user_id'=>$user_id))->getField('fund');
 
             if($fund>=$num){//可以付款
