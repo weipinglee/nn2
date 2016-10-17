@@ -135,6 +135,56 @@ class DaoruController extends \Yaf\Controller_Abstract
     }
 
     /**
+     * 生成出入金数据
+     */
+    public function createChuruAction(){
+        $ru = new M('recharge_order');
+        $chu = new M('withdraw_request');
+        $churuOld = new M('tb_fnd_mkt_iao');
+        $data = $churuOld->select();
+        $churuOld->beginTrans();
+        foreach($data as $k=>$v){
+            if($v['SUBJECT_ID']=='A001'){//入金
+                $addData = array(
+                    'user_id'=>$v['CUSTOMER_KEY'],
+                    'order_no'=>$v['MKT_IAO_ID'],
+                    'amount' => $v['OCR_MONEY'],
+                    'pay_type' => 1,
+                    'create_time' => $this->getTime($v['ADD_TIME']),
+                    'first_time' => $this->getTime($v['LAB_TIME']),
+                    'first_message'=>$v['LAB_MSG'],
+                    'final_time' => $this->getTime($v['CHK_TIME']),
+
+                );
+                $addData['status'] = $v['CUR_STA'] == 'B' ?  3 : 1;
+                $ru->data($addData)->add();
+            }
+            elseif($v['SUBJECT_ID']=='A002'){//出金
+                $addData = array(
+                    'user_id'=>$v['CUSTOMER_KEY'],
+                    'request_no'=>$v['MKT_IAO_ID'],
+                    'amount' => $v['OCR_MONEY'],
+                    'note'   => $v['note'],
+                    'create_time' => $this->getTime($v['ADD_TIME']),
+                    'first_time' => $this->getTime($v['LAB_TIME']),
+                    'first_message'=>$v['LAB_MSG'],
+                    'final_time' => $this->getTime($v['CHK_TIME']),
+
+                );
+                $addData['status'] = $v['CUR_STA'] == 'B' ?  3 : 1;
+                $chu->data($addData)->add();
+            }
+
+        }
+        if($churuOld->commit()){
+            echo 'ok';
+        }
+        else
+            echo 'ng';
+
+    }
+
+    /**
      * @param $type int 1:生成基本数据，2：更新tb_cus_firm的数据
      */
     public function createOracleData($type){
@@ -351,25 +401,34 @@ class DaoruController extends \Yaf\Controller_Abstract
         $data = $obj->select();
         $obj->beginTrans();
         foreach($data as $k=>$v){
-            $time = $v['OPER_TIME'];
-            $y = '20'.mb_substr($time,9,2);
-            $m = mb_substr($time,3,1);
-            $d = mb_substr($time,0,2);
-            $h = intval(mb_substr($time,12,2));
-            $min = mb_substr($time,15,2);
-            $sen = mb_substr($time,18,2);
-            $shangwu = mb_substr($time,28,6);
-            if($shangwu=='下午'){
-               if($h!=12) $h = $h +12;
-            }
-
-            $format = $y.'-'.$m.'-'.$d.' '.$h.':'.$min.':'.$sen;
+            $format = $this->getTime($v['OPER_TIME']);
             $obj->where(array('FND_DTL_KEY'=>$v['FND_DTL_KEY']))->data(array('time'=>$format))->update();
         }
 
         if($obj->commit())
             echo 'ok';
         else echo 'ng';
+    }
+
+    /**
+     * 28-2月 -16 12.30.53.000000 下午 这样的时间转换格式
+     * @param $time
+     * @return string
+     */
+    protected function getTime($time){
+        $y = '20'.mb_substr($time,9,2);
+        $m = mb_substr($time,3,1);
+        $d = mb_substr($time,0,2);
+        $h = intval(mb_substr($time,12,2));
+        $min = mb_substr($time,15,2);
+        $sen = mb_substr($time,18,2);
+        $shangwu = mb_substr($time,28,6);
+        if($shangwu=='下午'){
+            if($h!=12) $h = $h +12;
+        }
+
+        $format = $y.'-'.$m.'-'.$d.' '.$h.':'.$min.':'.$sen;
+        return $format;
     }
 
 
