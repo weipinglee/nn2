@@ -7,7 +7,7 @@
 	.node_tree .v2 span{font-size: 14px;}
 	.node_tree .v3{padding-left: 50px;}	
 	.node_tree .v3 .ins{font-size: 14px;line-height: 35px;}
-	.v3_li{position: relative;padding-left: 25px;font-size: 16px;}
+	.v3_li{position: relative;padding-left: 25px;font-size: 14px;}
 	b.del{cursor: pointer;}
 	input.btn-primary{
 		background: #d61515;
