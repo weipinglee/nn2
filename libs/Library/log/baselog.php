@@ -19,6 +19,8 @@ class baselog
 	);
 	protected $tableName = 'admin_log';
 
+	protected $childAuthor = false;
+
 	//获取日志对象
 	public function __construct($logType = 'db')
 	{
@@ -61,8 +63,8 @@ class baselog
 				$content['datetime'] = time::getDateTime();
 				$content['ip'] = Client::getIp();
 				$content['author'] = $this->getAuthor();
-
-
+				if($this->childAuthor)
+					$content['child'] = $this->getChildAuthor();
 				$tableName           = $logInfo[$type]['table'];
 
 				foreach($logInfo[$type]['cols'] as $key => $val)
@@ -161,4 +163,8 @@ class baselog
 		'logicdel' => '删除了',
 		'check'    => '审核',
 	);
+
+	protected function getChildAuthor(){
+		return 0;
+	}
 }
