@@ -4,9 +4,9 @@
 	.clearfix{clear: left;}
 	.node_tree .v1{background-color: #F4F2F2;margin:5px 10px;padding: 10px 10px;padding-top:9px;color: #666;border-radius: 3px;font-size: 16px;}
 	.node_tree .v2{text-indent: 2em;font-weight: bolder;padding: 5px 10px;font-size: 14px;}
-	.node_tree .v2 span{font-size: 16px;}
+	.node_tree .v2 span{font-size: 14px;}
 	.node_tree .v3{padding-left: 50px;}	
-	.node_tree .v3 .ins{font-size: 16px;line-height: 35px;}
+	.node_tree .v3 .ins{font-size: 14px;line-height: 35px;}
 	.v3_li{position: relative;padding-left: 25px;font-size: 16px;}
 	b.del{cursor: pointer;}
 	input.btn-primary{
