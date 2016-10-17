@@ -66,6 +66,75 @@ class DaoruController extends \Yaf\Controller_Abstract
     }
 
     /**
+     * 生成代理账户流水
+     */
+    public function createFlowAction(){
+        $flow = new M('user_fund_flow');
+        $flow_old = new M('tb_fnd_dtl_his');
+
+        $flowData = $flow_old->order('time asc')->select();
+        $flow_old->beginTrans();
+
+        foreach($flowData as $key=>$val){
+            $user_id = $val['CUSTOMER_KEY'];
+            $newData = array(
+                'user_id'=>$user_id,
+                'acc_type'=>1,
+                'time' => $val['time'],
+                'note' => $val['FND_DTL'],
+                'flow_no'=>$val['FND_DTL_KEY']
+
+            );
+
+            $lastFlow = $flow->where(array('user_id'=>$user_id))->order('id DESC')->getObj();
+            if(empty($lastFlow)){
+                $newData['total'] = 0;
+                $newData['active'] = 0;
+            }
+            else{
+                $newData['total'] = $lastFlow['total'];
+                $newData['active'] = $lastFlow['active'];
+            }
+
+            switch($val['SUBJECT_ID']){
+                case 'A001':
+                case 'C001':
+                case 'D002'://入金
+                        $newData['fund_in'] = $val['FUND_MONEY'];
+                        $newData['active'] += $val['FUND_MONEY'];
+                        $newData['total'] += $val['FUND_MONEY'];
+                    break;
+                case 'A002':
+                case 'C002':
+                case 'D001':
+                case 'D003'://非冻结出金
+                $newData['fund_out'] = $val['FUND_MONEY'];
+                        $newData['active'] -= $val['FUND_MONEY'];
+                        $newData['total'] -= $val['FUND_MONEY'];
+                    break;
+                case 'E002':
+                case 'E003'://冻结
+                        $newData['freeze'] = $val['FUND_MONEY'];
+                        $newData['active'] -= $val['FUND_MONEY'];
+                break;
+                case 'F002':
+                case 'F003'://释放冻结
+                $newData['freeze'] = -$val['FUND_MONEY'];
+                $newData['active'] += $val['FUND_MONEY'];
+                break;
+
+            }
+            $flow->data($newData)->add();
+
+
+        }
+        if($flow_old->commit()){
+            echo 'ok';
+        }
+        else echo 'ng';
+    }
+
+    /**
      * @param $type int 1:生成基本数据，2：更新tb_cus_firm的数据
      */
     public function createOracleData($type){
@@ -271,6 +340,36 @@ class DaoruController extends \Yaf\Controller_Abstract
         }
         else echo 'ng';
 
+    }
+
+    /**
+     * 更新tb_fnd_dl_his的时间形式
+     * @return string
+     */
+    public function updateFndHisAction(){
+        $obj = new M('tb_fnd_dtl_his');
+        $data = $obj->select();
+        $obj->beginTrans();
+        foreach($data as $k=>$v){
+            $time = $v['OPER_TIME'];
+            $y = '20'.mb_substr($time,9,2);
+            $m = mb_substr($time,3,1);
+            $d = mb_substr($time,0,2);
+            $h = intval(mb_substr($time,12,2));
+            $min = mb_substr($time,15,2);
+            $sen = mb_substr($time,18,2);
+            $shangwu = mb_substr($time,28,6);
+            if($shangwu=='下午'){
+               if($h!=12) $h = $h +12;
+            }
+
+            $format = $y.'-'.$m.'-'.$d.' '.$h.':'.$min.':'.$sen;
+            $obj->where(array('FND_DTL_KEY'=>$v['FND_DTL_KEY']))->data(array('time'=>$format))->update();
+        }
+
+        if($obj->commit())
+            echo 'ok';
+        else echo 'ng';
     }
 
 
