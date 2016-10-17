@@ -544,18 +544,25 @@ class Order{
 				}
 
 				if($info['mode'] == self::ORDER_ENTRUST){
-					$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
+					$note = '合同'.$info['order_no'].'完成,解冻平台委托金 '.$info['seller_deposit'];
+					$fre_res = $this->account->freezeRelease($seller,$info['seller_deposit'],$note);
 
-					$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
-					if($pay_res !== true ) $res = $pay_res;
-					
+					if($fre_res === true){
+						$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
+
+						$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
+
+						if($pay_res !== true ) $res = $pay_res;
+					}else{
+						$res = $fre_res;
+					}
 					$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
-					if(is_object($account_deposit)){
+					if(is_object($account_deposit) && !$res){
 						$note = '合同'.$info['order_no'].'完成,支付定金'.$info['pay_deposit'];
 						$fpay_res = $account_deposit->freezePay($buyer,$seller,$info['pay_deposit'],$note);
 						if($fpay_res !== true ) $res = $fpay_res;
 					}else{
-						$res = '无效定金支付方式';
+						$res = $res ? $res : '无效定金支付方式';
 					}
 				}
 
@@ -885,7 +892,7 @@ class Order{
 								if($deposit_res !== true) {
 									$error = $deposit_res;
 								}else{
-									$note = '卖方确认质量合格'.$order['order_no'].'解冻支付尾款的60% '.number_format($order['pay_retainage']*0.6,2);
+									$note = '卖方确认质量合格'.$order['order_no'].'解冻支付尾款的60% '.number_format($order['pay_retainage']*0.6,2);	
 									$retainage_res = $order['pay_retainage'] ? $account_retainage->freezePay($buyer,$seller,$order['pay_retainage']*0.6,$note,$order['pay_retainage']) : true;
 									$error = $retainage_res === true ? '' : $retainage_res;
 

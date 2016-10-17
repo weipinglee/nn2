@@ -110,7 +110,7 @@ class PurchaseController extends UcenterBaseController{
 		    $bind['status'] = $status;
 		    $this->getView()->assign('s', $status);
 		}
-
+		
 		if (!empty($beginDate)) {
 		    $where .= ' AND apply_time>=:beginDate';
 		    $bind['beginDate'] = $beginDate;
@@ -163,7 +163,7 @@ class PurchaseController extends UcenterBaseController{
 			$res = $PurchaseOfferModel->updatePurchaseOffer($apply, $id);
 			die(json::encode($res)) ;
 		}
-
+		
 		$id = $this->getRequest()->getParam('id');
 		$id = Safe::filter($id, 'int', 0);
 
@@ -192,12 +192,12 @@ class PurchaseController extends UcenterBaseController{
 		//查询组装条件
 		$where = ' 1 ';
 		$bind = array();
-
+		
 		if (empty($id)) {
 		    $where .= ' AND p.seller_id ='.$this->user_id;//.$this->user_id;
 		    $this->getView()->assign('user_id', $this->user_id);
 		}
-
+		
 		if (!empty($id)) {
 		    $where .= ' AND p.offer_id ='.$id;
 		    $this->getView()->assign('id', $id);

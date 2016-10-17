@@ -43,7 +43,7 @@ class attachAccount{
 	public function curl($xml){
 		$xml = iconv('UTF-8','GBK',$xml);
 		$header []= "Content-type:text/xml;charset=gbk";
-
+		
 		$url = 'http://192.168.2.11:6789';
 		$ch = curl_init($url);
 		curl_setopt($ch,CURLOPT_URL,$url);
@@ -56,10 +56,14 @@ class attachAccount{
 	 	if(curl_errno($ch)){
 	 		print curl_errno($ch);
 	 	}
-	 	// var_dump($output);
+
+	 	
+	 	// $output = iconv('GBK','UTF-8',$output);
+	 	
 		curl_close($ch);
 		$xml_obj = (array)new \SimpleXMLElement($output);
-
+		
+		// var_dump($xml_obj);exit;
 		// var_dump($output);exit;
 		// exit;
 			// return $xml_obj;
