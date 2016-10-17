@@ -259,6 +259,30 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 	}
 
 
+	public function productsetAction(){
+		$model = new \nainai\offer\ProductSetting();
+
+		if (IS_AJAX) {
+			$data = array(
+				'time' => safe::filterPost('time', 'float', 0),
+				'credit' => safe::filterPost('credit', 'float', 0),
+				'day' => safe::filterPost('day', 'float', 0),
+				'max_credit' => safe::filterPost('max_credit', 'float', 0),
+			);
+			$res = $model->updateProductSetting($data, 1);
+			exit(json::encode($res));
+		}
+		
+		$detail = $model->getProductSetting(1);
+
+		if (empty($detail)) {
+			$detail = array('time' => 0, 'credit' => 0);
+			$model->addProductSetting($detail);
+		}
+		$this->getView()->assign('detail',$detail);
+	}
+
+
 
 
 }

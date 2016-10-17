@@ -165,12 +165,11 @@ class OffersController extends PublicController {
 				}
 					break;
 				default : {
-					$order = 'apply_time desc';
+					$order = '';
 				}
 			}
 		}
 		else $order = '';
-
 		$data = $this->offer->getList($page, $condition,$order);
 		if ( ! empty($this->login)) {
 			$data['login'] = 1;
@@ -219,7 +218,7 @@ class OffersController extends PublicController {
 			$this->getView()->assign('data',$info);
 			$this->getView()->assign('user',$userData);
 			$this->getView()->assign('kefu',$kefuData);
-            $this->getView()->assign('cur','offerlist');
+            		$this->getView()->assign('cur','offerlist');
 		}
 	}
 
