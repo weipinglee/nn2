@@ -2,8 +2,8 @@
 <style type="text/css">
 	.node_tree li {float: left;text-decoration: none;list-style: none;}
 	.clearfix{clear: left;}
-	.node_tree .v1{background-color: #F4F2F2;margin:5px 10px;padding: 15px 10px;color: #666;border-radius: 3px;font-size: 16px;}
-	.node_tree .v2{text-indent: 2em;font-weight: bolder;padding: 5px 10px;}
+	.node_tree .v1{background-color: #F4F2F2;margin:5px 10px;padding: 10px 10px;padding-top:9px;color: #666;border-radius: 3px;font-size: 16px;}
+	.node_tree .v2{text-indent: 2em;font-weight: bolder;padding: 5px 10px;font-size: 14px;}
 	.node_tree .v2 span{font-size: 16px;}
 	.node_tree .v3{padding-left: 50px;}	
 	.node_tree .v3 .ins{font-size: 16px;line-height: 35px;}
@@ -13,7 +13,7 @@
 		background: #d61515;
 		color: #fff;
 		border: 1px solid #d61515;
-		font-size: 20px;
+		font-size: 16px;
 		padding: 8px 30px;
 		margin: 5px 10px;
 		cursor: pointer;

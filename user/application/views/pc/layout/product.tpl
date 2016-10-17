@@ -39,7 +39,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>单位：</td>
         <td>
-            <input type="text" name="unit" value="{$product['unit']}"/>
+            <input class="text" type="text" name="unit" value="{$product['unit']}"/>
         </td>
         <!--  <td>
             请选择支付保证金比例：
