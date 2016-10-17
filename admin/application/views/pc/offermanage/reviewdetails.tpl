@@ -32,7 +32,13 @@
                  <th>报盘类型</th>
                  <td>{$info['mode_txt']}</td>
                  <th>报盘费率</th>
-                 <td>{$info['offer_fee']}</td>
+                 <td>
+                 {if: $info['mode'] == \nainai\offer\product::DEPUTE_OFFER}
+                     {if:!empty($info['rate'])}{$info['rate']['value']}{if:$info['rate']['type'] == 0}%{else:}元{/if}{else:}0{/if}
+                 {else:}
+                    {$info['offer_fee']}
+                {/if}
+                    </td>
              </tr>
              <tr>
                  <th>商品名称</th>

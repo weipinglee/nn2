@@ -46,5 +46,17 @@ class EntrustSetting extends \nainai\Abstruct\ModelAbstract{
 		return $data;
 	}
 
+	public function getRate($cate_id = 0){
+		$where = array('status' => 1);
+		$rate = array();
+
+		if (intval($cate_id) > 0) {
+			$where['cate_id'] = $cate_id;
+			$rate = $this->getEntrustSetting($where, 'type, cate_id, value');
+		}
+
+		return $rate;
+	}
+
 
 }

@@ -44,6 +44,35 @@ class DepositController extends OrderController{
 		}
 	}
 
+	//卖家支付委托金
+	public function sellerEntrustDepositAction(){
+		if(IS_POST){
+			$order_id = safe::filterPost('order_id','int');
+			$payment = safe::filterPost('payment','int');
+			$user_id = $this->user_id;
+			$pay = true;
+			$res = $this->entrust->sellerDeposit($order_id,$pay,$user_id,$payment);
+			if($res['success'] == 1)
+				die(json::encode(tool::getSuccInfo(1,'委托金支付成功',url::createUrl('/contract/sellerdetail?id='.$order_id))));
+			else
+				die(json::encode(tool::getSuccInfo(0,$res['info'])));
+			return false;
+		}else{
+			$order_id = safe::filter($this->getRequest()->getParam('order_id'),'int');
+			$data = $this->entrust->contractDetail($order_id,'seller');
+			$obj = new \nainai\system\EntrustSetting();
+			$percent = $obj->getRate($data['cate_id']);
+			// $percent = $this->order->entrustFee($order_id);
+			if (empty($percent)) {
+				$percent['value'] = 0;
+			}
+			$data['seller_percent'] = $percent['value'];
+			$data['type'] = $percent['type'];
+			$data['seller_deposit'] = $percent['type'] == 0 ? number_format($data['amount'] * $percent['value'] / 100,2) : $percent['value'];
+			$this->getView()->assign('data',$data);
+		}
+	}
+
 	//支付保证金成功页面
 	public function sucAction(){}
 

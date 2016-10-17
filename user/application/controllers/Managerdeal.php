@@ -70,7 +70,7 @@ class ManagerDealController extends UcenterBaseController {
    /**
      * 商品添加页面展示
      */
-    private function productAddAction(){
+    private function productAddAction($mode = ''){
         //获取商品分类信息，默认取第一个分类信息
         $productModel = new product();
         $category = $productModel->getCategoryLevel();
@@ -89,6 +89,11 @@ class ManagerDealController extends UcenterBaseController {
             }
             $key --;
         }while($key > 0);
+        if ($mode == 'deputeoffer') {
+            $Obj = new \nainai\system\EntrustSetting();
+            $rate = $Obj->getRate($category['defaultCate']);
+            $this->getView()->assign('rate',$rate);
+        }
         //注意，js要放到html的最后面，否则会无效
         $this->getView()->assign('categorys', $category['cate']);
         $this->getView()->assign('risk_data', $risks);
@@ -261,12 +266,9 @@ class ManagerDealController extends UcenterBaseController {
     public function deputeOfferAction(){
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
-        $Obj = new \nainai\offer\deputeOffer();
-        $rate = $Obj->getFeeRate($this->user_id);
-        $this->getView()->assign('rate',$rate);
         $offer = array('divide' => 1);
         $this->getView()->assign('offer',$offer);
-        $this->productAddAction();
+        $this->productAddAction('deputeoffer');
     }
 
     /**
