@@ -1,6 +1,6 @@
 <?php
 
-
+// phpinfo();exit;
 date_default_timezone_set('Asia/Shanghai');
 
 define('APPLICATION_PATH', __DIR__);
