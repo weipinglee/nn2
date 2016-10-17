@@ -267,7 +267,7 @@ z-index:1000;">
             
             <span class="jiesim"><h3></h3> </span>   
             <div class="intur_box">
-            <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b class='prod_num'><?php echo isset($data['minimum'])?$data['minimum']:"";?></b>吨</span></span>
+            <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b class='prod_num'><?php echo isset($data['minimum'])?$data['minimum']:"";?></b><?php echo isset($data['unit'])?$data['unit']:"";?></span></span>
             <span class="daizfji"><span class="zhifjin"><strong>总额：</strong><i>￥</i><b class='prod_amount'><?php echo isset($data['amount'])?$data['amount']:"";?></b></span></span>
             <?php if($data['show_payment']){?>
             <span class="daizfji"><span class="zhifjin"><strong>定金：</strong><i>￥</i><b class="pay_deposit"><?php echo isset($data['minimum_deposit'])?$data['minimum_deposit']:"";?></b></span></span><?php }?>
