@@ -24,6 +24,10 @@ class userLog  extends \Library\log\baselog
 	        //线上
 	        $reModel->join = 'left join user as u on r.author = u.id';
 	        $reModel->fields = 'r.*, u.username';
+	        if (  isset($condition['pid'])) {
+	        	$reModel->where = 'u.pid=:pid';
+	        	$reModel->bind = array('pid' => $condition['pid']);
+	        }
 
 	        $onlineInfo = $reModel->find();
 

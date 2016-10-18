@@ -54,17 +54,18 @@ class FundController extends UcenterBaseController {
 		$zx = new \nainai\fund\zx();
 		$data = $zx->attachAccountInfo($this->user_id);
 		$balance = $zx->attachBalance($this->user_id);
-		$details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
-		
+		// $details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
+		$details = $zx->attachOperDetails($this->user_id,$startDate,$endDate);
+		// echo '<pre>';var_dump($details['row']);
 		// echo '<pre>';var_dump($details);exit;
 
 		if($details['returnRecords'] == 1){
-			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['TRANTYPE']);
+			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
 			$details['row'] = array($details['row']);
 		}else{
 			foreach ($details['row'] as $key => &$value) {
 				$value = (array)$value;
-				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['TRANTYPE']);
+				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['tranType']);
 			}
 		}
 		$this->getView()->assign('balance',$balance);
@@ -432,6 +433,47 @@ class FundController extends UcenterBaseController {
         {
             die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
         }
+    }
+
+    public function zzAction(){
+    	$fundObj = \nainai\fund::createFund(1);
+
+	$active = $fundObj->getActive($this->user_id);
+    	if (IS_POST) {
+    		$token = safe::filterPost('token');
+		if(!safe::checkToken($token))
+			 die(json::encode(\Library\tool::getSuccInfo(0,'转账失败')) ) ;
+		$to_user = safe::filterPost('uid', 'int');
+		if (intval($to_user) <= 0) {
+			die(json::encode(\Library\tool::getSuccInfo(0,'错误的用户！')) ) ;
+		}
+		$user = new \nainai\user\User();
+		$info = $user->getUser($to_user, 'pid, username');
+		if ($info['pid'] != $this->user_id) {
+			die(json::encode(\Library\tool::getSuccInfo(0,'不是该账户的子账户！')) ) ;
+		}
+		$data = array(
+			'amount' => safe::filterPost('amount', 'float'),
+			'note' => '转账备注：' . safe::filterPost('note'),
+			'username' => $info['username']
+		);
+		if (intval($data['amount']) <= 0 OR bccomp($active, $data['amount']) == -1) {
+			die(json::encode(\Library\tool::getSuccInfo(0,'转账失败,转账金额不正确！')) ) ;
+		}
+		
+		$agen = new \nainai\fund\agentAccount();
+		$fundModel = new fundModel();
+		$res = $fundModel->transfer($this->user_id, $to_user, $data);
+		exit(json::encode($res));
+    	}
+    	$id = $this->_request->getParam('id');
+	$id = Safe::filter($id, 'int', 0);
+	if (intval($id) <= 0) {
+		$this->error('错误的访问方式');
+	}
+
+	$this->getView()->assign('active',$active);
+	$this->getView()->assign('uid',$id);
     }
 
 }

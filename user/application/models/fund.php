@@ -209,4 +209,21 @@ class fundModel extends \nainai\user\UserBank{
 
         }
     }
+
+    public function transfer($user_id, $to_user, $data){
+        $model = new M('user_account');
+        $model->beginTrans();
+        $agen = new \nainai\fund\agentAccount();
+        $res = $agen->transfer($user_id, $to_user, $data);
+        if ($res) {
+            $userLog=new \Library\userLog();
+            $userLog->addLog(['action'=>'转账操作','content'=>'转账给用户 '.$data['username'].' ,转账金额：'.$data['amount'].'元']);
+            $model->commit();
+           return tool::getSuccInfo('1','转账成功','',$id);
+        }else{
+            $model->rollback();
+            return tool::getSuccInfo('1','转账失败！','',$id);
+        }
+    }
+
 }

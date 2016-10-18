@@ -75,8 +75,8 @@ class UserModel{
 		array('tax_no','require','请填写税号'),
 		array('qq','number','请正确填写qq',2,'regex'),
 		array('cert_bl','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
-		array('cert_oc','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
-		array('cert_tax','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
+	/*	array('cert_oc','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),
+		array('cert_tax','/^[a-zA-Z0-9_@\.\/]+$/','请上传图片'),*/
 		array('business','/.{1,100}/','请填写主营品种'),
 
 	);
@@ -216,7 +216,15 @@ class UserModel{
 			$user->password = $data['password'] = sha1($data['password']);
 
 			$res = $user->add();
-
+			$data = array(
+				'user_id' => $res,
+				'fund' => 0,
+				'freeze' => 0,
+				'ticket' => 0,
+				'ticket_freeze' => 0,
+				'credit' => 0
+			);
+			$res = $user->table('user_account')->data($data)->add();
 		}
 		else{
 			$res = $user->getError();
@@ -332,7 +340,7 @@ class UserModel{
 	public function checkUser($userAcc,$password){
 
 		$where = 'username=:username AND password = :password OR mobile=:mobile AND password = :password AND status=:status';
-		return self::$userObj->fields('id,username,mobile,password,type')->where($where)->bind(array('username'=>$userAcc,'password'=>sha1($password),'mobile'=>$userAcc, 'status' => \nainai\user\User::NOMAL))->getObj();
+		return self::$userObj->fields('id,username,mobile,password,type,pid')->where($where)->bind(array('username'=>$userAcc,'password'=>sha1($password),'mobile'=>$userAcc, 'status' => \nainai\user\User::NOMAL))->getObj();
 
 	}
 
