@@ -122,7 +122,7 @@ class certDealer extends certificate{
 
     //获取交易商已认证列表
     public function certedList($condition){
-        return parent::certApplyList(self::$certType,$condition,self::CERT_INIT.','.self::CERT_SUCCESS.','.self::CERT_FAIL, $condition);
+        return parent::certApplyList(self::$certType,$condition,self::CERT_INIT.','.self::CERT_SUCCESS.','.self::CERT_FAIL.','.self::CERT_FIRST_OK, $condition);
     }
 
     /**

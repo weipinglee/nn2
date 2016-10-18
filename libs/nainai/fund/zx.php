@@ -125,7 +125,7 @@ class zx extends account{
                 <recvAccNm>{$data['recvaccnm']}</recvAccNm>
                 <tranAmt>{$data['num']}</tranAmt>
                 <sameBank>{$data['samebank']}</sameBank>
-
+                
                 <recvTgfi>{$data['recvtgfi']}</recvTgfi>
                 <recvBankNm>{$data['recvbanknm']}</recvBankNm>
                 
@@ -489,7 +489,7 @@ class zx extends account{
                 <action>DLSBALQR</action>
                 <userName>".self::USERNAME."</userName>
                 <accountNo>".self::MAINACC."</accountNo>
-
+                
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
         $res = $this->attachAccount->curl($xml);
@@ -541,6 +541,7 @@ class zx extends account{
         $endDate = $endDate ? date('Ymd',strtotime($endDate) < time() ? strtotime($endDate) : time()) : date('Ymd',time());
 
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
+        if(!$payAccInfo) return array();
         // var_dump($payAccInfo);exit;
         $xml = self::XML_PREFIX."
             <stream>
@@ -554,6 +555,9 @@ class zx extends account{
                 <pageNumber>10</pageNumber>
             </stream>";
         $res = $this->attachAccount->curl($xml);
+        foreach ($res['row'] as $key => &$value) {
+            $value['subno'] = $payAccInfo['no'];
+        }
         return $res;
     }
 
@@ -564,7 +568,7 @@ class zx extends account{
      * @return string 
      */
     public function orderRes($clientID){
-
+        
     }
 
     /**

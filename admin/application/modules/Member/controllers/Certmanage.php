@@ -91,7 +91,7 @@ class certManageController extends InitController {
                $user_id = safe::filterPost('user_id','int',0);
                $status  = safe::filterPost('status','int',0);
                $info    = safe::filterPost('message');
-               $status  = $status==1 ? 1 : 0;
+               $status  = $status==1 ? 1 : ($status==2?2:0);
                $m = new certDealer();
                $res = $m->verify($user_id,$status,$info);
 

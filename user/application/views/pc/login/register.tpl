@@ -37,9 +37,9 @@
       </div>
       <div class="reg_top">
       <div class="register_top">
-          <div class="reg_zc register_l border_bom">个人注册<img class="show_gr" src="{views:images/password/sanj.png}" alt=""></div>
+          <div class="reg_zc register_l border_bom">企业注册<img class="show_gr" src="{views:images/password/sanj.png}" alt=""></div>
           
-          <div class="reg_zc register_r">企业注册<img class="hide_qy" style="display:none;" src="{views:images/password/sanj.png}" alt=""></div>
+          <div class="reg_zc register_r">个人注册<img class="hide_qy" style="display:none;" src="{views:images/password/sanj.png}" alt=""></div>
       </div>
       </div>
     <script>
@@ -47,64 +47,9 @@
     //发送短信地址
     var sendMessageUrl = '{url:/login/sendMessage}';
     </script>
-      <!--个人注册-->
+      <!--企业注册-->
       <div class="reg_cot gr_reg">
         <input name="checkUrl" value="{url:/login/checkIsOne}" type="hidden" />
-        <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/login/regsucced}">
-          <input type="hidden" name="type" value="0"/>
-          <div class="cot">
-            <span class="cot_tit">用户名：</span>
-            <span><input class="text" type="text" name="username" nullmsg="请填写用户名"  datatype="/^[a-zA-Z0-9_]{3,30}$/" errormsg="请填写3-30位英文字母、数字" /></span>
-            <span></span>
-          </div>
-          <div class="cot">
-            <span class="cot_tit">密码：</span>
-            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" nullmsg='请输入密码' errormsg="6-15位非空字符" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
-              <span></span>
-          </div>
-          <div class="cot">
-            <span class="cot_tit">确认密码：</span>
-            <span><input class="text" type="password" name="repassword" datatype="*" nullmsg="请确认密码" errormsg="两次密码输入不一致" recheck="password" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
-              <span></span>
-          </div>
-          <div class="cot">
-            <span class="cot_tit">手机号：</span>
-            <span><input class="text" type="text" name="mobile" maxlength="11" datatype="mobile" nullmsg="请输入手机号" errormsg="请正确填写手机号"/></span>
-              <span></span>
-          </div>
-          <div class="cot">
-            <span class="cot_tit">验证码：</span>
-
-            <span><input class="text" style="width: 122px;" type="text" name="captcha" maxlength="4"/></span>
-              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img src="{url:/login/getCaptcha}?w=200&h=50" /></a>
-              <span></span>
-          </div>
-           <div class="cot">
-            <span class="cot_tit">校验码：</span>
-            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode" maxlength="6" datatype="zip" nullmsg="请填写校验码" errormsg="校验码格式不正确"/> <a class="jiaoyma">获取校验码</a><span></span> </span>
-              <span></span>
-          </div>
-          <div class="cot">
-            <span class="cot_tit">邮箱：</span>
-            <span><input class="text" type="text" name="email" nullmsg="请填写邮箱"   datatype="e" errormsg="邮箱格式错误"/></span>
-              <span></span>
-          </div>
-           
-           <div class="form-agreen">
-                    <div><input type="checkbox" name="agent" value="1" checked="">我已阅读并同意<a href="{url:/login/agreement}" target="_bank" id="protocol">《耐耐网网站用户协议》</a> </div>
-                    <div class="input-tip">
-                        <span></span>
-                    </div>
-                </div>
-
-           <div class="cot">
-            <span class="zc"><input class="but" type="submit"value="注&nbsp;&nbsp;册"/></span>
-          </div>
-        </form>
-      </div>
-       <!--个人注册结束-->
-        <!--企业注册-->
-      <div class="reg_cot qy_reg">
         <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/login/regsucced}" >
           <input type="hidden" name="type" value="1"/>
          <div class="cot">
@@ -217,6 +162,62 @@
             <span class="zc"><input class="but" type="submit" value="注&nbsp;&nbsp;册"/></span>
           </div>
         </form>
+      </div>
+       <!--企业注册结束-->
+        <!--个人注册-->
+      <div class="reg_cot qy_reg">
+	   <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/login/regsucced}">
+          <input type="hidden" name="type" value="0"/>
+          <div class="cot">
+            <span class="cot_tit">用户名：</span>
+            <span><input class="text" type="text" name="username" nullmsg="请填写用户名"  datatype="/^[a-zA-Z0-9_]{3,30}$/" errormsg="请填写3-30位英文字母、数字" /></span>
+            <span></span>
+          </div>
+          <div class="cot">
+            <span class="cot_tit">密码：</span>
+            <span><input class="text" type="password" name="password" datatype="/^\S{6,15}$/" nullmsg='请输入密码' errormsg="6-15位非空字符" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
+              <span></span>
+          </div>
+          <div class="cot">
+            <span class="cot_tit">确认密码：</span>
+            <span><input class="text" type="password" name="repassword" datatype="*" nullmsg="请确认密码" errormsg="两次密码输入不一致" recheck="password" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
+              <span></span>
+          </div>
+          <div class="cot">
+            <span class="cot_tit">手机号：</span>
+            <span><input class="text" type="text" name="mobile" maxlength="11" datatype="mobile" nullmsg="请输入手机号" errormsg="请正确填写手机号"/></span>
+              <span></span>
+          </div>
+          <div class="cot">
+            <span class="cot_tit">验证码：</span>
+
+            <span><input class="text" style="width: 122px;" type="text" name="captcha" maxlength="4"/></span>
+              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img src="{url:/login/getCaptcha}?w=200&h=50" /></a>
+              <span></span>
+          </div>
+           <div class="cot">
+            <span class="cot_tit">校验码：</span>
+            <span><input style="width:122px;" class="text" type="text" name="validPhoneCode" maxlength="6" datatype="zip" nullmsg="请填写校验码" errormsg="校验码格式不正确"/> <a class="jiaoyma">获取校验码</a><span></span> </span>
+              <span></span>
+          </div>
+          <div class="cot">
+            <span class="cot_tit">邮箱：</span>
+            <span><input class="text" type="text" name="email" nullmsg="请填写邮箱"   datatype="e" errormsg="邮箱格式错误"/></span>
+              <span></span>
+          </div>
+           
+           <div class="form-agreen">
+                    <div><input type="checkbox" name="agent" value="1" checked="">我已阅读并同意<a href="{url:/login/agreement}" target="_bank" id="protocol">《耐耐网网站用户协议》</a> </div>
+                    <div class="input-tip">
+                        <span></span>
+                    </div>
+                </div>
+
+           <div class="cot">
+            <span class="zc"><input class="but" type="submit"value="注&nbsp;&nbsp;册"/></span>
+          </div>
+        </form>
+       
       </div>
        <!--企业注册结束-->
     </div>

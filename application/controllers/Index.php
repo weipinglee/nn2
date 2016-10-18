@@ -44,8 +44,8 @@ class IndexController extends PublicController {
         // $allStatsData=$statsMarketModel->getAllStatsList();
         // $statcTime=$allStatsData[1];
         //$statcTime=$statsMarketModel->getStaticTime();
-        $statcCatList=$allStatsData[0];
-		$this->getView()->assign('statcTime',\Library\json::encode($statcTime));
+        // $statcCatList=$allStatsData[0];
+		// $this->getView()->assign('statcTime',\Library\json::encode($statcTime));
         $statcProList=$statcModel->getHotProductDataList(10);
         $topCat=$productModel->getTopCate(8);
         $company=\nainai\companyRec::getAllCompany();

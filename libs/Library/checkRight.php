@@ -44,7 +44,7 @@ class checkRight{
         session::merge('login',array('user_id'=>$data['id']));
         session::merge('login',array('username'=>$data['username']));
         session::merge('login',array('mobile'=>$data['mobile']));
-       // Session::merge('login',array('pwd'=>$data['password']));
+        Session::merge('login',array('pid'=>$data['pid']));
         session::merge('login',array('user_type'=>$data['type']));
         
         //session数据计入数据库
@@ -56,7 +56,7 @@ class checkRight{
         $ip=\Library\Client::getIP();
         $userModel->where(array('id'=>$data['id']))->data(array('session_id'=>$sessID,'login_ip'=>$ip,'login_time'=>date('Y-m-d H:i:s',time())))->update();
         $riskModel=new userRisk();
-        $riskModel->checkUserAddress(['user_id'=>$data['id'],'ip'=>$ip]);
+     //   $riskModel->checkUserAddress(['user_id'=>$data['id'],'ip'=>$ip]);
         //获取认证状态
         $this->getCert($data['id']);
 

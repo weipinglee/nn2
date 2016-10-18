@@ -30,8 +30,6 @@
 		
 		</script>
 <link rel="stylesheet" href="{views:content/settings/style.css}" />
-
-
         <div id="head">
             <div class="left">
                 <a href="#" class="button profile"><img src="{views:img/icons/top/huser.png}" alt="" /></a>
@@ -41,6 +39,8 @@
                 <a href="{url:/login/logout}">退出</a>
                 <a href="{url:/index/index@deal}">返回网站首页</a>
                 <a name='clearCache' href="javascript:void(0)" onclick="clearCache('{url:/index/clearCache}')">清除缓存</a>
+                <a name='clearCache' href="{url:system/admin/comadminPwd?id=$info['id']}" target="content">修改密码</a>
+
             </div>
           <!--   <div class="right">
                 <form action="#" id="search" class="search placeholder">

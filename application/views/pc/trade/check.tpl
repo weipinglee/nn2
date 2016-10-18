@@ -23,7 +23,7 @@
    </div> 
 <div class="clearfix"></div> 
  
-<form method="post" {if:$data['show_payment']}pay_secret="1" has_secret="{url:/trade/hasPaySecret@deal}"{/if} auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
+<form method="post" {if:$data['show_payment']}pay_secret="1" has_secret="{url:/index.php/trade/hasPaySecret}"{/if} auto_submit="1" action='{url:/index.php/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
 
     <!--主要内容 开始-->
     <div id="mainContent" style="background:#FFF;"> 
@@ -176,7 +176,7 @@
             
             <span class="jiesim"><h3></h3> </span>   
             <div class="intur_box">
-            <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b class='prod_num'>{$data['minimum']}</b>吨</span></span>
+            <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b class='prod_num'>{$data['minimum']}</b>{$data['unit']}</span></span>
             <span class="daizfji"><span class="zhifjin"><strong>总额：</strong><i>￥</i><b class='prod_amount'>{$data['amount']}</b></span></span>
             {if:$data['show_payment']}
             <span class="daizfji"><span class="zhifjin"><strong>定金：</strong><i>￥</i><b class="pay_deposit">{$data['minimum_deposit']}</b></span></span>{/if}
@@ -221,7 +221,7 @@
                     var price = {$data['price']};
                     var minimum_deposit = {$data['minimum_deposit']};
                     var left_deposit = {$data['left_deposit']};
-                    var minimum_step = {$data['minstep']};
+                    var minimum_step = 1;
                     var temp_deposit = deposit_text.eq(1).text();
                     var paytype = 0;
                     var global_num = minimum;
@@ -237,6 +237,7 @@
                     });
 
                     $('.btoncomit').click(function(){
+
                         if({$user_id} == 0){
                           window.location.href='{url:/login/login@user}'+'?callback='+window.location.href;
                         }else{

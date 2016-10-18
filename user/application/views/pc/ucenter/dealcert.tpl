@@ -167,6 +167,7 @@
 							<p class="font-color">1.业务认证须提供有效期3个月以上的营业执照</p>
 							<p class="font-color">2.请保证营业执照上的信息清晰可见</p>
 							<p class="font-color">3.支持jpg,bmp,png,gif,文件不超过4MB</p>
+							<p class="font-color">4.为了您方便交易请您上传完整的资质证书</p>
 						</div>
 
 						{else:}
