@@ -446,7 +446,7 @@ class FundController extends UcenterBaseController {
 		if(!safe::checkToken($token))
 			 die(json::encode(\Library\tool::getSuccInfo(0,'转账失败')) ) ;
 		$to_user = safe::filterPost('uid', 'int');
-		if (intval($to_user) <= 0) {
+		if (intval($to_user) < 1) {
 			die(json::encode(\Library\tool::getSuccInfo(0,'错误的用户！')) ) ;
 		}
 		$user = new \nainai\user\User();
@@ -463,7 +463,6 @@ class FundController extends UcenterBaseController {
 			die(json::encode(\Library\tool::getSuccInfo(0,'转账失败,转账金额不正确！')) ) ;
 		}
 		
-		$agen = new \nainai\fund\agentAccount();
 		$fundModel = new fundModel();
 		$res = $fundModel->transfer($this->user_id, $to_user, $data);
 		exit(json::encode($res));
@@ -476,6 +475,8 @@ class FundController extends UcenterBaseController {
 
 	$this->getView()->assign('active',$active);
 	$this->getView()->assign('uid',$id);
+	$token =  \Library\safe::createToken();
+	$this->getView()->assign('token',$token);
     }
 
 }

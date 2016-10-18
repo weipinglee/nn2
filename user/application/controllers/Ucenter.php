@@ -857,5 +857,11 @@ class UcenterController extends UcenterBaseController {
         $this->getView()->assign('roleInfo', $info);
     }
 
+    public function subacclogAction(){
+        $model = new \Library\userLog();
+        $data = $model->getList(array('pid' => $this->user_id));
+
+        $this->getView()->assign('data', $data);
+    }
 
 }
