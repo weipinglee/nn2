@@ -298,8 +298,9 @@ class agentAccount extends account{
      * @param float $num 转账的金额
      */
     public function payMarket($user_id,$num,$note=''){
-        if(is_integer($num) || is_float($num)){
-
+        $num = floatval($num);
+        if($num > 0){
+            
             $fund = $this->agentModel->where(array('user_id'=>$user_id))->getField('fund');
 
             if($fund>=$num){//可以付款

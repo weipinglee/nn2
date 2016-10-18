@@ -35,7 +35,7 @@ class UserModel{
 	protected $userRules = array(
 		array('id','number','id错误',0,'regex'),
 		array('pid','number','',0,'regex'),
-		array('username','/^[a-zA-Z0-9_]{3,30}$/','用户名格式错误'),
+		array('username','/^[a-zA-Z][a-zA-Z0-9_]{2,29}$/','用户名格式错误'),
 		array('password','/^\S{6,15}$/','密码格式错误',0,'regex',3),
 		array('repassword','password','两次密码输入不同',0,'confirm'),
 		array('type',array(0,1),'类型错误',0,'in'),
@@ -338,9 +338,8 @@ class UserModel{
 	 * @param string $password 密码（未加密）
 	 */
 	public function checkUser($userAcc,$password){
-
-		$where = 'username=:username AND password = :password OR mobile=:mobile AND password = :password AND status=:status';
-		return self::$userObj->fields('id,username,mobile,password,type,pid')->where($where)->bind(array('username'=>$userAcc,'password'=>sha1($password),'mobile'=>$userAcc, 'status' => \nainai\user\User::NOMAL))->getObj();
+		$where = '(username=:username AND (password = :password OR password = :password1) OR mobile=:mobile AND (password = :password OR password = :password1)) AND status=:status';
+		return self::$userObj->fields('id,username,mobile,password,type')->where($where)->bind(array('username'=>$userAcc,'password'=>sha1($password),'password1'=>base64_encode(md5($password,16)),'mobile'=>$userAcc, 'status' => \nainai\user\User::NOMAL))->getObj();
 
 	}
 

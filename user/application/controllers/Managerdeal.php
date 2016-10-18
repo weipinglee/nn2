@@ -60,7 +60,10 @@ class ManagerDealController extends UcenterBaseController {
      * @return
      */
     public function indexOfferAction(){
+        $certObj=new \nainai\cert\certificate();
+        $certStatus=$certObj->getCertStatus($this->user_id,'deal');
 
+        $this->getView()->assign('certStatus',$certStatus);
     }
 
     public function addSuccessAction(){
@@ -200,6 +203,7 @@ class ManagerDealController extends UcenterBaseController {
         $this->getView()->assign('token',$token);
 
         $depositObj = new \nainai\offer\depositOffer();
+
         $rate = $depositObj->getDepositRate($this->user_id);
         $offer = array('divide' => 1);
         $this->getView()->assign('rate',$rate);

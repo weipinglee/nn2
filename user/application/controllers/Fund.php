@@ -48,18 +48,19 @@ class FundController extends UcenterBaseController {
 
 	//中信银行签约账户
 	public function zxAction(){
+
+
 		$startDate = safe::filterGet('startDate','trim','');
 		$endDate = safe::filterGet('endDate','trim','');
 
 		$zx = new \nainai\fund\zx();
 		$data = $zx->attachAccountInfo($this->user_id);
-		$balance = $zx->attachBalance($this->user_id);
+		// $balance = $zx->attachBalance($this->user_id);
+		
 		// $details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
 		$details = $zx->attachOperDetails($this->user_id,$startDate,$endDate);
 		// echo '<pre>';var_dump($details['row']);
-		// echo '<pre>';var_dump($details);exit;
-
-		if($details['returnRecords'] == 1){
+		if(!$details['row'][1]){
 			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
 			$details['row'] = array($details['row']);
 		}else{
@@ -71,6 +72,7 @@ class FundController extends UcenterBaseController {
 		$this->getView()->assign('balance',$balance);
 		$this->getView()->assign('no',$data['no']);
 		$this->getView()->assign('flow',$details['row']);
+		
 		$this->getView()->assign('startDate',$startDate);
 		$this->getView()->assign('endDate',$endDate);
 		// echo '<pre>';var_dump($details['row']);exit;
