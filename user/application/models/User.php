@@ -333,8 +333,7 @@ class UserModel{
 
 		$where = '(username=:username AND (password = :password OR password = :password1) OR mobile=:mobile AND (password = :password OR password = :password1)) AND status=:status';
 		return self::$userObj->fields('id,username,mobile,password,type')->where($where)->bind(array('username'=>$userAcc,'password'=>sha1($password),'password1'=>base64_encode(md5($password,16)),'mobile'=>$userAcc, 'status' => \nainai\user\User::NOMAL))->getObj();
-
-
+		// return self::$userObj->fields('id,username,mobile,password,type')->where("username='{$userAcc}'")->getObj();
 	}
 
 

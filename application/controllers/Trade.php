@@ -273,6 +273,8 @@ class tradeController extends \nainai\controller\Base {
 		if (IS_POST) {
 			$Model = new \nainai\offer\PurchaseReport();
 			$offer_id = safe::filterPost('id', 'int');
+			$order = new \nainai\order\Order();
+			$offer_info = $order->offerInfo($offer_id);
 			$obj = new \nainai\offer\PurchaseOffer();
 			$data = $obj->getPurchaseOffer($offer_id);
 
@@ -306,6 +308,12 @@ class tradeController extends \nainai\controller\Base {
 			);
 
 			$res = $Model->addPurchaseReport($reportData);
+			if($res['status'] == 1){
+				$mess = new \nainai\message($offer_info['user_id']);
+				$jump_url = "<a href='".url::createUrl('/Purchase/lists@user')."'>跳转到采购列表页</a>";
+				$content = '您的采购：'.$offer_info['product_name'].',有新的报价。'.$jump_url;
+				$mess->send('common',$content);
+			}
 			die(json::encode($res));
 		}else{
 			$this->error('错误的操作!');

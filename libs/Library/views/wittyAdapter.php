@@ -19,6 +19,7 @@ class wittyAdapter implements \Yaf\View_Interface {
 	 * @param array $config Configuration key-value pairs.
 	 */
 	public function __construct($config) {
+
 		// set template path
 		$this->witty = new witty();
 		//³õÊ¼»¯Ä¿Â¼
