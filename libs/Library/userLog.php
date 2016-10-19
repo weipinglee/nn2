@@ -34,8 +34,9 @@ class userLog  extends \Library\log\baselog
 	        //线上
 	        $reModel->join = 'left join user as u on r.author = u.id';
 	        $reModel->fields = 'r.*, u.username';
+	        $reModel->order = 'datetime desc';
 	        if (  isset($condition['pid'])) {
-	        	$reModel->where = 'u.pid=:pid';
+	        	$reModel->where = 'u.pid=:pid OR r.author=:pid';
 	        	$reModel->bind = array('pid' => $condition['pid']);
 	        }
 

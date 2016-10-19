@@ -32,7 +32,7 @@
 									<td>{$list['create_time']}</td>
 									<td><span class="col000000">{$list['status_text']}</span></td>
 									<td><a href="{url:/ucenter/subaccpow?id=$list['id']}">分配权限</a>
-									<a href="{url:/fund/zz?id=$list['id']}">转账</a>
+									<a href="{url:/fund/subaccindex?id=$list['id']}">转账</a>
 									</td>
 								</tr>
 								{/foreach}

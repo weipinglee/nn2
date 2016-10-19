@@ -437,6 +437,43 @@ class FundController extends UcenterBaseController {
         }
     }
 
+    public function subaccindexAction(){
+    	$id = $this->_request->getParam('id');
+	$id = Safe::filter($id, 'int', 0);
+	if (intval($id) <= 0) {
+		$this->error('错误的访问方式');
+	}
+    	$where = array();
+	$cond['begin'] = safe::filterGet('begin');
+	$cond['end'] = safe::filterGet('end');
+	$cond['day'] = safe::filterGet('day','int',7);
+	$cond['no'] = safe::filterGet('Sn');
+
+	if($cond['begin'] || $cond['end']){
+		$where = array('begin'=>$cond['begin'],'end'=>\Library\time::getDateTime('',strtotime($cond['end'])+24*3600-1));
+	}
+	else if($cond['day']){
+		$where['begin'] = \Library\time::getDateTime('',time()-$cond['day']*24*3600);
+	}
+
+	if($cond['no'])
+		$where['no'] = $cond['no'];
+	$fundObj = \nainai\fund::createFund(1);
+
+	$active = $fundObj->getActive($id);
+	$freeze = $fundObj->getFreeze($id);
+	$flowData = $fundObj->getFundFlow($id,$where);
+
+	$this->getView()->assign('freeze',$freeze);
+	$this->getView()->assign('uid',$id);
+	$this->getView()->assign('active',$active);
+	$this->getView()->assign('flow',$flowData);
+	$this->getView()->assign('cond',$cond);
+    }
+
+    /**
+     * 转账
+     */
     public function zzAction(){
     	$fundObj = \nainai\fund::createFund(1);
 
@@ -473,6 +510,49 @@ class FundController extends UcenterBaseController {
 		$this->error('错误的访问方式');
 	}
 
+	$this->getView()->assign('active',$active);
+	$this->getView()->assign('uid',$id);
+	$token =  \Library\safe::createToken();
+	$this->getView()->assign('token',$token);
+    }
+
+    public function zztxAction(){
+    	$fundObj = \nainai\fund::createFund(1);
+    	
+    	if (IS_POST) {
+    		$token = safe::filterPost('token');
+		if(!safe::checkToken($token))
+			 // die(json::encode(\Library\tool::getSuccInfo(0,'转账失败')) ) ;
+		$to_user = safe::filterPost('uid', 'int');
+		$active = $fundObj->getActive($to_user);
+		if (intval($to_user) < 1) {
+			die(json::encode(\Library\tool::getSuccInfo(0,'错误的用户！')) ) ;
+		}
+		$user = new \nainai\user\User();
+		$info = $user->getUser($to_user, 'pid, username');
+		if ($info['pid'] != $this->user_id) {
+			die(json::encode(\Library\tool::getSuccInfo(0,'不是该账户的子账户！')) ) ;
+		}
+		$data = array(
+			'amount' => safe::filterPost('amount', 'float'),
+			'note' => '转账备注：' . safe::filterPost('note'),
+			'username' => $info['username']
+		);
+		if (intval($data['amount']) <= 0 OR bccomp($active, $data['amount']) == -1) {
+			die(json::encode(\Library\tool::getSuccInfo(0,'转账失败,转账金额不正确！')) ) ;
+		}
+		
+		$fundModel = new fundModel();
+		$res = $fundModel->transfer($to_user, $this->user_id, $data);
+		exit(json::encode($res));
+    	}
+    	$id = $this->_request->getParam('id');
+	$id = Safe::filter($id, 'int', 0);
+	
+	if (intval($id) <= 0) {
+		$this->error('错误的访问方式');
+	}
+	$active = $fundObj->getActive($id);
 	$this->getView()->assign('active',$active);
 	$this->getView()->assign('uid',$id);
 	$token =  \Library\safe::createToken();
