@@ -93,9 +93,10 @@
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
+                            <input type="hidden" name='mode' id="mode" value="weitou">
                                 <input type="hidden" name="token" value="{$token}" />
                                 <input  type="submit"  value="提交审核" />
-                                <span class="color">需在线下支付总金额的{if:!empty($rate)}{$rate['value']}{if:$rate['type'] == 0}%{else:}元{/if}{else:}0{/if}的委托金</span>
+                                <span class="color">需在线下支付总金额的<span id='weitou'>{if:!empty($rate)}{$rate['value']}{if:$rate['type'] == 0}%{else:}元{/if}{else:}0{/if}</span>的委托金</span>
                             </td>
                         </tr>
 

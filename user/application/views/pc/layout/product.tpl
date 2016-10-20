@@ -85,6 +85,7 @@
         <td colspan="2">
              <span><input class="Wdate text" datatype="*" value="{$offer['expire_time']}" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"
                            name="expire_time" value="">
+                           有效期不能超过二十年
                  </span>
             <span></span>
         </td>

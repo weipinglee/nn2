@@ -126,11 +126,12 @@ function getCategory(cate,attr){
         click = false;
          cate_id = cate;
     }
+    var mode = $('#mode').val();
 
     $.ajax({
         'url' :  attr_url,
         'type' : 'post',
-        'data' : {pid : cate_id},
+        'data' : {pid : cate_id, 'mode':mode},
         'dataType': 'json',
         success:function(data){//alert(JSON.stringify(data));
             if(click){
@@ -138,6 +139,17 @@ function getCategory(cate,attr){
                 this_div.nextAll('.class_jy').remove();
                 var pro_add = $('#productAdd');
                 $('input[name=cate_id]').val(data.defaultCate);
+
+                  if (mode == 'weitou') {
+                            if (data.rate.type == 0) {
+                                 $('#weitou').html(data.rate.value + '%');
+                            }else if(data.rate.type == 1){
+                                $('#weitou').html(data.rate.value + '元');
+                            }else{
+                                $('#weitou').html(0);
+                            }
+                           
+                        }
                 if(data.cate){
                     $.each(data.cate,function(k,v){
 
