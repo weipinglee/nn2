@@ -296,7 +296,7 @@ class tradeController extends \nainai\controller\Base {
 				exit();
 			}
 			$attrs = Safe::filterPost('attribute');
-
+			
 			$reportData = array(
 				'offer_id' => $offer_id,
 				'attr' => empty($attrs) ? '' : serialize($attrs),

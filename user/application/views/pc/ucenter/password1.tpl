@@ -1,4 +1,6 @@
-﻿
+﻿<script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
+ <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
+  <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
 			<div class="user_c">
 				<div class="user_zhxi">
 				<form method="post" action="{url:/ucenter/chgPass}" auto_submit >
