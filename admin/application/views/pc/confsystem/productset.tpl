@@ -95,15 +95,6 @@
             </div>            
         </div>
     <div class="tabCon" style="display: block;">
-                <div class="row cl">
-                    <label class="form-label col-2"></label>
-                    <div class="formControls col-10">点击手工开市后系统立马进入到交易状态，手工开市不受日结时间限制
-                    </div>
-                </div>
-
-            <div class="cb">
-                
-            </div>
 
         <div class="row cl">
             <div class="col-10 col-offset-2">

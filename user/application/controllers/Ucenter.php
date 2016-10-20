@@ -486,7 +486,7 @@ class UcenterController extends UcenterBaseController {
             }
             if($res['success']==1){
                 $userLog=new \Library\userLog();
-                $userLog->addLog(['action'=>'添加子账户','content'=>'添加了子账户']);
+                $userLog->addLog(['action'=>'添加子账户','content'=>'添加了子账户:' . $data['username']]);
             }
             die(json::encode($res));
         }
