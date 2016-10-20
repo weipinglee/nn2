@@ -26,6 +26,9 @@ class searchConfig {
         'user' => array(
             'time' => array('create_time','创建时间'),
             'like' => array('username','用户名'),
+        ),
+         'user_log' => array(
+            'like' => array('username','用户名'),
         )
 
     );

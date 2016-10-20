@@ -15,7 +15,7 @@ class DealTotal extends \nainai\Abstruct\ModelAbstract{
 	 */
 	public function getLastList(){
 		$lists = array();
-		$sql = 'SELECT a.* FROM (SELECT * FROM nn2.deal_total order by create_time desc) as a   group by user_id';
+		$sql = 'SELECT a.* FROM (SELECT * FROM deal_total order by create_time desc) as a   group by user_id';
 		$list = $this->model->query($sql);
 		if ( ! empty($list)) {
 			foreach ($list as $key => $value) {

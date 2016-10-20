@@ -1,13 +1,13 @@
 
-/user/public/_thumb/*
+/user/_thumb/*
 /user/application/runtime/*
-/user/public/upload/*
-/admin/public/_thumb/*
+/user/upload/*
+/admin/_thumb/*
 /admin/application/runtime/*
-/admin/public/upload/*
-/deal/public/_thumb/*
-/deal/public/upload/*
-/deal/application/runtime/*
+/admin/upload/*
+/_thumb/*
+/upload/*
+/application/runtime/*
 /.idea
 *.ini
 /Users/panduo/Sites/nn2/libs/Library/configs.php

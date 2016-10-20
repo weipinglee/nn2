@@ -16,7 +16,6 @@ class UcenterIndexController extends UcenterBaseController {
 
         $groupData = $group->getUserGroup($this->user_id);//会员分组数据
         $creditGap = $group->getGroupCreditGap($this->user_id);//与更高等级的分组的差值
-
         $this->getView()->assign('username',$this->username);
         $this->getView()->assign('user_type', $this->user_type);
         
