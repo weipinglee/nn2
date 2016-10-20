@@ -102,8 +102,10 @@ class OfferManageModel extends \nainai\offer\product{
 
 			$info['sign_thumb'] = \Library\thumb::get($info['sign'],150,150);
 			$info = array_merge($info,$product);
-
-
+			if ($info['mode'] == \nainai\offer\product::DEPUTE_OFFER) {
+				$Obj = new \nainai\system\EntrustSetting();
+			            $info['rate'] = $Obj->getRate($info['cate_id']);
+			}
 		}
 		return $info ? $info : array();
 	}

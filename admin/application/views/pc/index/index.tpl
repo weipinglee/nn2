@@ -77,6 +77,7 @@
                                 <li><a href="{url:system/Confsystem/scaleOfferOper}" target="content">报盘费率设置</a></li>
                                 <li><a href="{url:system/Confsystem/entrustList}" target="content">委托费率设置</a></li>
                                 <li><a href="{url:system/Confsystem/generalList}" target="content">一般设置</a></li>
+                                <li><a href="{url:system/Confsystem/productset}" target="content">商品排序设置</a></li>
                             </ul>
                         </li>
                         <li><a target="content">管理员信息</a>
