@@ -234,7 +234,7 @@ class OffersController extends PublicController {
 			if(time() > strtotime($info['expire_time'])){
 				$this->error('报盘不存在或已过期');
 			}
-
+			
 			$pro = new \nainai\offer\product();
 			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
 			$kefuData = array();

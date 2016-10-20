@@ -380,10 +380,10 @@ class Order{
 	//根据报盘id获取相应信息
 	public function offerInfo($offer_id){
 		$query = new Query('product_offer as po');
-		$query->join = 'left join user as u on po.user_id = u.id';
+		$query->join = 'left join user as u on po.user_id = u.id left join products as p on po.product_id = p.id';
 		$query->where = " po.id = :id";
 		$query->bind = array('id'=>$offer_id);
-		$query->fields = "po.*,u.username";
+		$query->fields = "po.*,u.username,p.name as product_name";
 		$res = $query->getObj();
 		return $res ? $res : array();
 	}
@@ -797,7 +797,7 @@ class Order{
 				$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
 				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order['user_id'];
 				if($reduceData['reduce_amount'] >= $order['pay_deposit'])
-					return tool::getSuccInfo(0,'扣减货款不能超过或等于定金数额');
+					return tool::getSuccInfo(0,'扣减货款不能超过或等于定金数额'.$order['pay_deposit']);
 				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'操作用户错误');
 				$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//状态置为买家已确认质量

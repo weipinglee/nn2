@@ -243,6 +243,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 			}
             $userModel = new UserModel();
             $userData = $userModel->checkUser($account,$password);
+            
             if(empty($userData)){//账户密码错误
                 $data['errorCode'] = 5;
             }

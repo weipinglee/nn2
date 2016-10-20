@@ -93,7 +93,7 @@ class IndexController extends PublicController {
 		$this->getView()->assign('allCompany',$allCompany);
 		$this->getView()->assign('adList',$adList);
 		$this->getView()->assign('creditMember',$creditMember);
-		$this->getView()->assign('statcCatList',\Library\json::encode($statcCatList));
+		// $this->getView()->assign('statcCatList',\Library\json::encode($statcCatList));
 		$this->getView()->assign('statcProList',$statcProList);
 		$this->getView()->assign('company',$company);
 		$this->getView()->assign('topCat',$topCat);

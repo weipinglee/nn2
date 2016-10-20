@@ -10,7 +10,7 @@
 			<form method="post" action="{url:/Order/verifyQaulity}" auto_submit redirect_url="{url:/contract/buyerlist}">
 				<input type="hidden" name="order_id" value="{$order_id}"/>
 				<div class="zhxi_con">
-					<span class="con_tit"><i></i>可扣减金额：</span>
+					<span class="con_tit"><i></i>定金数额：</span>
 					<span><input class="text" type="text"  disabled="disabled" value="{$max_reduce}" style="border:none;" /></span>
 					<span></span>
 				</div>
@@ -24,6 +24,12 @@
 					<span><textarea name="remark" datatype="*"></textarea></span>
 					<span></span>
 
+				</div>
+				<div class="zhxi_con">
+					<span class="con_tit"><i></i>扣减金额需小于定金数额</span>
+					<span></span>
+					<span></span>
+				
 				</div>
 				<div class="zhxi_con">
 					<span><input class="submit" confirm=1 type="submit" value="提交"/></span>

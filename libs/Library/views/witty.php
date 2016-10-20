@@ -113,7 +113,6 @@ class witty{
         $template = $this->_tpl_dir.$tpl;
         extract($this->_tpl_vars);
 
-
         if (!file_exists($template)) {
             exit('ERROR:模板文件不存在！');
         }
