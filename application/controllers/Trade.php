@@ -296,7 +296,7 @@ class tradeController extends \nainai\controller\Base {
 				exit();
 			}
 			$attrs = Safe::filterPost('attribute');
-			
+
 			$reportData = array(
 				'offer_id' => $offer_id,
 				'attr' => empty($attrs) ? '' : serialize($attrs),
@@ -308,7 +308,7 @@ class tradeController extends \nainai\controller\Base {
 			);
 
 			$res = $Model->addPurchaseReport($reportData);
-			if($res['status'] == 1){
+			if($res['success'] == 1){
 				$mess = new \nainai\message($offer_info['user_id']);
 				$jump_url = "<a href='".url::createUrl('/Purchase/lists@user')."'>跳转到采购列表页</a>";
 				$content = '您的采购：'.$offer_info['product_name'].',有新的报价。'.$jump_url;
