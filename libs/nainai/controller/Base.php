@@ -22,6 +22,7 @@ class Base extends \Yaf\Controller_Abstract{
 	 protected function init(){
 		$right = new checkRight();
 		$right->checkLogin($this);//未登录自动跳到登录页
+		
 		 if(isset($this->user_id) && $this->user_id>0){
 			 $this->getView()->assign('login',1);
 			 $this->getView()->assign('username',$this->username);

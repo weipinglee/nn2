@@ -16,7 +16,7 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 			error_reporting(E_ALL);
 		}
 		else{
-			error_reporting(0);
+			// error_reporting(0);
 		}
 		//把配置保存起来
 		$this->config = Yaf\Application::app()->getConfig();
@@ -51,6 +51,8 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 	}
 	
 	public function _initView(Yaf\Dispatcher $dispatcher){
+
+		// echo '<pre>';var_dump(\Yaf\Registry::get("config"));exit;
 		$view = new wittyAdapter(\Yaf\Registry::get("config")->witty);
 		$dispatcher->setView($view);
 	}
