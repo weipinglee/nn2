@@ -398,6 +398,11 @@ class ManagerDealController extends UcenterBaseController {
                     $risks = array();
                     $risks = $risk->getRiskDetail($risk_data);
                 }
+                $mode = safe::filterPost('mode');
+                if ($mode == 'weitou') {
+                            $Obj = new \nainai\system\EntrustSetting();
+                            $cate['rate'] = $Obj->getRate($pid);
+                }
                 $cate['risk_data'] = $risks;
                 unset($cate['chain']);
                 echo JSON::encode($cate);
