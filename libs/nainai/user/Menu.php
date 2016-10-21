@@ -147,12 +147,14 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 				}
 			}
 			
-			$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url,status, position')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
-			
-			foreach($menuList as $k=>$v){
-				if($v['menu_url']!='')
-					$menuList[$k]['menu_url'] = \Library\url::createUrl($menuList[$k]['menu_url']);
-				// $menuList[$k]['url'] = $menuList[$k]['menu_url'];
+			if ( $userPur != '' ) {
+				$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url,status, position')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
+
+				foreach($menuList as $k=>$v){
+					if($v['menu_url']!='')
+						$menuList[$k]['menu_url'] = \Library\url::createUrl($menuList[$k]['menu_url']);
+					// $menuList[$k]['url'] = $menuList[$k]['menu_url'];
+				}
 			}
 		}
 
@@ -283,16 +285,18 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 		 	}
 		 }
 		 if ($id == 0) {
-		 	$this->navi = array_reverse($this->navi);
-		 	$count = count($this->navi);
-			 foreach ($this->navi as $key => $value) {
-			 	$navi .= '<a href="'. $value['menu_url'] .'">' .$value['menu_zn']. '</a>';
-			 	if (++$key < $count) {
-			 		$navi .= '>';
-			 	}
-			 }
-			 $navi .= '</p>';
+		 	if ( ! empty($this->navi) ) {
+		 		$this->navi = array_reverse($this->navi);
+			 	$count = count($this->navi);
+				 foreach ($this->navi as $key => $value) {
+				 	$navi .= '<a href="'. $value['menu_url'] .'">' .$value['menu_zn']. '</a>';
+				 	if (++$key < $count) {
+				 		$navi .= '>';
+				 	}
+				 }
+		 	}
 		 }
+		 $navi .= '</p>';
 		 return $navi;
 	}
 
