@@ -120,7 +120,9 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 				$user = $this->model->table('user')->where(array('id'=>$uid))->fields('gid,pid')->getObj();
 
 				if($user['pid'] != 0){//子账户权限
-					$userPur = unserialize($user['gid']);
+					if ( ! empty($user['gid'])) {
+						$userPur = unserialize($user['gid']);
+					}
 				}else{
 					$roleIds['public'] = $this->publicRole;
 					$where = 'cert in (:public';
