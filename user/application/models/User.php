@@ -216,7 +216,17 @@ class UserModel{
 			$user->password = $data['password'] = sha1($data['password']);
 
 			$res = $user->add();
-
+			if (intval($res) > 0) {
+				$data = array(
+					'user_id' => $res,
+					'fund' => 0,
+					'freeze' => 0,
+					'ticket' => 0,
+					'ticket_freeze' => 0,
+					'credit' => 0
+				);
+				$re = $user->table('user_account')->data($data)->add();
+			}
 		}
 		else{
 			$res = $user->getError();
@@ -250,7 +260,6 @@ class UserModel{
 
 
 			$res = $user->where(array('id'=>$user_id,'pid'=>$data['pid']))->update();
-
 		}
 		else{
 			$res = $user->getError();
@@ -332,8 +341,7 @@ class UserModel{
 	public function checkUser($userAcc,$password){
 
 		$where = '(username=:username AND (password = :password OR password = :password1) OR mobile=:mobile AND (password = :password OR password = :password1)) AND status=:status';
-		return self::$userObj->fields('id,username,mobile,password,type')->where($where)->bind(array('username'=>$userAcc,'password'=>sha1($password),'password1'=>base64_encode(md5($password,16)),'mobile'=>$userAcc, 'status' => \nainai\user\User::NOMAL))->getObj();
-		// return self::$userObj->fields('id,username,mobile,password,type')->where("username='{$userAcc}'")->getObj();
+		return self::$userObj->fields('id,username,mobile,password,type, pid')->where($where)->bind(array('username'=>$userAcc,'password'=>sha1($password),'password1'=>base64_encode(md5($password,16)),'mobile'=>$userAcc, 'status' => \nainai\user\User::NOMAL))->getObj();
 	}
 
 

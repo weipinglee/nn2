@@ -203,8 +203,8 @@ class entrustOrder extends Order{
 						$obj = new \nainai\system\EntrustSetting();
 						$percent = $obj->getRate($offerInfo['cate_id']);
 						// $percent = $this->entrustFee($order_id);
-						if(!$percent || !$percent['value'])
-							return tool::getSuccInfo(0,'委托金设置错误,请联系客服人员');
+						// if( empty($percent) )
+						// 	return tool::getSuccInfo(0,'委托金设置错误,请联系客服人员');
 						$seller_deposit = $percent['type'] == 0 ? number_format($info['amount'] * $percent['value'] / 100,2) : $percent['value'];
 
 						//冻结卖方帐户委托金

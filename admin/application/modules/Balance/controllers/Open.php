@@ -68,7 +68,6 @@ class OpenController extends InitController {
 						$deal = new \nainai\fund\DealTotal();
 						$preData = $deal->getLastList();//获取上次日结数据
 						foreach ($fundData as $key => &$value) {
-							$value['end_fund'] = $value['use_fund'] + $value['freeze_fund'];
 							if ( ! empty($preData[$value['user_id']])) {
 								//期初资金：前一个交易日的期末资金
 								$value['begin_fund'] = $preData[$value['user_id']]['end_fund'];
@@ -84,6 +83,7 @@ class OpenController extends InitController {
 							}
 							//期末冻结资金：上次统计的期末冻结资 + 这次日结的冻结金额 - 解冻金额
 							$value['end_freeze_fund'] = $value['end_freeze_fund'] + $value['freeze_fund'] - abs($value['thaw_fund']);
+							$value['end_fund'] = $value['use_fund'] + $value['end_freeze_fund'];
 						}
 						$res = $deal->addsDealTotal($fundData);
 						$res = $model->updateDealSetting($data, 1);

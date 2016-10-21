@@ -186,8 +186,12 @@ $(function(){
                                     {foreach:items=$newTrade}
                                         <li style="opacity: 1.0000000000000007;">
                                             {set:$time=date('m-d',strtotime($item['create_time']))}
+                                            {if: ! empty($item['username'])}
                                             {set:$userName=mb_substr($item['username'],0,4,'utf-8')}
                                             <i>{$userName}****</i>
+                                            {else:}
+                                            <i>****</i>
+                                            {/if}
                                             {if:$item['type']==1}
                                                 <em class="red">售出</em>
                                             {else:}
