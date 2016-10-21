@@ -1320,7 +1320,7 @@ class Order{
 					$title = '等待买方付款';
 					break;	
 				case self::CONTRACT_SELLER_DEPOSIT:
-					$title = $value['mode'] == self::ORDER_DEPOSIT ? '支付保证金' : '支付委托金';
+					$title = in_array($value['mode'],array(self::ORDER_DEPOSIT,self::ORDER_PURCHASE)) ? '支付保证金' : '支付委托金';
 					$href  = $value['mode'] == self::ORDER_DEPOSIT ? url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']) : url::createUrl('/Deposit/sellerEntrustDeposit?order_id='.$value['id']);
 					break;
 				case self::CONTRACT_CANCEL:

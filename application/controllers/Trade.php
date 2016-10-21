@@ -228,6 +228,17 @@ class tradeController extends \nainai\controller\Base {
 			}
 		}
 
+		//卖家资质
+		$certObj = new \nainai\cert\certificate();
+		$certStatus = $certObj->getCertStatus($info['user_id'],'deal');
+		if($certStatus['status']==4){
+			$mess = new \nainai\message($info['user_id']);
+			$mess->send('credentials');
+			$this->getView()->assign('no_cert',1);
+		}else{
+			$this->getView()->assign('no_cert',0);
+		}
+
 		$this->getView()->assign('user_id',$this->user_id ? $this->user_id : 0);
 		$this->getView()->assign('data',$info);
 

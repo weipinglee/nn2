@@ -25,6 +25,7 @@ class PurchaseOrderController extends OrderController{
 			$id = safe::filterPost('id','int');
 			$account = safe::filterPost('account','int');
 			$order = new \nainai\order\PurchaseOrder();
+			
 			$res = $order->purchaseOrder($id,0,$account);
 			die(json::encode($res));
 		}
