@@ -63,7 +63,7 @@ z-index:1000;">
       <ul class="topnav_left">
         <li><a href="{url:/index/index@deal}"><img class="shouy mobil" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
         <li class="space">
-          {if:$username}您好，
+          {if:isset($username)}您好，
                 <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">{$username}</a>
                 {else:}
                 <span>您好，欢迎进入耐耐网</span>
