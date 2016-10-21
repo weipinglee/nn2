@@ -42,7 +42,7 @@
             </div>
 
             <div class="index_user">
-            {if:$username}
+            {if:isset($username)}
                 <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">您好，{$username}</a>
                 {else:}
                 <span>您好，欢迎进入耐耐网</span>
