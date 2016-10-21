@@ -82,7 +82,7 @@ class OpenController extends InitController {
 								$value['end_freeze_fund'] = 0;
 							}
 							//期末冻结资金：上次统计的期末冻结资 + 这次日结的冻结金额 - 解冻金额
-							$value['end_freeze_fund'] = $value['end_freeze_fund'] + $value['freeze_fund'] - abs($value['thaw_fund']);
+							$value['end_freeze_fund'] = $value['end_freeze_fund'] + $value['freeze_fund'] - $value['thaw_fund'];
 							$value['end_fund'] = $value['use_fund'] + $value['end_freeze_fund'];
 						}
 						$res = $deal->addsDealTotal($fundData);
