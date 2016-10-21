@@ -216,7 +216,17 @@ class UserModel{
 			$user->password = $data['password'] = sha1($data['password']);
 
 			$res = $user->add();
-
+			if (intval($res) > 0) {
+				$data = array(
+					'user_id' => $res,
+					'fund' => 0,
+					'freeze' => 0,
+					'ticket' => 0,
+					'ticket_freeze' => 0,
+					'credit' => 0
+				);
+				$re = $user->table('user_account')->data($data)->add();
+			}
 		}
 		else{
 			$res = $user->getError();
@@ -250,7 +260,6 @@ class UserModel{
 
 
 			$res = $user->where(array('id'=>$user_id,'pid'=>$data['pid']))->update();
-
 		}
 		else{
 			$res = $user->getError();
