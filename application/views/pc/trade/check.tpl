@@ -22,7 +22,7 @@
     </div>
    </div> 
 <div class="clearfix"></div> 
- 
+
 <form method="post" {if:$data['show_payment']}pay_secret="1" has_secret="{url:/index.php/trade/hasPaySecret}"{/if} auto_submit="1" action='{url:/index.php/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
 
     <!--主要内容 开始-->
@@ -193,8 +193,8 @@
              {/if}
             <!-- <a class="btoncomit" href="submit_order-3.html">提交订单</a> -->
             {if:$data['show_payment']}<span>应支付金额：<i>￥</i><b class='pay_deposit'>{$data['minimum_deposit']}</b></span>{/if}
-
-           </div>
+            
+            </div> 
 
 
              </div>
@@ -237,13 +237,17 @@
                     });
 
                     $('.btoncomit').click(function(){
-
+                        
                         if({$user_id} == 0){
                           window.location.href='{url:/login/login@user}'+'?callback='+window.location.href;
                         }else{
-                          if(isnum_valid()) {
-                              $(this).parents('form').submit();
-                          }  
+                          if({$no_cert}){
+                            layer.msg('该商品的发布商家资质不够，暂时不能购买');
+                          }else{
+                            if(isnum_valid()) {
+                                $(this).parents('form').submit();
+                            }  
+                          }
                         }
                         
 

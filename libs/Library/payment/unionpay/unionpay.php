@@ -26,7 +26,7 @@ class unionpay extends paymentplugin {
 	public function getSubmitUrl() {
 		return SDK_FRONT_TRANS_URL;//前台提交地址
 	}
-
+	
 	/**
 	 * @see paymentplugin::getRefundUrl()
 	 */

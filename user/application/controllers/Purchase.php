@@ -36,7 +36,7 @@ class PurchaseController extends UcenterBaseController{
 		 //获取商品分类信息，默认取第一个分类信息
 	        $productModel = new product();
 	        $category = $productModel->getCategoryLevel();
-
+	        
 	        $attr = $productModel->getProductAttr($category['chain']);
 
 	        $this->getView()->assign('categorys', $category['cate']);

@@ -31,8 +31,8 @@ class message{
 		'offer',
 		'store',
         'common',
-		'credentials'
-
+		'credentials',
+		'repcredentials'
 	);
 	/**
 	 * [__construct 构造方法]
@@ -92,7 +92,16 @@ class message{
 	}
 	public function credentials(){
 		$title='交易提醒';
-		$message='有客户购买您的商品,请您及时完善您的资质信息';
+		$message='有用户购买您的商品，由于您未完善资质信息，此交易暂不能进行。为保证您的正常交易，请您及时完善资质信息进行认证';
+		return array(
+			'title'=>$title,
+			'content'=>$message
+		);
+	}
+
+	public function repcredentials(){
+		$title='交易提醒';
+		$message='有用户选择您的报价，由于您未完善资质信息，此交易暂不能进行。为保证您的正常交易，请您及时完善资质信息进行认证';
 		return array(
 			'title'=>$title,
 			'content'=>$message

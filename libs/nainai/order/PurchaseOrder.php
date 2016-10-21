@@ -34,9 +34,17 @@ class PurchaseOrder extends Order{
 		$purchase_info = $query->getObj();
 
 		if(empty($purchase_info['order_id'])){
-
+			
+			$certObj = new \nainai\cert\certificate();
+			$certStatus = $certObj->getCertStatus($purchase_info['seller_id'],'deal');
+			if($certStatus['status']==4){
+				$mess = new \nainai\message($purchase_info['seller_id']);
+				$mess->send('repcredentials');
+				return tool::getSuccInfo(0,'该报价的发布商家资质不够，暂时不能选择');
+			}
+			
 			$product_info = $this->products->where(array('id'=>$purchase_info['product_id']))->getObj();
-
+			
 			try {
 				$this->offer->beginTrans();
 				$this->offer->data(array('price'=>$purchase_info['price']))->where(array('id'=>$purchase_info['offer_id']))->update();
