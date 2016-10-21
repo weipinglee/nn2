@@ -379,12 +379,15 @@ class DaoruController extends \Yaf\Controller_Abstract
         $model->beginTrans();
 
         $model->query('truncate table user');
+        $model->query('truncate table dealer');
         $model->query('truncate table company_info');
         $model->query('truncate table person_info');
         $model->query('truncate table user_account');
         $model->query('truncate table user_bank');
         $model->query('truncate table user_invoice');
-
+        $model->query('truncate table withdraw_request');
+        $model->query('truncate table recharge_order');
+        $model->query('truncate table user_fund_flow');
         if($model->commit()){
             echo 'ok';
         }
@@ -417,7 +420,10 @@ class DaoruController extends \Yaf\Controller_Abstract
      */
     protected function getTime($time){
         $y = '20'.mb_substr($time,9,2);
-        $m = mb_substr($time,3,1);
+        $pos = mb_substr($time,5,3);
+        if($pos=='月')
+            $m = mb_substr($time,3,2);
+        else $m = mb_substr($time,3,1);
         $d = mb_substr($time,0,2);
         $h = intval(mb_substr($time,12,2));
         $min = mb_substr($time,15,2);
@@ -430,6 +436,8 @@ class DaoruController extends \Yaf\Controller_Abstract
         $format = $y.'-'.$m.'-'.$d.' '.$h.':'.$min.':'.$sen;
         return $format;
     }
+
+
 
 
 }
