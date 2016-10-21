@@ -235,8 +235,10 @@ class tradeController extends \nainai\controller\Base {
 			$mess = new \nainai\message($info['user_id']);
 			$mess->send('credentials');
 			$this->getView()->assign('no_cert',1);
+		}else{
+			$this->getView()->assign('no_cert',0);
 		}
-		
+
 		$this->getView()->assign('user_id',$this->user_id ? $this->user_id : 0);
 		$this->getView()->assign('data',$info);
 

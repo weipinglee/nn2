@@ -605,8 +605,12 @@ $(function(){
                                     <?php if(!empty($newTrade)) foreach($newTrade as $key => $item){?>
                                         <li style="opacity: 1.0000000000000007;">
                                             <?php $time=date('m-d',strtotime($item['create_time'])); ?>
+                                            <?php if( ! empty($item['username'])){?>
                                             <?php $userName=mb_substr($item['username'],0,4,'utf-8'); ?>
                                             <i><?php echo isset($userName)?$userName:"";?>****</i>
+                                            <?php }else{?>
+                                            <i>****</i>
+                                            <?php }?>
                                             <?php if($item['type']==1){?>
                                                 <em class="red">售出</em>
                                             <?php }else{?>
