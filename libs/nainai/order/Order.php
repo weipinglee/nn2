@@ -199,7 +199,7 @@ class Order{
 		
 				$content = '合同'.$info['order_no'].',申诉结果为：卖方违约，合同终止。根据交易规则，卖方将支付您该合同保证金的10%,请您关注资金动态。';
 				$mess_buyer->send('common',$content);
-
+				
 				$content = '合同'.$info['order_no'].',申诉结果为：卖方违约，合同终止。根据交易规则，将扣除您该合同保证金10%给买方,请您关注资金动态。';
 				$mess_seller->send('common',$content);
 				//将卖方保证金支付10%支付给买方 解冻货物
@@ -544,17 +544,19 @@ class Order{
 				}
 
 				if($info['mode'] == self::ORDER_ENTRUST){
-					$note = '合同'.$info['order_no'].'完成,解冻平台委托金 '.$info['seller_deposit'];
-					$fre_res = $this->account->freezeRelease($seller,$info['seller_deposit'],$note);
+					if($info['seller_deposit'] > 0){
+						$note = '合同'.$info['order_no'].'完成,解冻平台委托金 '.$info['seller_deposit'];
+						$fre_res = $this->account->freezeRelease($seller,$info['seller_deposit'],$note);
 
-					if($fre_res === true){
-						$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
+						if($fre_res === true){
+							$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
 
-						$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
+							$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
 
-						if($pay_res !== true ) $res = $pay_res;
-					}else{
-						$res = $fre_res;
+							if($pay_res !== true ) $res = $pay_res;
+						}else{
+							$res = $fre_res;
+						}
 					}
 					$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
 					if(is_object($account_deposit) && !$res){

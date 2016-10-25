@@ -227,7 +227,7 @@ class entrustOrder extends Order{
 							$log_res = $this->payLog($order_id,$user_id,1,'卖方支付委托金');
 							//信誉值增加
 							$configs_credit = new \nainai\CreditConfig();
-							$cre_res = $configs_credit->changeUserCredit($seller,'cert_margin',$seller_deposit);
+							$cre_res = $seller_deposit == 0 ? true : $configs_credit->changeUserCredit($seller,'cert_margin',$seller_deposit);
 							
 							$res = ($cre_res && $log_res === true) ? true : $log_res.$cre_res;
 						}else{
@@ -237,7 +237,7 @@ class entrustOrder extends Order{
 							$account = $this->base_account->get_account($payment);
 							// var_dump($account);exit;
 							if(!is_object($account)) return tool::getSuccInfo(0,$account);
-							$res = $account->freeze($seller,$seller_deposit,$note);
+							$res = $seller_deposit == 0 ? true : $account->freeze($seller,$seller_deposit,$note);
 							
 							$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 							$content = '合同'.$info['order_no'].'报价方已支付委托金,请您及时支付尾款。'.$jump_url;
