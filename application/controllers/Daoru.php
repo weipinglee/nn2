@@ -418,7 +418,7 @@ class DaoruController extends \Yaf\Controller_Abstract
      * @param $time
      * @return string
      */
-    protected function getTime($time){
+    protected function getTime($time,$type='1'){
         $y = '20'.mb_substr($time,9,2);
         $pos = mb_substr($time,5,3);
         if($pos=='月')
@@ -434,8 +434,293 @@ class DaoruController extends \Yaf\Controller_Abstract
         }
 
         $format = $y.'-'.$m.'-'.$d.' '.$h.':'.$min.':'.$sen;
+		if($type==2)
+			$format = $y.'-'.$m.'-'.$d;
         return $format;
     }
+	
+	//生成报盘数据
+	public function createBaopanAction(){
+		$product = new M('tb_con_obj');
+		$productObj = new M('products');
+			$offerObj = new M('product_offer');
+		$data = $product->select();
+		//print_r($data);exit;
+		//新旧状态对应关系
+		$sta = array(
+				'A'=> 0,
+				'B' => 0,
+				'C' => 1,
+				'E' => 4,
+				'F' => 4
+				
+		);
+		
+		//记重方式
+		$weightType = array(
+				'A'=> '过磅',
+				'B' => '轨道衡',
+				'C' => '吃水',
+				'D' => '理论记值'
+		);
+		$productObj->beginTrans();
+		foreach($data as $key=>$val){
+			$proData = array();
+			$offerData = array();
+			if($val['bail_type']=='B'){//保证金报盘
+				$proData = array(//商品数据
+							'id'=>$val['conobj_key'],
+							'user_id'=> $val['customer_key'],
+							'unit' => $val['num_unit'],
+							'currency' => 1,
+							'quantity' => $val['goods_num'],
+							'sell' => $val['contrade_num'],
+							'create_time' => $val['apply_time'] == NULL ? $val['add_time'] : $val['apply_time'],
+							'note' => $val['quality_standard'],
+							'name' => $val['pinzhong']
+							
+				);
+				
+				$offerData = array(
+							'user_id'=> $val['customer_key'],
+							'type' => substr($val['conobj_id'],0,2) == 'GP' ? 1 : 2 ,
+							'mode' => 2,
+							'product_id' => $val['conobj_key'],
+							'price' => substr($val['conobj_id'],0,2) == 'GP' ? $val['order_price'] : 0,
+							'price_l' => substr($val['conobj_id'],0,2) == 'DG' ? $val['order_price'] : 0,
+							'divide' => $val['is_numsplit']=='Y' ? 1 : 0,
+							'minimum' => $val['min_obj_num'],
+							'minstep' => $val['min_obj_num_range'],
+							'accept_day' => $val['end_tran_date'],
+							'status' => isset($sta[$val['conobj_status']]) ? $sta[$val['conobj_status']] : 0,
+							'is_del' => $val['conobj_status']=='F' ? 1 : 0,
+							'apply_time' =>$val['apply_time'] == NULL ? $val['add_time'] : $val['apply_time'],
+							'expire_time' => $this->getTime($val['limit_date'],2),
+							'finish_time' => $val['check_time'],
+							'admin_msg' => $val['back_cause'],
+							'other' => $val['conobj_comment'],
+							'weight_type' => $weightType[$val['weight_type']],
+							
+							
+							
+							
+				);
+				
+				if($val['is_appoint']=='N'){//非指定仓库
+					$offerData['accept_area'] = $val['obj_address']=='无' ? '' : $val['obj_address'];
+					$offerData['accept_area'] .= $val['obj_dpt_name']=='无' ? '' : $val['obj_dpt_name'];
+				}
+				else{//指定仓库，还需找到仓库表
+					
+				}
+				if($val['is_back']=='Y'){
+					$offerData['status'] = 2;
+				}
+				$productObj->data($proData)->add();
+				$offerObj->data($offerData)->add();
+				
+				
+				
+				
+				
+			}
+			
+		}
+		if($productObj->commit()){
+			echo 'ok';
+		}
+		else echo 'ng';
+	}
+	
+	/**
+	*生成报盘图片
+	*/
+	public function createOfferPicAction(){
+		$picObj = new M('tb_bas_affix');
+		$proObj = new M('products');
+		$photoObj = new M('product_photos');
+		$picData = $picObj->where(array('table_name'=>'TB_CON_OBJ'))->select();
+		$proObj->beginTrans();
+		foreach($picData as $key=>$val){
+			$product_id = $val['table_key'];
+			$picUrl = 'upload/zhengda/upload'.$val['affix_path'].'@user';
+			$img = $proObj->where(array('id'=>$product_id))->getField('img');
+			if($img==''){
+				$proObj->data(array('img'=>$picUrl))->update();
+			
+			}
+			$photoObj->data(array('products_id'=>$product_id,'img'=>$picUrl))->add();
+			
+		}
+		if($proObj->commit()){
+			echo 'ok';
+		}
+		else echo 'ng';
+	}
+	
+	
+	/**
+	*生成报盘数据的分类数据
+	*/
+	public function createOfferCateAction(){
+		$proObj = new M('products');
+		$oldOffer = new M('tb_con_obj');
+		$cateObj = new M('product_category');
+		//$yiji = $cateObj->where(array('pid'=>0))->select();print_r($yiji);
+		$oldData = $oldOffer->select();
+		
+		$proObj->beginTrans();
+		foreach($oldData as $key=>$val){
+			$cateOld = $val['spmc'];
+			$conobj_key = $val['conobj_key'];
+			$newProduct = $proObj->where(array('id'=>$conobj_key))->getObj();
+			if(!empty($newProduct)){
+				$cateOld = explode('/',$cateOld);
+				
+				$firstID = $cateObj->where(array('name'=>$cateOld[0],'pid'=>0,'status'=>1,'is_del'=>0))->getField('id');//顶级分类的id
+				
+				if($firstID){
+					$secondID = $cateObj->where(array('pid'=>$firstID,'name'=>$cateOld[1]))->getField('id');
+					
+					if($secondID){
+						$thirdID = $this->getChildCate($secondID,$cateOld[2]);
+						
+						if($thirdID){
+							$newCateId = $thirdID;
+						}
+						else{
+							$newCateId = $secondID;
+						}
+					}
+					else{
+						$newCateId = $firstID;
+					}
+					
+					
+				}
+				else{
+					$newCateId = 0;
+				}
+				
+		
+				$proObj->where(array('id'=>$conobj_key))->data(array('cate_id'=>$newCateId))->update();
+			}
+		}
+		if($proObj->commit()){
+			echo 'ok';
+		}
+		else echo 'ng';
+	}
+	
+	 /**
+     * 生成商品属性
+     */
+	 public function createOfferAttrAction(){
+		$proObj = new M('products');
+		$oldOffer = new M('tb_con_obj');
+		$attrOld = new M('tb_bas_kc_spsx');
+		
+		$attrnew = new M('product_attribute');
+		$attrNewData = $attrnew->where(array('status'=>1))->select();
+		
+		$attrOldData = $attrOld->select();
+		$attrOldSim = array();//旧的属性数据，array(代码=>属性，代码=>属性)
+		$attrNewSim = array();//新的属性数据，array(属性=>新代码，属性=>新代码)
+		foreach($attrOldData as $key => $val){
+			$attrTemp = str_replace('<sub>','',$val['spsx_name']);
+			$attrTemp = str_replace('</sub>','',$attrTemp);
+			$attrOldSim['p'.$val['spsx_key']] = $attrTemp;
+			
+		}
+		
+		foreach($attrNewData as $key=>$val){
+			if(isset($attrNewSim[$val['name']]))
+				continue;
+			$attrNewSim[$val['name']] = $val['id'];
+		}
+		
+		$tables = array('tb_data_001','tb_data_002','tb_data_003',
+		'tb_data_005','tb_data_006','tb_data_007',
+		'tb_data_001001','tb_data_001002','tb_data_001003','tb_data_001004','tb_data_001005','tb_data_001006','tb_data_001007'
+		);
+		$proObj->beginTrans();
+		$attrDataObj = new M('tb_data_001');
+		foreach($tables as $t){
+			$attrDataObj->table($t);
+			$attrData = $attrDataObj->select();
+		
+			foreach($attrData as $key=>$val){
+				$proId = $val['linkkey'];
+				if(empty($proObj->where(array('id'=>$proId))->getObj())){
+					continue;
+				}
+				$attrArr = array();
+				foreach($val as $k=>$v){
+					if($k=='linkkey' || $k == 'linktype' || $v== NULL || $v==''){
+						continue;
+					}
+					$attrText = $attrOldSim[$k];
+					$newKey = isset($attrNewSim[$attrText]) ? $attrNewSim[$attrText] : 0;
+					if($newKey==0){
+						continue;
+					}
+					$attrArr[$newKey] = $v;
+					
+				}
+				if(!empty($attrArr)){//print_r($attrArr);
+					$attrSer = $proObj->where(array('id'=>$proId))->getField('attribute');
+					if($attrSer!=''){
+						$attrArr = array_merge($attrArr,unserialize($attrSer));
+					}
+					$proObj->data(array('attribute'=>serialize($attrArr)))->where(array('id'=>$proId))->update();
+				}
+			}
+		}
+		
+		if($proObj->commit()){
+			echo 'ok';
+		}
+		else echo 'ng';
+		
+	 }
+	
+	
+	  /**
+     * 获取某一个分类名为$name的下级分类，优先获取高层级的分类
+     * @param array
+     */
+    private function getChildCate($cate_id,$name){
+        $cateObj = new M('product_category');
+		$cates = $cateObj->where(array('pid'=>$cate_id,'status'=>1,'is_del'=>0))->select();
+		static $cateID = 0;
+		foreach($cates as $key=>$val){
+			if($val['name']==$name){
+				$cateID = $val['id'];
+				break;
+			}
+			else{
+				$this->getChildCate($val['id'],$name);
+			}
+				
+			
+		}
+	
+		return $cateID;
+    }
+	
+	//转换报盘数据表sql
+	public function getBaopanSqlAction(){
+		$sql = <<< OEF
+		
+		
+OEF;
+		$sql = str_replace('to_date(','str_to_date(',$sql);
+		$sql = str_replace('dd-mm-yyyy hh24:mi:ss','%d-%m-%Y %H:%i:%s</br>',$sql);
+		echo $sql;
+	}
+	
+	
+	
 
 
 
