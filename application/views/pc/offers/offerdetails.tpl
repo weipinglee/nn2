@@ -55,10 +55,21 @@
                   </div> -->
 
                     <div class="buy_btn baoj">
-                        <a href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
+                        <a id='buy_now' href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
 
                     </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            if({$no_cert}){
 
+                                $('#buy_now').attr('href','javascript:;').click(function(){
+                                    layer.msg('该卖家资质不完善,不能进行此交易');
+                                    
+                                    return false;
+                                });
+                            }
+                        });
+                    </script>
                 </div>
                 <div style="clear:both;"></div>
                 

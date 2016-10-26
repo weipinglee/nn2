@@ -176,6 +176,8 @@ class OffersController extends PublicController {
 		}else{
 			$data['login'] = 0;
 		}
+
+		// var_dump($data);exit;
 		echo json::encode($data);
 		exit();
 	}
@@ -214,6 +216,17 @@ class OffersController extends PublicController {
 			$mem = new \nainai\member();
 
 			$userData = $mem->getUserDetail($info['user_id']);
+
+			//卖家资质
+			$certObj = new \nainai\cert\certificate();
+			$certStatus = $certObj->getCertStatus($info['user_id'],'deal');
+			if($certStatus['status']==4){
+				$mess = new \nainai\message($info['user_id']);
+				$mess->send('credentials');
+				$this->getView()->assign('no_cert',1);
+			}else{
+				$this->getView()->assign('no_cert',0);
+			}
 
 			$this->getView()->assign('data',$info);
 			$this->getView()->assign('user',$userData);

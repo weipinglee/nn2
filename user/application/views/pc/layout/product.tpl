@@ -164,7 +164,7 @@
         </td>
     </tr>
     <tr>
-        <td>交收地点：</td>
+        <td><span>*</span>交收地点：</td>
         <td colspan="2">
 
             <span><input type="text" class='text' datatype="s1-30" value="{$offer['accept_area']}" errormsg="请填写有效地址" nullmsg="请填写交收地点" name="accept_area"></span>
@@ -173,7 +173,7 @@
         </td>
     </tr>
     <tr>
-    <td>交收时间：</td>
+    <td><span>*</span>交收时间：</td>
     <td colspan="2">
         <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,5}/" value="{$offer['accept_day']}" name="accept_day" style="width:50px;">天</span>
         <span></span>
