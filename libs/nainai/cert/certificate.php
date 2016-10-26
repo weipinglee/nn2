@@ -166,6 +166,7 @@ class certificate{
         $insert['status'] = $status;
         $insert['user_id'] = $user_id;
         $insert['apply_time'] = time::getDateTime();
+        $insert['message'] = ' ';
         $update['status'] = $status;
         $update['user_id'] = $user_id;
         $update['apply_time'] = time::getDateTime();
@@ -201,6 +202,7 @@ class certificate{
         $certModel = new M($table);
         $certModel->beginTrans();
         $status = $result==1 ? self::CERT_SUCCESS : ($result==2?self::CERT_FIRST_OK:self::CERT_FAIL);
+
         $certModel->data(array('status'=>$status,'message'=>$info,'verify_time'=>Time::getDateTime()))->where(array('user_id'=>$user_id))->update();
 
         $this->chgCertStatus($user_id,$certModel);
