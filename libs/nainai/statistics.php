@@ -338,7 +338,7 @@ class statistics{
         $query->distinct = 1;
         $query->limit = $l;
         $query->where='ps.status = 1 and ps.is_del = 0';
-        $query->order = "psd.id DESC, ps.id DESC";
+        // $query->order = "psd.id DESC, ps.id DESC";
         $query->cache = 'm';
         $data = $query->find();
         $obj = new M('products_stats_data');
