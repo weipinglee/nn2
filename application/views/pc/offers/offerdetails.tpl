@@ -47,7 +47,7 @@
                       <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
                       <li><img src="{views:images/password/eye_b.png}" alt="" /><a id='contract_review' target='_blank' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:#3fa5d9;">合同预览</a></li>
                     </ul>
-
+                    
                   <!--  <div class="counter">
                     <input id="min" name="" type="button" value="-" disabled="disabled">  
                     <input id="text_box" name="" type="text" value="1">  
@@ -55,10 +55,21 @@
                   </div> -->
 
                     <div class="buy_btn baoj">
-                        <a href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
+                        <a id='buy_now' href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
 
                     </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            if({$no_cert}){
 
+                                $('#buy_now').attr('href','javascript:;').unbind('click').click(function(){
+                                    layer.msg('该卖家资质不完善,不能进行此交易');
+                                    
+                                    return false;
+                                });
+                            }
+                        });
+                    </script>
                 </div>
                 <div style="clear:both;"></div>
                 
