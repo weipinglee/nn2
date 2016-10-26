@@ -242,7 +242,7 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $certObj = new \nainai\cert\certificate();
         
         foreach ($data as $key => &$value) {
-            $certStatus = $certObj->getCertStatus($data['user_id'],'deal');
+            $certStatus = $certObj->getCertStatus($value['user_id'],'deal');
             $value['no_cert'] = $certStatus['status'] == 4 ? 1 : 0;
             $value['mode_txt'] = $this->offerMode($value['mode']);
             $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
