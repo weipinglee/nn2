@@ -99,7 +99,7 @@ z-index:1000;">
             </div>
 
             <div class="index_user">
-            <?php if($username){?>您好，
+            <?php if(isset($username)){?>您好，
                 <a rel="external nofollow"  href="http://124.166.246.120:8000/nn2/user/ucenterindex/index"  target="_blank" class=""><?php echo isset($username)?$username:"";?></a>
                 <?php }else{?>
                 <span>您好，欢迎进入耐耐网</span>
