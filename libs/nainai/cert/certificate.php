@@ -24,7 +24,7 @@ class certificate{
     const CERT_FAIL    =   3; //后台拒绝认证
 
     protected static $certType = '';
-    protected static $certTable = array(
+    public static $certTable = array(
         'deal'=>'dealer',
         'store'=>'store_manager'
 
@@ -176,7 +176,6 @@ class certificate{
         if($this->user_type==1)
             $accTable = 'company_info';
         else $accTable = 'person_info';
-
         $accRes = $certModel->table($accTable)->data($accData)->where(array('user_id'=>$user_id))->update();
 
         if($up==false  && $accRes==0){//未更新数据

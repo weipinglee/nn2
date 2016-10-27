@@ -37,7 +37,7 @@
 							<p class="of_title2 public">降低交易成本，货物质量有保证</p>
 							<!-- <p class="of_title1">仓单报盘有什么吗</p> -->
 						</div>
-						<div class="offer public" onclick="if({$certStatus['status']}==4){alert('请完善您的资质认证');window.open('{url:/ucenter/deputeOffer}');return false;}window.open('{url:/ManagerDeal/deputeOffer}')">
+						<div class="offer public" onclick="if({$certStatus['status']}==4){alert('请完善您的资质认证');window.open('{url:/ucenter/dealcert}');return false;}window.open('{url:/ManagerDeal/deputeOffer}')">
 							<div class="offer_right">
 								<img src="{views:/images/center/publish4.png}">
 							</div>

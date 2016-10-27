@@ -214,10 +214,11 @@ class UserModel{
 				return $exit;
 			unset($user->repassword);
 			$user->password = $data['password'] = sha1($data['password']);
-
-			$res = $user->add();
+			$user->beginTrans();
+			$res = $user->add(1);
 			if (intval($res) > 0) {
-				$data = array(
+				$insertCert = array('user_id' => $res, 'apply_time' => $data['create_time'], 'verify_time' => $data['create_time'], 'status' => 2, 'message' => '子账户创建，自动认证父账户信息！');
+				$accountData = array(
 					'user_id' => $res,
 					'fund' => 0,
 					'freeze' => 0,
@@ -225,16 +226,31 @@ class UserModel{
 					'ticket_freeze' => 0,
 					'credit' => 0
 				);
-				$re = $user->table('user_account')->data($data)->add();
+
+				$user->table('user_account')->data($accountData)->add(1);
+				//check identity
+				$cert = new \nainai\cert\certificate();
+	        	$certData = $cert->checkCert($data['pid']);
+	        	if ( ! empty($certData) ) {
+	        		foreach ($certData as $key => $value) {
+	        			if ($value == 1) {
+	        				$user->table($cert::$certTable[$key])->data($insertCert)->add(1);
+	        			}
+	        		}
+	        	}
+
 			}
+			
 		}
 		else{
 			$res = $user->getError();
 		}
-		if(is_numeric($res)){
+		if(is_numeric($res) && $res > 0){
+			$user->commit();
 			$resInfo = $this->getSuccInfo();
 		}
 		else{
+			$user->rollback();
 			$resInfo = $this->getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
 		}
 		return $resInfo;
@@ -380,7 +396,7 @@ class UserModel{
 	public function getUserInfo($user_id,$pid=0){
 		$um = self::$userObj;
 		$where = $pid!=0 ? array('id'=>$user_id,'pid'=>$pid) : array('id'=>$user_id);
-		return $um->fields('id,username,email,mobile,head_photo,status,pay_secret,type')->where($where)->getObj();
+		return $um->fields('id,username,email,mobile,head_photo,status,pay_secret,type,agent,agent_pass,yewu,cert_status')->where($where)->getObj();
 	}
 	/**
 	 * 获取个人用户信息
