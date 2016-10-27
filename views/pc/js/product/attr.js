@@ -135,6 +135,16 @@ function getCategory(cond){
                     $(this).addClass('current_page');
                     getCategory();
                 });
+
+                $('.check_btn').each(function(){
+                  if($(this).attr('no_cert')){
+                    $(this).attr('href','javascript:;').click(function(){
+                      layer.msg('该卖家资质不完善,不能进行此交易');
+                                        
+                      return false;
+                    })
+                  }
+                });
             }
 
             layer.closeAll();
