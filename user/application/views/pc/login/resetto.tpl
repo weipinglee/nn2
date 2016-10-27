@@ -24,7 +24,7 @@
         
     </div>
    </div> 
-
+    
     <div class="zhaohui">
         <div class="w1200">
            <div class="step_box">
@@ -41,7 +41,7 @@
                     <li><label class="margin_left">
                     确认密码：</label><input type="password" class="text1" dataType="*6-15" id="txtAgainPassWord" name="againPassWord"> </li>
                     <input type="hidden" name="mobile" value="{$mobile}" id="txtMobile">
-
+                    
                     <li><input type="button" value="下一步" class="tj_btn" id="btnSubmit2"></li>
                 </ul>
 </form>        </div>

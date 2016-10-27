@@ -52,9 +52,20 @@
                   </div> -->
                   
                     <div class="buy_btn baoj">
-                        <a href="#" onclick="report('{url:/trade/report?id=$data['id']}')" ><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即报价</b></a>
+                        <a href="#" id='buy_now' onclick="report('{url:/trade/report?id=$data['id']}')" ><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即报价</b></a>
                     </div>
-
+                    <script type="text/javascript">
+                        $(function(){
+                            if({$no_cert}){
+                                
+                                $('#buy_now').attr('href','javascript:;').unbind('click').click(function(){
+                                    layer.msg('您的资质不完善,不能进行报价');
+                                    
+                                    return false;
+                                });
+                            }
+                        });
+                    </script>
                 </div>
                 <div style="clear:both;"></div>
                 <div class="cont_1">
