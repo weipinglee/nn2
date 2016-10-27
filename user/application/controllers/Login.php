@@ -302,9 +302,9 @@ class LoginController extends \Yaf\Controller_Abstract {
 			exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
 		}
 
-		if ( empty(\Library\session::get('mobile')) ) {
-			exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
-		}
+		// if ( empty(\Library\session::get('mobile')) ) {
+		// 	exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
+		// }
 
 		$userModel=new UserModel();
 		$uid = $userModel->getMobileUserInfo($mobile);
