@@ -260,6 +260,15 @@ class OffersController extends PublicController {
 
 			$userData = $mem->getUserDetail($info['user_id']);
 
+			//卖家资质
+			$certObj = new \nainai\cert\certificate();
+			$certStatus = $certObj->getCertStatus($this->user_id,'deal');
+			if($certStatus['status']==4){
+				$this->getView()->assign('no_cert',1);
+			}else{
+				$this->getView()->assign('no_cert',0);
+			}
+
 			$this->getView()->assign('data',$info);
 			$this->getView()->assign('user',$userData);
 			$this->getView()->assign('kefu',$kefuData);
