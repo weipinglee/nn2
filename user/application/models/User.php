@@ -574,9 +574,9 @@ class UserModel{
 	 * @param string $type 操作的类型
 	 * @return    [type]              [description]
 	 */
-	public function getMobileCode($phone,$type='', $save='session', $uid=0, $type='login'){
+	public function getMobileCode($phone,$type='', $save='session', $uid=0, $types='login'){
 		if ($save == 'database') {
-			if ($type == 'login') {
+			if ($types == 'login') {
 				$fields = 'create_time';
 			}else{
 				$fields = 'apply_time';
