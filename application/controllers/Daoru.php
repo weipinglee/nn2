@@ -482,9 +482,10 @@ class DaoruController extends \Yaf\Controller_Abstract
 				);
 				
 				$offerData = array(
+							'id' => $val['conobj_key'],
+							'offer_no' => $val['conobj_id'],
 							'user_id'=> $val['customer_key'],
 							'type' => substr($val['conobj_id'],0,2) == 'GP' ? 1 : 2 ,
-							'mode' => 2,
 							'product_id' => $val['conobj_key'],
 							'price' => substr($val['conobj_id'],0,2) == 'GP' ? $val['order_price'] : 0,
 							'price_l' => substr($val['conobj_id'],0,2) == 'DG' ? $val['order_price'] : 0,
@@ -505,6 +506,12 @@ class DaoruController extends \Yaf\Controller_Abstract
 							
 							
 				);
+				if($offerData['type']==2){
+					$offerData['mode'] = 0;
+				}
+				else{//仓单报盘外的报盘都是保证金
+					$offerData['mode'] = $val['bail_type']=='A' ? 4 : 2;
+				}
 				
 				if($val['is_appoint']=='N'){//非指定仓库
 					$offerData['accept_area'] = $val['obj_address']=='无' ? '' : $val['obj_address'];
@@ -708,6 +715,42 @@ class DaoruController extends \Yaf\Controller_Abstract
 		return $cateID;
     }
 	
+	public function getOrderAction(){
+		$orderObj = new M('tb_con_ord');
+		$orderOldData = $orderObj->select();
+		$offerNewObj = new M('product_offer');
+		$ordeObjNew = new M('order_sell');
+		$ordeObjNew->beginTrans();
+		foreach($orderOldData as $key=>$val){
+			$mode = $offerNewObj->where(array('id'=>$val['conobj_key']))->getField('mode');
+			$pay_deposit = $val['pay_money_type'] == 'A' ? $val['should_pay_bail'] : $val['should_pay_money'];
+			$data = array(
+						'offer_id'=>$val['conobj_key'],
+						'mode' => $mode,
+						'num' => $val['order_num'],
+						'amount' =>  $val['order_price'] * $val['order_num'],
+						'order_no' => $val['cnt_id'],
+						'user_id' =>  $val['customer_key'],
+						'create_time' => $val['order_time'],
+						'pay_deposit' =>$pay_deposit,
+						'buyer_deposit_payment' => 1,
+						'contract_status' => $val['order_status']=='C' ? 5 : 2,
+						
+			);
+			$ordeObjNew->data($data)->add();
+			
+			
+			
+			
+		}
+		if($ordeObjNew->commit()){
+			echo 'ok';
+		}
+		else{
+			echo 'ng';
+		}
+	}
+	
 	//转换报盘数据表sql
 	public function getBaopanSqlAction(){
 		$sql = <<< OEF
@@ -717,6 +760,22 @@ OEF;
 		$sql = str_replace('to_date(','str_to_date(',$sql);
 		$sql = str_replace('dd-mm-yyyy hh24:mi:ss','%d-%m-%Y %H:%i:%s</br>',$sql);
 		echo $sql;
+	}
+	
+	/**
+	*创建数据表转换
+	*/
+	public function createTableSqlAction(){
+		$sql = <<< OEF
+		
+OEF;
+  
+  $sql = str_replace('NUMBER','decimal',$sql);
+  $sql = str_replace('DATE','DATETIME',$sql);
+  $sql = str_replace('VARCHAR2','VARCHAR',$sql);
+  $sql = str_replace('INTEGER','int(11)',$sql);
+  echo $sql;
+  
 	}
 	
 	
