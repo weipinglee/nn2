@@ -130,7 +130,7 @@ function getCategory(cond){
 
                 })
 
-                $('.pages_bar').find('a').on('click',function(){
+                $('.pages_bar').find('a').on('click',function(){    
                     $('.pages_bar').find('.current_page').removeClass('current_page');
                     $(this).addClass('current_page');
                     getCategory();
@@ -139,7 +139,7 @@ function getCategory(cond){
                 $('.check_btn').each(function(){
                   if($(this).attr('no_cert')){
                     $(this).attr('href','javascript:;').click(function(){
-                      layer.msg('该卖家资质不完善,不能进行此交易');
+                      layer.msg($(this).attr('info'));
                                         
                       return false;
                     })

@@ -1,5 +1,5 @@
 <?php
-namespace com\unionpay\acp\sdk;
+namespace Library\unionpayb2b\sdk;
 header ( 'Content-type:text/html;charset=utf-8' );
 include_once 'log.class.php';
 include_once 'SDKConfig.php';
@@ -15,7 +15,7 @@ class AcpService {
 	 * @return 是否成功
 	 */
 	static function sign(&$params, $cert_path=SDK_SIGN_CERT_PATH, $cert_pwd=SDK_SIGN_CERT_PWD) {
-
+		
 		$params ['certId'] = CertUtil::getSignCertIdFromPfx($cert_path, $cert_pwd); //证书ID
 
 		$logger = LogUtil::getLogger();

@@ -170,7 +170,7 @@ class OffersController extends PublicController {
 			}
 		}
 		else $order = '';
-		$data = $this->offer->getList($page, $condition,$order);
+		$data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
 		if ( ! empty($this->login)) {
 			$data['login'] = 1;
 		}else{
