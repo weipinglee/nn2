@@ -11,6 +11,62 @@ use \Library\M;
 class DaoruController extends \Yaf\Controller_Abstract
 {
 
+
+    /**
+	*判断用户是否已注册，返回已注册的用户号等信息
+	*/
+	public function checkUserExistAction(){
+	    $csm_member = new M('csm_member');
+		$tb_cus_firm = new M('tb_cus_firm');
+		
+		$userObj = new M('user_new');
+		$mysqlUserData = $csm_member->select();
+		$oracleUserData = $tb_cus_firm->select();
+		$existUserDatas = array();
+		foreach($mysqlUserData as $key=>$val){
+			$existUser = $userObj->where(array('mobile'=>$val['MOBILE']))->getObj();
+			if(!empty($existUser)){
+				$existUserDatas[] = array(
+						'user_no'=>$val['TRADECODE'],
+						'type' => 'mobile',
+						'mobile'=>$val['MOBILE']
+				);
+				
+			}
+			$existUser = $userObj->where(array('username'=>$val['mobile']))->getObj();
+			if(!empty($existUser)){
+				$existUserDatas[] = array(
+						'user_no'=>$val['TRADECODE'],
+						'type' => 'username',
+						'mobile'=>$val['MOBILE']
+				);
+				
+			}
+		}
+		
+		foreach($oracleUserData as $key=>$val){
+			$existUser = $userObj->where(array('mobile'=>$val['customer_cutname']))->getObj();
+			if(!empty($existUser)){
+				$existUserDatas[] = array(
+						'user_no'=>$val['customer_id'],
+						'type' => 'mobile',
+						'username'=>$val['customer_cutname']
+				);
+				
+			}
+			$existUser = $userObj->where(array('username'=>$val['customer_cutname']))->getObj();
+			if(!empty($existUser)){
+				$existUserDatas[] = array(
+						'user_no'=>$val['customer_id'],
+						'type' => 'username',
+						'username'=>$val['customer_cutname']
+				);
+				
+			}
+		}
+		
+		print_r($existUserDatas);
+	}
     /**
      * get oracle and mysql database tb_cus_firm table data
      */
@@ -188,30 +244,19 @@ class DaoruController extends \Yaf\Controller_Abstract
      * @param $type int 1:生成基本数据，2：更新tb_cus_firm的数据
      */
     public function createOracleData($type){
-        $dataModel = new \nainai\oldData();
-        $string = $dataModel->getData();
-        $data_arr = explode(');',$string);
-        $fields = explode(', ','CUSTOMER_KEY, MARKET_KEY, CONT_MARKET_KEY, CUSTOMER_ID, CUSTOMER_NAME, CUSTOMER_CUTNAME, ACCOUNT_PASSWD, PRINT_ACC_STATUS, PRINT_STATUS, IS_DELETE, CUSTOMER_STATUS, CREDIT_GRADE, TRADE_PERIOD, TRADE_MAXNUM, PACT_NUM, REGISTER_DATE, LAST_LOGIN_DATE, LAST_LOGIN_TIME, CERTIFICATE_VALID_DATE, CERTIFICATE_ANNUL_DATE, MARKET_VALID_DATE, MARKET_ANNUL_DATE, MARKET_CHECK_TYPE, COMPANY_KIND, CERTIFICATE, REGISTER_ADDRESS, CUSTOMER_SEX, OPEN_BANK_NAME, OPEN_BANK_NUMBER, LEGAL_MAN_NAME, LEGAL_MAN_IDENTITY, LEGAL_MAN_PHONE, LEGAL_MAN_MOBILE, LEGAL_MAN_FAX, LEGAL_MAN_EMAIL, TRADE_MAN_NAME, TRADE_MAN_IDENTITY, TRADE_MAN_PHONE, TRADE_MAN_MOBILE, TRADE_MAN_EMAIL, FAX, PROVINCE_AREA_KEY, CITY_AREA_KEY, COUNTY_AREA_KEY, COMMUNICATE_ADDRESS, ZIP_CODE, BUSINESS_RANGE, NO_TRADE_TYPE, NO_TRADE_BED, HAND_INFO, ONLINE_MARK, ONLINE_IP, SESSIONID, CERTIFICATE_CODE, BUS_ADMIN_NAME, ENROLL_MONEY, PROPERTY_SCALE, DEVELOP_STAGE, CUS_TRADE_KIND, COMPANY_REG_DATE, COMPANY_TYPE, ORDER_NUM, IS_BID_PUBLISH, IS_BID_PARTAKE, IS_REC_SMS, KF_CUSTOMER_KEY, CUS_RANK_NUM, TRADE_RANK_NUM, FINANCE_RANK_NUM, CREDIT_RANK_NUM, QQ, BORNDATE, WEB_USERID, JOIN_TYPE, CUS_NOTE_GROUP, IS_RET_MONEY, MY_ROLE, SELF_CARS_NUM, CAR_ID, CONTROL_CARS_NUM, MAIN_CAR_TYPE, RIPE_LINE, DPT_KEY, DPT_NAMES, BANK_NO, OPEN_ACCOUNT_BANK, AUTHENTICATE_STA, REC_NAME, REC_ADDRESS, REC_TEL, PICTURE1, PICTURE2, PICTURE3, BACK_CAUSE, TAXPAYER_NUM, IS_INTERIOR, OPEN_BANK_USERNAME, SIGN_CARD_TYPE, SIGN_CARD_NUM, USER_TYPE, PLACE_AREA, CUSTOMER_NAME_SPELL, ENTERPRISE_BRIEF, OFFICE_WORK_PHONE, PROFESSION, OFFICE_WORK_ADDRESS, OFFICE_WORK_MOBILE, PICTURE0, TAX_REG_CERTIFICATE, ENTERPRISE_WEB_URL');
-        $userObj = new M('user');
+         $userObj = new M('user');
         $dealObj = new M('dealer');
-
-        array_pop($data_arr);
+		$userOldObj = new M('tb_cus_firm');
+		$data_arr = $userOldObj->select();
         foreach($data_arr as $key=>$val){
-            $data_arr[$key] = preg_replace('/[\s\S]*insert into [\s\S]*values \(/','',$val);
-
-            $data_arr[$key] = preg_replace('/to_date[\s\S]*ss\\\'\)/','',$data_arr[$key]);
-            $temp = explode(', ',$data_arr[$key]);
-            $temp1 = array();
-            foreach($temp as $k=>$v){
-                $temp1[$fields[$k]] = str_replace('\'','',$v);
-            }
+           
 
             if($type==1){
-                $this->createUser($temp1,$userObj);
-                $this->createCert($temp1,$dealObj);
+                $this->createUser($val,$userObj);
+                $this->createCert($val,$dealObj);
             }
             elseif($type==2){
-                $this->updateTbCus($temp1,$userObj);
+                $this->updateTbCus($val,$userObj);
 
             }
 
@@ -246,7 +291,7 @@ class DaoruController extends \Yaf\Controller_Abstract
      */
     public function createUser($arr,$user){
         if(!empty($arr)){
-            $data = array('id'=>$arr['CUSTOMER_KEY'],'username'=>$arr['CUSTOMER_CUTNAME'],'user_no'=>$arr['CUSTOMER_ID']);
+            $data = array('id'=>$arr['customer_key'],'username'=>$arr['customer_cutname'],'user_no'=>$arr['customer_id']);
             $user->data($data)->add();
 
 
@@ -256,20 +301,20 @@ class DaoruController extends \Yaf\Controller_Abstract
     //生成认证交易商的数据
     public function createCert($arr,$deal){
         if(!empty($arr)){
-            if($arr['AUTHENTICATE_STA']=='N'){//N代表申请待审核
+            if($arr['authenticate_sta']=='N'){//N代表申请待审核
                 $status  = 1;
             }
-            elseif($arr['AUTHENTICATE_STA']=='B'){//被驳回
+            elseif($arr['authenticate_sta']=='B'){//被驳回
                 $status  = 3;
             }
-            elseif($arr['AUTHENTICATE_STA']=='Y'){
+            elseif($arr['authenticate_sta']=='Y'){
                 $status  = 2;
             }
             else{
                 return false;
             }
 
-            $data = array('user_id'=>$arr['CUSTOMER_KEY'],'status'=>$status,'message'=>$arr['BACK_CAUSE']);
+            $data = array('user_id'=>$arr['customer_key'],'status'=>$status,'message'=>$arr['back_cause']);
             $deal->data($data)->add();
         }
     }
@@ -282,30 +327,30 @@ class DaoruController extends \Yaf\Controller_Abstract
         if(!empty($arr)){
             $user->table('company_info');
             $companyData = array(
-                'legal_person'=>$arr['LEGAL_MAN_NAME'],
-                'cert_oc' => $arr['PICTURE1']!='null' ? 'upload/zhengda/upload'.$arr['PICTURE1'].'@user' : '',
-                'cert_bl' => $arr['PICTURE1']!='null' ? 'upload/zhengda/upload'.$arr['PICTURE2'].'@user' : '',
-                'cert_tax' => $arr['PICTURE1']!='null' ? 'upload/zhengda/upload'.$arr['PICTURE3'].'@user' : '',
+                'legal_person'=>$arr['legal_man_name'],
+                'cert_oc' => $arr['picture1']!='null' ? 'upload/zhengda/upload'.$arr['picture1'].'@user' : '',
+                'cert_bl' => $arr['picture1']!='null' ? 'upload/zhengda/upload'.$arr['picture2'].'@user' : '',
+                'cert_tax' => $arr['picture1']!='null' ? 'upload/zhengda/upload'.$arr['picture3'].'@user' : '',
             );
-            $user->data($companyData)->where(array('user_id'=>$arr['CUSTOMER_KEY']))->update();
+            $user->data($companyData)->where(array('user_id'=>$arr['customer_key']))->update();
 
             $bankData = array(
-                'bank_name' => $arr['OPEN_ACCOUNT_BANK'],
-                'card_no'   => $arr['BANK_NO'],
+                'bank_name' => $arr['open_account_bank'],
+                'card_no'   => $arr['bank_no'],
                 'status'   => 0,
             );
 
-            $user->table('user_bank')->data($bankData)->where(array('user_id'=>$arr['CUSTOMER_KEY']))->update();
+            $user->table('user_bank')->data($bankData)->where(array('user_id'=>$arr['customer_key']))->update();
 
             $invioceData = array(
-                'tax_no' => $arr['TAXPAYER_NUM'],
-                'phone'  => $arr['REC_TEL'],
-                'bank_name'  => $arr['OPEN_ACCOUNT_BANK'],
-                'bank_no'  => $arr['BANK_NO'],
+                'tax_no' => $arr['taxpayer_num'],
+                'phone'  => $arr['rec_tel'],
+                'bank_name'  => $arr['open_account_bank'],
+                'bank_no'  => $arr['bank_no'],
 
             );
 
-            $user->table('user_invoice')->data($invioceData)->where(array('user_id'=>$arr['CUSTOMER_KEY']))->update();
+            $user->table('user_invoice')->data($invioceData)->where(array('user_id'=>$arr['customer_key']))->update();
 
         }
     }
@@ -317,7 +362,7 @@ class DaoruController extends \Yaf\Controller_Abstract
      */
     public function getMysqlData(){
         $obj = new \Library\M('csm_member');
-        $data = $obj->limit(2000)->select();
+        $data = $obj->select();
         $userObj = new M('user');
         $companyObj = new M('company_info');
         $personObj = new M('person_info');
@@ -752,7 +797,7 @@ class DaoruController extends \Yaf\Controller_Abstract
 	}
 	
 	//转换报盘数据表sql
-	public function getBaopanSqlAction(){
+	public function getInsertSqlAction(){
 		$sql = <<< OEF
 		
 		
