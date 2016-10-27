@@ -307,11 +307,18 @@ class UcenterController extends UcenterBaseController {
      *
      */
     public function dealCertAction(){
-        $cert = new certDealerModel($this->user_id,$this->user_type);
-        $certData = $cert->getCertData($this->user_id);
-        $certShow = $cert->getCertShow($this->user_id);
+        if (intval($this->pid) == 0) {
+            $cert = new certDealerModel($this->user_id,$this->user_type);
+            $certData = $cert->getCertData($this->user_id);
+            $certShow = $cert->getCertShow($this->user_id);
+        }else{
+            $cert = new certDealerModel($this->pid,$this->user_type);
+            $certData = $cert->getCertData($this->pid);
+            $certShow = $cert->getCertShow($this->pid);
+        }
+        
 
-       $this->getView()->assign('certData',$certData);
+        $this->getView()->assign('certData',$certData);
         $this->getView()->assign('certShow',$certShow);
         $this->getView()->assign('userType',$certData['type']);
     }
@@ -463,6 +470,9 @@ class UcenterController extends UcenterBaseController {
      */
     public function doSubAccAction(){
         if(IS_POST){
+            $userModel = new UserModel();
+            $user_data = $userModel->getUserInfo($this->user_id);
+
             $data = array();
             $data['pid'] = $this->user_id;
             $data['username'] = safe::filterPost('username');
@@ -473,6 +483,18 @@ class UcenterController extends UcenterBaseController {
             $data['head_photo'] = tool::setImgApp(safe::filterPost('imgfile1'));
             $data['create_time'] = \Library\Time::getDateTime();
             $data['status']     = \nainai\user\USER::NOMAL;
+            $data['type'] = $user_data['type'];
+            $data['credit'] = 0;
+            $data['cert_status'] = $user_data['cert_status'];
+            $data['agent'] = $user_data['agent'];
+            $data['agent_pass'] = $user_data['agent_pass'];
+            $data['session_id'] = '';
+            $data['gid'] = '';
+            $data['pay_secret'] = $user_data['pay_secret'];
+            $data['yewu'] = $user_data['yewu'];
+            $data['login_ip'] = 0;
+            $data['user_no'] = '';
+
             $userModel = new UserModel();
             if($data['user_id']==0)//新增子账户
                  $res = $userModel->subAccReg($data);
