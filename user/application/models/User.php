@@ -631,7 +631,7 @@ class UserModel{
 		}
 		//短信发送成功，保存验证信息
 		if ($save == 'database') {
-			if ($type == 'login') {
+			if ($types == 'login') {
 				$data = array('code' => $code, 'create_time' => \Library\Time::getDateTime());
 			}else{
 				$data = array('pay_code' => $code, 'apply_time' => \Library\Time::getDateTime());
@@ -646,7 +646,7 @@ class UserModel{
 			session::set('mobileValidate',array('code'=>$code,'time'=>time(),'mobile'=>$phone));
 		}
 		
-		return $this->getSuccinfo(1,'发送成功');
+		return $this->getSuccinfo(1,'发送成功' );
 	}
 
 	/**

@@ -167,6 +167,20 @@
                                 <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,5}/" name="accept_day" style="width:50px;">天</span>
                             </td>
                             </tr>
+                            <tr>
+    <td>记重方式：</td>
+    <td colspan="2">
+        <span>
+            <select name="weight_type">
+                <option value="理论值">理论值</option>
+                <option value="过磅">过磅</option>
+                <option value="轨道衡">轨道衡</option>
+                <option value="吃水">吃水</option>
+            </select>
+        </span>
+        <span></span>
+    </td>
+    </tr>
               			    <tr>
         <td>补充条款：</td>
         <td colspan="2">
