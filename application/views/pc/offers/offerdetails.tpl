@@ -56,7 +56,7 @@
 
                     <div class="buy_btn baoj">
                         <a id='buy_now' href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
-
+                    
                     </div>
                     <script type="text/javascript">
                         $(function(){
