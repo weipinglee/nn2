@@ -212,7 +212,7 @@ $(function () {
                     $('#yzmBtn').attr('disabled',false);
                 }
 
-                $('#image').click();
+                // $('#image').click();
             }
         });
     });
