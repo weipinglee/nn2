@@ -26,7 +26,7 @@
 
 
                     <ul>
-                        <li class="hit">银联在线支付</li> 
+                        <!-- <li class="hit">银联在线支付</li>  -->
                         <li>线下支付</li>
                     </ul>
                     <div class="panes js_show_payment_choose">
