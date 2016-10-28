@@ -18,7 +18,7 @@ class url {
      * @return string 返回产生的url
      */
     public static function createUrl($str,$baseUrl=null){
-        // error_reporting(E_ERROR);
+        error_reporting(E_ERROR);
         $url_str = trim($str);
 
         $pos = array('module'=>'','controller'=>'','action'=>'','param'=>'','host'=>'');

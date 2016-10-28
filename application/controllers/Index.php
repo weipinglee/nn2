@@ -39,11 +39,10 @@ class IndexController extends PublicController {
 		
 		//获取统计数据
 		$statcModel=new \nainai\statistics();
-		$statcCatList=$statcModel->getStatCateList(1);
-
+		$statcCatList=$statcModel->getNewStatistics(1);
+        
         $statsMarketModel=new \nainai\statsMarket();
         $allStatsData=$statsMarketModel->getAllStatsList();
-        
         $statcTime=$allStatsData[1];
         $statcTime=$statsMarketModel->getStaticTime();
         $statcCatList=$allStatsData[0];
