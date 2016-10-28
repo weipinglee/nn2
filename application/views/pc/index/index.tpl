@@ -256,7 +256,7 @@ $(function(){
                                     var chart;
                                     var text;
                                     if(statisList[id]!=undefined&&categories[id]!=undefined){
-
+                                        
                                         text='市场指数';
                                         $.each(statisList[id],function(index,value){
 
