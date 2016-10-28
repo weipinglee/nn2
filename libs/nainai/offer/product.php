@@ -541,8 +541,9 @@ class product  {
 
                 $pId = $this->_productObj->data($productData[0])->add();
                 $productOffer['product_id'] = $pId;
-
-                $id =   $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+                $productOffer['insurance'] = 0;
+                $productOffer['status'] = self::OFFER_APPLY;
+                $id =  $this->_productObj->table('product_offer')->data($productOffer)->add(1);
 
                 if ($id > 0) {
 
