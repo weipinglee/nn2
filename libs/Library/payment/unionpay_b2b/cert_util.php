@@ -1,5 +1,5 @@
 <?php
-namespace com\unionpay\acp\sdk;
+namespace Library\unionpayb2b\sdk;
 
 include_once 'acp_service.php';
 

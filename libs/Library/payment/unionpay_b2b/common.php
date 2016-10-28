@@ -1,5 +1,5 @@
 <?php
-namespace com\unionpay\acp\sdk;
+namespace Library\unionpayb2b\sdk;
 header ( 'Content-type:text/html;charset=utf-8' );
 
 class LogUtil

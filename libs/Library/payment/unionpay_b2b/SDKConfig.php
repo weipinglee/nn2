@@ -1,5 +1,5 @@
 <?php
-namespace com\unionpay\acp\sdk;
+namespace Library\unionpayb2b\sdk;
  
 // ######(以下配置为PM环境：入网测试环境用，生产环境配置见文档说明)#######
 // 签名证书路径
