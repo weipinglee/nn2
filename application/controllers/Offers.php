@@ -220,12 +220,12 @@ class OffersController extends PublicController {
 			//卖家资质
 			$certObj = new \nainai\cert\certificate();
 			$certStatus = $certObj->getCertStatus($info['user_id'],'deal');
-			if($certStatus['status']==4){
+			if($certStatus['status']==2){
+				$this->getView()->assign('no_cert',0);
+			}else{
 				$mess = new \nainai\message($info['user_id']);
 				$mess->send('credentials');
 				$this->getView()->assign('no_cert',1);
-			}else{
-				$this->getView()->assign('no_cert',0);
 			}
 
 			$this->getView()->assign('data',$info);
@@ -263,10 +263,10 @@ class OffersController extends PublicController {
 			//卖家资质
 			$certObj = new \nainai\cert\certificate();
 			$certStatus = $certObj->getCertStatus($this->login['user_id'],'deal');
-			if($certStatus['status']==4){
-				$this->getView()->assign('no_cert',1);
-			}else{
+			if($certStatus['status']==2){
 				$this->getView()->assign('no_cert',0);
+			}else{
+				$this->getView()->assign('no_cert',1);
 			}
 
 			$this->getView()->assign('data',$info);

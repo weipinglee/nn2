@@ -245,7 +245,7 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             $user_id = $value['type'] == \nainai\offer\product::TYPE_SELL ? $value['user_id'] : $user_id;
             $info = $value['type'] == \nainai\offer\product::TYPE_SELL ? '该卖家资质不完善,不能进行此交易' : '您的资质不完善,无法进行报价';
             $certStatus = $certObj->getCertStatus($user_id,'deal');
-            $value['no_cert'] = $certStatus['status'] == 4 ? 1 : 0;
+            $value['no_cert'] = $certStatus['status'] == 2 ? 0 : 1;
             $value['info'] = $info;
             $value['mode_txt'] = $this->offerMode($value['mode']);
             $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
