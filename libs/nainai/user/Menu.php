@@ -140,11 +140,12 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 					}
 
 					$where .= ')';
-					
 					$right = $this->model->table($this->menuRoleTable)->where($where)->bind($roleIds)->getFields('purview');
-
 					foreach($right as $k=>$v){
-						$userPur = array_merge($userPur,unserialize($v));
+						if ( ! empty($v)) {
+							$userPur = array_merge($userPur,unserialize($v));
+						}
+						
 					}
 				}
 			}

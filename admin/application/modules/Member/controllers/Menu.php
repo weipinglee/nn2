@@ -103,9 +103,8 @@ class MenuController extends InitController {
 				'bind' => array('ids' => $id)
 			);
 			$menuModel = new \nainai\user\Menu();
-			if ($menuModel->deleteMenu($id) === TRUE) {
-				echo json::encode(tool::getSuccInfo(1, 'Success'));exit();
-			}
+			$res = $menuModel->deleteMenu($id);
+			echo json::encode($res);exit();
 		}
 
 		echo json::encode(tool::getSuccInfo(0, 'Fail'));exit();
