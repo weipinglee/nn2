@@ -39,20 +39,11 @@ class IndexController extends PublicController {
 		
 		//获取统计数据
 		$statcModel=new \nainai\statistics();
-		$statcCatList=$statcModel->getNewStatcList(1);
-        // var_dump($statcCatList);exit;
         $statsMarketModel=new \nainai\statsMarket();
-        // $allStatsData=$statsMarketModel->getAllStatsList();
-        
+        $allStatsData=$statsMarketModel->getAllStatsList();
         $statcTime = array();
-        // $statcTime=$allStatsData[1];
-        foreach ($statcCatList as $key => $value) {
-            $statcTime[$key] = $statsMarketModel->getStaticTime($value['cate_id']);
-        }
-        // $statcTime=array(2=>$statsMarketModel->getStaticTime(2));
-        // $statcTime = $statcModel->getStaticTime(1);
-        // var_dump($statcTime);exit;
-        // $statcCatList=$allStatsData[0];
+        $statcTime=$allStatsData[1];
+        $statcCatList=$allStatsData[0];
 		$this->getView()->assign('statcTime',\Library\json::encode($statcTime));
         $statcProList=$statcModel->getHotProductDataList(10);
         $topCat=$productModel->getTopCate(8);
