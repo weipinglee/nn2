@@ -95,7 +95,7 @@ class statistics{
         $offerObj=new Query('product_offer as f');
         $offerObj->join='left join products as p on f.product_id=p.id';
         $offerObj->fields='AVG(f.price) as "avg"';
-
+        
 
         $data=array(
             'create_time'=>date('Y-m-d H:i:s',time()),
