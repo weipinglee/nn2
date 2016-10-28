@@ -243,7 +243,7 @@ class witty{
                 }
 
                 case 'views:' : {//模板目录
-                    return self::getScriptDir().'/views/'.$this->_template_name.'/'.trim(trim($matches[4]),'/');
+                    return url::getScriptDir().'/views/'.$this->_template_name.'/'.trim(trim($matches[4]),'/');
                 }
                 break;
                 case 'root:' : {//根目录
