@@ -56,7 +56,7 @@
                     </div>
                     <script type="text/javascript">
                         $(function(){
-                            if({$no_cert}){
+                            if({$no_cert} == '1'){
                                 
                                 $('#buy_now').attr('href','javascript:;').unbind('click').click(function(){
                                     layer.msg('您的资质不完善,不能进行报价');

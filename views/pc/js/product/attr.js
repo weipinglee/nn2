@@ -137,7 +137,7 @@ function getCategory(cond){
                 });
 
                 $('.check_btn').each(function(){
-                  if($(this).attr('no_cert')){
+                  if($(this).attr('no_cert') == '1'){
                     $(this).attr('href','javascript:;').click(function(){
                       layer.msg($(this).attr('info'));
                                         
