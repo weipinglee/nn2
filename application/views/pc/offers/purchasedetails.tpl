@@ -58,7 +58,7 @@
                         $(function(){
                             if({$no_cert} == '1'){
                                 
-                                $('#buy_now').attr('href','javascript:;').unbind('click').click(function(){
+                                $('#buy_now').attr('href','javascript:;').attr('onclick','#').unbind('click').click(function(){
                                     layer.msg('您的资质不完善,不能进行报价');
                                     
                                     return false;
