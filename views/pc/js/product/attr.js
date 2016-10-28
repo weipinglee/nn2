@@ -130,16 +130,16 @@ function getCategory(cond){
 
                 })
 
-                $('.pages_bar').find('a').on('click',function(){
+                $('.pages_bar').find('a').on('click',function(){    
                     $('.pages_bar').find('.current_page').removeClass('current_page');
                     $(this).addClass('current_page');
                     getCategory();
                 });
 
                 $('.check_btn').each(function(){
-                  if($(this).attr('no_cert')){
+                  if($(this).attr('no_cert') == '1'){
                     $(this).attr('href','javascript:;').click(function(){
-                      layer.msg('该卖家资质不完善,不能进行此交易');
+                      layer.msg($(this).attr('info'));
                                         
                       return false;
                     })

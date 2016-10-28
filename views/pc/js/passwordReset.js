@@ -23,6 +23,11 @@ $(function () {
             $('.error').find(".field-validation-valid").html("【密码】不能低于6位");
             return false;
         }
+        if (pwd.length > 15) {
+            $('.error').find(".field-validation-error").html("【密码】不能多于15位");
+            $('.error').find(".field-validation-valid").html("【密码】不能多于15位");
+            return false;
+        }
         if (pwd != againPassword) {
             $('.error').find(".field-validation-error").html("【密码】与【确认密码】不一致！");
             $('.error').find(".field-validation-valid").html("【密码】与【确认密码】不一致！");
