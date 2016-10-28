@@ -238,7 +238,6 @@ $(function(){
                             <script language="javascript" type="text/javascript">
                                 $(function(){
                                     var cat_id={$first_cat_id};
-                                    alert(cat_id);
                                     changeContainer(cat_id);
                                 });
                                 function statistics(id,obj){
