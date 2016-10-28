@@ -48,11 +48,7 @@ class Base extends \Yaf\Controller_Abstract{
 				 }
 			 }
 			 if ($hand == FALSE && $this->pid!=0) {
-			 	if(IS_AJAX || IS_POST){
-			 	}
-			 	else{
-			 		$this->error('无权限操作！');exit();
-			 	}
+			 	$this->error('无权限操作！');exit();
 			 }
 		 }else $this->getView()->assign('login',0);
 		  //需要认证的方法未认证则跳转到认证页面
