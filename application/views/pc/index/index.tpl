@@ -215,7 +215,7 @@ $(function(){
 
                 </div>    
                 <div class="guanimg">{echo: \Library\Ad::show("首页1")}</div>
-  
+
                     <!--美金市场-->
                     <div class="i_market clearfix">
                         <div class="i_market_left" id="rmb_market">
