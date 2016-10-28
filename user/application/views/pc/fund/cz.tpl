@@ -60,7 +60,7 @@
                                 <span><input class="submit" type="submit" value="下一步"/></span>
                             </div>
                         </div>
-                        <div class="pane">
+                        <div class="pane" style="display:block">
                             <div class="zhxi_con">
                                 <!-- <span class="con_tit">充值方式二：</span>
                                 <span class="con_con" style="float:none;">转账汇款</span> -->
