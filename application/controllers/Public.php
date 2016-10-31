@@ -12,7 +12,6 @@ class PublicController extends \Yaf\Controller_Abstract{
           $right = new \Library\checkRight();
           $isLogin = $right->checkLogin();
           $this->getView()->setLayout('layout');
-          
           //获取所有分类
           $productModel=new product();
           $res=$productModel->getAllCat();
@@ -41,6 +40,10 @@ class PublicController extends \Yaf\Controller_Abstract{
           }
           else
                $this->getView()->assign('login',0);
+          
+          $model = new \nainai\system\DealSetting();
+          $deal = $model->getDealSetting(1);
+          $this->getView()->assign('deal', $deal);
 
      }
 
