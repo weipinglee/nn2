@@ -10,6 +10,7 @@
 /application/runtime/*
 /.idea
 *.ini
+.htaccess
 /Users/panduo/Sites/nn2/libs/Library/configs.php
 /libs/Library/configs.php
 
