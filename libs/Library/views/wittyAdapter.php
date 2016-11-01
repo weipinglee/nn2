@@ -26,10 +26,10 @@ class wittyAdapter implements \Yaf\View_Interface {
 		$client = client::getDevice();
 		$templateName = isset($config['template'][$client]) ? $config['template'][$client] : 'pc';
 		$this->witty->setTemplateName($templateName);
-		$tpl_dir =  $config['tpl_dir'].'/'.templateName.'/'  ;
+		$tpl_dir =  $config['tpl_dir'].'/'.$templateName.'/'  ;
 		$this->witty->setTplDir($tpl_dir);
 		$this->witty->setLayoutDir($tpl_dir.'/layout/');
-		$this->witty->setCompileDir($config['compile_dir'].'/'.templateName.'/');
+		$this->witty->setCompileDir($config['compile_dir'].'/'.$templateName.'/');
 		$this->witty->setCacheDir($config['cache_dir']);
 
 		//$this->_options = $options;
