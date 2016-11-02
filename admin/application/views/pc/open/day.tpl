@@ -93,7 +93,9 @@
 
         <div class="row cl">
             <div class="col-10 col-offset-2">
+            {if: $detail['is_show'] == 1}
               <input type="submit"  class="btn btn-primary radius"  name="submit" value="日结">
+              {/if}
                <input type="hidden" name="type" >
               <input type="submit"  class="btn btn-primary radius"  name="open" value="手工开市">
                 <!-- <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button> -->
