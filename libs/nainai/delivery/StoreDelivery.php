@@ -27,11 +27,12 @@ class StoreDelivery extends Delivery{
 	 */
 	public function storeFees($delivery_id){
 		$query = new Query('product_delivery as pd');
-		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_list as sl on sp.store_id = sl.id left join products as p on po.product_id = p.id left join order_sell as o on pd.order_id = o.id';
-		$query->fields = 'p.img,pd.num as delivery_num,sp.store_price,sp.store_unit,sp.in_time,sp.rent_time,pd.id,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id';
+		$query->join = 'left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_list as sl on sp.store_id = sl.id left join products as p on po.product_id = p.id left join order_sell as o on pd.order_id = o.id LEFT JOIN product_category as ca ON p.cate_id=ca.id';
+		$query->fields = 'pd.*,p.img,pd.num as delivery_num,sp.store_price,sp.store_unit,sp.in_time,sp.rent_time,sl.name as store_name,p.name,p.unit,o.amount,po.price,o.num, po.product_id, pd.status as pstatus, pd.admin_msg, po.user_id as seller_id, p.quantity,p.produce_area,p.attribute, po.expire_time,po.accept_area, ca.name as cate_name';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
+		$res['status_txt'] = $this->getStatus($res['pstatus']);
 		$pro = new \nainai\offer\product();
 		$photos = $pro->getProductPhoto($res['product_id']);
 		$res['photos'] = $photos[1];
@@ -58,6 +59,30 @@ class StoreDelivery extends Delivery{
 		$total_days = $next_day < time() ? ceil((time()-$next_day)/86400)+1 : 1.0;
 		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * $total_days/$days ,2);
 		$res['now_time'] = time::getDateTime();
+		if (!empty($res)) {
+			$attr_ids = array();
+		        $res['attribute'] = unserialize($res['attribute']);
+		        if(!empty($res['attribute'])){
+		            foreach ($res['attribute'] as $key => $value) {
+		                $attr_ids[] = $key;
+		            }
+		        }
+		        $model = new \nainai\offer\product();
+		         //获取属性
+		        $attrs = $model->getHTMLProductAttr($attr_ids);
+		        $res['attrs'] = '';
+		        if(!empty($res['attribute'])) {
+		            foreach ($res['attribute'] as $key => $value) {
+		                if(@isset($attrs[$key])){
+		                    $res['attr_arr'][$attrs[$key]] = $value;
+		                    $res['attrs'] .= $attrs[$key] . ' : ' . $value . ';';
+		                }
+
+		            }
+		        }
+		        $res['attr_name'] = $attrs;
+		}
+		
 		return $res;
 	}
 
@@ -131,7 +156,7 @@ class StoreDelivery extends Delivery{
 	public function storeCheckList($page,$user_id){
 		$query = new Query('product_delivery as pd');
 		$query->join = 'left join order_sell as o on pd.order_id = o.id left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_manager as sm on sm.store_id = sp.store_id left join store_list as sl on sl.id = sp.store_id';
-		$query->where = 'sm.user_id=:user_id and pd.status = '.\nainai\delivery\Delivery::DELIVERY_MANAGER_CHECKOUT.' and po.mode='.\nainai\order\Order::ORDER_STORE;
+		
 		$query->fields = 'pd.id,o.order_no,pd.num as delivery_num,sl.name as store_name';
 		$query->bind = array('user_id'=>$user_id);
 		$query->order = 'pd.create_time desc';
@@ -170,7 +195,7 @@ class StoreDelivery extends Delivery{
 	public function storeOrderList($page = 1,$where = '',$is_checked = 0){
 		$query = new \Library\searchQuery('order_sell as o');
 		$query->join = 'left join product_offer as po on o.offer_id = po.id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id left join product_delivery as pd on pd.order_id = o.id left join store_products as sp on p.id = sp.product_id left join store_list as sl on sp.store_id = sl.id';
-		$query->fields = 'o.*,p.name as product_name,pc.name as cate_name,sl.name as store_name,pd.create_time as delivery_time,p.unit,pd.num as delivery_num,pd.id as delivery_id, pd.expect_time, po.accept_area, po.price, p.produce_area, p.attribute,po.expire_time,p.quantity,pd.delivery_man,pd.phone,pd.idcard,pd.plate_number,pd.remark';
+		$query->fields = 'o.*,p.name as product_name,pc.name as cate_name,sl.name as store_name,pd.create_time as delivery_time,p.unit,pd.num as delivery_num,pd.id as delivery_id, pd.expect_time, po.accept_area, po.price, p.produce_area, p.attribute,po.expire_time,p.quantity,pd.delivery_man,pd.phone,pd.idcard,pd.plate_number,pd.remark, po.user_id as seller_id';
 		$relation = $is_checked ? '> ' : '= ';
 		$sql_where = 'o.mode='.\nainai\order\Order::ORDER_STORE.' and pd.status '.$relation.\nainai\delivery\Delivery::DELIVERY_ADMIN_CHECK;
 		if($where) $sql_where .= ' and '.$where;
@@ -193,6 +218,9 @@ class StoreDelivery extends Delivery{
 	public function storeOrderDetail($delivery_id,$is_checked = 0){
 		$info = $this->storeOrderList(NULL,'pd.id='.$delivery_id,$is_checked);
 		$detail = $info['list'][0];
+		if (empty($detail)) {
+			return array();
+		}
 		$attr_ids = array();
 	        $detail['attribute'] = unserialize($detail['attribute']);
 	        if(!empty($detail['attribute'])){
@@ -229,7 +257,7 @@ class StoreDelivery extends Delivery{
 		$query->fields = 'pd.*,po.user_id,po.mode,po.id as order_id,po.num as total_num,offer.type,offer.user_id as offer_user,po.order_no';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
-		
+
 		$deliveryData = array();
 		$deliveryData['id'] = $delivery_id;
 		$deliveryData['admin_msg'] = $admin_msg;

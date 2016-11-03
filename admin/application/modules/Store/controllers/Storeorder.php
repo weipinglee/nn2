@@ -28,7 +28,6 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		$id = safe::filter($this->_request->getParam('id'));
 		$delivery = new \nainai\delivery\StoreDelivery();
 		$info = $delivery->storeOrderDetail($id);
-
 		$this->getView()->assign('info',$info);
 	}
 
@@ -37,16 +36,23 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		$delivery_id = safe::filterPost('id');
 		$status = safe::filterPost('status');
 		$msg = safe::filterPost('msg');
+		$order_no = safe::filterPost('order_no');
+		$buyer_id = safe::filterPost('buyer_id');
+		$seller_id = safe::filterPost('seller_id');
 
 		$store = new \nainai\delivery\StoreDelivery();
 		$res = $store->adminCheck($delivery_id, $status, $msg);
-		
 		if($res['success']==1){
 			$log = new \Library\log();
 			if ($status == 1) {
-				$content = '提货单'.$delivery_id.'出库审核通过';
+				$content = '提货单'.$delivery_id.', 合同：'.$order_no.',出库审核通过';
 			}else{
-				$content = '提货单'.$delivery_id.'出库审核驳回';
+				$content = '提货单'.$delivery_id.', 合同：'.$order_no.',出库审核驳回';
+				$param = array('order_no' => $order_no, 'msg' => $msg);
+				$obj = new  \nainai\message($buyer_id);
+				$obj->send('delivery_check', $param);
+				$obj = new  \nainai\message($seller_id);
+				$obj->send('delivery_check', $param);
 			}
 			$log->addLog(array('content'=>$content));
 		}

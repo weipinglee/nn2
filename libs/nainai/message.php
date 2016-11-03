@@ -32,7 +32,8 @@ class message{
 		'store',
         'common',
 		'credentials',
-		'repcredentials'
+		'repcredentials',
+		'delivery_check'
 	);
 	/**
 	 * [__construct 构造方法]
@@ -295,6 +296,13 @@ class message{
 		else{
 			$message = '您好，”'.$param['name'].'”仓单，仓库管理员已经进行签发，请您及时进行确认.<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist'). '">跳转到仓单列表页</a>';
 		}
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+	public function delivery_check($param){
+		$title = '出库审核';
+		$message = ' 您好！您合同号为'.$param['order_no'].'的商品，出库审核时被市场驳回，原因为:'.$param['msg'].'；如有疑问请致电XXX-XXX';
 		return array(
 			'title'=>$title,
 			'content'=>$message);

@@ -7,13 +7,22 @@
 						<p><a>交易管理</a>><a>仓单出库确认</a></p>
 					</div>
 					<div class="chp_xx">
-						<div class="de_ce">
-							<div class="detail_chj" style="margin-top: 11px">
-								<!-- <input class="fk_butt" type="button" value="支付仓库管理费用"/> -->
-								<a href="{url:/ManagerStore/storeDeliveryCheck?id=$info[id]}" style="background: #FC7300;padding: 8px 15px;color:#fff;text-decoration: none">确认出库</a>
-							</div>
-						</div>
 						<div class="sjxx">
+						<p>出库信息</p>
+
+							<div class="sj_detal">
+								<b class="sj_de_tit">状态：</b>
+								<span>&nbsp;{$info['status_txt']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">审核意见：</b>
+								<span>&nbsp;{$info['admin_msg']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit"></b>
+								<span>&nbsp;<a href="{url:/ManagerStore/storeDeliveryCheck?id=$info[id]}" style="background: #FC7300;padding: 8px 15px;color:#fff;text-decoration: none">确认出库</a></span>
+							</div>
+
 							<p>仓库信息</p>
 
 							<div class="sj_detal">
@@ -43,35 +52,59 @@
 								<b class="sj_de_tit">总价：</b>
 								<span>&nbsp;￥{$info['store_fee']}</span>
 							</div>
-							<div class="sj_detal">
-								<b class="sj_de_tit">状态：</b>
-								<span>&nbsp;已支付仓库费用</span>
-							</div>
-						</div>
-						<div class="xx_center">
-							<table border="0" cellpadding="" cellspacing="">
-								<tbody>
-								<tr class="title" >
-									<td align="left" colspan="7">&nbsp;商品清单</td>
-								</tr>
-								<tr>
-									<th>图片</th>
-									<th>商品名称</th>
-									<th>商品价格</th>
-									<th>商品数量</th>
-									<th>小计</th>
-									<th>配送</th>
-								</tr>
-								<tr>
-									<td><img src="{if:isset($info['photos'][0])}{$info['photos'][0]}{/if}"/></td>
-									<td>{$info['name']}</td>
-									<td>{$info['price']}</td>
-									<td>{$info['num']}{$info['unit']}</td>
-									<td>{$info['amount']}</td>
-									<td>未发货</td>
+							<p>商品信息</p>
 
-								</tr>
-							</tbody></table>
+							<div class="sj_detal">
+								<b class="sj_de_tit">商品名称：</b>
+								<span>&nbsp;{$info['name']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">产品大类：</b>
+								<span>&nbsp;{$info['cate_name']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">规格：</b>
+								<span>&nbsp;{$info['attrs']}</span>
+							</div>
+
+							<div class="sj_detal">
+								<b class="sj_de_tit">产地：</b>
+								<span id="area">&nbsp; {areatext: data=$info['produce_area'] id=areat }</span>
+							</div>
+
+							<div class="sj_detal">
+								<b class="sj_de_tit">单价：</b>
+								<span>&nbsp;￥{$info['price']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">数量：</b>
+								<span>&nbsp;{$info['quantit']}{$info['unit']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">交收地点：</b>
+								<span>&nbsp;{$info['accept_area']}</span>
+							</div>
+							<p>提货人信息</p>
+							<div class="sj_detal">
+								<b class="sj_de_tit">提货人：</b>
+								<span>&nbsp;{$info['delivery_man']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">电话：</b>
+								<span>&nbsp;{$info['phone']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">身份证号：</b>
+								<span>&nbsp;{$info['idcard']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">车牌号：</b>
+								<span>&nbsp;{$info['plate_number']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">备注：</b>
+								<span>&nbsp;{$info['remark']}</span>
+							</div>
 						</div>
 					</div>
 				</div>

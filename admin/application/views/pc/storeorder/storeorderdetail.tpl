@@ -11,6 +11,9 @@
    <div class="pd-20">
   <form action="{url:store/storeorder/storeOrderPass}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:store/storeorder/checkorderList}">
       <input type="hidden" name="id" value="{$info['delivery_id']}" />
+      <input type="hidden" name="order_no" value="{$info['order_no']}" />
+      <input type="hidden" name="buyer_id" value="{$info['user_id']}" />
+      <input type="hidden" name="seller_id" value="{$info['seller_id']}" />
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>订单号：</label>
       <div class="formControls col-5">
