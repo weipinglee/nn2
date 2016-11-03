@@ -170,14 +170,12 @@ class StoreDelivery extends Delivery{
 	public function storeOrderList($page = 1,$where = '',$is_checked = 0){
 		$query = new \Library\searchQuery('order_sell as o');
 		$query->join = 'left join product_offer as po on o.offer_id = po.id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id left join product_delivery as pd on pd.order_id = o.id left join store_products as sp on p.id = sp.product_id left join store_list as sl on sp.store_id = sl.id';
-		$query->fields = 'o.*,p.name as product_name,pc.name as cate_name,sl.name as store_name,pd.create_time as delivery_time,p.unit,pd.num as delivery_num,pd.id as delivery_id';
+		$query->fields = 'o.*,p.name as product_name,pc.name as cate_name,sl.name as store_name,pd.create_time as delivery_time,p.unit,pd.num as delivery_num,pd.id as delivery_id, pd.expect_time, po.accept_area, po.price, p.produce_area, p.attribute,po.expire_time,p.quantity,pd.delivery_man,pd.phone,pd.idcard,pd.plate_number,pd.remark';
 		$relation = $is_checked ? '> ' : '= ';
 		$sql_where = 'o.mode='.\nainai\order\Order::ORDER_STORE.' and pd.status '.$relation.\nainai\delivery\Delivery::DELIVERY_ADMIN_CHECK;
 		if($where) $sql_where .= ' and '.$where;
 		$query->where = $sql_where;
 		$query->order = 'pd.create_time desc';
-		$query->page = $page;
-		$query->pagesize = 5;
 		$list = $query->find();
 		foreach ($list['list'] as $key => &$value) {
 			$value['num_txt'] = $value['num'].$value['unit'];
@@ -194,7 +192,29 @@ class StoreDelivery extends Delivery{
 	 */
 	public function storeOrderDetail($delivery_id,$is_checked = 0){
 		$info = $this->storeOrderList(NULL,'pd.id='.$delivery_id,$is_checked);
-		return $info['data'][0];
+		$detail = $info['list'][0];
+		$attr_ids = array();
+	        $detail['attribute'] = unserialize($detail['attribute']);
+	        if(!empty($detail['attribute'])){
+	            foreach ($detail['attribute'] as $key => $value) {
+	                $attr_ids[] = $key;
+	            }
+	        }
+	        $model = new \nainai\offer\product();
+	         //获取属性
+	        $attrs = $model->getHTMLProductAttr($attr_ids);
+	        $detail['attrs'] = '';
+	        if(!empty($detail['attribute'])) {
+	            foreach ($detail['attribute'] as $key => $value) {
+	                if(@isset($attrs[$key])){
+	                    $detail['attr_arr'][$attrs[$key]] = $value;
+	                    $detail['attrs'] .= $attrs[$key] . ' : ' . $value . ';';
+	                }
+
+	            }
+	        }
+	        $detail['attr_name'] = $attrs;
+		return $detail;
 	}
 
 	/**
@@ -202,21 +222,28 @@ class StoreDelivery extends Delivery{
 	 * @param  int $delivery_id 提货表Id
 	 * @return array $res  返回结果信息
 	 */
-	public function adminCheck($delivery_id){
+	public function adminCheck($delivery_id,$status, $admin_msg=''){
 		//获取对应订单信息
 		$query = new Query('product_delivery as pd');
 		$query->join = 'left join order_sell as po on pd.order_id = po.id left join product_offer as offer on offer.id=pd.offer_id';
 		$query->fields = 'pd.*,po.user_id,po.mode,po.id as order_id,po.num as total_num,offer.type,offer.user_id as offer_user,po.order_no';
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
-
+		
+		$deliveryData = array();
+		$deliveryData['id'] = $delivery_id;
+		$deliveryData['admin_msg'] = $admin_msg;
+		if ($status == 0) {
+			$deliveryData['status'] = parent::DELIVERY_ADMIN_DECLINE;
+			return $this->deliveryUpdate($deliveryData);
+		}
 		$delivery = $query->getObj();
 		if($delivery && $delivery['status'] == parent::DELIVERY_ADMIN_CHECK && $delivery['mode'] == order\Order::ORDER_STORE){
 			//计算货物余量
 			$left = $this->orderNumLeft($delivery['order_id'],true,true);
 			if(is_float($left)){
 				$left -= floatval($delivery['num']) / floatval($delivery['total_num']);
-				$deliveryData['id'] = $delivery_id;
+				
 				if($left > 0.20){
 					//货物余量大于20% 本次提货结束 等待买家进行第二次提货
 					$deliveryData['status'] = parent::DELIVERY_AGAIN;

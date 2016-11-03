@@ -21,6 +21,7 @@ class Delivery{
 	const DELIVERY_ADMIN_CHECK = 3;//等待后台管理员审核（仓单）
 	const DELIVERY_AGAIN = 4;//余量大于20% 需再次提货
 	const DELIVERY_COMPLETE = 5;//余量小于20%，提货结束，等待买方确认质量
+	const DELIVERY_ADMIN_DECLINE = 44; //后台审核驳回
 	
 	protected $delivery;//提货表M对象
 	protected $order;//订单表M对象

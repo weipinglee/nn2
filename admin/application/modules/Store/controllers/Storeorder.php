@@ -18,10 +18,9 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		
 		$page = safe::filterGet('page','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
-		$list = $delivery->storeOrderList($page,$name ? 'o.order_no like "%'.$name.'%"' : '');
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['bar']);
-		$this->getView()->assign('name',$name);
+		$data = $delivery->storeOrderList($page,$name ? 'o.order_no like "%'.$name.'%"' : '');
+
+		$this->getView()->assign('data',$data);
 	}
 
 	//待审核详情
@@ -29,17 +28,27 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		$id = safe::filter($this->_request->getParam('id'));
 		$delivery = new \nainai\delivery\StoreDelivery();
 		$info = $delivery->storeOrderDetail($id);
+
 		$this->getView()->assign('info',$info);
 	}
 
 	//通过仓单出库审核
 	public function storeOrderPassAction(){
 		$delivery_id = safe::filterPost('id');
+		$status = safe::filterPost('status');
+		$msg = safe::filterPost('msg');
+
 		$store = new \nainai\delivery\StoreDelivery();
-		$res = $store->adminCheck($delivery_id);
+		$res = $store->adminCheck($delivery_id, $status, $msg);
+		
 		if($res['success']==1){
 			$log = new \Library\log();
-			$log->addLog(array('content'=>'提货单'.$delivery_id.'出库审核'));
+			if ($status == 1) {
+				$content = '提货单'.$delivery_id.'出库审核通过';
+			}else{
+				$content = '提货单'.$delivery_id.'出库审核驳回';
+			}
+			$log->addLog(array('content'=>$content));
 		}
 		die(JSON::encode($res));
 	}
@@ -52,10 +61,8 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		
 		$page = safe::filterGet('page','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
-		$list = $delivery->storeOrderList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',1);
-		$this->getView()->assign('data',$list['data']);
-		$this->getView()->assign('page',$list['bar']);
-		$this->getView()->assign('name',$name);
+		$data = $delivery->storeOrderList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',1);
+		$this->getView()->assign('data',$data);
 	}
 
 	//已审核详情
