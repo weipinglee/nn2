@@ -168,7 +168,7 @@ class StoreDelivery extends Delivery{
 	 * @param int $is_checked 0:未审核 1:已审核
 	 */
 	public function storeOrderList($page = 1,$where = '',$is_checked = 0){
-		$query = new Query('order_sell as o');
+		$query = new \Library\searchQuery('order_sell as o');
 		$query->join = 'left join product_offer as po on o.offer_id = po.id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id left join product_delivery as pd on pd.order_id = o.id left join store_products as sp on p.id = sp.product_id left join store_list as sl on sp.store_id = sl.id';
 		$query->fields = 'o.*,p.name as product_name,pc.name as cate_name,sl.name as store_name,pd.create_time as delivery_time,p.unit,pd.num as delivery_num,pd.id as delivery_id';
 		$relation = $is_checked ? '> ' : '= ';
@@ -179,7 +179,12 @@ class StoreDelivery extends Delivery{
 		$query->page = $page;
 		$query->pagesize = 5;
 		$list = $query->find();
-		return array('data'=>$list,'bar'=>$query->getPageBar());
+		foreach ($list['list'] as $key => &$value) {
+			$value['num_txt'] = $value['num'].$value['unit'];
+			$value['delivery_num_txt'] = $value['delivery_num'].$value['unit'];
+		}
+		$query->downExcel($list['list'], 'order_sellapply', '待审核出库');
+		return $list;
 	}	
 
 	/**
