@@ -309,14 +309,21 @@ class MemberController extends InitController {
 			$status = safe::filterPost('status', 'int');
 			$data = array('status' => ($status == 1) ? $model::APPLY_OK : $model::APPLY_NO);
 			$data['msg'] = safe::filterPost('msg');	
-
-
+			
 			$res = $model->updateApplyResetpay($data, $id);
-			if ($res['success'] == 1 && $data['status'] == $model::APPLY_NO) {
-				$info = $model->getApplyResetpay($id, 'uid');
-				$mess = new \nainai\message($info['uid']);
-				$re = $mess->send('ApplyResetpay', 0);
+			
+			if ($res['success'] == 1) {
+				$log = new \Library\log();
+				$info = $model->getdetail($id);
+				if ($data['status'] == $model::APPLY_NO) {
+					$mess = new \nainai\message($info['uid']);
+					$re = $mess->send('ApplyResetpay', 0);
+					$content = $info['username'] . '申请的修改支付密码请求，审核驳回,意见:'  . $data['msg'];
+				}else{
+					$content = $info['username'] . '申请的修改支付密码请求，审核通过,意见:' . $data['msg'];
+				}
 			}
+			$log->addLog(array('content'=>$content));
 		}else{
 			$res = tool::getSuccInfo(0, 'Error iD');
 		}
@@ -345,6 +352,10 @@ class MemberController extends InitController {
 					$data = array('pay_secret' => md5($pwd));
 					$res = $usermodel->updateUser($data, $info['uid']);
 					if ($res['success'] == 1 ) {
+						$log = new \Library\log();
+						$content = $info['username'] . '重置支付密码成功';
+						$log->addLog(array('content'=>$content));
+
 						$data = array('status' => $model::APPLY_END);
 						$res = $model->updateApplyResetpay($data, $id);
 						$info = $model->getApplyResetpay($id, 'uid');
