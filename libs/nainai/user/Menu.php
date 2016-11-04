@@ -53,7 +53,7 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	 * @return [Array] 
 	 */
 	public function getMenuList(){
-		return $this->model->fields('id, menu_zn, pid,status,menu_url, position')->order('pid asc, sort desc')->select();
+		return $this->model->fields('id, menu_zn, pid,status,menu_url, position, subacc_show')->order('pid asc, sort desc')->select();
 	}
 	
 
@@ -151,7 +151,7 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 			}
 			
 			if ( $userPur != '' ) {
-				$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url,status, position')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
+				$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url,status, position, subacc_show')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
 
 				foreach($menuList as $k=>$v){
 					if($v['menu_url']!='')

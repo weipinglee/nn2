@@ -51,6 +51,9 @@ class Downconfig
                 case 'payto_market':
                   $config = array('id' => 'id', 'mode_text' => '订单类型', 'charge_type_text' => '收费类型', 'num' => '金额', 'order_no' => '所属订单', 'create_time' => '时间');
                   break;
+                case 'order_sellapply':
+                $config = array('order_no' => '订单编号', 'product_name' => '商品名称', 'cate_name' => '所属分类', 'num_txt' => '商品数量', 'delivery_num_txt' => '本轮提货数量', 'amount' => '订单金额', 'store_name' => '所在仓库', 'delivery_time' => '提货时间');
+                  break;
           }
           return $config;
      }

@@ -62,6 +62,13 @@
                     </div>
                 </div>
 
+                <div class="row cl">
+                    <label class="form-label col-2">子账户是否显示：</label>
+                    <div class="formControls col-10">
+                    <input type="radio" name="subacc_show" value="0" >否<input type="radio" name="subacc_show" value="1" checked>是
+                    </div>
+                </div>
+
 
                 <div class="row cl">
                     <div class="col-10 col-offset-2">
