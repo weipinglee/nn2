@@ -41,7 +41,7 @@ class Base extends \Yaf\Controller_Abstract{
 			 	$hand = TRUE;
 			 }else{
 			 	foreach ($this->menuList as $list) {
-				 	if (stripos($list['menu_url'],$url) > 0) {
+				 	if ($list['subacc_show'] == 0 OR stripos($list['menu_url'],$url) > 0) {
 				 		$hand = TRUE;
 				 		break;
 				 	}

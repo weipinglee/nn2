@@ -169,7 +169,7 @@ class store{
      * @param int $page 页码
      * @param array $condition 条件
      */
-    protected function getStoreProductList($page,$condition=array(),$pagesize=20){
+    protected function getStoreProductList($page,$condition=array(),$pagesize=10){
         $query = new \Library\searchQuery('store_products as a');
         $query->fields = 'a.id,a.user_id,b.name as sname, a.status, c.name as pname,c.quantity,d.name as cname, c.attribute,c.unit, a.package_unit, a.package_weight';
         $query->join = ' LEFT JOIN store_list as b ON a.store_id=b.id LEFT JOIN products as c ON a.product_id = c.id   LEFT JOIN product_category as d  ON c.cate_id=d.id';
