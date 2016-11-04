@@ -12,4 +12,14 @@ class DealSetting extends \nainai\Abstruct\ModelAbstract{
 	        array('start_time','require','必须选择开市时间'),
 	        array('end_time','require','必须选择闭市时间'),
 	);
+
+	/**
+	 * 获取最新的日结配置
+	 */
+	public function getsetting(){
+		$where = 'date <=:date';
+		$bind = array('date' => date('Ymd', time()));
+		return $this->model->where($where)->bind($bind)->order('date desc')->getObj();
+	}
+
 }

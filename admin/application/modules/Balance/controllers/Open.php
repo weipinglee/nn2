@@ -12,7 +12,7 @@ class OpenController extends InitController {
 
 		if (IS_AJAX) {
 			$type = Safe::filterPost('type');
-			$detail = $model->getDealSetting(1);
+			$detail = $model->getsetting();
 			switch ($type) {
 				case 'submit':
 					$data = array(
@@ -131,7 +131,7 @@ class OpenController extends InitController {
 		$deal = new \nainai\fund\DealTotal();
 		$data = $deal->getDealTotal(array('create_time' => $date), 'id');
 		if ( ! empty($data)) {
-			$detail['status'] = '日结状态';
+			$detail['status'] = '日结完状态';
 			$detail['is_show'] = 0;
 		}else{
 			$detail['is_show'] = 1;
@@ -144,12 +144,26 @@ class OpenController extends InitController {
 
 		if (IS_AJAX) {
 			$weeks = Safe::filterPost('weeks');
+			$date = date('Ymd', strtotime('+1days'));
+
 			$data = array(
 				'weeks' => implode(',', $weeks),
 				'start_time' => Safe::filterPost('start_time'),
 				'end_time' => Safe::filterPost('end_time'),
 			);
-			$res = $model->updateDealSetting($data, 1);
+			//判断是否已经添加
+			
+			$info = $model->getDealSetting(array('date' => $date), 'date');
+			if  ( ! empty($info) ){
+				$res = $model->updateDealSetting($data, $date);
+			}else{
+				$info = $model->getDealSetting(array('date' => Safe::filterPost('date')), 'daily, last_daily');
+				$data['daily'] = $info['daily'];
+				$data['last_daily'] = $info['last_daily'];
+				$data['date'] = $date;
+				$res = $model->addDealSetting($data);
+			}
+			
 			if ($res['success'] == 1) {
 				$admin_info = admintool\admin::sessionInfo();
 
@@ -159,9 +173,10 @@ class OpenController extends InitController {
 			exit(json::encode($res));
 		}
 		
-		$deal = $model->getDealSetting(1);
+		$deal = $model->getsetting();
 		if (empty($deal)) {
 			$deal = array(
+				'date' => date('Ymd'),
 				'weeks' => '1, 2, 3, 4, 5',
 				'start_time' => '09:00:00',
 				'end_time' => '17:30:00'

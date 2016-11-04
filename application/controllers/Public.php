@@ -42,7 +42,7 @@ class PublicController extends \Yaf\Controller_Abstract{
                $this->getView()->assign('login',0);
           
           $model = new \nainai\system\DealSetting();
-          $deal = $model->getDealSetting(1);
+          $deal = $model->getsetting();
           $this->getView()->assign('deal', $deal);
 
      }

@@ -18,7 +18,7 @@
         <div>
             <form action="{url:balance/open/calendar}" method="post" class="form form-horizontal" id="form-scaleoffer-add" auto_submit no_redirect='1'>
         <div id="tab-system" class="HuiTab">
-            
+            <input type="hidden" name="date" value="{$deal['date']}" />
             <div class="tabCon" style="display: block;">
                 <div class="row cl">
                     <label class="form-label col-2"><span class="c-red">*</span>可交易时间</label>

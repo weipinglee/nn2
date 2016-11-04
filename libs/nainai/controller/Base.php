@@ -68,7 +68,7 @@ class Base extends \Yaf\Controller_Abstract{
 	   }
 
 			$model = new \nainai\system\DealSetting();
-			$deal = $model->getDealSetting(1);
+			$deal = $model->getsetting();
 			$this->getView()->assign('deal', $deal);
 
     }
