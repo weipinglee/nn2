@@ -126,6 +126,16 @@ class OpenController extends InitController {
 		}else{
 			$detail['status'] = '闭市状态';
 		}
+
+		$date = date('Ymd', time());
+		$deal = new \nainai\fund\DealTotal();
+		$data = $deal->getDealTotal(array('create_time' => $date), 'id');
+		if ( ! empty($data)) {
+			$detail['status'] = '日结状态';
+			$detail['is_show'] = 0;
+		}else{
+			$detail['is_show'] = 1;
+		}
 		$this->getView()->assign('detail', $detail);
 	}
 

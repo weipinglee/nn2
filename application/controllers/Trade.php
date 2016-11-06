@@ -38,7 +38,6 @@ class tradeController extends \nainai\controller\Base {
 
 	//付款
 	public function buyerPayAction(){
-
 		$id = safe::filterPost('id','int');
 		$num = safe::filterPost('num');
 		$paytype = safe::filterPost('paytype');
@@ -46,6 +45,9 @@ class tradeController extends \nainai\controller\Base {
 		$invoice = safe::filterPost('invoice');
 
 		$detail = $this->offer->offerDetail($id);
+		if ($detail['user_id'] == $this->pid) {
+			die(json::encode(tool::getSuccInfo(0,'子账户不能购买父账户发布的商品')));
+		}
 		$certObj=new \nainai\cert\certificate();
 		$certStatus=$certObj->getCertStatus($detail['user_id'],'deal');
 		if($certStatus['status']==4){
@@ -296,6 +298,9 @@ class tradeController extends \nainai\controller\Base {
 			}
 			else if($data['user_id']==$this->user_id){
 				die(json::encode(tool::getSuccInfo(0,'不能给自己的采购报价!')));exit();
+			}
+			else if($data['user_id']==$this->pid){
+				die(json::encode(tool::getSuccInfo(0,'子账户不能报价父账户发布的商品!')));exit();
 			}
 
 

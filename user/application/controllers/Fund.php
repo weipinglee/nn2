@@ -304,8 +304,13 @@ class FundController extends UcenterBaseController {
 	public function bankAction(){
 		$fundModel = new fundModel();
 		if(IS_POST||IS_AJAX){
+			if ($this->pid == 0) {
+				$user_id = $this->user_id;
+			}else{
+				$user_id = $this->pid;
+			}
 			$data=array(
-				'user_id'=>$this->user_id,
+				'user_id'=>$user_id,
 				'bank_name'=>safe::filterPost('bank_name'),
 				'card_type'=>safe::filterPost('card_type'),
 				'card_no'=>safe::filterPost('card_no'),
@@ -330,7 +335,12 @@ class FundController extends UcenterBaseController {
 			die(json::encode($res));
 		}
 		else{//获取数据
-			$data = $fundModel->getbankInfo($this->user_id);
+			if ($this->pid == 0) {
+				$data = $fundModel->getbankInfo($this->user_id);
+			}else{
+				$data = $fundModel->getbankInfo($this->pid);
+			}
+			
 			if(!empty($data)){
 				$data['proof_thumb'] = \Library\thumb::get($data['proof'],180,180);
 				$this->getView()->assign('bank',$data);

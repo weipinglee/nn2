@@ -21,6 +21,7 @@ class Delivery{
 	const DELIVERY_ADMIN_CHECK = 3;//等待后台管理员审核（仓单）
 	const DELIVERY_AGAIN = 4;//余量大于20% 需再次提货
 	const DELIVERY_COMPLETE = 5;//余量小于20%，提货结束，等待买方确认质量
+	const DELIVERY_ADMIN_DECLINE = 44; //后台审核驳回
 	
 	protected $delivery;//提货表M对象
 	protected $order;//订单表M对象
@@ -28,6 +29,37 @@ class Delivery{
 	protected $offer;//报盘表
 	protected $account;//用户资金类
 	protected $paylog;//日志
+
+	public function getStatus($status){
+		$title = '';
+		switch ($status) {
+			case self::DELIVERY_APPLY:
+				$title = '买方申请提货';
+				break;
+			case self::DELIVERY_BUYER_CONFIRM:
+				$title = '卖方已发货，等待买方确认 （保证金）';
+				break;
+			case self::DELIVERY_MANAGER_CHECKOUT:
+				$title = '卖方支付仓库费,等待仓库管理员确认出库（仓单）';
+				break;
+			case self::DELIVERY_ADMIN_CHECK:
+				$title = '等待后台管理员审核（仓单）';
+				break;
+			case self::DELIVERY_AGAIN:
+				$title = '余量大于20% 需再次提货';
+				break;
+			case self::DELIVERY_COMPLETE:
+				$title = '余量小于20%，提货结束，等待买方确认质量';
+				break;
+			case self::DELIVERY_ADMIN_DECLINE:
+				$title = '后台审核驳回';
+				break;
+			default:
+				$title = '异常状态';
+				break;
+		}
+		return $title;
+	}
 
 	/**
 	 * 规则
@@ -154,6 +186,9 @@ class Delivery{
 					break;
 				case self::DELIVERY_COMPLETE:
 					$title = '全部提货完成';
+					break;
+				case self::DELIVERY_ADMIN_DECLINE;
+					$title = '后台审核驳回';
 					break;
 				default:
 					$title = '未知状态';

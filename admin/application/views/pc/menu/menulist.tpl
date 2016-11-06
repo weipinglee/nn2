@@ -19,6 +19,7 @@
         <th width="80">菜单url</th>
         <th width="80">菜单位置</th>
         <th width="80">是否显示</th>
+        <th width="80">子账户是否显示</th>
         <th width="100">操作</th>
       </tr>
     </thead>
@@ -44,6 +45,13 @@
         </td>
         <td>
         {if:$list['status'] == 1}
+          是
+        {else:}
+          否
+        {/if}
+        </td>
+         <td>
+        {if:$list['subacc_show'] == 1}
           是
         {else:}
           否

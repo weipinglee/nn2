@@ -78,15 +78,13 @@ class UcenterBaseController extends \nainai\controller\Base{
 		$menu = $MenuModel->createHtmlMenu($controllerName);
 		$this->getView()->assign('topArray', $menu['top']);
 		$this->getView()->assign('leftArray', $menu['left']);
-                    $model = new \nainai\system\DealSetting();
-                    $deal = $model->getDealSetting(1);
+                    
         
 		// 判断该方法买家是否能操作，如果不能，跳转到用户中心首页
 		 if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
 		 	$this->redirect(url::createUrl('/ucenter/index'));
 		 }
 		$this->getView()->assign('action', $actionName);
-                    $this->getView()->assign('deal', $deal);
 		$mess=new \nainai\message($this->user_id);
 		$countNeedMess=$mess->getCountMessage();
 		$this->getView()->assign('mess',$countNeedMess);

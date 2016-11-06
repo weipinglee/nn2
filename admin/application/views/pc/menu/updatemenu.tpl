@@ -62,6 +62,14 @@
                     </div>
                 </div>
 
+
+                <div class="row cl">
+                    <label class="form-label col-2">子账户是否显示：</label>
+                    <div class="formControls col-10">
+                    <input type="radio" name="subacc_show" value="0" {if:$detail['subacc_show'] == 0}checked{/if}>否<input type="radio" name="subacc_show" value="1" {if:$detail['subacc_show'] == 1}checked{/if}>是
+                    </div>
+                </div>
+
                 <div class="row cl">
                     <div class="col-10 col-offset-2">
                         <button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok fa-ok"></i> 提交</button>

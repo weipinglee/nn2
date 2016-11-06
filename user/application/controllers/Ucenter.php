@@ -316,7 +316,6 @@ class UcenterController extends UcenterBaseController {
             $certData = $cert->getCertData($this->pid);
             $certShow = $cert->getCertShow($this->pid);
         }
-        
 
         $this->getView()->assign('certData',$certData);
         $this->getView()->assign('certShow',$certShow);
@@ -522,8 +521,13 @@ class UcenterController extends UcenterBaseController {
         public function invoiceAction(){
             $invoiceModel = new \nainai\user\UserInvoice();
             if (IS_POST) {
+                if ($this->pid == 0) {
+                    $user_id = $this->user_id;
+                }else{
+                    $user_id = $this->pid;
+                }
                 $invoiceData = array(
-                    'user_id'=> $this->user_id,
+                    'user_id'=> $user_id,
                     'title' => Safe::filterPost('title'),
                     'tax_no' => Safe::filterPost('tax_no'),
                     'address' => Safe::filterPost('address'),
@@ -540,7 +544,12 @@ class UcenterController extends UcenterBaseController {
                 die(json::encode($returnData));
             }
             else{
-                $invoiceData = $invoiceModel->getUserInvoice($this->user_id);
+                if ($this->pid == 0) {
+                    $invoiceData = $invoiceModel->getUserInvoice($this->user_id);
+                }else{
+                    $invoiceData = $invoiceModel->getUserInvoice($this->pid);
+                }
+                
                 $this->getView()->assign('data',$invoiceData);
             }
         }
@@ -874,6 +883,11 @@ class UcenterController extends UcenterBaseController {
         $menuModel = new \nainai\user\Menu();
         $menuList = $menuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
 
+        foreach ($menuList as $key => $list) {
+            if (isset($list['subacc_show']) && $list['subacc_show'] == 0) {
+                unset($menuList[$key]);
+            }
+        }
         $menuList = $menuModel->createTreeMenu($menuList, 0, 1);
         $this->getView()->assign('lists', $menuModel->menu);
         $this->getView()->assign('roleInfo', $info);
