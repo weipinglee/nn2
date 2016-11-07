@@ -280,6 +280,8 @@
                                 <li><a href="{url:store/store/storeAdd}" target="content">仓库添加</a></li>
                             </ul>
                         </li>
+                         <li><a  target="content"  href="{url:store/store/repertory}">库存管理</a>
+                        </li>
                         <li><a  target="content">仓单管理</a>
                             <ul>
                                 <li><a target="content" href="{url:store/storeProduct/getList}">仓单列表</a></li>

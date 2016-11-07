@@ -60,6 +60,31 @@ class OfferManageModel extends \nainai\offer\product{
 		return $this->getList($page,'o.is_del = 0 and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .')');
 	}
 
+	public function getrepertoryList(){
+		$Q = new \Library\searchQuery('store_products as sp');
+		$Q->join = 'LEFT JOIN store_list  as sl ON sp.store_id=sl.id LEFT JOIN product_offer as po ON sp.product_id=po.product_id LEFT JOIN products as p ON po.product_id = p.id LEFT JOIN product_category as pc ON p.cate_id=pc.id';
+		$Q->fields = 'sl.name as lname, sp.store_pos, p.name as pname, p.attribute, pc.name as cname , p.quantity,p.unit, po.id';
+		$Q->where = 'po.is_del = 0  and p.quantity>0 and po.mode='.self::STORE_OFFER.' and po.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .')';
+		$data = $Q->find();
+		$attrs = $attr_id = array();
+	        foreach ($data['list'] as $key => $value) {
+
+	            $attrs = unserialize($value['attribute']);
+	            $data['list'][$key]['attribute'] = $attrs;
+	            if(!empty($attrs)){
+	                foreach ($attrs as $aid => $name) {
+	                    if (!in_array($aid, $attr_id)) {
+	                        $attr_id[] = $aid;
+	                    }
+	                }
+	            }
+
+	        }
+	        $obj = new \nainai\offer\product();
+	        $data['attrs'] =  $obj->getHTMLProductAttr($attr_id);
+		return $data;
+	}
+
 	/**
 	 * 获取待审核的报盘
 	 *
