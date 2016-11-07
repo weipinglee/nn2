@@ -144,7 +144,7 @@ class OpenController extends InitController {
 
 		if (IS_AJAX) {
 			$weeks = Safe::filterPost('weeks');
-			$date = date('Ymd', strtotime('+1days'));
+			$date = date('Y-m-d', strtotime('+1days'));
 
 			$data = array(
 				'weeks' => implode(',', $weeks),
@@ -176,7 +176,7 @@ class OpenController extends InitController {
 		$deal = $model->getsetting();
 		if (empty($deal)) {
 			$deal = array(
-				'date' => date('Ymd'),
+				'date' => date('Y-m-d', time()),
 				'weeks' => '1, 2, 3, 4, 5',
 				'start_time' => '09:00:00',
 				'end_time' => '17:30:00'
