@@ -252,10 +252,22 @@ class MemberController extends InitController {
 	}
 
 	/**
-	 * 带审核
+	 * 待审核支付密码
 	 */
 	public function applyPayListAction(){
 		$model = new \nainai\user\ApplyResetpay();
+		$condition = array('status' => $model::APPLY);
+
+		$data = $model->getList($condition);
+
+		$this->getView()->assign('data',$data);
+	}
+
+	/**
+	 * 待审核修改手机号
+	 */
+	public function applyTelListAction(){
+		$model = new \nainai\user\ApplyResettel();
 		$condition = array('status' => $model::APPLY);
 
 		$data = $model->getList($condition);
@@ -276,6 +288,18 @@ class MemberController extends InitController {
 	}
 
 	/**
+	 * 已审核手机号
+	 */
+	public function checktelListAction(){
+		$model = new \nainai\user\ApplyResettel();
+		$condition = array('status' => implode(',', array($model::APPLY_OK, $model::APPLY_NO, $model::APPLY_END)));
+
+		$data = $model->getList($condition);
+
+		$this->getView()->assign('data',$data);
+	}
+
+	/**
 	 * 等待重置密码
 	 */
 	public function resetpayListAction(){
@@ -287,12 +311,38 @@ class MemberController extends InitController {
 		$this->getView()->assign('data',$data);
 	}
 
+	/**
+	 * 等待修改手机号
+	 */
+	public function resetTelListAction(){
+		$model = new \nainai\user\ApplyResettel();
+		$condition = array('status' => implode(',', array($model::APPLY_OK,  $model::APPLY_END)));
+		$data = $model->getList($condition);
+
+		$this->getView()->assign('data',$data);
+	}
+
 	public function paydetailAction(){
 		$id = $this->getRequest()->getParam('id');
 		$id = safe::filter($id);
 
 		if (intval($id) > 0) {
 			$model = new \nainai\user\ApplyResetpay();
+
+			$data = $model->getDetail($id);
+			$this->getView()->assign('data', $data);
+		}
+	}
+
+	/**
+	 * 修改手机号详情
+	 */
+	public function teldetailAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = safe::filter($id);
+
+		if (intval($id) > 0) {
+			$model = new \nainai\user\ApplyResettel();
 
 			$data = $model->getDetail($id);
 			$this->getView()->assign('data', $data);
@@ -321,6 +371,38 @@ class MemberController extends InitController {
 					$content = $info['username'] . '申请的修改支付密码请求，审核驳回,意见:'  . $data['msg'];
 				}else{
 					$content = $info['username'] . '申请的修改支付密码请求，审核通过,意见:' . $data['msg'];
+				}
+			}
+			$log->addLog(array('content'=>$content));
+		}else{
+			$res = tool::getSuccInfo(0, 'Error iD');
+		}
+
+		exit(json::encode($res));
+	}
+
+	/**
+	 * 修改手机号审核处理
+	 */
+	public function dochecktelAction(){
+		$id = safe::filterPost('id', 'int');
+		if (intval($id) > 0) {
+			$model = new \nainai\user\ApplyResettel();
+			$status = safe::filterPost('status', 'int');
+			$data = array('status' => ($status == 1) ? $model::APPLY_OK : $model::APPLY_NO);
+			$data['msg'] = safe::filterPost('msg');	
+			
+			$res = $model->updateApplyResettel($data, $id);
+			
+			if ($res['success'] == 1) {
+				$log = new \Library\log();
+				$info = $model->getdetail($id);
+				if ($data['status'] == $model::APPLY_NO) {
+					$mess = new \nainai\message($info['uid']);
+					$re = $mess->send('ApplyResettel', array('status' => 0));
+					$content = $info['username'] . '申请的修改手机号请求，审核驳回,意见:'  . $data['msg'];
+				}else{
+					$content = $info['username'] . '申请的修改手机号请求，审核通过,意见:' . $data['msg'];
 				}
 			}
 			$log->addLog(array('content'=>$content));
@@ -361,6 +443,48 @@ class MemberController extends InitController {
 						$info = $model->getApplyResetpay($id, 'uid');
 						$mess = new \nainai\message($info['uid']);
 						$res = $mess->send('ApplyResetpay', 1);
+					}
+				}
+			}else{
+				$res = tool::getSuccInfo(0, 'Error status');
+			}
+			
+		}else{
+			$res = tool::getSuccInfo(0, 'Error iD');
+		}
+
+		exit(json::encode($res));
+	}
+
+	/**
+	 * 重置手机号
+	 */
+	public function resettelAction(){
+		$id = safe::filterPost('id', 'int');
+		$mobile = safe::filterPost('mobile');
+		$uid = safe::filterPost('uid', 'int');
+
+		if (intval($id) > 0) {
+			$model = new \nainai\user\ApplyResettel();
+			$info = $model->getDetail($id);
+			$str = '【耐耐云商】您修改手机号的申诉已通过审核，耐耐网客服人员已将'.$mobile.'修改为新的手机号。';
+
+			if ($info['status'] == $model::APPLY_OK) {
+				$hsms=new Library\Hsms();
+				if(!$hsms->send($info['mobile'],$str)){
+					$res = tool::getSuccInfo(0, '发送短信失败');
+				}else{
+					$usermodel = new \nainai\user\User();
+					$res = $usermodel->updateUser(array('mobile' => $mobile), $uid);
+					if ($res['success'] == 1 ) {
+						$log = new \Library\log();
+						$content = $info['username'] . '修改手机号成功';
+						$log->addLog(array('content'=>$content));
+
+						$data = array('status' => $model::APPLY_END);
+						$res = $model->updateApplyResettel($data, $id);
+						$mess = new \nainai\message($uid);
+						$res = $mess->send('ApplyResettel', array('status' => 1, 'mobile' => $mobile));
 					}
 				}
 			}else{

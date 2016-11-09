@@ -31,6 +31,7 @@ class store{
 
     const MARKET_AGREE        = 31;//市场通过
     const MARKET_REJECT       = 32;//市场拒绝
+    const MARKET_AGAIN = 55;
     const DELETE = 4; //删除记录
 
 
@@ -47,7 +48,8 @@ class store{
             self::USER_AGREE => '卖方确认',
             self::USER_REJECT => '卖方拒绝',
             self::MARKET_AGREE => '后台审核通过',
-            self::MARKET_REJECT => '后台审核驳回'
+            self::MARKET_REJECT => '后台审核驳回',
+            self::MARKET_AGAIN => '后台重新审核'
         );
     }
 

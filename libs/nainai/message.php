@@ -28,6 +28,7 @@ class message{
 		'dealer',
 		'store_manager',
 		'ApplyResetpay',
+		'ApplyResettel',
 		'offer',
 		'store',
         'common',
@@ -235,6 +236,19 @@ class message{
 			$message = '很遗憾，您的忘记支付密码申诉未能通过审核。您可以修改相关信息再次进行申诉，或联系客服解决。';
 		}else{
 			$message = '您好，您的忘记支付密码申诉已通过审核。新密码已于短信的形式发送到你的手机，为了资金安全请您及时进行修改。';
+		}
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+
+	}
+
+	public function ApplyResettel($param){
+		$title = '提醒';
+		if ($param['status'] == 0) {
+			$message = '很遗憾，您的修改手机号申诉未能通过审核。您可以修改相关信息再次进行申诉，或联系客服解决。';
+		}else{
+			$message = '您修改手机号的申诉已通过审核，已将'.$param['mobile'].'修改为新的手机号。';
 		}
 		return array(
 			'title'=>$title,
