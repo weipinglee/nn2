@@ -617,8 +617,12 @@ class product  {
         $res = array();
         while($cate_id!=0){
             $cate = $m->where(array('id'=>$cate_id))->fields('pid,id,name')->getObj();
-            array_unshift($res,array('id'=>$cate['id'],'name'=>$cate['name']));
-            $cate_id = $cate['pid'];
+            if (!empty($cate)) {
+                array_unshift($res,array('id'=>$cate['id'],'name'=>$cate['name']));
+                $cate_id = $cate['pid'];
+            }else{
+                $cate_id = 0;
+            }
         }
         return $res;
     }
