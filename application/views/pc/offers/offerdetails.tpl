@@ -178,30 +178,10 @@
                             <td></td>
                         </tr>
                     </table>-->
+                                <link href="{views:css/product_pic.css}" rel="stylesheet">
                     
-                    <style type="text/css">
-                        .pro_pic{float: left;margin-right: 20px;}
-                    </style>
                     <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
-                    {foreach:items=$data['origphotos']}
-                <div class="clearfix">
-                    <p class="pro_pic" >
-                        <a name='fff' href='javascript:void(0);' onclick='picBig(this);'>
-                            <img src="{$item}" width="80px"height="80px" style="margin:20px;float:left;" class="pro_apic"></a>
-                        <span style="margin-top:30px;display:block;">
-                            {foreach:items=$data['cate']}
-                                {$item['name']}
-                                &nbsp;
-                            {/foreach}
-                            {$data['product_name']}的图片附件
-                        </span>
-                        <br/>
-                        <span>
-                            <a name='fff' href='javascript:void(0);' onclick='picBig(this);' class="red">预览</a>
-                        </span>
-                    </p>
-                    {/if}
-                </div>
+                    
 
                                     <div class="bodyCon08"><!--学员-->
                                         <div class="students">
@@ -223,7 +203,7 @@
                                         </div>
                                     </div>
 
-                                    <script type="text/javascript" src="js/pic.js"></script>
+                                <script src="{views:js/pic.js}"></script>
                                         
                                     <script type="text/javascript">  
                                            $(document).ready(function(){  
