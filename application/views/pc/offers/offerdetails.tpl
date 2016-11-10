@@ -203,25 +203,59 @@
                     {/if}
                 </div>
 
+                                    <div class="bodyCon08"><!--学员-->
+                                        <div class="students">
+                                            
+                                              <div id="four_flash">
+                                                <div class="flashBg">
+                                                    <ul class="mobile" style="left: 0px;">
+                                                      {foreach:items=$data['origphotos']}
+                                                        <li>
+                                                            <img src="{$item}">
+                                                        </li>
+                                                      {/if}
+                                                    </ul>
+                                                </div>
+                                                <div class="but_left"><img src="{views:images/qianxleft.png}"></div>
+                                                <div class="but_right"><img src="{views:images/qianxleft.png}"></div>
+                                              </div>
+                                              
+                                        </div>
+                                    </div>
 
-                    <div id="divCenter" align="center">
-                    <img width="600" src="{views:images/pro_show_img.jpg}" /><a href="javascript:void(0);" onclick="picClose();">关闭</a>
-                    </div>
-                    <script>
-                    function picBig(_this) {
-                        var src = $(_this).parents('p').find('img').attr('src');
-                         var v = $('#divCenter');
-                        v.find('img').attr('src',src);
-                        v.css('display','block');
+                                    <script type="text/javascript" src="js/pic.js"></script>
+                                        
+                                    <script type="text/javascript">  
+                                           $(document).ready(function(){  
+                                                var length=$("#four_flash li").size();
+                                                if(length>4){
+                                                    $(".but_left").css("display","block");
+                                                    $(".but_right").css("display","block");
+                                                }else{              
+                                                    $(".but_left").css("display","none");
+                                                    $(".but_right").css("display","none");
+                                                }
 
-                    }
+                                            //找到li下所有img的值,单击图片事件  
+                                                $("#four_flash li:has(img)").click(function(){  
+                                                    $("#show").fadeIn(300);  //显示图片效果  
+                                                    //获得图片路径  
+                                                    var photo_url=$(this).find("img").attr("src");  
+                                                    //设置图片路径  
+                                                    $("#photo").find("img").attr("src",photo_url);  
+                                                    //单击放大后的图片消失  
+                                                    $("#close").click(function(){  
+                                                        $("#show").fadeOut(300); //图片消失效果  
+                                                    }); 
 
-                    function picClose() {
-                    var v = document.getElementById('divCenter');
-                    v.style.display = "none";
-                    }
-                    </script>
-                </div>
+                                                });  
+                                            });  
+                                        </script>  
+                                        <div id="show" style="display: none;">  
+                                            <div id="photo">  
+                                                <img style="width:100%;height:100%;"/> <a href="javascript:void(0);" id="close"></a>
+                                            </div>  
+                                        </div> 
       <!-- content end -->
 
 
