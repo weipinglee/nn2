@@ -854,13 +854,18 @@ class UcenterController extends UcenterBaseController {
 
     }
 
-
+    /**
+     * 子账户列表
+     */
     public function subaccListAction(){
         $model = new \nainai\user\User();
         $data = $model->getSubaccList($this->user_id);
         $this->getView()->assign('data',$data);
     }
 
+    /**
+     * 子账户权限控制
+     */
     public function subaccpowAction(){
             if (IS_POST) {
             $data = array(
@@ -893,11 +898,99 @@ class UcenterController extends UcenterBaseController {
         $this->getView()->assign('roleInfo', $info);
     }
 
+    /**
+     * 子账户操作记录
+     */
     public function subacclogAction(){
         $model = new \Library\userLog();
         $data = $model->getList(array('pid' => $this->user_id));
 
         $this->getView()->assign('data', $data);
+    }
+
+    public function modifytelAction(){
+        $model = new UserModel();
+         $info = $model->getUserInfo($this->user_id);
+            if ($info['type'] == 1) {
+                $url = url::createUrl('/ucenter/modifypersontel');
+            }else{
+                $url = url::createUrl('/ucenter/ modifycompanytel');
+            }
+            $this->redirect($url);
+    }
+
+    public function modifypersontelAction(){
+         if (IS_POST || IS_AJAX) {
+            $mobile = safe::filterPost('mobile');
+            $model = new UserModel();
+            $user_id = $model->getMobileUserInfo($mobile);
+            if (intval($user_id) > 0) {
+               exit(json::encode(\Library\tool::getSuccInfo(0, '手机号已存在')));
+            }
+            $resetModel = new \nainai\user\ApplyResettel();
+            $info = $model->getUserInfo($this->user_id);
+            $data = array(
+                'name' => safe::filterPost('name'),
+                'ident_no' => safe::filterPost('no'),
+                'ident_img' => Tool::setImgApp(safe::filterPost('imgfile1')),
+                'apply_img' => Tool::setImgApp(safe::filterPost('imgfile2')),
+                'apply_time' => \Library\Time::getDateTime(),
+                'uid' => $this->user_id,
+                'status' => $resetModel::APPLY,
+                'type' => 0,
+                'mobile' => $info['mobile'],
+                'new_mobile' =>  $mobile
+            );
+            $res = $resetModel->addApplyResettel($data);
+            if ($res['success'] == 1) {
+                $res['info'] = '操作成功！';
+            }
+           $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
+            exit(json::encode($res));
+        }
+
+         $resetModel = new \nainai\user\ApplyResettel();
+        $info = $resetModel->getApplyResettel(array('uid' => $this->user_id, 'status' => $resetModel::APPLY), 'id');
+        if (intval($info['id']) > 0) {
+            $this->redirect('paysecretend');
+        }
+    }
+
+    public function modifycompanytelAction(){
+        if (IS_POST || IS_AJAX) {
+            $model = new UserModel();
+            $mobile = safe::filterPost('mobile');
+            $user_id = $model->getMobileUserInfo($mobile);
+            if (intval($user_id) > 0) {
+               exit(json::encode(\Library\tool::getSuccInfo(0, '手机号已存在')));
+            }
+            $resetModel = new \nainai\user\ApplyResettel();
+            $info = $model->getUserInfo($this->user_id);
+            $data = array(
+                'company_name' => safe::filterPost('company_name'),
+                'legal_person' => safe::filterPost('legal_person'),
+                'ident_img' => Tool::setImgApp(safe::filterPost('imgfile1')),
+                'apply_img' => Tool::setImgApp(safe::filterPost('imgfile2')),
+                'apply_time' => \Library\Time::getDateTime(),
+                'uid' => $this->user_id,
+                'status' => $resetModel::APPLY,
+                'type' => 1,
+                'mobile' => $info['mobile'],
+                'new_mobile' =>  $mobile
+            );
+            $res = $resetModel->addApplyResettel($data);
+            if ($res['success']) {
+                $res['info'] = '操作成功！';
+            }
+           $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
+            exit(json::encode($res));
+        }
+
+         $resetModel = new \nainai\user\ApplyResettel();
+        $info = $resetModel->getApplyResettel(array('uid' => $this->user_id, 'status' => $resetModel::APPLY), 'id');
+        if (intval($info['id']) > 0) {
+            $this->redirect('paysecretend');
+        }
     }
 
 }

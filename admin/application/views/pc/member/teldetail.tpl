@@ -38,11 +38,11 @@
                 <td colspan="5">{$data['ident_no']}</td>
             </tr>
              {/if}
-<tr>
+             <tr>
                 <th> 手机号</th>
                 <td>{$data['mobile']}</td>
-                <th></th>
-                <td colspan="5"></td>
+                <th>新手机号</th>
+                <td colspan="5">{$data['new_mobile']}</td>
             </tr>
             <tr>
                  <th>身份证照片</th>
@@ -52,7 +52,7 @@
             </tr>
 
             {if: $data['status'] == \nainai\user\ApplyResetpay::APPLY}
-            <form action="{url:member/member/docheck}" method="post" auto_submit redirect_url="{url:member/member/applyPayList}">
+            <form action="{url:member/member/dochecktel}" method="post" auto_submit redirect_url="{url:member/member/applytelList}">
             <tr>
                  <th>审核意见</th>
                  <td colspan="7"><textarea name="msg"></textarea></td>
@@ -79,13 +79,15 @@
                  <th>审核意见</th>
                  <td colspan="7">{$data['msg']}</td>
              </tr>
-    <form action="{url:member/member/reset}" method="post" auto_submit redirect_url="{url:member/member/resetpayList}">
+    <form action="{url:member/member/resettel}" method="post" auto_submit redirect_url="{url:member/member/resetpayList}">
              <tr>
                  <th>操作</th>
                  <th scope="col" colspan="7">
                  <input type="hidden" name="id" value="{$data['id']}">
+                 <input type="hidden" name="uid" value="{$data['uid']}">
+                  <input type="hidden" name="mobile" value="{$data['new_mobile']}">
                  {if: $data['status'] == \nainai\user\ApplyResetpay::APPLY_OK}
-                 <input type="submit" class="btn btn-primary radius" value="重置密码"/>
+                 <input type="submit" class="btn btn-primary radius" value="重置手机号"/>
                  {/if}
                      <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
                  </th>

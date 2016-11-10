@@ -10,7 +10,7 @@
                         <div class="jd_img"><img src="{views:images/center/yz_jd1.jpg}"></div>
 						<div class="zhxi_con">
 							<span class="con_tit"><i></i>手机号码：</span>
-							<span>{$userInfo['mobile']}</span>
+							<span>{$userInfo['mobile']} 无法接收到信息，<a href="{url:/ucenter/modifytel}" target="_blank" >进行申述</a></span>
 						</div>
 						<div class="zhxi_con">
                             <span class="con_tit"><i></i>验证码：</span>

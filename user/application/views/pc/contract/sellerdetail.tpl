@@ -102,7 +102,8 @@
 									  <span id="preview"></span>
 			                          <span  class="up_img">
 			                              <img name="image" src=""/>
-			                              <input type="hidden"  name="imgimage" value="" datatype="*" pattern="required" alt="请上传图片" />
+
+			                              <input type="hidden"  name="imgimage" value="" datatype="*"  nullmsg="请上传图片" pattern="required" alt="请上传图片" />
 			                            </span><!--img name属性与上传控件id相同-->
 			            							<!-- <input class="uplod" type="file" name='proof' onchange="previewImage(this)" /> -->
 			                          <span class="input-file" style="top:0;">选择文件<input type="file" name="image" id="image"  onchange="javascript:uploadImg(this);" /></span>
@@ -112,12 +113,13 @@
 									{/if}</span>
 								</div>
 								<div class="sj_detal">
-									<b class="sj_de_tit"><span>*</span>邮寄公司：</b>
-									<span>&nbsp;{if:$invoice['order_invoice']['post_company']}{$invoice['order_invoice']['post_company']}{else:}<input type="text" name="post_company" datatype='*'/>{/if}</span>
+
+									<b class="sj_de_tit">邮寄公司：</b>
+									<span>&nbsp;{if:$invoice['order_invoice']['post_company']}{$invoice['order_invoice']['post_company']}{else:}<input type="text" name="post_company"  datatype="s1-20"   errormsg="请填写邮寄公司" nullmsg="请填写邮寄公司"/>{/if}</span>
 								</div>
 								<div class="sj_detal">
-									<b class="sj_de_tit"><span>*</span>邮寄单号：</b>
-									<span>&nbsp;{if:$invoice['order_invoice']['post_no']}{$invoice['order_invoice']['post_no']}{else:}<input type="text" name="post_no" datatype='*'>{/if}</span>
+									<b class="sj_de_tit">邮寄单号：</b>
+									<span>&nbsp;{if:$invoice['order_invoice']['post_no']}{$invoice['order_invoice']['post_no']}{else:}<input type="text" name="post_no" datatype="s1-20"   errormsg="请填写邮寄单号" nullmsg="请填写邮寄单号">{/if}</span>
 								</div>
 								{if:!$invoice['order_invoice']}
 									<div class="sj_detal">

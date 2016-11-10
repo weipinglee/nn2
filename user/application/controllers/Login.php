@@ -20,6 +20,9 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 	public function init(){
         $this->getView()->setLayout('layout');
+       			 $model = new \nainai\system\DealSetting();
+			$deal = $model->getsetting();
+			$this->getView()->assign('deal', $deal);
 		//echo $this->getViewPath();
 	}
 	/** 
@@ -248,13 +251,13 @@ class LoginController extends \Yaf\Controller_Abstract {
                 $data['errorCode'] = 5;
             }
             else{
-                  if(!$captchaObj->check($captcha)){//验证码是否正确
-                      $data['errorCode'] = 4;
-                  }
-                  else{//登录成功
+                  // if(!$captchaObj->check($captcha)){//验证码是否正确
+                  //     $data['errorCode'] = 4;
+                  // }
+                  // else{//登录成功
                     $checkRight = new checkRight();
                     $checkRight->loginAfter($userData);
-                  }
+                  // }
             }
 			
 

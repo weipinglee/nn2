@@ -31,6 +31,7 @@ class store{
 
     const MARKET_AGREE        = 31;//市场通过
     const MARKET_REJECT       = 32;//市场拒绝
+    const MARKET_AGAIN = 55;
     const DELETE = 4; //删除记录
 
 
@@ -47,7 +48,8 @@ class store{
             self::USER_AGREE => '卖方确认',
             self::USER_REJECT => '卖方拒绝',
             self::MARKET_AGREE => '后台审核通过',
-            self::MARKET_REJECT => '后台审核驳回'
+            self::MARKET_REJECT => '后台审核驳回',
+            self::MARKET_AGAIN => '后台重新审核'
         );
     }
 
@@ -169,7 +171,7 @@ class store{
      * @param int $page 页码
      * @param array $condition 条件
      */
-    protected function getStoreProductList($page,$condition=array(),$pagesize=20){
+    protected function getStoreProductList($page,$condition=array(),$pagesize=10){
         $query = new \Library\searchQuery('store_products as a');
         $query->fields = 'a.id,a.user_id,b.name as sname, a.status, c.name as pname,c.quantity,d.name as cname, c.attribute,c.unit, a.package_unit, a.package_weight';
         $query->join = ' LEFT JOIN store_list as b ON a.store_id=b.id LEFT JOIN products as c ON a.product_id = c.id   LEFT JOIN product_category as d  ON c.cate_id=d.id';

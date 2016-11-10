@@ -28,6 +28,7 @@ class message{
 		'dealer',
 		'store_manager',
 		'ApplyResetpay',
+		'ApplyResettel',
 		'offer',
 		'store',
         'common',
@@ -242,6 +243,19 @@ class message{
 
 	}
 
+	public function ApplyResettel($param){
+		$title = '提醒';
+		if ($param['status'] == 0) {
+			$message = '很遗憾，您的修改手机号申诉未能通过审核。您可以修改相关信息再次进行申诉，或联系客服解决。';
+		}else{
+			$message = '您修改手机号的申诉已通过审核，已将'.$param['mobile'].'修改为新的手机号。';
+		}
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+
+	}
+
 	public function offer($param){
 		$title = '报盘审核';
 
@@ -283,12 +297,16 @@ class message{
 		}elseif ($param['type'] == 'admin_check') {
 			if ($param['status'] == \nainai\store::MARKET_AGREE) {
 				$message = '您好，”'.$param['name'].'”仓单，平台已经审核通过，您可以进行仓单报盘了<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist@user'). '">跳转到仓单列表页</a>';
+			}elseif ($param['status'] == \nainai\store::MARKET_AGAIN) {
+				$message = '您好，”'.$param['name'].'”仓单，平台需要重新审核，请您耐心等待审核结果您好.';
 			}else{
 				$message = '很遗憾，“'.$param['name'].'”仓单 后台审核未通过，您可以联系仓库管理员修改相关信息再次进行签发。<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist@user'). '">跳转到仓单列表页</a>';
 			}
 		}elseif ($param['type'] == 'for_sign') {
 			if ($param['status'] == \nainai\store::MARKET_AGREE) {
 				$message = '您好，”'.$param['name'].'”仓单，平台已经审核通过<a href="' .\Library\url::createUrl('/managerstore/applystorelist@user'). '">跳转到仓单列表页</a>';
+			}elseif ($param['status'] == \nainai\store::MARKET_AGAIN) {
+				$message = '您好，”'.$param['name'].'”仓单，平台需要重新审核，请您耐心等待审核结果您好.';
 			}else{
 				$message = '很遗憾，“'.$param['name'].'”仓单 后台审核未通过。<a href="' .\Library\url::createUrl('/managerstore/applystorelist@user'). '">跳转到仓单列表页</a>';
 			}
