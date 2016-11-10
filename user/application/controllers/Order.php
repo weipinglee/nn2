@@ -27,7 +27,7 @@ class OrderController extends UcenterBaseController{
 		}
 		return false;
 	}
-
+	
 	//买家支付尾款
 	public function buyerRetainageAction(){
 		if(IS_POST){
@@ -96,7 +96,7 @@ class OrderController extends UcenterBaseController{
 		$info['pay_retainage'] = $info['amount'] - $info['pay_deposit'];
 		$this->getView()->assign('data',$info);
 	}
-
+	
 	//卖家确认买方线下支付凭证
 	public function confirmProofAction(){
 		$order_id = safe::filterPost('order_id','int');

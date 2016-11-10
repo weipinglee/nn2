@@ -22,7 +22,10 @@ class MemberModel extends baseModel{
 		$model = new \nainai\user\User();
 		$Q->bind = array('s' => $model::NOMAL . ',' . $model::LOCK);
 		$data = $Q->find($this->getYewuList());
-
+		$member = new \nainai\member();
+		foreach ($data['list'] as $key => $value) {
+			$data['list'][$key]['user_rank'] = $member->getUserGroup($value['id']);
+		}
 		$Q->downExcel($data['list'],'user', '会员列表');
 
 		return $data;

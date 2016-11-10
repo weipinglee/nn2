@@ -19,6 +19,7 @@
 				<th width="100">用户名</th>
 				<th width="100">真实姓名</th>
 				<th width="100">企业名称</th>
+				<th width="100">会员等级</th>
 				<th width="90">手机</th>
 				<th width="150">邮箱</th>
 				<th width="130">注册时间</th>
@@ -36,6 +37,7 @@
 				<td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
 <td>{$item['true_name']}</td>
 <td>{$item['company_name']}</td>
+<td>{$item['user_rank']['group_name']}</td>
 				<td>{$item['mobile']}</td>
 				<td>{$item['email']}</td>
 				<td>{$item['create_time']}</td>

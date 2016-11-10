@@ -187,7 +187,7 @@ class entrustOrder extends Order{
 						//将买方冻结资金解冻
 						$note = '卖方未支付合同'.$info['order_no'].'委托金 退还定金 '.$info['pay_deposit'];
 						$res = $acc_res = $account->freezeRelease($buyer,floatval($info['pay_deposit']),$note);
-
+						
 						$content = '合同'.$info['order_no'].'已取消。根据交易规则，已退还您支付的预付款。请您关注资金动态。';
 						$mess_buyer->send('common',$content);
 
@@ -220,7 +220,7 @@ class entrustOrder extends Order{
 							//定金 等待支付尾款
 							$orderData['contract_status'] = self::CONTRACT_BUYER_RETAINAGE;
 						}	
-
+						
 						$upd_res = $this->orderUpdate($orderData);
 
 						if($upd_res['success'] == 1){
@@ -234,11 +234,14 @@ class entrustOrder extends Order{
 							$res = $upd_res['info'];
 						}
 						if($res === true){
-							$account = $this->base_account->get_account($payment);
-							// var_dump($account);exit;
-							if(!is_object($account)) return tool::getSuccInfo(0,$account);
-							$res = $seller_deposit == 0 ? true : $account->freeze($seller,$seller_deposit,$note);
-							
+							if($payment == self::PAYMENT_ALIPAY){
+								$res = true;
+							}else{
+								$account = $this->base_account->get_account($payment);
+								// var_dump($account);exit;
+								if(!is_object($account)) return tool::getSuccInfo(0,$account);
+								$res = $seller_deposit == 0 ? true : $account->freeze($seller,$seller_deposit,$note);
+							}
 							$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 							$content = '合同'.$info['order_no'].'报价方已支付委托金,请您及时支付尾款。'.$jump_url;
 							$mess_buyer->send('common',$content);

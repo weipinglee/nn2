@@ -50,7 +50,7 @@ class Base extends \Yaf\Controller_Abstract{
 			 if ($hand == FALSE) {
 			 	if(IS_AJAX || IS_POST){
 			 	}else{
-			 		$this->error('无权限操作！');exit();
+			 		// $this->error('无权限操作！');exit();
 			 	}
 			 }
 		 }else $this->getView()->assign('login',0);

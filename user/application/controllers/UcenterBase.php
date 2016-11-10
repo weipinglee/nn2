@@ -137,7 +137,7 @@ class UcenterBaseController extends \nainai\controller\Base{
     		$this->redirect(url::createUrl("/Oper/success?info={$info}&redirect={$redirect}"));
                 exit();
     	}
-
+        
     	protected function error($info = '操作失败！',$redirect = ''){
 
     		if(isset($redirect)){

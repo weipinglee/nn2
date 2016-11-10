@@ -71,7 +71,7 @@
 
 
              <tr>
-                 <th>操作</th>
+                 <th>业务员</th>
                  <th scope="col" colspan="7">
                      <form action="{url:member/member/yewuAdd}" method="post" auto_submit redirect_url="{url:member/member/memberlist}">
                          <input type="hidden" name="id" value="{$user['id']}" />
@@ -81,11 +81,34 @@
                                  <option value="{$item['admin_id']}" {if:$user['yewu']==$item['admin_id']}selected="true"{/if}>{$item['ser_name']}</option>
                              {/foreach}
                          </select>
-
+                        
                          <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;绑定业务员&nbsp;&nbsp;">
                      </form>
-                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
+                     
                  </th>
+             </tr>
+            <tr>
+                 <th>变更会员等级</th>
+                 <th scope="col" colspan="7">
+                     <form action="{url:member/member/groupUpd}" method="post" auto_submit redirect_url="{url:member/member/memberlist}">
+                         <input type="hidden" name="user_id" value="{$user['id']}" />
+                         <select name="id" datatype="/[1-9][\d]|\s+{0,}/">
+                             <option value="0">请选择会员等级</option>
+                             {foreach:items=$group_list['data']}
+                                 <option value="{$item['id']}" {if:$group_name['group_name']==$item['group_name']}selected="true"{/if}>{$item['group_name']}</option>
+                             {/foreach}
+                             <option value="vip" {if:$group_name['group_name']=='收费会员'}selected="true"{/if}>收费会员</option>
+                         </select>
+                        
+                         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;确认&nbsp;&nbsp;">
+                     </form>
+                     
+                 </th>
+             </tr>
+             <tr>
+                <td colspan="8">
+                  <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>  
+                </td>
              </tr>
 
 	 	</table>

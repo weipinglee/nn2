@@ -26,7 +26,8 @@ class MemberController extends InitController {
 	 */
 	public function memberListAction(){
 		$m = new MemberModel();
-		$pageData = $m->getList();
+		$pageData = $m->getList();	
+
 		$this->getView()->assign('data',$pageData);
 	}
 
@@ -40,14 +41,28 @@ class MemberController extends InitController {
 			//获取客服人员列表
 			$yewu = new YewuModel();
 			$yewuData = $yewu->getAllkefu();
-
+			$usergroupModel = new UsergroupModel();
+			$member = new \nainai\member();
+			$this->getView()->assign('group_list',$usergroupModel->getList());
+			$this->getView()->assign('group_name',$member->getUserGroup($user['id']));
 			$this->getView()->assign('user',$user);
 			$this->getView()->assign('yewu',$yewuData);
 
 		}
 	}
 
-
+	public function groupUpdAction(){
+		if(IS_POST){
+			$id = safe::filterPost('id','trim');
+			$user_id = safe::filterPost('user_id','int',0);
+			$member = new \nainai\member();
+			$res = $member->groupUpd($user_id,$id);
+			$res = $res === true ? tool::getSuccInfo(1,'操作成功') : tool::getSuccInfo(0,$res);
+			
+			die(\Library\json::encode($res));
+		}
+		return false;
+	}
 
 	/**
 	 *角色添加页面，如果传递参数id，则为更新

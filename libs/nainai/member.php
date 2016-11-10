@@ -72,10 +72,22 @@ class member{
      * @param int $user_id 会员id
      */
     public  function getUserGroup($user_id){
-        $userObj = new M('user');
-        $credit = $userObj->where(array('id'=>$user_id))->getField('credit');
 
-        if($credit!==false){
+        $userObj = new M('user');
+        $userData = $userObj->where(array('id'=>$user_id))->fields('credit,vip')->getObj();
+        
+        $credit = $userData['credit'];
+        $vip = $userData['vip'];
+
+        if($vip == 1){
+            $group['group_name'] = '收费会员';
+            $group['caution_fee'] = 0;
+            $group['free_fee'] = 0;
+            $group['depute_fee'] = 0;
+            $group['icon'] = '';
+
+            return $group;
+        }elseif($credit!==false){
             $group = $userObj->table('user_group')->where('credit <=:credit')->bind(array('credit'=>$credit))->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit DESC')->getObj();
            if(empty($group)){
                $group = $userObj->table('user_group')->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit asc')->getObj();
@@ -86,6 +98,28 @@ class member{
         }
         else
             return false;
+    }
+
+    /**
+     * 调整用户会员等级
+     * @param  int $user_id 用户id
+     * @param  mix $group  对应等级
+     */
+    public function groupUpd($user_id,$group){
+        $member = new M('user');
+        if(is_string($group) && $group == 'vip'){
+            //调整为收费会员
+            $res = $member->where(array('id'=>$user_id))->data(array('vip'=>1))->update();
+        }elseif(intval($group) > 0){
+            //获取对应等级会员的信誉值分界线
+            $obj = new M('user_group');
+            $credit = $obj->where(array('id'=>$group))->getField('credit');
+            $res = $member->where(array('id'=>$user_id))->data(array('credit'=>$credit,'vip'=>0))->update();
+            //日志TODO  记录调整前信誉值 方便恢复
+        }else{
+            $res = '会员等级格式错误';
+        }
+        return $res > 0 ? true : $res;
     }
 
     /**

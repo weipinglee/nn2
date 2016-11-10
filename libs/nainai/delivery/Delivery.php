@@ -119,7 +119,7 @@ class Delivery{
 		$query->pagesize = 10;
 		$data = $query->find();
 		$pageBar =  $query->getPageBar();
-
+		
 		$this->deliveryStatus($data,$is_seller);
 		// foreach ($arr as $key => $v) {
 		// 	array_splice($data, $key,0,array($v));
