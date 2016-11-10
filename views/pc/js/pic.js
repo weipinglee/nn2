@@ -1,6 +1,6 @@
 //学员
 var _index5=0;
-$("#four_flash .but_right img").click(function(){
+$("#four_flash .but_right").click(function(){
 	_index5++;
 	var len=$(".flashBg ul.mobile li").length;
 	if(_index5+4>len){
@@ -10,7 +10,7 @@ $("#four_flash .but_right img").click(function(){
 	});
 
 	
-$("#four_flash .but_left img").click(function(){
+$("#four_flash .but_left").click(function(){
 	if(_index5==0){
 		$("ul.mobile").prepend($("ul.mobile").html());
 		$("ul.mobile").css("left","0px");

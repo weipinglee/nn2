@@ -170,8 +170,8 @@
                                                       {/if}
                                                     </ul>
                                                 </div>
-                                                <div class="but_left"><img src="{views:images/qianxleft.png}"></div>
-                                                <div class="but_right"><img src="{views:images/qianxleft.png}"></div>
+                                                <div class="but_left"></div>
+                                                <div class="but_right"></div>
                                               </div>
                                               
                                         </div>
