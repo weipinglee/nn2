@@ -41,7 +41,9 @@ class IndexController extends PublicController {
 		$statcModel=new \nainai\statistics();
         $statsMarketModel=new \nainai\statsMarket();
         $allStatsData=$statsMarketModel->getAllStatsList();
+
         $statcTime = array();
+
         $statcTime=$allStatsData[1];
         $statcCatList=$allStatsData[0];
 		$this->getView()->assign('statcTime',\Library\json::encode($statcTime));
