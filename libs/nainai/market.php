@@ -72,7 +72,7 @@ class market{
      */
     private function checkTime(){
         $model = new \nainai\system\DealSetting();
-        $deal = $model->getDealSetting(1);
+        $deal = $model->getsetting();
         if (empty($deal)) { //如果没有设置开闭市
             return true;
         }

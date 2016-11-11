@@ -76,6 +76,9 @@ class searchConfig {
         'apply_resetpay' => array(
              'time' => array('r.apply_time','申请时间'),
         ),
+         'apply_resettel' => array(
+             'time' => array('r.apply_time','申请时间'),
+        ),
         'payto_market' => array(
             'like' => array('u.username','用户名'),
             'down' => 1
