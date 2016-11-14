@@ -40,6 +40,9 @@
 											<span><img src="{views:/images/center/icon_yrz.jpg}">{echo:\nainai\cert\certificate::$certRoleText[$key]}已认证</span>
 												{/if}
 											{/foreach}
+											{if:$href}
+												<a href="{$href}">去认证</a>
+											{/if}
 										</div>
 									</td>
 								</tr>

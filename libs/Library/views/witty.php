@@ -31,7 +31,13 @@ class witty{
     protected $_cache_dir   = '';
 
     protected $_tpl_ext = '.tpl';
+	
+	protected $_template_name = 'pc';
 
+	//设置模板名称
+	public function setTemplateName($name=''){
+		$this->_template_name = $name;
+	}
     /**
      *设置模板目录
      */
@@ -237,7 +243,7 @@ class witty{
                 }
 
                 case 'views:' : {//模板目录
-                    return url::getViewDir().trim(trim($matches[4]),'/');
+                    return url::getScriptDir().'/views/'.$this->_template_name.'/'.trim(trim($matches[4]),'/');
                 }
                 break;
                 case 'root:' : {//根目录
@@ -371,5 +377,6 @@ OEF;
     {
         return preg_replace(array("#(\\$.*?(?=$|\/))#","#(\\$\w+)\[(\w+)\]#"),array("\".$1.\"","$1['$2']"),$str);
     }
+	
 
 }

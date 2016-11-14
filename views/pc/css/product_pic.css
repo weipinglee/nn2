@@ -18,7 +18,7 @@
 #four_flash .but_right:hover{background:url(../images/qianxr1.png) no-repeat;}
 
 /*放大图片显示位置*/
-#show{width: 540px;height: 540px;box-shadow:0px 0px 8px rgba(167,167,167,1);padding: 20px;position: fixed;z-index: 100;left: 500px;top: 200px;background: #fff;}
+#show{width: 540px;box-shadow:0px 0px 8px rgba(167,167,167,1);padding: 20px;position: fixed;z-index: 100;left: 500px;top: 200px;background: #fff;}
 #close{position: absolute;top:0;right: 0;background:url(../images/close.png) no-repeat;display: block;width: 18px;height:18px; }
 #close:hover{background:url(../images/close1.png) no-repeat; }
 

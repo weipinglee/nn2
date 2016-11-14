@@ -5,6 +5,8 @@
  * Date: 2016/5/18 0004
  * Time: 上午 9:35
  */
+
+use Library\url;
 class UcenterIndexController extends UcenterBaseController {
 
 
@@ -12,6 +14,8 @@ class UcenterIndexController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
+        $zx = new \nainai\fund\zx();
+        $rs = $zx->checkOrder('20161101');
         $group = new \nainai\member();
 
         $groupData = $group->getUserGroup($this->user_id);//会员分组数据
@@ -24,6 +28,9 @@ class UcenterIndexController extends UcenterBaseController {
 
         $this->getView()->assign('cert',$this->cert);
 
+        $cert = $this->cert;
+        $href = $cert['deal'] == 1 ? ($cert['store'] == 1 ? '' : url::createUrl('/ucenter/storecert@user') ) : url::createUrl('/ucenter/dealcert@user');
+        $this->getView()->assign('href',$href);
         //获取代理账户金额
         $fundObj = \nainai\fund::createFund(1);
         $active = $fundObj->getActive($this->user_id);
