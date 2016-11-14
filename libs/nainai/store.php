@@ -176,7 +176,7 @@ class store{
         $query->fields = 'a.id,a.user_id,b.name as sname, a.status, c.name as pname,c.quantity,d.name as cname, c.attribute,c.unit, a.package_unit, a.package_weight';
         $query->join = ' LEFT JOIN store_list as b ON a.store_id=b.id LEFT JOIN products as c ON a.product_id = c.id   LEFT JOIN product_category as d  ON c.cate_id=d.id';
         $query->page = $page;
-        $query->pagesize = $pagesize;
+        $query->pagesize = 10;
         if(!empty($condition)){
             $query->where = $condition['where'];
             $query->bind  = isset($condition['bind']) ? $condition['bind'] : array();
