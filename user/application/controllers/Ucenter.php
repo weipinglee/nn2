@@ -945,14 +945,14 @@ class UcenterController extends UcenterBaseController {
             if ($res['success'] == 1) {
                 $res['info'] = '操作成功！';
             }
-           $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
+           $res['returnUrl'] = url::createUrl('/ucenter/telend');
             exit(json::encode($res));
         }
 
          $resetModel = new \nainai\user\ApplyResettel();
         $info = $resetModel->getApplyResettel(array('uid' => $this->user_id, 'status' => $resetModel::APPLY), 'id');
         if (intval($info['id']) > 0) {
-            $this->redirect('paysecretend');
+            $this->redirect('telend');
         }
     }
 
@@ -982,15 +982,19 @@ class UcenterController extends UcenterBaseController {
             if ($res['success']) {
                 $res['info'] = '操作成功！';
             }
-           $res['returnUrl'] = url::createUrl('/ucenter/paysecretend');
+           $res['returnUrl'] = url::createUrl('/ucenter/telend');
             exit(json::encode($res));
         }
 
          $resetModel = new \nainai\user\ApplyResettel();
         $info = $resetModel->getApplyResettel(array('uid' => $this->user_id, 'status' => $resetModel::APPLY), 'id');
         if (intval($info['id']) > 0) {
-            $this->redirect('paysecretend');
+            $this->redirect('telend');
         }
+    }
+
+    public function telendAction(){
+
     }
 
 }

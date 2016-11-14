@@ -20,6 +20,7 @@
 				<th width="150">库存数量</th>
 				<th width="130">所在仓库</th>
 				<th width="70">库位</th>
+				<th width="70">操作时间</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -40,7 +41,9 @@
 				</td>
 				<td>{$item['quantity']}({$item['unit']})</td>
 				<td>{$item['lname']}</td>
+
 				<td>{$item['store_pos']}</td>
+				<td>{$item['apply_time']}</td>
 				<td class="td-manage">
 					<a title="详情" href="{url:store/storeProduct/reviewDetails?id=$item['id']}" class="ml-5" style="text-decoration:none">
 						<i class="icon-edit fa-edit"></i>

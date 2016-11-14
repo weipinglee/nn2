@@ -20,7 +20,7 @@
             <span>请填写真实准确的信息，有利于提高申诉成功率，耐耐网会保护您的个人信息。</span>
           </div>
         </div>
- <form action="{url:/ucenter/modifycompanytel}" method="post" auto_submit  redirect_url="{url:/ucenter/paysecretend}" >
+ <form action="{url:/ucenter/modifycompanytel}" method="post" auto_submit  redirect_url="{url:/ucenter/telend}" >
           <div class="bate-input clear">
             <span class="span_in_tit">
               企业名称：

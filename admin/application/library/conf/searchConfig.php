@@ -103,7 +103,7 @@ class searchConfig {
         'store_products' => array(
             'time' => array('a.sign_time','签发时间'),
             'like' => array('c.name','商品名称'),
-            'likes' => array('b.name', '仓库名称'),
+            'likes' => array('b.name,a.store_pos,c.quantity', '仓库名称,库位,库存'),
             'select' => array('a.status','状态'),
         ),
         'store_list' => array(
