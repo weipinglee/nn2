@@ -262,7 +262,11 @@ class OffersController extends PublicController {
 
 			//卖家资质
 			$certObj = new \nainai\cert\certificate();
-			$certStatus = $certObj->getCertStatus($this->login['user_id'],'deal');
+			if ($this->login['pid'] == 0) {
+				$certStatus = $certObj->getCertStatus($this->login['user_id'],'deal');
+			}else{
+				$certStatus = $certObj->getCertStatus($this->login['pid'],'deal');
+			}
 			if($certStatus['status']==2){
 				$this->getView()->assign('no_cert',0);
 			}else{
