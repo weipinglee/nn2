@@ -67,7 +67,7 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		
 		$page = safe::filterGet('page','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
-		$data = $delivery->storeOrderList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',1);
+		$data = $delivery->storeOrderList($page,$name ? 'do.order_no like "%'.$name.'%"' : '',1);
 		$this->getView()->assign('data',$data);
 	}
 

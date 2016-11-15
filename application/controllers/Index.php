@@ -58,7 +58,7 @@ class IndexController extends PublicController {
 		//获取首页最新完成的交易
 		$order = new \nainai\order\Order();
 		$newTrade = $order->getNewComplateTrade(20);
-		$offer = new OffersModel();
+		$offer = new offersModel();
 		//获取报盘总数
 		$offer_num = $offer->getOfferNum();
 		$this->getView()->assign('offer_num',$offer_num['num']);

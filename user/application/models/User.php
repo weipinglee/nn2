@@ -228,17 +228,6 @@ class UserModel{
 				);
 
 				$user->table('user_account')->data($accountData)->add(1);
-				//check identity
-				$cert = new \nainai\cert\certificate();
-	        	$certData = $cert->checkCert($data['pid']);
-	        	if ( ! empty($certData) ) {
-	        		foreach ($certData as $key => $value) {
-	        			if ($value == 1) {
-	        				$user->table($cert::$certTable[$key])->data($insertCert)->add(1);
-	        			}
-	        		}
-	        	}
-
 			}
 			
 		}
@@ -336,13 +325,10 @@ class UserModel{
 			$where['id'] = array('neq'=>$data['id']);
 		foreach($this->uniqueFields as $f=>$v){
 			if(isset($data[$f])){
-				$where[$f] = $data[$f];
+				$where = $f . '="'.$data[$f]. '" AND status IN ('.\nainai\user\User::NOMAL.','.\nainai\user\User::LOCK.')';
 				$res = self::$userObj->fields('id')->where($where)->getObj();
 				if(!empty($res))
 					return tool::getSuccInfo(0,$v.'已存在');
-				else{
-					unset($where[$f]);
-				}
 
 			}
 		}

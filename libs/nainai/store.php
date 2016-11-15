@@ -293,6 +293,11 @@ class store{
             $res = $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
 
             $info = $this->getUserStoreDetail($id, $user_id);
+            $title =    '仓单签发审核';
+            $content = '仓单签发' . $productData[0]['name'] . '需要审核';
+
+            $adminMsg = new \nainai\AdminMsg();
+            $adminMsg->createMsg('checkoffer',$id,$content,$title);
             $param = array('type' => 'check');
             $param['status'] = $store['status'];
             $param['user_id'] = $info['sign_user'];
@@ -447,11 +452,7 @@ class store{
                 $storeData['status'] = self::STOREMANAGER_SIGN;
                 $id = $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
                 if ($id > 0) {
-                            $title =    '仓单签发审核';
-                            $content = '仓单签发' . $productData[0]['name'] . '需要审核';
-
-                            $adminMsg = new \nainai\AdminMsg();
-                            $adminMsg->createMsg('checkoffer',$id,$content,$title);
+                            
 
                             $param['name'] = $productData[0]['name'];
                             $obj = new \nainai\message($storeData['user_id']);

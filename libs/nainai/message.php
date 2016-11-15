@@ -298,7 +298,7 @@ class message{
 			if ($param['status'] == \nainai\store::MARKET_AGREE) {
 				$message = '您好，”'.$param['name'].'”仓单，平台已经审核通过，您可以进行仓单报盘了<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist@user'). '">跳转到仓单列表页</a>';
 			}elseif ($param['status'] == \nainai\store::MARKET_AGAIN) {
-				$message = '您好，”'.$param['name'].'”仓单，平台需要重新审核，请您耐心等待审核结果您好.';
+				$message = '您好，”'.$param['name'].'”仓单，平台需要重新审核，请您耐心等待审核结果.';
 			}else{
 				$message = '很遗憾，“'.$param['name'].'”仓单 后台审核未通过，您可以联系仓库管理员修改相关信息再次进行签发。<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist@user'). '">跳转到仓单列表页</a>';
 			}
@@ -306,7 +306,7 @@ class message{
 			if ($param['status'] == \nainai\store::MARKET_AGREE) {
 				$message = '您好，”'.$param['name'].'”仓单，平台已经审核通过<a href="' .\Library\url::createUrl('/managerstore/applystorelist@user'). '">跳转到仓单列表页</a>';
 			}elseif ($param['status'] == \nainai\store::MARKET_AGAIN) {
-				$message = '您好，”'.$param['name'].'”仓单，平台需要重新审核，请您耐心等待审核结果您好.';
+				$message = '您好，”'.$param['name'].'”仓单，平台需要重新审核，请您耐心等待审核结果.';
 			}else{
 				$message = '很遗憾，“'.$param['name'].'”仓单 后台审核未通过。<a href="' .\Library\url::createUrl('/managerstore/applystorelist@user'). '">跳转到仓单列表页</a>';
 			}
