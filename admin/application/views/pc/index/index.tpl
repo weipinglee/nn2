@@ -215,6 +215,13 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>
                     <ul>
+                    
+                    <li><a  target="content">银行签到/签退设置</a>
+                            <ul>
+                                <li><a href="{url:balance/BankSign/manu}" target="content">手动签到/退</a></li>
+                                <li><a href="{url:balance/BankSign/auto}" target="content">自动签到/退</a></li>
+                            </ul>
+                        </li>
                      <li><a  target="content">开闭市设置</a>
                             <ul>
                                 <li><a href="{url:balance/Open/day}" target="content">日结</a></li>
