@@ -169,6 +169,8 @@ table {
     margin-top: 30px;
     float: left;
 }
+.pay_type .pay_way{width: 600px;height:110px;}
+.pay_type .pay_way{width: 600px;height:60px;}
 .pay_type h3.add_zhifu{
         float: left;
     line-height: 33px;
