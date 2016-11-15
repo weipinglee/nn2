@@ -100,7 +100,7 @@ class StoreDelivery extends Delivery{
 		$query->where = 'pd.id=:id';
 		$query->bind = array('id'=>$delivery_id);
 		$res = $query->getObj();
-
+		
 		if($res['user_id'] != $seller_id) $error = '当前操作用户有误';
 
 		if($res['mode'] != order\Order::ORDER_STORE) $error = '订单类型须为仓单订单';

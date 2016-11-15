@@ -432,6 +432,22 @@ class zx extends account{
         return '';
     }
 
+
+    public function checkOrder($date){
+        $date = date('Ymd',strtotime($date));
+
+        $xml = self::XML_PREFIX."
+        <stream>
+            <action>DLSESMDN </action>
+            <userName>".self::USERNAME."</userName>
+        <accountNo>".self::MAINACC."</accountNo>
+        <date>".$date."</date>
+        </stream>";
+        $res = $this->attachAccount->curl($xml);
+        
+        return $res;
+    }
+
     /**
      * 交易状态查询
      * @param string $clientID 原操作流水号

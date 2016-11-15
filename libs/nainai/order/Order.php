@@ -37,6 +37,7 @@ class Order{
 	const PAYMENT_AGENT = 1;//代理账户
 	const PAYMENT_BANK = 2;//银行签约账户
 	const PAYMENT_TICKET = 3;//票据账户
+	const PAYMENT_ALIPAY = 4;//支付宝
 
 	protected $order_table;//订单表名
 	protected $offer_table;//报盘表
@@ -545,17 +546,21 @@ class Order{
 
 				if($info['mode'] == self::ORDER_ENTRUST){
 					if($info['seller_deposit'] > 0){
-						$note = '合同'.$info['order_no'].'完成,解冻平台委托金 '.$info['seller_deposit'];
-						$fre_res = $this->account->freezeRelease($seller,$info['seller_deposit'],$note);
+						if($info['retainage_payment'] != self::PAYMENT_ALIPAY){
+							$note = '合同'.$info['order_no'].'完成,解冻平台委托金 '.$info['seller_deposit'];
+							$fre_res = $this->account->freezeRelease($seller,$info['seller_deposit'],$note);
+							
+							if($fre_res === true){
+								$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
 
-						if($fre_res === true){
-							$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
+								$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
 
-							$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
-
-							if($pay_res !== true ) $res = $pay_res;
+								if($pay_res !== true ) $res = $pay_res;
+							}else{
+								$res = $fre_res;
+							}
 						}else{
-							$res = $fre_res;
+							//记录支付宝支付记录  TODO
 						}
 					}
 					$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);

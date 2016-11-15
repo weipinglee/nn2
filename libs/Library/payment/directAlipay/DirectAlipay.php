@@ -50,10 +50,10 @@ class DirectAlipay extends paymentPlugin {
 
 		//对待签名参数数组排序
 		$para_sort = $this->argSort($para_filter);
-
+		
 		//生成签名结果
 		$mysign = $this->buildMysign($para_sort, Payment::getConfigParam($paymentId, 'M_PartnerKey'));
-		var_dump($mysign);
+		// var_dump($mysign);
 		if ($callbackData['sign'] == $mysign) {
 			//回传数据
 			$orderNo = $callbackData['out_trade_no'];
@@ -80,7 +80,7 @@ class DirectAlipay extends paymentPlugin {
 	 */
 	public function getSendData($payment) {
 		$return = array();
-
+		
 		//基本参数
 		$return['service'] = 'create_direct_pay_by_user';
 		$return['partner'] = $payment['M_PartnerId'];

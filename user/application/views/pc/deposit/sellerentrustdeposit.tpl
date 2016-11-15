@@ -110,33 +110,43 @@
                                   
                                       <ul>
                                           <li><em name="chooice" class="yListrclickem" payment=1>市场代理账户<i></i></em> 
+                                          <em name="chooice" payment="<?php echo \nainai\order\Order::PAYMENT_ALIPAY;?>">支付宝<i></i></em> 
                                           <!-- <em name="chooice" payment=2>银行签约账户<i></i></em> -->
                                            <!-- <em name="chooice" payment=3>票据账户<i></i></em> --> </li>
                                       </ul>
                               </div> 
                               
-                        <!-- <script type="text/javascript">
+                        <script type="text/javascript">
                             $(function() {
                                 $(".yListr ul li em").click(function() {
                                     var payment = $(this).attr('payment'); 
                                     $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
                                     $('input[name=payment]').val(payment);
+
+                                    if(payment == 4){
+                                      $('.submit_bzj').hide();
+                                      $('.alipay').show();
+                                    }else{
+                                      $('.submit_bzj').show();
+                                      $('.alipay').hide();
+                                    }
                                 })
                             });
-                        </script> -->
+                        </script>
                        
 
                             
-                       </h3> 
+                       </h3>
                          </div>
 
-
+                      
                        <form action="{url:/Deposit/sellerEntrustDeposit}" auto_submit pay_secret="1" method="post" redirect_url="{url:/contract/sellerdetail?id=$data['id']}">
                            <input type="hidden" name="order_id" value="{$data['id']}" />
                            <input type="hidden" name="payment" value="1" />
                            <div class="pay_bton">
                                <h5>待支付金额：<i>{$data['seller_deposit']}</i>元</h5>
                                <input class="submit_bzj" type="submit" value="立即缴纳委托金" />
+                               <a href="{url:/deposit/entrustAlipay?order_id=$data['id']@user}" class="alipay" style='font-size: 16px;width:120px;height: 35px;line-height: 35px;margin: 0;display: none'>立即缴纳委托金</a>
                            </div>
 
                        </form>

@@ -44,6 +44,28 @@ class DepositController extends OrderController{
 		}
 	}
 
+	//发起委托费支付宝支付请求
+	public function entrustAlipayAction(){
+		$order_id = safe::filter($this->_request->getParam('order_id'));
+		$order_info = $this->order->orderInfo($order_id);
+		$offer_info = $this->order->offerInfo($order_info['offer_id']);
+		//创建支付宝链接
+		$pay = new \Library\payment\directAlipay\DirectAlipay();
+		$pay->callbackUrl = url::createUrl("/EntrustOrder/alipayEntrust?order_id=$order_id&user_id={$this->user_id}@user");
+		$obj = new \nainai\system\EntrustSetting();
+		$percent = $obj->getRate($offer_info['cate_id']);
+		
+		$seller_deposit = $percent['type'] == 0 ? number_format($order_info['amount'] * $percent['value'] / 100,2) : $percent['value'];
+		$payData = array(
+			'M_OrderNO' => $order_info['order_no'],
+			'M_Amount'  => $seller_deposit,
+			'M_PartnerKey' => 'xxxx',
+		);
+		$sendData = $pay->getSendData($payData);
+
+		$pay->doPay($sendData);
+	}
+
 	//卖家支付委托金
 	public function sellerEntrustDepositAction(){
 		if(IS_POST){
@@ -51,16 +73,18 @@ class DepositController extends OrderController{
 			$payment = safe::filterPost('payment','int');
 			$user_id = $this->user_id;
 			$pay = true;
+
 			$res = $this->entrust->sellerDeposit($order_id,$pay,$user_id,$payment);
 			if($res['success'] == 1)
 				die(json::encode(tool::getSuccInfo(1,'委托金支付成功',url::createUrl('/contract/sellerdetail?id='.$order_id))));
 			else
 				die(json::encode(tool::getSuccInfo(0,$res['info'])));
-			return false;
+		
 		}else{
 			$order_id = safe::filter($this->getRequest()->getParam('order_id'),'int');
 			$data = $this->entrust->contractDetail($order_id,'seller');
 			$obj = new \nainai\system\EntrustSetting();
+			
 			$percent = $obj->getRate($data['cate_id']);
 			// $percent = $this->order->entrustFee($order_id);
 			if (empty($percent)) {
