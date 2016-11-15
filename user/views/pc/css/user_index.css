@@ -201,11 +201,15 @@ background: #027cff;
     background: #E2DFDF;
 }
 /*首页中间css*/
+.user_nrz .nrz_dd{
+  padding-top: 10px;
+}
 .user_nrz .nrz_dd table.hy_info {
 text-align: left;
 }
 .user_nrz .nrz_dd table.hy_info td{
   padding: 10px 10px;
+  padding-left: 30px;
 }
 .dj li{ 
   float: left;     
