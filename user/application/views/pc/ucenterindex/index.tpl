@@ -26,7 +26,7 @@
 											<li style="clear:both;"><span>信誉分值：{$creditGap} 分</span></li>
 										</ul>
 									</td>
-									<td>
+									<td style="padding-bottom:0px;">
 										<span>结算账号资金总额</span>
 										<span class="colaa0707"><b class="font-size ">￥{$count}</b><br/>
 											<span style="line-height: 30px;padding-left: 120px;"></span>
@@ -41,6 +41,7 @@
 												<span><img src="{views:/images/center/icon_yrz.png}">{echo:\nainai\cert\certificate::$certRoleText[$key]}已认证</span>
 												{else:}
 												<span><img src="{views:/images/center/icon_wrz.png}">{echo:\nainai\cert\certificate::$certRoleText[$key]}未认证</span>
+
 												{/if}
 											{/foreach}
 											{if:$href}
