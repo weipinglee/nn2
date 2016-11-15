@@ -61,7 +61,12 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function indexOfferAction(){
         $certObj=new \nainai\cert\certificate();
-        $certStatus=$certObj->getCertStatus($this->user_id,'deal');
+        if ($this->pid == 0) {
+            $certStatus=$certObj->getCertStatus($this->user_id,'deal');
+        }else{
+             $certStatus=$certObj->getCertStatus($this->pid,'deal');
+        }
+       
 
         $this->getView()->assign('certStatus',$certStatus);
     }
