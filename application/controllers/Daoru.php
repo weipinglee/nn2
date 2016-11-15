@@ -8,9 +8,26 @@
  */
 use \nainai\oldData;
 use \Library\M;
+use \Library\safe;
 class DaoruController extends \Yaf\Controller_Abstract
 {
 
+    public function getZXAction(){
+		if(IS_POST){
+			$user_no = safe::filterPost('user_id');
+			$acc_id = safe::filterPost('acc_id');
+			$userObj = new M('user');
+			$user_id = $userObj->where(array('user_no'=>$user_no))->getField('id');echo $user_id;
+			$m = new M('user_attach');
+			$res = $m->data(array('user_id'=>$user_id,'no'=>$acc_id,'bank'=>'zx'))->add();
+			if($res){
+				echo 'ok';
+			}
+			else echo 'ng';
+			exit;
+		}
+		
+	}
 
     /**
 	*判断用户是否已注册，返回已注册的用户号等信息
@@ -538,7 +555,7 @@ class DaoruController extends \Yaf\Controller_Abstract
 							'minimum' => $val['min_obj_num'],
 							'minstep' => $val['min_obj_num_range'],
 							'accept_day' => $val['end_tran_date'],
-							'status' => isset($sta[$val['conobj_status']]) ? $sta[$val['conobj_status']] : 0,
+							'status' => 4,//所有报盘状态改为已取消
 							'is_del' => $val['conobj_status']=='F' ? 1 : 0,
 							'apply_time' =>$val['apply_time'] == NULL ? $val['add_time'] : $val['apply_time'],
 							'expire_time' => $this->getTime($val['limit_date'],2),
@@ -799,7 +816,6 @@ class DaoruController extends \Yaf\Controller_Abstract
 	//转换报盘数据表sql
 	public function getInsertSqlAction(){
 		$sql = <<< OEF
-		
 		
 OEF;
 		$sql = str_replace('to_date(','str_to_date(',$sql);
