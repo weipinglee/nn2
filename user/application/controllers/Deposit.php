@@ -84,6 +84,7 @@ class DepositController extends OrderController{
 			$order_id = safe::filter($this->getRequest()->getParam('order_id'),'int');
 			$data = $this->entrust->contractDetail($order_id,'seller');
 			$obj = new \nainai\system\EntrustSetting();
+			
 			$percent = $obj->getRate($data['cate_id']);
 			// $percent = $this->order->entrustFee($order_id);
 			if (empty($percent)) {
