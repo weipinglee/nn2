@@ -115,7 +115,7 @@ class OpenController extends InitController {
 			exit(json::encode($res));
 		}
 
-		$detail = $model->getDealSetting(1);
+		$detail = $model->getsetting();
 		$detail['weeks'] = explode(',', $detail['weeks']);
 		$week = date('w');
 	        	$start = strtotime(date('Y-m-d',time()).' '. $detail['start_time']);

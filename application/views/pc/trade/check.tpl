@@ -174,6 +174,11 @@
             
              <!-------------------------- -->                
             
+            <span class="jiesim"><h3></h3> </span>  
+
+            <div class="zhiffs" style="margin:35px 0px;">
+              <b class="trans" style="width:auto;padding-left:35px;height:25px;line-height:25px;">物流方式：物流自提</b>
+            </div>
             <span class="jiesim"><h3></h3> </span>   
             <div class="intur_box">
             <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b class='prod_num'>{$data['minimum']}</b>{$data['unit']}</span></span>

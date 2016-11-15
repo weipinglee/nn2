@@ -90,7 +90,7 @@ class storeProductModel extends \nainai\store{
         if($old_status == self::USER_AGREE OR $old_status == self::MARKET_AGREE OR $old_status == self::MARKET_REJECT OR  $old_status == self::MARKET_AGAIN) {
             $store['status'] = $status == 1 ? self::MARKET_AGREE : ($status == 3 ? self::MARKET_AGAIN : self::MARKET_REJECT) ;
             if ($old_status == $store['status']) {
-                return tool::getSuccInfo(0,'该状态不能审核22');
+                return tool::getSuccInfo(0,'该状态不能审核');
             }
             $store['market_time'] = \Library\Time::getDateTime();
             if ( ! empty($msg)) {

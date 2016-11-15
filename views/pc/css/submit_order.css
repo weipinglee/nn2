@@ -329,6 +329,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     font-weight: normal;
     color: #999999;
 }
+.zhiffs .trans{
+    width:auto;
+    padding-left:35px;
+    height:25px;
+    line-height:25px;
+    background: url(../images/icon/che.png) no-repeat;
+}
 .addwidth {
     display: block;
     padding: 8px 8px 20px 0;

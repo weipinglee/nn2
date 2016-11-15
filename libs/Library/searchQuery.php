@@ -41,9 +41,12 @@ class searchQuery extends Query{
             unset($this->page);
         }else if(!isset($this->page) || !$this->page){ //如果没有定义分页，在这里定义
             $this->page = $cond[0]['page'];
+            
+        }
+        
+        if (intval($this->pagesize) == 0) {
             $this->pagesize = 20;
         }
-
         $list = parent::find();
         $result = array('list' => $list, 'search'=>$search);
         if (!isset($cond[0]['down']) ||$cond[0]['down'] == 0) {
