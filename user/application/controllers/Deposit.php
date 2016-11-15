@@ -79,12 +79,12 @@ class DepositController extends OrderController{
 				die(json::encode(tool::getSuccInfo(1,'委托金支付成功',url::createUrl('/contract/sellerdetail?id='.$order_id))));
 			else
 				die(json::encode(tool::getSuccInfo(0,$res['info'])));
-		
+			
 		}else{
 			$order_id = safe::filter($this->getRequest()->getParam('order_id'),'int');
 			$data = $this->entrust->contractDetail($order_id,'seller');
 			$obj = new \nainai\system\EntrustSetting();
-			
+
 			$percent = $obj->getRate($data['cate_id']);
 			// $percent = $this->order->entrustFee($order_id);
 			if (empty($percent)) {

@@ -38,7 +38,9 @@
 										<div class="icon_rz">
 											{foreach:items=$cert}
 												{if:$cert[$key]==1}
-											<span><img src="{views:/images/center/icon_yrz.png}">{echo:\nainai\cert\certificate::$certRoleText[$key]}已认证</span>
+												<span><img src="{views:/images/center/icon_yrz.png}">{echo:\nainai\cert\certificate::$certRoleText[$key]}已认证</span>
+												{else:}
+												<span><img src="{views:/images/center/icon_wrz.png}">{echo:\nainai\cert\certificate::$certRoleText[$key]}未认证</span>
 												{/if}
 											{/foreach}
 											{if:$href}
