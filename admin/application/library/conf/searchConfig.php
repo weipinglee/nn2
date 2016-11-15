@@ -36,7 +36,7 @@ class searchConfig {
             'select'=> array('c.type','配置类型')
         ),
         'order_sell' => array(
-            'time'=>array('do.create_time','创建时间'),
+            'time'=>array('do.create_time','提货时间'),
             'likes' => array('o.order_no, p.name', '订单号,商品名称'),
             'down' => 1
         ),

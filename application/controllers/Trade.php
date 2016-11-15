@@ -33,7 +33,7 @@ class tradeController extends \nainai\controller\Base {
             $this->getView()->assign('login',0);
         }
 		$this->getView()->setLayout('layout');
-		$this->offer = new OffersModel();
+		$this->offer = new offersModel();
 	}
 
 	//付款

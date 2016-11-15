@@ -48,7 +48,7 @@ class User extends \nainai\Abstruct\ModelAbstract {
      public function getSubaccList($user_id){
         $Q = new \Library\searchQuery($this->tableName);
         $Q->fields = 'id, username, mobile, email, create_time, status';
-        $Q->where = 'pid=:user_id ';
+        $Q->where = 'pid=:user_id AND status IN ('.self::NOMAL.','.self::LOCK.') ';
         $Q->bind = array('user_id' => $user_id);
         $lists = $Q->find();
         foreach ($lists['list'] as $key => &$value) {

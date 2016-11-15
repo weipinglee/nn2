@@ -25,7 +25,7 @@ class OffersController extends PublicController {
 	public function init(){
 		parent::init();
 		//$this->getView()->setLayout('header');
-		$this->offer = new OffersModel();
+		$this->offer = new offersModel();
 		$this->order = new \nainai\order\Order();
 	}
 
