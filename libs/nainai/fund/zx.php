@@ -23,10 +23,11 @@ class zx extends account{
      const BANK = 'zx';
 
      public function __construct(){
+        $check_sign = $this->signStatus();
+        if($check_sign!==true) return $check_sign;
         $this->agentModel = new M($this->agentTable);
         $this->flowModel  = new M($this->fundFlowTable);
         $this->attachAccount = new attachAccount();
-
      }
 
      /**
@@ -628,6 +629,15 @@ class zx extends account{
         }
 
         return $type_txt;
+    }
+
+    /**
+     * 获取今天签到签退状态 
+     */
+    public function signStatus(){
+        $sign = new M('bank_sign');
+        $res = $sign->where(array('date'=>date('Y-m-d',time()),'bank_name'=>'中信银行'))->getObj();
+        return $res['signin'] && $res['signout'] ? '已签退' : ($res['signin'] ? true : '未签到');
     }
 
 }
