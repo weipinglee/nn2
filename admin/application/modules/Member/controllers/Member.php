@@ -37,7 +37,7 @@ class MemberController extends InitController {
 		if($user_id){
 			$mem = new member();
 			$user = $mem->getUserDetail($user_id);
-
+			
 			//获取客服人员列表
 			$yewu = new YewuModel();
 			$yewuData = $yewu->getAllkefu();

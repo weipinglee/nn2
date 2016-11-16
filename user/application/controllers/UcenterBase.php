@@ -47,7 +47,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 
         $user = new \nainai\member();
         $secret_url = $user->getSecretUrl();
-
+        
         //判断是否需要支付密码
         if(IS_POST && in_array(strtolower($controllerName).'/'.strtolower($actionName),$secret_url)){
             $pay_secret = safe::filterPost('pay_secret') ? safe::filterPost('pay_secret') : safe::filter($this->_request->getParam('pay_secret'));

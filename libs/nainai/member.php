@@ -79,15 +79,16 @@ class member{
         $credit = $userData['credit'];
         $vip = $userData['vip'];
 
-        if($vip == 1){
-            $group['group_name'] = '收费会员';
-            $group['caution_fee'] = 0;
-            $group['free_fee'] = 0;
-            $group['depute_fee'] = 0;
-            $group['icon'] = '';
+        // if($vip == 1){
+        //     $group['group_name'] = '收费会员';
+        //     $group['caution_fee'] = 0;
+        //     $group['free_fee'] = 0;
+        //     $group['depute_fee'] = 0;
+        //     $group['icon'] = '';
 
-            return $group;
-        }elseif($credit!==false){
+        //     return $group;
+        // }else
+        if($credit!==false){
             $group = $userObj->table('user_group')->where('credit <=:credit')->bind(array('credit'=>$credit))->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit DESC')->getObj();
            if(empty($group)){
                $group = $userObj->table('user_group')->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit asc')->getObj();
@@ -106,10 +107,12 @@ class member{
      * @param  mix $group  对应等级
      */
     public function groupUpd($user_id,$group){
+
         $member = new M('user');
-        if(is_string($group) && $group == 'vip'){
+        if(is_string($group) && (strpos($group,'vip') !== FALSE)){
             //调整为收费会员
-            $res = $member->where(array('id'=>$user_id))->data(array('vip'=>1))->update();
+            $level = intval(str_replace('vip', '', $group));
+            $res = $member->where(array('id'=>$user_id))->data(array('vip'=>$level))->update();
         }elseif(intval($group) > 0){
             //获取对应等级会员的信誉值分界线
             $obj = new M('user_group');
@@ -158,7 +161,7 @@ class member{
         else
             $where = array('id'=>$cond);;
         $userObj = new M($this->table);
-        $detail = $userObj->fields('id,type,username,credit,mobile,email,head_photo,pid,roles,status,agent,create_time,yewu')->where($where)->getObj();
+        $detail = $userObj->fields('id,type,username,credit,mobile,vip,email,head_photo,pid,roles,status,agent,create_time,yewu')->where($where)->getObj();
         $product = new \nainai\offer\product();
 
         if(!empty($detail)){
