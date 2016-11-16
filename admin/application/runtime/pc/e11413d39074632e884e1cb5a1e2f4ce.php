@@ -120,14 +120,18 @@
             <tr>
                  <th>变更会员等级</th>
                  <th scope="col" colspan="7">
-                     <form action="http://localhost/nn2/admin/member/member/groupupd" method="post" auto_submit redirect_url="http://localhost/nn2/admin/member/member/memberlist">
+                     <form action="http://localhost/nn2/admin/member/member/groupupd" method="post" auto_submit redirect_url="http://localhost/nn2/admin/member/member/memberlist" id='groupUpd'>
                          <input type="hidden" name="user_id" value="<?php echo isset($user['id'])?$user['id']:"";?>" />
-                         <select name="id" datatype="/[1-9][\d]|\s+{0,}/">
+                         <select name="id" datatype="*">
                              <option value="0">请选择会员等级</option>
                              <?php if(!empty($group_list['data'])) foreach($group_list['data'] as $key => $item){?>
                                  <option value="<?php echo isset($item['id'])?$item['id']:"";?>" <?php if($group_name['group_name']==$item['group_name']){?>selected="true"<?php }?>><?php echo isset($item['group_name'])?$item['group_name']:"";?></option>
                              <?php }?>
-                             <option value="vip" <?php if($group_name['group_name']=='收费会员'){?>selected="true"<?php }?>>收费会员</option>
+                             <option value="vip1" <?php if($user['vip']==1){?>selected="true"<?php }?>>收费会员1</option>
+                             <option value="vip2" <?php if($user['vip']==2){?>selected="true"<?php }?>>收费会员2</option>
+                             <option value="vip3" <?php if($user['vip']==3){?>selected="true"<?php }?>>收费会员3</option>
+                             <option value="vip4" <?php if($user['vip']==4){?>selected="true"<?php }?>>收费会员4</option>
+                             
                          </select>
                         
                          <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;确认&nbsp;&nbsp;">

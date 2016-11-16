@@ -23,11 +23,15 @@ class zx extends account{
      const BANK = 'zx';
 
      public function __construct(){
-        $check_sign = $this->signStatus();
-        if($check_sign!==true) return $check_sign;
         $this->agentModel = new M($this->agentTable);
         $this->flowModel  = new M($this->fundFlowTable);
         $this->attachAccount = new attachAccount();
+     }
+
+     public function curl($xml){
+        $check_sign = $this->signStatus();
+        if($check_sign!==true) {echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;}//return $check_sign;
+        $this->attachAccount->curl($xml);
      }
 
      /**
@@ -136,7 +140,7 @@ class zx extends account{
                 <preTime></preTime>
             </stream>";
 
-        return $this->attachAccount->curl($xml);
+        return $this->curl($xml);
      }
 
     /**
@@ -255,7 +259,7 @@ class zx extends account{
                 <tranAmt>{$num}</tranAmt>
                 <memo></memo>
             </stream>";
-        return $this->attachAccount->curl($xml);
+        return $this->curl($xml);
     }
 
     /**
@@ -315,7 +319,7 @@ class zx extends account{
                 </stream>";
 
                 // var_dump($xml);exit;
-            $res = $this->attachAccount->curl($xml);
+            $res = $this->curl($xml);
             
             if($res['status'] == 1){
 
@@ -401,7 +405,7 @@ class zx extends account{
                 <tranFlag>1</tranFlag>
             </stream>";
 
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         // var_dump($res);exit;
         return $res['status'] == 1 ? true : $res['info'];
 
@@ -444,7 +448,7 @@ class zx extends account{
         <accountNo>".self::MAINACC."</accountNo>
         <date>".$date."</date>
         </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         
         return $res;
     }
@@ -463,7 +467,7 @@ class zx extends account{
 
                 <type>DLMDETRN</type>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         return $res;
     }
 
@@ -488,7 +492,7 @@ class zx extends account{
                 <startDate>{$starDate}</startDate>
                 <endDate>{$endDate}</endDate>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         return $res;
     }
 
@@ -509,7 +513,7 @@ class zx extends account{
                 
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         // return $res;
         return $res['row'] ? $res['row'] : array();
 
@@ -543,7 +547,7 @@ class zx extends account{
                 <startRecord></startRecord>
                 <pageNumber></pageNumber>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         return $res;
     }
 
@@ -571,7 +575,7 @@ class zx extends account{
                 <startRecord>1</startRecord>
                 <pageNumber>10</pageNumber>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         foreach ($res['row'] as $key => &$value) {
             $value['subno'] = $payAccInfo['no'];
         }

@@ -172,228 +172,83 @@
             </div>
             <!--end左侧导航-->
             <div id="cont">
-			<!-- start 依据条件显示HTML-->
-			<div class="user_c_list">
-				<!-- start 是否选择去认证
-				<div class="check-approve">
-					<img src="../images/icon/check-approve.jpg">
-					<p class="p-title zn-f18">您的基本资料未填写完成</p>
-					<p class="p-con  zn-f14">请完善您的基本资料并申请正式会员，享受更多会员服务</p>
-					<p class="p-btn">
-						<a href="identity/zh_rez.html" class="zn-f16 go-now">资质认证</a>
-						<a class="zn-f16 not-go">暂不认证</a>
-					</p>
-				</div>  end 是否选择去认证 -->	
-			<!-- start 暂不认证 -->	
-				<div class="user_zbrz noshow">
-					<div class="user_nrz">
-						<div class="nrz_tit"><span>账户信息</span><a class="gengduo" href="user_dd.html"></a></div>
-						<div class="nrz_dd">
-							<table class="hy_info" width="100%">
-								<tr>
-									<td width="450px" style="border-right:1px solid #eee;">
-										<ul class="dj">
-											<li>会员等级：<span><img src="<?php echo isset($group['icon'])?$group['icon']:"";?>"/><?php echo isset($group['group_name'])?$group['group_name']:"";?></span></li>
-											<li><a href="http://company.nainaiwang.com/product.php?id=67"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员升级</span></a></li>
-
-											<li style="clear:both;"><span>信誉分值：<?php echo isset($creditGap)?$creditGap:"";?> 分</span></li>
-										</ul>
-									</td>
-									<td style="padding-bottom:0px;">
-										<span>结算账号资金总额</span>
-										<span class="colaa0707"><b class="font-size ">￥<?php echo isset($count)?$count:"";?></b><br/>
-											<span style="line-height: 30px;padding-left: 120px;"></span>
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td width="280px" style="border-right:1px solid #eee;">
-										<div class="icon_rz">
-											<?php if(!empty($cert)) foreach($cert as $key => $item){?>
-												<?php if($cert[$key]==1){?>
-												<span><img src="/nn2/user/views/pc/images/center/icon_yrz.png"><?php echo \nainai\cert\certificate::$certRoleText[$key];?>已认证</span>
-												<?php }else{?>
-												<span><img src="/nn2/user/views/pc/images/center/icon_wrz.png"><?php echo \nainai\cert\certificate::$certRoleText[$key];?>未认证</span>
-
-												<?php }?>
-											<?php }?>
-											<?php if($href){?>
-												<a href="<?php echo isset($href)?$href:"";?>"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">去认证</span></a>
-											<?php }?>
-										</div>
-									</td>
-									<td>
-										<span class="rz_an_index">
-											<a href="http://localhost/nn2/user/fund/cz" class="zj_a cz">充值</a>
-											<a href="http://localhost/nn2/user/fund/tx" class="zj_a tx">提现</a>
-										</span>
-									</td>
-								</tr>
-								
-							</table>
-							
-						</div>
+			<!--start中间内容-->	
+			<div class="user_c">
+				<div class="user_zhxi">
+					<div class="zhxi_tit">
+						<p><a>产品管理</a>><a>产品列表</a></p>
 					</div>
-					<div class="user_nrz">
-						<div class="nrz_tit"><span>最新购买合同</span><a class="gengduo" href="http://localhost/nn2/user/contract/buyerlist">更多>></a></div>
-						<div class="nrz_gz">
-							<?php if(!empty($contract2)){?>
-							<table width="100%">
-								<tr>
-									<td width="220px" style="min-height:80px;">
-										<div style="padding:5px 10px;">
-											<div class="div_height">&nbsp;<?php echo isset($contract2['product_name'])?$contract2['product_name']:"";?></div>
-										</div>
-
-									</td>
-									<td width="380px" >
-										<a href="http://localhost/nn2/user/contract/buyerdetail/id/<?php echo $contract2['id'];?>"><?php echo isset($contract2['order_no'])?$contract2['order_no']:"";?></a>
-									</td>
-									<td width="200px">
-										<div class="div_heights colaa0707">合同总额：￥<?php echo isset($contract2['amount'])?$contract2['amount']:"";?></div>
-
-									</td>
-
-
-									<td>
-										<div class="div_heights">
-										<?php if($contract2['action_href']){?>
-											<a href="<?php echo isset($contract2['action_href'])?$contract2['action_href']:"";?>"><b><?php echo isset($contract2['title'])?$contract2['title']:"";?><b></b></b></a>
-										<?php }else{?>
-											<?php echo isset($contract2['title'])?$contract2['title']:"";?>
-										<?php }?>
-										</div><b><b>
-											</b></b></td>
-								</tr>
-							</table>
-							<?php }else{?>
-								<table width="100%">
-									<tr>
-										<td colspan="4">
-											<img src="/nn2/user/views/pc/images/center/no-data.png">
-											<p class="no-data">暂无购买合同</p>
-										</td>
-									</tr>
-								</table>
-							<?php }?>
-
+					<div class="chp_xx">
+						<div class="xx_top">
+							<form action="http://localhost/nn2/user/managerdeal/productlist" method="GET" name="">
+								<ul>
+									<li>名称：<input id="warename" name="name" type="text" value="<?php echo isset($name)?$name:"";?>"></li>
+									<li>发布状态：
+									<select id="classcode" name="status">
+									<option value="9">--全部--</option>
+									<?php if(!empty($statusList)) foreach($statusList as $key => $value){?>
+										<option value="<?php echo isset($key)?$key:"";?>" <?php if( $key==$status){?>SELECTED<?php }?>><?php echo isset($value)?$value:"";?></option>
+									<?php }?>
+			
+									</select></li>
+									<li>时间：<input class="Wdate" type="text" name="beginDate" value="<?php echo isset($beginDate)?$beginDate:"";?>" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="<?php echo isset($endDate)?$endDate:"";?>" onclick="WdatePicker()">
+									</li>
+									<li><input type="submit" value="查找" class="chaz"></li>
+								</ul>
+							</form>
+							<div style="clear:both;"></div>
 						</div>
-					</div>
-					<?php if( $user_type == 1){?>
-					<!-- 最新销售合同 -->
-					<div class="user_nrz">
-						<div class="nrz_tit"><span>最新销售合同</span><a class="gengduo" href="http://localhost/nn2/user/contract/sellerlist">更多>></a></div>
-						<div class="nrz_gz">
-							<?php if(!empty($contract1)){?>
-							<table width="100%">
-								<tr>
-									<td width="220px" style="min-height:80px;">
-										<div style="padding:5px 10px;">
-											<div class="div_height">&nbsp;<?php echo isset($contract1['product_name'])?$contract1['product_name']:"";?></div>
-										</div>
-										
-									</td>
-									<td width="380px" >
-										<a href="http://localhost/nn2/user/contract/sellerdetail/id/<?php echo $contract1['id'];?>"><?php echo isset($contract1['order_no'])?$contract1['order_no']:"";?></a>
-									</td>
-									<td width="200px">
-										<div class="div_heights colaa0707">合同总额：￥<?php echo isset($contract1['amount'])?$contract1['amount']:"";?></div>
-
-									</td>
-
-									
-									<td>
-										<div class="div_heights">
-											<?php if($contract1['action_href']){?>
-											<a href='<?php echo isset($contract1['action_href'])?$contract1['action_href']:"";?>'><b><?php echo isset($contract1['action'])?$contract1['action']:"";?><b></b></b></a>
-											<?php }else{?>
-											<b><?php echo isset($contract1['action'])?$contract1['action']:"";?><b></b></b>
-											<?php }?>
-										</div><b><b>
-									</b></b></td>
-								</tr>
-
-							</table>
-							<?php }else{?>
-							<table width="100%">
-								<tr>
-									<td colspan="4">
-										<img src="/nn2/user/views/pc/images/center/no-data.png">
-										<p class="no-data">暂无销售合同</p>
-									</td>
-								</tr>
-								</table>
-							<?php }?>
-							
-						</div>
-					</div>
-					<?php }?>
-					<!-- 最新销售合同end -->
-					<!-- 关注推荐 start
-					<div class="user_nrz chp_xx">
-						<div class="nrz_tit"><span>关注推荐</span><a class="gengduo" href="user_gz.html">更多>></a></div>
 						<div class="xx_center">
-							<table width="100%">
-								<tr>
-									<td>编号</td>
-									<td>供求</td>
-									<td>品名</td>
-									<td>服务</td>
-									<td>规格</td>
-									<td>数量（吨）</td>
-									<td>剩余（吨）</td>
-									<td>价格（元）</td>
-									<td>产地</td>
-									<td>交货地</td>
+							<table border="0"  cellpadding="" cellspacing="">
+								<tr class="title">
+									
+									<td>序号</td>
+									<td>报盘类型</td>
+									<td>名称</td>
+									<td>市场分类</td>
+									<td>总量</td>
+									<td>剩余</td>
+									<td>单位</td>
+									<td>单价(元)</td>
+									<!-- <td>保险</td> -->
+									<td>发布状态</td>
+									<td>时间</td>
 									<td>操作</td>
 								</tr>
+								<?php if(!empty($productList)) foreach($productList as $key => $list){?>
+								<?php  $key++; ?>
 								<tr>
-									<td>GF0000001</td>
-									<td><span class="col12aa07">供</span></td>
-									<td>高铝砖</td>
-									<td><img src="../images/center/icon_b.jpg">
-										<img src="../images/center/icon_c.jpg">
-									</td>
-									<td>95%</td>
-									<td>200</td>
-									<td>300</td>
-									<td>￥1780</td>
-									<td>山西</td>
-									<td>耐耐网一号库</td>
-									<td>
-										<a><img src="../images/center/icon_serch.jpg"/></a>
-										<a><img src="../images/center/icon_yy.jpg"/></a>
-										<a><img src="../images/center/icon_qq.jpg"/></a>
-									</td>
+									<td><?php echo isset($key)?$key:"";?></td>
+									<td><?php echo isset($mode[$list['mode']])?$mode[$list['mode']]:"";?></td>
+									<td><p><?php echo isset($list['name'])?$list['name']:"";?></p></td>
+									<td><?php echo isset($list['cname'])?$list['cname']:"";?></td>
+									<td><?php echo \nainai\offer\product::floatForm($list['quantity']);?></td>
+									<td><?php echo $list['quantity']-$list['freeze']-$list['sell'];?></td>
+									<td><?php echo isset($list['unit'])?$list['unit']:"";?></td>
+									<td><?php echo isset($list['price'])?$list['price']:"";?></td>
+									<!-- <td>已投保</td> -->
+									<td><span class="col000000"><?php echo isset($list['status'])?$list['status']:"";?></span></td>
+									<td><?php echo isset($list['apply_time'])?$list['apply_time']:"";?></td>
+									<td><a href="http://localhost/nn2/user/managerdeal/productdetail/id/<?php echo $list['id'];?>">查看</a></td>
 								</tr>
-								<tr>
-									<td>GF0000001</td>
-									<td><span class="col12aa07">供</span></td>
-									<td>高铝砖</td>
-									<td><img src="../images/center/icon_b.jpg">
-										<img src="../images/center/icon_c.jpg">
-									</td>
-									<td>95%</td>
-									<td>200</td>
-									<td>300</td>
-									<td>￥1780</td>
-									<td>山西</td>
-									<td>耐耐网一号库</td>
-									<td>
-										<a><img src="../images/center/icon_serch.jpg"/></a>
-										<a><img src="../images/center/icon_yy.jpg"/></a>
-										<a><img src="../images/center/icon_qq.jpg"/></a>
-									</td>
-								</tr>
+								<?php }?>
+								
 							</table>
-							
+
+						</div>
+						
+
+						</div>
+						<div class="page_num">
+							<?php echo isset($pageHtml)?$pageHtml:"";?>
 						</div>
 					</div>
-					关注推荐 end -->
 				</div>
-			<!-- end 暂不认证 -->	
+				
+				
 			</div>
-</div>
+
+		</div>
 
 				<!--end中间内容-->	
 			

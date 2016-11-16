@@ -17,16 +17,19 @@
 </head>
 <body>
 
-﻿
+
+        <!--            
+              CONTENT 
+                        --> 
         <div id="content" class="white">
-            <h1><img src="/nn2/admin/views/pc/img/icons/posts.png" alt="" /> 会员管理</h1>
+            <h1><img src="/nn2/admin/views/pc/img/icons/posts.png" alt="" /> 仓库管理员认证</h1>
 <div class="bloc">
     <div class="title">
-        会员列表
+        会员认证
     </div>
     <div class="content">
         <div class="pd-20">
-			
+            
 <?php if($data['search']!=''){?>
     <?php if( empty($begin)){?>
     <?php $begin=\Library\safe::filterGet('begin');; ?>
@@ -86,68 +89,50 @@
     </form>
 <?php }?>
 
-		</div>
+           <table class="table table-border table-bordered table-hover table-bg">
+        <thead>
+            <tr>
+                <th scope="col" colspan="9">会员账户</th>
+            </tr>
+            <tr class="text-c">
+                <!--<th><input type="checkbox" value="" name="checkall"></th>-->
+                <th>ID</th>
+                <th >登录账号</th>
+                <th>会员类型</th>
+                <th>手机号</th>
+                <th>认证仓库</th>
+				<th>认证状态</th>
+				<th>申请时间</th>
+				<th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php if(!empty($data['list'])) foreach($data['list'] as $key => $item){?>
+            <tr class="text-c">
+               <!-- <td><input type="checkbox" value="" name="check"></td>-->
+                <td><?php echo isset($item['id'])?$item['id']:"";?></td>
+                <td><?php echo isset($item['username'])?$item['username']:"";?></td>
+                <td><?php echo \nainai\member::getType($item['type']);?></td>
+                <td><?php echo isset($item['mobile'])?$item['mobile']:"";?></td>
+                <td><?php echo isset($item['store_name'])?$item['store_name']:"";?></td>
+				<td><?php echo \nainai\cert\certDealer::getStatusText($item['status']);?></td>
+				<td><?php echo isset($item['apply_time'])?$item['apply_time']:"";?></td>
 
-	<div class="mt-20">
-	<table class="table table-border table-bordered table-hover table-bg table-sort">
-		<thead>
-			<tr class="text-c">
+                <td class="f-14"><a title="编辑" href="http://localhost/nn2/admin/member/certmanage/storecertdetail/uid/<?php echo $item['id'];?>"  style="text-decoration:none"><i class=" icon-edit fa-edit"></i></a> </td>
+				
+            </tr>
+        <?php }?>
 
-				<th width="80">ID</th>
-				<th width="100">用户名</th>
-				<th width="100">真实姓名</th>
-				<th width="100">企业名称</th>
-				<th width="100">信誉会员等级</th>
-				<th width="100">收费会员</th>
-				<th width="90">手机</th>
-				<th width="150">邮箱</th>
-				<th width="130">注册时间</th>
-				<th width="130">代理商</th>
-				<th width="130">业务员</th>
-				<th width="130">状态</th>
-				<th width="100">操作</th>
-			</tr>
-		</thead>
-		<tbody>
-		<?php if(!empty($data['list'])) foreach($data['list'] as $key => $item){?>
-			<tr class="text-c">
-			
-				<td><?php echo isset($item['id'])?$item['id']:"";?></td>
-				<td><u style="cursor:pointer" class="text-primary" ><?php echo isset($item['username'])?$item['username']:"";?></u></td>
-<td><?php echo isset($item['true_name'])?$item['true_name']:"";?></td>
-<td><?php echo isset($item['company_name'])?$item['company_name']:"";?></td>
-<td><?php echo isset($item['user_rank']['group_name'])?$item['user_rank']['group_name']:"";?></td>
-<td><?php if($item['vip']>0){?>是<?php }else{?>否<?php }?></td>
-				<td><?php echo isset($item['mobile'])?$item['mobile']:"";?></td>
-				<td><?php echo isset($item['email'])?$item['email']:"";?></td>
-				<td><?php echo isset($item['create_time'])?$item['create_time']:"";?></td>
-				<td><?php echo isset($item['agent_name'])?$item['agent_name']:"";?></td>
-				<td><?php echo isset($item['ser_name'])?$item['ser_name']:"";?></td>
-				<td class="td-status">
-				<?php if($item['status'] == \nainai\user\User::NOMAL){?>
-					<span class="label label-success radius">已启用</span>
-				<?php }else{?>
-
-					<span class="label label-error radius">停用</span>
-
-				<?php }?>
-				</td>
-				<td class="td-manage">
-				<?php if($item['status'] == \nainai\user\User::NOMAL){?>
-				<a style="text-decoration:none" ajax_status=0  ajax_url="http://localhost/nn2/admin/member/member/ajaxupdatestatus/id/<?php echo $item['id'];?>"  href="javascript:;" title="停用"><i class="icon-pause fa-pause"></i></a>
-				<?php }else{?>
-				<a style="text-decoration:none" ajax_status=1  ajax_url="http://localhost/nn2/admin/member/member/ajaxupdatestatus/id/<?php echo $item['id'];?>"  href="javascript:;" title="启用"><i class="icon-play fa-play"></i></a>
-				<?php }?> 
-				<a title="编辑" href="http://localhost/nn2/admin/member/member/detail/id/<?php echo $item['id'];?>" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> 
-				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="http://localhost/nn2/admin/member/member/ajaxupdatestatus/id/<?php echo $item['id'];?>/delete/1" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
-			</tr>
-		<?php }?>
-		</tbody>
-
-	</table>
-		<?php echo isset($data['bar'])?$data['bar']:"";?>
-	</div>
+        </tbody>
+    </table>
+        </div>
+        <?php echo isset($data['bar'])?$data['bar']:"";?>
+    </div>
 </div>
+
+
+     
+        
 
 
 

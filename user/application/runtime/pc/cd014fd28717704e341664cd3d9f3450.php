@@ -171,229 +171,149 @@
                 <?php }?>
             </div>
             <!--end左侧导航-->
-            <div id="cont">
-			<!-- start 依据条件显示HTML-->
+            <div id="cont">			<!--start中间内容-->	
 			<div class="user_c_list">
-				<!-- start 是否选择去认证
-				<div class="check-approve">
-					<img src="../images/icon/check-approve.jpg">
-					<p class="p-title zn-f18">您的基本资料未填写完成</p>
-					<p class="p-con  zn-f14">请完善您的基本资料并申请正式会员，享受更多会员服务</p>
-					<p class="p-btn">
-						<a href="identity/zh_rez.html" class="zn-f16 go-now">资质认证</a>
-						<a class="zn-f16 not-go">暂不认证</a>
-					</p>
-				</div>  end 是否选择去认证 -->	
-			<!-- start 暂不认证 -->	
-				<div class="user_zbrz noshow">
-					<div class="user_nrz">
-						<div class="nrz_tit"><span>账户信息</span><a class="gengduo" href="user_dd.html"></a></div>
-						<div class="nrz_dd">
-							<table class="hy_info" width="100%">
-								<tr>
-									<td width="450px" style="border-right:1px solid #eee;">
-										<ul class="dj">
-											<li>会员等级：<span><img src="<?php echo isset($group['icon'])?$group['icon']:"";?>"/><?php echo isset($group['group_name'])?$group['group_name']:"";?></span></li>
-											<li><a href="http://company.nainaiwang.com/product.php?id=67"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员升级</span></a></li>
-
-											<li style="clear:both;"><span>信誉分值：<?php echo isset($creditGap)?$creditGap:"";?> 分</span></li>
-										</ul>
-									</td>
-									<td style="padding-bottom:0px;">
-										<span>结算账号资金总额</span>
-										<span class="colaa0707"><b class="font-size ">￥<?php echo isset($count)?$count:"";?></b><br/>
-											<span style="line-height: 30px;padding-left: 120px;"></span>
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td width="280px" style="border-right:1px solid #eee;">
-										<div class="icon_rz">
-											<?php if(!empty($cert)) foreach($cert as $key => $item){?>
-												<?php if($cert[$key]==1){?>
-												<span><img src="/nn2/user/views/pc/images/center/icon_yrz.png"><?php echo \nainai\cert\certificate::$certRoleText[$key];?>已认证</span>
-												<?php }else{?>
-												<span><img src="/nn2/user/views/pc/images/center/icon_wrz.png"><?php echo \nainai\cert\certificate::$certRoleText[$key];?>未认证</span>
-
-												<?php }?>
-											<?php }?>
-											<?php if($href){?>
-												<a href="<?php echo isset($href)?$href:"";?>"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">去认证</span></a>
-											<?php }?>
-										</div>
-									</td>
-									<td>
-										<span class="rz_an_index">
-											<a href="http://localhost/nn2/user/fund/cz" class="zj_a cz">充值</a>
-											<a href="http://localhost/nn2/user/fund/tx" class="zj_a tx">提现</a>
-										</span>
-									</td>
-								</tr>
-								
-							</table>
-							
-						</div>
+				<div class="user_zhxi">
+					<div class="zhxi_tit">
+						<p><a>合同管理</a>><a>购买合同</a></p>
 					</div>
-					<div class="user_nrz">
-						<div class="nrz_tit"><span>最新购买合同</span><a class="gengduo" href="http://localhost/nn2/user/contract/buyerlist">更多>></a></div>
-						<div class="nrz_gz">
-							<?php if(!empty($contract2)){?>
-							<table width="100%">
-								<tr>
-									<td width="220px" style="min-height:80px;">
-										<div style="padding:5px 10px;">
-											<div class="div_height">&nbsp;<?php echo isset($contract2['product_name'])?$contract2['product_name']:"";?></div>
-										</div>
+					<div class="chp_xx">
 
+						<?php if($data['search']!=''){?>
+    <?php $begin=\Library\safe::filterGet('begin');; ?>
+    <?php $end=\Library\safe::filterGet('end');; ?>
+    <?php $like=\Library\safe::filterGet('like');; ?>
+    <?php $min=\Library\safe::filterGet('min');; ?>
+    <?php $max=\Library\safe::filterGet('max');; ?>
+    <?php $select=\Library\safe::filterGet('select');; ?>
+<div class="xx_top">
+    <form action="" method="get" >
+        <ul>
+            <?php if(isset($data['search']['like'])){?>
+            <li><?php echo isset($data['search']['like'])?$data['search']['like']:"";?>：<input id="warename" name="like" value="<?php echo isset($like)?$like:"";?>" type="text" style="width:150px;"></li>
+            <?php }?>
+            <?php if(isset($data['search']['time'])){?>
+             <li>
+                 <?php echo isset($data['search']['time'])?$data['search']['time']:"";?>：
+                 <input class="Wdate" type="text" onclick="WdatePicker()" name="begin" value="<?php echo isset($begin)?$begin:"";?>"> <span style="position: relative;left: -3px;">—</span>
+                 <input class="Wdate" type="text" onclick="WdatePicker()" name="end" value="<?php echo isset($end)?$end:"";?>">
+
+             </li>
+            <?php }?>
+
+            <?php if(isset($data['search']['between'])){?>
+                <?php echo isset($data['search']['between'])?$data['search']['between']:"";?>:
+                <input type="text" class="input-text" style="width:100px"  id="" name="min" value="<?php echo isset($min)?$min:"";?>">-
+                <input type="text" class="input-text" style="width:100px"  id="" name="max" value="<?php echo isset($max)?$max:"";?>">
+            <?php }?>
+            <?php if(isset($data['search']['select'])){?>
+
+            <li> <?php echo isset($data['search']['select'])?$data['search']['select']:"";?>：
+                <select  name="select" style="width:60px;">
+                    <option value="all">全部</option>
+                    <?php if(!empty($data['search']['selectData'])) foreach($data['search']['selectData'] as $key => $item){?>
+                        <option value="<?php echo isset($key)?$key:"";?>" <?php if($select==$key){?>selected=true<?php }?>><?php echo isset($item)?$item:"";?></option>
+                    <?php }?>
+                </select></li>
+            <?php }?>
+            <li> <a class="chaz" onclick="javascript:$(this).parents('form').submit();">查找</a></li>
+        </ul>
+    </form>
+    <div style="clear:both;"></div>
+</div>
+<?php }?>
+
+						<div class="xx_center">
+							<table class="sales_table" border="0"  cellpadding="0" cellspacing="0">
+								<tr class="first_tr">
+									<td width="80px"><input onclick="selectAll1();" name="controlAll" style="controlAll" id="controlAll" type="checkbox" class="controlAll">全选
 									</td>
-									<td width="380px" >
-										<a href="http://localhost/nn2/user/contract/buyerdetail/id/<?php echo $contract2['id'];?>"><?php echo isset($contract2['order_no'])?$contract2['order_no']:"";?></a>
-									</td>
-									<td width="200px">
-										<div class="div_heights colaa0707">合同总额：￥<?php echo isset($contract2['amount'])?$contract2['amount']:"";?></div>
-
-									</td>
-
-
-									<td>
-										<div class="div_heights">
-										<?php if($contract2['action_href']){?>
-											<a href="<?php echo isset($contract2['action_href'])?$contract2['action_href']:"";?>"><b><?php echo isset($contract2['title'])?$contract2['title']:"";?><b></b></b></a>
-										<?php }else{?>
-											<?php echo isset($contract2['title'])?$contract2['title']:"";?>
-										<?php }?>
-										</div><b><b>
-											</b></b></td>
+									<td width="180px">产品详情</td>
+									<th width="260px">金额及付款方式</th>
+									<th width="200px">主要指标</td>
+									<th>交易操作</th>
 								</tr>
-							</table>
-							<?php }else{?>
-								<table width="100%">
+                                <tr>
+									<td colspan="6">&nbsp;</td>
+								</tr>
+                                
+								
+                                <?php if(!empty($data['list'])) foreach($data['list'] as $key => $item){?>
+									<tr class="title">
+										<td colspan="6">
+											<input id="controlAll" type="checkbox" class="controlAll">
+											单号:<a href="http://localhost/nn2/user/contract/buyerdetail/id/<?php echo $item['id'];?>"><span class="col2517EF"><?php echo isset($item['order_no'])?$item['order_no']:"";?></span></a>
+											<span class="colaa0707 ht_padd"></span>
+											<span><img class="middle_img" src="/nn2/user/views/pc/images/center/ico_cj.png">生产企业：<?php echo isset($item['company_name'])?$item['company_name']:"";?></span>
+											<span class="ht_padd">
+												<!-- <img class="middle_img" src="/nn2/user/views/pc/images/center/ico_kf.png">  客服 -->
+											</span>
+										</td>
+										
+										<td colspan="3"></td>
+									</tr>
 									<tr>
-										<td colspan="4">
-											<img src="/nn2/user/views/pc/images/center/no-data.png">
-											<p class="no-data">暂无购买合同</p>
+										<td colspan="2">
+											<img class="middle_img" src="<?php echo \Library\thumb::get($item['img'],100,100);?>" align="left" width="100px"/>
+											<div class="div_height">&nbsp;<?php echo isset($item['product_name'])?$item['product_name']:"";?></div>
+											<!-- <div class="div_height">&nbsp;是否含税：是</div>
+											<div class="div_height">&nbsp;是否含保险：是</div> -->
+											<?php if(isset($item['store_name']) && $item['mode'] == \nainai\order\Order::ORDER_STORE){?>
+											<div class="div_height">&nbsp;所在地：<?php echo isset($item['store_name'])?$item['store_name']:"";?></div>
+											<?php }?>
+										</td>
+										<td>
+											<div class="div_heights colaa0707">合同总额：￥<?php echo isset($item['amount'])?$item['amount']:"";?></div>
+											<!-- <div class="div_heights colA39F9F">等级折扣：￥10.00</div> -->
+											<div class="hr"></div>
+											<!-- <div class="div_heights">保证金支付（<?php echo isset($item['percent'])?$item['percent']:"";?>%）</div> -->
+
+										</td>
+										<td>
+											<!-- <div class="div_heights">规格：230*114*65</div>
+											<div class="div_heights">材质：高铝质</div> -->
+											<div class="div_heights">数量：<?php echo isset($item['num'])?$item['num']:"";?><?php echo isset($item['unit'])?$item['unit']:"";?></div>
+										</td>
+										<td>
+											
+											<div class="div_heights">
+												<?php $i=0;?>
+												<?php if(!empty($item['action'])) foreach($item['action'] as $key => $v){?>
+													<?php if($v['url']){?>
+														<a <?php if($v['confirm']){?>confirm=1<?php }?> href="<?php echo isset($v['url'])?$v['url']:"";?>" style="color:blue"><?php echo isset($v['action'])?$v['action']:"";?></a>
+														<?php }else{?>
+														<?php echo isset($v['action'])?$v['action']:"";?>
+													<?php }?>
+													<?php $i++;?>
+												<?php }?>
+												<?php if(!$i){?><?php echo isset($item['title'])?$item['title']:"";?><?php }?>
+											</div>
 										</td>
 									</tr>
-								</table>
-							<?php }?>
-
-						</div>
-					</div>
-					<?php if( $user_type == 1){?>
-					<!-- 最新销售合同 -->
-					<div class="user_nrz">
-						<div class="nrz_tit"><span>最新销售合同</span><a class="gengduo" href="http://localhost/nn2/user/contract/sellerlist">更多>></a></div>
-						<div class="nrz_gz">
-							<?php if(!empty($contract1)){?>
-							<table width="100%">
-								<tr>
-									<td width="220px" style="min-height:80px;">
-										<div style="padding:5px 10px;">
-											<div class="div_height">&nbsp;<?php echo isset($contract1['product_name'])?$contract1['product_name']:"";?></div>
-										</div>
+								<?php }?>
 										
-									</td>
-									<td width="380px" >
-										<a href="http://localhost/nn2/user/contract/sellerdetail/id/<?php echo $contract1['id'];?>"><?php echo isset($contract1['order_no'])?$contract1['order_no']:"";?></a>
-									</td>
-									<td width="200px">
-										<div class="div_heights colaa0707">合同总额：￥<?php echo isset($contract1['amount'])?$contract1['amount']:"";?></div>
-
-									</td>
-
-									
-									<td>
-										<div class="div_heights">
-											<?php if($contract1['action_href']){?>
-											<a href='<?php echo isset($contract1['action_href'])?$contract1['action_href']:"";?>'><b><?php echo isset($contract1['action'])?$contract1['action']:"";?><b></b></b></a>
-											<?php }else{?>
-											<b><?php echo isset($contract1['action'])?$contract1['action']:"";?><b></b></b>
-											<?php }?>
-										</div><b><b>
-									</b></b></td>
-								</tr>
-
 							</table>
-							<?php }else{?>
-							<table width="100%">
-								<tr>
-									<td colspan="4">
-										<img src="/nn2/user/views/pc/images/center/no-data.png">
-										<p class="no-data">暂无销售合同</p>
-									</td>
-								</tr>
-								</table>
-							<?php }?>
-							
+
 						</div>
-					</div>
-					<?php }?>
-					<!-- 最新销售合同end -->
-					<!-- 关注推荐 start
-					<div class="user_nrz chp_xx">
-						<div class="nrz_tit"><span>关注推荐</span><a class="gengduo" href="user_gz.html">更多>></a></div>
-						<div class="xx_center">
-							<table width="100%">
-								<tr>
-									<td>编号</td>
-									<td>供求</td>
-									<td>品名</td>
-									<td>服务</td>
-									<td>规格</td>
-									<td>数量（吨）</td>
-									<td>剩余（吨）</td>
-									<td>价格（元）</td>
-									<td>产地</td>
-									<td>交货地</td>
-									<td>操作</td>
-								</tr>
-								<tr>
-									<td>GF0000001</td>
-									<td><span class="col12aa07">供</span></td>
-									<td>高铝砖</td>
-									<td><img src="../images/center/icon_b.jpg">
-										<img src="../images/center/icon_c.jpg">
-									</td>
-									<td>95%</td>
-									<td>200</td>
-									<td>300</td>
-									<td>￥1780</td>
-									<td>山西</td>
-									<td>耐耐网一号库</td>
-									<td>
-										<a><img src="../images/center/icon_serch.jpg"/></a>
-										<a><img src="../images/center/icon_yy.jpg"/></a>
-										<a><img src="../images/center/icon_qq.jpg"/></a>
-									</td>
-								</tr>
-								<tr>
-									<td>GF0000001</td>
-									<td><span class="col12aa07">供</span></td>
-									<td>高铝砖</td>
-									<td><img src="../images/center/icon_b.jpg">
-										<img src="../images/center/icon_c.jpg">
-									</td>
-									<td>95%</td>
-									<td>200</td>
-									<td>300</td>
-									<td>￥1780</td>
-									<td>山西</td>
-									<td>耐耐网一号库</td>
-									<td>
-										<a><img src="../images/center/icon_serch.jpg"/></a>
-										<a><img src="../images/center/icon_yy.jpg"/></a>
-										<a><img src="../images/center/icon_qq.jpg"/></a>
-									</td>
-								</tr>
-							</table>
-							
+						
+						<div class="page_num">
+							<!-- 共0条记录&nbsp;当前第<font color="#FF0000">1</font>/0页&nbsp;
+							<a href="#">第一页</a>&nbsp;
+							<a href="#">上一页</a>&nbsp;
+							<a href="#">下一页</a>&nbsp;
+							<a href="#">最后页</a>&nbsp; 
+							跳转到第 <input name="pagefind" id="pagefind" type="text" style="width:20px;font-size: 12px;" maxlength="5" value="1"> 页 
+							<a><span class="style1">确定</span></a> -->
+
+							<?php echo isset($data['bar'])?$data['bar']:"";?>
 						</div>
+
 					</div>
-					关注推荐 end -->
 				</div>
-			<!-- end 暂不认证 -->	
+				
+				
 			</div>
-</div>
+			<!--end中间内容-->	</div>
 
 				<!--end中间内容-->	
 			
