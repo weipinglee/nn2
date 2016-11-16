@@ -96,7 +96,7 @@
 
         <div class="row cl">
             <div class="col-10 col-offset-2">
-               <button  class="btn btn-primary radius" type="submit"><i class="icon-save fa-save"></i> 保存</button>(以上设置保存到，明天生效！)
+               <button  class="btn btn-primary radius" type="submit"><i class="icon-save fa-save"></i> 保存</button>(以上设置保存后，第二天生效！)
                 <!-- <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button> -->
             </div>
         </div>
