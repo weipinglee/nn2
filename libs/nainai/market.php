@@ -84,7 +84,7 @@ class market{
         if ($deal['is_operate'] == 1) {
             if ($deal['operate_time'] != $week && in_array($week, $deal['weeks']) && time()>$end) {
                 $data['is_operate'] = 0;
-                $model->updateDealSetting($data, 1);
+                $model->updateDealSetting($data, $deal['date']);
                 return false;
             }else{
                 return true;
