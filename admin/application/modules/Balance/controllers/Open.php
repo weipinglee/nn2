@@ -92,13 +92,13 @@ class OpenController extends InitController {
 				case 'daily':
 					if (time() < strtotime(date('Y-m-d') . $detail['end_time'])) {
 						$res = \Library\Tool::getSuccInfo(0, '还没有闭市，不能手工开市！');
-						exit(json::encode($res));
 					}
 					$data = array(
  						'is_operate' => 1,
  						'operate_time' => date('w')
 					);
-					$res = $model->updateDealSetting($data, 1);
+					$detail = $model->getsetting();
+					$res = $model->updateDealSetting($data, $detail['date']);
 
 					if ($res['success'] == 1) {
 						$admin_info = admintool\admin::sessionInfo();
