@@ -309,6 +309,9 @@ class LoginController extends \Yaf\Controller_Abstract {
 		// 	exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
 		// }
 
+		if(strlen($password) < 6 || strlen($password) > 15){
+			die(JSON::encode(\Library\tool::getSuccInfo(0,'密码长度需在6-15位之间')));
+		}
 		$userModel=new UserModel();
 		$uid = $userModel->getMobileUserInfo($mobile);
 		if(empty($uid)){
