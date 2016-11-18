@@ -195,15 +195,15 @@
                                         
                                     <script type="text/javascript">  
                                            $(document).ready(function() {
-                                            $('#slider').slider({ speed: 500 });
-                                            var length=$("#slider img").size();
-                                            if(length-1>4){
-                                                $(".image-slider-back").css("display","block");
-                                                $(".image-slider-forward").css("display","block");
-                                            }else{              
-                                                $(".image-slider-back").css("display","none");
-                                                $(".image-slider-forward").css("display","none");
-                                            }
+                                                $('#slider').slider({ speed: 500 });
+                                                    var length=$("#slider img").size();
+                                                    if(length-1>4){
+                                                        $(".image-slider-back").css("display","block");
+                                                        $(".image-slider-forward").css("display","block");
+                                                    }else{              
+                                                        $(".image-slider-back").css("display","none");
+                                                        $(".image-slider-forward").css("display","none");
+                                                }
                                             });
                                     </script>  
       <!-- content end -->
