@@ -81,11 +81,12 @@
                     $(this).parent().fadeOut("slow");
 
                 })));
-                $(document).click(function(e) {
-                    if ($('.preview').css('display') == 'block')
-                    $('.preview').fadeOut("slow");
+	     // 点击页面任一地方大图消失
+                // $(document).click(function(e) {
+                //     if ($('.preview').css('display') == 'block')
+                //     $('.preview').fadeOut("slow");
 
-                });
+                // });
                 function initialize() {
                     var tempElements = $('> div', slidercontents);
                     var allElements = new Array();
