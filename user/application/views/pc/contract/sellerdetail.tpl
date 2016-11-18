@@ -114,11 +114,11 @@
 								</div>
 								<div class="sj_detal">
 
-									<b class="sj_de_tit">邮寄公司：</b>
+									<b class="sj_de_tit"><span>*</span>邮寄公司：</b>
 									<span>&nbsp;{if:$invoice['order_invoice']['post_company']}{$invoice['order_invoice']['post_company']}{else:}<input type="text" name="post_company"  datatype="s1-20"   errormsg="请填写邮寄公司" nullmsg="请填写邮寄公司"/>{/if}</span>
 								</div>
 								<div class="sj_detal">
-									<b class="sj_de_tit">邮寄单号：</b>
+									<b class="sj_de_tit"><span>*</span>邮寄单号：</b>
 									<span>&nbsp;{if:$invoice['order_invoice']['post_no']}{$invoice['order_invoice']['post_no']}{else:}<input type="text" name="post_no" datatype="s1-20"   errormsg="请填写邮寄单号" nullmsg="请填写邮寄单号">{/if}</span>
 								</div>
 								{if:!$invoice['order_invoice']}
