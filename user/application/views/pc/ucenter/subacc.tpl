@@ -26,19 +26,19 @@
 						</div>
 
 						<div class="zhxi_con">
-							<span class="con_tit">邮箱：</span>
+							<span class="con_tit"><i>*</i>邮箱：</span>
 							<span><input class="text" type="text" name="email"  datatype="e" value="{$user['email']}" /></span>
 							<span></span>
 						</div>
 
 						<div class="zhxi_con">
-							<span class="con_tit">密码：</span>
+							<span class="con_tit"><i>*</i>密码：</span>
 							<span><input class="text" type="password" name="password"   datatype="/^\S{6,20}$/" errormsg="6-20位非空字符" /></span>
 							<span></span>
 						</div>
 
 						<div class="zhxi_con">
-							<span class="con_tit">重复密码：</span>
+							<span class="con_tit"><i>*</i>重复密码：</span>
 							<span><input class="text" type="password" name="repassword"    datatype="*" errormsg="两次密码输入不一致" recheck="password"   /></span>
 							<span></span>
 						</div>

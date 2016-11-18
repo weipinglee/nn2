@@ -94,7 +94,9 @@
                                     {$data['pay_deposit']}
                                 </span>   
                         </td>
-                      <td style="background-color: #F7F7F7;" width="100px">剩余尾款</td>
+
+                      <td style="background-color: #F7F7F7;" width="100px">剩余未支付</td>
+
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
                               <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">

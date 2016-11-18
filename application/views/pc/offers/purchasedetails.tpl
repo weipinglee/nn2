@@ -152,65 +152,35 @@
                        
                     </table> -->
                      <link href="{views:css/product_pic.css}" rel="stylesheet">
+                                    <script src="{views:js/pic.js}"></script>
 
 
                      <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
                     
 
-                                    <div class="bodyCon08"><!--学员-->
-                                        <div class="students">
-                                            
-                                              <div id="four_flash">
-                                                <div class="flashBg">
-                                                    <ul class="mobile" style="left: 0px;">
+                                                <div id="slider">
                                                       {foreach:items=$data['origphotos']}
-                                                        <li>
-                                                            <img src="{$item}">
-                                                        </li>
+                                                            <div class="spic">
+                                                                <img src="{$item}" />
+                                                            </div>  
                                                       {/if}
-                                                    </ul>
-                                                </div>
-                                                <div class="but_left"></div>
-                                                <div class="but_right"></div>
-                                              </div>
-                                              
-                                        </div>
-                                    </div>
+                                                </div>  
 
 
-                                    <script src="{views:js/pic.js}"></script>
                                         
                                     <script type="text/javascript">  
-                                           $(document).ready(function(){  
-                                                var length=$("#four_flash li").size();
-                                                if(length>4){
-                                                    $(".but_left").css("display","block");
-                                                    $(".but_right").css("display","block");
-                                                }else{              
-                                                    $(".but_left").css("display","none");
-                                                    $(".but_right").css("display","none");
-                                                }
-
-                                            //找到li下所有img的值,单击图片事件  
-                                                $("#four_flash li:has(img)").click(function(){  
-                                                    $("#show").fadeIn(300);  //显示图片效果  
-                                                    //获得图片路径  
-                                                    var photo_url=$(this).find("img").attr("src");  
-                                                    //设置图片路径  
-                                                    $("#photo").find("img").attr("src",photo_url);  
-                                                    //单击放大后的图片消失  
-                                                    $("#close").click(function(){  
-                                                        $("#show").fadeOut(300); //图片消失效果  
-                                                    }); 
-
-                                                });  
-                                            });  
-                                        </script>  
-                                        <div id="show" style="display: none;">  
-                                            <div id="photo">  
-                                                <img style="width:100%;height:100%;"/> <a href="javascript:void(0);" id="close"></a>
-                                            </div>  
-                                        </div> 
+                                            $(document).ready(function() {
+                                            $('#slider').slider({ speed: 500 });
+                                            var length=$("#slider img").size();
+                                            if(length-1>4){
+                                                $(".image-slider-back").css("display","block");
+                                                $(".image-slider-forward").css("display","block");
+                                            }else{              
+                                                $(".image-slider-back").css("display","none");
+                                                $(".image-slider-forward").css("display","none");
+                                            }
+                                            });
+                                        </script> 
 
       <!-- content end -->
 
