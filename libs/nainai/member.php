@@ -95,6 +95,7 @@ class member{
 
            }
             $group['icon'] = \Library\thumb::get($group['icon'],25,25);
+            $group['vip'] = $vip;
             return $group;
         }
         else

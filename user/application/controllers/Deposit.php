@@ -36,7 +36,7 @@ class DepositController extends OrderController{
 			if($user_percent === false){
 				$this->error('用户错误');
 			}
-
+			
 			$percent = floatval($sys_percent) * floatval($user_percent['caution_fee']);
 			$data['seller_percent'] = $percent / 100;
 			$data['seller_deposit'] = number_format($data['amount'] * $percent / 10000,2);

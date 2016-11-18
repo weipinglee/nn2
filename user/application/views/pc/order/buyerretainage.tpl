@@ -94,7 +94,6 @@
                                     {$data['pay_deposit']}
                                 </span>   
                         </td>
-                      {/if}
                       <td style="background-color: #F7F7F7;" width="100px">剩余尾款</td>
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
@@ -102,6 +101,7 @@
                                   {$data['topay_retainage']}
                               </span>   
                       </td>
+                      {/if}
                     </tr>
                   </tbody></table>
                           

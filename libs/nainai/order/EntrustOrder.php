@@ -177,7 +177,7 @@ class entrustOrder extends Order{
 					// $cre_res = $configs_credit->changeUserCredit($seller,'cancel_contract',$info['pay_deposit']);
 					
 					//将商品数量解冻
-					$pro_res = $this->productsFreezeRelease($this->offerInfo($info['offer_id']),$info['num']);
+					$pro_res = $this->productsFreezeRelease($offerInfo,$info['num']);
 
 					$log_res = $this->payLog($order_id,$user_id,1,'买方取消合同,合同作废,扣除信誉值');
 
@@ -206,7 +206,6 @@ class entrustOrder extends Order{
 						// if( empty($percent) )
 						// 	return tool::getSuccInfo(0,'委托金设置错误,请联系客服人员');
 						$seller_deposit = $percent['type'] == 0 ? number_format($info['amount'] * $percent['value'] / 100,2) : $percent['value'];
-
 						//冻结卖方帐户委托金
 						$note = '支付合同'.$info['order_no'].'委托金 '.$seller_deposit;	
 

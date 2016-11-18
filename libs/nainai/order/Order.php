@@ -384,7 +384,7 @@ class Order{
 		$query->join = 'left join user as u on po.user_id = u.id left join products as p on po.product_id = p.id';
 		$query->where = " po.id = :id";
 		$query->bind = array('id'=>$offer_id);
-		$query->fields = "po.*,u.username,p.name as product_name";
+		$query->fields = "po.*,u.username,p.name as product_name,p.cate_id";
 		$res = $query->getObj();
 		return $res ? $res : array();
 	}
@@ -1328,7 +1328,7 @@ class Order{
 					break;	
 				case self::CONTRACT_SELLER_DEPOSIT:
 					$title = in_array($value['mode'],array(self::ORDER_DEPOSIT,self::ORDER_PURCHASE)) ? '支付保证金' : '支付委托金';
-					$href  = $value['mode'] == self::ORDER_DEPOSIT ? url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']) : url::createUrl('/Deposit/sellerEntrustDeposit?order_id='.$value['id']);
+					$href  = in_array($value['mode'],array(self::ORDER_DEPOSIT,self::ORDER_PURCHASE)) ? url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']) : url::createUrl('/Deposit/sellerEntrustDeposit?order_id='.$value['id']);
 					break;
 				case self::CONTRACT_CANCEL:
 					$title = '合同已作废';
@@ -1399,7 +1399,7 @@ class Order{
 					$title = '未支付定金';
 					break;
 				case self::CONTRACT_SELLER_DEPOSIT:   
-					$title = $value['mode'] == self::ORDER_DEPOSIT ? '等待卖家支付保证金' : '等待卖家支付委托金';
+					$title = in_array($value['mode'],array(self::ORDER_DEPOSIT,self::ORDER_PURCHASE)) ? '等待卖家支付保证金' : '等待卖家支付委托金';
 					$action []= array('action'=>$title);
 					$_after_time = time::_after_time($value['pay_deposit_time'],3600);
 					if($_after_time === true){
@@ -1412,7 +1412,7 @@ class Order{
 					break;
 				case self::CONTRACT_BUYER_RETAINAGE:
 					if(empty($value['proof'])){
-						$title = '支付尾款';
+						$title = $value['mode'] == self::ORDER_FREE ? '支付全款' : '支付尾款';
 						$href = url::createUrl("/Order/buyerRetainage?order_id={$value['id']}");
 						$action []= array('action'=>$title,'url'=>$href);
 					}else{

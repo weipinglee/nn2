@@ -191,7 +191,7 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData['minimum'] = $productData[0]['quantity'];
             }
             $res = $offerObj->doOffer($productData,$offerData,$offer_id);
-
+            
             echo json::encode($res);
             exit;
         }
