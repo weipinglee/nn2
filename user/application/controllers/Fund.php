@@ -12,6 +12,7 @@ use \Library\safe;
 use \Library\JSON;
 use \Library\Session;
 use \Library\url;
+use \Library\tool;
 
 class FundController extends UcenterBaseController {
 
@@ -44,6 +45,35 @@ class FundController extends UcenterBaseController {
 		$this->getView()->assign('flow',$flowData);
 		$this->getView()->assign('cond',$cond);
 		//$obj = new \nainai\fund();
+	}
+
+	//绑定出金银行卡
+	public function outcardAction(){
+		$t = new M('fund_outcard');
+		$where = array('user_id'=>$this->user_id);
+		if(IS_POST){
+			$data['no'] = safe::filterPost('no');
+			$data['name'] = safe::filterPost('name');
+			$data['bank_name'] = safe::filterPost('bank_name');
+
+			
+			$b_ext = $t->where($where)->getObj();
+			if($b_ext){
+				//update
+				$res = $t->where($where)->data($data)->update();
+			}else{
+				$data['user_id'] = $this->user_id;
+				$data['create_time'] = date('Y-m-d H:i:s');
+				$res = $t->data($data)->add();
+			}
+			die(json::encode(intval($res)>0 ? tool::getSuccinfo():tool::getSuccinfo(0,'操作失败')));
+			return false;
+		}else{
+			$bank = $t->where($where)->getObj();
+			$bank = $bank ? $bank : array();
+
+			$this->getView()->assign('bank',$bank);
+		}
 	}
 
 	//中信银行签约账户
@@ -103,21 +133,20 @@ class FundController extends UcenterBaseController {
 	}
 
 	public function zxtxAction(){
-
+		$t = new M('fund_outcard');
+		$bank = $t->where(array('user_id'=>$this->user_id))->getObj();
+		if(!$bank){
+			$this->error('未绑定出金银行卡');
+		}
+		$this->assign('bank',$bank);
 	}
 
 	public function zxtxHandleAction(){
 		if(IS_POST){
-			$data = array(
-			'num'=>safe::filterPost('num'),
-			'recvaccno'=>safe::filterPost('recvaccno'),
-			'recvaccnm'=>safe::filterPost('recvaccnm'),
-			'samebank'=>safe::filterPost('samebank'),
-			'recvtgfi'=>safe::filterPost('recvtgfi'),
-			'recvbanknm'=>safe::filterPost('recvbanknm'));
-			$zx = new \nainai\fund\zx();
+			$data['num'] = safe::filterPost('num');
+			$data['user_id'] = $this->user_id;
+			$zx  = new \nainai\fund\zx();
 			$res = $zx->out($data);
-			var_dump($res);exit;
 			die(JSON::encode($res));
 		}
 		return false;

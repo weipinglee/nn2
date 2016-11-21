@@ -26,7 +26,12 @@ class zx extends account{
         $this->agentModel = new M($this->agentTable);
         $this->flowModel  = new M($this->fundFlowTable);
         $this->attachAccount = new attachAccount();
+     }
 
+     public function curl($xml){
+        $check_sign = $this->signStatus();
+        if($check_sign!==true) {echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;}//return $check_sign;
+        $this->attachAccount->curl($xml);
      }
 
      /**
@@ -115,19 +120,24 @@ class zx extends account{
      public function out($data){
         $accInfo = $this->attachAccount->attachInfo($data['user_id']);
         $clientID = tool::create_uuid($data['user_id']);
+        
+        $t = new M('fund_outcard');
+        $bank = $t->where(array('user_id'=>$user_id))->getObj();
+        if(!$bank) return tool::getSuccInfo(0,'未绑定出金银行卡');
+        $is_zx = strpos('中信',$bank_name) !== false ? 0 : 1;
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLFNDOUT</action>
                 <userName>".self::USERNAME."</userName>
                 <clientID>{$clientID}</clientID>
                 <accountNo>{$accInfo['no']}</accountNo>
-                <recvAccNo>{$data['recvaccno']}</recvAccNo>
-                <recvAccNm>{$data['recvaccnm']}</recvAccNm>
+                <recvAccNo>{$bank['no']}</recvAccNo>
+                <recvAccNm>{$bank['name']}</recvAccNm>
                 <tranAmt>{$data['num']}</tranAmt>
-                <sameBank>{$data['samebank']}</sameBank>
+                <sameBank>{$is_zx}</sameBank>
                 
-                <recvTgfi>{$data['recvtgfi']}</recvTgfi>
-                <recvBankNm>{$data['recvbanknm']}</recvBankNm>
+                <recvTgfi></recvTgfi>
+                <recvBankNm>{$bank['bank_name']}</recvBankNm>
                 
                 <memo></memo>
                 <preFlg>0</preFlg>
@@ -135,7 +145,7 @@ class zx extends account{
                 <preTime></preTime>
             </stream>";
 
-        return $this->attachAccount->curl($xml);
+        return $this->curl($xml);
      }
 
     /**
@@ -254,7 +264,7 @@ class zx extends account{
                 <tranAmt>{$num}</tranAmt>
                 <memo></memo>
             </stream>";
-        return $this->attachAccount->curl($xml);
+        return $this->curl($xml);
     }
 
     /**
@@ -314,7 +324,7 @@ class zx extends account{
                 </stream>";
 
                 // var_dump($xml);exit;
-            $res = $this->attachAccount->curl($xml);
+            $res = $this->curl($xml);
             
             if($res['status'] == 1){
 
@@ -400,7 +410,7 @@ class zx extends account{
                 <tranFlag>1</tranFlag>
             </stream>";
 
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         // var_dump($res);exit;
         return $res['status'] == 1 ? true : $res['info'];
 
@@ -432,6 +442,22 @@ class zx extends account{
         return '';
     }
 
+
+    public function checkOrder($date){
+        $date = date('Ymd',strtotime($date));
+
+        $xml = self::XML_PREFIX."
+        <stream>
+            <action>DLSESMDN </action>
+            <userName>".self::USERNAME."</userName>
+        <accountNo>".self::MAINACC."</accountNo>
+        <date>".$date."</date>
+        </stream>";
+        $res = $this->curl($xml);
+        
+        return $res;
+    }
+
     /**
      * 交易状态查询
      * @param string $clientID 原操作流水号
@@ -446,7 +472,7 @@ class zx extends account{
 
                 <type>DLMDETRN</type>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         return $res;
     }
 
@@ -471,7 +497,7 @@ class zx extends account{
                 <startDate>{$starDate}</startDate>
                 <endDate>{$endDate}</endDate>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         return $res;
     }
 
@@ -492,7 +518,7 @@ class zx extends account{
                 
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         // return $res;
         return $res['row'] ? $res['row'] : array();
 
@@ -526,7 +552,7 @@ class zx extends account{
                 <startRecord></startRecord>
                 <pageNumber></pageNumber>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         return $res;
     }
 
@@ -554,7 +580,7 @@ class zx extends account{
                 <startRecord>1</startRecord>
                 <pageNumber>10</pageNumber>
             </stream>";
-        $res = $this->attachAccount->curl($xml);
+        $res = $this->curl($xml);
         foreach ($res['row'] as $key => &$value) {
             $value['subno'] = $payAccInfo['no'];
         }
@@ -612,6 +638,15 @@ class zx extends account{
         }
 
         return $type_txt;
+    }
+
+    /**
+     * 获取今天签到签退状态 
+     */
+    public function signStatus(){
+        $sign = new M('bank_sign');
+        $res = $sign->where(array('date'=>date('Y-m-d',time()),'bank_name'=>'中信银行'))->getObj();
+        return $res['signin'] && $res['signout'] ? '已签退' : ($res['signin'] ? true : '未签到');
     }
 
 }

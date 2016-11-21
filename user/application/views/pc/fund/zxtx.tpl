@@ -16,8 +16,21 @@
 							<span><input class="text" type="text" errormsg="金额填写错误" datatype="money" name="num"/></span>
 							<span></span>
 						</div>
+						<div class="zhxi_con">
+							<span class="con_tit"><i>*</i>出金银行开户行全称：</span>
+							<span><input class="text" type="text" disabled="disabled" value="{$bank['bank_name']}" style="border: none;" /></span>
+						</div>
+						<div class="zhxi_con">
+							<span class="con_tit"><i>*</i>出金银行账号：</span>
+							<span><input class="text" type="text" disabled="disabled" value="{$bank['no']}" style="border: none;"/></span>
+						</div>
 
 						<div class="zhxi_con">
+							<span class="con_tit"><i>*</i>姓名：</span>
+							<span><input class="text" type="text" disabled="disabled" value="{$bank['name']}" style="border: none;" /></span>
+						</div>
+						
+						<!-- <div class="zhxi_con">
 							<span class="con_tit"><i>*</i>收款银行账号：</span>
 							<span><input class="text" type="text" name="recvaccno"/></span>
 						</div>
@@ -45,7 +58,7 @@
 						<div class="zhxi_con">
 							<span class="con_tit"><i></i>收款账户开户行名：</span>
 							<span><input class="text" type="text" name="recvbanknm"/></span>
-						</div>
+						</div> -->
 						
 						<div class="zhxi_con">
 							<span><input class="submit" type="submit" value="提现"/></span>
