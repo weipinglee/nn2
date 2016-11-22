@@ -171,110 +171,170 @@
                 <?php }?>
             </div>
             <!--end左侧导航-->
-            <div id="cont"><!--start中间内容-->
-<div class="user_c">
-    <div class="user_zhxi">
-        <div class="zhxi_tit">
-            <p><a>申述管理</a>><a>申述列表</a></p>
-        </div>
-        <div class="chp_xx">
-             <?php if($data['search']!=''){?>
-    <?php $begin=\Library\safe::filterGet('begin');; ?>
-    <?php $end=\Library\safe::filterGet('end');; ?>
-    <?php $like=\Library\safe::filterGet('like');; ?>
-    <?php $min=\Library\safe::filterGet('min');; ?>
-    <?php $max=\Library\safe::filterGet('max');; ?>
-    <?php $select=\Library\safe::filterGet('select');; ?>
-<div class="xx_top">
-    <form action="" method="get" >
-        <ul>
-            <?php if(isset($data['search']['like'])){?>
-            <li><?php echo isset($data['search']['like'])?$data['search']['like']:"";?>：<input id="warename" name="like" value="<?php echo isset($like)?$like:"";?>" type="text" style="width:150px;"></li>
-            <?php }?>
-            <?php if(isset($data['search']['time'])){?>
-             <li>
-                 <?php echo isset($data['search']['time'])?$data['search']['time']:"";?>：
-                 <input class="Wdate" type="text" onclick="WdatePicker()" name="begin" value="<?php echo isset($begin)?$begin:"";?>"> <span style="position: relative;left: -3px;">—</span>
-                 <input class="Wdate" type="text" onclick="WdatePicker()" name="end" value="<?php echo isset($end)?$end:"";?>">
+            <div id="cont">		<form method="post" action="http://localhost/nn2/user/delivery/genedelivery" auto_submit=1 redirect_url="http://localhost/nn2/user/delivery/delibuylist/index">
+			<!--start中间内容-->	
+			<div class="user_c_list">
+				<div class="user_zhxi">
+					<div class="zhxi_tit">
+						<p><a>交易管理</a>><a>申请提货</a></p>
+					</div>
+					<div class="chp_xx">
+						
+						<div class="xx_center">
+							<table border="0" cellpadding="" cellspacing="">
+								<tbody>
+								<tr class="title">
+									<td align="left" colspan="7">&nbsp;商品清单</td>
+								</tr>
+								<tr class="title_head">
+									<th>图片</th>
+									<th>商品名称</th>
+									<th>商品数量</th>
+									<th>可提数量</th>
+									<th>提货数量</th>
+									<?php if($data['store_name']){?>
+										<th>仓库</th>
+									<?php }?>
+								</tr>
+								<tr>
+									<td><img src="<?php echo isset($data['img'])?$data['img']:"";?>"/></td>
+									<td><?php echo isset($data['name'])?$data['name']:"";?></td>
+									<td><?php echo isset($data['num'])?$data['num']:"";?><?php echo isset($data['unit'])?$data['unit']:"";?></td>
+									<td><?php echo isset($data['left'])?$data['left']:"";?><?php echo isset($data['unit'])?$data['unit']:"";?></td>
+									<!-- 判断系统参数是否支持多次开单 如果单次开单则不能修改开单数量-->
+									<td>
+										<input type="text" class="thjs_input" name='num' datatype="float" nullmsg=' '>
 
-             </li>
-            <?php }?>
+									</td>
+									<?php if($data['store_name']){?><td><?php echo isset($data['store_name'])?$data['store_name']:"";?></td><?php }?>
 
-            <?php if(isset($data['search']['between'])){?>
-                <?php echo isset($data['search']['between'])?$data['search']['between']:"";?>:
-                <input type="text" class="input-text" style="width:100px"  id="" name="min" value="<?php echo isset($min)?$min:"";?>">-
-                <input type="text" class="input-text" style="width:100px"  id="" name="max" value="<?php echo isset($max)?$max:"";?>">
-            <?php }?>
-            <?php if(isset($data['search']['select'])){?>
+								</tr>
+							</tbody></table>
+						</div>
+						<ul class="methed">
+							<li class="clearfix">
+								<label>预计提货日期：</label>
+								<div>
+					                <input name="expect_time" id="date_start" type="text" datatype="date" onclick="WdatePicker({dateFmt:'yyyy-MM-dd', minDate:'%y-%M-%d'});" class="Wdate gyctht_input" >
+									记重方式：<?php echo isset($data['weight_type'])?$data['weight_type']:"";?>
+						            <input type="hidden" id="weight_type" value="A">
+						         </div>
 
-            <li> <?php echo isset($data['search']['select'])?$data['search']['select']:"";?>：
-                <select  name="select" style="width:60px;">
-                    <option value="all">全部</option>
-                    <?php if(!empty($data['search']['selectData'])) foreach($data['search']['selectData'] as $key => $item){?>
-                        <option value="<?php echo isset($key)?$key:"";?>" <?php if($select==$key){?>selected=true<?php }?>><?php echo isset($item)?$item:"";?></option>
-                    <?php }?>
-                </select></li>
-            <?php }?>
-            <li> <a class="chaz" onclick="javascript:$(this).parents('form').submit();">查找</a></li>
-        </ul>
-    </form>
-    <div style="clear:both;"></div>
-</div>
-<?php }?>
+				            </li>
+							<li class="clearfix">
+								<!-- <label>提货人：</label> -->
+								<div>
+									<p>
+										<b></b>
+										<label for="">提货人：</label><span id="man"><input type="text" datatype="s2-20" name="delivery_man"></span>
+										<span></span>
+									</p>
+									<p>
+										<b>  </b>
+										<label for="">联系电话：</label><span id="tel"><input type="text" datatype="mobile" name="phone"></span><span></span>
+									</p>
+									<p>
+										<b>  </b>
+										<label for="">身份证号码：</label><span id="code"><input type="text" datatype="identify" name="idcard"/></span><span></span>
+									</p>
+									<p>
+										<b>  </b>
+										<label for="">车牌号：</label><span><input type="text" name="plate_number" datatype="*" placeholder="多个以逗号分隔"/></span><span></span>
 
-            <br />
-            <div class="xx_center">
+									</p>
+								</div>
+							</li>
+				            <li class="clearfix">
+				                <label>备注：</label>
+				                <div>
+								    <textarea name="remark" cols="" rows="" id="REMARK" class="bz" maxlength="200"></textarea>最多输入200个字符
+								</div>
+				            </li>
 
-                <table border="0"  cellpadding="" cellspacing="">
-                    <tr class="title">
-                        <td>订单号</td>
-                        <td>申述类型</td>
-                        <td>申述标题</td>
-                        <td>申述时间</td>
-                        <td>申述状态</td>
-                        <td>操作</td>
-                    </tr>
-                    <?php if(!empty($data['list'])) foreach($data['list'] as $key => $list){?>
+						</ul>
+						<div class="zhxi_con">	
+							<input type="hidden" name="order_id" value="<?php echo isset($data['id'])?$data['id']:"";?>" />
+							<span><input class="submit_zz" type="submit" confirm=1 value="提交"></span>
+							<span><input class="submit_zz reset_zz" type="reset" onclick="javascript:history.back();" value="返回"></span>
+						</div>
+						<!-- <div class="sjxx">
+							<p>支付配送</p>
+							<div class="sj_detal">
+								<b class="sj_de_tit">收货人：</b>
+								<span>&nbsp;laijjj</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">地址：</b>
+								<span>&nbsp;山西省晋中市xxx县</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">邮编：</b>
+								<span>&nbsp;045000</span>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+			<!--end中间内容-->	
+			</form>
+			<script type="text/javascript">
+				$(function(){
 
-                        <tr>
-                            <td><?php echo isset($list['order_no'])?$list['order_no']:"";?></td>
-                            <td><?php echo isset($list['type'])?$list['type']:"";?></td>
-                            <td><?php echo isset($list['title'])?$list['title']:"";?></td>
+				});
 
-                            <td><?php echo isset($list['apply_time'])?$list['apply_time']:"";?></td>
-                            <td><?php echo isset($list['status'])?$list['status']:"";?></td>
-
-
-                            <td><a href='http://localhost/nn2/user/contract/complaindetail/id/<?php echo $list['id'];?>'>查看</a></td>
-
-                        </tr>
-                    <?php }?>
-                </table>
-
-            </div>
-
-            <!-- <div class="tab_bt">
-                <div class="t_bt">
-                    <a class="a_1" title="编辑" href="user_cd.html"></a>
-                    <a class="a_2" title="添加" href="user_cd.html"></a>
-                    <a class="a_3" title="删除" href="user_cd.html"></a>
-                </div>
-            </div> -->
-            <div class="page_num">
-                <!-- 							共0条记录&nbsp;当前第<font color="#FF0000">1</font>/0页&nbsp;
-                <a href="#">第一页</a>&nbsp;
-                <a href="#">上一页</a>&nbsp;
-                <a href="#">下一页</a>&nbsp;
-                <a href="#">最后页</a>&nbsp;
-                跳转到第 <input name="pagefind" id="pagefind" type="text" style="width:20px;font-size: 12px;" maxlength="5" value="1"> 页
-                <a><span class="style1">确定</span></a> -->
-                <?php echo isset($data['bar'])?$data['bar']:"";?>
-            </div>
-        </div>
-    </div>
+			</script>
 
 
-</div></div>
+		<!-- 弹出层 -->
+	<!-- 	<div id="bgblock" style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 999; background-color: rgb(0, 0, 0); opacity: 0.6; display:none; background-position: initial initial; background-repeat: initial initial;"></div>
+
+		<div id="ermblock" style="position: fixed; left: 427.5px; top: 10%; width: 1000px; height: 320px; z-index: 1000; display:none;">
+			<div class="ermblock_main">
+				<p><h2>添加提货人</h2></p>
+				<form>
+					<table cellspacing="0" align="center" class="table_form">
+					<tbody><tr>
+						<td class="tr fb" width="35%">提货人姓名：</td>
+						<td class="four-content" colspan="3"><input type="text" name="pickman_name" maxlength="12" id="pickman_name" value=""> <span style="color:red;">*</span></td>
+					</tr>
+					<tr>
+						<td class="tr fb">联系电话：</td>
+						<td class="four-content" colspan="3"><input type="text" name="mobile" id="mobile" maxlength="14" value=""> <span style="color:red;">*</span></td>
+					</tr>
+						<tr>
+						<td class="tr fb">身份证号码：</td>
+						<td class="four-content" colspan="3"><input type="text" name="IDENTITY_NUM" id="IDENTITY_NUM" maxlength="18" value=""> <span style="color:red;">*</span></td>
+					</tr>
+					<tr>
+						<td class="tr fb">车牌号码：</td>< <input type="text" name="truck_num" id="truck_num" value="" /> 
+						<td class="four-content" colspan="3"><textarea id="truck_num" name="truck_num" maxlength="500" style="width: 153px; height: 50px;"></textarea> <span style="color:red;">* 多个以逗号分隔</span></td>
+					</tr>
+					</tbody></table>
+
+						<div class="zhxi_con">	
+							<span><input class="submit_zz" type="submit" value="提交"></span>
+							<span><input class="submit_zz reset_zz" type="reset" value="返回" id="close"></span>
+						</div>
+				</form>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			 $(document).ready(function(){
+			  $("#clickdd").click(function(){
+			   $("#ermblock").show();
+			   $("#bgblock").show();
+			     });
+			  $(document).click(function(e){
+			   var target = $(e.target);
+			   if(target.closest("#clickdd").length == 0){
+			    $("#ermblock").hide();
+			    $("#bgblock").hide();
+			   }
+			      }); 
+			 }); 
+		</script> -->
+		<!-- 弹出层 --></div>
 
 				<!--end中间内容-->	
 			

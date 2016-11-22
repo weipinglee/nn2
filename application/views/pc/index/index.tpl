@@ -520,7 +520,8 @@ $(function(){
                     $('#offer'+id).addClass('show');*/
                     $.ajax({
                         type: "POST",
-                        url: "{url:/index/getCateOfferList}",
+                        // url: "{url:/index/getCateOfferList}",
+                        url:'http://localhost/nn2/index.php/index/getCateOfferList',
                         data: {id: id},
                         dataType: "json",
                         success: function(data){

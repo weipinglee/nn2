@@ -245,9 +245,10 @@ class Delivery{
 		$query->join = 'left join product_offer as po on po.id = os.offer_id left join products as p on po.product_id = p.id left join store_products as sp on sp.product_id = p.id left join store_list as sl on sl.id = sp.store_id left join product_photos as pp on p.id = pp.products_id';
 		$query->where = 'os.id=:order_id';
 		$query->bind = array('order_id'=>$order_id);
-		$query->fields = 'os.id,p.name,sl.name as store_name,os.num,p.unit,pp.img';
+		$query->fields = 'os.id,p.name,sl.name as store_name,os.num,p.unit,pp.img,po.weight_type';
 
 		$res = $query->getObj();
+		$res['weight_type'] = $res['weight_type'] ? $res['weight_type'] : '未知';
 		$thumb_default = Thumb::get($res['img']);
 		$res['img'] = $thumb_default;
 		return $res;

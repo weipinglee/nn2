@@ -185,6 +185,11 @@ class member{
 
     }
 
+    public function is_vip($user_id){
+        $user = new M($this->table);
+        return $user->where(array('id'=>$user_id))->getField('vip') > 0 ? true : false;
+    }
+
     /**
      * 验证支付密码
      * @param  string $password 支付密码

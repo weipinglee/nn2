@@ -43,7 +43,7 @@
 								<label>预计提货日期：</label>
 								<div>
 					                <input name="expect_time" id="date_start" type="text" datatype="date" onclick="WdatePicker({dateFmt:'yyyy-MM-dd', minDate:'%y-%M-%d'});" class="Wdate gyctht_input" >
-									记重方式：过磅
+									记重方式：{$data['weight_type']}
 						            <input type="hidden" id="weight_type" value="A">
 						         </div>
 

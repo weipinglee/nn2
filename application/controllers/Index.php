@@ -221,6 +221,7 @@ class IndexController extends PublicController {
     public function getCateOfferListAction()
     {
         $id = safe::filterPost('id', 'int');
+        $id = 6;
         $offer = new OffersModel();
         $data = $offer->getOfferCategoryList($id);
         foreach($data as $k => $v)

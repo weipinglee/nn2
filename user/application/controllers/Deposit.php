@@ -90,9 +90,12 @@ class DepositController extends OrderController{
 			if (empty($percent)) {
 				$percent['value'] = 0;
 			}
+			$member = new \nainai\member();
+			$is_vip = $member->is_vip($this->user_id);
+
 			$data['seller_percent'] = $percent['value'];
 			$data['type'] = $percent['type'];
-			$data['seller_deposit'] = $percent['type'] == 0 ? number_format($data['amount'] * $percent['value'] / 100,2) : $percent['value'];
+			$data['seller_deposit'] = $is_vip ? 0 : ($percent['type'] == 0 ? number_format($data['amount'] * $percent['value'] / 100,2) : $percent['value']);
 			$this->getView()->assign('data',$data);
 		}
 	}

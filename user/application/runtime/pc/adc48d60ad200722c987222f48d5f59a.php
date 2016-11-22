@@ -176,79 +176,59 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>产品管理</a>><a>产品列表</a></p>
+						<p><a>仓单管理</a>><a>仓单出库审核</a></p>
 					</div>
 					<div class="chp_xx">
-						<div class="xx_top">
-							<form action="http://localhost/nn2/user/managerdeal/productlist" method="GET" name="">
-								<ul>
-									<li>名称：<input id="warename" name="name" type="text" value="<?php echo isset($name)?$name:"";?>"></li>
-									<li>发布状态：
-									<select id="classcode" name="status">
-									<option value="9">--全部--</option>
-									<?php if(!empty($statusList)) foreach($statusList as $key => $value){?>
-										<option value="<?php echo isset($key)?$key:"";?>" <?php if( $key==$status){?>SELECTED<?php }?>><?php echo isset($value)?$value:"";?></option>
-									<?php }?>
-			
-									</select></li>
-									<li>时间：<input class="Wdate" type="text" name="beginDate" value="<?php echo isset($beginDate)?$beginDate:"";?>" onclick="WdatePicker()"> <span style="position: relative;left: -3px;">—</span><input class="Wdate" type="text" name="endDate" value="<?php echo isset($endDate)?$endDate:"";?>" onclick="WdatePicker()">
-									</li>
-									<li><input type="submit" value="查找" class="chaz"></li>
-								</ul>
-							</form>
-							<div style="clear:both;"></div>
-						</div>
+						
 						<div class="xx_center">
+
 							<table border="0"  cellpadding="" cellspacing="">
 								<tr class="title">
-									
-									<td>序号</td>
-									<td>报盘类型</td>
-									<td>名称</td>
-									<td>市场分类</td>
-									<td>总量</td>
-									<td>剩余</td>
-									<td>单位</td>
-									<td>单价(元)</td>
-									<!-- <td>保险</td> -->
-									<td>发布状态</td>
-									<td>时间</td>
-									<td>操作</td>
+									<td>ID</td>
+									<td>订单号</td>
+                                    <td>所在库</td>
+                                    <td>操作</td>
 								</tr>
-								<?php if(!empty($productList)) foreach($productList as $key => $list){?>
-								<?php  $key++; ?>
-								<tr>
-									<td><?php echo isset($key)?$key:"";?></td>
-									<td><?php echo isset($mode[$list['mode']])?$mode[$list['mode']]:"";?></td>
-									<td><p><?php echo isset($list['name'])?$list['name']:"";?></p></td>
-									<td><?php echo isset($list['cname'])?$list['cname']:"";?></td>
-									<td><?php echo \nainai\offer\product::floatForm($list['quantity']);?></td>
-									<td><?php echo $list['quantity']-$list['freeze']-$list['sell'];?></td>
-									<td><?php echo isset($list['unit'])?$list['unit']:"";?></td>
-									<td><?php echo isset($list['price'])?$list['price']:"";?></td>
-									<!-- <td>已投保</td> -->
-									<td><span class="col000000"><?php echo isset($list['status'])?$list['status']:"";?></span></td>
-									<td><?php echo isset($list['apply_time'])?$list['apply_time']:"";?></td>
-									<td><a href="http://localhost/nn2/user/managerdeal/productdetail/id/<?php echo $list['id'];?>">查看</a></td>
-								</tr>
-								<?php }?>
-								
+                                    <?php if(!empty($data)) foreach($data as $key => $list){?>
+                                    <tr>
+                                            <td><?php echo isset($list['id'])?$list['id']:"";?></td>
+                                            <td><?php echo isset($list['order_no'])?$list['order_no']:"";?></td>
+                                            
+                                            <td><?php echo isset($list['store_name'])?$list['store_name']:"";?></td>
+                                            
+											<td><a href='http://localhost/nn2/user/managerstore/storecheckdetail/id/<?php echo $list["id"];?>'>查看</a></td>
+                                            
+                                    </tr>
+                                  <?php }?>
 							</table>
-
+							<div class="page_num">
+							<?php echo isset($page)?$page:"";?>
+							</div>
 						</div>
 						
-
-						</div>
+						<!-- <div class="tab_bt">
+							<div class="t_bt">
+								<a class="a_1" title="编辑" href="user_cd.html"></a>
+								<a class="a_2" title="添加" href="user_cd.html"></a>
+								<a class="a_3" title="删除" href="user_cd.html"></a>
+							</div>
+						</div> -->
 						<div class="page_num">
-							<?php echo isset($pageHtml)?$pageHtml:"";?>
+<!-- 							共0条记录&nbsp;当前第<font color="#FF0000">1</font>/0页&nbsp;
+<a href="#">第一页</a>&nbsp;
+<a href="#">上一页</a>&nbsp;
+<a href="#">下一页</a>&nbsp;
+<a href="#">最后页</a>&nbsp; 
+跳转到第 <input name="pagefind" id="pagefind" type="text" style="width:20px;font-size: 12px;" maxlength="5" value="1"> 页 
+<a><span class="style1">确定</span></a> -->
+	<?php echo isset($pageHtml)?$pageHtml:"";?>
 						</div>
 					</div>
 				</div>
 				
 				
 			</div>
-
-		</div>
+			</div>
 
 				<!--end中间内容-->	
 			

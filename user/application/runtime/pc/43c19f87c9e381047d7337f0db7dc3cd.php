@@ -298,11 +298,11 @@
 								</div>
 								<div class="sj_detal">
 
-									<b class="sj_de_tit">邮寄公司：</b>
+									<b class="sj_de_tit"><span>*</span>邮寄公司：</b>
 									<span>&nbsp;<?php if($invoice['order_invoice']['post_company']){?><?php echo isset($invoice['order_invoice']['post_company'])?$invoice['order_invoice']['post_company']:"";?><?php }else{?><input type="text" name="post_company"  datatype="s1-20"   errormsg="请填写邮寄公司" nullmsg="请填写邮寄公司"/><?php }?></span>
 								</div>
 								<div class="sj_detal">
-									<b class="sj_de_tit">邮寄单号：</b>
+									<b class="sj_de_tit"><span>*</span>邮寄单号：</b>
 									<span>&nbsp;<?php if($invoice['order_invoice']['post_no']){?><?php echo isset($invoice['order_invoice']['post_no'])?$invoice['order_invoice']['post_no']:"";?><?php }else{?><input type="text" name="post_no" datatype="s1-20"   errormsg="请填写邮寄单号" nullmsg="请填写邮寄单号"><?php }?></span>
 								</div>
 								<?php if(!$invoice['order_invoice']){?>

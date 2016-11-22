@@ -67,8 +67,12 @@ class entrustOrder extends Order{
 				return tool::getSuccInfo(0,'合同状态有误');
 			if($buyer != $user_id)
 				return tool::getSuccInfo(0,'订单买家信息有误');
+
+			$member = new \nainai\member();
+			$is_vip = $member->is_vip($seller);
 			$orderData['id'] = $order_id;
-			$orderData['contract_status'] = self::CONTRACT_SELLER_DEPOSIT;//合同状态置为等待卖方委托金支付
+			$orderData['contract_status'] = $is_vip ? self::CONTRACT_BUYER_RETAINAGE : self::CONTRACT_SELLER_DEPOSIT;
+			//合同状态置为等待卖方委托金支付 若卖方为收费会员 则跳过转为等待买方支付尾款
 			$orderData['buyer_deposit_payment'] = $payment;
 			$orderData['pay_deposit_time'] = date('Y-m-d H:i:s',time());
 			if($type == 0){
@@ -202,10 +206,13 @@ class entrustOrder extends Order{
 						//获取卖方委托金数值 
 						$obj = new \nainai\system\EntrustSetting();
 						$percent = $obj->getRate($offerInfo['cate_id']);
+						$member = new \nainai\member();
+						$is_vip = $member->is_vip($seller);
+
 						// $percent = $this->entrustFee($order_id);
 						// if( empty($percent) )
 						// 	return tool::getSuccInfo(0,'委托金设置错误,请联系客服人员');
-						$seller_deposit = $percent['type'] == 0 ? number_format($info['amount'] * $percent['value'] / 100,2) : $percent['value'];
+						$seller_deposit = $is_vip ? 0 : ($percent['type'] == 0 ? number_format($info['amount'] * $percent['value'] / 100,2) : $percent['value']);
 						//冻结卖方帐户委托金
 						$note = '支付合同'.$info['order_no'].'委托金 '.$seller_deposit;	
 

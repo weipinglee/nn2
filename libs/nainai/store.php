@@ -247,7 +247,7 @@ class store{
         if($this->getStoreProductStatus($id)==self::STOREMANAGER_AGREE) {//处于仓管审核已审核可签发
             $store_id = $this->getManagerStoreId($user_id);
             $store['status'] = self::STOREMANAGER_SIGN;
-
+            
             $pObj = new M('store_products');
             $spData = $pObj->where(array('id'=>$id))->getObj();
 

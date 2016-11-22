@@ -29,7 +29,7 @@
                             <!-- <li value=""   class="a_choose" ><a></a></li>
                     -->
                         </ul>
-
+                        
                         <ul class="infoslider" style="display: none;">
                             <li value=""   class="a_choose"  ><a></a></li>
 
@@ -291,7 +291,7 @@
                                     </div>
 
                                     <table border="0">
-
+                                        
                                         <tr>
                                             <td nowrap="nowrap"><span></span>库位：</td>
                                             <td colspan="2">
