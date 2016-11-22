@@ -58,7 +58,7 @@ class offersModel extends \nainai\offer\product{
         $query->bind = array('cid' => $cateId);
         $query->order = 'a.apply_time desc';
         $query->limit = 5;
-		 $query->cache = 'm'.$cateId;
+		 //$query->cache = 'm'.$cateId;
 /*        $query->fields = 'a.id,a.mode,a.type,a.accept_area,a.price,b.name as pname,b.id as product_id,b.quantity,b.sell,b.freeze,b.unit,b.produce_area,kefu.ser_name,kefu.qq';*/
         $categoryList= $query->find();
         foreach($categoryList as $k=>$v){

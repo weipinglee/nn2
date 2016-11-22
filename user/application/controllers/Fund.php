@@ -138,7 +138,7 @@ class FundController extends UcenterBaseController {
 		if(!$bank){
 			$this->error('未绑定出金银行卡');
 		}
-		$this->assign('bank',$bank);
+		$this->getView()->assign('bank',$bank);
 	}
 
 	public function zxtxHandleAction(){
