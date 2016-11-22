@@ -134,8 +134,8 @@
                         var t = (p.offset().top - preview.height());
                         t -= t / 2;
                         preview.css({
-                            left: l,
-                            top: t
+                            left: 50%,
+                            top: 50%
                         });
                         var text = p.find('a').html();
                         preview.find('img').attr('src', img).addClass(cls);
