@@ -131,11 +131,11 @@
                         var img = p.find('img').attr('src');
                         var preview = $('.preview');
                         var l = $('.image-slider').width() / 2 - preview.outerWidth() / 2;
-                        var t = (p.offset().top - preview.height());
+                        var t = ($(window).height() - preview.height() - 100);
                         t -= t / 2;
                         preview.css({
-                            left: 50%,
-                            top: 50%
+                            left: l,
+                            top: t
                         });
                         var text = p.find('a').html();
                         preview.find('img').attr('src', img).addClass(cls);
