@@ -82,7 +82,7 @@ class FundController extends UcenterBaseController {
 
 		$startDate = safe::filterGet('startDate','trim','');
 		$endDate = safe::filterGet('endDate','trim','');
-
+ 
 		$zx = new \nainai\fund\zx();
 		$data = $zx->attachAccountInfo($this->user_id);
 		// $balance = $zx->attachBalance($this->user_id);
