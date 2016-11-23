@@ -1,3 +1,4 @@
+
         <script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
         <script type="text/javascript" src="{views:js/validform/validform.js}"></script>
         <script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
@@ -29,14 +30,14 @@
                     <tr>
                         <td rowspan="2" colspan="1" width="100px;"><img src="{$item['bank_icon']}"></td>
                         <td>
-                            <span class='dr'>{$item['auto_signin']} <span class='sign signin'>
+                            <span class='dr'>{if:$item['signin']!=1}<span class='auto_incre'>{$time}</span>{else:}{$item['signin_time']}{/if} <span class='sign signin'>
                                 {if:$item['signin']==1}【已签到】{else:}<a href="javascript:;" type='signin'>签到</a>{/if}
                             </span></span>
                         </td>
                     </tr>
                     <tr>    
                         <td>
-                            <span class='dr'>{$item['auto_signout']} <span class='sign signout'>
+                            <span class='dr'>{if:$item['signin']==1&&!$item['signout']}<span class='auto_incre'>{$time}</span>{elseif:$item['signout']}{$item['signout_time']}{/if} <span class='sign signout'>
                                 {if:$item['signout']}
                                     【已签退】
                                 {else:}
@@ -61,6 +62,7 @@
 <script type="text/javascript">
     $(function(){
         var url = "{url:balance/BankSign/manu}";
+        auto_incre();
         $('.sign>a').bind('click',function(){
             var _this = $(this);
             var bank_name = $(this).parents('form').attr('bank_name');
@@ -75,7 +77,19 @@
                 }
             },'JSON');
         });
-
+        function auto_incre(){
+            // $('.auto_incre').each(function(){
+            //     var _this = this;
+            //     var time = new Date('1910-2-11');
+            //     layer.msg(time)
+            //     var date = time.getTime();
+            //     var nt = new Date();
+            //     setTimeout(function(){
+            //         nt.setTime(date+1);
+            //         alert(nt);
+            //     },1000);
+            // });
+        }
     })
 </script>
     </body>
