@@ -22,12 +22,12 @@
 						</div>
 						<div class="zhxi_con">
 							<span class="con_tit"><i>*</i>出金银行账号：</span>
-							<span><input class="text" type="text" disabled="disabled" value="{$bank['no']}" style="border: none;"/></span>
+							<span><input class="text" type="text" disabled="disabled" value="{$bank['card_no']}" style="border: none;"/></span>
 						</div>
 
 						<div class="zhxi_con">
 							<span class="con_tit"><i>*</i>姓名：</span>
-							<span><input class="text" type="text" disabled="disabled" value="{$bank['name']}" style="border: none;" /></span>
+							<span><input class="text" type="text" disabled="disabled" value="{$bank['true_name']}" style="border: none;" /></span>
 						</div>
 						
 						<!-- <div class="zhxi_con">

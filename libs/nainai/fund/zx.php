@@ -121,18 +121,18 @@ class zx extends account{
         $accInfo = $this->attachAccount->attachInfo($data['user_id']);
         $clientID = tool::create_uuid($data['user_id']);
         
-        $t = new M('fund_outcard');
-        $bank = $t->where(array('user_id'=>$user_id))->getObj();
+        $t = new M('user_bank');
+        $bank = $t->where(array('user_id'=>$data['user_id']))->getObj();
         if(!$bank) return tool::getSuccInfo(0,'未绑定出金银行卡');
-        $is_zx = strpos('中信',$bank_name) !== false ? 0 : 1;
+        $is_zx = strpos('中信',$bank['bank_name']) !== false ? 0 : 1;
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLFNDOUT</action>
                 <userName>".self::USERNAME."</userName>
                 <clientID>{$clientID}</clientID>
                 <accountNo>{$accInfo['no']}</accountNo>
-                <recvAccNo>{$bank['no']}</recvAccNo>
-                <recvAccNm>{$bank['name']}</recvAccNm>
+                <recvAccNo>{$bank['card_no']}</recvAccNo>
+                <recvAccNm>{$bank['true_name']}</recvAccNm>
                 <tranAmt>{$data['num']}</tranAmt>
                 <sameBank>{$is_zx}</sameBank>
                 
@@ -144,7 +144,7 @@ class zx extends account{
                 <preDate></preDate>
                 <preTime></preTime>
             </stream>";
-
+        
         return $this->curl($xml);
      }
 

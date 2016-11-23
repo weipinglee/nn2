@@ -133,10 +133,10 @@ class FundController extends UcenterBaseController {
 	}
 
 	public function zxtxAction(){
-		$t = new M('fund_outcard');
+		$t = new M('user_bank');
 		$bank = $t->where(array('user_id'=>$this->user_id))->getObj();
 		if(!$bank){
-			$this->error('未绑定出金银行卡');
+			$this->error('未设置开户信息',url::createUrl('/fund/bank@user'));
 		}
 		$this->getView()->assign('bank',$bank);
 	}
