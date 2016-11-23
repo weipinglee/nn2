@@ -84,6 +84,8 @@ class FundController extends UcenterBaseController {
 		$endDate = safe::filterGet('endDate','trim','');
  
 		$zx = new \nainai\fund\zx();
+		$check_sign = $zx->signStatus();
+		if($check_sign !== true) {echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;}
 		$data = $zx->attachAccountInfo($this->user_id);
 		// $balance = $zx->attachBalance($this->user_id);
 		

@@ -30,7 +30,10 @@ class zx extends account{
 
      public function curl($xml){
         $check_sign = $this->signStatus();
-        if($check_sign!==true) {echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;}//return $check_sign;
+        if($check_sign!==true) {
+            return tool::getSuccInfo(0,$check_sign.',无法交易');
+            //echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;
+        }//return $check_sign;
         $this->attachAccount->curl($xml);
      }
 
