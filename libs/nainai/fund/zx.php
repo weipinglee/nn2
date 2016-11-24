@@ -34,7 +34,7 @@ class zx extends account{
             return tool::getSuccInfo(0,$check_sign.',无法交易');
             //echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;
         }//return $check_sign;
-        $this->attachAccount->curl($xml);
+        return $this->attachAccount->curl($xml);
      }
 
      /**
@@ -118,7 +118,7 @@ class zx extends account{
      public function in($user_id,$num){
          
      }
-
+     
     
      public function out($data){
         $accInfo = $this->attachAccount->attachInfo($data['user_id']);
@@ -128,9 +128,10 @@ class zx extends account{
         $bank = $t->where(array('user_id'=>$data['user_id']))->getObj();
         if(!$bank) return tool::getSuccInfo(0,'未绑定出金银行卡');
         $is_zx = strpos('中信',$bank['bank_name']) !== false ? 0 : 1;
+        
         $xml = self::XML_PREFIX."
             <stream>
-                <action>DLFNDOUT</action>
+                <action>DLFCSOUT</action>
                 <userName>".self::USERNAME."</userName>
                 <clientID>{$clientID}</clientID>
                 <accountNo>{$accInfo['no']}</accountNo>
@@ -522,6 +523,7 @@ class zx extends account{
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
         $res = $this->curl($xml);
+
         // return $res;
         return $res['row'] ? $res['row'] : array();
 

@@ -87,11 +87,12 @@ class FundController extends UcenterBaseController {
 		$check_sign = $zx->signStatus();
 		if($check_sign !== true) {echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;}
 		$data = $zx->attachAccountInfo($this->user_id);
-		// $balance = $zx->attachBalance($this->user_id);
+
+		$balance = $zx->attachBalance($this->user_id);
 		
 		// $details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
 		$details = $zx->attachOperDetails($this->user_id,$startDate,$endDate);
-		// echo '<pre>';var_dump($details['row']);
+		
 		if(!$details['row'][1]){
 			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
 			$details['row'] = array($details['row']);
@@ -126,6 +127,7 @@ class FundController extends UcenterBaseController {
 				'mail_address'=>safe::filterPost('mail_address'),
 			);
 			$res = $zx->geneAttachAccount($data);
+			
 			die(JSON::encode($res));
 			return false;
 		}else{
