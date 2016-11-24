@@ -41,10 +41,12 @@ class attachAccount{
 	 * @param  array  $data 数据
 	 */
 	public function curl($xml){
-		$xml = iconv('UTF-8','GBK',$xml);
+
+		$tmp = iconv('UTF-8','GBK',$xml);
+		$xml = $tmp ? $tmp : $xml;
 		$header []= "Content-type:text/xml;charset=gbk";
 		
-		$url = 'http://192.168.2.11:6789';
+		$url = 'http://192.168.2.46:6789';
 		$ch = curl_init($url);
 		curl_setopt($ch,CURLOPT_URL,$url);
 		curl_setopt($ch,CURLOPT_POST,1);
@@ -67,6 +69,7 @@ class attachAccount{
 		// var_dump($output);exit;
 		// exit;
 			// return $xml_obj;
+	
 		if($xml_obj['status'] == 'AAAAAAA'){
 			if(isset($xml_obj['list'])){
 				$output = $xml_obj['list'];
