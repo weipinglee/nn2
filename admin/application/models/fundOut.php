@@ -26,7 +26,7 @@ class fundOutModel {
 		$fundOut = new adminQuery('withdraw_request as w');
 
 		$fundOut->join = 'left join user as u on w.user_id = u.id';
-		$fundOut->fields = 'w.request_no,w.amount,w.status,w.create_time,u.username,u.mobile,u.type,w.id';
+		$fundOut->fields = 'w.request_no,w.amount,w.status,w.create_time,u.username,u.mobile,u.type,w.id,u.user_no';
 
 		if(isset($condition['status']))
 			$fundOut->where = ' w.is_del = 0 and w.status in ('.$condition['status'].')';
