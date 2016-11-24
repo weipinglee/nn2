@@ -152,7 +152,7 @@ class tradeController extends \nainai\controller\Base {
 
 					$zhi = new \nainai\member();
 					$pay_secret = safe::filterPost('pay_secret');
-
+					
 					if(!$zhi->validPaymentPassword($pay_secret,$user_id)){
 						die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
 					}

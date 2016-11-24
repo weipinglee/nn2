@@ -11,6 +11,7 @@ use \Library\M;
 class attachAccount{
 
 	protected $attachTable;
+	public $size = 6;
 
 	public function __construct(){
 		$this->attachTable = new M('user_attach');
@@ -36,6 +37,29 @@ class attachAccount{
 		return $this->attachTable->where(array('bank'=>$bank,'user_id'=>$user_id))->getObj();
 	}
 	
+	/**
+	 * 获取银行流水分页形式
+	 * @param  int $page 当前页
+	 * @return string   html内容
+	 */
+	public function pageFormat($page,$now_size){
+		$html = "";
+		//添加上一页 及前页
+		if($page > 1){
+			$html .= "<span class='prefix_page'>上一页</span>";
+			for($i=1;$i<$page;$i++){
+				$html .= "<span class='content'>{$i}</span>";
+			}
+		}
+		$html .= "<span class='now_page'>{$page}</span>";
+		if($now_size == $this->size){
+			//添加下一页
+			$html .= "<span class='next_page'>下一页</span>";
+		}
+
+		return $html;
+	}
+
 	/**
 	 * curl模拟post提交
 	 * @param  array  $data 数据

@@ -79,7 +79,7 @@ class FundController extends UcenterBaseController {
 	//中信银行签约账户
 	public function zxAction(){
 
-
+		$page = safe::filterGet('page','int',1);
 		$startDate = safe::filterGet('startDate','trim','');
 		$endDate = safe::filterGet('endDate','trim','');
  
@@ -91,17 +91,26 @@ class FundController extends UcenterBaseController {
 		$balance = $zx->attachBalance($this->user_id);
 		
 		// $details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
-		$details = $zx->attachOperDetails($this->user_id,$startDate,$endDate);
+		$details = $zx->attachOperDetails($this->user_id,$page,$startDate,$endDate);
 		
 		if(!$details['row'][1]){
-			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
-			$details['row'] = array($details['row']);
+			if(count($details['row'])>0){
+				$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
+				$details['row']['tranAmt'] = floatval($details['row']['tranAmt']) - floatval($details['row']['pdgAmt']);
+				$details['row'] = array($details['row']);
+			}
+
 		}else{
 			foreach ($details['row'] as $key => &$value) {
 				$value = (array)$value;
+				$value['tranAmt'] = floatval($value['tranAmt']) - floatval($value['pdgAmt']);
 				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['tranType']);
 			}
 		}
+		$page_format = $zx->pageFormat($page,count($details['row']));
+		$this->getView()->assign('page_format',$page_format);
+
+		$this->getView()->assign('page',$page);
 		$this->getView()->assign('balance',$balance);
 		$this->getView()->assign('no',$data['no']);
 		$this->getView()->assign('flow',$details['row']);

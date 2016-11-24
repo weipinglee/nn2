@@ -15,8 +15,8 @@ class account{
                 return new \nainai\fund\agentAccount();
                 break;
             case Order::PAYMENT_BANK:
-                // return new \nainai\fund\zx();//暂时只考虑中信银行
-                return '中信银行签约支付暂时未开通，请选择其他支付方式';
+                return new \nainai\fund\zx();//暂时只考虑中信银行
+                //return '中信银行签约支付暂时未开通，请选择其他支付方式';
                 break;
             case Order::PAYMENT_TICKET:
                 return '票据账户支付暂时未开通，请选择其他支付方式';

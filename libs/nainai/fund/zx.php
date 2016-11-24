@@ -53,6 +53,10 @@ class zx extends account{
         }
      }
      
+     public function pageFormat($page,$now_size){
+        return $this->attachAccount->pageFormat($page,$now_size);
+     }
+
      /**
       * 获取指定用户附属账户信息    
       * @param  int $user_id 用户id   
@@ -214,8 +218,9 @@ class zx extends account{
             $code = $this->getFreezeCode($freeze_records,$amount ? $amount : $num);
             if(!$code) return '冻结信息获取错误:'.($amount ? $amount : $Num);
             $res = $this->bankTransfer('',$num,$from,$to,'freezePay','',$code); 
+
             if($res !== true){
-                return $res['info'];
+                return is_string($res)? $res : $res['info'];
             }  
         }
         return true;
@@ -567,7 +572,11 @@ class zx extends account{
      * @param  int $user_id 用户id
      * @return array:明细信息数组 string:错误信息
      */
-    public function attachOperDetails($user_id,$startDate='',$endDate=''){
+    public function attachOperDetails($user_id,$page,$startDate='',$endDate=''){
+        $size = $this->attachAccount->size;
+        $page = $page > 0 ? $page : 1;
+        $startRecord = (($page-1)*$size)+1;
+        
         $startDate = $startDate ? date('Ymd',strtotime($startDate)) : date('Ymd',time()-86400*90);
         $endDate = $endDate ? date('Ymd',strtotime($endDate) < time() ? strtotime($endDate) : time()) : date('Ymd',time());
 
@@ -582,8 +591,8 @@ class zx extends account{
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
                 <startDate>{$startDate}</startDate>
                 <endDate>{$endDate}</endDate>
-                <startRecord>1</startRecord>
-                <pageNumber>10</pageNumber>
+                <startRecord>{$startRecord}</startRecord>
+                <pageNumber>{$size}</pageNumber>
             </stream>";
         $res = $this->curl($xml);
         foreach ($res['row'] as $key => &$value) {

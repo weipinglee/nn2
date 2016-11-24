@@ -1,4 +1,8 @@
-	
+	<style type="text/css">
+		.page{padding: 10px;text-align: center;}
+		.page>.prefix_page,.page>.next_page,.page>.content{display: inline-block;padding: 5px;color:#ddd;border:1px solid silver;cursor: pointer;}
+		.page>.now_page{margin:0 5px;}
+	</style>
 			<!--start中间内容-->	
 			<div class="user_c">
 				<div class="user_zhxi">
@@ -87,10 +91,46 @@
 							<td width="40px"><a target="_blank" href="https://enterprise.bank.ecitic.com/corporbank/cb060400_reBill.do">打印</a></td>
 						</tr>
 						{/foreach}
+					
+						
                     </table>
 					</div>
+					<div class='page'>{$page_format}</div>
 				</form>
 				</div>
 			</div>
 			
 	<!--end中间内容-->		
+<script type="text/javascript">
+	$(function(){
+		var page = parseInt("{$page}");
+		var url = window.location.href;
+		if(url.indexOf("&page=")>0){
+			url = url.replace(/&page={$page}/,'');
+		}
+		if(url.indexOf("?page=")>0){
+			url = url.replace(/\?page={$page}/,'');	
+		}
+		
+		var new_url = '';
+		var is_pa = url.indexOf('?');
+		new_url = is_pa>0 ? url+"&page=" : url+"?page=";
+		
+		$('.prefix_page').click(function(){
+			layer.load(2);
+			new_url += (page-1);
+			window.location.href = new_url;
+		});
+		$('.next_page').click(function(){
+			layer.load(2);
+			new_url += (page+1);
+			window.location.href = new_url;
+		});
+		$('.content').click(function(){
+			layer.load(2);
+			var index = parseInt($(this).text());
+			new_url += index;
+			window.location.href = new_url;
+		});
+	});
+</script>
