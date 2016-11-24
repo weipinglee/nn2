@@ -16,6 +16,7 @@
         <thead>
             <tr class="text-c">
                 <th width="25"><input type="checkbox" name="checkall" value=""></th>
+				<th width="60">会员号</th>
                 <th width="100">用户名</th>
                 <th width="90">开户银行</th>
                 <th width="60">银行卡类型</th>
@@ -31,6 +32,7 @@
             {if:$item['status']==0}{set:$status=0}{else:}{set:$status=$item['status']}{/if}
             <tr class="text-c">
                 <td><input type="checkbox" value="" name="check"></td>
+				<td>{$item['user_no']}</td>
                 <td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
                 <td>{$item['bank_name']}</td>
                 <td>{$item['card_type']}</td>
