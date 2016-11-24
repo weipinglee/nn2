@@ -27,7 +27,7 @@ class searchConfig {
             'down' => 1
         ),
         'user_account' => array(
-            'like' => array('u.mobile,u.username','用户名，手机号'),
+            'like' => array('u.mobile,u.username,u.user_no','用户名，手机号,会员号'),
             'between' => array('a.credit','信誉保证金'),
             'down' => 1
         ),

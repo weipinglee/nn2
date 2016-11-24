@@ -16,7 +16,8 @@
         <thead>
             <tr class="text-c">
                 <th width="25"><input type="checkbox" name="checkall" value=""></th>
-                <th width="100">用户名</th>
+				<th width="60">会员号</th>
+                <th width="70">用户名</th>
                 <th width="90">手机号</th>
                 <th width="60">总金额</th>
                 <th width="50">可用资金</th>
@@ -28,6 +29,7 @@
         {foreach:items=$data['list']}
             <tr class="text-c">
                 <td><input type="checkbox" value="" name="check"></td>
+				 <td>{$item['user_no']}</td>
                 <td><u style="cursor:pointer" class="text-primary" >{$item['username']}</u></td>
                 <td>{$item['mobile']}</td>
                 <td>{$item['amount']}</td>
