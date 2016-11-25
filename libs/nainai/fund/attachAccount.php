@@ -11,7 +11,7 @@ use \Library\M;
 class attachAccount{
 
 	protected $attachTable;
-	public $size = 6;
+	public $size = 10;
 
 	public function __construct(){
 		$this->attachTable = new M('user_attach');

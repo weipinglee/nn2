@@ -17,12 +17,15 @@ class zx extends account{
      private $agentTable = 'user_account';//代理账户数据表名
      private $fundFlowTable = 'user_fund_flow';//资金流水表
 
-     const USERNAME = 'NNYS';//中信银行前置机登陆名
-     const MAINACC = '8110701013900006451';//主体账户
+     private $username ;//中信银行前置机登陆名
+     private $mainacc ;//主体账户
      const XML_PREFIX = '<?xml version="1.0" encoding="GBK"?>';//XML结构头
      const BANK = 'zx';
 
      public function __construct(){
+        $configs = tool::getGlobalConfig(array('signBank','zx'));
+        $this->username = $configs['username'];
+        $this->mainacc = $configs['mainacc'];
         $this->agentModel = new M($this->agentTable);
         $this->flowModel  = new M($this->fundFlowTable);
         $this->attachAccount = new attachAccount();
@@ -136,7 +139,7 @@ class zx extends account{
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLFCSOUT</action>
-                <userName>".self::USERNAME."</userName>
+                <userName>".$this->username."</userName>
                 <clientID>{$clientID}</clientID>
                 <accountNo>{$accInfo['no']}</accountNo>
                 <recvAccNo>{$bank['card_no']}</recvAccNo>
@@ -147,7 +150,7 @@ class zx extends account{
                 <recvTgfi></recvTgfi>
                 <recvBankNm>{$bank['bank_name']}</recvBankNm>
                 
-                <memo></memo>
+                <memo>平台出金{$data['num']}</memo>
                 <preFlg>0</preFlg>
                 <preDate></preDate>
                 <preTime></preTime>
@@ -164,7 +167,7 @@ class zx extends account{
 
     public function freeze($user_id,$num,$note=''){
         $clientID = tool::create_uuid($user_id);
-        return $this->bankTransfer($clientID,$num,$user_id,0,'freeze');
+        return $this->bankTransfer($clientID,$num,$user_id,0,'freeze',$note);
     }
 
     
@@ -178,7 +181,7 @@ class zx extends account{
         $freeze_records = $this->freezeTrans($user_id,$time);
         $djcode = $this->getFreezeCode($freeze_records,$num);
         if(!$djcode) return '无效冻结金额';
-        return $this->bankTransfer('',$num,$user_id,0,'freezeRelease','',$djcode);
+        return $this->bankTransfer('',$num,$user_id,0,'freezeRelease',$time,$djcode);
     }
 
     /**
@@ -217,7 +220,7 @@ class zx extends account{
             $num = number_format($num,2);
             $code = $this->getFreezeCode($freeze_records,$amount ? $amount : $num);
             if(!$code) return '冻结信息获取错误:'.($amount ? $amount : $Num);
-            $res = $this->bankTransfer('',$num,$from,$to,'freezePay','',$code); 
+            $res = $this->bankTransfer('',$num,$from,$to,'freezePay',$time,$code); 
 
             if($res !== true){
                 return is_string($res)? $res : $res['info'];
@@ -259,11 +262,11 @@ class zx extends account{
     public function acountInit($user_id,$num=0.0,$memo=''){
         $clientID = tool::create_uuid($user_id);
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
-
+        
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLFNDINI</action>
-                <userName>".self::USERNAME."</userName>
+                <userName>".$this->username."</userName>
                 <clientID>{$clientID}</clientID>
 
                 <accountNo>3110710003081005215</accountNo>
@@ -271,7 +274,7 @@ class zx extends account{
                 <subAccNm>{$payAccInfo['name']}</subAccNm>
 
                 <tranAmt>{$num}</tranAmt>
-                <memo></memo>
+                <memo>xxxxxxxass</memo>
             </stream>";
         return $this->curl($xml);
     }
@@ -295,8 +298,8 @@ class zx extends account{
             $xml = self::XML_PREFIX."
                 <stream>
                     <action>DLBREGSN</action>
-                    <userName>".self::USERNAME."</userName>
-                    <mainAccNo>".self::MAINACC."</mainAccNo>
+                    <userName>".$this->username."</userName>
+                    <mainAccNo>".$this->mainacc."</mainAccNo>
                     <appFlag>2</appFlag>
                     <accGenType>0</accGenType>
                     <subAccNo></subAccNo>
@@ -405,9 +408,9 @@ class zx extends account{
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLMDETRN</action>
-                <userName>".self::USERNAME."</userName>
+                <userName>".$this->username."</userName>
                 <clientID>{$clientID}</clientID>
-                <accountNo>".self::MAINACC."</accountNo>
+                <accountNo>".$this->mainacc."</accountNo>
                 <payAccNo>{$payAccInfo['no']}</payAccNo>
                 <tranType>{$type_txt}</tranType>
                 <recvAccNo>{$recvAccInfo['no']}</recvAccNo>
@@ -458,8 +461,8 @@ class zx extends account{
         $xml = self::XML_PREFIX."
         <stream>
             <action>DLSESMDN </action>
-            <userName>".self::USERNAME."</userName>
-        <accountNo>".self::MAINACC."</accountNo>
+            <userName>".$this->username."</userName>
+        <accountNo>".$this->mainacc."</accountNo>
         <date>".$date."</date>
         </stream>";
         $res = $this->curl($xml);
@@ -476,7 +479,7 @@ class zx extends account{
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLCIDSTT</action>
-                <userName>".self::USERNAME."</userName>
+                <userName>".$this->username."</userName>
                 <clientID>{$clientID}</clientID>
 
                 <type>DLMDETRN</type>
@@ -500,8 +503,8 @@ class zx extends account{
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLSFRZQR</action>
-                <userName>".self::USERNAME."</userName>
-                <accountNo>".self::MAINACC."</accountNo>
+                <userName>".$this->username."</userName>
+                <accountNo>".$this->mainacc."</accountNo>
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
                 <startDate>{$starDate}</startDate>
                 <endDate>{$endDate}</endDate>
@@ -522,8 +525,8 @@ class zx extends account{
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLSBALQR</action>
-                <userName>".self::USERNAME."</userName>
-                <accountNo>".self::MAINACC."</accountNo>
+                <userName>".$this->username."</userName>
+                <accountNo>".$this->mainacc."</accountNo>
                 
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
@@ -551,8 +554,8 @@ class zx extends account{
         $xml = self::XML_PREFIX."
             <stream>
             <action>DLSTRNDT</action>
-                <userName>".self::USERNAME."</userName>
-                <accountNo>".self::MAINACC."</accountNo>
+                <userName>".$this->username."</userName>
+                <accountNo>".$this->mainacc."</accountNo>
 
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
                 <queryType></queryType>
@@ -576,7 +579,7 @@ class zx extends account{
         $size = $this->attachAccount->size;
         $page = $page > 0 ? $page : 1;
         $startRecord = (($page-1)*$size)+1;
-        
+
         $startDate = $startDate ? date('Ymd',strtotime($startDate)) : date('Ymd',time()-86400*90);
         $endDate = $endDate ? date('Ymd',strtotime($endDate) < time() ? strtotime($endDate) : time()) : date('Ymd',time());
 
@@ -586,8 +589,8 @@ class zx extends account{
         $xml = self::XML_PREFIX."
             <stream>
             <action>DLPTDTQY</action>
-                <userName>".self::USERNAME."</userName>
-                <mainAccNo>".self::MAINACC."</mainAccNo>
+                <userName>".$this->username."</userName>
+                <mainAccNo>".$this->mainacc."</mainAccNo>
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
                 <startDate>{$startDate}</startDate>
                 <endDate>{$endDate}</endDate>

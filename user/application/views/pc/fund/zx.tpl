@@ -66,7 +66,7 @@
 				            <th>对方账号</th>
 				            <!-- <th>对方账户名</th> -->
 				            <th>打印校验码</th>
-				            <th>附属账号</th>
+				            <th>备注</th>
 				            <th>打印</th>
 				        </tr>
 						{foreach:items=$flow }
@@ -87,7 +87,7 @@
 							<td>{$item['accountNo']}</td>
 							<!-- <td>{$item['accountNm']}</td> -->
 							<td>{$item['verifyCode']}</td>
-							<td>{$item['subno']}</td>
+							<td>{$item['memo']}</td>
 							<td width="40px"><a target="_blank" href="https://enterprise.bank.ecitic.com/corporbank/cb060400_reBill.do">打印</a></td>
 						</tr>
 						{/foreach}

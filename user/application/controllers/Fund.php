@@ -98,6 +98,8 @@ class FundController extends UcenterBaseController {
 				$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
 				$details['row']['tranAmt'] = floatval($details['row']['tranAmt']) - floatval($details['row']['pdgAmt']);
 				$details['row'] = array($details['row']);
+				$tmp = (array)$details['row']['memo'];
+				$details['row']['memo'] = $tmp[0];
 			}
 
 		}else{
@@ -105,6 +107,8 @@ class FundController extends UcenterBaseController {
 				$value = (array)$value;
 				$value['tranAmt'] = floatval($value['tranAmt']) - floatval($value['pdgAmt']);
 				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['tranType']);
+				$tmp = (array)$value['memo'];
+				$value['memo'] = $tmp[0];
 			}
 		}
 		$page_format = $zx->pageFormat($page,count($details['row']));
