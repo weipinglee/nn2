@@ -8,6 +8,7 @@
 
 namespace nainai\fund;
 use \Library\M;
+use \Library\tool;
 class attachAccount{
 
 	protected $attachTable;
@@ -69,8 +70,8 @@ class attachAccount{
 		$tmp = iconv('UTF-8','GBK',$xml);
 		$xml = $tmp ? $tmp : $xml;
 		$header []= "Content-type:text/xml;charset=gbk";
-		
-		$url = 'http://192.168.2.46:6789';
+		$configs = tool::getGlobalConfig(array('signBank','zx'));
+		$url = 'http://'.$configs['ip'].':'.$configs['port'];
 		$ch = curl_init($url);
 		curl_setopt($ch,CURLOPT_URL,$url);
 		curl_setopt($ch,CURLOPT_POST,1);
