@@ -232,21 +232,11 @@ z-index:1000;">
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
-            <p class='countdown det_tuan' id="timeRemaining-1">
-                <?php $count = strtotime('2016-11-25 15:00:00')-time()?>
-                正式上线倒计时：
-                <span id='cd_day_1'><?php echo floor($count/(3600*24))?></span>天
-                <span id='cd_hour_1'><?php echo floor(($count%(3600*24))/3600)?></span>小时
-                <span id='cd_minute_1'><?php echo floor(($count%3600)/60)?></span>分
-                <span id='cd_second_1'><?php echo $count%60?></span>秒                
-            </p>
+          
         </div>
     </div>
 </div>
-<script type="text/javascript">
-var cd_timer = new countdownonline();
-cd_timer.add('1');
-</script>
+
 <!------------------logo 结束-------------------->
 <!------------------导航 开始-------------------->
 <div id="index_nav">
