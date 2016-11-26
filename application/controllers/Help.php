@@ -24,4 +24,24 @@ class HelpController extends PublicController
         $this->getView()->assign('helpCatInfo',$helpCatInfo);
 
     }
+	
+	//change ueditor picture url
+	public function helpurlnnysAction(){
+		return false;
+		$helpModel = new \Library\M('help');
+		$data = $helpModel->select();
+		$newUrl = 'www.nainaiwang.com';
+		$oldUrl = 'new.nainaiwang.com';
+		$helpModel->begintrans();
+		foreach($data as $val){
+			$content = $val['content'];
+			$content = str_replace($oldUrl,$newUrl,$content);
+			$helpModel->data(array('content'=>$content))->where(array('id'=>$val['id']))->update();
+		}
+		$res = $helpModel->commit();
+		if($res){
+			echo 'success';
+		}
+		else echo 'failed';
+	}
 }
