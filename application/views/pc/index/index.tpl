@@ -528,8 +528,11 @@ $(function(){
                                    var text = areatextObj.getAreaText(area_data);
                                    return text;
                             });  
-                            var offerRowHtml = template.render('offerRowTemplate',{data:data});
+							if(data){
+							 var offerRowHtml = template.render('offerRowTemplate',{data:data});
                             $('#offerRowBox').html(offerRowHtml);
+							}
+                           
                         }
                     })
 
