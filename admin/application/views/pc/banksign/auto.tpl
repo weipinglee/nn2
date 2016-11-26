@@ -43,7 +43,7 @@
                                 <input type="checkbox" name="trade_date[]" value="4" {if: in_array(4, $item['trade_date'])} checked {/if}>周四
                                 <input type="checkbox" name="trade_date[]" value="5" {if: in_array(5, $item['trade_date'])} checked {/if}>周五
                                 <input type="checkbox" name="trade_date[]" value="6" {if: in_array(6, $item['trade_date'])} checked {/if}>周六
-                                <input type="checkbox" name="trade_date[]" value="0" {if: in_array(0, $item['trade_date'])} checked {/if}>周日
+                                <input type="checkbox" name="trade_date[]" value="7" {if: in_array(7, $item['trade_date'])} checked {/if}>周日
                             </div>
                         </div>
                     <div class="row cl">

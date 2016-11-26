@@ -79,26 +79,42 @@ class FundController extends UcenterBaseController {
 	//中信银行签约账户
 	public function zxAction(){
 
-
+		$page = safe::filterGet('page','int',1);
 		$startDate = safe::filterGet('startDate','trim','');
 		$endDate = safe::filterGet('endDate','trim','');
-
+ 
 		$zx = new \nainai\fund\zx();
+		$check_sign = $zx->signStatus();
+		if($check_sign !== true) {echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;}
 		$data = $zx->attachAccountInfo($this->user_id);
-		// $balance = $zx->attachBalance($this->user_id);
+
+		$balance = $zx->attachBalance($this->user_id);
 		
 		// $details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
-		$details = $zx->attachOperDetails($this->user_id,$startDate,$endDate);
-		// echo '<pre>';var_dump($details['row']);
+		$details = $zx->attachOperDetails($this->user_id,$page,$startDate,$endDate);
+		
 		if(!$details['row'][1]){
-			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
-			$details['row'] = array($details['row']);
+			if(count($details['row'])>0){
+				$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
+				$details['row']['tranAmt'] = floatval($details['row']['tranAmt']) - floatval($details['row']['pdgAmt']);
+				$details['row'] = array($details['row']);
+				$tmp = (array)$details['row']['memo'];
+				$details['row']['memo'] = $tmp[0];
+			}
+
 		}else{
 			foreach ($details['row'] as $key => &$value) {
 				$value = (array)$value;
+				$value['tranAmt'] = floatval($value['tranAmt']) - floatval($value['pdgAmt']);
 				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['tranType']);
+				$tmp = (array)$value['memo'];
+				$value['memo'] = $tmp[0];
 			}
 		}
+		$page_format = $zx->pageFormat($page,count($details['row']));
+		$this->getView()->assign('page_format',$page_format);
+
+		$this->getView()->assign('page',$page);
 		$this->getView()->assign('balance',$balance);
 		$this->getView()->assign('no',$data['no']);
 		$this->getView()->assign('flow',$details['row']);
@@ -124,6 +140,7 @@ class FundController extends UcenterBaseController {
 				'mail_address'=>safe::filterPost('mail_address'),
 			);
 			$res = $zx->geneAttachAccount($data);
+			
 			die(JSON::encode($res));
 			return false;
 		}else{
@@ -133,10 +150,10 @@ class FundController extends UcenterBaseController {
 	}
 
 	public function zxtxAction(){
-		$t = new M('fund_outcard');
+		$t = new M('user_bank');
 		$bank = $t->where(array('user_id'=>$this->user_id))->getObj();
 		if(!$bank){
-			$this->error('未绑定出金银行卡');
+			$this->error('未设置开户信息',url::createUrl('/fund/bank@user'));
 		}
 		$this->getView()->assign('bank',$bank);
 	}

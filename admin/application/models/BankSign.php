@@ -33,7 +33,7 @@ class BankSignModel{
 		$bank_name = $data['bank_name'];
 		unset($data['bank_name']);
 		$res = $this->setting->where(array('bank_name'=>$bank_name))->data($data)->update();
-		return intval($res)>0 ? tool::getSuccInfo() : tool::getSuccInfo(0,$this->setting->getError());
+		return intval($res)>0 ? tool::getSuccInfo() : ($res == 0 ? tool::getSuccinfo(0,'未修改') : tool::getSuccInfo(0,$this->setting->getError()));
 	}
 
 	/**

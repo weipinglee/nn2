@@ -20,14 +20,18 @@ class BankSignController extends InitController {
 		}else{
 			$res = $sign->getSettings();
 			$bank_sign = $sign->bank_sign();
+
 			foreach ($res as $key => &$value) {
 				foreach ($bank_sign as $k => $v) {
 					if($v['bank_name'] == $value['bank_name']){
 						$value['signin'] = 1;
+						$value['signin_time'] = date('H:i:s',strtotime($v['signin']));
 						$value['signout'] = $v['signout'] ? 1 : 0;
+						if($v['signout']) $value['signout_time'] = date('H:i:s',strtotime($v['signout'])); 
 					}
 				}
 			}
+			$this->getView()->assign('time',date('H:i:s',time()));
 			// echo '<pre>';var_dump($res);exit;
 			$this->getView()->assign('settings',$res);
 		}

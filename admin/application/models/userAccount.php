@@ -18,7 +18,7 @@ class userAccountModel {
 	public function userCreditList($condition=array()){
 		$query = new adminQuery('user_account as a');
 		$query->join = 'left join user as u on a.user_id = u.id';
-		$query->fields = 'a.*,u.username,u.mobile,u.create_time, a.credit,u.id';
+		$query->fields = 'a.*,u.username,u.user_no,u.mobile,u.create_time, a.credit,u.id';
 		
 		if (isset($condition['types']) && $condition['types'] == 1) {
 			$query->where = 'u.type=1';

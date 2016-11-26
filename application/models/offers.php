@@ -181,9 +181,10 @@ class offersModel extends \nainai\offer\product{
         if (empty($order)) {
             $model = new \nainai\offer\ProductSetting();
             $detail = $model->getProductSetting(1);
-
+            $dbName = \Library\tool::getConfig(array('database','master','database'));
+			
             $query->join .= ' LEFT JOIN (select *, (time*' .$detail['time']. '+credit*'.$detail['credit'].') as common from (
-SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_TIMESTAMP(p.apply_time))/86400) / '.$detail['day'].') as time, (100*u.credit)/'.$detail['max_credit'].' as credit FROM nn2.product_offer as p left join user
+SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_TIMESTAMP(p.apply_time))/86400) / '.$detail['day'].') as time, (100*u.credit)/'.$detail['max_credit'].' as credit FROM '.$dbName.'.product_offer as p left join user
  as u ON p.user_id=u.id ) as s ) as cha on o.user_id=cha.user_id';
             $order = 'cha.common desc, o.apply_time desc';
         }

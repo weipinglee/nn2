@@ -528,8 +528,11 @@ $(function(){
                                    var text = areatextObj.getAreaText(area_data);
                                    return text;
                             });  
-                            var offerRowHtml = template.render('offerRowTemplate',{data:data});
+							if(data){
+							 var offerRowHtml = template.render('offerRowTemplate',{data:data});
                             $('#offerRowBox').html(offerRowHtml);
+							}
+                           
                         }
                     })
 
@@ -634,6 +637,7 @@ $(function(){
         </div>
         <!-- 浮动楼层 end -->
 <script type='text/html' id='offerRowTemplate'>
+ <%if (data.length>0) { %>
 <%for (var i=0;i<data.length;i++) { %>
         <li>
             <span class="i_w_1 "><%=data[i].pname%></span>
@@ -649,7 +653,13 @@ $(function(){
             <span class="i_w_3">
                   <%=data[i].mode%>
             </span>
-            <span class="i_w_4" id="area<%=i%>"><%=getAreaText(data[i].produce_area)%></span>
+            <span class="i_w_4" id="area<%=i%>">
+				 <%if (data[i].produce_area) { %>
+				<%=getAreaText(data[i].produce_area)%>
+				 <%}else { %>
+				 未知
+				<% } %>
+			</span>
             <span class="i_w_5"><%=data[i].accept_area%></span>
             <span class="i_w_6"><%=data[i].quantity%></span>
             <span class="i_w_7"><%=data[i].quantity-data[i].sell-data[i].freeze%></span>
@@ -688,5 +698,6 @@ $(function(){
                 <% } %>
                 </span>
         </li>
+<% } %>
 <% } %>
 </script>

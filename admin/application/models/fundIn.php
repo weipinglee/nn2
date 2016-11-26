@@ -91,7 +91,7 @@ class fundInModel{
         $reModel = new adminQuery('recharge_order as r');
         //线上
         $reModel->join = 'left join user as u on r.user_id = u.id';
-        $reModel->fields = 'r.id,r.order_no,r.amount,r.proot,r.pay_type,r.status,r.create_time,u.username,u.mobile,u.type';
+        $reModel->fields = 'r.id,r.order_no,r.amount,r.proot,r.pay_type,r.status,r.create_time,u.username,u.mobile,u.type,u.user_no';
 
         $where = ' r.is_del=0 AND r.pay_type IN (:type) AND r.status in ('.$condition['status'].')';
         $bind = array('type' => $condition['types']);

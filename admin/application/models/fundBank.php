@@ -17,7 +17,7 @@ class fundBankModel extends \nainai\user\UserBank{
         $reModel = new adminQuery($this->table.' as b');
         //线上
         $reModel->join = 'left join user as u on b.user_id = u.id';
-        $reModel->fields = 'b.*, u.username';
+        $reModel->fields = 'b.*, u.username,u.user_no';
         
         $where = ' b.status IN (:status)';
         $bind = array('status' => $condition['status']);
