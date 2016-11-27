@@ -60,7 +60,10 @@ class offersModel extends \nainai\offer\product{
 			$childs = $childdata[0]['getChildLists('.$cateId.')'];
 			$childs = str_replace('$',0,$childs);
 			
-			$memcache->set('getChildLists'.$cateId,$childs,0);
+			$memcache->set('getChildLists'.$cateId,serialize($childs),0);
+		}
+		else{
+			$childs = unserialize($childs);
 		}
 		
 		if($this->offerQuery == null){
@@ -208,17 +211,26 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $childcates = array();
         $childname = '';
         if(isset($condition['pid']) && $condition['pid']>0) {
-            $cates = $this->getChildCate($condition['pid'],0);
-            $childname = $cates[2];
-            $cate_ids = array();
-            $cate_ids[] = $condition['pid'];
-            foreach($cates[0] as $v){
-                $cate_ids[] = $v['id'];
-            }
-            $cate_ids = join(',',$cate_ids);
-            $where .= ' and c.id in ('.$cate_ids.')';
-
-            $childcates = $cates[1];
+			 $memcache=new \Library\cache\Cache(array('type'=>'m','expire'=>0));
+			 $cates = $memcache->get('cates'.$condition['pid']);
+			 if(!$cates){
+				 $cates = $this->getChildCate($condition['pid'],0);
+				$memcache->set('cates'.$condition['pid'],serialize($cates));
+			 }
+			 else{
+				 $cates = unserialize($cates);
+			 }
+			 $childname = $cates[2];
+			$cate_ids = array();
+			$cate_ids[] = $condition['pid'];
+			foreach($cates[0] as $v){
+					$cate_ids[] = $v['id'];
+			}
+			$cate_ids = join(',',$cate_ids);
+			$where .= ' and c.id in ('.$cate_ids.')';
+				
+			$childcates = $cates[1];
+            
 
         }
 
