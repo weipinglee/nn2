@@ -45,7 +45,7 @@ class offersModel extends \nainai\offer\product{
         END
      */
     public function getOfferCategoryList($cateId){
-        $memcache=new \Library\cache\driver\Memcache();
+        $memcache=new \Library\cache\Cache(array('type'=>'m','expire'=>36000));
         $res=$memcache->get('offerCategoryList'.$cateId);
         if($res){
             return unserialize($res);

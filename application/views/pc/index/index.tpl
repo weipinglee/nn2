@@ -3,7 +3,6 @@
 <script type="text/javascript">
 $(function(){
     $('.js_rep_offer .li_select').trigger('click');
-    $('.js_rep_offer .li_select').trigger('click');
 })
 
 </script>
@@ -512,29 +511,24 @@ $(function(){
 
 
                 function showOffers(id,obj){
+					var offerData = {$offerCateList};
                     obj.siblings().removeClass('li_select');
                     obj.addClass('li_select');
                     /*$('[id^=offer]').removeClass('show');
                     $('#offer'+id).addClass('show');*/
-                    $.ajax({
-                        type: "POST",
-                        url: "{url:/index/getCateOfferList}",
-                        data: {id: id},
-                        dataType: "json",
-                        success: function(data){
-                            //$('#offerRowBox').empty();
-                            template.helper('getAreaText', function(area_data){  
-                                   var areatextObj = new Area();
-                                   var text = areatextObj.getAreaText(area_data);
-                                   return text;
-                            });  
-							if(data){
-							 var offerRowHtml = template.render('offerRowTemplate',{data:data});
-                            $('#offerRowBox').html(offerRowHtml);
-							}
+                   
+                    //$('#offerRowBox').empty();
+                    template.helper('getAreaText', function(area_data){  
+                          var areatextObj = new Area();
+                          var text = areatextObj.getAreaText(area_data);
+                           return text;
+                    });  
+					if(offerData[id]){
+						 var offerRowHtml = template.render('offerRowTemplate',{data:offerData[id]});
+                         $('#offerRowBox').html(offerRowHtml);
+					}
                            
-                        }
-                    })
+                      
 
                 }
             </script>
