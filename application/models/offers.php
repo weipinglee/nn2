@@ -10,6 +10,8 @@ use \Library\M;
 class offersModel extends \nainai\offer\product{
 
     private $offer;
+	
+	private $offerQuery = null;
     public function __construct(){
         $this->offer = new M('product_offer');
     }
@@ -50,17 +52,30 @@ class offersModel extends \nainai\offer\product{
         if($res){
             return unserialize($res);
         }
-        $query = new Query('product_offer as a');
-        $query->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,kefu.qq';
-        $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN admin_kefu as kefu on a.kefu = kefu.admin_id';
-     //   $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
-        $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
-        $query->bind = array('cid' => $cateId);
-        $query->order = 'a.apply_time desc';
-        $query->limit = 5;
-		 //$query->cache = 'm'.$cateId;
-/*        $query->fields = 'a.id,a.mode,a.type,a.accept_area,a.price,b.name as pname,b.id as product_id,b.quantity,b.sell,b.freeze,b.unit,b.produce_area,kefu.ser_name,kefu.qq';*/
-        $categoryList= $query->find();
+		
+		$childs = $memcache->get('getChildLists'.$cateId);
+		if(!$childs){
+			$m = new M('product_category_childs');
+			$childdata = $m->query('select getChildLists('.$cateId.')');
+			$childs = $childdata[0]['getChildLists('.$cateId.')'];
+			$childs = str_replace('$',0,$childs);
+			
+			$memcache->set('getChildLists'.$cateId,$childs,0);
+		}
+		
+		if($this->offerQuery == null){
+			$this->offerQuery = new Query('product_offer as a');
+			$this->offerQuery->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,kefu.qq';
+			$this->offerQuery->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN admin_kefu as kefu on a.kefu = kefu.admin_id';
+		 //   $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
+			
+		  
+			$this->offerQuery->order = 'a.apply_time desc';
+			$this->offerQuery->limit = 5;
+		}
+		$this->offerQuery->where = 'b.cate_id in ('.$childs.') and a.status='.self::OFFER_OK.' AND a.expire_time>now() ';
+        $categoryList= $this->offerQuery->find();
+	
         foreach($categoryList as $k=>$v){
             $categoryList[$k]['mode']=$this->getMode($v['mode']);
         }

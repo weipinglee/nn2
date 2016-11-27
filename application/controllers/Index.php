@@ -86,11 +86,12 @@ class IndexController extends PublicController {
                 $allCompanyAd[$k]['content']=\Library\Thumb::getOrigImg($v['content']);
             }
         }
-		
+	
 		//获取交易市场信息
 		$offerList = array();
 		foreach($topCat as $key=>$val){
 			$offerList[$val['id']] = $offer->getOfferCategoryList($val['id']);
+			
 			foreach($offerList[$val['id']] as $k => $v)
 			{
 				$offerList[$val['id']][$k]['produce_area'] = substr($v['produce_area'],0,2);
