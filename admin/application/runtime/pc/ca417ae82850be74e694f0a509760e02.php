@@ -17,16 +17,20 @@
 </head>
 <body>
 
-﻿
+<script type="text/javascript" src="/nn2/admin/views/pc/js/libs/jquery/1.11/jquery.min.js"></script>
+<script type="text/javascript" src="/nn2/admin/views/pc/js/layer/layer.js"></script>
+<script type="text/javascript" src="/nn2/admin/views/pc/js/validform/formacc.js"></script>
         <div id="content" class="white">
-            <h1><img src="/nn2/admin/views/pc/img/icons/posts.png" alt="" /> 仓单管理</h1>
+            <h1><img src="/nn2/admin/views/pc/img/icons/posts.png" alt="" /> 仓库管理</h1>
 <div class="bloc">
     <div class="title">
-        仓单列表
+        待审核出库列表
     </div>
     <div class="content">
         <div class="pd-20">
+	<div class="text-c">
 		
+		 
 <?php if($data['search']!=''){?>
     <?php if( empty($begin)){?>
     <?php $begin=\Library\safe::filterGet('begin');; ?>
@@ -86,46 +90,39 @@
     </form>
 <?php }?>
 
-	 <div class="mt-20">
+	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="checkall" value=""></th>
+				<!-- <th width="25"><input type="checkbox" name="checkall" value=""></th> -->
 				<th width="80">ID</th>
-				<th width="80">商品名称</th>
-				<th width="100">市场分类</th>
-				<th width="150">规格</th>
-				<th width="150">重量</th>
-				<th width="130">仓库</th>
-				<th width="70">状态</th>
+				<th width="100">订单号</th>
+				<th width="100">商品名称</th>
+				<th width="100">所属分类</th>
+				<th width="100">商品数量</th>
+				<th width="100">本轮提货数量</th>
+				<th width="100">订单金额</th>
+				<th width="150">所在仓库</th>
+				<th width="130">提货时间</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php if(!empty($data['list'])) foreach($data['list'] as $key => $item){?>
 			<tr class="text-c">
-				<td><input type="checkbox" value="" name="check"></td>
+				<!-- <td><input type="checkbox" value="" name="check"></td> -->
 				<td><?php echo isset($item['id'])?$item['id']:"";?></td>
-				<td><?php echo isset($item['pname'])?$item['pname']:"";?></td>
-				<td><u style="cursor:pointer" class="text-primary" ><?php echo isset($item['cname'])?$item['cname']:"";?></u></td>
-
-				<td><?php if(!empty($item['attribute'])){?>
-					<?php if(!empty($item['attribute'])) foreach($item['attribute'] as $k => $v){?>
-						<?php echo isset($data['attrs'][$k])?$data['attrs'][$k]:"";?>:<?php echo isset($v)?$v:"";?></br>
-					<?php }?>
-					<?php }?>
-
-				</td>
-				<td><?php echo isset($item['quantity'])?$item['quantity']:"";?></td>
-				<td><?php echo isset($item['sname'])?$item['sname']:"";?></td>
-				<td><?php echo isset($item['status_txt'])?$item['status_txt']:"";?></td>
+				<td><?php echo isset($item['order_no'])?$item['order_no']:"";?></td>
+				<td><?php echo isset($item['product_name'])?$item['product_name']:"";?></td>
+				<td><?php echo isset($item['cate_name'])?$item['cate_name']:"";?></td>
+				<td><?php echo isset($item['num_txt'])?$item['num_txt']:"";?></td>
+				<td><?php echo isset($item['delivery_num_txt'])?$item['delivery_num_txt']:"";?></td>
+				<td><?php echo isset($item['amount'])?$item['amount']:"";?></td>
+				<td><?php echo isset($item['store_name'])?$item['store_name']:"";?></td>
+				<td><?php echo isset($item['delivery_time'])?$item['delivery_time']:"";?></td>
+				
 				<td class="td-manage">
-					<a title="编辑" href="http://localhost/nn2/admin/store/storeproduct/reviewdetails/id/<?php echo $item['id'];?>" class="ml-5" style="text-decoration:none">
-						<i class="icon-edit fa-edit"></i>
-					</a>
-					<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="http://localhost/nn2/admin/store/storeproduct/delete/id/<?php echo $item['id'];?>" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
-
-				</td>
+				 <a title="通过" href="http://localhost/nn2/admin/store/storeorder/storeOrderDetail/id/<?php echo isset($item['delivery_id'])?$item['delivery_id']:"";?>" class="ml-5" style="text-decoration:none">详情</a></td>
 			</tr>
 		<?php }?>
 		</tbody>
@@ -134,6 +131,17 @@
 		<?php echo isset($data['bar'])?$data['bar']:"";?>
 	</div>
 </div>
+<script type="text/javascript">
+	;$(function(){
+		$('.search-admin').click(function(){
+			var name = $(this).siblings('input').val();
+			window.location.href = "http://localhost/nn2/admin/store/storeorder/checkorderList/"+"/name/"+name;
+		});
+	})
+</script>
+
+
+
 
 
 

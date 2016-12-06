@@ -11,7 +11,7 @@
 
 					
                    <div class="checkim">
-                       <h2>确认尾款线下凭证</h2>
+                       <h2>确认线下凭证</h2>
 
 
                        <table class="detail_tab" border="1" cellpadding="0" cellspacing="0" width="100%">

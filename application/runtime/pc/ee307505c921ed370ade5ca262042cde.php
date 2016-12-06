@@ -95,26 +95,26 @@ z-index:1000;">
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="/nn2/views/pc/images/index/icon_index.png"/>
-                <a rel="external nofollow" href="/index/index" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="http://124.166.246.120:8000/user/public/index/index" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
             <?php if(isset($username)){?>您好，
-                <a rel="external nofollow"  href="http://localhost/nn2/user//ucenterindex/index"  target="_blank" class=""><?php echo isset($username)?$username:"";?></a>
+                <a rel="external nofollow"  href="http://localhost/nn2/user/public/ucenterindex/index"  target="_blank" class=""><?php echo isset($username)?$username:"";?></a>
                 <?php }else{?>
                 <span>您好，欢迎进入耐耐网</span>
                 <?php }?>
             </div>
             <?php if($login==0){?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/login" target="_blank" class="topnav_login">请登录</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/login" target="_blank" class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/register" target="_blank">免费注册</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/register" target="_blank">免费注册</a>
             </div>
             <?php }else{?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/logout" target="_blank" class="topnav_login">退出</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/logout" target="_blank" class="topnav_login">退出</a>
             </div>
             <?php }?>
         </div>
@@ -122,14 +122,14 @@ z-index:1000;">
             <ul>
                 <?php if($login!=0){?>
                  <li>
-                   <a href="http://localhost/nn2/user//ucenterindex/index">会员中心</a><span class="line_l">|<span>
+                   <a href="http://localhost/nn2/user/public/ucenterindex/index">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
-                   <a href="http://localhost/nn2/user//contract/buyerlist">我的合同</a><span class="line_l">|<span>
+                   <a href="http://localhost/nn2/user/public/contract/buyerlist">我的合同</a><span class="line_l">|<span>
                 </li>
                 <?php }?>
                 <li>
-                    <a href="http://localhost/nn2/user//message/usermail">消息中心<?php if($login==1&&$mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
+                    <a href="http://localhost/nn2/user/public/message/usermail">消息中心<?php if($login==1&&$mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="/nn2/views/pc/images/index/icon_iphon.png"/>
@@ -475,7 +475,7 @@ z-index:1000;">
                         <li>参考价：<b> <?php echo isset($data['price'])?$data['price']:"";?></b>元/ <?php echo isset($data['unit'])?$data['unit']:"";?> <span class="qianse">（含税）</span></li>
                         <li>总数量： <i><?php echo isset($data['quantity'])?$data['quantity']:"";?></i>  <?php echo isset($data['unit'])?$data['unit']:"";?></li>
                       <li>起订量： <i><?php echo isset($data['minimum'])?$data['minimum']:"";?> </i> <?php echo isset($data['unit'])?$data['unit']:"";?></li>
-                      <li><img src="/nn2/views/pc/images/password/eye_b.png" alt="" /><a id='contract_review' target='_blank' href="http://localhost/nn2/user//contract/contract/offer_id/<?php echo $data['id'];?>/num/<?php echo $data['minimum'];?>" style="color:#3fa5d9;">合同预览</a></li>
+                      <li><img src="/nn2/views/pc/images/password/eye_b.png" alt="" /><a id='contract_review' target='_blank' href="http://localhost/nn2/user/public/contract/contract/offer_id/<?php echo $data['id'];?>/num/<?php echo $data['minimum'];?>" style="color:#3fa5d9;">合同预览</a></li>
                     </ul>
                     
                   <!--  <div class="counter">
@@ -544,15 +544,11 @@ z-index:1000;">
                         </tr>
                         <tr>
                             <td>报盘类型</td>
-                            <td>现货交易</td>
-                        </tr>
-                        <tr>
-                            <td>交易类型</td>
-                            <td>卖盘</td>
-                        </tr>
-                        <tr>
-                            <td>担保类型</td>
                             <td><?php echo isset($data['mode_text'])?$data['mode_text']:"";?></td>
+                        </tr>
+                        <tr>
+                            <td>交易方式</td>
+                            <td>卖盘</td>
                         </tr>
                         <tr>
                             <td>是否投保</td>

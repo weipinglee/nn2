@@ -9,7 +9,7 @@
 					</div>
 					<input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 
-				<form method="post" auto_submit action="{url:/ucenter/doSubAcc}" >
+				<form method="post" auto_submit action="{url:/ucenter/doSubAcc}" redirect_url="{url:/ucenter/subaccList}">
 					<div style="float:left">
 
 						<input type="hidden" name="id" value="{$user['id']}"/>

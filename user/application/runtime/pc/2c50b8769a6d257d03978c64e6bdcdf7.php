@@ -38,26 +38,26 @@
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="/nn2/user/views/pc/images/icon/icon_index.png"/>
-                <a rel="external nofollow" href="/index/index" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="http://124.166.246.120:8000/user/public/index/index" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
             <?php if(isset($username)){?>
-                <a rel="external nofollow"  href="http://localhost/nn2/user//ucenterindex/index"  target="_blank" class="">您好，<?php echo isset($username)?$username:"";?></a>
+                <a rel="external nofollow"  href="http://localhost/nn2/user/public/ucenterindex/index"  target="_blank" class="">您好，<?php echo isset($username)?$username:"";?></a>
                 <?php }else{?>
                 <span>您好，欢迎进入耐耐网</span>
                 <?php }?>
             </div>
             <?php if($login==0){?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/login" target="_blank" class="topnav_login">请登录</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/login" target="_blank" class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/register" target="_blank">免费注册</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/register" target="_blank">免费注册</a>
             </div>
             <?php }else{?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/logout" target="_blank" class="topnav_login">退出</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/logout" target="_blank" class="topnav_login">退出</a>
             </div>
             <?php }?>
         </div>
@@ -65,7 +65,7 @@
             <ul>
                 <?php if($login!=0){?>
                  <li>
-                   <a href="http://localhost/nn2/user//ucenterindex/index">会员中心</a><span class="line_l">|<span>
+                   <a href="http://localhost/nn2/user/public/ucenterindex/index">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
                     <?php if($usertype==1){?>
@@ -77,7 +77,7 @@
                 </li>
                 <?php }?>
                 <li>
-                    <a href="http://localhost/nn2/user//message/usermail">消息中心<?php if($mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
+                    <a href="http://localhost/nn2/user/public/message/usermail">消息中心<?php if($mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="/nn2/user/views/pc/images/icon/icon_iphon.png"/>
@@ -99,7 +99,7 @@
 <div class="header">
 		<div class="nav">
             <div class="logo-box zn-l">
-                <a href="/index/index" alt="返回耐耐首页"><img src="/nn2/user/views/pc/images/icon/nainaiwang.png"/></a></dd>
+                <a href="http://124.166.246.120:8000/user/public/index/index" alt="返回耐耐首页"><img src="/nn2/user/views/pc/images/icon/nainaiwang.png"/></a></dd>
             </div>
 			<div class="nav-tit">
                 <ul class="nav-list">

@@ -35,8 +35,9 @@ class OrderController extends UcenterBaseController{
 			$type = safe::filterPost('payment');//线上or线下
 			$account = safe::filterPost('account');//支付方式
 			$proof = safe::filterPost('imgproof');
-
+			
 			$user_id = $this->user_id;
+
 			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof,$account);
 
 			if($res['success'] == 1){
@@ -57,10 +58,13 @@ class OrderController extends UcenterBaseController{
 
 
 			$seller = $data['type'] == 1 ? $data['seller_id'] : $data['user_id'];
+
 			$bankinfo = $this->order->userBankInfo($seller);
+
 			$data['seller'] = $seller;
 
-			$this->getView()->assign('show_online',$data['mode'] == \nainai\order\Order::ORDER_DEPOSIT || $data['mode'] == \nainai\order\Order::ORDER_STORE || $data['mode'] == \nainai\order\Order::ORDER_PURCHASE ? 1 : 0);
+			$this->getView()->assign('show_online',in_array($data['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0);
+			$this->getView()->assign('total_amount',$data['mode'] == \nainai\order\Order::ORDER_FREE ? 1 : 0);
 			$this->getView()->assign('bankinfo',$bankinfo);
 			$this->getView()->assign('data',$data);
 		}

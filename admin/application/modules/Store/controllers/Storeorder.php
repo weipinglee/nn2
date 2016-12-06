@@ -17,8 +17,11 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		$delivery = new \nainai\delivery\StoreDelivery();
 		
 		$page = safe::filterGet('page','int',1);
-		$name = safe::filter($this->_request->getParam('name'));
-		$data = $delivery->storeOrderList($page,$name ? 'o.order_no like "%'.$name.'%"' : '');
+		$cate_name = safe::filterGet('cate_name');
+
+		$where .= $name ? ' and pc.catename like "%'.$cate_name.'%"' : '';
+		
+		$data = $delivery->storeOrderList($page,$where);
 
 		$this->getView()->assign('data',$data);
 	}

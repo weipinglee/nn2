@@ -21,6 +21,7 @@ class searchQuery extends Query{
         $table = explode(' ',$table);
         $table = $table[0];
         $cond = $this->getWhereCond($table);
+
         $search = '';
         if(!empty($cond)){
             if($cond[0]['where']){
@@ -70,6 +71,7 @@ class searchQuery extends Query{
         if(!$tableName)
             return array();
         $configArr = \conf\searchConfig::config($tableName);
+        
         if(empty($configArr))
             return array();
         $condArr = $search = array();
@@ -112,7 +114,7 @@ class searchQuery extends Query{
         if (!empty($news)) {
             $search['likesval'] = array();
             foreach ($news as $key => $value) {
-                 $tempval = safe::filterGet($value);
+                $tempval = safe::filterGet($value);
                 $search['likesval'][$value] = $tempval;
                 if (!empty($tempval)) {
                     if($cond['where']!='')

@@ -38,26 +38,26 @@
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="/nn2/user/views/pc/images/icon/icon_index.png"/>
-                <a rel="external nofollow" href="/index/index" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="http://124.166.246.120:8000/user/public/index/index" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
             <?php if(isset($username)){?>
-                <a rel="external nofollow"  href="http://localhost/nn2/user//ucenterindex/index"  target="_blank" class="">您好，<?php echo isset($username)?$username:"";?></a>
+                <a rel="external nofollow"  href="http://localhost/nn2/user/public/ucenterindex/index"  target="_blank" class="">您好，<?php echo isset($username)?$username:"";?></a>
                 <?php }else{?>
                 <span>您好，欢迎进入耐耐网</span>
                 <?php }?>
             </div>
             <?php if($login==0){?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/login" target="_blank" class="topnav_login">请登录</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/login" target="_blank" class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/register" target="_blank">免费注册</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/register" target="_blank">免费注册</a>
             </div>
             <?php }else{?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/logout" target="_blank" class="topnav_login">退出</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/logout" target="_blank" class="topnav_login">退出</a>
             </div>
             <?php }?>
         </div>
@@ -65,7 +65,7 @@
             <ul>
                 <?php if($login!=0){?>
                  <li>
-                   <a href="http://localhost/nn2/user//ucenterindex/index">会员中心</a><span class="line_l">|<span>
+                   <a href="http://localhost/nn2/user/public/ucenterindex/index">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
                     <?php if($usertype==1){?>
@@ -77,7 +77,7 @@
                 </li>
                 <?php }?>
                 <li>
-                    <a href="http://localhost/nn2/user//message/usermail">消息中心<?php if($mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
+                    <a href="http://localhost/nn2/user/public/message/usermail">消息中心<?php if($mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="/nn2/user/views/pc/images/icon/icon_iphon.png"/>
@@ -99,7 +99,7 @@
 <div class="header">
 		<div class="nav">
             <div class="logo-box zn-l">
-                <a href="/index/index" alt="返回耐耐首页"><img src="/nn2/user/views/pc/images/icon/nainaiwang.png"/></a></dd>
+                <a href="http://124.166.246.120:8000/user/public/index/index" alt="返回耐耐首页"><img src="/nn2/user/views/pc/images/icon/nainaiwang.png"/></a></dd>
             </div>
 			<div class="nav-tit">
                 <ul class="nav-list">
@@ -172,174 +172,163 @@
             </div>
             <!--end左侧导航-->
             <div id="cont">
-			<!--start中间内容-->	
-
-<script type="text/javascript" src='/nn2/user/js/upload/ajaxfileupload.js'></script>
-<script type="text/javascript" src='/nn2/user/js/upload/upload.js'></script>
-			<div class="user_c">
-				<div class="user_zhxi">
-					<div class="zhxi_tit">
-						<p><a>资金管理</a>><a>开户信息管理</a></p>
-					</div>
-					<div id="bank1" <?php if( $status!='未申请'){?>style="display: none"<?php }?>>
-
-						<form action="http://localhost/nn2/user/fund/bank" enctype="multipart/form-data" method='post' auto_submit>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>开户状态：</span>
-								<span class="con_con"><?php echo isset($status)?$status:"";?></span>
-
-
+<style type="text/css">
+	.node_tree li {float: left;text-decoration: none;list-style: none;}
+	.clearfix{clear: left;}
+	.node_tree .v1{background-color: #F4F2F2;margin:5px 10px;padding: 10px 10px;padding-top:9px;color: #666;border-radius: 3px;font-size: 16px;}
+	.node_tree .v2{text-indent: 2em;font-weight: bolder;padding: 5px 10px;font-size: 14px;}
+	.node_tree .v2 span{font-size: 14px;}
+	.node_tree .v3{padding-left: 50px;}	
+	.node_tree .v3 .ins{font-size: 14px;line-height: 35px;}
+	.v3_li{position: relative;padding-left: 25px;font-size: 14px;}
+	b.del{cursor: pointer;}
+	input.btn-primary{
+		background: #d61515;
+		color: #fff;
+		border: 1px solid #d61515;
+		font-size: 16px;
+		padding: 8px 30px;
+		margin: 5px 10px;
+		cursor: pointer;
+		margin-left: 105px;
+	}
+</style>
+<div class="user_c">
+	<div class="user_zhxi">
+		<div class="zhxi_tit">
+			<p><?php echo isset($navi)?$navi:"";?></p>
+		</div>
+		<div class="xx_center">
+		<form action="http://localhost/nn2/user/ucenter/subaccpow" method="post" class="form form-horizontal" id="form-access-add" no_redirect="1" auto_submit>
+			<div class='node_tree' style="font-size:16px;">
+				<input type="hidden" name="id" value="<?php echo isset($roleInfo['id'])?$roleInfo['id']:"";?>" />
+				<?php if(!empty($lists)) foreach($lists as $k => $item){?>
+				<!-- 模块 -->
+				<div class='root'>
+					<div class='v1'><input type="checkbox" name="menuIds[]" value="<?php echo isset($item['id'])?$item['id']:"";?>" <?php if( !empty($roleInfo['gid']) && in_array($item['id'],$roleInfo['gid'])){?>checked='checked'<?php }?>/>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo isset($item['title'])?$item['title']:"";?></div>
+					<?php if(!empty($item['list'])) foreach($item['list'] as $k1 => $v1){?>
+					<!-- 控制器 -->
+						<div class='controller'>
+							<div class='v2'><input type="checkbox" name="menuIds[]" value="<?php echo isset($v1['id'])?$v1['id']:"";?>" <?php if( !empty($roleInfo['gid']) && in_array($v1['id'],$roleInfo['gid'])){?>checked='checked'<?php }?>/>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo isset($v1['title'])?$v1['title']:"";?>
 							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>开户银行：</span>
-								<span><input class="text" type="text" datatype="s2-50" nullmsg="填写开户行" name="bank_name" value="<?php echo isset($bank['bank_name'])?$bank['bank_name']:"";?>"></span>
-								<span></span>
-
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>银行卡类型：</span>
-								<span><select class="text" type="text" name="card_type" datatype="n1-2" style="width:250px;">
-										<?php if(!empty($type)) foreach($type as $key => $item){?>
-										<option value="<?php echo isset($key)?$key:"";?>" <?php if($key==$bank['card_type']){?>selected<?php }?>><?php echo isset($item)?$item:"";?></option>
-										<?php }?>
-										</select>
-								</span>
-								<span></span>
+							<div class='v3'>
+								<?php if(!empty($v1['list'])) foreach($v1['list'] as $k2 => $v2){?>
+									<ul>
+									<div class='ins'><input type="checkbox" <?php if( !empty($roleInfo['gid']) && in_array($v2['id'],$roleInfo['gid'])){?>checked='checked'<?php }?> name="menuIds[]" value="<?php echo isset($v2['id'])?$v2['id']:"";?>" />&nbsp;&nbsp;&nbsp;&nbsp;[<?php echo isset($v2['title'])?$v2['title']:"";?>]</div>
+									<!-- action -->
+									<?php if(!empty($v2['list'])) foreach($v2['list'] as $key => $v3){?>
+										<li class='v3_li'>
+											<input type="checkbox" name="menuIds[]" value="<?php echo isset($v3['id'])?$v3['id']:"";?>"  <?php if( !empty($roleInfo['gid']) && in_array($v3['id'],$roleInfo['gid'])){?>checked='checked'<?php }?>/>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo isset($v3['title'])?$v3['title']:"";?>
+										</li>
+									<?php }?>
+									</ul>	
+									<div class='clearfix'></div>
+								<?php }?>
 								
 							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i><?php if( $user_type==1){?>公司名称：<?php }else{?>姓名：<?php }?></span>
-								<span><input class="text" type="text" datatype="s2-20" name="true_name" value="<?php echo isset($bank['true_name'])?$bank['true_name']:"";?>"></span>
-								<span></span>
-							</div>
-							<?php if($user_type!=1){?>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>身份证：</span>
-								<span>
-									<input class="text" type="text" name="identify" datatype="/^\d{15,18}$/i" value="<?php echo isset($bank['identify_no'])?$bank['identify_no']:"";?>" >
-								</span>
-								<span></span>
-								
-							</div>
-							<?php }?>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>银行账号：</span>
-								<span><input class="text" type="text" name="card_no" datatype="/^[0-9a-zA-Z]{8,30}$/i" value="<?php echo isset($bank['card_no'])?$bank['card_no']:"";?>" errormsg='请填写8-30位数字或字母'></span>
-								<span></span>
-								
-							</div>
-							<?php if($user_type!=1){?>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>银行卡正面： </span>
-								<span>
-									 <input type="hidden" name="uploadUrl"  value="http://localhost/nn2/user/fund/upload" />
-                        			<span class="input-file" style="top:0;">选择文件<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></span>
-
-								</span>
-							</div>
-								<?php }else{?>
-								<div class="zhxi_con">
-									<span class="con_tit"><i>*</i>请上传公司的银行许可证： </span>
-								<span>
-									 <input type="hidden" name="uploadUrl"  value="http://localhost/nn2/user/fund/upload" />
-                        			 <span class="input-file" style="top:0;">选择文件<input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></span>
-								</span>
-									<p class="con_title"></p>
-								</div>
-							<?php }?>
-							 <div class="zhxi_con">
-								 <span  class="con_tit">图片预览：</span>
-								 <span>
-									 <img name="file2" src="<?php echo isset($bank['proof_thumb'])?$bank['proof_thumb']:"";?>"/>
-					                    <input type="hidden" name="imgfile2" value="<?php echo isset($bank['proof'])?$bank['proof']:"";?>" />
-								 </span>
-
-
-					          </div>
-							<div class="zhxi_con">	
-								<span><input class="submit_zz" type="submit" value="提交"></span>
-							</div>
-						</form>
-					</div>
-					<div id="bank2" <?php if( $status=='未申请'){?> style="display: none" <?php }?>>
-                            <div class="zhxi_con">
-                                <span class="con_tit"><i>*</i>开户状态：</span>
-                                <span class="con_con"><?php echo isset($status)?$status:"";?></span>
-
-
-                            </div>
-                            <?php if($bank['message']){?>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>审核意见：</span>
-								<span class="con_con"><?php echo isset($bank['message'])?$bank['message']:"";?></span>
-
-
-							</div>
-                            <?php }?>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>开户银行：</span>
-								<span class="con_con"><?php echo isset($bank['bank_name'])?$bank['bank_name']:"";?></span>
-								<span></span>
-
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>银行卡类型：</span>
-								<span class="con_con"><?php echo isset($type[$bank['card_type']])?$type[$bank['card_type']]:"";?></span>
-
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i><?php if( $user_type==1){?>公司名称：<?php }else{?>姓名：<?php }?></span>
-								<span class="con_con"><?php echo isset($bank['true_name'])?$bank['true_name']:"";?></span>
-								<span></span>
-							</div>
-							<?php if( $user_type!=1){?>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>身份证：</span>
-								<span class="con_con">
-									<?php echo isset($bank['identify_no'])?$bank['identify_no']:"";?>
-								</span>
-								<span></span>
-
-							</div>
-							<?php }?>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>银行账号：</span>
-								<span class="con_con"><?php echo isset($bank['card_no'])?$bank['card_no']:"";?>
-								<span></span>
-
-							</div>
-						<?php if($user_type!=1){?>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>打款凭证： </span>
-								<span class="con_tit">
-									<img name="file2" src="<?php echo isset($bank['proof_thumb'])?$bank['proof_thumb']:"";?>"/>
-
-								</span>
-							</div>
-							<?php }else{?>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>公司的银行许可证： </span>
-								<span class="con_tit">
-									<img name="file2" src="<?php echo isset($bank['proof_thumb'])?$bank['proof_thumb']:"";?>"/>
-
-								</span>
-							</div>
-						<?php }?>
-							<div class="zhxi_con"  style="cursor:hand;clear:both;">
-								<span><input class="submit_zz" type="button" id="bankBtn" value="修改" ></span>
-							</div>
-					</div>
-				
-					<div style="clear:both;"></div>
+							<div class='clearfix'></div>
+						</div>
+					<?php }?>
 				</div>
+				<?php }?>
 			</div>
-			<script type="text/javascript">
-				$('#bankBtn').click(function(){
-					$('#bank2').css('display','none');
-					$('#bank1').css('display','block');
+			<div class="col-9 col-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="提交">
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	;$(function(){
+		$(".ins").each(function(){
+			var _this = this;
+			$(this).siblings("li").each(function(i){
+				var bo = $(this).find(":checkbox").is(":checked");
+				if(bo){
+					$(_this).find(":checkbox").prop("checked",true);
+				}
+			});
+		});
+
+
+		$('.v1 :checkbox').unbind('click').click(function(){
+			$(this).parent().siblings('.controller').find('.v3 :checkbox,.v2 :checkbox').prop("checked",this.checked);
+		});
+
+		$('.v2 :checkbox').click(function(){
+			$(this).parents('.controller').find('.v3 :checkbox').prop("checked",this.checked);
+			if($(this).is(":checked")){
+				$(this).parents('.root').find('.v1 :checkbox').prop('checked',true);
+			}
+		});
+
+		$('.v3 li :checkbox').click(function(){
+			if($(this).is(":checked")){
+				$(this).parents('.controller').find('.v2 :checkbox').prop('checked',true);
+				$(this).parents('.root').find('.v1 :checkbox').prop('checked',true);
+				$(this).parents('ul').find('.ins :checkbox').prop('checked',true);
+			}
+		});
+
+		$('.ins :checkbox').click(function(){
+			$(this).parents('ul').find(':checkbox').prop("checked",this.checked);
+			if($(this).is(":checked")){
+				$(this).parents('.root').find('.v1 :checkbox').prop('checked',true);
+				$(this).parents('.v3').siblings('.v2').find(':checkbox').prop('checked',true);
+			}
+		});
+
+		var url = "http://localhost/nn2/user/system/rbac/accessList/";
+		//切换角色
+		$('.roles').change(function(){
+			var role_id = $(this).val();
+			var rec_url = url+'?role_id='+role_id;
+			window.location.href=rec_url;
+		});
+
+
+
+		$('b.del').click(function(){
+			var _this = $(this);
+			var url = "http://localhost/nn2/user/system/rbac/nodedel";
+			layer.confirm('确认删除',{
+				shade:false
+			},function(){
+				layer.closeAll();
+				layer.load(2);
+				var node_id = _this.attr('node_id');
+
+				$.ajax({
+					type:'post',
+					data:{node_id:node_id},
+					url:url,
+					success:function(data){
+						layer.closeAll();
+						
+						if(data.success == 1){
+							window.location.reload();
+						}else{
+							layer.msg(data.info);
+						}
+
+					},
+					error:function(){
+						layer.closeAll();
+						layer.msg('服务器错误');
+					},
+					dataType:'json'
 				});
-			</script>
-	<!--end中间内容-->		
+			});
+		});
+	})
+
+</script>
+
+
+
+
+
 
 </div>
 

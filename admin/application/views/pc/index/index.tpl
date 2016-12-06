@@ -120,6 +120,7 @@
                         </li>-->
 
                         <li><a href="{url:member/usergroup/groupList}" target="content">会员等级</a></li>
+                        <li><a href="{url:member/payUserGroup/groupList}" target="content">收费会员等级</a></li>
                         <li><a target="content">会员管理</a>
                             <ul>
                                 <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>

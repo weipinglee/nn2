@@ -38,26 +38,26 @@
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="/nn2/user/views/pc/images/icon/icon_index.png"/>
-                <a rel="external nofollow" href="/index/index" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="http://124.166.246.120:8000/user/public/index/index" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
             <?php if(isset($username)){?>
-                <a rel="external nofollow"  href="http://localhost/nn2/user//ucenterindex/index"  target="_blank" class="">您好，<?php echo isset($username)?$username:"";?></a>
+                <a rel="external nofollow"  href="http://localhost/nn2/user/public/ucenterindex/index"  target="_blank" class="">您好，<?php echo isset($username)?$username:"";?></a>
                 <?php }else{?>
                 <span>您好，欢迎进入耐耐网</span>
                 <?php }?>
             </div>
             <?php if($login==0){?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/login" target="_blank" class="topnav_login">请登录</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/login" target="_blank" class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/register" target="_blank">免费注册</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/register" target="_blank">免费注册</a>
             </div>
             <?php }else{?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/logout" target="_blank" class="topnav_login">退出</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/logout" target="_blank" class="topnav_login">退出</a>
             </div>
             <?php }?>
         </div>
@@ -65,7 +65,7 @@
             <ul>
                 <?php if($login!=0){?>
                  <li>
-                   <a href="http://localhost/nn2/user//ucenterindex/index">会员中心</a><span class="line_l">|<span>
+                   <a href="http://localhost/nn2/user/public/ucenterindex/index">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
                     <?php if($usertype==1){?>
@@ -77,7 +77,7 @@
                 </li>
                 <?php }?>
                 <li>
-                    <a href="http://localhost/nn2/user//message/usermail">消息中心<?php if($mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
+                    <a href="http://localhost/nn2/user/public/message/usermail">消息中心<?php if($mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="/nn2/user/views/pc/images/icon/icon_iphon.png"/>
@@ -99,7 +99,7 @@
 <div class="header">
 		<div class="nav">
             <div class="logo-box zn-l">
-                <a href="/index/index" alt="返回耐耐首页"><img src="/nn2/user/views/pc/images/icon/nainaiwang.png"/></a></dd>
+                <a href="http://124.166.246.120:8000/user/public/index/index" alt="返回耐耐首页"><img src="/nn2/user/views/pc/images/icon/nainaiwang.png"/></a></dd>
             </div>
 			<div class="nav-tit">
                 <ul class="nav-list">
@@ -171,106 +171,60 @@
                 <?php }?>
             </div>
             <!--end左侧导航-->
-            <div id="cont">
+            <div id="cont"><!--start中间内容-->	
+<div class="user_c_list">
+	<div class="user_zhxi">
+		<div class="zhxi_tit">
+			<p><a>交易管理</a>><a>提单管理</a></p>
+		</div>
+		<div class="chp_xx">
+			
+			<table class="sjxx">
+				<tr class="sj_detal">
+					<th class="sj_ti_tit">提单号</th>
+					<th class="sj_ti_tit">品名</th>
+					<th class="sj_ti_tit">数量</th>
+					<th class="sj_ti_tit">仓库</th>
+					<th class="sj_ti_tit">订单号</th>
+					<th class="sj_ti_tit">日期</th>
+					<th class="sj_ti_tit">状态</th>
+					<th class="sj_ti_tit">操作</th>								
+				</tr>
+				<?php if(!empty($data)) foreach($data as $key => $item){?>
+				<tr class="sj_detal">
+					<td><?php echo isset($item['delivery_id'])?$item['delivery_id']:"";?></td>
+					<td><?php echo isset($item['name'])?$item['name']:"";?></td>
+					<td><?php echo isset($item['delivery_num'])?$item['delivery_num']:"";?><?php echo isset($item['unit'])?$item['unit']:"";?></td>
+					<td><?php echo isset($item['store_name'])?$item['store_name']:"";?></td>
+					<td><a href="http://localhost/nn2/user/contract/sellerdetail/id/<?php echo $item['id'];?>"><?php echo isset($item['order_no'])?$item['order_no']:"";?></a></td>
+					<td><?php echo isset($item['delivery_time'])?$item['delivery_time']:"";?></td>
+					<td style="color:#079207;"><?php echo isset($item['title'])?$item['title']:"";?></td>
+					<td>
+						<?php if(!empty($item['action'])) foreach($item['action'] as $key => $v){?>
+							<a href="<?php echo isset($v['url'])?$v['url']:"";?>" <?php if($v['confirm']){?>confirm=1<?php }?>><?php echo isset($v['name'])?$v['name']:"";?></a>&nbsp;
+						<?php }?>
+					</td>
+				</tr>
+				<?php }?>
+			</table>
+			
+		</div>
+		<div class="page_num">
+			<!-- 共0条记录&nbsp;当前第<font color="#FF0000">1</font>/0页&nbsp;
+			<a href="#">第一页</a>&nbsp;
+			<a href="#">上一页</a>&nbsp;
+			<a href="#">下一页</a>&nbsp;
+			<a href="#">最后页</a>&nbsp; 
+			跳转到第 <input name="pagefind" id="pagefind" type="text" style="width:20px;font-size: 12px;" maxlength="5" value="1"> 页 
+			<a><span class="style1">确定</span></a> -->
 
-			<div class="user_c">
-				<div class="user_zhxi">
-					<div class="zhxi_tit">
-						<p><a>账户管理</a>><a>开票信息管理</a></p>
-					</div>
-					<div <?php if( empty($data)){?>style="display:block"<?php }else{?>style="display: none" <?php }?> id="invoice1">
+			<?php echo isset($page)?$page:"";?>
+		</div>
+	</div>
+</div>
+<!--end中间内容-->
 
-						<form action="http://localhost/nn2/user/ucenter/invoice" method="post" auto_submit >
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>发票抬头：</span>
-								<span><input class="text" type="text" name="title" value="<?php echo isset($data['title'])?$data['title']:"";?>" datatype="s2-30" errormsg="格式错误">
-                                </span>
-                                <span></span>
-
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>纳税人识别号：</span>
-								<span><input class="text" type="text" name="tax_no" value="<?php echo isset($data['tax_no'])?$data['tax_no']:"";?>" datatype="/^[a-zA-Z0-9_]{15,20}$/" errormsg="格式错误">
-								</span>
-                                <span></span>
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>地址：</span>
-								<span><input class="text" type="text" name="address" value="<?php echo isset($data['address'])?$data['address']:"";?>" datatype="*2-40" errormsg="格式错误">
-								</span>
-                                <span></span>
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>电话：</span>
-								<span><input class="text" type="text" name="tel" value="<?php echo isset($data['phone'])?$data['phone']:"";?>" datatype="/^[0-9\-]{6,15}$/" errormsg="格式错误">
-								</span>
-                                <span></span>
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>开户行：</span>
-								<span><input class="text" type="text" name="bankName" value="<?php echo isset($data['bank_name'])?$data['bank_name']:"";?>" datatype="s2-20" errormsg="格式错误" >
-								</span>
-                                <span></span>
-							</div>
-                            <div class="zhxi_con">
-                                <span class="con_tit"><i>*</i>银行账户：</span>
-								<span><input class="text" type="text" name="bankAccount" value="<?php echo isset($data['bank_no'])?$data['bank_no']:"";?>" datatype="s13-19" errormsg="格式错误">
-								</span>
-                                <span></span>
-                            </div>
-							<div class="zhxi_con">	
-								<span><input class="submit_zz" type="submit" value="保存"></span>
-							</div>
-						</form>
-					</div>
-					<div style="clear:both;"></div>
-					<div <?php if(!empty($data)){?>style="display:block"<?php }else{?>style="display: none"<?php }?> id="invoice2">
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>发票抬头：</span>
-								<span class="con_con"><?php echo isset($data['title'])?$data['title']:"";?>
-                                </span>
-								<span></span>
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>纳税人识别号：</span>
-								<span class="con_con"><?php echo isset($data['tax_no'])?$data['tax_no']:"";?></span>
-								<span></span>
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>地址：</span>
-								<span class="con_con"><?php echo isset($data['address'])?$data['address']:"";?></span>
-								<span></span>
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>电话：</span>
-								<span class="con_con"><?php echo isset($data['phone'])?$data['phone']:"";?></span>
-								<span></span>
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>开户行：</span>
-								<span class="con_con"><?php echo isset($data['bank_name'])?$data['bank_name']:"";?></span>
-								<span></span>
-							</div>
-							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>银行账户：</span>
-								<span class="con_con"><?php echo isset($data['bank_no'])?$data['bank_no']:"";?></span>
-								<span></span>
-							</div>
-							<div class="zhxi_con">
-								<span><input class="submit_zz" type="button" value="修改" onclick="changeDiv()"></span>
-							</div>
-					</div>
-				
-					<div style="clear:both;"></div>
-				</div>
-			</div>
-<script type="text/javascript">
-	function changeDiv(){
-		$('#invoice2').css('display','none');
-		$('#invoice1').css('display','block');
-	}
-
-</script></div>
+</div>
 
 				<!--end中间内容-->	
 			

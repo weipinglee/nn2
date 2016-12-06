@@ -42,8 +42,10 @@ class MemberController extends InitController {
 			$yewu = new YewuModel();
 			$yewuData = $yewu->getAllkefu();
 			$usergroupModel = new UsergroupModel();
+			$payusergroupModel = new PayUsergroupModel();
 			$member = new \nainai\member();
 			$this->getView()->assign('group_list',$usergroupModel->getList());
+			$this->getView()->assign('pay_group_list',$payusergroupModel->getAllList());
 			$this->getView()->assign('group_name',$member->getUserGroup($user['id']));
 			$this->getView()->assign('user',$user);
 			$this->getView()->assign('yewu',$yewuData);

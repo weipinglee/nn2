@@ -103,15 +103,11 @@
                         </tr>
                         <tr>
                             <td>报盘类型</td>
-                            <td>现货交易</td>
-                        </tr>
-                        <tr>
-                            <td>交易类型</td>
-                            <td>卖盘</td>
-                        </tr>
-                        <tr>
-                            <td>担保类型</td>
                             <td>{$data['mode_text']}</td>
+                        </tr>
+                        <tr>
+                            <td>交易方式</td>
+                            <td>卖盘</td>
                         </tr>
                         <tr>
                             <td>是否投保</td>

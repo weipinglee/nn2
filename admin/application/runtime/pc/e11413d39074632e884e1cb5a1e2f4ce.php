@@ -127,10 +127,6 @@
                              <?php if(!empty($group_list['data'])) foreach($group_list['data'] as $key => $item){?>
                                  <option value="<?php echo isset($item['id'])?$item['id']:"";?>" <?php if($group_name['group_name']==$item['group_name']){?>selected="true"<?php }?>><?php echo isset($item['group_name'])?$item['group_name']:"";?></option>
                              <?php }?>
-                             <option value="vip1" <?php if($user['vip']==1){?>selected="true"<?php }?>>收费会员1</option>
-                             <option value="vip2" <?php if($user['vip']==2){?>selected="true"<?php }?>>收费会员2</option>
-                             <option value="vip3" <?php if($user['vip']==3){?>selected="true"<?php }?>>收费会员3</option>
-                             <option value="vip4" <?php if($user['vip']==4){?>selected="true"<?php }?>>收费会员4</option>
                              
                          </select>
                         
@@ -139,6 +135,27 @@
                      
                  </th>
              </tr>
+
+             <tr>
+                 <th>变更收费会员等级</th>
+                 <th scope="col" colspan="7">
+                     <form action="http://localhost/nn2/admin/member/member/groupupd" method="post" auto_submit redirect_url="http://localhost/nn2/admin/member/member/memberlist" id='groupUpd'>
+                         <input type="hidden" name="user_id" value="<?php echo isset($user['id'])?$user['id']:"";?>" />
+                         <select name="id" datatype="*">
+                             <option value="0">请选择收费会员等级</option>
+                            <option value="vip0" <?php if(!$user['vip']){?>selected="true"<?php }?>>无</option>
+                             <?php if(!empty($pay_group_list)) foreach($pay_group_list as $key => $item){?>
+                                <option value="vip<?php echo isset($item['id'])?$item['id']:"";?>" <?php if($user['vip']==$item['id']){?>selected="true"<?php }?>><?php echo isset($item['group_name'])?$item['group_name']:"";?></option>
+                             <?php }?>
+                             
+                         </select>
+                        
+                         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;确认&nbsp;&nbsp;">
+                     </form>
+                     
+                 </th>
+             </tr>
+
              <tr>
                 <td colspan="8">
                   <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>  

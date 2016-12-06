@@ -56,7 +56,7 @@
                 <a href="#"><?php echo isset($info['name'])?$info['name']:"";?></a>
                 |
                 <a href="http://localhost/nn2/admin/login/logout">退出</a>
-                <a href="/index/index">返回网站首页</a>
+                <a href="http://124.166.246.120:8000/user/public/index/index">返回网站首页</a>
                 <a name='clearCache' href="javascript:void(0)" onclick="clearCache('http://localhost/nn2/admin/index/clearcache')">清除缓存</a>
                 <a name='clearCache' href="http://localhost/nn2/admin/system/admin/comadminpwd/id/<?php echo $info['id'];?>" target="content">修改密码</a>
 
@@ -139,6 +139,7 @@
                         </li>-->
 
                         <li><a href="http://localhost/nn2/admin/member/usergroup/grouplist" target="content">会员等级</a></li>
+                        <li><a href="http://localhost/nn2/admin/member/payusergroup/grouplist" target="content">收费会员等级</a></li>
                         <li><a target="content">会员管理</a>
                             <ul>
                                 <li><a href="http://localhost/nn2/admin/member/member/memberlist" target="content">会员列表</a></li>

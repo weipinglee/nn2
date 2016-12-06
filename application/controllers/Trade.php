@@ -108,7 +108,7 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['user_id'] = $user_id;
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
-
+		
 		//设置保险信息到合同里面
 		if ($detail['insurance'] == 1) {//投保产品
 			$orderData['risk'] = $detail['risk'];
@@ -133,7 +133,7 @@ class tradeController extends \nainai\controller\Base {
 			}
 		}
 
-
+		
 		$order = new M('order_sell');
 		try {
 			$order->beginTrans();

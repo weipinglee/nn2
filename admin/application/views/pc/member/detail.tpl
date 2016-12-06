@@ -97,10 +97,6 @@
                              {foreach:items=$group_list['data']}
                                  <option value="{$item['id']}" {if:$group_name['group_name']==$item['group_name']}selected="true"{/if}>{$item['group_name']}</option>
                              {/foreach}
-                             <option value="vip1" {if:$user['vip']==1}selected="true"{/if}>收费会员1</option>
-                             <option value="vip2" {if:$user['vip']==2}selected="true"{/if}>收费会员2</option>
-                             <option value="vip3" {if:$user['vip']==3}selected="true"{/if}>收费会员3</option>
-                             <option value="vip4" {if:$user['vip']==4}selected="true"{/if}>收费会员4</option>
                              
                          </select>
                         
@@ -109,6 +105,27 @@
                      
                  </th>
              </tr>
+
+             <tr>
+                 <th>变更收费会员等级</th>
+                 <th scope="col" colspan="7">
+                     <form action="{url:member/member/groupUpd}" method="post" auto_submit redirect_url="{url:member/member/memberlist}" id='groupUpd'>
+                         <input type="hidden" name="user_id" value="{$user['id']}" />
+                         <select name="id" datatype="*">
+                             <option value="0">请选择收费会员等级</option>
+                            <option value="vip0" {if:!$user['vip']}selected="true"{/if}>无</option>
+                             {foreach:items=$pay_group_list}
+                                <option value="vip{$item['id']}" {if:$user['vip']==$item['id']}selected="true"{/if}>{$item['group_name']}</option>
+                             {/foreach}
+                             
+                         </select>
+                        
+                         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;确认&nbsp;&nbsp;">
+                     </form>
+                     
+                 </th>
+             </tr>
+
              <tr>
                 <td colspan="8">
                   <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>  

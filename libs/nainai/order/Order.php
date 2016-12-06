@@ -414,7 +414,7 @@ class Order{
 				$amount = floatval($info['amount']);
 				$buyerDeposit = floatval($info['pay_deposit']);
 				$retainage = $amount - $buyerDeposit;
-				$sim_oper = in_array($info['mode'],array(self::ORDER_ENTRUST,self::ORDER_FREE));
+				$sim_oper = in_array($info['mode'],array(self::ORDER_FREE));
 				if($retainage>0){
 					try {
 						$this->order->beginTrans();
@@ -423,21 +423,24 @@ class Order{
 						$payment = $sim_oper ? 'offline' : $payment;
 						//自由与委托报盘只接受线下凭证
 						$mess = new \nainai\message($seller);
-						
+						// var_dump($retainage);exit;
 						if($payment == 'online'){
 							//冻结买家帐户余额
 							$orderData['pay_retainage'] = $retainage;
-							$orderData['contract_status'] = self::CONTRACT_EFFECT;//payment为1  合同状态置为生效
+							$orderData['contract_status'] = $info['mode'] == self::ORDER_ENTRUST ? self::CONTRACT_COMPLETE : self::CONTRACT_EFFECT;//payment为1  合同状态置为生效 委托报盘则置为已完成
 							// $orderData['retainage_clientid'] = $account == self::PAYMENT_BANK ? $clientID : '';
 							$upd_res = $this->orderUpdate($orderData);
 							if($upd_res['success'] == 1){
 								$log_res = $this->payLog($order_id,$user_id,0,'买家线上支付尾款');
 								
 								// $mess->send('buyerRetainage',$info['order_no']);
-								
 								$mess_buyer = new \nainai\message($buyer);
-								$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
-								$content = '(合同'.$info['order_no'].'已生效，您可以申请提货了。)'.$jump_url;
+								if($info['mode'] == self::ORDER_ENTRUST){
+									$content = '(合同'.$info['order_no'].'买家已支付尾款，合同已结束，请您关注资金动态。)';
+								}else{
+									$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
+									$content = '(合同'.$info['order_no'].'已生效，您可以申请提货了。)'.$jump_url;
+								}
 								$mess_buyer->send('common',$content);
 								$res = $log_res;
 							}else{
@@ -1070,8 +1073,8 @@ class Order{
 			$value['account'] = number_format(floatval($value['amount']) - floatval($value['reduce_amount']),2);
 			$value['amount'] = number_format(floatval($value['amount']),2);
 			$value['num'] = number_format(floatval($value['num']),2);
-			$value['buyer_name'] = $value['mode_txt'] == '卖盘' ? $value['do_username'] : $value['po_username'];
-			$value['seller_name'] = $value['mode_txt'] == '卖盘' ? $value['po_username'] : $value['do_username'];
+			$value['buyer_name'] = $value['mode'] == \nainai\offer\product::TYPE_SELL ? $value['do_username'] : $value['po_username'];
+			$value['seller_name'] = $value['mode'] == \nainai\offer\product::TYPE_SELL ? $value['po_username'] : $value['do_username'];
 		}
 		$query->downExcel($data['list'], 'order_sell', '合同列表');
 		// tool::pre_dump($data['list'][0]);exit;
@@ -1340,7 +1343,7 @@ class Order{
 					break;
 				case self::CONTRACT_BUYER_RETAINAGE:
 					if(empty($value['proof'])){
-						$title = '等待支付尾款';
+						$title = $value['mode'] == self::ORDER_FREE ? '等待支付全款' : '等待支付尾款';
 					}else{
 						$title = '确认线下凭证';
 						$href  = url::createUrl('/Order/confirmProofPage?order_id='.$value['id']);

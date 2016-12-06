@@ -11,9 +11,9 @@
 
 					
                    <div class="checkim">
-                       <h2>核对支付尾款信息</h2>
+                       <h2>核对支付{if:$total_amount}全款{else:}尾款{/if}信息</h2>
 
-
+                      
                        <table class="detail_tab" border="1" cellpadding="0" cellspacing="0" width="100%">
                         <tbody><tr class="detail_title">
                           <td colspan="10"><strong>订单详情</strong></td>

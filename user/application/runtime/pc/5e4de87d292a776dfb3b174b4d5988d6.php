@@ -12,7 +12,7 @@
   <div class="login_top">
     <ul class="w1200">
       <ul class="topnav_left">
-        <li><a href="/index/index"><img class="shouy" src="/nn2/user/views/pc/images/password/shouy.png"><span class="inde_txt">耐耐网首页</span></a></li>
+        <li><a href="http://124.166.246.120:8000/user/public/index/index"><img class="shouy" src="/nn2/user/views/pc/images/password/shouy.png"><span class="inde_txt">耐耐网首页</span></a></li>
         <li class="space">您好，欢迎进入耐耐网</li>
         <li><a href="http://localhost/nn2/user/login/login">请登录</a></li>
         <li><a href="http://localhost/nn2/user/login/register">欢迎注册</a></li>

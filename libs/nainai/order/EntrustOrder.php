@@ -30,9 +30,9 @@ class entrustOrder extends Order{
 		if($offer_exist === false) return tool::getSuccInfo(0,'报盘不存在或未通过审核');
 
 		$offer_info = $this->offerInfo($orderData['offer_id']);
-		if($offer_info['user_id'] == $orderData['user_id']){
-			return tool::getSuccInfo(0,'买方卖方为同一人');
-		}
+		// if($offer_info['user_id'] == $orderData['user_id']){
+		// 	return tool::getSuccInfo(0,'买方卖方为同一人');
+		// }
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
 			if($product_valid !== true)
@@ -71,7 +71,7 @@ class entrustOrder extends Order{
 			$member = new \nainai\member();
 			$is_vip = $member->is_vip($seller);
 			$orderData['id'] = $order_id;
-			$orderData['contract_status'] = $is_vip ? self::CONTRACT_BUYER_RETAINAGE : self::CONTRACT_SELLER_DEPOSIT;
+			$orderData['contract_status'] = $is_vip ? ($type == 1 ? self::CONTRACT_COMPLETE : self::CONTRACT_BUYER_RETAINAGE) : self::CONTRACT_SELLER_DEPOSIT;
 			//合同状态置为等待卖方委托金支付 若卖方为收费会员 则跳过转为等待买方支付尾款
 			$orderData['buyer_deposit_payment'] = $payment;
 			$orderData['pay_deposit_time'] = date('Y-m-d H:i:s',time());
@@ -115,10 +115,12 @@ class entrustOrder extends Order{
 					$content = '合同'.$info['order_no'].'已支付'.$note_type.',卖方将在60分钟内支付委托金,超过时间之后,您可以取消合同';
 					$mess_buyer->send('common',$content);
 
-					$mess_seller = new \nainai\message($seller);
-					$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
-					$content = '合同'.$info['order_no'].',需要支付委托金,请您及时进行支付。如果60分钟之后您未进行支付,买方有可能会取消合同.'.$jump_url;
-					$mess_seller->send('common',$content);
+					if(!$is_vip){
+						$mess_seller = new \nainai\message($seller);
+						$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
+						$content = '合同'.$info['order_no'].',需要支付委托金,请您及时进行支付。如果60分钟之后您未进行支付,买方有可能会取消合同.'.$jump_url;
+						$mess_seller->send('common',$content);
+					}
 
 					$account = $this->base_account->get_account($payment);
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);

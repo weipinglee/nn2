@@ -118,7 +118,7 @@ class member{
             //获取对应等级会员的信誉值分界线
             $obj = new M('user_group');
             $credit = $obj->where(array('id'=>$group))->getField('credit');
-            $res = $member->where(array('id'=>$user_id))->data(array('credit'=>$credit,'vip'=>0))->update();
+            $res = $member->where(array('id'=>$user_id))->data(array('credit'=>$credit))->update();
             //日志TODO  记录调整前信誉值 方便恢复
         }else{
             $res = '会员等级格式错误';
