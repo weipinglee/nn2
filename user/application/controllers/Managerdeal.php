@@ -275,6 +275,8 @@ class ManagerDealController extends UcenterBaseController {
     public function deputeOfferAction(){
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
+        $member = new \nainai\member();
+        $this->getView()->assign('is_vip',$member->is_vip($this->user_id));
         $offer = array('divide' => 1);
         $this->getView()->assign('offer',$offer);
         $this->productAddAction('deputeoffer');

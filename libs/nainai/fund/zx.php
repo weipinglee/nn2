@@ -422,13 +422,20 @@ class zx extends account{
     public function getFreezeCode($records,$amount,$exist=array(),$djtype='4'){
         $amount = number_format($amount,2);
         if($records['status'] == 1){
-            foreach ($records['row'] as $key => $value) {
-                if($value['DJAMT'] == $amount && $value['JDTIME'] == '000000' && $value['DJTYPE'] == $djtype){
-                    if(in_array($value['DJCODE'],$exist)){
-                        continue;
-                    }else{
-                        return $value['DJCODE'];
+            if(isset($records['row'][0])){
+                foreach ($records['row'] as $key => $value) {
+                    if($value['DJAMT'] == $amount && $value['JDTIME'] == '000000' && $value['DJTYPE'] == $djtype){
+                        if(in_array($value['DJCODE'],$exist)){
+                            continue;
+                        }else{
+                            return $value['DJCODE'];
+                        }
                     }
+                }
+            }elseif($records['row']['DJAMT']){
+                $tmp = $records['row'];
+                if($tmp['DJAMT'] == $amount && $tmp['JDTIME'] == '000000' && $tmp['DJTYPE'] == $djtype){
+                    return $tmp['DJCODE'];
                 }
             }
         }else{

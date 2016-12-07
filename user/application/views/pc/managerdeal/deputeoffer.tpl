@@ -88,7 +88,7 @@
                                        </div>
                                     </span>
                                 </td>
-                            </tr>
+                            </tr>   
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
@@ -96,7 +96,11 @@
                             <input type="hidden" name='mode' id="mode" value="weitou">
                                 <input type="hidden" name="token" value="{$token}" />
                                 <input  type="submit"  value="提交审核" />
-                                <span class="color">需在线下支付总金额的<span id='weitou'>{if:!empty($rate)}{$rate['value']}{if:$rate['type'] == 0}%{else:}元{/if}{else:}0{/if}</span>的委托金</span>
+                                {if:$is_vip}
+                                    <span class="color">您是收费会员,无需支付委托费</span>
+                                {else:}
+                                    <span class="color">需在线下支付总金额的<span id='weitou'>{if:!empty($rate)}{$rate['value']}{if:$rate['type'] == 0}%{else:}元{/if}{else:}0{/if}</span>的委托金</span>
+                                {/if}
                             </td>
                         </tr>
 
