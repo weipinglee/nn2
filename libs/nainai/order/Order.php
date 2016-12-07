@@ -979,6 +979,7 @@ class Order{
 						if($cond){
 							$note = '买方确认合同完成'.$order['order_no'].'解冻卖方保证金 '.$order['seller_deposit'];
 							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit'],$note) : true;
+							
 							if($r1 === true){
 								$deposit_intro = $order['pay_deposit'] == $order['amount'] ? '货款' : '定金';
 								$note = '买方确认合同完成'.$order['order_no'].'解冻支付'.$deposit_intro.'的40% '.number_format(($order['pay_deposit']-$reduce_amount)*0.4,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
@@ -1038,7 +1039,7 @@ class Order{
 		}else{
 			$error = '无效订单';
 		}
-
+		
 		return tool::getSuccInfo(0,$error);
 	}
 
