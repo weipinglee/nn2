@@ -188,9 +188,9 @@ z-index:1000;">
          $(function(){
                 $(".search_select").click(function(){
                     if($("#search_list").is(":hidden")){
-                        $("#search_list").show()
+                        $("#search_list").show();
                     }else{
-                    $("#search_list").show()
+                    $("#search_list").hide();
                      }
                 })
                 $("#search_list li").each(function(){
