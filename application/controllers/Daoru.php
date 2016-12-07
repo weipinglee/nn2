@@ -280,6 +280,23 @@ class DaoruController extends \Yaf\Controller_Abstract
         }
 
     }
+	
+	public function updateBankAction(){
+		$userOldObj = new M('tb_cus_firm');
+		$data_arr = $userOldObj->select();
+		$bankObj = new M('user_bank');
+		$bankObj->beginTrans();
+        foreach($data_arr as $key=>$val){
+           if($val['authenticate_sta']=='Y'){
+			   $bankObj->where(array('user_id'=>$val['customer_key']))->data(array('status'=>1))->update();
+		   }
+			
+
+        }
+		if($bankObj->commit()){
+			echo 'ok';
+		}
+	}
 
     /**
      * 更新个人用户身份证图片
@@ -501,6 +518,26 @@ class DaoruController extends \Yaf\Controller_Abstract
         return $format;
     }
 	
+	public function testAction(){
+		echo '333';
+	}
+	public function updateBaopanAction(){
+		$product = new M('tb_con_obj');
+		$productObj = new M('products');
+			$offerObj = new M('product_offer');
+		$data = $product->select();
+		
+		$product->beginTrans();
+		foreach($data as $key =>$val){
+			if($val['conobj_status']=='C' && substr($val['conobj_id'],0,2) == 'DG'){
+				$offerObj->data(array('status'=>1))->where(array('id'=>$val['conobj_key']))->update();
+			}
+		}
+		if($product->commit()){
+			echo 'ok';
+		}
+		else echo 'ng';
+	}
 	//生成报盘数据
 	public function createBaopanAction(){
 		$product = new M('tb_con_obj');
@@ -550,12 +587,12 @@ class DaoruController extends \Yaf\Controller_Abstract
 							'type' => substr($val['conobj_id'],0,2) == 'GP' ? 1 : 2 ,
 							'product_id' => $val['conobj_key'],
 							'price' => substr($val['conobj_id'],0,2) == 'GP' ? $val['order_price'] : 0,
-							'price_l' => substr($val['conobj_id'],0,2) == 'DG' ? $val['order_price'] : 0,
+							'price_r' => substr($val['conobj_id'],0,2) == 'DG' ? $val['order_price'] : 0,
 							'divide' => $val['is_numsplit']=='Y' ? 1 : 0,
 							'minimum' => $val['min_obj_num'],
 							'minstep' => $val['min_obj_num_range'],
 							'accept_day' => $val['end_tran_date'],
-							'status' => 4,//所有报盘状态改为已取消
+							'status' =>  4,//所有报盘状态改为已取消
 							'is_del' => $val['conobj_status']=='F' ? 1 : 0,
 							'apply_time' =>$val['apply_time'] == NULL ? $val['add_time'] : $val['apply_time'],
 							'expire_time' => $this->getTime($val['limit_date'],2),
@@ -838,6 +875,8 @@ OEF;
   echo $sql;
   
 	}
+	
+
 	
 	
 	
