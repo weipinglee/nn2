@@ -189,7 +189,7 @@ z-index:1000;">
                     if($("#search_list").is(":hidden")){
                         $("#search_list").show()
                     }else{
-                    $("#search_list").show()
+                    $("#search_list").hide()
                      }
                 })
                 $("#search_list li").each(function(){
