@@ -84,8 +84,10 @@ class DepositOrder extends Order{
 					$mess_seller->send('common',$content);
 
 					$account = $this->base_account->get_account($payment);
+					
 					if(!is_object($account)) return tool::getSuccInfo(0,$account);
 					$res = $account->freeze($buyer,$orderData['pay_deposit'],$note);
+
 				}
 
 			}else{

@@ -165,6 +165,7 @@ class OrderController extends UcenterBaseController{
 		
 		if(!$reduce){
 			$res = $this->order->sellerVerify($order_id,$this->user_id,$disagree ? false : true);
+			
 			if($res['success'] == 1){
 				$suc_info = $disagree ? '已驳回扣款请求' : '已确认货物质量';
 				$this->success($suc_info,url::createUrl('/Contract/sellerlist'));

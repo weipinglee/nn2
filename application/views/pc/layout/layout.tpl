@@ -22,6 +22,7 @@
     <!-- 头部css -->
     <link href="{views:css/topnav20141027.css}" rel="stylesheet" type="text/css">
     <script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
+    <script src="{views:js/countdown.js}" type="text/javascript"></script>
     <!--[if lte IE 6]>
     <script>
         $(function(){
@@ -187,9 +188,10 @@ z-index:1000;">
          $(function(){
                 $(".search_select").click(function(){
                     if($("#search_list").is(":hidden")){
-                        $("#search_list").show()
+                        $("#search_list").show();
                     }else{
-                    $("#search_list").hide()
+                    $("#search_list").hide();
+
                      }
                 })
                 $("#search_list li").each(function(){
@@ -231,9 +233,11 @@ z-index:1000;">
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
+          
         </div>
     </div>
 </div>
+
 <!------------------logo 结束-------------------->
 <!------------------导航 开始-------------------->
 <div id="index_nav">
@@ -477,7 +481,8 @@ z-index:1000;">
         <div>
             技术支持：耐耐云商科技有限公司技术部
         </div>
-            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260584701'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260584701%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+		
+            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260482243'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260482243%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
     </div>
 
 </div>

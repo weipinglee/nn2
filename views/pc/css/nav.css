@@ -68,3 +68,29 @@ a .ico {
     vertical-align: middle;
     overflow: hidden;
 }
+
+
+/*当宽度小于1190px时*/
+@media screen and (max-width:1190px){ 
+    .bg_topnav{
+        width: 1190px;
+    }
+    #index_logo{
+        width: 1190px;
+    }
+    #index_nav{
+        width: 1190px;
+    }
+    #inner{
+        width: 1190px;
+    }
+    #mainContent{
+        width: 1190px;
+    }
+    .i_service.clearfix{
+        width: 1190px;
+    }
+    #footer{
+        width: 1190px;
+    }
+}

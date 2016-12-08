@@ -71,7 +71,13 @@
 								<span></span>
 								
 							</div>
+							
 							{if:!$info}
+							<div class="zhxi_con">
+								<span class="con_tit"><i></i></span>
+								<span style="color:red">为了保证您签约顺利，请务必填写正确信息</span>
+								
+							</div>
 							<div class="zhxi_con">	
 								<span><input class="submit_zz" type="submit" value="提交"></span>
 							</div>

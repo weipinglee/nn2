@@ -8,9 +8,11 @@
 
 namespace nainai\fund;
 use \Library\M;
+use \Library\tool;
 class attachAccount{
 
 	protected $attachTable;
+	public $size = 10;
 
 	public function __construct(){
 		$this->attachTable = new M('user_attach');
@@ -37,14 +39,39 @@ class attachAccount{
 	}
 	
 	/**
+	 * 获取银行流水分页形式
+	 * @param  int $page 当前页
+	 * @return string   html内容
+	 */
+	public function pageFormat($page,$now_size){
+		$html = "";
+		//添加上一页 及前页
+		if($page > 1){
+			$html .= "<span class='prefix_page'>上一页</span>";
+			for($i=1;$i<$page;$i++){
+				$html .= "<span class='content'>{$i}</span>";
+			}
+		}
+		$html .= "<span class='now_page'>{$page}</span>";
+		if($now_size == $this->size){
+			//添加下一页
+			$html .= "<span class='next_page'>下一页</span>";
+		}
+
+		return $html;
+	}
+
+	/**
 	 * curl模拟post提交
 	 * @param  array  $data 数据
 	 */
 	public function curl($xml){
-		$xml = iconv('UTF-8','GBK',$xml);
+
+		$tmp = iconv('UTF-8','GBK',$xml);
+		$xml = $tmp ? $tmp : $xml;
 		$header []= "Content-type:text/xml;charset=gbk";
-		
-		$url = 'http://192.168.2.11:6789';
+		$configs = tool::getGlobalConfig(array('signBank','zx'));
+		$url = 'http://'.$configs['ip'].':'.$configs['port'];
 		$ch = curl_init($url);
 		curl_setopt($ch,CURLOPT_URL,$url);
 		curl_setopt($ch,CURLOPT_POST,1);
@@ -66,6 +93,7 @@ class attachAccount{
 		// var_dump($output);exit;
 		// exit;
 			// return $xml_obj;
+	
 		if($xml_obj['status'] == 'AAAAAAA'){
 			if(isset($xml_obj['list'])){
 				$output = $xml_obj['list'];
