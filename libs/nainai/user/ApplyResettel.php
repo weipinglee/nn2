@@ -60,6 +60,7 @@ class ApplyResettel extends \nainai\Abstruct\ModelAbstract {
 	}
 
 	public function getdetail($id){
+
 		$res = array();
 		if (intval($id) > 0) {
 			$Q = new Query($this->tableName . ' as r');

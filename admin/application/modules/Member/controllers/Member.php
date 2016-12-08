@@ -403,7 +403,9 @@ class MemberController extends InitController {
 	 */
 	public function dochecktelAction(){
 		$id = safe::filterPost('id', 'int');
+
 		if (intval($id) > 0) {
+			
 			$model = new \nainai\user\ApplyResettel();
 			$status = safe::filterPost('status', 'int');
 			$data = array('status' => ($status == 1) ? $model::APPLY_OK : $model::APPLY_NO);
@@ -489,6 +491,7 @@ class MemberController extends InitController {
 			if ($info['status'] == $model::APPLY_OK) {
 				$hsms=new Library\Hsms();
 				if(!$hsms->send($info['mobile'],$str)){
+
 					$res = tool::getSuccInfo(0, '发送短信失败');
 				}else{
 					$usermodel = new \nainai\user\User();

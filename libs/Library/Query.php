@@ -188,17 +188,21 @@ class Query
 		 * @param string $sql 查询的sql语句
 		 */
 	private function getPageCount($sql){
+
 		if(strpos($sql,'GROUP BY') === false)
 		{
+
 			$endstr = strstr($sql,'from');
+
 			$endstr = preg_replace('/^(.*)order\s+by.+$/i','$1',$endstr);
-			$count=$this->db->exec("select count(*) as total ".$endstr,$this->sql['bind'],'SELECT');
+			// $count=$this->db->exec("select count(*) as total ".$endstr,$this->sql['bind'],'SELECT');
+			$res=count($this->db->exec($sql,$this->sql['bind'],'SELECT'));
+			$count[0]['total'] = $res;
 		}
 		else
 		{
 			$count=$this->db->exec("select count(*) as total from (".$sql.") as IPaging",$this->sql['bind'],'SELECT');
 		}
-
 		return isset($count[0]['total']) ? $count[0]['total'] : 0;
 
 	}

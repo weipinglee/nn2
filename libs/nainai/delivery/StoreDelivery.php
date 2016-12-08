@@ -158,9 +158,11 @@ class StoreDelivery extends Delivery{
 		$query->join = 'left join order_sell as o on pd.order_id = o.id left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_manager as sm on sm.store_id = sp.store_id left join store_list as sl on sl.id = sp.store_id';
 		
 		$query->fields = 'pd.id,o.order_no,pd.num as delivery_num,sl.name as store_name';
+		$query->where = 'o.user_id=:user_id';
 		$query->bind = array('user_id'=>$user_id);
 		$query->order = 'pd.create_time desc';
 		$query->page = $page;
+		$query->distinct = 'distinct';
 		$query->pagesize = 10;
 		$res = $query->find();
 		$pageBar =  $query->getPageBar();

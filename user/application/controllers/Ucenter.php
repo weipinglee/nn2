@@ -910,13 +910,14 @@ class UcenterController extends UcenterBaseController {
 
     public function modifytelAction(){
         $model = new UserModel();
-         $info = $model->getUserInfo($this->user_id);
-            if ($info['type'] == 1) {
-                $url = url::createUrl('/ucenter/modifypersontel');
-            }else{
-                $url = url::createUrl('/ucenter/ modifycompanytel');
-            }
-            $this->redirect($url);
+        $info = $model->getUserInfo($this->user_id);
+
+        if ($info['type'] == 0) {
+            $url = url::createUrl('/ucenter/modifypersontel');
+        }else{
+            $url = url::createUrl('/ucenter/ modifycompanytel');
+        }
+        $this->redirect($url);
     }
 
     public function modifypersontelAction(){
