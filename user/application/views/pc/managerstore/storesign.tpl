@@ -239,7 +239,7 @@
                                                 <input type="text" class='text' name="packWeight" > <select name="pageUnits">
                                                     <option value="克">克</option>
                                                     <option value="千克">千克</option>
-                                                    <option value="顿">吨</option>
+                                                    <option value="吨">吨</option>
                                                 </select>
                                             </td>
                                    </tr>

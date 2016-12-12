@@ -158,7 +158,7 @@ class ManagerStoreController extends UcenterBaseController{
 			$userObj = new \nainai\member();
 
 			$userData = $userObj->getUserDetail($data['user_id']);
-
+			
 		    $this->getView()->assign('detail', $data);
 			$this->getView()->assign('user', $userData);
 		}
