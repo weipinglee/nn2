@@ -50,7 +50,7 @@ class EntrustSetting extends \nainai\Abstruct\ModelAbstract{
 		$where = array('status' => 1);
 		
 		if (intval($cate_id) > 0) {
-
+			
 			$where['cate_id'] = $cate_id;
 			$rate = $this->getEntrustSetting($where, 'type, cate_id, value');
 			

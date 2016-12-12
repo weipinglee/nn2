@@ -59,7 +59,7 @@
         <input type="hidden" name="uploadUrl"  value="{url:/index/index/upload}" />
         <input type="hidden" value="{$info['id']}" name="id">
         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-        &emsp;<a class="btn btn-primary radius" href="{url:/member/usergroup/groupList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
+        &emsp;<a class="btn btn-primary radius" href="{url:/member/payusergroup/groupList}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
       </div>
     </div>
   </form>

@@ -28,7 +28,7 @@
 				<td><input type="checkbox" value="" name="check"></td>
 				<td>{$item['id']}</td>
 				<td>{$item['group_name']}</td>
-				<td>{if:isset($item['icon_thumb'])}<img src="{$item['icon_thumb']}"/>{else:}无{/if}</td>
+				<td>{if:isset($item['icon_thumb'])}<img width="100px" height="100px" src="{$item['icon_thumb']}"/>{else:}无{/if}</td>
 				<td>{$item['create_time']}</td>
 				<td class="td-manage">
 				<a title="编辑" href="{url:/member/payusergroup/groupEdit}id/{$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a> 

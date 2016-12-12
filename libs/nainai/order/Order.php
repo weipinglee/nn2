@@ -401,7 +401,7 @@ class Order{
 		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$info = $this->orderInfo(intval($order_id));
 		$offerInfo = $this->offerInfo($info['offer_id']);
-
+		$is_entrust = $info['mode'] == self::ORDER_ENTRUST ? 1 : 0;
 		if(is_array($info) && isset($info['contract_status'])){
 			$seller = $this->sellerUserid($order_id);
 			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($info['user_id']) : $seller;
@@ -426,7 +426,7 @@ class Order{
 						if($payment == 'online'){
 							//冻结买家帐户余额
 							$orderData['pay_retainage'] = $retainage;
-							$orderData['contract_status'] = $info['mode'] == self::ORDER_ENTRUST ? self::CONTRACT_COMPLETE : self::CONTRACT_EFFECT;//payment为1  合同状态置为生效 委托报盘则置为已完成
+							$orderData['contract_status'] = $is_entrust ? self::CONTRACT_COMPLETE : self::CONTRACT_EFFECT;//payment为1  合同状态置为生效 委托报盘则置为已完成
 							// $orderData['retainage_clientid'] = $account == self::PAYMENT_BANK ? $clientID : '';
 							$upd_res = $this->orderUpdate($orderData);
 							if($upd_res['success'] == 1){
@@ -434,8 +434,8 @@ class Order{
 								
 								// $mess->send('buyerRetainage',$info['order_no']);
 								$mess_buyer = new \nainai\message($buyer);
-								if($info['mode'] == self::ORDER_ENTRUST){
-									$content = '(合同'.$info['order_no'].'买家已支付尾款，合同已结束，请您关注资金动态。)';
+								if($is_entrust == 1){
+									$content = '(合同'.$info['order_no'].'买家已支付尾款，合同已结束，请您关注资金动态。交收流程请您在线下进行操作。)';
 								}else{
 									$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 									$content = '(合同'.$info['order_no'].'已生效，您可以申请提货了。)'.$jump_url;
@@ -445,12 +445,15 @@ class Order{
 							}else{
 								$res = $upd_res['info'];
 							}
-							if($res === true){
+							if($res === true && $is_entrust == 0){
 								$note = '支付合同'.$info['order_no'].'尾款 '.number_format($retainage,2);
 								$account = $this->base_account->get_account($account);
 								if(!is_object($account)) return tool::getSuccInfo(0,$account);
 								$acc_res = $account->freeze($buyer,$retainage,$note);
+							}elseif($is_entrust == 1){
+								$res = $this->entrustComplete($info,$buyer,$seller,$payment,$account);
 							}
+
 							if($res === true) $res = $this->order->commit();
 						}elseif($payment == 'offline'){
 							$orderData['proof'] = $proof;
@@ -547,32 +550,8 @@ class Order{
 				}
 
 				if($info['mode'] == self::ORDER_ENTRUST){
-					if($info['seller_deposit'] > 0){
-						if($info['retainage_payment'] != self::PAYMENT_ALIPAY){
-							$note = '合同'.$info['order_no'].'完成,解冻平台委托金 '.$info['seller_deposit'];
-							$fre_res = $this->account->freezeRelease($seller,$info['seller_deposit'],$note);
-							
-							if($fre_res === true){
-								$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
-
-								$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
-
-								if($pay_res !== true ) $res = $pay_res;
-							}else{
-								$res = $fre_res;
-							}
-						}else{
-							//记录支付宝支付记录  TODO
-						}
-					}
-					$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
-					if(is_object($account_deposit) && !$res){
-						$note = '合同'.$info['order_no'].'完成,支付定金'.$info['pay_deposit'];
-						$fpay_res = $account_deposit->freezePay($buyer,$seller,$info['pay_deposit'],$note);
-						if($fpay_res !== true ) $res = $fpay_res;
-					}else{
-						$res = $res ? $res : '无效定金支付方式';
-					}
+					$tmp = $this->entrustComplete($info,$buyer,$seller);
+					if($tmp !== true) $res = $tmp;
 				}
 
 				if(!isset($res)){
@@ -602,6 +581,66 @@ class Order{
 			$res = $e->getMessage();
 		}
 		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res ? $res : '未知错误');
+	}
+
+	/**
+	 * 委托报盘摘牌流程结束，解冻支付与支付委托金	
+	 * @param  array $info 订单信息
+	 * @param  int $buyer  买家id
+	 * @param  int $seller  卖家id
+	 * @param  string $payment 支付方式(线上/线下)
+	 * @param  string $account 支付方式为线上时的尾款支付渠道
+	 * @return mixed  
+	 */
+	public function entrustComplete($info,$buyer,$seller,$payment='offline',$account=''){
+		$amount = floatval($info['amount']);
+		$buyerDeposit = floatval($info['pay_deposit']);
+		$retainage = $amount - $buyerDeposit;
+		if($retainage > 0){
+			if($info['seller_deposit'] > 0){
+				if($info['retainage_payment'] != self::PAYMENT_ALIPAY){
+					$note = '合同'.$info['order_no'].'完成,解冻平台委托金 '.$info['seller_deposit'];
+					$fre_res = $this->account->freezeRelease($seller,$info['seller_deposit'],$note);
+					
+					if($fre_res === true){
+						$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
+
+						$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
+
+						if($pay_res !== true ) $res = $pay_res;
+					}else{
+						$res = $fre_res;
+					}
+				}else{
+					//记录支付宝支付记录  TODO
+				}
+			}
+			$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
+			if(is_object($account_deposit) && !$res){
+				//尾款线下支付
+				$note = '合同'.$info['order_no'].'完成,支付定金'.$info['pay_deposit'];
+				$fpay_res = $account_deposit->freezePay($buyer,$seller,$info['pay_deposit'],$note);
+				if($fpay_res !== true ) $res = $fpay_res;
+			}else{
+				$res = $res ? $res : '无效定金支付方式';
+			}
+
+			if($payment == 'online'){
+				//线上支付，直接将尾款部分进行转账操作
+				$account_retainage = $this->base_account->get_account($account);
+				if(is_object($account_retainage) && !$res){
+					$note = '支付合同'.$info['order_no'].'尾款 '.number_format($retainage,2);
+					$tmp = $account_retainage->transfer($buyer,$seller,array('amount'=>$retainage,'note'=>$note));
+					if($tmp !== true) $res = $tmp;
+				}else{
+					$res = $res ? $res : '无效定金支付方式';
+				}
+			}
+		}else{
+			$res = '无效尾款金额';
+		}
+
+		return isset($res) ? $res : true;
 	}
 
 	/**

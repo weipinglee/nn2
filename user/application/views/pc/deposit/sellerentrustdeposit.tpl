@@ -76,7 +76,7 @@
                               </tr>
                               <tr style="line-height: 35px;">
                                 <td style="background-color: #F7F7F7;" width="100px">合同</td>
-                                <td colspan="3" width="" style="color: #c81624;">等耐卖家缴纳委托金</td>
+                                <td colspan="3" width="" style="color: #c81624;">等待卖家缴纳委托金</td>
                                 <td style="background-color: #F7F7F7;" width="100px">合同金额</td>
                                 <td colspan="1" width="">
                                         <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>

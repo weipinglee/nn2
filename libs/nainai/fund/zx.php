@@ -234,11 +234,10 @@ class zx extends account{
      * 强制转账
      * @param  int $from 付款用户id
      * @param  int $to   收款用户id
-     * @param  float $num  金额
+     * @param  array $data  金额与备注
      */
-    public function transfer($from,$to,$num){
-        return $this->bankTransfer('',$num,$from,$to,'transfer');
-
+    public function transfer($from,$to,$data){
+        return $this->bankTransfer('',$data['amount'],$from,$to,'transfer',$data['note']);
     }
 
     /**
