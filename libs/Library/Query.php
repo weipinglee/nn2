@@ -19,7 +19,7 @@ class Query
 {
 	public  $db       = null;
 	private $sql      = array('table'=>'','fields'=>'*','where'=>'','bind'=>array(),'join'=>'','group'=>'','having'=>'','order'=>'',
-								'limit'=>'limit 1000','distinct'=>'');
+								'limit'=>' ','distinct'=>'');
 	private $tablePre = '';
 	private $cache    = null;
 	public  $paging   = null;

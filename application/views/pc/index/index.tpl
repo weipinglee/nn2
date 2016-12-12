@@ -3,7 +3,6 @@
 <script type="text/javascript">
 $(function(){
     $('.js_rep_offer .li_select').trigger('click');
-    $('.js_rep_offer .li_select').trigger('click');
 })
 
 </script>
@@ -514,27 +513,25 @@ $(function(){
 
 
                 function showOffers(id,obj){
+					var offerData = {$offerCateList};
                     obj.siblings().removeClass('li_select');
                     obj.addClass('li_select');
                     /*$('[id^=offer]').removeClass('show');
                     $('#offer'+id).addClass('show');*/
-                    $.ajax({
-                        type: "POST",
-                        // url: "{url:/index/getCateOfferList}",
-                        url:'http://localhost/nn2/index.php/index/getCateOfferList',
-                        data: {id: id},
-                        dataType: "json",
-                        success: function(data){
-                            //$('#offerRowBox').empty();
-                            template.helper('getAreaText', function(area_data){  
-                                   var areatextObj = new Area();
-                                   var text = areatextObj.getAreaText(area_data);
-                                   return text;
-                            });  
-                            var offerRowHtml = template.render('offerRowTemplate',{data:data});
-                            $('#offerRowBox').html(offerRowHtml);
-                        }
-                    })
+
+                   
+                    //$('#offerRowBox').empty();
+                    template.helper('getAreaText', function(area_data){  
+                          var areatextObj = new Area();
+                          var text = areatextObj.getAreaText(area_data);
+                           return text;
+                    });  
+					if(offerData[id]){
+						 var offerRowHtml = template.render('offerRowTemplate',{data:offerData[id]});
+                         $('#offerRowBox').html(offerRowHtml);
+					}
+                           
+
 
                 }
             </script>
@@ -637,6 +634,7 @@ $(function(){
         </div>
         <!-- 浮动楼层 end -->
 <script type='text/html' id='offerRowTemplate'>
+ <%if (data.length>0) { %>
 <%for (var i=0;i<data.length;i++) { %>
         <li>
             <span class="i_w_1 "><%=data[i].pname%></span>
@@ -652,7 +650,13 @@ $(function(){
             <span class="i_w_3">
                   <%=data[i].mode%>
             </span>
-            <span class="i_w_4" id="area<%=i%>"><%=getAreaText(data[i].produce_area)%></span>
+            <span class="i_w_4" id="area<%=i%>">
+				 <%if (data[i].produce_area) { %>
+				<%=getAreaText(data[i].produce_area)%>
+				 <%}else { %>
+				 未知
+				<% } %>
+			</span>
             <span class="i_w_5"><%=data[i].accept_area%></span>
             <span class="i_w_6"><%=data[i].quantity%></span>
             <span class="i_w_7"><%=data[i].quantity-data[i].sell-data[i].freeze%></span>
@@ -691,5 +695,6 @@ $(function(){
                 <% } %>
                 </span>
         </li>
+<% } %>
 <% } %>
 </script>

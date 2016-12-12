@@ -10,6 +10,8 @@ use \Library\M;
 class offersModel extends \nainai\offer\product{
 
     private $offer;
+	
+	private $offerQuery = null;
     public function __construct(){
         $this->offer = new M('product_offer');
     }
@@ -45,23 +47,40 @@ class offersModel extends \nainai\offer\product{
         END
      */
     public function getOfferCategoryList($cateId){
-        $memcache=new \Library\cache\driver\Memcache();
+        $memcache=new \Library\cache\Cache(array('type'=>'m','expire'=>36000));
         $res=$memcache->get('offerCategoryList'.$cateId);
         if($res){
             return unserialize($res);
         }
-        
-        $query = new Query('product_offer as a');
-        $query->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,kefu.qq';
-        $query->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN admin_kefu as kefu on a.kefu = kefu.admin_id';
-     //   $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
-        $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
-        $query->bind = array('cid' => $cateId);
-        $query->order = 'a.apply_time desc';
-        $query->limit = 5;
-		 $query->cache = 'm'.$cateId;
-/*        $query->fields = 'a.id,a.mode,a.type,a.accept_area,a.price,b.name as pname,b.id as product_id,b.quantity,b.sell,b.freeze,b.unit,b.produce_area,kefu.ser_name,kefu.qq';*/
-        $categoryList= $query->find();
+		
+		$childs = $memcache->get('getChildLists'.$cateId);
+        $childs = '';
+		if(!$childs){
+			$m = new M('product_category_childs');
+			$childdata = $m->query('select getChildLists('.$cateId.')');
+			$childs = $childdata[0]['getChildLists('.$cateId.')'];
+			$childs = str_replace('$',0,$childs);
+			
+			$memcache->set('getChildLists'.$cateId,serialize($childs),0);
+		}
+		else{
+			$childs = unserialize($childs);
+		}
+		
+		if($this->offerQuery == null){
+			$this->offerQuery = new Query('product_offer as a');
+			$this->offerQuery->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,kefu.qq';
+			$this->offerQuery->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN admin_kefu as kefu on a.kefu = kefu.admin_id';
+		 //   $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
+			
+		  
+			$this->offerQuery->order = 'a.apply_time desc';
+			$this->offerQuery->limit = 5;
+		}
+		$this->offerQuery->where = 'b.cate_id in ('.$childs.') and a.status='.self::OFFER_OK.' AND a.expire_time>now() AND a.is_del = 0';
+        $categoryList= $this->offerQuery->find();
+	
+
         foreach($categoryList as $k=>$v){
             $categoryList[$k]['mode']=$this->getMode($v['mode']);
         }
@@ -182,10 +201,10 @@ class offersModel extends \nainai\offer\product{
         if (empty($order)) {
             $model = new \nainai\offer\ProductSetting();
             $detail = $model->getProductSetting(1);
-
-			$database = \Library\tool::getConfig(array('database','master','database'));
+            $dbName = \Library\tool::getConfig(array('database','master','database'));
+			
             $query->join .= ' LEFT JOIN (select *, (time*' .$detail['time']. '+credit*'.$detail['credit'].') as common from (
-SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_TIMESTAMP(p.apply_time))/86400) / '.$detail['day'].') as time, (100*u.credit)/'.$detail['max_credit'].' as credit FROM '.$database.'.product_offer as p left join user
+SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_TIMESTAMP(p.apply_time))/86400) / '.$detail['day'].') as time, (100*u.credit)/'.$detail['max_credit'].' as credit FROM '.$dbName.'.product_offer as p left join user
  as u ON p.user_id=u.id ) as s ) as cha on o.user_id=cha.user_id';
             $order = 'cha.common desc, o.apply_time desc';
         }
@@ -194,17 +213,26 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $childcates = array();
         $childname = '';
         if(isset($condition['pid']) && $condition['pid']>0) {
-            $cates = $this->getChildCate($condition['pid'],0);
-            $childname = $cates[2];
-            $cate_ids = array();
-            $cate_ids[] = $condition['pid'];
-            foreach($cates[0] as $v){
-                $cate_ids[] = $v['id'];
-            }
-            $cate_ids = join(',',$cate_ids);
-            $where .= ' and c.id in ('.$cate_ids.')';
-
-            $childcates = $cates[1];
+			 $memcache=new \Library\cache\Cache(array('type'=>'m','expire'=>0));
+			 $cates = $memcache->get('cates'.$condition['pid']);
+			 if(!$cates){
+				 $cates = $this->getChildCate($condition['pid'],0);
+				$memcache->set('cates'.$condition['pid'],serialize($cates));
+			 }
+			 else{
+				 $cates = unserialize($cates);
+			 }
+			 $childname = $cates[2];
+			$cate_ids = array();
+			$cate_ids[] = $condition['pid'];
+			foreach($cates[0] as $v){
+					$cate_ids[] = $v['id'];
+			}
+			$cate_ids = join(',',$cate_ids);
+			$where .= ' and c.id in ('.$cate_ids.')';
+				
+			$childcates = $cates[1];
+            
 
         }
 

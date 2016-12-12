@@ -27,7 +27,7 @@ class Base extends \Yaf\Controller_Abstract{
 			 $this->getView()->assign('login',1);
 			 $this->getView()->assign('username',$this->username);
 			 $this->getView()->assign('usertype',$this->user_type);
-
+			 
 			 $MenuModel = new \nainai\user\Menu();
 			 $this->menuList = $MenuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
 			 $controllerName = $this->_request->getControllerName();

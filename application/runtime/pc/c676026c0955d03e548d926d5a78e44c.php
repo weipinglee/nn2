@@ -22,6 +22,7 @@
     <!-- 头部css -->
     <link href="/nn2/views/pc/css/topnav20141027.css" rel="stylesheet" type="text/css">
     <script src="/nn2/views/pc/js/gtxh_Login.js" type="text/javascript"></script>
+    <script src="/nn2/views/pc/js/countdown.js" type="text/javascript"></script>
     <!--[if lte IE 6]>
     <script>
         $(function(){
@@ -95,26 +96,26 @@ z-index:1000;">
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="/nn2/views/pc/images/index/icon_index.png"/>
-                <a rel="external nofollow" href="/index/index" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="http://124.166.246.120:8000/user/public/index/index" target="_blank" >耐耐网首页</a>
             </div>
 
             <div class="index_user">
             <?php if(isset($username)){?>您好，
-                <a rel="external nofollow"  href="http://localhost/nn2/user//ucenterindex/index"  target="_blank" class=""><?php echo isset($username)?$username:"";?></a>
+                <a rel="external nofollow"  href="http://localhost/nn2/user/public/ucenterindex/index"  target="_blank" class=""><?php echo isset($username)?$username:"";?></a>
                 <?php }else{?>
                 <span>您好，欢迎进入耐耐网</span>
                 <?php }?>
             </div>
             <?php if($login==0){?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/login" target="_blank" class="topnav_login">请登录</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/login" target="_blank" class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/register" target="_blank">免费注册</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/register" target="_blank">免费注册</a>
             </div>
             <?php }else{?>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="http://localhost/nn2/user//login/logout" target="_blank" class="topnav_login">退出</a>
+                <a rel="external nofollow" href="http://localhost/nn2/user/public/login/logout" target="_blank" class="topnav_login">退出</a>
             </div>
             <?php }?>
         </div>
@@ -122,14 +123,14 @@ z-index:1000;">
             <ul>
                 <?php if($login!=0){?>
                  <li>
-                   <a href="http://localhost/nn2/user//ucenterindex/index">会员中心</a><span class="line_l">|<span>
+                   <a href="http://localhost/nn2/user/public/ucenterindex/index">会员中心</a><span class="line_l">|<span>
                 </li>
                 <li>
-                   <a href="http://localhost/nn2/user//contract/buyerlist">我的合同</a><span class="line_l">|<span>
+                   <a href="http://localhost/nn2/user/public/contract/buyerlist">我的合同</a><span class="line_l">|<span>
                 </li>
                 <?php }?>
                 <li>
-                    <a href="http://localhost/nn2/user//message/usermail">消息中心<?php if($login==1&&$mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
+                    <a href="http://localhost/nn2/user/public/message/usermail">消息中心<?php if($login==1&&$mess!=0){?><em class="information"><?php echo isset($mess)?$mess:"";?></em><?php }?></a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="/nn2/views/pc/images/index/icon_iphon.png"/>
@@ -187,9 +188,10 @@ z-index:1000;">
          $(function(){
                 $(".search_select").click(function(){
                     if($("#search_list").is(":hidden")){
-                        $("#search_list").show()
+                        $("#search_list").show();
                     }else{
-                    $("#search_list").show()
+                    $("#search_list").hide();
+
                      }
                 })
                 $("#search_list li").each(function(){
@@ -231,9 +233,11 @@ z-index:1000;">
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
+          
         </div>
     </div>
 </div>
+
 <!------------------logo 结束-------------------->
 <!------------------导航 开始-------------------->
 <div id="index_nav">
@@ -580,7 +584,7 @@ z-index:1000;">
     <?php if($login==0){?>
         <div class="pro_gg">
             <div class="tit_center">
-                <p><span class="title_big"><a href="http://localhost/nn2/user//login/login"><u class="red">登录</u> </a>后可查看更多现货资源。</span><a href="http://localhost/nn2/user//login/register"><u class="red">点击这里免费注册</u></a>
+                <p><span class="title_big"><a href="http://localhost/nn2/user/public/login/login"><u class="red">登录</u> </a>后可查看更多现货资源。</span><a href="http://localhost/nn2/user/public/login/register"><u class="red">点击这里免费注册</u></a>
                 </p>
             </div>
         </div>
@@ -616,7 +620,7 @@ z-index:1000;">
                            <!--<a title="品质保证"><img class="pz_img" src="/nn2/views/pc/images/icon/icon_pz.png"></a>-->
                            <span><%=data[i].name%></span>
                        </li>
-                       <li><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>no_picture.jpg<% }else { %><%=data[i].img%> <%}%>" class="icon_img"></a></li>
+                       <li><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>/nn2/views/pc/images/no_picture.png<% }else { %><%=data[i].img%> <%}%>" class="icon_img" width="30"></a></li>
                        <li><% if(data[i].type == 1){ %><i class="green">供</i><% }else { %><i class="red">求</i> <%}%></li>
                        <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>--<%}%></li>
 
@@ -758,7 +762,8 @@ z-index:1000;">
         <div>
             技术支持：耐耐云商科技有限公司技术部
         </div>
-            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260584701'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260584701%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+		
+            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260482243'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260482243%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
     </div>
 
 </div>

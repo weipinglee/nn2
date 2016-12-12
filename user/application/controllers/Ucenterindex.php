@@ -14,7 +14,6 @@ class UcenterIndexController extends UcenterBaseController {
      * 个人中心首页
      */
     public function indexAction(){
-        
         $group = new \nainai\member();
 
         $groupData = $group->getUserGroup($this->user_id);//会员分组数据

@@ -340,7 +340,6 @@ class Order{
 					return tool::getSuccInfo(0,'账户余额不足');
 				}
 			}
-			
 
 			unset($orderData['payment']);
 
@@ -897,6 +896,7 @@ class Order{
 							if($cond){
 								$deposit_intro = $order['pay_deposit'] == $order['amount'] ? '货款' : '定金';
 								$note = '卖方确认质量合格'.$order['order_no'].'解冻支付'.$deposit_intro.'的60% '.number_format(($order['pay_deposit']-$order['reduce_amount'])*0.6,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
+
 								$deposit_res = $account_deposit->freezePay($buyer,$seller,($order['pay_deposit']-$order['reduce_amount'])*0.6,$note,$order['pay_deposit']);
 
 								if($deposit_res !== true) {
@@ -989,6 +989,7 @@ class Order{
 						if($cond){
 							$note = '买方确认合同完成'.$order['order_no'].'解冻卖方保证金 '.$order['seller_deposit'];
 							$r1 = $order['seller_deposit'] ? $account_seller_deposit->freezeRelease($seller,$order['seller_deposit'],$note) : true;
+							
 							if($r1 === true){
 								$deposit_intro = $order['pay_deposit'] == $order['amount'] ? '货款' : '定金';
 								$note = '买方确认合同完成'.$order['order_no'].'解冻支付'.$deposit_intro.'的40% '.number_format(($order['pay_deposit']-$reduce_amount)*0.4,2).($reduce_amount ? '(扣减货款'.$reduce_amount.')' : '');
@@ -1048,7 +1049,7 @@ class Order{
 		}else{
 			$error = '无效订单';
 		}
-
+		
 		return tool::getSuccInfo(0,$error);
 	}
 
@@ -1068,13 +1069,15 @@ class Order{
 		$this->adminContractStatus($data['list']);
 		$product = new \nainai\offer\product();
 		foreach ($data['list'] as $key => &$value) {
-			$value['mode_txt'] = $product->getMode($value['mode']);
-			$value['type_txt'] = $product->gettype($value['type']);
+			$value['type_txt'] = $product->getMode($value['type']);
+			$value['mode_txt'] = $product->gettype($value['mode']);
 			$value['account'] = number_format(floatval($value['amount']) - floatval($value['reduce_amount']),2);
 			$value['amount'] = number_format(floatval($value['amount']),2);
 			$value['num'] = number_format(floatval($value['num']),2);
 			$value['buyer_name'] = $value['mode'] == \nainai\offer\product::TYPE_SELL ? $value['do_username'] : $value['po_username'];
-			$value['seller_name'] = $value['mode'] == \nainai\offer\product::TYPE_SELL ? $value['po_username'] : $value['do_username'];
+
+			$value['seller_name'] = $value['mode'] == \nainai\offer\product::TYPE_SELL  ? $value['po_username'] : $value['do_username'];
+
 		}
 		$query->downExcel($data['list'], 'order_sell', '合同列表');
 		// tool::pre_dump($data['list'][0]);exit;

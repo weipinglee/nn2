@@ -18,7 +18,7 @@ class PayUsergroupController extends Yaf\Controller_Abstract{
 		$this->getView()->setLayout('admin');
 		//echo $this->getViewPath();
 	}
-
+	
 	/**
 	 * 获取角色分组列表
 	 * @return 

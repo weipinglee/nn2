@@ -12,6 +12,7 @@ use \Library\safe;
 use \Library\JSON;
 use \Library\Session;
 use \Library\url;
+use \Library\tool;
 
 class FundController extends UcenterBaseController {
 
@@ -46,29 +47,74 @@ class FundController extends UcenterBaseController {
 		//$obj = new \nainai\fund();
 	}
 
+	//绑定出金银行卡
+	public function outcardAction(){
+		$t = new M('fund_outcard');
+		$where = array('user_id'=>$this->user_id);
+		if(IS_POST){
+			$data['no'] = safe::filterPost('no');
+			$data['name'] = safe::filterPost('name');
+			$data['bank_name'] = safe::filterPost('bank_name');
+
+			
+			$b_ext = $t->where($where)->getObj();
+			if($b_ext){
+				//update
+				$res = $t->where($where)->data($data)->update();
+			}else{
+				$data['user_id'] = $this->user_id;
+				$data['create_time'] = date('Y-m-d H:i:s');
+				$res = $t->data($data)->add();
+			}
+			die(json::encode(intval($res)>0 ? tool::getSuccinfo():tool::getSuccinfo(0,'操作失败')));
+			return false;
+		}else{
+			$bank = $t->where($where)->getObj();
+			$bank = $bank ? $bank : array();
+
+			$this->getView()->assign('bank',$bank);
+		}
+	}
+
 	//中信银行签约账户
 	public function zxAction(){
 
-
+		$page = safe::filterGet('page','int',1);
 		$startDate = safe::filterGet('startDate','trim','');
 		$endDate = safe::filterGet('endDate','trim','');
-
+ 
 		$zx = new \nainai\fund\zx();
+		$check_sign = $zx->signStatus();
+		if($check_sign !== true) {echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;}
 		$data = $zx->attachAccountInfo($this->user_id);
-		// $balance = $zx->attachBalance($this->user_id);
+
+		$balance = $zx->attachBalance($this->user_id);
 		
 		// $details = $zx->attachTransDetails($this->user_id,$startDate,$endDate);
-		$details = $zx->attachOperDetails($this->user_id,$startDate,$endDate);
-		// echo '<pre>';var_dump($details['row']);
+		$details = $zx->attachOperDetails($this->user_id,$page,$startDate,$endDate);
+		
 		if(!$details['row'][1]){
-			$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
-			$details['row'] = array($details['row']);
+			if(count($details['row'])>0){
+				$details['row']['TRANTYPE_TEXT'] = $zx->getTransType($details['row']['tranType']);
+				$details['row']['tranAmt'] = floatval($details['row']['tranAmt']) - floatval($details['row']['pdgAmt']);
+				$details['row'] = array($details['row']);
+				$tmp = (array)$details['row']['memo'];
+				$details['row']['memo'] = $tmp[0];
+			}
+
 		}else{
 			foreach ($details['row'] as $key => &$value) {
 				$value = (array)$value;
+				$value['tranAmt'] = floatval($value['tranAmt']) - floatval($value['pdgAmt']);
 				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['tranType']);
+				$tmp = (array)$value['memo'];
+				$value['memo'] = $tmp[0];
 			}
 		}
+		$page_format = $zx->pageFormat($page,count($details['row']));
+		$this->getView()->assign('page_format',$page_format);
+
+		$this->getView()->assign('page',$page);
 		$this->getView()->assign('balance',$balance);
 		$this->getView()->assign('no',$data['no']);
 		$this->getView()->assign('flow',$details['row']);
@@ -94,6 +140,7 @@ class FundController extends UcenterBaseController {
 				'mail_address'=>safe::filterPost('mail_address'),
 			);
 			$res = $zx->geneAttachAccount($data);
+			
 			die(JSON::encode($res));
 			return false;
 		}else{
@@ -103,21 +150,20 @@ class FundController extends UcenterBaseController {
 	}
 
 	public function zxtxAction(){
-
+		$t = new M('user_bank');
+		$bank = $t->where(array('user_id'=>$this->user_id))->getObj();
+		if(!$bank){
+			$this->error('未设置开户信息',url::createUrl('/fund/bank@user'));
+		}
+		$this->getView()->assign('bank',$bank);
 	}
 
 	public function zxtxHandleAction(){
 		if(IS_POST){
-			$data = array(
-			'num'=>safe::filterPost('num'),
-			'recvaccno'=>safe::filterPost('recvaccno'),
-			'recvaccnm'=>safe::filterPost('recvaccnm'),
-			'samebank'=>safe::filterPost('samebank'),
-			'recvtgfi'=>safe::filterPost('recvtgfi'),
-			'recvbanknm'=>safe::filterPost('recvbanknm'));
-			$zx = new \nainai\fund\zx();
+			$data['num'] = safe::filterPost('num');
+			$data['user_id'] = $this->user_id;
+			$zx  = new \nainai\fund\zx();
 			$res = $zx->out($data);
-			var_dump($res);exit;
 			die(JSON::encode($res));
 		}
 		return false;
