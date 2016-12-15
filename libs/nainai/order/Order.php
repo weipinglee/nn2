@@ -282,7 +282,7 @@ class Order{
      */
 	private function existOrderData($order,$orderData){
 		$data = $order->fields('id')->where($orderData)->getObj();
-		if(empty($data))
+		if(empty($data))	
 			return false;
 		return true;
 	}
@@ -303,9 +303,9 @@ class Order{
 		}
 
 		$offer_info = $this->offerInfo($orderData['offer_id']);
-		// if($offer_info['user_id'] == $orderData['user_id']){
-		// 	return tool::getSuccInfo(0,'买方卖方为同一人');
-		// }
+		if($offer_info['user_id'] == $orderData['user_id']){
+			return tool::getSuccInfo(0,'买方卖方为同一人');
+		}
 		
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
