@@ -11,15 +11,19 @@
 
 							<table border="0"  cellpadding="" cellspacing="">
 								<tr class="title">
-									<td>ID</td>
 									<td>订单号</td>
-                                    <td>所在库</td>
+									<td>商品名称</td>
+									<td>商品总量</td>
+									<td>出库数量</td>
+                                    <td>仓库名称</td>
                                     <td>操作</td>
 								</tr>
                                     {foreach:  items=$data item=$list}
                                     <tr>
-                                            <td>{$list['id']}</td>
                                             <td>{$list['order_no']}</td>
+                                            <td>{$list['product_name']}</td>
+                                            <td>{$list['order_num']}({$list['unit']})</td>
+                                            <td>{$list['delivery_num']}({$list['unit']})</td>
                                             
                                             <td>{$list['store_name']}</td>
                                             

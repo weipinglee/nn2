@@ -255,7 +255,7 @@ class ManagerStoreController extends UcenterBaseController{
 			$user_id = safe::filterPost('user_id','int',0);
 			if(!$user_id)
 				die(json::encode(\Library\tool::getSuccInfo(0,'用户id错误')));
-
+			
 			$storeProduct = array(
 				'user_id'   => $user_id,
 				'store_pos' => safe::filterPost('pos'),

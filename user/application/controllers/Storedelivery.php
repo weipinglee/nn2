@@ -16,8 +16,11 @@ class StoreDeliveryController extends DeliveryController{
 		$delivery_id = safe::filter($this->_request->getParam('id'));
 		$store = new \nainai\delivery\StoreDelivery();
 		$storeInfo = $store->storeFees($delivery_id);
+		$delivery_info = $store->deliveryInfo($delivery_id);
+
 		$storeInfo['delivery_amount'] = number_format($storeInfo['delivery_num'] * $storeInfo['price'],2);
 		$this->getView()->assign('info',$storeInfo);
+		$this->getView()->assign('delivery_info',$delivery_info);
 	}
 
 	//卖家支付仓库管理费用

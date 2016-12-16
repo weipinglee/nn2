@@ -1,6 +1,6 @@
 ﻿
         <div id="content" class="white">
-            <h1><img src="{views:img/icons/posts.png}" alt="" /> 仓单管理</h1>
+            <h1><img src="{views:img/icons/posts.png}" alt="" /> 库存管理</h1>
 <div class="bloc">
     <div class="title">
         仓单列表

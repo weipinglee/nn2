@@ -51,7 +51,57 @@
 								<span>&nbsp;￥{$info['store_fee']}</span>
 							</div>
 						</div>
-						<div class="xx_center">
+						<div class="sjxx">
+							<p>商品信息</p>
+
+							<div class="sj_detal">
+								<b class="sj_de_tit">商品名称：</b>
+								<span>&nbsp;{$info['name']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">商品单价：</b>
+								<span>&nbsp;{$info['price']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">商品数量：</b>
+								<span>&nbsp;{$info['delivery_num']}{$info['unit']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">小计：</b>
+								<span>&nbsp;{$info['delivery_amount']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">配送：</b>
+								<span>&nbsp;未发货</span>
+							</div>
+
+						</div>
+						<div class="sjxx">
+							<p>提货人信息</p>
+
+							<div class="sj_detal">
+								<b class="sj_de_tit">提货人：</b>
+								<span>&nbsp;{$delivery_info['delivery_man']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">电话：</b>
+								<span>&nbsp;{$delivery_info['phone']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">身份证号：</b>
+								<span>&nbsp;{$delivery_info['idcard']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">车牌号：</b>
+								<span>&nbsp;{$delivery_info['plate_number']}</span>
+							</div>
+							<div class="sj_detal">
+								<b class="sj_de_tit">备注：</b>
+								<span>&nbsp;{$delivery_info['remark']}</span>
+							</div>
+
+						</div>
+						<!-- <div class="xx_center">
 							<table border="0" cellpadding="" cellspacing="">
 								<tbody>
 								<tr class="title" >
@@ -72,10 +122,9 @@
 									<td>{$info['delivery_num']}{$info['unit']}</td>
 									<td>{$info['delivery_amount']}</td>
 									<td>未发货</td>
-
 								</tr>
 							</tbody></table>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

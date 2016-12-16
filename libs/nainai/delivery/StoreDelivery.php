@@ -55,7 +55,7 @@ class StoreDelivery extends Delivery{
 		}
 		$tmp_time = strtotime($res['in_time']);
 		$next_day = strtotime(date('Y-m-d',strtotime('next day',$tmp_time)));
-
+		
 		$total_days = $next_day < time() ? ceil((time()-$next_day)/86400)+1 : 1.0;
 		$res['store_fee'] = number_format($res['store_price'] * $res['delivery_num'] * $total_days/$days ,2);
 		$res['now_time'] = time::getDateTime();
@@ -155,9 +155,9 @@ class StoreDelivery extends Delivery{
 	 */
 	public function storeCheckList($page,$user_id){
 		$query = new Query('product_delivery as pd');
-		$query->join = 'left join order_sell as o on pd.order_id = o.id left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_manager as sm on sm.store_id = sp.store_id left join store_list as sl on sl.id = sp.store_id';
+		$query->join = 'left join order_sell as o on pd.order_id = o.id left join product_offer as po on pd.offer_id = po.id left join store_products as sp on sp.product_id = po.product_id left join store_manager as sm on sm.store_id = sp.store_id left join store_list as sl on sl.id = sp.store_id left join user as u on u.id = o.user_id left join products as p on p.id = po.product_id';
 		
-		$query->fields = 'pd.id,o.order_no,pd.num as delivery_num,sl.name as store_name';
+		$query->fields = 'pd.id,o.order_no,pd.num as delivery_num,sl.name as store_name,o.num as order_num,u.type,p.name as product_name,p.unit';
 		$query->where = 'o.user_id=:user_id';
 		$query->bind = array('user_id'=>$user_id);
 		$query->order = 'pd.create_time desc';
@@ -247,7 +247,7 @@ class StoreDelivery extends Delivery{
 	        $detail['attr_name'] = $attrs;
 		return $detail;
 	}
-
+	
 	/**
 	 * 后台管理员进行审核
 	 * @param  int $delivery_id 提货表Id
