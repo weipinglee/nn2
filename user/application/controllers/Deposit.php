@@ -50,16 +50,22 @@ class DepositController extends OrderController{
 		$order_info = $this->order->orderInfo($order_id);
 		$offer_info = $this->order->offerInfo($order_info['offer_id']);
 		//创建支付宝链接
-		$pay = new \Library\payment\directAlipay\DirectAlipay();
+		$pay = new \Library\payment\directAlipay\DirectAlipay(2);
 		$pay->callbackUrl = url::createUrl("/EntrustOrder/alipayEntrust?order_id=$order_id&user_id={$this->user_id}@user");
 		$obj = new \nainai\system\EntrustSetting();
 		$percent = $obj->getRate($offer_info['cate_id']);
 		
 		$seller_deposit = $percent['type'] == 0 ? number_format($order_info['amount'] * $percent['value'] / 100,2) : $percent['value'];
+		
+		$alipay_info = \Library\payment::getPaymentById(2,'config_param');
+		$alipay_info = json::decode($alipay_info);
 		$payData = array(
-			'M_OrderNO' => $order_info['order_no'],
+			'M_OrderNO' => $order_info['order_no'].'xxd',
 			'M_Amount'  => $seller_deposit,
-			'M_PartnerKey' => 'xxxx',
+			'M_PartnerId' => $alipay_info['M_PartnerId'],
+			'M_PartnerKey' => $alipay_info['M_PartnerKey'],
+			'M_Email'=>$alipay_info['M_Email'],
+			'R_Name'=>'耐耐网订单委托费'
 		);
 		$sendData = $pay->getSendData($payData);
 

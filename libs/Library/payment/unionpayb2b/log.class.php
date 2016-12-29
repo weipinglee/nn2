@@ -1,5 +1,5 @@
 <?php 
-namespace Library\unionpayb2b\sdk;
+namespace Library\payment\unionpayb2b;
 
 	class PhpLog
 	{

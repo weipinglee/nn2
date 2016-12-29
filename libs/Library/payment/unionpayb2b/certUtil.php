@@ -1,5 +1,5 @@
 <?php
-namespace Library\unionpayb2b\sdk;
+namespace Library\payment\unionpayb2b;
 
 include_once 'acp_service.php';
 
@@ -36,15 +36,16 @@ class CertUtil{
         $logger = LogUtil::getLogger();
         $logger->LogInfo("读取签名证书……");
         $cert = new Cert();
-
+        // var_dump($certPath);
         $pkcs12certdata = file_get_contents ( $certPath );
+        // var_dump($pkcs12certdata);exit;
         if($pkcs12certdata === false ){
         	$logger->LogInfo($certPath . "读取失败。");
         }
         
         openssl_pkcs12_read ( $pkcs12certdata, $certs, $certPwd );
         $x509data = $certs ['cert'];
-
+        
         openssl_x509_read ( $x509data );
         $certdata = openssl_x509_parse ( $x509data );
         $cert->certId = $certdata ['serialNumber'];

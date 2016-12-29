@@ -21,7 +21,6 @@ class searchQuery extends Query{
         $table = explode(' ',$table);
         $table = $table[0];
         $cond = $this->getWhereCond($table);
-
         $search = '';
         if(!empty($cond)){
             if($cond[0]['where']){
@@ -31,7 +30,6 @@ class searchQuery extends Query{
                     $this->where = $cond[0]['where'];
                 $this->bind = array_merge($this->bind,$cond[0]['bind']);
             }
-
             $search = $cond[1];
             if(isset($search['select'])){
                 $search['selectData'] = $selectData;

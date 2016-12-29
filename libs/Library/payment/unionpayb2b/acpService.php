@@ -1,5 +1,5 @@
 <?php
-namespace Library\unionpayb2b\sdk;
+namespace Library\payment\unionpayb2b;
 header ( 'Content-type:text/html;charset=utf-8' );
 include_once 'log.class.php';
 include_once 'SDKConfig.php';
@@ -25,6 +25,7 @@ class AcpService {
 		}
 		// 转换成key=val&串
 		$params_str = createLinkString ( $params, true, false );
+		
 		$logger->LogInfo ( "签名key=val&...串 >" . $params_str );
 
 		$params_sha1x16 = sha1 ( $params_str, FALSE );
@@ -54,7 +55,7 @@ class AcpService {
 		$logger = LogUtil::getLogger();
 		// 公钥
 		$public_key = CertUtil::getVerifyCertByCertId ( $params ['certId'] );
-//	echo $public_key.'<br/>';
+	// echo $public_key.'<br/>';exit;
 		// 签名串
 		$signature_str = $params ['signature'];
 		unset ( $params ['signature'] );
@@ -196,6 +197,9 @@ eot;
 </body>
 </html>
 eot;
+
+
+
 		$logger = LogUtil::getLogger();
 		$logger->LogInfo ( "自动跳转html>" . $html );
 		return $html;

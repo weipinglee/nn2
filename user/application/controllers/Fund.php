@@ -175,10 +175,13 @@ class FundController extends UcenterBaseController {
 		$payment_id = safe::filterPost('payment_id', 'int');
 		$recharge = safe::filterPost('recharge', 'float');
         $sign = safe::filterPost('sign', 'int');
+        if (!isset($recharge) || $recharge <= 0  || $recharge > 99999999) {
+			die(json::encode(\Library\tool::getSuccInfo(0,'金额不正确')) ) ;
+		}
         //在线充值
         if (isset($payment_id) && $payment_id != '') {
             if($sign)
-            {
+            {	
                 $paymentInstance = Payment::createPaymentInstance($payment_id);
                 $paymentRow = Payment::getPaymentById($payment_id);
 
@@ -200,10 +203,6 @@ class FundController extends UcenterBaseController {
 			$payment_id = 1;
 			//处理图片
 			$proof = safe::filterPost('imgfile1');
-
-			if (!isset($recharge) || $recharge <= 0  || $recharge > 99999999) {
-				die(json::encode(\Library\tool::getSuccInfo(0,'金额不正确')) ) ;
-			}
 
 			if ($proof) {
 
@@ -236,7 +235,7 @@ class FundController extends UcenterBaseController {
 
 			}
 		}
-
+		return false;
 	}
 	//充值视图
 	public function czAction() {
@@ -440,12 +439,12 @@ class FundController extends UcenterBaseController {
         {
             die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
         }
-
+        
         //初始化参数
         $money   = '';
         $message = '支付失败';
         $orderNo = '';
-
+        
         //执行接口回调函数
         $callbackData = array_merge($_POST,$_GET);
         unset($callbackData['controller']);
@@ -465,10 +464,10 @@ class FundController extends UcenterBaseController {
             $dataArray = array(
                 'status' => 1,
             );
-
+            
             $rechargeObj->data($dataArray);
             $result = $rechargeObj->data($dataArray)->where('recharge_no = "'.$recharge_no.'"')->update();
-
+            
             if(!$result)
             {
                 die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;

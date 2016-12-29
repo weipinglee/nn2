@@ -18,7 +18,10 @@ use \Library\JSON;
 
 class OffersController extends PublicController {
 
-
+	public function testAction(){
+        die(json::encode(tool::getSuccInfo(1,'hello,world')));
+        return false;
+    }
 	private $offer;
 	private $order;
 

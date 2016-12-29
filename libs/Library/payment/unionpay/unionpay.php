@@ -132,7 +132,7 @@ class unionpay extends paymentplugin {
 			'version' => '5.0.0', //版本号
 			'encoding' => 'utf-8', //编码方式
 			'certId' => Common::getSignCertId(), //证书ID
-
+			
 			'txnType' => '01', //交易类型     //可能是活的
 			'txnSubType' => '01', //交易子类 01消费
 			'bizType' => '000201', //业务类型
