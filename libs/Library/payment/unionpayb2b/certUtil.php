@@ -37,7 +37,8 @@ class CertUtil{
         $logger->LogInfo("读取签名证书……");
         $cert = new Cert();
         // var_dump($certPath);
-        $pkcs12certdata = file_get_contents ( $certPath );
+		$tmp = strpos('./',$certPath) >= 0 ? str_replace('./','/',dirname(__FILE__).$certPath) : $certPath;
+        $pkcs12certdata = file_get_contents ( $tmp );
         // var_dump($pkcs12certdata);exit;
         if($pkcs12certdata === false ){
         	$logger->LogInfo($certPath . "读取失败。");
