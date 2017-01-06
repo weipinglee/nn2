@@ -62,6 +62,7 @@
 				            <th>交易时间</th>
 				            <th>交易类别</th>
 				            <th>交易金额</th>
+				            <th>手续</th>
 							<th>账户余额</th>
 				            <th>对方账号</th>
 				            <!-- <th>对方账户名</th> -->
@@ -83,6 +84,7 @@
 							<td>{$item['tranDate']}{$item['tranTime']}</td>
 							<td>{$item['TRANTYPE_TEXT']}</td>
 							<td>{$item['tranAmt']}</td>
+							<td>{$item['pdgAmt']}</td>
 							<td>{$item['accBalAmt']}</td>
 							<td>{$item['accountNo']}</td>
 							<!-- <td>{$item['accountNm']}</td> -->
