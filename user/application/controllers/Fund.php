@@ -101,11 +101,11 @@ class FundController extends UcenterBaseController {
 				$tmp = (array)$details['row']['memo'];
 				$details['row']['memo'] = $tmp[0];
 			}
-
+			
 		}else{
 			foreach ($details['row'] as $key => &$value) {
 				$value = (array)$value;
-				$value['tranAmt'] = floatval($value['tranAmt']) - floatval($value['pdgAmt']);
+				// $value['tranAmt'] = floatval($value['tranAmt']) - floatval($value['pdgAmt']);
 				$value['TRANTYPE_TEXT'] = $zx->getTransType($value['tranType']);
 				$tmp = (array)$value['memo'];
 				$value['memo'] = $tmp[0];
