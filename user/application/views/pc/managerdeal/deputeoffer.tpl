@@ -20,9 +20,9 @@
         <li value=""   class="a_choose"  ><a></a></li>
 
     </ul>
-    <div class="sl_ext">
-     <!--   <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>-->
-    </div>
+    <!-- <div class="sl_ext">
+       <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
+    </div>-->
 
 </div>
 
