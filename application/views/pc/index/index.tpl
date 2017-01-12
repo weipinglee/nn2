@@ -637,7 +637,7 @@ $(function(){
  <%if (data.length>0) { %>
 <%for (var i=0;i<data.length;i++) { %>
         <li>
-            <span class="i_w_1 "><%=data[i].pname%></span>
+            <span class="i_w_1 "><%=data[i].pname%>&nbsp;</span>
             <%if (data[i].type==1) { %>
                 <span class="i_w_2 i_TextGreen">
                    供
@@ -648,7 +648,7 @@ $(function(){
                 </span>
             <% } %>
             <span class="i_w_3">
-                  <%=data[i].mode%>
+                  <%=data[i].mode%>&nbsp;
             </span>
             <span class="i_w_4" id="area<%=i%>">
 				 <%if (data[i].produce_area) { %>
@@ -657,9 +657,15 @@ $(function(){
 				 未知
 				<% } %>
 			</span>
-            <span class="i_w_5"><%=data[i].accept_area%></span>
-            <span class="i_w_6"><%=data[i].quantity%></span>
-            <span class="i_w_7"><%=data[i].quantity-data[i].sell-data[i].freeze%></span>
+            <span class="i_w_5">
+                      <%if (data[i].accept_area) { %>
+                      <%=getAreaText(data[i].accept_area)%>
+                      <%}else { %>
+                       未知
+                      <% } %>
+            </span>
+            <span class="i_w_6"><%=data[i].quantity%>&nbsp;</span>
+            <span class="i_w_7"><%=data[i].quantity-data[i].sell-data[i].freeze%>&nbsp;</span>
             <span class="i_w_8">￥<%=data[i].price%></span>
             <span class="i_w_9">
                 <%if (data[i].qq) { %>
