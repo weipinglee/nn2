@@ -29,7 +29,7 @@ abstract class paymentPlugin {
 	 */
 	public function __construct($payment_id) {
 		//回调函数地址
-        $this->callbackUrl = url::createUrl("/Fund/rechargeCallback/?id=" . $payment_id.'$user');
+        $this->callbackUrl = url::createUrl("/Fund/rechargeCallback/?id=" . $payment_id.'@user');
         //回调业务处理地址
         $this->serverCallbackUrl = url::createUrl("/Fund/rechargeCallback/?id=" . $payment_id.'@user');
         //退款回调地址
