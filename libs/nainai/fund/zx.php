@@ -21,7 +21,7 @@ class zx extends account{
      private $mainacc ;//主体账户
      const XML_PREFIX = '<?xml version="1.0" encoding="GBK"?>';//XML结构头
      const BANK = 'zx';
-
+     
      public function __construct(){
         $configs = tool::getGlobalConfig(array('signBank','zx'));
         $this->username = $configs['username'];

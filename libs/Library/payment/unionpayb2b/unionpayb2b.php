@@ -47,6 +47,7 @@ class unionpayb2b extends paymentPlugin {
 				    $orderNo = $callbackData['orderId'];//订单号
 					if(isset($callbackData['queryId'])){
 						// $this->recordTradeNo($orderNo,$callbackData['queryId']);
+						
 					}
 				    return 1;
 				} else if ($callbackData["respCode"] == "03"

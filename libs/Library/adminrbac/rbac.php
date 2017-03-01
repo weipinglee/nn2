@@ -120,6 +120,7 @@ class rbac
      */
     public static function getAccessList($authId)
     {
+        
         // Db方式权限数据
         $db    = new \Library\M('admin');
         $table = array('role' => 'admin_role', 'user' => 'admin', 'access' => 'admin_access', 'node' => 'admin_node');

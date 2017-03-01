@@ -71,7 +71,7 @@ class Payment {
 		$paymentDB->where = 'id=:id';
 		$paymentDB->bind = array('id' => $payment_id);
 		$paymentRow = $paymentDB->getObj();
-
+		
 		if ($key) {
 			return isset($paymentRow[$key]) ? $paymentRow[$key] : '';
 		}
@@ -180,7 +180,7 @@ class Payment {
 	}
 
 	public static function createOrderNum() {
-		return 'recharge' . date('YmdHis') . rand(100000, 999999);
+		return  date('YmdHis') . rand(100000, 999999);
 	}
 	public static function getDateTime($format = '', $time = '') {
 		$time = $time ? $time : time();

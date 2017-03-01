@@ -344,4 +344,71 @@ class tradeController extends \nainai\controller\Base {
 	}
 
 
+	//支付回调
+    public function rechargeCallbackAction(){
+        //从URL中获取支付方式
+        $payment_id      = safe::filterGet('id', 'int');
+        $paymentInstance = Payment::createPaymentInstance($payment_id);
+
+        if(!is_object($paymentInstance))
+        {
+            die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
+        }
+        
+        //初始化参数
+        $money   = '';
+        $message = '支付失败';
+        $orderNo = '';
+        
+        //执行接口回调函数
+        $callbackData = array_merge($_POST,$_GET);
+        unset($callbackData['controller']);
+        unset($callbackData['action']);
+        unset($callbackData['_id']);
+        $return = $paymentInstance->callback($callbackData,$payment_id,$money,$message,$orderNo);
+        //支付成功
+        if($return){
+            $order_no = str_replace('recharge','',$orderNo);
+            
+            $rechargeObj = new M('recharge_order');
+            $rechargeRow = $rechargeObj->getObj('order_no = "'.$order_no.'"');
+            if(empty($rechargeRow))
+            {
+                //die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+                $this->error('充值失败',url::createUrl("/fund/cz"));
+            }
+            $dataArray = array(
+                'status' => 1,
+            );
+            
+            $rechargeObj->data($dataArray);
+            $result = $rechargeObj->data($dataArray)->where('order_no = "'.$order_no.'"')->update();
+            
+            if(!$result)
+            {
+                //die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+                $this->error('充值失败',url::createUrl("/fund/cz"));
+            }
+            
+            $money   = floatval($rechargeRow['amount']);
+            $agenA = new \nainai\fund\agentAccount();
+            $res = $agenA->in(intval($rechargeRow['user_id']), $money);
+            if($res)
+            {
+				$userLog=new \Library\userLog();
+				$userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
+				$this->success('充值余额成功:'.$rechargeRow['amount'].'元',url::createUrl("/fund/cz"));
+                // die(json::encode(\Library\tool::getSuccInfo(1,'充值成功',url::createUrl('/fund/doFundIn'))));
+                exit;
+            }
+            //die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+            $this->error('充值失败',url::createUrl("/fund/cz"));
+        }
+        else
+        {
+            //die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+            $this->error('充值失败',url::createUrl("/fund/cz"));
+        }
+    }
+
 }

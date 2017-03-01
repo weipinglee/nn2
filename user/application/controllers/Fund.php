@@ -18,13 +18,13 @@ class FundController extends UcenterBaseController {
 
 	protected  $certType = 'deal';
 	public function indexAction() {
-
+		
 		$where = array();
 		$cond['begin'] = safe::filterGet('begin');
 		$cond['end'] = safe::filterGet('end');
 		$cond['day'] = safe::filterGet('day','int',7);
 		$cond['no'] = safe::filterGet('Sn');
-
+		
 		if($cond['begin'] || $cond['end']){
 			$where = array('begin'=>$cond['begin'],'end'=>\Library\time::getDateTime('',strtotime($cond['end'])+24*3600-1));
 		}
