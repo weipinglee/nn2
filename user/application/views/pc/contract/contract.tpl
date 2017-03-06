@@ -19,9 +19,7 @@
             <p align="center"><strong style="font-size:20px;">耐耐网电子交易平台挂牌交易电子合同</strong></p>
 
             <div style="padding-left:20px;margin-top:10px;">
-                买卖双方根据《中华人民共和国合同法》、《耐耐网交易规则》的相关规则，通过耐耐网电子交易平台进行交易，签订本电子交易合同。
-            </div>
-            <div align="center">
+                买卖双方根据《中华人民共和国合同法》、《耐耐网交易规则》的相关规则，通过耐耐网电子交易平台进行交易，签订本电子交易合同。                
                 <table border="1" bordercolor="#000000" cellspacing="0" cellpadding="0" width="100%"
                 style="border:1px #000 solid; border-collapse:collapse; margin:10px 0px;">
                     <tr style="height:35px">
@@ -42,10 +40,8 @@
             <div style="padding-left:20px; margin-top:10px;">
                 一、交易商品
                 <div style="padding-left:20px;">第一条 交易商品：</div>
-            </div>
-            <div>
                 <table border="1" bordercolor="#000000" cellspacing="0" cellpadding="0" width="100%"
-                        style="border:1px #000 solid; border-collapse:collapse;">
+                        style="border:1px #000 solid; border-collapse:collapse; margin:10px 0px; display:block;">
                     <tr style="height:35px">
                         <td width="100px" style="padding:0 10px">商品名称:</td>
                         <td style="padding:0 10px">{$info['name']}</td>
