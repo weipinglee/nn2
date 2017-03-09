@@ -654,9 +654,9 @@ $(function(){
 				 未知
 				<% } %>
 			</span>
-            <span class="i_w_5">
+            <span class="i_w_5" >
                      <%if (data[i].accept_area) { %>
-                    <%=getAreaText(data[i].accept_area)%>
+                    <%=data[i].accept_area%>
                      <%}else { %>
                      未知
                     <% } %>
