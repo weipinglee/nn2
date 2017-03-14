@@ -432,7 +432,7 @@ class FundController extends UcenterBaseController {
     //支付回调
     public function rechargeCallbackAction(){
         //从URL中获取支付方式
-        $payment_id      = safe::filterGet('id', 'int');
+        $payment_id      = $this->getRequest()->getParam('id');
         $paymentInstance = Payment::createPaymentInstance($payment_id);
 
         if(!is_object($paymentInstance))
