@@ -249,7 +249,9 @@ z-index:1000;">
             <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
             <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}" target="_blank">仓储专区</a></li>
             <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}" target="_blank">帮我找</a></li>
-        </ul>
+             <li ><a href="http://info.nainaiwang.com" target="_blank">耐耐资讯</a></li>
+     
+	   </ul>
     </div>
 </div>
 
