@@ -211,6 +211,8 @@ class AccmanageController extends InitController {
 			$no = safe::filterPost('attach_no');
 			$attach = new \nainai\fund\attachAccount();
 			if($attach->updateAttach($user_id,array('no'=>$no))){
+				$log = new \Library\log();
+				$log->addLog(array('action'=>'中信附属账户','content'=>'修改用户id为'.$user_id.'的中信附属账户信息'));
 				die(json::encode(\Library\tool::getSuccInfo(1)));
 			}
 			else{
