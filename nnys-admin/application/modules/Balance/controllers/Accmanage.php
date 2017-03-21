@@ -172,6 +172,53 @@ class AccmanageController extends InitController {
 			die('error');
 		}
 	}
+
+	/**
+	 * 中信开户信息表
+	 */
+	public function zxAccListAction(){
+		$page = \Library\safe::filterGet('page','int',1);
+		$model = new userAccountModel();
+		$list = $model->userZxList($page);
+		$this->getView()->assign('data',$list);
+	}
+
+	/**
+	 * 中信开户详情
+	 */
+	public function zxAttachDetailAction(){
+		$user_id = safe::filterGet('user_id','int',0);
+		$user_detail = array();
+		$attachData = array();
+		if($user_id){
+			$userAcc = new userAccountModel();
+			$attachData = $userAcc->userZxDetail($user_id);
+			if(!empty($attachData)){
+				$member = new \nainai\member();
+				$user_detail = $member->getUserDetail($user_id);
+			}
+		}
+		$this->getView()->assign('attach',$attachData);
+		$this->getView()->assign('user',$user_detail);
+	}
+
+	/**
+	 * 修改中信附属账号
+	 */
+	public function editZxAttachAction(){
+		if(IS_POST){
+			$user_id = safe::filterPost('user_id','int',0);
+			$no = safe::filterPost('attach_no');
+			$attach = new \nainai\fund\attachAccount();
+			if($attach->updateAttach($user_id,array('no'=>$no))){
+				die(json::encode(\Library\tool::getSuccInfo(1)));
+			}
+			else{
+				die(json::encode(\Library\tool::getSuccInfo(0,'操作失败')));
+			}
+
+		}
+	}
 }
 
 ?>
