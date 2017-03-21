@@ -226,4 +226,30 @@ class fundModel extends \nainai\user\UserBank{
         }
     }
 
+    //insert zx attachaccount data to db
+    public function insertZxAttach($data){
+        if($data['user_id']){
+            $model = new \nainai\fund\attachAccount();
+            $attach = $model->attachInfo($data['user_id']);
+            if($attach){
+                $res = '已有附属账户';
+            }
+            else{
+                if($model->addAttach($data)){
+                    $res = '操作成功，等待后台审核';
+                    return tool::getSuccInfo(1,$res);
+                }
+                else{
+                    $res = '操作失败，请重新操作';
+                }
+            }
+
+        }
+        else{
+            $res = '用户不存在';
+        }
+        return tool::getSuccInfo(0,$res);
+
+    }
+
 }

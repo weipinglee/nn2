@@ -127,8 +127,8 @@ class FundController extends UcenterBaseController {
 
 	//开通中信附属账户
 	public function zxpageAction(){
-		$zx = new \nainai\fund\zx();
 		if(IS_POST){
+			$zx = new fundModel();
 			$data = array(
 				'user_id'=>$this->user_id,
 				'name'=>safe::filterPost('name'),
@@ -139,11 +139,12 @@ class FundController extends UcenterBaseController {
 				'contact_name'=>safe::filterPost('contact_name'),
 				'mail_address'=>safe::filterPost('mail_address'),
 			);
-			$res = $zx->geneAttachAccount($data);
+			$res = $zx->insertZxAttach($data);
 			
 			die(JSON::encode($res));
 			return false;
 		}else{
+			$zx = new \nainai\fund\zx();
 			$data = $zx->attachAccountInfo($this->user_id);
 			$this->getView()->assign('info',$data);
 		}
