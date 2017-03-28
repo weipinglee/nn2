@@ -99,7 +99,7 @@ class FundController extends UcenterBaseController {
 				$details['row']['tranAmt'] = floatval($details['row']['tranAmt']) - floatval($details['row']['pdgAmt']);
 				$details['row'] = array($details['row']);
 				$tmp = (array)$details['row']['memo'];
-				$details['row']['memo'] = $tmp[0];
+				//$details['row']['memo'] = $tmp[0];
 			}
 
 		}else{
@@ -111,6 +111,7 @@ class FundController extends UcenterBaseController {
 				$value['memo'] = $tmp[0];
 			}
 		}
+		
 		$page_format = $zx->pageFormat($page,count($details['row']));
 		$this->getView()->assign('page_format',$page_format);
 

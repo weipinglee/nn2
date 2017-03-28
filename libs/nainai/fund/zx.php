@@ -606,9 +606,15 @@ class zx extends account{
                 <pageNumber>{$size}</pageNumber>
             </stream>";
         $res = $this->curl($xml);
-        foreach ($res['row'] as $key => &$value) {
-            $value['subno'] = $payAccInfo['no'];
-        }
+		if(isset($res['row'][1])){
+			foreach ($res['row'] as $key => &$value) {
+               $value['subno'] = $payAccInfo['no'];
+			}
+		}
+		else{
+			$res['row']['subno'] = $payAccInfo['no'];
+		}
+		
         return $res;
     }
 
