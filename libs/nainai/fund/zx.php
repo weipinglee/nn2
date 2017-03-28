@@ -680,4 +680,24 @@ class zx extends account{
         return $res['signin'] && $res['signout'] ? '已签退' : ($res['signin'] ? true : '未签到');
     }
 
+    /**
+     * 附属账户签约状态查询
+     */
+    public function attachStatus($attchNo){
+        $startDate = date('Ymd',time()-86400*87);
+        $endDate = date('Ymd',time());
+        $xml = self::XML_PREFIX."
+            <stream>
+            <action>DLSASQRY</action>
+                <userName>".$this->username."</userName>
+                <mainAccNo>".$this->mainacc."</mainAccNo>
+                <subAccNo>{$attchNo}</subAccNo>
+                <stt></stt>
+                <startDate>{$startDate}</startDate>
+                <endDate>{$endDate}</endDate>
+            </stream>";
+        $res = $this->curl($xml);
+        var_dump($res);
+    }
+
 }
