@@ -219,7 +219,7 @@ class zx extends account{
         }else{
             $num = number_format($num,2);
             $code = $this->getFreezeCode($freeze_records,$amount ? $amount : $num);
-            if(!$code) return '冻结信息获取错误:'.($amount ? $amount : $Num);
+            if(!$code) return '冻结信息获取错误:'.($amount ? $amount : $num);
             $res = $this->bankTransfer('',$num,$from,$to,'freezePay',$time,$code); 
 
             if($res !== true){
@@ -506,8 +506,8 @@ class zx extends account{
         $date = strlen($date)<=8 ? $date : '';
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
        // var_dump($payAccInfo);exit;
-        $starDate = $date ? date('Ymd',strtotime($date)) : date('Ymd',time()-86400*90);
-        $endDate = $date ? date('Ymd',strtotime($date)+86400*90) : date('Ymd',time());
+        $starDate = $date ? date('Ymd',strtotime($date)) : date('Ymd',time()-86400*87);
+        $endDate = $date ? date('Ymd',strtotime($date)+86400*87) : date('Ymd',time());
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLSFRZQR</action>
