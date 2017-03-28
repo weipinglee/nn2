@@ -684,7 +684,7 @@ class zx extends account{
      * 附属账户签约状态查询
      */
     public function attachStatus($attchNo){
-        $startDate = date('Ymd',time()-86400*87);
+        $startDate = date('Ymd',time()-86400*30);
         $endDate = date('Ymd',time());
         $xml = self::XML_PREFIX."
             <stream>
