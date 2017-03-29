@@ -439,8 +439,12 @@ class RbacModel{
 			try {
 				$this->access->beginTrans();
 				$this->access->where(array('role_id'=>$role_id))->delete();
-				if(count($data)>0)
-					$this->access->data($data)->adds();	
+				if(count($data)>0){
+					$this->access->data($data)->adds();
+					$rbac = new \Library\adminrbac\rbac();
+					$rbac->roleStatusChg($role_id);//通知rbac，该角色权限以改变，需要重新获取
+				}
+
 				$res = $this->access->commit();
 			} catch (PDOException $e) {
 				$this->access->rollBack();
