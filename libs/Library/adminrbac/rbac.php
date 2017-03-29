@@ -125,7 +125,7 @@ class rbac
 
         $role_id = $db->where(array('id'=>$authId))->getField('role');
         $role_access = new \Library\M('admin_role_access');
-        $roleData = $role_access->where(array('role_id'=>$role_id))->select();
+        $roleData = $role_access->where(array('role_id'=>$role_id))->getObj();
         if(!empty($roleData) && $roleData['status']==0 && $roleData['access']!=''){
             $access = unserialize($roleData['access']);
         }
