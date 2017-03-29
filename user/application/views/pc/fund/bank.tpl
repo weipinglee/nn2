@@ -36,7 +36,7 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>{if: $user_type==1}公司名称：{else:}姓名：{/if}</span>
-								<span><input class="text" type="text" datatype="s2-50" name="true_name" value="{$bank['true_name']}"></span>
+								<span><input class="text" type="text"  name="true_name" value="{$bank['true_name']}"></span>
 								<span></span>
 							</div>
 							{if:$user_type!=1}
