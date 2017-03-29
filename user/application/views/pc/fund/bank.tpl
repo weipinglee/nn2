@@ -36,7 +36,7 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>{if: $user_type==1}公司名称：{else:}姓名：{/if}</span>
-								<span><input class="text" type="text" datatype="s2-20" name="true_name" value="{$bank['true_name']}"></span>
+								<span><input class="text" type="text" datatype="s2-50" name="true_name" value="{$bank['true_name']}"></span>
 								<span></span>
 							</div>
 							{if:$user_type!=1}
@@ -51,7 +51,7 @@
 							{/if}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>银行账号：</span>
-								<span><input class="text" type="text" name="card_no" datatype="/^[0-9a-zA-Z]{16,19}$/i" value="{$bank['card_no']}" ></span>
+								<span><input class="text" type="text" name="card_no" datatype="/^[0-9a-zA-Z]{15,19}$/i" value="{$bank['card_no']}" ></span>
 								<span></span>
 								
 							</div>
