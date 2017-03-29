@@ -114,7 +114,7 @@ class rbac
     }
 
     /**
-     * 取得当前认证号的所有权限列表
+     * 取得当前认证号的所有权限列表,先在admin_role_access表里查该用户的角色id是否存在和未过期，若是，直接返回反序列化的access字段
      * @param integer $authId 用户ID
      * @access public
      */
@@ -122,68 +122,86 @@ class rbac
     {
         // Db方式权限数据
         $db    = new \Library\M('admin');
-        $table = array('role' => 'admin_role', 'user' => 'admin', 'access' => 'admin_access', 'node' => 'admin_node');
-        $sql   = "select node.id,node.name from " .
-        $table['role'] . " as role," .
-        $table['user'] . " as user," .
-        $table['access'] . " as access ," .
-        $table['node'] . " as node " .
-        "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=0 and access.node_id=node.id and node.level=1 and node.status=0";
-        $apps   = $db->query($sql,array(),"SELECT");
-        $access = array();
-        foreach ($apps as $key => $app) {
-            $appId   = $app['id'];
-            $appName = $app['name'];
-            // 读取项目的模块权限
-            $access[strtoupper($appName)] = array();
-            $sql                          = "select node.id,node.name from " .
-            $table['role'] . " as role," .
-            $table['user'] . " as user," .
-            $table['access'] . " as access ," .
-            $table['node'] . " as node " .
-            "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=0 and access.node_id=node.id and node.level=2 and node.pid={$appId} and node.status=0";
-            $modules = $db->query($sql,array(),"SELECT");
-            // 判断是否存在公共模块的权限
-            $publicAction = array();
-            foreach ($modules as $key => $module) {
-                $moduleId   = $module['id'];
-                $moduleName = $module['name'];
-                if ('PUBLIC' == strtoupper($moduleName)) {
-                    $sql = "select node.id,node.name from " .
-                    $table['role'] . " as role," .
-                    $table['user'] . " as user," .
-                    $table['access'] . " as access ," .
-                    $table['node'] . " as node " .
-                    "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=1";
-                    $rs = $db->query($sql,array(),"SELECT");
-                    foreach ($rs as $a) {
-                        $publicAction[$a['name']] = $a['id'];
-                    }
-                    unset($modules[$key]);
-                    break;
-                }
-            }
-            // 依次读取模块的操作权限
-            foreach ($modules as $key => $module) {
-                $moduleId   = $module['id'];
-                $moduleName = $module['name'];
-                $sql        = "select node.id,node.name from " .
+
+        $role_id = $db->where(array('id'=>$authId))->getField('role');
+        $role_access = new \Library\M('admin_role_access');
+        $roleData = $role_access->where(array('role_id'=>$role_id))->select();
+        if(!empty($roleData) && $roleData['status']==0 && $roleData['access']!=''){
+            $access = unserialize($roleData['access']);
+        }
+        else{
+            $table = array('role' => 'admin_role', 'user' => 'admin', 'access' => 'admin_access', 'node' => 'admin_node');
+            $sql   = "select node.id,node.name from " .
                 $table['role'] . " as role," .
-                $table['user'] . " as user," .
                 $table['access'] . " as access ," .
                 $table['node'] . " as node " .
-                "where user.id='{$authId}' and user.role=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=0 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=0";
-                $rs     = $db->query($sql,array(),"SELECT");
-                $action = array();
-                foreach ($rs as $a) {
-                    $action[$a['name']] = $a['id'];
+                "where role.id = ".$role_id." and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=0 and access.node_id=node.id and node.level=1 and node.status=0";
+            $apps   = $db->query($sql,array(),"SELECT");
+            $access = array();
+            foreach ($apps as $key => $app) {
+                $appId   = $app['id'];
+                $appName = $app['name'];
+                // 读取项目的模块权限
+                $access[strtoupper($appName)] = array();
+                $sql                          = "select node.id,node.name from " .
+                    $table['role'] . " as role," .
+                    $table['access'] . " as access ," .
+                    $table['node'] . " as node " .
+                    "where role.id = ".$role_id." and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=0 and access.node_id=node.id and node.level=2 and node.pid={$appId} and node.status=0";
+                $modules = $db->query($sql,array(),"SELECT");
+                // 判断是否存在公共模块的权限
+                $publicAction = array();
+                foreach ($modules as $key => $module) {
+                    $moduleId   = $module['id'];
+                    $moduleName = $module['name'];
+                    if ('PUBLIC' == strtoupper($moduleName)) {
+                        $sql = "select node.id,node.name from " .
+                            $table['role'] . " as role," .
+                            $table['access'] . " as access ," .
+                            $table['node'] . " as node " .
+                            "where role.id = ".$role_id." and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=1";
+                        $rs = $db->query($sql,array(),"SELECT");
+                        foreach ($rs as $a) {
+                            $publicAction[$a['name']] = $a['id'];
+                        }
+                        unset($modules[$key]);
+                        break;
+                    }
                 }
-                // 和公共模块的操作权限合并
-                $action += $publicAction;
-                $access[strtoupper($appName)][strtoupper($moduleName)] = array_change_key_case($action, CASE_UPPER);
-            }
+                // 依次读取模块的操作权限
+                foreach ($modules as $key => $module) {
+                    $moduleId   = $module['id'];
+                    $moduleName = $module['name'];
+                    $sql        = "select node.id,node.name from " .
+                        $table['role'] . " as role," .
+                        $table['access'] . " as access ," .
+                        $table['node'] . " as node " .
+                        "where role.id = ".$role_id." and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=0 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=0";
+                    $rs     = $db->query($sql,array(),"SELECT");
+                    $action = array();
+                    foreach ($rs as $a) {
+                        $action[$a['name']] = $a['id'];
+                    }
+                    // 和公共模块的操作权限合并
+                    $action += $publicAction;
+                    $access[strtoupper($appName)][strtoupper($moduleName)] = array_change_key_case($action, CASE_UPPER);
+                }
+             }
+            $insert = array('role_id'=>$role_id,'status'=>0,'access'=>serialize($access));
+            $update = array('status'=>0,'access'=>serialize($access));
+            $role_access->insertUpdate($insert,$update);
+
         }
         return $access;
     }
 
+    /**
+     * admin_role_access的状态发生改变，status字段重置为1，access字段需要重写
+     * @paramer int $role_id 角色id
+     */
+    public function roleStatusChg($role_id){
+        $m = new \Library\M('admin_role_access');
+        return $m->where(array('role_id'=>$role_id))->data(array('status'=>1))->update();
+
+    }
 }
