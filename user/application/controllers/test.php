@@ -31,7 +31,7 @@ class testController extends  UcenterBaseController{
 
 	public function acctestAction(){
 		$acc = new \nainai\fund\zx();
-		$user_id = 4078;
+		$user_id = 4079;
 		
 		$accInfo = $acc->attachAccountInfo($user_id);
 		$res = $acc->attachStatus($accInfo['no']);

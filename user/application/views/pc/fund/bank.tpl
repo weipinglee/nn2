@@ -43,7 +43,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>身份证：</span>
 								<span>
-									<input class="text" type="text" name="identify" datatype="/(^\d{15}$)|(^\d{17}([0-9]|X)$/i" value="{$bank['identify_no']}" >
+									<input class="text" type="text" name="identify"  value="{$bank['identify_no']}" >
 								</span>
 								<span></span>
 								
