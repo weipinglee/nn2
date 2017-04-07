@@ -147,7 +147,7 @@ class Payment {
 				//'user_id' => session::get('user_id'),
 				'id' => null,
 				'user_id' => 1,
-				'order_no' => self::createOrderNum(),
+				'order_no' => 'recharge'.self::createOrderNum(),
 				//资金
 				'amount' => $argument['account'],
 				'create_time' => self::getDateTime(),
@@ -156,11 +156,10 @@ class Payment {
 				//支付方式
 				'pay_type' => $argument['payType'],
 			);
-			$rechargeObj;
 			$r_id = $rechargeObj->data($reData)->add();
 
 			//充值时用户id跟随交易号一起发送,以"_"分割
-			$payment['M_OrderNO'] = 'recharge' . $reData['order_no'];
+			$payment['M_OrderNO'] = $reData['order_no'];
 			$payment['M_OrderId'] = $r_id;
 			$payment['M_Amount'] = $reData['amount'];
 			$payment['M_Remark'] = '';
@@ -172,9 +171,9 @@ class Payment {
 
 		//店铺信息
 		$payment['R_Address'] = isset($site_config['address']) ? $site_config['address'] : '';
-		$payment['R_Name'] = isset($site_config['name']) ? $site_config['name'] : '山城速购';
-		$payment['R_Mobile'] = isset($site_config['mobile']) ? $site_config['mobile'] : '13232323';
-		$payment['R_Telephone'] = isset($site_config['phone']) ? $site_config['phone'] : '400-234-4564564';
+		$payment['R_Name'] = isset($site_config['name']) ? $site_config['name'] : '';
+		$payment['R_Mobile'] = isset($site_config['mobile']) ? $site_config['mobile'] : '';
+		$payment['R_Telephone'] = isset($site_config['phone']) ? $site_config['phone'] : '';
 
 		return $payment;
 	}

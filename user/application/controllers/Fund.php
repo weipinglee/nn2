@@ -432,7 +432,8 @@ class FundController extends UcenterBaseController {
     //支付回调
     public function rechargeCallbackAction(){
         //从URL中获取支付方式
-        $payment_id      = safe::filterGet('id', 'int');
+        $payment_id      = $this->getRequest()->getParam('id');
+		$payment_id      = safe::filter($payment_id,'int');
         $paymentInstance = Payment::createPaymentInstance($payment_id);
 
         if(!is_object($paymentInstance))
@@ -453,10 +454,10 @@ class FundController extends UcenterBaseController {
         $return = $paymentInstance->callback($callbackData,$payment_id,$money,$message,$orderNo);
         //支付成功
         if($return){
-            $recharge_no = str_replace('recharge','',$orderNo);
+            $recharge_no = $orderNo;
             
             $rechargeObj = new M('recharge_order');
-            $rechargeRow = $rechargeObj->getObj('recharge_no = "'.$recharge_no.'"');
+            $rechargeRow = $rechargeObj->where(array('order_no'=>$recharge_no))->getObj();
             if(empty($rechargeRow))
             {
                 die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
@@ -466,23 +467,23 @@ class FundController extends UcenterBaseController {
             );
             
             $rechargeObj->data($dataArray);
-            $result = $rechargeObj->data($dataArray)->where('recharge_no = "'.$recharge_no.'"')->update();
+            $result = $rechargeObj->data($dataArray)->where(array('order_no'=>$recharge_no))->update();
             
             if(!$result)
             {
                 die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
             }
 
-            $money   = $rechargeRow['account'];
+            $money   = $rechargeRow['amount'];
             $user_id = $this->user_id;
             $agenA = new \nainai\fund\agentAccount();
             $res = $agenA->in($user_id, $money);
-            if($res)
+            if($res===true)
             {
 				$userLog=new \Library\userLog();
 				$userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
                 die(json::encode(\Library\tool::getSuccInfo(1,'充值成功',url::createUrl('/fund/doFundIn'))));
-                exit;
+
             }
             die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
         }

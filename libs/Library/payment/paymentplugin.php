@@ -72,46 +72,50 @@ OEF;
 	}
 
 	/**
-	 * @开始退款
-	 * @param array $sendData 上传报文
+	 * @brief 记录支付平台的交易号
+	 * @param $orderNo string 订单编号
+	 * @param $tradeNo string 交易流水号
+	 * @return boolean
 	 */
+	protected function recordTradeNo($orderNo,$tradeNo)
+	{
+
+		$orderDB = new \Library\M('recharge_order');
+		return $orderDB->data(array('proot' => $tradeNo))->where(array('order_no'=>$orderNo))->update();
+
+	}
 
 	/**
 	 * 添加一条交易记录
 	 * @$tradeData array 插入的记录
 	 * @$orderNo 订单号
 	 */
-/*	public static function addTrade($tradeData) {
-$orderNo = $tradeData['order_no'];
-if (stripos($orderNo, 'recharge') !== false) {
-$tradeData['order_type'] = 0;//充值
-$tradeData['order_no'] = str_replace('recharge', '', $orderNo);
+	public static function addTrade($tradeData){
+		$orderNo = $tradeData['order_no'];
+		if(stripos($orderNo,'recharge') !== false){
+			$tradeData['order_type'] = 0;//充值
+			$tradeData['order_no']   = str_replace('recharge','',$orderNo);
 
-} else {
-$tradeData['order_type'] = 1;//消费
-$tradeData['order_no'] = $orderNo;
-}
+		}else{
+			$tradeData['order_type'] = 1;//消费
+			$tradeData['order_no']   = $orderNo;
+		}
 
-$tradeDB = new IModel('trade_record');
+		$tradeDB = new \Library\M('recharge_record');
 
-$tradeDB->setData($tradeData);
-if (!$tradeData['pay_type'] || !$tradeData['trade_no']) {
-return false;
-}
+		$tradeDB->data($tradeData);
+		if(!$tradeData['pay_type'] || !$tradeData['trade_no'])return false;
+		$where = 'pay_type='.$tradeData['pay_type'].' and trade_no = "'.$tradeData['trade_no'].'"';
+		if($tradeDB->where($where)->getObj()){
+			if($tradeData['trade_status']==1){
+				$tradeDB->where($where)->update();
+			}
+			return true;
+		}
+		if($tradeDB->add())return true;
+		return false;
+	}
 
-$where = 'pay_type=' . $tradeData['pay_type'] . ' and trade_no = "' . $tradeData['trade_no'] . '"';
-if ($tradeDB->getObj($where, 'id')) {
-if ($tradeData['trade_status'] == 1) {
-$tradeDB->update($where);
-}
-return true;
-}
-if ($tradeDB->add()) {
-return true;
-}
-
-return false;
-}*/
 	/**
 	 * 获取交易类型1：消费，2：退款
 	 * @$paymentId int  支付类型：银联，担保交易等

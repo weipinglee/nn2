@@ -148,6 +148,7 @@ class agentAccount extends account{
      * @param string $note 备注
   */
     public function in($user_id,$num,$note=''){
+        $num = floatval($num);
        if(is_integer($num) || is_float($num)){
 
              $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->setInc('fund',$num);//总帐户增加金额
@@ -168,6 +169,7 @@ class agentAccount extends account{
       * @param string $note 备注
       */
      public function out($user_id,$num,$note=''){
+         $num = floatval($num);
        if(is_integer($num) || is_float($num)){
              //获取账户可用资金总额
            $fund = $this->agentModel->table($this->agentTable)->where(array('user_id'=>$user_id))->getField('freeze');
