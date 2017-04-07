@@ -434,6 +434,7 @@ class FundController extends UcenterBaseController {
         //从URL中获取支付方式
         $payment_id      = $this->getRequest()->getParam('id');
 		$payment_id      = safe::filter($payment_id,'int');
+
         $paymentInstance = Payment::createPaymentInstance($payment_id);
 
         if(!is_object($paymentInstance))
