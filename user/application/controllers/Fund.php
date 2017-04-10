@@ -462,7 +462,7 @@ class FundController extends UcenterBaseController {
             $rechargeRow = $rechargeObj->where(array('order_no'=>$recharge_no))->getObj();
             if(empty($rechargeRow))
             {
-                die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+				$this->error('充值失败');
             }
             $dataArray = array(
                 'status' => 1,
@@ -473,7 +473,7 @@ class FundController extends UcenterBaseController {
             
             if(!$result)
             {
-                die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+				$this->error('充值失败');
             }
 
             $money   = $rechargeRow['amount'];
@@ -484,14 +484,14 @@ class FundController extends UcenterBaseController {
             {
 				$userLog=new \Library\userLog();
 				$userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
-                die(json::encode(\Library\tool::getSuccInfo(1,'充值成功',url::createUrl('/fund/doFundIn'))));
+				$this->success('充值成功',url::createUrl('fund/cz'));
 
             }
-            die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+			$this->error('充值失败');
         }
         else
         {
-            die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+			$this->error('充值失败');
         }
     }
 

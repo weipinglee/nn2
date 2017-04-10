@@ -172,7 +172,6 @@ class unionpayb2b extends paymentPlugin {
 
 	public function doPay($params){
 		$uri = SDK_FRONT_TRANS_URL;
-		print_r($params);
 		$html_form = AcpService::createAutoFormHtml( $params, $uri );
 		echo $html_form;
 	}

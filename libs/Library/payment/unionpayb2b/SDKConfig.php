@@ -2,7 +2,7 @@
 namespace Library\payment\unionpayb2b;
 // ######(以下配置为PM环境：入网测试环境用，生产环境配置见文档说明)#######
 // 签名证书路径
-const SDK_SIGN_CERT_PATH = 'E:/wamp/www/nn2/libs/Library/payment/unionpayb2b/key/certs/acp_test_sign.pfx';
+const SDK_SIGN_CERT_PATH = './key/certs/acp_test_sign.pfx';
 
 // 签名证书密码
 const SDK_SIGN_CERT_PWD = '000000';
