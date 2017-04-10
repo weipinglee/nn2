@@ -4,7 +4,7 @@ header ( 'Content-type:text/html;charset=utf-8' );
 include_once 'log.class.php';
 include_once 'SDKConfig.php';
 include_once 'common.php';
-include_once 'cert_util.php';
+include_once 'certUtil.php';
 
 class AcpService {
 	

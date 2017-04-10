@@ -453,6 +453,7 @@ class FundController extends UcenterBaseController {
         unset($callbackData['action']);
         unset($callbackData['_id']);
         $return = $paymentInstance->callback($callbackData,$payment_id,$money,$message,$orderNo);
+
         //支付成功
         if($return){
             $recharge_no = $orderNo;

@@ -16,7 +16,7 @@ class unionpayb2b extends paymentPlugin {
 	 * @see paymentplugin::getSubmitUrl()
 	 */
 	public function getSubmitUrl() {
-		
+		return SDK_FRONT_TRANS_URL;
 	}
 
 	/**
@@ -29,7 +29,7 @@ class unionpayb2b extends paymentPlugin {
 	 * 获取退款提交地址
 	 */
 	public function getRefundUrl() {
-
+		return SDK_BACK_TRANS_URL;//后台提交地址
 	}
 
 	/**
@@ -46,7 +46,7 @@ class unionpayb2b extends paymentPlugin {
 				    //交易已受理，等待接收后台通知更新订单状态，如果通知长时间未收到也可发起交易状态查询
 				    $orderNo = $callbackData['orderId'];//订单号
 					if(isset($callbackData['queryId'])){
-						// $this->recordTradeNo($orderNo,$callbackData['queryId']);
+						 $this->recordTradeNo($orderNo,$callbackData['queryId']);
 						
 					}
 				    return 1;
@@ -64,7 +64,7 @@ class unionpayb2b extends paymentPlugin {
 			}
 			else
 			{
-				$message = '签名不正确';
+				$message = '签名不正确';echo $message;
 			}
 		}
 		else
@@ -172,6 +172,7 @@ class unionpayb2b extends paymentPlugin {
 
 	public function doPay($params){
 		$uri = SDK_FRONT_TRANS_URL;
+		print_r($params);
 		$html_form = AcpService::createAutoFormHtml( $params, $uri );
 		echo $html_form;
 	}

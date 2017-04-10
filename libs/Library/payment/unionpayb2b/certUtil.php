@@ -1,7 +1,7 @@
 <?php
 namespace Library\payment\unionpayb2b;
 
-include_once 'acp_service.php';
+include_once 'acpService.php';
 
 class Cert
 {
@@ -165,13 +165,13 @@ class CertUtil{
             self::initVerifyCerts();
         }
         if(count(CertUtil::$verifyCerts) == 0){
-            $logger.LogInfo("未读取到任何证书……");
+            $logger->LogInfo("未读取到任何证书……");
             return null;
         }
         if(array_key_exists($certId, CertUtil::$verifyCerts)){
             return CertUtil::$verifyCerts[$certId]->key;
         } else {
-            $logger.LogInfo("未匹配到序列号为[" . certId . "]的证书");
+            $logger->LogInfo("未匹配到序列号为[" . certId . "]的证书");
             return null;
         }
     }
