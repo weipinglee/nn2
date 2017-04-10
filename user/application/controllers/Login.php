@@ -421,5 +421,50 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 	}
 
+	//银联支付异步回调
+	public function serverCallbackAction(){
+		//从URL中获取支付方式
+		$payment_id      = $this->getRequest()->getParam('id');
+		$payment_id      = safe::filter($payment_id,'int');
+
+		$paymentInstance = \Library\Payment::createPaymentInstance($payment_id);
+
+		if(!is_object($paymentInstance))
+		{
+			die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
+		}
+
+		//初始化参数
+		$money   = '';
+		$message = '支付失败';
+		$orderNo = '';
+
+		//执行接口回调函数
+		$callbackData = array_merge($_POST,$_GET);
+		unset($callbackData['controller']);
+		unset($callbackData['action']);
+		unset($callbackData['_id']);
+		$obj = new M('');
+		$obj->beginTrans();
+		$return = $paymentInstance->serverCallback($callbackData,$payment_id,$money,$message,$orderNo);
+
+		//支付成功
+		if($return){
+			$res = Library\payment::updateRecharge($orderNo);
+			if($res)
+			{
+				if($res->commit())
+					$paymentInstance->notifyStop();
+				exit;
+			}
+		}
+		else
+		{
+			$paymentInstance->notifyStop();
+		}
+		$obj->rollBack();
+		exit;
+	}
+
 
 }

@@ -452,46 +452,28 @@ class FundController extends UcenterBaseController {
         unset($callbackData['controller']);
         unset($callbackData['action']);
         unset($callbackData['_id']);
+		$obj = new M('');
+		$obj->beginTrans();
         $return = $paymentInstance->callback($callbackData,$payment_id,$money,$message,$orderNo);
 
         //支付成功
         if($return){
-            $recharge_no = $orderNo;
-            
-            $rechargeObj = new M('recharge_order');
-            $rechargeRow = $rechargeObj->where(array('order_no'=>$recharge_no))->getObj();
-            if(empty($rechargeRow))
+            $res = Library\payment::updateRecharge($orderNo);
+            if($res)
             {
-				$this->error('充值失败');
+				if($res->commit())
+					$this->success('充值成功',url::createUrl('fund/cz'));
+				else
+					$this->error($message);
             }
-            $dataArray = array(
-                'status' => 1,
-            );
-            
-            $rechargeObj->data($dataArray);
-            $result = $rechargeObj->data($dataArray)->where(array('order_no'=>$recharge_no))->update();
-            
-            if(!$result)
-            {
-				$this->error('充值失败');
-            }
+			else{
+				$this->error($message);
+			}
 
-            $money   = $rechargeRow['amount'];
-            $user_id = $this->user_id;
-            $agenA = new \nainai\fund\agentAccount();
-            $res = $agenA->in($user_id, $money);
-            if($res===true)
-            {
-				$userLog=new \Library\userLog();
-				$userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
-				$this->success('充值成功',url::createUrl('fund/cz'));
-
-            }
-			$this->error('充值失败');
         }
         else
         {
-			$this->error('充值失败');
+			$this->error($message);
         }
     }
 

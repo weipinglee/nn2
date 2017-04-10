@@ -187,13 +187,16 @@ class Payment {
 		return date($format, $time);
 	}
 
+
+
+
 	/**
 	 * 更新在线充值
 	 * @param string $recharge_no 充值订单号
 	 * @param string $proot 第三方返回的交易流水号
 	 * @return bool
 	 */
-	public static function updateRecharge($recharge_no, $proot = '') {
+	public static function updateRecharge($recharge_no) {
 		$rechargeObj = new M('recharge_order');
 		$rechargeObj->where(array('order_no'=>$recharge_no));
 		$rechargeRow = $rechargeObj->getObj();
@@ -204,24 +207,26 @@ class Payment {
 		if ($rechargeRow['status'] == 1) {
 			return true;
 		}
-		if ($proot == '') {
-			return false;
-		}
+
 		$dataArray = array(
-			'status' => 1,
-			'proot' => $proot,
+			'status' => 1
 		);
 
-		$rechargeObj->beginTrans();
 		$rechargeObj->where(array('order_no'=>$recharge_no))->data($dataArray)->update();
-
 
 		$userid = $rechargeRow['user_id'];
 		$money = $rechargeRow['amount'];
 		$fund = \nainai\fund::createFund(1);
 		$fundRes = $fund->in($userid, $money);
 
-		return $rechargeObj->commit();
-
+		if($fundRes===true)
+		{
+			$userLog=new \Library\userLog();
+			$userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }
