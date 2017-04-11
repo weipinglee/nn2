@@ -132,10 +132,6 @@ class Payment {
 		$payment = self::getPaymentParam($payment_id);
 
 		if ($type == 'recharge') {
-			//判断用户有没有登录
-			/*if (session::get('user_id') == null) {
-			IError::show(403, '请登录系统');
-			}	*/
 
 			if (!isset($argument['account']) || $argument['account'] <= 0) {
 				return false;
@@ -147,7 +143,7 @@ class Payment {
 			$reData = array(
 				//'user_id' => session::get('user_id'),
 				'id' => null,
-				'user_id' => session::get('login')['user_id'],
+				'user_id' => $argument['user_id'],
 				'order_no' => 'recharge'.self::createOrderNum(),
 				//资金
 				'amount' => $argument['account'],

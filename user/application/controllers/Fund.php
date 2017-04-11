@@ -186,7 +186,7 @@ class FundController extends UcenterBaseController {
                 $paymentRow = Payment::getPaymentById($payment_id);
 
                 //account:充值金额; paymentName:支付方式名字
-                $reData = array('account' => $recharge, 'paymentName' => $paymentRow, 'payType' => $payment_id);
+                $reData = array('user_id'=>$this->user_id,'account' => $recharge, 'paymentName' => $paymentRow, 'payType' => $payment_id);
 
                 $sendData = $paymentInstance->getSendData(Payment::getPaymentInfo($payment_id, 'recharge', $reData));
                 $paymentInstance->doPay($sendData);
