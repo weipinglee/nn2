@@ -138,15 +138,16 @@ class Payment {
 			}	*/
 
 			if (!isset($argument['account']) || $argument['account'] <= 0) {
-				//IError::show(403, '请填入正确的充值金额');
+				return false;
 
 			}
 
 			$rechargeObj = new M('recharge_order');
+
 			$reData = array(
 				//'user_id' => session::get('user_id'),
 				'id' => null,
-				'user_id' => 1,
+				'user_id' => session::get('login')['user_id'],
 				'order_no' => 'recharge'.self::createOrderNum(),
 				//资金
 				'amount' => $argument['account'],
@@ -216,7 +217,7 @@ class Payment {
 
 		$userid = $rechargeRow['user_id'];
 		$money = $rechargeRow['amount'];
-		$fund = \nainai\fund::createFund(1);
+		$fund =  new \nainai\fund\agentAccount();
 		$fundRes = $fund->in($userid, $money);
 
 		if($fundRes===true)

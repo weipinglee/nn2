@@ -461,7 +461,7 @@ class FundController extends UcenterBaseController {
             $res = Library\payment::updateRecharge($orderNo);
             if($res)
             {
-				if($res->commit())
+				if($obj->commit())
 					$this->success('充值成功',url::createUrl('fund/cz'));
 				else
 					$this->error($message);

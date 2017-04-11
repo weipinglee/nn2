@@ -453,7 +453,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 			$res = Library\payment::updateRecharge($orderNo);
 			if($res)
 			{
-				if($res->commit())
+				if($obj->commit())
 					$paymentInstance->notifyStop();
 				exit;
 			}

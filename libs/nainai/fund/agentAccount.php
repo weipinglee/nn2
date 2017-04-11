@@ -71,6 +71,7 @@ class agentAccount extends account{
             }
             break;
         }
+
         return $this->flowModel->data($flow_data)->add(1);
 
     }
