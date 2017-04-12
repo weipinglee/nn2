@@ -33,6 +33,8 @@ abstract class Payment {
 
 	public $payObj = null;
 
+	public $paymentId = 0;
+
 	protected $callbackUrl = '';
 
 	protected $serverCallback = '';
@@ -40,6 +42,7 @@ abstract class Payment {
 	public function __construct($pay=null)
 	{
 		$this->payObj = $pay;
+		$this->paymentId = $pay->getPaymentId();
 	}
 
 

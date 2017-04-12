@@ -438,47 +438,34 @@ class FundController extends UcenterBaseController {
         //从URL中获取支付方式
         $payment_id      = $this->getRequest()->getParam('id');
 		$payment_id      = safe::filter($payment_id,'int');
+		$payObj = null;
+		if($payment_id == 3){
+			$payFac = new \Library\payment\factory\unionFactory();
+			$payObj = $payFac->getPayObj();
+		}
+		elseif($payment_id == 4){
+			$payFac = new \Library\payment\factory\unionb2bFactory();
+			$payObj = $payFac->getPayObj();
+		}
+		else{
+			die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
+		}
 
-        $paymentInstance = Payment::createPaymentInstance($payment_id);
+		$payment = new nainai\payment\recharge($payObj);
 
-        if(!is_object($paymentInstance))
-        {
-            die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
-        }
+		$callbackData = array_merge($_POST,$_GET);
+		unset($callbackData['controller']);
+		unset($callbackData['action']);
+		unset($callbackData['id']);
+		$res = $payment->payAfter($callbackData);
+       if($res){
+		   $this->success('充值成功',url::createUrl('fund/cz'));
+	   }
+		else{
+			$this->error('');
+		}
         
-        //初始化参数
-        $money   = '';
-        $message = '支付失败';
-        $orderNo = '';
-        
-        //执行接口回调函数
-        $callbackData = array_merge($_POST,$_GET);
-        unset($callbackData['controller']);
-        unset($callbackData['action']);
-        unset($callbackData['_id']);
-		$obj = new M('');
-		$obj->beginTrans();
-        $return = $paymentInstance->callback($callbackData,$payment_id,$money,$message,$orderNo);
 
-        //支付成功
-        if($return){
-            $res = Library\payment::updateRecharge($orderNo);
-            if($res)
-            {
-				if($obj->commit())
-					$this->success('充值成功',url::createUrl('fund/cz'));
-				else
-					$this->error($message);
-            }
-			else{
-				$this->error($message);
-			}
-
-        }
-        else
-        {
-			$this->error($message);
-        }
     }
 
     public function subaccindexAction(){

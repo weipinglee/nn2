@@ -426,43 +426,30 @@ class LoginController extends \Yaf\Controller_Abstract {
 		//从URL中获取支付方式
 		$payment_id      = $this->getRequest()->getParam('id');
 		$payment_id      = safe::filter($payment_id,'int');
-
-		$paymentInstance = \Library\Payment::createPaymentInstance($payment_id);
-
-		if(!is_object($paymentInstance))
-		{
+		$payObj = null;
+		if($payment_id == 3){
+			$payFac = new \Library\payment\factory\unionFactory();
+			$payObj = $payFac->getPayObj();
+		}
+		elseif($payment_id == 4){
+			$payFac = new \Library\payment\factory\unionb2bFactory();
+			$payObj = $payFac->getPayObj();
+		}
+		else{
 			die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
 		}
 
-		//初始化参数
-		$money   = '';
-		$message = '支付失败';
-		$orderNo = '';
+		$payment = new nainai\payment\recharge($payObj);
 
-		//执行接口回调函数
 		$callbackData = array_merge($_POST,$_GET);
 		unset($callbackData['controller']);
 		unset($callbackData['action']);
-		unset($callbackData['_id']);
-		$obj = new M('');
-		$obj->beginTrans();
-		$return = $paymentInstance->serverCallback($callbackData,$payment_id,$money,$message,$orderNo);
+		unset($callbackData['id']);
+		$res = $payment->payAfter();
+		if($res){
+			$payObj->notifyStop();
+		}
 
-		//支付成功
-		if($return){
-			$res = Library\payment::updateRecharge($orderNo);
-			if($res)
-			{
-				if($obj->commit())
-					$paymentInstance->notifyStop();
-				exit;
-			}
-		}
-		else
-		{
-			$paymentInstance->notifyStop();
-		}
-		$obj->rollBack();
 		exit;
 	}
 

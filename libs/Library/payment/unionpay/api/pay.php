@@ -35,29 +35,12 @@ class pay extends paymentplugin{
     /**
      * @see paymentplugin::callback()
      */
-    public function callback($callbackData, &$paymentId, &$money, &$message, &$orderNo) {
+    public function callbackVerify($callbackData, &$money, &$message, &$orderNo,&$flowNo) {
         if (isset($callbackData['signature'])) {
             if (Common::verify ( $callbackData )) {
                 $orderNo = $callbackData['orderId'];//订单号
-
-
-                return 1;
-            } else {
-                $message = '签名不正确';
-            }
-        } else {
-            $message = '签名为空';
-        }
-        return 0;
-    }
-
-    /**
-     * @see paymentplugin::serverCallback()
-     */
-    public function serverCallback($callbackData, &$paymentId, &$money, &$message, &$orderNo) {
-        if (isset($callbackData['signature'])) {
-            if (Common::verify($callbackData)) {
-                $orderNo = $callbackData['orderId'];//订单号
+                $flowNo  = $callbackData['queryId'];//第三方流水号
+                $money   = $callbackData['txnAmt'];//交易额
 
                 return 1;
             } else {

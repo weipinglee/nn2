@@ -13,8 +13,8 @@ class recharge extends payment{
     public function __construct($pay)
     {
         parent::__construct($pay);
-        $this->callbackUrl = url::createUrl('/fund/rechargeCallback@user');
-        $this->serverCallback = url::createUrl('/login/rechargeCallback@user');
+        $this->callbackUrl = url::createUrl('/fund/rechargeCallback?id='.$this->paymentId.'@user');
+        $this->serverCallback = url::createUrl('/login/rechargeCallback?id='.$this->paymentId.'@user');
     }
 
     /**
@@ -63,37 +63,55 @@ class recharge extends payment{
 
     public function payAfter(Array $argument=array())
     {
-        $recharge_no = '';
-        $rechargeObj = new M('recharge_order');
-        $rechargeObj->where(array('order_no'=>$recharge_no));
-        $rechargeRow = $rechargeObj->getObj();
-        if (empty($rechargeRow)) {
-            return false;
+        //初始化参数
+        $money   = '';
+        $message = '支付失败';
+        $orderNo = '';
+        $flowNo = '';
+
+        //验证签名
+        $return = $this->payObj->callbackVerify($argument,$money,$message,$orderNo,$flowNo);
+
+        if($return){
+            $rechargeObj = new M('recharge_order');
+            $rechargeObj->where(array('order_no'=>$orderNo));
+            $rechargeRow = $rechargeObj->getObj();
+            if (empty($rechargeRow)) {
+                return false;
+            }
+
+            if ($rechargeRow['status'] == 1) {
+                return true;
+            }
+
+            $dataArray = array(
+                'status' => 1,
+                'proot'  => $flowNo
+            );
+            $rechargeObj->beginTrans();
+            $rechargeObj->where(array('order_no'=>$orderNo))->data($dataArray)->update();
+
+            $userid = $rechargeRow['user_id'];
+            $fund =  new \nainai\fund\agentAccount();
+            $fundRes = $fund->in($userid, $money);
+
+            if($fundRes===true)
+            {
+                $userLog=new \Library\userLog();
+                $userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
+
+                if($rechargeObj->commit()){
+                    return true;
+                }
+
+            }
+            $rechargeObj->rollBack();
+
+
         }
 
-        if ($rechargeRow['status'] == 1) {
-            return true;
-        }
-
-        $dataArray = array(
-            'status' => 1
-        );
-
-        $rechargeObj->where(array('order_no'=>$recharge_no))->data($dataArray)->update();
-
-        $userid = $rechargeRow['user_id'];
-        $money = $rechargeRow['amount'];
-        $fund =  new \nainai\fund\agentAccount();
-        $fundRes = $fund->in($userid, $money);
-
-        if($fundRes===true)
-        {
-            $userLog=new \Library\userLog();
-            $userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
-            return true;
-        }
-        else{
-            return false;
-        }
+        return false;
     }
+
+
 }

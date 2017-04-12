@@ -178,22 +178,12 @@ OEF;
 	/**
 	 * 同步支付回调
 	 * @param $ExternalData array  支付接口回传的数据
-	 * @param $paymentId    int    支付接口ID
 	 * @param $money        float  交易金额
 	 * @param $message      string 信息
 	 * @param $orderNo      string 订单号
+	 * @param $flowNo       string 第三方系统返回的流水号
 	 */
-	abstract public function callback($ExternalData, &$paymentId, &$money, &$message, &$orderNo);
-
-	/**
-	 * 同步支付回调
-	 * @param $ExternalData array  支付接口回传的数据
-	 * @param $paymentId    int    支付接口ID
-	 * @param $money        float  交易金额
-	 * @param $message      string 信息
-	 * @param $orderNo      string 订单号
-	 */
-	abstract public function serverCallback($ExternalData, &$paymentId, &$money, &$message, &$orderNo);
+	abstract public function callbackVerify($ExternalData, &$money, &$message, &$orderNo,&$flowNo);
 
 	/**
 	 * 获取支付id
