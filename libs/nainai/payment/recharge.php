@@ -19,6 +19,7 @@ class recharge extends payment{
 
     /**
      * 充值前操作（生成订单，提交到支付页面）
+     * 把业务相关的参数传递给支付类转化后提交给支付系统
      * @param array $argument
      * @return bool
      */
@@ -61,6 +62,12 @@ class recharge extends payment{
 
     }
 
+    /**
+     * 支付后回调操作（同步和异步）：验签、更改订单状态、修改账户值、添加日志
+     * 把第三方系统返回的参数检出转换成业务参数
+     * @param array $argument 银联回调返回的参数
+     * @return bool
+     */
     public function payAfter(Array $argument=array())
     {
         //初始化参数
