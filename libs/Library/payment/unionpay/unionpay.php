@@ -122,44 +122,7 @@ class unionpay extends paymentplugin {
 		return $return;
 	}
 
-	/**
-	 * 商品退款
-	 */
-	public function refund($payment) {
-		Common::setCertPwd($payment['M_certPwd']);
-		$return = array(
-			'version' => '5.0.0', //版本号
-			'encoding' => 'utf-8', //编码方式
-			'certId' => Common::getSignCertId(), //证书ID
-			'txnType' => '04', //交易类型     //可能是活的
-			'txnSubType' => '00', //交易子类 01消费
-			'bizType' => '000201', //业务类型 		//前台通知地址
-			'backUrl' => $this->serverCallbackUrlForRefund, //SDK_BACK_NOTIFY_URL,		//后台通知地址
-			'signMethod' => '01', //签名方法
-			'channelType' => '07', //渠道类型，07-PC，08-手机
-			'accessType' => '0', //接入类型
-			'merId' => $payment['M_merId'], //商户代码，请改自己的测试商户号
-			'txnTime' => date('YmdHis'),
-			//'orderDesc' => '订单描述',  //订单描述，网关支付和wap支付暂时不起作用
-		);
 
-		$return['orderId'] = $payment['M_OrderNO'];//商户订单号
-		$return['txnAmt'] = $payment['M_Amount'] * 100;//交易金额，单位分
-		$return['origQryId'] = $payment['M_Trade_NO'];
-
-		Common::sign($return);
-		$result = sendHttpRequest($return, SDK_BACK_TRANS_URL);
-		$result_arr = Common::coverStringToArray($result);
-
-		//print_r($result_arr);exit();
-		if (Common::verify($result_arr) && $result_arr['respCode'] == '00') {
-//
-
-			self::addTradeData($result_arr);
-			return true;
-		}
-		return false;
-	}
 	/**
 	 * 添加交易记录
 	 * @param array $tradeData  返回的报文

@@ -59,66 +59,9 @@ class Payment {
 		}
 	}
 
-	/**
-	 * @brief 根据支付方式配置编号  获取该插件的详细配置信息
-	 * @param $payment_id int    支付方式ID
-	 * @param $key        string 字段
-	 * @return 返回支付插件类对象
-	 */
-	public static function getPaymentById($payment_id, $key = '') {
 
-		$paymentDB = new Query('payment');
-		$paymentDB->where = 'id=:id';
-		$paymentDB->bind = array('id' => $payment_id);
-		$paymentRow = $paymentDB->getObj();
-		
-		if ($key) {
-			return isset($paymentRow[$key]) ? $paymentRow[$key] : '';
-		}
 
-		return $paymentRow;
-	}
 
-	/**
-	 * @brief 根据支付方式配置编号  获取该插件的配置信息
-	 * @param $payment_id int    支付方式ID
-	 * @param $key        string 字段
-	 * @return 返回支付插件类对象
-	 */
-	public static function getConfigParam($payment_id, $key = '') {
-		$payConfig = self::getPaymentById($payment_id, 'config_param');
-		if ($payConfig) {
-			$payConfig = JSON::decode($payConfig);
-			return isset($payConfig[$key]) ? $payConfig[$key] : '';
-		}
-		return '';
-	}
-	/**
-	 * 获取支付参数（商户id，密码）
-	 * @param unknown $payment_id
-	 */
-	private static function getPaymentParam($payment_id) {
-		//最终返回值
-		$payment = array();
-
-		//初始化配置参数
-		$paymentInstance = Payment::createPaymentInstance($payment_id);
-		$configParam = $paymentInstance->configParam();
-		//return $configParam;
-		foreach ($configParam as $key => $val) {
-			$payment[$key] = '';
-		}
-
-		//获取公共信息
-		$paymentRow = self::getPaymentById($payment_id, 'config_param');
-		if ($paymentRow) {
-			$paymentRow = JSON::decode($paymentRow);
-			foreach ($paymentRow as $key => $item) {
-				$payment[$key] = $item;
-			}
-		}
-		return $payment;
-	}
 
 	/**
 	 * @brief 获取订单中的支付信息 M:必要信息; R表示店铺; P表示用户;
@@ -175,14 +118,7 @@ class Payment {
 		return $payment;
 	}
 
-	public static function createOrderNum() {
-		return  date('YmdHis') . rand(100000, 999999);
-	}
-	public static function getDateTime($format = '', $time = '') {
-		$time = $time ? $time : time();
-		$format = $format ? $format : 'Y-m-d H:i:s';
-		return date($format, $time);
-	}
+
 
 
 

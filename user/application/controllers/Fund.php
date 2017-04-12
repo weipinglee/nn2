@@ -178,18 +178,22 @@ class FundController extends UcenterBaseController {
         if (!isset($recharge) || $recharge <= 0  || $recharge > 99999999) {
 			die(json::encode(\Library\tool::getSuccInfo(0,'金额不正确')) ) ;
 		}
+
         //在线充值
         if (isset($payment_id) && $payment_id != '') {
             if($sign)
-            {	
-                $paymentInstance = Payment::createPaymentInstance($payment_id);
-                $paymentRow = Payment::getPaymentById($payment_id);
+            {
+				$payFac = new \Library\payment\factory\unionFactory();
+				$payObj = $payFac->getPayObj();
 
-                //account:充值金额; paymentName:支付方式名字
-                $reData = array('user_id'=>$this->user_id,'account' => $recharge, 'paymentName' => $paymentRow, 'payType' => $payment_id);
 
-                $sendData = $paymentInstance->getSendData(Payment::getPaymentInfo($payment_id, 'recharge', $reData));
-                $paymentInstance->doPay($sendData);
+				$rechargeObj = new nainai\payment\recharge($payObj);//
+				$reData = array('user_id'=>$this->user_id,'account' => $recharge);
+				$res = $rechargeObj->payBefore($reData);
+				if(false===$res){
+					$this->error('操作失败');
+				}
+
             }
             else
             {
