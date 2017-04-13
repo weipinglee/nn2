@@ -422,7 +422,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	}
 
 	//银联支付异步回调
-	public function serverCallbackAction(){
+	public function rechargeServerCallbackAction(){
 		//从URL中获取支付方式
 		$payment_id      = $this->getRequest()->getParam('id');
 		$payment_id      = safe::filter($payment_id,'int');
@@ -445,7 +445,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 		unset($callbackData['controller']);
 		unset($callbackData['action']);
 		unset($callbackData['id']);
-		$res = $payment->payAfter();
+		$res = $payment->payAfter($callbackData);
 		if($res){
 			$payObj->notifyStop();
 		}
