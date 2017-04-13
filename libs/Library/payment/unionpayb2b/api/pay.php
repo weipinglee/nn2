@@ -45,7 +45,7 @@ class pay extends paymentplugin{
                         $flowNo  = $callbackData['queryId'];//第三方流水号
 
                     }
-                    $money   = $callbackData['txnAmt'];
+                    $money   = $callbackData['txnAmt']/100;
                     return 1;
                 } else if ($callbackData["respCode"] == "03"
                     || $callbackData["respCode"] == "04"
@@ -77,7 +77,7 @@ class pay extends paymentplugin{
      * @see paymentplugin::getSendData()
      */
     public function getSendData($argument) {
-        header ( 'Content-type:text/html;charset=utf-8' );
+       // header ( 'Content-type:text/html;charset=utf-8' );
         $payment = $this->getPaymentInfo();
         $argument = array_merge($argument,$payment);
         $params = array(

@@ -1,5 +1,4 @@
 <?php
-namespace Library\payment\unionpayb2b;
 // ######(以下配置为PM环境：入网测试环境用，生产环境配置见文档说明)#######
 // 签名证书路径
 const SDK_SIGN_CERT_PATH = './key/certs/acp_test_sign.pfx';
