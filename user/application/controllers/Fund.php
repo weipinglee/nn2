@@ -183,8 +183,15 @@ class FundController extends UcenterBaseController {
         if (isset($payment_id) && $payment_id != '') {
             if($sign)
             {
-				$payFac = new \Library\payment\factory\unionFactory();
-				$payObj = $payFac->getPayObj();
+				if($payment_id==3){
+					$payFac = new \Library\payment\factory\unionFactory();
+					$payObj = $payFac->getPayObj();
+				}
+				else{
+					$payFac = new \Library\payment\factory\unionb2bFactory();
+					$payObj = $payFac->getPayObj();
+				}
+
 
 
 				$rechargeObj = new nainai\payment\recharge($payObj);//

@@ -40,8 +40,7 @@ class pay extends paymentplugin{
             if (Common::verify ( $callbackData )) {
                 $orderNo = $callbackData['orderId'];//订单号
                 $flowNo  = $callbackData['queryId'];//第三方流水号
-                $money   = $callbackData['txnAmt'];//交易额
-
+                $money   = $callbackData['txnAmt']/100;//交易额
                 return 1;
             } else {
                 $message = '签名不正确';
@@ -60,7 +59,6 @@ class pay extends paymentplugin{
         if(!$argument)
             return false;
         $payment = $this->getPaymentInfo();
-
         Common::setCertPwd($payment['M_certPwd']);
         $return = array(
             'version' => '5.0.0', //版本号
