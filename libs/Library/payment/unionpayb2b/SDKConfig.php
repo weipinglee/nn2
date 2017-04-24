@@ -1,20 +1,20 @@
 <?php
 // ######(以下配置为PM环境：入网测试环境用，生产环境配置见文档说明)#######
 // 签名证书路径
-const SDK_SIGN_CERT_PATH = './key/certs/acp_test_sign.pfx';
+const SDK_SIGN_CERT_PATH = 'D:/wamp/certs/unionpay/700000000000001_acp.pfx';
 
 // 签名证书密码
-const SDK_SIGN_CERT_PWD = '000000';
+const SDK_SIGN_CERT_PWD = '045016';
 
 // 密码加密证书（这条一般用不到的请随便配）
-const SDK_ENCRYPT_CERT_PATH = 'E:/wamp/www/nn2/libs/Library/payment/unionpayb2b/key/certs/acp_test_enc.cer';
+const SDK_ENCRYPT_CERT_PATH = 'D:/wamp/certs/unionpay/acp_prod_verify_sign.cer';
 
 // 验签证书路径（请配到文件夹，不要配到具体文件）
-const SDK_VERIFY_CERT_DIR = 'E:/wamp/www/nn2/libs/Library/payment/unionpayb2b/key/certs/';
+const SDK_VERIFY_CERT_DIR = 'D:/wamp/certs/unionpay/';
 
 // 前台请求地址
-const SDK_FRONT_TRANS_URL = 'https://101.231.204.80:5000/gateway/api/frontTransReq.do';
-// const SDK_FRONT_TRANS_URL = 'https://gateway.95516.com/gateway/api/frontTransReq.do';
+//const SDK_FRONT_TRANS_URL = 'https://101.231.204.80:5000/gateway/api/frontTransReq.do';
+ const SDK_FRONT_TRANS_URL = 'https://gateway.95516.com/gateway/api/frontTransReq.do';
 
 // 后台请求地址
 const SDK_BACK_TRANS_URL = 'https://101.231.204.80:5000/gateway/api/backTransReq.do';

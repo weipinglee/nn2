@@ -1,15 +1,13 @@
 <?php
 namespace Library\payment\unionpay\api;
 use \Library\payment\paymentplugin;
-use \Library\payment\unionpay\common;
+use \Library\payment\unionpay\acpService;
 /**
  * 银联网关支付子类
  * User: Administrator
  * Date: 2017/4/11 0011
  * Time: 下午 3:28
  */
-include_once dirname(dirname(__FILE__)) . "/common.php";
-include_once dirname(dirname(__FILE__)) . "/httpClient.php";
 include_once dirname(dirname(__FILE__)) . "/SDKConfig.php";
 
 class pay extends paymentplugin{
@@ -58,13 +56,11 @@ class pay extends paymentplugin{
     public function getSendData($argument) {
         if(!$argument)
             return false;
-        $payment = $this->getPaymentInfo();
-        Common::setCertPwd($payment['M_certPwd']);
+       $payment = $this->getPaymentInfo();
+        $argument = array_merge($argument,$payment);
         $return = array(
             'version' => '5.0.0', //版本号
             'encoding' => 'utf-8', //编码方式
-            'certId' => Common::getSignCertId(), //证书ID
-
             'txnType' => '01', //交易类型     //可能是活的
             'txnSubType' => '01', //交易子类 01消费
             'bizType' => '000201', //业务类型
@@ -75,20 +71,15 @@ class pay extends paymentplugin{
             'accessType' => '0', //接入类型
             'merId' => $payment['M_merId'], //商户代码，请改自己的测试商户号
             'currencyCode' => '156', //交易币种
-            'defaultPayType' => '0001', //默认支付方式
             'txnTime' => date('YmdHis'), //订单发送时间
+			'orderId' => $argument['M_OrderNO'],//商户订单号
+			'txnAmt'  => $argument['M_Amount'] * 100,//交易金额，单位分
+			 'reqReserved' => $argument['M_OrderId'] . ":" . $payment['M_Remark'],//订单发送时间'透传信息'; //请求方保留域，透传字段，查询、通
             //'orderDesc' => '订单描述',  //订单描述，网关支付和wap支付暂时不起作用
         );
-        /*if (IClient::getDevice() == 'mobile') {
-        $return['channelType'] = '08';
-        }*/
-        $return['orderId'] = $argument['M_OrderNO'];//商户订单号
-        $return['txnAmt'] = $argument['M_Amount'] * 100;//交易金额，单位分
-        $return['reqReserved'] = $argument['M_OrderId'] . ":" . $payment['M_Remark'];//订单发送时间'透传信息'; //请求方保留域，透传字段，查询、通知、对账文件中均会原样出现
-
+  
         // 签名
-        Common::sign($return);
-
+        AcpService::sign($return);
         return $return;
     }
 
@@ -100,14 +91,4 @@ class pay extends paymentplugin{
         return $this->paymentId;
     }
 
-    /*
-     * @param 获取配置参数
-     */
-    public function configParam() {
-        $result = array(
-            'M_merId' => '777290058118388',
-            'M_certPwd' => '000000',
-        );
-        return $result;
-    }
 }
