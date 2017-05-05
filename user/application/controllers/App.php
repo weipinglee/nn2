@@ -93,9 +93,9 @@ class AppController extends \Yaf\Controller_Abstract {
 		$checkRight = new checkRight();
 		$res = $checkRight->checkLogin();
 		if($res==true){
-			die(Json::encode('log'=>1));
+			die(Json::encode(array('log'=>1)));
 		}
-		else die(Json::encode('log'=>0));
+		else die(Json::encode(array('log'=>0)));
 	}
 	
 
