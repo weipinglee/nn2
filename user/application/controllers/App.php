@@ -88,24 +88,33 @@ class AppController extends \Yaf\Controller_Abstract {
 
 	}
 
+	//判断是否登陆接口
+	public function checkLogAction(){
+		$checkRight = new checkRight();
+		$res = $checkRight->checkLogin();
+		if($res==true){
+			die(Json::encode('log'=>1));
+		}
+		else die(Json::encode('log'=>0));
+	}
 	
 
 	/**
 	 * 登录处理
 	 */
 	public function doLogAction(){
-		if(IS_POST){
+		//if(IS_POST){
 			$account = safe::filterPost('account');
 			$password = $_POST['password'];
 			$data=array('errorCode'=>0,'info'=>'登陆成功');
 
 			if($account == ''){
 				$data['errorCode'] = 1;
-				$data['info'] = '账号或密码错误';
+				$data['info'] = '账号不能为空';
 			}
 			else if($password==''){
 				$data['errorCode'] = 2;
-				$data['info'] = '账号或密码错误';
+				$data['info'] = '密码不能为空';
 			}
             $userModel = new UserModel();
             $userData = $userModel->checkUser($account,$password);
@@ -121,9 +130,9 @@ class AppController extends \Yaf\Controller_Abstract {
             }
 		
 			die(JSON::encode($data)) ;
-		}
-		die(JSON::encode(array('errorCode'=>5,'info'=>'账号或密码错误'))) ;
-		return false;
+		//}
+		die(JSON::encode(array('errorCode'=>3,'info'=>'提交错误'))) ;
+	
 	}
 
 
