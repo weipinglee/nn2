@@ -162,7 +162,7 @@ class checkRight{
         }
 
          session::clear('login');
-         self::$sessObj->destroy($sessID);
+         return self::$sessObj->destroy($sessID);
 
 
 

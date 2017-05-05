@@ -128,9 +128,13 @@ class AppController extends \Yaf\Controller_Abstract {
 
 	public function logOutAction(){
 		$checkRight = new checkRight();
-		$checkRight->logOut();
-		$this->redirect(url::createUrl('/index/index@deal'));
-		return false;
+		if($checkRight->logOut()){
+			die(JSON::encode(array('errorCode'=>0，'info'=>'已退出登录'))) ;
+		}
+		else{
+			die(JSON::encode(array('errorCode'=>1，'info'=>'退出失败'))) ;
+		}
+		
 	}
 
 
