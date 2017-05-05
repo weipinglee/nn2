@@ -20,6 +20,7 @@ class AppController extends \Yaf\Controller_Abstract {
 	
 
 
+	
 
 	/**
 	 * 注册操作
@@ -121,7 +122,7 @@ class AppController extends \Yaf\Controller_Abstract {
 		
 			die(JSON::encode($data)) ;
 		}
-		die(JSON::encode(array('errorCode'=>5，'info'=>'账号或密码错误'))) ;
+		die(JSON::encode(array('errorCode'=>5,'info'=>'账号或密码错误'))) ;
 		return false;
 	}
 
@@ -129,10 +130,10 @@ class AppController extends \Yaf\Controller_Abstract {
 	public function logOutAction(){
 		$checkRight = new checkRight();
 		if($checkRight->logOut()){
-			die(JSON::encode(array('errorCode'=>0，'info'=>'已退出登录'))) ;
+			die(JSON::encode(array('errorCode'=>0,'info'=>'已退出登录'))) ;
 		}
 		else{
-			die(JSON::encode(array('errorCode'=>1，'info'=>'退出失败'))) ;
+			die(JSON::encode(array('errorCode'=>1,'info'=>'退出失败'))) ;
 		}
 		
 	}

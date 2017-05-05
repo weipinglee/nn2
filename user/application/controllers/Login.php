@@ -25,6 +25,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 			$this->getView()->assign('deal', $deal);
 		//echo $this->getViewPath();
 	}
+	
 	/** 
      * 默认动作
      * Yaf支持直接把Yaf_Request_Abstract::getParam()得到的同名参数作为Action的形参
