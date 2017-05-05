@@ -36,10 +36,25 @@ class pay extends paymentplugin{
     public function callbackVerify($callbackData, &$money, &$message, &$orderNo,&$flowNo) {
         if (isset($callbackData['signature'])) {
             if (AcpService::validate ( $callbackData )) {
-                $orderNo = $callbackData['orderId'];//订单号
-                $flowNo  = $callbackData['queryId'];//第三方流水号
-                $money   = $callbackData['txnAmt']/100;//交易额
-                return 1;
+
+                if ($callbackData["respCode"] == "00"){
+                    $orderNo = $callbackData['orderId'];//订单号
+                    $flowNo  = $callbackData['queryId'];//第三方流水号
+                    $money   = $callbackData['txnAmt']/100;//交易额
+                    return 1;
+                }
+                else if ($callbackData["respCode"] == "03"
+                    || $callbackData["respCode"] == "04"
+                    || $callbackData["respCode"] == "05" ){
+                    //后续需发起交易状态查询交易确定交易状态
+                    //TODO
+                    $message = "处理超时，请稍后查询";
+                } else {
+                    //其他应答码做以失败处理
+                    //TODO
+                    $message = "失败：" . $callbackData["respMsg"];
+                }
+
             } else {
                 $message = '签名不正确';
             }
