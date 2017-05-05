@@ -35,7 +35,7 @@ class pay extends paymentplugin{
      */
     public function callbackVerify($callbackData, &$money, &$message, &$orderNo,&$flowNo) {
         if (isset($callbackData['signature'])) {
-            if (Common::verify ( $callbackData )) {
+            if (AcpService::validate ( $callbackData )) {
                 $orderNo = $callbackData['orderId'];//订单号
                 $flowNo  = $callbackData['queryId'];//第三方流水号
                 $money   = $callbackData['txnAmt']/100;//交易额
