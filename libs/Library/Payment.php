@@ -162,4 +162,13 @@ class Payment {
 			return false;
 		}
 	}
+	
+	public static function createOrderNum() {
+		return 'recharge' . date('YmdHis') . rand(100000, 999999);
+	}
+	public static function getDateTime($format = '', $time = '') {
+		$time = $time ? $time : time();
+		$format = $format ? $format : 'Y-m-d H:i:s';
+		return date($format, $time);
+	}
 }

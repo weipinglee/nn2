@@ -127,7 +127,7 @@ class checkRight{
 
                 }
 
-                if(IS_AJAX){
+                if(IS_POST || IS_AJAX){
                     die(json::encode(tool::getSuccInfo(0,'请登录后再操作',url::createUrl('/login/login@user').'?callback='.$callBack)));
                 }
                 $obj->redirect(url::createUrl('/login/login@user').'?callback='.$callBack);
