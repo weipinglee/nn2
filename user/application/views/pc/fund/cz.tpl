@@ -29,7 +29,7 @@
                         <!-- <li>银联在线支付</li> -->
                         <li class="hit">线下支付</li>
                     </ul>
-                    <!-- <div class="panes js_show_payment_choose"> -->
+                    <div class="panes js_show_payment_choose">
                         <!-- 需要添加支付方式时把下列内容删除 -->
                         <div class="pane panes" style="display:block">
                             <div class="zhxi_con">
@@ -61,7 +61,7 @@
                                 <span><input class="submit" type="submit" value="提交"/></span>
                             </div>
                         </div>
-                    <!-- </div> -->
+                    </div>
 
                 </div>
 
