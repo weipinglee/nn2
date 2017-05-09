@@ -26,11 +26,46 @@
 
 
                     <ul>
-                        <li class="hit">银联在线支付</li> 
-                        <li>线下支付</li>
+                        <!-- <li>银联在线支付</li>  -->
+                        <li class="hit">线下支付</li>
                     </ul>
                     <div class="panes js_show_payment_choose">
-                        
+                        <!-- 需要添加支付方式时把下列内容删除 -->
+                        <div class="pane" style="display:block">
+                            <div class="zhxi_con">
+                                <!-- <span class="con_tit">充值方式二：</span>
+                                <span class="con_con" style="float:none;">转账汇款</span> -->
+
+                            </div>
+                            <div class="zhxi_con">
+                                {foreach:items=$acc}
+                                    <p class="zf_an">{$item['name_zh']}：{$item['value']}</p>
+                                {/foreach}
+
+                            </div>
+
+                            <!-- 单据上传start -->
+                            <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
+                            <div class="huikod" style="display: block">
+
+                              <label for="female">上传汇款单据</label>
+
+                                <span class="input-file" style="top:0;">选择文件<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" /></span>
+
+                                <div id="preview">
+                                    <img name="file1" src=""/>
+                                    <input type="hidden"  name="imgfile1" datatype="*"  />
+
+                                </div>
+                                <span></span>
+                            </div>
+
+
+                            <!-- 单据上传end -->
+                            <div class="zhxi_con">
+                                <span><input class="submit" type="submit" value="提交"/></span>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -53,19 +88,16 @@
            var submit_pay = "{url:/fund/doFundIn}";
            </script>
                     <div class="js_tab_choose" style="display: none;">
-                       <div class="pane" style="display:block">
+                        <!-- 银联在线支付 -->
+                       <div class="pane">
 
                             <input type="hidden" name="payment_id" value="3">
                             <div class="zhxi_con">
                                 <span><input class="submit" type="submit" value="下一步"/></span>
                             </div>
                         </div>
+                        <!-- 线下转账汇款 -->
                         <div class="pane">
-                            <div class="zhxi_con">
-                                <!-- <span class="con_tit">充值方式二：</span>
-                                <span class="con_con" style="float:none;">转账汇款</span> -->
-
-                            </div>
                             <div class="zhxi_con">
                                 {foreach:items=$acc}
                                     <p class="zf_an">{$item['name_zh']}：{$item['value']}</p>
