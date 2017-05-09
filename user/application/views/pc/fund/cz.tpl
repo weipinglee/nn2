@@ -26,17 +26,12 @@
 
 
                     <ul>
-                        <!-- <li>银联在线支付</li>  -->
+                        <!-- <li>银联在线支付</li> -->
                         <li class="hit">线下支付</li>
                     </ul>
-                    <div class="panes js_show_payment_choose">
+                    <!-- <div class="panes js_show_payment_choose"> -->
                         <!-- 需要添加支付方式时把下列内容删除 -->
-                        <div class="pane" style="display:block">
-                            <div class="zhxi_con">
-                                <!-- <span class="con_tit">充值方式二：</span>
-                                <span class="con_con" style="float:none;">转账汇款</span> -->
-
-                            </div>
+                        <div class="pane panes" style="display:block">
                             <div class="zhxi_con">
                                 {foreach:items=$acc}
                                     <p class="zf_an">{$item['name_zh']}：{$item['value']}</p>
@@ -66,7 +61,7 @@
                                 <span><input class="submit" type="submit" value="提交"/></span>
                             </div>
                         </div>
-                    </div>
+                    <!-- </div> -->
 
                 </div>
 
@@ -77,15 +72,15 @@
                     </div>
                 </form>
            <script type="text/javascript">
-           $(function(){  
-           $('.js_show_payment_choose').html($('.js_tab_choose>div:eq(0)').clone());   
-               $('.tabPanel ul li').click(function(){
+           // $(function(){  
+           // $('.js_show_payment_choose').html($('.js_tab_choose>div:eq(0)').clone());   
+           //     $('.tabPanel ul li').click(function(){
 
-                     $(this).addClass('hit').siblings().removeClass('hit');
-                   $('.js_show_payment_choose').html($('.js_tab_choose>div:eq('+$(this).index()+')').clone().css('display', 'block'));
-               })
-           })
-           var submit_pay = "{url:/fund/doFundIn}";
+           //           $(this).addClass('hit').siblings().removeClass('hit');
+           //         $('.js_show_payment_choose').html($('.js_tab_choose>div:eq('+$(this).index()+')').clone().css('display', 'block'));
+           //     })
+           // })
+           // var submit_pay = "{url:/fund/doFundIn}";
            </script>
                     <div class="js_tab_choose" style="display: none;">
                         <!-- 银联在线支付 -->
