@@ -60,6 +60,31 @@ class OfferManageModel extends \nainai\offer\product{
 		return $this->getList($page,'o.is_del = 0 and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .')');
 	}
 
+	public function getrepertoryList(){
+		$Q = new \Library\searchQuery('store_products as a');
+		$Q->join = 'LEFT JOIN store_list  as b ON a.store_id=b.id LEFT JOIN product_offer as po ON a.product_id=po.product_id LEFT JOIN products as c ON po.product_id = c.id LEFT JOIN product_category as pc ON c.cate_id=pc.id';
+		$Q->fields = 'b.name as lname, a.store_pos, c.name as pname, c.attribute, pc.name as cname , c.quantity,c.unit, po.id, a.apply_time';
+		$Q->where = 'po.is_del = 0  and c.quantity>0 and po.mode='.self::STORE_OFFER.' and po.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .')';
+		$data = $Q->find();
+		$attrs = $attr_id = array();
+	        foreach ($data['list'] as $key => $value) {
+
+	            $attrs = unserialize($value['attribute']);
+	            $data['list'][$key]['attribute'] = $attrs;
+	            if(!empty($attrs)){
+	                foreach ($attrs as $aid => $name) {
+	                    if (!in_array($aid, $attr_id)) {
+	                        $attr_id[] = $aid;
+	                    }
+	                }
+	            }
+
+	        }
+	        $obj = new \nainai\offer\product();
+	        $data['attrs'] =  $obj->getHTMLProductAttr($attr_id);
+		return $data;
+	}
+
 	/**
 	 * 获取待审核的报盘
 	 *
@@ -134,15 +159,20 @@ class OfferManageModel extends \nainai\offer\product{
 			//如果是自由报盘，扣费或释放资金
 			if($offerData['mode'] == self::FREE_OFFER){
 				$fund = \nainai\fund::createFund($offerData['acc_type']);
-				if($status==self::OFFER_OK){//通过扣费
-					$note = '扣除id为'.$id.'的自由报盘报盘费用';
-					$marketFund = new \nainai\fund\paytoMarket();
-					$res = $fund->freezePay($offerData['user_id'],0,floatval($offerData['offer_fee']),$note);
-					$marketFund->paytoMarket($offerData['user_id'],1,2,$id,floatval($offerData['offer_fee']),'自由报盘费用');
-				}
-				else{
-					$note = '释放id为'.$id.'自由报盘报盘费用';
-					$res = $fund->freezeRelease($offerData['user_id'],floatval($offerData['offer_fee']),$note);
+				$free_offer = new \nainai\offer\freeOffer();
+				$fee = $free_offer->getFee($offerData['user_id']);
+				if($fee>0){
+					if($status==self::OFFER_OK){//通过扣费
+
+						$note = '扣除id为'.$id.'的自由报盘报盘费用';
+						$marketFund = new \nainai\fund\paytoMarket();
+						$res = $fund->freezePay($offerData['user_id'],0,floatval($offerData['offer_fee']),$note);
+						$marketFund->paytoMarket($offerData['user_id'],1,2,$id,floatval($offerData['offer_fee']),'自由报盘费用');
+					}
+					else{
+						$note = '释放id为'.$id.'自由报盘报盘费用';
+						$res = $fund->freezeRelease($offerData['user_id'],floatval($offerData['offer_fee']),$note);
+					}
 				}
 			}
 			if($res===true){

@@ -11,7 +11,7 @@
 
 					
                    <div class="checkim">
-                       <h2>确认尾款线下凭证</h2>
+                       <h2>确认线下凭证</h2>
 
 
                        <table class="detail_tab" border="1" cellpadding="0" cellspacing="0" width="100%">
@@ -94,6 +94,7 @@
                               </span>   
                       </td>
                       {/if}
+                      {if:$data['is_free'] != 1}
                       <td style="background-color: #F7F7F7;" width="100px">剩余尾款</td>
                       <td colspan="1" width="">
                               <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
@@ -101,6 +102,7 @@
                                   {$data['pay_retainage']}
                               </span>   
                       </td>
+                      {/if}
                     </tr>
                   </tbody></table>
                           

@@ -38,7 +38,12 @@
                 <td colspan="5">{$data['ident_no']}</td>
             </tr>
              {/if}
-
+<tr>
+                <th> 手机号</th>
+                <td>{$data['mobile']}</td>
+                <th></th>
+                <td colspan="5"></td>
+            </tr>
             <tr>
                  <th>身份证照片</th>
                  <td colspan="2">{img:thumb=$data['ident_img'] orig=$data['ident_img_orig']}</td>

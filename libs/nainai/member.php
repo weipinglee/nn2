@@ -72,9 +72,22 @@ class member{
      * @param int $user_id 会员id
      */
     public  function getUserGroup($user_id){
-        $userObj = new M('user');
-        $credit = $userObj->where(array('id'=>$user_id))->getField('credit');
 
+        $userObj = new M('user');
+        $userData = $userObj->where(array('id'=>$user_id))->fields('credit,vip')->getObj();
+        
+        $credit = $userData['credit'];
+        $vip = $userData['vip'];
+
+        // if($vip == 1){
+        //     $group['group_name'] = '收费会员';
+        //     $group['caution_fee'] = 0;
+        //     $group['free_fee'] = 0;
+        //     $group['depute_fee'] = 0;
+        //     $group['icon'] = '';
+
+        //     return $group;
+        // }else
         if($credit!==false){
             $group = $userObj->table('user_group')->where('credit <=:credit')->bind(array('credit'=>$credit))->fields('group_name,icon,caution_fee,free_fee,depute_fee')->order('credit DESC')->getObj();
            if(empty($group)){
@@ -82,10 +95,35 @@ class member{
 
            }
             $group['icon'] = \Library\thumb::get($group['icon'],25,25);
+            $group['vip'] = $vip;
             return $group;
         }
         else
             return false;
+    }
+
+    /**
+     * 调整用户会员等级
+     * @param  int $user_id 用户id
+     * @param  mix $group  对应等级
+     */
+    public function groupUpd($user_id,$group){
+
+        $member = new M('user');
+        if(is_string($group) && (strpos($group,'vip') !== FALSE)){
+            //调整为收费会员
+            $level = intval(str_replace('vip', '', $group));
+            $res = $member->where(array('id'=>$user_id))->data(array('vip'=>$level))->update();
+        }elseif(intval($group) > 0){
+            //获取对应等级会员的信誉值分界线
+            $obj = new M('user_group');
+            $credit = $obj->where(array('id'=>$group))->getField('credit');
+            $res = $member->where(array('id'=>$user_id))->data(array('credit'=>$credit))->update();
+            //日志TODO  记录调整前信誉值 方便恢复
+        }else{
+            $res = '会员等级格式错误';
+        }
+        return $res > 0 ? true : $res;
     }
 
     /**
@@ -124,7 +162,7 @@ class member{
         else
             $where = array('id'=>$cond);;
         $userObj = new M($this->table);
-        $detail = $userObj->fields('id,type,username,credit,mobile,email,head_photo,pid,roles,status,agent,create_time,yewu')->where($where)->getObj();
+        $detail = $userObj->fields('id,type,username,credit,mobile,vip,email,head_photo,pid,roles,status,agent,create_time,yewu')->where($where)->getObj();
         $product = new \nainai\offer\product();
 
         if(!empty($detail)){
@@ -145,6 +183,11 @@ class member{
         }
         return array();
 
+    }
+
+    public function is_vip($user_id){
+        $user = new M($this->table);
+        return $user->where(array('id'=>$user_id))->getField('vip') > 0 ? true : false;
     }
 
     /**

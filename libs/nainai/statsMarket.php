@@ -156,7 +156,7 @@ class statsMarket
         }
         $tmp=array();
         foreach($allStatcList as $k=>$v){
-
+            
             foreach($v as $kk=>$vv){
                 $tmp[$k][$vv['name']][]=$vv;
             }

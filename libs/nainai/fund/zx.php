@@ -21,7 +21,7 @@ class zx extends account{
      private $mainacc ;//主体账户
      const XML_PREFIX = '<?xml version="1.0" encoding="GBK"?>';//XML结构头
      const BANK = 'zx';
-
+     
      public function __construct(){
         $configs = tool::getGlobalConfig(array('signBank','zx'));
         $this->username = $configs['username'];
@@ -36,8 +36,9 @@ class zx extends account{
         if($check_sign!==true) {
             return tool::getSuccInfo(0,$check_sign.',无法交易');
             //echo "<script>alert('".$check_sign.",无法交易');history.back();</script>";;exit;
-        }//return $check_sign;
+        }
         return $this->attachAccount->curl($xml);
+
      }
 
      /**
@@ -155,7 +156,6 @@ class zx extends account{
                 <preDate></preDate>
                 <preTime></preTime>
             </stream>";
-        
         return $this->curl($xml);
      }
 
@@ -234,11 +234,10 @@ class zx extends account{
      * 强制转账
      * @param  int $from 付款用户id
      * @param  int $to   收款用户id
-     * @param  float $num  金额
+     * @param  array $data  金额与备注
      */
-    public function transfer($from,$to,$num){
-        return $this->bankTransfer('',$num,$from,$to,'transfer');
-
+    public function transfer($from,$to,$data){
+        return $this->bankTransfer('',$data['amount'],$from,$to,'transfer',$data['note']);
     }
 
     /**
@@ -456,6 +455,7 @@ class zx extends account{
 					return $tmp['DJCODE'];
 				}
 			}
+
         }else{
             return '';
         }
@@ -539,8 +539,6 @@ class zx extends account{
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
         $res = $this->curl($xml);
-
-        // return $res;
         return $res['row'] ? $res['row'] : array();
 
     }

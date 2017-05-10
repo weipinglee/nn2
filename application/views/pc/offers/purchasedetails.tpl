@@ -26,7 +26,7 @@
                             </h3>
                         </li>
                         <li> 产地：<i><span id="areatext">{areatext:data=$data['produce_area'] id=areatext }</span></i></li>
-                        <li>卖方：<i>{$user['company_name']}</i></li>
+                        <li>买方：<i>{$user['company_name']}</i></li>
                         <li>发布时间：<i>{$data['apply_time']}</i></li>
                         <li>截止时间：<i>{$data['expire_time']}</i></li>
                     </ul>
@@ -52,9 +52,20 @@
                   </div> -->
                   
                     <div class="buy_btn baoj">
-                        <a href="#" onclick="report('{url:/trade/report?id=$data['id']}')" ><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即报价</b></a>
+                        <a href="#" id='buy_now' onclick="report('{url:/trade/report?id=$data['id']}')" ><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即报价</b></a>
                     </div>
-
+                    <script type="text/javascript">
+                        $(function(){
+                            if({$no_cert} == '1'){
+                                
+                                $('#buy_now').attr('href','javascript:;').attr('onclick','#').unbind('click').click(function(){
+                                    layer.msg('您的资质不完善,不能进行报价');
+                                    
+                                    return false;
+                                });
+                            }
+                        });
+                    </script>
                 </div>
                 <div style="clear:both;"></div>
                 <div class="cont_1">
@@ -82,15 +93,11 @@
                         </tr>
                         <tr>
                             <td>报盘类型</td>
-                            <td>现货交易</td>
+                            <td>采购报盘</td>
                         </tr>
                         <tr>
-                            <td>交易类型</td>
+                            <td>交易方式</td>
                             <td>买盘</td>
-                        </tr>
-                        <tr>
-                            <td>担保类型</td>
-                            <td>保证金</td>
                         </tr>
                         <tr>
                             <td>是否投保</td>
@@ -140,55 +147,36 @@
 
                        
                     </table> -->
+                     <link href="{views:css/product_pic.css}" rel="stylesheet">
+                                    <script src="{views:js/pic.js}"></script>
+
+
+                     <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
                     
-                    <style type="text/css">
-                        .pro_pic{float: left;margin-right: 20px;}
-                    </style>
-                    <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
-                    {foreach:items=$data['origphotos']}
-                    <p class="pro_pic" >
-                        <a name='fff' href='javascript:void(0);' onclick='picBig(this);'>
-                            <img src="{$item}" width="80px"height="80px" style="margin:20px;float:left;" class="pro_apic"></a>
-                        <span style="margin-top:30px;display:block;">
-                            {foreach:items=$data['cate']}
-                                {$item['name']}
-                                &nbsp;
-                            {/foreach}
-                            {$data['product_name']}的图片附件
-                        </span>
-                        <br/>
-                        <span>
-                            <a name='fff' href='javascript:void(0);' onclick='picBig(this);' class="red">预览</a>
-                        </span>
-                    </p>
-                    {/if}
+
+                                                <div id="slider">
+                                                      {foreach:items=$data['origphotos']}
+                                                            <div class="spic">
+                                                                <img src="{$item}" />
+                                                            </div>  
+                                                      {/if}
+                                                </div>  
 
 
-                    <div id="divCenter" align="center">
-                    <img width="600" src="{views:images/pro_show_img.jpg}" /><a href="javascript:void(0);" onclick="picClose();">关闭</a>
-                    </div>
-                    <script>
-                    function picBig(_this) {
-                        var src = $(_this).parents('p').find('img').attr('src');
-                         var v = $('#divCenter');
-                        v.find('img').attr('src',src);
-                        v.css('display','block');
-
-                    }
-
-                    function picClose() {
-                    var v = document.getElementById('divCenter');
-                    v.style.display = "none";
-                    }
-                    </script>
-                </div>
-
-
-
-
-
-            </div>
-
+                                        
+                                    <script type="text/javascript">  
+                                            $(document).ready(function() {
+                                            $('#slider').slider({ speed: 500 });
+                                            var length=$("#slider img").size();
+                                            if(length-1>4){
+                                                $(".image-slider-back").css("display","block");
+                                                $(".image-slider-forward").css("display","block");
+                                            }else{              
+                                                $(".image-slider-back").css("display","none");
+                                                $(".image-slider-forward").css("display","none");
+                                            }
+                                            });
+                                        </script> 
 
       <!-- content end -->
 

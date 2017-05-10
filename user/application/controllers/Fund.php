@@ -18,13 +18,13 @@ class FundController extends UcenterBaseController {
 
 	protected  $certType = 'deal';
 	public function indexAction() {
-
+		
 		$where = array();
 		$cond['begin'] = safe::filterGet('begin');
 		$cond['end'] = safe::filterGet('end');
 		$cond['day'] = safe::filterGet('day','int',7);
 		$cond['no'] = safe::filterGet('Sn');
-
+		
 		if($cond['begin'] || $cond['end']){
 			$where = array('begin'=>$cond['begin'],'end'=>\Library\time::getDateTime('',strtotime($cond['end'])+24*3600-1));
 		}
@@ -101,7 +101,7 @@ class FundController extends UcenterBaseController {
 				$tmp = (array)$details['row']['memo'];
 				//$details['row']['memo'] = $tmp[0];
 			}
-
+			
 		}else{
 			foreach ($details['row'] as $key => &$value) {
 				$value = (array)$value;
@@ -177,18 +177,32 @@ class FundController extends UcenterBaseController {
 		$payment_id = safe::filterPost('payment_id', 'int');
 		$recharge = safe::filterPost('recharge', 'float');
         $sign = safe::filterPost('sign', 'int');
+        if (!isset($recharge) || $recharge <= 0  || $recharge > 99999999) {
+			die(json::encode(\Library\tool::getSuccInfo(0,'金额不正确')) ) ;
+		}
+
         //在线充值
         if (isset($payment_id) && $payment_id != '') {
             if($sign)
             {
-                $paymentInstance = Payment::createPaymentInstance($payment_id);
-                $paymentRow = Payment::getPaymentById($payment_id);
+				if($payment_id==3){
+					$payFac = new \Library\payment\factory\unionFactory();
+					$payObj = $payFac->getPayObj();
+				}
+				else{
+					$payFac = new \Library\payment\factory\unionb2bFactory();
+					$payObj = $payFac->getPayObj();
+				}
 
-                //account:充值金额; paymentName:支付方式名字
-                $reData = array('account' => $recharge, 'paymentName' => $paymentRow, 'payType' => $payment_id);
 
-                $sendData = $paymentInstance->getSendData(Payment::getPaymentInfo($payment_id, 'recharge', $reData));
-                $paymentInstance->doPay($sendData);
+
+				$rechargeObj = new nainai\payment\recharge($payObj);//
+				$reData = array('user_id'=>$this->user_id,'account' => $recharge);
+				$res = $rechargeObj->payBefore($reData);
+				if(false===$res){
+					$this->error('操作失败');
+				}
+
             }
             else
             {
@@ -202,10 +216,6 @@ class FundController extends UcenterBaseController {
 			$payment_id = 1;
 			//处理图片
 			$proof = safe::filterPost('imgfile1');
-
-			if (!isset($recharge) || $recharge <= 0  || $recharge > 99999999) {
-				die(json::encode(\Library\tool::getSuccInfo(0,'金额不正确')) ) ;
-			}
 
 			if ($proof) {
 
@@ -238,7 +248,7 @@ class FundController extends UcenterBaseController {
 
 			}
 		}
-
+		return false;
 	}
 	//充值视图
 	public function czAction() {
@@ -352,8 +362,13 @@ class FundController extends UcenterBaseController {
 	public function bankAction(){
 		$fundModel = new fundModel();
 		if(IS_POST||IS_AJAX){
+			if ($this->pid == 0) {
+				$user_id = $this->user_id;
+			}else{
+				$user_id = $this->pid;
+			}
 			$data=array(
-				'user_id'=>$this->user_id,
+				'user_id'=>$user_id,
 				'bank_name'=>safe::filterPost('bank_name'),
 				'card_type'=>safe::filterPost('card_type'),
 				'card_no'=>safe::filterPost('card_no'),
@@ -378,7 +393,12 @@ class FundController extends UcenterBaseController {
 			die(json::encode($res));
 		}
 		else{//获取数据
-			$data = $fundModel->getbankInfo($this->user_id);
+			if ($this->pid == 0) {
+				$data = $fundModel->getbankInfo($this->user_id);
+			}else{
+				$data = $fundModel->getbankInfo($this->pid);
+			}
+			
 			if(!empty($data)){
 				$data['proof_thumb'] = \Library\thumb::get($data['proof'],180,180);
 				$this->getView()->assign('bank',$data);
@@ -425,64 +445,36 @@ class FundController extends UcenterBaseController {
     //支付回调
     public function rechargeCallbackAction(){
         //从URL中获取支付方式
-        $payment_id      = safe::filterGet('id', 'int');
-        $paymentInstance = Payment::createPaymentInstance($payment_id);
+        $payment_id      = $this->getRequest()->getParam('id');
+		$payment_id      = safe::filter($payment_id,'int');
+		$payObj = null;
+		if($payment_id == 3){
+			$payFac = new \Library\payment\factory\unionFactory();
+			$payObj = $payFac->getPayObj();
+		}
+		elseif($payment_id == 4){
+			$payFac = new \Library\payment\factory\unionb2bFactory();
+			$payObj = $payFac->getPayObj();
+		}
+		else{
+			die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
+		}
 
-        if(!is_object($paymentInstance))
-        {
-            die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
-        }
+		$payment = new nainai\payment\recharge($payObj);
 
-        //初始化参数
-        $money   = '';
-        $message = '支付失败';
-        $orderNo = '';
+		$callbackData = array_merge($_POST,$_GET);
+		unset($callbackData['controller']);
+		unset($callbackData['action']);
+		unset($callbackData['id']);
+		$res = $payment->payAfter($callbackData);
+       if($res){
+		   $this->success('充值成功',url::createUrl('fund/cz'));
+	   }
+		else{
+			$this->error('');
+		}
+        
 
-        //执行接口回调函数
-        $callbackData = array_merge($_POST,$_GET);
-        unset($callbackData['controller']);
-        unset($callbackData['action']);
-        unset($callbackData['_id']);
-        $return = $paymentInstance->callback($callbackData,$payment_id,$money,$message,$orderNo);
-        //支付成功
-        if($return){
-            $recharge_no = str_replace('recharge','',$orderNo);
-            
-            $rechargeObj = new M('recharge_order');
-            $rechargeRow = $rechargeObj->getObj('recharge_no = "'.$recharge_no.'"');
-            if(empty($rechargeRow))
-            {
-                die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
-            }
-            $dataArray = array(
-                'status' => 1,
-            );
-
-            $rechargeObj->data($dataArray);
-            $result = $rechargeObj->data($dataArray)->where('recharge_no = "'.$recharge_no.'"')->update();
-
-            if(!$result)
-            {
-                die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
-            }
-
-            $money   = $rechargeRow['account'];
-            $user_id = $this->user_id;
-            $agenA = new \nainai\fund\agentAccount();
-            $res = $agenA->in($user_id, $money);
-            if($res)
-            {
-				$userLog=new \Library\userLog();
-				$userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
-                die(json::encode(\Library\tool::getSuccInfo(1,'充值成功',url::createUrl('/fund/doFundIn'))));
-                exit;
-            }
-            die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
-        }
-        else
-        {
-            die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
-        }
     }
 
     public function subaccindexAction(){

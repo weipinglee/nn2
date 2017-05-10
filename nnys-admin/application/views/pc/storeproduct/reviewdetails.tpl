@@ -76,7 +76,7 @@
              <tr>
 
                  <th>状态</th>
-                 <td>{$detail['status']}</td>
+                 <td>{$detail['status_txt']}</td>
                  <th>是否打包:</th>
                  <td>     {if: $detail['package'] == 1}是{else:}否{/if}</td>
                  <th></th>
@@ -134,8 +134,14 @@
                  <td colspan="5">{$detail['msg']}</td>
              </tr>
 
+             {if:$type == \nainai\store::MARKET_AGAIN }
+              <tr>
 
-             {if:$type==\nainai\store::USER_AGREE}
+                 <th>审核意见</th>
+                 <td colspan="5">{$detail['admin_msg']}</td>
+             </tr>
+             {/if}
+             {if:$type==\nainai\store::USER_AGREE OR $type == \nainai\store::MARKET_AGAIN}
                  <form action="{url:store/storeProduct/setStatus}" method="post" auto_submit="1" redirect_url="{url:store/storeProduct/getlist}">
                      <tr>
                          <th>审核结果</th><input type="hidden" name="id" value="{$detail['id']}" />
@@ -170,7 +176,15 @@
                  <tr>
                      <th>操作</th>
                      <th scope="col" colspan="6">
+                     {if: $detail['status'] == \nainai\store::MARKET_AGREE || $detail['status'] == \nainai\store::MARKET_REJECT}
+                         <form action="{url:store/storeProduct/setStatus}" method="post" auto_submit="1" redirect_url="{url:store/storeProduct/getlist}">
+                         <input type="hidden" name="id" value="{$detail['id']}" />
+                         <input type="hidden" name="status" value="3" />
+                            <input type="submit" class="btn btn-primary radius" value="重新审核"/>
+                         </form>
+                     {/if}
                          <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
+                    
                      </th>
                  </tr>
              {/if}

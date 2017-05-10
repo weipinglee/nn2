@@ -37,6 +37,7 @@ class Order{
 	const PAYMENT_AGENT = 1;//代理账户
 	const PAYMENT_BANK = 2;//银行签约账户
 	const PAYMENT_TICKET = 3;//票据账户
+	const PAYMENT_ALIPAY = 4;//支付宝
 
 	protected $order_table;//订单表名
 	protected $offer_table;//报盘表
@@ -199,7 +200,7 @@ class Order{
 		
 				$content = '合同'.$info['order_no'].',申诉结果为：卖方违约，合同终止。根据交易规则，卖方将支付您该合同保证金的10%,请您关注资金动态。';
 				$mess_buyer->send('common',$content);
-
+				
 				$content = '合同'.$info['order_no'].',申诉结果为：卖方违约，合同终止。根据交易规则，将扣除您该合同保证金10%给买方,请您关注资金动态。';
 				$mess_seller->send('common',$content);
 				//将卖方保证金支付10%支付给买方 解冻货物
@@ -281,7 +282,7 @@ class Order{
      */
 	private function existOrderData($order,$orderData){
 		$data = $order->fields('id')->where($orderData)->getObj();
-		if(empty($data))
+		if(empty($data))	
 			return false;
 		return true;
 	}
@@ -302,9 +303,9 @@ class Order{
 		}
 
 		$offer_info = $this->offerInfo($orderData['offer_id']);
-		// if($offer_info['user_id'] == $orderData['user_id']){
-		// 	return tool::getSuccInfo(0,'买方卖方为同一人');
-		// }
+		if($offer_info['user_id'] == $orderData['user_id']){
+			return tool::getSuccInfo(0,'买方卖方为同一人');
+		}
 		
 		if(isset($offer_info['price']) && $offer_info['price']>0){
 			$product_valid = $this->productNumValid($orderData['num'],$offer_info);
@@ -382,7 +383,7 @@ class Order{
 		$query->join = 'left join user as u on po.user_id = u.id left join products as p on po.product_id = p.id';
 		$query->where = " po.id = :id";
 		$query->bind = array('id'=>$offer_id);
-		$query->fields = "po.*,u.username,p.name as product_name";
+		$query->fields = "po.*,u.username,p.name as product_name,p.cate_id";
 		$res = $query->getObj();
 		return $res ? $res : array();
 	}
@@ -400,7 +401,7 @@ class Order{
 		if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
 		$info = $this->orderInfo(intval($order_id));
 		$offerInfo = $this->offerInfo($info['offer_id']);
-
+		$is_entrust = $info['mode'] == self::ORDER_ENTRUST ? 1 : 0;
 		if(is_array($info) && isset($info['contract_status'])){
 			$seller = $this->sellerUserid($order_id);
 			$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? intval($info['user_id']) : $seller;
@@ -412,7 +413,7 @@ class Order{
 				$amount = floatval($info['amount']);
 				$buyerDeposit = floatval($info['pay_deposit']);
 				$retainage = $amount - $buyerDeposit;
-				$sim_oper = in_array($info['mode'],array(self::ORDER_ENTRUST,self::ORDER_FREE));
+				$sim_oper = in_array($info['mode'],array(self::ORDER_FREE));
 				if($retainage>0){
 					try {
 						$this->order->beginTrans();
@@ -421,32 +422,38 @@ class Order{
 						$payment = $sim_oper ? 'offline' : $payment;
 						//自由与委托报盘只接受线下凭证
 						$mess = new \nainai\message($seller);
-						
+						// var_dump($retainage);exit;
 						if($payment == 'online'){
 							//冻结买家帐户余额
 							$orderData['pay_retainage'] = $retainage;
-							$orderData['contract_status'] = self::CONTRACT_EFFECT;//payment为1  合同状态置为生效
+							$orderData['contract_status'] = $is_entrust ? self::CONTRACT_COMPLETE : self::CONTRACT_EFFECT;//payment为1  合同状态置为生效 委托报盘则置为已完成
 							// $orderData['retainage_clientid'] = $account == self::PAYMENT_BANK ? $clientID : '';
 							$upd_res = $this->orderUpdate($orderData);
 							if($upd_res['success'] == 1){
 								$log_res = $this->payLog($order_id,$user_id,0,'买家线上支付尾款');
 								
 								// $mess->send('buyerRetainage',$info['order_no']);
-								
 								$mess_buyer = new \nainai\message($buyer);
-								$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
-								$content = '(合同'.$info['order_no'].'已生效，您可以申请提货了。)'.$jump_url;
+								if($is_entrust == 1){
+									$content = '(合同'.$info['order_no'].'买家已支付尾款，合同已结束，请您关注资金动态。交收流程请您在线下进行操作。)';
+								}else{
+									$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
+									$content = '(合同'.$info['order_no'].'已生效，您可以申请提货了。)'.$jump_url;
+								}
 								$mess_buyer->send('common',$content);
 								$res = $log_res;
 							}else{
 								$res = $upd_res['info'];
 							}
-							if($res === true){
+							if($res === true && $is_entrust == 0){
 								$note = '支付合同'.$info['order_no'].'尾款 '.number_format($retainage,2);
 								$account = $this->base_account->get_account($account);
 								if(!is_object($account)) return tool::getSuccInfo(0,$account);
 								$acc_res = $account->freeze($buyer,$retainage,$note);
+							}elseif($is_entrust == 1){
+								$res = $this->entrustComplete($info,$buyer,$seller,$payment,$account);
 							}
+
 							if($res === true) $res = $this->order->commit();
 						}elseif($payment == 'offline'){
 							$orderData['proof'] = $proof;
@@ -543,26 +550,8 @@ class Order{
 				}
 
 				if($info['mode'] == self::ORDER_ENTRUST){
-					$note = '合同'.$info['order_no'].'完成,解冻平台委托金 '.$info['seller_deposit'];
-					$fre_res = $this->account->freezeRelease($seller,$info['seller_deposit'],$note);
-
-					if($fre_res === true){
-						$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
-
-						$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
-
-						if($pay_res !== true ) $res = $pay_res;
-					}else{
-						$res = $fre_res;
-					}
-					$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
-					if(is_object($account_deposit) && !$res){
-						$note = '合同'.$info['order_no'].'完成,支付定金'.$info['pay_deposit'];
-						$fpay_res = $account_deposit->freezePay($buyer,$seller,$info['pay_deposit'],$note);
-						if($fpay_res !== true ) $res = $fpay_res;
-					}else{
-						$res = $res ? $res : '无效定金支付方式';
-					}
+					$tmp = $this->entrustComplete($info,$buyer,$seller);
+					if($tmp !== true) $res = $tmp;
 				}
 
 				if(!isset($res)){
@@ -592,6 +581,66 @@ class Order{
 			$res = $e->getMessage();
 		}
 		return $res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res ? $res : '未知错误');
+	}
+
+	/**
+	 * 委托报盘摘牌流程结束，解冻支付与支付委托金	
+	 * @param  array $info 订单信息
+	 * @param  int $buyer  买家id
+	 * @param  int $seller  卖家id
+	 * @param  string $payment 支付方式(线上/线下)
+	 * @param  string $account 支付方式为线上时的尾款支付渠道
+	 * @return mixed  
+	 */
+	public function entrustComplete($info,$buyer,$seller,$payment='offline',$account=''){
+		$amount = floatval($info['amount']);
+		$buyerDeposit = floatval($info['pay_deposit']);
+		$retainage = $amount - $buyerDeposit;
+		if($retainage > 0){
+			if($info['seller_deposit'] > 0){
+				if($info['retainage_payment'] != self::PAYMENT_ALIPAY){
+					$note = '合同'.$info['order_no'].'完成,解冻平台委托金 '.$info['seller_deposit'];
+					$fre_res = $this->account->freezeRelease($seller,$info['seller_deposit'],$note);
+					
+					if($fre_res === true){
+						$note = '合同'.$info['order_no'].'完成,支付给平台委托金 '.$info['seller_deposit'];
+
+						$pay_res = $this->account->payMarket($seller,$info['seller_deposit'],$note);
+
+						if($pay_res !== true ) $res = $pay_res;
+					}else{
+						$res = $fre_res;
+					}
+				}else{
+					//记录支付宝支付记录  TODO
+				}
+			}
+			$account_deposit = $this->base_account->get_account($info['buyer_deposit_payment']);
+			if(is_object($account_deposit) && !$res){
+				//尾款线下支付
+				$note = '合同'.$info['order_no'].'完成,支付定金'.$info['pay_deposit'];
+				$fpay_res = $account_deposit->freezePay($buyer,$seller,$info['pay_deposit'],$note);
+				if($fpay_res !== true ) $res = $fpay_res;
+			}else{
+				$res = $res ? $res : '无效定金支付方式';
+			}
+
+			if($payment == 'online'){
+				//线上支付，直接将尾款部分进行转账操作
+				$account_retainage = $this->base_account->get_account($account);
+				if(is_object($account_retainage) && !$res){
+					$note = '支付合同'.$info['order_no'].'尾款 '.number_format($retainage,2);
+					$tmp = $account_retainage->transfer($buyer,$seller,array('amount'=>$retainage,'note'=>$note));
+					if($tmp !== true) $res = $tmp;
+				}else{
+					$res = $res ? $res : '无效定金支付方式';
+				}
+			}
+		}else{
+			$res = '无效尾款金额';
+		}
+
+		return isset($res) ? $res : true;
 	}
 
 	/**
@@ -1065,7 +1114,9 @@ class Order{
 			$value['amount'] = number_format(floatval($value['amount']),2);
 			$value['num'] = number_format(floatval($value['num']),2);
 			$value['buyer_name'] = $value['mode'] == \nainai\offer\product::TYPE_SELL ? $value['do_username'] : $value['po_username'];
+
 			$value['seller_name'] = $value['mode'] == \nainai\offer\product::TYPE_SELL  ? $value['po_username'] : $value['do_username'];
+
 		}
 		$query->downExcel($data['list'], 'order_sell', '合同列表');
 		// tool::pre_dump($data['list'][0]);exit;
@@ -1322,7 +1373,7 @@ class Order{
 					break;	
 				case self::CONTRACT_SELLER_DEPOSIT:
 					$title = in_array($value['mode'],array(self::ORDER_DEPOSIT,self::ORDER_PURCHASE)) ? '支付保证金' : '支付委托金';
-					$href  = $value['mode'] == self::ORDER_DEPOSIT ? url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']) : url::createUrl('/Deposit/sellerEntrustDeposit?order_id='.$value['id']);
+					$href  = in_array($value['mode'],array(self::ORDER_DEPOSIT,self::ORDER_PURCHASE)) ? url::createUrl('/Deposit/sellerDeposit?order_id='.$value['id']) : url::createUrl('/Deposit/sellerEntrustDeposit?order_id='.$value['id']);
 					break;
 				case self::CONTRACT_CANCEL:
 					$title = '合同已作废';
@@ -1334,7 +1385,7 @@ class Order{
 					break;
 				case self::CONTRACT_BUYER_RETAINAGE:
 					if(empty($value['proof'])){
-						$title = '等待支付尾款';
+						$title = $value['mode'] == self::ORDER_FREE ? '等待支付全款' : '等待支付尾款';
 					}else{
 						$title = '确认线下凭证';
 						$href  = url::createUrl('/Order/confirmProofPage?order_id='.$value['id']);
@@ -1393,7 +1444,7 @@ class Order{
 					$title = '未支付定金';
 					break;
 				case self::CONTRACT_SELLER_DEPOSIT:   
-					$title = $value['mode'] == self::ORDER_DEPOSIT ? '等待卖家支付保证金' : '等待卖家支付委托金';
+					$title = in_array($value['mode'],array(self::ORDER_DEPOSIT,self::ORDER_PURCHASE)) ? '等待卖家支付保证金' : '等待卖家支付委托金';
 					$action []= array('action'=>$title);
 					$_after_time = time::_after_time($value['pay_deposit_time'],3600);
 					if($_after_time === true){
@@ -1406,7 +1457,7 @@ class Order{
 					break;
 				case self::CONTRACT_BUYER_RETAINAGE:
 					if(empty($value['proof'])){
-						$title = '支付尾款';
+						$title = $value['mode'] == self::ORDER_FREE ? '支付全款' : '支付尾款';
 						$href = url::createUrl("/Order/buyerRetainage?order_id={$value['id']}");
 						$action []= array('action'=>$title,'url'=>$href);
 					}else{

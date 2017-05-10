@@ -39,6 +39,13 @@ class storeProductController extends Yaf\Controller_Abstract{
         $this->getView()->assign('attr',$data['attrs']);
     }
 
+    public function againListAction(){
+        $page = safe::filterGet('page','int',1);
+        $obj = new storeProductModel();
+        $data = $obj->getAgainList($page);
+        $this->getView()->assign('data',$data);
+    }
+
     /**
      * ï¿½ï¿½ï¿½ï¿½Ë²Öµï¿½ï¿½ï¿½ï¿½ï¿?
      */
@@ -50,7 +57,7 @@ class storeProductController extends Yaf\Controller_Abstract{
             $obj = new storeProductModel();
             $detail = $obj->getUserStoreDetail($id);
             $this->getView()->assign('type',$detail['status']);
-            $detail['status'] = $obj->getStatusText($detail['status']);
+            $detail['status_txt'] = $obj->getStatusText($detail['status']);
             $mem = new \nainai\member();
             $userData = $mem->getUserDetail($detail['user_id']);
             $this->getView()->assign('user',$userData);

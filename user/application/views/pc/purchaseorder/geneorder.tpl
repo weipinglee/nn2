@@ -94,43 +94,49 @@
                   </tbody></table>
                           
                           <div class="pay_type">
-                              <h3 class="add_zhifu">支付方式：</h3>
-                              <h3 class="addwidth">
-                                <div class="yListr" id="yListr" >
-                                      <ul>
-                                          <li>
-                                            <em name="chooice" class="yListrclickem" payment='online'>线上支付<i></i></em> 
+                              <div class="pay_way">
+                                  <h3 class="add_zhifu">支付方式：</h3>
+                                        <h3 class="addwidth">
+                                            <div class="yListr" id="yListr" >
+                                                  <ul>
+                                                      <li>
+                                                        <em name="chooice" class="yListrclickem" payment='online'>线上支付<i></i></em> 
 
-                                          </li>
+                                                      </li>
 
-                                      </ul>
-                              </div> 
+                                                  </ul>
+                                          </div> 
 
-                        <script type="text/javascript">
-                            $(function() {
-                                $(".yListr ul li em").click(function() {
-                                  var payment = $(this).attr('payment');
-                                  $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
-                                  $('input[name=payment]').val(payment);
-                                })
-                            });
-                        </script>
-                       
-                   <div id="bain_bo">
-                   <form action="{url:/PurchaseOrder/geneOrderHandle}" auto_submit pay_secret="1" redirect_url="{url:/purchase/lists}" method="post" enctype="multipart/form-data">
-                   <div class="sty_online" style="display:block;">
-                       <input type="hidden" value="online" name="payment"/>
-						      <label for=""><input name="account" type="radio" value="1" checked="true"/>市场代理账户</label>
-						      <label for=""><input name="account" type="radio" value="2" />银行签约账户</label>
-						      <!-- <label for=""><input name="account" type="radio" value="3" />票据账户</label> -->
-                  <input type="hidden" name="id" value="{$data['id']}"/>
-                   </div>
-                   
-                   </form> 
-                  </div>  
-                            
-                       </h3> 
-                         </div>
+                                            <script type="text/javascript">
+                                                $(function() {
+                                                    $(".yListr ul li em").click(function() {
+                                                      var payment = $(this).attr('payment');
+                                                      $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+                                                      $('input[name=payment]').val(payment);
+                                                    })
+                                                });
+                                            </script>
+                                 
+                                           <div id="bain_bo">
+                                                 <form action="{url:/PurchaseOrder/geneOrderHandle}" auto_submit pay_secret="1" redirect_url="{url:/purchase/lists}" method="post" enctype="multipart/form-data">
+                                                 <div class="sty_online" style="display:block;">
+                                                     <input type="hidden" value="online" name="payment"/>
+                                                <label for=""><input name="account" type="radio" value="1" checked="true"/>市场代理账户</label>
+                                                <label for=""><input name="account" type="radio" value="2" />银行签约账户</label>
+                                                <!-- <label for=""><input name="account" type="radio" value="3" />票据账户</label> -->
+                                                <input type="hidden" name="id" value="{$data['id']}"/>
+                                           </div>
+                                           
+                                           </form> 
+                                          </div>  
+                                      
+                                 </h3>
+                              </div>
+                              <div class="trans_way">                                
+                                  <h3 class="add_zhifu">物流方式：</h3>
+                                  <h3 class="addwidth" style="line-height:33px;font-size:14px;padding:0;">物流自提</h3>
+                              </div>         
+                          </div>
 
 
                   <div class="pay_bton">

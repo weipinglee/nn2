@@ -20,7 +20,7 @@
 					<span></span>
 				</div>
 				<div class="zhxi_con">
-					<span class="con_tit"><i></i>扣减原因：</span>
+					<span class="con_tit"><i>*</i>扣减原因：</span>
 					<span><textarea name="remark" datatype="*"></textarea></span>
 					<span></span>
 
@@ -32,7 +32,7 @@
 				
 				</div>
 				<div class="zhxi_con">
-					<span><input class="submit" confirm=1 type="submit" value="提交"/></span>
+					<span><input class="submit" type="submit" value="提交"/></span>
 				</div>
 			</form>
 		</div>

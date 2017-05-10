@@ -51,7 +51,9 @@
 							{/if}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>银行账号：</span>
-								<span><input class="text" type="text" name="card_no" datatype="/^[0-9a-zA-Z]{15,19}$/i" value="{$bank['card_no']}" ></span>
+
+								<span><input class="text" type="text" name="card_no" datatype="/^[0-9a-zA-Z]{8,30}$/i" value="{$bank['card_no']}" errormsg='请填写8-30位数字或字母'></span>
+
 								<span></span>
 								
 							</div>

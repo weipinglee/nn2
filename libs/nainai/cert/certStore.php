@@ -69,7 +69,6 @@ class certStore extends certificate{
 
         $certObj = new M(self::$certTable[self::$certType]);
 
-
         if($check===true ){
             //检验其他的认证是否需要重新认证
             $reCertType = $this->checkOtherCert($accData);

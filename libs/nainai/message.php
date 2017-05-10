@@ -28,11 +28,13 @@ class message{
 		'dealer',
 		'store_manager',
 		'ApplyResetpay',
+		'ApplyResettel',
 		'offer',
 		'store',
         'common',
 		'credentials',
-		'repcredentials'
+		'repcredentials',
+		'delivery_check'
 	);
 	/**
 	 * [__construct 构造方法]
@@ -241,6 +243,19 @@ class message{
 
 	}
 
+	public function ApplyResettel($param){
+		$title = '提醒';
+		if ($param['status'] == 0) {
+			$message = '很遗憾，您的修改手机号申诉未能通过审核。您可以修改相关信息再次进行申诉，或联系客服解决。';
+		}else{
+			$message = '您修改手机号的申诉已通过审核，已将'.$param['mobile'].'修改为新的手机号。';
+		}
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+
+	}
+
 	public function offer($param){
 		$title = '报盘审核';
 
@@ -282,12 +297,16 @@ class message{
 		}elseif ($param['type'] == 'admin_check') {
 			if ($param['status'] == \nainai\store::MARKET_AGREE) {
 				$message = '您好，”'.$param['name'].'”仓单，平台已经审核通过，您可以进行仓单报盘了<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist@user'). '">跳转到仓单列表页</a>';
+			}elseif ($param['status'] == \nainai\store::MARKET_AGAIN) {
+				$message = '您好，”'.$param['name'].'”仓单，平台需要重新审核，请您耐心等待审核结果.';
 			}else{
 				$message = '很遗憾，“'.$param['name'].'”仓单 后台审核未通过，您可以联系仓库管理员修改相关信息再次进行签发。<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist@user'). '">跳转到仓单列表页</a>';
 			}
 		}elseif ($param['type'] == 'for_sign') {
 			if ($param['status'] == \nainai\store::MARKET_AGREE) {
 				$message = '您好，”'.$param['name'].'”仓单，平台已经审核通过<a href="' .\Library\url::createUrl('/managerstore/applystorelist@user'). '">跳转到仓单列表页</a>';
+			}elseif ($param['status'] == \nainai\store::MARKET_AGAIN) {
+				$message = '您好，”'.$param['name'].'”仓单，平台需要重新审核，请您耐心等待审核结果.';
 			}else{
 				$message = '很遗憾，“'.$param['name'].'”仓单 后台审核未通过。<a href="' .\Library\url::createUrl('/managerstore/applystorelist@user'). '">跳转到仓单列表页</a>';
 			}
@@ -295,6 +314,13 @@ class message{
 		else{
 			$message = '您好，”'.$param['name'].'”仓单，仓库管理员已经进行签发，请您及时进行确认.<a href="' .\Library\url::createUrl('/managerdeal/storeproductlist'). '">跳转到仓单列表页</a>';
 		}
+		return array(
+			'title'=>$title,
+			'content'=>$message);
+	}
+	public function delivery_check($param){
+		$title = '出库审核';
+		$message = ' 您好！您合同号为'.$param['order_no'].'的商品，出库审核时被市场驳回，原因为:'.$param['msg'].'；如有疑问请致电XXX-XXX';
 		return array(
 			'title'=>$title,
 			'content'=>$message);

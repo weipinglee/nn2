@@ -30,7 +30,6 @@ class searchQuery extends Query{
                     $this->where = $cond[0]['where'];
                 $this->bind = array_merge($this->bind,$cond[0]['bind']);
             }
-
             $search = $cond[1];
             if(isset($search['select'])){
                 $search['selectData'] = $selectData;
@@ -41,9 +40,12 @@ class searchQuery extends Query{
             unset($this->page);
         }else if(!isset($this->page) || !$this->page){ //如果没有定义分页，在这里定义
             $this->page = $cond[0]['page'];
+            
+        }
+        
+        if (intval($this->pagesize) == 0) {
             $this->pagesize = 20;
         }
-
         $list = parent::find();
         $result = array('list' => $list, 'search'=>$search);
         if (!isset($cond[0]['down']) ||$cond[0]['down'] == 0) {
@@ -67,6 +69,7 @@ class searchQuery extends Query{
         if(!$tableName)
             return array();
         $configArr = \conf\searchConfig::config($tableName);
+        
         if(empty($configArr))
             return array();
         $condArr = $search = array();
@@ -109,7 +112,7 @@ class searchQuery extends Query{
         if (!empty($news)) {
             $search['likesval'] = array();
             foreach ($news as $key => $value) {
-                 $tempval = safe::filterGet($value);
+                $tempval = safe::filterGet($value);
                 $search['likesval'][$value] = $tempval;
                 if (!empty($tempval)) {
                     if($cond['where']!='')

@@ -61,7 +61,12 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function indexOfferAction(){
         $certObj=new \nainai\cert\certificate();
-        $certStatus=$certObj->getCertStatus($this->user_id,'deal');
+        if ($this->pid == 0) {
+            $certStatus=$certObj->getCertStatus($this->user_id,'deal');
+        }else{
+             $certStatus=$certObj->getCertStatus($this->pid,'deal');
+        }
+       
 
         $this->getView()->assign('certStatus',$certStatus);
     }
@@ -186,7 +191,7 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData['minimum'] = $productData[0]['quantity'];
             }
             $res = $offerObj->doOffer($productData,$offerData,$offer_id);
-
+            
             echo json::encode($res);
             exit;
         }
@@ -270,6 +275,8 @@ class ManagerDealController extends UcenterBaseController {
     public function deputeOfferAction(){
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
+        $member = new \nainai\member();
+        $this->getView()->assign('is_vip',$member->is_vip($this->user_id));
         $offer = array('divide' => 1);
         $this->getView()->assign('offer',$offer);
         $this->productAddAction('deputeoffer');
@@ -461,8 +468,8 @@ class ManagerDealController extends UcenterBaseController {
     public function doStoreOfferAction(){
         if (IS_POST) {
             $token = safe::filterPost('token');
-            // if(!safe::checkToken($token))
-             //    die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            if(!safe::checkToken($token))
+                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
 
@@ -481,12 +488,12 @@ class ManagerDealController extends UcenterBaseController {
                     'accept_day' => Safe::filterPost('accept_day', 'int'),
                     'price'        => Safe::filterPost('price', 'float'),
                     'user_id'     => $this->user_id,
-                    'insurance' => Safe::filterPost('insurance', 'int'),
+                    'insurance' => Safe::filterPost('insurance', 'int', 0),
                     'risk' =>implode(',', Safe::filterPost('risk', 'int')),
                    'expire_time' =>  Safe::filterPost('expire_time'),
                    'other' => Safe::filterPost('other'),
+                   'weight_type' => Safe::filterPost('weight_type'),
                 );
-                
                 if(!$offerData['risk']){
                     $offerData['risk'] = '';
                 }

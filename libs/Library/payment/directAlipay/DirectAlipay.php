@@ -47,18 +47,18 @@ class DirectAlipay extends paymentPlugin {
 	public function callback($callbackData, &$paymentId, &$money, &$message, &$orderNo) {
 		//除去待签名参数数组中的空值和签名参数
 		$para_filter = $this->paraFilter($callbackData);
-
+		
 		//对待签名参数数组排序
 		$para_sort = $this->argSort($para_filter);
-
+		
 		//生成签名结果
 		$mysign = $this->buildMysign($para_sort, Payment::getConfigParam($paymentId, 'M_PartnerKey'));
-		var_dump($mysign);
+
 		if ($callbackData['sign'] == $mysign) {
 			//回传数据
 			$orderNo = $callbackData['out_trade_no'];
 			$money = $callbackData['total_fee'];
-
+			
 			if ($callbackData['trade_status'] == 'TRADE_FINISHED' || $callbackData['trade_status'] == 'TRADE_SUCCESS') {
 				return true;
 			}
@@ -80,7 +80,7 @@ class DirectAlipay extends paymentPlugin {
 	 */
 	public function getSendData($payment) {
 		$return = array();
-
+		
 		//基本参数
 		$return['service'] = 'create_direct_pay_by_user';
 		$return['partner'] = $payment['M_PartnerId'];

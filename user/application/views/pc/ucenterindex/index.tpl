@@ -18,43 +18,38 @@
 						<div class="nrz_dd">
 							<table class="hy_info" width="100%">
 								<tr>
-									<td colspan="2" width="450px">
+									<td width="450px" style="border-right:1px solid #eee;">
 										<ul class="dj">
-											<li>会员等级：<span class="colaa0707">{$group['group_name']}</span></li>
-											<li><!--<img src="{$group['icon']}"/>--></li>
-											<li>
-												<div style="height:10px;width:100px;background:#ccc;position:relative;top: 5px;">
-													<div style="height: 10px;width: 10%;background: #AD4C4C;"></div>
-												</div>
-											</li>
-											<li>
-												<!--<img src="{views:/images/center/icon_yin.jpg}"/>-->
-											&nbsp;<span>距离升级还需 {$creditGap} 信誉分</span>
-											</li>
+											<li>会员等级：<span><img src="{$group['icon']}"/>{$group['group_name']}</span></li>
+											<li><a href="http://company.nainaiwang.com/product.php?id=67"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员升级</span></a></li>
+
+											<li style="clear:both;"><span>信誉分值：{$creditGap} 分</span></li>
 										</ul>
 									</td>
-									<td rowspan="2" width="280px">
-										<div class="icon_rz">
-											{foreach:items=$cert}
-												{if:$cert[$key]==1}
-											<span><img src="{views:/images/center/icon_yrz.jpg}">{echo:\nainai\cert\certificate::$certRoleText[$key]}已认证</span>
-												{/if}
-											{/foreach}
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2">
+									<td style="padding-bottom:0px;">
 										<span>结算账号资金总额</span>
 										<span class="colaa0707"><b class="font-size ">￥{$count}</b><br/>
 											<span style="line-height: 30px;padding-left: 120px;"></span>
 										</span>
-										
-										
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2">
+									<td width="280px" style="border-right:1px solid #eee;">
+										<div class="icon_rz">
+											{foreach:items=$cert}
+												{if:$cert[$key]==1}
+												<span><img src="{views:/images/center/icon_yrz.png}">{echo:\nainai\cert\certificate::$certRoleText[$key]}已认证</span>
+												{else:}
+												<span><img src="{views:/images/center/icon_wrz.png}">{echo:\nainai\cert\certificate::$certRoleText[$key]}未认证</span>
+
+												{/if}
+											{/foreach}
+											{if:$href}
+												<a href="{$href}"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">去认证</span></a>
+											{/if}
+										</div>
+									</td>
+									<td>
 										<span class="rz_an_index">
 											<a href="{url:/fund/cz}" class="zj_a cz">充值</a>
 											<a href="{url:/fund/tx}" class="zj_a tx">提现</a>

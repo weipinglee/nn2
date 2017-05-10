@@ -31,6 +31,7 @@ class store{
 
     const MARKET_AGREE        = 31;//市场通过
     const MARKET_REJECT       = 32;//市场拒绝
+    const MARKET_AGAIN = 55;
     const DELETE = 4; //删除记录
 
 
@@ -47,7 +48,8 @@ class store{
             self::USER_AGREE => '卖方确认',
             self::USER_REJECT => '卖方拒绝',
             self::MARKET_AGREE => '后台审核通过',
-            self::MARKET_REJECT => '后台审核驳回'
+            self::MARKET_REJECT => '后台审核驳回',
+            self::MARKET_AGAIN => '后台重新审核'
         );
     }
 
@@ -169,12 +171,12 @@ class store{
      * @param int $page 页码
      * @param array $condition 条件
      */
-    protected function getStoreProductList($page,$condition=array(),$pagesize=20){
+    protected function getStoreProductList($page,$condition=array(),$pagesize=10){
         $query = new \Library\searchQuery('store_products as a');
         $query->fields = 'a.id,a.user_id,b.name as sname, a.status, c.name as pname,c.quantity,d.name as cname, c.attribute,c.unit, a.package_unit, a.package_weight';
         $query->join = ' LEFT JOIN store_list as b ON a.store_id=b.id LEFT JOIN products as c ON a.product_id = c.id   LEFT JOIN product_category as d  ON c.cate_id=d.id';
         $query->page = $page;
-        $query->pagesize = $pagesize;
+        $query->pagesize = 10;
         if(!empty($condition)){
             $query->where = $condition['where'];
             $query->bind  = isset($condition['bind']) ? $condition['bind'] : array();
@@ -245,7 +247,7 @@ class store{
         if($this->getStoreProductStatus($id)==self::STOREMANAGER_AGREE) {//处于仓管审核已审核可签发
             $store_id = $this->getManagerStoreId($user_id);
             $store['status'] = self::STOREMANAGER_SIGN;
-
+            
             $pObj = new M('store_products');
             $spData = $pObj->where(array('id'=>$id))->getObj();
 
@@ -291,6 +293,11 @@ class store{
             $res = $this->UpdateApplyStore($store, array('id'=>$id,'user_id'=>$user_id));
 
             $info = $this->getUserStoreDetail($id, $user_id);
+            $title =    '仓单签发审核';
+            $content = '仓单签发' . $productData[0]['name'] . '需要审核';
+
+            $adminMsg = new \nainai\AdminMsg();
+            $adminMsg->createMsg('checkoffer',$id,$content,$title);
             $param = array('type' => 'check');
             $param['status'] = $store['status'];
             $param['user_id'] = $info['sign_user'];
@@ -445,11 +452,7 @@ class store{
                 $storeData['status'] = self::STOREMANAGER_SIGN;
                 $id = $storeProductObj->table($this->storeProduct)->data($storeData)->add(1);
                 if ($id > 0) {
-                            $title =    '仓单签发审核';
-                            $content = '仓单签发' . $productData[0]['name'] . '需要审核';
-
-                            $adminMsg = new \nainai\AdminMsg();
-                            $adminMsg->createMsg('checkoffer',$id,$content,$title);
+                            
 
                             $param['name'] = $productData[0]['name'];
                             $obj = new \nainai\message($storeData['user_id']);

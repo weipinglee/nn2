@@ -1,7 +1,5 @@
-
-          
-            
-                
+    
+                      
                 <script type="text/javascript" src="{views:js/product/cate.js}"></script>
         <!--            
               CONTENT 
@@ -59,6 +57,14 @@
                     <label class="form-label col-2">是否显示：</label>
                     <div class="formControls col-10">
                     <input type="radio" name="status" value="0" {if:$detail['status'] == 0}checked{/if}>否<input type="radio" name="status" value="1" {if:$detail['status'] == 1}checked{/if}>是
+                    </div>
+                </div>
+
+
+                <div class="row cl">
+                    <label class="form-label col-2">子账户是否显示：</label>
+                    <div class="formControls col-10">
+                    <input type="radio" name="subacc_show" value="0" {if:$detail['subacc_show'] == 0}checked{/if}>否<input type="radio" name="subacc_show" value="1" {if:$detail['subacc_show'] == 1}checked{/if}>是
                     </div>
                 </div>
 

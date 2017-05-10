@@ -59,66 +59,9 @@ class Payment {
 		}
 	}
 
-	/**
-	 * @brief 根据支付方式配置编号  获取该插件的详细配置信息
-	 * @param $payment_id int    支付方式ID
-	 * @param $key        string 字段
-	 * @return 返回支付插件类对象
-	 */
-	public static function getPaymentById($payment_id, $key = '') {
 
-		$paymentDB = new Query('payment');
-		$paymentDB->where = 'id=:id';
-		$paymentDB->bind = array('id' => $payment_id);
-		$paymentRow = $paymentDB->getObj();
 
-		if ($key) {
-			return isset($paymentRow[$key]) ? $paymentRow[$key] : '';
-		}
 
-		return $paymentRow;
-	}
-
-	/**
-	 * @brief 根据支付方式配置编号  获取该插件的配置信息
-	 * @param $payment_id int    支付方式ID
-	 * @param $key        string 字段
-	 * @return 返回支付插件类对象
-	 */
-	public static function getConfigParam($payment_id, $key = '') {
-		$payConfig = self::getPaymentById($payment_id, 'config_param');
-		if ($payConfig) {
-			$payConfig = JSON::decode($payConfig);
-			return isset($payConfig[$key]) ? $payConfig[$key] : '';
-		}
-		return '';
-	}
-	/**
-	 * 获取支付参数（商户id，密码）
-	 * @param unknown $payment_id
-	 */
-	private static function getPaymentParam($payment_id) {
-		//最终返回值
-		$payment = array();
-
-		//初始化配置参数
-		$paymentInstance = Payment::createPaymentInstance($payment_id);
-		$configParam = $paymentInstance->configParam();
-		//return $configParam;
-		foreach ($configParam as $key => $val) {
-			$payment[$key] = '';
-		}
-
-		//获取公共信息
-		$paymentRow = self::getPaymentById($payment_id, 'config_param');
-		if ($paymentRow) {
-			$paymentRow = JSON::decode($paymentRow);
-			foreach ($paymentRow as $key => $item) {
-				$payment[$key] = $item;
-			}
-		}
-		return $payment;
-	}
 
 	/**
 	 * @brief 获取订单中的支付信息 M:必要信息; R表示店铺; P表示用户;
@@ -132,22 +75,19 @@ class Payment {
 		$payment = self::getPaymentParam($payment_id);
 
 		if ($type == 'recharge') {
-			//判断用户有没有登录
-			/*if (session::get('user_id') == null) {
-			IError::show(403, '请登录系统');
-			}	*/
 
 			if (!isset($argument['account']) || $argument['account'] <= 0) {
-				//IError::show(403, '请填入正确的充值金额');
+				return false;
 
 			}
 
 			$rechargeObj = new M('recharge_order');
+
 			$reData = array(
 				//'user_id' => session::get('user_id'),
 				'id' => null,
-				'user_id' => 1,
-				'order_no' => self::createOrderNum(),
+				'user_id' => $argument['user_id'],
+				'order_no' => 'recharge'.self::createOrderNum(),
 				//资金
 				'amount' => $argument['account'],
 				'create_time' => self::getDateTime(),
@@ -156,11 +96,10 @@ class Payment {
 				//支付方式
 				'pay_type' => $argument['payType'],
 			);
-			$rechargeObj;
 			$r_id = $rechargeObj->data($reData)->add();
 
 			//充值时用户id跟随交易号一起发送,以"_"分割
-			$payment['M_OrderNO'] = 'recharge' . $reData['order_no'];
+			$payment['M_OrderNO'] = $reData['order_no'];
 			$payment['M_OrderId'] = $r_id;
 			$payment['M_Amount'] = $reData['amount'];
 			$payment['M_Remark'] = '';
@@ -172,21 +111,17 @@ class Payment {
 
 		//店铺信息
 		$payment['R_Address'] = isset($site_config['address']) ? $site_config['address'] : '';
-		$payment['R_Name'] = isset($site_config['name']) ? $site_config['name'] : '山城速购';
-		$payment['R_Mobile'] = isset($site_config['mobile']) ? $site_config['mobile'] : '13232323';
-		$payment['R_Telephone'] = isset($site_config['phone']) ? $site_config['phone'] : '400-234-4564564';
+		$payment['R_Name'] = isset($site_config['name']) ? $site_config['name'] : '';
+		$payment['R_Mobile'] = isset($site_config['mobile']) ? $site_config['mobile'] : '';
+		$payment['R_Telephone'] = isset($site_config['phone']) ? $site_config['phone'] : '';
 
 		return $payment;
 	}
 
-	public static function createOrderNum() {
-		return 'recharge' . date('YmdHis') . rand(100000, 999999);
-	}
-	public static function getDateTime($format = '', $time = '') {
-		$time = $time ? $time : time();
-		$format = $format ? $format : 'Y-m-d H:i:s';
-		return date($format, $time);
-	}
+
+
+
+
 
 	/**
 	 * 更新在线充值
@@ -194,7 +129,7 @@ class Payment {
 	 * @param string $proot 第三方返回的交易流水号
 	 * @return bool
 	 */
-	public static function updateRecharge($recharge_no, $proot = '') {
+	public static function updateRecharge($recharge_no) {
 		$rechargeObj = new M('recharge_order');
 		$rechargeObj->where(array('order_no'=>$recharge_no));
 		$rechargeRow = $rechargeObj->getObj();
@@ -205,24 +140,35 @@ class Payment {
 		if ($rechargeRow['status'] == 1) {
 			return true;
 		}
-		if ($proot == '') {
-			return false;
-		}
+
 		$dataArray = array(
-			'status' => 1,
-			'proot' => $proot,
+			'status' => 1
 		);
 
-		$rechargeObj->beginTrans();
 		$rechargeObj->where(array('order_no'=>$recharge_no))->data($dataArray)->update();
-
 
 		$userid = $rechargeRow['user_id'];
 		$money = $rechargeRow['amount'];
-		$fund = \nainai\fund::createFund(1);
+		$fund =  new \nainai\fund\agentAccount();
 		$fundRes = $fund->in($userid, $money);
 
-		return $rechargeObj->commit();
-
+		if($fundRes===true)
+		{
+			$userLog=new \Library\userLog();
+			$userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public static function createOrderNum() {
+		return 'recharge' . date('YmdHis') . rand(100000, 999999);
+	}
+	public static function getDateTime($format = '', $time = '') {
+		$time = $time ? $time : time();
+		$format = $format ? $format : 'Y-m-d H:i:s';
+		return date($format, $time);
 	}
 }

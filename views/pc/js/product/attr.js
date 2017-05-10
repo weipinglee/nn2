@@ -130,10 +130,20 @@ function getCategory(cond){
 
                 })
 
-                $('.pages_bar').find('a').on('click',function(){
+                $('.pages_bar').find('a').on('click',function(){    
                     $('.pages_bar').find('.current_page').removeClass('current_page');
                     $(this).addClass('current_page');
                     getCategory();
+                });
+
+                $('.check_btn').each(function(){
+                  if($(this).attr('no_cert') == '1'){
+                    $(this).attr('href','javascript:;').click(function(){
+                      layer.msg($(this).attr('info'));
+                                        
+                      return false;
+                    })
+                  }
                 });
             }
 

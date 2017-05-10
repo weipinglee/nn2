@@ -2,9 +2,9 @@
 /user/_thumb/*
 /user/application/runtime/*
 /user/upload/*
-/admin/_thumb/*
-/admin/application/runtime/*
-/admin/upload/*
+/nnys-admin/_thumb/*
+/nnys-admin/application/runtime/*
+/nnys-admin/upload/*
 /_thumb/*
 /upload/*
 /application/runtime/*

@@ -255,8 +255,10 @@ $(function(){
                                     var chart;
                                     var text;
                                     if(statisList[id]!=undefined&&categories[id]!=undefined){
+                                        
                                         text='市场指数';
                                         $.each(statisList[id],function(index,value){
+
                                             var data=new Array();
                                             for(var i=0;i<value.length;i++){
                                                 var price=parseInt(value[i].price,10);
@@ -516,6 +518,7 @@ $(function(){
                     obj.addClass('li_select');
                     /*$('[id^=offer]').removeClass('show');
                     $('#offer'+id).addClass('show');*/
+
                    
                     //$('#offerRowBox').empty();
                     template.helper('getAreaText', function(area_data){  
@@ -528,7 +531,7 @@ $(function(){
                          $('#offerRowBox').html(offerRowHtml);
 					}
                            
-                      
+
 
                 }
             </script>

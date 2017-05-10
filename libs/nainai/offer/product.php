@@ -541,8 +541,9 @@ class product  {
 
                 $pId = $this->_productObj->data($productData[0])->add();
                 $productOffer['product_id'] = $pId;
-
-                $id =   $this->_productObj->table('product_offer')->data($productOffer)->add(1);
+                $productOffer['insurance'] = 0;
+                $productOffer['status'] = self::OFFER_APPLY;
+                $id =  $this->_productObj->table('product_offer')->data($productOffer)->add(1);
 
                 if ($id > 0) {
 
@@ -616,8 +617,12 @@ class product  {
         $res = array();
         while($cate_id!=0){
             $cate = $m->where(array('id'=>$cate_id))->fields('pid,id,name')->getObj();
-            array_unshift($res,array('id'=>$cate['id'],'name'=>$cate['name']));
-            $cate_id = $cate['pid'];
+            if (!empty($cate)) {
+                array_unshift($res,array('id'=>$cate['id'],'name'=>$cate['name']));
+                $cate_id = $cate['pid'];
+            }else{
+                $cate_id = 0;
+            }
         }
         return $res;
     }

@@ -33,12 +33,11 @@ class tradeController extends \nainai\controller\Base {
             $this->getView()->assign('login',0);
         }
 		$this->getView()->setLayout('layout');
-		$this->offer = new OffersModel();
+		$this->offer = new offersModel();
 	}
 
 	//付款
 	public function buyerPayAction(){
-
 		$id = safe::filterPost('id','int');
 		$num = safe::filterPost('num');
 		$paytype = safe::filterPost('paytype');
@@ -46,6 +45,9 @@ class tradeController extends \nainai\controller\Base {
 		$invoice = safe::filterPost('invoice');
 
 		$detail = $this->offer->offerDetail($id);
+		if ($detail['user_id'] == $this->pid) {
+			die(json::encode(tool::getSuccInfo(0,'子账户不能购买父账户发布的商品')));
+		}
 		$certObj=new \nainai\cert\certificate();
 		$certStatus=$certObj->getCertStatus($detail['user_id'],'deal');
 		if($certStatus['status']==4){
@@ -106,7 +108,7 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['user_id'] = $user_id;
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
-
+		
 		//设置保险信息到合同里面
 		if ($detail['insurance'] == 1) {//投保产品
 			$orderData['risk'] = $detail['risk'];
@@ -131,7 +133,7 @@ class tradeController extends \nainai\controller\Base {
 			}
 		}
 
-
+		
 		$order = new M('order_sell');
 		try {
 			$order->beginTrans();
@@ -297,6 +299,9 @@ class tradeController extends \nainai\controller\Base {
 			else if($data['user_id']==$this->user_id){
 				die(json::encode(tool::getSuccInfo(0,'不能给自己的采购报价!')));exit();
 			}
+			else if($data['user_id']==$this->pid){
+				die(json::encode(tool::getSuccInfo(0,'子账户不能报价父账户发布的商品!')));exit();
+			}
 
 
 
@@ -338,5 +343,72 @@ class tradeController extends \nainai\controller\Base {
 		die(json::encode(tool::getSuccInfo(1,(int)$member->validPaymentPassword($pass))));
 	}
 
+
+	//支付回调
+    public function rechargeCallbackAction(){
+        //从URL中获取支付方式
+        $payment_id      = safe::filterGet('id', 'int');
+        $paymentInstance = Payment::createPaymentInstance($payment_id);
+
+        if(!is_object($paymentInstance))
+        {
+            die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
+        }
+        
+        //初始化参数
+        $money   = '';
+        $message = '支付失败';
+        $orderNo = '';
+        
+        //执行接口回调函数
+        $callbackData = array_merge($_POST,$_GET);
+        unset($callbackData['controller']);
+        unset($callbackData['action']);
+        unset($callbackData['_id']);
+        $return = $paymentInstance->callback($callbackData,$payment_id,$money,$message,$orderNo);
+        //支付成功
+        if($return){
+            $order_no = str_replace('recharge','',$orderNo);
+            
+            $rechargeObj = new M('recharge_order');
+            $rechargeRow = $rechargeObj->getObj('order_no = "'.$order_no.'"');
+            if(empty($rechargeRow))
+            {
+                //die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+                $this->error('充值失败',url::createUrl("/fund/cz"));
+            }
+            $dataArray = array(
+                'status' => 1,
+            );
+            
+            $rechargeObj->data($dataArray);
+            $result = $rechargeObj->data($dataArray)->where('order_no = "'.$order_no.'"')->update();
+            
+            if(!$result)
+            {
+                //die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+                $this->error('充值失败',url::createUrl("/fund/cz"));
+            }
+            
+            $money   = floatval($rechargeRow['amount']);
+            $agenA = new \nainai\fund\agentAccount();
+            $res = $agenA->in(intval($rechargeRow['user_id']), $money);
+            if($res)
+            {
+				$userLog=new \Library\userLog();
+				$userLog->addLog(['action'=>'充值操作','content'=>'充值了'.$money.'元']);
+				$this->success('充值余额成功:'.$rechargeRow['amount'].'元',url::createUrl("/fund/cz"));
+                // die(json::encode(\Library\tool::getSuccInfo(1,'充值成功',url::createUrl('/fund/doFundIn'))));
+                exit;
+            }
+            //die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+            $this->error('充值失败',url::createUrl("/fund/cz"));
+        }
+        else
+        {
+            //die(json::encode(\Library\tool::getSuccInfo(0,'充值失败')) ) ;
+            $this->error('充值失败',url::createUrl("/fund/cz"));
+        }
+    }
 
 }

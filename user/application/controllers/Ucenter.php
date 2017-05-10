@@ -307,11 +307,17 @@ class UcenterController extends UcenterBaseController {
      *
      */
     public function dealCertAction(){
-        $cert = new certDealerModel($this->user_id,$this->user_type);
-        $certData = $cert->getCertData($this->user_id);
-        $certShow = $cert->getCertShow($this->user_id);
+        if (intval($this->pid) == 0) {
+            $cert = new certDealerModel($this->user_id,$this->user_type);
+            $certData = $cert->getCertData($this->user_id);
+            $certShow = $cert->getCertShow($this->user_id);
+        }else{
+            $cert = new certDealerModel($this->pid,$this->user_type);
+            $certData = $cert->getCertData($this->pid);
+            $certShow = $cert->getCertShow($this->pid);
+        }
 
-       $this->getView()->assign('certData',$certData);
+        $this->getView()->assign('certData',$certData);
         $this->getView()->assign('certShow',$certShow);
         $this->getView()->assign('userType',$certData['type']);
     }
@@ -463,6 +469,9 @@ class UcenterController extends UcenterBaseController {
      */
     public function doSubAccAction(){
         if(IS_POST){
+            $userModel = new UserModel();
+            $user_data = $userModel->getUserInfo($this->user_id);
+
             $data = array();
             $data['pid'] = $this->user_id;
             $data['username'] = safe::filterPost('username');
@@ -473,6 +482,18 @@ class UcenterController extends UcenterBaseController {
             $data['head_photo'] = tool::setImgApp(safe::filterPost('imgfile1'));
             $data['create_time'] = \Library\Time::getDateTime();
             $data['status']     = \nainai\user\USER::NOMAL;
+            $data['type'] = $user_data['type'];
+            $data['credit'] = 0;
+            $data['cert_status'] = $user_data['cert_status'];
+            $data['agent'] = $user_data['agent'];
+            $data['agent_pass'] = $user_data['agent_pass'];
+            $data['session_id'] = '';
+            $data['gid'] = '';
+            $data['pay_secret'] = $user_data['pay_secret'];
+            $data['yewu'] = $user_data['yewu'];
+            $data['login_ip'] = 0;
+            $data['user_no'] = '';
+
             $userModel = new UserModel();
             if($data['user_id']==0)//新增子账户
                  $res = $userModel->subAccReg($data);
@@ -500,8 +521,13 @@ class UcenterController extends UcenterBaseController {
         public function invoiceAction(){
             $invoiceModel = new \nainai\user\UserInvoice();
             if (IS_POST) {
+                if ($this->pid == 0) {
+                    $user_id = $this->user_id;
+                }else{
+                    $user_id = $this->pid;
+                }
                 $invoiceData = array(
-                    'user_id'=> $this->user_id,
+                    'user_id'=> $user_id,
                     'title' => Safe::filterPost('title'),
                     'tax_no' => Safe::filterPost('tax_no'),
                     'address' => Safe::filterPost('address'),
@@ -518,7 +544,12 @@ class UcenterController extends UcenterBaseController {
                 die(json::encode($returnData));
             }
             else{
-                $invoiceData = $invoiceModel->getUserInvoice($this->user_id);
+                if ($this->pid == 0) {
+                    $invoiceData = $invoiceModel->getUserInvoice($this->user_id);
+                }else{
+                    $invoiceData = $invoiceModel->getUserInvoice($this->pid);
+                }
+                
                 $this->getView()->assign('data',$invoiceData);
             }
         }
@@ -823,13 +854,18 @@ class UcenterController extends UcenterBaseController {
 
     }
 
-
+    /**
+     * 子账户列表
+     */
     public function subaccListAction(){
         $model = new \nainai\user\User();
         $data = $model->getSubaccList($this->user_id);
         $this->getView()->assign('data',$data);
     }
 
+    /**
+     * 子账户权限控制
+     */
     public function subaccpowAction(){
             if (IS_POST) {
             $data = array(
@@ -852,16 +888,114 @@ class UcenterController extends UcenterBaseController {
         $menuModel = new \nainai\user\Menu();
         $menuList = $menuModel->getUserMenuList($this->user_id,$this->cert,$this->user_type);
 
+        foreach ($menuList as $key => $list) {
+            if (isset($list['subacc_show']) && $list['subacc_show'] == 0) {
+                unset($menuList[$key]);
+            }
+        }
         $menuList = $menuModel->createTreeMenu($menuList, 0, 1);
         $this->getView()->assign('lists', $menuModel->menu);
         $this->getView()->assign('roleInfo', $info);
     }
 
+    /**
+     * 子账户操作记录
+     */
     public function subacclogAction(){
         $model = new \Library\userLog();
         $data = $model->getList(array('pid' => $this->user_id));
 
         $this->getView()->assign('data', $data);
+    }
+
+    public function modifytelAction(){
+        $model = new UserModel();
+        $info = $model->getUserInfo($this->user_id);
+
+        if ($info['type'] == 0) {
+            $url = url::createUrl('/ucenter/modifypersontel');
+        }else{
+            $url = url::createUrl('/ucenter/ modifycompanytel');
+        }
+        $this->redirect($url);
+    }
+
+    public function modifypersontelAction(){
+         if (IS_POST || IS_AJAX) {
+            $mobile = safe::filterPost('mobile');
+            $model = new UserModel();
+            $user_id = $model->getMobileUserInfo($mobile);
+            if (intval($user_id) > 0) {
+               exit(json::encode(\Library\tool::getSuccInfo(0, '手机号已存在')));
+            }
+            $resetModel = new \nainai\user\ApplyResettel();
+            $info = $model->getUserInfo($this->user_id);
+            $data = array(
+                'name' => safe::filterPost('name'),
+                'ident_no' => safe::filterPost('no'),
+                'ident_img' => Tool::setImgApp(safe::filterPost('imgfile1')),
+                'apply_img' => Tool::setImgApp(safe::filterPost('imgfile2')),
+                'apply_time' => \Library\Time::getDateTime(),
+                'uid' => $this->user_id,
+                'status' => $resetModel::APPLY,
+                'type' => 0,
+                'mobile' => $info['mobile'],
+                'new_mobile' =>  $mobile
+            );
+            $res = $resetModel->addApplyResettel($data);
+            if ($res['success'] == 1) {
+                $res['info'] = '操作成功！';
+            }
+           $res['returnUrl'] = url::createUrl('/ucenter/telend');
+            exit(json::encode($res));
+        }
+
+         $resetModel = new \nainai\user\ApplyResettel();
+        $info = $resetModel->getApplyResettel(array('uid' => $this->user_id, 'status' => $resetModel::APPLY), 'id');
+        if (intval($info['id']) > 0) {
+            $this->redirect('telend');
+        }
+    }
+
+    public function modifycompanytelAction(){
+        if (IS_POST || IS_AJAX) {
+            $model = new UserModel();
+            $mobile = safe::filterPost('mobile');
+            $user_id = $model->getMobileUserInfo($mobile);
+            if (intval($user_id) > 0) {
+               exit(json::encode(\Library\tool::getSuccInfo(0, '手机号已存在')));
+            }
+            $resetModel = new \nainai\user\ApplyResettel();
+            $info = $model->getUserInfo($this->user_id);
+            $data = array(
+                'company_name' => safe::filterPost('company_name'),
+                'legal_person' => safe::filterPost('legal_person'),
+                'ident_img' => Tool::setImgApp(safe::filterPost('imgfile1')),
+                'apply_img' => Tool::setImgApp(safe::filterPost('imgfile2')),
+                'apply_time' => \Library\Time::getDateTime(),
+                'uid' => $this->user_id,
+                'status' => $resetModel::APPLY,
+                'type' => 1,
+                'mobile' => $info['mobile'],
+                'new_mobile' =>  $mobile
+            );
+            $res = $resetModel->addApplyResettel($data);
+            if ($res['success']) {
+                $res['info'] = '操作成功！';
+            }
+           $res['returnUrl'] = url::createUrl('/ucenter/telend');
+            exit(json::encode($res));
+        }
+
+         $resetModel = new \nainai\user\ApplyResettel();
+        $info = $resetModel->getApplyResettel(array('uid' => $this->user_id, 'status' => $resetModel::APPLY), 'id');
+        if (intval($info['id']) > 0) {
+            $this->redirect('telend');
+        }
+    }
+
+    public function telendAction(){
+
     }
 
 }
