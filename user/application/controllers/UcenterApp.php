@@ -26,8 +26,9 @@ class UcenterAppController extends UcenterBaseController {
                 'birth'   => safe::filterPost('birth','date'),
                 'sign'    => safe::filterPost('sign'),
             );
+			$user_id = $this->user_id;
             $M = new \Library\M('person_info');
-            if(false !== $M->data($data)->update()){
+            if($M->where(array('user_id'=>$user_id))->data($data)->update()){
                 die(json::encode(tool::getSuccInfo()));
             }
             else{
@@ -37,6 +38,13 @@ class UcenterAppController extends UcenterBaseController {
         }
         die(json::encode(tool::getSuccInfo(0,'修改失败')));
     }
+	//获取登陆用户的id/基本信息
+	public function getInfoAction(){
+		$user_id = $this->user_id;
+		$M = new \Library\M('person_info');
+		$data = $M->where(array('user_id'=>$user_id))->getObj();
+		die(json::encode(tool::getSuccInfo()));
+	}
 
 
 
