@@ -232,7 +232,7 @@ z-index:1000;">
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
-            <p>商城公告：</p><marquee></marquee>
+            <p>商城公告：</p><marquee>尊敬的客户，今晚（5月15日）20:00至21:30公司将对服务器进行升级处理，在此期间网站不能访问，给大家造成不便敬请谅解，谢谢。</marquee>
         </div>
     </div>
 </div>
