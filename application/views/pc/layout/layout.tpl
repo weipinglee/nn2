@@ -232,7 +232,7 @@ z-index:1000;">
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
-          
+            <p>商城公告：</p><marquee></marquee>
         </div>
     </div>
 </div>
