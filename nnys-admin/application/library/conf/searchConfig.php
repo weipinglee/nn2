@@ -109,7 +109,12 @@ class searchConfig {
         ),
          'deal_total' => array(
             'like' => array('u.username','用户名')
-        )
+        ),
+        'user_withdraw' => array(
+            'like' => array('u.username','用户名'),
+            'time' => array('uw.create_time','申请时间'),
+            'down' => 1
+        ),
     );
 
     public static function config($tableName=''){

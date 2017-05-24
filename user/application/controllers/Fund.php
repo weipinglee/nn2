@@ -162,10 +162,12 @@ class FundController extends UcenterBaseController {
 
 	public function zxtxHandleAction(){
 		if(IS_POST){
-			$data['num'] = safe::filterPost('num');
+			$data['amount'] = safe::filterPost('num');
 			$data['user_id'] = $this->user_id;
-			$zx  = new \nainai\fund\zx();
-			$res = $zx->out($data);
+
+			$zxObj = new \nainai\fund\zx();
+			$withdraw  = new \nainai\payment\withdraw($zxObj);
+			$res = $withdraw->payBefore($data);
 			die(JSON::encode($res));
 		}
 		return false;
