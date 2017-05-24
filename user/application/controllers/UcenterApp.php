@@ -29,10 +29,10 @@ class UcenterAppController extends UcenterBaseController {
             );
             $M = new \Library\M('nn_information.user_info');
             if($M->insertUpdate($data,$data)){
-                die(json::encode(tool::getSuccInfo()));
+                die(json::encode(tool::getSuccInfo(1,'修改成功','',$this->user_id)));
             }
             else{
-                die(json::encode(tool::getSuccInfo(0,'修改失败')));
+                die(json::encode(tool::getSuccInfo(0,'修改失败','',$this->user_id)));
             }
 
         }

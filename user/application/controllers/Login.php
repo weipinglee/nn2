@@ -199,7 +199,7 @@ class LoginController extends \Yaf\Controller_Abstract {
         $captchaObj = new captcha();
         if(!$captchaObj->check($captcha))
         {
-           // die(JSON::encode(tool::getSuccInfo(0, '验证码错误')));
+            die(JSON::encode(tool::getSuccInfo(0, '验证码错误')));
         }
         $userObj = new M('user');
         if($userObj->where('mobile="'.$phone.'"')->getFields('id'))
