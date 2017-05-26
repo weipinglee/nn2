@@ -74,7 +74,9 @@ class ManagerStoreController extends UcenterBaseController{
 	public function storeCheckDetailAction(){
 		$store = new \nainai\delivery\StoreDelivery();
 		$id = safe::filter($this->_request->getParam('id'));
-		$info = $store->storeFees($id);
+		if($store->checkStoreManager($id,$this->user_id)){
+			$info = $store->storeFees($id);
+		}
 		$this->getView()->assign('info',$info);
 	}
 
@@ -85,7 +87,7 @@ class ManagerStoreController extends UcenterBaseController{
 		$delivery_id = safe::filter($this->_request->getParam('id'));
 
 		$store = new \nainai\delivery\StoreDelivery();
-		$res = $store->managerCheckout($delivery_id);
+		$res = $store->managerCheckout($delivery_id,$this->user_id);
 		if($res['success'] == 1){
 			$this->success('已确认出库',url::createUrl('/ManagerStore/storeCheckList'));
 		}else{
