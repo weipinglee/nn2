@@ -14,10 +14,12 @@ function checkAll(){
 
 function delTrList(){
     $(this).parents('tr').remove();
+    sortTr();
 }
 //删除多个字段
 function delTrsList(){
     $(this).parents('table').find('input[type=checkbox][name=check]:checked').parents('tr').remove();
+    sortTr();
 }
 
 //移动表字段顺序，如果移出当前表，与鼠标松开位置字段链接
@@ -33,20 +35,15 @@ function mousemoveTr(){
 }
 
 function mouseupTr(){
-    var mouseupTableName = $(this).parents('table').find('span[name=tableName]').text();
-    var mousedownTableName = $(selectObj).parents('table').find('span[name=tableName]').text();
-    if(mousedownTableName==mouseupTableName){//如果是同一个数据表，改变字段顺序
         $(selectObj).insertBefore($(this));
-    }
-    else{//不在同一个数据表，设置字段联结
+    sortTr();
+}
 
-        var mouseupField = $(this).find('input[name=field_name]').val();
-        var mousedownField = $(selectObj).find('input[name=field_name]').val();
-        $(selectObj).find('input[name=join_field]').val(mouseupTableName +'.' + mouseupField);
-        $(this).find('input[name=join_field]').val(mousedownTableName +'.' + mousedownField);
-    }
-
-
+//为字段排序
+function sortTr(){
+    $('tr.tr_move').each(function(index){
+        $(this).find('td:nth-child(2)').text(index+1);
+    })
 }
 $(function(){
     //添加数据表
@@ -66,15 +63,15 @@ $(function(){
                 //alert(JSON.stringify(data));
                 if(data && data.length>0){
                     var tableList = template.render('listPage',{data:data,tableName:tableName});
-                    $(tableList).appendTo($('.content'));
+                    $(tableList).insertBefore($('tr[name=bottomTr]'));
                     $('input[name=del]').on('click',delTableList);
                     $('input[name=checkall]').on('click',checkAll);
                     $('a[name=del_tr]').on('click',delTrList);
                     $('input[name=del_trs]').on('click',delTrsList);
-
+                    sortTr();
                     var selectObj;
                     //只有最后加入的表格绑定事件，以免重复执行
-                    $('table:last').find('.tr_move').on('mousedown',mousedownTr).on('mouseup',mouseupTr).on('mousemove','td',mousemoveTr);
+                    $('table').find('.tr_move').on('mousedown',mousedownTr).on('mouseup',mouseupTr).on('mousemove','td',mousemoveTr);
                 }
                 else{
                     layer.alert('数据表不存在');
