@@ -88,10 +88,10 @@
                 </td>
                 <td style="height:10px;margin:0px;"><select name="show" >
                         {foreach:$items=$listTags }
-                        <option value="{$item}" >{$item}</option>
+                        <option value="{$key}" name="{$item['arg']}" >{$key}</option>
                         {/foreach}
                     </select></td>
-                <td style="height:10px;margin:0px;"><input type="text"  name="join_field"/></td>
+                <td style="height:10px;margin:0px;"><input type="text"  name=""/></td>
 
                 <td class="f-14" style="height:10px;"><a title="编辑" href="javascript:void(0)" name="del_tr" style="text-decoration:none"><i class=" icon-trash fa-trash"></i></a> </td>
 

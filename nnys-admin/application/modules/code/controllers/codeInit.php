@@ -21,7 +21,16 @@ class codeInitController extends InitController {
 
 		$htmlObj = new \auto\html\adminHtml();
 		$listTags = $htmlObj->getListTags();
-		$this->getView()->assign('listTags',$listTags);
+		$tags = array();
+		foreach($listTags as $key=>$item){
+			$tags[$item]['str'] = call_user_func(array($htmlObj,$item));
+			$temp = preg_match_all('/\$\d+/',$tags[$item]['str'],$match);
+			if($temp){
+				$tags[$item]['arg'] = implode(',', array_unique($match[0]));
+			}
+
+		}
+		$this->getView()->assign('listTags',$tags);
 	}
 
 	public function getTableDataAction(){
