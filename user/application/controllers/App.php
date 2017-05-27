@@ -55,9 +55,22 @@ class AppController extends \Yaf\Controller_Abstract {
             else{
                     $checkRight = new checkRight();
                     $checkRight->loginAfter($userData);
+					
+					$M = new \Library\M('nn_information.user_info');
+					$userInfo = $M->where(array('user_id'=>$userData['id']))->getObj();
+					if(empty($userInfo)){
+						$userInfo['nick'] = '';
+						$userInfo['birth'] = '';
+						$userInfo['head_pic'] = '';
+						$userInfo['sign'] = '';
+					}
+					else{
+						$userInfo['head_pic'] = \Library\thumb::get($userInfo['head_pic'],180,180);
+					}
+					$userData = array_merge($userData,$userInfo);
                   
             }
-		
+			$data = array_merge($data,$userData);
 			die(JSON::encode($data)) ;
 		}
 		die(JSON::encode(array('errorCode'=>3,'info'=>'提交错误'))) ;
