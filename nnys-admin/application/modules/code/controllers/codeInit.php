@@ -19,6 +19,9 @@ class codeInitController extends InitController {
 	//输入代码相关信息
 	public function createCodePageAction(){
 
+		$htmlObj = new \auto\html\adminHtml();
+		$listTags = $htmlObj->getListTags();
+		$this->getView()->assign('listTags',$listTags);
 	}
 
 	public function getTableDataAction(){

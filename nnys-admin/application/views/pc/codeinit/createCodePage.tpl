@@ -87,8 +87,9 @@
                     </select>
                 </td>
                 <td style="height:10px;margin:0px;"><select name="show" >
-                        <option value="1" >样式1</option>
-                        <option value="2" >样式2</option>
+                        {foreach:$items=$listTags }
+                        <option value="{$item}" >{$item}</option>
+                        {/foreach}
                     </select></td>
                 <td style="height:10px;margin:0px;"><input type="text"  name="join_field"/></td>
 
