@@ -46,6 +46,23 @@ function sortTr(){
     })
 }
 
+//更改字段名时更改相应的输入框name属性
+function chgInputName(){
+    var tableName = $(this).parents('tr').find('span[name=tableName]').text();
+    var fieldName = $(this).val();
+    var attrTail = tableName!='' ? tableName+'.'+fieldName : fieldName;
+    $(this).parents('tr').find('input[name^=zhname_]').attr('name','zhname_'+attrTail);
+    $(this).parents('tr').find('select[name^=show_]').attr('name','show_'+attrTail);
+    $(this).parents('tr').find('select[name^=showType_]').attr('name','showType_'+attrTail);
+    $(this).parents('tr').find('input[name^=\\$]').each(function(index){
+        var name = $(this).attr('name');
+        name =name.split('_')[0];
+        $(this).attr('name'.name+'attrTail');
+
+    })
+
+}
+
 function showArgs(){//alert();
     //$(this).parents('td').next('td').
     var args = $(this).find('option:selected').attr('name');
@@ -58,6 +75,42 @@ function showArgs(){//alert();
         $(this).parents('td').next('td').append('<span>'+argArr[i]+':</span><input type="text" name="'+argArr[i]+'_'+fieldName+'" /></br>');
     }
 }
+
+//插入表格
+function insertTable(url,tableName){
+
+    $.ajax({
+        type:'post',
+        url:url,
+        data:{table_name:tableName},
+        dataType:'json',
+        success:function(data){
+            //alert(JSON.stringify(data));
+            if(data && data.length>0){
+                var tableList = template.render('listPage',{data:data,tableName:tableName});
+                $(tableList).insertBefore($('tr[name=bottomTr]'));
+                $('input[name=del]').on('click',delTableList);
+                $('input[name=checkall]').on('click',checkAll);
+                $('a[name=del_tr]').on('click',delTrList);
+                $('input[name=del_trs]').on('click',delTrsList);
+                sortTr();
+                var selectObj;
+                //
+                $('table').find('.tr_move').on('mousedown',mousedownTr).on('mouseup',mouseupTr).on('mousemove','td',mousemoveTr);
+                $('select[name^=showType]').on('change',showArgs);
+                $('input[name=field_name]').on('blur',chgInputName);
+
+            }
+            else{
+                layer.alert('数据表不存在');
+            }
+
+        },
+        error:function(data){
+            layer.msg("服务器错误,请重试");
+        }
+    })
+}
 $(function(){
     //添加数据表
     $('#addTable').on('click',function(){
@@ -67,38 +120,12 @@ $(function(){
             return false;
         }
         var url = $('input[name=getTableUrl]').val();
-        $.ajax({
-            type:'post',
-            url:url,
-            data:{table_name:tableName},
-            dataType:'json',
-            success:function(data){
-                //alert(JSON.stringify(data));
-                if(data && data.length>0){
-                    var tableList = template.render('listPage',{data:data,tableName:tableName});
-                    $(tableList).insertBefore($('tr[name=bottomTr]'));
-                    $('input[name=del]').on('click',delTableList);
-                    $('input[name=checkall]').on('click',checkAll);
-                    $('a[name=del_tr]').on('click',delTrList);
-                    $('input[name=del_trs]').on('click',delTrsList);
-                    sortTr();
-                    var selectObj;
-                    //
-                    $('table').find('.tr_move').on('mousedown',mousedownTr).on('mouseup',mouseupTr).on('mousemove','td',mousemoveTr);
-                    $('select[name^=showType]').on('change',showArgs);
+        insertTable(url,tableName);
+    });
 
-                }
-                else{
-                    layer.alert('数据表不存在');
-                }
-
-            },
-            error:function(data){
-                layer.msg("服务器错误,请重试");
-            }
-        })
-
-
+    $('#addRow').on('click',function(){
+        var url = $('input[name=getRowUrl]').val();
+        insertTable(url,'');
     })
 
 

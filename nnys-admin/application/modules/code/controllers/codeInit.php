@@ -41,6 +41,18 @@ class codeInitController extends InitController {
 		die(json::encode($data));
 	}
 
+	//返回一个空数据
+	public function getRowDataAction(){
+		$data = array(
+			0=>array(
+				'Field'=>'',
+				'Type' => '',
+
+			)
+		);
+		die(json::encode($data));
+	}
+
 
 }
 
