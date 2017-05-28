@@ -40,7 +40,7 @@
                     <th >中文名称</th>
                     <th>是否显示</th>
                     <th>显示类型</th>
-                    <th>联结字段</th>
+                    <th>模板参数</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -77,21 +77,24 @@
                 <td style="height:10px;margin:0px;"><input type="checkbox" value="" name="check"></td>
                 <td></td>
                 <td><span name="tableName"><%=tableName%></span></td>
-                <td style="height:10px;margin:0px;"><input type="text" name="field_name" value="<%=data[i].Field%>"/></td>
+                <td style="height:10px;margin:0px;"><input type="text" name="field_name_<%=data[i].Field%>" value="<%=data[i].Field%>"/></td>
                 <td style="height:10px;margin:0px;"><input type="text" value="<%=data[i].Type%>" /></td>
                 <td style="height:10px;margin:0px;"><input type="text"  /></td>
                 <td style="height:10px;margin:0px;">
-                    <select name="show" >
+                    <select name="show_<%=data[i].Field%>" >
                         <option value="1" >是</option>
                         <option value="0" >否</option>
                     </select>
                 </td>
-                <td style="height:10px;margin:0px;"><select name="show" >
+                <td style="height:10px;margin:0px;"><select name="showType_<%=data[i].Field%>" >
                         {foreach:$items=$listTags }
                         <option value="{$key}" name="{$item['arg']}" >{$key}</option>
                         {/foreach}
                     </select></td>
-                <td style="height:10px;margin:0px;"><input type="text"  name=""/></td>
+                <td style="height:10px;margin:0px;">
+                    <span>$1:</span><input type="text"  name="$1_<%=data[i].Field%>"/></br>
+
+                </td>
 
                 <td class="f-14" style="height:10px;"><a title="编辑" href="javascript:void(0)" name="del_tr" style="text-decoration:none"><i class=" icon-trash fa-trash"></i></a> </td>
 

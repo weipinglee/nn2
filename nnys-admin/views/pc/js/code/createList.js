@@ -45,6 +45,19 @@ function sortTr(){
         $(this).find('td:nth-child(2)').text(index+1);
     })
 }
+
+function showArgs(){//alert();
+    //$(this).parents('td').next('td').
+    var args = $(this).find('option:selected').attr('name');
+    var argArr = args.split(',');
+    var input = $(this).parents('td').next('td').find('input');
+    var fieldName =input .attr('name');
+    var fieldName = fieldName.split('_')[1];
+    $(this).parents('td').next('td').children().remove();
+    for(var i=0;i<argArr.length;i++){
+        $(this).parents('td').next('td').append('<span>'+argArr[i]+':</span><input type="text" name="'+argArr[i]+'_'+fieldName+'" /></br>');
+    }
+}
 $(function(){
     //添加数据表
     $('#addTable').on('click',function(){
@@ -70,8 +83,10 @@ $(function(){
                     $('input[name=del_trs]').on('click',delTrsList);
                     sortTr();
                     var selectObj;
-                    //只有最后加入的表格绑定事件，以免重复执行
+                    //
                     $('table').find('.tr_move').on('mousedown',mousedownTr).on('mouseup',mouseupTr).on('mousemove','td',mousemoveTr);
+                    $('select[name^=showType]').on('change',showArgs);
+
                 }
                 else{
                     layer.alert('数据表不存在');

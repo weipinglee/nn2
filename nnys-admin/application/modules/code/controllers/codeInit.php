@@ -18,7 +18,6 @@ class codeInitController extends InitController {
 
 	//输入代码相关信息
 	public function createCodePageAction(){
-
 		$htmlObj = new \auto\html\adminHtml();
 		$listTags = $htmlObj->getListTags();
 		$tags = array();
@@ -30,12 +29,14 @@ class codeInitController extends InitController {
 			}
 
 		}
+	//	print_r($tags);
 		$this->getView()->assign('listTags',$tags);
+
 	}
 
 	public function getTableDataAction(){
 		$tableName = safe::filterPost('table_name');
-		$autoObj = new \auto\codeCreator('nn_dev');
+		$autoObj = new \auto\codeCreator('nn');
 		$data = $autoObj->getTabelData($tableName);
 		die(json::encode($data));
 	}
