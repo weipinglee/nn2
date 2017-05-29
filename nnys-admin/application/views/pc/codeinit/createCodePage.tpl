@@ -30,7 +30,7 @@
             <table class="table table-border table-bordered table-hover table-bg">
                 <thead>
                 <tr>
-                    <th scope="col" colspan="9" ><span ></span></th>
+                    <th scope="col" colspan="9" ><span >数据表</span></th>
                     <th scope="col" colspan="1">
                         <input type="button" name="del" value="删除"/>
                     </th>
@@ -71,6 +71,8 @@
                 </tr>
                 </tbody>
             </table>
+
+
         </div>
     </div>
 
@@ -81,7 +83,7 @@
                 <td style="height:10px;margin:0px;"><input type="checkbox" value="" name="check"></td>
                 <td></td>
                 <td><span name="tableName"><%=tableName%></span></td>
-                <td style="height:10px;margin:0px;"><input type="text" name="field_name" value="<%=data[i].Field%>" /></td>
+                <td style="height:10px;margin:0px;"><input type="text" name="field_name[]" value="<%=data[i].Field%>" /></td>
                 <td style="height:10px;margin:0px;"><input type="text" value="<%=data[i].Type%>" /></td>
                 <td style="height:10px;margin:0px;"><input type="text" name="zhname_<%=tableName%>.<%=data[i].Field%>" /></td>
                 <td style="height:10px;margin:0px;">
@@ -93,6 +95,10 @@
                 <td style="height:10px;margin:0px;"><select name="showType_<%=tableName%>.<%=data[i].Field%>" >
                         {foreach:$items=$listTags }
                         <option value="{$key}" name="{$item['arg']}" >{$key}</option>
+                        {/foreach}
+
+                        {foreach:$items=$operTags }
+                            <option value="{$key}" name="{$item['arg']}" >{$key}</option>
                         {/foreach}
                     </select></td>
                 <td style="height:10px;margin:0px;">

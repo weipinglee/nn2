@@ -20,17 +20,13 @@ class codeInitController extends InitController {
 	public function createCodePageAction(){
 		$htmlObj = new \auto\html\adminHtml();
 		$listTags = $htmlObj->getListTags();
-		$tags = array();
-		foreach($listTags as $key=>$item){
-			$tags[$item]['str'] = call_user_func(array($htmlObj,$item));
-			$temp = preg_match_all('/\$\d+/',$tags[$item]['str'],$match);
-			if($temp){
-				$tags[$item]['arg'] = implode(',', array_unique($match[0]));
-			}
 
-		}
-	//	print_r($tags);
-		$this->getView()->assign('listTags',$tags);
+
+		//获取操作标签内容
+		$operTags = $htmlObj->getOperTags();
+		//print_r($operTags);
+		$this->getView()->assign('operTags',$operTags);
+		$this->getView()->assign('listTags',$listTags);
 
 	}
 

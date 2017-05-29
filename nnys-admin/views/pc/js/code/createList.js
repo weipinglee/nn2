@@ -57,7 +57,7 @@ function chgInputName(){
     $(this).parents('tr').find('input[name^=\\$]').each(function(index){
         var name = $(this).attr('name');
         name =name.split('_')[0];
-        $(this).attr('name'.name+'attrTail');
+        $(this).attr('name',name+'_'+attrTail);
 
     })
 
@@ -98,7 +98,7 @@ function insertTable(url,tableName){
                 //
                 $('table').find('.tr_move').on('mousedown',mousedownTr).on('mouseup',mouseupTr).on('mousemove','td',mousemoveTr);
                 $('select[name^=showType]').on('change',showArgs);
-                $('input[name=field_name]').on('blur',chgInputName);
+                $('input[name^=field_name]').on('blur',chgInputName);
 
             }
             else{
