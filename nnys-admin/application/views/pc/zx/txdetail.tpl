@@ -48,6 +48,19 @@
                  </td>
 
              </tr>
+             <tr>
+                 <th>出金到的银行</th>
+                 <td>{$bank['bank_name']}</td>
+                 <th>账号</th>
+                 <td>
+                     {$bank['card_no']}
+                 </td>
+                 <th>开户姓名</th>
+                 <td>
+                     {$bank['true_name']}
+                 </td>
+
+             </tr>
 
 
              <tr>

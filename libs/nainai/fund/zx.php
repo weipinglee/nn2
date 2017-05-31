@@ -162,6 +162,9 @@ class zx extends account{
                 <preTime></preTime>
             </stream>";
         $res = $this->curl($xml);
+         if(strpos($res['zx_status'],'AAAAAA')===0){
+             $res['success'] =1;
+         }
 		return $res;
      }
 

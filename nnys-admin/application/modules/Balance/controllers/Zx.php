@@ -49,8 +49,11 @@ class ZxController extends InitController {
 		$detail = $obj->getDetails($id);
 		if(!empty($detail)){
 			$userObj = new \nainai\member();
+			$bankObj = new \nainai\user\UserBank();
+			$bankData = $bankObj->getActiveBankInfo($detail['user_id']);
 			$userData = $userObj->getUserDetail($detail['user_id']);
 			$this->getView()->assign('user',$userData);
+			$this->getView()->assign('bank',$bankData);
 		}
 		$this->getView()->assign('detail',$detail);
 	}
