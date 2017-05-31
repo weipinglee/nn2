@@ -250,9 +250,8 @@
                         </li>
                         <li><a target="content">中信管理</a>
                             <ul>
-                                <li><a href="{url:balance/zx/txList?type=init}" target="content">提现申请</a></li>
-                                <li><a href="{url:balance/zx/txList?type=fail}" target="content">提现驳回</a></li>
-                                <li><a href="{url:balance/zx/txList?type=success}" target="content">提现成功</a></li>
+                                <li><a href="{url:balance/zx/txList?type=ing}" target="content">待审核</a></li>
+                                <li><a href="{url:balance/zx/txList?type=ed}" target="content">已审核</a></li>
                             </ul>
                         </li>
                         <li><a target="content">收费明细</a>

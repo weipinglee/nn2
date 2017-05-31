@@ -11,7 +11,11 @@
        提现信息
     </div>
      <div class="pd-20">
-         <form action="{url:balance/zx/txHandle}" confirm="1" method="post" auto_submit>
+         {if:$detail['status']==0}
+         <form action="{url:balance/zx/txFirstHandle}" confirm="1" method="post" auto_submit>
+         {else:}
+             <form action="{url:balance/zx/txFinalHandle}" confirm="1" method="post" auto_submit>
+         {/if}
 	 	 <table class="table table-border table-bordered table-bg">
              <tr>
                  <th>委托方</th>
@@ -58,7 +62,7 @@
 
              </tr>
              <tr>
-                 <th>审核时间</th>
+                 <th>初审时间</th>
                  <td>{$detail['first_time']}</td>
                  <th>审核意见</th>
                  <td>{$detail['first_message']}</td>
@@ -66,12 +70,33 @@
                  <td ></td>
 
              </tr>
+             <tr>
+                 <th>终审时间</th>
+                 <td>{$detail['final_time']}</td>
+                 <th>终审意见</th>
+                 <td>{$detail['final_message']}</td>
+                 <th></th>
+                 <td ></td>
+
+             </tr>
+
              {if:$detail['status']==0}
+                 <tr>
+                     <th>意见反馈</th>
+                     <td><textarea name="message"></textarea></td>
+                     <th>
+
+                     </th>
+                     <td></td>
+                     <th></th>
+                     <td ></td>
+
+                 </tr>
              <tr>
                  <th>处理结果</th>
                  <th scope="col" colspan="7">
                      <input  type="hidden" name="id" value="{$detail['id']}" />
-                     <label><input type="radio" name="status" value="1" checked/>同意并提现</label>
+                     <label><input type="radio" name="status" value="1" checked/>初审通过</label>
                      <label><input type="radio" name="status" value="0"/>拒绝</label>
 
 
@@ -86,7 +111,37 @@
                  </th>
 
             </tr>
-             {else:}
+             {elseif:$detail['status']==2}
+                 <tr>
+                     <th>意见反馈</th>
+                     <td><textarea name="message"></textarea></td>
+                     <th>
+
+                     </th>
+                     <td></td>
+                     <th></th>
+                     <td ></td>
+
+                 </tr>
+                 <tr>
+                     <th>处理结果</th>
+                     <th scope="col" colspan="7">
+                         <input  type="hidden" name="id" value="{$detail['id']}" />
+                         <label><input type="radio" name="status" value="1" checked/>终审通过</label>
+                         <label><input type="radio" name="status" value="0"/>拒绝</label>
+
+                     </th>
+                 </tr>
+
+                 <tr>
+                     <th>操作</th>
+                     <th scope="col" colspan="7">
+                         <input type="submit"   class="btn btn-primary radius" value="提交"/>
+                         <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
+                     </th>
+
+                 </tr>
+              {else:}
                  <tr>
                      <th>操作</th>
                      <th scope="col" colspan="7">

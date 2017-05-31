@@ -15,7 +15,15 @@ class ZxController extends InitController {
 	//会用账户列表
 	public function init() {
 		$this->getView()->setLayOut('admin');
+		$this->account = new \nainai\fund\zx();
 
+	}
+
+	private function checkSign(){
+		if(true===$this->account->signStatus()){
+			return true;
+		}
+		return false;
 	}
 
 	public function txListAction(){
@@ -39,22 +47,65 @@ class ZxController extends InitController {
 		$this->getView()->assign('detail',$detail);
 	}
 
-	public function txHandleAction(){
+	public function txFirstHandleAction(){
+		if(!$this->checkSign()){
+			die(json::encode(\Library\tool::getSuccInfo(0,'银行未签到')));
+		}
 		if(IS_POST){
 			$id = safe::filterPost('id','int');
 			if($id){
 				$status = safe::filterPost('status','int');
+				$message = safe::filterPost('message');
 				$zxObj = new \nainai\fund\zx();
 				$obj = new \nainai\payment\withdraw($zxObj);
 				if($status==1){
-					//$res = $obj->payAfter(array('id'=>$id));
+					$res = $obj->firstHandle($id,array('status'=>\nainai\payment\withdraw::FIRST_SUCCESS,'first_message'=>$message));
 				}
 				else{
-					//$res = $obj->handleReject(array('id'=>$id));
+					$res = $obj->firstHandle($id,array('status'=>\nainai\payment\withdraw::FIRST_FAIL,'first_message'=>$message));
 
 				}
 
-				//die(json::encode($res));
+				if($res['success']==1){
+					$log = new \Library\log();
+					$status_txt = $status ==1? '通过' : '被驳回';
+					$log->addLog(array('content'=>'id为'.$id.'的中信提现申请终审'.$status_txt,'action'=>'中信出金初审'));
+				}
+
+
+				die(json::encode($res));
+			}
+		}
+
+		die(json::encode(\Library\tool::getSuccInfo(0,'操作失败')));
+	}
+
+	//提现终审
+	public function txFinalHandleAction(){
+		if(!$this->checkSign()){
+			die(json::encode(\Library\tool::getSuccInfo(0,'银行未签到')));
+		}
+		if(IS_POST){
+			$id = safe::filterPost('id','int');
+			if($id){
+				$status = safe::filterPost('status','int');
+				$message = safe::filterPost('message');
+				$zxObj = new \nainai\fund\zx();
+				$obj = new \nainai\payment\withdraw($zxObj);
+				if($status==1){
+					$res = $obj->payAfter(array('id'=>$id,'final_message'=>$message));
+				}
+				else{
+					$res = $obj->finalHandleFail($id,array('final_message'=>$message));
+
+				}
+				if($res['success']==1){
+					$log = new \Library\log();
+					$status_txt = $status ==1? '通过' : '被驳回';
+					$log->addLog(array('content'=>'id为'.$id.'的中信提现申请终审'.$status_txt,'action'=>'中信出金终审'));
+				}
+
+				die(json::encode($res));
 			}
 		}
 
