@@ -54,6 +54,16 @@ class withdraw extends payment{
         }
 
     }
+
+    public function getBankName($bank){
+        switch($bank){
+            case 'zx' :
+                return '中信银行';
+            break;
+            default:
+                return '中信银行';
+        }
+    }
     /**
      * 提现前操作（生成订单，提交到数据库等待后台审核）
      * @param array $argument
@@ -195,6 +205,7 @@ class withdraw extends payment{
         $data = $M->where(array('id'=>$id))->getObj();
         if(!empty($data)){
             $data['status_text'] = $this->getStatusText($data['status']);
+            $data['bank_name']   = $this->getBankName($data['bank_name']);
         }
         return $data;
     }
