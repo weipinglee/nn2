@@ -26,13 +26,21 @@ class ZxController extends InitController {
 		return false;
 	}
 
-	public function txListAction(){
-		$type = $this->getRequest()->getParam('type');
+	public function txingListAction(){
+		$type = 'ing';
 		$obj = new \nainai\payment\withdraw();
 		$list = $obj->getList($type);
 
 		$this->getView()->assign('data', $list);
 
+	}
+	
+	public function txedListAction(){
+		$type = 'ed';
+		$obj = new \nainai\payment\withdraw();
+		$list = $obj->getList($type);
+
+		$this->getView()->assign('data', $list);
 	}
 
 	public function txDetailAction(){

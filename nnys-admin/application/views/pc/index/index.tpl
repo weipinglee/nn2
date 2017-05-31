@@ -248,10 +248,10 @@
 
                             </ul>
                         </li>
-                        <li><a target="content">中信管理</a>
+                        <li><a target="content">中信资金管理</a>
                             <ul>
-                                <li><a href="{url:balance/zx/txList?type=ing}" target="content">待审核</a></li>
-                                <li><a href="{url:balance/zx/txList?type=ed}" target="content">已审核</a></li>
+                                <li><a href="{url:balance/zx/txingList}" target="content">出金待审核</a></li>
+                                <li><a href="{url:balance/zx/txedList}" target="content">出金已审核</a></li>
                             </ul>
                         </li>
                         <li><a target="content">收费明细</a>
