@@ -104,11 +104,10 @@ class withdraw extends payment{
             $argument['final_message'] = '';
         if($id){
             $M = new M($this->mainTable);
-			$curr_status = $M->where(array('id'=>$id))->getField('status');
-			if($curr_status!=self::FIRST_SUCCESS)
-				 return tool::getSuccInfo(0,'该状态不能终审');
             $data = $M->where(array('id'=>$id))->getObj();
             if(!empty($data)){
+				if($data['status']!=self::FIRST_SUCCESS)
+				 return tool::getSuccInfo(0,'该状态不能终审');
                 //判断可提现余额是否足够
                 if($this->payObj->getActive($data['user_id']) < $data['amount'])
                     return tool::getSuccInfo(0,'可提现余额不足');
