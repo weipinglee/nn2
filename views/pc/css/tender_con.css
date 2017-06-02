@@ -129,6 +129,17 @@
 	padding-bottom: 20px;
 
 }
+.center_right .gonggao .zb_but{
+	display: block;
+	background: #c81623;
+	border-radius: 30px;
+	border: 0;
+	text-align: center;
+	padding: 10px 0;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
 .center_right .gonggao h2{
 	background: #fafafa;
 	height: 30px;

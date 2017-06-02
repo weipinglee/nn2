@@ -864,7 +864,7 @@ visibility: hidden;
 }
 /*产品信息*/
 .chp_xx{
-	/*margin:10px;*/
+	margin:10px;
 }
 .chp_xx label{
     display: block;
@@ -2182,6 +2182,99 @@ input#image {
 }
 
 .no-data{font-size: 16px;padding-top: 15px;}
+
+/*招投标页面样式*/
+.step_list{
+    padding-left: 20px;height: 33px;margin-top: 20px;
+}
+.step{
+    float: left;width: 232px;text-align: center;
+}
+.step .val_on{
+    background: url("../images/step_on_02.png") no-repeat;
+    display: block;width: 232px;height: 33px;line-height: 33px;
+}
+.step .val_on.on{
+    background: url("../images/step_on_01.png") no-repeat;
+    color: #fff;
+}
+.step .step_name{
+    text-align: center;display: block;height: 33px;line-height: 33px;
+}
+.step .step_name span{
+    font-size: 14px;font-weight: bold;
+}
+.step .step_name .on{
+    text-align: center;
+    color: #c81623;
+}
+.type_list{
+    display: block;width: 410px;height: 200px;margin: 50px auto;
+}
+.type_list .type{
+    float: left;display: block;width: 150px;height: 150px;border-radius: 10px;border: 20px solid #aaa;line-height: 150px;text-align: center;font-size: 20px;font-weight: bolder;color: #aaa;margin-right: 30px;cursor: pointer;
+}
+.type_list .type.on{
+    border: 20px solid #c81623;
+}
+.type_list .type.on span{
+    color: #c81623;
+}
+.type_list .type span{
+    font-size: 20px;
+}                
+.center_tabl .button{
+    width: 220px;height: 35px;margin:0 auto;
+}
+.center_tabl .button button{
+    display: block;width: 100px;height: 35px;line-height: 35px;background: #c81623;color: #fff;border: 0;border-radius: 3px;margin-right:20px;float: left;
+}
+.invite .invite_title{
+    border-bottom: 1px dotted #c81623;margin: 0 15px;
+}
+.invite .invite_title span{
+    display: block;padding: 5px;background: #c81623;width: 60px;color: #fff;
+}
+.invite .invite_cont {
+    padding-left: 200px;margin: 20px 0;height: 50px;
+}
+.invite .invite_cont textarea{
+    display: block;width: 300px;height: 50px;resize: none;float: left;
+}
+.invite button{
+    width: 50px;margin:0;
+}
+
+.bid .bid_cont{
+    margin:0 50px;
+}
+.bid .bid_cont p{
+  line-height: 35px;
+}
+.bid .bid_cont p span{
+  font-weight: bold;
+}
+.bid .bid_cont p span.sec_op{
+  margin-left: 30px;
+}
+.bid .bid_cont p span.tips{
+  font-weight: normal;
+  color: #ccc;margin-left: 10px;
+}
+.bid .bid_cont h3{
+  line-height: 35px;font-size: 14px;
+}
+.bid .bid_cont h4{
+  line-height: 25px;font-size: 12px;font-weight: normal;
+}
+.bid .bid_cont table{border-right:1px solid #ccc;border-bottom:1px solid #ccc;word-break:break-all} 
+.bid .bid_cont table td{border-left:1px solid #ccc;border-top:1px solid #ccc;text-align: center;width: 12%;} 
+.bid .bid_cont .contact{width: 400px;height: 225px;float: left;margin-right: 20px;text-align: right;}
+.bid .bid_cont .contact input{width: 290px;}
+.bid .bid_bond {width: 300px;height: 200px;float: left;}
+.bid .bid_bond h3{font-size: 16px;line-height: 30px;}
+.bid .bid_bond .bond{font-size: 20px;color: #c81623;font-weight: bold;}
+.bid .bid_bond .tip li{line-height: 35px;list-style-type: disc;}
 
 /*上传文件按钮样式修改*/
 .input-file {
