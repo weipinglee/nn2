@@ -59,6 +59,7 @@ function chgInputName(){
     $(this).parents('tr').find('input[name^=dataType_]').attr('name','dataType_'+attrTail);
     $(this).parents('tr').find('input[name^=sortNo_]').attr('name','sortNo_'+attrTail);
     $(this).parents('tr').find('input[name^=tableName_]').attr('name','tableName_'+attrTail);
+    $(this).parents('tr').find('input[name^=argNum_]').attr('name','argNum_'+attrTail);
     $(this).parents('tr').find('input[name^=\\$]').each(function(index){
         var name = $(this).attr('name');
         name =name.split('_')[0];

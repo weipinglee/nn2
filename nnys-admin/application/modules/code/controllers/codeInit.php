@@ -32,7 +32,7 @@ class codeInitController extends InitController {
 
 	public function getTableDataAction(){
 		$tableName = safe::filterPost('table_name');
-		$autoObj = new \auto\codeCreator('nn_dev');
+		$autoObj = new \auto\codeCreator('nn');
 		$data = $autoObj->getTabelData($tableName);
 		die(json::encode($data));
 	}
@@ -52,16 +52,46 @@ class codeInitController extends InitController {
 	public function doCreateCodeAction(){
 		if(IS_POST){
 			$field_names = safe::filterPost('field_name');
-			$data  = array();
-			foreach($field_names as $key=>$val){
-				$data[$key]['no'] = safe::filterPost('sortNo_'.$val);
-				$data[$key]['tableName'] = safe::filterPost('tableName_'.$val);
-				$data[$key]['dataType'] = safe::filterPost('dataType_'.$val);
-				$data[$key]['zhname'] = safe::filterPost('zhname_'.$val);
-				$data[$key]['show'] = safe::filterPost('show_'.$val);
-				$data[$key]['showType'] = safe::filterPost('showType_'.$val);
-				$data[$key]['showType'] = safe::filterPost('showType_'.$val);
+			if(count($field_names) != count(array_unique($field_names))){
+				die(json::encode(\Library\tool::getSuccInfo(0,'字段名有重复值，请取别名')));
 			}
+			$list  = array();
+			foreach($field_names as $key=>$val){
+				$list[$key]['no'] = safe::filterPost('sortNo_'.$val);
+				$list[$key]['tableName'] = safe::filterPost('tableName_'.$val);
+				if(strpos($val,' as ')){//存在别名转换，获取真正的字段名和别名
+					$list[$key]['fieldName'] = trim(explode(' as ',$val)[0]);
+					$list[$key]['aliasName'] = trim(explode(' as ',$val)[1]);
+					if(in_array($list[$key]['aliasName'],$field_names)){
+						die(json::encode(\Library\tool::getSuccInfo(0,'字段命名别名后仍有重复值，请再取其他别名')));
+					}
+				}
+				else{
+					$list[$key]['fieldName'] = $val;
+					$list[$key]['aliasName'] = '';
+				}
+
+				$list[$key]['dataType'] = safe::filterPost('dataType_'.$val);
+				$list[$key]['zhname'] = safe::filterPost('zhname_'.$val);
+				$list[$key]['show'] = safe::filterPost('show_'.$val);
+				$list[$key]['showType']['name'] = safe::filterPost('showType_'.$val);
+				$argNums = safe::filterPost('argNum_'.$val);
+				for($i=0;$i<$argNums;$i++){
+					$j = $i+1;
+					$list[$key]['showType']['args']['$'.$j] = safe::filterPost('$'.$j.'_'.$val);
+				}
+			}
+
+			print_r($list);
+			$data = array();
+			$data['main'] = $list;//主要的数据
+			//$data[]
+			//把data序列化写入数据库
+			//TODO
+
+			//把data传入函数生成文件
+
+
 		}
 	}
 
