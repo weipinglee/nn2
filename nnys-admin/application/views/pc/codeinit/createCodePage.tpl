@@ -27,6 +27,7 @@
                 </div>
 
             </div>
+            <form action="{url:code/codeinit/doCreateCode}" method="post" auto_submit >
             <table class="table table-border table-bordered table-hover table-bg">
                 <thead>
                 <tr>
@@ -71,7 +72,8 @@
                 </tr>
                 </tbody>
             </table>
-
+                <input type="submit" value="提交" />
+            </form>
 
         </div>
     </div>
@@ -80,19 +82,26 @@
 
             <% for(var i=0;i<data.length;i++){ %>
             <tr class="text-c tr_move" >
-                <td style="height:10px;margin:0px;"><input type="checkbox" value="" name="check"></td>
+                <td style="height:10px;margin:0;">
+                    <input type="checkbox" value="" name="check">
+                    <input type="hidden" name="sortNo_<%=data[i].Field%>" />
+                </td>
                 <td></td>
-                <td><span name="tableName"><%=tableName%></span></td>
+                <td>
+                    <span name="tableName"><%=tableName%></span>
+                    <input type="hidden" name="tableName_<%=data[i].Field%>" />
+                </td>
                 <td style="height:10px;margin:0px;"><input type="text" name="field_name[]" value="<%=data[i].Field%>" /></td>
-                <td style="height:10px;margin:0px;"><input type="text" value="<%=data[i].Type%>" /></td>
-                <td style="height:10px;margin:0px;"><input type="text" name="zhname_<%=tableName%>.<%=data[i].Field%>" /></td>
+                <td style="height:10px;margin:0px;"><input type="text" name="dataType_<%=data[i].Field%>" value="<%=data[i].Type%>" /></td>
+                <td style="height:10px;margin:0px;"><input type="text" name="zhname_<%=data[i].Field%>" /></td>
                 <td style="height:10px;margin:0px;">
-                    <select name="show_<%=tableName%>.<%=data[i].Field%>" >
+                    <select name="show_<%=data[i].Field%>" >
                         <option value="1" >是</option>
                         <option value="0" >否</option>
                     </select>
                 </td>
-                <td style="height:10px;margin:0px;"><select name="showType_<%=tableName%>.<%=data[i].Field%>" >
+                <td style="height:10px;margin:0px;">
+                    <select name="showType_<%=data[i].Field%>" >
                         {foreach:$items=$listTags }
                         <option value="{$key}" name="{$item['arg']}" >{$key}</option>
                         {/foreach}
@@ -100,9 +109,11 @@
                         {foreach:$items=$operTags }
                             <option value="{$key}" name="{$item['arg']}" >{$key}</option>
                         {/foreach}
-                    </select></td>
+                    </select>
+                    <input type="hidden" name="argNum_<%=data[i].Field%>" value="1"/>
+                </td>
                 <td style="height:10px;margin:0px;">
-                    <span>$1:</span><input type="text"  name="$1_<%=tableName%>.<%=data[i].Field%>"/></br>
+                    <span>$1:</span><input type="text"  name="$1_<%=data[i].Field%>"/></br>
 
                 </td>
 

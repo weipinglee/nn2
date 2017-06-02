@@ -43,6 +43,7 @@ function mouseupTr(){
 function sortTr(){
     $('tr.tr_move').each(function(index){
         $(this).find('td:nth-child(2)').text(index+1);
+        $(this).find('input[name^=sortNo_]').val(index+1);
     })
 }
 
@@ -51,9 +52,13 @@ function chgInputName(){
     var tableName = $(this).parents('tr').find('span[name=tableName]').text();
     var fieldName = $(this).val();
     var attrTail = tableName!='' ? tableName+'.'+fieldName : fieldName;
+    attrTail = fieldName;
     $(this).parents('tr').find('input[name^=zhname_]').attr('name','zhname_'+attrTail);
     $(this).parents('tr').find('select[name^=show_]').attr('name','show_'+attrTail);
     $(this).parents('tr').find('select[name^=showType_]').attr('name','showType_'+attrTail);
+    $(this).parents('tr').find('input[name^=dataType_]').attr('name','dataType_'+attrTail);
+    $(this).parents('tr').find('input[name^=sortNo_]').attr('name','sortNo_'+attrTail);
+    $(this).parents('tr').find('input[name^=tableName_]').attr('name','tableName_'+attrTail);
     $(this).parents('tr').find('input[name^=\\$]').each(function(index){
         var name = $(this).attr('name');
         name =name.split('_')[0];
@@ -69,9 +74,10 @@ function showArgs(){//alert();
     var argArr = args.split(',');
     var input = $(this).parents('td').next('td').find('input');
     var fieldName =input .attr('name');
-    var fieldName = fieldName.split('_')[1];
+     fieldName = fieldName.split('_')[1];
     $(this).parents('td').next('td').children().remove();
     for(var i=0;i<argArr.length;i++){
+        $(this).parents('td').find('input').val(argArr.length);
         $(this).parents('td').next('td').append('<span>'+argArr[i]+':</span><input type="text" name="'+argArr[i]+'_'+fieldName+'" /></br>');
     }
 }
