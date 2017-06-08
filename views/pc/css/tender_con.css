@@ -259,6 +259,8 @@
   text-align: center;
   font-size: 28px;
 }
+.zbgg_con .zbgg_tishi a{color: #3c56d1;}
+.zbgg_con textarea{width: 510px;height: 131px;margin:10px 20px;resize:none;}
 .pl_anniu{
 	text-align: right;
 }
