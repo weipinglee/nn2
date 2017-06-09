@@ -143,6 +143,7 @@ class BidController extends UcenterBaseController{
 	public function createNewBidAction()
 	{
 		if(IS_POST){
+
 			$bidData = array(
 					'mode' => safe::filterPost('mode'),
 					'user_id' => $this->user_id,
@@ -178,6 +179,8 @@ class BidController extends UcenterBaseController{
 					'agent_tax'   => safe::filterPost('agent_tax'),//代理传真
 			);
 
+			$bidData['yq_user'] = session::get('yq_list');
+
 			$package = array(
 				'pack_no' => safe::filterPost('pack_no'),
 				'product_name' => safe::filterPost('product_name'),
@@ -197,7 +200,8 @@ class BidController extends UcenterBaseController{
 
 			 $this->bidObj->setStateObj('bid');
 			$res = $this->bidObj->init($bidData);
-
+			if($res['success']==1)
+				session::clear('yq_list');
 			die(json::encode($res));
 
 
@@ -229,6 +233,10 @@ class BidController extends UcenterBaseController{
 			$res = $bidObj->release($pay_type);
 			die(json::encode($res));
 		}
+
+	}
+
+	public function tenderfb4Action(){
 
 	}
 
