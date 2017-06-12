@@ -244,6 +244,34 @@ class BidController extends UcenterBaseController{
 
 	}
 
+	/**
+	 * 撤销招标
+	 */
+	public function cancleBidAction()
+	{
+		if(IS_POST){
+			$bid_id = safe::filterPost('bid_id','int');
+			$bidObj = $this->bidObj;
+			$bidObj->setStateObj('bid',$bid_id);
+
+			$res = $bidObj->bidCancle();
+			die(json::encode($res));
+		}
+	}
+
+	public function closeBidAction(){
+		if(IS_POST){
+			$bid_id = safe::filterPost('bid_id','int');
+			$bidObj = $this->bidObj;
+			$bidObj->setStateObj('bid',$bid_id);
+
+			$res = $bidObj->bidClose();
+			die(json::encode($res));
+		}
+	}
+
+
+
 /*********************招标列表和详情相关***************************/
 
 
@@ -404,6 +432,21 @@ class BidController extends UcenterBaseController{
 			die(json::encode($res));
 		}
 	}
+
+
+	/***********************截标评标********************************/
+
+	public function stopBidAction()
+	{
+		if(IS_POST){
+			$bid_id = safe::filterPost('id','int');
+			$this->bidObj->setStateObj('bid',$bid_id);
+			$res = $this->bidObj->bidStop();
+			die(json::encode($res));
+		}
+		
+	}
+
 
 
 
