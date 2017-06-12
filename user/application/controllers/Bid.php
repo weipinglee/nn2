@@ -123,7 +123,7 @@ class BidController extends UcenterBaseController{
 			$uploadSrc = $res['fileSrc'].'@user';
 		}
 		else{
-			$this->redirect(url::createUrl('/bid/tenderfb1'));
+			$this->redirect(url::createUrl('/bid/tenderfb1').'?type='.$type);
 		}
 
 		$this->getView()->assign('docSrc',$uploadSrc);
@@ -260,6 +260,7 @@ class BidController extends UcenterBaseController{
 		$detail = $this->bidObj->getBidDetail($id);
 		$this->getView()->assign('detail',$detail);
 	}
+
 
 
 }
