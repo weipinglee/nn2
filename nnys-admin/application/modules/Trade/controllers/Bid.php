@@ -13,6 +13,8 @@ class BidController extends InitController{
 
     private $bidObj = null;
 
+
+
     public function init()
     {
         parent::init();
@@ -46,4 +48,7 @@ class BidController extends InitController{
             die(json::encode($res));
         }
     }
+
+
+
 }
