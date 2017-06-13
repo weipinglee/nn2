@@ -444,7 +444,7 @@ class BidController extends UcenterBaseController{
 			$res = $this->bidObj->bidStop();
 			die(json::encode($res));
 		}
-		
+
 	}
 
 
