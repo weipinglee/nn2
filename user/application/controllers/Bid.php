@@ -301,12 +301,27 @@ class BidController extends UcenterBaseController{
 	/**
 	 * 投标第一步页面
 	 */
-	public function bidOperAction(){
+	public function bidOperAction()
+	{
+		//招标详情
+		$bid_id = safe::filterGet('id','int');
+		if($bid_id){
+			$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
+			$this->getView()->assign('detail',$bidDetail);
+
+
+			//证书信息
+			$certs = $this->bidObjSeller->getUserReplyCerts($this->user_id,$bid_id);
+			$this->getView()->assign('certs',$certs);
+		}
+
+
+	}
+
+	public function bidOper1Action(){
 		$bid_id = safe::filterGet('id','int');
 		$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
 		$this->getView()->assign('detail',$bidDetail);
-
-
 	}
 
 	/**
@@ -319,11 +334,24 @@ class BidController extends UcenterBaseController{
 					'cert_name' => safe::filterPost('name'),
 					'cert_type'=> safe::filterPost('type'),
 					'cert_des' => safe::filterPost('des'),
-					'cert_pic' => safe::filterPost('pic'),
+					//'cert_pic' => safe::filterPost('pic'),
 			);
+			$photo = new \Library\photoupload();
+			$res = $photo->uploadPhoto();
+			if($res['pic']['flag']==1){
+				$certs['cert_pic'] = $res['pic']['img'].'@user';
+			}
+			else{
+				$this->redirect(url::createUrl('/bid/bidOper1').'?error='.$res['pic']['errInfo']);
+			}
 			$this->bidObjSeller->setStateObj('bid',$bid_id);
 			$res = $this->bidObjSeller->replyUploadCerts($this->user_id,$certs);
-			die(json::encode($res));
+			if($res['success']==1){
+				$this->redirect(url::createUrl('/bid/bidOper').'?id='.$bid_id);
+			}
+			else{
+				$this->redirect(url::createUrl('/bid/bidOper1').'?error='.$res['info']);
+			}
 
 		}
 	}
@@ -334,10 +362,12 @@ class BidController extends UcenterBaseController{
 	public function submitCertAction(){
 		if(IS_POST){
 			$reply_id = safe::filterPost('id','int');//投标id
+
 			$this->bidObjSeller->setStateObj('reply',$reply_id);
 			$res = $this->bidObjSeller->replySubmitCert();
 			die(json::encode($res));
 		}
+
 	}
 
 	/**
@@ -358,8 +388,10 @@ class BidController extends UcenterBaseController{
 	 */
 	public function bidOper2Action()
 	{
-		$bid_id = safe::filterGet('id','int');
+		//$bid_id = safe::filterGet('id','int');
 		$reply_id = safe::filterGet('reply_id','int');
+		$M = new M('bid_reply');
+		$bid_id = $M->where(array('id'=>$reply_id))->getField('bid_id');
 		$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
 		$this->getView()->assign('detail',$bidDetail);
 		$this->getView()->assign('bid_id',$bid_id);
@@ -375,7 +407,7 @@ class BidController extends UcenterBaseController{
 			$reply_id = safe::filterPost('reply_id','int');
 
 			$this->bidObjSeller->setStateObj('reply',$reply_id);
-			$pay_type  = 2;
+			$pay_type  = 1;
 			$res = $this->bidObjSeller->replyPaydocFee($pay_type);
 			die(json::encode($res));
 
