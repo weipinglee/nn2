@@ -409,6 +409,7 @@ class BidController extends UcenterBaseController{
 			$this->bidObjSeller->setStateObj('reply',$reply_id);
 			$pay_type  = 1;
 			$res = $this->bidObjSeller->replyPaydocFee($pay_type);
+			$res['url'] = url::createUrl('/bid/bidOper3').'?reply_id='.$reply_id;
 			die(json::encode($res));
 
 		}
@@ -418,12 +419,20 @@ class BidController extends UcenterBaseController{
 
 	public function bidOper3Action()
 	{
-		$bid_id = safe::filterGet('id','int');
 		$reply_id = safe::filterGet('reply_id','int');
-		$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
+		$M = new M('bid_reply');
+		$bid_id = $M->where(array('id'=>$reply_id))->getField('bid_id');
+		$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);//print_r($bidDetail);
 		$this->getView()->assign('detail',$bidDetail);
 		$this->getView()->assign('bid_id',$bid_id);
 		$this->getView()->assign('reply_id',$reply_id);
+	}
+
+
+	public function ajaxUploadDocAction(){
+		$uploadObj = new \Library\upload\commonUpload();
+		$res = $uploadObj->upload();
+		die(json::encode($res['doc']));
 	}
 
 	/**
@@ -436,13 +445,11 @@ class BidController extends UcenterBaseController{
 
 			$package = array(
 					'pack_id' => safe::filterPost('pack_id','int'),
-					'pack_no' => safe::filterPost('pack_no'),
-					'product_name' => safe::filterPost('product_name'),
 					'brand' => safe::filterPost('brand'),
-					'spec' => safe::filterPost('spec'),
-					'tech_need' => safe::filterPost('tech_need'),
-					'unit' => safe::filterPost('unit'),
-					'num' => safe::filterPost('num'),
+					//'spec' => safe::filterPost('spec'),
+					//'tech_need' => safe::filterPost('tech_need'),
+					//'unit' => safe::filterPost('unit'),
+					//'num' => safe::filterPost('num'),
 					'tran_date' => safe::filterPost('tran_date'),
 					'unit_price' => safe::filterPost('unit_price'),
 					'freight_fee' => safe::filterPost('freight_fee'),
@@ -456,7 +463,7 @@ class BidController extends UcenterBaseController{
 				}
 			}
 
-			$upload = safe::filterPost('uploadUrl');
+			$upload = safe::filterPost('doc1');
 
 
 			$this->bidObjSeller->setStateObj('reply',$reply_id);
