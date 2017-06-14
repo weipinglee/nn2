@@ -99,14 +99,14 @@
                                                                         function addRow() {
                                                                             i++;
                                                                             var rowTem = '<tr class="tr_' + i + '">'
-                                                                                + '<td></td>'
-                                                                                + '<td></td>'
-                                                                                + '<td></td>'
-                                                                                + '<td></td>'
-                                                                                + '<td></td>'
-                                                                                + '<td></td>'
-                                                                                + '<td></td>'
-                                                                                + '<td></td>'
+                                                                                + '<td><input type="text"></td>'
+                                                                                + '<td><input type="text"></td>'
+                                                                                + '<td><input type="text"></td>'
+                                                                                + '<td><input type="text"></td>'
+                                                                                + '<td><input type="text"></td>'
+                                                                                + '<td><input type="text"></td>'
+                                                                                + '<td><input type="text"></td>'
+                                                                                + '<td><input type="text"></td>'
                                                                                 + '<td><a onclick=delRow('+i+') >删除</a></td>'
                                                                                 + '</tr>';
                                                                            //var tableHtml = $("#table tbody").html();
@@ -134,14 +134,14 @@
                                                                                 <td>操作</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td contentEditable="true" ></td>
-                                                                                <td contentEditable="true"></td>
-                                                                                <td contentEditable="true"></td>
-                                                                                <td contentEditable="true"></td>
-                                                                                <td contentEditable="true"></td>
-                                                                                <td contentEditable="true"></td>
-                                                                                <td contentEditable="true"></td>
-                                                                                <td contentEditable="true"></td>
+                                                                                <td><input type="text"></td>
+                                                                                <td><input type="text"></td>
+                                                                                <td><input type="text"></td>
+                                                                                <td><input type="text"></td>
+                                                                                <td><input type="text"></td>
+                                                                                <td><input type="text"></td>
+                                                                                <td><input type="text"></td>
+                                                                                <td><input type="text"></td>
                                                                                 <td><input type="button" value="新增" onclick="addRow();" /></td>
                                                                             </tr>
                                                                         </table>
