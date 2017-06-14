@@ -282,14 +282,15 @@ class BidController extends UcenterBaseController{
 	{
 		$page = safe::filterGet('page','int',1);
 		$bidObj = $this->bidObj;
-		$list = $bidObj->getBidList($page);
-		$this->getView()->assign('list',$list);
+		$list = $bidObj->getBidList($page);//print_r($list);
+		$this->getView()->assign('data',$list);
+		//$this->getView()->assign('list',$list);
 	}
 
 	public function getBidDetailAction()
 	{
 		$id = safe::filterGet('id','int');
-		$detail = $this->bidObj->getBidDetail($id);
+		$detail = $this->bidObj->getBidDetail($id);print_r($detail);
 		$this->getView()->assign('detail',$detail);
 	}
 

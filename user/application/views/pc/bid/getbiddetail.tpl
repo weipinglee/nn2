@@ -5,68 +5,34 @@
 						<p><a>我的招标</a>><a>发布招标</a></p>
 					</div>
 					<div class="center_tabl">
-                                                            <ul class="step_list">
-                                                                <li class="step">
-                                                                    <span class="val_on on">1</span>
-                                                                    <p class="step_name">
-                                                                        <span class="on">选择招标类型</span>
-                                                                    </p>
-                                                                </li>
-                                                                <li class="step">                                                                    
-                                                                    <span class="val_on on">2</span>
-                                                                    <p class="step_name">
-                                                                        <span class="on">上传招标文件</span>
-                                                                    </p>
-                                                                </li>
-                                                                <li class="step">                                                                    
-                                                                    <span class="val_on on">3</span>
-                                                                    <p class="step_name">
-                                                                        <span class="on">填写招标公告</span>
-                                                                    </p>
-                                                                </li>
-                                                                <li class="step">                                                                    
-                                                                    <span class="val_on ">4</span>
-                                                                    <p class="step_name">
-                                                                        <span class="">提交保证金，发布招标</span>
-                                                                    </p>
-                                                                </li>
-                                                            </ul>
 
                                                             <div class="clear"></div>
 
                                                             <div class="bid" style="margin-top:30px;">
-                                                                <form action="{url:/bid/createNewBid}" method="post">
+                                                                <form action="" method="post">
 
 
                                                                 <div class="bid_cont" >
-                                                                    <input type="hidden" name="mode" value="{$_GET['type']}" />
-                                                                    <input type="hidden" name="docsrc" value="{$docSrc}" />
                                                                     <p>
                                                                         <span>材料类型：</span>
-                                                                        <select name="top_cate">
-                                                                            {foreach:$items=$topCate}
-                                                                            <option value="{$item['id']}">{$item['name']}</option>
-                                                                            {/foreach}
-                                                                        </select>
+                                                                        <input type="text" name="top_cate_text" value="{$detail['cate_name']}"/>
                                                                     </p>
                                                                     <p>
                                                                         <span>项目名称：</span>
-                                                                        <input type="text" style="width:314px;" name="pro_name">
+                                                                        <input type="text" style="width:314px;" name="pro_name" value="{$detail['pro_name']}">
 
                                                                         <span class="sec_op">项目地点：</span>
-                                                                        <input type="text" name="pro_address" />
+                                                                        <input type="text" name="pro_address" value="{$detail['pro_address']}"/>
                                                                     </p>
                                                                     <p>
                                                                         <span>投标时间：</span>
-                                                                        <input type="date" value="" name="begin_time">
+                                                                        <input type="text"  name="begin_time" value="{$detail['begin_time']}">
                                                                         <span>至</span>
-                                                                        <input type="date" value="" name="end_time">
-                                                                        <span class="tips">
-                                                                            开始日期不晚于当前日期一个月，过程在10-30天内
-                                                                        </span><br/>
+                                                                        <input type="text" value="{$detail['end_time']}" name="end_time" >
+
 
                                                                         <span>开标时间：</span>
-                                                                        <input type="date" value="" name="open_time">
+                                                                        <input type="date" value="{$detail['open_time']}" name="open_time">
                                                                         <span class="tips">
                                                                             截标后10-60天内
                                                                         </span>
@@ -74,16 +40,16 @@
 
                                                                     <h3>一、招标条件</h3>
 
-                                                                    <textarea style="resize: none;width:100%;" name="bid_require"></textarea>
+                                                                    <textarea style="resize: none;width:100%;" name="bid_require">{$detail['bid_require']}</textarea>
                                                                     <h3>二、项目概况与招标内容</h3>
                                                                     <h4>1、项目概况</h4>
-                                                                    <textarea style="resize: none;width:100%;" name="pro_brief"></textarea>
+                                                                    <textarea style="resize: none;width:100%;" name="pro_brief">{$detail['pro_brief']}</textarea>
                                                                     <h4>2、招标内容</h4>
-                                                                    <textarea style="resize: none;width:100%;" name="bid_content"></textarea>
+                                                                    <textarea style="resize: none;width:100%;" name="bid_content">{$detail['bid_content']}</textarea>
                                                                     <p>
-                                                                        <input type="radio" checked name="pack_type" value="1">分包&nbsp;&nbsp;说明：投标人可以单个包件投标
+                                                                        <input type="radio" {if:$detail['pack_type']==1}checked{/if} name="pack_type" value="1">分包&nbsp;&nbsp;说明：投标人可以单个包件投标
                                                                         
-                                                                        <input type="radio" name="pack_type" style="margin-left:30px;" value="2">总包&nbsp;&nbsp;说明：选择此按钮投标人需要投所有的包件
+                                                                        <input type="radio" {if:$detail['pack_type']==2}checked{/if} name="pack_type" style="margin-left:30px;" value="2">总包&nbsp;&nbsp;说明：选择此按钮投标人需要投所有的包件
 
                                                                     </p>
 
