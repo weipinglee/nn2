@@ -59,29 +59,27 @@
                                                                 <div class="bid_zige">
                                                                     <table>
                                                                         <tr>
-                                                                            <td></td>
+                                                                            <td>序号</td>
                                                                             <td>证书名称</td>
                                                                             <td>证书分类</td>
                                                                             <td>证书描述</td>
                                                                             <td>添加时间</td>
-                                                                            <td>内容</td>
                                                                             <td>提交状态</td>
                                                                             <td>资审状态</td>
                                                                         </tr>
                                                                         {foreach:$items=$certs}
                                                                         <tr>
-                                                                            <td><input type="checkbox"></td>
+                                                                            <td>{echo:$key+1}</td>
                                                                             <td>{$item['cert_name']}</td>
                                                                             <td>{$item['cert_type']}</td>
                                                                             <td>{$item['cert_des']}</td>
                                                                             <td>{$item['create_time']}</td>
-                                                                            <td><a href="">[查看]</a></td>
-                                                                            <td>未提交</td>
-                                                                            <td></td>
+                                                                            <td>{if:$certHasSubmit}已提交{else:}未提交{/if}</td>
+                                                                            <td>待审核</td>
                                                                         </tr>
                                                                         {/foreach}
                                                                         <tr>
-                                                                            <td colspan="8">
+                                                                            <td colspan="7">
                                                                                 <a href="{url:/bid/bidoper1}?id={$detail['id']}">请上传资质文件</a>
                                                                             </td>
                                                                         </tr>
@@ -90,12 +88,14 @@
                                                             </div>
 
                                                             <div class="clear"></div>
+                                                        {if:!$certHasSubmit}
                                                         <form method="post" action="{url:/bid/submitCert}" auto_submit="1">
                                                             <input type="hidden" name="id" value="{$certs[0]['reply_id']}" />
                                                             <div class="button">
-                                                                <button style="float: left;margin-right:20px;">提交</button><button style="margin:0;">删除</button>
+                                                                <button style="float: left;margin-right:20px;">提交</button><!--<button style="margin:0;">删除</button>-->
                                                             </div>
                                                         </form>
+                                                        {/if}
 
                                                         </div>
 				</div>

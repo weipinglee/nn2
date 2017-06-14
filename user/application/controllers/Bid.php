@@ -249,6 +249,7 @@ class BidController extends UcenterBaseController{
 			//$pay_type = safe::filterPost('pay_type');
 			$pay_type = 1;//默认中信
 			$res = $bidObj->release($pay_type);
+			$res['retrunUrl'] = url::createUrl('/bid/tenderfb4');
 			die(json::encode($res));
 		}
 
@@ -301,17 +302,105 @@ class BidController extends UcenterBaseController{
 		//$this->getView()->assign('list',$list);
 	}
 
-	public function getBidDetailAction()
+	public function updateBidDetailAction()
 	{
 		$id = safe::filterGet('id','int');
 		$detail = $this->bidObj->getBidDetail($id);
 		$this->getView()->assign('detail',$detail);
 	}
 
+	public function getBidDetailAction()
+	{
+		$id = safe::filterGet('id','int');
+		$detail = $this->bidObj->getBidDetail($id);
+		$this->getView()->assign('detail',$detail);
+		print_r($detail);
+		switch($detail['status']){
+			case 0 :
+			case 1 :
+			case 4 :
+			case 5:
+			case 3 :{//跳转1
+				$this->redirect(url::createUrl('/bid/tenderdetail').'?id='.$id);
+			}
+			break;
+			case 2 : {//跳转2
+				$this->redirect(url::createUrl('/bid/tenderdetail1').'?id='.$id);
+			}
+			break;
+			case 6 : {//跳转3
+				$this->redirect(url::createUrl('/bid/tenderdetail2').'?id='.$id);
+			}
+			break;
+			case 7 : {
+				$this->redirect(url::createUrl('/bid/tenderdetail3').'?id='.$id);
+			}
+
+
+		}
+	}
+
+	/**
+	 * 招标详情第一步，未发布时显示
+	 */
+	public function tenderDetailAction(){
+		$id = safe::filterGet('id','int');
+		$detail = $this->bidObj->getBidDetail($id);
+		$this->getView()->assign('detail',$detail);
+
+	}
+
+	public function tenderDetail1Action(){
+		$id = safe::filterGet('id','int');
+		$detail = $this->bidObj->getBidDetail($id);
+		$this->getView()->assign('detail',$detail);
+
+		//获取投标信息
+		$page = safe::filterGet('page','int',1);
+		$replyList = $this->bidObj->getReplyList($page);
+		$this->getView()->assign('replyList',$replyList);print_r($replyList);
+	}
+
 
 
 
 	/****************************投标发布*********************/
+
+	public function tbListAction()
+	{
+		$page = safe::filterGet('page','int',1);
+		$data = $this->bidObjSeller->getReplyList($page);
+
+		$this->getView()->assign('data',$data);
+	}
+
+
+	public function tbDetailAction()
+	{
+		$id = safe::filterGet('id','int');
+		$data = $this->bidObjSeller->getReplyDetail($id);
+		switch($data['status']){
+			case 1 :
+			case 2 :
+			case 4 :{//跳转到第1
+				$this->redirect(url::createUrl('/bid/bidOper').'?id='.$data['bid_id']);
+			}
+			break;
+			case 3 : {//跳转到2
+				$this->redirect(url::createUrl('/bid/bidOper2').'?reply_id='.$id);
+			}
+			break;
+			case 6 :
+			case 5 :{//跳转到3
+			$this->redirect(url::createUrl('/bid/bidOper3').'?reply_id='.$id);
+			}
+			break;
+			case 7 :  {//跳转到4
+				$this->redirect(url::createUrl('/bid/bidOper4').'?reply_id='.$id);
+			}
+		}
+	}
+
 
 	/**
 	 * 投标第一步页面
@@ -324,9 +413,14 @@ class BidController extends UcenterBaseController{
 			$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
 			$this->getView()->assign('detail',$bidDetail);
 
-
 			//证书信息
 			$certs = $this->bidObjSeller->getUserReplyCerts($this->user_id,$bid_id);
+			$certHasSubmit = 0;
+			if(!empty($certs) && $certs[0]['status']==2){
+				$certHasSubmit = 1;
+			}
+
+			$this->getView()->assign('certHasSubmit',$certHasSubmit);
 			$this->getView()->assign('certs',$certs);
 		}
 

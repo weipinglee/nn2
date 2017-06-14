@@ -11,14 +11,17 @@
 						<p><a>我的招标</a>><a>资格预审</a></p>
 					</div>
                                                         <div class="project_detail">
-                                                            <h1>501矿</h1>
-                                                            <p>招标方：海天贸易</p>
-                                                            <p>招标方式：公开招标</p>
-                                                            <p>评标类型：分包</p>
-                                                            <p>项目地点：中国 山西省 阳泉市 郊区</p>
-                                                            <p>投标时间：2015-8-10——2015-10-8</p>
-                                                            <p>开标地点：[线上]</p>
+                                                            <h1>{$detail['pro_name']}</h1>
+                                                            <p>招标方：{$detail['true_name']}</p>
+                                                            <p>招标方式：{$detail['mode_text']}</p>
+                                                            <p>评标类型：{$detail['pack_type_text']}</p>
+                                                            <p>项目地点：{$detail['pro_address']}</p>
+                                                            <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
+                                                            <p>开标地点：[{$detail['open_way_text']}]</p>
+                                                            <form method="post" action="{url:/bid/bidrelease}" auto_submit="1" >
+                                                                <input type="hidden" name="bid_id" value="{$detail['id']}"/>
 
+                                                            </form>
                                                             <!-- 补充公告 -->
                                                             <div class="tender_handle">
                                                                 <button id="chose_supplier">发布补充公告</button>
@@ -86,7 +89,6 @@
                                                                     <table>
                                                                         <tr>
                                                                             <td>序号</td>
-                                                                            <td>会员编号</td>
                                                                             <td>会员名称</td>
                                                                             <td>资质信息</td>
                                                                             <td>标书购买</td>
@@ -95,22 +97,24 @@
                                                                             <td>保证金金额</td>
                                                                             <td>操作</td>
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td>1</td>
-                                                                            <td>02100008</td>
-                                                                            <td>海天贸易</td>
-                                                                            <td>未审核[<a href="" style="color:#1a59d9;">查看</a>]</td>
-                                                                            <td>未购买</td>
-                                                                            <td>未投标</td>
-                                                                            <td>未冻结</td>
-                                                                            <td></td>
-                                                                            <td>
-                                                                                <select>
-                                                                                    <option>通过</option>
-                                                                                    <option>不通过</option>
-                                                                                </select>
-                                                                            </td>
-                                                                        </tr>
+                                                                        {foreach:items=$replyList}
+                                                                            <tr>
+                                                                                <td>{$key}</td>
+                                                                                <td>{$item['true_name']}</td>
+                                                                                <td>未审核[<a href="{url:/bid/}" style="color:#1a59d9;">查看</a>]</td>
+                                                                                <td>未购买</td>
+                                                                                <td>未投标</td>
+                                                                                <td>未冻结</td>
+                                                                                <td></td>
+                                                                                <td>
+                                                                                    <select>
+                                                                                        <option>通过</option>
+                                                                                        <option>不通过</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                            </tr>
+                                                                        {/foreach}
+
                                                                     </table>
                                                                                                                                         
                                                                 </div>
