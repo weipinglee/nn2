@@ -32,11 +32,13 @@ $(document).ready(function (){
     
                 /*个人中心招标发布*/ 
 $("#type1").click(function(){
+    $('input[name=type]').val('gk');
   $("#invite").hide();
   $("#type1").addClass("on");
   $("#type2").removeClass("on");
 });
 $("#type2").click(function(){
+    $('input[name=type]').val('yq');
   $("#invite").show();
   $("#type1").removeClass("on");
   $("#type2").addClass("on");

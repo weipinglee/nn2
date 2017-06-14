@@ -33,9 +33,9 @@
                                                             </ul>
 
                                                             <div class="clear"></div>
+                        <form action="{url:/bid/createNewBid}" method="post" auto_submit="1">
 
                                                             <div class="bid" style="margin-top:30px;">
-                                                                <form action="{url:/bid/createNewBid}" method="post">
 
 
                                                                 <div class="bid_cont" >
@@ -99,15 +99,15 @@
                                                                         function addRow() {
                                                                             i++;
                                                                             var rowTem = '<tr class="tr_' + i + '">'
-                                                                                + '<td><input type="text"></td>'
-                                                                                + '<td><input type="text"></td>'
-                                                                                + '<td><input type="text"></td>'
-                                                                                + '<td><input type="text"></td>'
-                                                                                + '<td><input type="text"></td>'
-                                                                                + '<td><input type="text"></td>'
-                                                                                + '<td><input type="text"></td>'
-                                                                                + '<td><input type="text"></td>'
-                                                                                + '<td><a onclick=delRow('+i+') >删除</a></td>'
+                                                                                    + '<td><input type="text" name="pack_no[]" /></td>'
+                                                                                    + '<td><input type="text" name="product_name[]"></td>'
+                                                                                    + '<td><input type="text" name="brand[]" ></td>'
+                                                                                    + '<td><input type="text" name="spec[]"></td>'
+                                                                                    + '<td><input type="text" name="tech_need[]" ></td>'
+                                                                                    + '<td><input type="text" name="unit[]" ></td>'
+                                                                                    + '<td><input type="text" name="num[]" ></td>'
+                                                                                    + '<td><input type="text" name="tran_days[]"></td>'
+                                                                                    + '<td><a onclick=delRow('+i+') >删除</a></td>'
                                                                                 + '</tr>';
                                                                            //var tableHtml = $("#table tbody").html();
                                                                            // tableHtml += rowTem;
@@ -134,14 +134,14 @@
                                                                                 <td>操作</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td><input type="text"></td>
-                                                                                <td><input type="text"></td>
-                                                                                <td><input type="text"></td>
-                                                                                <td><input type="text"></td>
-                                                                                <td><input type="text"></td>
-                                                                                <td><input type="text"></td>
-                                                                                <td><input type="text"></td>
-                                                                                <td><input type="text"></td>
+                                                                                <td><input type="text" name="pack_no[]" ></td>
+                                                                                <td><input type="text" name="product_name[]"></td>
+                                                                                <td><input type="text" name="brand[]"></td>
+                                                                                <td><input type="text" name="spec[]"></td>
+                                                                                <td><input type="text" name="tech_need[]"></td>
+                                                                                <td><input type="text" name="unit[]"></td>
+                                                                                <td><input type="text" name="num[]"></td>
+                                                                                <td><input type="text" name="tran_days[]"></td>
                                                                                 <td><input type="button" value="新增" onclick="addRow();" /></td>
                                                                             </tr>
                                                                         </table>
@@ -196,12 +196,13 @@
                                                                     <p>发布公告日期：<input type="date" value=""></p>
                                                                 </div>
 
-                                                                </form>
+
                                                             </div>
 
                                                             <div class="clear"></div>
 
-                                                            <div class="button"><button style="float: left;margin-right:20px;">上一步</button><button style="margin:0;">保存</button></div>
+                                                            <div class="button"><a href="{url:/bid/tenderfb1}?{$type}"><button style="float: left;margin-right:20px;">上一步</button</a>><button style="margin:0;">保存</button></div>
+                        </form>
                                                         </div>
 				</div>
 			</div>

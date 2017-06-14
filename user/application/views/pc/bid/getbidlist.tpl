@@ -27,7 +27,10 @@
 									<td>{$item['cate_name']}</td>
 									<td>{$item['pro_address']}</td>
 									<td>{$item['status_text']}</td>
-									<td><a href="{url:/bid/getBidDetail}?id={$item['id']}">详情</a></td>
+									<td>
+										<a href="{url:/bid/getBidDetail}?id={$item['id']}">详情</a>
+										<a href="{url:/bid/getReplyDetail}?id={$item['id']}">查看投标</a>
+									</td>
 								</tr>
 							{/foreach}
 
@@ -36,6 +39,12 @@
 
 						</div>
 
+						<div class="tab_bt">
+							<div class="t_bt">
+
+								<a class="a_2" title="添加" href="{url:/bid/tenderfb}"></a>
+							</div>
+						</div>
 						<div class="page_num">
 							{$data['bar']}
 						</div>

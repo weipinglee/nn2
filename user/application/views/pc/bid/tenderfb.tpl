@@ -38,7 +38,8 @@
                                                                     </p>
                                                                 </li>
                                                             </ul>
-
+                                                            <form method="post" action="{url:/bid/addYqUser}" auto_submit="1">
+                                                            <input type="hidden" name="type" value="gk"/>
                                                             <ul class="type_list">
                                                                 <li class="type on" id="type1">
                                                                     <span>公开招标</span>
@@ -54,6 +55,7 @@
                                                                 </div>
                                                                 <div class="invite_cont">
                                                                     <span style="float:left;">邀请供应商：</span>
+                                                                    <input type="hidden" name="user_list" />
                                                                     <textarea disabled id="chosen_mem"></textarea>
                                                                     <button style="margin:10px 30px;" id="chose_supplier">选择</button>
                                                                 </div>
@@ -64,6 +66,7 @@
                                                             <div class="button">
                                                                 <button>下一步</button>
                                                             </div>
+                                                            </form>
                                                         </div>
 				</div>
 			</div>
@@ -81,18 +84,17 @@
                             <i></i>
                         </div>
                         <ul>
-                            <li class="mem_list">
-                                <input type="checkbox" value="miao" class="mem_check">
-                                <i class="rank"></i>
-                                <span >0210006</span>
-                                <span>miao</span>
-                            </li>
-                            <li class="mem_list">
-                                <input type="checkbox" value="naianian" class="mem_check">
-                                <i class="rank"></i>
-                                <span >0210006</span>
-                                <span>naianian</span>
-                            </li>
+
+                            {foreach:items=$user}
+                                <li class="mem_list">
+                                    <input type="checkbox" value="{$item['username']}" class="mem_check">
+                                    <input type="hidden" name="id[]" value="{$item['id']}"/>
+                                    <i class="rank"></i>
+                                    <span >{$item['username']}</span>
+                                </li>
+                            {/foreach}
+
+
                         </ul>
                         <button class="ok">确定</button>
                         <button class="close">关闭</button>

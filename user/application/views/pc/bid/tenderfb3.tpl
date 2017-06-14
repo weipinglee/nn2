@@ -40,24 +40,26 @@
 
                                                             <div class="clear"></div>
 
+                                                            <form method="post" action="{url:/bid/bidRelease}" auto_submit="1">
+                                                                <input type="hidden" name="bid_id" value="{$data['id']}" />
                                                             <div class="bid" style="margin-top:30px;">
                                                                 <div class="bid_cont" >
                                                                     <p>
-                                                                        <span>招标类型：</span>公开招标
+                                                                        <span>招标类型：</span>{$data['mode_text']}
                                                                     </p>
                                                                     <p>
-                                                                        <span>项目名称：</span>501矿
+                                                                        <span>项目名称：</span>{$data['pro_name']}
                                                                     </p>
                                                                     <p>
-                                                                        <span>所&nbsp;&nbsp;在&nbsp;&nbsp;地：</span>中国山西省阳泉市郊区
+                                                                        <span>所&nbsp;&nbsp;在&nbsp;&nbsp;地：</span>{$data['address']}
                                                                     </p>
                                                                 </div>
                                                                 <div class="bid_bond">
                                                                     <h3>招标保证金</h3>
-                                                                    <p class="bond">￥5000.00元</p>
+                                                                    <p class="bond">￥{$data['bail']}元</p>
                                                                     <ul class="tip">
                                                                         <li>请确信账户内金额足够支付保证金</li>
-                                                                        <li>若余额不足请先<a href="zj_cz" class="1a59d9">充值</a></li>
+                                                                        <li>若余额不足请先<a href="{url:/fund/cz}" class="1a59d9">充值</a></li>
                                                                         <li>保证金将于招投标结束后返还</li>
                                                                     </ul>
                                                                 </div>
@@ -65,7 +67,8 @@
 
                                                             <div class="clear"></div>
 
-                                                            <div class="button"><button style="float: left;margin-right:20px;">上一步</button><button style="margin:0;">发布</button></div>
+                                                            <div class="button"><button style="margin:0;">发布</button></div>
+                                                        </form>
                                                         </div>
 				</div>
 			</div>

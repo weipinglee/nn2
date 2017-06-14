@@ -82,9 +82,13 @@ class BidController extends UcenterBaseController{
 	{
 		if(IS_POST){
 			$user_list = safe::filterPost('user_list');//以逗号相隔的id
+			$type = safe::filterPost('type');
 			session::clear('yq_list');//清除旧的的用户id
-			session::set('yq_list',$user_list);
-			die(json::encode(tool::getSuccInfo()));
+			if($type=='yq'){
+				session::set('yq_list',$user_list);
+			}
+
+			die(json::encode(tool::getSuccInfo(1,'提交成功',url::createUrl('/bid/tenderfb1').'?type='.$type)));
 		}
 	}
 
@@ -93,7 +97,15 @@ class BidController extends UcenterBaseController{
 	 */
 	public function tenderfbAction()
 	{
+		$userObj = new M('user');
+		$username = safe::filterPost('username');
+		$where = 1;
+		if($username)
+			$where = 'username like "%'.$username.'%"';
 
+
+		$userData = $userObj->where($where)->fields('id,username,type,mobile,true_name')->select();
+		$this->getView()->assign('user',$userData);
 	}
 
 	/**
@@ -193,7 +205,7 @@ class BidController extends UcenterBaseController{
 					'tech_need' => safe::filterPost('tech_need'),
 					'unit' => safe::filterPost('unit'),
 					'num' => safe::filterPost('num'),
-					'tran_date' => safe::filterPost('tran_date')
+					'tran_days' => safe::filterPost('tran_days')
 			);
 			$bidData['package'] = array();
 			foreach($package as $key=>$item){
@@ -201,11 +213,13 @@ class BidController extends UcenterBaseController{
 					$bidData['package'][$k][$key] = $v;
 				}
 			}
-
 			 $this->bidObj->setStateObj('bid');
 			$res = $this->bidObj->init($bidData);
-			if($res['success']==1)
+			if($res['success']==1){
 				session::clear('yq_list');
+				$res['info'] = '操作成功';
+				$res['returnUrl'] = url::createUrl('/bid/tenderfb3').'?id='.$res['id'];
+			}
 			die(json::encode($res));
 
 
@@ -217,10 +231,10 @@ class BidController extends UcenterBaseController{
 	 */
 	public function tenderfb3Action()
 	{
-		$bid_id = safe::filterGet('id','int');
-		$bidObj = new M('bid');
-		$data = $bidObj->where(array('id'=>$bid_id))->getObj();
-		$this->getView()->assign('data',$data);
+		$id = safe::filterGet('id','int');
+		$detail = $this->bidObj->getBidDetail($id);
+
+		$this->getView()->assign('data',$detail);
 	}
 
 	/**
@@ -232,8 +246,8 @@ class BidController extends UcenterBaseController{
 			$bid_id = safe::filterPost('bid_id','int');
 			$bidObj = $this->bidObj;
 			$bidObj->setStateObj('bid',$bid_id);
-			$pay_type = safe::filterPost('pay_type');
-			$pay_type = 2;//默认中信
+			//$pay_type = safe::filterPost('pay_type');
+			$pay_type = 1;//默认中信
 			$res = $bidObj->release($pay_type);
 			die(json::encode($res));
 		}
@@ -290,7 +304,7 @@ class BidController extends UcenterBaseController{
 	public function getBidDetailAction()
 	{
 		$id = safe::filterGet('id','int');
-		$detail = $this->bidObj->getBidDetail($id);print_r($detail);
+		$detail = $this->bidObj->getBidDetail($id);
 		$this->getView()->assign('detail',$detail);
 	}
 
