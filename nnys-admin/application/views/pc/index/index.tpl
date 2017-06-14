@@ -190,6 +190,11 @@
                                 <li><a href="{url:trade/OfferManage/cancelList}" target="content">撤销报盘列表</a></li>
                             </ul>
                         </li>
+                        <li><a target="content">招投标管理</a>
+                            <ul>
+                                <li><a href="{url:trade/bid/bidlist}" target="content">招标列表</a></li>
+                             </ul>
+                        </li>
                         <li><a target="content">保险管理</a>
                             <ul>
                                 <li><a href="{url:trade/Insurance/insuranceList}" target="content">保险产品列表</a></li>

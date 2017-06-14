@@ -22,15 +22,15 @@ class BidController extends InitController{
 
     }
 
-    public function getListAction()
+    public function bidListAction()
     {
         $page = safe::filterGet('page','int',1);
         $bidObj = $this->bidObj;
         $list = $bidObj->getBidList($page);
-        $this->getView()->assign('list',$list);
+        $this->getView()->assign('data',$list);
     }
 
-    public function getDetailAction()
+    public function bidDetailAction()
     {
         $id = safe::filterGet('id','int');
         $detail = $this->bidObj->getBidDetail($id);
