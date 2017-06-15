@@ -51,22 +51,22 @@
                                                                     </p>
                                                                     <p>
                                                                         <span>项目名称：</span>
-                                                                        <input type="text" style="width:314px;" name="pro_name">
+                                                                        <input type="text" style="width:314px;" name="pro_name" datatype="*">
 
                                                                         <span class="sec_op">项目地点：</span>
                                                                         <input type="text" name="pro_address" />
                                                                     </p>
                                                                     <p>
                                                                         <span>投标时间：</span>
-                                                                        <input type="date" value="" name="begin_time">
+                                                                        <input type="date" value="" name="begin_time" datatype="*">
                                                                         <span>至</span>
-                                                                        <input type="date" value="" name="end_time">
+                                                                        <input type="date" value="" name="end_time" datatype="*">
                                                                         <span class="tips">
                                                                             开始日期不晚于当前日期一个月，过程在10-30天内
                                                                         </span><br/>
 
                                                                         <span>开标时间：</span>
-                                                                        <input type="date" value="" name="open_time">
+                                                                        <input type="date" value="" name="open_time" datatype="*">
                                                                         <span class="tips">
                                                                             截标后10-60天内
                                                                         </span>
@@ -74,12 +74,12 @@
 
                                                                     <h3>一、招标条件</h3>
 
-                                                                    <textarea style="resize: none;width:100%;" name="bid_require"></textarea>
+                                                                    <textarea style="resize: none;width:100%;" name="bid_require" datatype="*"></textarea>
                                                                     <h3>二、项目概况与招标内容</h3>
                                                                     <h4>1、项目概况</h4>
-                                                                    <textarea style="resize: none;width:100%;" name="pro_brief"></textarea>
+                                                                    <textarea style="resize: none;width:100%;" name="pro_brief" datatype="*"></textarea>
                                                                     <h4>2、招标内容</h4>
-                                                                    <textarea style="resize: none;width:100%;" name="bid_content"></textarea>
+                                                                    <textarea style="resize: none;width:100%;" name="bid_content" datatype="*"></textarea>
                                                                     <p>
                                                                         <input type="radio" checked name="pack_type" value="1">分包&nbsp;&nbsp;说明：投标人可以单个包件投标
                                                                         
@@ -99,14 +99,14 @@
                                                                         function addRow() {
                                                                             i++;
                                                                             var rowTem = '<tr class="tr_' + i + '">'
-                                                                                    + '<td><input type="text" name="pack_no[]" /></td>'
-                                                                                    + '<td><input type="text" name="product_name[]"></td>'
-                                                                                    + '<td><input type="text" name="brand[]" ></td>'
-                                                                                    + '<td><input type="text" name="spec[]"></td>'
-                                                                                    + '<td><input type="text" name="tech_need[]" ></td>'
-                                                                                    + '<td><input type="text" name="unit[]" ></td>'
-                                                                                    + '<td><input type="text" name="num[]" ></td>'
-                                                                                    + '<td><input type="text" name="tran_days[]"></td>'
+                                                                                    + '<td><input type="text" name="pack_no[]"  datatype="*"/></td>'
+                                                                                    + '<td><input type="text" name="product_name[]" datatype="*"></td>'
+                                                                                    + '<td><input type="text" name="brand[]"  datatype="*"></td>'
+                                                                                    + '<td><input type="text" name="spec[]" datatype="*"></td>'
+                                                                                    + '<td><input type="text" name="tech_need[]"  datatype="*"></td>'
+                                                                                    + '<td><input type="text" name="unit[]"  datatype="*"></td>'
+                                                                                    + '<td><input type="text" name="num[]"  datatype="n"></td>'
+                                                                                    + '<td><input type="text" name="tran_days[]" datatype="n"></td>'
                                                                                     + '<td><a onclick=delRow('+i+') >删除</a></td>'
                                                                                 + '</tr>';
                                                                            //var tableHtml = $("#table tbody").html();
@@ -134,14 +134,14 @@
                                                                                 <td>操作</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td><input type="text" name="pack_no[]" ></td>
-                                                                                <td><input type="text" name="product_name[]"></td>
-                                                                                <td><input type="text" name="brand[]"></td>
-                                                                                <td><input type="text" name="spec[]"></td>
-                                                                                <td><input type="text" name="tech_need[]"></td>
-                                                                                <td><input type="text" name="unit[]"></td>
-                                                                                <td><input type="text" name="num[]"></td>
-                                                                                <td><input type="text" name="tran_days[]"></td>
+                                                                                <td><input type="text" name="pack_no[]"  datatype="*"></td>
+                                                                                <td><input type="text" name="product_name[]" datatype="*"></td>
+                                                                                <td><input type="text" name="brand[]" datatype="*"></td>
+                                                                                <td><input type="text" name="spec[]" datatype="*"></td>
+                                                                                <td><input type="text" name="tech_need[]" datatype="*"></td>
+                                                                                <td><input type="text" name="unit[]" datatype="*"></td>
+                                                                                <td><input type="text" name="num[]" datatype="n"></td>
+                                                                                <td><input type="text" name="tran_days[]" datatype="n"></td>
                                                                                 <td><input type="button" value="新增" onclick="addRow();" /></td>
                                                                             </tr>
                                                                         </table>
@@ -152,18 +152,18 @@
                                                                     <p>本项目采用资格后审的方式，由评审委员会对投标单位的资质进行审查，符合资质要求的单位才能进入下一步招标环节。：</p>
                                                                     <p>1、在中华人民共和国境内依法经国家工商税务机关登记注册，符合投标项目经验范围，具有独立企业法人资格的生产商或代理商。</p>
                                                                     <p>2、其他备注信息</p>
-                                                                    <textarea style="resize: none;width:100%;" name="eq[]"></textarea>
+                                                                    <textarea style="resize: none;width:100%;" name="eq[]" datatype="*"></textarea>
                                                                     <h3>四、项目报名与招标文件的获取</h3>
                                                                     <p>1、报名须知</p>
                                                                     <p>供应商应登录耐耐网电子商务平台，填报企业相关资料，进行网站注册认证，获取账号密码后进行报名。</p>
                                                                     <p>2、招标文件的获取</p>
                                                                     <p>经资格审查入围的供应商，将对其发放招标文件。入围供应商登录耐耐网电子商务平台自行下载招标文件，并根据文件要求在投标截止日之前通过耐耐网电子商务平台进行网上投标。</p>
-                                                                    <p>3、我公司招标办于<input type="date" value="" name="doc_begin">起以每份
-                                                                        <input type="text" value="" name="doc_price">元人民币的价格出售标书，售后不退。</p>
+                                                                    <p>3、我公司招标办于<input type="date" value="" name="doc_begin" datatype="*">起以每份
+                                                                        <input type="text" value="" name="doc_price" datatype="n">元人民币的价格出售标书，售后不退。</p>
                                                                     
 
                                                                     <h3>五、投标文件的递交与开标时间及地点</h3>
-                                                                    <p>1、合格投标人应在投标截止日前通过耐耐网电子商务平台进行网上投标，在上传投标文件的同时，提交保证金<input type="text" name="supply_bail">元，未中标者在投标结果发布之后退还，中标者在签订合同并缴纳合同履约金后予以退还。</p>
+                                                                    <p>1、合格投标人应在投标截止日前通过耐耐网电子商务平台进行网上投标，在上传投标文件的同时，提交保证金<input type="text" name="supply_bail" datatype="n">元，未中标者在投标结果发布之后退还，中标者在签订合同并缴纳合同履约金后予以退还。</p>
                                                                     <p>2、开标方式：<select name="open_way" id=""><option value="1">线上</option></option></select></p>
                                                                     <h3>六、支付方式</h3>
                                                                     <p><input type="checkbox">现汇&nbsp;&nbsp;<input type="checkbox">银行承兑汇票&nbsp;&nbsp;<input type="checkbox">商业承兑汇票&nbsp;&nbsp;<input type="checkbox">国内信用证&nbsp;&nbsp;<input type="checkbox">国际信用证&nbsp;&nbsp;<input type="checkbox">其他<input type="text"></p>
@@ -174,12 +174,12 @@
                                                                     <p>本项目公告仅在耐耐网电子商务平台上发布，本公告的修改、补充，以在耐耐网电子商务平台发布的内容为准。本公告在各媒体发布的文本如有不同之处，以在耐耐网电子商务平台发布的文本为准。</p>
                                                                     <h3>九、联系方式（如没有代理机构可不填）</h3>
                                                                     <div class="contact">
-                                                                        <p>招标人：<input type="text" name="bid_person"></p>
-                                                                        <p>地址：<input type="text" name="cont_address"></p>
-                                                                        <p>联系人：<input type="text" name="cont_person"></p>
-                                                                        <p>电子邮件：<input type="text" name="cont_email"></p>
-                                                                        <p>电话：<input type="text" name="cont_phone"></p>
-                                                                        <p>传真：<input type="text" name="cont_tax"></p>
+                                                                        <p>招标人：<input type="text" name="bid_person" datatype="*"><i>*</i></p>
+                                                                        <p>地址：<input type="text" name="cont_address" datatype="*"><i>*</i></p>
+                                                                        <p>联系人：<input type="text" name="cont_person" datatype="*"><i>*</i></p>
+                                                                        <p>电子邮件：<input type="text" name="cont_email" datatype="e"><i>*</i></p>
+                                                                        <p>电话：<input type="text" name="cont_phone" datatype="m"><i>*</i></p>
+                                                                        <p>传真：<input type="text" name="cont_tax" datatype="n"><i>*</i></p>
                                                                     </div>
                                                                     <div class="contact">
                                                                         <p>招标代理机构：<input type="text" name="agent"></p>
@@ -193,7 +193,6 @@
                                                                     <p>1、所有电子投标文件应于投标截止及开标时间之前按照要求通过网上提交完毕。</p>
                                                                     <p>2、为避免因投标高峰期因网络堵塞等不可预见因素影响，各投标人应尽量提早上传投标文件并须在开标截止时间前完成电子投标文件的提交。</p>
                                                                     <p>3、非供应商会员投标需先完成注册后再投标。</p>
-                                                                    <p>发布公告日期：<input type="date" value=""></p>
                                                                 </div>
 
 
