@@ -74,47 +74,6 @@
                                                         </div>
 				</div>
 			</div>
-<script type="text/javascript">
-//图片预览，兼容各个浏览器
-function previewImage(file) {
-   var porImg  = $(file),
-       viewImg = $('#viewImg');
-   var image = porImg.val();
-   if (!/^\S*\.(?:png|jpe?g|bmp|gif)$/i.test(image)) {
-       layer.msg('请选择图片~', {shift: 6});
-       porImg.val("");
-       return false;
-   }
-   if (file["files"] && file["files"][0]) {
-       var reader = new FileReader();
-       reader.onload = function(evt){
-           viewImg.attr({src : evt.target.result});
-       }
-       reader.readAsDataURL(file.files[0]);
-   } else {
-       var ieImageDom = document.createElement("div");
-       var proIeImageDom = document.createElement("div");
-       $(ieImageDom).css({
-           float: 'left',
-           position: 'relative',
-           overflow: 'hidden',
-           width: '100px',
-           height: '100px'
-       }).attr({"id":"view"});
-       $(proIeImageDom).attr({"id": porImg.attr("id")});
-       porImg.parent().prepend(proIeImageDom);
-       porImg.remove();
-       file.select();
-       path = document.selection.createRange().text;
-       $(ieImageDom).css({"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")"});
-   }
-}
- 
-    //图片上传预览
-    $('#user-pic').change(function(e){
-        previewImage(this);
-    });
-</script>
 			<!--end中间内容-->	
 			<!--start右侧广告			
 			<div class="user_r">

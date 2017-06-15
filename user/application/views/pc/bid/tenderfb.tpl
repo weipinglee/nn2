@@ -101,6 +101,20 @@
                     </div>
                 </div>
             </div>
+            
+            <script type="text/javascript">
+                    $(document).ready(function () { 
+                        $(".type").click(function(){
+                                    var display = $("#invite").css("display");
+                                     if(display == "block"){
+                                            $("#chosen_mem").attr("datatype","*");
+                                    }else{
+                                            $("#chosen_mem").attr("datatype","");
+                                    }
+                        });
+                    });
+               
+            </script>
 			<!--end中间内容-->	
 			<!--start右侧广告			
 			<div class="user_r">

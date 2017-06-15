@@ -59,10 +59,10 @@
                                                                     <span>资格预审</span>
                                                                 </div>
                                                                 <div class="bid_zige" style="padding-left:317px;">
-                                                                    <p class="zigefile"><span>证书名称</span><input type="text"><i>*</i></p>
-                                                                    <p class="zigefile"><span>证书分类</span><input type="text"></p>
-                                                                    <p class="zigefile"><span>证书描述</span><input type="text"></p>
-                                                                    <p class="zigefile"><span>附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件</span><input type="file" class="doc" id="user-pic"><i>*</i></p>
+                                                                    <p class="zigefile"><span>证书名称</span><input type="text" datatype="*"><i>*</i></p>
+                                                                    <p class="zigefile"><span>证书分类</span><input type="text" datatype="*"><i>*</i></p>
+                                                                    <p class="zigefile"><span>证书描述</span><input type="text" datatype="*"><i>*</i></p>
+                                                                    <p class="zigefile"><span>附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件</span><input type="file" class="doc" id="user-pic" datatype="*"><i>*</i></p>
                                                                     <p class="zigefile"><span>附件图片</span><img id="viewImg"></p>
                                                                                                                                         
                                                                 </div>
