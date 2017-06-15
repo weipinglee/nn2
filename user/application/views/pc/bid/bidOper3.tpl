@@ -8,7 +8,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>我的招标</a>><a>发布招标</a></p>
+						<p><a>我的招标</a>><a>投标</a></p>
 					</div>
                                                         <div class="project_detail">
                                                             <h1>{$detail['pro_name']}</h1>
@@ -69,9 +69,10 @@
                                                             <div class="clear"></div>
 
                                                             <div class="button">
-                                                                <button>下载标书</button>
+                                                                <a href="{$detail['doc']}"><button>下载标书</button></a>
                                                             </div>
                                                         <form method="post" action="{url:/bid/replyGivePrice}" auto_submit="1">
+                                                            <input type="hidden" name="reply_id" value="{$reply_id}" />
                                                             <div class="invite" id="invite" style="padding-top:47px;">
                                                                 <div class="invite_title">
                                                                     <span>投标文件</span>
@@ -80,9 +81,19 @@
                                                                     <p class="zigefile"><span>招标编号：</span>{$detail['no']}</p>
                                                                     <p class="zigefile"><span>项目名称：</span>{$detail['pro_name']}</p>
                                                                     <p class="zigefile"><span>投标保证金：</span><i>{$detail['supply_bail']}</i> 元</p>
-                                                                    <p class="zigefile"><span>投&nbsp;&nbsp;标&nbsp;&nbsp;书：</span><input type="file" class="doc" id="1" name="doc" onchange="javascript:uploadDoc(this,'{url:/bid/ajaxUploadDoc}');"><i>*</i></p>
-                                                                    <p class="zigefile" style="color:#e00101;">标书只能上传一次，且只能上传一个文件，请打包压缩之后上传</p>
-                                                                                                                                        <input name="doc1" type="hidden"/>
+                                                                    {if:$reply['bid_doc']==''}
+                                                                    <p class="zigefile">
+                                                                        <span>投&nbsp;&nbsp;标&nbsp;&nbsp;书：</span>
+                                                                        <input type="file" class="doc" id="1" name="doc" onchange="javascript:uploadDoc(this,'{url:/bid/ajaxUploadDoc}');"><i>*</i></p>
+                                                                    <p class="zigefile" style="color:#e00101;"></p>
+                                                                    {else:}
+                                                                    <p class="zigefile">
+                                                                        <span>投&nbsp;&nbsp;标&nbsp;&nbsp;书：</span>
+                                                                            <a href="{$reply['bid_doc_url']}">[下载投标书]</a>
+                                                                       </p>
+                                                                    {/if}
+                                                                     <input name="doc1" type="hidden" value="{$reply['bid_doc']}"/>
+
                                                                 </div>
                                                             </div>
 
@@ -113,42 +124,100 @@
                                                                             <td>总金额</td>
                                                                             <td>备注</td>
                                                                         </tr>
-                                                                        {foreach:$items=$detail['package']}
-                                                                        <tr>
-                                                                           <input type="hidden" name="pack_id[]" value="{$item['id']}"/>
-                                                                            <td>{$item['pack_no']}</td>
-                                                                            <td>{$item['product_name']}</td>
-                                                                            <td><input type="text" name="brand[]"></td>
-                                                                            <td>合格</td>
-                                                                            <td>高</td>
-                                                                            <td>吨</td>
-                                                                            <td>100</td>
-                                                                            <td>
-                                                                                <select>
-                                                                                    <option value="">是</option>
-                                                                                    <option value="">否</option>
-                                                                                </select>
-                                                                            </td>
-                                                                            <td><input type="text" name="unit_price"></td>
-                                                                            <td><input type="text" name="freight_fee"></td>
-                                                                            <td><input type="text"></td>
-                                                                            <td><input type="text"></td>
-                                                                            <td><input type="text" name="tran_days"></td>
-                                                                            <td><input type="text"></td>
-                                                                            <td><input type="text" name="note"></td>
-                                                                        </tr>
-                                                                        {/foreach}
-                                                                    </table>
-                                                                                                                                        
-                                                                </div>
-                                                            </div>
+                                                                        {if:empty($reply['reply_package'])}
+                                                                            {foreach:$items=$detail['package']}
+                                                                                <tr>
+                                                                                    <input type="hidden" name="pack_id[]" value="{$item['id']}"/>
+                                                                                    <td>
+                                                                                        {$item['pack_no']}
+                                                                                        <input type="hidden" name="pack_no" value="{$item['pack_no']}"/>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        {$item['product_name']}
+                                                                                        <input type="hidden" name="pack_no" value="{$item['product_name']}"/>
+                                                                                    </td>
+                                                                                    <td><input type="text" name="brand[]"></td>
+                                                                                    <td>
+                                                                                        {$item['spec']}
+                                                                                        <input type="hidden" name="pack_no" value="{$item['spec']}"/>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        {$item['tech_need']}
+                                                                                        <input type="hidden" name="pack_no" value="{$item['tech_need']}"/>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        {$item['unit']}
+                                                                                        <input type="hidden" name="pack_no" value="{$item['unit']}"/>
 
-                                                            <div class="clear"></div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        {$item['num']}
+                                                                                        <input type="hidden" name="pack_no" value="{$item['num']}"/>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <select name="deliver[]">
+                                                                                            <option value="1">是</option>
+                                                                                            <option value="0">否</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td><input type="text" name="unit_price[]"></td>
+                                                                                    <td><input type="text" name="freight_fee[]"></td>
+                                                                                    <td></td>
+                                                                                    <td><input type="text" name="quanlity[]"></td>
+                                                                                    <td><input type="text" name="tran_days[]"></td>
+                                                                                    <td></td>
+                                                                                    <td><input type="text" name="note[]"></td>
+                                                                                </tr>
+                                                                            {/foreach}
+                                                                                    </table>
 
-                                                            <div class="button">
-                                                                <button>提交</button>
-                                                            </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="clear"></div>
+
+                                                                            <div class="button">
+                                                                                <button>提交</button>
+                                                                            </div>
                                                         </form>
+                                                                        {else:}
+                                                                            {foreach:$items=$reply['reply_package']}
+                                                                                <tr>
+                                                                                    <input type="hidden" name="pack_id[]" value="{$item['pack_id']}"/>
+                                                                                    <td>{$item['pack_no']}</td>
+                                                                                    <td>{$item['product_name']}</td>
+                                                                                    <td>{$item['brand']}</td>
+                                                                                    <td>{$item['spec']}</td>
+                                                                                    <td>{$item['tech_need']}</td>
+                                                                                    <td>{$item['unit']}</td>
+                                                                                    <td>{$item['num']}</td>
+                                                                                    <td>
+                                                                                        {if:$item['deliver']}是{else:}否{/if}
+                                                                                    </td>
+                                                                                    <td>{$item['unit_price']}</td>
+                                                                                    <td>{$item['freight_fee']}</td>
+                                                                                    <td>{echo:$item['num']*$item['unit_price']}</td>
+                                                                                    <td>{$item['quanlity']}</td>
+                                                                                    <td>{$item['tran_days']}</td>
+                                                                                    <td>{echo:$item['num']*$item['unit_price'] + $item['freight_fee']}</td>
+                                                                                    <td>{$item['note']}</td>
+                                                                                </tr>
+                                                                            {/foreach}
+                                                                                                                            </table>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="clear"></div>
+                                                                              </form>
+                                                                                <div class="button">
+                                                                                    <a href="{url:/bid/bidoper4}?reply_id={$reply_id}" ><button>下一步</button></a>
+                                                                                </div>
+                                                                        {/if}
+
+
+
+
                                                         </div>
 				</div>
 			</div>

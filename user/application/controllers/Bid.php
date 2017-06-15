@@ -314,7 +314,7 @@ class BidController extends UcenterBaseController{
 		$id = safe::filterGet('id','int');
 		$detail = $this->bidObj->getBidDetail($id);
 		$this->getView()->assign('detail',$detail);
-		print_r($detail);
+
 		switch($detail['status']){
 			case 0 :
 			case 1 :
@@ -357,9 +357,43 @@ class BidController extends UcenterBaseController{
 
 		//获取投标信息
 		$page = safe::filterGet('page','int',1);
-		$replyList = $this->bidObj->getReplyList($page);
-		$this->getView()->assign('replyList',$replyList);print_r($replyList);
+		$replyList = $this->bidObj->getReplyList($id,$page);
+		$this->getView()->assign('replyList',$replyList);
 	}
+
+	public function tenderDetail2Action(){
+		$id = safe::filterGet('id','int');
+		$detail = $this->bidObj->getBidDetail($id);
+		$this->getView()->assign('detail',$detail);
+
+		//获取各个包件投标信息
+		$packList = $this->bidObj->getReplyPackList($id);
+		$pack = array();
+		if(!empty($packList)){
+			foreach($packList as $key=>$val){
+				$pack[$val['pack_no']][] = $val;
+			}
+		}
+
+		$this->getView()->assign('packlist',$pack);
+
+
+	}
+
+	public function packCompareAction()
+	{
+		$this->getView()->setLayout('');
+		$pack_id = safe::filterGet('pack_id');
+		$pack_ids = implode(',',$pack_id);//组成以逗号相隔的数据
+		if($pack_ids=='')
+			$pack_ids=0;
+		$packList = $this->bidObj->getPackCompareList($pack_ids);
+		$this->getView()->assign('packlist',$packList);
+
+
+	}
+
+
 
 
 
@@ -379,6 +413,11 @@ class BidController extends UcenterBaseController{
 	{
 		$id = safe::filterGet('id','int');
 		$data = $this->bidObjSeller->getReplyDetail($id);
+		if($data['bid_status']==7 || $data['bid_status']==8){
+			$this->redirect(url::createUrl('/bid/bidOper5').'?reply_id='.$id);
+			exit;
+		}
+
 		switch($data['status']){
 			case 1 :
 			case 2 :
@@ -484,10 +523,11 @@ class BidController extends UcenterBaseController{
 	 */
 	public function replyCertsVerifyAction(){
 		if(IS_POST){
-			$reply_id = safe::filterPost('id','int');
+			$reply_id = safe::filterPost('reply_id','int');
 			$status = safe::filterPost('status','int',0);
 			$this->bidObj->setStateObj('reply',$reply_id);
 			$res = $this->bidObj->replyCertsVerify($status);
+
 			die(json::encode($res));
 		}
 	}
@@ -531,8 +571,12 @@ class BidController extends UcenterBaseController{
 		$reply_id = safe::filterGet('reply_id','int');
 		$M = new M('bid_reply');
 		$bid_id = $M->where(array('id'=>$reply_id))->getField('bid_id');
-		$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);//print_r($bidDetail);
+		$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
+
+		$replyDetail = $this->bidObjSeller->getReplyDetail($reply_id);
+
 		$this->getView()->assign('detail',$bidDetail);
+		$this->getView()->assign('reply',$replyDetail);
 		$this->getView()->assign('bid_id',$bid_id);
 		$this->getView()->assign('reply_id',$reply_id);
 	}
@@ -541,6 +585,7 @@ class BidController extends UcenterBaseController{
 	public function ajaxUploadDocAction(){
 		$uploadObj = new \Library\upload\commonUpload();
 		$res = $uploadObj->upload();
+		$res['doc']['src'] = tool::setImgApp($res['doc']['src']);
 		die(json::encode($res['doc']));
 	}
 
@@ -554,16 +599,14 @@ class BidController extends UcenterBaseController{
 
 			$package = array(
 					'pack_id' => safe::filterPost('pack_id','int'),
+					'pack_no' => safe::filterPost('pack_no'),
 					'brand' => safe::filterPost('brand'),
-					//'spec' => safe::filterPost('spec'),
-					//'tech_need' => safe::filterPost('tech_need'),
-					//'unit' => safe::filterPost('unit'),
-					//'num' => safe::filterPost('num'),
-					'tran_date' => safe::filterPost('tran_date'),
 					'unit_price' => safe::filterPost('unit_price'),
 					'freight_fee' => safe::filterPost('freight_fee'),
 					'tran_days' => safe::filterPost('tran_days'),
-					'note' => safe::filterPost('note')
+					'note' => safe::filterPost('note'),
+					'quanlity' => safe::filterPost('quanlity'),
+					'deliver' => safe::filterPost('deliver','int',1)
 			);
 			$data = array();
 			foreach($package as $key=>$item){
@@ -573,13 +616,36 @@ class BidController extends UcenterBaseController{
 			}
 
 			$upload = safe::filterPost('doc1');
-
-
 			$this->bidObjSeller->setStateObj('reply',$reply_id);
 			$res = $this->bidObjSeller->replySubmitPackage($data,$upload);
 			die(json::encode($res));
 		}
 	}
+
+	public function bidOper4Action(){
+		$reply_id = safe::filterGet('reply_id','int');
+		$M = new M('bid_reply');
+		$bid_id = $M->where(array('id'=>$reply_id))->getField('bid_id');
+		$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
+
+		$this->getView()->assign('reply_id',$reply_id);
+		$this->getView()->assign('detail',$bidDetail);
+	}
+
+	public function bidOper5Action(){
+		$reply_id = safe::filterGet('reply_id','int');
+		$M = new M('bid_reply');
+		$bid_id = $M->where(array('id'=>$reply_id))->getField('bid_id');
+		$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
+		$this->getView()->assign('reply_id',$reply_id);
+		$this->getView()->assign('detail',$bidDetail);
+
+		$zbInfo = $this->bidObjSeller->getZbInfo($bid_id,$this->user_id);
+		$this->getView()->assign('zbinfo',$zbInfo);
+
+	}
+
+
 
 
 	/***********************截标评标********************************/
@@ -587,11 +653,54 @@ class BidController extends UcenterBaseController{
 	public function stopBidAction()
 	{
 		if(IS_POST){
-			$bid_id = safe::filterPost('id','int');
+			$bid_id = safe::filterPost('bid_id','int');
 			$this->bidObj->setStateObj('bid',$bid_id);
 			$res = $this->bidObj->bidStop();
 			die(json::encode($res));
 		}
+
+	}
+
+	public function pingbiaojsAction()
+	{
+		if(IS_POST){
+			$status = safe::filterPost('status','int');//1：评标结束，0：项目流标
+			$bid_id = safe::filterPost('bid_id','int');
+			$this->bidObj->setStateObj('bid',$bid_id);
+			$res = $this->bidObj->pbClose($status);
+			die(json::encode($res));
+
+		}
+	}
+
+	public function pingbiaoAction(){
+		if(IS_POST){
+			$id = safe::filterPost('reply_pack_id','int');
+			$point = array(
+					'zz'=>safe::filterPost('zz'),
+					'js'=>safe::filterPost('js'),
+					'sw'=>safe::filterPost('sw')
+			);
+			$bid_id = safe::filterPost('bid_id');
+			$status = safe::filterPost('status');
+			$this->bidObj->setStateObj('bid',$bid_id);
+			$res = $this->bidObj->pingbiao($id,$point,$status);
+			die(json::encode($res));
+		}
+	}
+
+	/**
+	 * 中标信息
+	 */
+	public function tenderDetail3Action(){
+		$id = safe::filterGet('id','int');
+		$detail = $this->bidObj->getBidDetail($id);
+		$this->getView()->assign('detail',$detail);
+
+		//获取各个包件中标信息
+		$zbInfo = $this->bidObj->getZbUser($id);
+		$this->getView()->assign('zbinfo',$zbInfo);
+
 
 	}
 

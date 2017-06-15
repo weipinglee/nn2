@@ -11,13 +11,13 @@
 						<p><a>我的招标</a>><a>开标</a></p>
 					</div>
                                                         <div class="project_detail">
-                                                            <h1>501矿</h1>
-                                                            <p>招标方：海天贸易</p>
-                                                            <p>招标方式：公开招标</p>
-                                                            <p>评标类型：分包</p>
-                                                            <p>项目地点：中国 山西省 阳泉市 郊区</p>
-                                                            <p>投标时间：2015-8-10——2015-10-8</p>
-                                                            <p>开标地点：[线上]</p>
+                                                            <h1>{$detail['pro_name']}</h1>
+                                                            <p>招标方：{$detail['true_name']}</p>
+                                                            <p>招标方式：{$detail['mode_text']}</p>
+                                                            <p>评标类型：{$detail['pack_type_text']}</p>
+                                                            <p>项目地点：{$detail['pro_address']}</p>
+                                                            <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
+                                                            <p>开标地点：[{$detail['open_way_text']}]</p>
 
                                                         </div>
 					<div class="center_tabl">
@@ -57,9 +57,17 @@
                                                                 </div>
                                                                 <div class="bid_zige">
                                                                     <div class="bid_cont">
-                                                                        <p>包件号：<a class="package on">OC-1</a><a class="package">OC-2</a></p>
+                                                                        <p>包件号：
+                                                                            {set:$i=0}
+                                                                            {foreach:items=$packlist}
+                                                                                <a class="package {if:$i==0}on{/if}" name="{$key}">{$key}</a>
+                                                                                {set:$i=$i+1;}
+                                                                        {/foreach}
+
                                                                     </div>
-                                                                    <table>
+                                                                    {set:$j=0}
+                                                                    {foreach:items=$packlist}
+                                                                    <table id="{$key}" {if:$j!=0}style="display:none;"{/if}>
                                                                         <tr>
                                                                             <td>会员名称</td>
                                                                             <td>标书</td>
@@ -68,28 +76,27 @@
                                                                             <td>对比选择</td>
                                                                             <td>选择中标</td>
                                                                         </tr>
+                                                                        {foreach:items=$item key=$k item=$v}
+
                                                                         <tr>
-                                                                            <td>海天贸易</td>
-                                                                            <td><a href="" style="color:#1a59d9;">下载</a></td>
+                                                                            <input type="hidden" name="reply_pack_id" value="{$v['id']}" />
+                                                                            <td>{$v['true_name']}</td>
+                                                                            <td><a href="{$v['bid_doc_url']}" style="color:#1a59d9;">下载</a></td>
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
-                                                                            <td>2015-2-8</td>
-                                                                            <td><input type="checkbox"></td>
+                                                                            <td>{$v['create_time']}</td>
+                                                                            <td><input type="checkbox" name="check[]" value="{$v['id']}"></td>
                                                                             <td><a class="chose_supplier" style="color:#1a59d9;">选择</a></td>
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td>海天贸易</td>
-                                                                            <td><a href="" style="color:#1a59d9;">下载</a></td>
-                                                                            <td><a href="" style="color:#1a59d9;">查看</a></td>
-                                                                            <td>2015-2-8</td>
-                                                                            <td><input type="checkbox"></td>
-                                                                            <td><a class="chose_supplier" style="color:#1a59d9;">选择</a></td>
-                                                                        </tr>
+                                                                        {/foreach}
+
                                                                         <tr>
                                                                             <td colspan="6">
                                                                                 <button onclick="javascript:window.location.href=' package_compare.html'">对比</button><button onclick="javascript:window.location.href=' package_compare.html'">全部对比</button>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
+                                                                        {set:$j +=1;}
+                                                                    {/foreach}
                                                                                                                                         
                                                                 </div>
                                                             </div>
@@ -111,13 +118,14 @@
 
                     <div class="chose" style="width:450px;">
                         <div class="search">
+                            <input type="hidden" name="bid_id" value="{$detail['id']}" />
                             <p>项目名称：<b>上海建筑用钢招标会</b></p>
                             <p>包件：OC-2</p>
                             <p>中标单位名称：aa(02000001)</p>
-                            <p>资质分数：<input type="text" style="border-radius:0;"></p>
-                            <p>技术分数：<input type="text" style="border-radius:0;"></p>
-                            <p>商务分数：<input type="text" style="border-radius:0;"></p>
-                            <p><input type="radio" name="bidd">确定中标<input type="radio" name="bidd">该包件流标</p>
+                            <p>资质分数：<input name="zz" type="text" style="border-radius:0;"></p>
+                            <p>技术分数：<input name="js" type="text" style="border-radius:0;"></p>
+                            <p>商务分数：<input name="sw" type="text" style="border-radius:0;"></p>
+                            <p><input type="radio" name="status" value="1">确定中标<input type="radio" name="status" value="0">该包件流标</p>
                             <p>注：预中标结果发布，三天后若无异议，将自动释放未中标人缴纳的保证金！</p>
                         </div>
                         <button class="ok" style="margin-left:150px;">确定</button>
@@ -125,24 +133,5 @@
                     </div>
                 </div>
             </div>
-			<!--end中间内容-->	
-			<!--start右侧广告			
-			<div class="user_r">
-				<div class="wrap_con">
-					<div class="tit clearfix">
-						<h3>公告</h3>
-					</div>
-					<div class="con">
-						<div class="con_medal clearfix">
-							<ul>
-								<li><a>暂无勋章</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--end右侧广告-->
-		</div>
-	</div>
-</body>
-</html>
+			<!--end中间内容-->
+

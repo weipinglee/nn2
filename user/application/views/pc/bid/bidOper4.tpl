@@ -11,13 +11,13 @@
 						<p><a>我的投标</a>><a>开标</a></p>
 					</div>
                                                         <div class="project_detail">
-                                                            <h1>501矿</h1>
-                                                            <p>招标方：海天贸易</p>
-                                                            <p>招标方式：公开招标</p>
-                                                            <p>评标类型：分包</p>
-                                                            <p>项目地点：中国 山西省 阳泉市 郊区</p>
-                                                            <p>投标时间：2015-8-10——2015-10-8</p>
-                                                            <p>开标地点：[线上]</p>
+                                                            <h1>{$detail['pro_name']}</h1>
+                                                            <p>招标方：{$detail['true_name']}</p>
+                                                            <p>招标方式：{$detail['mode_text']}</p>
+                                                            <p>评标类型：{$detail['pack_type_text']}</p>
+                                                            <p>项目地点：{$detail['pro_address']}</p>
+                                                            <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
+                                                            <p>开标地点：[{$detail['open_way_text']}]</p>
                                                         </div>
 					<div class="center_tabl">
                                                             <ul class="step_list">
@@ -58,7 +58,7 @@
                                                                 
                                                                 <div class="bid_zige" style="">
                                                                     <h2>开标倒计时：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h2>
-                                                                    <p>
+                                                                    <!--<p>
                                                                         包件
                                                                         <select>
                                                                             <option value="">包件1</option>
@@ -66,13 +66,16 @@
                                                                         </select>
                                                                         <button style="width:50px;height:30px;line-height:30px;">查看</button>
                                                                     </p>
-                                                                    <h3>入围图示</h3>
+                                                                    <h3>入围图示</h3>-->
 
                                                                                                                                         
                                                                 </div>
                                                             </div>
 
                                                             <div class="clear"></div>
+                        <!--<div class="button">
+                            <a href="{url:/bid/bidoper3}?reply_id={$reply_id}" ><button>上一步</button></a>
+                        </div>-->
 
                                                         
 
@@ -87,7 +90,7 @@
 
         function show_time(){ 
         var time_start = new Date().getTime(); //设定当前时间
-        var time_end =  new Date("2017/10/01 00:00:00").getTime(); //设定目标时间
+        var time_end =  new Date("{$detail['open_time']}").getTime(); //设定目标时间
         // 计算时间差 
         var time_distance = time_end - time_start; 
         // 天
@@ -124,23 +127,3 @@
         }
 </script>
 			<!--end中间内容-->	
-			<!--start右侧广告			
-			<div class="user_r">
-				<div class="wrap_con">
-					<div class="tit clearfix">
-						<h3>公告</h3>
-					</div>
-					<div class="con">
-						<div class="con_medal clearfix">
-							<ul>
-								<li><a>暂无勋章</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--end右侧广告-->
-		</div>
-	</div>
-</body>
-</html>

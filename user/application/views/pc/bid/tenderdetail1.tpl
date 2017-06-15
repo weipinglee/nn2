@@ -18,15 +18,15 @@
                                                             <p>项目地点：{$detail['pro_address']}</p>
                                                             <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
                                                             <p>开标地点：[{$detail['open_way_text']}]</p>
-                                                            <form method="post" action="{url:/bid/bidrelease}" auto_submit="1" >
+                                                            <form method="post" name="operBid" action="{url:/bid/stopBid}" auto_submit="1" >
                                                                 <input type="hidden" name="bid_id" value="{$detail['id']}"/>
 
                                                             </form>
                                                             <!-- 补充公告 -->
                                                             <div class="tender_handle">
                                                                 <button id="chose_supplier">发布补充公告</button>
-                                                                <button>撤回</button>
-                                                                <button>终止</button>
+                                                                <button name="cx">撤回</button>
+                                                                <button name="zz">终止</button>
                                                             </div>
                                                         </div>
 					<div class="center_tabl">
@@ -78,53 +78,60 @@
                                                                     <span style="width:80px;">投标会员列表</span>
                                                                 </div>
                                                                 <div class="bid_zige">
+                                                                    {if:$detail['status']==2}
                                                                     <p>
-                                                                        <button>截标</button>
+                                                                        <button name="stop">截标</button>
                                                                     </p>
-                                                                    <p style="float:right;">
+                                                                    {/if}
+                                                                   <!-- <p style="float:right;">
                                                                         <span>会员编号</span><input type="text">
                                                                         <span>会员名称</span><input type="text">
                                                                         <button>搜索</button>
-                                                                    </p>
+                                                                    </p>-->
                                                                     <table>
                                                                         <tr>
                                                                             <td>序号</td>
                                                                             <td>会员名称</td>
-                                                                            <td>资质信息</td>
+                                                                            <td>投标状态</td>
                                                                             <td>标书购买</td>
                                                                             <td>是否投标</td>
                                                                             <td>保证金状态</td>
                                                                             <td>保证金金额</td>
                                                                             <td>操作</td>
                                                                         </tr>
-                                                                        {foreach:items=$replyList}
+                                                                        {foreach:items=$replyList['list']}
                                                                             <tr>
-                                                                                <td>{$key}</td>
+                                                                                <input type="hidden" name="id" value="{$item['id']}"/>
+                                                                                <td>{echo:$key+1}</td>
                                                                                 <td>{$item['true_name']}</td>
-                                                                                <td>未审核[<a href="{url:/bid/}" style="color:#1a59d9;">查看</a>]</td>
-                                                                                <td>未购买</td>
-                                                                                <td>未投标</td>
-                                                                                <td>未冻结</td>
+                                                                                <td>{$item['status_text']}[<a href="{url:/bid/}" style="color:#1a59d9;">查看</a>]</td>
+                                                                                <td>{if:$item['status']<5}未购买{else:}已购买{/if}</td>
+                                                                                <td>{if:$item['status']<7}未投标{else:}已投标{/if}</td>
+                                                                                <td>{if:$item['status']<7}未冻结{else:}未冻结{/if}</td>
                                                                                 <td></td>
                                                                                 <td>
-                                                                                    <select>
-                                                                                        <option>通过</option>
-                                                                                        <option>不通过</option>
+                                                                                    {if:$item['status']==2}
+                                                                                    <select name="oper">
+                                                                                        <option value="-1">操作</option>
+                                                                                        <option value="1">通过</option>
+                                                                                        <option value="0">不通过</option>
                                                                                     </select>
+                                                                                    {/if}
                                                                                 </td>
                                                                             </tr>
                                                                         {/foreach}
 
                                                                     </table>
+
                                                                                                                                         
                                                                 </div>
                                                             </div>
 
                                                             <div class="clear"></div>
 
-                                                            <div class="button">
+                                                            <!--<div class="button">
                                                                 <button>提交</button>
-                                                            </div>
+                                                            </div>-->
 
                                                         </div>
 				</div>
@@ -146,23 +153,38 @@
                 </div>
             </div>
 			<!--end中间内容-->	
-			<!--start右侧广告			
-			<div class="user_r">
-				<div class="wrap_con">
-					<div class="tit clearfix">
-						<h3>公告</h3>
-					</div>
-					<div class="con">
-						<div class="con_medal clearfix">
-							<ul>
-								<li><a>暂无勋章</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--end右侧广告-->
-		</div>
-	</div>
-</body>
-</html>
+<form name="certs" method="post" action="{url:/bid/replyCertsVerify}" auto_submit="1" no_redirect="1">
+    <input type="hidden" name="reply_id" />
+    <input type="hidden" name="status" />
+ </form>
+
+  <script type="text/javascript">
+      $(function(){
+          $('select[name=oper]').change(function() {
+              var status = $(this).val();
+              if(status!=-1){
+                  var reply_id = $(this).parents('tr').find('input[name=id]').val();
+                  $('form[name=certs]').find('input[name=reply_id]').val(reply_id);
+                  $('form[name=certs]').find('input[name=status]').val(status);
+                  $('form[name=certs]').submit();
+
+              }
+          })
+
+          $('button[name=stop]').on('click',function() {
+              $('form[name=operBid]').attr('action','{url:/bid/stopBid}').submit();
+
+          })
+
+          $('button[name=cx]').on('click',function() {
+              $('form[name=operBid]').attr('action','{url:/bid/cancleBid}').submit();
+
+          })
+
+          $('button[name=zz]').on('click',function() {
+              $('form[name=operBid]').attr('action','{url:/bid/closeBid}').submit();
+
+          })
+
+      })
+  </script>

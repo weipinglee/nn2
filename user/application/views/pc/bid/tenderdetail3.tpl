@@ -11,13 +11,14 @@
 						<p><a>我的招标</a>><a>中标结果</a></p>
 					</div>
                                                         <div class="project_detail">
-                                                            <h1>501矿</h1>
-                                                            <p>招标方：海天贸易</p>
-                                                            <p>招标方式：公开招标</p>
-                                                            <p>评标类型：分包</p>
-                                                            <p>项目地点：中国 山西省 阳泉市 郊区</p>
-                                                            <p>投标时间：2015-8-10——2015-10-8</p>
-                                                            <p>开标地点：[线上]</p>
+                                                            <h1>{$detail['pro_name']}</h1>
+                                                            <p>招标方：{$detail['true_name']}</p>
+                                                            <p>招标方式：{$detail['mode_text']}</p>
+                                                            <p>评标类型：{$detail['pack_type_text']}</p>
+                                                            <p>项目地点：{$detail['pro_address']}</p>
+                                                            <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
+                                                            <p>开标地点：[{$detail['open_way_text']}]</p>
+
                                                         </div>
 					<div class="center_tabl">
                                                             <ul class="step_list">
@@ -57,12 +58,17 @@
                                                                     <span>中标结果</span>
                                                                 </div>
                                                                 <div class="bid_zige" style="">
-                                                                    <p class="zigefile"><span>项目名称：</span>501矿</p>
-                                                                    <p class="zigefile"><span>招标类型：</span>公开招标</p>
-                                                                    <p class="zigefile"><span>当前状态：</span>已结束</p>
-                                                                    <hr/>
-                                                                    <p class="zigefile"><span>包件号：</span>OC-1</p>
-                                                                    <p class="zigefile">中标会员：nainaiwang</p>
+                                                                    {if:$detail['status']==7}
+                                                                        {foreach:items=$zbinfo}
+
+                                                                            <p class="zigefile"><span>包件号：</span>{$item['pack_no']}</p>
+                                                                            <p class="zigefile">中标会员：{if:$item['win_user_id']==-1}流标{else:}{$item['username']}{/if}</p>
+                                                                        {/foreach}
+                                                                        {elseif:$detail['status']==8}
+                                                                        项目流标
+
+                                                                    {/if}
+
                                                                                                                                         
                                                                 </div>   
 
@@ -76,23 +82,3 @@
 			</div>
 
 			<!--end中间内容-->	
-			<!--start右侧广告			
-			<div class="user_r">
-				<div class="wrap_con">
-					<div class="tit clearfix">
-						<h3>公告</h3>
-					</div>
-					<div class="con">
-						<div class="con_medal clearfix">
-							<ul>
-								<li><a>暂无勋章</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--end右侧广告-->
-		</div>
-	</div>
-</body>
-</html>

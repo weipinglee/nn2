@@ -11,13 +11,13 @@
 						<p><a>我的投标</a>><a>中标结果</a></p>
 					</div>
                                                         <div class="project_detail">
-                                                            <h1>501矿</h1>
-                                                            <p>招标方：海天贸易</p>
-                                                            <p>招标方式：公开招标</p>
-                                                            <p>评标类型：分包</p>
-                                                            <p>项目地点：中国 山西省 阳泉市 郊区</p>
-                                                            <p>投标时间：2015-8-10——2015-10-8</p>
-                                                            <p>开标地点：[线上]</p>
+                                                            <h1>{$detail['pro_name']}</h1>
+                                                            <p>招标方：{$detail['true_name']}</p>
+                                                            <p>招标方式：{$detail['mode_text']}</p>
+                                                            <p>评标类型：{$detail['pack_type_text']}</p>
+                                                            <p>项目地点：{$detail['pro_address']}</p>
+                                                            <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
+                                                            <p>开标地点：[{$detail['open_way_text']}]</p>
                                                         </div>
 					<div class="center_tabl">
                                                             <ul class="step_list">
@@ -57,19 +57,21 @@
                                                             <div class="invite" id="invite" style="padding-top:47px;">
                                                                 
                                                                 <div class="bid_zige" style="">
+                                                                    {if:!empty($zbinfo)}
                                                                     <h2 style="margin-bottom:50px;">恭喜您中标了！</h2>
+                                                                    {else:}
+                                                                        <h2 style="margin-bottom:50px;">很遗憾，没有中标！</h2>
+                                                                    {/if}
 
 
                                                                 <div class="invite_title">
                                                                     <span>中标结果</span>
                                                                 </div>
                                                                 <div class="bid_zige" style="">
-                                                                    <p class="zigefile"><span>项目名称：</span>501矿</p>
-                                                                    <p class="zigefile"><span>招标类型：</span>公开招标</p>
-                                                                    <p class="zigefile"><span>当前状态：</span>已结束</p>
-                                                                    <hr/>
-                                                                    <p class="zigefile"><span>包件号：</span>OC-1</p>
-                                                                    <p class="zigefile" style="color:#e00101;">中标会员：nainaiwang</p>
+                                                                   {foreach:items=$zbinfo}
+                                                                    <p class="zigefile"><span>包件号：</span>{$item['pack_no']}</p>
+                                                                    <p class="zigefile" style="color:#e00101;">中标会员：{$item['username']}</p>
+                                                                    {/foreach}
                                                                                                                                         
                                                                 </div>   
 
@@ -83,23 +85,3 @@
 			</div>
 
 			<!--end中间内容-->	
-			<!--start右侧广告			
-			<div class="user_r">
-				<div class="wrap_con">
-					<div class="tit clearfix">
-						<h3>公告</h3>
-					</div>
-					<div class="con">
-						<div class="con_medal clearfix">
-							<ul>
-								<li><a>暂无勋章</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--end右侧广告-->
-		</div>
-	</div>
-</body>
-</html>
