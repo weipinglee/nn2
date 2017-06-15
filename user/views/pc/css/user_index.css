@@ -2268,6 +2268,9 @@ input#image {
 .bid .bid_cont p span{
   font-weight: bold;
 }
+.bid .bid_cont p i{
+  color: red;
+}
 .bid .bid_cont p span.sec_op{
   margin-left: 30px;
 }
