@@ -127,12 +127,12 @@
                                                                                     <option value="">否</option>
                                                                                 </select>
                                                                             </td>
+                                                                            <td><input type="text" datatype="n"></td>
+                                                                            <td><input type="text" datatype="n"></td>
+                                                                            <td><input type="text" datatype="n"></td>
                                                                             <td><input type="text"></td>
-                                                                            <td><input type="text"></td>
-                                                                            <td><input type="text"></td>
-                                                                            <td><input type="text"></td>
-                                                                            <td><input type="text"></td>
-                                                                            <td><input type="text"></td>
+                                                                            <td><input type="text" datatype="n"></td>
+                                                                            <td><input type="text" datatype="n"></td>
                                                                             <td><input type="text"></td>
                                                                         </tr>
                                                                     </table>

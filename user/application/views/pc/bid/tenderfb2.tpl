@@ -51,22 +51,22 @@
                                                                     </p>
                                                                     <p>
                                                                         <span>项目名称：</span>
-                                                                        <input type="text" style="width:314px;" name="pro_name" datatype="*">
+                                                                        <input type="text" style="width:314px;" name="pro_name" datatype="*" errormsg="请填写项目名称"><i>*</i>
 
                                                                         <span class="sec_op">项目地点：</span>
-                                                                        <input type="text" name="pro_address" />
+                                                                        <input type="text" name="pro_address" datatype="*" errormsg="请填写项目地点"/><i>*</i>
                                                                     </p>
                                                                     <p>
                                                                         <span>投标时间：</span>
-                                                                        <input type="date" value="" name="begin_time" datatype="*">
+                                                                        <input type="date" value="" name="begin_time" datatype="*" />
                                                                         <span>至</span>
-                                                                        <input type="date" value="" name="end_time" datatype="*">
+                                                                        <input type="date" value="" name="end_time" datatype="*" /><i>*</i>
                                                                         <span class="tips">
                                                                             开始日期不晚于当前日期一个月，过程在10-30天内
                                                                         </span><br/>
 
                                                                         <span>开标时间：</span>
-                                                                        <input type="date" value="" name="open_time" datatype="*">
+                                                                        <input type="date" value="" name="open_time" datatype="*" ><i>*</i>
                                                                         <span class="tips">
                                                                             截标后10-60天内
                                                                         </span>
