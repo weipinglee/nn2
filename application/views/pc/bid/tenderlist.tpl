@@ -1,5 +1,5 @@
  <!-- 招标页 -->
-     <link rel="stylesheet" type="text/css" href="{views:css/product.js}"/>
+     <link rel="stylesheet" type="text/css" href="{views:css/product.css}"/>
      <link rel="stylesheet" type="text/css" href="{views:css/tender_con.css}"/>
     <script src="{views:js/tender_con.js}" type="text/javascript"></script>
     <!-- 分类的样式 -->
