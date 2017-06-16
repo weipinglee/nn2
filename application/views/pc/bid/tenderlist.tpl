@@ -1,7 +1,7 @@
  <!-- 招标页 -->
      <link rel="stylesheet" type="text/css" href="{views:css/product.js}"/>
-     <link rel="stylesheet" type="text/css" href="{views:css/tender_con.js}"/>
-    <script src="{views:js/tender_con.js}" type="text/javascript"/>
+     <link rel="stylesheet" type="text/css" href="{views:css/tender_con.css}"/>
+    <script src="{views:js/tender_con.js}" type="text/javascript"></script>
     <!-- 分类的样式 -->
    
     <!-- 招标页 end -->
@@ -116,12 +116,12 @@
                             <div class="hall_con">
 								<div class="hall_tit">
 
-									<a href="{url:/bid/tenderDetail}?id={$item['id']}">{$item['pro_name']}</a>
+									<a href="{url:/bid/tendercontent}?id={$item['id']}">{$item['pro_name']}</a>
 								</div>
                                 <div class="hall_con_left">
 									<i class="icon-map-marker">&nbsp;无</i>
 								</div>
-                                <div class="hall_con_right">2016-02-29</div>
+                                <div class="hall_con_right">{$item['create_time']}</div>
                             </div>
 							{/foreach}
                             
@@ -150,5 +150,3 @@
     	</div>
 	</div>  
     <!--主要内容 结束-->
-
-</body></html>
