@@ -60,14 +60,14 @@
                                                                         <p>包件号：
                                                                             {set:$i=0}
                                                                             {foreach:items=$packlist}
-                                                                                <a class="package {if:$i==0}on{/if}" name="{$key}">{$key}</a>
+                                                                                <a class="package {if:$i==0}on{/if}"  onclick="show($i)" name="{$key}">{$key}</a>
                                                                                 {set:$i=$i+1;}
                                                                         {/foreach}
 
                                                                     </div>
                                                                     {set:$j=0}
                                                                     {foreach:items=$packlist}
-                                                                    <table id="{$key}" {if:$j!=0}style="display:none;"{/if}>
+                                                                    <table id="table{$j}"  name="package"  {if:$j!=0}style="display:none;"{/if}>
                                                                         <tr>
                                                                             <td>会员名称</td>
                                                                             <td>标书</td>
@@ -109,6 +109,23 @@
                                                         </div>
 				</div>
 			</div>
+
+            <script>
+            function show(id){
+            var divs = document.getElementsByName("package")
+            for (var i = 0 ; i < divs.length ; i++){
+            if (divs[i].id == "table"+id ){
+            divs[i].style.display=""
+            }else{
+            divs[i].style.display="none"
+            }
+            }
+            }
+            $('.package').bind('click', function(){
+                $(this).addClass('on').siblings().removeClass('on');
+            });
+            </script>
+
             <div id="supplier_list" style="display:none;width:470px;left:40%;">
                 <div class="invite_mem">
                     <div class="title" style="width:450px;">
