@@ -60,14 +60,14 @@
                                                                         <p>包件号：
                                                                             {set:$i=0}
                                                                             {foreach:items=$packlist}
-                                                                                <a class="package {if:$i==0}on{/if}" name="{$key}">{$key}</a>
+                                                                                <a class="package onclick="show({$i})" {if:$i==0}on{/if}" name="{$key}">{$key}</a>
                                                                                 {set:$i=$i+1;}
                                                                         {/foreach}
 
                                                                     </div>
                                                                     {set:$j=0}
                                                                     {foreach:items=$packlist}
-                                                                    <table id="{$key}" {if:$j!=0}style="display:none;"{/if}>
+                                                                    <table id="{$j}" {if:$j!=0}style="display:none;"{/if}>
                                                                         <tr>
                                                                             <td>会员名称</td>
                                                                             <td>标书</td>

@@ -22,7 +22,7 @@ class bidController extends PublicController {
 	public $bidObj = null;
 
 	public function init(){
-		//parent::init();
+		parent::init();
 		$this->bidObj = new  sellerHandle();
 		$this->getView()->setLayout('layout');
 	}
@@ -42,7 +42,7 @@ class bidController extends PublicController {
 	public function tendercontentAction()
 	{
 		$id = safe::filterGet('id','int');
-		$detail = $this->bidObj->getBidDetail($id);print_r($detail);
+		$detail = $this->bidObj->getBidDetail($id);
 		$this->getView()->assign('detail',$detail);
 	}
 
