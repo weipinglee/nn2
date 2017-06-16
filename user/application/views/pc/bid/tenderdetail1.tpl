@@ -147,7 +147,7 @@
                                     <textarea></textarea>
                                 </div>
                                 <input type="submit" class="ok" value="确定">
-                                <input type="submit" class="close" value="关闭">
+                                <input type="button" class="close" value="关闭">
                         </div>
                     </form>
                 </div>
