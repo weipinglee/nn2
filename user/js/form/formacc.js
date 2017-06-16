@@ -217,6 +217,18 @@ nn_panduo.formacc.prototype = {
 		});
 	},
 
+	buttonSubmit : function(){
+		var _this = this;
+		$('[button_submit]').on('click',function(){
+			var json = $(this).attr('ajax-data');
+			json = JSON.parse(json);
+			var url = $(this).attr('ajax-url');
+			_this.ajax_post(url,json,function() {
+				layer.msg('操作成功！');
+			})
+		})
+	},
+
 	check:function(bool){
 		return this.validObj.check(bool);
 	},
@@ -355,6 +367,7 @@ $(function(){
 	formacc = new nn_panduo.formacc();
 	formacc.bind_status_handle();
 	formacc.bind_confirm();
+	formacc.buttonSubmit();
 	formacc.form_init();
 	//地址验证，根据是两级或三级动态调整验证规则
 	if($('#areabox').length && $('#areabox').length>0){

@@ -25,8 +25,8 @@
                                                             <!-- 补充公告 -->
                                                             <div class="tender_handle">
                                                                 <button id="chose_supplier">发布补充公告</button>
-                                                                <button name="cx">撤回</button>
-                                                                <button name="zz">终止</button>
+                                                                <button name="cx" button_submit="1" ajax-data='{"bid_id":{$detail['id']}}' ajax-url="{url:/bid/cancleBid}">撤回</button>
+                                                                <button name="zz" button_submit="1" ajax-data='{"bid_id":{$detail['id']}}' ajax-url="{url:/bid/closeBid}">终止</button>
                                                             </div>
                                                         </div>
 					<div class="center_tabl">
@@ -64,12 +64,10 @@
                                                                 <span>补充公告</span>
                                                             </div>
                                                             <div class="bid_zige">
-                                                                <h1>501矿招标公告补充公告</h1>
-                                                                <p>补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1补充条款1</p>
-                                                                <p style="float:right;">
-                                                                    <button style="width:50px;height:30px;line-height:30px;">编辑</button>
-                                                                    <button style="width:50px;height:30px;line-height:30px;">删除</button>
-                                                                </p>                         
+                                                                {foreach:items=$notice}
+                                                                <h1>{$item['title']}</h1>
+                                                                <p>{$item['content']}</p>
+                                                            {/foreach}
                                                             </div>
 
                                                             <div class="clear"></div>
@@ -173,16 +171,6 @@
 
           $('button[name=stop]').on('click',function() {
               $('form[name=operBid]').attr('action','{url:/bid/stopBid}').submit();
-
-          })
-
-          $('button[name=cx]').on('click',function() {
-              $('form[name=operBid]').attr('action','{url:/bid/cancleBid}').submit();
-
-          })
-
-          $('button[name=zz]').on('click',function() {
-              $('form[name=operBid]').attr('action','{url:/bid/closeBid}').submit();
 
           })
 

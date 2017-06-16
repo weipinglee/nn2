@@ -22,7 +22,7 @@ class bidController extends PublicController {
 	public $bidObj = null;
 
 	public function init(){
-		//parent::init();
+		parent::init();
 		$this->bidObj = new  sellerHandle();
 		//$this->getView()->setLayout('header');
 	}

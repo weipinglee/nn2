@@ -195,7 +195,7 @@ class BidController extends UcenterBaseController{
 					'agent_tax'   => safe::filterPost('agent_tax'),//代理传真
 			);
 
-			$bidData['yq_user'] = session::get('yq_list');
+			$bidData['yq_user'] = session::get('yq_list') ? session::get('yq_list') : '';
 
 			$package = array(
 				'pack_no' => safe::filterPost('pack_no'),
@@ -249,7 +249,7 @@ class BidController extends UcenterBaseController{
 			//$pay_type = safe::filterPost('pay_type');
 			$pay_type = 1;//默认中信
 			$res = $bidObj->release($pay_type);
-			$res['retrunUrl'] = url::createUrl('/bid/tenderfb4');
+			$res['returnUrl'] = url::createUrl('/bid/tenderfb4');
 			die(json::encode($res));
 		}
 
@@ -285,6 +285,19 @@ class BidController extends UcenterBaseController{
 		}
 	}
 
+	/**
+	 * 添加补充公告接口
+	 */
+	public function addBidNoticeAction(){
+		if(IS_POST){
+			$bid_id = safe::filterPost('bid_id','int');
+			$title = safe::filterPost('title');
+			$content = safe::filterPost('content');
+			$this->bidObj->setStateObj('bid',$bid_id);
+			$res = $this->bidObj->addBidNotice($title,$content);
+			die(json::encode($res));
+		}
+	}
 
 
 /*********************招标列表和详情相关***************************/
@@ -355,6 +368,10 @@ class BidController extends UcenterBaseController{
 		$detail = $this->bidObj->getBidDetail($id);
 		$this->getView()->assign('detail',$detail);
 
+		//获取补充公告
+		$bidObj = $this->bidObj;
+		$notice = $bidObj->getBidNotice($id);
+		$this->getView()->assign('notice',$notice);
 		//获取投标信息
 		$page = safe::filterGet('page','int',1);
 		$replyList = $this->bidObj->getReplyList($id,$page);

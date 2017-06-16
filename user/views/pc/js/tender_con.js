@@ -50,13 +50,24 @@ $(".close").click(function(){
   $("#supplier_list").hide();
 });
 $(".ok").click(function(){
-    $("#supplier_list").hide();  
+    $("#supplier_list").hide();
    // 获取选中的多选框的供应商的名字放到text
-    text = $(".mem_check:checked").map(function(index,elem) {
-        return $(elem).val();
-    }).get().join(',');
+    var user_name = '';
+    var ids = '';
+    $(".mem_check:checked").each(function(index) {
+        if(user_name==''){
+            user_name = $(this).val();
+            ids = $(this).parents('li').find('input[name^=id]').val();
+        }
+        else{
+            user_name += ','+$(this).val();
+            ids += ','+$(this).parents('li').find('input[name^=id]').val();
+        }
+    })
+
+    $('input[name=user_list]').val(ids);
     // 获取的text值写入textarea文本域
-    $("#chosen_mem").text(text);
+    $("#chosen_mem").text(user_name);
 });
 
                 /*个人中心招标发布end*/ 
