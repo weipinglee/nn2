@@ -141,10 +141,12 @@
                         <i class="close">X</i>
                     </div>
 
-                    <form method="post" action="{url:/bid/addBidNotice}">
+                    <form method="post" action="{url:/bid/addBidNotice}" auto_submit="1">
                         <div class="chose" style="width:580px;">
                                 <div class="search">
-                                    <textarea></textarea>
+                                    <input type="hidden" name="bid_id" value="{$detail['id']}">
+                                    <input type="text" name="title"  placeholder="请填写公告标题">
+                                    <textarea name="content" placeholder="请填写公告内容"></textarea>
                                 </div>
                                 <input type="submit" class="ok" value="确定">
                                 <input type="button" class="close" value="关闭">

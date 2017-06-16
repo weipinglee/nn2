@@ -2356,7 +2356,7 @@ input#image {
 .invite .bid_zige h3{font-size: 16px;}
 
 .invite .bid_zige p span,.invite .bid_zige p input{line-height: 30px;margin-right: 10px;}
-#supplier_list .chose .search textarea{width: 560px;height: 260px;resize: none;}
+#supplier_list .chose .search textarea{width: 560px;height: 230px;resize: none;margin-top: 10px;}
 #supplier_list .chose .search p{line-height: 30px;}
 #supplier_list .chose .search p input[type="radio"]{width: 30px;}
 #viewImg{width: 210px;max-width: 420px;}
