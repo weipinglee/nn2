@@ -141,13 +141,15 @@
                         <i class="close">X</i>
                     </div>
 
-                    <div class="chose" style="width:580px;">
-                        <div class="search">
-                            <textarea></textarea>
+                    <form method="post" action="{url:/bid/addBidNotice}">
+                        <div class="chose" style="width:580px;">
+                                <div class="search">
+                                    <textarea></textarea>
+                                </div>
+                                <input type="submit" class="ok" value="确定">
+                                <input type="submit" class="close" value="关闭">
                         </div>
-                        <button class="ok">确定</button>
-                        <button class="close">关闭</button>
-                    </div>
+                    </form>
                 </div>
             </div>
 			<!--end中间内容-->	

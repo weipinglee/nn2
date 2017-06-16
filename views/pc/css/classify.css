@@ -100,6 +100,7 @@ html {
 /* Default link styles */
 a:link,a:visited {
     text-decoration: none;
+    color: #333;
 }
 a:hover,a:active {
     text-decoration: underline;
