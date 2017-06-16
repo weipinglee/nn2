@@ -24,7 +24,7 @@ class bidController extends PublicController {
 	public function init(){
 		parent::init();
 		$this->bidObj = new  sellerHandle();
-		//$this->getView()->setLayout('header');
+		$this->getView()->setLayout('header');
 	}
 
 	public function tenderhallAction(){

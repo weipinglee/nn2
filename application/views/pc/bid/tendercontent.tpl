@@ -1,4 +1,10 @@
-
+ <!-- 招标页 -->
+     <link rel="stylesheet" type="text/css" href="{views:css/product.js}"/>
+     <link rel="stylesheet" type="text/css" href="{views:css/tender_con.js}"/>
+    <script src="{views:js/tender_con.js}" type="text/javascript"/>
+    <!-- 分类的样式 -->
+   
+    <!-- 招标页 end -->
     <!--主要内容 开始-->
     <div id="mainContent">
         <div class="page_width">
@@ -103,52 +109,8 @@
                 </div>
            </div>
             <!-- 未登录招标内容 end -->
-       	 	<div class="div_flink">
-                <img src="Images/icon/icon_news_img.png">
-                     <a href="http://www.gt123.cn/link/link.asp" target="_blank">钢铁123网</a>                                                 
-            </div>                
-            <!--公用底部控件 开始-->
-            <div class="page_width" style="_margin-top: -15px; position: static;">
-                <!--样式待改善-->
-            
-			<!--公用底部控件 开始-->
-			<div id="footer">
-			    <div class="footer_link">
-			        <div>
-			            <a href="http://corp.nainaiwang.com/aboutUs.aspx" target="_blank">关于我们</a>&nbsp;&nbsp;|
-			            &nbsp;&nbsp; <a href="http://help.nainaiwang.com/" target="_blank">
-			                帮助中心</a>&nbsp;&nbsp;| &nbsp; &nbsp;
-			            
-			            <a href="http://corp.nainaiwang.com/job/Default.aspx" target="_blank">
-			                人才招聘</a>&nbsp;&nbsp; | &nbsp;&nbsp; <a href="http://corp.nainaiwang.com/Contact.aspx" target="_blank">联系我们</a>&nbsp;&nbsp; | &nbsp;&nbsp; <a href="http://union.nainaiwang.com/" target="_blank">联盟网站</a>&nbsp;&nbsp; 
-			            
-			        </div>
-			    </div>
-			    <div>
-			        Copyright&nbsp;&nbsp; © 2009-2016&nbsp;&nbsp;<a href="http://www.nainaiwang.com/" target="_blank" style="color: #4884be">nainaiwang.com</a>&nbsp;耐耐云商科技有限公司&nbsp;
-			        版权所有
-			    </div>
-			    <div>
-			        <center>
-			            &nbsp;
-			            <a rel="external nofollow" href="http://www.miibeian.gov.cn/" target="_blank">
-			                <img style="border: currentColor;" src="./head_files/miibeian.gif"></a>
-			            &nbsp; <a rel="external nofollow" href="https://online.unionpay.com/" target="_blank">
-			                <img style="border: currentColor;" src="./head_files/indexBlankIco.gif"></a>
-			            &nbsp;
-			            <script src="./head_files/seallogo.dll"></script><a href="https://ss.knet.cn/verifyseal.dll?sn=e1305144301004068157sj000000&ct=df&a=1&pa=0.9814090973231941" target="_blank" kx_type="缩放式" style="display:inline-block;position:relative;width:89px;height:32px;"><img src="./head_files/cnnic.png" height="32" width="89" h="32" w="89" onmouseover="showFull(this)" onmouseout="showMin(this)" style="left:0;position:absolute;top:0;border:none;"></a>&nbsp;&nbsp; 
-			            <a rel="external nofollow" href="http://www.spdb.com.cn/" target="_blank">
-			                <img style="border: currentColor;" src="./head_files/pufa.png"></a>&nbsp;&nbsp;
-			            <a rel="external nofollow" href="http://www.allinpay.com/" target="_blank">
-			                <img style="border: currentColor;" src="./head_files/tonglian.png"></a>
-			        </center>
-			    </div>
-			    <div>
-			        网站备案/许可证号:晋ICP备14043533号
-			    </div>
-			</div>
-			<!--公用底部控件 结束-->
-			</div>
+       	 	                
+           
     	</div>
 	</div>  
     <!--主要内容 结束-->

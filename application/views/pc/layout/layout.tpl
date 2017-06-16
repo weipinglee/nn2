@@ -24,6 +24,8 @@
     <script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
     <script src="{views:js/countdown.js}" type="text/javascript"></script>
     <!--[if lte IE 6]>
+
+    
     <script>
         $(function(){
             $(".kind_name").mouseover(function(){
@@ -248,6 +250,7 @@ z-index:1000;">
         <ul class="nav">
             <li {if:!isset($cur) || $cur=='index'}class="current"{/if}><a href="{url:/index/index}">首页</a></li>
             <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
+            <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/bid/tenderhall}" target="_blank">竞价招投标</a></li>
             <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}" target="_blank">仓储专区</a></li>
             <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}" target="_blank">帮我找</a></li>
         </ul>
