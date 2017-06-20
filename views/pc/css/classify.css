@@ -303,7 +303,7 @@ div.item h3 p.fenlei a:hover {
 }
 .item-list .subitem dd em a, .item-list .cat-right dd a {
     color: #666;
-    text-decoration: none;
+    text-decoration: none;font-weight: normal;
 }
 .item-list .subitem dd em a:hover, .item-list .cat-right dd a:hover {
     font-weight: normal;

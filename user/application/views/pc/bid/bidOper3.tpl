@@ -103,7 +103,7 @@
                                                             <div class="invite" id="invite" style="padding-top:47px;">
                                                                 <div class="invite_title">
                                                                     <span>在线报价</span>
-                                                                    <b style="color:#e00101;">分包&nbsp;说明：投标人可以单个包件投标</b>
+                                                                    <!-- <b style="color:#e00101;">分包&nbsp;说明：投标人可以单个包件投标</b> -->
                                                                 </div>
                                                                 <div class="bid_zige">
                                                                     <table>
