@@ -15,6 +15,9 @@
   <link href="../css/topnav20141027.css" rel="stylesheet" type="text/css">
   <script src="../js/topnav20141027.js" type="text/javascript"></script>
     <!-- 头部控制 -->
+
+  <link href="../css/pay_ment.css" rel="stylesheet" type="text/css" /> 
+  <script src="../js/pay_ment.js" type="text/javascript"></script>
 </head>
 <body>
 <!--    公用头部控件 -->
@@ -255,8 +258,72 @@
                                                             </div>
 
                                                             <div class="clear"></div>
+                                                    <div style="width:760px;height: 240px;margin:0 auto;">
+                                                        <div class="pay_type" style="width:450px;">
+                                                              <h3 class="add_zhifu">支付方式：</h3>
+                                                              <h3 class="addwidth">
+                                                                <div class="yListr" id="yListr">
+                                                                  
+                                                                      <ul>
+                                                                          <li><em name="chooice" class="yListrclickem">线上支付<i></i></em> <em name="chooice">线下支付<i></i></em> </li>
+                                                                      </ul>
+                                                              </div> 
 
-                                                            <div class="button"><button style="float: left;margin-right:20px;">上一步</button><button style="margin:0;">发布</button></div>
+                                                        <script type="text/javascript">
+                                                            $(function() {
+                                                                $(".yListr ul li em").click(function() {
+                                                                    $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+                                                                })
+                                                            });
+                                                        </script>
+                                                       
+                                                               <div id="bain_bo">
+                                                                   <form action="" method="post">
+                                                                       <div class="sty_online" style="display:block;">
+                                                                            
+                                                                               <label for=""><input name="abc" type="radio" value="" />市场代理账户</label>
+                                                                                <label for=""><input name="abc" type="radio" value="" />银行签约账户</label>
+                                                                                 <label for=""><input name="abc" type="radio" value="" />票据账户</label>
+
+                                                                       </div>
+                                                                       <div class="sty_offline">
+                                                                            <ul>
+                                                                                <li>账户名称：XXXX科技有限公司</li>
+                                                                                <li>开户银行：XX银行XXXX支行</li>
+                                                                                <li>银行账号：100004454415113</li>
+                                                                                <li><span>上传支付凭证：</span>
+                                                                                <div id="preview"></div>
+                                                        
+                                                                                <input class="uplod" type="file" onchange="previewImage(this)" />
+
+
+                                                                                </li>
+                                                                            </ul>
+                                                                          
+                                                                        
+                                                                        </div>
+                                                                    </form> 
+                                                                </div>  
+                                                            
+                                                       </h3> 
+                                                         </div>
+
+
+                                                            <form action="{url:/Deposit/sellerDeposit}" auto_submit pay_secret="1" method="post" redirect_url="{url:/contract/sellerdetail?id=$data['id']}">
+                                                          <div class="pay_bton">
+                                                            <h5>待支付金额：<i>30</i>元</h5>
+                                                            <!-- <a href="pay_suclast.html">立即支付尾款</a> -->
+                                                          </div>
+                                                           </form>
+                                                    </div>
+
+
+
+               
+
+                
+
+                                                            <div class="button"><button style="float: left;margin-right:20px;">上一步</button><button style="margin:0;">支付并发布</button></div>
                                                         </div>
 				</div>
 			</div>

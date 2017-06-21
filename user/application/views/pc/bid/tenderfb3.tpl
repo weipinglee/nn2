@@ -67,9 +67,47 @@
 
                                                             <div class="clear"></div>
 
-                                                            <div class="button"><button style="margin:0;">发布</button></div>
-                                                        </form>
+
+
+                                                    <div style="width:760px;height: 240px;margin:0 auto;">
+                                                        <div class="pay_type" style="width:450px;">
+                                                              <h3 class="add_zhifu">支付方式：</h3>
+                                                              <h3 class="addwidth">
+                                                                <div class="yListr" id="yListr">
+                                                                  
+                                                                      <ul>
+                                                                          <li><em name="chooice" class="yListrclickem" pay_type=1>市场代理账户<i></i></em> <em name="chooice" pay_type=2>银行签约账户<i></i></em> <!-- <em name="chooice" pay_type=3>票据账户<i></i></em> --> </li>
+                                                                      </ul>
+                                                                </div> 
+
+                                                                <script type="text/javascript">
+                                                                    $(function() {
+                                                                        $(".yListr ul li em").click(function() {
+                                                                            var pay_type = $(this).attr('pay_type'); 
+                                                                            $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+                                                                            $('input[name=pay_type]').val(pay_type);
+                                                                        })
+                                                                    });
+                                                                </script>
+                                                               
+
+                                                                    
+                                                              </h3> 
                                                         </div>
+
+                                                               <div class="pay_bton">
+                                                                   <h5>待支付金额：<i>￥{$data['bail']}</i>元</h5>
+                                                                   <!-- <input class="submit_bzj" type="submit" value="立即缴纳保证金" /> -->
+                                                               </div>
+
+
+
+
+                                                            <div class="button"><button style="margin:0;">支付并发布</button></div>
+
+                                                        </div>
+                                                    </form>
+                                                 </div>
 				</div>
 			</div>
 			<!--end中间内容-->	

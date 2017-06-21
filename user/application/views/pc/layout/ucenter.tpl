@@ -30,6 +30,10 @@
     <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
     <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
 
+<!-- 支付样式 -->
+  <link href="{views:css/pay_ment.css}" rel="stylesheet" type="text/css" /> 
+  <script src="{root:js/pay_ment.js}" type="text/javascript"></script>
+
 </head>
 <body>
 <!--    公用头部控件 -->
