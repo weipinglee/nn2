@@ -66,7 +66,6 @@
                                                                             <td>资质信息</td>
                                                                             <td>投标时间</td>
                                                                             <td>对比选择</td>
-                                                                            <td>选择中标</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>海天贸易</td>
@@ -74,7 +73,6 @@
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
                                                                             <td>2015-2-8</td>
                                                                             <td><input type="checkbox"></td>
-                                                                            <td></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>海天贸易</td>
@@ -82,7 +80,6 @@
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
                                                                             <td>2015-2-8</td>
                                                                             <td><input type="checkbox"></td>
-                                                                            <td></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td colspan="6">

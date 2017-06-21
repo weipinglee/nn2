@@ -130,6 +130,9 @@
                         {$list['bar']}
                     </div>  
                     <div class="center_right">
+                        <div class="gonggao " style="border:0;margin-bottom:0;">
+                            <a href="{url:/bid/tenderfb}" class="zb_but">发布招标</a>
+                        </div>
                         <div class="gonggao">
                             <h2><img src="images/icon/reci.jpg">热词招标</h2>
                             <div class="rc_con">

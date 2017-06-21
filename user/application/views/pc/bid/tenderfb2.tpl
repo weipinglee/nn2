@@ -72,13 +72,13 @@
                                                                         </span>
                                                                     </p>
 
-                                                                    <h3>一、招标条件</h3>
+                                                                    <h3>一、招标条件<i>*</i></h3>
 
                                                                     <textarea style="resize: none;width:100%;" name="bid_require" datatype="*"></textarea>
                                                                     <h3>二、项目概况与招标内容</h3>
-                                                                    <h4>1、项目概况</h4>
+                                                                    <h4>1、项目概况<i>*</i></h4>
                                                                     <textarea style="resize: none;width:100%;" name="pro_brief" datatype="*"></textarea>
-                                                                    <h4>2、招标内容</h4>
+                                                                    <h4>2、招标内容<i>*</i></h4>
                                                                     <textarea style="resize: none;width:100%;" name="bid_content" datatype="*"></textarea>
                                                                     <p>
                                                                         <input type="radio" checked name="pack_type" value="1">分包&nbsp;&nbsp;说明：投标人可以单个包件投标
@@ -149,7 +149,7 @@
 
 
                                                                     <h3>三、资格要求</h3>
-                                                                    <p>本项目采用资格后审的方式，由评审委员会对投标单位的资质进行审查，符合资质要求的单位才能进入下一步招标环节。：</p>
+                                                                    <p>本项目采用资格后审的方式，由评审委员会对投标单位的资质进行审查，符合资质要求的单位才能进入下一步招标环节。</p>
                                                                     <p>1、在中华人民共和国境内依法经国家工商税务机关登记注册，符合投标项目经验范围，具有独立企业法人资格的生产商或代理商。</p>
                                                                     <p>2、其他备注信息</p>
                                                                     <textarea style="resize: none;width:100%;" name="eq[]" datatype="*"></textarea>
@@ -164,7 +164,7 @@
 
                                                                     <h3>五、投标文件的递交与开标时间及地点</h3>
                                                                     <p>1、合格投标人应在投标截止日前通过耐耐网电子商务平台进行网上投标，在上传投标文件的同时，提交保证金<input type="text" name="supply_bail" datatype="n">元，未中标者在投标结果发布之后退还，中标者在签订合同并缴纳合同履约金后予以退还。</p>
-                                                                    <p>2、开标方式：<select name="open_way" id=""><option value="1">线上</option></option></select></p>
+                                                                    <p>2、开标方式：<select name="open_way" id=""><option value="1">线上</option><option value="2">线下</option></select></p>
                                                                     <h3>六、支付方式</h3>
                                                                     <p><input type="checkbox">现汇&nbsp;&nbsp;<input type="checkbox">银行承兑汇票&nbsp;&nbsp;<input type="checkbox">商业承兑汇票&nbsp;&nbsp;<input type="checkbox">国内信用证&nbsp;&nbsp;<input type="checkbox">国际信用证&nbsp;&nbsp;<input type="checkbox">其他<input type="text"></p>
                                                                     <p>汇款账期：<input type="text"></p>
@@ -179,7 +179,7 @@
                                                                         <p>联系人：<input type="text" name="cont_person" datatype="*"><i>*</i></p>
                                                                         <p>电子邮件：<input type="text" name="cont_email" datatype="e"><i>*</i></p>
                                                                         <p>电话：<input type="text" name="cont_phone" datatype="m"><i>*</i></p>
-                                                                        <p>传真：<input type="text" name="cont_tax" datatype="n"><i>*</i></p>
+                                                                        <p>传真：<input type="text" name="cont_tax" datatype="c"><i>*</i></p>
                                                                     </div>
                                                                     <div class="contact">
                                                                         <p>招标代理机构：<input type="text" name="agent"></p>
