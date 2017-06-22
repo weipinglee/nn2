@@ -9,15 +9,7 @@
 					<div class="zhxi_tit">
 						<p><a>我的招标</a>><a>发布招标</a></p>
 					</div>
-                                                        <div class="project_detail">
-                                                            <h1>{$detail['pro_name']}</h1>
-                                                            <p>招标方：{$detail['true_name']}</p>
-                                                            <p>招标方式：{$detail['mode_text']}</p>
-                                                            <p>评标类型：{$detail['pack_type_text']}</p>
-                                                            <p>项目地点：{$detail['pro_address']}</p>
-                                                            <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
-                                                            <p>开标地点：[{$detail['open_way_text']}]</p>
-                                                        </div>
+
 					<div class="center_tabl">
                                                             <ul class="step_list">
                                                                 <li class="step">
@@ -51,20 +43,21 @@
                                                                 <div class="invite_title">
                                                                     <span>资质信息</span>
                                                                 </div>
+                                                                {foreach:items=$certs}
                                                                 <div class="bid_zige" style="padding-left:317px;">
-                                                                    <p class="zigefile"><span>会员名称：海天贸易</span></p>
-                                                                    <p class="zigefile"><span>证书名称：三证</span></p>
-                                                                    <p class="zigefile"><span>证书分类：第一张</span></p>
-                                                                    <p class="zigefile"><span>证书描述：无</span></p>
-                                                                    <p class="zigefile"><span>附件图片</span><img id="viewImg" src="../images/5.jpg"></p>
-                                                                                                                                        
+                                                                    <p class="zigefile"><span>证书名称：{$item['cert_name']}</span></p>
+                                                                    <p class="zigefile"><span>证书分类：{$item['cert_type']}</span></p>
+                                                                    <p class="zigefile"><span>证书描述：{$item['cert_des']}</span></p>
+                                                                    <p class="zigefile"><span>附件图片</span><img id="viewImg" src="{$item['cert_pic']}"></p>
+
                                                                 </div>
+                                                                {/foreach}
                                                             </div>
 
                                                             <div class="clear"></div>
 
                                                             <div class="button">
-                                                                <button  onclick="javascript:window.location.href='bid_opr.html'">关闭</button>
+                                                                <button  onclick="window.history.go(-1)">返回</button>
                                                             </div>
                                                         </div>
 				</div>

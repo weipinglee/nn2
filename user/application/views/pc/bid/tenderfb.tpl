@@ -39,7 +39,7 @@
                                                                 </li>
                                                             </ul>
                                                             <form method="post" action="{url:/bid/addYqUser}" auto_submit="1">
-                                                            <input type="hidden" name="type" value="gk"/>
+                                                            <input type="hidden" name="type" datatype="*" value="gk"/>
                                                             <ul class="type_list">
                                                                 <li class="type on" id="type1">
                                                                     <span>公开招标</span>
@@ -109,10 +109,10 @@
                                      if(display == "block"){
                                             $("#chosen_mem").attr("datatype","*");
                                     }else{
-                                            $("#chosen_mem").attr("datatype","");
+                                            $("#chosen_mem").removeAttr("datatype");
                                     }
-                        });
-                    });
+                        })
+                    })
                
             </script>
 			<!--end中间内容-->	

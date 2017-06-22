@@ -246,10 +246,11 @@ class BidController extends UcenterBaseController{
 			$bid_id = safe::filterPost('bid_id','int');
 			$bidObj = $this->bidObj;
 			$bidObj->setStateObj('bid',$bid_id);
-			//$pay_type = safe::filterPost('pay_type');
+			$pay_type = safe::filterPost('pay_type');
 			$pay_type = 1;//默认中信
 			$res = $bidObj->release($pay_type);
-			$res['returnUrl'] = url::createUrl('/bid/tenderfb4');
+			if($res['success']==1)
+				$res['returnUrl'] = url::createUrl('/bid/tenderfb4');
 			die(json::encode($res));
 		}
 
@@ -298,6 +299,8 @@ class BidController extends UcenterBaseController{
 			die(json::encode($res));
 		}
 	}
+
+
 
 
 /*********************招标列表和详情相关***************************/
@@ -376,6 +379,17 @@ class BidController extends UcenterBaseController{
 		$page = safe::filterGet('page','int',1);
 		$replyList = $this->bidObj->getReplyList($id,$page);
 		$this->getView()->assign('replyList',$replyList);
+	}
+
+	/**
+	 * 查看投标方资质
+	 */
+	public function viewpaperAction()
+	{
+		$id = safe::filterGet('id','int');//投标id
+		$certs = $this->bidObj->getReplyCerts($id);
+		$this->getView()->assign('certs',$certs);
+
 	}
 
 	public function tenderDetail2Action(){
