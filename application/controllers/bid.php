@@ -44,7 +44,15 @@ class bidController extends PublicController {
 		$id = safe::filterGet('id','int');
 		$detail = $this->bidObj->getBidDetail($id);
 		$this->getView()->assign('detail',$detail);
+
+		//获取评论列表
+		$commentObj = new \nainai\bid\comment\bidcomment();
+		$page = safe::filterGet('page','int',1);
+		$list = $commentObj->commentList($id,$page);print_r($list);
+		$this->getView()->assign('comment',$list);
 	}
+
+
 
 
 

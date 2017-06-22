@@ -445,10 +445,6 @@ class BidController extends UcenterBaseController{
 	}
 
 
-
-
-
-
 	/****************************投标发布*********************/
 
 	public function tbListAction()
