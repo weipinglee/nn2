@@ -28,6 +28,11 @@ class BidController extends UcenterBaseController{
 		$this->bidObjSeller = new sellerHandle($this->user_id);
 	}
 
+	public function testAction(){
+		$com = new \nainai\bid\comment\bidcomment();
+
+	}
+
 	/*********************招标发布相关功能***************************/
 	public function setUserTruenameAction(){
 		$Query = new \Library\Query('user as u');
@@ -421,6 +426,21 @@ class BidController extends UcenterBaseController{
 		$packList = $this->bidObj->getPackCompareList($pack_ids);
 		$this->getView()->assign('packlist',$packList);
 
+
+	}
+
+	/**
+	 * 评论招标
+	 */
+	public function addCommentAction()
+	{
+		if(IS_POST){
+			$bid_id = safe::filterPost('bid_id','int');
+			$content = safe::filterPost('content');
+			$this->bidObjSeller->setStateObj('bid',$bid_id);
+			$res = $this->bidObjSeller->bidComment($content,$this->user_id);
+			die(json::encode($res));
+		}
 
 	}
 
