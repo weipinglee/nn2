@@ -80,7 +80,9 @@ z-index:1000;">
       <ul >
         <!-- <li><a href="">会员中心</a><i>|</i></li>
         <li><a href="">我的合同</a><i>|</i></li> -->
-        <li><a href="{url:/message/usermail@user}">消息中心{if:$login==1}<em class="information">{$mess}</em>{/if}</a><i>|</i></li>
+        <li><a href="{url:/message/usermail@user}">消息中心{if:$login==1&&$mess<=99}<em class="information">{$mess}</em>
+        {else:}
+        <em class="information">99+</em>{/if}</a><i>|</i></li>
         <!-- <li><a href=""><img class="shouy mobil" src="{views:images/password/mobile.png}">手机版</a><i>|</i></li> -->
         <li><a href="javascript:;" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=4006238086&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC=http://wpa.qq.com/pa?p=1:4006238086:1 alt="点击这里给我发消息">在线客服</a><i>|</i></li>
         <li>交易时间&nbsp;{$deal['start_time']}--{$deal['end_time']}</li>

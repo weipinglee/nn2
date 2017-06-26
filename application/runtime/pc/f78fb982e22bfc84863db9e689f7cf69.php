@@ -238,7 +238,6 @@ z-index:1000;">
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
-          
         </div>
     </div>
 </div>
@@ -256,7 +255,9 @@ z-index:1000;">
             <li <?php if(isset($cur) && $cur=='bid'){?>class="current"<?php }?>><a href="http://localhost/nn2/bid/tenderlist" target="_blank">招投标</a></li>
             <li <?php if(isset($cur) && $cur=='storage'){?>class="current"<?php }?>><a href="http://localhost/nn2/index/storage" target="_blank">仓储专区</a></li>
             <li <?php if(isset($cur) && $cur=='found'){?>class="current"<?php }?>><a href="http://localhost/nn2/index/found" target="_blank">帮我找</a></li>
-        </ul>
+             <li ><a href="http://info.nainaiwang.com" target="_blank">耐耐资讯</a></li>
+     
+	   </ul>
     </div>
 </div>
 
@@ -445,7 +446,7 @@ z-index:1000;">
                         <a>首页</a> > <a>招投标大厅</a> > <a>招标公告</a>
                     </b>
                 </div>
-				 <!-- 分类 start -->
+                 <!-- 分类 start -->
             <div class="pro_classify"> 
                 <div class="class_re">
                     <h3>
@@ -460,7 +461,7 @@ z-index:1000;">
                         $(".class_jy").delegate(".info-show", "click", function () {
                         //展开操作
                         //$(".infoslider").show();  
-					//$(this).parentsUntil(".class_jy").parent().find(".infoslider").show(); 
+                    //$(this).parentsUntil(".class_jy").parent().find(".infoslider").show(); 
                             $(this).parents(".class_jy").find(".infoslider").show();   
                             $(this).removeClass("info-show").addClass("info-hide").html("收起");
                         });
@@ -476,24 +477,22 @@ z-index:1000;">
                     </script>
                                         
                                         
-                    <div class="sl_ext">
-                            <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-                    </div>
+
                 </div>
 
-				
-			    <div class="class_jy">
+                
+                <div class="class_jy">
                     <span class="jy_title">行业：</span>
                     <ul>
                         <li <?php if($cate_id==0){?>class="a_choose"<?php }?>><a href="">全部</a></li>
                         <?php if(!empty($cates)) foreach($cates as $key => $item){?>
-						<li <?php if($cate_id==$item['id']){?>class="a_choose"<?php }?> value="<?php echo isset($item['id'])?$item['id']:"";?>"><a href="http://localhost/nn2/bid/tenderlist?cate_id=<?php echo isset($item['id'])?$item['id']:"";?>"><?php echo isset($item['name'])?$item['name']:"";?></a></li>
+                        <li <?php if($cate_id==$item['id']){?>class="a_choose"<?php }?> value="<?php echo isset($item['id'])?$item['id']:"";?>"><a href="http://localhost/nn2/bid/tenderlist?cate_id=<?php echo isset($item['id'])?$item['id']:"";?>"><?php echo isset($item['name'])?$item['name']:"";?></a></li>
                         <?php }?>
                     </ul>   
 
                 </div>
 
-				<div style="clear:both"></div>
+                <div style="clear:both"></div>
             </div>
             <!-- 分类 end -->
                 <div class="tender_center">
@@ -505,18 +504,18 @@ z-index:1000;">
                             </div>
                            <?php if(!empty($list['list'])) foreach($list['list'] as $key => $item){?>
                             <div class="hall_con">
-								<div class="hall_tit">
+                                <div class="hall_tit">
 
-									<a href="http://localhost/nn2/bid/tendercontent?id=<?php echo isset($item['id'])?$item['id']:"";?>"><?php echo isset($item['pro_name'])?$item['pro_name']:"";?></a>
-								</div>
+                                    <a href="http://localhost/nn2/bid/tendercontent?id=<?php echo isset($item['id'])?$item['id']:"";?>"><?php echo isset($item['pro_name'])?$item['pro_name']:"";?></a>
+                                </div>
                                 <div class="hall_con_left">
-									<i class="icon-map-marker">&nbsp;无</i>
-								</div>
+                                    <i class="icon-map-marker">&nbsp;无</i>
+                                </div>
                                 <div class="hall_con_right"><?php echo isset($item['create_time'])?$item['create_time']:"";?></div>
                             </div>
-							<?php }?>
+                            <?php }?>
                             
-							<div class="clear"></div>
+                            <div class="clear"></div>
                        </div>
                         <?php echo isset($list['bar'])?$list['bar']:"";?>
                     </div>  
@@ -539,10 +538,10 @@ z-index:1000;">
                 </div>
            </div>
             <!-- 未登录招标内容 end -->
-       	 	                
+                            
             
-    	</div>
-	</div>  
+        </div>
+    </div>  
     <!--主要内容 结束-->
 
 

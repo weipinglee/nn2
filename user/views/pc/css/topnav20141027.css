@@ -41,14 +41,15 @@ a:hover {
     font-style: normal;
     position: absolute;
     top: 0px;
-    right: 15px;
+    right: 12px;
     background: red none repeat scroll 0% 0%;
     text-align: center;
     color: rgb(255, 255, 255);
     line-height: 15px;
     height: 15px;
-    width: 15px;
+    width: 27px;
     border-radius: 15px;
+    -webkit-transform: scale(0.8);
 }
 /******背景******/
 .bg_topnav {

@@ -16,7 +16,7 @@
                         <a>首页</a> > <a>招投标大厅</a> > <a>招标公告</a>
                     </b>
                 </div>
-				 <!-- 分类 start -->
+                 <!-- 分类 start -->
             <div class="pro_classify"> 
                 <div class="class_re">
                     <h3>
@@ -31,7 +31,7 @@
                         $(".class_jy").delegate(".info-show", "click", function () {
                         //展开操作
                         //$(".infoslider").show();  
-					//$(this).parentsUntil(".class_jy").parent().find(".infoslider").show(); 
+                    //$(this).parentsUntil(".class_jy").parent().find(".infoslider").show(); 
                             $(this).parents(".class_jy").find(".infoslider").show();   
                             $(this).removeClass("info-show").addClass("info-hide").html("收起");
                         });
@@ -47,24 +47,22 @@
                     </script>
                                         
                                         
-                    <div class="sl_ext">
-                            <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-                    </div>
+
                 </div>
 
-				
-			    <div class="class_jy">
+                
+                <div class="class_jy">
                     <span class="jy_title">行业：</span>
                     <ul>
                         <li {if:$cate_id==0}class="a_choose"{/if}><a href="">全部</a></li>
                         {foreach:items=$cates}
-						<li {if:$cate_id==$item['id']}class="a_choose"{/if} value="{$item['id']}"><a href="{url:/bid/tenderlist}?cate_id={$item['id']}">{$item['name']}</a></li>
+                        <li {if:$cate_id==$item['id']}class="a_choose"{/if} value="{$item['id']}"><a href="{url:/bid/tenderlist}?cate_id={$item['id']}">{$item['name']}</a></li>
                         {/foreach}
                     </ul>   
 
                 </div>
 
-				<div style="clear:both"></div>
+                <div style="clear:both"></div>
             </div>
             <!-- 分类 end -->
                 <div class="tender_center">
@@ -76,18 +74,18 @@
                             </div>
                            {foreach:items=$list['list']}
                             <div class="hall_con">
-								<div class="hall_tit">
+                                <div class="hall_tit">
 
-									<a href="{url:/bid/tendercontent}?id={$item['id']}">{$item['pro_name']}</a>
-								</div>
+                                    <a href="{url:/bid/tendercontent}?id={$item['id']}">{$item['pro_name']}</a>
+                                </div>
                                 <div class="hall_con_left">
-									<i class="icon-map-marker">&nbsp;无</i>
-								</div>
+                                    <i class="icon-map-marker">&nbsp;无</i>
+                                </div>
                                 <div class="hall_con_right">{$item['create_time']}</div>
                             </div>
-							{/foreach}
+                            {/foreach}
                             
-							<div class="clear"></div>
+                            <div class="clear"></div>
                        </div>
                         {$list['bar']}
                     </div>  
@@ -110,8 +108,8 @@
                 </div>
            </div>
             <!-- 未登录招标内容 end -->
-       	 	                
+                            
             
-    	</div>
-	</div>  
+        </div>
+    </div>  
     <!--主要内容 结束-->

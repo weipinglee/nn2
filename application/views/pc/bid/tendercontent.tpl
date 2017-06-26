@@ -87,14 +87,37 @@
                                     <div class="clear"></div>
                                 </div>
                                 <div class="com_neirong">
-                                    <p>暂无信息</p>
+                                    
+                                    <!-- 招投标评论 -->
+                                    {if:empty($comment)} <p>暂无评论</p>
+                                    {else:}
+                                    {foreach:item=$comment['']}
+                                    <div class="ctd_comments_box cf">
+                                        <a class="img" href="">
+                                           <img src="{$item['curr_head']}">
+                                        </a>
+                                        <div class="textarea_box">
+                                            <a class="ctd_comments_username" href="/">{$item['curr_nick']}</a>
+                                            <p class="ctd_comments_text">{$item['content']}</p>
+                                            <div class="ctd_comments_contrl">
+                                                <span class="fl">发表于 {$item['create_time']}</span>
+                                                <!-- <a class="contrl_02 link_reply  a_popup_login ">
+                                                回复(40)</a>| -->
+                                               <!--  <a class="comment-point"><i class="posin-img"></i>(4)</a> -->
+                                            </div>                                        
+                                        </div>                                         
+                                    </div>
+                                    {/foreach}
+                                    {/if}
+                                     
+                                     <!-- 招投标评论 end-->
                                 </div>
                             </div>
                         </div>
                     </div>  
                     <div class="center_right">
                         <div class="gonggao">
-                            <h2><img src="images/icon/red_qi.jpg">同业主相关公告</h2>
+                            <h2><img src="{views:images/icon/red_qi.jpg}">同业主相关公告</h2>
                             <ul>
                                 <li><a href="tender_content.html">学员楼运营管理招标项目</a></li>
                                 <li><a href="tender_content.html">学员楼运营管理招标项目</a></li>
@@ -122,22 +145,25 @@
     <div class="cd-popup-container_fabu">
         <div class="fabiao_tit">发表招标评论！</div>
         <!-- <a href="#" class="pop_con_qx cd-popup-close"><i class="icon-remove"></i></a> -->
-        <a  class="cd-popup-close"><img class="pop_qx"src="images/icon/zb_qx.png"/></a>
+        <a  class="cd-popup-close"><img class="pop_qx" src="{views:images/icon/zb_qx.png}"/></a>
         <div class="fabu_con">
           <h1>发表招标评论</h1>
           <div class="tit">
             <span class="zbgg_color">【招标公告】</span>
             <span class="zbgg_bule">学员楼运营管理招标项目公开招标公告</span>
           </div>
+          <form method="post" action="{url:/bid/addcomment@user}" auto_submit="1">
           <div class="zbgg_con">
             <!-- <p class="zbgg_tishi">
                 您还没有<a href="">登录</a>
             </p> -->
-            <textarea></textarea>
+            <input type="hidden" name="bid_id" value="{$detail['id']}">
+            <textarea name="content"></textarea>
           </div>
           <div class="pl_anniu">
             <input class="pl_submit" type="submit" value="提 交"/>
           </div>
+          </form>
         </div>
     </div>
 </div>
