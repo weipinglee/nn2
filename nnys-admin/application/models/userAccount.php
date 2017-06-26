@@ -42,4 +42,30 @@ class userAccountModel {
 		$detail = $member->getUserDetail($user_id);
 		return $detail;
 	}
+
+	/**
+	 * @return array
+	 */
+	public function userZxList($page=1){
+		$query = new adminQuery('user_attach as ua');
+		$query->join = 'left join user as u on ua.user_id = u.id';
+		$query->fields = 'ua.*,u.username,u.user_no,u.mobile';
+		$query->page = $page;
+		$list = $query->find();
+		return $list;
+	}
+
+	/**
+	 *
+	 */
+	public function userZxDetail($user_id){
+		if($user_id){
+			$attach = new \nainai\fund\attachAccount();
+			$attachData = $attach->attachInfo($user_id);
+
+			return $attachData;
+		}
+		else
+			return array();
+	}
 }

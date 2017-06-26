@@ -99,7 +99,7 @@ class FundController extends UcenterBaseController {
 				$details['row']['tranAmt'] = floatval($details['row']['tranAmt']) - floatval($details['row']['pdgAmt']);
 				$details['row'] = array($details['row']);
 				$tmp = (array)$details['row']['memo'];
-				$details['row']['memo'] = $tmp[0];
+				//$details['row']['memo'] = $tmp[0];
 			}
 			
 		}else{
@@ -111,6 +111,7 @@ class FundController extends UcenterBaseController {
 				$value['memo'] = $tmp[0];
 			}
 		}
+		
 		$page_format = $zx->pageFormat($page,count($details['row']));
 		$this->getView()->assign('page_format',$page_format);
 
@@ -127,8 +128,8 @@ class FundController extends UcenterBaseController {
 
 	//开通中信附属账户
 	public function zxpageAction(){
-		$zx = new \nainai\fund\zx();
 		if(IS_POST){
+			$zx = new fundModel();
 			$data = array(
 				'user_id'=>$this->user_id,
 				'name'=>safe::filterPost('name'),
@@ -139,11 +140,12 @@ class FundController extends UcenterBaseController {
 				'contact_name'=>safe::filterPost('contact_name'),
 				'mail_address'=>safe::filterPost('mail_address'),
 			);
-			$res = $zx->geneAttachAccount($data);
+			$res = $zx->insertZxAttach($data);
 			
 			die(JSON::encode($res));
 			return false;
 		}else{
+			$zx = new \nainai\fund\zx();
 			$data = $zx->attachAccountInfo($this->user_id);
 			$this->getView()->assign('info',$data);
 		}
@@ -160,10 +162,12 @@ class FundController extends UcenterBaseController {
 
 	public function zxtxHandleAction(){
 		if(IS_POST){
-			$data['num'] = safe::filterPost('num');
+			$data['amount'] = safe::filterPost('num');
 			$data['user_id'] = $this->user_id;
-			$zx  = new \nainai\fund\zx();
-			$res = $zx->out($data);
+
+			$zxObj = new \nainai\fund\zx();
+			$withdraw  = new \nainai\payment\withdraw($zxObj);
+			$res = $withdraw->payBefore($data);
 			die(JSON::encode($res));
 		}
 		return false;

@@ -259,8 +259,16 @@
                             <ul>
                                 <li><a href="{url:balance/accManage/userAccList}" target="content">会员账户</a></li>
 
+                                <li><a href="{url:balance/accManage/zxAccList}" target="content">中信账户</a></li>
+
                                 <li><a href="{url:balance/accManage/userCreditList}" target="content">信誉保证金账户</a></li>
 
+                            </ul>
+                        </li>
+                        <li><a target="content">中信资金管理</a>
+                            <ul>
+                                <li><a href="{url:balance/zx/txingList}" target="content">出金待审核</a></li>
+                                <li><a href="{url:balance/zx/txedList}" target="content">出金已审核</a></li>
                             </ul>
                         </li>
                         <li><a target="content">收费明细</a>

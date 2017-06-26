@@ -134,7 +134,8 @@ class statsMarket
         return tool::getSuccInfo(1,'删除成功');
     }
     public function getAllStatsList(){
-        $memcache=new \Library\cache\driver\Memcache();
+		$expire = 7*24*3600;
+       $memcache=new \Library\cache\Cache(array('type'=>'m','expire'=>$expire));
         $allStatcList=$memcache->get('allStatcList');
         if($allStatcList){
             return unserialize($allStatcList);

@@ -76,7 +76,8 @@ class zx extends account{
      * @param int $user_id
      */
     public function getActive($user_id){
-        //TODO 
+        $yue = $this->attachBalance($user_id);
+        return isset($yue['KYAMT']) ? $yue['KYAMT'] : 0;
         
     }
 
@@ -126,8 +127,12 @@ class zx extends account{
      public function in($user_id,$num){
          
      }
-     
-    
+
+
+    /**
+     * @param $data array 字段：user_id 用户id,num:金额
+     * @return array
+     */
      public function out($data){
         $accInfo = $this->attachAccount->attachInfo($data['user_id']);
         $clientID = tool::create_uuid($data['user_id']);
@@ -156,7 +161,12 @@ class zx extends account{
                 <preDate></preDate>
                 <preTime></preTime>
             </stream>";
-        return $this->curl($xml);
+
+        $res = $this->curl($xml);
+         if(strpos($res['zx_status'],'AAAAAA')===0){
+             $res['success'] =1;
+         }
+		return $res;
      }
 
     /**
@@ -219,7 +229,7 @@ class zx extends account{
         }else{
             $num = number_format($num,2);
             $code = $this->getFreezeCode($freeze_records,$amount ? $amount : $num);
-            if(!$code) return '冻结信息获取错误:'.($amount ? $amount : $Num);
+            if(!$code) return '冻结信息获取错误:'.($amount ? $amount : $num);
             $res = $this->bankTransfer('',$num,$from,$to,'freezePay',$time,$code); 
 
             if($res !== true){
@@ -506,8 +516,8 @@ class zx extends account{
         $date = strlen($date)<=8 ? $date : '';
         $payAccInfo = $this->attachAccount->attachInfo($user_id);
        // var_dump($payAccInfo);exit;
-        $starDate = $date ? date('Ymd',strtotime($date)) : date('Ymd',time()-86400*90);
-        $endDate = $date ? date('Ymd',strtotime($date)+86400*90) : date('Ymd',time());
+        $starDate = $date ? date('Ymd',strtotime($date)) : date('Ymd',time()-86400*87);
+        $endDate = $date ? date('Ymd',strtotime($date)+86400*87) : date('Ymd',time());
         $xml = self::XML_PREFIX."
             <stream>
                 <action>DLSFRZQR</action>
@@ -539,8 +549,7 @@ class zx extends account{
                 <subAccNo>{$payAccInfo['no']}</subAccNo>
             </stream>";
         $res = $this->curl($xml);
-        return $res['row'] ? $res['row'] : array();
-
+        return isset($res['row']) && $res['row'] ? $res['row'] : array();
     }
 
     /**
@@ -604,9 +613,15 @@ class zx extends account{
                 <pageNumber>{$size}</pageNumber>
             </stream>";
         $res = $this->curl($xml);
-        foreach ($res['row'] as $key => &$value) {
-            $value['subno'] = $payAccInfo['no'];
-        }
+		if(isset($res['row'][1])){
+			foreach ($res['row'] as $key => &$value) {
+               $value['subno'] = $payAccInfo['no'];
+			}
+		}
+		else{
+			$res['row']['subno'] = $payAccInfo['no'];
+		}
+		
         return $res;
     }
 
@@ -669,7 +684,29 @@ class zx extends account{
     public function signStatus(){
         $sign = new M('bank_sign');
         $res = $sign->where(array('date'=>date('Y-m-d',time()),'bank_name'=>'中信银行'))->getObj();
+        if(!isset($res['signin']))
+            return '未签到';
         return $res['signin'] && $res['signout'] ? '已签退' : ($res['signin'] ? true : '未签到');
+    }
+
+    /**
+     * 附属账户签约状态查询
+     */
+    public function attachStatus($attchNo){
+        $startDate = date('Ymd',time()-86400*30);
+        $endDate = date('Ymd',time());
+        $xml = self::XML_PREFIX."
+            <stream>
+            <action>DLSASQRY</action>
+                <userName>".$this->username."</userName>
+                <mainAccNo>".$this->mainacc."</mainAccNo>
+                <subAccNo>{$attchNo}</subAccNo>
+                <stt></stt>
+                <startDate>{$startDate}</startDate>
+                <endDate>{$endDate}</endDate>
+            </stream>";
+        $res = $this->curl($xml);
+        var_dump($res);
     }
 
 }

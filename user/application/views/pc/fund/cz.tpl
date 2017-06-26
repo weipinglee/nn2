@@ -77,6 +77,7 @@
 
                                   <label for="female">上传汇款单据</label>
 
+
                                     <span class="input-file" style="top:0;">选择文件<input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" /></span>
 
                                     <div id="preview">
