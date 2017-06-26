@@ -291,6 +291,8 @@ class BidController extends UcenterBaseController{
 		}
 	}
 
+
+
 	/**
 	 * 添加补充公告接口
 	 */
@@ -442,6 +444,19 @@ class BidController extends UcenterBaseController{
 			die(json::encode($res));
 		}
 
+	}
+
+	/**
+	 * 未中标的用户退还保证金
+	 */
+	public function rebackBailAction()
+	{
+		if(IS_POST){
+			$bid_id = safe::filterPost('bid_id','int');
+			$this->bidObj->setStateObj('bid',$bid_id);
+			$res = $this->bidObj->rebackReplyBail($bid_id);
+			die(json::encode($res));
+		}
 	}
 
 

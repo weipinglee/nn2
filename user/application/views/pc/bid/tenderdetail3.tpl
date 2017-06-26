@@ -19,6 +19,12 @@
                                                             <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
                                                             <p>开标地点：[{$detail['open_way_text']}]</p>
 
+                                                            <div class="tender_handle">
+                                                                {if:$detail['status']==7 || $detail['status']==8}
+                                                               <button  button_submit="1" confirm="1" confirm_text="确定退还未中标用户保证金？" ajax-data='{"bid_id":{$detail['id']}}' ajax-url="{url:/bid/rebackBail}">退还未中标投标方保证金</button>
+                                                                {/if}
+                                                            </div>
+
                                                         </div>
 					<div class="center_tabl">
                                                             <ul class="step_list">
