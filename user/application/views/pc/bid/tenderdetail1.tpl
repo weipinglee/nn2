@@ -102,7 +102,7 @@
                                                                                 <input type="hidden" name="id" value="{$item['id']}"/>
                                                                                 <td>{echo:$key+1}</td>
                                                                                 <td>{$item['true_name']}</td>
-                                                                                <td>{if:in_array($item['status'],array(3,5,6,7))}已审核{else:}未审核{/if}[<a href="{url:/bid/}" style="color:#1a59d9;">查看</a>]</td>
+                                                                                <td>{if:in_array($item['status'],array(3,5,6,7))}已审核{else:}未审核{/if}[<a href="{url:/bid/viewpaper}?id={$item['id']}" style="color:#1a59d9;">查看</a>]</td>
                                                                                 <td>{if:$item['status']<5}未购买{else:}已购买{/if}</td>
                                                                                 <td>{if:$item['status']<7}未投标{else:}已投标{/if}</td>
                                                                                 <td>{if:$item['status']<7}未冻结{else:}未冻结{/if}</td>

@@ -28,6 +28,11 @@ class BidController extends UcenterBaseController{
 		$this->bidObjSeller = new sellerHandle($this->user_id);
 	}
 
+	public function testAction(){
+		$com = new \nainai\bid\comment\bidcomment();
+
+	}
+
 	/*********************招标发布相关功能***************************/
 	public function setUserTruenameAction(){
 		$Query = new \Library\Query('user as u');
@@ -246,10 +251,11 @@ class BidController extends UcenterBaseController{
 			$bid_id = safe::filterPost('bid_id','int');
 			$bidObj = $this->bidObj;
 			$bidObj->setStateObj('bid',$bid_id);
-			//$pay_type = safe::filterPost('pay_type');
+			$pay_type = safe::filterPost('pay_type');
 			$pay_type = 1;//默认中信
 			$res = $bidObj->release($pay_type);
-			$res['returnUrl'] = url::createUrl('/bid/tenderfb4');
+			if($res['success']==1)
+				$res['returnUrl'] = url::createUrl('/bid/tenderfb4');
 			die(json::encode($res));
 		}
 
@@ -298,6 +304,8 @@ class BidController extends UcenterBaseController{
 			die(json::encode($res));
 		}
 	}
+
+
 
 
 /*********************招标列表和详情相关***************************/
@@ -378,6 +386,17 @@ class BidController extends UcenterBaseController{
 		$this->getView()->assign('replyList',$replyList);
 	}
 
+	/**
+	 * 查看投标方资质
+	 */
+	public function viewpaperAction()
+	{
+		$id = safe::filterGet('id','int');//投标id
+		$certs = $this->bidObj->getReplyCerts($id);
+		$this->getView()->assign('certs',$certs);
+
+	}
+
 	public function tenderDetail2Action(){
 		$id = safe::filterGet('id','int');
 		$detail = $this->bidObj->getBidDetail($id);
@@ -410,9 +429,20 @@ class BidController extends UcenterBaseController{
 
 	}
 
+	/**
+	 * 评论招标
+	 */
+	public function addCommentAction()
+	{
+		if(IS_POST){
+			$bid_id = safe::filterPost('bid_id','int');
+			$content = safe::filterPost('content');
+			$this->bidObjSeller->setStateObj('bid',$bid_id);
+			$res = $this->bidObjSeller->bidComment($content,$this->user_id);
+			die(json::encode($res));
+		}
 
-
-
+	}
 
 
 	/****************************投标发布*********************/

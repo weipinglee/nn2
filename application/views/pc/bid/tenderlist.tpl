@@ -22,9 +22,7 @@
                     <h3>
                         <em>选择搜索条件</em>
                     </h3>
-                    <div class="st_ext">
-                       <span id="span_r">共找到 <font style="color: #c00;">4342</font> 条相关信息</span>
-                    </div>
+
                 </div>          
                 <div class="class_jy">
 
@@ -53,55 +51,19 @@
                             <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
                     </div>
                 </div>
-                <div class="class_jy">
-                    <span class="jy_title">类型：</span>
-                        <ul>
-							<li value="1" class="a_choose"><a>招标公告</a></li>
-							<li value="2"><a>招标预告</a></li> 
-							<li value="3"><a>变更</a></li>
-							<li value="5"><a>中标</a></li>							
-                       </ul>                    
-                </div>
+
 				
 			    <div class="class_jy">
                     <span class="jy_title">行业：</span>
                     <ul>
-                        <li class=""><a href="">全部</a></li>
-                        <li value="1" class="a_choose"><a>耐火材料</a></li>
-                        <li value="2"><a href="">耐火材料</a></li>
-						<li value="3"><a href="">耐火材料</a></li>
-						<li value="4"><a href="">耐火材料</a></li>
-						<li value="5"><a href="">耐火材料</a></li>
-						<li value="6"><a href="">耐火材料</a></li>
+                        <li {if:$cate_id==0}class="a_choose"{/if}><a href="">全部</a></li>
+                        {foreach:items=$cates}
+						<li {if:$cate_id==$item['id']}class="a_choose"{/if} value="{$item['id']}"><a href="{url:/bid/tenderlist}?cate_id={$item['id']}">{$item['name']}</a></li>
+                        {/foreach}
                     </ul>   
-					<ul class="infoslider" style="display:none;">
-                        <li class=""><a href="">耐火材料</a></li>
-                        <li value="1"><a>耐火材料</a></li>
-                        <li value="2"><a href="">耐火材料</a></li>
-						<li value="3"><a href="">耐火材料</a></li>
-						<li value="4"><a href="">耐火材料</a></li>
-						<li value="5"><a href="">耐火材料</a></li>
-						<li value="6"><a href="">耐火材料</a></li>
-                    </ul>   
-					<div class="sl_ext">
-                        <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
-                    </div>
+
                 </div>
-			    <div class="class_jy">
-                    <span class="jy_title">发布日期：</span>
-                    <ul>
-                        <li class=""><a href="">全部</a></li>
-                        <li value="1" class="a_choose"><a>今天</a></li>
-                        <li value="2"><a href="">近三天</a></li>
-						<li value="3"><a href="">进一周</a></li>
-						<li value="4"><a href="">近一月</a></li>
-						<li value="5"><a href="">近三月</a></li>
-						<li value="6"><a href="">近一年</a></li>
-                    </ul>
-					<div class="gj">
-                        <b>关键词：</b><input class="gj_ci" type="text"/><input class="gjcs" type="button" value="搜索"/>
-                    </div>
-                </div>
+
 				<div style="clear:both"></div>
             </div>
             <!-- 分类 end -->
