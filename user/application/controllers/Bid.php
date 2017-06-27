@@ -517,7 +517,7 @@ class BidController extends UcenterBaseController{
 			//判断是否可投标
 			if($bidDetail['mode']=='yq' && !in_array($this->user_id,explode(',',$bidDetail['yq_user']))){
 				$this->error('您未被邀请，不能投标',url::createUrl('/bid/tendercontent@deal').'?id='.$bid_id);
-				
+
 			}
 
 			//证书信息
@@ -531,6 +531,21 @@ class BidController extends UcenterBaseController{
 			$this->getView()->assign('certs',$certs);
 		}
 
+
+	}
+
+	/**
+	 * 删除证书接口
+	 */
+	public function delCertAction()
+	{
+		$cert_id = safe::filterPost('cert_id','int');
+		$reply_id = safe::filterPost('reply_id','int');
+		$bid_id = safe::filterPost('bid_id','int');
+		$this->bidObjSeller->setStateObj('reply',$reply_id);
+		$res = $this->bidObjSeller->replyCertDel($cert_id);
+		$res['returnUrl'] = url::createUrl('/bid/bidOper').'?id='.$bid_id;
+		die(json::encode($res));
 
 	}
 

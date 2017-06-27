@@ -223,8 +223,9 @@ nn_panduo.formacc.prototype = {
 			var json = $(this).attr('ajax-data');
 			json = JSON.parse(json);
 			var url = $(this).attr('ajax-url');
-			if($(this).attr("confirm") ){
-				var confirmText = $(this).prop("confirm_text") ? $(this).prop("confirm_text") : '确定吗?';
+			var confirm = $(this).attr('confirm_submit');
+			if(confirm){
+				var confirmText = $(this).attr("confirm_text") ? $(this).attr("confirm_text") : '确定吗?';
 				layer.confirm(confirmText,
 						function(){
 							_this.ajax_post(url,json,function() {

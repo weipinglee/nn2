@@ -66,6 +66,7 @@
                                                                             <td>添加时间</td>
                                                                             <td>提交状态</td>
                                                                             <td>资审状态</td>
+                                                                            <td></td>
                                                                         </tr>
                                                                         {foreach:$items=$certs}
                                                                         <tr>
@@ -76,10 +77,11 @@
                                                                             <td>{$item['create_time']}</td>
                                                                             <td>{if:$certHasSubmit}已提交{else:}未提交{/if}</td>
                                                                             <td>待审核</td>
+                                                                            <td><a href="javascript:void(0)" button_submit="1" ajax-data='{"cert_id":{$item["id"]},"reply_id":{$item["reply_id"]},"bid_id":{$detail["id"]}}' ajax-url="{url:/bid/delCert}" confirm_submit="1" confirm_text="确定要删除这个证书？">删除</a></td>
                                                                         </tr>
                                                                         {/foreach}
                                                                         <tr>
-                                                                            <td colspan="7">
+                                                                            <td colspan="8">
                                                                                 <a href="{url:/bid/bidoper1}?id={$detail['id']}">请上传资质文件</a>
                                                                             </td>
                                                                         </tr>
