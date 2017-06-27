@@ -514,6 +514,12 @@ class BidController extends UcenterBaseController{
 			$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
 			$this->getView()->assign('detail',$bidDetail);
 
+			//判断是否可投标
+			if($bidDetail['mode']=='yq' && !in_array($this->user_id,explode(',',$bidDetail['yq_user']))){
+				$this->error('您未被邀请，不能投标',url::createUrl('/bid/tendercontent@deal').'?id='.$bid_id);
+				
+			}
+
 			//证书信息
 			$certs = $this->bidObjSeller->getUserReplyCerts($this->user_id,$bid_id);
 			$certHasSubmit = 0;
@@ -620,7 +626,7 @@ class BidController extends UcenterBaseController{
 			$this->bidObjSeller->setStateObj('reply',$reply_id);
 			$pay_type  = 1;
 			$res = $this->bidObjSeller->replyPaydocFee($pay_type);
-			$res['url'] = url::createUrl('/bid/bidOper3').'?reply_id='.$reply_id;
+			$res['returnUrl'] = url::createUrl('/bid/bidOper3').'?reply_id='.$reply_id;
 			die(json::encode($res));
 
 		}

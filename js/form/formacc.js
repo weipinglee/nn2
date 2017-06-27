@@ -190,6 +190,34 @@ nn_panduo.formacc.prototype = {
 		});
 	},
 
+	buttonSubmit : function(){
+		var _this = this;
+		$('[button_submit]').on('click',function(){
+			var json = $(this).attr('ajax-data');
+			json = JSON.parse(json);
+			var url = $(this).attr('ajax-url');
+			if($(this).attr("confirm") ){
+				var confirmText = $(this).prop("confirm_text") ? $(this).prop("confirm_text") : '确定吗?';
+				layer.confirm(confirmText,
+						function(){
+							_this.ajax_post(url,json,function() {
+								layer.msg('操作成功！');
+							})
+						},
+						function(){
+							layer.closeAll();
+						}
+
+				);
+			}else{
+				_this.ajax_post(url,json,function() {
+					layer.msg('操作成功！');
+				})
+			}
+
+		})
+	},
+
 	check:function(bool){
 		return this.validObj.check(bool);
 	},

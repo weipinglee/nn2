@@ -12,17 +12,13 @@
            <div class="tender_content">
                 <div class="tender_top">
                     <b>
-                        <a>首页</a> > <a>招投标大厅</a> > <a>招标公告</a> > <a>学员</a> <a>楼运营管理招标项目公开招标公告</a>
+                        <a>首页</a> > <a>招投标大厅</a> > <a>招标公告</a> >  <a>{$detail['pro_name']}</a>
                     </b>
                 </div>
                 <div class="tender_center">
                     <div class="center_left">
-                        <h1>学员楼运营管理招标项目公开招标公告</h1>
-                        <div class="cen_time">
-                            <p class="time_p">被浏览了10+次|发布日期 ：2016-02-29
-                                <a class="shoucang">收藏</a>
-                            </p>
-                        </div>
+                        <h1>{$detail['pro_name']}</h1>
+
                         <table class="table_cen">
                             <tr>
                                 <th>截止日期：</th>
