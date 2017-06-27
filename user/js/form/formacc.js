@@ -223,9 +223,25 @@ nn_panduo.formacc.prototype = {
 			var json = $(this).attr('ajax-data');
 			json = JSON.parse(json);
 			var url = $(this).attr('ajax-url');
-			_this.ajax_post(url,json,function() {
-				layer.msg('操作成功！');
-			})
+			if($(this).attr("confirm") ){
+				var confirmText = $(this).prop("confirm_text") ? $(this).prop("confirm_text") : '确定吗?';
+				layer.confirm(confirmText,
+						function(){
+							_this.ajax_post(url,json,function() {
+								layer.msg('操作成功！');
+							})
+						},
+						function(){
+							layer.closeAll();
+						}
+
+				);
+			}else{
+				_this.ajax_post(url,json,function() {
+					layer.msg('操作成功！');
+				})
+			}
+
 		})
 	},
 
