@@ -543,7 +543,7 @@ class BidController extends UcenterBaseController{
 		$reply_id = safe::filterPost('reply_id','int');
 		$bid_id = safe::filterPost('bid_id','int');
 		$this->bidObjSeller->setStateObj('reply',$reply_id);
-		$res = $this->bidObjSeller->replyCertDel($cert_id);
+		$res = $this->bidObjSeller->replyCertDel($cert_id,$reply_id);
 		$res['returnUrl'] = url::createUrl('/bid/bidOper').'?id='.$bid_id;
 		die(json::encode($res));
 

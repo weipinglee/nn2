@@ -16,12 +16,14 @@
         <p>招标方：{$detail['true_name']}</p>
         <p>招标方式：{$detail['mode_text']}</p>
         <p>包件类型：{$detail['pack_type_text']}</p>
+         <p>市场分类：{$detail['cate_name']}</p>
+         <p>项目名称：{$detail['pro_name']}</p>
         <p>项目地点：{$detail['pro_address']}</p>
-        <p>投标时间：{$detail['begin_time']}</p>
-        <p>开标时间：{$detail['end_time']}</p>
+        <p>投标时间：{$detail['begin_time']}--{$detail['end_time']}</p>
+        <p>开标时间：{$detail['open_time']}</p>
         <p>开标地点：{$detail['open_way_text']}</p>
         <p>一、招标条件</p>
-        <p>上海建筑用钢招标会</p>
+        <p>{$detail['bid_require']}</p>
         <p>二、项目概况与招标内容</p>
         <p>1、项目概况</p>
         <p>{$detail['pro_brief']}</p>
@@ -54,13 +56,31 @@
 	 	</table>
 
         <p>三、资格要求</p>
+         {foreach:items=$detail['eq']}
+             <p>{$item}</p>
+         {/foreach}
+
         <p>四、项目报名与招标文件的获取</p>
+         我公司于{$detail['doc_begin']}起以{$detail['doc_price']}的价格销售标书。
         <p>五、投标文件的递交与开标时间及地点</p>
+         投标人需提交保证金{$detail['supply_bail']}元
         <p>六、其他事项</p>
         <p>{$detail['other']}</p>
         <p>七、发布公告的媒介</p>
         <p>本项目公告仅在耐耐网电子商务平台上发布，本公告的修改、补充，以在耐耐网电子商务平台发布的内容为准。本公告在各媒体发布的文本如有不同之处，以在耐耐网电子商务平台发布的文本为准。</p>
         <p>八、联系方式</p>
+         <p>招标人：{$detail['bid_person']}</p>
+         <p>地址：{$detail['cont_address']}</p>
+         <p>联系人：{$detail['cont_person']}</p>
+         <p>电话：{$detail['cont_phone']}</p>
+         <p>邮箱：{$detail['cont_email']}</p>
+         <p>传真：{$detail['cont_tax']}</p>
+         <p>代理机构：{$detail['agent']}</p>
+         <p>地址：{$detail['agent_address']}</p>
+         <p>联系人：{$detail['agent_person']}</p>
+         <p>电话：{$detail['agent_phone']}</p>
+         <p>邮箱：{$detail['agent_email']}</p>
+         <p>传真：{$detail['agent_tax']}</p>
         <p>九、注意事项</p>
         <p>……</p>
         <p>发布公告日期：{$detail['create_Time']}</p>
