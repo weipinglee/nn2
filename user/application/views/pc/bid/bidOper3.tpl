@@ -162,10 +162,12 @@
                                                                                     </td>
                                                                                     <td><input type="text" name="unit_price[]"></td>
                                                                                     <td><input type="text" name="freight_fee[]"></td>
-                                                                                    <td></td>
+                                                                                    <!-- 金额=单价+运杂费 -->
+                                                                                    <td>{$item['unit_price']+$item['freight_fee']}</td>
                                                                                     <td><input type="text" name="quanlity[]"></td>
                                                                                     <td><input type="text" name="tran_days[]"></td>
-                                                                                    <td></td>
+                                                                                    <!-- 总金额=单价*数量+运杂费 -->
+                                                                                    <td>{$item['unit_price']*$item['num']+$item['freight_fee']}</td>
                                                                                     <td><input type="text" name="note[]"></td>
                                                                                 </tr>
                                                                             {/foreach}
