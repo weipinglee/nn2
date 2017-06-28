@@ -29,6 +29,20 @@ class attachAccount{
 	}
 
 	/**
+	 * 更新附属账户数据，主要是后台操作添加附属账户
+	 * @param $user_id
+	 * @param $data
+	 * @return bool
+	 */
+	public function updateAttach($user_id,$data){
+		$res = $this->attachTable->data($data)->where(array('user_id'=>$user_id))->update();
+		if($res){
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * 获取指定用户与银行的附属账户信息
 	 * @param  int $user_id 用户id
 	 * @param  string $bank  所属银行
@@ -108,9 +122,12 @@ class attachAccount{
 				}
 				$xml_obj['row'] = $row;
 			}
+			$xml_obj['zx_status'] = $xml_obj['status'];
 			$xml_obj['status'] = 1;
 			$xml_obj['success'] = 1;
-		}else{
+			
+ 		}else{
+			$xml_obj['zx_status'] = $xml_obj['status'];
 			$xml_obj['status'] = 0;
 			$xml_obj['success'] = 0;
 		}

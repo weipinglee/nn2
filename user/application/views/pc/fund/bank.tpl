@@ -36,14 +36,14 @@
 							</div>
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>{if: $user_type==1}公司名称：{else:}姓名：{/if}</span>
-								<span><input class="text" type="text" datatype="s2-20" name="true_name" value="{$bank['true_name']}"></span>
+								<span><input class="text" type="text"  name="true_name" value="{$bank['true_name']}"></span>
 								<span></span>
 							</div>
 							{if:$user_type!=1}
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>身份证：</span>
 								<span>
-									<input class="text" type="text" name="identify" datatype="/^\d{15,18}$/i" value="{$bank['identify_no']}" >
+									<input class="text" type="text" name="identify"  value="{$bank['identify_no']}" >
 								</span>
 								<span></span>
 								
@@ -52,6 +52,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>银行账号：</span>
 								<span><input class="text" type="text" name="card_no" datatype="/^[0-9a-zA-Z]{8,30}$/i" value="{$bank['card_no']}" errormsg='请填写8-30位数字或字母'></span>
+
 								<span></span>
 								
 							</div>

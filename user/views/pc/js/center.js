@@ -222,4 +222,18 @@ jQuery(document).ready(function($){
             $(".cksl_bk3").hide();  
         });  
        }) 
+
+       /*在线招投标（bidOper3.tpl）金额计算*/
+       $(function(){
+          var price = $(".unit_price").val();
+          var num = $(".itme_num").val();
+          var freight_fee = $(".freight_fee").val();
+          $(".unit_price").keyup(function(){
+            $("#amount").html(prive*num);
+          })
+          $(".freight_fee").keyup(function(){
+
+            $("#total_amount").html(prive*num+freight_fee);
+          })
+       })
    

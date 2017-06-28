@@ -87,6 +87,7 @@ nn_panduo.formacc.prototype = {
 					var data = $(curform).serialize();
 					var pay_secret = $(curform).attr('pay_secret');
 					var has_secret = $(curform).attr('has_secret');
+					var confirm    = $(curform).attr('confirm');//表单是否需要确认，如果存在pay_secret则不确认
 					if(pay_secret){
 						if(has_secret){
 							_this.ajax_post(has_secret,{password:'pass'},function(){
@@ -150,22 +151,47 @@ nn_panduo.formacc.prototype = {
 						
 
 					}else{
-						layer.load();
-						_this.ajax_post(url,data,function(){
-							layer.closeAll();
-							if(!_this.no_redirect){
-								layer.msg("操作成功!稍后自动跳转");
-								setTimeout(function(){
-									 if(_this.redirect_url){
-										window.location.href=_this.redirect_url;
-									}else{
-										window.location.reload();
-									}
-								},1000);
-							}else{
-								layer.msg('操作成功！');
-							}
+						layer.config({
+							extend: 'extend/layer.ext.js'
 						});
+						if(confirm){
+							layer.confirm("确定吗？",function(){
+								layer.closeAll();
+								_this.ajax_post(url,data,function(){
+									layer.closeAll();
+									if(!_this.no_redirect){
+										layer.msg("操作成功!稍后自动跳转");
+										setTimeout(function(){
+											if(_this.redirect_url){
+												window.location.href=_this.redirect_url;
+											}else{
+												window.location.reload();
+											}
+										},1000);
+									}else{
+										layer.msg('操作成功！');
+									}
+								});
+							});
+						}
+						else{
+							_this.ajax_post(url,data,function(){
+								layer.closeAll();
+								if(!_this.no_redirect){
+									layer.msg("操作成功!稍后自动跳转");
+									setTimeout(function(){
+										if(_this.redirect_url){
+											window.location.href=_this.redirect_url;
+										}else{
+											window.location.reload();
+										}
+									},1000);
+								}else{
+									layer.msg('操作成功！');
+								}
+							});
+						}
+
 					}
 					return false;
 				}

@@ -72,15 +72,30 @@
 								
 							</div>
 							
-							{if:!$info}
+							{if:!$info['no'] && !$info['user_id']}
 							<div class="zhxi_con">
 								<span class="con_tit"><i></i></span>
 								<span style="color:red">为了保证您签约顺利，请务必填写正确信息</span>
 								
 							</div>
+
 							<div class="zhxi_con">	
 								<span><input class="submit_zz" type="submit" value="提交"></span>
 							</div>
+							{/if}
+							{if:!$info['no'] && $info['user_id']}
+								<div class="zhxi_con">
+									<span class="con_tit"><i></i></span>
+									<span style="color:red">等待后台审核</span>
+
+								</div>
+
+								<div class="zhxi_con">
+									<span><input class="submit_zz" name="chg" type="button" value="修改"></span>
+								</div>
+								<div class="zhxi_con" >
+									<span><input style="display:none" class="submit_zz"  type="submit" value="提交"></span>
+								</div>
 							{/if}
 						</form>
 					</div>
@@ -95,7 +110,15 @@
 	
 	$(function(){
 		if({$info['user_id']}){
-			$('input').attr('disabled','disabled').css({border:'none'});
+			$('input[type=text]').attr('disabled','disabled').css({border:'none'});
 		}
+
+		$('input[name=chg]').click(function() {
+			$(this).hide();
+			$('input[type=submit]').show();
+			$('input[type=text]').removeAttr('disabled').css({border:'1px solid #ccc'});
+		})
+
+
 	})
 </script>

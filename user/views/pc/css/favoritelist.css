@@ -1,0 +1,47 @@
+.clear:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.collection{
+	margin-bottom: 20px; 
+}
+.collection .collection-content{
+	float: left;
+	width: 200px;
+	margin: 20px 20px 0px 18px;
+	background: #f7f7f7;
+	border: 1px solid #ccc;
+	position: relative;
+}
+.collection .collection-content:hover{
+	 box-shadow: 0 1px 4px rgba(0,0,0,.25)
+}
+.collection .collection-content .collection-img{
+	width: 100%;
+	height: 170px;
+}
+.collection-content .collection-title{
+	padding: 10px;
+    height: 39px;
+    line-height: 22px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.collection .collection-content i.cancel_collection{
+	background: url("../images/icon/cancel.png");
+	display: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 5px;
+    right: 3px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.25);
+}
+.collection .collection-content:hover i.cancel_collection{
+	display: block;
+}

@@ -132,7 +132,10 @@ z-index:1000;">
                 </li>
                 {/if}
                 <li>
-                    <a href="{url:/message/usermail@user}">消息中心{if:$login==1&&$mess!=0}<em class="information">{$mess}</em>{/if}</a><span class="line_l">|<span>
+                    <a href="{url:/message/usermail@user}">消息中心{if:$login==1&&$mess!=0&&$mess<=99}
+                    <em class="information">{$mess}</em>
+                    {elseif:$login==1&&$mess!=0&&$mess>99}
+                    <em class="information">99+</em>{/if}</a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
@@ -235,7 +238,6 @@ z-index:1000;">
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
-          
         </div>
     </div>
 </div>
@@ -253,7 +255,9 @@ z-index:1000;">
             <li {if:isset($cur) && $cur=='bid'}class="current"{/if}><a href="{url:/bid/tenderlist}" target="_blank">招投标</a></li>
             <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}" target="_blank">仓储专区</a></li>
             <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}" target="_blank">帮我找</a></li>
-        </ul>
+             <li ><a href="http://info.nainaiwang.com" target="_blank">耐耐资讯</a></li>
+     
+	   </ul>
     </div>
 </div>
 
