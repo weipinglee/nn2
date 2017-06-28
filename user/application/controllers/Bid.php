@@ -251,8 +251,8 @@ class BidController extends UcenterBaseController{
 			$bid_id = safe::filterPost('bid_id','int');
 			$bidObj = $this->bidObj;
 			$bidObj->setStateObj('bid',$bid_id);
-			$pay_type = safe::filterPost('pay_type');
-			$pay_type = 1;//默认中信
+			$pay_type = safe::filterPost('pay_type','int',1);
+			//$pay_type = 1;
 			$res = $bidObj->release($pay_type);
 			if($res['success']==1)
 				$res['returnUrl'] = url::createUrl('/bid/tenderfb4');
