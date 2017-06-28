@@ -26,7 +26,7 @@ function uploadDoc(_this,uploadUrl){
                     imgInput.trigger('change');//显示正确信息，消失错误信息
                 }
                 else{
-                    alert(data.error);
+                    //alert(data.error);
                 }
 
             },
