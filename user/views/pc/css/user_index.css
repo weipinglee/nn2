@@ -2289,7 +2289,7 @@ input#image {
 .bid .bid_cont table td{border-left:1px solid #ccc;border-top:1px solid #ccc;text-align: center;width: 12%;} 
 .bid .bid_cont table td input{width: 90%;}
 .bid .bid_cont .contact{width: 400px;height: 225px;float: left;margin-right: 20px;text-align: right;}
-.bid .bid_cont .contact input{width: 220px;}
+.bid .bid_cont .contact input{width: 219px;}
 .bid .bid_cont .contact .Validform_checktip{display: inline-block;width: 110px;text-align:left;margin-left:1px;}
 .bid .bid_bond {width: 300px;height: 200px;float: left;}
 .bid .bid_bond h3{font-size: 16px;line-height: 30px;}
