@@ -28,8 +28,8 @@
                                                                 <button name="fb">发布</button>
                                                                 {/if}
                                                                <!-- <button id="chose_supplier">发布补充公告</button>-->
-                                                                <button name="ch">撤回</button>
-                                                                <button name="zz">终止</button>
+                                                                <button name="cx" button_submit="1" ajax-data='{"bid_id":{$detail['id']}}' ajax-url="{url:/bid/cancleBid}">撤回</button>
+                                                                <button name="zz" button_submit="1" ajax-data='{"bid_id":{$detail['id']}}' ajax-url="{url:/bid/closeBid}">终止</button>
                                                             </div>
                                                         </div>
 					<div class="center_tabl">
@@ -143,11 +143,6 @@
         $('button[name=fb]').on('click',function() {
             $('form').attr('action','{url:/bid/bidrelease}').submit();
         })
-        $('button[name=cx]').on('click',function() {
-            $('form').attr('action','{url:/bid/cancleBid}').submit();
-        })
-        $('button[name=zz]').on('click',function() {
-            $('form').attr('action','{url:/bid/closeBid}').submit();
-        })
+
     })
 </script>

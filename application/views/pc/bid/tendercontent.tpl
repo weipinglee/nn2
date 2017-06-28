@@ -149,7 +149,7 @@
           <h1>发表招标评论</h1>
           <div class="tit">
             <span class="zbgg_color">【招标公告】</span>
-            <span class="zbgg_bule">学员楼运营管理招标项目公开招标公告</span>
+            <span class="zbgg_bule">{$detail['pro_name']}</span>
           </div>
           <form method="post" action="{url:/bid/addcomment@user}?callback={url:/bid/tendercontent?id=$detail['id']}" auto_submit="1">
           <div class="zbgg_con">
