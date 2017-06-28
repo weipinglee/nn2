@@ -30,6 +30,7 @@ class adminRiskModel
             $where['city_name'] = isset($cityInfo['city']) ? $cityInfo['city'] : '';
             $where['admin_id'] = $params['admin_id'];
             $where['status'] = 1;
+			
             if(!$addInfo=$adminRiskObj->where($where)->getObj()){
                 $data['admin_id']=$params['admin_id'];
                 if(isset($cityInfo['country'])){
@@ -38,7 +39,7 @@ class adminRiskModel
                 else{
                     $data['introduce']= '';
                 }
-
+ 
                 $this->addUseAddress($params);
                 $this->writeRecord($data);
                 return false;
@@ -64,8 +65,8 @@ class adminRiskModel
         if(!$cityInfo=$ipModel->getIpInfo($params['ip'])){
             return tool::getSuccInfo(0,'ip不正确');
         }
-        $params['city_name']=$cityInfo['city'];
-        $params['login_address']=$cityInfo['country'].$cityInfo['province'].$cityInfo['city'];
+        $params['city_name']=isset($cityInfo['city']) ? $cityInfo['city'] : '';
+        $params['login_address']=isset($cityInfo['city']) ? $cityInfo['country'].$cityInfo['province'].$cityInfo['city'] : '';
         $where=array('admin_id'=>$params['admin_id'],'ip'=>$params['ip']);
         if($addInfo=$userRiskObj->where($where)->getObj()){
             if($addInfo['login_times']+1>=$this->loginTimes){
