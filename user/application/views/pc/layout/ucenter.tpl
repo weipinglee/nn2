@@ -85,7 +85,7 @@
                 <li>
                     <a href="{url:/message/usermail@user}">消息中心{if:$mess!=0&&$mess<=99}
                     <em class="information">{$mess}</em>
-                    {else if:$mess!=0&&$mess>99}
+                    {elseif:$mess!=0&&$mess>99}
                     <em class="information">99+</em>
                     {/if}</a><span class="line_l">|<span>
                 </li>

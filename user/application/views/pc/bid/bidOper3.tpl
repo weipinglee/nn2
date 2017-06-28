@@ -84,7 +84,7 @@
                                                                     {if:$reply['bid_doc']==''}
                                                                     <p class="zigefile">
                                                                         <span>投&nbsp;&nbsp;标&nbsp;&nbsp;书：</span>
-                                                                        <input type="file" class="doc" id="1" name="doc" accept=".doc" onchange="javascript:uploadDoc(this,'{url:/bid/ajaxUploadDoc}');" accept="application/msword"><i>*</i></p>
+                                                                        <input type="file" class="doc" id="1" name="doc" onchange="javascript:uploadDoc(this,'{url:/bid/ajaxUploadDoc}');"><i>*</i></p>
                                                                     <p class="zigefile" style="color:#e00101;"></p>
                                                                     {else:}
                                                                     <p class="zigefile">
@@ -160,14 +160,14 @@
                                                                                             <option value="0">否</option>
                                                                                         </select>
                                                                                     </td>
-                                                                                    <td><input class="unit_price" type="text" name="unit_price[]"></td>
-                                                                                    <td><input class="freight_fee" type="text" name="freight_fee[]"></td>
+                                                                                    <td><input class="djia_price" type="text" name="unit_price[]"/></td>
+                                                                                    <td><input class="freight_fee" type="text" name="freight_fee[]"/></td>
                                                                                     <!-- 金额=单价*数量 -->
-                                                                                    <td><span id="amount">{$item['unit_price']+$item['freight_fee']}</span></td>
+                                                                                    <td><span id="amount"></span></td>
                                                                                     <td><input type="text" name="quanlity[]"></td>
                                                                                     <td><input type="text" name="tran_days[]"></td>
                                                                                     <!-- 总金额=单价*数量+运杂费 -->
-                                                                                    <td><span id="total_amount">{$item['unit_price']*$item['num']+$item['freight_fee']}</span></td>
+                                                                                    <td><span id="total_amount"></span></td>
                                                                                     <td><input type="text" name="note[]"></td>
                                                                                 </tr>
                                                                             {/foreach}
