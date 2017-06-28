@@ -27,12 +27,18 @@ class adminRiskModel
             $this->addUseAddress($params,true);
             return true;
         }else{
-            $where['city_name']=$cityInfo['city'];
-            $where['admin_id']=$params['admin_id'];
-            $where['status']=1;
+            $where['city_name'] = isset($cityInfo['city']) ? $cityInfo['city'] : '';
+            $where['admin_id'] = $params['admin_id'];
+            $where['status'] = 1;
             if(!$addInfo=$adminRiskObj->where($where)->getObj()){
                 $data['admin_id']=$params['admin_id'];
-                $data['introduce']='在'.$cityInfo['country'].$cityInfo['province'].$cityInfo['city'].'登录';
+                if(isset($cityInfo['country'])){
+                    $data['introduce']='在'.$cityInfo['country'].$cityInfo['province'].$cityInfo['city'].'登录';
+                }
+                else{
+                    $data['introduce']= '';
+                }
+
                 $this->addUseAddress($params);
                 $this->writeRecord($data);
                 return false;
