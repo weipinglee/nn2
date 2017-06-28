@@ -76,7 +76,7 @@
                             <div class="hall_con">
                                 <div class="hall_tit">
 
-                                    <a href="{url:/bid/tendercontent}?id={$item['id']}">{$item['pro_name']}</a>
+                                    <a href="{url:/bid/tendercontent?id=$item['id']}">{$item['pro_name']}</a>
                                 </div>
                                 <div class="hall_con_left">
                                     <i class="icon-map-marker">&nbsp;无</i>

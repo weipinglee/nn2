@@ -51,7 +51,8 @@ class bidController extends PublicController {
 
 	public function tendercontentAction()
 	{
-		$id = safe::filterGet('id','int');
+		$id = $this->getRequest()->getParam('id');
+		$id = safe::filter($id,'int');
 		$detail = $this->bidObj->getBidDetail($id);
 		$this->getView()->assign('detail',$detail);
 
@@ -59,7 +60,12 @@ class bidController extends PublicController {
 		$commentObj = new \nainai\bid\comment\bidcomment();
 		$page = safe::filterGet('page','int',1);
 		$list = $commentObj->commentList($id,$page);//print_r($list);
+
 		$this->getView()->assign('comment',$list);
+
+		//获取投标信息
+		$tbList = $this->bidObj->getOneBidReplyList($id);
+		$this->getView()->assign('tbList',$tbList['list']);
 	}
 
 

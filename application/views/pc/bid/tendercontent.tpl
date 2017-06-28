@@ -42,30 +42,34 @@
                             <p>{$detail['pro_name']}</p>
                             <p>发布日期：{$detail['create_time']}</p>
                             <p>公告时间：{$detail['begin_time']}至{$detail['end_time']}</p>
-                            <p>**,***对****运营管理招标项目进行公开招标，现将采购事项公告如下：</p>
+                            <p>{$detail['true_name']}对{$detail['pro_name']}项目进行公开招标，现将采购事项公告如下：</p>
                             <p>1、项目名称：{$detail['pro_name']}</p>
-                            <p>2、**：*******</p>
-                            <p>3、采购内容（采购服务名称、服务期限、预算、主要服务需求）：</p>
+                            <p>2、项目概况：{$detail['pro_brief']}</p>
+                            <p>3、采购内容:</p>
                             <table class="announ_table">
                                 <tr>
-                                    <td>**</td>
-                                    <td>服务名称</td>
-                                    <td>服务期限</td>
-                                    <td>预算金额（万元）</td>
-                                    <td>主要服务需求</td>
+                                    <td>包件号</td>
+                                    <td>货物名称</td>
+                                    <td>型号规格</td>
+                                    <td>数量</td>
+                                    <td>计量单位</td>
                                 </tr>
+                                {foreach:items=$detail['package']}
                                 <tr>
-                                    <td>1</td>
-                                    <td>***运营管理</td>
-                                    <td>自合同签订日起3年。合同为一年一签</td>
-                                    <td>900万（300万/年，共三年）</td>
-                                    <td>****日常运营管理，劳务派遣等服务</td>
+                                    <td>{$item['pack_no']}</td>
+                                    <td>{$item['product_name']}</td>
+                                    <td>{$item['spec']}</td>
+                                    <td>{$item['num']}</td>
+                                    <td>{$item['unit']}</td>
                                 </tr>
+                                {/foreach}
                             </table>
-                            <p>4、分包及相关要求：子包：一个</p>
-                            <p>5、投标人的资格要求：</p>
-                            <p>5.1、具有独立承担民事责任的能力；</p>
-                            <p>5.2、具有良好的商业信誉和健全的财务会计制度；</p>
+                            <p>4、投标人的资格要求：</p>
+                            <p>4.1、具有独立承担民事责任的能力；</p>
+                            <p>4.2、具有良好的商业信誉和健全的财务会计制度；</p>
+                            {foreach:items=$detail['eq']}
+                                <p>4.{echo:$key+3}、{$item}</p>
+                            {/foreach}
 
                         </div>
                         <div class="ten_comment">
@@ -77,26 +81,25 @@
                             <div class="com_cont">
                                 <div class="com_cont_top">
                                     <div class="top_tit border_left top_tit_cur">
-                                        招标评论<b>（0）</b>
+                                        招标评论<b>（{echo:count($comment)}）</b>
                                     </div>
-                                    <div class="top_tit">投标信息<b>（0）</b></div>
+                                    <div class="top_tit">投标信息<b>（{echo:count($tbList)}）</b></div>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="com_neirong">
                                     
                                     <!-- 招投标评论 -->
-                                    {if:empty($comment)} <p>暂无评论</p>
+                                    {if:empty($comment)}
+                                        <p>暂无评论</p>
                                     {else:}
-                                    {foreach:item=$comment['']}
+                                    {foreach:items=$comment}
                                     <div class="ctd_comments_box cf">
-                                        <a class="img" href="">
-                                           <img src="{$item['curr_head']}">
-                                        </a>
+
                                         <div class="textarea_box">
                                             <a class="ctd_comments_username" href="/">{$item['curr_nick']}</a>
                                             <p class="ctd_comments_text">{$item['content']}</p>
                                             <div class="ctd_comments_contrl">
-                                                <span class="fl">发表于 {$item['create_time']}</span>
+                                                <span class="fl">发表于 {$item['creat_time']}</span>
                                                 <!-- <a class="contrl_02 link_reply  a_popup_login ">
                                                 回复(40)</a>| -->
                                                <!--  <a class="comment-point"><i class="posin-img"></i>(4)</a> -->
@@ -148,7 +151,7 @@
             <span class="zbgg_color">【招标公告】</span>
             <span class="zbgg_bule">学员楼运营管理招标项目公开招标公告</span>
           </div>
-          <form method="post" action="{url:/bid/addcomment@user}" auto_submit="1">
+          <form method="post" action="{url:/bid/addcomment@user}?callback={url:/bid/tendercontent?id=$detail['id']}" auto_submit="1">
           <div class="zbgg_con">
             <!-- <p class="zbgg_tishi">
                 您还没有<a href="">登录</a>
