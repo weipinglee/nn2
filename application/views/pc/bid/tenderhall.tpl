@@ -169,7 +169,7 @@
                             <a href="" class="zb_but">发布招标</a>
                         </div>
                         <div class="gonggao">
-                            <h2><img src="images/icon/reci.jpg">热词招标</h2>
+                            <h2><img  src="{views:images/icon/reci.jpg}">热词招标</h2>
                             <div class="rc_con">
                                 <a href="tender_announcement.html" class="rc_con_a">耐火材料</a>
                                 <a href="tender_announcement.html" class="rc_con_a">耐火材料</a>
@@ -179,7 +179,7 @@
                             </div>
                         </div>
                          <div class="gonggao">
-                            <h2><img src="images/icon/red_qi.jpg">行业招标</h2>
+                            <h2><img src="{views:images/icon/red_qi.jpg}">行业招标</h2>
                             <div class="rc_con">
                                 <a href="tender_announcement.html" class="rc_con_a">耐火材料</a>
                                 <a href="tender_announcement.html" class="rc_con_a">耐火材料</a>
@@ -189,7 +189,7 @@
                             </div>
                         </div>
                         <div class="gonggao">
-                            <h2><img src="images/icon/zb.jpg">地区招标</h2>
+                            <h2><img src="{views:images/icon/zb.jpg}">地区招标</h2>
                             <div class="dq">
                                 <div class="dq_left"><b>华东</b></div>
                                 <div class="dq_right">

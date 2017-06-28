@@ -94,7 +94,7 @@
                             <a href="{url:/bid/tenderfb}" class="zb_but">发布招标</a>
                         </div>
                         <div class="gonggao">
-                            <h2><img src="images/icon/reci.jpg">热词招标</h2>
+                            <h2><img src="{views:images/icon/reci.jpg}">热词招标</h2>
                             <div class="rc_con">
                                 <a href="tender_announcement.html" class="rc_con_a">耐火材料</a>
                                 <a href="tender_announcement.html" class="rc_con_a">耐火材料</a>
