@@ -42,13 +42,14 @@
                                                                     <input type="hidden" name="mode" value="{$_GET['type']}" />
                                                                     <input type="hidden" name="docsrc" value="{$docSrc}" />
                                                                     <p>
-                                                                        <span>材料类型：</span>
-                                                                        <select name="top_cate">
+                                                                        <span>市场分类：</span>
+                                                                        <span><select name="top_cate">
                                                                             {foreach:$items=$topCate}
                                                                             <option value="{$item['id']}">{$item['name']}</option>
                                                                             {/foreach}
-                                                                        </select>
+                                                                        </select></span>
                                                                     </p>
+
                                                                     <p>
                                                                         <span>项目名称：</span>
                                                                         <input type="text" style="width:314px;" name="pro_name" datatype="*" errormsg="请填写项目名称"><i>*</i>

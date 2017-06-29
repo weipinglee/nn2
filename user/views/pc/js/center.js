@@ -225,15 +225,21 @@ jQuery(document).ready(function($){
 
        /*在线招投标（bidOper3.tpl）金额计算*/
        $(function(){
-          var num = $(".itme_num").val();
-          $(".djia_price").keyup(function(){
-            $("#amount").html($(".djia_price").val()*num);
-            var total_amount = $(".djia_price").val()*num + Number($(".freight_fee").val())
-            $("#total_amount").html(total_amount);
+        
+            $(".djia_price").keyup(function(){
+             // alert("d")
+            var num = $(this).parent().parent("tr").find("td .itme_num").val();
+        
+            $(this).parent().parent("tr").find("td .amount").html($(this).val()*num);
+            var total_amount = $(this).val()*num + Number($(".freight_fee").val())
+            $(this).parent().parent("tr").find("td .total_amount").html(total_amount);
           })
+          
+          
           $(".freight_fee").keyup(function(){
-            var total_amount = $(".djia_price").val()*num + Number($(".freight_fee").val())
-            $("#total_amount").html(total_amount);
+            var num = $(this).parent().parent("tr").find(".itme_num").val();
+            var total_amount = $(this).parent().parent("tr").find("td .djia_price").val()*num + Number($(this).val())
+            $(this).parent().parent("tr").find("td .total_amount").html(total_amount);
           })
        })
    
