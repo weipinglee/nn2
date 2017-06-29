@@ -51,7 +51,7 @@
                                                                         <span>项目名称：</span>{$data['pro_name']}
                                                                     </p>
                                                                     <p>
-                                                                        <span>所&nbsp;&nbsp;在&nbsp;&nbsp;地：</span>{$data['address']}
+                                                                        <span>所&nbsp;&nbsp;在&nbsp;&nbsp;地：</span>{$data['pro_address']}
                                                                     </p>
                                                                 </div>
                                                                 <div class="bid_bond">
