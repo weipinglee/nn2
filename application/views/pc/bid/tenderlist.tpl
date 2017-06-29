@@ -54,7 +54,7 @@
                 <div class="class_jy">
                     <span class="jy_title">行业：</span>
                     <ul>
-                        <li {if:$cate_id==0}class="a_choose"{/if}><a href="">全部</a></li>
+                        <li {if:$cate_id==0}class="a_choose"{/if}><a href="{url:/bid/tenderlist}">全部</a></li>
                         {foreach:items=$cates}
                         <li {if:$cate_id==$item['id']}class="a_choose"{/if} value="{$item['id']}"><a href="{url:/bid/tenderlist}?cate_id={$item['id']}">{$item['name']}</a></li>
                         {/foreach}
