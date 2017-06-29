@@ -24,9 +24,7 @@
                                                             </form>
                                                             <!-- 补充公告 -->
                                                             <div class="tender_handle">
-                                                                {if:$detail['status']==0}
-                                                                <button name="fb">发布</button>
-                                                                {/if}
+
                                                                <!-- <button id="chose_supplier">发布补充公告</button>-->
                                                                 <button name="cx" button_submit="1" ajax-data='{"bid_id":{$detail['id']}}' ajax-url="{url:/bid/cancleBid}">撤回</button>
                                                                 <button name="zz" button_submit="1" ajax-data='{"bid_id":{$detail['id']}}' ajax-url="{url:/bid/closeBid}">终止</button>
@@ -113,10 +111,15 @@
 
                                                             <div class="clear"></div>
 
-                                                            <div class="button">
 
-                                                                <a href="{url:/bid/tenderdetail1}?id={$detail['id']}"><button>下一步</button></a>
-                                                            </div>
+                                                            <div class="button">
+                                                                {if:$detail['status']==0}
+                                                                    <button name="fb">支付保证金</button>
+                                                                {else:}
+                                                                    <a href="{url:/bid/tenderdetail1}?id={$detail['id']}"><button>下一步</button></a>
+
+                                                                {/if}
+                                                                </div>
 
                                                         </div>
 				</div>

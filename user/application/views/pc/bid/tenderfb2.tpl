@@ -167,8 +167,9 @@
                                                                     <p>1、合格投标人应在投标截止日前通过耐耐网电子商务平台进行网上投标，在上传投标文件的同时，提交保证金<input type="text" name="supply_bail" datatype="n">元，未中标者在投标结果发布之后退还，中标者在签订合同并缴纳合同履约金后予以退还。</p>
                                                                     <p>2、开标方式：<select name="open_way" id=""><option value="1">线上</option><option value="2">线下</option></select></p>
                                                                     <h3>六、支付方式</h3>
-                                                                    <p><input type="checkbox">现汇&nbsp;&nbsp;<input type="checkbox">银行承兑汇票&nbsp;&nbsp;<input type="checkbox">商业承兑汇票&nbsp;&nbsp;<input type="checkbox">国内信用证&nbsp;&nbsp;<input type="checkbox">国际信用证&nbsp;&nbsp;<input type="checkbox">其他<input type="text"></p>
-                                                                    <p>汇款账期：<input type="text"></p>
+                                                                    <p><input name="pay_way[]" value="1" type="checkbox">代理账户&nbsp;&nbsp;
+                                                                        <input name="pay_way[]" value="2" type="checkbox">中信银行&nbsp;&nbsp;
+
                                                                     <h3>七、其他事项</h3>
                                                                     <textarea style="resize: none;width:100%;height:150px;" name="other"></textarea>
                                                                     <h3>八、发布公告的媒介</h3>

@@ -22,6 +22,11 @@
         <p>投标时间：{$detail['begin_time']}--{$detail['end_time']}</p>
         <p>开标时间：{$detail['open_time']}</p>
         <p>开标地点：{$detail['open_way_text']}</p>
+         <p>支付方式：
+            {foreach:items=$detail['pay_way_text']}
+             {$item}&nbsp;&nbsp;
+             {/foreach}
+         </p>
         <p>一、招标条件</p>
         <p>{$detail['bid_require']}</p>
         <p>二、项目概况与招标内容</p>
