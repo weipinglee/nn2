@@ -184,7 +184,7 @@ class BidController extends UcenterBaseController{
 					'doc_price'  => safe::filterPost('doc_price') ,//标书价格
 					'supply_bail' => safe::filterPost('supply_bail') ,//供方保证金
 					'open_way'   => safe::filterPost('open_way'),//开标方式
-					'pay_way' => safe::filterPost('pay_way') ,//多种支付方式已逗号相隔
+					'pay_way' => implode(',',safe::filterPost('pay_way')) ,//多种支付方式已逗号相隔
 					'other'  => safe::filterPost('other') ,//其他事项
 					'bid_person'  => safe::filterPost('bid_person'),//招标人
 					'cont_person'  => safe::filterPost('cont_person'),//联系人
