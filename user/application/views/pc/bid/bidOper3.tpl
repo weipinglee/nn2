@@ -163,13 +163,14 @@
                                                                                     <td><input class="djia_price" type="text" name="unit_price[]"/></td>
                                                                                     <td><input class="freight_fee" type="text" name="freight_fee[]"/></td>
                                                                                     <!-- 金额=单价*数量 -->
-                                                                                    <td><span id="amount"></span></td>
+                                                                                    <td><span class="amount"></span></td>
                                                                                     <td><input type="text" name="quanlity[]"></td>
                                                                                     <td><input type="text" name="tran_days[]"></td>
                                                                                     <!-- 总金额=单价*数量+运杂费 -->
-                                                                                    <td><span id="total_amount"></span></td>
+                                                                                    <td><span class="total_amount"></span></td>
                                                                                     <td><input type="text" name="note[]"></td>
                                                                                 </tr>
+
                                                                             {/foreach}
                                                                                     </table>
 
