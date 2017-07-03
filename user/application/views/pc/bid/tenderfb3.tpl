@@ -76,8 +76,10 @@
                                                                 <div class="yListr" id="yListr">
                                                                   
                                                                       <ul>
-                                                                          <li><em name="chooice" class="yListrclickem" pay_type=1>市场代理账户<i></i></em> <em name="chooice" pay_type=2>银行签约账户<i></i></em> <!-- <em name="chooice" pay_type=3>票据账户<i></i></em> --> </li>
+                                                                          <li><em name="chooice" class="yListrclickem" pay_type=1>市场代理账户<i></i></em> <em name="chooice" pay_type=2>银行签约账户<i></i></em> <!-- <em name="chooice" pay_type=3>票据账户<i></i></em> --> 
+                                                                          </li>
                                                                       </ul>
+                                                                       <input type="hidden" name="pay_type">
                                                                 </div> 
 
                                                                 <script type="text/javascript">
