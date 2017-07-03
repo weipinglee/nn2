@@ -81,7 +81,7 @@
                     
                     <div class="chose">
                         <div class="search">
-                            <input type="text" id="username" name="username">
+                            <input type="text" id="username" name="username" autoComplete="off" >
                             <input type="hidden" name="username_url" value="{url:/bid/getYqUser@user}"  />
                             <i id="search_button"></i>
                         

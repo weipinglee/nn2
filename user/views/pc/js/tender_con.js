@@ -81,7 +81,7 @@ $("#package1").click(function(){
 
 //异步获取可邀请会员数据
 
-$("#search_button").on('click',function(){
+$("#username").on('keyup',function(){
   var username_url = $('input[name=username_url]').val();
   var username = $("#username").val();
 
