@@ -14,11 +14,6 @@ class testController extends  UcenterBaseController{
 
 	public function indexAction(){
 
-
-		$Q = new \Library\M('');
-		$query = 'select n1.id,n1.username,n2.nav_name from  nn_dev.user as n1 left join guanwang.dou_nav  as n2 on n1.id = n2.id where n1.id<100';
-		$data = $Q->query($query);
-		print_r($data);
 	}
 
 	public function uploadAction(){
