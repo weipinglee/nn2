@@ -7,6 +7,7 @@
 use \Library\M;
 use \Library\Query;
 use \Library\tool;
+use \Library\safe;
 class MemberModel extends baseModel{
 
 
@@ -14,18 +15,39 @@ class MemberModel extends baseModel{
 	 *获取用户列表
      */
 	public function getList(){
+		$model = new \nainai\user\User();
 		$Q = new \Library\searchQuery('user as u');
+		$bar = '';
+		if(!safe::filterGet('down') && !safe::filterGet('company_name') && !safe::filterGet('true_name') && !safe::filterGet('like') ){//没有其它查询条件
+			$Q1 = new \Library\Query('user as u');
+			$Q1->fields = 'u.id';
+			$Q1->order = 'u.id asc';
+			$Q1->where = ' FIND_IN_SET(u.status, :s)';
+			$Q1->bind = array('s' => $model::NOMAL . ',' . $model::LOCK);
+			$Q1->page = safe::filterGet('page','int',1);
+			$data = $Q1->find();
+			$bar = $Q1->getPageBar();//此处的bar替换下面联表查询获得的bar
+			$ids = '';
+			foreach($data as $val){
+				$ids .= $ids=='' ? $val['id'] : ','.$val['id'];
+			}
+			$Q->where = 'u.id in ('.$ids.')';
+
+		}
+		else{
+			$Q->where = ' FIND_IN_SET(u.status, :s)';
+			$Q->bind = array('s' => $model::NOMAL . ',' . $model::LOCK);
+		}
 		$Q->join = 'left join agent as a on u.agent = a.id left join admin_yewu as ye on u.yewu = ye.admin_id LEFT JOIN company_info as c ON u.id=c.user_id LEFT JOIN person_info as p ON u.id=p.user_id';
 		$Q->fields = 'u.*,a.username as agent_name,ye.ser_name, c.company_name, p.true_name';
 		$Q->order = 'u.id asc';
-		$Q->where = ' FIND_IN_SET(u.status, :s)';
-		$model = new \nainai\user\User();
-		$Q->bind = array('s' => $model::NOMAL . ',' . $model::LOCK);
+
 		$data = $Q->find($this->getYewuList());
-
+		if($bar!='')$data['bar'] = $bar;
 		$Q->downExcel($data['list'],'user', '会员列表');
-
 		return $data;
+
+
 	}
 
 	/**
