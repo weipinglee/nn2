@@ -40,7 +40,7 @@
 
                                                             <div class="clear"></div>
 
-                                                            <form method="post" action="{url:/bid/bidRelease}" auto_submit="1">
+                                                            <form method="post" action="{url:/bid/bidRelease}" auto_submit="1" >
                                                                 <input type="hidden" name="bid_id" value="{$data['id']}" />
                                                             <div class="bid" style="margin-top:30px;">
                                                                 <div class="bid_cont" >
@@ -79,7 +79,7 @@
                                                                           <li><em name="chooice" class="yListrclickem" pay_type=1>市场代理账户<i></i></em> <em name="chooice" pay_type=2>银行签约账户<i></i></em> <!-- <em name="chooice" pay_type=3>票据账户<i></i></em> --> 
                                                                           </li>
                                                                       </ul>
-                                                                       <input type="hidden" name="pay_type">
+                                                                       <input type="hidden" name="pay_type" value="1">
                                                                 </div> 
 
                                                                 <script type="text/javascript">

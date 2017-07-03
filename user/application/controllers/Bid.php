@@ -104,10 +104,10 @@ class BidController extends UcenterBaseController{
 		$username = safe::filterPost('username');
 		$where = 1;
 		if($username)
-			$where = 'username like "%'.$username.'%"';
+			$where = 'username like "'.$username.'%"';
 
 
-		$userData = $userObj->where($where)->fields('id,username,type,mobile,true_name')->select();
+		$userData = $userObj->where($where)->fields('id,username,type,mobile,true_name')->order('username asc')->select();
 		$this->getView()->assign('user',$userData);
 	}
 
@@ -250,7 +250,6 @@ class BidController extends UcenterBaseController{
 			$bidObj = $this->bidObj;
 			$bidObj->setStateObj('bid',$bid_id);
 			$pay_type = safe::filterPost('pay_type','int',1);
-			//$pay_type = 1;
 			$res = $bidObj->release($pay_type);
 			if($res['success']==1)
 				$res['returnUrl'] = url::createUrl('/bid/tenderfb4');
