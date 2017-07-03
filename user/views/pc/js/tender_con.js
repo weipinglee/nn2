@@ -91,7 +91,7 @@ $("#search_button").on('click',function(){
       'data':{username:username},
       'dataType': 'json',
       success:function(data){
-     alert(JSON.stringify(data));
+     //alert(JSON.stringify(data));
         var proHtml = template.render('search_ul',{data:data});
        // alert(proHtml)
        $("#userlist").find("li").remove();
