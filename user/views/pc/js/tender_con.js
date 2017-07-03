@@ -65,9 +65,18 @@ $(".ok").click(function(){
         }
     })
 
-    $('input[name=user_list]').val(ids);
+    var user_selected = $('input[name=user_list]').val();
+    if(user_selected){
+        $('input[name=user_list]').val(user_selected+','+ids);
+        $("#chosen_mem").text($("#chosen_mem").text()+','+user_name);
+    }
+    else {
+        $('input[name=user_list]').val(ids);
+        $("#chosen_mem").text(user_name);
+    }
+
     // 获取的text值写入textarea文本域
-    $("#chosen_mem").text(user_name);
+
 });
 
                 /*个人中心招标发布end*/ 
@@ -81,7 +90,7 @@ $("#package1").click(function(){
 
 //异步获取可邀请会员数据
 
-$("#search_button").on('click',function(){
+$("#username").on('keyup',function(){
   var username_url = $('input[name=username_url]').val();
   var username = $("#username").val();
 
@@ -101,7 +110,7 @@ $("#search_button").on('click',function(){
       },
         error : function(){
             
-        },
+        }
 
      })
 

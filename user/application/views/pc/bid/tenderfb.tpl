@@ -1,6 +1,6 @@
-
+<script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
   <script src="{views:/js/tender_con.js}" type="text/javascript"></script>
-  <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
+
 
 
 			<!--start中间内容-->	
@@ -81,7 +81,7 @@
                     
                     <div class="chose">
                         <div class="search">
-                            <input type="text" id="username" name="username">
+                            <input type="text" id="username" name="username" autoComplete="off" >
                             <input type="hidden" name="username_url" value="{url:/bid/getYqUser@user}"  />
                             <i id="search_button"></i>
                         
@@ -92,7 +92,7 @@
                            
                              <li class="mem_list">
                                     <input type="checkbox" value="<%=data[i].username%>" class="mem_check">
-                                    <input type="hidden" name="id[]" value="<%=data[i].id%>}"/>
+                                    <input type="hidden" name="id[]" value="<%=data[i].id%>"/>
                                     <i class="rank"></i>
                                     <span ><%=data[i].username%></span>
                                 </li>

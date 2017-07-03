@@ -65,7 +65,7 @@
                                                             </div>
 
                                                             <div class="clear"></div>
-                                                            <form method="post" action="{url:/bid/replyPayDoc}" auto_submit="1">
+                                                            <form method="post" action="{url:/bid/replyPayDoc}" pay_secret="1" auto_submit="1">
                                                                 <input type="hidden" name="reply_id" value="{$reply_id}" />
                                                                 <div class="button">
                                                                     <button >支付</button>
