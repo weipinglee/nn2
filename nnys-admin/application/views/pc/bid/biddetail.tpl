@@ -37,7 +37,7 @@
 	 	 <table class="table table-border table-bordered table-bg">
 	 		<tr>
                     <th>包件号</th>
-                    <th>货物编号</th>
+                    <th>货物名称</th>
                     <th>品牌</th>
                     <th>型号规格</th>
                     <th>技术要求</th>
