@@ -237,7 +237,7 @@ jQuery(document).ready(function($){
           
           $(".freight_fee").keyup(function(){
             var num = $(this).parent().parent("tr").find("td .itme_num").val();
-            alert(num)
+            //alert(num)
             var total_amount = $(this).parent().parent("tr").find("td .djia_price").val()*num + Number($(this).val())
             $(this).parent().parent("tr").find("td .total_amount").html(total_amount);
           })
