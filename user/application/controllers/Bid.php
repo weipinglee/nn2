@@ -69,10 +69,10 @@ class BidController extends UcenterBaseController{
 			$username = safe::filterPost('username');
 			$where = 1;
 			if($username)
-				$where = 'username like "%'.$username.'%"';
+				$where = 'username like "'.$username.'%"';
 
 
-			$userData = $userObj->where($where)->fields('id,username,type,mobile,true_name')->select();
+			$userData = $userObj->where($where)->fields('id,username,type,mobile,true_name')->order('username asc')->select();
 			die(json::encode($userData));
 		}
 
