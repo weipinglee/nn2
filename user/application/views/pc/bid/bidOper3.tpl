@@ -151,7 +151,7 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         {$item['num']}
-
+                                                                                        <input class="itme_num" type="hidden" value="{$item['num']}"/>
                                                                                     </td>
                                                                                     <td>
                                                                                         <select name="deliver[]">
