@@ -130,29 +130,28 @@
                                                                                     <input type="hidden" name="pack_id[]" value="{$item['id']}"/>
                                                                                     <td>
                                                                                         {$item['pack_no']}
-                                                                                        <input type="hidden" name="pack_no" value="{$item['pack_no']}"/>
+                                                                                        <input type="hidden" name="pack_no[]" value="{$item['pack_no']}"/>
                                                                                     </td>
                                                                                     <td>
                                                                                         {$item['product_name']}
-                                                                                        <input type="hidden" name="pack_no" value="{$item['product_name']}"/>
                                                                                     </td>
                                                                                     <td><input type="text" name="brand[]"></td>
                                                                                     <td>
                                                                                         {$item['spec']}
-                                                                                        <input type="hidden" name="pack_no" value="{$item['spec']}"/>
+
                                                                                     </td>
                                                                                     <td>
                                                                                         {$item['tech_need']}
-                                                                                        <input type="hidden" name="pack_no" value="{$item['tech_need']}"/>
+
                                                                                     </td>
                                                                                     <td>
                                                                                         {$item['unit']}
-                                                                                        <input type="hidden" name="pack_no" value="{$item['unit']}"/>
+
 
                                                                                     </td>
                                                                                     <td>
                                                                                         {$item['num']}
-                                                                                        <input class="itme_num" type="hidden" name="pack_no" value="{$item['num']}"/>
+
                                                                                     </td>
                                                                                     <td>
                                                                                         <select name="deliver[]">
