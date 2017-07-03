@@ -228,11 +228,15 @@ jQuery(document).ready(function($){
         
             $(".djia_price").keyup(function(){
              // alert("d")
+             $(".djia_price").keyup(function(){
+              //alert("d")
             var num = $(this).parent().parent("tr").find("td .itme_num").val();
-        
             $(this).parent().parent("tr").find("td .amount").html($(this).val()*num);
-            var total_amount = $(this).val()*num + Number($(".freight_fee").val())
+            var freight_fee = $(this).parent().parent("tr").find(".freight_fee").val();
+            var total_amount = $(this).val()*num + Number(freight_fee);
             $(this).parent().parent("tr").find("td .total_amount").html(total_amount);
+          })
+          
           })
           
           
