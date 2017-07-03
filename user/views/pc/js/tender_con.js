@@ -101,7 +101,7 @@ $("#search_button").on('click',function(){
       },
         error : function(){
             
-        },
+        }
 
      })
 

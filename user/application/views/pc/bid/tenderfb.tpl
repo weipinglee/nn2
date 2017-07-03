@@ -1,6 +1,6 @@
-
+<script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
   <script src="{views:/js/tender_con.js}" type="text/javascript"></script>
-  <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
+
 
 
 			<!--start中间内容-->	
