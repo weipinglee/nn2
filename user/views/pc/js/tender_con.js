@@ -79,6 +79,35 @@ $("#package1").click(function(){
 });
 
 
+//异步获取可邀请会员数据
+
+$("#search_button").on('click',function(){
+  var username_url = $('input[name=username_url]').val();
+  var username = $("#username").val();
+
+     $.ajax({
+      'url':username_url,
+      'type':'post',
+      'data':{username:username},
+      'dataType': 'json',
+      success:function(data){
+     alert(JSON.stringify(data));
+        var proHtml = template.render('search_ul',{data:data});
+       // alert(proHtml)
+       $("#userlist").find("li").remove();
+
+       $('#userlist').append(proHtml);
+        
+      },
+        error : function(){
+            
+        },
+
+     })
+
+   });
+  
+   
 })
 
 

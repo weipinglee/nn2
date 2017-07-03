@@ -1,5 +1,6 @@
 
   <script src="{views:/js/tender_con.js}" type="text/javascript"></script>
+  <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
 
 
 			<!--start中间内容-->	
@@ -70,22 +71,36 @@
                                                         </div>
 				</div>
 			</div>
-
+            
             <div id="supplier_list" style="display:none;">
                 <div class="invite_mem">
                     <div class="title">
                         <h5>邀请会员</h5>
                         <i class="close">X</i>
-                    </div>
-
+                    </div> 
+                    
                     <div class="chose">
                         <div class="search">
-                            <input type="text" >
-                            <i></i>
+                            <input type="text" id="username" name="username">
+                            <input type="hidden" name="username_url" value="{url:/bid/getYqUser@user}"  />
+                            <i id="search_button"></i>
+                        
                         </div>
-                        <ul>
-
-                            {foreach:items=$user}
+                        <script type="text/html" id="search_ul"> 
+                      
+                          <% for(var i=0;i<data.length;i++){ %>
+                           
+                             <li class="mem_list">
+                                    <input type="checkbox" value="<%=data[i].username%>" class="mem_check">
+                                    <input type="hidden" name="id[]" value="<%=data[i].id%>}"/>
+                                    <i class="rank"></i>
+                                    <span ><%=data[i].username%></span>
+                                </li>
+                             <% } %>
+                        
+                        </script>
+                        <ul id="userlist">
+                         {foreach:items=$user}
                                 <li class="mem_list">
                                     <input type="checkbox" value="{$item['username']}" class="mem_check">
                                     <input type="hidden" name="id[]" value="{$item['id']}"/>
@@ -94,14 +109,14 @@
                                 </li>
                             {/foreach}
 
-
                         </ul>
                         <button class="ok">确定</button>
                         <button class="close">关闭</button>
                     </div>
+                 
                 </div>
             </div>
-            
+           
             <script type="text/javascript">
                     $(document).ready(function () { 
                         $(".type").click(function(){
