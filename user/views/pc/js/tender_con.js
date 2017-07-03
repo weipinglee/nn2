@@ -65,9 +65,18 @@ $(".ok").click(function(){
         }
     })
 
-    $('input[name=user_list]').val(ids);
+    var user_selected = $('input[name=user_list]').val();
+    if(user_selected){
+        $('input[name=user_list]').val(user_selected+','+ids);
+        $("#chosen_mem").text($("#chosen_mem").text()+','+user_name);
+    }
+    else {
+        $('input[name=user_list]').val(ids);
+        $("#chosen_mem").text(user_name);
+    }
+
     // 获取的text值写入textarea文本域
-    $("#chosen_mem").text(user_name);
+
 });
 
                 /*个人中心招标发布end*/ 

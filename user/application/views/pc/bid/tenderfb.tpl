@@ -92,7 +92,7 @@
                            
                              <li class="mem_list">
                                     <input type="checkbox" value="<%=data[i].username%>" class="mem_check">
-                                    <input type="hidden" name="id[]" value="<%=data[i].id%>}"/>
+                                    <input type="hidden" name="id[]" value="<%=data[i].id%>"/>
                                     <i class="rank"></i>
                                     <span ><%=data[i].username%></span>
                                 </li>
