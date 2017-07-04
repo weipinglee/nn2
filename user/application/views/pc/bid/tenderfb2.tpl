@@ -59,15 +59,15 @@
                                                                     </p>
                                                                     <p>
                                                                         <span>投标时间：</span>
-                                                                        <input type="date" value="" name="begin_time" datatype="*" />
+                                                                        <input type="datetime-local" value="" name="begin_time" datatype="*" />
                                                                         <span>至</span>
-                                                                        <input type="date" value="" name="end_time" datatype="*" /><i>*</i>
+                                                                        <input type="datetime-local" value="" name="end_time" datatype="*" /><i>*</i>
                                                                         <span class="tips">
                                                                             开始日期不晚于当前日期一个月，过程在10-30天内
                                                                         </span><br/>
 
                                                                         <span>开标时间：</span>
-                                                                        <input type="date" value="" name="open_time" datatype="*" ><i>*</i>
+                                                                        <input type="datetime-local" value="" name="open_time" datatype="*" ><i>*</i>
                                                                         <span class="tips">
                                                                             截标后10-60天内
                                                                         </span>
