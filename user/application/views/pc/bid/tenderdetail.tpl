@@ -18,7 +18,7 @@
                                                             <p>项目地点：{$detail['pro_address']}</p>
                                                             <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
                                                             <p>开标地点：[{$detail['open_way_text']}]</p>
-                                                            <form method="post" action="{url:/bid/bidrelease}" auto_submit="1" >
+                                                            <form method="post" action="{url:/bid/bidrelease}" auto_submit="1" pay_secret="1">
                                                                 <input type="hidden" name="bid_id" value="{$detail['id']}"/>
 
                                                             </form>
