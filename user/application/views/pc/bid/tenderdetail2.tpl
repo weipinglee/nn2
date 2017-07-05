@@ -95,7 +95,7 @@
 
                                                                         <tr>
                                                                             <td colspan="6">
-                                                                                <button onclick="javascript:window.location.href=' package_compare.html'">对比</button><button onclick="javascript:window.location.href=' package_compare.html'">全部对比</button>
+                                                                                <button onclick="javascript:window.location.href=' packcompare'">对比</button><button onclick="javascript:window.location.href=' packcompare'">全部对比</button>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
