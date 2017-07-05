@@ -64,7 +64,8 @@
                                                                                 <a class="package {if:$i==0}on{/if}"  onclick="show({$i})" name="{$key}">{$key}</a>
 
                                                                                 {set:$i=$i+1;}
-                                                                        {/foreach}
+                                                                            {/foreach}
+                                                                        </p>
 
                                                                     </div>
                                                                     {set:$j=0}
@@ -84,12 +85,12 @@
 
                                                                         <tr>
                                                                             <input type="hidden" name="reply_pack_id" value="{$v['id']}" />
-                                                                            <td>{$v['true_name']}</td>
+                                                                            <td id="company_true_name">{$v['true_name']}</td>
                                                                             <td><a href="{$v['bid_doc_url']}" style="color:#1a59d9;">下载</a></td>
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
                                                                             <td>{$v['create_time']}</td>
                                                                             <td><input type="checkbox" name="check[]" value="{$v['id']}"></td>
-                                                                            <td><a class="chose_supplier" style="color:#1a59d9;">选择</a></td>
+                                                                            <td><a class="chose_supplier" style="color:#1a59d9;" >选择</a></td>
                                                                         </tr>
                                                                         {/foreach}
 
@@ -140,9 +141,9 @@
                     <div class="chose" style="width:450px;">
                         <div class="search">
                             <input type="hidden" name="bid_id" value="{$detail['id']}" />
-                            <p>项目名称：<b>上海建筑用钢招标会</b></p>
-                            <p>包件：OC-2</p>
-                            <p>中标单位名称：aa(02000001)</p>
+                            <p>项目名称：<b>{$detail['pro_name']}</b></p>
+                            <p>包件：<span id="pack_id"></span></p>
+                            <p>投标单位名称：<span id="company_name"></span></p>
                             <p>资质分数：<input name="zz" type="text" style="border-radius:0;"></p>
                             <p>技术分数：<input name="js" type="text" style="border-radius:0;"></p>
                             <p>商务分数：<input name="sw" type="text" style="border-radius:0;"></p>
