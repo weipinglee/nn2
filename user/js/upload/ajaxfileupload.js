@@ -168,6 +168,10 @@ jQuery.extend({
                 form.enctype = 'multipart/form-data';
             }			
             $(form).submit();
+               var oldElement = jQuery('#jUploadFile' +id ,form);
+        var newElement =  jQuery('#'+s.fileElementId );
+        $(newElement).replaceWith(oldElement);
+        $(oldElement).attr('id', s.fileElementId ); //解决选择文件，不显示文件名问题（提交后把元素再复制回来）
 
         } catch(e) 
 		{			
