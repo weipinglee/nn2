@@ -40,7 +40,7 @@
 
                                                             <div class="clear"></div>
 
-                                                            <form method="post" action="{url:/bid/bidRelease}" auto_submit="1" >
+                                                            <form method="post" action="{url:/bid/bidRelease}" auto_submit="1" pay_secret="1">
                                                                 <input type="hidden" name="bid_id" value="{$data['id']}" />
                                                             <div class="bid" style="margin-top:30px;">
                                                                 <div class="bid_cont" >
