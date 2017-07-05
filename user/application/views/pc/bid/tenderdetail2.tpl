@@ -84,7 +84,7 @@
                                                                         {foreach:items=$item key=$k item=$v}
 
                                                                         <tr>
-                                                                            <input type="hidden" name="reply_pack_id" value="{$v['id']}" />
+                                                                            <input type="hidden" name="reply_pack_id" value="{$v['id']}" id="reply_pack_id"/>
                                                                             <td id="company_true_name">{$v['true_name']}</td>
                                                                             <td><a href="{$v['bid_doc_url']}" style="color:#1a59d9;">下载</a></td>
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
@@ -137,10 +137,12 @@
                         <h5>评标</h5>
                         <i class="close">X</i>
                     </div>
-
+                    
+                    <form  method="post" action="{url:/bid/pingbiao@user}" auto_submit="1">
                     <div class="chose" style="width:450px;">
                         <div class="search">
                             <input type="hidden" name="bid_id" value="{$detail['id']}" />
+                            <input type="hidden" name="reply_pack_id" value="" id="reply_pack"/>
                             <p>项目名称：<b>{$detail['pro_name']}</b></p>
                             <p>包件：<span id="pack_id"></span></p>
                             <p>投标单位名称：<span id="company_name"></span></p>
@@ -150,9 +152,12 @@
                             <p><input type="radio" name="status" value="1">确定中标<input type="radio" name="status" value="0">该包件流标</p>
                             <p>注：预中标结果发布，三天后若无异议，将自动释放未中标人缴纳的保证金！</p>
                         </div>
-                        <button class="ok" style="margin-left:150px;">确定</button>
-                        <button class="close">关闭</button>
+                        <input type="submit" class="ok" style="margin-left:150px;" value="确定">
+                        <input type="button" class="close" value="关闭">
                     </div>
+                    </form>
+
+
                 </div>
             </div>
 			<!--end中间内容-->
