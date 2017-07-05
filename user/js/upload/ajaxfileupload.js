@@ -40,7 +40,7 @@ jQuery.extend({
 		var newElement = $(oldElement).clone();
 		$(oldElement).attr('id', fileId);
 		$(oldElement).before(newElement);
-		$(newElement).appendTo(form);//在newElement 后增加内容
+		$(oldElement).appendTo(form);
 		//set attributes
 		$(form).css('position', 'absolute');
 		$(form).css('top', '-1200px');
