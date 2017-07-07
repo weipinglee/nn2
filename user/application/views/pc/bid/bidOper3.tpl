@@ -84,7 +84,7 @@
                                                                     {if:$reply['bid_doc']==''}
                                                                     <p class="zigefile">
                                                                         <span>投&nbsp;&nbsp;标&nbsp;&nbsp;书：</span>
-                                                                        <input type="file" class="doc" id="1" name="doc" onchange="javascript:uploadDoc(this,'{url:/bid/ajaxUploadDoc}');"><i>*</i></p>
+                                                                        <input type="file" class="doc" id="1" name="doc" onchange="javascript:uploadDoc(this,'{url:/bid/ajaxUploadDoc}');" accept="application/msword" style="height: 30px;"><i>*</i><span>只允许上传.doc文件</span></p>
                                                                     <p class="zigefile" style="color:#e00101;"></p>
                                                                     {else:}
                                                                     <p class="zigefile">
