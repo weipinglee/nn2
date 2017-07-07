@@ -4,7 +4,7 @@
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>采购管理</a>><a>商家报价列表</a></p>
+						<p><a>采购管理</a>><a>我的报价列表</a></p>
 					</div>
 					<div class="chp_xx">
 						<div class="xx_top">
