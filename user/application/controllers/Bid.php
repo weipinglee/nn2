@@ -578,7 +578,7 @@ class BidController extends UcenterBaseController{
 				$this->redirect(url::createUrl('/bid/bidOper').'?id='.$bid_id);
 			}
 			else{
-				$this->redirect(url::createUrl('/bid/bidOper1').'?error='.$res['info']);
+				$this->error($res['info'],url::createUrl('/bid/bidOper').'?id='.$bid_id);
 			}
 
 		}
