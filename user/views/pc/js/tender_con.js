@@ -88,6 +88,14 @@ $("#package1").click(function(){
 });
 
 
+/* 评标弹窗 */
+
+    $(".chose_supplier").click(function(){
+           $("#pack_id").text($(".bid_cont .on").attr("name"));
+           $("#company_name").text($("#company_true_name").text());
+           $("#reply_pack").val($("#reply_pack_id").val());
+    }); 
+
 //异步获取可邀请会员数据
 
 $("#username").on('keyup',function(){

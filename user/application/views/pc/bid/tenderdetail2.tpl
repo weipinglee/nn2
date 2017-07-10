@@ -64,7 +64,8 @@
                                                                                 <a class="package {if:$i==0}on{/if}"  onclick="show({$i})" name="{$key}">{$key}</a>
 
                                                                                 {set:$i=$i+1;}
-                                                                        {/foreach}
+                                                                            {/foreach}
+                                                                        </p>
 
                                                                     </div>
                                                                     {set:$j=0}
@@ -80,24 +81,27 @@
                                                                             <td>对比选择</td>
                                                                             <td>选择中标</td>
                                                                         </tr>
+
+                                                                <form  method="get" action="{url:/bid/packCompare}" auto_submit="1">
                                                                         {foreach:items=$item key=$k item=$v}
 
                                                                         <tr>
-                                                                            <input type="hidden" name="reply_pack_id" value="{$v['id']}" />
-                                                                            <td>{$v['true_name']}</td>
+                                                                            <input type="hidden" name="reply_pack_id" value="{$v['id']}" id="reply_pack_id"/>
+                                                                            <td id="company_true_name">{$v['true_name']}</td>
                                                                             <td><a href="{$v['bid_doc_url']}" style="color:#1a59d9;">下载</a></td>
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
                                                                             <td>{$v['create_time']}</td>
-                                                                            <td><input type="checkbox" name="check[]" value="{$v['id']}"></td>
-                                                                            <td><a class="chose_supplier" style="color:#1a59d9;">选择</a></td>
+                                                                            <td><input type="checkbox" name="pack_id[]" value="{$v['id']}"></td>
+                                                                            <td><a class="chose_supplier" style="color:#1a59d9;" >选择</a></td>
                                                                         </tr>
                                                                         {/foreach}
 
                                                                         <tr>
                                                                             <td colspan="6">
-                                                                                <button onclick="javascript:window.location.href=' package_compare.html'">对比</button><button onclick="javascript:window.location.href=' package_compare.html'">全部对比</button>
+                                                                                <button>对比</button><button id="allCompare">全部对比</button>
                                                                             </td>
                                                                         </tr>
+                                                                </form>
                                                                     </table>
                                                                         {set:$j +=1;}
                                                                     {/foreach}
@@ -136,22 +140,27 @@
                         <h5>评标</h5>
                         <i class="close">X</i>
                     </div>
-
+                    
+                    <form  method="post" action="{url:/bid/pingbiao@user}" auto_submit="1">
                     <div class="chose" style="width:450px;">
                         <div class="search">
                             <input type="hidden" name="bid_id" value="{$detail['id']}" />
-                            <p>项目名称：<b>上海建筑用钢招标会</b></p>
-                            <p>包件：OC-2</p>
-                            <p>中标单位名称：aa(02000001)</p>
+                            <input type="hidden" name="reply_pack_id" value="" id="reply_pack"/>
+                            <p>项目名称：<b>{$detail['pro_name']}</b></p>
+                            <p>包件：<span id="pack_id"></span></p>
+                            <p>投标单位名称：<span id="company_name"></span></p>
                             <p>资质分数：<input name="zz" type="text" style="border-radius:0;"></p>
                             <p>技术分数：<input name="js" type="text" style="border-radius:0;"></p>
                             <p>商务分数：<input name="sw" type="text" style="border-radius:0;"></p>
                             <p><input type="radio" name="status" value="1">确定中标<input type="radio" name="status" value="0">该包件流标</p>
                             <p>注：预中标结果发布，三天后若无异议，将自动释放未中标人缴纳的保证金！</p>
                         </div>
-                        <button class="ok" style="margin-left:150px;">确定</button>
-                        <button class="close">关闭</button>
+                        <input type="submit" class="ok" style="margin-left:150px;" value="确定">
+                        <input type="button" class="close" value="关闭">
                     </div>
+                    </form>
+
+
                 </div>
             </div>
 			<!--end中间内容-->

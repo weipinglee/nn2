@@ -1,0 +1,17 @@
+
+/user/_thumb/*
+/user/application/runtime/*
+/user/upload/*
+/nnys-admin/_thumb/*
+/nnys-admin/application/runtime/*
+/nnys-admin/upload/*
+/_thumb/*
+/upload/*
+/application/runtime/*
+/.idea
+*.ini
+.htaccess
+.doc
+.docx
+/libs/Library/configs.php
+
