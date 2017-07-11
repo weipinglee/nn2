@@ -92,7 +92,13 @@
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
                                                                             <td>{$v['create_time']}</td>
                                                                             <td><input type="checkbox" name="pack_id[]" value="{$v['id']}"></td>
+                                                                            {if:$v['selected']==1}
+                                                                            <td>已中标</td>
+                                                                            {elseif:$v['win_user_id'] > 0}
+                                                                            <td>未中标</td>
+                                                                            {else:}
                                                                             <td><a class="chose_supplier" style="color:#1a59d9;" >选择</a></td>
+                                                                            {/if}
                                                                         </tr>
                                                                         {/foreach}
 
@@ -112,7 +118,9 @@
                                                             <div class="clear"></div>
 
                                                             
-                                                            <div class="button"><button style="float: left;margin-right:20px;">评标结束</button><button style="margin:0;">项目流标</button></div>
+                                                            <div class="button"><button ajax-url="{url:/bid/pingbiaojs@user}" ajax-data='{"bid_id":{$detail['id']},"status":1}' button_submit="1" confirm_submit="1" confirm_text="确定该招标评标结束？" style="float: left;margin-right:20px;">评标结束</button>
+                                                                <button ajax-url="{url:/bid/pingbiaojs@user}" ajax-data='{"bid_id":{$detail['id']},"status":0}' button_submit="1" confirm_submit="1" confirm_text="确定该招标评标结束？"  style="margin:0;">项目流标</button>
+                                                            </div>
 
                                                         </div>
 				</div>
