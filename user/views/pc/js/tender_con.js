@@ -87,6 +87,11 @@ $("#package1").click(function(){
   $("#package1").addClass(".on");
 });
 
+/* 全部对比 */
+$("#allCompare").click(function(){
+  $("input[name='pack_id[]']").attr("checked",'true');
+}); 
+
 
 /* 评标弹窗 */
 

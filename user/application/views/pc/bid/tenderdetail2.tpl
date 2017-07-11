@@ -82,7 +82,7 @@
                                                                             <td>选择中标</td>
                                                                         </tr>
 
-                                                                <form  method="get" action="{url:/bid/packCompare}" auto_submit="1">
+                                                                <form  method="get" action="{url:/bid/packCompare}">
                                                                         {foreach:items=$item key=$k item=$v}
 
                                                                         <tr>
@@ -91,7 +91,7 @@
                                                                             <td><a href="{$v['bid_doc_url']}" style="color:#1a59d9;">下载</a></td>
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
                                                                             <td>{$v['create_time']}</td>
-                                                                            <td><input type="checkbox" name="pack_id[]" value="{$v['id']}"></td>
+                                                                            <td><input type="checkbox" name='pack_id[]' value="{$v['id']}"></td>
                                                                             <td><a class="chose_supplier" style="color:#1a59d9;" >选择</a></td>
                                                                         </tr>
                                                                         {/foreach}
