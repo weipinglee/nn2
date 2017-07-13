@@ -277,9 +277,11 @@
 
         function show_time(){ 
         var time_start = new Date().getTime(); //设定当前时间
-        var time_end =  new Date("2017/7/13 11:21:50").getTime(); //设定目标时间
+        var time_end =  new Date("2017/7/13 16:46:30").getTime(); //设定目标时间
         // 计算时间差 
         var time_distance = time_end - time_start; 
+
+        if(time_distance > 0){ 
         // 天
         var int_day = Math.floor(time_distance/86400000) 
         time_distance -= int_day * 86400000; 
@@ -310,24 +312,17 @@
         $("#time_m").text(int_minute); 
         $("#time_s").text(int_second);
 
-        if($("#time_d").text()==00 && $("#time_h").text()==00 && $("#time_m").text()==00 && $("#time_s").text()==00 ){
-          $("#time_limit").text("项目已开标");
-        } 
+      
 
         // 设置定时器
         setTimeout("show_time()",1000); 
-
-      
-      
+        }else{
+            $("#time_limit").text("项目已开标");
+        }
 
         }
 
-        // function done(){
-        // if($("#time_d").text()==00 && $("#time_h").text()==00 && $("#time_m").text()==00 && $("#time_s").text()==00 ){
-        //   $("#time_limit").text("项目已开标");
-        // } 
-        // setTimeout('done()',1000);
-        // } 
+     
 </script>
 			<!--end中间内容-->	
 			<!--start右侧广告			
