@@ -89,7 +89,8 @@ $("#package1").click(function(){
 
 /* 全部对比 */
 $("#allCompare").click(function(){
-  $("input[name='pack_id[]']").attr("checked",'true');
+  // $("input[name='pack_id[]']").attr("checked",'true');
+  $(".checkbox_pack").attr("checked",'true');
 }); 
 
 
@@ -97,8 +98,8 @@ $("#allCompare").click(function(){
 
     $(".chose_supplier").click(function(){
            $("#pack_id").text($(".bid_cont .on").attr("name"));
-           $("#company_name").text($("#company_true_name").text());
-           $("#reply_pack").val($("#reply_pack_id").val());
+           $("#company_name").text($(this).parent().parent().children("#company_true_name").text());
+           $("#reply_pack").val($(this).parent().parent().children("#reply_pack_id").val());
     }); 
 
 //异步获取可邀请会员数据
