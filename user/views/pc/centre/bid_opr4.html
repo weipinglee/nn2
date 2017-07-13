@@ -247,7 +247,7 @@
                                                             <div class="invite" id="invite" style="padding-top:47px;">
                                                                 
                                                                 <div class="bid_zige" style="">
-                                                                    <h2>开标倒计时：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h2>
+                                                                    <h2 id="time_limit">开标倒计时：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h2>
                                                                     <p>
                                                                         包件
                                                                         <select>
@@ -277,7 +277,7 @@
 
         function show_time(){ 
         var time_start = new Date().getTime(); //设定当前时间
-        var time_end =  new Date("2017/10/01 00:00:00").getTime(); //设定目标时间
+        var time_end =  new Date("2017/7/13 11:21:50").getTime(); //设定目标时间
         // 计算时间差 
         var time_distance = time_end - time_start; 
         // 天
@@ -308,10 +308,26 @@
         $("#time_d").text(int_day); 
         $("#time_h").text(int_hour); 
         $("#time_m").text(int_minute); 
-        $("#time_s").text(int_second); 
+        $("#time_s").text(int_second);
+
+        if($("#time_d").text()==00 && $("#time_h").text()==00 && $("#time_m").text()==00 && $("#time_s").text()==00 ){
+          $("#time_limit").text("项目已开标");
+        } 
+
         // 设置定时器
         setTimeout("show_time()",1000); 
+
+      
+      
+
         }
+
+        // function done(){
+        // if($("#time_d").text()==00 && $("#time_h").text()==00 && $("#time_m").text()==00 && $("#time_s").text()==00 ){
+        //   $("#time_limit").text("项目已开标");
+        // } 
+        // setTimeout('done()',1000);
+        // } 
 </script>
 			<!--end中间内容-->	
 			<!--start右侧广告			

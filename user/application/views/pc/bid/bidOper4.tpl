@@ -122,8 +122,16 @@
         $("#time_h").text(int_hour); 
         $("#time_m").text(int_minute); 
         $("#time_s").text(int_second); 
+
+        // 设置倒计时结束改变内容
+        if($("#time_d").text()==00 && $("#time_h").text()==00 && $("#time_m").text()==00 && $("#time_s").text()==00 ){
+          $("#time_limit").text("项目已开标");
+        } 
+
         // 设置定时器
         setTimeout("show_time()",1000); 
         }
+
+        
 </script>
 			<!--end中间内容-->	
