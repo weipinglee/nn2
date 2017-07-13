@@ -18,7 +18,7 @@
                                                             <p>项目地点：{$detail['pro_address']}</p>
                                                             <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
                                                             <p>开标地点：[{$detail['open_way_text']}]</p>
-
+                                                            <p>审核意见：[{$detail['admin_message']}]</p>
                                                         </div>
 					<div class="center_tabl">
                                                             <ul class="step_list">
@@ -52,7 +52,7 @@
                                                             
                                                         <div class="invite" id="invite" style="padding-top:47px;">
                                                             
-                                                            <div class="invite_title">
+                                                                <div class="invite_title">
                                                                     <span>在线开标</span>
                                                                 </div>
                                                                 <div class="bid_zige">
@@ -82,7 +82,8 @@
                                                                             <td>选择中标</td>
                                                                         </tr>
 
-                                                                <form  method="get" action="{url:/bid/packCompare}">
+                                                                <form  method="get" action="{url:/bid/packCompare}" >
+
                                                                         {foreach:items=$item key=$k item=$v}
 
                                                                         <tr>

@@ -18,6 +18,7 @@
                                                             <p>项目地点：{$detail['pro_address']}</p>
                                                             <p>投标时间：{$detail['begin_time']}——{$detail['end_time']}</p>
                                                             <p>开标地点：[{$detail['open_way_text']}]</p>
+                                                            <p>审核意见：[{$detail['admin_message']}]</p>
                                                             <form method="post" name="operBid" action="{url:/bid/stopBid}" auto_submit="1" >
                                                                 <input type="hidden" name="bid_id" value="{$detail['id']}"/>
 
@@ -105,7 +106,7 @@
                                                                                 <td>{if:in_array($item['status'],array(3,5,6,7))}已审核{else:}未审核{/if}[<a href="{url:/bid/viewpaper}?id={$item['id']}" style="color:#1a59d9;">查看</a>]</td>
                                                                                 <td>{if:$item['status']<5}未购买{else:}已购买{/if}</td>
                                                                                 <td>{if:$item['status']<7}未投标{else:}已投标{/if}</td>
-                                                                                <td>{if:$item['status']<7}未冻结{else:}未冻结{/if}</td>
+                                                                                <td>{if:$item['status']<7}未冻结{else:}已冻结{/if}</td>
                                                                                 <td></td>
                                                                                 <td>
                                                                                     {if:$item['status']==2}
