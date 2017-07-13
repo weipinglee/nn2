@@ -82,7 +82,7 @@
                                                                             <td>选择中标</td>
                                                                         </tr>
 
-                                                                <form  method="get" action="{url:/bid/packCompare}" >
+                                                                <form  method="get" action="{url:/bid/packCompare}" target="_blank">
 
                                                                         {foreach:items=$item key=$k item=$v}
 
