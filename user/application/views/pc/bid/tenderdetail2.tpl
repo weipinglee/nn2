@@ -52,7 +52,7 @@
                                                             
                                                         <div class="invite" id="invite" style="padding-top:47px;">
                                                             
-                                                            <div class="invite_title">
+                                                                <div class="invite_title">
                                                                     <span>在线开标</span>
                                                                 </div>
                                                                 <div class="bid_zige">
@@ -82,7 +82,8 @@
                                                                             <td>选择中标</td>
                                                                         </tr>
 
-                                                                <form  method="get" action="{url:/bid/packCompare}" >
+                                                                <form  method="get" action="{url:/bid/packCompare}" target="_blank">
+
                                                                         {foreach:items=$item key=$k item=$v}
 
                                                                         <tr>
@@ -91,12 +92,14 @@
                                                                             <td><a href="{$v['bid_doc_url']}" style="color:#1a59d9;">下载</a></td>
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
                                                                             <td>{$v['create_time']}</td>
-                                                                            <td><input type="checkbox" name="pack_id[]" value="{$v['id']}"></td>
+
+                                                                            <td><input type="checkbox" name="pack_id[]" value="{$v['id']}" class="checkbox_pack"></td>
                                                                             {if:$v['selected']==1}
                                                                             <td>已中标</td>
                                                                             {elseif:$v['win_user_id'] > 0}
                                                                             <td>未中标</td>
                                                                             {else:}
+
                                                                             <td><a class="chose_supplier" style="color:#1a59d9;" >选择</a></td>
                                                                             {/if}
                                                                         </tr>

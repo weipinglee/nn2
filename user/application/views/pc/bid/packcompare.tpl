@@ -47,7 +47,7 @@ table td{border-left:1px solid #ccc;border-top:1px solid #ccc;text-align: center
         </tr>
         {foreach:items=$packlist }
         <tr>
-            <td rowspan="2">
+            <td>
                {$item['true_name']}
             </td>
             <td>{$item['product_name']}</td>

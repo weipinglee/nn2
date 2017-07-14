@@ -92,7 +92,9 @@
         var time_start = new Date().getTime(); //设定当前时间
         var time_end =  new Date("{$detail['open_time']}").getTime(); //设定目标时间
         // 计算时间差 
-        var time_distance = time_end - time_start; 
+        var time_distance = time_end - time_start;
+
+        if(time_distance > 0){  
         // 天
         var int_day = Math.floor(time_distance/86400000) 
         time_distance -= int_day * 86400000; 
@@ -122,8 +124,15 @@
         $("#time_h").text(int_hour); 
         $("#time_m").text(int_minute); 
         $("#time_s").text(int_second); 
+
+       
+
         // 设置定时器
         setTimeout("show_time()",1000); 
+        }else{
+            $("#time_limit").text("项目已开标");
         }
+
+        
 </script>
 			<!--end中间内容-->	
