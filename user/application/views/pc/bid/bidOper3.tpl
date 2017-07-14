@@ -71,7 +71,7 @@
                                                             <div class="button">
                                                                 <a href="{$detail['doc']}"><button>下载标书</button></a>
                                                             </div>
-                                                        <form method="post" action="{url:/bid/replyGivePrice}" auto_submit="1">
+                                                        <form method="post" action="{url:/bid/replyGivePrice}" auto_submit="1" pay_secret="1">
                                                             <input type="hidden" name="reply_id" value="{$reply_id}" />
                                                             <div class="invite" id="invite" style="padding-top:47px;">
                                                                 <div class="invite_title">

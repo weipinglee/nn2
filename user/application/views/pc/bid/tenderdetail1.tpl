@@ -107,7 +107,7 @@
                                                                                 <td>{if:$item['status']<5}未购买{else:}已购买{/if}</td>
                                                                                 <td>{if:$item['status']<7}未投标{else:}已投标{/if}</td>
                                                                                 <td>{if:$item['status']<7}未冻结{else:}已冻结{/if}</td>
-                                                                                <td></td>
+                                                                                <td>{$item['supply_bail']}</td>
                                                                                 <td>
                                                                                     {if:$item['status']==2}
                                                                                     <select name="oper">
