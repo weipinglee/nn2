@@ -57,7 +57,7 @@
                                                             <div class="invite" id="invite" style="padding-top:47px;">
                                                                 
                                                                 <div class="bid_zige" style="">
-                                                                    <h2>开标倒计时：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h2>
+                                                                    <h2 id="time_limit">开标倒计时：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h2>
                                                                     <!--<p>
                                                                         包件
                                                                         <select>
