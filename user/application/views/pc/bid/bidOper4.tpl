@@ -57,7 +57,7 @@
                                                             <div class="invite" id="invite" style="padding-top:47px;">
                                                                 
                                                                 <div class="bid_zige" style="">
-                                                                    <h2>开标倒计时：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h2>
+                                                                    <h2 id="time_limit">开标倒计时：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h2>
                                                                     <!--<p>
                                                                         包件
                                                                         <select>
@@ -92,9 +92,9 @@
         var time_start = new Date().getTime(); //设定当前时间
         var time_end =  new Date("{$detail['open_time']}").getTime(); //设定目标时间
         // 计算时间差 
-        var time_distance = time_end - time_start;
+        var time_distance = time_end - time_start; 
 
-        if(time_distance > 0){  
+        if(time_distance > 0){ 
         // 天
         var int_day = Math.floor(time_distance/86400000) 
         time_distance -= int_day * 86400000; 
@@ -123,14 +123,16 @@
         $("#time_d").text(int_day); 
         $("#time_h").text(int_hour); 
         $("#time_m").text(int_minute); 
-        $("#time_s").text(int_second); 
+        $("#time_s").text(int_second);
 
-       
+      
 
         // 设置定时器
         setTimeout("show_time()",1000); 
         }else{
             $("#time_limit").text("项目已开标");
+        }
+
         }
 
         
