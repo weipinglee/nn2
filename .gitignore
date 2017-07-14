@@ -1,9 +1,0 @@
-.htaccess
-nnys-admin/conf/configs.php
-nnys-admin/conf/application.ini
-conf/application.ini
-*.db
-*.doc
-user/conf/configs.php
-user/conf/application.ini
-conf/configs.php
