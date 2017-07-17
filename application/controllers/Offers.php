@@ -18,14 +18,17 @@ use \Library\JSON;
 
 class OffersController extends PublicController {
 
-
+	public function testAction(){
+        die(json::encode(tool::getSuccInfo(1,'hello,world')));
+        return false;
+    }
 	private $offer;
 	private $order;
 
 	public function init(){
 		parent::init();
 		//$this->getView()->setLayout('header');
-		$this->offer = new OffersModel();
+		$this->offer = new offersModel();
 		$this->order = new \nainai\order\Order();
 	}
 
@@ -170,12 +173,14 @@ class OffersController extends PublicController {
 			}
 		}
 		else $order = '';
-		$data = $this->offer->getList($page, $condition,$order);
+		$data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
 		if ( ! empty($this->login)) {
 			$data['login'] = 1;
 		}else{
 			$data['login'] = 0;
 		}
+
+		// var_dump($data);exit;
 		echo json::encode($data);
 		exit();
 	}
@@ -215,6 +220,17 @@ class OffersController extends PublicController {
 
 			$userData = $mem->getUserDetail($info['user_id']);
 
+			//卖家资质
+			$certObj = new \nainai\cert\certificate();
+			$certStatus = $certObj->getCertStatus($info['user_id'],'deal');
+			if($certStatus['status']==2){
+				$this->getView()->assign('no_cert',0);
+			}else{
+				$mess = new \nainai\message($info['user_id']);
+				$mess->send('credentials');
+				$this->getView()->assign('no_cert',1);
+			}
+
 			$this->getView()->assign('data',$info);
 			$this->getView()->assign('user',$userData);
 			$this->getView()->assign('kefu',$kefuData);
@@ -246,6 +262,19 @@ class OffersController extends PublicController {
 			$mem = new \nainai\member();
 
 			$userData = $mem->getUserDetail($info['user_id']);
+
+			//卖家资质
+			$certObj = new \nainai\cert\certificate();
+			if ($this->login['pid'] == 0) {
+				$certStatus = $certObj->getCertStatus($this->login['user_id'],'deal');
+			}else{
+				$certStatus = $certObj->getCertStatus($this->login['pid'],'deal');
+			}
+			if($certStatus['status']==2){
+				$this->getView()->assign('no_cert',0);
+			}else{
+				$this->getView()->assign('no_cert',1);
+			}
 
 			$this->getView()->assign('data',$info);
 			$this->getView()->assign('user',$userData);

@@ -129,6 +129,17 @@
 	padding-bottom: 20px;
 
 }
+.center_right .gonggao .zb_but{
+	display: block;
+	background: #c81623;
+	border-radius: 30px;
+	border: 0;
+	text-align: center;
+	padding: 10px 0;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
 .center_right .gonggao h2{
 	background: #fafafa;
 	height: 30px;
@@ -248,6 +259,8 @@
   text-align: center;
   font-size: 28px;
 }
+.zbgg_con .zbgg_tishi a{color: #3c56d1;}
+.zbgg_con textarea{width: 510px;height: 131px;margin:10px 20px;resize:none;}
 .pl_anniu{
 	text-align: right;
 }
@@ -376,3 +389,130 @@
 	background-color: #e15767;
 }
 /*tender_announcement.html 搜索按钮样式 end*/
+/*招标评论 strat*/
+.ctd_comments_box {
+    padding: 10px 0px;
+    border-bottom: 1px dotted #ccc;
+}
+.ctd_comments_box .textarea_box {
+    margin-top: -5px;
+    padding-left: 70px;
+}
+.ctd_comments_box .textarea_box .textarea {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    margin: 5px 0 10px;
+    width: 740px;
+}
+.ctd_comments_box .textarea_box .textarea textarea {
+    border: 0 none;
+    outline: 0;
+    resize: none;
+    width: 735px;
+    padding: 3px;
+    height: 100px;
+}
+.gs_btn_v2 {
+    height: 28px;
+    line-height: 30px;
+    font-size: 14px;
+}
+.ctd_comments_box .textarea_box .textarea span {
+    float: right;
+    margin: 5px;
+    margin-top: 0;
+    line-height: 12px;
+    color: #999;
+}
+
+.gs_btn_v1, .gs_btn_v2, .gs_btn_v3 {
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #ff7534;
+    border-bottom: 2px solid #e44a00;
+    color: #fff !important;
+    display: inline-block;
+    padding: 0 15px;
+    vertical-align: middle;
+}
+.cf:after {
+    content: ".";
+    display: block;
+    clear: both;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+.ctd_comments_box .img {
+    display: block;
+    width: 50px !important;
+    height: 50px;
+    float: left;
+}
+.ctd_comments_box .img img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.ctd_comments_box .ctd_comments_username {
+    color: #333;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+.ctd_comments_box .ctd_comments_text {
+    line-height: 20px;
+    padding-right: 10%;
+    word-break: break-all;
+}
+.ctd_comments_box .ctd_comments_contrl {
+    line-height: 12px;
+    margin-top: 10px;
+    text-align: right;
+    position: relative;
+    z-index: 1;
+}
+.ctd_comments_box .ctd_comments_reply .error_tip {
+    color: red;
+    display: none;
+}
+.ctd_comments_box .ctd_comments_contrl span, .ctd_comments_box .contrl_01 {
+    color: #999;
+}
+.ctd_comments_box .ctd_comments_contrl .link_reply{
+	padding-right: 10px;
+}
+.ctd_comments_contrl .comment-point{
+    padding-left: 20px;
+    background: url(../images/point.png) 2px 1px no-repeat;
+    background-size: 18px;
+
+}	
+.ctd_comments_box .ctd_comments_reply {
+    text-align: right;
+    margin-top: 25px;
+}
+.ctd_comments_box .ctd_comments_reply .textarea textarea {
+    height: 35px;
+}
+.gs_btn_v1:hover,.gs_btn_v2:hover,.gs_btn_v3:hover {
+    text-decoration: none;
+    background-color: #fe5200;
+    color:#fff;
+}
+.ctd_comments_box .ctd_comments_reply .gs_btn_v2 {
+    margin: -3px 0 0 15px;
+}
+.ctd_comments_box .comments-reply-content{
+	margin-top: 15px;
+	border-top: 1px dotted #ccc;
+	padding: 20px 0px;
+}
+.ctd_comments_box .comments-reply-content img{
+	width: 30px;
+	height: 30px;
+
+}
+/*招标评论 end*/

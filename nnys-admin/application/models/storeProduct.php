@@ -67,6 +67,17 @@ class storeProductModel extends \nainai\store{
 
     }
 
+    public function getAgainList($page){
+        $cond = array(
+            'where' => ' a.status = '.self::MARKET_AGAIN
+        );
+        $data = $this->getStoreProductList($page,$cond);
+        foreach($data['list'] as $k=>$v){
+            $data['list'][$k]['status_txt'] = $this->getStatusText($v['status']);
+        }
+        return $data;
+    }
+
 
     /**
      * 市场审核
@@ -76,10 +87,15 @@ class storeProductModel extends \nainai\store{
      */
     public function marketCheck($id,$status, $msg=''){
         $old_status = $this->getStoreProductStatus($id);
-        if($old_status == self::USER_AGREE) {
-            $store['status'] = $status == 1 ? self::MARKET_AGREE : self::MARKET_REJECT;
+        if($old_status == self::USER_AGREE OR $old_status == self::MARKET_AGREE OR $old_status == self::MARKET_REJECT OR  $old_status == self::MARKET_AGAIN) {
+            $store['status'] = $status == 1 ? self::MARKET_AGREE : ($status == 3 ? self::MARKET_AGAIN : self::MARKET_REJECT) ;
+            if ($old_status == $store['status']) {
+                return tool::getSuccInfo(0,'该状态不能审核');
+            }
             $store['market_time'] = \Library\Time::getDateTime();
-            $store['admin_msg'] = $msg;
+            if ( ! empty($msg)) {
+                $store['admin_msg'] = $msg;
+            }
             $obj = new M('');
             $obj->beginTrans();
             if(false === $this->UpdateApplyStore($store, array('id'=>$id))) {

@@ -81,7 +81,6 @@ class certDealer extends certificate{
             $check = $m->checkPersonInfo($accData);
         $certObj = new M(self::$certTable[self::$certType]);
 
-
         if($check===true ){
             //检验其他的认证是否需要重新认证
             $reCertType = $this->checkOtherCert($accData);

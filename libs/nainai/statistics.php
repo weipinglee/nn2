@@ -95,7 +95,7 @@ class statistics{
         $offerObj=new Query('product_offer as f');
         $offerObj->join='left join products as p on f.product_id=p.id';
         $offerObj->fields='AVG(f.price) as "avg"';
-
+        
 
         $data=array(
             'create_time'=>date('Y-m-d H:i:s',time()),
@@ -338,7 +338,7 @@ class statistics{
         $query->distinct = 1;
         $query->limit = $l;
         $query->where='ps.status = 1 and ps.is_del = 0';
-        $query->order = "psd.id DESC, ps.id DESC";
+        // $query->order = "psd.id DESC, ps.id DESC";
         $query->cache = 'm';
         $data = $query->find();
         $obj = new M('products_stats_data');

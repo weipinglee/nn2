@@ -115,4 +115,8 @@ class MessageController extends UcenterBaseController{
         return false;
     }
 
+    public function favoriteListAction(){
+
+    }
+
 }

@@ -122,7 +122,7 @@
                                 <td>图片预览：</td>
                                 <td colspan="2">
                                     <span class="zhs_img" id='imgContainer'>
-
+                                
                                     </span>
                                 </td>              
                             </tr>
@@ -165,12 +165,12 @@
                                 </td>
                             </tr>
                           <tr>
-                            <td>交收地点：</td>
+                            <td><span>*</span>交收地点：</td>
                             <td colspan="2">
                                 <input type="text" class='text' name="accept_area">
                             </td>
                             </tr>
-                            <td>交收时间：</td>
+                            <td><span>*</span>交收时间：</td>
                             <td colspan="2">
                                 <input type="text" class='text' name="accept_day">
                             </td>

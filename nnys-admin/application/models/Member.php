@@ -41,9 +41,14 @@ class MemberModel extends baseModel{
 		$Q->join = 'left join agent as a on u.agent = a.id left join admin_yewu as ye on u.yewu = ye.admin_id LEFT JOIN company_info as c ON u.id=c.user_id LEFT JOIN person_info as p ON u.id=p.user_id';
 		$Q->fields = 'u.*,a.username as agent_name,ye.ser_name, c.company_name, p.true_name';
 		$Q->order = 'u.id asc';
-
+		
 		$data = $Q->find($this->getYewuList());
+		$member = new \nainai\member();
+		foreach ($data['list'] as $key => $value) {
+			$data['list'][$key]['user_rank'] = $member->getUserGroup($value['id']);
+		}
 		if($bar!='')$data['bar'] = $bar;
+
 		$Q->downExcel($data['list'],'user', '会员列表');
 		return $data;
 

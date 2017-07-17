@@ -29,7 +29,7 @@
                             <!-- <li value=""   class="a_choose" ><a></a></li>
                     -->
                         </ul>
-
+                        
                         <ul class="infoslider" style="display: none;">
                             <li value=""   class="a_choose"  ><a></a></li>
 
@@ -239,7 +239,7 @@
                                                 <input type="text" class='text' name="packWeight" > <select name="pageUnits">
                                                     <option value="克">克</option>
                                                     <option value="千克">千克</option>
-                                                    <option value="顿">吨</option>
+                                                    <option value="吨">吨</option>
                                                 </select>
                                             </td>
                                    </tr>
@@ -291,7 +291,7 @@
                                     </div>
 
                                     <table border="0">
-
+                                        
                                         <tr>
                                             <td nowrap="nowrap"><span></span>库位：</td>
                                             <td colspan="2">

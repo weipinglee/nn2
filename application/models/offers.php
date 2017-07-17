@@ -56,6 +56,7 @@ class offersModel extends \nainai\offer\product{
         }
 		$times = $times + 1;
 		$childs = $memcache->get('getChildLists'.$cateId);
+        $childs = '';
 		if(!$childs){
 			$m = new M('product_category_childs');
 			$childdata = $m->query('select getChildLists('.$cateId.')');
@@ -78,9 +79,10 @@ class offersModel extends \nainai\offer\product{
 			$this->offerQuery->order = 'a.apply_time desc';
 			$this->offerQuery->limit = 5;
 		}
-		$this->offerQuery->where = 'b.cate_id in ('.$childs.') and a.status='.self::OFFER_OK.' AND a.expire_time>now() ';
+		$this->offerQuery->where = 'b.cate_id in ('.$childs.') and a.status='.self::OFFER_OK.' AND a.expire_time>now() AND a.is_del = 0';
         $categoryList= $this->offerQuery->find();
 	
+
         foreach($categoryList as $k=>$v){
             $categoryList[$k]['mode']=$this->getMode($v['mode']);
         }
@@ -190,7 +192,7 @@ class offersModel extends \nainai\offer\product{
      * @param string $order
      * @return array
      */
-    public function getList($page,$condition = array(),$order=''){
+    public function getList($page,$condition = array(),$order='',$user_id){
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id left join admin_kefu as ke on o.kefu=ke.admin_id";
         $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze>0,0,1) as jiao";
@@ -269,7 +271,13 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             $query->order = $order;
         }
         $data = $query->find();
+		$certObj = new \nainai\cert\certificate();
         foreach ($data as $key => &$value) {
+            $user_id = $value['type'] == \nainai\offer\product::TYPE_SELL ? $value['user_id'] : $user_id;
+            $info = $value['type'] == \nainai\offer\product::TYPE_SELL ? '该卖家资质不完善,不能进行此交易' : '您的资质不完善,无法进行报价';
+            $certStatus = $certObj->getCertStatus($user_id,'deal');
+            $value['no_cert'] = $certStatus['status'] == 2 ? 0 : 1;
+            $value['info'] = $info;
             $value['mode_txt'] = $this->offerMode($value['mode']);
             $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
             $value['left'] = number_format(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']));

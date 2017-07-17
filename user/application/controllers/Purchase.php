@@ -180,7 +180,7 @@ class PurchaseController extends UcenterBaseController{
 	}
 
 	/**
-	 * 报价列表
+	 * 我的报价列表
 	 */
 	public function reportlistsAction(){
 		$page = Safe::filterGet('page', 'int', 0);
@@ -192,12 +192,12 @@ class PurchaseController extends UcenterBaseController{
 		//查询组装条件
 		$where = ' 1 ';
 		$bind = array();
-		
+
 		if (empty($id)) {
 		    $where .= ' AND p.seller_id ='.$this->user_id;//.$this->user_id;
 		    $this->getView()->assign('user_id', $this->user_id);
 		}
-		
+
 		if (!empty($id)) {
 		    $where .= ' AND p.offer_id ='.$id;
 		    $this->getView()->assign('id', $id);
@@ -224,6 +224,60 @@ class PurchaseController extends UcenterBaseController{
 		    $where .= ' AND p.create_time<=:endDate';
 		    $bind['endDate'] = $endDate . ' 23:59:59';
 		    $this->getView()->assign('endDate', $endDate);
+		}
+		$Model = new \nainai\offer\PurchaseReport();
+		$reportLists = $Model->getLists($page, $this->pagesize, $where, $bind);
+
+		$this->getView()->assign('status', $Model->getStatusArray());
+		$this->getView()->assign('reportLists', $reportLists['list']);
+		$this->getView()->assign('pageHtml', $reportLists['pageHtml']);
+	}
+
+	/**
+	 * 别人针对我的采购的报价列表
+	 */
+	public function myreportlistsAction(){
+		$page = Safe::filterGet('page', 'int', 0);
+		$id = safe::filterGet('id','int',0);
+		$name = Safe::filterGet('name');
+		$status = Safe::filterGet('status', 'int', 9);
+		$beginDate = Safe::filterGet('beginDate');
+		$endDate = Safe::filterGet('endDate');
+		//查询组装条件
+		$where = ' 1 ';
+		$bind = array();
+
+		if (empty($id)) {
+			$where .= ' AND p.seller_id ='.$this->user_id;//.$this->user_id;
+			$this->getView()->assign('user_id', $this->user_id);
+		}
+
+		if (!empty($id)) {
+			$where .= ' AND p.offer_id ='.$id;
+			$this->getView()->assign('id', $id);
+		}
+
+		if (!empty($name)) {
+			$where .= ' AND u.username like"%'.$name.'%"';
+			$this->getView()->assign('name', $name);
+		}
+
+		if (isset($status) && $status != 9) {
+			$where .= ' AND p.status=:status';
+			$bind['status'] = $status;
+			$this->getView()->assign('s', $status);
+		}
+
+		if (!empty($beginDate)) {
+			$where .= ' AND p.create_time>=:beginDate';
+			$bind['beginDate'] = $beginDate . ' 00:00:00';
+			$this->getView()->assign('beginDate', $beginDate);
+		}
+
+		if (!empty($endDate)) {
+			$where .= ' AND p.create_time<=:endDate';
+			$bind['endDate'] = $endDate . ' 23:59:59';
+			$this->getView()->assign('endDate', $endDate);
 		}
 		$Model = new \nainai\offer\PurchaseReport();
 		$reportLists = $Model->getLists($page, $this->pagesize, $where, $bind);

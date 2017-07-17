@@ -34,6 +34,7 @@ class MenuController extends InitController {
 				'sort' => Safe::filterPost('sort', 'int'),
 				'status' => Safe::filterPost('status', 'int'),
 				'position' => Safe::filterPost('position', 'int'),
+				'subacc_show' => Safe::filterPost('subacc_show', 'int'), 
 			);
 
 			$returnData = $menuModel->addMenu($menuData);
@@ -63,6 +64,7 @@ class MenuController extends InitController {
 					'status' => Safe::filterPost('status', 'int'),
 					'pid' => Safe::filterPost('pid', 'int'),
 					'position' => Safe::filterPost('position', 'int'),
+					'subacc_show' => Safe::filterPost('subacc_show', 'int'), 
 				);
 				$menuModel = new \nainai\user\Menu();
 				$returnData = $menuModel->updateMenu($menuData, $id);
@@ -103,9 +105,8 @@ class MenuController extends InitController {
 				'bind' => array('ids' => $id)
 			);
 			$menuModel = new \nainai\user\Menu();
-			if ($menuModel->deleteMenu($id) === TRUE) {
-				echo json::encode(tool::getSuccInfo(1, 'Success'));exit();
-			}
+			$res = $menuModel->deleteMenu($id);
+			echo json::encode($res);exit();
 		}
 
 		echo json::encode(tool::getSuccInfo(0, 'Fail'));exit();

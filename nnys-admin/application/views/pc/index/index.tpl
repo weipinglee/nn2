@@ -120,6 +120,7 @@
                         </li>-->
 
                         <li><a href="{url:member/usergroup/groupList}" target="content">会员等级</a></li>
+                        <li><a href="{url:member/payUserGroup/groupList}" target="content">收费会员等级</a></li>
                         <li><a target="content">会员管理</a>
                             <ul>
                                 <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
@@ -157,6 +158,14 @@
                                 <li><a href="{url:member/member/checkPayList}" target="content" >已审核</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a target="content">修改手机号</a>
+                            <ul>
+                                <li><a href="{url:member/member/applyTelList}" target="content" >待审核</a></li>
+                                <li><a href="{url:member/member/resetTelList}" target="content" >修改手机号</a></li>
+                                <li><a href="{url:member/member/checkTelList}" target="content" >已审核</a></li>
+                            </ul>
+                        </li>
                         <!--<li><a href="shop-list.html" target="content">商铺管理</a></li>-->
                        <!-- <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>-->
                     </ul>
@@ -180,6 +189,11 @@
                                 <li><a href="{url:trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
                                 <li><a href="{url:trade/OfferManage/cancelList}" target="content">撤销报盘列表</a></li>
                             </ul>
+                        </li>
+                        <li><a target="content">招投标管理</a>
+                            <ul>
+                                <li><a href="{url:trade/bid/bidlist}" target="content">招标列表</a></li>
+                             </ul>
                         </li>
                         <li><a target="content">保险管理</a>
                             <ul>
@@ -206,7 +220,10 @@
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 结算管理</a>
-                    <ul><li><a  target="content">银行签到/签退设置</a>
+                    <ul>
+                    
+                    <li><a  target="content">银行签到/签退设置</a>
+
                             <ul>
                                 <li><a href="{url:balance/BankSign/manu}" target="content">手动签到/退</a></li>
                                 <li><a href="{url:balance/BankSign/auto}" target="content">自动签到/退</a></li>
@@ -293,10 +310,13 @@
                                 <li><a href="{url:store/store/storeAdd}" target="content">仓库添加</a></li>
                             </ul>
                         </li>
+                         <li><a  target="content"  href="{url:store/store/repertory}">库存管理</a>
+                        </li>
                         <li><a  target="content">仓单管理</a>
                             <ul>
                                 <li><a target="content" href="{url:store/storeProduct/getList}">仓单列表</a></li>
                                 <li><a href="{url:store/storeProduct/reviewList}" target="content">仓单审核</a></li>
+                                <li><a target="content" href="{url:store/storeProduct/againlist}">仓单反审核</a></li>
                             </ul>
                         </li>
 

@@ -214,10 +214,11 @@ class UserModel{
 				return $exit;
 			unset($user->repassword);
 			$user->password = $data['password'] = sha1($data['password']);
-
-			$res = $user->add();
+			$user->beginTrans();
+			$res = $user->add(1);
 			if (intval($res) > 0) {
-				$data = array(
+				$insertCert = array('user_id' => $res, 'apply_time' => $data['create_time'], 'verify_time' => $data['create_time'], 'status' => 2, 'message' => '子账户创建，自动认证父账户信息！');
+				$accountData = array(
 					'user_id' => $res,
 					'fund' => 0,
 					'freeze' => 0,
@@ -225,16 +226,20 @@ class UserModel{
 					'ticket_freeze' => 0,
 					'credit' => 0
 				);
-				$re = $user->table('user_account')->data($data)->add();
+
+				$user->table('user_account')->data($accountData)->add(1);
 			}
+			
 		}
 		else{
 			$res = $user->getError();
 		}
-		if(is_numeric($res)){
+		if(is_numeric($res) && $res > 0){
+			$user->commit();
 			$resInfo = $this->getSuccInfo();
 		}
 		else{
+			$user->rollback();
 			$resInfo = $this->getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
 		}
 		return $resInfo;
@@ -320,13 +325,10 @@ class UserModel{
 			$where['id'] = array('neq'=>$data['id']);
 		foreach($this->uniqueFields as $f=>$v){
 			if(isset($data[$f])){
-				$where[$f] = $data[$f];
+				$where = $f . '="'.$data[$f]. '" AND status IN ('.\nainai\user\User::NOMAL.','.\nainai\user\User::LOCK.')';
 				$res = self::$userObj->fields('id')->where($where)->getObj();
 				if(!empty($res))
 					return tool::getSuccInfo(0,$v.'已存在');
-				else{
-					unset($where[$f]);
-				}
 
 			}
 		}
@@ -380,7 +382,7 @@ class UserModel{
 	public function getUserInfo($user_id,$pid=0){
 		$um = self::$userObj;
 		$where = $pid!=0 ? array('id'=>$user_id,'pid'=>$pid) : array('id'=>$user_id);
-		return $um->fields('id,username,email,mobile,head_photo,status,pay_secret,type')->where($where)->getObj();
+		return $um->fields('id,username,email,mobile,head_photo,status,pay_secret,type,agent,agent_pass,yewu,cert_status')->where($where)->getObj();
 	}
 	/**
 	 * 获取个人用户信息
@@ -574,9 +576,9 @@ class UserModel{
 	 * @param string $type 操作的类型
 	 * @return    [type]              [description]
 	 */
-	public function getMobileCode($phone,$type='', $save='session', $uid=0, $type='login'){
+	public function getMobileCode($phone,$type='', $save='session', $uid=0, $types='login'){
 		if ($save == 'database') {
-			if ($type == 'login') {
+			if ($types == 'login') {
 				$fields = 'create_time';
 			}else{
 				$fields = 'apply_time';
@@ -615,7 +617,7 @@ class UserModel{
 		}
 		//短信发送成功，保存验证信息
 		if ($save == 'database') {
-			if ($type == 'login') {
+			if ($types == 'login') {
 				$data = array('code' => $code, 'create_time' => \Library\Time::getDateTime());
 			}else{
 				$data = array('pay_code' => $code, 'apply_time' => \Library\Time::getDateTime());
@@ -630,7 +632,7 @@ class UserModel{
 			session::set('mobileValidate',array('code'=>$code,'time'=>time(),'mobile'=>$phone));
 		}
 		
-		return $this->getSuccinfo(1,'发送成功');
+		return $this->getSuccinfo(1,'发送成功' );
 	}
 
 	/**

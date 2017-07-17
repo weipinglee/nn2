@@ -1,4 +1,8 @@
     <link href="{views:css/password_new.css}" rel="stylesheet">
+
+    <script type="text/javascript" src="{root:js/form/formacc.js}" ></script>
+    <script type="text/javascript" src="{root:js/form/validform.js}" ></script>
+    <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
     <script src="{views:js/jquery-1.8.0.min.js}"></script>
     <script src="{views:js/jquery.extend.js}"></script>
     <script src="{views:js/pub_js.js}"></script>
@@ -24,7 +28,7 @@
         
     </div>
    </div> 
-
+    
     <div class="zhaohui">
         <div class="w1200">
            <div class="step_box">
@@ -37,11 +41,11 @@
             <input type='hidden' value='{url:/login/findPassword}' id='findUrl'>
 <form action="{url:/login/findPassword}" method="post" id="647727080" auto_submit >                <ul>
                     <li><span class="error red"><span class="field-validation-valid" data-valmsg-for="txtMessage" data-valmsg-replace="true" id="txtMessage"></span></span></li>
-                    <li><label>新密码：</label><input type="password" class="text1" id="txtPassWord" name="passWord"> </li>
+                    <li><label>新密码：</label><input type="password" datatype="s6-15" class="text1" id="txtPassWord" name="passWord"> </li>
                     <li><label class="margin_left">
-                    确认密码：</label><input type="password" class="text1" id="txtAgainPassWord" name="againPassWord"> </li>
+                    确认密码：</label><input type="password" class="text1" datatype="*" id="txtAgainPassWord" name="againPassWord" recheck="passWord"> </li>
                     <input type="hidden" name="mobile" value="{$mobile}" id="txtMobile">
-
+                    
                     <li><input type="button" value="下一步" class="tj_btn" id="btnSubmit2"></li>
                 </ul>
 </form>        </div>

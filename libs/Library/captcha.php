@@ -268,7 +268,7 @@ class Captcha
     }
 
     /**
-     * Wave filter
+     * Wave filter 
      */
     protected function WaveImage()
 	{

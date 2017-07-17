@@ -24,6 +24,8 @@
     <script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
     <script src="{views:js/countdown.js}" type="text/javascript"></script>
     <!--[if lte IE 6]>
+
+    
     <script>
         $(function(){
             $(".kind_name").mouseover(function(){
@@ -130,7 +132,10 @@ z-index:1000;">
                 </li>
                 {/if}
                 <li>
-                    <a href="{url:/message/usermail@user}">消息中心{if:$login==1&&$mess!=0}<em class="information">{$mess}</em>{/if}</a><span class="line_l">|<span>
+                    <a href="{url:/message/usermail@user}">消息中心{if:$login==1&&$mess!=0&&$mess<=99}
+                    <em class="information">{$mess}</em>
+                    {elseif:$login==1&&$mess!=0&&$mess>99}
+                    <em class="information">99+</em>{/if}</a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
@@ -140,7 +145,7 @@ z-index:1000;">
                     <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" ><!--onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=279020473&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" --> 在线客服</a><span class="line_l">|<span>
                 </li>
                 <li style="padding-top:2px;">
-                    <span>交易时间：09:00--17:30</span>
+                    <span>交易时间：{$deal['start_time']}--{$deal['end_time']}</span>
                 </li>
 
             </ul>
@@ -191,6 +196,7 @@ z-index:1000;">
                         $("#search_list").show();
                     }else{
                     $("#search_list").hide();
+
                      }
                 })
                 $("#search_list li").each(function(){
@@ -246,6 +252,7 @@ z-index:1000;">
         <ul class="nav">
             <li {if:!isset($cur) || $cur=='index'}class="current"{/if}><a href="{url:/index/index}">首页</a></li>
             <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
+            <li {if:isset($cur) && $cur=='bid'}class="current"{/if}><a href="{url:/bid/tenderlist}" target="_blank">招投标</a></li>
             <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}" target="_blank">仓储专区</a></li>
             <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}" target="_blank">帮我找</a></li>
              <li ><a href="http://info.nainaiwang.com" target="_blank">耐耐资讯</a></li>
@@ -487,6 +494,7 @@ z-index:1000;">
 
 </div>
 
+<a href="http://webscan.360.cn/index/checkwebsite/url/ceshi.nainaiwang.com"><img border="0" src="http://img.webscan.360.cn/status/pai/hash/0480da21f33ff402e0d6bd996531a7f2"/></a>
 
 
 

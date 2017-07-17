@@ -216,6 +216,35 @@ nn_panduo.formacc.prototype = {
 		});
 	},
 
+	buttonSubmit : function(){
+		var _this = this;
+		$('[button_submit]').on('click',function(){
+			var json = $(this).attr('ajax-data');
+			json = JSON.parse(json);
+			var url = $(this).attr('ajax-url');
+			var confirm = $(this).attr('confirm_submit');
+			if(confirm){
+				var confirmText = $(this).attr("confirm_text") ? $(this).attr("confirm_text") : '确定吗?';
+				layer.confirm(confirmText,
+						function(){
+							_this.ajax_post(url,json,function() {
+								layer.msg('操作成功！');
+							})
+						},
+						function(){
+							layer.closeAll();
+						}
+
+				);
+			}else{
+				_this.ajax_post(url,json,function() {
+					layer.msg('操作成功！');
+				})
+			}
+
+		})
+	},
+
 	check:function(bool){
 		return this.validObj.check(bool);
 	},

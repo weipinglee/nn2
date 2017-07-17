@@ -41,7 +41,7 @@
 							</div>
                             <div class="zhxi_con">
                                 <span class="con_tit"><i>*</i>银行账户：</span>
-								<span><input class="text" type="text" name="bankAccount" value="{$data['bank_no']}" datatype="s13-19" errormsg="格式错误">
+								<span><input class="text" type="text" name="bankAccount" value="{$data['bank_no']}" datatype="s8-30" errormsg="格式错误">
 								</span>
                                 <span></span>
                             </div>

@@ -20,8 +20,12 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 	public function init(){
         $this->getView()->setLayout('layout');
+       			 $model = new \nainai\system\DealSetting();
+			$deal = $model->getsetting();
+			$this->getView()->assign('deal', $deal);
 		//echo $this->getViewPath();
 	}
+	
 	/** 
      * 默认动作
      * Yaf支持直接把Yaf_Request_Abstract::getParam()得到的同名参数作为Action的形参
@@ -302,10 +306,13 @@ class LoginController extends \Yaf\Controller_Abstract {
 			exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
 		}
 
-		if ( empty(\Library\session::get('mobile')) ) {
-			exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
+		// if ( empty(\Library\session::get('mobile')) ) {
+		// 	exit(json::encode(tool::getSuccInfo(0, '请填写手机号')));
+		// }
+		
+		if(strlen($password) < 6 || strlen($password) > 15){
+			die(JSON::encode(\Library\tool::getSuccInfo(0,'密码长度需在6-15位之间')));
 		}
-
 		$userModel=new UserModel();
 		$uid = $userModel->getMobileUserInfo($mobile);
 		if(empty($uid)){
@@ -413,6 +420,38 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 	public function resetendAction(){
 
+	}
+
+	//银联支付异步回调
+	public function rechargeServerCallbackAction(){
+		//从URL中获取支付方式
+		$payment_id      = $this->getRequest()->getParam('id');
+		$payment_id      = safe::filter($payment_id,'int');
+		$payObj = null;
+		if($payment_id == 3){
+			$payFac = new \Library\payment\factory\unionFactory();
+			$payObj = $payFac->getPayObj();
+		}
+		elseif($payment_id == 4){
+			$payFac = new \Library\payment\factory\unionb2bFactory();
+			$payObj = $payFac->getPayObj();
+		}
+		else{
+			die(json::encode(\Library\tool::getSuccInfo(0,'支付方式不存在')) ) ;
+		}
+
+		$payment = new nainai\payment\recharge($payObj);
+
+		$callbackData = array_merge($_POST,$_GET);
+		unset($callbackData['controller']);
+		unset($callbackData['action']);
+		unset($callbackData['id']);
+		$res = $payment->payAfter($callbackData);
+		if($res){
+			$payObj->notifyStop();
+		}
+
+		exit;
 	}
 
 

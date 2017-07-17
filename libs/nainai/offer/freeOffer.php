@@ -23,6 +23,8 @@ class freeOffer extends product{
         $m = new \nainai\member();
         $group = $m->getUserGroup($user_id);
 
+        if($group['vip']) return 0;
+
         //获取费率
         if(empty($group)){
             $feeRate = 100;
@@ -30,6 +32,7 @@ class freeOffer extends product{
         else{
             $feeRate = $group['free_fee'];
         }
+
 
         //获取后台设置的自由报盘费用
         $obj = new M('scale_offer');
@@ -61,8 +64,10 @@ class freeOffer extends product{
             $insert = $this->insertOffer($productData,$offerData);
 
             if($insert===true){
-                $note = '自由报盘冻结报盘费';
-                $fund->freeze($user_id,$fee,$note);
+                if($fee>0){
+                    $note = '自由报盘冻结报盘费';
+                    $fund->freeze($user_id,$fee,$note);
+                }
                 if($this->_productObj->commit()){
                     return tool::getSuccInfo();
                 }

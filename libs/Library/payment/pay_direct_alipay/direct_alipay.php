@@ -111,7 +111,7 @@ class direct_alipay extends paymentPlugin
 
 		//生成签名结果
 		$mysign = $this->buildMysign($para_sort, $payment['M_PartnerKey']);
-
+		
 		//签名结果与签名方式加入请求提交参数组中
 		$return['sign'] = $mysign;
 		$return['sign_type'] = 'MD5';

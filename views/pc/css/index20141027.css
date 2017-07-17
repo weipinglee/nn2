@@ -58,7 +58,7 @@ a:hover {
 
 /*导航*/
 #mainContent {
-    background: url(../Images/bg/bg_index_main.gif) repeat-x;
+    /*_background: url(../Images/bg/bg_index_main.gif) repeat-x;*/
     _margin-top: -19px;
 }
 
@@ -1193,7 +1193,7 @@ a:hover {
 }
 #mainContent {
     overflow: hidden;
-   /* background: #fff;*/
+    background: #fff;
 }
 .row3_clinch .clinch_tit .tit_font b {
     border-bottom: 2px solid #e4e2e2;

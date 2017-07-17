@@ -36,8 +36,8 @@ class searchConfig {
             'select'=> array('c.type','配置类型')
         ),
         'order_sell' => array(
-            'like'=>array('do.order_no,do.order_no','订单号'),
-            'time'=>array('do.create_time','创建时间'),
+            'time'=>array('do.create_time','提货时间'),
+            'likes' => array('o.order_no, p.name', '订单号,商品名称'),
             'down' => 1
         ),
         'product_offer' => array(
@@ -76,6 +76,9 @@ class searchConfig {
         'apply_resetpay' => array(
              'time' => array('r.apply_time','申请时间'),
         ),
+         'apply_resettel' => array(
+             'time' => array('r.apply_time','申请时间'),
+        ),
         'payto_market' => array(
             'like' => array('u.username','用户名'),
             'down' => 1
@@ -99,7 +102,9 @@ class searchConfig {
         ),
         'store_products' => array(
             'time' => array('a.sign_time','签发时间'),
-            'like' => array('c.name','商品名称')
+            'like' => array('c.name','商品名称'),
+            'likes' => array('b.name,a.store_pos,c.quantity', '仓库名称,库位,库存'),
+            'select' => array('a.status','状态'),
         ),
         'store_list' => array(
             'like' => array('name','仓库名称')

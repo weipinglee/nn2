@@ -104,6 +104,12 @@ class storeController extends Yaf\Controller_Abstract{
         return false;
     }
 
+    public function repertoryAction(){
+        $model = new OfferManageModel();
+        $pageData = $model->getrepertoryList();
+        $this->getView()->assign('data',$pageData);
+    }
+
 
 
 

@@ -28,6 +28,7 @@ abstract class Payment {
 	public function __construct($pay=null)
 	{
 		$this->payObj = $pay;
+
 	}
 
 

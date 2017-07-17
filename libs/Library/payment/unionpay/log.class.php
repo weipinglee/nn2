@@ -1,4 +1,6 @@
-﻿<?php 
+<?php 
+namespace Library\payment\unionpay;
+
 	class PhpLog
 	{
 		const DEBUG = 1;// Most Verbose
@@ -51,13 +53,15 @@
 				{
 					if(!($this->_createDir($filepath)))
 					{
-						die("创建目录失败!");
+						$this->Log_Status = PhpLog::OPEN_FAILED;
+						$this->MessageQueue[] = "Create file failed.";
+						return;
 					}
 					if ( !is_writable($this->log_file) )
 					{
-					$this->Log_Status = PhpLog::OPEN_FAILED;
-					$this->MessageQueue[] = "The file exists, but could not be opened for writing. Check that appropriate permissions have been set.";
-					return;
+						$this->Log_Status = PhpLog::OPEN_FAILED;
+						$this->MessageQueue[] = "The file exists, but could not be opened for writing. Check that appropriate permissions have been set.";
+						return;
 					}
 				}
 			}
@@ -88,7 +92,8 @@
 	     */
 		private  function _createDir($dir)
 		{
-			return is_dir($dir) or (self::_createDir(dirname($dir)) and mkdir($dir, 0777));
+		//	return is_dir($dir) or (self::_createDir(dirname($dir)) and mkdir($dir, 0777));
+			return false;
 		}
 		
 		/**
@@ -282,4 +287,3 @@
 			}
 		}
 	}
-?>

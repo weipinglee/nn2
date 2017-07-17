@@ -26,6 +26,8 @@ class IndexController extends UcenterBaseController {
     }
     
 
-
+    public function testAction(){
+    	json::encode(tool::getSuccInfo(1,'hello,world'));
+    }
 
 }

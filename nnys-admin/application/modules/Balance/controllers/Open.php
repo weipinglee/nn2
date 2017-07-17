@@ -12,7 +12,7 @@ class OpenController extends InitController {
 
 		if (IS_AJAX) {
 			$type = Safe::filterPost('type');
-			$detail = $model->getDealSetting(1);
+			$detail = $model->getsetting();
 			switch ($type) {
 				case 'submit':
 					$data = array(
@@ -82,7 +82,7 @@ class OpenController extends InitController {
 								$value['end_freeze_fund'] = 0;
 							}
 							//期末冻结资金：上次统计的期末冻结资 + 这次日结的冻结金额 - 解冻金额
-							$value['end_freeze_fund'] = $value['end_freeze_fund'] + $value['freeze_fund'] - $value['thaw_fund'];
+							$value['end_freeze_fund'] = ($value['end_freeze_fund'] + $value['freeze_fund']) - $value['thaw_fund'];
 							$value['end_fund'] = $value['use_fund'] + $value['end_freeze_fund'];
 						}
 						$res = $deal->addsDealTotal($fundData);
@@ -92,13 +92,13 @@ class OpenController extends InitController {
 				case 'daily':
 					if (time() < strtotime(date('Y-m-d') . $detail['end_time'])) {
 						$res = \Library\Tool::getSuccInfo(0, '还没有闭市，不能手工开市！');
-						exit(json::encode($res));
 					}
 					$data = array(
  						'is_operate' => 1,
  						'operate_time' => date('w')
 					);
-					$res = $model->updateDealSetting($data, 1);
+					$detail = $model->getsetting();
+					$res = $model->updateDealSetting($data, $detail['date']);
 
 					if ($res['success'] == 1) {
 						$admin_info = admintool\admin::sessionInfo();
@@ -115,7 +115,7 @@ class OpenController extends InitController {
 			exit(json::encode($res));
 		}
 
-		$detail = $model->getDealSetting(1);
+		$detail = $model->getsetting();
 		$detail['weeks'] = explode(',', $detail['weeks']);
 		$week = date('w');
 	        	$start = strtotime(date('Y-m-d',time()).' '. $detail['start_time']);
@@ -126,6 +126,16 @@ class OpenController extends InitController {
 		}else{
 			$detail['status'] = '闭市状态';
 		}
+
+		$date = date('Ymd', time());
+		$deal = new \nainai\fund\DealTotal();
+		$data = $deal->getDealTotal(array('create_time' => $date), 'id');
+		if ( ! empty($data)) {
+			$detail['status'] = '日结完状态';
+			$detail['is_show'] = 0;
+		}else{
+			$detail['is_show'] = 1;
+		}
 		$this->getView()->assign('detail', $detail);
 	}
 
@@ -134,12 +144,26 @@ class OpenController extends InitController {
 
 		if (IS_AJAX) {
 			$weeks = Safe::filterPost('weeks');
+			$date = date('Y-m-d', strtotime('+1days'));
+
 			$data = array(
 				'weeks' => implode(',', $weeks),
 				'start_time' => Safe::filterPost('start_time'),
 				'end_time' => Safe::filterPost('end_time'),
 			);
-			$res = $model->updateDealSetting($data, 1);
+			//判断是否已经添加
+			
+			$info = $model->getDealSetting(array('date' => $date), 'date');
+			if  ( ! empty($info) ){
+				$res = $model->updateDealSetting($data, $date);
+			}else{
+				$info = $model->getDealSetting(array('date' => Safe::filterPost('date')), 'daily, last_daily');
+				$data['daily'] = $info['daily'];
+				$data['last_daily'] = $info['last_daily'];
+				$data['date'] = $date;
+				$res = $model->addDealSetting($data);
+			}
+			
 			if ($res['success'] == 1) {
 				$admin_info = admintool\admin::sessionInfo();
 
@@ -149,9 +173,10 @@ class OpenController extends InitController {
 			exit(json::encode($res));
 		}
 		
-		$deal = $model->getDealSetting(1);
+		$deal = $model->getsetting();
 		if (empty($deal)) {
 			$deal = array(
+				'date' => date('Y-m-d', time()),
 				'weeks' => '1, 2, 3, 4, 5',
 				'start_time' => '09:00:00',
 				'end_time' => '17:30:00'

@@ -15,6 +15,7 @@ class UsergroupController extends Yaf\Controller_Abstract{
 	private $usergroupModel;
 	public function init(){
 		$this->usergroupModel = new UsergroupModel();
+		$this->payusergroupModel = new PayUserGroupModel();
 		$this->getView()->setLayout('admin');
 		//echo $this->getViewPath();
 	}
@@ -29,7 +30,7 @@ class UsergroupController extends Yaf\Controller_Abstract{
 		$this->getView()->assign('data',$pageData['data']);
 		$this->getView()->assign('bar',$pageData['bar']);
 	}
-	
+
 	/**
 	 * 新增页面
 	 */

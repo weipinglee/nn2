@@ -24,7 +24,7 @@ class DeliveryController extends UcenterBaseController {
             //报错
             $this->error($left);exit;
         }
-
+        
         $info = $delivery->deliveryStore($order_id);
         $info['left'] = $left;
         $this->getView()->assign('data',$info);

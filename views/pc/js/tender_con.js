@@ -28,7 +28,7 @@ $(document).ready(function (){
         }
     });
     /*招标评论弹出层 end*/
-    /*投标信息弹出层*/
+    /*投标信息弹出层
         //open popup
     $('.fa_xinxi').on('click', function(event){
          $("#bg").css("display","block")

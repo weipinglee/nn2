@@ -27,8 +27,14 @@
 
      <link href="{root:js/form/validate/error.css}" rel="stylesheet" type="text/css">
 
+
     <script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
     <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
+   <!--  收藏样式 -->
+ <link href="{views:css/favoritelist.css}" rel="stylesheet" type="text/css" /> 
+<!-- 支付样式 -->
+  <link href="{views:css/pay_ment.css}" rel="stylesheet" type="text/css" /> 
+  <script src="{root:js/pay_ment.js}" type="text/javascript"></script>
 
 </head>
 <body>
@@ -77,7 +83,11 @@
                 </li>
                 {/if}
                 <li>
-                    <a href="{url:/message/usermail@user}">消息中心{if:$mess!=0}<em class="information">{$mess}</em>{/if}</a><span class="line_l">|<span>
+                    <a href="{url:/message/usermail@user}">消息中心{if:$mess!=0&&$mess<=99}
+                    <em class="information">{$mess}</em>
+                    {elseif:$mess!=0&&$mess>99}
+                    <em class="information">99+</em>
+                    {/if}</a><span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="{views:images/icon/icon_iphon.png}"/>

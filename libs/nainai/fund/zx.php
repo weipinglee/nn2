@@ -161,6 +161,7 @@ class zx extends account{
                 <preDate></preDate>
                 <preTime></preTime>
             </stream>";
+
         $res = $this->curl($xml);
          if(strpos($res['zx_status'],'AAAAAA')===0){
              $res['success'] =1;
@@ -549,7 +550,6 @@ class zx extends account{
             </stream>";
         $res = $this->curl($xml);
         return isset($res['row']) && $res['row'] ? $res['row'] : array();
-
     }
 
     /**

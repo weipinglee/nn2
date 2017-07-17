@@ -47,7 +47,7 @@
                       <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
                       <li><img src="{views:images/password/eye_b.png}" alt="" /><a id='contract_review' target='_blank' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:#3fa5d9;">合同预览</a></li>
                     </ul>
-
+                    
                   <!--  <div class="counter">
                     <input id="min" name="" type="button" value="-" disabled="disabled">  
                     <input id="text_box" name="" type="text" value="1">  
@@ -55,10 +55,21 @@
                   </div> -->
 
                     <div class="buy_btn baoj">
-                        <a href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
-
+                        <a id='buy_now' href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
+                    
                     </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            if({$no_cert} == '1'){
 
+                                $('#buy_now').attr('href','javascript:;').unbind('click').click(function(){
+                                    layer.msg('该卖家资质不完善,不能进行此交易');
+                                    
+                                    return false;
+                                });
+                            }
+                        });
+                    </script>
                 </div>
                 <div style="clear:both;"></div>
                 
@@ -92,15 +103,11 @@
                         </tr>
                         <tr>
                             <td>报盘类型</td>
-                            <td>现货交易</td>
-                        </tr>
-                        <tr>
-                            <td>交易类型</td>
-                            <td>卖盘</td>
-                        </tr>
-                        <tr>
-                            <td>担保类型</td>
                             <td>{$data['mode_text']}</td>
+                        </tr>
+                        <tr>
+                            <td>交易方式</td>
+                            <td>卖盘</td>
                         </tr>
                         <tr>
                             <td>是否投保</td>
@@ -167,50 +174,34 @@
                             <td></td>
                         </tr>
                     </table>-->
+                                <link href="{views:css/product_pic.css}" rel="stylesheet">
+                                <script src="{views:js/pic.js}"></script>
                     
-                    <style type="text/css">
-                        .pro_pic{float: left;margin-right: 20px;}
-                    </style>
                     <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
-                    {foreach:items=$data['origphotos']}
-                <div class="clearfix">
-                    <p class="pro_pic" >
-                        <a name='fff' href='javascript:void(0);' onclick='picBig(this);'>
-                            <img src="{$item}" width="80px"height="80px" style="margin:20px;float:left;" class="pro_apic"></a>
-                        <span style="margin-top:30px;display:block;">
-                            {foreach:items=$data['cate']}
-                                {$item['name']}
-                                &nbsp;
-                            {/foreach}
-                            {$data['product_name']}的图片附件
-                        </span>
-                        <br/>
-                        <span>
-                            <a name='fff' href='javascript:void(0);' onclick='picBig(this);' class="red">预览</a>
-                        </span>
-                    </p>
-                    {/if}
-                </div>
+                    
 
+                                                <div id="slider">
+                                                      {foreach:items=$data['origphotos']}
+                                                            <div class="spic">
+                                                                <img src="{$item}" />
+                                                            </div>  
+                                                      {/if}
+                                                </div>  
 
-                    <div id="divCenter" align="center">
-                    <img width="600" src="{views:images/pro_show_img.jpg}" /><a href="javascript:void(0);" onclick="picClose();">关闭</a>
-                    </div>
-                    <script>
-                    function picBig(_this) {
-                        var src = $(_this).parents('p').find('img').attr('src');
-                         var v = $('#divCenter');
-                        v.find('img').attr('src',src);
-                        v.css('display','block');
-
-                    }
-
-                    function picClose() {
-                    var v = document.getElementById('divCenter');
-                    v.style.display = "none";
-                    }
-                    </script>
-                </div>
+                                        
+                                    <script type="text/javascript">  
+                                           $(document).ready(function() {
+                                                $('#slider').slider({ speed: 500 });
+                                                    var length=$("#slider img").size();
+                                                    if(length-1>4){
+                                                        $(".image-slider-back").css("display","block");
+                                                        $(".image-slider-forward").css("display","block");
+                                                    }else{              
+                                                        $(".image-slider-back").css("display","none");
+                                                        $(".image-slider-forward").css("display","none");
+                                                }
+                                            });
+                                    </script>  
       <!-- content end -->
 
 

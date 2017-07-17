@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="css/style_main.css"/>
+    <script type="text/javascript" src="js/commentlist.js"></script>
 
    
    
@@ -309,7 +310,7 @@ body{_padding-top:30px;}
                         <div class="ten_comment">
                             <div class="com_href">
                                 <a class="fa_com"><i class="icon-edit"></i> 发表评论</a>
-                                <a class="fa_xinxi">发布投标信息</a>
+                                <a class="fa_xinxi">报名参与投标</a>
                                 <div class="clear"></div>
                             </div>
                             <div class="com_cont">
@@ -321,7 +322,55 @@ body{_padding-top:30px;}
                                     <div class="clear"></div>
                                 </div>
                                 <div class="com_neirong">
-                                    <p>暂无信息</p>
+                                    <!-- <p>暂无信息</p> -->
+                                    <div class="ctd_comments_box cf">
+                                        <a class="img  " href="">
+                                           <img src="{views:images/username.png}">
+                                        </a>
+                                        <div class="textarea_box">
+                                            <a class="ctd_comments_username" href="/">boyka08</a>
+                                            <p class="ctd_comments_text">6</p>
+                                            <div class="ctd_comments_contrl">
+                                                <span class="fl">发表于 2017-06-21 11:28</span>
+                                                <a class="contrl_02 link_reply  a_popup_login ">
+                                                回复(40)</a>|
+                                                <a class="comment-point"><i class="posin-img"></i>(4)</a>
+                                            </div>
+                                            <div class="ctd_comments_reply ctd_comments_reply_one" style="display: none">
+                                               <div class="textarea">
+                                                <textarea></textarea>
+                                                 <span><em class="word_length">0</em>/<em class="word_total">1000</em></span>
+                                                </div>
+                                                <span class="error_tip fl">请输入回复内容！</span> 
+                                                <a class="contrl_01" href="#">取消</a>
+                                                <a class="gs_btn_v2  a_popup_login " href="javascript:;" data-onsubmit="1">提交</a>
+                                            </div>
+                                            <div class="comments-reply-content">
+                                                <a class="img  " href="">
+                                                   <img src="{views:images/username.png}">
+                                                </a>
+                                                 <a class="ctd_comments_username" href="/">boyka08</a>
+                                                <p class="ctd_comments_text">6</p>
+                                                <div class="ctd_comments_contrl">
+                                                    <span class="fl">发表于 2017-06-21 11:28</span>
+                                                    <a class="contrl_002 link_reply  a_popup_login ">
+                                                    回复(40)</a>|
+                                                    <a class="comment-point"><i class="posin-img"></i>(4)</a>
+                                                </div>
+                                                <div class="ctd_comments_reply" style="display: none">
+                                                   <div class="textarea">
+                                                    <textarea></textarea>
+                                                     <span><em class="word_length">0</em>/<em class="word_total">1000</em></span>
+                                                    </div>
+                                                    <span class="error_tip fl">请输入回复内容！</span> 
+                                                    <a class="contrl_01" href="#">取消</a>
+                                                    <a class="gs_btn_v2  a_popup_login " href="javascript:;" data-onsubmit="1">提交</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                          
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -421,10 +470,10 @@ body{_padding-top:30px;}
             <span class="zbgg_bule">学员楼运营管理招标项目公开招标公告</span>
           </div>
           <div class="zbgg_con">
-            <p class="zbgg_tishi">
-                <i class="icon-remove"></i>
-                您还没有登录
-            </p>
+            <!-- <p class="zbgg_tishi">
+                您还没有<a href="">登录</a>
+            </p> -->
+            <textarea></textarea>
           </div>
           <div class="pl_anniu">
             <input class="pl_submit" type="submit" value="提 交"/>
@@ -433,11 +482,11 @@ body{_padding-top:30px;}
     </div>
 </div>
 <!-- 发布招标评论弹出层end -->
-<!-- 发布投标信息弹出层 -->
+<!-- 发布投标信息弹出层 
 <div class="cd-popup_toubiao" role="alert">
     <div class="cd-popup-container_toubiao">
         <div class="fabiao_tit">发布投标信息！</div>
-        <!-- <a href="#" class="pop_con_qx cd-popup-close"><i class="icon-remove"></i></a> -->
+        
         <a  class="cd-popup-close"><img class="pop_qx"src="images/icon/zb_qx.png"/></a>
         <div class="fabu_con">
           <h1>发布投标信息</h1>

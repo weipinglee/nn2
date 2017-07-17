@@ -70,7 +70,7 @@
                                 <td>
                                     <span>
 
-                                        <div>请您下载<a href="{root:down/耐耐网自由报盘委托协议书.docx}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传
+                                        <div>请您下载<a href="{root:down/耐耐网委托报盘协议书.docx}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传
 
                                          </div>
                                        <div class="zhxi_con">
@@ -88,7 +88,7 @@
                                        </div>
                                     </span>
                                 </td>
-                            </tr>
+                            </tr>   
                         <tr>
                             <td></td>
                             <td colspan="2" class="btn">
@@ -96,7 +96,11 @@
                             <input type="hidden" name='mode' id="mode" value="weitou">
                                 <input type="hidden" name="token" value="{$token}" />
                                 <input  type="submit"  value="提交审核" />
-                                <span class="color">需在线下支付总金额的<span id='weitou'>{if:!empty($rate)}{$rate['value']}{if:$rate['type'] == 0}%{else:}元{/if}{else:}0{/if}</span>的委托金</span>
+                                {if:$is_vip}
+                                    <span class="color">您是收费会员,无需支付委托费</span>
+                                {else:}
+                                    <span class="color">需支付总金额<span id='weitou'>{if:!empty($rate)}{$rate['value']}{if:$rate['type'] == 0}%{else:}元{/if}{else:}0{/if}</span>的委托金</span>
+                                {/if}
                             </td>
                         </tr>
 

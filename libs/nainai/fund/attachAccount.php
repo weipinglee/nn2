@@ -97,7 +97,6 @@ class attachAccount{
 	 	if(curl_errno($ch)){
 	 		print curl_errno($ch);
 	 	}
-
 	 	
 	 	// $output = iconv('GBK','UTF-8',$output);
 	 	

@@ -16,8 +16,10 @@
       <tr class="text-c">
         <th width="25"><input type="checkbox" name="checkall" value=""></th>
         <th width="80">菜单名</th>
+        <th width="80">菜单url</th>
         <th width="80">菜单位置</th>
         <th width="80">是否显示</th>
+        <th width="80">子账户是否显示</th>
         <th width="100">操作</th>
       </tr>
     </thead>
@@ -31,6 +33,9 @@
         {if: !empty($icon[$list['level']])}{$icon[$list['level']]} {/if}
         {$list['menu_zn']}
         </td>
+         <td>
+         {$list['menu_url']}
+        </td>
         <td>
         {if:$list['position'] == 1}
           首页
@@ -40,6 +45,13 @@
         </td>
         <td>
         {if:$list['status'] == 1}
+          是
+        {else:}
+          否
+        {/if}
+        </td>
+         <td>
+        {if:$list['subacc_show'] == 1}
           是
         {else:}
           否

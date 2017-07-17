@@ -53,7 +53,7 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 	 * @return [Array] 
 	 */
 	public function getMenuList(){
-		return $this->model->fields('id, menu_zn, pid,status,menu_url, position')->order('pid asc, sort desc')->select();
+		return $this->model->fields('id, menu_zn, pid,status,menu_url, position, subacc_show')->order('pid asc, sort desc')->select();
 	}
 	
 
@@ -140,17 +140,18 @@ class Menu extends \nainai\Abstruct\ModelAbstract {
 					}
 
 					$where .= ')';
-					
 					$right = $this->model->table($this->menuRoleTable)->where($where)->bind($roleIds)->getFields('purview');
-
 					foreach($right as $k=>$v){
-						$userPur = array_merge($userPur,unserialize($v));
+						if ( ! empty($v)) {
+							$userPur = array_merge($userPur,unserialize($v));
+						}
+						
 					}
 				}
 			}
 			
 			if ( $userPur != '' ) {
-				$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url,status, position')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
+				$menuList = $this->model->table('menu')->fields('id, menu_zn, pid, menu_url,status, position, subacc_show')->where('FIND_IN_SET(id, :ids)')->bind(array('ids' => implode(',', $userPur)))->order('pid asc, sort asc')->select();
 
 				foreach($menuList as $k=>$v){
 					if($v['menu_url']!='')
