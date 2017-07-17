@@ -57,9 +57,15 @@
                                                             <div class="invite" id="invite" style="padding-top:47px;">
                                                                 
                                                                 <div class="bid_zige" style="">
-                                                                    {if:!empty($zbinfo)}
-                                                                    <h2 style="margin-bottom:50px;">恭喜您中标了！</h2>
-                                                                    {else:}
+                                                                    {set:$i=0;}
+                                                                    {foreach:items=$zbinfo}
+                                                                        {if:$item['selected']==1 && $i==0}
+                                                                            {set:$i=$i+1}
+                                                                            <h2 style="margin-bottom:50px;">恭喜您中标了！</h2>
+                                                                        {/if}
+                                                                    {/foreach}
+
+                                                                    {if:$i==0}
                                                                         <h2 style="margin-bottom:50px;">很遗憾，没有中标！</h2>
                                                                     {/if}
 
@@ -70,7 +76,7 @@
                                                                 <div class="bid_zige" style="">
                                                                    {foreach:items=$zbinfo}
                                                                     <p class="zigefile"><span>包件号：</span>{$item['pack_no']}</p>
-                                                                    <p class="zigefile" style="color:#e00101;">中标会员：{$item['username']}</p>
+                                                                    <p class="zigefile" style="color:#e00101;">中标状态：{if:$item['selected']==1}已中标{else:}未中标{/if}</p>
                                                                     {/foreach}
                                                                                                                                         
                                                                 </div>   

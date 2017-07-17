@@ -720,7 +720,7 @@ class BidController extends UcenterBaseController{
 		$this->getView()->assign('reply_id',$reply_id);
 		$this->getView()->assign('detail',$bidDetail);
 
-		$zbInfo = $this->bidObjSeller->getZbInfo($bid_id,$this->user_id);
+		$zbInfo = $this->bidObjSeller->getZbInfo($reply_id,$this->user_id);
 		$this->getView()->assign('zbinfo',$zbInfo);
 
 	}

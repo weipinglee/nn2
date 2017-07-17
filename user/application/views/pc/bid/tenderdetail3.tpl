@@ -68,7 +68,7 @@
                                                                         {foreach:items=$zbinfo}
 
                                                                             <p class="zigefile"><span>包件号：</span>{$item['pack_no']}</p>
-                                                                            <p class="zigefile">中标会员：{if:$item['win_user_id']==-1}流标{else:}{$item['username']}{/if}</p>
+                                                                            <p class="zigefile">{if:$item['win_user_id']==-1}包件状态：流标{else:}中标会员：{$item['username']}{/if}</p>
                                                                         {/foreach}
                                                                         {elseif:$detail['status']==8}
                                                                         项目流标
