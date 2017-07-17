@@ -28,6 +28,7 @@
 
                     
                     <ul>
+
                         <li class='hit'>银联在线支付</li> 
                         <li class=''>银联在线支付b2b</li> 
                         <li class="" >线下支付</li>
@@ -106,6 +107,7 @@
                     </div>
                 
            <script type="text/javascript">
+
            $(function(){  
             $('input[name=recharge]').eq(0).change(function(){
                 var v = $(this).val();
@@ -122,7 +124,7 @@
            })
            var submit_pay = "{url:/fund/doFundIn}";
            </script>
-                    
+
                     <div class="zj_mx">
     
                         <div class="mx_l">代理账户充值明细</div>
