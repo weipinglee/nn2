@@ -126,11 +126,12 @@
         $("#time_s").text(int_second); 
 
        
-
         // 设置定时器
         setTimeout("show_time()",1000); 
         }else{
             $("#time_limit").text("项目已开标");
+        }
+
         }
 
         
