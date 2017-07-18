@@ -84,6 +84,7 @@
 				</div>
 			</div>
 <script type="text/javascript">    
+        
         $(function(){ 
         show_time();
         }); 
@@ -133,6 +134,7 @@
             $("#time_limit").text("项目已开标");
         }
 
+        }
         
 </script>
 			<!--end中间内容-->	
