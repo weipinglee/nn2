@@ -202,7 +202,7 @@
 
                                                             <div class="clear"></div>
 
-                                                            <div class="button"><a href="{url:/bid/tenderfb1}?type={$type}"><button style="float: left;margin-right:20px;">上一步</button</a>><button style="margin:0;">保存</button></div>
+                                                            <div class="button"><a href="{url:/bid/tenderfb1}?type={$type}"><button style="float: left;margin-right:20px;">上一步</button</a><button style="margin:0;">保存</button></div>
                         </form>
                                                         </div>
 				</div>
