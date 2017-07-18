@@ -70,6 +70,13 @@
                             {foreach:items=$detail['eq']}
                                 <p>4.{echo:$key+3}、{$item}</p>
                             {/foreach}
+                            {foreach:items=$notice}
+                                <p>
+                                    补充公告：
+                                </p>
+                                <p>{$item['title']}</p>
+                                <p>{$item['content']}</p>
+                            {/foreach}
 
                         </div>
                         <div class="ten_comment">

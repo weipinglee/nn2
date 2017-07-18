@@ -86,8 +86,11 @@
          <p>电话：{$detail['agent_phone']}</p>
          <p>邮箱：{$detail['agent_email']}</p>
          <p>传真：{$detail['agent_tax']}</p>
-        <p>九、注意事项</p>
-        <p>……</p>
+        {foreach:items=$notice}
+            <p>补充公告：</p>
+            <p>{$item['title']}</p>
+            <p>{$item['content']}</p>
+        {/foreach}
         <p>发布公告日期：{$detail['create_Time']}</p>
          <p>
              审核意见：<textarea name="message">{$detail['admin_message']}</textarea>
