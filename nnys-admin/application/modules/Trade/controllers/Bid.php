@@ -35,6 +35,8 @@ class BidController extends InitController{
         $id = safe::filterGet('id','int');
         $detail = $this->bidObj->getBidDetail($id);
         $this->getView()->assign('detail',$detail);
+        $notice = $this->bidObj->getBidNotice($id);
+        $this->getView()->assign('notice',$notice);
     }
 
     public function verifyBidAction()

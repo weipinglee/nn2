@@ -58,7 +58,7 @@
                                                                     <h3>招标保证金</h3>
                                                                     <p class="bond">￥{$data['bail']}元</p>
                                                                     <ul class="tip">
-                                                                        <li>请确信账户内金额足够支付保证金</li>
+                                                                        <li>请确认账户内金额足够支付保证金</li>
                                                                         <li>若余额不足请先<a href="{url:/fund/cz}" class="1a59d9">充值</a></li>
                                                                         <li>保证金将于招投标结束后返还</li>
                                                                     </ul>
