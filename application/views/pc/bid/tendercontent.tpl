@@ -3,7 +3,7 @@
      <link rel="stylesheet" type="text/css" href="{views:css/tender_con.css}"/>
     <script src="{views:js/tender_con.js}" type="text/javascript"></script>
     <!-- 分类的样式 -->
-   
+
     <!-- 招标页 end -->
     <!--主要内容 开始-->
     <div id="mainContent">
@@ -87,7 +87,7 @@
                                     <div class="clear"></div>
                                 </div>
                                 <div class="com_neirong">
-                                    
+
                                     <!-- 招投标评论 -->
                                     {if:empty($comment)}
                                         <p>暂无评论</p>
@@ -103,17 +103,17 @@
                                                 <!-- <a class="contrl_02 link_reply  a_popup_login ">
                                                 回复(40)</a>| -->
                                                <!--  <a class="comment-point"><i class="posin-img"></i>(4)</a> -->
-                                            </div>                                        
-                                        </div>                                         
+                                            </div>
+                                        </div>
                                     </div>
                                     {/foreach}
                                     {/if}
-                                     
+
                                      <!-- 招投标评论 end-->
                                 </div>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                     <div class="center_right">
                         <div class="gonggao">
                             <h2><img src="{views:images/icon/red_qi.jpg}">同业主相关公告</h2>
@@ -125,16 +125,16 @@
                                 <li><a href="tender_content.html">学员楼运营管理招标项目</a></li>
                             </ul>
                         </div>
-                         
+
                     </div>
                     <div class="clear"></div>
                 </div>
            </div>
             <!-- 未登录招标内容 end -->
-       	 	                
-           
+
+
     	</div>
-	</div>  
+	</div>
     <!--主要内容 结束-->
 
 
@@ -167,11 +167,11 @@
     </div>
 </div>
 <!-- 发布招标评论弹出层end -->
-<!-- 发布投标信息弹出层 
+<!-- 发布投标信息弹出层
 <div class="cd-popup_toubiao" role="alert">
     <div class="cd-popup-container_toubiao">
         <div class="fabiao_tit">发布投标信息！</div>
-        
+
         <a  class="cd-popup-close"><img class="pop_qx"src="images/icon/zb_qx.png"/></a>
         <div class="fabu_con">
           <h1>发布投标信息</h1>
