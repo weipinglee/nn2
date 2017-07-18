@@ -3,7 +3,7 @@
      <link rel="stylesheet" type="text/css" href="{views:css/tender_con.css}"/>
     <script src="{views:js/tender_con.js}" type="text/javascript"></script>
     <!-- 分类的样式 -->
-   
+
     <!-- 招标页 end -->
     <!--主要内容 开始-->
     <div id="mainContent">
@@ -12,7 +12,7 @@
            <div class="tender_content">
                 <div class="tender_top">
                     <b>
-                        <a href="index.html">首页</a> > 招投标大厅 
+                        <a href="index.html">首页</a> > 招投标大厅
                     </b>
                 </div>
                 <div class="tender_center">
@@ -31,28 +31,28 @@
                                     <div class="hall_con_left">学员楼运营管理招标项目公开招标公告</div>
                                  </a>
                                     <div class="hall_con_right">2016-02-29</div>
-                               
+
                             </div>
                             <div class="hall_con">
                                 <a href="tender_content.html">
                                     <div class="hall_con_left">学员楼运营管理招标项目公开招标公告</div>
                                 </a>
                                     <div class="hall_con_right">2016-02-29</div>
-                               
+
                             </div>
                             <div class="hall_con">
                                 <a href="tender_content.html">
                                     <div class="hall_con_left">学员楼运营管理招标项目公开招标公告</div>
                                 </a>
                                     <div class="hall_con_right">2016-02-29</div>
-                                
+
                             </div>
                             <div class="hall_con">
                                 <a href="tender_content.html">
                                     <div class="hall_con_left">学员楼运营管理招标项目公开招标公告</div>
                                 </a>
                                     <div class="hall_con_right">2016-02-29</div>
-                                
+
                             </div>
                        </div>
                         <div class="tender_hall">
@@ -69,21 +69,21 @@
                                     <div class="hall_con_left">环境卫生管理处垃圾场零星工程用工及垃圾覆土用泥采购项目与公式</div>
                                 </a>
                                     <div class="hall_con_right">2016-02-29</div>
-                                
+
                             </div>
                             <div class="hall_con">
                                 <a href="tender_content.html">
                                     <div class="hall_con_left">环境卫生管理处垃圾场零星工程用工及垃圾覆土用泥采购项目与公式</div>
                                 </a>
                                     <div class="hall_con_right">2016-02-29</div>
-                                
+
                             </div>
                             <div class="hall_con">
                                 <a href="tender_content.html">
                                   <div class="hall_con_left">环境卫生管理处垃圾场零星工程用工及垃圾覆土用泥采购项目与公式</div>
                                  </a>
                                     <div class="hall_con_right">2016-02-29</div>
-                               
+
                             </div>
                             <div class="hall_con">
                                 <a href="tender_content.html">
@@ -106,7 +106,7 @@
                                     <div class="hall_con_left">求助车采购询价公告</div>
                                 </a>
                                     <div class="hall_con_right">2016-02-29</div>
-                               
+
                             </div>
                             <div class="hall_con">
                                 <a href="tender_content.html">
@@ -141,7 +141,7 @@
                                     <div class="hall_con_left">投影仪采购项目</div>
                                 </a>
                                     <div class="hall_con_right">2016-02-29</div>
-                                
+
                             </div>
                             <div class="hall_con">
                                 <a href="tender_content.html">
@@ -162,11 +162,11 @@
                                     <div class="hall_con_right">2016-02-29</div>
                             </div>
                        </div>
-                           
-                    </div>  
+
+                    </div>
                     <div class="center_right">
                         <div class="gonggao " style="border:0;margin-bottom:0;">
-                            <a href="" class="zb_but">发布招标</a>
+                            <a href="{url:/bid/tenderfb@user}" class="zb_but">发布招标</a>
                         </div>
                         <div class="gonggao">
                             <h2><img  src="{views:images/icon/reci.jpg}">热词招标</h2>
@@ -219,14 +219,14 @@
                             </div>
 
                         </div>
-                        
+
                     </div>
                     <div class="clear"></div>
                 </div>
            </div>
             <!-- 未登录招标内容 end -->
-       	 	              
-            
+
+
 
     	</div>
 	</div>

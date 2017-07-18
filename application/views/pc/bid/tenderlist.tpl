@@ -3,13 +3,13 @@
      <link rel="stylesheet" type="text/css" href="{views:css/tender_con.css}"/>
     <script src="{views:js/tender_con.js}" type="text/javascript"></script>
     <!-- 分类的样式 -->
-   
+
     <!-- 招标页 end -->
     <!--主要内容 开始-->
     <div id="mainContent">
         <div class="page_width">
             <!-- 未登录招标内容start -->
-           
+
            <div class="tender_content">
                 <div class="tender_top">
                     <b>
@@ -17,22 +17,22 @@
                     </b>
                 </div>
                  <!-- 分类 start -->
-            <div class="pro_classify"> 
+            <div class="pro_classify">
                 <div class="class_re">
                     <h3>
                         <em>选择搜索条件</em>
                     </h3>
 
-                </div>          
+                </div>
                 <div class="class_jy">
 
                     <script>
                         $(document).ready(function(){
                         $(".class_jy").delegate(".info-show", "click", function () {
                         //展开操作
-                        //$(".infoslider").show();  
-                    //$(this).parentsUntil(".class_jy").parent().find(".infoslider").show(); 
-                            $(this).parents(".class_jy").find(".infoslider").show();   
+                        //$(".infoslider").show();
+                    //$(this).parentsUntil(".class_jy").parent().find(".infoslider").show();
+                            $(this).parents(".class_jy").find(".infoslider").show();
                             $(this).removeClass("info-show").addClass("info-hide").html("收起");
                         });
                         $(".class_jy").delegate(".info-hide", "click", function () {
@@ -45,12 +45,12 @@
 
                       });
                     </script>
-                                        
-                                        
+
+
 
                 </div>
 
-                
+
                 <div class="class_jy">
                     <span class="jy_title">行业：</span>
                     <ul>
@@ -58,7 +58,7 @@
                         {foreach:items=$cates}
                         <li {if:$cate_id==$item['id']}class="a_choose"{/if} value="{$item['id']}"><a href="{url:/bid/tenderlist}?cate_id={$item['id']}">{$item['name']}</a></li>
                         {/foreach}
-                    </ul>   
+                    </ul>
 
                 </div>
 
@@ -82,14 +82,14 @@
                                 <div class="hall_con_right">{$item['create_time']}</div>
                             </div>
                             {/foreach}
-                            
+
                             <div class="clear"></div>
                        </div>
                         {$list['bar']}
-                    </div>  
+                    </div>
                     <div class="center_right">
                         <div class="gonggao " style="border:0;margin-bottom:0;">
-                            <a href="{url:/bid/tenderfb}" class="zb_but">发布招标</a>
+                            <a href="{url:/bid/tenderfb@user}" class="zb_but">发布招标</a>
                         </div>
                         <div class="gonggao">
                             <h2><img src="{views:images/icon/reci.jpg}">热词招标</h2>
@@ -100,14 +100,14 @@
                                 <a href="tender_announcement.html" class="rc_con_a">耐火材料</a>
                                 <div class="clear"></div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="clear"></div>
                 </div>
            </div>
             <!-- 未登录招标内容 end -->
-                            
-            
+
+
         </div>
-    </div>  
+    </div>
     <!--主要内容 结束-->
