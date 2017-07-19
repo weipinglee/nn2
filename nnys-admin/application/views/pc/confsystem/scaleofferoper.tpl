@@ -33,6 +33,12 @@
                     </div>
                 </div>
                 <div class="row cl">
+                    <label class="form-label col-2"><span class="c-red">*</span>招标保证金额度</label>
+                    <div class="formControls col-10">
+                        <input type="text" id="website-title" name='bid_bail' placeholder="0" value="{$info['bid_bail']}" class="input-text">
+                    </div>
+                </div>
+                <div class="row cl">
                     <label class="form-label col-2"><span class="c-red">*</span>手续费收取比例</label>
                     <div class="formControls col-10">
                         <input type="text" id="website-title" name='fee' placeholder="1~100%" value="{$info['fee']}" class="input-text">

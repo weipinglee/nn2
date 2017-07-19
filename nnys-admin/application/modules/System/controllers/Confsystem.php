@@ -86,6 +86,7 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			$confscaleOfferData['free'] 	= safe::filterPost('free');
 			$confscaleOfferData['deposite'] = safe::filterPost('deposite');
 			$confscaleOfferData['fee']      = safe::filterPost('fee');
+			$confscaleOfferData['bid_bail']      = safe::filterPost('bid_bail');
 			$confscaleOfferData['id']		= 1;
 			$res = $this->confscaleOffer->confscaleOfferUpdate($confscaleOfferData);
 			echo JSON::encode($res);
