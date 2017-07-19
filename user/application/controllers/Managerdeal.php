@@ -700,6 +700,8 @@ class ManagerDealController extends UcenterBaseController {
                     $updateUrl = url::createUrl('/managerdeal/updatefreeoffer?id='.$offerDetail[0]['id']);
                 if($offerDetail[0]['mode'] == $productModel::STORE_OFFER)
                     $updateUrl = url::createUrl('/managerdeal/updatestoreoffer?id='.$offerDetail[0]['id']);
+                if($offerDetail[0]['mode'] == $productModel::DEPUTE_OFFER)
+                    $updateUrl = url::createUrl('/managerdeal/updatedeputeoffer?id='.$offerDetail[0]['id']);
                 $this->getView()->assign('updateUrl',$updateUrl);
             }
             $this->getView()->assign('offer', $offerDetail[0]);
@@ -717,6 +719,34 @@ class ManagerDealController extends UcenterBaseController {
      * 修改报盘
      */
     public function updateFreeOfferAction(){
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
+        $id = $this->getRequest()->getParam('id');
+        $id = Safe::filter($id, 'int', 0);
+        if($id){
+            $productModel = new ProductModel();
+            $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
+            $cate_sel = array();//商品所属的各级分类
+            foreach($offerDetail[1]['cate'] as $k=>$v){
+                $cate_sel[] = $v['id'];
+            }
+            $pro = new \nainai\offer\product();
+            $categorys = $pro->getCategoryLevelSpec($cate_sel);
+
+            $this->getView()->assign('attr',json::encode($offerDetail[1]['attribute']));
+            unset($offerDetail[1]['attribute']);
+
+            $this->getView()->assign('offer',$offerDetail[0]);
+            $this->getView()->assign('product',$offerDetail[1]);
+            $this->getView()->assign('categorys',$categorys);
+            $this->getView()->assign('cate_sel',$cate_sel);
+        }
+    }
+
+    /**
+     * 修改报盘
+     */
+    public function updateDeputeOfferAction(){
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
         $id = $this->getRequest()->getParam('id');

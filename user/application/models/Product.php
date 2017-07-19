@@ -27,7 +27,7 @@ class productModel extends \nainai\offer\product{
 		$query->pagesize = $pagesize;
 		// $query->order = ' a.create_time desc';
 
-		$status = implode(',', array(self::OFFER_APPLY, self::OFFER_OK, self::OFFER_NG));
+		$status = implode(',', array(self::OFFER_APPLY, self::OFFER_OK, self::OFFER_NG,self::OFFER_CANCEL));
 		$where .= ' AND c.status IN (' .$status. ')';
 		if (empty($where)) {
 			$where = ' AND c.mode IN (1, 2,3, 4) ';
