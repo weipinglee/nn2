@@ -28,10 +28,6 @@ class BidController extends UcenterBaseController{
 		$this->bidObjSeller = new sellerHandle($this->user_id);
 	}
 
-	public function testAction(){
-		$com = new \nainai\bid\comment\bidcomment();
-
-	}
 
 	/*********************招标发布相关功能***************************/
 	public function setUserTruenameAction(){
@@ -352,6 +348,7 @@ class BidController extends UcenterBaseController{
 				$this->redirect(url::createUrl('/bid/tenderdetail2').'?id='.$id);
 			}
 			break;
+			case 8 :
 			case 7 : {
 				$this->redirect(url::createUrl('/bid/tenderdetail3').'?id='.$id);
 			}

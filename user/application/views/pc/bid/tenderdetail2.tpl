@@ -96,7 +96,7 @@
                                                                             <td><input type="checkbox" name="pack_id[]" value="{$v['id']}" class="checkbox_pack"></td>
                                                                             {if:$v['selected']==1}
                                                                             <td>已中标</td>
-                                                                            {elseif:$v['win_user_id'] > 0}
+                                                                            {elseif:$v['selected'] ==-1}
                                                                             <td>未中标</td>
                                                                             {else:}
 
