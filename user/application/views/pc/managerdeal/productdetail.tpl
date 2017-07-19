@@ -1,7 +1,7 @@
 
 ﻿<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
-			<!--start中间内容-->	
+			<!--start中间内容-->
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
@@ -175,17 +175,16 @@
                                   </div>
                                   {/if}
                                     {if:isset($updateUrl)}
+																		<div class="pay_bton">
                                         <a class="submit_chag"  href="{$updateUrl}" >修改<a/>
+																		</div>
                                     {/if}
                                 </td>
                             </tr>
                         </table>
             	    </form>
-						
+
 					</div>
 				</div>
 			</div>
 			<!--end中间内容-->
-
-
-			
