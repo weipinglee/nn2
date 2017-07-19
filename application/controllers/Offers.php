@@ -18,10 +18,7 @@ use \Library\JSON;
 
 class OffersController extends PublicController {
 
-	public function testAction(){
-        die(json::encode(tool::getSuccInfo(1,'hello,world')));
-        return false;
-    }
+
 	private $offer;
 	private $order;
 
@@ -116,76 +113,6 @@ class OffersController extends PublicController {
 	// 		$res = $order->productNumValid($num,$info);
 	// 		die(JSON::encode($res === true ? tool::getSuccInfo() : tool::getSuccInfo(0,$res)));
 	// 	}
-
-
-
-	 /**
-	 * AJax获取产品分类信息
-	* @return [Json]
-	*/
-	public function ajaxGetCategoryAction(){
-		$pid = safe::filterPost('pid', 'int',0);
-		$type = safe::filterPost('type', 'int',0);
-		$mode = safe::filterPost('mode', 'int',0);
-		$page = safe::filterPost('page','int',1);
-		$order = safe::filterPost('sort');
-		$area = safe::filterPost('area','int',0);
-		$search = safe::filterPost('search');
-
-
-
-		//获取这个分类下对应的产品信息
-		$condition = array();
-		$cate = array();
-		if($pid!=0)
-			$condition['pid'] = $pid;
-		if($type!=0){
-			$condition['type'] = $type;
-		}
-		if($mode!=0){
-			$condition['mode'] = $mode;
-		}
-		if($area!=0){
-			$condition['area'] = $area;
-		}
-		if($search!=''){
-			$condition['search'] = $search;
-		}
-
-		if($order!=''){
-			$orderArr = explode('_',$order);
-			switch($orderArr[0]){
-				case 'price' : {
-					if(isset($orderArr[1]) && $orderArr[1]=='asc')
-						$order = 'price asc';
-					else $order = 'price desc';
-				}
-					break;
-				case 'time' : {
-					if(isset($orderArr[1]) && $orderArr[1]=='asc')
-						$order = 'apply_time asc';
-					else $order = 'apply_time desc';
-				}
-					break;
-				default : {
-					$order = '';
-				}
-			}
-		}
-		else $order = '';
-		$data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
-		if ( ! empty($this->login)) {
-			$data['login'] = 1;
-		}else{
-			$data['login'] = 0;
-		}
-
-		// var_dump($data);exit;
-		echo json::encode($data);
-		exit();
-	}
-
-
 
 
 	public function offerDetailsAction(){

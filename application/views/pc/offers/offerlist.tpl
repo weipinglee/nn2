@@ -35,7 +35,7 @@
                 </div>
             </div> -->
             <div class="clearfix cla_sty">
-                <input type="hidden" name="attr_url" value="{url:/Offers/ajaxGetCategory}"  />
+                <input type="hidden" name="attr_url" value="{url:/AjaxData/ajaxGetCategory}"  />
                <input type="hidden" name="sort" value="default" />
                 <input type="hidden" name="img_url" value="{views:}"  />
             <div class="class_jy tlist_100" id="offer_type">
