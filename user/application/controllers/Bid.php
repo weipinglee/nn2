@@ -35,6 +35,7 @@ class BidController extends UcenterBaseController{
 		$Query->join = 'left join company_info as c on u.id = c.user_id
 						 left join person_info as p on u.id = p.user_id';
 		$Query->fields = ' u.id,u.type,u.username,u.mobile,c.company_name,p.true_name';
+		$Query->where = 'u.is_false=0';
 		$Query->limit = 10000;
 		$data = $Query->find();
 		$M = new \Library\M('user');
