@@ -175,9 +175,9 @@
                                   </div>
                                   {/if}
                                     {if:isset($updateUrl)}
-																		<div class="pay_bton">
-                                        <a class="submit_chag"  href="{$updateUrl}" >修改<a/>
-																		</div>
+                                    <div class="pay_bton">
+                                        <a class="submit_chag"  href="{$updateUrl}" >修改</a>
+                                    </div>
                                     {/if}
                                 </td>
                             </tr>
