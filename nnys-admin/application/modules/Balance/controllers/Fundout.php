@@ -81,7 +81,7 @@ class FundoutController extends InitController {
 					$adminmsg->createMsg('fundoutfinal',$id,$content);
 				}else {
 					$messObj=new \nainai\message($user_id);
-					$message->send('fundOutFail');
+					$messObj->send('fundOutFail');
 				}
 			}
 			die(JSON::encode(tool::getSuccInfo($res['code'], $res['info'])));
