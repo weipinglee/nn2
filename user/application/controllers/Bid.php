@@ -98,12 +98,8 @@ class BidController extends UcenterBaseController{
 	public function tenderfbAction()
 	{
 		$userObj = new M('user');
-		$username = safe::filterPost('username');
-		$where = 1;
-		if($username)
-			$where = 'username like "'.$username.'%"';
-
-
+		$where = array('is_false'=>0);
+		
 		$userData = $userObj->where($where)->fields('id,username,type,mobile,true_name')->order('username asc')->select();
 		$this->getView()->assign('user',$userData);
 	}
