@@ -1,4 +1,4 @@
-<!--start中间内容-->    
+<!--start中间内容-->
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
@@ -12,19 +12,19 @@
                                                                         <span class="on">选择招标类型</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="step">                                                                    
+                                                                <li class="step">
                                                                     <span class="val_on on">2</span>
                                                                     <p class="step_name">
                                                                         <span class="on">上传招标文件</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="step">                                                                    
+                                                                <li class="step">
                                                                     <span class="val_on on">3</span>
                                                                     <p class="step_name">
                                                                         <span class="on">填写招标公告</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="step">                                                                    
+                                                                <li class="step">
                                                                     <span class="val_on ">4</span>
                                                                     <p class="step_name">
                                                                         <span class="">提交保证金，发布招标</span>
@@ -59,15 +59,15 @@
                                                                     </p>
                                                                     <p>
                                                                         <span>投标时间：</span>
-                                                                        <input type="datetime-local" value="" name="begin_time" datatype="*" />
+                                                                        <input type="datetime-local" value="" name="begin_time" datatype="*"  placeholder="2017/10/07 22:52"/>
                                                                         <span>至</span>
-                                                                        <input type="datetime-local" value="" name="end_time" datatype="*" /><i>*</i>
+                                                                        <input type="datetime-local" value="" name="end_time" datatype="*"  placeholder="2017/10/07 22:52"/><i>*</i>
                                                                         <span class="tips">
                                                                             开始日期不晚于当前日期一个月，过程在10-30天内
                                                                         </span><br/>
 
                                                                         <span>开标时间：</span>
-                                                                        <input type="datetime-local" value="" name="open_time" datatype="*" ><i>*</i>
+                                                                        <input type="datetime-local" value="" name="open_time" datatype="*"  placeholder="2017/10/07 22:52"><i>*</i>
                                                                         <span class="tips">
                                                                             截标后10-60天内
                                                                         </span>
@@ -83,7 +83,7 @@
                                                                     <textarea style="resize: none;width:100%;" name="bid_content" datatype="*"></textarea>
                                                                     <p>
                                                                         <input type="radio" checked name="pack_type" value="1">分包&nbsp;&nbsp;说明：投标人可以单个包件投标
-                                                                        
+
                                                                         <input type="radio" name="pack_type" style="margin-left:30px;" value="2">总包&nbsp;&nbsp;说明：选择此按钮投标人需要投所有的包件
 
                                                                     </p>
@@ -161,7 +161,7 @@
                                                                     <p>经资格审查入围的供应商，将对其发放招标文件。入围供应商登录耐耐网电子商务平台自行下载招标文件，并根据文件要求在投标截止日之前通过耐耐网电子商务平台进行网上投标。</p>
                                                                     <p>3、我公司招标办于<input type="date" value="" name="doc_begin" datatype="*">起以每份
                                                                         <input type="text" value="" name="doc_price" datatype="n">元人民币的价格出售标书，售后不退。</p>
-                                                                    
+
 
                                                                     <h3>五、投标文件的递交与开标时间及地点</h3>
                                                                     <p>1、合格投标人应在投标截止日前通过耐耐网电子商务平台进行网上投标，在上传投标文件的同时，提交保证金<input type="text" name="supply_bail" datatype="n">元，未中标者在投标结果发布之后退还，中标者在签订合同并缴纳合同履约金后予以退还。</p>
@@ -207,8 +207,8 @@
                                                         </div>
 				</div>
 			</div>
-			<!--end中间内容-->	
-			<!--start右侧广告			
+			<!--end中间内容-->
+			<!--start右侧广告
 			<div class="user_r">
 				<div class="wrap_con">
 					<div class="tit clearfix">
