@@ -95,7 +95,7 @@
             // 计算时间差 
             var time_distance = time_end - time_start;
             var bid_status = {$detail['status']};
-            if(bid_status <= 5){
+            if(bid_status <= 5 && time_distance>0){
                 // 天
                 var int_day = Math.floor(time_distance/86400000) ;
                 time_distance -= int_day * 86400000; 
