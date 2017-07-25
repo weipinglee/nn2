@@ -231,7 +231,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	public function doLogAction(){
 		if(IS_AJAX){
 			$account = safe::filterPost('account');
-			$password = $_POST['password'];
+			$password = htmlspecialchars($_POST['password']);
 			$captcha  = safe::filterPost('captcha');
 			$data=array('errorCode'=>0);
 			$captchaObj = new captcha();
