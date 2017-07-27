@@ -1,12 +1,12 @@
 
-			<!--start中间内容-->	
+			<!--start中间内容-->
             <style type="text/css">
-                
+
             </style>
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>我的招标</a>><a>发布招标</a></p>
+						<p><a>我的投标</a>><a>购买标书</a></p>
 					</div>
                                                         <div class="project_detail">
                                                             <h1>{$detail['pro_name']}</h1>
@@ -25,25 +25,25 @@
                                                                         <span class="on">资格预审</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="bid_step">                                                                    
+                                                                <li class="bid_step">
                                                                     <span class="val_on on">2</span>
                                                                     <p class="step_name">
                                                                         <span class="on">购买下载标书</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="bid_step">                                                                    
+                                                                <li class="bid_step">
                                                                     <span class="val_on ">3</span>
                                                                     <p class="step_name">
                                                                         <span class="">投标</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="bid_step">                                                                    
+                                                                <li class="bid_step">
                                                                     <span class="val_on ">4</span>
                                                                     <p class="step_name">
                                                                         <span class="">开标</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="bid_step">                                                                    
+                                                                <li class="bid_step">
                                                                     <span class="val_on ">5</span>
                                                                     <p class="step_name">
                                                                         <span class="">中标结果</span>
@@ -60,7 +60,7 @@
                                                                     <p class="zigefile"><span>招标编号：</span>{$detail['no']}</p>
                                                                     <p class="zigefile"><span>项目名称：</span>{$detail['pro_name']}</p>
                                                                     <p class="zigefile"><span>标书费用：</span><i>{$detail['doc_price']}</i> 元</p>
-                                                                                                                                        
+
                                                                 </div>
                                                             </div>
 
@@ -110,10 +110,10 @@ function previewImage(file) {
        $(ieImageDom).css({"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")"});
    }
 }
- 
+
     //图片上传预览
     $('#user-pic').change(function(e){
         previewImage(this);
     });
 </script>
-			<!--end中间内容-->	
+			<!--end中间内容-->
