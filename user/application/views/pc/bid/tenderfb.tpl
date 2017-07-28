@@ -3,9 +3,9 @@
 
 
 
-			<!--start中间内容-->	
+			<!--start中间内容-->
             <style type="text/css">
-                
+
             </style>
 			<div class="user_c">
 				<div class="user_zhxi">
@@ -20,19 +20,19 @@
                                                                         <span class="on">选择招标类型</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="step">                                                                    
+                                                                <li class="step">
                                                                     <span class="val_on ">2</span>
                                                                     <p class="step_name">
                                                                         <span class="">上传招标文件</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="step">                                                                    
+                                                                <li class="step">
                                                                     <span class="val_on ">3</span>
                                                                     <p class="step_name">
                                                                         <span class="">填写招标公告</span>
                                                                     </p>
                                                                 </li>
-                                                                <li class="step">                                                                    
+                                                                <li class="step">
                                                                     <span class="val_on ">4</span>
                                                                     <p class="step_name">
                                                                         <span class="">提交保证金，发布招标</span>
@@ -71,25 +71,25 @@
                                                         </div>
 				</div>
 			</div>
-            
+
             <div id="supplier_list" style="display:none;">
                 <div class="invite_mem">
                     <div class="title">
                         <h5>邀请会员</h5>
                         <i class="close">X</i>
-                    </div> 
-                    
+                    </div>
+
                     <div class="chose">
                         <div class="search">
                             <input type="text" id="username" name="username" autoComplete="off" >
                             <input type="hidden" name="username_url" value="{url:/bid/getYqUser@user}"  />
                             <i id="search_button"></i>
-                        
+
                         </div>
-                        <script type="text/html" id="search_ul"> 
-                      
+                        <script type="text/html" id="search_ul">
+
                           <% for(var i=0;i<data.length;i++){ %>
-                           
+
                              <li class="mem_list">
                                     <input type="checkbox" value="<%=data[i].username%>" class="mem_check">
                                     <input type="hidden" name="id[]" value="<%=data[i].id%>"/>
@@ -97,7 +97,7 @@
                                     <span ><%=data[i].username%></span>
                                 </li>
                              <% } %>
-                        
+
                         </script>
                         <ul id="userlist">
                          {foreach:items=$user}
@@ -113,12 +113,12 @@
                         <button class="ok">确定</button>
                         <button class="close">关闭</button>
                     </div>
-                 
+
                 </div>
             </div>
-           
+
             <script type="text/javascript">
-                    $(document).ready(function () { 
+                    $(document).ready(function () {
                         $(".type").click(function(){
                                     var display = $("#invite").css("display");
                                      if(display == "block"){
@@ -126,12 +126,14 @@
                                     }else{
                                             $("#chosen_mem").removeAttr("datatype");
                                     }
-                        })
-                    })
-               
+                        });
+                    });
+
+                      
+
             </script>
-			<!--end中间内容-->	
-			<!--start右侧广告			
+			<!--end中间内容-->
+			<!--start右侧广告
 			<div class="user_r">
 				<div class="wrap_con">
 					<div class="tit clearfix">
@@ -147,4 +149,3 @@
 				</div>
 			</div>
 			<!--end右侧广告-->
-
