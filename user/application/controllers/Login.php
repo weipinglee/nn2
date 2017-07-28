@@ -221,7 +221,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 * 登录
 	 */
 	public function loginAction(){
-		$callback = isset($_GET['callback'])?safe::filterGet('callback') : '';
+		$callback = isset($_GET['callback']) ? htmlspecialchars($_GET['callback'],ENT_QUOTES) : '';
 		$this->getView()->assign('callback',$callback);
 	}
 
