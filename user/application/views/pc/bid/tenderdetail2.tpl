@@ -87,7 +87,11 @@
                                                                         {foreach:items=$item key=$k item=$v}
 
                                                                         <tr>
-                                                                            <input type="hidden" name="reply_pack_id" value="{$v['id']}" id="reply_pack_id"/>
+                                                                            {if:$detail['pack_type']==2}
+                                                                            <input type="hidden" name="reply_pack_id" value="{$v['reply_ids']}" id="reply_pack_id"/>
+                                                                            {else:}
+                                                                                <input type="hidden" name="reply_pack_id" value="{$v['id']}" id="reply_pack_id"/>
+                                                                            {/if}
                                                                             <td id="company_true_name">{$v['true_name']}</td>
                                                                             <td><a href="{$v['bid_doc_url']}" style="color:#1a59d9;">下载</a></td>
                                                                             <td><a href="" style="color:#1a59d9;">查看</a></td>
