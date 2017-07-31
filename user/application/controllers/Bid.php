@@ -505,6 +505,16 @@ class BidController extends UcenterBaseController{
 			$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
 			$this->getView()->assign('detail',$bidDetail);
 
+			$time = time();
+			$begin = \Library\time::getTime($bidDetail['begin_time']);
+			$end = \Library\time::getTime($bidDetail['end_time']);
+			if($time < $begin){
+				$this->error('投标时间未开始，不能投标',url::createUrl('/bid/tendercontent@deal').'?id='.$bid_id);
+			}
+			if($time > $end){
+				$this->error('投标已结束，不能投标',url::createUrl('/bid/tendercontent@deal').'?id='.$bid_id);
+			}
+
 			//判断是否可投标
 			if($bidDetail['mode']=='yq' && !in_array($this->user_id,explode(',',$bidDetail['yq_user']))){
 				$this->error('您未被邀请，不能投标',url::createUrl('/bid/tendercontent@deal').'?id='.$bid_id);
