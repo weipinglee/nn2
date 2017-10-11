@@ -51,7 +51,7 @@ $(function(){
  
 
    <!--最新数据 开始-->
-  <div class="mostnew_date" style="display:none">
+  <div class="mostnew_date" >
   
    <div id="row1_clinch" class="row1_clinch">
        <div class="clinch_tit">
