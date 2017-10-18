@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /*******************
@@ -257,8 +257,13 @@ a:hover {
     float: right;
     background: url(../Images/index/icon_dh.png) no-repeat left top;
     padding-left: 40px;
-    height: 35px;
-    width: 200px;
+
+   /* height: 35px;
+    width: 200px;*/
+
+    height: 70px;
+    width: 204px;
+
     line-height: 35px;
     font-family: "微软雅黑", "Arial Unicode MS";
     font-size: 16px;
@@ -271,7 +276,7 @@ a:hover {
     font-family: Arial;
     font-size: 18px;
 }
-#index_logo .index_phone marquee{
+#index_logo .index_phone .marquee{
     display: inline-block;
     width: 112px;
     line-height: 35px;
