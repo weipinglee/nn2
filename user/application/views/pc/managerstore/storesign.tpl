@@ -308,7 +308,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td nowrap="nowrap"><span></span>租库价格：</td>
+                                            <td nowrap="nowrap"><span></span>租库价格：</td> 
                                             <td colspan="2">
                                                 <span>
                                                   <input name="store_price" class="text" value="" datatype="money|/^0?$/" errormsg="请填写价格" type="text" />
@@ -332,6 +332,37 @@
 
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td nowrap="nowrap"><span></span>收费项：</td> 
+                                            <td>
+                                                <div class="feeitem_div">
+                                                    <label><input name="feeitem" type="checkbox" value="" /> 化验费 </label>
+                                                   <select>
+                                                       <option>按吨</option>
+                                                       <option>按百分比</option>
+                                                   </select>
+                                                   单价：<input class="feeitem_text" type="text" name="">
+                                                </div>
+                                                <div class="feeitem_div">
+                                                    <label><input name="feeitem" type="checkbox" value="" /> 化验费 </label>
+                                                   <select>
+                                                       <option>按吨</option>
+                                                       <option>按百分比</option>
+                                                   </select>
+                                                   单价：<input class="feeitem_text" type="text" name="">
+                                                </div>
+                                                <div class="feeitem_div">
+                                                    <label><input name="feeitem" type="checkbox" value="" /> 化验费 </label>
+                                                   <select>
+                                                       <option>按吨</option>
+                                                       <option>按百分比</option>
+                                                   </select>
+                                                   单价：<input class="feeitem_text" type="text" name="">
+                                                </div>
+                            
+                                            </td>
+                                        </tr>
+                                        
 
                                         <tr>
                                             <td nowrap="nowrap"><span></span>入库日期：</td>

@@ -88,12 +88,12 @@
 			            </li>
 			            <li class="btn1">
 			                <a class="nav-first " href="warehousegoods.html">
-			                    仓库货物总览
+			                    仓库货物总览 
 			                </a>
 			            </li>
 			            <li class="btn1">
 			                <a class="nav-first " href="subwarehousegoods.html">
-			                    子仓库货物总览
+			                    子仓库货物总览 
 			                </a>
 			            </li>
 			            <li class="let_nav_tit"><h3>费用管理</h3></li>
@@ -103,7 +103,7 @@
 			                </a>
 			                <ul class="zj_zh">
 			                    <li><a href="vehiclefeelist.html">车辆费用列表</a></li>
-	                            <li><a href="vehiclefeeadd.html">车辆费增加</a></li>
+	                            <li><a class="cur" href="vehiclefeeadd.html">车辆费增加</a></li>
 	                        </ul>
 			            </li>
 			            <li class="btn1">
@@ -142,85 +142,37 @@
 			    </div>
 			</div>
 		<!-- 左侧导航 end -->
-		<!--start中间内容 子仓库详情-->	
+		<!--start中间内容 仓库费用项编辑-->	
 			<div class="user_c">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>子仓库管理</a>><a>子仓库详情</a></p>
+						<p><a>费用管理</a>><a>仓库管理费</a>><a>仓库费用项编辑</a></p>
 					</div>
-					<div class="center_tabl">
-						<table class="table_sub1">
-						  <tr>
-							<td>子仓库名</td>
-							<td>1号库</td>
-							<td>面积（㎡）</td>
-							<td>100</td>
-							<td>总容量（㎡）</td>
-							<td>200</td>
-						  </tr>
-						  <tr>
-							<td>剩余面积（㎡）</td>
-							<td>100</td>
-							<td>剩余容量（㎡）</td>
-							<td>200</td>
-							<td>负责人</td>
-							<td>李某</td>
-						  </tr>
-						  <tr>
-							<td>电话</td>
-							<td>13829739083</td>
-							<td>备注</td>
-							<td>lll</td>
-							<td></td>
-							<td></td>
-						  </tr>
-						</table>
-						<table class="table_sub2">
-							<tr>
-								<td colspan="7">
-									<span class="table_span">仓位详情</span>
-									<a class="add_button" href="positionadd.html">添加仓位</a>
-								</td>
-							</tr>
-							<tr>
-							    <td>序号</td>
-								<td>仓位名称</td>
-								<td>面积㎡</td>
-								<td>容量㎡</td>
-								<td>剩余容量㎡</td>
-								<td>剩余面积㎡</td>
-								<td>操作</td>
-							</tr>
-							<tr>
-							    <td>1</td>
-								<td>1-A</td>
-								<td>100</td>
-								<td>100</td>
-								<td>50</td>
-								<td>50</td>
-								<td><a>删除</a>
-									<a href="positionedit.html">编辑</a>
-									<a href="positiondetail.html">详情</a>
-								</td>
-							</tr>
-							<tr>
-							    <td>2</td>
-								<td>1-A</td>
-								<td>100</td>
-								<td>100</td>
-								<td>50</td>
-								<td>50</td>
-								<td><a>删除</a>
-									<a href="positionedit.html">编辑</a>
-									<a href="positiondetail.html">详情</a>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="7" class="btn">
-									<input class="cg_fb" type="button" value="返回" onclick="history.gon(-1)">
-								</td>
-							</tr>
-						</table>
+					<div>
+						<form action="" method="">
+							<div class="zhxi_con">
+								<span class="con_tit">
+									<i>*</i>收费项目：
+								</span>
+								<span>
+									<input class="text" type="text" name="" value="化验费" />
+								</span>
+								<span>例：化验费</span>
+							</div>
+							<div class="zhxi_con">
+								<span class="con_tit">
+									备注：
+								</span>
+								<span>
+									<textarea class="con_textarea"></textarea>
+								</span>
+							</div>
+							<div class="zhxi_con">
+								<span>
+									<a class="submit" href="">提交</a>
+								</span>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

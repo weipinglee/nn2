@@ -60,7 +60,7 @@
 			   <div class="left_navigation">
 			        <ul>
 			            <li class="let_nav_tit"><h3>仓库管理</h3></li>
-			           <li class="btn1">
+			            <li class="btn1">
 			            	<a class="nav-first ">仓单管理<i class="icon-caret-down"></i></a>
 			                <ul class="zj_zh">
 			                    <li><a href="http://192.168.13.4/ducong/nn2/user/managerstore/storesign" >仓单签发</a></li>
@@ -77,7 +77,7 @@
 			                    子仓库管理 <i class="icon-caret-down"></i>
 			                </a>
 			                <ul class="zj_zh">
-			                    <li><a href="subwarehouse.html">子仓库列表</a></li>
+			                    <li><a href="subwarehouse.html" class="cur">子仓库列表</a></li>
 	                            <li><a href="subwarehouseadd.html">子仓库添加</a></li>
 	                        </ul>
 			            </li>
@@ -88,12 +88,12 @@
 			            </li>
 			            <li class="btn1">
 			                <a class="nav-first " href="warehousegoods.html">
-			                    仓库货物总览
+			                    仓库货物总览 
 			                </a>
 			            </li>
 			            <li class="btn1">
 			                <a class="nav-first " href="subwarehousegoods.html">
-			                    子仓库货物总览
+			                    子仓库货物总览 
 			                </a>
 			            </li>
 			            <li class="let_nav_tit"><h3>费用管理</h3></li>
@@ -102,7 +102,7 @@
 			                    车辆费管理 <i class="icon-caret-down"></i>
 			                </a>
 			                <ul class="zj_zh">
-			                    <li><a href="vehiclefeelist.html">车辆费用列表</a></li>
+			                    <li><a class="cur" href="vehiclefeelist.html">车辆费用列表</a></li>
 	                            <li><a href="vehiclefeeadd.html">车辆费增加</a></li>
 	                        </ul>
 			            </li>
@@ -142,85 +142,64 @@
 			    </div>
 			</div>
 		<!-- 左侧导航 end -->
-		<!--start中间内容 子仓库详情-->	
-			<div class="user_c">
+		<!--start中间内容 车辆费列表-->	
+			<div class="user_c_list">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>子仓库管理</a>><a>子仓库详情</a></p>
+						<p><a>费用管理</a>><a>车辆管理费</a>><a>车辆管理费列表</a></p>
 					</div>
-					<div class="center_tabl">
-						<table class="table_sub1">
-						  <tr>
-							<td>子仓库名</td>
-							<td>1号库</td>
-							<td>面积（㎡）</td>
-							<td>100</td>
-							<td>总容量（㎡）</td>
-							<td>200</td>
-						  </tr>
-						  <tr>
-							<td>剩余面积（㎡）</td>
-							<td>100</td>
-							<td>剩余容量（㎡）</td>
-							<td>200</td>
-							<td>负责人</td>
-							<td>李某</td>
-						  </tr>
-						  <tr>
-							<td>电话</td>
-							<td>13829739083</td>
-							<td>备注</td>
-							<td>lll</td>
-							<td></td>
-							<td></td>
-						  </tr>
-						</table>
-						<table class="table_sub2">
-							<tr>
-								<td colspan="7">
-									<span class="table_span">仓位详情</span>
-									<a class="add_button" href="positionadd.html">添加仓位</a>
-								</td>
-							</tr>
-							<tr>
-							    <td>序号</td>
-								<td>仓位名称</td>
-								<td>面积㎡</td>
-								<td>容量㎡</td>
-								<td>剩余容量㎡</td>
-								<td>剩余面积㎡</td>
-								<td>操作</td>
-							</tr>
-							<tr>
-							    <td>1</td>
-								<td>1-A</td>
-								<td>100</td>
-								<td>100</td>
-								<td>50</td>
-								<td>50</td>
-								<td><a>删除</a>
-									<a href="positionedit.html">编辑</a>
-									<a href="positiondetail.html">详情</a>
-								</td>
-							</tr>
-							<tr>
-							    <td>2</td>
-								<td>1-A</td>
-								<td>100</td>
-								<td>100</td>
-								<td>50</td>
-								<td>50</td>
-								<td><a>删除</a>
-									<a href="positionedit.html">编辑</a>
-									<a href="positiondetail.html">详情</a>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="7" class="btn">
-									<input class="cg_fb" type="button" value="返回" onclick="history.gon(-1)">
-								</td>
-							</tr>
-						</table>
+					<div class="chp_xx">
+						<div class="xx_top clear">
+							<form method="get">
+                               <ul>
+     							<li>收费项目：<input type="text" name="" style="width:100px"></li>
+     							<li>货物类型：<input type="text" name="" style="width:100px"></li>
+     							<li>所属人：<input type="text" name="" style="width:100px"></li>
+     							<li>
+					                收费日期：
+					                <input class="Wdate" type="text" onclick="WdatePicker()" name="begin" value=""> <span style="position: relative;"> —</span>
+					                <input class="Wdate" type="text" onclick="WdatePicker()" name="end" value="">
+
+					            </li>
+     							<li> <a class="chaz" onclick="javascript:$(this).parents('form').submit();">结算</a></li>
+                               </ul>
+							</form>
+						</div>
+						<div class="xx_center">
+
+							<table border="0"  cellpadding="" cellspacing="">
+								<tr><td colspan="8" class="td_top_sum">总计：<span class="number">600元</span></td></tr>
+								<tr class="title">
+									<td>序号</td>
+									<td>收费项目</td>
+									<td>费用（元）</td>
+									<td>支付方式</td>
+                                    <td>货物类型</td>
+                                    <td>所属人</td>
+                                    <td>收费日期</td>
+                                    <td>操作</td>
+								</tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>车辆信息费</td>
+                                    <td>100</td>
+                                    <td>支付宝</td>
+                                    <td>一级</td>
+                                    <td>默默</td>
+                                    <td>2017/12/12 09:12:00</td>
+                                    
+                                    <td>
+                                      <a>删除</a>
+                                      <a href="vehiclefeedetail.html">详情</a>
+                                    </td>
+                                           
+                                </tr>
+                              
+							</table>
+							<div class="page_num">
+							<div class="pages_bar"><a href="/ducong/nn2/user/managerstore/applystorelist?page=1">首页</a><a class="current_page" href="/ducong/nn2/user/managerstore/applystorelist?page=1">1</a><a href="/ducong/nn2/user/managerstore/applystorelist?page=2">2</a><a href="/ducong/nn2/user/managerstore/applystorelist?page=3">3</a><a href="/ducong/nn2/user/managerstore/applystorelist?page=4">4</a><a href="/ducong/nn2/user/managerstore/applystorelist?page=5">5</a><a href="/ducong/nn2/user/managerstore/applystorelist?page=5">尾页</a><span>当前第1页/共5页</span></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

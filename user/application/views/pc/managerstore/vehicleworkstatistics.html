@@ -60,7 +60,7 @@
 			   <div class="left_navigation">
 			        <ul>
 			            <li class="let_nav_tit"><h3>仓库管理</h3></li>
-			           <li class="btn1">
+			            <li class="btn1">
 			            	<a class="nav-first ">仓单管理<i class="icon-caret-down"></i></a>
 			                <ul class="zj_zh">
 			                    <li><a href="http://192.168.13.4/ducong/nn2/user/managerstore/storesign" >仓单签发</a></li>
@@ -77,7 +77,7 @@
 			                    子仓库管理 <i class="icon-caret-down"></i>
 			                </a>
 			                <ul class="zj_zh">
-			                    <li><a href="subwarehouse.html">子仓库列表</a></li>
+			                    <li><a href="subwarehouse.html" class="cur">子仓库列表</a></li>
 	                            <li><a href="subwarehouseadd.html">子仓库添加</a></li>
 	                        </ul>
 			            </li>
@@ -88,12 +88,12 @@
 			            </li>
 			            <li class="btn1">
 			                <a class="nav-first " href="warehousegoods.html">
-			                    仓库货物总览
+			                    仓库货物总览 
 			                </a>
 			            </li>
 			            <li class="btn1">
 			                <a class="nav-first " href="subwarehousegoods.html">
-			                    子仓库货物总览
+			                    子仓库货物总览 
 			                </a>
 			            </li>
 			            <li class="let_nav_tit"><h3>费用管理</h3></li>
@@ -133,7 +133,7 @@
 			                </a>
 			            </li>
 			            <li class="btn1">
-			                <a class="nav-first" href="vehicleworkstatistics.html">
+			                <a class="nav-first cur" href="vehicleworkstatistics.html">
 			                    工作量统计 
 			                </a>
 			            </li>
@@ -142,85 +142,77 @@
 			    </div>
 			</div>
 		<!-- 左侧导航 end -->
-		<!--start中间内容 子仓库详情-->	
-			<div class="user_c">
+		<!--start中间内容 车辆工作量统计-->	
+			<div class="user_c_list">
 				<div class="user_zhxi">
 					<div class="zhxi_tit">
-						<p><a>子仓库管理</a>><a>子仓库详情</a></p>
+						<p><a>车辆管理</a>><a>车辆工作量统计</a></p>
 					</div>
-					<div class="center_tabl">
-						<table class="table_sub1">
-						  <tr>
-							<td>子仓库名</td>
-							<td>1号库</td>
-							<td>面积（㎡）</td>
-							<td>100</td>
-							<td>总容量（㎡）</td>
-							<td>200</td>
-						  </tr>
-						  <tr>
-							<td>剩余面积（㎡）</td>
-							<td>100</td>
-							<td>剩余容量（㎡）</td>
-							<td>200</td>
-							<td>负责人</td>
-							<td>李某</td>
-						  </tr>
-						  <tr>
-							<td>电话</td>
-							<td>13829739083</td>
-							<td>备注</td>
-							<td>lll</td>
-							<td></td>
-							<td></td>
-						  </tr>
-						</table>
-						<table class="table_sub2">
-							<tr>
-								<td colspan="7">
-									<span class="table_span">仓位详情</span>
-									<a class="add_button" href="positionadd.html">添加仓位</a>
-								</td>
-							</tr>
-							<tr>
-							    <td>序号</td>
-								<td>仓位名称</td>
-								<td>面积㎡</td>
-								<td>容量㎡</td>
-								<td>剩余容量㎡</td>
-								<td>剩余面积㎡</td>
-								<td>操作</td>
-							</tr>
-							<tr>
-							    <td>1</td>
-								<td>1-A</td>
-								<td>100</td>
-								<td>100</td>
-								<td>50</td>
-								<td>50</td>
-								<td><a>删除</a>
-									<a href="positionedit.html">编辑</a>
-									<a href="positiondetail.html">详情</a>
-								</td>
-							</tr>
-							<tr>
-							    <td>2</td>
-								<td>1-A</td>
-								<td>100</td>
-								<td>100</td>
-								<td>50</td>
-								<td>50</td>
-								<td><a>删除</a>
-									<a href="positionedit.html">编辑</a>
-									<a href="positiondetail.html">详情</a>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="7" class="btn">
-									<input class="cg_fb" type="button" value="返回" onclick="history.gon(-1)">
-								</td>
-							</tr>
-						</table>
+					<div class="chp_xx">
+						<div class="xx_top clear">
+							<form method="get">
+                               <ul>
+     							<li>
+					                工作日期：
+					                <input class="Wdate" type="text" onclick="WdatePicker()" name="begin" value=""> <span style="position: relative;"> —</span>
+					                <input class="Wdate" type="text" onclick="WdatePicker()" name="end" value="">
+
+					            </li>
+     							
+     							<li> <a class="chaz" onclick="javascript:$(this).parents('form').submit();">统计</a></li>
+                               </ul>
+							</form>
+						</div>
+						<div class="center_tabl">
+							<table class="table_sub2">
+								<tr><td colspan="5"><span class="table_span d615">注：统计每辆车的工作时间和工作量，统计单位为小时和吨。</span></td></tr>
+								<tr>
+									<td>车牌号</td>
+									<td>车辆型号</td>
+									<td>计划完成</td>
+									<td>正在完成</td>
+									<td>已经完成</td>
+								</tr>
+								<tr>
+									<td>晋C121211</td>
+									<td>挖机</td>
+									<td class="workload">
+										<span>3小时</span>
+										<span>|</span>
+										<span>2吨</span>
+									</td>
+									<td class="workload">
+										<span>3小时</span>
+										<span>|</span>
+										<span>2吨</span>
+									</td>
+									<td class="workload">
+										<span>3小时</span>
+										<span>|</span>
+										<span>2吨</span>
+									</td>
+								</tr>
+								<tr>
+									<td>晋C121211</td>
+									<td>挖机</td>
+									<td class="workload">
+										<span>3小时</span>
+										<span>|</span>
+										<span>2吨</span>
+									</td>
+									<td class="workload">
+										<span>3小时</span>
+										<span>|</span>
+										<span>2吨</span>
+									</td>
+									<td class="workload">
+										<span>3小时</span>
+										<span>|</span>
+										<span>2吨</span>
+									</td>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
