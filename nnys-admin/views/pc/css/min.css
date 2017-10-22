@@ -525,5 +525,36 @@ border-color: #ddd;
 }
 /*分页 end*/
 
+/*新增仓库管理*/
+.table-text-center tr td{
+	text-align: center;
+}
+/*#content{
+	height: 590px;
+	overflow-y: scroll;
+}*/
+.total{
+	font-size: 16px;
+    color: #D61515;
+}
+.table_div{
+	width: 100%;
+	overflow: auto;
+}
+.content .workload span{
+	display: block;
+	float: left;
+}
+.workload span:nth-child(1), .workload span:nth-child(3) {
+    width: 45%;
+}
+.workload span:nth-child(2){
+	width: 10%;
+}
+.prompt{
+	color: #D61515;
+}
+/*新增仓库管理 end*/
+
 
 

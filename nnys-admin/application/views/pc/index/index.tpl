@@ -308,6 +308,10 @@
                             <ul>
                                 <li><a target="content" href="{url:store/store/storeList}">仓库列表</a></li>
                                 <li><a href="{url:store/store/storeAdd}" target="content">仓库添加</a></li>
+                                <li><a href="{url:store/store/subwarehouse}" target="content">子仓库列表</a></li>
+                                <li><a href="{url:store/store/position}" target="content">仓位列表</a></li>
+                                <li><a href="{url:store/store/warehousegoods}" target="content">仓库货物总览</a></li>
+                                <li><a href="{url:store/store/subwarehousegoods}" target="content">子仓库货物总览</a></li>
                             </ul>
                         </li>
                          <li><a  target="content"  href="{url:store/store/repertory}">库存管理</a>
@@ -324,6 +328,28 @@
                             <ul>
                                 <li><a target="content" href="{url:store/storeOrder/checkedorderList}">已出库列表</a></li>
                                 <li><a href="{url:store/storeOrder/checkorderList}" target="content">待审核</a></li>
+                            </ul>
+                        </li>
+                        <li><a  target="content">费用管理</a>
+                            <ul>
+                                <li><a target="content" href="{url:store/store/vehiclefeelist}">车辆费列表</a>
+
+                                </li>
+                                 <li><a target="content" href="{url:store/store/warehousefeelist}">仓库费列表</a>
+                                </li>
+                                 <li><a target="content" href="{url:store/store/warehouseitemlist}">仓库费项目列表</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a  target="content">车辆管理</a>
+                            <ul>
+                                <li><a target="content" href="{url:store/store/vehiclelist}">车辆列表</a>
+
+                                </li>
+                                 <li><a target="content" href="{url:store/store/vehicleusagelist}">车辆使用情况列表</a>
+                                </li>
+                                 <li><a target="content" href="{url:store/store/vehicleworkstatistics}">工作量统计</a>
+                                </li>
                             </ul>
                         </li>
 

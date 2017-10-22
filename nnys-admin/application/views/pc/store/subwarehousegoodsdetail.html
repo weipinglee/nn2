@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+ <head>
+      <title>交易管理后台</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      <meta http-equiv="x-ua-compatible" content="IE=edge" >
+        <!-- jQuery AND jQueryUI -->
+     <script type="text/javascript" src="../../../../js/jquery/jquery-1.7.2.min.js"></script>
+     <script type="text/javascript" src="{views:js/layer/layer.js}"></script>
+     <link rel="stylesheet" href="../../../../views/pc/css/min.css" />
+     <link rel="stylesheet" href="../../../../views/pc/css/H-ui.min.css" />
+     <link rel="stylesheet" href="../../../../views/pc/css/font-awesome.min.css" />
+     <style type="text/css">
+        html { overflow-y:hidden; }
+     </style>
+        <!-- <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
+<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
+<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
+<script type="text/javascript" src="{root:js/upload/upload.js}"></script> -->
+  </head>
+ <body>
+    <div id="head">
+            <div class="left">
+                <a href="#" class="button profile"><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/top/huser.png" alt=""></a>
+                超级管理员                <a href="#">admin</a>
+                |
+                <a href="http://192.168.13.4/ducong/nn2/nnys-admin/login/logout">退出</a>
+                <a href="http://localhost/nn2/index/index">返回网站首页</a>
+                <a name="clearCache" href="javascript:void(0)" onclick="clearCache('http://192.168.13.4/ducong/nn2/nnys-admin/index/clearcache')">清除缓存</a>
+                <a name="clearCache" href="http://192.168.13.4/ducong/nn2/nnys-admin/system/admin/comadminpwd/id/1" target="content" title="">修改密码</a>
+
+            </div>
+    </div>
+    <div id="sidebar">
+            <ul>
+                <li class="nosubmenu">
+                    <a href="#" no_access="no_access" title="">
+                        <img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/inbox.png" alt="">
+                        耐耐网后台管理系统
+                    </a>
+                </li>
+                <li class=""><a target="content" title=""><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/layout.png" alt="">系统管理</a>
+                    <ul style="display: none;">
+                        <li class="current"><a target="content">权限管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/rbac/rolelist" target="content" title="">管理员分组</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/rbac/accesslist" target="content">权限分配</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content" title="">系统配置项</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/confsystem/creditlist" target="content">信誉值配置列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/confsystem/scaleofferoper" target="content">报盘费率设置</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/confsystem/entrustlist" target="content">委托费率设置</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/confsystem/generallist" target="content">一般设置</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/confsystem/productset" target="content">商品排序设置</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">管理员信息</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/admin/adminadd" target="content">新增管理员</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/admin/adminlist" target="content">管理员列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/admin/loglist" target="content">管理员操作记录</a></li>
+                            </ul>
+                        </li>
+                        <!-- <li><a  target="content">系统设置</a></li> -->
+
+                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/kefu/kefulist" target="content">客服管理</a></li>
+                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/system/yewu/kefulist" target="content">业务员管理</a></li>
+                    </ul>
+                </li>
+                <li><a target="content"><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/brush.png" alt="">会员管理</a>
+                    <ul style="display: none;">
+                        <li><a target="content">会员认证</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/certmanage/dealercert" target="content">交易商认证</a>
+                                    <ul>
+                                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/certmanage/dealercert" target="content">待审核</a></li>
+                                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/certmanage/dealercerted" target="content">已审核</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/certmanage/storecert" target="content">仓库认证</a>
+                                    <ul>
+                                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/certmanage/storecert" target="content">待审核</a></li>
+                                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/certmanage/storecerted" target="content">已审核</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--
+                        <li><a href='' target="content">子账户权限管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/subrolelist/index" target="content">角色列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/roleadd/index" target="content">添加角色</a></li>
+                            </ul>
+                        </li>-->
+
+                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/usergroup/grouplist" target="content">会员等级</a></li>
+                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/payusergroup/grouplist" target="content">收费会员等级</a></li>
+                        <li><a target="content">会员管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/memberlist" target="content">会员列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/onlinelist" target="content">在线会员信息</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/userlog" target="content">会员日志列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/userfund" target="content">会员资金列表</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a target="content">菜单管理</a>
+                         <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/menu/menulist" target="content"> 菜单列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/menu/addmenu" target="content">菜单添加</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/menu/menurolelist" target="content">菜单角色列表</a></li>
+                            </ul>
+                            </li>
+                        <li><a target="content">代理商管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/agent/agentlist" target="content">代理商列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/agent/addagent" target="content">代理商添加</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a target="content">推荐商户</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/companyrec/reclist" target="content">推荐商户</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/companyrec/recadd" target="content">添加推荐</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a target="content">支付密码修改</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/applypaylist" target="content">待审核</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/resetpaylist" target="content">重置密码</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/checkpaylist" target="content">已审核</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a target="content">修改手机号</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/applytellist" target="content">待审核</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/resettellist" target="content">修改手机号</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/member/member/checktellist" target="content">已审核</a></li>
+                            </ul>
+                        </li>
+                        <!--<li><a href="shop-list.html" target="content">商铺管理</a></li>-->
+                       <!-- <li><a href="business-list.html" target="content">业务撮合人员列表</a></li>-->
+                    </ul>
+                </li>
+                <li><a target="content" title=""><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/brush.png" alt="">交易管理</a>
+                    <ul style="display: none;">
+                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/product/categoryadd" target="content">产品设置</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/product/categorylist" target="content">分类列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/product/attributelist" target="content">属性列表</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li><a target="content">报盘管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/offermanage/kefuofferlist" target="content">客服报盘列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/offermanage/offerlist" target="content">报盘管理</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/offermanage/offerreview" target="content">报盘审核</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/offermanage/expireofferlist" target="content">历史报盘信息查询</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/offermanage/offerrecycle" target="content">报盘信息垃圾箱</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/offermanage/cancellist" target="content">撤销报盘列表</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">招投标管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/bid/bidlist" target="content">招标列表</a></li>
+                             </ul>
+                        </li>
+                        <li><a target="content">保险管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/insurance/insurancelist" target="content">保险产品列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/insurance/ratelist" target="content">产品费率列表</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">合同管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/pairing/allcontractlist" target="content">合同列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/pairing/contractlist" target="content">添加撮合人</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/pairing/pairingcontractlist" target="content">未完成撮合合同列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/pairing/pairingcontractcomlist" target="content">已完成撮合合同列表</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">申诉管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/complain/uncomplainlist" target="content">未处理申述列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/complain/complainlist" target="content">已处理申述列表</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/trade/found/foundlist" target="content">找货信息列表</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a target="content" title=""><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/lab.png" alt=""> 结算管理</a>
+                    <ul style="display: none;">
+                    
+                    <li><a target="content">银行签到/签退设置</a>
+
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/banksign/manu" target="content">手动签到/退</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/banksign/auto" target="content">自动签到/退</a></li>
+                            </ul>
+                        </li>
+                     <li><a target="content">开闭市设置</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/open/day" target="content">日结</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/open/calendar" target="content">交易日历</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">会员开户管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/accmanage/checkbanklist" target="content">待审核</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/accmanage/checkedbanklist" target="content">已审核</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">入金审核</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/fundin/onlinelist" target="content">线上入金</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/fundin/checkofflinelist" target="content">线下待审核</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/fundin/checkedofflinelist" target="content">线下已审核</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">出金审核</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/fundout/checkfundoutlist" target="content">出金待审核</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/fundout/checkedfundoutlist" target="content">出金已审核</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/fundout/pendingpaymentlist" target="content">待打款</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">账户管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/accmanage/useracclist" target="content">会员账户</a></li>
+
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/accmanage/zxacclist" target="content">中信账户</a></li>
+
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/accmanage/usercreditlist" target="content">信誉保证金账户</a></li>
+
+                            </ul>
+                        </li>
+                        <li><a target="content">中信资金管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/zx/txinglist" target="content">出金待审核</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/zx/txedlist" target="content">出金已审核</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">收费明细</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/balance/paytomarket/index" target="content">明细列表</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a target="content" title=""><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/lab.png" alt=""> 统计管理</a>
+                    <ul style="display: none;">
+                   <!--     <li><a target="content">市场统计</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/information/marketstats/catelist" target="content">统计项列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/information/marketstats/marketstatslist" target="content">市场统计</a></li>
+                            </ul> </li>-->
+                            <li><a target="content">市场统计</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/information/statsmarket/statsmarketlist" target="content">统计项列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/information/statsmarket/statslist" target="content">市场统计数据</a></li>
+                            </ul>
+                            </li>
+                        
+                        <li><a target="content">商品指导价</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/information/productstats/productstatslist" target="content">统计项</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/information/productstats/statslist" target="content">统计数据</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+               <!-- <li class="nosubmenu"><a href="modal.html" class="zoombox w450 h700" target="content"><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/comment.png" alt="" /> 数据统计</a></li>
+               -->
+                <li class="current"><a target="content" title=""><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/comment.png" alt=""> 仓库管理</a>
+                    <ul style="display: block;">
+                        <li><a target="content" title="">仓库管理</a>
+                            <ul>
+                                <li><a target="content" href="http://192.168.13.4/ducong/nn2/nnys-admin/store/store/storelist" title="">仓库列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/store/store/storeadd" target="content" title="">仓库添加</a></li>
+                                <li><a href="subwarehouse.html" target="content">子仓库列表</a></li>
+                                <li><a href="position.html" target="content">仓位列表</a></li>
+                                <li><a href="warehousegoods.html" target="content">仓库货物总览</a></li>
+                                <li><a href="subwarehousegoods.html" target="content">子仓库货物总览</a></li>
+                            </ul>
+                        </li>
+                         <li><a target="content" href="repertory.html">库存管理</a>
+                        </li>
+                        <li><a target="content" title="">仓单管理</a>
+                            <ul>
+                                <li><a target="content" href="http://192.168.13.4/ducong/nn2/nnys-admin/store/storeproduct/getlist">仓单列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/store/storeproduct/reviewlist" target="content">仓单审核</a></li>
+                                <li><a target="content" href="http://192.168.13.4/ducong/nn2/nnys-admin/store/storeproduct/againlist" title="">仓单反审核</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a target="content">订单出库管理</a>
+                            <ul>
+                                <li><a target="content" href="http://192.168.13.4/ducong/nn2/nnys-admin/store/storeorder/checkedorderlist">已出库列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/store/storeorder/checkorderlist" target="content" title="">待审核</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">费用管理</a>
+                            <ul>
+                                <li><a target="content" href="vehiclefeelist.html">车辆费列表</a>
+
+                                </li>
+                                 <li><a target="content" href="warehousefeelist.html">仓库费列表</a>
+                                </li>
+                                 <li><a target="content" href="warehouseitemlist.html">仓库费项目列表</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a target="content">车辆管理</a>
+                            <ul>
+                                <li><a target="content" href="vehiclelist.html" title="">车辆列表</a>
+
+                                </li>
+                                 <li><a target="content" href="vehicleusagelist.html" title="">车辆使用情况列表</a>
+                                </li>
+                                 <li><a target="content" href="vehicleworkstatistics.html">工作量统计</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class=""><a target="content" title=""><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/comment.png" alt=""> 工具管理</a>
+                    <ul style="display: none;">
+                        <li><a target="content">广告管理</a>
+                            <ul>
+                                <li><a target="content" href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/advert/adpositionlist" title="">广告位列表</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/advert/admanagelist" target="content" title="">广告列表</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content" title="">帮助管理</a>
+                            <ul>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/help/helpcatlist" target="content">帮助分类</a></li>
+                                <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/help/helplist" target="content">帮助列表</a></li>
+                            </ul>
+                        </li>
+                            <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/friendlylink/frdlinklist" target="content">友情链接管理</a>
+                                <ul>
+                                    <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/friendlylink/addfrdlink" target="content" title="">新增友情链接</a></li>
+                                    <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/friendlylink/frdlinklist" target="content">友情链接列表</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/slide/slidelist" target="content">幻灯片管理</a>
+                                <ul>
+                                    <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/slide/addslide" target="content">新增幻灯片</a></li>
+                                    <li><a href="http://192.168.13.4/ducong/nn2/nnys-admin/tool/slide/slidelist" target="content">幻灯片列表</a></li>
+                                </ul>
+                            </li>
+                    </ul>
+                </li>
+                <li><a target="content"><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/menu/comment.png" alt=""> 风险管理</a>
+                    <ul style="display: none;">
+                        <li><a target="content">预警管理</a>
+                            <ul>
+                                <li><a target="content" href="http://192.168.13.4/ducong/nn2/nnys-admin/riskmgt/riskmgt/userrisklist">会员预警</a></li>
+                                <li><a target="content" href="http://192.168.13.4/ducong/nn2/nnys-admin/riskmgt/riskmgt/adminrisklist">管理员预警</a></li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+            </ul>
+    </div>
+    <div class="main_content" id="content_1">
+      <div id="content" class="white">
+        <h1><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/posts.png" alt=""> 仓库管理</h1> 
+        <div class="bloc">
+          <div class="title">
+            仓库货物总览
+          </div>
+          
+         <div class="pd-20">
+              
+           <table class="table table-border table-bordered table-bg">
+                <tbody>
+                    <tr>
+                        <th>子仓库名</th>
+                        <td>wplll23456</td>
+                        <th>所属仓库</th>
+                        <td>东南舁</td>
+                        <th>面积（㎡）</th>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <th>总容量（㎡）</th>
+                        <td>200</td>
+                        <th>剩余面积（㎡）</th>
+                        <td>100</td>
+                        <th>剩余容量（㎡）</th>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <th>负责人</th>
+                        <td>默默</td>
+                        <th>电话</th>
+                        <td>12453432156</td>
+                        <th>备注</th>
+                        <td>100</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="table_div">
+            <table class="table table-border table-bordered table-bg table-text-center">
+                <tr>
+                    <td colspan="7"  style="text-align: left;">货物详情 </td>
+                </tr>
+                <tr>
+                    <td>序号</td>
+                    <td>商品名 称</td>
+                    <td>分类</td>
+                    <td>规格</td>
+                    <td>重量(吨)</td>
+                    <td>入库时间</td>
+                    <td>操作</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>不锈钢</td>
+                    <td>薄卷</td>
+                    <td>12:90%</td>
+                    <td>100</td>
+                    <td>2017/09/10</td>
+                    <td><a href="{url:store/storeProduct/reviewDetails?id=$item['id']}">详情</a></td>
+                </tr>
+                <tr>
+                    <td colspan="7" style="text-align: left;"><a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a></td>
+                </tr>
+            </table> 
+            </div> 
+         </div>
+          
+        </div>
+      </div>
+    </div>
+ </body>
+</html>
