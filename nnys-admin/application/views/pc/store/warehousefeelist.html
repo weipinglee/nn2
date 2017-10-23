@@ -402,7 +402,7 @@
 <script type="text/javascript">
     window.onload = function(){ 
 　　var num=$(".table_div tr.fee_project th").length;
-    $(".table_div .fee_top td.td_top_sum").attr("colspan", num+9)
+    $(".table_div .fee_top td.td_top_sum").attr("colspan", num+10)
     $(".table_div .project_num").attr("colspan", num)
 } 
 </script>
@@ -415,7 +415,8 @@
                     <tr class="text-c">
                         <th rowspan="2" width="25"><input type="checkbox" name="checkall" value=""></th>
                         <th rowspan="2"><div style="width: 35px;">序号<div></div></div></th>
-                        <th rowspan="2"><div style="width: 100px;">仓单号</div></t>
+                        <th rowspan="2"><div style="width: 100px;">仓单号</div></th>
+                        <th rowspan="2"><div style="width: 100px;">所属仓库</div></th>
                         <th class="project_num" colspan="5">收费项(元)</th>
                         <th rowspan="2"><div style="width: 80px;">费用（元）</div></th>
                         <th rowspan="2"><div style="width: 80px;">收费状态</div></th>
@@ -437,6 +438,7 @@
                             <td><input type="checkbox" value="" name="check"></td>
                             <td>1</td>
                             <td>121443432hhhhh</td>
+                            <td>东南舁</td>
                             <td>100</td>
                             <td>100</td>
                             <td>200</td>
@@ -451,7 +453,7 @@
                                            
                         </tr>
                         <tr class="text-c">
-                            <td colspan="3">总计</td>
+                            <td colspan="4">总计</td>
                             <td>100</td>
                             <td>100</td>
                             <td>200</td>
