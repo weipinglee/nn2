@@ -603,14 +603,14 @@
 /*市场框架*/
 .i_market{
 	width: 1190px;
-	height: 488px;
+	height: 558px;
 	margin: 20px auto 0 auto;
 }
 .i_market_left{
-	width: 920px;
+	/*width: 920px;*/
 	padding: 0;
-	height: 490px;
-	float: left;
+	height: 558px;
+	/*float: left;*/
 	box-shadow: 0px 3px 10px 1px #Ebebeb;
     /*filter: progid:DXImageTransform.Microsoft.Shado(Strength=3, Direction=135, Color='#Ebebeb'); */
     /*上面是IE的样式代码*/
@@ -742,7 +742,7 @@
 
 /*产品列表*/
 .i_leftCon{
-	width: 890px;
+	/*width: 890px;*/
 	padding: 10px;
 	position: relative;
 }
@@ -2962,3 +2962,164 @@ text-indent: 1em;
         width: 1190px;
     }
 }
+
+
+/*首页界面格式修改*/
+.i_leftCon_ul{
+    overflow: hidden;
+    padding-left: 15px;
+}
+.i_leftCon_ul li{
+	float: left;
+    width: 210px;
+    overflow: hidden;
+    margin: 0 21px 17px 0;
+}
+.i_leftCon_ul li.market_ul_li .product_img img {
+    width: 210px;
+    height: 150px;
+}
+.i_market_left_two{
+	width: 590px;
+    float: left;
+    height: 658px; 
+
+    box-shadow: 0px 3px 10px 1px #Ebebeb;
+    -webkit-box-shadow: 0px 3px 10px 1px #Ebebeb;
+    -moz-box-shadow: 0px 3px 10px 1px #Ebebeb;
+}
+.i_market_right_two{
+	width: 590px;
+    float: left;
+    margin-left: 10px;
+    height: 658px;
+        background: #fff;
+    box-shadow: 0px 3px 10px 1px #Ebebeb;
+    -webkit-box-shadow: 0px 3px 10px 1px #Ebebeb;
+    -moz-box-shadow: 0px 3px 10px 1px #Ebebeb;
+}
+.market_content{
+	position: relative;
+}
+
+.market_content_h3{
+	padding-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.market_content_h3 em{
+	display: none;
+}
+.market_content_h3 img.title_img{
+	float: left;
+	height: 24px;
+	line-height: 24px;
+	padding-right: 10px;
+}
+.market_content_h3 p{
+	    line-height: 24px;
+    height: 24px;
+    color: #999;
+    font-weight: 400;
+}
+.market_content_h3 .tb-fn{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    line-height: 24px;
+    height: 24px;
+    font-size: 12px;
+    color: #999;
+    width: 100px;
+    text-align: right;
+    cursor: pointer;
+}
+.market_ul{
+	overflow: hidden;
+    padding-left: 21px
+}
+.market_ul li.market_ul_li{
+	
+    float: left;
+    width: 180px;
+    overflow: hidden;
+    margin: 0 4px 17px 0;
+}
+.market_ul li a{
+	display: block;
+}
+.market_ul li.market_ul_li .product_img img{
+	width: 180px;
+	height: 180px;
+}
+.market_ul li.market_ul_li h4,.i_leftCon_ul li.market_ul_li h4 {
+	margin-top: 5px;
+    font-size: 16px;
+    height: 28px;
+    overflow: hidden;
+    line-height: 28px;
+    font-weight: normal;
+}
+.market_ul li.market_ul_li p ,.i_leftCon_ul li.market_ul_li p{
+    line-height: 24px;
+    color: #999;
+    font-size: 14px;
+    overflow: hidden;
+    height: 24px;
+}
+.market_ul li.market_ul_li .product_price,.i_leftCon_ul li.market_ul_li .product_price{
+    color: #ff5000;
+}
+.i_market_two{
+	width: 1190px;
+    height: 166px;
+    margin: 20px auto 0 auto;
+        overflow: hidden;
+     box-shadow: 0px 3px 10px 1px #Ebebeb;
+    -webkit-box-shadow: 0px 3px 10px 1px #Ebebeb;
+    -moz-box-shadow: 0px 3px 10px 1px #Ebebeb;
+}
+.i_market_two_ul{
+	padding-left: 15px;
+}
+.i_market_two_ul li{
+	    position: relative;
+    float: left;
+    width: 194px;
+    height: 82px;
+}
+.i_market_two_ul li a.two_ul_li_a .two_product_img{
+    height: 80px;
+    width: 80px;
+    border: 1px solid #13d0a1;
+    -webkit-border-radius: 100%;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 100%;
+    -moz-background-clip: padding;
+    border-radius: 100%;
+    background-clip: padding-box;
+    float: left;
+}
+.i_market_two_ul li .right {
+    margin-left: 91px;
+}
+.i_market_two_ul li .right h4{
+	height: 24px;
+	line-height: 24px;
+    overflow: hidden;
+    margin-top: 6px;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+}
+.i_market_two_ul li .right p{
+	overflow: hidden;
+    height: 22px;
+    font-size: 14px;
+    line-height: 22px;
+    color: #999;
+}
+.i_market_two_ul li .right .product_price{
+	    color: #ff5000;
+}
+/*首页界面格式修改 end*/
