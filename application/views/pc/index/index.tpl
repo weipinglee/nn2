@@ -357,7 +357,7 @@ function timer(opj){
                         <em>有好货</em>
                         <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>
                         <p>发现属于你的生活方式</p>
-                        <span class="tb-fn">换一换</span>
+                        <span class="tb-fn">更多>></span>
                     </h3>
                     <ul class="i_market_two_ul">
                       <li>
@@ -492,7 +492,7 @@ function timer(opj){
                             <em>有好货</em>
                             <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}">
                             <p>与品质生活不期而遇</p>
-                            <span class="tb-fn">换一换</span>
+                            <span class="tb-fn">更多>></span>
                           </h3>
                          <!--  限制6个商品 -->
                           <ul class="market_ul">
