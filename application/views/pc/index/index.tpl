@@ -102,7 +102,7 @@ $(function() {
    <div id="row1_clinch" class="row1_clinch">
        <div class="clinch_tit">
            <div class="tit_time">
-               <p id="time_year" class="time_year">{echo:date(Y)}<br><span class="time_month">{echo:date(m)}/{echo:date(d)}</span></p>
+               <p id="time_year" class="time_year">{echo:date('Y')}<br><span class="time_month">{echo:date('m')}/{echo:date('d')}</span></p>
                <!-- <p id="time_day" class="time_day">11</p> -->
            </div>
            <div class="tit_font">
