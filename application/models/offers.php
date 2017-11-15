@@ -48,44 +48,34 @@ class offersModel extends \nainai\offer\product{
      */
     public function getOfferCategoryList($cateId){
 		static $times = 0;
-		$expire = 36000 + $times * 600;
+		$expire = 3600 + $times * 600;
         $memcache=new \Library\cache\Cache(array('type'=>'m','expire'=>$expire));
         $res=$memcache->get('offerCategoryList'.$cateId);
         if($res){
             return unserialize($res);
         }
 		$times = $times + 1;
-		$childs = $memcache->get('getChildLists'.$cateId);
-        $childs = '';
-		if(!$childs){
-			$m = new M('product_category_childs');
-			$childdata = $m->query('select getChildLists('.$cateId.')');
-			$childs = $childdata[0]['getChildLists('.$cateId.')'];
-			$childs = str_replace('$',0,$childs);
-			
-			$memcache->set('getChildLists'.$cateId,serialize($childs),0);
-		}
-		else{
-			$childs = unserialize($childs);
-		}
-		
+
 		if($this->offerQuery == null){
 			$this->offerQuery = new Query('product_offer as a');
-			$this->offerQuery->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,kefu.qq';
-			$this->offerQuery->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN admin_kefu as kefu on a.kefu = kefu.admin_id';
+			$this->offerQuery->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,b.img,b.note';
+			$this->offerQuery->join = 'LEFT JOIN products as b ON a.product_id=b.id ';
 		 //   $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
-			
-		  
+
 			$this->offerQuery->order = 'a.apply_time desc';
-			$this->offerQuery->limit = 5;
+			$this->offerQuery->limit = 10;
 		}
-		$this->offerQuery->where = 'b.cate_id in ('.$childs.') and a.status='.self::OFFER_OK.' AND a.expire_time>now() AND a.is_del = 0';
+		$this->offerQuery->where = 'b.market_id ='.$cateId.'  and a.status='.self::OFFER_OK.' AND a.expire_time>now() AND a.is_del = 0';
+
         $categoryList= $this->offerQuery->find();
-	
 
         foreach($categoryList as $k=>$v){
             $categoryList[$k]['mode']=$this->getMode($v['mode']);
+            $categoryList[$k]['produce_area'] = substr($v['produce_area'],0,2);
+            $categoryList[$k]['img'] = \Library\Thumb::get($categoryList[$k]['img']);
         }
+
+
         $memcache->set('offerCategoryList'.$cateId,serialize($categoryList));
         return $categoryList;
     }

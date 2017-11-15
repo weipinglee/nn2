@@ -80,36 +80,7 @@ function timer(opj){
                <br>
                RECENT DATAS</div>
        </div>
-       <!-- <div class="data-list">
-           <div class="data-tit">
-               <div class="data">
-                   <p class="data_title">当前在线报盘</p>
-                   <p class="data_content">{$offer_num}</p>
-               </div>
-               <img class="data_img" src="{views:images/icon/data-img_03.png}"/>
-           </div>
-           <div class="data-tit">                            
-               <div class="data">
-                   <p class="data_title">当前成交量</p>
-                   <p class="data_content">{$order_num}</p>
-               </div>
-               <img class="data_img" src="{views:images/icon/data-img_06.png}"/>
-           </div>
-           <div class="data-tit">
-               <div class="data">
-                   <p class="data_title">昨日成交量</p>
-                   <p class="data_content">{$order_num_yes}</p>
-               </div>
-               <img class="data_img" src="{views:images/icon/data-img_08.png}"/>
-           </div>
-           <div class="data-tit">
-               <div class="data">
-                   <p class="data_title">当前入驻商家</p>
-                   <p class="data_content">{$all_user_num}位</p>
-               </div>
-               <img class="data_img" src="{views:images/icon/data-img_10.png}"/>
-           </div>
-       </div>  --> 
+
        <div class="notice_active">
         <ul>
           <li class="notice_active_ch">
@@ -183,171 +154,13 @@ function timer(opj){
                           <span class="i_more"><a rel="{url:/offers/offerlist}" href="{url:/offers/offerlist}">更多&gt;&gt;</a></span>  
                         </div>
 
-                        <div class="i_leftCon" id="offer_list">
-                           <!--  <div class="i_proList show">
-                                <ul>
-                                    <li class="i_ListTit" id="offer">
-                                        <span class="i_w_1">品名</span>
-                                        <span class="i_w_2">供求</span>
-                                        <span class="i_w_3">类型</span>
-                                        <span class="i_w_4">产地</span>
-                                        <span class="i_w_5">交货地</span>
-                                        <span class="i_w_6">数量</span>
-                                        <span class="i_w_7">剩余</span>
-                                        <span class="i_w_8">单价</span>
-                                        <span class="i_w_9">咨询</span>
-                                        <span class="i_w_10">操作</span>
-                                    </li>
-                                </ul>
-                                <ul id="offerRowBox">
-                                
-                                </ul>
-                            </div> -->
+                        <div class="i_leftCon" id="offerRowBox">
 
-                           <!-- 广告轮播 Swiper -->
-                          <!--  <link rel="stylesheet" href="{views:css/swiper.min.css}">
-                            <script src="{views:js/jquery.bxslider.js}"></script>
-                             <script>
-                              $(document).ready(function(){
-                                $('.slider4').bxSlider({
-                                  slideWidth: 252.5,
-                                  minSlides: 2,
-                                  maxSlides: 4,
-                                  moveSlides: 1,
-                                  startSlide: 1,
-                                  auto: true,
-                                  slideMargin: 10
-                                });
-                              });
-                            </script>
-                           <div style="width:100%;height:1px;background:#ccc;margin:10px 0;"></div>
-                             <div class="slider4">
-                                 {foreach: items=$adList}
-                                  <div class="slide"><img src="{$item['content']}" /></div>
-                                 {/foreach}
-                             </div> -->
-                            <ul class="i_leftCon_ul">
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                              <li class="market_ul_li">
-                                <a href="">
-                                  <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                  <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                  <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                  <p class="product_price">￥213</p>
-                                </a>
-                              </li>
-                            </ul>
                         </div>
 
                     </div>
 
-                    <!--大家都在做什么-->
-                   <!--  <div class="i_market_right">
 
-                        <div class="iConWrap index_height">
-                            <div class="iConTitle">最新交易</div>
-                            <div class="items_container yichi">
-                                <ul style="top: 0px;">
-                                    {foreach:items=$newTrade}
-                                        <li style="opacity: 1.0000000000000007;">
-                                            {set:$time=date('m-d',strtotime($item['create_time']))}
-                                            {if: ! empty($item['username'])}
-                                            {set:$userName=mb_substr($item['username'],0,4,'utf-8')}
-                                            <i>{$userName}****</i>
-                                            {else:}
-                                            <i>****</i>
-                                            {/if}
-                                            {if:$item['type']==1}
-                                                <em class="red">售出</em>
-                                            {else:}
-                                                <em class="green">采购</em>
-                                            {/if}
-                                            <b>{$item['name']}{$item['num']}{$item['unit']}</b>
-                                            <span>{$time}</span>
-                                            <div class="titles"> <i></i>
-                                              <p>{$item['name']}{$item['num']}{$item['unit']}</p>
-                                            </div>
-                                        </li>
-
-
-                                    {/foreach}
-
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div> -->
 
                 </div>    
                 <div class="guanimg">{echo: \Library\Ad::show("首页1")}</div>
@@ -547,246 +360,9 @@ function timer(opj){
                           </ul>
                         </div>
                       </div>
-                        <!-- <div class="i_market_left" id="rmb_market">
-                            <div id="floor-2" class="item"></div>
-                            <div class="i_leftTit i_leftTit_bg clearfix">
-                                <div class="i_left_title " name="1" id="item2">市场指数</div>
-                                <ul>
-                                    <ul>
-                                        {foreach:items=$topCat}
-                                            <li {if:$key==0}class='li_select'{/if} onclick="statistics({$item['id']},this)" ><a attr="{$item['id']}"href="javascript:void(0)"><em class="em2"></em><span></span>{$item['name']}</a></li>
 
-                                        {/foreach}
-                                    </ul>
-                                </ul>
-                                            
-                            </div>
-                            {set: $first_cat_id=$topCat[0]['id']}
-                            <script src="https://code.highcharts.com/highcharts.js"></script>
-                            <script src="https://code.highcharts.com/modules/exporting.js"></script>
-                            <script language="javascript" type="text/javascript">
-                                $(function(){
-                                    var cat_id={$first_cat_id};
-                                    changeContainer(cat_id);
-                                });
-                                function statistics(id,obj){
-                                    $(obj).siblings().removeClass('li_select');
-                                    $(obj).addClass('li_select');
-                                    //var recObj=$('#statc'+id);
-                                   /* $('#item5').children().css('display','none');
-                                    recObj.css('display','block');*/
-                                    changeContainer(id);
-                                }
-                                function changeContainer(id){
-                                    var statisList={$statcCatList};
-                                    var categories={$statcTime};
-                                    var series=new Array();
-                                    var j=0;
-                                    var chart;
-                                    var text;
-                                    if(statisList[id]!=undefined&&categories[id]!=undefined){
-                                        
-                                        text='市场指数';
-                                        $.each(statisList[id],function(index,value){
-
-                                            var data=new Array();
-                                            for(var i=0;i<value.length;i++){
-                                                var price=parseInt(value[i].price,10);
-                                                data[i]=price;
-                                            }
-                                            series[j]={name:index,data:data};
-                                            j++;
-                                        });
-                                    }else {
-                                        categories[id]=null;series=[{
-                                            type:'line',
-                                            name:'',
-                                            data:[]
-                                        }];
-                                        text='暂时没有数据';
-                                    }
-
-
-                                    $('#container').highcharts({
-                                        title: {
-                                            text: text,
-                                            x: -20 //center
-                                        },
-                                        credits:{
-                                            text:'耐耐网',
-                                            href:'{url:/index/index}'
-                                        },
-                                        subtitle: {
-                                            text: 'www.nainaiwang.com',
-                                            x: -20
-                                        },
-                                        noData: {
-                                            // Custom positioning/aligning options
-                                            position: {
-                                                align: 'right',
-                                                verticalAlign: 'bottom'
-                                            },
-                                            // Custom svg attributes
-                                            attr: {
-                                                'stroke-width': 1,
-                                                stroke: '#cccccc'
-                                            },
-                                            // Custom css
-                                            style: {
-                                                fontWeight: 'bold',
-                                                fontSize: '15px',
-                                                color: '#202030'
-                                            }
-                                        },
-                                        xAxis: {
-                                            categories: categories[id]
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: '金额（元）'
-                                            },
-                                            plotLines: [{
-                                                value: 0,
-                                                width: 1,
-                                                color: '#808080'
-                                            }]
-                                        },
-                                        tooltip: {
-                                            valueSuffix: '元 '
-                                        },
-                                        legend: {
-                                            layout: 'vertical',
-                                            align: 'right',
-                                            verticalAlign: 'middle',
-                                            borderWidth: 0
-                                        },
-                                        series:series
-                                    });
-                                }
-                            </script>
-                            <div class="i_leftCon" style="margin:0px;">
-                                <div class="i_proList show i_proList_zhishu">
-                                    <div class="img_pro" id="container"></div>
-                                </div>
-                                <div class="i_proList i_proList_zhishu">
-                                    <div class="img_pro"><img src="{views:images/index/zhibiao.jpg}"></div>
-                                </div>
-                                <div class="i_proList i_proList_zhishu">
-                                    <div class="img_pro"><img src="{views:images/index/zhibiao.jpg}"></div>
-                                </div>
-                                <div class="i_proList i_proList_zhishu">
-                                    <div class="img_pro"><img src="{views:images/index/zhibiao.jpg}"></div>
-                                </div>
-                                <div class="i_proList i_proList_zhishu">
-                                    <div class="img_pro"><img src="{views:images/index/zhibiao.jpg}"></div>
-                                </div>
-                                <div class="i_proList i_proList_zhishu">
-                                    
-                                </div>
-                                     
-                            </div>
-                        
-                        </div> -->
-                                                    
-                        <!--大家都在做什么-->
-                       <!--  <div class="i_market_right">
-                            <div class="ShopPro">
-                                <div class="ShopPro_Tab clearfix" style="border-bottom:2px solid #ffab2d;">
-                                    <ul>
-                                        <li class="selected" style="color:#ffab2d;">热门商品</li>
-                                    </ul>
-                                </div>
-                                <div class="ShopPro_Con">
-                                    {foreach: items=$statcProList}
-                                    <div class="ShopPro_item clearfix">
-                                        <span class="ShopPro_text">{$item['name']}</a></span>
-                                        <span class="ShopPro_change i_TextRed"><img class="shja" {if:$item['change_range'] == 0}src="{views:images/index/icon_line.png}"{elseif:abs($item['change_range']) <> $item['change_range']}src="{views:images/index/icon_down.png}"{else:}src="{views:images/index/icon_top.png}"{/if}/>{echo:abs($item['change_range'])}%</span>
-                                        <span class="ShopPro_price i_TextRed">￥{$item['price']}</span>
-                                        <div class='titles hot'>   <i></i>
-                                          <p>
-                                                {$item['name']}
-                                            </p></div>
-                                    </div>
-                                    {/foreach}
-                                </div> 
-
-                               
-                            </div>              
-                        </div> -->
                     </div>
 
-                                <!--推荐商家-->
-                   <!--  <div class="i_market_comm clearfix"> -->
-
-                      <!--   <div class="i_market_lef_t_comm" id="retail_market">
-                            <div id="floor-3" class="item"></div>
-                            <div class="i_leftTit i_leftTit_sj clearfix">
-                                <div class="i_left_title " name="1" id="item3">推荐商家</div>
-                            </div>
-
-                        
-                           
-
-                                  <div class="slider4 recommend">
-                                 {foreach: items=$allCompanyAd}
-                                <div class="slide"><img src="{$item['content']}"></div>
-                                 {/foreach}
-
-                                
-                             </div>
-                                
-
-                        </div> -->
-
-                        <!--大家都在做什么-->
-                       <!--  <div class="i_market_right">
-                                    
-                            <div class="ShopPro six">
-                                <div class="ShopPro_Tab clearfix">
-                                    <ul>
-                                        <li class="selected">信誉排行</li>
-                                    </ul>
-                                </div>
-                                <div class="shop_rank">
-                                    <ul class="rank_tab">
-                                        <li class="rank_tit">
-                                            <span class="i_r_1">排名</span>
-                                            <span class="i_r_2">用户</span>
-                                            <span class="i_r_4">等级</span>
-                                            <span class="i_r_5">信誉值</span>
-                                        </li>
-                                        {foreach:items=$creditMember}
-                                            <li class="rank_list">
-                                            <span class="i_r_1">{if:$key==0}
-                                                    <img src="{views:images/rank_06.png}">
-
-                                                                {elseif:$key==1}
-                                                    <img src="{views:images/rank_13.png}">
-
-                                                                {elseif:$key==2}
-                                                    <img src="{views:images/rank_16.png}">
-
-                                                {else:}
-                                                    {echo:$key+1}
-                                                {/if}
-
-
-                                            </span>
-                                                <span class="i_r_2">{echo:mb_substr($item['company_name'],0,5,'utf-8')}</span>
-                                                <span class="i_r_4"><img style="margin-top: -17px;" src="{$item['icon']}"></span>
-                                                <span class="i_r_5">{$item['credit']}</span>
-                                            </li>
-                                        {/foreach}
-
-
-                                    </ul>
-                                </div>
-                            </div>
-                                        
-                        </div> 
-
-                    </div>-->
-                   
 
                 </div>
 
@@ -812,38 +388,17 @@ function timer(opj){
                     recObj.css('display','block');
 
                 });
-                function companyRec(id,obj){
-                    $(obj).siblings().removeClass('li_select');
-                    $(obj).addClass('li_select');
-                    var recObj=$('#rec'+id);
-                    $('#item4').nextAll().css('display','none');
-                    recObj.css('display','block');
-
-                }
-/*                function statistics(id,obj){
-                    $(obj).siblings().removeClass('li_select');
-                    $(obj).addClass('li_select');
-                    var recObj=$('#statc'+id);
-                    $('#item5').children().css('display','none');
-                    recObj.css('display','block');
-
-                }*/
-
 
                 function showOffers(id,obj){
 					var offerData = {$offerCateList};
                     obj.siblings().removeClass('li_select');
                     obj.addClass('li_select');
-                    /*$('[id^=offer]').removeClass('show');
-                    $('#offer'+id).addClass('show');*/
 
-                   
-                    //$('#offerRowBox').empty();
-                    template.helper('getAreaText', function(area_data){  
+                    template.helper('getAreaText', function(area_data){
                           var areatextObj = new Area();
                           var text = areatextObj.getAreaText(area_data);
                            return text;
-                    });  
+                    });
 					if(offerData[id]){
 						 var offerRowHtml = template.render('offerRowTemplate',{data:offerData[id]});
                          $('#offerRowBox').html(offerRowHtml);
@@ -951,74 +506,22 @@ function timer(opj){
 
         </div>
         <!-- 浮动楼层 end -->
+
+
 <script type='text/html' id='offerRowTemplate'>
- <%if (data.length>0) { %>
-<%for (var i=0;i<data.length;i++) { %>
-        <li>
-            <span class="i_w_1 "><%=data[i].pname%></span>
-            <%if (data[i].type==1) { %>
-                <span class="i_w_2 i_TextGreen">
-                   供
-                </span>
-            <%}else { %>
-                <span class="i_w_2 i_TextRed">
-                   求
-                </span>
-            <% } %>
-            <span class="i_w_3">
-                  <%=data[i].mode%>
-            </span>
-            <span class="i_w_4" id="area<%=i%>">
-				 <%if (data[i].produce_area) { %>
-				<%=getAreaText(data[i].produce_area)%>
-				 <%}else { %>
-				 未知
-				<% } %>
-			</span>
-            <span class="i_w_5" >
-                     <%if (data[i].accept_area) { %>
-                    <%=data[i].accept_area%>
-                     <%}else { %>
-                     未知
-                    <% } %>
-            </span>
-            <span class="i_w_6"><%=data[i].quantity%></span>
-            <span class="i_w_7"><%=data[i].quantity-data[i].sell-data[i].freeze%></span>
-            <span class="i_w_8">￥<%=data[i].price%></span>
-            <span class="i_w_9">
-                <%if (data[i].qq) { %>
-                    <a href="tencent://message/?uin=<%=data[i].qq%>&Site=qq&Menu=yes"><img style="vertical-align:middle;" src="{views:images/icon/QQ16X16.png}" class="ser_img" alt="联系客服"/>
-                    </a>
-                        <%}else { %>
-                         <img style="vertical-align:middle;" src="{views:images/icon/QQgray16X16.png}" class="ser_img"/>
-                    </a>
-
-                <% } %>
-</span>
-
-
-            <span class="i_w_10">
-                <%if (data[i].quantity - data[i].sell - data[i].freeze>0) { %>
-                    <%if (data[i].type==1) { %>
-                        <a class="<%=data[i].id%>" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
-                            <img class="ckxq" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                        </a>
-                     <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>">
-                         <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
-                     </a>
-                    <%}else { %>
-                        <a href="{url:/offers/purchasedetails}/id/<%=data[i].id%>">
-                            <img src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/>
-                        </a>
-                         <a href="{url:/trade/report}/id/<%=data[i].id%>">
-                              <img src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/>
-                        </a>
-                    <% } %>
-                    <%}else { %>
-                <img src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
-                <% } %>
-                </span>
+    <ul class="i_leftCon_ul">
+        <%if (data.length>0) { %>
+        <%for (var i=0;i<data.length;i++) { %>
+        <li class="market_ul_li">
+            <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                <div class="product_img"><img src=" <%=data[i].img%>"></div>
+                <h4> <%=data[i].pname%></h4>
+                <p> <%=data[i].note%></p>
+                <p class="product_price">￥ <%=data[i].price%>/ <%=data[i].unit%></p>
+            </a>
         </li>
-<% } %>
-<% } %>
+
+        <% } %>
+        <% } %>
+    </ul>
 </script>
