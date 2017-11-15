@@ -12,15 +12,30 @@ function timer(opj){
       $(this).css({marginTop : "0px"}).find("li:first").appendTo(this);  
     })  
   }
-  $(function(){ 
-    var num = $('.notice_active').find('li').length;
-    if(num > 1){
-       var time=setInterval('timer(".notice_active")',3500);
-    
-    }
-    
-   /*最新咨询动态效果 end*/
-  });
+$(function() {
+    //异步获取最新资讯，默认获取10条
+    var infoInterUrl = '{url:/interface/tradewebInfo@info}';
+    $.ajax({
+        type : 'post',
+        url : infoInterUrl,
+        async  : true,
+        dataType : 'json',
+        crossDomain : true,
+        success : function(data){
+            if(data){
+                var newsList = template.render('newsBox',{data:data});
+                $('#news_box').html(newsList);
+            }
+            var num = $('.notice_active').find('li').length;
+            if(num > 1){
+                var time=setInterval('timer(".notice_active")',3500);
+
+            }
+        }
+
+    })
+
+})
 </script>
     <!------------------导航 开始-------------------->
     <form method="post" action="" id="form1">
@@ -64,15 +79,30 @@ function timer(opj){
     <!-- 轮播大图 结束 -->
 
 
- 
+<!--资讯板块模板-->
+<script type='text/html' id='newsBox'>
+    <ul>
+        <%if (data.length>0) { %>
+        <%for (var i=0;i<data.length;i++) { %>
+        <li class="notice_active_ch">
+            <p class="data_title"><a href="{url:/detail/index@info}/id/<%=data[i].id%>"><%=data[i].name%></a></p>
+            <p class="data_content"><%=data[i].short_content%></p>
+        </li>
+        <% } %>
+        <% } %>
+    </ul>
+</script>
+<!--资讯板块模板-->
 
-   <!--最新数据 开始-->
+
+
+<!--最新数据 开始-->
   <div class="mostnew_date" >
   
    <div id="row1_clinch" class="row1_clinch">
        <div class="clinch_tit">
            <div class="tit_time">
-               <p id="time_year" class="time_year">{$year}<br><span class="time_month">{$month}/{$day}</span></p>
+               <p id="time_year" class="time_year">{echo:date(Y)}<br><span class="time_month">{echo:date(m)}/{echo:date(d)}</span></p>
                <!-- <p id="time_day" class="time_day">11</p> -->
            </div>
            <div class="tit_font">
@@ -81,30 +111,8 @@ function timer(opj){
                RECENT DATAS</div>
        </div>
 
-       <div class="notice_active">
-        <ul>
-          <li class="notice_active_ch">
-            <p class="data_title"><a href="">当前在线报盘1</a></p>               
-            <p class="data_content">记录据了解。。</p>
-          </li>
-          <li class="notice_active_ch">
-            <p class="data_title"><a href="">当前在线报盘2</a></p>               
-            <p class="data_content">记录据了解。。记录据了解。。记录据了解。。记录据了解。。</p>
-          </li>
-          <li class="notice_active_ch">
-             <p class="data_title"><a href="">当前在线报盘3</a></p>               
-            <p class="data_content">记录据了解。。</p>
-          </li>
-          <li class="notice_active_ch">
-             <p class="data_title"><a href="">当前在线报盘4</a></p>               
-            <p class="data_content">记录据了解。。</p>
-          </li>
-          <li class="notice_active_ch">
-             <p class="data_title"><a href="">当前在线报盘5</a></p>               
-            <p class="data_content">记录据了解。。</p>
-          </li>
-          
-        </ul>   
+       <div class="notice_active" id="news_box">
+
     
       </div>                  
    </div>
@@ -463,26 +471,7 @@ function timer(opj){
                     <a href="" data="#toTop" rel="toTop" class="hove_a">交易市场</a>
                 </div>
               </div>
-              <div class="show_div">
-              <a href="#floor-2" data="#floor-2" rel="floor-2" class="fhdb_a">
-                  <i class="left_iconfont " display="none"><img src="{views:images/floor_02.png}">市场指数</i>
-                  <em class="two_line" display="black"><img src="{views:images/floor_cur_02.png}">市场指数</em>
-              </a>
-               <div class="hover_div">
-                    <em></em>
-                    <a href="" data="#toTop" rel="toTop" class="hove_a">市场指数</a>
-                </div>
-              </div>
-              <div class="show_div">
-              <a href="#floor-3" data="#floor-3" rel="floor-3" class="fhdb_a">
-                  <i class="left_iconfont " display="none"><img src="{views:images/floor_030.png}">推荐商家</i>
-                  <em class="two_line" display="black"><img src="{views:images/floor_cur_030.png}">推荐商家</em>
-              </a>
-                <div class="hover_div">
-                    <em></em>
-                    <a href="" data="#toTop" rel="toTop" class="hove_a">推荐商家</a>
-                </div>
-              </div>
+
             <div class="show_div">
               <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur fhdb_a">
                   <i class="left_iconfont " display="none"><img src="{views:images/floor_04.png}">客服</i>
