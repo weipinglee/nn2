@@ -30,6 +30,9 @@ $(function() {
             if(data){
                 var newsList = template.render('newsBox',{data:data});
                 $('#news_box').html(newsList);
+
+                var newsList2 = template.render('configZXBox',{data:data});
+                $('#zxBox').html(newsList2);
             }
             var num = $('.notice_active').find('li').length;
             if(num > 1){
@@ -98,7 +101,23 @@ $(function() {
     </ul>
 </script>
 <!--资讯板块模板-->
-
+<script type="text/html" id="configZXBox">
+    <%if (data.length>0) { %>
+    <%for (var i=0;i<data.length;i++) { %>
+    <%if (i<6) { %>
+    <li>
+        <a class="two_ul_li_a" href="{url:/detail/index@info}/id/<%=data[i].id%>">
+            <img class="two_product_img" src="<%=data[i].cover_pic%>"/>
+            <div class="right">
+                <h4><%=data[i].name%></h4>
+                <p><%=data[i].short_content%></p>
+            </div>
+        </a>
+    </li>
+    <% } %>
+    <% } %>
+    <% } %>
+</script>
 
 
 <!--最新数据 开始-->
@@ -185,67 +204,9 @@ $(function() {
                         <p>{$sub_titleZX}</p>
                         <span class="tb-fn">更多>></span>
                     </h3>
-                    <ul class="i_market_two_ul">
-                      <li>
-                        <a class="two_ul_li_a" href="">
-                          <img class="two_product_img" src="{views:images/2.2.jpg}"/>
-                          <div class="right">
-                            <h4>GEORGECLEVERLEY乐福鞋</h4>
-                            <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                            <p class="product_price">￥213</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="two_ul_li_a" href="">
-                          <img class="two_product_img" src="{views:images/3.2.jpg}"/>
-                          <div class="right">
-                            <h4>GEORGECLEVERLEY乐福鞋</h4>
-                            <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                            <p class="product_price">￥213</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="two_ul_li_a" href="">
-                          <img class="two_product_img" src="{views:images/2.2.jpg}"/>
-                          <div class="right">
-                            <h4>GEORGECLEVERLEY乐福鞋</h4>
-                            <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                            <p class="product_price">￥213</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="two_ul_li_a" href="">
-                          <img class="two_product_img" src="{views:images/3.2.jpg}"/>
-                          <div class="right">
-                            <h4>GEORGECLEVERLEY乐福鞋</h4>
-                            <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                            <p class="product_price">￥213</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="two_ul_li_a" href="">
-                          <img class="two_product_img" src="{views:images/2.2.jpg}"/>
-                          <div class="right">
-                            <h4>GEORGECLEVERLEY乐福鞋</h4>
-                            <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                            <p class="product_price">￥213</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="two_ul_li_a" href="">
-                          <img class="two_product_img" src="{views:images/3.2.jpg}"/>
-                          <div class="right">
-                            <h4>GEORGECLEVERLEY乐福鞋</h4>
-                            <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                            <p class="product_price">￥213</p>
-                          </div>
-                        </a>
-                      </li>
+                    <ul class="i_market_two_ul" id="zxBox">
+
+
                     </ul>
                   </div>
                 </div>
