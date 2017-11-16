@@ -71,4 +71,22 @@ class indexModel {
     }
 
 
+    /**
+     * 获取首页配置
+     * @return mixed
+     */
+    public function getIndexconfigCP()
+    {
+        $configObj = new M('configs_indexshow');
+        return $configObj->where(array('type'=>'产品'))->limit(2)->select();
+
+    }
+
+    public function getIndexconfigZX()
+    {
+        $configObj = new M('configs_indexshow');
+        return $configObj->where(array('type'=>'资讯'))->limit(1)->select();
+
+    }
+
 }

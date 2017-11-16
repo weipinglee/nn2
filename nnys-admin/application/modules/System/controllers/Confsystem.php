@@ -284,6 +284,79 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 	}
 
 
+	/***********************首页板块的配置**************************/
+
+
+	public function addIndexconfigAction()
+	{
+		$configObj = new \config\configsIndexModel();
+		if(IS_POST){
+			$config = array();
+			$config['user_id'] = safe::filterPost('user_id');
+			$config['type'] = safe::filterPost('type');
+			$config['sub_title'] = safe::filterPost('sub_title');
+			$config['title'] = safe::filterPost('title');
+			$res = $configObj->add($config);
+
+			die(json::encode($res));
+
+
+		}
+
+	}
+
+	public function indexconfigListAction()
+	{
+		$configObj = new \config\configsIndexModel();
+		$data = $configObj->getConfigList();
+		$this->getView()->assign('data',$data);
+	}
+
+	public function editIndexconfigAction()
+	{
+		$configObj = new \config\configsIndexModel();
+		if(IS_POST){
+			$config = array();
+			$config['id'] = safe::filterPost('id','int');
+			$config['type'] = safe::filterPost('type');
+			$config['user_id'] = safe::filterPost('user_id');
+
+			$res = $configObj->update($config);
+
+			die(json::encode($res));
+
+
+		}
+		else{
+			$id = $this->getRequest()->getParam('id');
+			$id = safe::filter($id,'int');
+			if($id){
+				$data = $configObj->get($id);
+				$this->getView()->assign('data',$data);
+			}
+		}
+	}
+
+	/**
+	 * 删除配置项
+	 */
+	public function delIndexconfigAction(){
+		if(IS_POST){
+			$configObj = new \config\configsIndexModel();
+			$id = $this->getRequest()->getParam('id');
+			$id = safe::filter($id,'int');
+
+			if($id){
+				$res = $configObj->delete($id);
+				die(json::encode($res)) ;
+			}
+		}
+
+	}
+
+
+
+
 
 
 }

@@ -1,9 +1,11 @@
 <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
 <input type="hidden" name="js_sign_banner" value="1">
+{set:$user_id1=$configData[0]['user_id']}
+{set:$user_id2=$configData[1]['user_id']}
+{set:$sub_title1=$configData[0]['sub_title']}
+{set:$sub_title2=$configData[1]['sub_title']}
+{set:$sub_titleZX=$configData1[0]['sub_title']}
 <script type="text/javascript">
-$(function(){
-    $('.js_rep_offer .li_select').trigger('click');
-})
 /*最新咨询动态效果*/
 function timer(opj){
     $(opj).find('ul').animate({
@@ -13,6 +15,9 @@ function timer(opj){
     })  
   }
 $(function() {
+    $('.js_rep_offer .li_select').trigger('click');
+    showSellerOffers1({$user_id1});
+    showSellerOffers2({$user_id2});
     //异步获取最新资讯，默认获取10条
     var infoInterUrl = '{url:/interface/tradewebInfo@info}';
     $.ajax({
@@ -106,7 +111,7 @@ $(function() {
                <!-- <p id="time_day" class="time_day">11</p> -->
            </div>
            <div class="tit_font">
-               <b>最新<span>咨询</span></b>
+               <b>最新<span>资讯</span></b>
                <br>
                RECENT DATAS</div>
        </div>
@@ -177,7 +182,7 @@ $(function() {
                     <h3 class="market_content_h3">
                         <em>有好货</em>
                         <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>
-                        <p>发现属于你的生活方式</p>
+                        <p>{$sub_titleZX}</p>
                         <span class="tb-fn">更多>></span>
                     </h3>
                     <ul class="i_market_two_ul">
@@ -247,64 +252,17 @@ $(function() {
                     <!--美金市场-->
                     <div class="i_market clearfix">
                       <div class="i_market_left_two">
-                        <div class="market_content">
+                        <div class="market_content" >
                           <h3 class="market_content_h3">
                             <em>有好货</em>
                             <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>
-                            <p>与品质生活不期而遇</p>
-                            <span class="tb-fn">换一换</span>
+                            <p>{$sub_title1}</p>
+                            <span class="tb-fn" onclick="showSellerOffers1({$user_id1})">换一换</span>
                           </h3>
                          <!--  限制6个商品 -->
-                          <ul class="market_ul">
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                          </ul>
+                            <ul class="market_ul" id="sellerProductBox1">
+
+                            </ul>
                         </div>
                       </div>
                       <div class="i_market_right_two">
@@ -312,59 +270,12 @@ $(function() {
                           <h3 class="market_content_h3">
                             <em>有好货</em>
                             <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}">
-                            <p>与品质生活不期而遇</p>
-                            <span class="tb-fn">更多>></span>
+                            <p>{$sub_title2}</p>
+                            <span class="tb-fn" onclick="showSellerOffers2({$user_id2})">换一换</span>
                           </h3>
                          <!--  限制6个商品 -->
-                          <ul class="market_ul">
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/2.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
-                            <li class="market_ul_li">
-                              <a href="">
-                                <div class="product_img"><img src="{views:images/3.2.jpg}"></div>
-                                <h4>GEORGECLEVERLEY乐福鞋</h4>
-                                <p>全粒面牛皮革鞋面，使整体外观呈现出原始自然的独特美感</p>
-                                <p class="product_price">￥213</p>
-                              </a>
-                            </li>
+                          <ul class="market_ul" id="sellerProductBox2">
+
                           </ul>
                         </div>
                       </div>
@@ -397,6 +308,7 @@ $(function() {
 
                 });
 
+                //交易市场板块信息填充
                 function showOffers(id,obj){
 					var offerData = {$offerCateList};
                     obj.siblings().removeClass('li_select');
@@ -411,10 +323,51 @@ $(function() {
 						 var offerRowHtml = template.render('offerRowTemplate',{data:offerData[id]});
                          $('#offerRowBox').html(offerRowHtml);
 					}
-                           
-
 
                 }
+
+                //填充有好货板块一的信息
+                function showSellerOffers1(seller_id){
+                    var ajaxUrl = "{url:/AjaxData/getSellerProduct}";
+                    if(seller_id>0){
+                        $.ajax({
+                            type : 'get',
+                            url : ajaxUrl,
+                            async  : true,
+                            dataType : 'json',
+                            data : {seller_id:seller_id},
+                            success : function(data){
+                                if(data){
+                                    var proList = template.render('sellerProductTemplate',{data:data});
+                                    $('#sellerProductBox1').html(proList);
+                                }
+
+                            }
+                        })
+                    }
+                }
+                //填充有好货板块二的信息
+                function showSellerOffers2(seller_id){
+                    var ajaxUrl = "{url:/AjaxData/getSellerProduct}";
+                    if(seller_id>0){
+                        $.ajax({
+                            type : 'get',
+                            url : ajaxUrl,
+                            async  : true,
+                            dataType : 'json',
+                            data : {seller_id:seller_id},
+                            success : function(data){
+                                if(data){
+                                    var proList = template.render('sellerProductTemplate',{data:data});
+                                    $('#sellerProductBox2').html(proList);
+                                }
+
+                            }
+                        })
+                    }
+                }
+
+
             </script>
         </div>
     </div>  
@@ -513,4 +466,19 @@ $(function() {
         <% } %>
         <% } %>
     </ul>
+</script>
+
+<script type="text/html" id="sellerProductTemplate" >
+    <%if (data.length>0) { %>
+    <%for (var i=0;i<data.length;i++) { %>
+    <li class="market_ul_li">
+        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+            <div class="product_img"><img src="<%=data[i].img%>"></div>
+            <h4><%=data[i].name%></h4>
+            <p><%=data[i].note%></p>
+            <p class="product_price">￥ <%=data[i].price%>/ <%=data[i].unit%></p>
+        </a>
+    </li>
+    <% } %>
+    <% } %>
 </script>

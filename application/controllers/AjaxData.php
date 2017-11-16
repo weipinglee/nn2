@@ -85,6 +85,17 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
           exit();
      }
 
+     /**
+      * 异步获取某个用户的部分商品，显示在首页
+      */
+     public function getSellerProductAction()
+     {
+          $seller_id = safe::filterGet('seller_id', 'int',1);
+          $data = $this->offer->getOfferlistBySeller($seller_id);
+          die(\Library\json::encode($data));
+
+     }
+
 
 
 }

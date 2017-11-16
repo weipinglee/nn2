@@ -43,7 +43,19 @@ class IndexController extends PublicController {
 			
 
 		}
-       // var_dump($allCompanyAd);die;
+
+        //获取首页配置的板块信息
+        $indexConfig = new indexModel();
+        $configData = $indexConfig->getIndexconfigCP();
+        $configData1 = $indexConfig->getIndexconfigZX();
+        if(!isset($configData[0]))
+            $configData[0] = array('user_id'=>0,'sub_title'=>'');
+        if(!isset($configData[1]))
+            $configData[1] = array('user_id'=>0,'sub_title'=>'');
+        if(!isset($configData1[0]))
+            $configData1[0] = array('user_id'=>0,'sub_title'=>'');
+        $this->getView()->assign('configData',$configData);
+        $this->getView()->assign('configData1',$configData1);
 		$this->getView()->assign('offerCateList',\Library\json::encode($offerList));
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);

@@ -281,6 +281,36 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         return $this->getMode($type);
     }
 
+    /**
+     * 按照商家随机返回部分商品数据
+     * @param $seller_id
+     * @param int $page
+     * @param int $page_size
+     * @return array
+     */
+    public function getOfferlistBySeller($seller_id,$page=1,$page_size=6)
+    {
+        $query = new Query('product_offer as o');
+        $query->join = "left join products as p on o.product_id = p.id  ";
+        $query->fields = "o.*,p.img,p.name,p.note,p.unit";
+        $where = 'p.user_id=:user_id and o.status=:status and o.is_del = 0  and o.expire_time > now()';
+        $bind = array('status'=>self::OFFER_OK,'user_id'=>$seller_id);
+
+        $query->where = $where;
+        $query->bind = $bind;
+
+        $query->page = $page;
+        $query->pagesize = $page_size;
+        $query->order = " RAND() ";
+
+        $data = $query->find();
+        foreach ($data as $key => &$value) {
+           $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],180,180);//获取缩略图
+         }
+
+        return $data;
+
+    }
 
 
     //获取报盘类型
