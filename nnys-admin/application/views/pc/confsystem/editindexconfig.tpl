@@ -27,7 +27,7 @@
                 <div class="row cl">
                     <label class="form-label col-2"><span class="c-red">*</span>用户id</label>
                     <div class="formControls col-10">
-                        <input type="text" id="website-title" datatype="s2-30" name='user_id' value=" {$data['user_id']}" class="input-text" />
+                        <input type="text" id="website-title"  name='user_id' value=" {$data['user_id']}" class="input-text" />
                     </div>
                 </div>
 
