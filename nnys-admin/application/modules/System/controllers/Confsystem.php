@@ -320,7 +320,7 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			$config['id'] = safe::filterPost('id','int');
 			$config['type'] = safe::filterPost('type');
 			$config['user_id'] = safe::filterPost('user_id');
-
+			$config['sub_title'] = safe::filterPost('sub_title');
 			$res = $configObj->update($config);
 
 			die(json::encode($res));
