@@ -202,7 +202,7 @@ $(function() {
                         <em>有好货</em>
                         <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>
                         <p>{$sub_titleZX}</p>
-                        <span class="tb-fn">更多>></span>
+                        <span class="tb-fn"><a href="{url:/index/index@info}">更多>></a></span>
                     </h3>
                     <ul class="i_market_two_ul" id="zxBox">
 
