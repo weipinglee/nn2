@@ -24,7 +24,7 @@ $(function() {
         type : 'post',
         url : infoInterUrl,
         async  : true,
-        dataType : 'json',
+        dataType : 'jsonp',
         crossDomain : true,
         success : function(data){
             if(data){
