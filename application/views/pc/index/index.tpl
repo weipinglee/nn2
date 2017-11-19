@@ -1,10 +1,9 @@
 <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
 <input type="hidden" name="js_sign_banner" value="1">
-{set:$user_id1=$configData[0]['user_id']}
-{set:$user_id2=$configData[1]['user_id']}
-{set:$sub_title1=$configData[0]['sub_title']}
-{set:$sub_title2=$configData[1]['sub_title']}
+
 {set:$sub_titleZX=$configData1[0]['sub_title']}
+{set:$jsonProduct1=\Library\JSON::encode($product1)}
+{set:$jsonProduct2=\Library\JSON::encode($product2)}
 <script type="text/javascript">
 /*最新咨询动态效果*/
 function timer(opj){
@@ -15,9 +14,9 @@ function timer(opj){
     })  
   }
 $(function() {
-    $('.js_rep_offer .li_select').trigger('click');
-    showSellerOffers1({$user_id1});
-    showSellerOffers2({$user_id2});
+   $('.js_rep_offer .li_select').trigger('click');
+    showIndexOffers1();
+    showIndexOffers2();
     //异步获取最新资讯，默认获取10条
     var infoInterUrl = '{url:/interface/tradewebInfo@info}';
     $.ajax({
@@ -215,10 +214,10 @@ $(function() {
                       <div class="i_market_left_two">
                         <div class="market_content" >
                           <h3 class="market_content_h3">
-                            <em>有好货</em>
-                            <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>
-                            <p>{$sub_title1}</p>
-                            <span class="tb-fn" onclick="showSellerOffers1({$user_id1})">换一换</span>
+                            <em>{$product1['title']}</em>
+                           <!-- <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>-->
+                            <p>{$product1['sub_title']}</p>
+                            <span class="tb-fn" onclick="showIndexOffers1()">换一换</span>
                           </h3>
                          <!--  限制6个商品 -->
                             <ul class="market_ul" id="sellerProductBox1">
@@ -229,10 +228,10 @@ $(function() {
                       <div class="i_market_right_two">
                         <div class="market_content">
                           <h3 class="market_content_h3">
-                            <em>有好货</em>
+                            <em>{$product2['title']}</em>
                             <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}">
-                            <p>{$sub_title2}</p>
-                            <span class="tb-fn" onclick="showSellerOffers2({$user_id2})">换一换</span>
+                            <p>{$product2['sub_title']}</p>
+                            <span class="tb-fn" ><a href="{url:/offers/indexofferList?configid=$product2['id']}" target="_blank">更多>></a></span>
                           </h3>
                          <!--  限制6个商品 -->
                           <ul class="market_ul" id="sellerProductBox2">
@@ -288,44 +287,44 @@ $(function() {
                 }
 
                 //填充有好货板块一的信息
-                function showSellerOffers1(seller_id){
-                    var ajaxUrl = "{url:/AjaxData/getSellerProduct}";
-                    if(seller_id>0){
-                        $.ajax({
-                            type : 'get',
-                            url : ajaxUrl,
-                            async  : true,
-                            dataType : 'json',
-                            data : {seller_id:seller_id},
-                            success : function(data){
-                                if(data){
-                                    var proList = template.render('sellerProductTemplate',{data:data});
-                                    $('#sellerProductBox1').html(proList);
-                                }
-
+                function showIndexOffers1(){
+                    var ajaxUrl = "{url:/AjaxData/getIndexProduct}";
+                   var jsonParam = {$jsonProduct1};
+                    $.ajax({
+                        type : 'get',
+                        url : ajaxUrl,
+                        async  : true,
+                        dataType : 'json',
+                        data : jsonParam,
+                        success : function(data){
+                            if(data){
+                                var proList = template.render('sellerProductTemplate',{data:data});
+                                $('#sellerProductBox1').html(proList);
                             }
-                        })
-                    }
+
+                        }
+                    })
+
                 }
                 //填充有好货板块二的信息
-                function showSellerOffers2(seller_id){
-                    var ajaxUrl = "{url:/AjaxData/getSellerProduct}";
-                    if(seller_id>0){
-                        $.ajax({
-                            type : 'get',
-                            url : ajaxUrl,
-                            async  : true,
-                            dataType : 'json',
-                            data : {seller_id:seller_id},
-                            success : function(data){
-                                if(data){
-                                    var proList = template.render('sellerProductTemplate',{data:data});
-                                    $('#sellerProductBox2').html(proList);
-                                }
-
+                function showIndexOffers2(){
+                    var ajaxUrl = "{url:/AjaxData/getIndexProduct}";
+                    var jsonParam = {$jsonProduct2};
+                    $.ajax({
+                        type : 'get',
+                        url : ajaxUrl,
+                        async  : true,
+                        dataType : 'json',
+                        data : jsonParam,
+                        success : function(data){
+                            if(data){
+                                var proList = template.render('sellerProductTemplate',{data:data});
+                                $('#sellerProductBox2').html(proList);
                             }
-                        })
-                    }
+
+                        }
+                    })
+
                 }
 
 

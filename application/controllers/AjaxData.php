@@ -86,13 +86,25 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
      }
 
      /**
-      * 异步获取某个用户的部分商品，显示在首页
+      * 根据传回的条件参数，查询产品
       */
-     public function getSellerProductAction()
+     public function getIndexProductAction()
      {
-          $seller_id = safe::filterGet('seller_id', 'int',1);
-          $data = $this->offer->getOfferlistBySeller($seller_id);
+          $where = array(
+               'user_id'=>safe::filterGet('user_id', 'int',0),
+              'area' => safe::filterGet('area', 'int',0),
+              'start_time'=> safe::filterGet('start_time'),
+              'end_time' => safe::filterGet('end_time'),
+              'cate_id' => safe::filterGet('cate_id', 'int',0),
+          );
+
+          $data = $this->offer->getOfferlistByConfig($where);
           die(\Library\json::encode($data));
+
+     }
+
+     public function getConfigProductAction()
+     {
 
      }
 

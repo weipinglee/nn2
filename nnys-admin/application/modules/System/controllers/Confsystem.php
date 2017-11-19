@@ -290,11 +290,19 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 	public function addIndexconfigAction()
 	{
 		$configObj = new \config\configsIndexModel();
+		//获取所有市场
+		$proObj = new \nainai\offer\product();
+		$topCate = $proObj->getTopCate();
+		$this->getView()->assign('topCate',$topCate);
 		if(IS_POST){
 			$config = array();
 			$config['user_id'] = safe::filterPost('user_id');
 			$config['type'] = safe::filterPost('type');
 			$config['sub_title'] = safe::filterPost('sub_title');
+			$config['start_time'] = safe::filterPost('begin');
+			$config['end_time'] = safe::filterPost('end');
+			$config['cate_id'] = safe::filterPost('cate_id');
+			$config['area'] = safe::filterPost('area');
 			$config['title'] = safe::filterPost('title');
 			$res = $configObj->add($config);
 
@@ -307,8 +315,17 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 
 	public function indexconfigListAction()
 	{
+		$proObj = new \nainai\offer\product();
+		$cate = $proObj->getTopCate();
+		$topCate = array();
+		foreach($cate as $val){
+			$topCate[$val['id']] = $val['name'];
+		}
 		$configObj = new \config\configsIndexModel();
 		$data = $configObj->getConfigList();
+		foreach($data['list'] as &$val){
+			$val['cate_name'] = isset($topCate[$val['cate_id']]) ? $topCate[$val['cate_id']] : '';
+		}
 		$this->getView()->assign('data',$data);
 	}
 
@@ -320,7 +337,12 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			$config['id'] = safe::filterPost('id','int');
 			$config['type'] = safe::filterPost('type');
 			$config['user_id'] = safe::filterPost('user_id');
+			$config['start_time'] = safe::filterPost('begin');
+			$config['end_time'] = safe::filterPost('end');
+			$config['cate_id'] = safe::filterPost('cate_id');
+			$config['area'] = safe::filterPost('area');
 			$config['sub_title'] = safe::filterPost('sub_title');
+			$config['title'] = safe::filterPost('title');
 			$res = $configObj->update($config);
 
 			die(json::encode($res));
@@ -331,8 +353,13 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			$id = $this->getRequest()->getParam('id');
 			$id = safe::filter($id,'int');
 			if($id){
+				//获取所有市场
+				$proObj = new \nainai\offer\product();
+				$topCate = $proObj->getTopCate();
+
 				$data = $configObj->get($id);
 				$this->getView()->assign('data',$data);
+				$this->getView()->assign('topCate',$topCate);
 			}
 		}
 	}

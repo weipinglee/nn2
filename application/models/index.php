@@ -82,6 +82,11 @@ class indexModel {
 
     }
 
+    public function getIndexConfig($id){
+        $configObj = new M('configs_indexshow');
+        return $configObj->where(array('id'=>$id))->getObj();
+    }
+
     public function getIndexconfigZX()
     {
         $configObj = new M('configs_indexshow');

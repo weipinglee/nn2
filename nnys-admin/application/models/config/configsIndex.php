@@ -16,7 +16,7 @@ class configsIndexModel extends \baseModel{
     //配置信息规则
     protected $rules = array(
         array('id','number','id错误',0,'regex'),
-        array('user_id','number','用户id错误',0,'regex'),
+        array('user_id','number','用户id错误',2,'regex'),
         array('sub_title','s{2,100}','配置项中文名错误',0,'regex'),
     );
 
