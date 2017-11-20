@@ -214,16 +214,7 @@ class OffersController extends PublicController {
 	{
 		$page = safe::filterGet('page','int',1);
 		$config_id = $this->getRequest()->getParam('configid');
-		$indexModel = new indexModel();
-		$data = $indexModel->getIndexConfig($config_id);
-		$where = array(
-			'user_id'=>$data['user_id'],
-				'cate_id'=>$data['cate_id'],
-				'start_time'=>$data['start_time'],
-				'end_time'=>$data['end_time'],
-				'area'=>$data['area']
-		);
-		$res = $this->offer->getOfferlistByConfig($where,$page,20,'o.id DESC',1);
+		$res = $this->offer->getOfferlistByConfig($config_id,$page,20,'o.id DESC',1);
 		$this->getView()->assign('offer',$this->offer);
 		$this->getView()->assign('data',$res);
 
