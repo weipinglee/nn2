@@ -90,15 +90,8 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
       */
      public function getIndexProductAction()
      {
-          $where = array(
-               'user_id'=>safe::filterGet('user_id', 'int',0),
-              'area' => safe::filterGet('area', 'int',0),
-              'start_time'=> safe::filterGet('start_time'),
-              'end_time' => safe::filterGet('end_time'),
-              'cate_id' => safe::filterGet('cate_id', 'int',0),
-          );
-
-          $data = $this->offer->getOfferlistByConfig($where);
+          $config_id = safe::filterGet('config_id','int',0);
+          $data = $this->offer->getOfferlistByConfig($config_id);
           die(\Library\json::encode($data));
 
      }

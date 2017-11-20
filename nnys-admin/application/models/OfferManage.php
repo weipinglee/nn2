@@ -316,5 +316,104 @@ class OfferManageModel extends \nainai\offer\product{
 
 	}
 
+	/************首页配置产品的部分数据获取**************************/
+
+	/**
+	 * 获取所有子分类
+	 */
+	private function getChildCate($pid,$level=1){
+		static $cate = array();
+		$obj = new M('product_category');
+		$cates = $obj->where(array('pid'=>$pid))->fields('id,name')->select();
+		static $childCates = array();
+		static $childName = '';
+		if($level==0){
+			//获取下级分类统称
+			$childName = $obj->where(array('id'=>$pid))->getField('childname');
+			if(!$childName)
+				$childName = '商品分类';
+			$childCates = $cates;
+		}
+		foreach($cates as $k=>$v){
+			$this->getChildCate($v['id']);
+		}
+		$cate = array_merge($cate,$cates);
+		return array($cate,$childCates,$childName);
+	}
+
+	/**
+	 * 获取下级子分类
+	 */
+	public  function getNextCate($pid){
+		$obj = new \Library\M('product_category');
+		$cates = $obj->where(array('pid'=>$pid))->fields('id,name')->select();
+
+		return $cates;
+	}
+
+	public function getSearchProduct($where)
+	{
+		$query = new \Library\Query('product_offer as o');
+		$query->join = "left join products as p on o.product_id = p.id  left join user as u on p.user_id=u.id";
+		$query->fields = "o.*,p.img,p.name,p.note,p.unit,p.quantity,p.freeze,p.sell,p.produce_area,u.username";
+
+		$whereStr = ' o.status=:status and o.is_del = 0  and o.expire_time > now()';
+
+		$bind = array('status'=>self::OFFER_OK);
+		if(isset($where['username'])&&$where['username']){
+			$whereStr .= ' and u.username=:username';
+			$bind['username'] = $where['username'];
+		}
+
+		if(isset($where['start_time'])&&$where['start_time'] >0){
+			$whereStr .= ' and p.create_time>=:start_time';
+			$bind['start_time'] = $where['start_time'];
+		}
+		if(isset($where['end_time'])&&$where['end_time']>0){
+			$whereStr .= ' and p.create_time<=:end_time';
+			$bind['end_time'] = $where['end_time'];
+		}
+		if(isset($where['market_id'])&&$where['market_id']){
+			$whereStr .= ' and p.market_id=:market_id';
+			$bind['market_id'] = $where['market_id'];
+		}
+		if(isset($where['cate_id'])&&$where['cate_id']>0){
+			$cates = $this->getChildCate($where['cate_id'],0);
+			foreach($cates[0] as $v){
+				$cate_ids[] = $v['id'];
+			}
+			$cate_ids = join(',',$cate_ids);
+			$whereStr .= ' and p.cate_id in ('.$cate_ids.')';
+		}
+		if(isset($where['mode'])&& $where['mode']>=0){
+			$whereStr .= ' and o.mode=:mode';
+			$bind['mode'] = $where['mode'];
+		}
+		if(isset($where['area'])&&$where['area']){
+			$len = strlen($where['area']);
+			$whereStr .= ' and left(p.produce_area,'.$len.') =:area';
+			$bind['area'] = $where['area'];
+		}
+
+		$query->where = $whereStr;
+		$query->bind = $bind;
+
+
+		$data = $query->find();
+		foreach ($data as $key => &$value) {
+			$value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],180,180);//获取缩略图
+			$value['divide_text'] = ($value['divide'] == 1) ? '是' : '否';
+			$value['quantity'] = $this->floatForm($value['quantity']);
+			$value['mode_txt'] = $this->getMode($value['mode']);
+			$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
+			$value['status_txt'] = $this->getStatus($value['status']);
+
+			$value['type_txt'] = $this->getType($value['type']);
+		}
+
+
+		return $data;
+	}
+
 	
 }

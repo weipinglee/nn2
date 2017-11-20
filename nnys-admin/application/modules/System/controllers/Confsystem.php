@@ -290,19 +290,10 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 	public function addIndexconfigAction()
 	{
 		$configObj = new \config\configsIndexModel();
-		//获取所有市场
-		$proObj = new \nainai\offer\product();
-		$topCate = $proObj->getTopCate();
-		$this->getView()->assign('topCate',$topCate);
 		if(IS_POST){
 			$config = array();
-			$config['user_id'] = safe::filterPost('user_id');
 			$config['type'] = safe::filterPost('type');
 			$config['sub_title'] = safe::filterPost('sub_title');
-			$config['start_time'] = safe::filterPost('begin');
-			$config['end_time'] = safe::filterPost('end');
-			$config['cate_id'] = safe::filterPost('cate_id');
-			$config['area'] = safe::filterPost('area');
 			$config['title'] = safe::filterPost('title');
 			$res = $configObj->add($config);
 
@@ -315,17 +306,9 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 
 	public function indexconfigListAction()
 	{
-		$proObj = new \nainai\offer\product();
-		$cate = $proObj->getTopCate();
-		$topCate = array();
-		foreach($cate as $val){
-			$topCate[$val['id']] = $val['name'];
-		}
+
 		$configObj = new \config\configsIndexModel();
 		$data = $configObj->getConfigList();
-		foreach($data['list'] as &$val){
-			$val['cate_name'] = isset($topCate[$val['cate_id']]) ? $topCate[$val['cate_id']] : '';
-		}
 		$this->getView()->assign('data',$data);
 	}
 
@@ -336,11 +319,6 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			$config = array();
 			$config['id'] = safe::filterPost('id','int');
 			$config['type'] = safe::filterPost('type');
-			$config['user_id'] = safe::filterPost('user_id');
-			$config['start_time'] = safe::filterPost('begin');
-			$config['end_time'] = safe::filterPost('end');
-			$config['cate_id'] = safe::filterPost('cate_id');
-			$config['area'] = safe::filterPost('area');
 			$config['sub_title'] = safe::filterPost('sub_title');
 			$config['title'] = safe::filterPost('title');
 			$res = $configObj->update($config);
@@ -353,13 +331,9 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			$id = $this->getRequest()->getParam('id');
 			$id = safe::filter($id,'int');
 			if($id){
-				//获取所有市场
-				$proObj = new \nainai\offer\product();
-				$topCate = $proObj->getTopCate();
-
 				$data = $configObj->get($id);
 				$this->getView()->assign('data',$data);
-				$this->getView()->assign('topCate',$topCate);
+
 			}
 		}
 	}
@@ -381,6 +355,66 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 
 	}
 
+	public function addofferlistAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = safe::filter($id,'int');
+		if(IS_POST){
+
+		}
+		else{
+			//获取所有市场
+			$proObj = new \nainai\offer\product();
+			$topCate = $proObj->getTopCate();
+			$this->getView()->assign('topCate',$topCate);
+			$this->getView()->assign('configId',$id);
+
+		}
+	}
+
+	/**
+	 * 获取下级子分类
+	 */
+	public function ajaxnextlevelCateAction(){
+		$configObj = new\OfferManageModel();
+		$pid = safe::filterGet('pid','int',0);
+		if($pid>0){
+			$res = $configObj->getNextCate($pid);
+			die(JSON::encode($res)) ;
+		}
+		echo JSON::encode(array());
+		exit;
+	}
+
+	public function ajaxGetSearchProductAction(){
+		$searchArray = array(
+			'username'=> safe::filterGet('username'),
+			'start_time' => safe::filterGet('start_time'),
+			'end_time' => safe::filterGet('end_time'),
+			'area'=> safe::filterGet('area'),
+			'mode'=> safe::filterGet('mode','int',-1),
+			'market_id' => safe::filterGet('market_id','int',0),
+			'cate_id' => safe::filterGet('cate_id','int',0)
+		);
+
+		$offerObj = new\OfferManageModel();
+		$result = $offerObj->getSearchProduct($searchArray);
+		die(JSON::encode($result));
+	}
+
+	public function ajaxAddSearchProductAction()
+	{
+		$jsonData = $_POST;
+		foreach($jsonData['ids'] as &$val){
+			$val = safe::filter($val,'int');
+		}
+		$configObj = new \config\configsIndexModel();
+		if(isset($jsonData['configId']) && $jsonData['configId']>0){
+			$res = $configObj->addConfigIds($jsonData['configId'],$jsonData['ids']);
+			die(JSON::encode($res));
+		}
+		die(JSON::encode(array('success'=>0)));
+
+	}
 
 
 

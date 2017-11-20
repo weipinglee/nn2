@@ -3,8 +3,7 @@
 
 {set:$sub_titleZX=$configData1[0]['sub_title']}
 {set:$titleZX=$configData1[0]['title']}
-{set:$jsonProduct1=\Library\JSON::encode($product1)}
-{set:$jsonProduct2=\Library\JSON::encode($product2)}
+
 <script type="text/javascript">
 /*最新咨询动态效果*/
 function timer(opj){
@@ -291,13 +290,13 @@ $(function() {
                 //填充有好货板块一的信息
                 function showIndexOffers1(){
                     var ajaxUrl = "{url:/AjaxData/getIndexProduct}";
-                   var jsonParam = {$jsonProduct1};
+                   var configId = {$product1['id']};
                     $.ajax({
                         type : 'get',
                         url : ajaxUrl,
                         async  : true,
                         dataType : 'json',
-                        data : jsonParam,
+                        data : {config_id:configId},
                         success : function(data){
                             if(data){
                                 var proList = template.render('sellerProductTemplate',{data:data});
@@ -311,13 +310,13 @@ $(function() {
                 //填充有好货板块二的信息
                 function showIndexOffers2(){
                     var ajaxUrl = "{url:/AjaxData/getIndexProduct}";
-                    var jsonParam = {$jsonProduct2};
+                    var configId = {$product2['id']};
                     $.ajax({
                         type : 'get',
                         url : ajaxUrl,
                         async  : true,
                         dataType : 'json',
-                        data : jsonParam,
+                        data : {config_id:configId},
                         success : function(data){
                             if(data){
                                 var proList = template.render('sellerProductTemplate',{data:data});

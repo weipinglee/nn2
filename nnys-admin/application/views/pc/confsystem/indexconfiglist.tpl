@@ -16,12 +16,6 @@
 			<tr class="text-c">
 				<th width="80">编号</th>
 				<th width="100">显示类型</th>
-				<th width="100">用户id</th>
-				<th width="100">用户名</th>
-				<th width="100">开始时间</th>
-				<th width="100">结束时间</th>
-				<th width="100">市场分类</th>
-				<th width="100">地区</th>
 				<th width="100">标题</th>
 				<th width="100">副标题</th>
 				<th width="100">操作</th>
@@ -32,17 +26,12 @@
 			<tr class="text-c">
 				<td>{$item['id']}</td>
 				<td>{$item['type']}</td>
-				<td>{$item['user_id']}</td>
-				<td>{$item['username']}</td>
-				<td>{$item['start_time']}</td>
-				<td>{$item['end_time']}</td>
-				<td>{$item['cate_name']}</td>
-				<td>{areatext:data=$item['area'] id=$key}</td>
 				<td>{$item['title']}</td>
 				<td>{$item['sub_title']}</td>
 				<td class="td-manage">
 				 <a title="编辑" href="{url:system/Confsystem/editindexconfig?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
-				 <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:system/Confsystem/delindexconfig?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
+				<a title="添加商品" href="{url:system/Confsystem/addofferlist?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:system/Confsystem/delindexconfig?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
 			</tr>
 		{/foreach}
 		</tbody>

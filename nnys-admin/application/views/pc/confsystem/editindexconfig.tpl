@@ -27,43 +27,6 @@
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red">*</span>用户id</label>
-                    <div class="formControls col-10">
-                        <input type="text" id="website-title"  name='user_id' value=" {$data['user_id']}" class="input-text" />
-                    </div>
-                </div>
-
-                <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red">*</span>开始时间</label>
-                    <div class="formControls col-10">
-                        <input type="text" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" id="datemin" class="input-text Wdate" name="begin" value="{$data['start_time']}" style="width:120px;">
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red">*</span>结束时间</label>
-                    <div class="formControls col-10">
-                        <input type="text" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" id="datemin" class="input-text Wdate" name="end" value="{$data['end_time']}" style="width:120px;">
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red">*</span>地区</label>
-                    <div class="formControls col-10">
-                       {area:data=$data['area']}
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red"></span>市场选择</label>
-                    <div class="formControls col-10">
-                        <select name="cate_id">
-                            <option value="0">请选择</option>
-                            {foreach:items=$topCate}
-                                <option value="{$item['id']}" {if:$item['id']==$data['cate_id']}selected="selected"{/if}>{$item['name']}</option>
-                            {/foreach}
-
-                        </select>
-                    </div>
-                </div>
-                <div class="row cl">
                     <label class="form-label col-2"><span class="c-red">*</span>标题</label>
                     <div class="formControls col-10">
                         <input type="text" id="website-title" name='title' value=" {$data['title']}"  class="input-text">

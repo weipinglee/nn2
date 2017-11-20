@@ -25,42 +25,6 @@
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red">*</span>用户id</label>
-                    <div class="formControls col-10">
-                        <input type="text" id="website-title"  name='user_id'  datatype="/^[\d]{1,}$/" class="input-text">
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red">*</span>开始时间</label>
-                    <div class="formControls col-10">
-                        <input type="text" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" id="datemin" class="input-text Wdate" name="begin" value="" style="width:120px;">
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red">*</span>结束时间</label>
-                    <div class="formControls col-10">
-                        <input type="text" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" id="datemin" class="input-text Wdate" name="end" value="" style="width:120px;">
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red">*</span>地区</label>
-                    <div class="formControls col-10">
-                        {area:}
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-2"><span class="c-red"></span>市场选择</label>
-                    <div class="formControls col-10">
-                        <select name="cate_id">
-                            <option value="0">请选择</option>
-                            {foreach:items=$topCate}
-                                <option value="{$item['id']}" >{$item['name']}</option>
-                            {/foreach}
-
-                        </select>
-                    </div>
-                </div>
-                <div class="row cl">
                     <label class="form-label col-2"><span class="c-red">*</span>标题</label>
                     <div class="formControls col-10">
                         <input type="text" id="website-title" datatype="s2-30" name='title'  class="input-text" />
