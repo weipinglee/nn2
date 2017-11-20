@@ -199,7 +199,7 @@ $(function() {
                   <div class="market_content">
                     <h3 class="market_content_h3">
                         <em>有好货</em>
-                        <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>
+                       <!--  <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/> -->
                         <p>{$sub_titleZX}</p>
                         <span class="tb-fn"><a href="{url:/index/index@info}">更多>></a></span>
                     </h3>
@@ -214,10 +214,12 @@ $(function() {
                       <div class="i_market_left_two">
                         <div class="market_content" >
                           <h3 class="market_content_h3">
+
                             <em>{$product1['title']}</em>
                            <!-- <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>-->
                             <p>{$product1['sub_title']}</p>
                             <span class="tb-fn" onclick="showIndexOffers1()">换一换</span>
+
                           </h3>
                          <!--  限制6个商品 -->
                             <ul class="market_ul" id="sellerProductBox1">
