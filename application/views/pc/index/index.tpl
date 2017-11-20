@@ -231,7 +231,6 @@ $(function() {
                         <div class="market_content">
                           <h3 class="market_content_h3">
                             <em>{$product2['title']}</em>
-                            <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}">
                             <p>{$product2['sub_title']}</p>
                             <span class="tb-fn" ><a href="{url:/offers/indexofferList?configid=$product2['id']}" target="_blank">更多>></a></span>
                           </h3>
