@@ -2,6 +2,7 @@
 <input type="hidden" name="js_sign_banner" value="1">
 
 {set:$sub_titleZX=$configData1[0]['sub_title']}
+{set:$titleZX=$configData1[0]['title']}
 {set:$jsonProduct1=\Library\JSON::encode($product1)}
 {set:$jsonProduct2=\Library\JSON::encode($product2)}
 <script type="text/javascript">
@@ -198,7 +199,7 @@ $(function() {
                 <div class="i_market_two">
                   <div class="market_content">
                     <h3 class="market_content_h3">
-                        <em>有好货</em>
+                        <em>{$titleZX}</em>
                        <!--  <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/> -->
                         <p>{$sub_titleZX}</p>
                         <span class="tb-fn"><a href="{url:/index/index@info}">更多>></a></span>
