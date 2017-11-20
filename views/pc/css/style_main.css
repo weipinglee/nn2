@@ -3008,7 +3008,13 @@ text-indent: 1em;
     margin-bottom: 20px;
 }
 .market_content_h3 em{
-	display: none;
+	/* display: none; */
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    padding-right: 10px;
+    font-size: 20px;
+    color: #2caef8;
 }
 .market_content_h3 img.title_img{
 	float: left;

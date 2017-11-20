@@ -200,7 +200,7 @@ $(function() {
                   <div class="market_content">
                     <h3 class="market_content_h3">
                         <em>有好货</em>
-                        <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>
+                       <!--  <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/> -->
                         <p>{$sub_titleZX}</p>
                         <span class="tb-fn">更多>></span>
                     </h3>
@@ -216,7 +216,7 @@ $(function() {
                         <div class="market_content" >
                           <h3 class="market_content_h3">
                             <em>有好货</em>
-                            <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>
+                           <!--  <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/> -->
                             <p>{$sub_title1}</p>
                             <span class="tb-fn" onclick="showSellerOffers1({$user_id1})">换一换</span>
                           </h3>
@@ -230,7 +230,7 @@ $(function() {
                         <div class="market_content">
                           <h3 class="market_content_h3">
                             <em>有好货</em>
-                            <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}">
+                            <!-- <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"> -->
                             <p>{$sub_title2}</p>
                             <span class="tb-fn" onclick="showSellerOffers2({$user_id2})">换一换</span>
                           </h3>
