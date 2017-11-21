@@ -416,6 +416,28 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 
 	}
 
+	//显示配置的商品列表
+	public function configproListAction()
+	{
+		$config_id = $this->getRequest()->getParam('id');
+		$page = safe::filterGet('page','int',1);
+		$this->getView()->assign('config_id',$config_id);
+		$configObj = new \config\configsIndexModel();
+		$data = $configObj->getConfigProducts($config_id,$page);
+		$this->getView()->assign('data',$data);
+
+
+	}
+
+	public function configproDelAction()
+	{
+		$proId = $this->getRequest()->getParam('proid');
+		$configId = $this->getRequest()->getParam('config_id');
+		$configObj = new \config\configsIndexModel();
+		$res = $configObj->delConfigProduct($configId,$proId);
+		die(JSON::encode($res));
+	}
+
 
 
 

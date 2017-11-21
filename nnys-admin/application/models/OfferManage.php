@@ -351,7 +351,8 @@ class OfferManageModel extends \nainai\offer\product{
 		return $cates;
 	}
 
-	public function getSearchProduct($where)
+
+	public function getSearchProduct($where,$page=0)
 	{
 		$query = new \Library\Query('product_offer as o');
 		$query->join = "left join products as p on o.product_id = p.id  left join user as u on p.user_id=u.id";
@@ -359,6 +360,9 @@ class OfferManageModel extends \nainai\offer\product{
 
 		$whereStr = ' o.status=:status and o.is_del = 0  and o.expire_time > now()';
 
+		if(isset($where['str']) && is_string($where['str'])){
+			$whereStr .= ' and '.$where['str'];
+		}
 		$bind = array('status'=>self::OFFER_OK);
 		if(isset($where['username'])&&$where['username']){
 			$whereStr .= ' and u.username=:username';
@@ -398,21 +402,39 @@ class OfferManageModel extends \nainai\offer\product{
 		$query->where = $whereStr;
 		$query->bind = $bind;
 
+		if($page){
+			$query->page = $page;
+			$query->pagesize = 20;
+			$data['list'] = $query->find();
+			$data['bar'] = $query->getPageBar();
+			foreach ($data['list'] as $key => &$value) {
+				$value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],180,180);//获取缩略图
+				$value['divide_text'] = ($value['divide'] == 1) ? '是' : '否';
+				$value['quantity'] = $this->floatForm($value['quantity']);
+				$value['mode_txt'] = $this->getMode($value['mode']);
+				$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
+				$value['status_txt'] = $this->getStatus($value['status']);
 
-		$data = $query->find();
-		foreach ($data as $key => &$value) {
-			$value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],180,180);//获取缩略图
-			$value['divide_text'] = ($value['divide'] == 1) ? '是' : '否';
-			$value['quantity'] = $this->floatForm($value['quantity']);
-			$value['mode_txt'] = $this->getMode($value['mode']);
-			$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
-			$value['status_txt'] = $this->getStatus($value['status']);
+				$value['type_txt'] = $this->getType($value['type']);
+			}
+		}
+		else{
+			$data= $query->find();
+			foreach ($data as $key => &$value) {
+				$value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],180,180);//获取缩略图
+				$value['divide_text'] = ($value['divide'] == 1) ? '是' : '否';
+				$value['quantity'] = $this->floatForm($value['quantity']);
+				$value['mode_txt'] = $this->getMode($value['mode']);
+				$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
+				$value['status_txt'] = $this->getStatus($value['status']);
 
-			$value['type_txt'] = $this->getType($value['type']);
+				$value['type_txt'] = $this->getType($value['type']);
+			}
 		}
 
-
 		return $data;
+
+
 	}
 
 	

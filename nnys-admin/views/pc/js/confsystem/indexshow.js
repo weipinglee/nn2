@@ -60,13 +60,13 @@ $(function(){
 
     })
 
-    //¿ØÖÆÈ«Ñ¡
+    //æ§åˆ¶å…¨é€‰
     $('[name=checkall]').click(function(){
         var checked = $(this).prop('checked');
         $('[name^=proid]').prop('checked',checked);
     })
 
-    //Ñ¡ÖĞ²úÆ·ºóµã»÷Ìí¼ÓÉÏ´«
+    //é€‰ä¸­äº§å“åç‚¹å‡»æ·»åŠ ä¸Šä¼ 
     $('#addPro').click(function(){
         var jsonData = {configId:configId,ids:{}};
         var tempId = 0;
@@ -82,7 +82,11 @@ $(function(){
             dataType : 'json',
             data:jsonData,
             success : function(data){
-                alert(JSON.stringify(data));
+                if(data.success){
+                    layer.msg('æ“ä½œæˆåŠŸï¼');
+                }
+                else
+                    layer.msg(data.info);
             }
         })
 

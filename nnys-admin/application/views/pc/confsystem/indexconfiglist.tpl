@@ -31,7 +31,9 @@
 				<td class="td-manage">
 				 <a title="编辑" href="{url:system/Confsystem/editindexconfig?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
 				<a title="添加商品" href="{url:system/Confsystem/addofferlist?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
-				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:system/Confsystem/delindexconfig?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
+					<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:system/Confsystem/delindexconfig?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
+				<a title="商品列表" href="{url:system/Confsystem/configproList?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+				</td>
 			</tr>
 		{/foreach}
 		</tbody>

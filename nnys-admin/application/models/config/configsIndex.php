@@ -8,6 +8,8 @@
 
 namespace config;
 use admintool\adminQuery;
+use Library\searchQuery;
+
 class configsIndexModel extends \baseModel{
 
     //配置表名
@@ -64,8 +66,45 @@ class configsIndexModel extends \baseModel{
             return \Library\tool::getSuccInfo(1);
         }
 
+    }
+
+    //获取选中的商品列表
+    public function getConfigProducts($configId,$page=1)
+    {
+        $configObj = new \Library\M($this->table);
+        $ids = $configObj->where(array('id'=>$configId))->getField('proids');
+        if($ids){
+
+            $where = array('str'=>'o.id in ('.$ids.')');
+        }
+        else{
+            $where = array('str'=>'o.id=0');
+        }
+        $offerObj = new \OfferManageModel();
+        return  $offerObj->getSearchProduct($where,$page);
 
 
+    }
+
+    public function delConfigProduct($configId,$proId)
+    {
+        $configObj = new \Library\M($this->table);
+        $oldIds = $configObj->where(array('id'=>$configId))->getField('proids');
+        if($oldIds){
+            $oldIdsArr = explode(',',$oldIds);
+            foreach($oldIdsArr as $key=>$val){
+                if($val==$proId){
+                    unset($oldIdsArr[$key]);
+                }
+            }
+            $newIds = join(',',$oldIdsArr);
+            $res = $configObj->where(array('id'=>$configId))->data(array('proids'=>$newIds))->update();
+            if($res)
+                return \Library\tool::getSuccInfo(1);
+            else
+                return \Library\tool::getSuccInfo(0,'删除失败');
+        }
+        return \Library\tool::getSuccInfo(0,'删除失败');
 
     }
 
