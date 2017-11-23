@@ -98,7 +98,25 @@
                 <div style="clear:both;"></div>
                 
             </div>
-
+            <!-- 拍卖价格情况 -->
+            <div class="cont_1">
+                 <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>报价情况</span></h5>
+                 <div class="auction">
+                    <ul class="clear">
+                        <li><img src="" /><span>王某某</span></li>
+                        <li><span>￥300</span></li>
+                        <li><span>2017/12/12 8:00:00</span></li>
+                        <li><span class="auction_lead">领先</span></li>
+                    </ul>
+                    <ul class="clear">
+                        <li><img src="" /><span>王某某</span></li>
+                        <li><span>￥200</span></li>
+                        <li><span>2017/12/12 8:00:00</span></li>
+                        <li><span class="auction_out">出局</span></li>
+                    </ul>
+                 </div>
+            </div>
+            <!-- 拍卖价格情况 end-->
             <div class="cont_1">
                     <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>产品参数</span></h5>
                     <table>

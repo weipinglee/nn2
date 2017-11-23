@@ -24,7 +24,7 @@
         </td> -->
     </tr>
     <tr>
-         <td nowrap="nowrap"><span></span>竞拍时间</td>
+         <td nowrap="nowrap"><span>竞拍时间：</span></td>
            <td colspan="2">
              <span><input class="Wdate text" datatype="*" value="{$offer['expire_time']}" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"
                            name="expire_time" value="">
@@ -95,7 +95,7 @@
 
     </tr>
 
-    <tr>
+   <!--  <tr>
         <td>有效期：</td>
         <td colspan="2">
              <span><input class="Wdate text" datatype="*" value="{$offer['expire_time']}" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"
@@ -105,7 +105,7 @@
             <span></span>
         </td>
 
-    </tr>
+    </tr> -->
 
 
     <tr>
