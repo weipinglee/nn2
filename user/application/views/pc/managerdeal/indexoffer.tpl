@@ -47,6 +47,26 @@
 							<p class="of_title2 public">即将上线，敬请期待</p>
 							<!-- <p class="of_title1">委托报盘有什么吗</p> -->
 						</div>
+						<div class="offer public" onclick="if({$certStatus['status']}==4){alert('请完善您的资质认证');window.open('{url:/ucenter/dealcert}');return false;}window.open('{url:/ManagerDeal/auctionOffer}')">
+							<div class="offer_right">
+								<img src="{views:/images/center/publish5.png}">
+							</div>
+							<p class="of_title1">
+								<span class="title1_a public">竞价拍卖</span>
+							</p>
+							<p class="of_title2 public">即将上线，敬请期待</p>
+							<!-- <p class="of_title1">委托报盘有什么吗</p> -->
+						</div>
+						<div class="offer public" onclick="if({$certStatus['status']}==4){alert('请完善您的资质认证');window.open('{url:/ucenter/dealcert}');return false;}window.open('{url:/ManagerDeal/priceOffer}')">
+							<div class="offer_right">
+								<img src="{views:/images/center/publish6.png}">
+							</div>
+							<p class="of_title1">
+								<span class="title1_a public">一口价</span>
+							</p>
+							<p class="of_title2 public">即将上线，敬请期待</p>
+							<!-- <p class="of_title1">委托报盘有什么吗</p> -->
+						</div>
 					</div>
 				</div>
 			</div>
