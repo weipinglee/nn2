@@ -1,7 +1,9 @@
 
 /user/_thumb/*
 /user/application/runtime/*
-/user/upload/*
+/user/upload/
+/user/public/*
+
 /nnys-admin/_thumb/*
 /nnys-admin/application/runtime/*
 /nnys-admin/upload/*

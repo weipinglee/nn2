@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>电子盘</title>
+	<link rel="stylesheet" type="text/css" href="css/dizipan.css"/>
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/dizipan.js"></script>
+	<SCRIPT LANGUAGE="JavaScript"> 
+
+</SCRIPT>
+</head>
+<body>
+	<div class="main">
+		<div class="top clear">
+			<h1>电子大盘</h1>
+			<!-- <div class="index_logo">
+	            <a href="http://ceshi.nainaiwang.com/index/index"><img src="images/logo.png"></a>
+	        </div>
+	        <div class="search"><input class="search_input" type="text" name="" placeholder="请输入..."><i class="search_i">搜索</i></div> -->
+		</div>
+		<div class="content">
+			<div class="content-div">
+			<table class="table_content table" cellspacing="0">
+				<tr>
+				    <th><span>上架时间</span></th>
+					<th><span>货号</span></th>
+					<th><span>商品名称</span></th>
+					<th><span>含铝量</span></th>
+					<th><span>剩余量</span></th>
+					<th><span>起订量</span></th>
+					<th><span>价格</span></th>
+					<th><span>涨跌额</span></th>
+					<th><span>涨跌幅</span></th>
+					<th><span>交收方式</span></th>
+					<th><span>交收仓库</span></th>
+				</tr>
+				<tbody  id="test" class="scrollTbody">
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>+0.02</span></td>
+					<td><span>+0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>-0.02</span></td>
+					<td><span>-0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>+0.02</span></td>
+					<td><span>+0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>-0.02</span></td>
+					<td><span>-0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>+0.02</span></td>
+					<td><span>+0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>-0.02</span></td>
+					<td><span>-0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>+0.02</span></td>
+					<td><span>+0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>-0.02</span></td>
+					<td><span>-0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>+0.02</span></td>
+					<td><span>+0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>-0.02</span></td>
+					<td><span>-0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>+0.02</span></td>
+					<td><span>+0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>-0.02</span></td>
+					<td><span>-0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>+0.02</span></td>
+					<td><span>+0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				<tr>
+					<td><span>2017/12/13/08:00:00</span></td>
+					<td><span>121434234234234</span></td>
+					<td><span>招商轮船</span></td>
+					<td><span>30%</span></td>
+					<td><span>30%</span></td>
+					<td><span>40%</span></td>
+					<td><span>4.13</span></td>
+					<td><span>-0.02</span></td>
+					<td><span>-0.04</span></td>
+					<td><span>支付宝</span></td>
+					<td><span>东南舁</span></td>
+				</tr>
+				
+				
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
