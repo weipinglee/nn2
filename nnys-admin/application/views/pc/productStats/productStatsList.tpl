@@ -18,7 +18,15 @@
                 <!-- <th width="25"><input type="checkbox" name="checkall" value=""></th> -->
                 <th width="150">商品名称</th>
                 <th width="100">添加时间</th>
-                <th width="80">是否开启</th>
+                <th width="80">货号</th>
+				<th width="150">含铝量</th>
+                <th width="100">剩余量</th>
+                <th width="80">起订量</th>
+				<th width="150">价格</th>
+                <th width="100">涨跌额</th>
+                <th width="80">涨跌幅</th>
+				<th width="100">交收方式</th>
+                <th width="80">交收仓库</th>
                 <th width="200">操作</th>
             </tr>
         </thead>
@@ -27,25 +35,29 @@
             <tr class="text-c">
                 <!-- <td><input type="checkbox" value="" name="check"></td> -->
 
-                <td>{$item['name']}</td>
-                <td>{$item['create_time']}</td>
+                <td>{$item['pro_name']}</td>
+                <td>{$item['add_time']}</td>
                 <td>
-                    {if:$item['status'] == 1}
-
-                        <span class="label label-success radius">已启用</span>
-                    {else:}
-                        <span class="label label-error radius">停用</span>
-                    {/if}
+                    {$item['pro_no']}
+                </td>
+				<td>{$item['al']}</td>
+                <td>{$item['last']}</td>
+                <td>
+                    {$item['mininum']}
+                </td>
+				<td>{$item['price']}</td>
+                <td>{$item['increase']}</td>
+                <td>
+                    {$item['inc_perc']}
+                </td>
+				<td>{$item['acc_type']}</td>
+                <td>
+                    {$item['acc_store']}
                 </td>
                 <td class="td-manage">
-                    {if:$item['status'] == 1}
-                        <a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=0 ajax_url="{url:information/productStats/setStatus?id=$item['id']}"><i class="icon-pause fa-pause"></i></a>
-                    {elseif:$item['status'] == 0}
-                        <a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:information/productStats/setStatus?id=$item['id']}"><i class="icon-play fa-play"></i></a>
-                    {/if}
+                  
                     <a title="编辑" href="{url:information/productStats/addProductStats}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
                     <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:information/productStats/delProductStats}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
-                    <a title="添加统计数据" href="{url:information/productStats/addStats}?pro_id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>    
                 </td>
             </tr>
         {/foreach}

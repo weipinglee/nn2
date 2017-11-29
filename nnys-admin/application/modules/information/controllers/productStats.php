@@ -19,8 +19,7 @@ class productStatsController extends Yaf\Controller_Abstract{
      */
     public function productStatsListAction(){
         $page=safe::filterGet('page','int', 1);
-        $obj = new Query('products_stats');
-        $obj->where = 'is_del = 0';
+        $obj = new Query('offer_data');
         $obj->page = $page;
         $dataList = $obj->find();
         $pageBar = $obj->getPageBar();
@@ -33,14 +32,21 @@ class productStatsController extends Yaf\Controller_Abstract{
      */
     public function addproductstatsAction(){
         if(IS_POST&&IS_AJAX) {
-            $obj = new M('products_stats');
+            $obj = new M('offer_data');
             $data = array(
                         'id' => safe::filterPost('id', 'int', 0),
-                        'name' => safe::filterPost('name'),
-                        'status' => safe::filterPost('status', 'int', 1),
-                        'is_del' => safe::filterPost('is_del', 'int', 0)
+                        'pro_name' => safe::filterPost('pro_name'),
+                        'pro_no' => safe::filterPost('pro_no'),
+                         'al' => safe::filterPost('al'),
+                        'last' => safe::filterPost('last'),
+						 'mininum' => safe::filterPost('mininum'),
+                        'price' => safe::filterPost('price'),
+						'increase' => safe::filterPost('increase'),
+						 'inc_perc' => safe::filterPost('inc_perc'),
+                        'acc_type' => safe::filterPost('acc_type'),
+						'acc_store' => safe::filterPost('acc_store'),
                     );
-            $temp = $obj->where('name="'.$data['name'].'" and id <>'.$data['id'])->getObj();
+            $temp = $obj->where('pro_name="'.$data['pro_name'].'" and id <>'.$data['id'])->getObj();
             if($temp)
             {
                 die(json::encode(tool::getSuccInfo(0,'商品名称不能重复')));
@@ -51,7 +57,7 @@ class productStatsController extends Yaf\Controller_Abstract{
             }
             else
             {
-                $data['create_time'] = date('Y-m-d H:i:s');
+                $data['add_time'] = date('Y-m-d H:i:s');
                 $res = $obj->data($data)->add();
             }
             
@@ -64,7 +70,7 @@ class productStatsController extends Yaf\Controller_Abstract{
         $id = safe::filterGet('id');
         if($id)
         {
-            $obj = new M('products_stats');
+            $obj = new M('offer_data');
             $detail = $obj->where('id = '.$id)->getObj();
             $this->getView()->assign('detail', $detail);
         }
@@ -91,8 +97,8 @@ class productStatsController extends Yaf\Controller_Abstract{
     public function delProductStatsAction(){
         if(IS_AJAX){
             $id = safe::filterGet('id','int');
-            $obj = new M('products_stats');
-            $res = $obj->data(array('is_del' => 1))->where('id = '.$id)->update();
+            $obj = new M('offer_data');
+            $res = $obj->where('id = '.$id)->delete();
             if($res)
             {
                 die(json::encode(tool::getSuccInfo()));

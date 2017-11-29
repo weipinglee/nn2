@@ -36,29 +36,90 @@
       <label class="form-label col-3"><span class="c-red">*</span>商品名：</label>
 
       <div class="formControls col-5">
-        <input type="text" class="input-text" value="{$detail['name']}" datatype="*" name="name" errormsg="请填写商品名"  >
+        <input type="text" class="input-text" value="{$detail['pro_name']}" datatype="*" name="pro_name" errormsg="请填写商品名"  >
       </div>
       <div class="col-4"> </div>
     </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>状态：</label>
+	<div class="row cl">
+     <label class="form-label col-3"><span class="c-red">*</span>货号：</label>
 
-          <div class="formControls col-5">
-              <input type="radio" name="status" value="1" {if:$detail['status'] == 1}checked{/if}>开启
-              <input type="radio" name="status" value="0" {if:$detail['status'] == 0}checked{/if}>关闭
-          </div>
-          <div class="col-4"> </div>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$detail['pro_no']}" datatype="*" name="pro_no" errormsg="请填写商品名"  >
       </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>是否删除：</label>
+      <div class="col-4"> </div>
+    </div>
+	
+	<div class="row cl">
+     <label class="form-label col-3"><span class="c-red">*</span>含铝量：</label>
 
-          <div class="formControls col-5">
-              <input type="radio" name="is_del" value="1" {if:$detail['is_del'] == 1}checked{/if}>是
-              <input type="radio" name="is_del" value="0" {if:$detail['is_del'] == 0}checked{/if}>否
-          </div>
-          <div class="col-4"> </div>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$detail['al']}" datatype="*" name="al" errormsg="请填写商品名"  >
       </div>
+      <div class="col-4"> </div>
+    </div>
+	
+	<div class="row cl">
+     <label class="form-label col-3"><span class="c-red">*</span>剩余量：</label>
 
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$detail['last']}" datatype="*" name="last" errormsg="请填写商品名"  >
+      </div>
+      <div class="col-4"> </div>
+    </div>
+	
+	<div class="row cl">
+     <label class="form-label col-3"><span class="c-red">*</span>起订量：</label>
+
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$detail['mininum']}" datatype="*" name="mininum" errormsg="请填写商品名"  >
+      </div>
+      <div class="col-4"> </div>
+    </div>
+	
+	<div class="row cl">
+     <label class="form-label col-3"><span class="c-red">*</span>价格：</label>
+
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$detail['price']}" datatype="*" name="price" errormsg="请填写商品名"  >
+      </div>
+      <div class="col-4"> </div>
+    </div>
+	
+	<div class="row cl">
+     <label class="form-label col-3"><span class="c-red">*</span>涨跌额：</label>
+
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$detail['increase']}" datatype="*" name="increase" errormsg="请填写商品名"  >
+      </div>
+      <div class="col-4"> </div>
+    </div>
+	
+	<div class="row cl">
+     <label class="form-label col-3"><span class="c-red">*</span>涨跌幅</label>
+
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$detail['inc_perc']}" datatype="*" name="inc_perc" errormsg="请填写商品名"  >
+      </div>
+      <div class="col-4"> </div>
+    </div>
+	
+	<div class="row cl">
+     <label class="form-label col-3"><span class="c-red">*</span>交收方式：</label>
+
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$detail['acc_type']}" datatype="*" name="acc_type" errormsg="请填写商品名"  >
+      </div>
+      <div class="col-4"> </div>
+    </div
+	
+	<div class="row cl">
+     <label class="form-label col-3"><span class="c-red">*</span>交收仓库：</label>
+
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$detail['acc_store']}" datatype="*" name="acc_store" errormsg="请填写商品名"  >
+      </div>
+      <div class="col-4"> </div>
+    </div>
     <div class="row cl">
       <div class="col-9 col-offset-3">
         <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
