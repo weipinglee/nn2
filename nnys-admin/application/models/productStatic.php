@@ -45,6 +45,9 @@ class productStaticModel {
 		$offerObj = new OfferManageModel();
 		$detail = $offerObj->getofferDetail($offer_id);
 		$statData=$this->getStatitem($detail['cate_id']);
+		$statDataObj = new M($this->dataTable);
+		if($statDataObj->where(array('offer_id'=>$offer_id))->getField('id'))//已生成统计数据的报盘返回
+			return false;
 		if(isset($detail['cate_id']) && !empty($statData) ){
 			$data = array(
 				'cate_id'=>$detail['cate_id'],
@@ -61,7 +64,7 @@ class productStaticModel {
 			$data['attr_values'] = serialize($data['attr']);
 			unset($data['attr']);
 
-			$statDataObj = new M($this->dataTable);
+
 			$where = array(
 				'cate_id' => $data['cate_id'],
 				'attr_values' => $data['attr_values']

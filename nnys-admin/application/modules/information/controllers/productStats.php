@@ -132,5 +132,21 @@ class productStatsController extends Yaf\Controller_Abstract{
         die(JSON::encode($data));
     }
 
+    /**
+     * 遍历已上线的报盘，生成统计数据
+     *
+     */
+    public function createOldDataAction()
+    {
+        $offerObj = new M('product_offer');
+        $where = 'is_del=0 and status=1 and expire_time>now()';
+        $data = $offerObj->where($where)->order('id asc')->fields('id')->select();
+        $obj = new productStaticModel();
+        foreach($data as $val){
+            $obj->createStaticData($val['id']);
+        }
+        echo 'success';exit;
+    }
+
 
 }
