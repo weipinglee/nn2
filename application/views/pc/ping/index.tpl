@@ -35,7 +35,7 @@ var requestUrl = '{url:/ping/getOfferData}';
 					<th><span>价格</span></th>
 					<th><span>涨跌额</span></th>
 					<th><span>涨跌幅</span></th>
-					<th><span>交收方式</span></th>
+					<th><span>交收地点</span></th>
 					<th><span>交收仓库</span></th>
 				</tr>
 				<tbody  id="test" class="scrollTbody">
@@ -48,17 +48,17 @@ var requestUrl = '{url:/ping/getOfferData}';
 	</div>
 	<script type="text/html" id="ping_box" >
 	 <% for(var i=0;i<data.length;i++){ %>
-		<tr class="<% if(data[i].increase >0){ %>increase<%}else {%>reduce<% } %>">
-					<td><span><%=data[i].add_time%></span></td>
+		<tr class="<% if(data[i].inc_num >=0){ %>increase<%}else {%>reduce<% } %>">
+					<td><span><%=data[i].apply_time%></span></td>
 					<td><span><%=data[i].pro_no%></span></td>
 					<td><span ><%=data[i].pro_name%></span></td>
-					<td><span ><%=data[i].al%></span></td>
-					<td><span ><%=data[i].last%></span></td>
+					<td><span ><%=data[i]['attr_values']['Al2O3']%></span></td>
+					<td><span ><%=data[i].last_num%></span></td>
 					<td><span ><%=data[i].mininum%></span></td>
 					<td><span ><%=data[i].price%></span></td>
-					<td><span ><%=data[i].increase%></span></td>
+					<td><span ><%=data[i].inc_num%></span></td>
 					<td><span ><%=data[i].inc_perc%></span></td>
-					<td><span ><%=data[i].acc_type%></span></td>
+					<td><span ><%=data[i].accept_area%></span></td>
 					<td><span><%=data[i].acc_store%></span></td>
 		</tr>
 	<% } %>			

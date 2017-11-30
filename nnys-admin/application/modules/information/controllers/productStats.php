@@ -132,11 +132,5 @@ class productStatsController extends Yaf\Controller_Abstract{
         die(JSON::encode($data));
     }
 
-    public function testAction()
-    {
-        $static = new productStaticModel();
-        $offer_id = 15184;
-        $static->createStaticData($offer_id);
 
-    }
 }
