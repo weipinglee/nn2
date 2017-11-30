@@ -13,9 +13,17 @@ class PublicController extends \Yaf\Controller_Abstract{
           $isLogin = $right->checkLogin();
           $this->getView()->setLayout('layout');
           //获取所有分类
-          $productModel=new product();
-          $res=$productModel->getAllCat();
-          $res = array_slice($res,0,6);
+          $cacheObj = new \Library\cache\Cache(array('type'=>'m','expire'=>3600));
+          if($res=$cacheObj->get('allCateData')){
+               $res = unserialize($res);
+          }
+          else{
+               $productModel=new product();
+               $res=$productModel->getAllCat();
+               $res = array_slice($res,0,6);
+               $cacheObj->set('allCateData',serialize($res));
+          }
+
           $this->getView()->assign('catList',$res);
        //   $frdLink = new \nainai\system\friendlyLink();
           //获取帮助

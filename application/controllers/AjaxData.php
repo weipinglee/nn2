@@ -85,6 +85,22 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
           exit();
      }
 
+     /**
+      * 根据传回的条件参数，查询产品
+      */
+     public function getIndexProductAction()
+     {
+          $config_id = safe::filterGet('config_id','int',0);
+          $data = $this->offer->getOfferlistByConfig($config_id);
+          die(\Library\json::encode($data));
+
+     }
+
+     public function getConfigProductAction()
+     {
+
+     }
+
 
 
 }

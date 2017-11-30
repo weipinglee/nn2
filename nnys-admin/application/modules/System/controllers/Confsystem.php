@@ -284,6 +284,162 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 	}
 
 
+	/***********************首页板块的配置**************************/
+
+
+	public function addIndexconfigAction()
+	{
+		$configObj = new \config\configsIndexModel();
+		if(IS_POST){
+			$config = array();
+			$config['type'] = safe::filterPost('type');
+			$config['sub_title'] = safe::filterPost('sub_title');
+			$config['title'] = safe::filterPost('title');
+			$res = $configObj->add($config);
+
+			die(json::encode($res));
+
+
+		}
+
+	}
+
+	public function indexconfigListAction()
+	{
+
+		$configObj = new \config\configsIndexModel();
+		$data = $configObj->getConfigList();
+		$this->getView()->assign('data',$data);
+	}
+
+	public function editIndexconfigAction()
+	{
+		$configObj = new \config\configsIndexModel();
+		if(IS_POST){
+			$config = array();
+			$config['id'] = safe::filterPost('id','int');
+			$config['type'] = safe::filterPost('type');
+			$config['sub_title'] = safe::filterPost('sub_title');
+			$config['title'] = safe::filterPost('title');
+			$res = $configObj->update($config);
+
+			die(json::encode($res));
+
+
+		}
+		else{
+			$id = $this->getRequest()->getParam('id');
+			$id = safe::filter($id,'int');
+			if($id){
+				$data = $configObj->get($id);
+				$this->getView()->assign('data',$data);
+
+			}
+		}
+	}
+
+	/**
+	 * 删除配置项
+	 */
+	public function delIndexconfigAction(){
+		if(IS_POST){
+			$configObj = new \config\configsIndexModel();
+			$id = $this->getRequest()->getParam('id');
+			$id = safe::filter($id,'int');
+
+			if($id){
+				$res = $configObj->delete($id);
+				die(json::encode($res)) ;
+			}
+		}
+
+	}
+
+	public function addofferlistAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = safe::filter($id,'int');
+		if(IS_POST){
+
+		}
+		else{
+			//获取所有市场
+			$proObj = new \nainai\offer\product();
+			$topCate = $proObj->getTopCate();
+			$this->getView()->assign('topCate',$topCate);
+			$this->getView()->assign('configId',$id);
+
+		}
+	}
+
+	/**
+	 * 获取下级子分类
+	 */
+	public function ajaxnextlevelCateAction(){
+		$configObj = new\OfferManageModel();
+		$pid = safe::filterGet('pid','int',0);
+		if($pid>0){
+			$res = $configObj->getNextCate($pid);
+			die(JSON::encode($res)) ;
+		}
+		echo JSON::encode(array());
+		exit;
+	}
+
+	public function ajaxGetSearchProductAction(){
+		$searchArray = array(
+			'username'=> safe::filterGet('username'),
+			'start_time' => safe::filterGet('start_time'),
+			'end_time' => safe::filterGet('end_time'),
+			'area'=> safe::filterGet('area'),
+			'mode'=> safe::filterGet('mode','int',-1),
+			'market_id' => safe::filterGet('market_id','int',0),
+			'cate_id' => safe::filterGet('cate_id','int',0)
+		);
+
+		$offerObj = new\OfferManageModel();
+		$result = $offerObj->getSearchProduct($searchArray);
+		die(JSON::encode($result));
+	}
+
+	public function ajaxAddSearchProductAction()
+	{
+		$jsonData = $_POST;
+		foreach($jsonData['ids'] as &$val){
+			$val = safe::filter($val,'int');
+		}
+		$configObj = new \config\configsIndexModel();
+		if(isset($jsonData['configId']) && $jsonData['configId']>0){
+			$res = $configObj->addConfigIds($jsonData['configId'],$jsonData['ids']);
+			die(JSON::encode($res));
+		}
+		die(JSON::encode(array('success'=>0)));
+
+	}
+
+	//显示配置的商品列表
+	public function configproListAction()
+	{
+		$config_id = $this->getRequest()->getParam('id');
+		$page = safe::filterGet('page','int',1);
+		$this->getView()->assign('config_id',$config_id);
+		$configObj = new \config\configsIndexModel();
+		$data = $configObj->getConfigProducts($config_id,$page);
+		$this->getView()->assign('data',$data);
+
+
+	}
+
+	public function configproDelAction()
+	{
+		$proId = $this->getRequest()->getParam('proid');
+		$configId = $this->getRequest()->getParam('config_id');
+		$configObj = new \config\configsIndexModel();
+		$res = $configObj->delConfigProduct($configId,$proId);
+		die(JSON::encode($res));
+	}
+
+
+
 
 
 }

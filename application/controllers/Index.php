@@ -22,102 +22,45 @@ class IndexController extends PublicController {
      * 对于如下的例子, 当访问http://yourhost/yar-demo/index/index/index/name/root 的时候, 你就会发现不同
      */
 	public function indexAction() {
-		//phpinfo();
         $this->getView()->assign('cur','index');
-
 		$this->getView()->assign('index',1);
 
 		$productModel=new product();
-		$year = date('Y');
-		$month = date('m');
-		$day = date('d');
+
 		//获取幻灯片
 		$indexSlide=\nainai\system\slide::getIndexSlide();
 		foreach($indexSlide as $k=>$v){
 			$indexSlide[$k]['img']=\Library\Thumb::getOrigImg($v['img']);
 		}
 		
-		//获取统计数据
-		$statcModel=new \nainai\statistics();
-        $statsMarketModel=new \nainai\statsMarket();
-        $allStatsData=$statsMarketModel->getAllStatsList();
 
-        $statcTime = array();
-
-        $statcTime=$allStatsData[1];
-        $statcCatList=$allStatsData[0];
-		$this->getView()->assign('statcTime',\Library\json::encode($statcTime));
-        $statcProList=$statcModel->getHotProductDataList(10);
-        $topCat=$productModel->getTopCate(8);
-        $company=\nainai\companyRec::getAllCompany();
-
-		//获取信誉排行企业用户
-		$indexModel = new indexModel();
-        $creditMember = $indexModel->getCreditMemberList(10);
-
-		//获取首页最新完成的交易
-		$order = new \nainai\order\Order();
-		$newTrade = $order->getNewComplateTrade(20);
-		$offer = new offersModel();
-		//获取报盘总数
-		$offer_num = $offer->getOfferNum();
-		$this->getView()->assign('offer_num',$offer_num['num']);
-		//获取企业总数
-		$company_num = $indexModel->getTotalCompany();
-		$this->getView()->assign('company_num',$company_num['num']);
-        //获取注册的总数
-		$userNum=$indexModel->getAllUser();
-		$this->getView()->assign('all_user_num',$userNum['num']);
-		//获取当前和昨日成交量
-		$order_num = $order->getOrderTotal();
-		$order_num_yes = $order->getOrderTotal('yesterday');
-
-		//获取滚动的图片信息
-		$adModel=new \Library\ad();
-		$adList=$adModel->getAdListByName('滚动');
-		foreach($adList as $k=>$v) {
-			if (isset($v['content'])) {
-				$adList[$k]['content'] = \Library\Thumb::getOrigImg($v['content']);
-			}
-		}
-		//获取所有的推荐商户信息
-		$allCompany=\nainai\companyRec::getAllCompanyOrderByType();
-        //获取推荐商家的广告
-        $allCompanyAd=$adModel->getAdListByName('推荐商家');
-        foreach($allCompanyAd as $k=>$v){
-            if(isset($v['content'])){
-                $allCompanyAd[$k]['content']=\Library\Thumb::getOrigImg($v['content']);
-            }
-        }
-	
+        $topCat=$productModel->getTopCate(5);
 		//获取交易市场信息
+        $offer = new offersModel();
 		$offerList = array();
 		foreach($topCat as $key=>$val){
 			$offerList[$val['id']] = $offer->getOfferCategoryList($val['id']);
 			
-			foreach($offerList[$val['id']] as $k => $v)
-			{
-				$offerList[$val['id']][$k]['produce_area'] = substr($v['produce_area'],0,2);
-			}
+
 		}
-		
-       // var_dump($allCompanyAd);die;
-        $this->getView()->assign('allCompanyAd',$allCompanyAd);
-		$this->getView()->assign('allCompany',$allCompany);
-		$this->getView()->assign('adList',$adList);
-		$this->getView()->assign('creditMember',$creditMember);
+
+        //获取首页配置的板块信息
+        $indexConfig = new indexModel();
+        $configData = $indexConfig->getIndexconfigCP();
+        $configData1 = $indexConfig->getIndexconfigZX();//资讯配置数据
+        if(!isset($configData[0]))
+            $configData[0] = array();
+        if(!isset($configData[1]))
+            $configData[1] = array();
+        if(!isset($configData1[0]))
+            $configData1[0] = array('user_id'=>0,'sub_title'=>'');
+
+        $this->getView()->assign('product1',$configData[0]);
+        $this->getView()->assign('product2',$configData[1]);
+        $this->getView()->assign('configData1',$configData1);
 		$this->getView()->assign('offerCateList',\Library\json::encode($offerList));
-		$this->getView()->assign('statcCatList',\Library\json::encode($statcCatList));
-		$this->getView()->assign('statcProList',$statcProList);
-		$this->getView()->assign('company',$company);
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
-		$this->getView()->assign('newTrade',$newTrade);
-		$this->getView()->assign('order_num',$order_num['num']);
-		$this->getView()->assign('order_num_yes',$order_num_yes['num']);
-		$this->getView()->assign('year',$year);
-		$this->getView()->assign('month',$month);
-		$this->getView()->assign('day',$day);
 	}
     
     

@@ -48,44 +48,34 @@ class offersModel extends \nainai\offer\product{
      */
     public function getOfferCategoryList($cateId){
 		static $times = 0;
-		$expire = 36000 + $times * 600;
+		$expire = 3600 + $times * 600;
         $memcache=new \Library\cache\Cache(array('type'=>'m','expire'=>$expire));
         $res=$memcache->get('offerCategoryList'.$cateId);
         if($res){
             return unserialize($res);
         }
 		$times = $times + 1;
-		$childs = $memcache->get('getChildLists'.$cateId);
-        $childs = '';
-		if(!$childs){
-			$m = new M('product_category_childs');
-			$childdata = $m->query('select getChildLists('.$cateId.')');
-			$childs = $childdata[0]['getChildLists('.$cateId.')'];
-			$childs = str_replace('$',0,$childs);
-			
-			$memcache->set('getChildLists'.$cateId,serialize($childs),0);
-		}
-		else{
-			$childs = unserialize($childs);
-		}
-		
+
 		if($this->offerQuery == null){
 			$this->offerQuery = new Query('product_offer as a');
-			$this->offerQuery->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,kefu.qq';
-			$this->offerQuery->join = 'LEFT JOIN products as b ON a.product_id=b.id LEFT JOIN admin_kefu as kefu on a.kefu = kefu.admin_id';
+			$this->offerQuery->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,b.img,b.note';
+			$this->offerQuery->join = 'LEFT JOIN products as b ON a.product_id=b.id ';
 		 //   $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
-			
-		  
+
 			$this->offerQuery->order = 'a.apply_time desc';
-			$this->offerQuery->limit = 5;
+			$this->offerQuery->limit = 10;
 		}
-		$this->offerQuery->where = 'b.cate_id in ('.$childs.') and a.status='.self::OFFER_OK.' AND a.expire_time>now() AND a.is_del = 0';
+		$this->offerQuery->where = 'b.market_id ='.$cateId.'  and a.status='.self::OFFER_OK.' AND a.expire_time>now() AND a.is_del = 0';
+
         $categoryList= $this->offerQuery->find();
-	
 
         foreach($categoryList as $k=>$v){
             $categoryList[$k]['mode']=$this->getMode($v['mode']);
+            $categoryList[$k]['produce_area'] = substr($v['produce_area'],0,2);
+            $categoryList[$k]['img'] = \Library\Thumb::get($categoryList[$k]['img']);
         }
+
+
         $memcache->set('offerCategoryList'.$cateId,serialize($categoryList));
         return $categoryList;
     }
@@ -291,6 +281,54 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         return $this->getMode($type);
     }
 
+    /**
+     * 按照后台配置的筛选条件返回部分商品数据
+     * @param $configId int 配置id
+     * @param int $page
+     * @param int $page_size
+     * @return array
+     */
+    public function getOfferlistByConfig($configId,$page=1,$page_size=6,$order='',$pagebar=0)
+    {
+        $query = new Query('product_offer as o');
+        $query->join = "left join products as p on o.product_id = p.id  ";
+        $query->fields = "o.*,p.img,p.name,p.note,p.unit,p.quantity,p.freeze,p.sell,p.produce_area,IF(p.quantity-p.sell-p.freeze>0,0,1) as jiao";
+
+        $whereStr = ' o.status=:status and o.is_del = 0  and o.expire_time > now()';
+
+        $bind = array('status'=>self::OFFER_OK);
+
+        $configObj = new M('configs_indexshow');
+        $productIds = $configObj->where(array('id'=>$configId))->getField('proids');
+
+        if($productIds){
+            $whereStr .= ' and o.id in ('.$productIds.')';
+        }
+
+
+
+        $query->where = $whereStr;
+        $query->bind = $bind;
+
+        $query->page = $page;
+        $query->pagesize = $page_size;
+        if($order){
+            $query->order = $order;
+        }
+        else
+            $query->order = " RAND() ";
+
+        $data = $query->find();
+        foreach ($data as $key => &$value) {
+           $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],180,180);//获取缩略图
+         }
+
+        if($pagebar){
+            return array('list'=>$data,'bar'=>$query->getPageBar());
+        }
+        return $data;
+
+    }
 
 
     //获取报盘类型
@@ -334,5 +372,7 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         return array();
 
     }
+
+
 
 }

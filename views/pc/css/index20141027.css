@@ -1901,3 +1901,38 @@ a.close:hover {
         width: 1190px;
     }
 }
+/*最新咨询*/
+.notice_active{
+    padding: 3px 15px;
+    height: 265px;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+.notice_active ul li.notice_active_ch{
+    width: 210px;
+    height: 60px;
+    padding: 3px 0;
+    border-bottom: 1px dotted #aaa;
+}
+.notice_active ul li.notice_active_ch .data_title{
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.notice_active ul li.notice_active_ch .data_content{
+    color: #999;
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+}
+/*最新咨询 end*/

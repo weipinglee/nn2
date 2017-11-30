@@ -210,6 +210,16 @@ class OffersController extends PublicController {
 		}
 	}
 
+	public function indexofferListAction()
+	{
+		$page = safe::filterGet('page','int',1);
+		$config_id = $this->getRequest()->getParam('configid');
+		$res = $this->offer->getOfferlistByConfig($config_id,$page,20,'o.id DESC',1);
+		$this->getView()->assign('offer',$this->offer);
+		$this->getView()->assign('data',$res);
+
+	}
+
 
 
 

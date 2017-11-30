@@ -399,7 +399,15 @@ class BidController extends UcenterBaseController{
 		$packList = $this->bidObj->getReplyPackList($id);
 		$pack = array();
 		if(!empty($packList)){
+			$packIds = array();
+			foreach($packList as $val){
+				if(isset($packIds[$val['reply_id']]))
+					$packIds[$val['reply_id']] .= ','.$val['id'];
+				else
+					$packIds[$val['reply_id']] = $val['id'];
+			}
 			foreach($packList as $key=>$val){
+				$val['reply_ids'] = $packIds[$val['reply_id']];
 				$pack[$val['pack_no']][] = $val;
 			}
 		}
@@ -504,6 +512,16 @@ class BidController extends UcenterBaseController{
 		if($bid_id){
 			$bidDetail = $this->bidObjSeller->getBidDetail($bid_id);
 			$this->getView()->assign('detail',$bidDetail);
+
+			$time = time();
+			$begin = \Library\time::getTime($bidDetail['begin_time']);
+			$end = \Library\time::getTime($bidDetail['end_time']);
+			if($time < $begin){
+				$this->error('投标时间未开始，不能投标',url::createUrl('/bid/tendercontent?id='.$bid_id.'@deal'));
+			}
+			if($time > $end){
+				$this->error('投标已结束，不能投标',url::createUrl('\'/bid/tendercontent?id='.$bid_id.'@deal'));
+			}
 
 			//判断是否可投标
 			if($bidDetail['mode']=='yq' && !in_array($this->user_id,explode(',',$bidDetail['yq_user']))){
@@ -749,12 +767,13 @@ class BidController extends UcenterBaseController{
 
 	public function pingbiaoAction(){
 		if(IS_POST){
-			$id = safe::filterPost('reply_pack_id','int');
+			$id = safe::filterPost('reply_pack_id');
 			$point = array(
 					'zz'=>safe::filterPost('zz'),
 					'js'=>safe::filterPost('js'),
 					'sw'=>safe::filterPost('sw')
 			);
+
 			$bid_id = safe::filterPost('bid_id');
 			$status = safe::filterPost('status');
 			$this->bidObj->setStateObj('bid',$bid_id);

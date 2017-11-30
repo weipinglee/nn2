@@ -21,8 +21,8 @@
 
                         <table class="table_cen">
                             <tr>
-                                <th>截止日期：</th>
-                                <td>{$detail['end_time']}</td>
+                                <th>市场分类：</th>
+                                <td>{$detail['cate_name']}</td>
                                 <th>招标单位：</th>
                                 <td>{$detail['true_name']}</td>
                             </tr>
@@ -32,20 +32,27 @@
                                 <th>招标编号：</th>
                                 <td>{$detail['no']}</td>
                             </tr>
-                             <tr>
+                            <tr>
+                                <th>开标时间：</th>
+                                <td>{$detail['open_time']}</td>
                                 <th>代理机构：</th>
                                 <td>{$detail['agent']}</td>
                             </tr>
+
                         </table>
 
                         <div class="announcement">
-                            <p>{$detail['pro_name']}</p>
+                            <p>项目名称：{$detail['pro_name']}</p>
                             <p>发布日期：{$detail['create_time']}</p>
-                            <p>公告时间：{$detail['begin_time']}至{$detail['end_time']}</p>
+                            <p>投标时间：{$detail['begin_time']}至{$detail['end_time']}</p>
                             <p>{$detail['true_name']}对{$detail['pro_name']}项目进行公开招标，现将采购事项公告如下：</p>
-                            <p>1、项目名称：{$detail['pro_name']}</p>
-                            <p>2、项目概况：{$detail['pro_brief']}</p>
-                            <p>3、采购内容:</p>
+                            <p>一、招标条件</p>
+                            <p>{$detail['bid_require']}</p>
+                            <p>二、项目概况和招标内容</p>
+                            <p>1、项目概况：{$detail['pro_brief']}</p>
+                            <p>2、招标内容:</p>
+                            <p> {$detail['bid_content']}</p>
+                            包件类型：{$detail['pack_type_text']}
                             <table class="announ_table">
                                 <tr>
                                     <td>包件号</td>
@@ -64,19 +71,65 @@
                                 </tr>
                                 {/foreach}
                             </table>
-                            <p>4、投标人的资格要求：</p>
-                            <p>4.1、具有独立承担民事责任的能力；</p>
-                            <p>4.2、具有良好的商业信誉和健全的财务会计制度；</p>
+                            <p>三、投标人的资格要求：</p>
+
+                            <p>本项目采用资格后审的方式，由评审委员会对投标单位的资质进行审查，符合资质要求的单位才能进入下一步招标环节。
+                               </p>
+                           <p> 1、在中华人民共和国境内依法经国家工商税务机关登记注册，符合投标项目经验范围，具有独立企业法人资格的生产商或代理商。</p>
+
                             {foreach:items=$detail['eq']}
-                                <p>4.{echo:$key+3}、{$item}</p>
+                                <p>{echo:$key+2}、{$item}</p>
                             {/foreach}
+                            <p>四、项目报名与招标文件的获取</p>
+                            <p>1、报名须知</p>
+                            <p>供应商应登录耐耐网电子商务平台，填报企业相关资料，进行网站注册认证，获取账号密码后进行报名。</p>
+                            <p>2、招标文件的获取</p>
+                            <p>经资格审查入围的供应商，将对其发放招标文件。入围供应商登录耐耐网电子商务平台自行下载招标文件，并根据文件要求在
+                                投标截止日之前通过耐耐网电子商务平台进行网上投标。
+                            </p>
+
+                            <p>3、我公司招标办于{$detail['doc_begin']}起以每份{$detail['doc_price']}元人民币的价格出售标书，售后不退。</p>
+                            <p>五、投标文件的递交与开标时间及地点</p>
+                            <p>1、合格投标人应在投标截止日前通过耐耐网电子商务平台进行网上投标，在上传投标文件的同时，提交保证金
+                                {$detail['supply_bail']}元，未中标者在投标结果发布之后退还，中标者在签订合同并缴纳合同履约金后予以退还。</p>
+                            <p>2、开标方式：{$detail['open_way_text']}</p>
+                            <p>六、支付方式:
+                                {foreach:items=$detail['pay_way_text']}
+                                    {$item}
+                                {/foreach}
+
+                            </p>
+                            <p>七、其他事项</p>
+                            <p>{$detail['other']}</p>
+                            <p>八、发布公告的媒介</p>
+                            <p>本项目公告仅在耐耐网电子商务平台上发布，本公告的修改、补充，以在耐耐网电子商务平台发布的内容为准。本公告在各媒体发布的文本如有不同之处，以在耐耐网电子商务平台发布的文本为准。</p>
+
+                            <p>九、联系方式（如没有代理机构可不填）</p>
+                            <p>招标人：{$detail['bid_person']}</p>
+                            <p>联系人：{$detail['cont_person']}</p>
+                            <p>地址：{$detail['cont_address']}</p>
+                            <p>电子邮件：{$detail['cont_email']}</p>
+                            <p>电话：{$detail['cont_phone']}</p>
+                            <p>传真：{$detail['cont_tax']}</p>
+                            {if:$detail['agent']}
+                                <p>代理机构：{$detail['agent']}</p>
+                                <p>联系人：{$detail['agent_person']}</p>
+                                <p>地址：{$detail['agent_address']}</p>
+                                <p>电子邮件：{$detail['agent_email']}</p>
+                                <p>电话：{$detail['agent_phone']}</p>
+                                <p>传真：{$detail['agent_tax']}</p>
+                            {/if}
+                            <p>十、注意事项</p>
+                            <p>1、所有电子投标文件应于投标截止及开标时间之前按照要求通过网上提交完毕。</p>
+                            <p>2、为避免因投标高峰期因网络堵塞等不可预见因素影响，各投标人应尽量提早上传投标文件并须在开标截止时间前完成电子投标文件的提交。</p>
+                            <p>3、非供应商会员投标需先完成注册后再投标。</p>
+                            {if:!empty($notice)}
+                            <p>十一、补充公告</p>
                             {foreach:items=$notice}
-                                <p>
-                                    补充公告：
-                                </p>
-                                <p>{$item['title']}</p>
+                                <p>{echo:$key+1}、{$item['title']}</p>
                                 <p>{$item['content']}</p>
                             {/foreach}
+                            {/if}
 
                         </div>
                         <div class="ten_comment">

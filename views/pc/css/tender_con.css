@@ -45,7 +45,7 @@
 	border: 1px solid #ccc;
 }
 .tishi{
-	padding-left:40px; 
+	padding-left:40px;
 }
 .tishi p{
 	height: 30px;
@@ -65,7 +65,6 @@
 	text-decoration: none;
 }
 .announcement p{
- height: 25px;
  line-height: 25px;
  font-size: 13px;
 }
@@ -77,7 +76,7 @@
 }
 .ten_comment {
 	padding: 20px 15px;
-	margin-top:15px; 
+	margin-top:15px;
 	border-top: 2px solid #ccc;
 }
 .ten_comment .com_href a{
@@ -165,12 +164,12 @@
   width: 100%;
   visibility: hidden;
     z-index: 20;
-   
+
 }
 .cd-popup_fabu.is-visible,.cd-popup_toubiao.is-visible{
   opacity: 1!important;
   visibility: visible;
- 
+
 }
 
 .cd-popup-container_fabu,.cd-popup-container_toubiao {
@@ -268,7 +267,7 @@
 	border: 0px;
 	background:#a60000;
 	color: #fff;
-	padding: 5px 15px; 
+	padding: 5px 15px;
 	cursor: pointer;
 }
 .toub_shm{
@@ -319,7 +318,7 @@
 
 }
 /*清除浮动*/
-.hall_con:after { content:"."; display:block; height:0; visibility:hidden; clear:both; }   
+.hall_con:after { content:"."; display:block; height:0; visibility:hidden; clear:both; }
 .tender_hall .hall_con .hall_tit{
 	padding: 10px 0;
 	font-weight: 700;
@@ -489,7 +488,7 @@
     background: url(../images/point.png) 2px 1px no-repeat;
     background-size: 18px;
 
-}	
+}
 .ctd_comments_box .ctd_comments_reply {
     text-align: right;
     margin-top: 25px;

@@ -13,36 +13,23 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-
-	}
-
-	public function uploadAction(){
-
-	}
-
-
-
-	public function formAction(){
-		$a = 'abcdddd';
-		echo substr($a,0,-2);exit;
-
-	}
-
-
-	public function acctestAction(){
-		$acc = new \nainai\fund\zx();
-		$user_id = 4079;
 		
-		$accInfo = $acc->attachAccountInfo($user_id);
-		$res = $acc->attachStatus($accInfo['no']);
-
-		var_dump($res);
 	}
 
-	public function freeAction(){
-		$acc = new \nainai\fund\zx();
-		$res = $acc->freezeTrans(67,date('Y-m-d H:i:s',strtotime('2016-7-21')));
-		var_dump($res);
+
+	public function updateProIdAction(){
+		$ProObj = new M('products');
+		$data = $ProObj->fields('cate_id,id')->select();
+		$product = new \nainai\offer\product();
+		$topCate = array();
+		foreach($data as $key=>$val){
+			if(!isset($topCate[$val['cate_id']])){
+				$topCate[$val['cate_id']] = $product->getcateTop($val['cate_id']);
+			}
+			$ProObj->data(array('market_id'=>$topCate[$val['cate_id']]))->where(array('id'=>$val['id']))->update();
+
+		}
+		echo 'success';
 	}
 
 }

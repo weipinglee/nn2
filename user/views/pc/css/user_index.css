@@ -2311,7 +2311,7 @@ input#image {
 #supplier_list .chose ul{width: 200px;height: 230px;overflow-x: hidden;overflow-y: auto;border: 1px solid #ccc;margin-top: 10px;}
 #supplier_list .chose .mem_list{line-height: 30px;height: 30px;padding-left: 10px;position: relative;}
 #supplier_list .chose .mem_list i{display: inline-block;background: url("../images/VIP_mem.png") no-repeat;width: 20px;height: 20px;top: 3px;position: absolute;}
-#supplier_list .chose .mem_list span{margin-left: 33px;display: block;}
+#supplier_list .chose .mem_list span{margin-left: 33px;display: inline-block;}
 #supplier_list .chose .ok{width: 60px;height: 30px;line-height: 30px;font-size: 14px;color: #fff;background: #c81623;margin-left: 30px;border: 0;margin-top: 10px;}
 #supplier_list .chose .close{width: 60px;height: 30px;line-height: 30px;font-size: 14px;color: #333;background: #ccc;margin-left: 20px;border: 0;margin-top: 10px;}
 

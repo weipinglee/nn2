@@ -78,6 +78,7 @@
                                 <li><a href="{url:system/Confsystem/entrustList}" target="content">委托费率设置</a></li>
                                 <li><a href="{url:system/Confsystem/generalList}" target="content">一般设置</a></li>
                                 <li><a href="{url:system/Confsystem/productset}" target="content">商品排序设置</a></li>
+                                <li><a href="{url:system/Confsystem/indexconfigList}" target="content">首页配置</a></li>
                             </ul>
                         </li>
                         <li><a target="content">管理员信息</a>
@@ -292,10 +293,10 @@
                             </ul>
                             </li>
                         
-                        <li><a target="content">商品指导价</a>
+                        <li><a target="content">商品统计</a>
                             <ul>
                                 <li><a href="{url:information/productStats/productStatsList}" target="content">统计项</a></li>
-                                <li><a href="{url:information/productStats/statsList}" target="content">统计数据</a></li>
+                                <li><a href="{url:information/productStats/statsDataList}" target="content">统计数据</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -221,7 +221,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	 * 登录
 	 */
 	public function loginAction(){
-		$callback = isset($_GET['callback'])?safe::filterGet('callback') : '';
+		$callback = isset($_GET['callback']) ? htmlspecialchars($_GET['callback'],ENT_QUOTES) : '';
 		$this->getView()->assign('callback',$callback);
 	}
 
@@ -231,7 +231,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 	public function doLogAction(){
 		if(IS_AJAX){
 			$account = safe::filterPost('account');
-			$password = $_POST['password'];
+			$password = htmlspecialchars($_POST['password']);
 			$captcha  = safe::filterPost('captcha');
 			$data=array('errorCode'=>0);
 			$captchaObj = new captcha();
@@ -262,7 +262,7 @@ class LoginController extends \Yaf\Controller_Abstract {
             }
 			
 
-			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?trim($_POST['callback']) : url::createUrl('/index/index@deal');
+			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?htmlspecialchars(trim($_POST['callback'])) : url::createUrl('/index/index@deal');
 
 			// var_dump($data);exit;
 			echo JSON::encode($data);
