@@ -19,7 +19,7 @@ class testController extends  UcenterBaseController{
 
 	public function updateProIdAction(){
 		$ProObj = new M('products');
-		$data = $ProObj->fields('cate_id,id')->select();
+		$data = $ProObj->where('create_time>"2017-1-1"')->fields('cate_id,id')->select();
 		$product = new \nainai\offer\product();
 		$topCate = array();
 		foreach($data as $key=>$val){
