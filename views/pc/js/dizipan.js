@@ -22,6 +22,8 @@ function change(){
 }
 $(document).ready(function(){ 
 	change();
+	var time=$(this).find("td").eq(0).find("span").text().substring(0,10);
+		$(this).find("td").eq(0).find("span").html(time);
 	/*根据最新涨跌额是否大于等于0来决定文字颜色 end*/
 	setInterval("change()",5000);//每隔2秒执行一次change函数，相当于table在向上滚动一样
 }); 
