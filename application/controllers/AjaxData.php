@@ -100,6 +100,22 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
      {
 
      }
+	 
+	 public function zixunDataAction(){
+		 $url = 'http://172.16.2.30/interface/tradewebinfo';
+		 $ch = curl_init($url);
+		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch,CURLOPT_POST,1);
+	 	curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+	 	//curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);
+	 	$output = curl_exec($ch);
+	 	if(curl_errno($ch)){
+	 		die('网络错误');
+	 	}
+		curl_close($ch);
+		//$xml_obj = (array)new \SimpleXMLElement($output);
+		die($output);
+	 }
 
 
 

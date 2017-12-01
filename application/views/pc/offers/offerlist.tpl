@@ -63,10 +63,8 @@
                         <a  class='model' href="#" title="model" rel="{$key}"> {$item}</a>
                     </li>
                     {/foreach}
-                    <!-- 增加报盘类型 -->
-                    <li><a  class='model' href="#" title="model">竞价拍卖</a></li>
-                    <li><a  class='model' href="#" title="model">一口价</a></li>
-                     <!-- 增加报盘类型 end-->
+
+
                 </ul>
             </div>
              {if: !empty($cate)}
