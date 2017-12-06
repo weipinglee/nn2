@@ -3,7 +3,8 @@
 	margin: 0px;
 	font-size: 14px;
 	font-family: "微软雅黑";
-	color:#333;
+	color:#FFF;
+	background:#000;
 }
 .clear:after{
 	content: "";
@@ -15,7 +16,7 @@
     margin: 20px auto;
 }
 .main .top h1{
-	font-size: 20px;
+	font-size: 50px;
     text-align: center;
     color: #0988a7;
 }
@@ -30,53 +31,27 @@
     padding: 20px 20px;
   /*  overflow-x: scroll;*/
 }
-/*.main .content ul{
-	height: 35px;
-	line-height: 35px;
-    padding: 0 20px;
-}
-.main .content ul.title{
-    background: #eaeaea;
-}
-.main .content ul li{
-	float: left;
-	list-style-type: none;
-	width: 164px;
-}
-.main .content ul li:nth-child(1){
-	width: 166px;
-}
-.main .content ul li:nth-child(1) span{
-	color:#333;
-}
-.content ul.increase li span{
- display: block;
- color:#ff0000;
-}
-.content ul.reduce li span{
-	color:#23e460;
-}*/
 .table_content{
 	width: 100%;
 }
 .table_content tr td,table tr th{
 	text-align: center;
-	height: 35px;
+	height: 60px;
 }
-.table_content tr th{
-	background: #eaeaea;
+.table_content tr th span{
+	font-size:26px;
 }
 .table_content tr td:nth-child(1){
-	width: 14%
+	/*width: 14%*/
 }
 .table_content tr td:nth-child(1) span{
-	color: #333 !important;
+	color: #fff !important;
 }
 .table_content tr td:nth-child(2) span{
-	color: #333 !important;
+	color: #fff !important;
 }
-.table_content tr td:nth-child(2){
-	width: 14%;
+.table_content tr td:nth-child(3){
+	/*width: 14%;*/
 }
 .table_content tr.reduce td span{
 	color:#23e460;
@@ -85,9 +60,10 @@
 	color:#ff0000;
 }
 .table_content tr td {
-	width: 8%;
+	/*width: 8%;*/
 }
 .table_content tr td span{
 	display: block;
 	width: 100%;
+	font-size:35px;
 }
