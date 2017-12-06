@@ -40,9 +40,10 @@
 }
 .table_content tr th span{
 	font-size:26px;
+	white-space:nowrap;
 }
-.table_content tr td:nth-child(1){
-	/*width: 14%*/
+.table_content tr td:nth-child(10){
+	width: 14%；
 }
 .table_content tr td:nth-child(1) span{
 	color: #fff !important;
@@ -51,7 +52,7 @@
 	color: #fff !important;
 }
 .table_content tr td:nth-child(3){
-	/*width: 14%;*/
+	width: 14%;
 }
 .table_content tr.reduce td span{
 	color:#23e460;
@@ -60,10 +61,11 @@
 	color:#ff0000;
 }
 .table_content tr td {
-	/*width: 8%;*/
+	width: 8%;
 }
 .table_content tr td span{
 	display: block;
 	width: 100%;
 	font-size:35px;
+	white-space:nowrap;
 }
