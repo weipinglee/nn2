@@ -74,8 +74,8 @@ class productStaticModel {
 			}
 			$oldStatData = $statDataObj->where($where)->order('id desc')->getObj();
 			if(!empty($oldStatData)){
-				$data['inc_num'] = number_format($detail['price'] - $oldStatData['price'],2);
-				$data['inc_perc'] = number_format(100*$data['inc_num']/$oldStatData['price'],2);
+				$data['inc_num'] = number_format($detail['price'] - $oldStatData['price'],2,'.','');
+				$data['inc_perc'] = number_format(100*$data['inc_num']/$oldStatData['price'],2,'.','');
 				if($data['inc_num']>0){
 					$data['inc_num'] = '+'.$data['inc_num'];
 					$data['inc_perc'] = '+'.$data['inc_perc'];
