@@ -11,6 +11,7 @@ class ErrorController extends Yaf\Controller_Abstract {
     //从2.1开始, errorAction支持直接通过参数获取异常
     public function errorAction($exception) {
         $this->getView()->setLayout('');
+        $this->getView()->assign('exception',$exception);
         switch($exception->getCode()) {
             case 513:
             case 514:

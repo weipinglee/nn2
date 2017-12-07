@@ -18,14 +18,14 @@ $(function() {
     showIndexOffers1();
     showIndexOffers2();
     //异步获取最新资讯，默认获取10条
-    var infoInterUrl = '{url:/interface/tradewebInfo@info}';
+    var infoInterUrl = '{url:/ajaxdata/zixunData}';
     $.ajax({
         type : 'post',
         url : infoInterUrl,
         async  : true,
-        dataType : 'jsonp',
-        crossDomain : true,
-        success : function(data){
+        dataType : 'json',
+        success : function(data){//console.log(data[0].name);
+			//data = JSON.parse(data);
             if(data){
                 var newsList = template.render('newsBox',{data:data});
                 $('#news_box').html(newsList);

@@ -19,80 +19,78 @@ class productStatsController extends Yaf\Controller_Abstract{
      */
     public function productStatsListAction(){
         $page=safe::filterGet('page','int', 1);
-        $obj = new Query('products_stats');
-        $obj->where = 'is_del = 0';
+        $obj = new Query('stat_item as s');
+        $obj->join = 'left join product_category as c on s.cate_id=c.id';
+        $obj->fields = 's.*,c.name as cate_name';
         $obj->page = $page;
         $dataList = $obj->find();
+        foreach($dataList as &$val){
+            $val['attr'] = unserialize($val['attr_ids']);
+        }
+
         $pageBar = $obj->getPageBar();
         $this->getView()->assign('data',$dataList);
         $this->getView()->assign('pageBar',$pageBar);
     }
 
     /**
-     *添加统计商品
+     *添加统计项
      */
     public function addproductstatsAction(){
         if(IS_POST&&IS_AJAX) {
-            $obj = new M('products_stats');
+
             $data = array(
-                        'id' => safe::filterPost('id', 'int', 0),
-                        'name' => safe::filterPost('name'),
-                        'status' => safe::filterPost('status', 'int', 1),
-                        'is_del' => safe::filterPost('is_del', 'int', 0)
-                    );
-            $temp = $obj->where('name="'.$data['name'].'" and id <>'.$data['id'])->getObj();
-            if($temp)
-            {
-                die(json::encode(tool::getSuccInfo(0,'商品名称不能重复')));
-            }        
-            if($data['id'])
-            {
-                $res = $obj->data($data)->where('id = '.safe::filterPost('id'))->update();
+                'name' => safe::filterPost('name'),
+                'cate_id'=>safe::filterPost('cate_id'),
+            );
+            $attrs = safe::filterPost('attr');
+            $attrArr = array();
+            foreach($attrs as $val){
+                $temp = explode('-',$val);
+                if(count($temp)<2)
+                    continue;
+                $attrArr[$temp[0]] = $temp[1];
             }
-            else
-            {
-                $data['create_time'] = date('Y-m-d H:i:s');
-                $res = $obj->data($data)->add();
+            $data['attr_ids'] = serialize($attrArr);
+            $statObj = new M('stat_item');
+            if($statObj->where(array('cate_id'=>$data['cate_id']))->getField('id')){
+                die(json::encode(tool::getSuccInfo(0,'该分类已经添加过了,请勿重复添加')));
             }
-            
+            $res = $statObj->data($data)->add();
+
             if($res)
             {
                 die(json::encode(tool::getSuccInfo()));
             }
-            die(json::encode(tool::getSuccInfo(1,'添加失败')));
+            die(json::encode(tool::getSuccInfo(0,'添加失败')));
         }
-        $id = safe::filterGet('id');
-        if($id)
-        {
-            $obj = new M('products_stats');
-            $detail = $obj->where('id = '.$id)->getObj();
-            $this->getView()->assign('detail', $detail);
+        else{
+            $id = safe::filterGet('id');
+            if($id)
+            {
+                $obj = new M('stat_item');
+                $detail = $obj->where('id = '.$id)->getObj();
+                $this->getView()->assign('detail', $detail);
+            }
+            //获取所有市场
+            $proObj = new \nainai\offer\product();
+            $topCate = $proObj->getTopCate();
+            $this->getView()->assign('topCate',$topCate);
+
+
+
         }
+
     }
     
-    /**
-     * 设置数据状态
-     */
-    public function setStatusAction(){
-        if(IS_AJAX){
-            $data['status'] = intval(safe::filterPost('status'));
-            $id = intval($this->_request->getParam('id'));
-            $obj = new M('products_stats');
-            $res = $obj->data($data)->where('id = '.$id)->update();
-            if($res)
-            {
-                die(json::encode(tool::getSuccInfo()));
-            }
-        }
-        return false;
-    }
+
     
     //删除统计商品
     public function delProductStatsAction(){
         if(IS_AJAX){
             $id = safe::filterGet('id','int');
-            $obj = new M('products_stats');
-            $res = $obj->data(array('is_del' => 1))->where('id = '.$id)->update();
+            $obj = new M('stat_item');
+            $res = $obj->where('id = '.$id)->delete();
             if($res)
             {
                 die(json::encode(tool::getSuccInfo()));
@@ -104,100 +102,51 @@ class productStatsController extends Yaf\Controller_Abstract{
     /**
      * 统计项列表
      */
-    public function statsListAction(){
-        $page=safe::filterGet('page','int', 1);
-        $obj = new Query('products_stats_data as psd');
-        $obj->join = "LEFT JOIN products_stats as ps on psd.products_stats_id = ps.id";
-        $obj->fields = 'psd.*, ps.name';
-        $obj->where = 'ps.is_del = 0';
-        $obj->page = $page;
-        $dataList = $obj->find();
-        $pageBar = $obj->getPageBar();
-        $this->getView()->assign('data',$dataList);
-        $this->getView()->assign('pageBar',$pageBar);
-    }
-    //删除统计分类
-    public function delStatsAction(){
-        if(IS_AJAX){
-            $id = safe::filterGet('id','int');
-            $obj = new M('products_stats_data');
-            $res = $obj->where('id = '.$id)->delete();
-            if($res)
-            {
-                die(json::encode(tool::getSuccInfo()));
-            }
-        }
-        return false;
+    public function statsDataListAction(){
+
     }
 
-    public function addStatsAction(){
-        if(IS_POST&&IS_AJAX) {
-            $obj = new M('products_stats_data');
-            $data = array(
-                        'id' => safe::filterPost('id'),
-                        'products_stats_id' => safe::filterPost('products_stats_id'),
-                        'price' => safe::filterPost('price', 'float')
-                    );
-            if($data['id'])
-            {
-                //计算价格变化幅度
-                $price = $obj->where('id < '.$data['id'].' and products_stats_id = '.$data['products_stats_id'])->order('id DESC')->getObj();
-                if(empty($price))
-                {
-                    $data['change_range'] = 0;
-                }
-                else
-                {
-                    $data['change_range'] = round(($data['price'] - $price['price'])/$price['price'], 2) * 100;
-                }
-                
-                //改变基于该数据的下一条统计数据的价格变化幅度
-                $temp = $obj->where('id > '.$data['id'].' and products_stats_id = '.$data['products_stats_id'])->order('id ASC')->limit(1)->getObj();
-                if($temp)
-                {
-                    $temp_range = round(($temp['price'] - $data['price'])/$data['price'], 2) * 100;
-                    $obj->data(array('change_range' => $temp_range))->where('id = '.$temp['id'])->update();
-                }
-                $res = $obj->data($data)->where('id = '.$data['id'])->update();
-            }
-            else
-            {
-                //计算价格变化幅度
-                $price = $obj->where('products_stats_id = '.$data['products_stats_id']. ' and create_time < now()')->order('id DESC')->getObj();
-                if(empty($price))
-                {
-                    $data['change_range'] = 0;
-                }
-                else
-                {
-                    $data['change_range'] = round(($data['price'] - $price['price'])/$price['price'], 2) * 100;
-                }
-                $data['create_time'] = date('Y-m-d H:i:s');
-                $res = $obj->data($data)->add();
-            }
-            
-            if($res)
-            {
-                die(json::encode(tool::getSuccInfo()));
-            }
-            die(json::encode(tool::getSuccInfo(1,'添加失败')));
+
+    /**
+     * 获取下级子分类
+     */
+    public function ajaxnextlevelCateAction(){
+        $configObj = new\OfferManageModel();
+        $pid = safe::filterGet('pid','int',0);
+        if($pid>0){
+            $res = $configObj->getNextCate($pid);
+            die(JSON::encode($res)) ;
         }
-        $id = safe::filterGet('id');
-        if($id)
-        {
-            $obj = new Query('products_stats_data as psd');
-            $obj->join = "LEFT JOIN products_stats as ps on psd.products_stats_id = ps.id";
-            $obj->fields = 'psd.*, ps.name';
-            $obj->where = 'psd.id = '.$id;
-            $detail = $obj->getObj();
-        }
-        else
-        {
-            $pro_id = safe::filterGet('pro_id');
-            $obj = new M('products_stats');
-            $detail['products_stats_id'] = $pro_id;
-            $detail['name'] = $obj->where('id='.$pro_id)->getField('name');
-        }
-        $this->getView()->assign('detail', $detail);
+        echo JSON::encode(array());
+        exit;
     }
+
+    public function ajaxGetAttrAction()
+    {
+        $productObj = new \nainai\offer\product();
+        $ids = safe::filterGet('cateIds');
+        $idArr = explode(',',$ids);
+        if(empty($idArr))
+            die(JSON::encode(array()));
+        $data = $productObj->getProductAttr($idArr);
+        die(JSON::encode($data));
+    }
+
+    /**
+     * 遍历已上线的报盘，生成统计数据
+     *
+     */
+    public function createOldDataAction()
+    {
+        $offerObj = new M('product_offer');
+        $where = 'is_del=0 and status=1 and expire_time>now()';
+        $data = $offerObj->where($where)->order('id asc')->fields('id')->select();
+        $obj = new productStaticModel();
+        foreach($data as $val){
+            $obj->createStaticData($val['id']);
+        }
+        echo 'success';exit;
+    }
+
+
 }

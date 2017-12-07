@@ -10,15 +10,17 @@
     <div class="content">
         <div class="pd-20">
 
-     <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a>  --><a class="btn btn-primary radius" href="{url:information/productStats/addProductStats}"><i class=" icon-plus fa-plus"></i> 添加统计商品</a> </span>  </div>
+     <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a>  -->
+             <a class="btn btn-primary radius" href="{url:information/productStats/addProductStats}"><i class=" icon-plus fa-plus"></i> 添加统计项</a> </span>
+     </div>
     <div class="mt-20">
     <table class="table table-border table-bordered table-hover table-bg table-sort">
         <thead>
             <tr class="text-c">
                 <!-- <th width="25"><input type="checkbox" name="checkall" value=""></th> -->
-                <th width="150">商品名称</th>
-                <th width="100">添加时间</th>
-                <th width="80">是否开启</th>
+                <th width="150">分类</th>
+                <th width="100">属性</th>
+                <th width="80">名称</th>
                 <th width="200">操作</th>
             </tr>
         </thead>
@@ -27,25 +29,21 @@
             <tr class="text-c">
                 <!-- <td><input type="checkbox" value="" name="check"></td> -->
 
-                <td>{$item['name']}</td>
-                <td>{$item['create_time']}</td>
+                <td>{$item['cate_name']}</td>
                 <td>
-                    {if:$item['status'] == 1}
-
-                        <span class="label label-success radius">已启用</span>
-                    {else:}
-                        <span class="label label-error radius">停用</span>
-                    {/if}
+                    {foreach:items=$item['attr'] $item=$val $key=$index}
+                       {$val}</br>
+                    {/foreach}
                 </td>
+                <td>
+                    {$item['name']}
+                </td>
+
                 <td class="td-manage">
-                    {if:$item['status'] == 1}
-                        <a style="text-decoration:none" href="javascript:;" title="停用" ajax_status=0 ajax_url="{url:information/productStats/setStatus?id=$item['id']}"><i class="icon-pause fa-pause"></i></a>
-                    {elseif:$item['status'] == 0}
-                        <a style="text-decoration:none" href="javascript:;" title="启用" ajax_status=1 ajax_url="{url:information/productStats/setStatus?id=$item['id']}"><i class="icon-play fa-play"></i></a>
-                    {/if}
-                    <a title="编辑" href="{url:information/productStats/addProductStats}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+
+                   <!-- <a title="编辑" href="{url:information/productStats/addProductStats}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+                   -->
                     <a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:information/productStats/delProductStats}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
-                    <a title="添加统计数据" href="{url:information/productStats/addStats}?pro_id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>    
                 </td>
             </tr>
         {/foreach}

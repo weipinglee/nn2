@@ -293,10 +293,10 @@
                             </ul>
                             </li>
                         
-                        <li><a target="content">商品指导价</a>
+                        <li><a target="content">商品统计</a>
                             <ul>
                                 <li><a href="{url:information/productStats/productStatsList}" target="content">统计项</a></li>
-                                <li><a href="{url:information/productStats/statsList}" target="content">统计数据</a></li>
+                                <li><a href="{url:information/productStats/statsDataList}" target="content">统计数据</a></li>
                             </ul>
                         </li>
                     </ul>

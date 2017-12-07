@@ -106,7 +106,13 @@ class OffermanageController extends Yaf\Controller_Abstract{
 			if(!$id) $id = intval($this->_request->getParam('id'));
 			$status = safe::filterPost("status","int");
 			$res = $this->offer->setStatus($id,$status, safe::filterPost("adminMsg"));
+
 			if($res['success']==1){
+				//审核通过的话生成产品价格统计信息
+				if($status==1){
+					$statObj = new productStaticModel();
+					$statObj->createStaticData($id);
+				}
 				$mess = new \nainai\AdminMsg();
 				$mess->setStatus($this,$id);
 			}
