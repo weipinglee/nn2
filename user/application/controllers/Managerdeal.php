@@ -908,4 +908,19 @@ class ManagerDealController extends UcenterBaseController {
         }
     }
 
+    /*************************竞价交易**************************************/
+
+    public function addNewtradeAction()
+    {
+        if(IS_POST){
+
+        }
+        else{
+            $proObj = new ProductModel();
+            $offer = $proObj->getAllokoffer($this->user_id);
+
+            $this->getView()->assign('offer',$offer);
+        }
+    }
+
 }

@@ -43,7 +43,29 @@ class productModel extends \nainai\offer\product{
 		return array('list' => $list, 'pageHtml' => $query->getPageBar());
 	}
 
+	/**
+	 * 获取产品列表
+	 * @param  string $where    [where的条件]
+	 * @param  array  $bind     [where绑定的参数]
+	 * @return [Array.list]           [返回的对应的列表数据]
+	 * @return [Array.pageHtml]           [返回的分页html数据]
+	 */
+	public function getAllokoffer( $user_id){
+		$query = new Query('product_offer as c');
+		$query->fields = 'c.id, a.name, b.name as cname, a.quantity,a.unit,a.freeze,a.sell, c.price, c.expire_time, c.status, c.mode, a.user_id, c.apply_time';
+		$query->join = '  LEFT JOIN products as a ON c.product_id=a.id LEFT JOIN product_category as b ON a.cate_id=b.id ';
 
+		// $query->order = ' a.create_time desc';
+
+		$where = ' c.user_id='.$user_id.' c.status = ' .self::OFFER_OK. ' AND c.is_del=0 AND c.expire_time > now() ';
+
+		$query->where = $where;
+		$list = $query->find();
+		foreach($list as $k=>$v){
+			$list[$k]['status'] = $this->getStatus($list[$k]['status']);
+		}
+		return  $list;
+	}
 
 
 	/**
