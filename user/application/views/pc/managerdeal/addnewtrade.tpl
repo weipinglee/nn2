@@ -23,15 +23,95 @@
         </div>
         <div class="center_tabl">
 
-
-
-            <form action="{url:/ManagerDeal/}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
+            <form action="{url:/ManagerDeal/addNewtrade}" method="POST" auto_submit="1" redirect_url="{url:/managerdeal/indexoffer}">
                 <table border="0" >
+                    <tr>
+                        <td nowrap="nowrap"><span></span>活动类型：</td>
+                        <td colspan="2">
+                            <span>
+                                <select name="submode">
+                                    <option value="1">竞价</option>
+                                    <option value="2">一口价</option>
+                                </select>
+                             </span>
+                            <span></span>
+                        </td>
 
+                    </tr>
                     <tr>
                         <td nowrap="nowrap"><span></span>商品标题：</td>
                         <td colspan="2">
-                            <span><input class="text" type="text" datatype="s1-30" value="{$product['product_name']}" errormsg="填写商品标题" name="warename"></span>
+                            <span><input class="text" type="text" datatype="s1-30" value="" errormsg="填写商品标题" name="proname"></span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td nowrap="nowrap"><span></span>选择报盘：</td>
+                        <td colspan="2">
+                            <span>
+                                <select name="offer_id">
+                                    <option value="0">选择报盘</option>
+                                    {foreach:$items=$offer}
+                                        <option value="{$item['id']}" max="{$item['leftnum']}" price="{$item['price']}">{$item['mode_txt']}-{$item['name']}</option>
+                                    {/foreach}
+
+                                </select>
+                            </span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td nowrap="nowrap"><span></span>商品数量：</td>
+                        <td colspan="2">
+                            <span><input class="text" type="text" datatype="float" value="" errormsg="填写商品标题" name="max_num"></span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+                    <tr class="yikoujia" style="display:none">
+                        <td nowrap="nowrap"><span></span>一口价价格：</td>
+                        <td colspan="2">
+                            <span><input class="text" type="text" datatype="money" value="" ignore="ignore" errormsg="" name="price"></span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+                    <tr class="jingjia">
+                        <td nowrap="nowrap"><span></span>最低价格：</td>
+                        <td colspan="2">
+                            <span><input class="text" type="text" datatype="money" value="" ignore="ignore" errormsg="" name="price_l"></span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+                    <tr class="jingjia">
+                        <td nowrap="nowrap"><span></span>最高价格：</td>
+                        <td colspan="2">
+                            <span><input class="text" type="text" datatype="money" value="" ignore="ignore" errormsg="" name="price_r"></span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+                    <tr class="jingjia">
+                        <td nowrap="nowrap"><span></span>开始时间：</td>
+                        <td colspan="2">
+                            <span>
+                                <input class="Wdate text" datatype="datetime"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d+1}'})"
+                                       name="start_time" value="">
+                            </span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+                    <tr class="jingjia">
+                        <td nowrap="nowrap"><span></span>结束时间：</td>
+                        <td colspan="2">
+                            <span>
+                                <input class="Wdate text" datatype="datetime"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d+1}'})"
+                                     name="end_time" value="">
+                            </span>
                             <span></span>
                         </td>
 
@@ -39,9 +119,6 @@
                     <tr>
                         <td></td>
                         <td colspan="2" class="btn">
-
-
-
                             <input  type="submit"  value="提交审核" />
                             <span class="color"></span>
                         </td>

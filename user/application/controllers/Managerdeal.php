@@ -913,7 +913,25 @@ class ManagerDealController extends UcenterBaseController {
     public function addNewtradeAction()
     {
         if(IS_POST){
-
+            $offer_id = safe::filterPost('offer_id','int',0);
+            $offerData = array(
+                'proname' => safe::filterPost('proname'),
+                'submode' => safe::filterPost('submode','int',1),
+                'start_time'=> safe::filterPost('start_time'),
+                'end_time'=>safe::filterPost('end_time'),
+                'price_l'=>safe::filterPost('price_l'),
+                'price_r'=> safe::filterPost('price_r'),
+                'price'=> safe::filterPost('price'),
+                'max_num' => safe::filterPost('max_num')
+            );
+            if($offerData['submode']==1){
+                $offerObj = new \nainai\offer\jingjiaOffer();
+            }
+            else{
+                $offerObj = new \nainai\offer\yikoujiaOffer();
+            }
+            $res = $offerObj->doOffer($offer_id,$offerData,$this->user_id);
+            die(json::encode($res));
         }
         else{
             $proObj = new ProductModel();
