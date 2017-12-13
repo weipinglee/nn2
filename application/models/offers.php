@@ -240,6 +240,12 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             $bind['mode'] = $condition['mode'];
         }
 
+        //获取竞价一口价的类型
+        if(isset($condition['sub_mode']) && $condition['sub_mode']!=0){
+            $where .= ' and o.sub_mode=:sub_mode';
+            $bind['sub_mode'] = $condition['sub_mode'];
+        }
+
         //获取地区条件
         if(isset($condition['area']) && $condition['area']!=0){
             $where .= ' and left(p.produce_area,2) = :area ';

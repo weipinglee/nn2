@@ -116,54 +116,54 @@ class OffersController extends PublicController {
 
 
 	public function offerDetailsAction(){
-		$id = $this->getRequest()->getParam('id');
-		$id = Safe::filter($id, 'int');
+	$id = $this->getRequest()->getParam('id');
+	$id = Safe::filter($id, 'int');
 
-		if($id){
-			$info = $this->offer->offerDetail($id);
-			if(empty($info)){
-				$this->error('报盘不存在或未通过审核');
-			}
-			if(time() > strtotime($info['expire_time'])){
-				$this->error('报盘不存在或已过期');
-			}
-
-			$pro = new \nainai\offer\product();
-			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
-
-			if ($info['insurance'] == 1 && $info['risk']) {
-				$risk = new \nainai\insurance\Risk();
-				$riskData = $risk->getProductRisk($info['risk']);
-				$this->getView()->assign('riskData',$riskData);
-			}
-
-			$kefuData = array();
-			if($info['kefu']){
-				$kefu = new \Library\M('admin_kefu');
-				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
-			}
-
-			$mem = new \nainai\member();
-
-			$userData = $mem->getUserDetail($info['user_id']);
-
-			//卖家资质
-			$certObj = new \nainai\cert\certificate();
-			$certStatus = $certObj->getCertStatus($info['user_id'],'deal');
-			if($certStatus['status']==2){
-				$this->getView()->assign('no_cert',0);
-			}else{
-				$mess = new \nainai\message($info['user_id']);
-				$mess->send('credentials');
-				$this->getView()->assign('no_cert',1);
-			}
-
-			$this->getView()->assign('data',$info);
-			$this->getView()->assign('user',$userData);
-			$this->getView()->assign('kefu',$kefuData);
-            		$this->getView()->assign('cur','offerlist');
+	if($id){
+		$info = $this->offer->offerDetail($id);
+		if(empty($info)){
+			$this->error('报盘不存在或未通过审核');
 		}
+		if(time() > strtotime($info['expire_time'])){
+			$this->error('报盘不存在或已过期');
+		}
+
+		$pro = new \nainai\offer\product();
+		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
+		if ($info['insurance'] == 1 && $info['risk']) {
+			$risk = new \nainai\insurance\Risk();
+			$riskData = $risk->getProductRisk($info['risk']);
+			$this->getView()->assign('riskData',$riskData);
+		}
+
+		$kefuData = array();
+		if($info['kefu']){
+			$kefu = new \Library\M('admin_kefu');
+			$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
+		}
+
+		$mem = new \nainai\member();
+
+		$userData = $mem->getUserDetail($info['user_id']);
+
+		//卖家资质
+		$certObj = new \nainai\cert\certificate();
+		$certStatus = $certObj->getCertStatus($info['user_id'],'deal');
+		if($certStatus['status']==2){
+			$this->getView()->assign('no_cert',0);
+		}else{
+			$mess = new \nainai\message($info['user_id']);
+			$mess->send('credentials');
+			$this->getView()->assign('no_cert',1);
+		}
+
+		$this->getView()->assign('data',$info);
+		$this->getView()->assign('user',$userData);
+		$this->getView()->assign('kefu',$kefuData);
+		$this->getView()->assign('cur','offerlist');
 	}
+}
 
 	public function purchaseDetailsAction(){
 		$id = $this->getRequest()->getParam('id');
@@ -218,6 +218,57 @@ class OffersController extends PublicController {
 		$this->getView()->assign('offer',$this->offer);
 		$this->getView()->assign('data',$res);
 
+	}
+
+	//竞价一口价的详情页面
+	public function offerDetails2Action(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int');
+
+		if($id){
+			$info = $this->offer->offerDetail($id);
+			if(empty($info)){
+				$this->error('报盘不存在或未通过审核');
+			}
+			if(time() > strtotime($info['expire_time'])){
+				$this->error('报盘不存在或已过期');
+			}
+
+			$pro = new \nainai\offer\product();
+			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
+			if ($info['insurance'] == 1 && $info['risk']) {
+				$risk = new \nainai\insurance\Risk();
+				$riskData = $risk->getProductRisk($info['risk']);
+				$this->getView()->assign('riskData',$riskData);
+			}
+
+			$kefuData = array();
+			if($info['kefu']){
+				$kefu = new \Library\M('admin_kefu');
+				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
+			}
+
+			$mem = new \nainai\member();
+
+			$userData = $mem->getUserDetail($info['user_id']);
+
+			//卖家资质
+			$certObj = new \nainai\cert\certificate();
+			$certStatus = $certObj->getCertStatus($info['user_id'],'deal');
+			if($certStatus['status']==2){
+				$this->getView()->assign('no_cert',0);
+			}else{
+				$mess = new \nainai\message($info['user_id']);
+				$mess->send('credentials');
+				$this->getView()->assign('no_cert',1);
+			}
+
+			$this->getView()->assign('data',$info);
+			$this->getView()->assign('user',$userData);
+			$this->getView()->assign('kefu',$kefuData);
+			$this->getView()->assign('cur','offerlist');
+		}
 	}
 
 

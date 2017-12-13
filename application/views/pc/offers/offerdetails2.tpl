@@ -62,38 +62,24 @@
                 </div>
                 <div class="offer_right">
                     <ul>
-                        <li>参考价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
                         <li>总数量： <i>{$data['quantity']}</i>  {$data['unit']}</li>
                       <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
+                        <li>最低价： <i>{$data['price_l']}</i>/  {$data['unit']}</li>
+                        {if:$data['price_r']>$data['price_l']}
+                        <li>最高价： <i>{$data['price_r']} </i>/{$data['unit']}</li>
+                        {/if}
                       <li><img src="{views:images/password/eye_b.png}" alt="" /><a id='contract_review' target='_blank' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:#3fa5d9;">合同预览</a></li>
                     </ul>
-                    
-                  <!--  <div class="counter">
-                    <input id="min" name="" type="button" value="-" disabled="disabled">  
-                    <input id="text_box" name="" type="text" value="1">  
-                    <input id="add" name="" type="button" value="+">  
-                  </div> -->
 
-                    <!-- <div class="buy_btn baoj">
-                        <a id='buy_now' href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}"><i><img src="{views:images/order/bj_gm.png}" alt="" /></i><b>立即购买</b></a>
-                        
-                    </div> -->
+
                     <div class="bj">
-                        <input class="bj_text" type="text" name=""/>
-                        <span class="bj_button">报价</span>
+                        <form action="{url:/trade/jingjiabaojia}" method="POST" auto_submit="1" >
+                            <input type="hidden" name="offer_id" value="{$data['id']}" />
+                            <input class="bj_text" type="text" name="price"/>
+                            <input  type="submit" class="bj_button" value="报价" />
+                        </form>
                     </div>
-                    <script type="text/javascript">
-                        $(function(){
-                            if({$no_cert} == '1'){
 
-                                $('#buy_now').attr('href','javascript:;').unbind('click').click(function(){
-                                    layer.msg('该卖家资质不完善,不能进行此交易');
-                                    
-                                    return false;
-                                });
-                            }
-                        });
-                    </script>
                 </div>
                 <div style="clear:both;"></div>
                 
