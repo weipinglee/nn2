@@ -98,7 +98,7 @@
                         <td nowrap="nowrap"><span></span>开始时间：</td>
                         <td colspan="2">
                             <span>
-                                <input class="Wdate text" datatype="datetime"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d+1}'})"
+                                <input class="Wdate text" datatype="datetime"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d}'})"
                                        name="start_time" value="">
                             </span>
                             <span></span>
@@ -109,7 +109,7 @@
                         <td nowrap="nowrap"><span></span>结束时间：</td>
                         <td colspan="2">
                             <span>
-                                <input class="Wdate text" datatype="datetime"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d+1}'})"
+                                <input class="Wdate text" datatype="datetime"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d}'})"
                                      name="end_time" value="">
                             </span>
                             <span></span>
@@ -119,7 +119,7 @@
                     <tr>
                         <td></td>
                         <td colspan="2" class="btn">
-                            <input  type="submit"  value="提交审核" />
+                            <input  type="submit"  value="提交" />
                             <span class="color"></span>
                         </td>
                     </tr>

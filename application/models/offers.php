@@ -379,6 +379,23 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
 
     }
 
+    /**
+     * 获取竞价报价数据
+     * @param $offer_id int 报盘id
+     * @return mixed
+     */
+    public function baojiaData($offer_id)
+    {
+        $baojiaObj = new Query('product_jingjia as j');
+        $baojiaObj->join = 'left join user as u on j.user_id=u.id';
+        $baojiaObj->fields = 'j.*,u.username,u.true_name';
+        $baojiaObj->order = 'j.price desc';
+        $baojiaObj->where = 'offer_id=:offer_id';
+        $baojiaObj->bind = array('offer_id'=>$offer_id);
+        return $baojiaObj->find();
+
+    }
+
 
 
 }

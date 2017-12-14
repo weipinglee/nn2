@@ -48,9 +48,18 @@
                         </li>
                         <li> 产地：<i><span id="areatext">{areatext:data=$data['produce_area'] id=areatext }</span></i></li>
                         <li>卖方：<i>{$user['company_name']}</i></li>
-                        <li>发布时间：<i>{$data['apply_time']}</i></li>
-                        <li>截止时间：<i>{$data['expire_time']}</i></li>
-                        <li>目前最高报价<i class="f35">￥1000</i></li>
+                        <li>开始时间：<i>{$data['start_time']}</i></li>
+                        <li>截止时间：<i>{$data['end_time']}</i></li>
+                        <li>目前最高报价
+                            <i class="f35">
+                                {if:!empty($baojiaData)}
+
+                                ￥{$baojiaData[0]['price']}
+                                {else:}
+                                暂无报价
+                                {/if}
+                            </i>
+                        </li>
                     </ul>
                     {if:!empty($kefu)}
                     <div class="link_style">
@@ -73,7 +82,7 @@
 
 
                     <div class="bj">
-                        <form action="{url:/trade/jingjiabaojia}" method="POST" auto_submit="1" >
+                        <form method="POST" auto_submit="1" action="{url:/trade/jingjiabaojia}?callback={url:/offers/offerdetails2?id=$data['id']&pid=$data['product_id']@deal}"  >
                             <input type="hidden" name="offer_id" value="{$data['id']}" />
                             <input class="bj_text" type="text" name="price"/>
                             <input  type="submit" class="bj_button" value="报价" />
@@ -88,18 +97,21 @@
             <div class="cont_1">
                  <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>报价情况</span></h5>
                  <div class="auction">
-                    <ul class="clear">
-                        <li><img src="" /><span>王某某</span></li>
-                        <li><span>￥300</span></li>
-                        <li><span>2017/12/12 8:00:00</span></li>
-                        <li><span class="auction_lead">领先</span></li>
-                    </ul>
-                    <ul class="clear">
-                        <li><img src="" /><span>王某某</span></li>
-                        <li><span>￥200</span></li>
-                        <li><span>2017/12/12 8:00:00</span></li>
-                        <li><span class="auction_out">出局</span></li>
-                    </ul>
+                     {foreach:items=$baojiaData}
+                         <ul class="clear">
+                             <li><span>{$item['true_name']}</span></li>
+                             <li><span>￥{$item['price']}</span></li>
+                             <li><span>{$item['time']}</span></li>
+                             <li>
+                                 {if:$key==0}
+                                 <span class="auction_lead">领先</span>
+                                 {else:}
+                                     <span class="auction_out">出局</span>
+                                 {/if}
+                             </li>
+                         </ul>
+                     {/foreach}
+
                  </div>
             </div>
             <!-- 拍卖价格情况 end-->
