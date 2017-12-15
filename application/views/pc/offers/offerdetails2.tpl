@@ -76,7 +76,7 @@
                 </div>
                 <div class="offer_right">
                     <ul>
-                        <li>总数量： <i>{$data['quantity']}</i>  {$data['unit']}</li>
+                        <li>总数量： <i>{$data['max_num']}</i>  {$data['unit']}</li>
                       <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
                         <li>最低价： <i>{$data['price_l']}</i>/  {$data['unit']}</li>
                         {if:$data['price_r']>$data['price_l']}
