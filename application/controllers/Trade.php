@@ -48,6 +48,7 @@ class tradeController extends \nainai\controller\Base {
 		if ($detail['user_id'] == $this->pid) {
 			die(json::encode(tool::getSuccInfo(0,'子账户不能购买父账户发布的商品')));
 		}
+
 		$certObj=new \nainai\cert\certificate();
 		$certStatus=$certObj->getCertStatus($detail['user_id'],'deal');
 		if($certStatus['status']==4){
@@ -77,7 +78,7 @@ class tradeController extends \nainai\controller\Base {
 				die(json::encode(tool::getSuccInfo(0,'无效报盘方式')));
 				break;
 		}
-
+		$order_submode = null;
 
 		
 		//判断用户账户类型
@@ -138,6 +139,20 @@ class tradeController extends \nainai\controller\Base {
 		try {
 			$order->beginTrans();
 
+			//交易前的预处理，竞价判断购买用户是否是胜出用户
+			if($detail['sub_mode']==1){
+				$subModeObj = new \nainai\offer\jingjiaOffer();
+				$condition = $subModeObj->beforeTrade($detail['id'],$this->user_id);
+				if($condition['success']==0){
+					$order->rollBack();
+					die(json::encode($condition));
+				}
+				$order_submode = new \nainai\order\JingjiaOrder();
+			}
+			elseif($detail['sub_mode']==2){//一口价交易锁住报盘的一行，以防并发修改
+				//$subModeObj = new \nainai\offer\jingjiaOffer();
+			}
+			$order_mode->setSubmode($order_submode);
 			$gen_res = $order_mode->geneOrder($orderData);
 
 			if($gen_res['success'] == 1){

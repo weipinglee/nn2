@@ -50,7 +50,11 @@
                         <li>卖方：<i>{$user['company_name']}</i></li>
                         <li>开始时间：<i>{$data['start_time']}</i></li>
                         <li>截止时间：<i>{$data['end_time']}</i></li>
-                        <li>目前最高报价
+                        <li>{if:$data['status']==6}
+                                成交价
+                            {else:}
+                            目前最高报价
+                            {/if}
                             <i class="f35">
                                 {if:!empty($baojiaData)}
 
@@ -59,6 +63,7 @@
                                 暂无报价
                                 {/if}
                             </i>
+
                         </li>
                     </ul>
                     {if:!empty($kefu)}
@@ -82,11 +87,23 @@
 
 
                     <div class="bj">
+                        {if:$data['status']==1}
                         <form method="POST" auto_submit="1" action="{url:/trade/jingjiabaojia}?callback={url:/offers/offerdetails2?id=$data['id']&pid=$data['product_id']@deal}"  >
                             <input type="hidden" name="offer_id" value="{$data['id']}" />
                             <input class="bj_text" type="text" name="price"/>
                             <input  type="submit" class="bj_button" value="报价" />
                         </form>
+                        {else:}
+
+                            {if:$login && $user_id==$baojiaData[0]['user_id'] && $data['status']==7}
+                                <a class="bj_text" href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}">
+                                去交易
+                                </a>
+                            {else:}
+                                已成交
+                            {/if}
+
+                        {/if}
                     </div>
 
                 </div>

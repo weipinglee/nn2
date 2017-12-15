@@ -249,9 +249,13 @@
                                  
                                     
                                    <% }%>
-                                   <% } else { %>
-                                   <img style="vertical-align:middle;" src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
+                               <% } else { %>
+                                   <% if (data[i].sub_mode==1){ %>
+                                   <a href="{url:/Offers/offerdetails2}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
                                    <% }%>
+                                     <img style="vertical-align:middle;" src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
+
+                                <% }%>
                                </div>
                                <ul>
                                    <li class="sele"><a class="cz_wz pro_img">图片</a></li>

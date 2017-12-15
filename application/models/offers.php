@@ -185,10 +185,10 @@ class offersModel extends \nainai\offer\product{
     public function getList($page,$condition = array(),$order='',$user_id){
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id left join admin_kefu as ke on o.kefu=ke.admin_id";
-        $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze>0,0,1) as jiao";
+        $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze=0 || o.status=6,1,0) as jiao";
         $query->group = 'o.id';
-        $where = 'o.status=:status and o.is_del = 0  and o.expire_time > now()';
-        $bind = array('status'=>self::OFFER_OK);
+        $where = 'o.status in ('.self::OFFER_OK.','.self::OFFER_COMPLETE.','.self::OFFER_WAITINGTRADE.') and o.is_del = 0  and o.expire_time > now()';
+        $bind = array();
 
         if (empty($order)) {
             $model = new \nainai\offer\ProductSetting();
@@ -278,6 +278,7 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
             $value['left'] = number_format(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']));
         }
+        //print_r($data);
         $pageBar =  $query->getPageBar();
         return array('data'=>$data,'bar'=>$pageBar,'cate'=>$childcates,'childname'=>$childname);
     }
