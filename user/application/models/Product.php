@@ -21,14 +21,14 @@ class productModel extends \nainai\offer\product{
 	 */
 	public function getOfferProductList($page, $pagesize, $where='', $bind=array()){
 		$query = new Query('product_offer as c');
-		$query->fields = 'c.id, a.name, b.name as cname, a.quantity,a.unit,a.freeze,a.sell, c.price, c.expire_time, c.status, c.mode, a.user_id, c.apply_time';
+		$query->fields = 'c.id, a.name, b.name as cname, a.quantity,a.unit,a.freeze,a.sell, c.price, c.expire_time, c.status, c.mode, a.user_id, c.apply_time,c.max_num,c.sell_num';
 		$query->join = '  LEFT JOIN products as a ON c.product_id=a.id LEFT JOIN product_category as b ON a.cate_id=b.id ';
 		$query->page = $page;
 		$query->pagesize = $pagesize;
 		$query->order = 'c.id desc';
 		// $query->order = ' a.create_time desc';
 
-		$status = implode(',', array(self::OFFER_APPLY, self::OFFER_OK, self::OFFER_NG,self::OFFER_CANCEL));
+		$status = implode(',', array(self::OFFER_APPLY, self::OFFER_OK, self::OFFER_NG,self::OFFER_CANCEL,self::OFFER_COMPLETE,self::OFFER_WAITINGTRADE));
 		$where .= ' AND c.status IN (' .$status. ')';
 		if (empty($where)) {
 			$where = ' AND c.mode IN (1, 2,3, 4) ';
@@ -40,6 +40,7 @@ class productModel extends \nainai\offer\product{
 		$list = $query->find();
 		foreach($list as $k=>$v){
 			$list[$k]['status'] = $this->getStatus($list[$k]['status']);
+			$list[$k]['left'] = min($v['quantity']-$v['freeze']-$v['sell'],$v['max_num']-$v['sell_num']);
 		}
 		return array('list' => $list, 'pageHtml' => $query->getPageBar());
 	}
