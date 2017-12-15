@@ -212,8 +212,8 @@ class tradeController extends \nainai\controller\Base {
 
 		if($info['divide']==\nainai\offer\product::UNDIVIDE ){//不可拆分
 			$info['fixed'] = true;
-			$info['minimum'] = $info['quantity'];
-			$info['amount'] = $info['quantity'] * $info['price'];
+			$info['minimum'] = $info['max_num'];
+			$info['amount'] = $info['max_num'] * $info['price'];
 		}
 		else if($info['left'] <= $info['minimum']){//余量不够最小起订量
 			$info['fixed'] = true;

@@ -220,7 +220,7 @@
                     var deposit_text = $('.pay_deposit');
                     var prod_amount = $('.prod_amount');
                     var left = parseFloat({$data['left']});
-                    var quantity = parseFloat("{$data['quantity']}");
+                    var quantity = parseFloat("{$data['max_num']}");
                     var minimum = parseFloat("{$data['minimum']}");
                     var divide = parseInt("{$data['divide']}");
                     var price = {$data['price']};
