@@ -1,5 +1,5 @@
 * {
-font-family: "Microsoft YaHei" ! important;
+font-family: "Microsoft YaHei";
 }
 h1,h2,h3,h4,h5{font-family: "Microsoft YaHei" ! important}
 .storage_box{
@@ -211,7 +211,7 @@ tr.form_infoma{
 .support_clude_two .supp_lef_two img{
 	width:412px;
 	height: 258px;
-    margin-left: 3%;
+    margin-left: 10%;
 }
 .support_clude_two .supp_lef_two{
 	float: right;
@@ -264,4 +264,25 @@ tr.form_infoma{
 }
 .join_figuer img{
 	width: 900px;
+}
+/*仓库监控视频*/
+.monitor_a{
+	color: #72ACE3 !important;
+}
+.monitor_a:hover{
+	color: #cc0000 !important;
+}
+.support_clude .supp_lef_three{
+	float: left;
+	width: 50%;
+}
+.support_clude .supp_lef_three img{
+	margin-left: 7% 
+}
+.support_clude_two .supp_lef_four{
+	float: right;
+	width: 50%;
+}
+.support_clude_two .supp_lef_four img{
+	margin-left: 10%; 
 }

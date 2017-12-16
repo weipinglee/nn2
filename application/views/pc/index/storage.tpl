@@ -13,7 +13,6 @@
          <div class="banner_figure">
              <img src="{views:images/storage/banner.png}" alt="">
          </div>
-
          <div class="warehouse">
              <div class="war_form">
         <!-- 表格开始 -->
@@ -131,16 +130,33 @@
           </div>
          </div>
        </div>
-
-
-       <!-- two -->
-      <div class="support_two">
+      <!-- two -->
+       <div class="support_two">
          <div class="support_clude_two">
            <div class="supp_lef_two">
-              <img src="{views:images/storage/black.png}" alt=""> 
+              <a href="http://www.xmeye.net"><img src="{views:images/storage/share.png}" alt=""></a> 
            </div>
           <div class="supp_rig_two">
-            <h3>02&nbsp;操作优势：流程化+标准化</h3>
+            <h3>02&nbsp;实时监控</h3>
+            <div class="supp_text">
+            <h4>安防监控，让你更放心</h4>
+            <p>1、为用户提供实时查看，远程关爱，即时分享全面视频的应用服务</p>
+            <p>2、离得远，不要紧，实时监控让您随时随地了解仓库</p>
+            <p>3、即时查看仓库动态</p>
+            <p><a class="monitor_a" href="http://www.xmeye.net"><b>东大1号仓库监控>>点击进入</b></a></p>
+            </div>
+          </div>
+         </div>
+       </div>
+
+       <!-- three -->
+      <div class="support_two">
+         <div class="support_clude">
+           <div class="supp_lef_three">
+              <img src="{views:images/storage/black.png}" alt=""> 
+           </div>
+          <div class="supp_rig">
+            <h3>03&nbsp;操作优势：流程化+标准化</h3>
             <div class="supp_text">
             <h4>身定制仓储解决方案</h4>
             <p>1、为您量身定制符合您商品的仓储管理解决方案</p>
@@ -151,13 +167,15 @@
          </div>
        </div>
        
-  <!-- three -->
-       <div class="support mone_bor">
-         <div class="support_clude space">
-           <div class="supp_lef">
+        
+       
+  <!-- four -->
+       <div class="support_two mone_bor">
+         <div class="support_clude_two space">
+           <div class="supp_lef_four">
               <img src="{views:images/storage/computer.png}" alt=""> 
            </div>
-          <div class="supp_rig">
+          <div class="supp_rig_two">
             <h3>03&nbsp;专业顾问，一对一贴心服务</h3>
             <div class="supp_text">
             <h4>全方位提供24小时响应式答疑</h4>
