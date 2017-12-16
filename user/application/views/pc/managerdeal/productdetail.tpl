@@ -190,6 +190,7 @@
                                 <td>{$offer['admin_msg']}
                                 </td>
                             </tr>
+                           <!--
                             <tr class="bidding">
                                 <td>竞拍模式</td>
                                 <td>
@@ -205,13 +206,13 @@
                                       <div><span>一口价：</span><input type="text"></div>
                                   </div>
                                 </td>
-                             <tr>
+                             <tr>-->
                              <tr>
                                 <td colspan="2">
                                    <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)" style="float:left;"/>
                                    <!-- 保存竞价模式的修改按钮 -->
-                                    <input class="cg_fb" type="button" value="修改"  style="float:left;"/> <!-- 保存竞价模式的修改按钮 end-->
-                                  <input type="hidden" name="id" value="{$offer['id']}" />
+
+                               <input type="hidden" name="id" value="{$offer['id']}" />
                                   {if: ($product['quantity'] - $product['sell'] - $product['freeze']) > 0}
                                   <div class="pay_bton">
                                       <a href="javascript:void(0)" class="submit_chag"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？">撤销报盘</a>
@@ -224,6 +225,7 @@
                                     {/if}
                                 </td>
                             </tr>
+
                         </table>
             	    </form>
 
