@@ -143,7 +143,7 @@
             <p>1、为用户提供实时查看，远程关爱，即时分享全面视频的应用服务</p>
             <p>2、离得远，不要紧，实时监控让您随时随地了解仓库</p>
             <p>3、即时查看仓库动态</p>
-            <p><a class="monitor_a" href="http://www.xmeye.net"><b>大洼监控>>点击进入</b></a></p>
+            <p><a class="monitor_a" href="http://www.xmeye.net"><b>东大1号仓库监控>>点击进入</b></a></p>
             </div>
           </div>
          </div>
