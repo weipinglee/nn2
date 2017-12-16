@@ -28,14 +28,14 @@
            <div class="tender_content">
                 <div class="tender_top">
                     <span><a class="te_a_col" href="">现货大厅</a></span>
-                    <span>></span>  
+                    <span>></span>
                     <span><a class="te_a_col" href="">商品详情</a></span>
                 </div>
 
 
      <!-- content start -->
             <div class="offer_content">
-                
+
                 <div class="offer_left">
                     <ul>
                         <li><h3>
@@ -88,11 +88,16 @@
 
                     <div class="bj">
                         {if:$data['status']==1}
-                        <form method="POST" auto_submit="1" action="{url:/trade/jingjiabaojia}?callback={url:/offers/offerdetails2?id=$data['id']&pid=$data['product_id']@deal}"  >
-                            <input type="hidden" name="offer_id" value="{$data['id']}" />
+                        <form method="POST"  auto_submit="1" action="{url:/trade/jingjiabaojia}?callback={url:/offers/offerdetails2?id=$data['id']&pid=$data['product_id']@deal}"  >
+                            <input type="hidden" name="offer_id"  value="{$data['id']}" />
                             <input class="bj_text" type="text" name="price"/>
-                            <input  type="submit" class="bj_button" value="报价" />
+                            <span class="bj_button">报价</span>
                         </form>
+                          <script type="text/javascript">
+                              $('.bj_button').on('click',function(){
+                                  $('form').submit();
+                              })
+                          </script>
                         {else:}
 
                             {if:$login && $user_id==$baojiaData[0]['user_id'] && $data['status']==7}
@@ -108,7 +113,7 @@
 
                 </div>
                 <div style="clear:both;"></div>
-                
+
             </div>
             <!-- 拍卖价格情况 -->
             <div class="cont_1">
@@ -190,7 +195,7 @@
                         </tr>
                         <tr>
                             <td>报盘数量</td>
-                            <td>{$data['quantity']}{$data['unit']}</td>
+                            <td>{$data['max_num']}{$data['unit']}</td>
                         </tr>
                         <tr>
                             <td>起订量</td>
@@ -225,7 +230,7 @@
 
                     <!--<h5 class="tit"><i><img src="{views:images/pro_show_04.jpg}"></i><span>质量标准</span></h5>
                     <table>
-                        
+
                         <tr>
                             <td>质量标准</td>
                             <td></td>
@@ -233,36 +238,36 @@
                     </table>-->
                                 <link href="{views:css/product_pic.css}" rel="stylesheet">
                                 <script src="{views:js/pic.js}"></script>
-                    
+
                     <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
-                    
+
 
                                                 <div id="slider">
                                                       {foreach:items=$data['origphotos']}
                                                             <div class="spic">
                                                                 <img src="{$item}" />
-                                                            </div>  
+                                                            </div>
                                                       {/if}
-                                                </div>  
+                                                </div>
 
-                                        
-                                    <script type="text/javascript">  
+
+                                    <script type="text/javascript">
                                            $(document).ready(function() {
                                                 $('#slider').slider({ speed: 500 });
                                                     var length=$("#slider img").size();
                                                     if(length-1>4){
                                                         $(".image-slider-back").css("display","block");
                                                         $(".image-slider-forward").css("display","block");
-                                                    }else{              
+                                                    }else{
                                                         $(".image-slider-back").css("display","none");
                                                         $(".image-slider-forward").css("display","none");
                                                 }
                                             });
-                                    </script>  
+                                    </script>
       <!-- content end -->
 
 
-               </div> 
+               </div>
            </div>
 
 </div>
