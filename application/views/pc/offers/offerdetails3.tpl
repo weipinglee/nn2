@@ -29,8 +29,8 @@
                         </li>
                         <li> 产地：<i><span id="areatext">{areatext:data=$data['produce_area'] id=areatext }</span></i></li>
                         <li>卖方：<i>{$user['company_name']}</i></li>
-                        <li>发布时间：<i>{$data['apply_time']}</i></li>
-                        <li>截止时间：<i>{$data['expire_time']}</i></li>
+                        <li>开始时间：<i>{$data['start_time']}</i></li>
+                        <li>截止时间：<i>{$data['end_time']}</i></li>
                     </ul>
                     {if:!empty($kefu)}
                     <div class="link_style">
@@ -133,7 +133,7 @@
                         </tr>
                         <tr>
                             <td>报盘数量</td>
-                            <td>{$data['max_num']}{$data['unit']}</td>
+                            <td>{$data['quantity']}{$data['unit']}</td>
                         </tr>
                         <tr>
                             <td>起订量</td>
@@ -155,10 +155,7 @@
                             <td>{$data['accept_area']}</td>
                         </tr>
 
-                        <tr>
-                            <td>有效期</td>
-                            <td>{$data['expire_time']}</td>
-                        </tr>
+
                         <tr>
                             <td>补充条款</td>
                             <td>{$data['other']}</td>

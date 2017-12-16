@@ -94,7 +94,7 @@
                         </td>
 
                     </tr>
-                    <tr class="jingjia">
+                    <tr >
                         <td nowrap="nowrap"><span></span>开始时间：</td>
                         <td colspan="2">
                             <span>
@@ -105,7 +105,7 @@
                         </td>
 
                     </tr>
-                    <tr class="jingjia">
+                    <tr >
                         <td nowrap="nowrap"><span></span>结束时间：</td>
                         <td colspan="2">
                             <span>
@@ -130,6 +130,21 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('select[name=submode]').on('change',function(){
+        var value = $(this).val();
+        if(value==1){
+            $('.yikoujia').css('display','none');
+            $('.jingjia').css('display','table-row');
+            $('.yikoujia').find('input').val('').attr('ignore','ignore');
+        }
+        else{
+            $('.jingjia').css('display','none');
+            $('.yikoujia').css('display','table-row');
+            $('.jingjia').find('input').val('').attr('ignore','ignore');
+        }
+    })
+</script>
 
 
 

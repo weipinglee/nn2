@@ -58,7 +58,7 @@
                             <tr>
 
                                 <td>产品数量(单位)</td>
-                                <td class="end_td">{$product['quantity']}（{$product['unit']}）</td>
+                                <td class="end_td">{$offer['max_num']}（{$product['unit']}）</td>
 
                             </tr>
                             <tr>
@@ -110,7 +110,7 @@
                             <tr>
 
                                 <td>报盘数量</td>
-                                <td>{$product['quantity']}</td>
+                                <td>{$offer['max_num']}</td>
 
                             </tr>
                            <tr>

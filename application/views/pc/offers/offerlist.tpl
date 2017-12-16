@@ -197,7 +197,13 @@
                    <ul class="main_centon">
                        <li class="tit_left">
                            <!--<a title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
-                           <span><%=data[i].name%></span>
+                           <span>
+                               <% if(data[i].pro_name == ''){ %>
+                               <%=data[i].name%>
+                               <% } else {%>
+                               <%=data[i].pro_name%>
+                               <%}%>
+                           </span>
                        </li>
                        <li><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>{views:images/no_picture.png}<% }else { %><%=data[i].img%> <%}%>" class="icon_img" width="30"></a></li>
                        <li><% if(data[i].type == 1){ %><i class="green">供</i><% }else { %><i class="red">求</i> <%}%></li>
@@ -234,7 +240,7 @@
                                      <% }%>
                                    <% if (data[i].type==1){ %>
                                        <% if (data[i].sub_mode==2){ %>
-                                   <a href="{url:/Offers/offerdetails2}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                   <a href="{url:/Offers/offerdetails3}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 								   <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>" class="check_btn"><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
                                       <% }else if (data[i].sub_mode==1){ %>
                                    <a href="{url:/Offers/offerdetails2}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>

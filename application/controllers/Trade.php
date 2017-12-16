@@ -150,8 +150,14 @@ class tradeController extends \nainai\controller\Base {
 				$order_submode = new \nainai\order\JingjiaOrder();
 			}
 			elseif($detail['sub_mode']==2){//一口价交易锁住报盘的一行，以防并发修改
-				//$subModeObj = new \nainai\offer\jingjiaOffer();
+				$subModeObj = new \nainai\offer\yikoujiaOffer();
+				$condition = $subModeObj->beforeTrade($detail['id'],$this->user_id);
+				if($condition['success']==0){
+					$order->rollBack();
+					die(json::encode($condition));
+				}
 			}
+
 			$order_mode->setSubmode($order_submode);
 			$gen_res = $order_mode->geneOrder($orderData);
 
