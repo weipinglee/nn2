@@ -13,7 +13,7 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-		
+		$this->getView()->setLayout('');
 	}
 
 

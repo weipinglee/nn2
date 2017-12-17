@@ -223,7 +223,7 @@ class ManagerDealController extends UcenterBaseController {
     public function doDepositOfferAction(){
         if(IS_POST){
             $token = safe::filterPost('token');
-            if(!safe::checkToken($token))
+           // if(!safe::checkToken($token))
                  // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $offer_id = safe::filterPost('offer_id','int',0);
             $depositObj = new depositOffer($this->user_id);
@@ -459,7 +459,9 @@ class ManagerDealController extends UcenterBaseController {
                 }
             }
         }
-
+        if(empty($resImg)){
+            die(json::encode(tool::getSuccInfo(0,'请上传图片')));
+        }
         return array($detail,$resImg, $this->username);
     }
 

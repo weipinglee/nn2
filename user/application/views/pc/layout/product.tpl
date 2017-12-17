@@ -205,7 +205,7 @@
     <tr>
         <td>产品描述：</td>
         <td colspan="2">
-            <textarea name="note" >{$product['note']}</textarea>
+            <textarea name="note" datatype="*" errormsg="请填写产品描述">{$product['note']}</textarea>
         </td>
     </tr>
 
