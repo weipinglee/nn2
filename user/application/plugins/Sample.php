@@ -19,10 +19,10 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 		$res = $market->checkCanOper($request);
 		if(!$res){
 			if(IS_AJAX || IS_POST){
-				//die(\Library\json::encode(\Library\tool::getSuccInfo(0,'现在已闭市，无法操作')));
+				die(\Library\json::encode(\Library\tool::getSuccInfo(0,'现在已闭市，无法操作')));
 			}
 			else{
-				//$response->setRedirect(\Library\url::createUrl("/oper/error?info=现在已闭市，无法操作"));
+				$response->setRedirect(\Library\url::createUrl("/oper/error?info=现在已闭市，无法操作"));
 			}
 		}
 	}
