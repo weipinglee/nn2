@@ -38,6 +38,10 @@
 								<span>&nbsp;{$info['delivery_num']}{$info['unit']}</span>
 							</div>
 							<div class="sj_detal">
+								<b class="sj_de_tit">入库日期：</b>
+								<span>&nbsp;{$info['in_time']}</span>
+							</div>
+							<div class="sj_detal">
 								<b class="sj_de_tit">租库日期：</b>
 								<span>&nbsp;{$info['rent_time']}</span>
 							</div>

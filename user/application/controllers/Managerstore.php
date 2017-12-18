@@ -378,7 +378,7 @@ class ManagerStoreController extends UcenterBaseController{
 			$this->getView()->assign('categorys',$categorys);
 			$this->getView()->assign('cate_sel',$cate_sel);
     		$user = new \nainai\member();
-    		$res = $user->getUserDetail(array('id'=>$this->user_id));
+    		$res = $user->getUserDetail(array('id'=>$detail['user_id']));
     		$this->getView()->assign('detail', $detail);
 			$this->getView()->assign('imgData', $detail['imgData']);
     		$this->getView()->assign('user', $res);

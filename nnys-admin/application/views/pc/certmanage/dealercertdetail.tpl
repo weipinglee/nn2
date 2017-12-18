@@ -114,7 +114,9 @@
 							 {if:$cert['cert_status']==\nainai\cert\certificate::CERT_APPLY&&$cert['type']==1}
 							 <label><input type="radio" name="status" value="2" checked/>初审通过</label>
 							 {/if}
+							 {if:$cert['cert_status']==\nainai\cert\certificate::CERT_FIRST_OK&&$cert['type']==1}
 							 <label><input type="radio" name="status" value="1">终审通过</label>
+							 {/if}
 							 <label><input type="radio" name="status" value="0"/>驳回</label>
 
 						 </th>
