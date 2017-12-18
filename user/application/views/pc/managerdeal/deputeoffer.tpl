@@ -81,7 +81,8 @@
                                            </div>
                                            <div  >
                                                <img name="file1" src=""/>
-                                               <input type="hidden"  name="imgfile1" value=""  alt="请上传图片" />
+                                               <input type="hidden"  name="imgfile1" value="" datatype="*" nullmsg="请上传图片" alt="请上传图片" />
+
                                            </div>
 
 

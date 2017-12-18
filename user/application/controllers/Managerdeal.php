@@ -933,8 +933,8 @@ class ManagerDealController extends UcenterBaseController {
     public function doFreestoreOfferAction(){
         if (IS_POST) {
             $token = safe::filterPost('token');
-         //   if(!safe::checkToken($token))
-              //  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            if(!safe::checkToken($token))
+                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
 
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
 
