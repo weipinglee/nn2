@@ -209,7 +209,7 @@
                        </li>
                        <li><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>{views:images/no_picture.png}<% }else { %><%=data[i].img%> <%}%>" class="icon_img" width="30"></a></li>
                        <li><% if(data[i].type == 1){ %><i class="green">供</i><% }else { %><i class="red">求</i> <%}%></li>
-                       <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>--<%}%></li>
+                       <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>保证金报盘<%}%></li>
 
                        <li style="width:200px;"><%=data[i].produce_area%></li>
                        <li><%=data[i].accept_area%></li>
