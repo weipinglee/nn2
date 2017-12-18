@@ -147,7 +147,7 @@
                                          <input class="text" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity">
 
                                     </span>
-                                    <span>数量以实际称重为准</span>
+                                    <span><input type="checkbox" name="weight_e" value="1"/>数量以实际称重为准</span>
                                       </td>
                                <!--  <td> 
                                    请选择支付保证金比例:

@@ -251,7 +251,9 @@ class ManagerStoreController extends UcenterBaseController{
 				}
 			}
 		}
-
+		if(empty($resImg)){
+			die(json::encode(\Library\tool::getSuccInfo(0,'请上传图片')));
+		}
 		return array($detail,$resImg);
 	}
 	/**
@@ -278,7 +280,8 @@ class ManagerStoreController extends UcenterBaseController{
 				'package'   => safe::filterPost('package','int'),
 				'confirm'   => \Library\tool::setImgApp(safe::filterPost('imgfile1')),
 				'quality'   => \Library\tool::setImgApp(safe::filterPost('imgfile2')),
-				'sign_user' => $this->user_id
+				'sign_user' => $this->user_id,
+				'weight_error' => safe::filterPost('weight_e','int',0),
 			);
 			if ($storeProduct['package']) {
 				$storeProduct['package_unit'] = safe::filterPost('packUnit');
