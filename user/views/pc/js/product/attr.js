@@ -15,13 +15,13 @@ $(document).ready(function(){
 
     $('#package').change(function(){
         if ($('#package').val() == 1) {
-            $('#packUnit').show();
-            $('#packNumber').show();
-            $('#packWeight').show();
+            $('#packUnit').show().find('input').attr('datatype','*');
+            $('#packNumber').show().find('input').attr('datatype','*');
+            $('#packWeight').show().find('input').attr('datatype','*');
         }else{
-            $('#packUnit').hide();
-            $('#packNumber').hide();
-            $('#packWeight').hide();
+            $('#packUnit').hide().find('input').removeAttr('datatype');
+            $('#packNumber').hide().find('input').removeAttr('datatype');
+            $('#packWeight').hide().find('input').removeAttr('datatype');
         }
     });
 

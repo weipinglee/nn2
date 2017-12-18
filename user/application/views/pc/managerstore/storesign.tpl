@@ -224,19 +224,19 @@
                                    <tr id="packUnit" >
                                                  <td>包装单位：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packUnit" >
+                                                <input type="text" class='text' name="packUnit" datatype="*">
                                             </td>
                                             </tr>
                                             <tr id='packNumber'>
                                             <td>包装数量：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packNumber" >
+                                                <input type="text" class='text' name="packNumber" datatype="*">
                                             </td>
                                             </tr>
                                             <tr id='packWeight'>
                                             <td>包装重量：</td>
                                             <td colspan="2">
-                                                <input type="text" class='text' name="packWeight" > <select name="pageUnits">
+                                                <input type="text" class='text' name="packWeight" datatype="*"> <select name="pageUnits">
                                                     <option value="克">克</option>
                                                     <option value="千克">千克</option>
                                                     <option value="吨">吨</option>
@@ -255,7 +255,7 @@
                         <tr>
                             <td>产品描述：</td>
                             <td colspan="2">
-                                <textarea name="note"></textarea>
+                                <textarea name="note" datatype="*"></textarea>
                             </td>
                         </tr>
                         <input type="hidden" name="token" value="{$token}" />
