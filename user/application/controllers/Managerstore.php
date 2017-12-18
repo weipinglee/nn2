@@ -43,9 +43,15 @@ class ManagerStoreController extends UcenterBaseController{
 	 */
 	public function getUserAction(){
 		if(IS_POST){
-			$acc = safe::filterPost('username');
+			$acc = safe::filterPost('username');//修改为企业名称
+			$m = new \Library\M('company_info');
+			$user_id = $m->where(array('company_name'=>$acc))->getField('user_id');
+			if(!$user_id){
+				die(json::encode(\Library\tool::getSuccInfo(0,'用户不存在')));
+			}
+
 			$user = new \nainai\member();
-			$res = $user->getUserDetail(array('username'=>$acc, 'type' => 1));
+			$res = $user->getUserDetail(array('id'=>$user_id, 'type' => 1));
 			die(json::encode($res));
 		}
 		return false;
