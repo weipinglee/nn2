@@ -23,6 +23,18 @@ class StoreDeliveryController extends DeliveryController{
 		$this->getView()->assign('delivery_info',$delivery_info);
 	}
 
+	//确认出库页面
+	public function storeOutPageAction(){
+		$delivery_id = safe::filter($this->_request->getParam('id'));
+		$store = new \nainai\delivery\StoreDelivery();
+		$storeInfo = $store->storeFees($delivery_id);
+		$delivery_info = $store->deliveryInfo($delivery_id);
+
+		$storeInfo['delivery_amount'] = number_format($storeInfo['delivery_num'] * $storeInfo['price'],2);
+		$this->getView()->assign('info',$storeInfo);
+		$this->getView()->assign('delivery_info',$delivery_info);
+	}
+
 	//卖家支付仓库管理费用
 	public function storeFeesAction(){
 		$delivery_id = safe::filterPost('id','int');
@@ -33,6 +45,17 @@ class StoreDeliveryController extends DeliveryController{
 			die(json::encode($res));
 		}
 
+	}
+
+	//卖方确认出库
+	public function storeOutAction(){
+		$delivery_id = safe::filterPost('id','int');
+		$user_id = $this->user_id;
+		if($delivery_id){
+			$store = new \nainai\delivery\StoreDelivery();
+			$res = $store->sellerCheckOut($delivery_id,$user_id);
+			die(json::encode($res));
+		}
 	}
 		
 }

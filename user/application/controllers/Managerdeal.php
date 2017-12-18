@@ -38,7 +38,8 @@ class ManagerDealController extends UcenterBaseController {
         1 => '自由报盘',
         2 => '保证金报盘',
         3 => '委托报盘',
-        4 => '仓单报盘'
+        4 => '仓单报盘',
+        5=>'入库单报盘'
     );
 
 
@@ -46,7 +47,7 @@ class ManagerDealController extends UcenterBaseController {
 
     //买家不能操作的方法
     protected $sellerAction = array('productlist','indexoffer','freeOffer','dofreeoffer','depositoffer','dodepositoffer',
-        'deputeoffer','dodeputeoffer','storeoffer','dostoreoffer');
+        'deputeoffer','dodeputeoffer','storeoffer','dostoreoffer','freestoreoffer','dofreestoreoffer');
 
     /**
      * 个人中心首页
@@ -908,6 +909,79 @@ class ManagerDealController extends UcenterBaseController {
         }else{
             $this->redirect(url::createUrl('/ManagerStore/ApplyStoreList'));
         }
+    }
+
+
+    /**
+     * 入库单报盘
+     * @return
+     */
+    public function freestoreOfferAction(){
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
+        $storeModel = new \nainai\store();
+
+        $storeList = $storeModel->getUserActiveStore($this->user_id);
+
+        $this->getView()->assign('storeList', $storeList['list']);
+    }
+
+    /**
+     * 处理入库单报盘
+     * @return
+     */
+    public function doFreestoreOfferAction(){
+        if (IS_POST) {
+            $token = safe::filterPost('token');
+         //   if(!safe::checkToken($token))
+              //  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+
+            $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
+
+            $storeObj = new \nainai\store();
+            $res = $this->offerCheck();
+            if($res !== true) die($res);
+            if ($storeObj->judgeIsUserStore($id, $this->user_id)) { //判断是否为用户的仓单
+                // 报盘数据
+                $offerData = array(
+                    'apply_time'  => \Library\Time::getDateTime(),
+                    'divide'      => Safe::filterPost('divide', 'int'),
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'float') : 0,
+                    'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
+                    'status'      => 0,
+                    'accept_area' => Safe::filterPost('accept_area'),
+                    'accept_day' => Safe::filterPost('accept_day', 'int'),
+                    'price'        => Safe::filterPost('price', 'float'),
+                    'sign'        => Tool::setImgApp(Safe::filterPost('imgfile1')),//委托书照片
+                    'user_id'     => $this->user_id,
+                    'insurance' => Safe::filterPost('insurance', 'int', 0),
+                    'risk' =>implode(',', Safe::filterPost('risk', 'int')),
+                    'expire_time' =>  Safe::filterPost('expire_time'),
+                    'other' => Safe::filterPost('other'),
+                    'weight_type' => Safe::filterPost('weight_type'),
+                );
+                if(!$offerData['risk']){
+                    $offerData['risk'] = '';
+                }
+                $offerObj = new \nainai\offer\freestoreOffer($this->user_id);
+                $offerData['product_id'] = Safe::filterPost('product_id', 'int');
+
+
+                $res = $offerObj->insertStoreOffer($id,$offerData, $this->username);
+                if($res['success']==1){
+                    $title = '入库单报盘审核';
+                    $content = '仓单号为'.$id.'的报盘需要审核';
+
+                    $adminMsg = new \nainai\AdminMsg();
+                    $adminMsg->createMsg('checkoffer',$res['id'],$content,$title);
+                }
+
+                die(json::encode($res)) ;
+            }
+            die(json::encode(tool::getSuccInfo(0,'仓单不存在'))) ;
+        }
+
+        $this->redirect('indexoffer');
     }
 
 }

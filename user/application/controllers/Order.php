@@ -98,7 +98,7 @@ class OrderController extends UcenterBaseController{
 		$info['show_deposit'] = in_array($info['mode'],nainai\order\Order::ORDER_DEPOSIT,nainai\order\Order::ORDER_STORE) ? 1 : 0;
 		$info['proof_thumb'] = \Library\Thumb::get($info['proof'],400,400);
 		$info['pay_retainage'] = $info['amount'] - $info['pay_deposit'];
-		$info['is_free'] = $info['mode'] == nainai\order\Order::ORDER_FREE ? 1 : 0;
+		$info['is_free'] = $info['mode'] == nainai\order\Order::ORDER_FREE || $info['mode'] == nainai\order\Order::ORDER_FREESTORE? 1 : 0;
 		$this->getView()->assign('data',$info);
 	}
 	

@@ -56,7 +56,7 @@
                                             </tr>
                                             <tr>
                                                 <td>地区</td>
-                                                <td id="area">{$user['area']}</td>
+                                                <td id="area">{areatext:data=$user['area']}</td>
                                             </tr>
                                             <tr>
                                                 <td>地址</td>

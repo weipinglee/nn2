@@ -75,7 +75,7 @@ class ContractController extends UcenterBaseController{
 		$info = $order->contractDetail($id);
 		$info['complain'] = $order->canComplain($info);
 
-		
+
 		$invoice = $order->orderInvoiceInfo($info);
 		$this->getView()->assign('invoice',$invoice);
 		$this->getView()->assign('show_delivery',in_array($info['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE)) ? true : false);

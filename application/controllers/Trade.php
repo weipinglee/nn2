@@ -70,8 +70,12 @@ class tradeController extends \nainai\controller\Base {
 				$order_mode = new order\StoreOrder($offer_type);
 				break;
 			case order\Order::ORDER_ENTRUST:
-				//仓单报盘
+				//委托报盘
 				$order_mode = new order\EntrustOrder($offer_type);
+				break;
+			case order\Order::ORDER_FREESTORE:
+				//入库单报盘
+				$order_mode = new order\FreestoreOrder($offer_type);
 				break;
 			default:
 				die(json::encode(tool::getSuccInfo(0,'无效报盘方式')));
@@ -143,7 +147,7 @@ class tradeController extends \nainai\controller\Base {
 			if($gen_res['success'] == 1){
 				$order_id = $gen_res['order_id'];
 
-				if($offer_type == order\Order::ORDER_FREE){
+				if($offer_type == order\Order::ORDER_FREE || $offer_type == order\Order::ORDER_FREESTORE ){
 
 					$order->commit();
 					

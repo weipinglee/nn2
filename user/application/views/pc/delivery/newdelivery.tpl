@@ -84,32 +84,13 @@
 							<span><input class="submit_zz" type="submit" confirm=1 value="提交"></span>
 							<span><input class="submit_zz reset_zz" type="reset" onclick="javascript:history.back();" value="返回"></span>
 						</div>
-						<!-- <div class="sjxx">
-							<p>支付配送</p>
-							<div class="sj_detal">
-								<b class="sj_de_tit">收货人：</b>
-								<span>&nbsp;laijjj</span>
-							</div>
-							<div class="sj_detal">
-								<b class="sj_de_tit">地址：</b>
-								<span>&nbsp;山西省晋中市xxx县</span>
-							</div>
-							<div class="sj_detal">
-								<b class="sj_de_tit">邮编：</b>
-								<span>&nbsp;045000</span>
-							</div>
-						</div> -->
+
 					</div>
 				</div>
 			</div>
 			<!--end中间内容-->	
 			</form>
-			<script type="text/javascript">
-				$(function(){
 
-				});
-
-			</script>
 
 
 		<!-- 弹出层 -->
