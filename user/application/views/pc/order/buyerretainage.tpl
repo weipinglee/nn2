@@ -204,7 +204,7 @@
                       <span {if:$show_online}style="display:none;"{/if}>
                         {if:$bankinfo['true_name'] && $bankinfo['bank_name'] && $bankinfo['card_no']}
                           {if:!($data['proof'] || $data['pay_retainage'])}
-                            <a  href="javascript:;" id='pay_proof'>上传凭证</a>
+                            <a  href="javascript:;" id='pay_proof'>确认提交</a>
                             {else:}
                           {/if}
                         {else:}
