@@ -2401,3 +2401,38 @@ cursor: pointer;
 }
 
 .colblue{color: #0088cc;}
+/*出库单*/
+.inventory_table{
+  margin: 20px;
+}
+.inventory_table table.table1{
+  width: 100%
+}
+.inventory_table table tr th{
+border:1px solid  #545252;
+text-align: center;
+ padding: 10px;
+}
+.inventory_table table tr td{
+  border:1px solid  #545252;
+  padding: 10px;
+}
+.inventory_table table tr td.bz_td{
+  position: relative;
+}
+.inventory_table table tr td.bz_td .bz{
+  position: absolute;
+  top:10px;
+  left: 20px;
+}
+.inventory_table table.table2{
+  width: 90%;
+  margin: 20px auto;
+}
+.button_div{
+  text-align: center;
+}
+.button_div .button_print{
+ padding: 6px 20px; 
+}
+/*出库单 end*/
