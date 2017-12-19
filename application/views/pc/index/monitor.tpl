@@ -20,7 +20,7 @@ $(function(){
     <div class="monitor_modular">
         <div class="modular_top clear">
             <div class="warehouse_img">
-                <a href="#"><img src="{views:images/storage/share.png}"/></a>
+                <a href="#"><img src="{views:images/storage/share2.png}"/></a>
             </div>
             <div class="warehouse_title">
                 <h3><a href="#">东大1号仓库</a></h3>
@@ -41,13 +41,12 @@ $(function(){
             </div>
             <div class="warehouse_title">
                 <h3><a href="#">大洼仓库</a></h3>
-                <p><b>地址：山西省阳泉市大洼村</b></p>
-                <p><b>面积：42亩</b></p>
+                <p><b>地址：山西省阳泉市郊区西南舁乡大洼村</b></p>
+                <p><b>库容：10万吨</b></p>
             </div>
         </div>
         <div class="modular_infor">
-            <p>第一条  为规范耐耐网电子商务平台（以下简称 “平台”或“本平台”）的在线交易活动，保护交易双方的合法权益，维护耐耐网市场正常经营秩序，本着公正、公平、公开的原则，根据《耐耐网网站用户协议》，制定《耐耐网电子商务平台交易规则》（以下简称“本规则”）。
-第二条  本规则适用于在本平台注册的交易会员进行的一切交易活动，包括但不限于钢铁、建材、耐火、设备、冶金化工、其他等的生产资料商品（以下简称“商品”）的交易、结算、交收、物流、融资活动。本规则为一般性规定，若耐耐网对商品交易模式在细则中有特殊规定的，以特殊规定为准。</p> 
+            <p>待更新...</p> 
             <div class="open_div"><a class="open_a">>>点击展开</a></div>
         </div>
     </div>
