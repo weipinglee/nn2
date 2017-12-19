@@ -43,7 +43,12 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		$buyer_id = safe::filterPost('buyer_id');
 		$seller_id = safe::filterPost('seller_id');
 
-		$store = new \nainai\delivery\StoreDelivery();
+		$orderObj = new \Library\M('order_sell');
+		$mode = $orderObj->where(array('order_no'=>$order_no))->getField('mode');
+		if($mode==4)
+		    $store = new \nainai\delivery\StoreDelivery();
+		else
+			$store = new \nainai\delivery\FreestoreDelivery();
 		$res = $store->adminCheck($delivery_id, $status, $msg);
 		if($res['success']==1){
 			$log = new \Library\log();
