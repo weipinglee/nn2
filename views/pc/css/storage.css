@@ -266,7 +266,7 @@ tr.form_infoma{
 	width: 900px;
 }
 /*仓库监控视频*/
-.monitor_a{
+/*.monitor_a{
 	color: #72ACE3 !important;
 }
 .monitor_a:hover{
@@ -285,4 +285,27 @@ tr.form_infoma{
 }
 .support_clude_two .supp_lef_four img{
 	margin-left: 10%; 
+}*/
+#banner {
+	position: relative;
+}
+#banner .dis{
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    position: absolute;
+    margin: auto;
+}
+#banner .dis span{
+	float: left;
+	width: 20px;
+	height: 7px;
+	margin: 0 4px;
+	background-color: #DBDBDB;
+}
+#banner .dis span.active{
+	background-color: #E95412;
 }

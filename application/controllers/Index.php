@@ -186,4 +186,7 @@ class IndexController extends PublicController {
         }
         die(json::encode($data));
     }
+    public function monitorAction(){
+         $this->getView()->assign('cur','storage');
+    }
 }
