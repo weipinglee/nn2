@@ -64,7 +64,7 @@ class OrderController extends UcenterBaseController{
 			$data['seller'] = $seller;
 
 			$this->getView()->assign('show_online',in_array($data['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0);
-			$this->getView()->assign('total_amount',$data['mode'] == \nainai\order\Order::ORDER_FREE ? 1 : 0);
+			$this->getView()->assign('total_amount',$data['mode'] == \nainai\order\Order::ORDER_FREE || $data['mode'] == \nainai\order\Order::ORDER_FREESTORE ? 1 : 0);
 			$this->getView()->assign('bankinfo',$bankinfo);
 			$this->getView()->assign('data',$data);
 		}
