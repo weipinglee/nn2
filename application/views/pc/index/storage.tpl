@@ -4,16 +4,63 @@
 #localDistrict_div{float: none;}
 #placeDistrict_div{float: none;}
 </style>
+<script type="text/javascript">
+  $(function(){
+        // 轮播
+        var n = 0;
+        var last = 0;
+        var interId = null;
+        function play(n){
+          $("#banner .banner_figure").eq(last).css("display","none");
+          $("#banner .banner_figure").eq(n).fadeIn(1000);
+          $("#banner .dis span").eq(last).removeClass("active");
+          $("#banner .dis span").eq(n).addClass("active");
+        }
+        function banner(){
+          interId = setInterval(function(){
+            last = n;
+            n++;
+            if(n >= 2){
+              n = 0;
+            }
+            play(n);
+          },2000)
+        }
+        banner();
+        $("#banner").hover(function(){
+          clearInterval(interId);
+        },function(){
+          banner();
+        })
+        $(".dis span").click(function(){
+          last = n;
+          n = $(this).index();
+          play(n);
+        })
+  });
+
+</script>
     <!--主要内容 开始-->
     <div id="mainContent">
        
             <!----  开始---->
 
        <div class="storage_box">
-         <div class="banner_figure">
-             <img src="{views:images/storage/banner.png}" alt="">
-         </div>
-
+       <div id="banner">
+          <div class="banner_figure" style="">
+            <a href="{url:/index/monitor}"><img src="{views:images/storage/banner2.png}" alt="" /></a>
+          </div>
+          <div class="banner_figure">
+            <a href="#"> <img src="{views:images/storage/banner.png}" alt=""></a>
+          </div>
+          
+          
+          <div class="dis">
+            <span class="active"></span>
+            <span></span>
+          </div>
+        </div>
+        
          <div class="warehouse">
              <div class="war_form">
         <!-- 表格开始 -->
@@ -131,27 +178,44 @@
           </div>
          </div>
        </div>
-
-
-       <!-- two -->
-      <div class="support_two">
+      <!-- two -->
+       <!-- <div class="support_two">
          <div class="support_clude_two">
            <div class="supp_lef_two">
-              <img src="{views:images/storage/black.png}" alt=""> 
+              <a href="http://www.xmeye.net"><img src="{views:images/storage/share.png}" alt=""></a> 
+           </div>
+          <div class="supp_rig_two">
+            <h3>02&nbsp;实时监控</h3>
+            <div class="supp_text">
+            <h4>安防监控，让你更放心</h4>
+            <p>1、为用户提供实时查看，远程关爱，即时分享全面视频的应用服务</p>
+            <p>2、离得远，不要紧，实时监控让您随时随地了解仓库</p>
+            <p>3、即时查看仓库动态</p>
+            <p><a class="monitor_a" href="http://www.xmeye.net"><b>东大1号仓库监控>>点击进入</b></a></p>
+            </div>
+          </div>
+         </div>
+       </div> -->
+
+       <!-- three -->
+       <div class="support_two">
+         <div class="support_clude_two">
+           <div class="supp_lef_two">
+               <img src="{views:images/storage/black.png}" alt=""> 
            </div>
           <div class="supp_rig_two">
             <h3>02&nbsp;操作优势：流程化+标准化</h3>
             <div class="supp_text">
-            <h4>身定制仓储解决方案</h4>
-            <p>1、为您量身定制符合您商品的仓储管理解决方案</p>
-            <p>2、用最少的成本享受最优质的服务</p>
-            <p>3、流程化，标准化的仓储服务，线上和线下都有丰富的管理经验与一站式服务相匹配</p>
+              <h4>身定制仓储解决方案</h4>
+              <p>1、为您量身定制符合您商品的仓储管理解决方案</p>
+              <p>2、用最少的成本享受最优质的服务</p>
+              <p>3、流程化，标准化的仓储服务，线上和线下都有丰富的管理经验与一站式服务相匹配</p>
             </div>
           </div>
          </div>
        </div>
        
-  <!-- three -->
+  <!-- four -->
        <div class="support mone_bor">
          <div class="support_clude space">
            <div class="supp_lef">
