@@ -102,15 +102,17 @@ class storeProductModel extends \nainai\store{
                 $obj->rollBack();
                 return tool::getSuccInfo(0,'数据错误');
             }
-            
+
             $detail = $this->getUserStoreDetail($id);
             $param = array('type' => 'admin_check');
             $param['status'] = $store['status'];
             $param['user_id'] = $detail['user_id'];
             $param['name'] = $detail['product_name'];
+            $param['sign_no'] = $detail['sign_no'];
             $message = new \nainai\message($param['user_id']);
             $re = $message->send('store', $param);
             $param['type'] = 'for_sign';
+
             $message = new \nainai\message($detail['sign_user']);
             $re = $message->send('store', $param);
             $log = new \Library\log();
