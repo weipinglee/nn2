@@ -49,7 +49,7 @@
 						</div>
 						<div class="offer public" onclick="if({$certStatus['status']}==4){alert('请完善您的资质认证');window.open('{url:/ucenter/dealcert}');return false;}window.open('{url:/ManagerDeal/freestoreOffer}')">
 							<div class="offer_right">
-								<img src="{views:/images/center/publish3.png}">
+								<img src="{views:/images/center/publish5.png}">
 							</div>
 							<p class="of_title1">
 								<span class="title1_a public">入库单报盘</span>
