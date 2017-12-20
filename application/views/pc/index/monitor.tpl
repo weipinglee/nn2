@@ -37,10 +37,10 @@ $(function(){
     <div class="monitor_modular">
         <div class="modular_top clear">
             <div class="warehouse_img">
-                <span href="#"><img src="{views:images/storage/share.png}"/></span>
+                <a href="http://www.xmeye.net/"><img src="{views:images/storage/share.png}"/></a>
             </div>
             <div class="warehouse_title">
-                <h3><a href="#">大洼仓库</a></h3>
+                <h3><a href="http://www.xmeye.net/">大洼仓库</a></h3>
                 <p><b>地址：山西省阳泉市郊区西南舁乡大洼村</b></p>
                 <p><b>库容：10万吨</b></p>
             </div>
