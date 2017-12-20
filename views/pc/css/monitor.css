@@ -1,0 +1,76 @@
+.monitor_main,.pretermission_main {
+	width: 1190px;
+	margin: 0 auto;
+	background: #fff;
+}
+.moitor_heard{
+    padding: 0px 20px 0px;
+}
+.moitor_heard h2{
+	padding: 20px 20px 10px;
+    font-size: 20px;
+    border-bottom: 1px solid red;
+}
+.monitor_main .monitor_modular{
+	float: left;
+	width: 518px;
+	background: #fff;
+	margin: 20px 0px 20px 20px;
+	padding: 20px;
+	/* height: 359px; */
+	overflow: hidden;
+	border:1px solid #c7c4c4;
+}
+.monitor_modular .modular_top{
+	padding-bottom: 10px;
+}
+.monitor_modular .modular_top .warehouse_img{
+	float: left;
+	width: 270px;
+}
+.monitor_modular .modular_top .warehouse_img img{
+	width: 100%;
+}
+.monitor_modular .modular_top .warehouse_title{
+	float: left;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+.monitor_modular .modular_top .warehouse_title h3{
+	line-height: 25px;
+	font-size: 15px;
+}
+/*.monitor_modular .modular_top .warehouse_title h3 a{
+	color: #c81623;
+}*/
+.monitor_modular .modular_top .warehouse_title p{
+	line-height: 25px;
+}
+.monitor_modular .modular_infor p{
+	text-indent: 20px;
+	line-height: 20px;
+	height: 40px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+.monitor_modular .modular_infor p.open_p{
+	overflow: inherit;
+	height: auto;
+	-webkit-line-clamp: inherit;
+}
+.monitor_modular .modular_infor .open_div a{
+	color: #72ACE3;
+}
+.pretermission{
+	float: left;
+	width: 369px;
+	margin-left: 20px;
+	margin-top:20px;
+	margin-bottom: 20px;
+	background: #fff;
+}
+.pretermission img{
+	width: 100%;
+}
