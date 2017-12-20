@@ -126,6 +126,14 @@
                                <th colspan="3">基本挂牌信息</th>
                             </tr>
                             <tr>
+                                <td nowrap="nowrap"><span></span>入库单号：</td>
+                                <td colspan="2">
+                                <span><input class="text" type="text"  disabled name="sign_no" value="">
+                                    </span>
+                                    <span>该字段系统自动生成</span>
+                                </td>
+                            </tr>
+                            <tr>
                             <td nowrap="nowrap"><span></span>商品标题：</td>
                             <td colspan="2"> 
                                 <span><input class="text" type="text" datatype="s1-30" errormsg="填写商品标题" name="warename">

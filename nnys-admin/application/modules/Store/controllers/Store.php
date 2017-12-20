@@ -2,7 +2,7 @@
 /**
  * @name storeController
  * @author weipinglee
- * @desc ÓÃ»§¹ÜÀí¿ØÖÆÆ÷
+ * @desc ç”¨æˆ·ç®¡ç†æ§åˆ¶å™¨
  */
 use \Library\safe;
 use \Library\Thumb;
@@ -29,7 +29,7 @@ class storeController extends Yaf\Controller_Abstract{
     }
 
     /**
-     *²Ö¿âÌí¼Ó
+     *ä»“åº“æ·»åŠ 
      */
     public function storeAddAction(){
         $storeModel = new storeModel();
@@ -45,12 +45,20 @@ class storeController extends Yaf\Controller_Abstract{
             $store['contact']         = safe::filterPost('contact');
             $store['contact_phone']   = safe::filterPost('contact_phone','/^[\d\-]{6,15}$/');
             $store['type']            = safe::filterPost('type','/^[01]$/');
+            $store['code']            = safe::filterPost('code','/^[A-Za-z0-9]{4,8}$/');
             $store['status']          = safe::filterPost('status','/^[01]$/');
             $store['note']            = safe::filterPost('note');
             if (!empty($imgfile)) {
                 $store['img']             = tool::setImgApp($imgfile);
             }
-            
+
+            $existArr = array('code'=>$store['code']);
+            if($store['id']>0){
+                $existArr['id'] = array('neq',$store['id']);
+            }
+            if($storeModel->exist($existArr)){
+                die(json::encode(tool::getSuccInfo(0,'è¯¥ä»“åº“ä»£ç å·²ç»å­˜åœ¨')));
+            }
             $res = $storeModel->update($store);
             die(json::encode($res));
 
@@ -70,7 +78,7 @@ class storeController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * ÉèÖÃ²Ö¿â×´Ì¬
+     * è®¾ç½®ä»“åº“çŠ¶æ€
      * @return bool
      */
     public function setStatusAction(){
@@ -88,7 +96,7 @@ class storeController extends Yaf\Controller_Abstract{
     }
 
     /**
-     * É¾³ı²Ö¿â
+     * åˆ é™¤ä»“åº“
      */
     public function logicDelAction(){
         if(IS_AJAX){

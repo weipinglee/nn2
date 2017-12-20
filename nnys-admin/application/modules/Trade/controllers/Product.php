@@ -27,11 +27,14 @@ class productController extends InitController{
             $cate['pid']       = safe::filterPost('pid','int',0);
             $cate['sort']      = safe::filterPost('sort','int',0);
             $cate['note']      = safe::filterPost('note');
+            $cate['code']      = safe::filterPost('code');
             $cate['img'] = safe::filterPost('imgfile2');
 
             $attrs = safe::filterPost('attr_id','int','');
             $cate['attrs']     = $attrs=='' ? '' : implode(',',array_unique($attrs));
-            
+            if($productModel->isExistCatecode($cate['code'])){
+                die(json::encode(\Library\tool::getSuccInfo(0,'分类代码已存在')));
+            }
             $res = $productModel->updateCate($cate);
             die(json::encode($res));
 

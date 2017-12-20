@@ -124,6 +124,19 @@ class productModel extends baseModel{
 		return $tree;
 	}
 
+	/**
+	 * 判断市场代码是否已经存在
+	 * @param $code
+	 * @return bool
+	 */
+	public function isExistCatecode($code){
+		$m = new M('product_category');
+		$id = $m->where(array('code'=>$code))->getField('id');
+		if($id)
+			return true;
+		return false;
+	}
+
 
 
 	/**

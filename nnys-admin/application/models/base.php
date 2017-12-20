@@ -67,11 +67,12 @@ class baseModel{
 
 		$log  = array();
 		$log['table'] = $tableName;
-		$model->beginTrans();
+
 		$rules = $this->getRules(strtolower($methodArr[1]));
 		$args = $args[0];
 		switch ($methodArr[0]) {
 			case 'add':
+				$model->beginTrans();
 				$res = null;
 				if ($model->validate($rules, $args)) {
 					$new_id = $model->data($args)->add();
@@ -83,6 +84,7 @@ class baseModel{
 				}
 			break;
 			case 'update':
+				$model->beginTrans();
 				if($model->validate($rules,$args)){
 					if($this->where!=''){
 						$log['content'] = '更新了数据表'.$tableName;
@@ -107,6 +109,7 @@ class baseModel{
 			break;
 
 			case 'delete'://删除数据
+				$model->beginTrans();
 				$log['type'] = 'delete';
 
 				if(!is_array($args)){
@@ -125,6 +128,13 @@ class baseModel{
 				return array();
 				break;
 
+			case 'exist'://判断给定的条件下是否存在行，如果存在返回行的id,不存在返回false
+				if(is_array($args)){
+					return $model->where($args)->getField('id');
+
+				}
+				return false;
+                break;
 			default:
 				throw new Exception("Unknow Method", 1);exit();
 				break;

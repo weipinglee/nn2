@@ -23,6 +23,13 @@
       <div class="col-5"> </div>
     </div>
       <div class="row cl">
+          <label class="form-label col-2"><span class="c-red">*</span>分类代码：</label>
+          <div class="formControls col-5">
+              <input type="text" class="input-text" value="{if:isset($cate)}{$cate['code']}{/if}" datatype="s2-4" errormsg="请填写2到4位字母" placeholder="" name="code">
+          </div>
+          <div class="col-5"> </div>
+      </div>
+      <div class="row cl">
           <label class="form-label col-2"><span class="c-red"></span>下级分类统称：</label>
           <div class="formControls col-5">
               <input type="text" class="input-text" value="{if:isset($cate)}{$cate['childname']}{else:}商品分类{/if}" datatype="s1-20" errormsg="请正确填写下级分类统称" name="childname">

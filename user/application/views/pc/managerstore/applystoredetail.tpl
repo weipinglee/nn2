@@ -9,7 +9,10 @@
                     <tr>
                         <td class="spmx_title" colspan="8">入库详细信息</td>
                     </tr>
-
+                    <tr>
+                        <td colspan="2">仓单编号</td>
+                        <td colspan="6">{$storeDetail['sign_no']}</td>
+                    </tr>
                     <tr>
                         <td colspan="2">仓库名称</td>
                         <td colspan="6">{$storeDetail['sname']}</td>

@@ -21,6 +21,13 @@
       <div class="col-4"> </div>
     </div>
       <div class="row cl">
+          <label class="form-label col-3"><span class="c-red">*</span>仓库代码：</label>
+          <div class="formControls col-5">
+              <input type="text" class="input-text" value="{if:isset($store)}{$store['code']}{/if}" id="member-name" name="code" datatype="s4-8" nullmsg="仓库代码不能为空">
+          </div>
+          <div class="col-4"> </div>
+      </div>
+      <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>仓库简称：</label>
           <div class="formControls col-5">
               <input type="text" class="input-text" value="{if:isset($store)}{$store['short_name']}{/if}" placeholder="" datatype="s2-20" name="short_name" errormsg="请填写简称" >

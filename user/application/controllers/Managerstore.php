@@ -137,9 +137,6 @@ class ManagerStoreController extends UcenterBaseController{
 
 	//仓单签发
 	public function storeSignAction(){
-		$store_list = store::getStoretList();
-
-		$this->getView()->assign('storeList',$store_list);
 		$this->productAddAction();
 
 		$token =  \Library\safe::createToken();
@@ -232,7 +229,8 @@ class ManagerStoreController extends UcenterBaseController{
 			'create_time'  => $time,
 			'unit'         => Safe::filterPost('unit'),
 		);
-
+		$proObj = new \nainai\offer\product();
+		$detail['market_id'] = $proObj->getcateTop($detail['cate_id']);
 		//图片数据
 		$imgData = Safe::filterPost('imgData');
 
@@ -310,6 +308,28 @@ class ManagerStoreController extends UcenterBaseController{
 		$this->getView()->assign('storeList', $data['list']);
 		$this->getView()->assign('attrs', $data['attrs']);
 		$this->getView()->assign('pageHtml', $data['pageHtml']);
+	}
+
+	/**
+	 * 打印预览
+	 */
+	public function tableAction(){
+		$this->getView()->setLayOut('');
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int', 0);
+
+		if (intval($id) > 0) {
+			$stObj = new store();
+			$data = $stObj->getUserStoreDetail($id, 0);
+			// $data = $stObj->getManagerStoreDetail($id,$this->user_id);
+			$mem = new \nainai\member();
+			$userData = $mem->getUserDetail($data['user_id']);
+			$this->getView()->assign('user', $userData);
+			$this->getView()->assign('storeDetail', $data);
+			$this->getView()->assign('photos', $data['photos']);
+		}else{
+			$this->redirect(url::createUrl('/ManagerStore/ApplyStoreList'));
+		}
 	}
 
 	/**

@@ -22,8 +22,8 @@
                  <td>{$detail['store_name']}</td>
                  <th>库位</th>
                  <td>{$detail['store_pos']}</td>
-                 <th>仓位</th>
-                 <td>{$detail['cang_pos']}</td>
+                 <th>编号</th>
+                 <td>{$detail['sign_no']}</td>
              </tr>
              <tr>
                  
@@ -31,8 +31,8 @@
                  <td>{$detail['in_time']}</td>
                  <th>租库日期</th>
                  <td>{$detail['rent_time']}</td>
-                 <th></th>
-                 <td></td>
+                 <th>仓位</th>
+                 <td>{$detail['cang_pos']}</td>
 
              </tr>
 
