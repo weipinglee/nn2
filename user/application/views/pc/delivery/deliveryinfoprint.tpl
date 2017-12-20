@@ -1,12 +1,10 @@
 <script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
 <script type="text/javascript" src='{root:js/area/Area.js}'></script>
 <script type="text/javascript" src='{root:js/area/AreaData_min.js}'></script>
-
+<link href="{views:css/user_index.css}" rel="stylesheet" type="text/css" />
 <div class="user_c_list">
     <div class="user_zhxi">
-        <div class="zhxi_tit">
-            <p><a>出库单管理</a>&gt;<a>出库单</a></p>
-        </div>
+
         <div class="inventory_table">
             <table class="table1">
                 <tr><th colspan="6">提货单(出库单)</th></tr>
@@ -98,7 +96,7 @@
                 </tr>
             </table>
             <div class="button_div">
-                <a href="{url:/delivery/deliveryInfoPrint?delivery_id=$info['delivery_id']&order_no=$info['order_no']@user}"><button class="button_print">打印</button></a>
+                <button class="button_print" onclick="window.print()">打印</button>
             </div>
         </div>
     </div>

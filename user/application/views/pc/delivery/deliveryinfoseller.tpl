@@ -2,135 +2,105 @@
 <script type="text/javascript" src='{root:js/area/Area.js}'></script>
 <script type="text/javascript" src='{root:js/area/AreaData_min.js}'></script>
 
-			<!--end左侧导航-->	
-			<!--start中间内容-->	
-			<div class="user_c">
-				<div class="user_zhxi">
-					<div class="zhxi_tit">
-						<p><a>提单管理</a>><a>提单详情</a></p>
-					</div>
-					<div class="center_tabl">
-                    <div class="lx_gg">
-                        <b>提货详细信息</b>
-                    </div>
-                    <div class="list_names">
-                        <span>订单号:</span>
-                        <span>{$info['order_no']}</span>
-                    </div>
-
-						<table border="0">
-                            <tr>
-                                <td nowrap="nowrap"><span></span>商品名称：</td>
-                                <td colspan="2">
-                                    {$info['order']['name']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td nowrap="nowrap"><span></span>交收地点：</td>
-                                <td colspan="2">
-                                    
-                                    {$info['order']['accept_area']}
-                                </td>
-                            </tr>
-
-                            {if:$info['order']['mode'] == \nainai\order\Order::ORDER_STORE}
-                                <tr>
-                                    <td nowrap="nowrap"><span></span>所在仓库：</td>
-                                    <td colspan="2" id='areatext'>
-                                        {areatext:data=$info['order']['store_area']}&nbsp;
-                                        {$info['order']['store_address']}&nbsp;
-                                        {$info['order']['store_name']}
-                                    </td>
-                                </tr>
-                            {/if}
-                           
-                            <tr>
-                                <td nowrap="nowrap"><span></span>提货数量：</td>
-                                <td colspan="2">
-                                   {$info['num']}
-                                </td>
-                            </tr>
-                            <tr >
-                                <td nowrap="nowrap"><span></span>申请提货时间：</td>
-                                <td colspan="2">
-                                    {$info['create_time']}
-                                </td>
-                            </tr>
-                            <tr>
-              					<td nowrap="nowrap"><span></span>预计提货时间：</td>
-                				<td colspan="2">
-                                    {$info['expect_time']}
-                                </td>
-           				 	</tr>
-                            <tr>
-                                <td nowrap="nowrap"><span></span>提货人：</td>
-                                <td colspan="2">
-                                    {$info['delivery_man']}
-                                </td>
-                            </tr>
-                            <tr >
-                                <td nowrap="nowrap"><span></span>电话：</td>
-                                <td colspan="2">
-                                    {$info['phone']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td nowrap="nowrap"><span></span>身份证号：</td>
-                                <td colspan="2">
-                                    {$info['idcard']}
-                                </td>
-                            </tr>
-                             <tr>
-                                <td nowrap="nowrap"><span></span>车牌号：</td>
-                                <td colspan="2">
-                                    {$info['plate_number']}
-                                </td>
-                            </tr>
-                            <tr >
-                                <td nowrap="nowrap"><span></span>备注：</td>
-                                <td colspan="2">
-                                    {$info['remark']}
-                                </td>
-                            </tr>
-                            
-                            {if:$info['delivery_time']}
-                                <tr >
-                                    <td nowrap="nowrap"><span></span>发货时间：</td>
-                                    <td colspan="2"> 
-                                        {$info['delivery_time']}
-                                    </td>
-                                </tr>
-                            {/if}
-                            {if:$info['confirm_time']}
-                                <tr >
-                                    <td nowrap="nowrap"><span></span>确认提货时间：</td>
-                                    <td colspan="2"> 
-                                        {$info['confirm_time']}
-                                    </td>
-                                </tr>
-                            {/if}
-                            <tr >
-                                <td nowrap="nowrap"><span></span>当前提货状态：</td>
-                                <td colspan="2"> 
-                                    {$info['title']}
-                                </td>
-                            </tr>   
-                            
-                            <tr>
-                                <td></td>
-                                <td colspan="2" class="btn">
-
-                                    {foreach:items=$info['action']}
-                                        <!-- {if:$item['name'] != '查看'} -->
-                                        <a href="{$item['url']}" >{$item['name']}</a>
-                                        <!-- {/if} -->
-                                    {/foreach}
-                                    
-                                </td>
-                            </tr>
-                         </table>
-                         </div>
-                         </div>
-                         </div>
-
+<div class="user_c_list">
+    <div class="user_zhxi">
+        <div class="zhxi_tit">
+            <p><a>出库单管理</a>&gt;<a>出库单</a></p>
+        </div>
+        <div class="inventory_table">
+            <table class="table1">
+                <tr><th colspan="6">提货单(出库单)</th></tr>
+                <tr>
+                    <td>提单号</td>
+                    <td>{$info['delivery_id']}</td>
+                    <td>开单日期</td>
+                    <td> {$info['create_time']}</td>
+                    <td>提单状态</td>
+                    <td> {$info['title']}</td>
+                </tr>
+                <tr>
+                    <td>购货单位</td>
+                    <td>{$info['order']['buyer_name']}</td>
+                    <td>仓库</td>
+                    <td colspan="3">
+                        {areatext:data=$info['order']['store_area']}&nbsp;
+                        {$info['order']['store_address']}&nbsp;
+                        {$info['order']['store_name']}
+                    </td>
+                </tr>
+                <tr>
+                    <td>提货人</td>
+                    <td> {$info['delivery_man']}</td>
+                    <td class="bz_td" colspan="4" rowspan="6"><div class="bz">备注: {$info['remark']}</div></td>
+                </tr>
+                <tr>
+                    <td>联系电话</td>
+                    <td> {$info['phone']}</td>
+                </tr>
+                <tr>
+                    <td>身份证号码</td>
+                    <td> {$info['idcard']}</td>
+                </tr>
+                <tr>
+                    <td>车牌号</td>
+                    <td> {$info['plate_number']}</td>
+                </tr>
+                <tr>
+                    <td>记重方式</td>
+                    <td>{$info['order']['weight_type']}</td>
+                </tr>
+                <tr>
+                    <td>出库日期</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>品名</td>
+                    <td colspan="3">{$info['order']['name']}</td>
+                    <td>提货量（{$info['order']['unit']}）</td>
+                    <td>{$info['num']}</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">出库明细</td>
+                    <td>货号</td>
+                    <td colspan="2">生产厂商</td>
+                    <td>库位</td>
+                    <td>提货量（{$info['order']['unit']}）</td>
+                </tr>
+                <tr>
+                    <td>{$info['order']['product_id']}</td>
+                    <td colspan="2">{$info['order']['seller_name']}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>出库数量</td>
+                    <td>实际提货量（{$info['order']['unit']}）：</td>
+                    <td colspan="2"></td>
+                    <td>实际磅秤（{$info['order']['unit']}）：</td>
+                    <td></td>
+                </tr>
+            </table>
+            <table class="table2">
+                <tr>
+                    <td>现场操作员签字：</td>
+                    <td>日期：</td>
+                    <td>备注：</td>
+                </tr>
+                <tr>
+                    <td>仓管员签字：</td>
+                    <td>日期：</td>
+                    <td>备注：</td>
+                </tr>
+                <tr>
+                    <td>提货人签字：</td>
+                    <td>日期：</td>
+                    <td>备注：</td>
+                </tr>
+            </table>
+            <div class="button_div">
+                <a href="{url:/delivery/deliveryInfoPrint?delivery_id=$info['delivery_id']&order_no=$info['order_no']@user}"><button class="button_print">打印</button></a>
+            </div>
+        </div>
+    </div>
+</div>
 			

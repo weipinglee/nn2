@@ -984,4 +984,6 @@ class ManagerDealController extends UcenterBaseController {
         $this->redirect('indexoffer');
     }
 
+
+
 }
