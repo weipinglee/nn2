@@ -20,13 +20,7 @@
 								<span>&nbsp;{$info['admin_msg']}</span>
 							</div>
 							{/if}
-							{if:$info['pstatus']== \nainai\Delivery\delivery::DELIVERY_MANAGER_CHECKOUT}
-							<div class="sj_detal">
-								<b class="sj_de_tit">操作</b>
-								<span>&nbsp;
-								<a href="{url:/ManagerStore/storeDeliveryCheck?id=$info[id]}" style="background: #FC7300;padding: 8px 15px;color:#fff;text-decoration: none">确认出库</a></span>
-							</div>
-							{/if}
+
 							<p>仓库信息</p>
 
 							<div class="sj_detal">
@@ -120,12 +114,5 @@
 			<!--end中间内容-->	
 			<!--end右侧广告-->
 
-			<script type="text/javascript">
-				$(function(){
-					$('.fk_butt').click(function(){
-						window.location.href = $(this).attr('url');
-					});
-				})
-			</script>
 		</div>
 	</div>

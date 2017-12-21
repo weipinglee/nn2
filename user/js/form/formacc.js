@@ -22,7 +22,6 @@ nn_panduo.formacc.prototype = {
 			_this.redirect_url = $(this).attr("redirect_url");
 			_this.form = this;
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
-			
 			_this.bind_select();
 			_this.validform();
 			var con = $(_this.form).find('[confirm=1]');
@@ -34,26 +33,25 @@ nn_panduo.formacc.prototype = {
 					})
 				})
 			}
-
 		});
 		_this.validPaymentPassword();
 	},
-
 	/**
 	 * 自动绑定select选中项
 	 */
 	bind_select:function(){
-        $(this.form).find("select").each(function(){
-        	var value = $(this).attr('value');
-        	if(value != null && value != ''){
-        		var option = $(this).find("option[value='"+value+"']");
-	        	var txt = $(option).text();
-	        	$(option).attr("selected",'selected');
-	        	$(this).siblings("span").text(txt);
-        	}
-        });
-        // $("select[name='type']").find("option[value='{$info['type']}']").attr("selected",'selected');
+		$(this.form).find("select").each(function(){
+			var value = $(this).attr('value');
+			if(value != null && value != ''){
+				var option = $(this).find("option[value='"+value+"']");
+				var txt = $(option).text();
+				$(option).attr("selected",'selected');
+				$(this).siblings("span").text(txt);
+			}
+		});
+		// $("select[name='type']").find("option[value='{$info['type']}']").attr("selected",'selected');
 	},
+
 	//绑定按钮确认弹窗时间
 	bind_confirm:function(){
 		var f_href;
@@ -81,48 +79,79 @@ nn_panduo.formacc.prototype = {
 	 * @type {Object}
 	 */
 	validform:function(){
-        var _this = this;
-        if(this.form){
+		var _this = this;
+		if(this.form){
+
 			this.validObj = $(this.form).Validform({
-		      tiptype : 3,
-		      ajaxPost:false,
-		      showAllError:false,
-		      postonce:true,
-		      
-			  datatype : {
-				  'float' : /^\d+\.?\d*$/i,
-				  "zh" : /^[\u4E00-\u9FA5\uf900-\ufa2d]$/,
-				  "zh2-5" : /^[\u4E00-\u9FFF\uf900-\ufa2d]{2,5}$/,
-				  'qq' : /^[1-9][0-9]{4,16}$/i,
-				  'zip' : /^\d{6}$/i,
-				  'mobile':/^1[2|3|4|5|6|7|8|9][0-9]\d{8}$/,
-				  'date':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/i,
-			      'datetime':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29) (?:(?:[0-1][0-9])|(?:2[0-3])):(?:[0-5][0-9]):(?:[0-5][0-9])$/i,
-				  'identify' : /^\d{17}(\d|x)$/i,
-				  'money' : function(gets){
-					  gets = $.trim(gets);
-					  if(gets.match(/^[1-9][0-9]{0,7}(\.\d{0,2})?$/)){
-						  return true;
-					  }
-					  if(gets.match(/^0\.[1-9][0-9]?$/)){
-						  return true;
-					  }
-					  if(gets.match(/^0\.0[1-9]$/)){
-						  return true;
-					  }
-					  return false;
-				  }
+				tiptype : 2,
+				ajaxPost:false,
+				showAllError:false,
+				postonce:true,
+
+				datatype : {
+					'float' : /^\d+\.?\d*$/i,
+					"zh" : /^[\u4E00-\u9FA5\uf900-\ufa2d]$/,
+					"zh2-5" : /^[\u4E00-\u9FFF\uf900-\ufa2d]{2,5}$/,
+					'qq' : /^[1-9][0-9]{4,16}$/i,
+					'zip' : /^\d{6}$/i,
+					'mobile':/^1[2|3|4|5|6|7|8|9][0-9]\d{8}$/,
+					'date':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/i,
+					'datetime':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29) (?:(?:[0-1][0-9])|(?:2[0-3])):(?:[0-5][0-9]):(?:[0-5][0-9])$/i,
+					'identify' : /^\d{17}(\d|x)$/i,
+					'money' : function(gets){
+						gets = $.trim(gets);
+						if(gets.match(/^[1-9][0-9]{0,7}(\.\d{0,2})?$/)){
+							return true;
+						}
+						if(gets.match(/^0\.[1-9][0-9]?$/)){
+							return true;
+						}
+						if(gets.match(/^0\.0[1-9]$/)){
+							return true;
+						}
+						return false;
+					}
 
 				},
-		      beforeSubmit:function(curform){
-		        var url = $(curform).attr('action');
-		        var data = $(curform).serialize();
-		        var pay_secret = $(curform).attr('pay_secret');
-				var has_secret = $(curform).attr('has_secret');//判断
-		        if(pay_secret){
-					if(has_secret){
-						_this.ajax_post(has_secret,{password:'pass'},function(){
-							layer.closeAll();
+				beforeSubmit:function(curform){ 
+					var url = $(curform).attr('action');
+					var data = $(curform).serialize();
+					var pay_secret = $(curform).attr('pay_secret');
+					var has_secret = $(curform).attr('has_secret');
+					var confirm    = $(curform).attr('confirm');//表单是否需要确认，如果存在pay_secret则不确认
+					var confirm_txt    = $(curform).attr('confirm_text');
+					if(pay_secret){
+						if(has_secret){
+							_this.ajax_post(has_secret,{password:'pass'},function(){
+								layer.closeAll();
+								layer.config({
+									extend: 'extend/layer.ext.js'
+								});
+								layer.prompt({title:'请输入支付密码',formType:1},function(pass){
+
+									layer.closeAll();
+									data += '&pay_secret=' + pass;
+									// console.log(data);
+									layer.load(2,{shade:[0.1,'gray']});
+									_this.ajax_post(url,data,function(){
+										layer.closeAll();
+										if(!_this.no_redirect){
+											layer.msg("操作成功!稍后自动跳转");
+											setTimeout(function(){
+												if(_this.redirect_url){
+													window.location.href=_this.redirect_url;
+												}else{
+													window.location.reload();
+												}
+											},1000);
+										}else{
+											layer.msg('操作成功！');
+										}
+									});
+								});
+							});
+						}
+						else{
 							layer.config({
 								extend: 'extend/layer.ext.js'
 							});
@@ -148,18 +177,38 @@ nn_panduo.formacc.prototype = {
 									}
 								});
 							});
-						});
-					}
-					else{
+						}
+
+
+						
+
+					}else{
 						layer.config({
 							extend: 'extend/layer.ext.js'
 						});
-						layer.prompt({title:'请输入支付密码',formType:1},function(pass){
-
-							layer.closeAll();
-							data += '&pay_secret=' + pass;
-							// console.log(data);
-							layer.load(2,{shade:[0.1,'gray']});
+						if(confirm){
+							if(!confirm_txt)
+								confirm_txt = '确定吗？';
+							layer.confirm(confirm_txt,function(){
+								layer.closeAll();
+								_this.ajax_post(url,data,function(){
+									layer.closeAll();
+									if(!_this.no_redirect){
+										layer.msg("操作成功!稍后自动跳转");
+										setTimeout(function(){
+											if(_this.redirect_url){
+												window.location.href=_this.redirect_url;
+											}else{
+												window.location.reload();
+											}
+										},1000);
+									}else{
+										layer.msg('操作成功！');
+									}
+								});
+							});
+						}
+						else{
 							_this.ajax_post(url,data,function(){
 								layer.closeAll();
 								if(!_this.no_redirect){
@@ -175,29 +224,13 @@ nn_panduo.formacc.prototype = {
 									layer.msg('操作成功！');
 								}
 							});
-						});
-					}
-		        }else{
-			        _this.ajax_post(url,data,function(){
-				        if(!_this.no_redirect){
-				       	    layer.msg("操作成功!稍后自动跳转");
-				            setTimeout(function(){
-				              	if(_this.redirect_url){
-					                window.location.href=_this.redirect_url;
-					            }else{
-					            	window.location.reload();
-					            }
-				            },1000);
-				        }else{
-				          	layer.msg('操作成功！');
-				        }
-			        });
-			    }
-		        return false;
-		      }
-	      });
+						}
 
-	    }
+					}
+					return false;
+				}
+			});
+		}
 	},
 	//为a标签绑定认证支付密码事件
 	validPaymentPassword:function(){
@@ -205,15 +238,15 @@ nn_panduo.formacc.prototype = {
 			$(this).click(function(){
 				var href = $(this).attr('href');
 				layer.prompt({title:'请输入支付密码',formType:1},function(pass){
-        		
-	    			layer.closeAll();
-	    			href += '/pay_secret/'+pass;
-				    window.location.href = href;
-	        	});	
 
-	        	return false;
+					layer.closeAll();
+					href += '/pay_secret/'+pass;
+					window.location.href = href;
+				});
+
+				return false;
 			});
-			
+
 		});
 	},
 
@@ -266,8 +299,6 @@ nn_panduo.formacc.prototype = {
 		$.Datatype[name] = rule;
 	},
 
-
-
 	/**
 	 * 设置数据状态
 	 * @return {[type]} [description]
@@ -303,9 +334,9 @@ nn_panduo.formacc.prototype = {
 			}
 			if($(_this.event_obj).attr("to_list")){
 				layer.msg("操作成功!");
-	            setTimeout(function(){
-		          	window.location.reload();
-		        },1000);
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
 			}else{
 				$(_this.event_obj).attr("title","");//$(_this.event_obj).attr("title") == "启用" ? "停用" : "启用");
 				$(_this.event_obj).attr("ajax_status",$(_this.event_obj).attr("ajax_status") == 1 ? 0 : 1);
@@ -324,7 +355,6 @@ nn_panduo.formacc.prototype = {
 	//ajax提交
 	ajax_post:function(url,ajax_data,suc_callback,err_callback){
 		var _this = this;
-		layer.load(2,{shade:[0.1,'black']});
 		$.ajax({
 			type:'post',
 			url:url,
@@ -336,7 +366,7 @@ nn_panduo.formacc.prototype = {
 					if(data.returnUrl){
 						layer.msg(data.info);
 						setTimeout(function(){
-							window.location.href=data.returnUrl;
+								window.location.href=data.returnUrl;
 						},1000);
 					}
 					else{
@@ -348,18 +378,13 @@ nn_panduo.formacc.prototype = {
 					}
 
 
-				}else if(!!data.payment_id)
-                {
-                    var html = '<form action="'+submit_pay+'" method="post"><input type="hidden" name="payment_id" value="'+data.payment_id+'"/><input type="hidden" name="recharge" value="'+data.recharge+'"/><input type="hidden" name="sign" value="1"/></form><script type="text/javascript">window.document.forms[0].submit();</script>';
-                    $('body').html(html);
-                }else{
-
+				}else{
 					if(data.returnUrl){
-
 							layer.msg(data.info);
 							setTimeout(function(){
 								window.location.href=data.returnUrl;
 							},1000);
+
 					}
 					else{
 						if(typeof(eval(err_callback)) == 'function'){
@@ -380,7 +405,6 @@ nn_panduo.formacc.prototype = {
 
 
 $(function(){
-
 	formacc = new nn_panduo.formacc();
 	formacc.bind_status_handle();
 	formacc.bind_confirm();
@@ -402,14 +426,12 @@ $(function(){
 		//为地址选择框添加验证规则
 		var rules = [{
 			ele:"input[name=area]",
-			datatype:"n2-6",
+			datatype:"n6-6",
 			nullmsg:"请选择地址！",
 			errormsg:"请选择地址！"
 		}];
 		formacc.addRule(rules);
 	}
-
-
 
 })
 

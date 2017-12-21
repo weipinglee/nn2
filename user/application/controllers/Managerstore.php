@@ -59,7 +59,7 @@ class ManagerStoreController extends UcenterBaseController{
 
 
 	/**
-	 * 仓单提货出库审核列表
+	 * 仓单提货出库列表
 	 */
 	public function storeCheckListAction(){
 		$store = new \nainai\delivery\StoreDelivery();
@@ -67,6 +67,50 @@ class ManagerStoreController extends UcenterBaseController{
 		$list = $store->storeCheckList($page,$this->user_id);
 		$this->getView()->assign('data',$list['data']);
         		$this->getView()->assign('page',$list['bar']);
+	}
+
+	/**
+	 * 仓单提货出库待审核列表
+	 */
+	public function storeOutListAction(){
+		$store = new \nainai\delivery\StoreDelivery();
+		$page = safe::filterGet('page','int',1);
+		$list = $store->storeOutList($page,$this->user_id);
+		$this->getView()->assign('data',$list['data']);
+		$this->getView()->assign('page',$list['bar']);
+	}
+
+	/**
+	 * 出库单详情
+	 */
+	public function deliveryInfoAction(){
+		$store = new \nainai\delivery\StoreDelivery();
+		$id = safe::filter($this->_request->getParam('id'));
+		if($store->checkStoreManager($id,$this->user_id)){
+			$info = $store->storeFees($id);
+		}
+		$order = new \nainai\order\Order();
+
+		$info['order'] = $order->contractDetail($info['order_id']);
+
+		$this->getView()->assign('info',$info);
+	}
+
+	/**
+	 * 出库单详情,打印页面
+	 */
+	public function deliveryInfoPrintAction(){
+		$this->getView()->setLayout('');
+		$store = new \nainai\delivery\StoreDelivery();
+		$id = safe::filter($this->_request->getParam('id'));
+		if($store->checkStoreManager($id,$this->user_id)){
+			$info = $store->storeFees($id);
+		}
+		$order = new \nainai\order\Order();
+
+		$info['order'] = $order->contractDetail($info['order_id']);
+
+		$this->getView()->assign('info',$info);
 	}
 
 	/**
@@ -85,15 +129,16 @@ class ManagerStoreController extends UcenterBaseController{
 	 * 确认出库
 	 */
 	public function storeDeliveryCheckAction(){
-		$delivery_id = safe::filter($this->_request->getParam('id'));
+		$data = array(
+			'id' => safe::filterPost('id','int'),
+			'out_time'=>safe::filterPost('out_time'),
+			'act_num' => safe::filterPost('act_num'),
+			'act_bang' => safe::filterPost('act_bang')
+		);
 
 		$store = new \nainai\delivery\StoreDelivery();
-		$res = $store->managerCheckout($delivery_id,$this->user_id);
-		if($res['success'] == 1){
-			$this->success('已确认出库',url::createUrl('/ManagerStore/storeCheckList'));
-		}else{
-			$this->error($res['info']);
-		}
+		$res = $store->managerCheckout($data,$this->user_id);
+		die(json::encode($res));
 
 	}
 
