@@ -1,173 +1,104 @@
-<script type="text/javascript" src="{root:js/area/Area.js}" ></script>
-<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
-<div id="content" class="white">
-<h1><img src="{views:img/icons/dashboard.png}" alt="" />仓库管理
+      <!--
+              CONTENT 
+                        -->
+        <div id="content" class="white">
+            <h1><img src="{views:img/icons/dashboard.png}" alt="" />出库单详情
 </h1>
-                
+
 <div class="bloc">
     <div class="title">
-       仓库订单详情
+       出库单详情
     </div>
-   <div class="pd-20">
-  <form action="{url:store/storeorder/storeOrderPass}" method="post" class="form form-horizontal" id="form-member-add" auto_submit redirect_url="{url:store/storeorder/checkorderList}">
-      <input type="hidden" name="id" value="{$info['delivery_id']}" />
-      <input type="hidden" name="order_no" value="{$info['order_no']}" />
-      <input type="hidden" name="buyer_id" value="{$info['user_id']}" />
-      <input type="hidden" name="seller_id" value="{$info['seller_id']}" />
-    <div class="row cl">
-      <label class="form-label col-3"><span class="c-red">*</span>订单号：</label>
-      <div class="formControls col-5">
-        {$info['order_no']}
-      </div>
-      <div class="col-4"> </div>
-    </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>提货单号：</label>
-          <div class="formControls col-5">
-              {$info['delivery_id']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>提货数量：</label>
-          <div class="formControls col-5">
-              {$info['delivery_num']}{$info['unit']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-       <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>申请提货时间：</label>
-          <div class="formControls col-5">
-              {$info['delivery_time']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-       <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>预计提货时间：</label>
-          <div class="formControls col-5">
-              {$info['expect_time']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
+     <div class="pd-20">
 
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>商品名：</label>
-          <div class="formControls col-5">
-             {$info['product_name']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-       <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>产品大类：</label>
-          <div class="formControls col-5">
-              {$info['cate_name']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>规格：</label>
-          <div class="formControls col-5">
-              {$info['attrs']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>产地：</label>
-          <div class="formControls col-5" id="areat">
-          {areatext: data=$info['produce_area'] id=areat }
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>商品单价：</label>
-          <div class="formControls col-5">
-              {$info['price']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>商品数量：</label>
-          <div class="formControls col-5">
-              {$info['quantity']}{$info['unit']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>仓库名：</label>
-          <div class="formControls col-5">
-              {$info['store_name']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      
-     <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>有效期：</label>
-          <div class="formControls col-5">
-              {$info['expire_time']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      
-     <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>提货人：</label>
-          <div class="formControls col-5">
-              {$info['delivery_man']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>电话：</label>
-          <div class="formControls col-5">
-              {$info['phone']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>身份证：</label>
-          <div class="formControls col-5">
-              {$info['idcard']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-     <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>车牌号：</label>
-          <div class="formControls col-5">
-              {$info['plate_number']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-       <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>备注</label>
-          <div class="formControls col-5">
-              {$info['remark']}
-          </div>
-          <div class="col-4"> </div>
-      </div>
-         
-<div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>审核结果</label>
-          <div class="formControls col-5">
-             <input type="radio" name="status" value="1" checked>通过<input type="radio" name="status" value="0" >驳回
-          </div>
-          <div class="col-4"> </div>
-      </div>
-      <div class="row cl">
-          <label class="form-label col-3"><span class="c-red">*</span>审核意见</label>
-          <div class="formControls col-5">
-            <textarea name="msg"></textarea>
-          </div>
-          <div class="col-4"> </div>
-      </div>
-   
-    <div class="row cl">
-      <div class="col-9 col-offset-3">
-        <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;通过&nbsp;&nbsp;">
-      </div>
-    </div>
-  </form>
-</div>
-</div>
-</div>
+     <form action="{url:store/storeorder/storeOrderPass}" method="POST"  auto_submit redirect_url="{url:balance/accManage/checkBankList}">
+         <input type="hidden" name="delivery_id" value="{$info['delivery_id']}" />
+         <input type="hidden" name="order_no" value="{$info['order_no']}" />
+         <input type="hidden" name="buyer_id" value="{$info['user_id']}" />
+         <input type="hidden" name="seller_id" value="{$info['seller_id']}" />
+	 	 <table class="table table-border table-bordered table-bg">
 
+	 		<tr>
+	 			<th>提单号</th>
+	 			<td>{$info['delivery_id']}</td>
+	 			<th>开单日期</th>
+	 			<td>{$info['create_time']}</td>
+	 			<th>提单状态</th>
+	 			<td>{$info['status_txt']}</td>
+	 		</tr>
+            <tr>
+                <th>购货单位</th>
+                <td>{$info['order']['buyer_name']}</td>
+                <th>仓库</th>
+                <td>{$info['store_name']}</td>
+                <th>提货人</th>
+                <td>{$info['delivery_man']}</td>
+
+            </tr>
+      	 		<tr>
+                    <th>联系电话</th>
+                    <td >{$info['phone']}</td>
+                    <th>车牌号</th>
+                    <td >{$info['plate_number']}</td>
+                    <th>身份证号</th>
+                    <td >{$info['idcard']}</td>
+      	 		</tr>
+             <tr>
+                 <th>计重方式</th>
+                 <td >{$info['weight_type']}</td>
+                 <th>出库日期</th>
+                 <td >{$info['out_time']}</td>
+                 <th>品名</th>
+                 <td >{$info['product_name']}</td>
+            </tr>
+             <tr>
+                 <th>货号</th>
+                 <td >{$info['product_id']}</td>
+                 <th>生产厂家</th>
+                 <td >{$info['order']['seller_name']}</td>
+                 <th>提货量</th>
+                 <td >{$info['delivery_num_txt']}</td>
+             </tr>
+             <tr>
+                 <th>库位</th>
+                 <td >{$info['store_pos']}</td>
+                 <th>实际提货量（{$info['unit']}）</th>
+                 <td >{$info['act_num']}</td>
+                 <th>实际磅秤量（{$info['unit']}）</th>
+                 <td >{$info['act_bang']}</td>
+             </tr>
+             <tr>
+                 <th>备注</th>
+                 <th scope="col" colspan="7">
+                    {$info['remark']}
+                 </th>
+             </tr>
+            <tr>
+                 <th>审核意见</th>
+                  <th scope="col" colspan="7">
+                      <textarea name='msg'></textarea>
+                 </th>
+             </tr>
+             <tr>
+                 <th>处理结果</th>
+                 <th scope="col" colspan="7">
+                     <label><input type="radio" name="status" value="1" checked/>通过</label>
+                     <label><input type="radio" name="status" value="0"/>不通过</label>
+
+
+                 </th>
+             </tr>
+             <tr>
+                 <th>操作</th>
+                 <th scope="col" colspan="7">
+                     <input type="submit" class="btn btn-primary radius" value="提交"/>
+                     <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
+                 </th>
+             </tr>
+
+	 	</table>
+    </form>
+ 	</div>
+</div>
 </div>
 

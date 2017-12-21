@@ -51,7 +51,7 @@
                 </tr>
                 <tr>
                     <td>出库日期</td>
-                    <td></td>
+                    <td>{$info['out_time']}</td>
                 </tr>
                 <tr>
                     <td>品名</td>
@@ -75,9 +75,9 @@
                 <tr>
                     <td>出库数量</td>
                     <td>实际提货量（{$info['order']['unit']}）：</td>
-                    <td colspan="2"></td>
+                    <td colspan="2">{$info['act_num']}</td>
                     <td>实际磅秤（{$info['order']['unit']}）：</td>
-                    <td></td>
+                    <td>{$info['act_bang']}</td>
                 </tr>
             </table>
             <table class="table2">

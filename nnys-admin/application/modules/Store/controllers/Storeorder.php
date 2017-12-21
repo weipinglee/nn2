@@ -31,12 +31,15 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		$id = safe::filter($this->_request->getParam('id'));
 		$delivery = new \nainai\delivery\StoreDelivery();
 		$info = $delivery->storeOrderDetail($id);
+		$order = new \nainai\order\Order();
+
+		$info['order'] = $order->contractDetail($info['id']);
 		$this->getView()->assign('info',$info);
 	}
 
 	//通过仓单出库审核
 	public function storeOrderPassAction(){
-		$delivery_id = safe::filterPost('id');
+		$delivery_id = safe::filterPost('delivery_id');
 		$status = safe::filterPost('status');
 		$msg = safe::filterPost('msg');
 		$order_no = safe::filterPost('order_no');

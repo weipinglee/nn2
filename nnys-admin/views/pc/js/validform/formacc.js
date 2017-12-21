@@ -24,7 +24,15 @@ nn_panduo.formacc.prototype = {
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
 			_this.bind_select();
 			_this.validform();
-
+			var con = $(_this.form).find('[confirm=1]');
+			if(con){
+				var text = con.attr('confirm_text') ? con.attr('confirm_text') : '确认吗?';
+				con.on('click',function(){
+					layer.confirm(text,function(){
+						$(_this.form).submit();
+					})
+				})
+			}
 		});
 		_this.validPaymentPassword();
 	},
@@ -42,6 +50,29 @@ nn_panduo.formacc.prototype = {
 			}
 		});
 		// $("select[name='type']").find("option[value='{$info['type']}']").attr("selected",'selected');
+	},
+
+	//绑定按钮确认弹窗时间
+	bind_confirm:function(){
+		var f_href;
+		$("[confirm]").click(function(){
+			var href = $(this).attr('href');
+			var title = $(this).val() ? $(this).val() : $(this).text();
+			if(href){
+				var _this = this;
+				(function(){
+					if(href != 'javascript:;') f_href = href;
+					$(_this).attr('href','javascript:;');
+					title = title.indexOf('确认') >= 0 ? title+'?' : '确认'+title+'?';
+					layer.confirm(title,{shade:false,title:false},function(flag){
+						layer.closeAll();
+						window.location.href = f_href;
+					},function(){
+						$(_this).attr('href',f_href);
+					});
+				})(href,_this);
+			}
+		});
 	},
 	/**
 	 * 表单提交
@@ -88,6 +119,7 @@ nn_panduo.formacc.prototype = {
 					var pay_secret = $(curform).attr('pay_secret');
 					var has_secret = $(curform).attr('has_secret');
 					var confirm    = $(curform).attr('confirm');//表单是否需要确认，如果存在pay_secret则不确认
+					var confirm_txt    = $(curform).attr('confirm_text');
 					if(pay_secret){
 						if(has_secret){
 							_this.ajax_post(has_secret,{password:'pass'},function(){
@@ -155,7 +187,9 @@ nn_panduo.formacc.prototype = {
 							extend: 'extend/layer.ext.js'
 						});
 						if(confirm){
-							layer.confirm("确定吗？",function(){
+							if(!confirm_txt)
+								confirm_txt = '确定吗？';
+							layer.confirm(confirm_txt,function(){
 								layer.closeAll();
 								_this.ajax_post(url,data,function(){
 									layer.closeAll();
@@ -171,7 +205,7 @@ nn_panduo.formacc.prototype = {
 									}else{
 										layer.msg('操作成功！');
 									}
-								})();
+								});
 							});
 						}
 						else{
@@ -216,6 +250,35 @@ nn_panduo.formacc.prototype = {
 		});
 	},
 
+	buttonSubmit : function(){
+		var _this = this;
+		$('[button_submit]').on('click',function(){
+			var json = $(this).attr('ajax-data');
+			json = JSON.parse(json);
+			var url = $(this).attr('ajax-url');
+			var confirm = $(this).attr('confirm_submit');
+			if(confirm){
+				var confirmText = $(this).attr("confirm_text") ? $(this).attr("confirm_text") : '确定吗?';
+				layer.confirm(confirmText,
+						function(){
+							_this.ajax_post(url,json,function() {
+								layer.msg('操作成功！');
+							})
+						},
+						function(){
+							layer.closeAll();
+						}
+
+				);
+			}else{
+				_this.ajax_post(url,json,function() {
+					layer.msg('操作成功！');
+				})
+			}
+
+		})
+	},
+
 	check:function(bool){
 		return this.validObj.check(bool);
 	},
@@ -230,6 +293,10 @@ nn_panduo.formacc.prototype = {
 
 	addRule :function(roles){
 		this.validObj.addRule(roles);
+	},
+
+	addDatatype : function(name,rule){
+		$.Datatype[name] = rule;
 	},
 
 	/**
@@ -340,7 +407,8 @@ nn_panduo.formacc.prototype = {
 $(function(){
 	formacc = new nn_panduo.formacc();
 	formacc.bind_status_handle();
-
+	formacc.bind_confirm();
+	formacc.buttonSubmit();
 	formacc.form_init();
 	//地址验证，根据是两级或三级动态调整验证规则
 	if($('#areabox').length && $('#areabox').length>0){
