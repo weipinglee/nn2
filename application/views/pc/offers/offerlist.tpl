@@ -34,7 +34,7 @@
 
                 </div>
             </div> -->
-            <div class="clearfix cla_sty">
+            <div class="clearfix cla_sty" style="position: relative;">
                 <input type="hidden" name="attr_url" value="{url:/AjaxData/ajaxGetCategory}"  />
                <input type="hidden" name="sort" value="default" />
                 <input type="hidden" name="img_url" value="{views:}"  />
@@ -82,6 +82,8 @@
             </div>
 
             {/if}
+            <div style="position: absolute;right: 100px;top: 50px;">
+            <a href="{url:/ping}" style="font-size: 13px;background: #ea3737;padding: 10px 20px;color: #fff;">交易数据</a></div>
         </div>
                <script  type='text/html' id='cateTemplate'>
                    <div class="class_jy" id="level1" >
