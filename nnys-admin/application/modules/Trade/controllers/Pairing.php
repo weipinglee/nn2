@@ -40,6 +40,7 @@ class PairingController extends Yaf\Controller_Abstract{
 		$this->getView()->assign('page',$list['bar']);
 	}
 
+
 	//详情
 	public function contractDetailAction(){
 		$id = safe::filter($this->_request->getParam('id'));
@@ -68,10 +69,13 @@ class PairingController extends Yaf\Controller_Abstract{
 		$admin = session::get('admin');
 		$page = safe::filterGet('page','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
-		$list = $this->pairing->contractList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',$admin['id']);
-		$this->getView()->assign('list',$list['data']);
-		$this->getView()->assign('name',$name);
-		$this->getView()->assign('page',$list['bar']);
+
+		$where = 'o.contract_status!='.\nainai\order\Order::CONTRACT_COMPLETE;
+		if($name){
+			$where .= 'o.order_no like "%'.$name.'%"';
+		}
+		$list = $this->pairing->contractList($page,$where,$admin['id']);
+		$this->getView()->assign('data',$list);
 	}
 
 	//撮合人员已完成合同列表
@@ -79,9 +83,48 @@ class PairingController extends Yaf\Controller_Abstract{
 		$admin = session::get('admin');
 		$page = safe::filterGet('page','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
-		$list = $this->pairing->contractList($page,$name ? 'o.order_no like "%'.$name.'%"' : '',$admin['id'],true);
-		$this->getView()->assign('list',$list['data']);
-		$this->getView()->assign('name',$name);
-		$this->getView()->assign('page',$list['bar']);
+		$where = 'o.contract_status='.\nainai\order\Order::CONTRACT_COMPLETE;
+		if($name){
+			$where .= 'o.order_no like "%'.$name.'%"';
+		}
+		$list = $this->pairing->contractList($page,$where,$admin['id']);
+		$this->getView()->assign('data',$list);
 	}
+
+	//交易完结待确认的合同列表
+	public function tradeComplateListAction(){
+		$page = safe::filterGet('page','int',1);
+		$name = safe::filter($this->_request->getParam('name'));
+		$where = 'o.contract_status='.\nainai\order\Order::CONTRACT_ADMIN_CHECK;
+		if($name){
+			$where .= 'o.order_no like "%'.$name.'%"';
+		}
+
+		$list = $this->pairing->contractList($page,$where);
+
+		$this->getView()->assign('data',$list);
+	}
+
+	public function tradeComplateDetailAction(){
+		$id = safe::filter($this->_request->getParam('id'));
+
+		$info = $this->pairing->contractDetail($id);
+
+		//TODO:获取最后一笔提货单信息
+		$this->getView()->assign('info',$info);
+	}
+
+	/**
+	 * 交易完结确认单提交处理
+	 */
+	public function doTradeComplateAction(){
+		if(IS_POST){
+            $order_id = safe::filterPost('id','int');
+			$status = safe::filterPost('status','int');
+
+			$res = $this->order->doTradeComplate($order_id,$status);
+			die(json::encode($res));
+		}
+	}
+
 }

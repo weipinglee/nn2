@@ -7,10 +7,7 @@
     </div>
     <div class="content">
         <div class="pd-20">
-	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入订单号" id="" name="" value="{$name}">
-		<button type="submit" class="btn btn-success radius search-admin" id="" name=""><i class="icon-search fa-search"></i> 搜合同订单号</button>
-	</div>
+			{include:layout/search.tpl}
 	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a>  --> </span>  </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -27,7 +24,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{foreach:items=$list}
+		{foreach:items=$data['list']}
 			<tr class="text-c">
 				<!-- <td><input type="checkbox" value="" name="check"></td> -->
 				<td>{$item['id']}</td>
@@ -44,7 +41,7 @@
 		</tbody>
 
 	</table>
-		{$page}
+		{$data['bar']}
 	</div>
 </div>
 <script type="text/javascript">

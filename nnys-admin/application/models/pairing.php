@@ -2,6 +2,7 @@
 
 use \Library\M;
 use \Library\Query;
+use \Library\searchQuery;
 use \Library\tool;
 class pairingModel{
 
@@ -39,18 +40,14 @@ class pairingModel{
 	 * @param  boolean $is_complete 合同是否为已完成状态
 	 * @return array   结果
 	 */
-	public function contractList($page,$where = '',$pairing = 0,$is_complete = false){
-		$query = new Query('order_sell as o ');
+	public function contractList($page,$where = '',$pairing = 0){
+		$query = new searchQuery('order_sell as o ');
 		$query->join = 'left join product_offer as po on o.offer_id = po.id left join products as p on po.product_id = p.id left join order_pairing as op on op.order_id = o.id';
-		if($is_complete){
-			$sql_where = 'o.contract_status = '.\nainai\order\Order::CONTRACT_COMPLETE;
-		}else{
-			$sql_where = 'o.contract_status >= '.\nainai\order\Order::CONTRACT_EFFECT.' and o.contract_status < '.\nainai\order\Order::CONTRACT_COMPLETE;
-		}
+		$sql_where = '';
 		if($pairing){
-			$sql_where .= ' and op.admin_id = '.$pairing;
+			$sql_where .= $sql_where=='' ? '  op.admin_id = '.$pairing : ' and op.admin_id = '.$pairing;
 		}else{
-			$sql_where .= ' and op.order_id is null';
+			$sql_where .= $sql_where=='' ? ' op.order_id is null' : 'and op.order_id is null';
 		}
 		if($where) $sql_where .= ' and '.$where;
 		$query->where = $sql_where;
@@ -58,12 +55,13 @@ class pairingModel{
 		$query->page = $page;
 		$query->pagesize = 5;
 		$res = $query->find();
-		$bar = $query->getPageBar();
-
+		$query->downExcel($res['list'], 'order_sell', '合同列表');
+		// tool::pre_dump($data['list'][0]);exit;
+		// tool::pre_dump($data);
 		$order = new \nainai\order\Order();
-		$order->adminContractStatus($res);
+		$order->adminContractStatus($res['list']);
 
-		return array('data'=>$res,'bar'=>$bar);
+		return $res;
 	}
 
 
@@ -109,6 +107,8 @@ class pairingModel{
 
 		return $options;
 	}
+
+
 }
 
 

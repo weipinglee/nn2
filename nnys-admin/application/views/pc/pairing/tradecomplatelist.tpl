@@ -3,14 +3,11 @@
 <h1><img src="{views:img/icons/posts.png}" alt="" /> 合同管理</h1>
 <div class="bloc">
     <div class="title">
-        撮合未完成合同列表
+        合同列表
     </div>
     <div class="content">
         <div class="pd-20">
-	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入订单号" id="" name="" value="{$name}">
-		<button type="submit" class="btn btn-success radius search-admin" id="" name=""><i class="icon-search fa-search"></i> 搜合同订单号</button>
-	</div>
+			{include:layout/search.tpl}
 	 <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash fa-trash"></i>批量删除</a>  --> </span>  </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -38,7 +35,7 @@
 				<td>{$item['amount']}</td>
 				
 				<td class="td-manage">
-				 <a title="详情" href="{url:/trade/pairing/contractDetail}id/{$item['id']}/pairing_id/{$item['pairing_id']}" class="ml-5" style="text-decoration:none">详情</a></td>
+				 <a title="详情" href="{url:/trade/pairing/tradeComplateDetail}id/{$item['id']}" class="ml-5" style="text-decoration:none">详情</a></td>
 			</tr>
 		{/foreach}
 		</tbody>
@@ -51,7 +48,7 @@
 	;$(function(){
 		$('.search-admin').click(function(){
 			var name = $(this).siblings('input').val();
-			window.location.href = "{url:/trade/pairing/pairingContractList}"+"/name/"+name;
+			window.location.href = "{url:/trade/pairing/contractList}"+"/name/"+name;
 		});
 	})
 </script>

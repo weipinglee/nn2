@@ -88,6 +88,23 @@ class StoreorderController extends Yaf\Controller_Abstract{
 		$delivery = new \nainai\delivery\StoreDelivery();
 
 		$info = $delivery->storeOrderDetail($id,1);
+		$order = new \nainai\order\Order();
+
+		$info['order'] = $order->contractDetail($info['id']);
 		$this->getView()->assign('info',$info);
+	}
+
+	//交易完结确认单列表
+	public function tradeComplateListAction(){
+		$delivery = new \nainai\delivery\StoreDelivery();
+
+		$page = safe::filterGet('page','int',1);
+		$cate_name = safe::filterGet('cate_name');
+
+		$where .= $name ? ' and pc.catename like "%'.$cate_name.'%"' : '';
+
+		$data = $delivery->storeOrderList($page,$where);
+
+		$this->getView()->assign('data',$data);
 	}
 }
