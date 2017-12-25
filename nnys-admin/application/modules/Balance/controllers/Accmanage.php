@@ -221,6 +221,45 @@ class AccmanageController extends InitController {
 
 		}
 	}
+
+	/************************结算证明***********************************/
+	/**
+	 * 支付凭证结算证明页面
+	 */
+	public function jiesuanProvedetailAction(){
+		$id = safe::filter($this->_request->getParam('id'));
+		$orderObj = new pairingModel();
+		$info = $orderObj->contractDetail($id);
+        $info['jiesuan_prove'] = \Library\thumb::getOrigImg($info['jiesuan_prove']);
+		$this->getView()->assign('info',$info);
+	}
+
+	public function dojiesuanProveAction(){
+		if(IS_POST){
+			$order_id = safe::filterPost('order_id','int');
+			$prove =\Library\tool::setImgApp(safe::filterPost('imgfile2'));
+			if($prove==''){
+				die(json::encode(\Library\tool::getSuccInfo(0,'请上传结算证明单图片')));
+			}
+
+			$orderObj = new \nainai\order\Order();
+			$updateData = array('id'=>$order_id,'jiesuan_prove'=>$prove);
+			$res = $orderObj->orderUpdate($updateData);
+			die(json::encode($res));
+
+		}
+	}
+
+
+	public function jiesuanProveListAction(){
+		$page = safe::filterGet('page','int',1);
+		$where = 'o.mode =  '.\nainai\order\Order::ORDER_FREESTORE.' and o.contract_status>='.\nainai\order\Order::CONTRACT_EFFECT;
+		$orderObj = new pairingModel();
+		$list = $orderObj->contractList($page,$where);
+		$this->getView()->assign('data',$list);
+	}
+
+
 }
 
 ?>

@@ -20,7 +20,7 @@
 	}
 </style>
 <div id="content" class="white">
-	<h1><img src="/ducong/nn2/nnys-admin/views/pc/img/icons/posts.png" alt=""> 结算证明单信息 </h1>
+	<h1> 结算证明单信息 </h1>
 	<div class="bloc">
 		<div class="title">结算证明单</div>
 		<div class="content">
@@ -31,7 +31,7 @@
 					</tr>
 					<tr>
 						<td>结算时间</td>
-						<td>2017年12月12日</td>
+						<td class="input"></td>
 						<td colspan="2">支付方式</td>
 						<td colspan="4">
 							<label><input name="payment" type="checkbox" value="" />支票</label>
@@ -45,9 +45,9 @@
 					</tr>
 					<tr>
 						<td>结算金额</td>
-						<td colspan="3">大写：</td>
+						<td colspan="3" class="input">大写：</td>
 						<td>小写：</td>
-						<td colspan="3"></td>
+						<td colspan="3" class="input"></td>
 					</tr>
 					<tr>
 						<td>结算用途、结算备注：</td>

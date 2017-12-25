@@ -148,6 +148,51 @@ class DeliveryController extends UcenterBaseController {
         $this->getView()->assign('page',$list['bar']);
     }
 
+    //购买入库单列表
+    public function rukuListAction(){
+        $delivery = new \nainai\delivery\FreestoreDelivery();
+        $page = safe::filterGet('page','int',1);
+        $user = $this->user_id;
+        $list = $delivery->deliveryList($user,$page,false);
+
+        $this->getView()->assign('data',$list['data']);
+        $this->getView()->assign('page',$list['bar']);
+    }
+
+    public function rukudetailAction(){
+        $delivery_id = safe::filter($this->_request->getParam('id'));
+        $delivery = new \nainai\delivery\Delivery();
+        $order = new \nainai\order\Order();
+        $info = $delivery->deliveryInfo($delivery_id);
+
+        $info['order'] = $order->contractDetail($info['order_id']);
+        $info['delivery_id'] = $delivery_id;
+        $info['id'] = $info['order_id'];
+        $info = array($info);
+        $delivery->deliveryStatus($info,0);
+        // echo '<pre>';var_dump($info[0]['action']);exit;
+        $this->getView()->assign('info',$info[0]);
+    }
+
+    /**
+     * 结算单详情
+     */
+    public function jiesuandetailAction(){
+        $delivery_id = safe::filter($this->_request->getParam('id'));
+        $is_seller = safe::filter($this->_request->getParam('is_seller'));
+        $delivery = new \nainai\delivery\Delivery();
+        $order = new \nainai\order\Order();
+        $info = $delivery->deliveryInfo($delivery_id);
+
+        $info['order'] = $order->contractDetail($info['order_id']);
+        $info['delivery_id'] = $delivery_id;
+        $info['id'] = $info['order_id'];
+
+        $info['order']['jiesuan_prove'] = \Library\thumb::getOrigImg($info['order']['jiesuan_prove']);
+        // echo '<pre>';var_dump($info[0]['action']);exit;
+        $this->getView()->assign('info',$info);
+    }
+
 
 
 }

@@ -23,15 +23,14 @@
 					<td>{$item['name']}</td>
 					<td>{$item['delivery_num']}{$item['unit']}</td>
 					<td>{$item['store_name']}</td>
-					<td><a href="{url:/contract/sellerDetail?id=$item['id']}">{$item['order_no']}</a></td>
+					<td><a href="{url:/contract/buyerDetail?id=$item['id']}">{$item['order_no']}</a></td>
 					<td>{$item['delivery_time']}</td>
-					<td style="color:#079207;">{$item['title']}</td>
+					<td style="color:#079207;">{if:$item['jiesuan_prove']}已结算{else:}结算待确认{/if}</td>
 					<td>
-						{foreach:items=$item['action'] item=$v}
-							<a href="{$v['url']}" {if:$v['confirm']}confirm=1{/if}>{$v['name']}</a>&nbsp;
-						{/foreach}
-						{if:$item['jiesuan_prove']!=''}
-						 <a href="{url:/delivery/jiesuandetail?id=$item['delivery_id']}">查看结算单</a>
+						{if:$item['jiesuan_prove']}
+							<a href="{url:/delivery/jiesuandetail?id=$item['delivery_id']}" >查看</a>
+						{else:}
+							<a href="{url:/delivery/rukudetail?id=$item['delivery_id']}" >入库单信息</a>
 						{/if}
 					</td>
 				</tr>

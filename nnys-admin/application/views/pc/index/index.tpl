@@ -265,6 +265,7 @@
 
                                 <li><a href="{url:balance/accManage/userCreditList}" target="content">信誉保证金账户</a></li>
 
+                                <li><a href="{url:balance/accManage/jiesuanprovelist}" target="content">结算证明单</a></li>
                             </ul>
                         </li>
                         <li><a target="content">中信资金管理</a>
