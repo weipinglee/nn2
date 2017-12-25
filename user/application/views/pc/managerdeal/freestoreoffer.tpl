@@ -194,11 +194,11 @@
                                 <td>
                                     <span>
 
-                                        <div>请您下载<a href="{root:down/委托协议.pdf}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传
+                                        <div>请您下载<a href="{root:down/委托协议.pdf}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传(PDF格式)
 
                                         </div>
                                        <div class="zhxi_con">
-                                           <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
+                                           <input type="hidden" name="uploadUrl"  value="{url:/Managerdeal/upload}" />
                                            <div>
                                                <input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" />
 

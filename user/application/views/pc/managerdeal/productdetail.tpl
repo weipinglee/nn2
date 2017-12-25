@@ -160,6 +160,20 @@
 
                                 </td>
                             </tr>
+                           {if:$offer['sign']!=''}
+                               <tr>
+                                   <td>委托书</td>
+                                   <td>
+                                       {set:$show=\Library\thumb::getOrigImg($offer['sign'])}
+                                       {if:substr($show,-3)=='pdf'}
+                                           <a href="{$show}">[查看]</a>
+                                           {else:}
+                                           <img src="{$show}" width="200px" />
+                                       {/if}
+                                   </td>
+                               </tr>
+                           {/if}
+
                              <tr>
                                 <td>审核意见</td>
                                 <td>{$offer['admin_msg']}
