@@ -32,7 +32,12 @@
                                         <tr>
                                             <td class="spmx_title" colspan="2">商品明细</td>
                                         </tr>
-                                      
+                                        <tr>
+                                            <td>仓单号</td>
+                                            <td id="cno">
+
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td>商品名称</td>
                                             <td id="pname"> 

@@ -130,7 +130,7 @@
                                 <td colspan="2">
                                 <span><input class="text" type="text"  disabled name="sign_no" value="">
                                     </span>
-                                    <span>该字段系统自动生成</span>
+                                    <span>该字段在提交后系统自动生成</span>
                                 </td>
                             </tr>
                             <tr>

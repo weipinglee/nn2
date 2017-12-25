@@ -52,6 +52,7 @@ $(document).ready(function(){
                         cate_text = cate_text +'>'+ val.name;
                 })
                 $('#cname').html(cate_text);
+                $('#cno').html(data.sign_no);
                 $('#create_time').html(data.create_time);
                 $('#unit').html(data.unit);
                 $('#quantity').html(data.quantity);
