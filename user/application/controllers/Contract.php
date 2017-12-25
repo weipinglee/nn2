@@ -52,7 +52,8 @@ class ContractController extends UcenterBaseController{
 		if ($info['contract_status'] == $order::CONTRACT_EFFECT && !empty($info['risk'])) {
 			$info['insurance'] = 1;
 		}
-		
+
+
 		$this->getView()->assign('show_delivery',in_array($info['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE)) ? true : false);
 		$this->getView()->assign('info',$info);
 		$this->getView()->assign('invoice',$invoice);
@@ -252,6 +253,14 @@ class ContractController extends UcenterBaseController{
 		}else{
 			$this->redirect('complainList');
 		}
+	}
+
+	//取消合同
+	public function cancelContractAction(){
+		$order_id = safe::filterPost('id','int');
+		$orderObj = new \nainai\order\Order();
+		$res = $orderObj->cancleOrder($order_id,$this->user_id);
+		die(json::encode($res));
 	}
 
 

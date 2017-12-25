@@ -18,14 +18,9 @@ class OrderController extends UcenterBaseController{
 
 	//取消合同
 	public function cancelContractAction(){
-		$order_id = safe::filter($this->_request->getParam('order_id'),'int');
+		$order_id = safe::filterPost('id','int');
 		$res = $this->deposit->sellerDeposit($order_id,false,$this->user_id);
-		if($res['success'] == 1){
-			$this->success('已取消合同');
-		}else{
-			$this->error($res['info']);
-		}
-		return false;
+		die(json::encode($res));
 	}
 	
 	//买家支付尾款

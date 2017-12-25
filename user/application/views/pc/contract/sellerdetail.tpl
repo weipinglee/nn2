@@ -38,6 +38,13 @@
 								{if: isset($info['insurance']) && $info['insurance'] == 1}
 								<!-- <a  href="{url:/Insurance/buyList}?id={$info['id']}"><input class="fk_butt" type="button" value="购买保险"/></a> -->
 								{/if}
+
+								{if:$info['cancle']==1}
+									<a button_submit="1" ajax-data='{"id":{$info["id"]}}' confirm_submit="1" confirm_text="确定要取消合同？" ajax-url="{url:/contract/cancelContract}" confirm="1">
+										<input class="fk_butt" type="button" value="取消合同"/>
+									</a>
+								{/if}
+
 							</div>
 						</div>
 						<div class="sjxx">
