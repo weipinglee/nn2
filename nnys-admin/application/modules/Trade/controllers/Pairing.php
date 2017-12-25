@@ -119,8 +119,8 @@ class PairingController extends Yaf\Controller_Abstract{
 	 */
 	public function doTradeComplateAction(){
 		if(IS_POST){
-            $order_id = safe::filterPost('id','int');
-			$status = safe::filterPost('status','int');
+            $order_id = safe::filterPost('order_id','int');
+			$status = safe::filterPost('status','int',1);
 
 			$res = $this->order->doTradeComplate($order_id,$status);
 			die(json::encode($res));

@@ -79,15 +79,7 @@
 
                 </td>
             </tr>
-         <tr>
-             <th>处理结果</th>
-             <th scope="col" colspan="7">
-                 <label><input type="radio" name="status" value="1" checked/>通过</label>
-                 <label><input type="radio" name="status" value="0"/>不通过</label>
 
-
-             </th>
-         </tr>
               <tr>
                  <th>操作</th>
                  <input type="hidden" name="order_id" value="{$info['id']}" />
