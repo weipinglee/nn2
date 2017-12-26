@@ -9,7 +9,7 @@
 				<div class="user_zhxi">
 
 					<div class="zhxi_tit">
-						<p><a>账户管理</a>><a>身份认证</a>><a>企业认证</a></p>
+						<p><a>账户管理</a>><a>身份认证</a>><a>交易商认证</a></p>
 					</div>
 					<div class="rz_title">
 						<ul class="rz_ul">

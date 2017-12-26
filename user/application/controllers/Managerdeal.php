@@ -734,6 +734,8 @@ class ManagerDealController extends UcenterBaseController {
                     $updateUrl = url::createUrl('/managerdeal/updatestoreoffer?id='.$offerDetail[0]['id']);
                 if($offerDetail[0]['mode'] == $productModel::DEPUTE_OFFER)
                     $updateUrl = url::createUrl('/managerdeal/updatedeputeoffer?id='.$offerDetail[0]['id']);
+                if($offerDetail[0]['mode'] == $productModel::FREESTORE_OFFER)
+                    $updateUrl = url::createUrl('/managerdeal/updatefreestoreoffer?id='.$offerDetail[0]['id']);
                 $this->getView()->assign('updateUrl',$updateUrl);
             }
 
@@ -886,6 +888,61 @@ class ManagerDealController extends UcenterBaseController {
      * 仓单报盘修改提交
      */
     public function doUpdateStoreOfferAction(){
+        if(IS_POST){
+            $token = safe::filterPost('token');
+            if(!safe::checkToken($token))
+                die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            if($id = safe::filterPost('offer_id','int',0)){
+                $offerData = array(
+                    'apply_time'  => \Library\Time::getDateTime(),
+                    'divide'      => Safe::filterPost('divide', 'int'),
+                    'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'float') : 0,
+                    'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
+                    'status'      => 0,
+                    'accept_area' => Safe::filterPost('accept_area'),
+                    'accept_day' => Safe::filterPost('accept_day', 'int'),
+                    'price'        => Safe::filterPost('price', 'float'),
+                    'user_id'     => $this->user_id,
+                    'insurance' => Safe::filterPost('insurance', 'int'),
+                    'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+                );
+
+                $obj = new \Library\M('product_offer');
+                $res = $obj->where(array('id'=>$id))->data($offerData)->update();
+                if($res){
+                    die(json::encode(tool::getSuccInfo()));
+                }
+
+            }
+
+        }
+        die(json::encode(tool::getSuccInfo(0,'修改失败')));
+    }
+
+    /**
+     * 修改仓单报盘页面
+     */
+    public function updatefreeStoreofferAction(){
+        $id = $this->getRequest()->getParam('id');
+        $id = Safe::filter($id, 'int', 0);
+        $token =  \Library\safe::createToken();
+        $this->getView()->assign('token',$token);
+        if($id){
+            $productModel = new ProductModel();
+            $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
+            $storeP = new \Library\M('store_products');
+            $storeProduct = $storeP->where(array('product_id'=>$offerDetail[0]['product_id']))->getObj();
+            $this->getView()->assign('storeproduct',$storeProduct);
+
+            $this->getView()->assign('offer',$offerDetail[0]);
+            $this->getView()->assign('product',$offerDetail[1]);
+        }
+    }
+
+    /**
+     * 入库单报盘修改提交
+     */
+    public function doUpdatefreeStoreOfferAction(){
         if(IS_POST){
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
