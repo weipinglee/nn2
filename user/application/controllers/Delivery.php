@@ -150,26 +150,22 @@ class DeliveryController extends UcenterBaseController {
 
     //购买入库单列表
     public function rukuListAction(){
-        $delivery = new \nainai\delivery\FreestoreDelivery();
+        $order = new \nainai\order\Order();
         $page = safe::filterGet('page','int',1);
         $user = $this->user_id;
-        $list = $delivery->deliveryList($user,$page,false);
+        $list = $order->rukuList($page,$user);
 
-        $this->getView()->assign('data',$list['data']);
+        $this->getView()->assign('data',$list['list']);
         $this->getView()->assign('page',$list['bar']);
     }
 
     public function rukudetailAction(){
-        $delivery_id = safe::filter($this->_request->getParam('id'));
-        $delivery = new \nainai\delivery\Delivery();
+        $order_id = safe::filter($this->_request->getParam('id'));
         $order = new \nainai\order\Order();
-        $info = $delivery->deliveryInfo($delivery_id);
-
-        $info['order'] = $order->contractDetail($info['order_id']);
-        $info['delivery_id'] = $delivery_id;
-        $info['id'] = $info['order_id'];
-        $info = array($info);
-        $delivery->deliveryStatus($info,0);
+        $user_id = $this->user_id;
+        $info = $order->rukuDetail($order_id,$user_id);
+        $info[0]['confirm_thumb'] = \Library\thumb::get($info[0]['confirm'],200,200);
+        $info[0]['quality'] = \Library\thumb::get($info[0]['quality'],200,200);
         // echo '<pre>';var_dump($info[0]['action']);exit;
         $this->getView()->assign('info',$info[0]);
     }
@@ -178,15 +174,10 @@ class DeliveryController extends UcenterBaseController {
      * 结算单详情
      */
     public function jiesuandetailAction(){
-        $delivery_id = safe::filter($this->_request->getParam('id'));
-        $is_seller = safe::filter($this->_request->getParam('is_seller'));
-        $delivery = new \nainai\delivery\Delivery();
+        $order_id = safe::filter($this->_request->getParam('id'));
         $order = new \nainai\order\Order();
-        $info = $delivery->deliveryInfo($delivery_id);
 
-        $info['order'] = $order->contractDetail($info['order_id']);
-        $info['delivery_id'] = $delivery_id;
-        $info['id'] = $info['order_id'];
+        $info['order'] = $order->contractDetail($order_id);
 
         $info['order']['jiesuan_prove'] = \Library\thumb::getOrigImg($info['order']['jiesuan_prove']);
         // echo '<pre>';var_dump($info[0]['action']);exit;

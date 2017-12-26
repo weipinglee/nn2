@@ -1,105 +1,141 @@
-<script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
-<script type="text/javascript" src='{root:js/area/Area.js}'></script>
-<script type="text/javascript" src='{root:js/area/AreaData_min.js}'></script>
-
-<div class="user_c_list">
+﻿<div class="user_c">
     <div class="user_zhxi">
         <div class="zhxi_tit">
-            <p><a>入库单管理</a>&gt;<a>入库单</a></p>
+            <p><a>入库单管理</a>><a>入库单详情</a></p>
         </div>
-        <div class="inventory_table">
-            <table class="table1">
-                <tr><th colspan="6">提货单(入库单)</th></tr>
-                <tr>
-                    <td>提单号</td>
-                    <td>{$info['delivery_id']}</td>
-                    <td>开单日期</td>
-                    <td> {$info['create_time']}</td>
-                    <td>提单状态</td>
-                    <td> {$info['title']}</td>
-                </tr>
-                <tr>
-                    <td>购货单位</td>
-                    <td>{$info['order']['buyer_name']}</td>
-                    <td>仓库</td>
-                    <td colspan="3">
-                        {areatext:data=$info['order']['store_area']}&nbsp;
-                        {$info['order']['store_address']}&nbsp;
-                        {$info['order']['store_name']}
-                    </td>
-                </tr>
-                <tr>
-                    <td>提货人</td>
-                    <td> {$info['delivery_man']}</td>
-                    <td class="bz_td" colspan="4" rowspan="6"><div class="bz">备注: {$info['remark']}</div></td>
-                </tr>
-                <tr>
-                    <td>联系电话</td>
-                    <td> {$info['phone']}</td>
-                </tr>
-                <tr>
-                    <td>身份证号码</td>
-                    <td> {$info['idcard']}</td>
-                </tr>
-                <tr>
-                    <td>车牌号</td>
-                    <td> {$info['plate_number']}</td>
-                </tr>
-                <tr>
-                    <td>记重方式</td>
-                    <td>{$info['order']['weight_type']}</td>
-                </tr>
-                <tr>
-                    <td>出库日期</td>
-                    <td>{$info['out_time']}</td>
-                </tr>
-                <tr>
-                    <td>品名</td>
-                    <td colspan="3">{$info['order']['name']}</td>
-                    <td>提货量（{$info['order']['unit']}）</td>
-                    <td>{$info['num']}</td>
-                </tr>
-                <tr>
-                    <td rowspan="2">出库明细</td>
-                    <td>货号</td>
-                    <td colspan="2">生产厂商</td>
-                    <td>库位</td>
-                    <td>提货量（{$info['order']['unit']}）</td>
-                </tr>
-                <tr>
-                    <td>{$info['order']['product_id']}</td>
-                    <td colspan="2">{$info['order']['seller_name']}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>出库数量</td>
-                    <td>实际提货量（{$info['order']['unit']}）：</td>
-                    <td colspan="2">{$info['act_num']}</td>
-                    <td>实际磅秤（{$info['order']['unit']}）：</td>
-                    <td>{$info['act_bang']}</td>
-                </tr>
-            </table>
-            <table class="table2">
-                <tr>
-                    <td>现场操作员签字：</td>
-                    <td>日期：</td>
-                    <td>备注：</td>
-                </tr>
-                <tr>
-                    <td>仓管员签字：</td>
-                    <td>日期：</td>
-                    <td>备注：</td>
-                </tr>
-                <tr>
-                    <td>提货人签字：</td>
-                    <td>日期：</td>
-                    <td>备注：</td>
-                </tr>
-            </table>
+        <div class="center_tabl">
+
+                <table class="table2" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="spmx_title" colspan="8">入库详细信息</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">仓单编号</td>
+                        <td colspan="6">{$info['sign_no']}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">仓库名称</td>
+                        <td colspan="6">{$info['store_name']}</td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="2">库位</td>
+                        <td colspan="6">
+                            {$info['store_pos']}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"> 仓位</td>
+                        <td colspan="6"> {$info['cang_pos']}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">检测机构</td>
+                        <td colspan="6">{$info['check_org']}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">质检证书编号</td>
+                        <td colspan="6">{$info['check_no']}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">是否包装</td>
+                        <td colspan="6"> {if: $info['package'] == 1} 是 {else:} 否{/if}</td>
+                    </tr>
+
+                    {if: $info['package'] == 1}
+                        <tr  >
+                            <td colspan="2"> 包装单位：</td>
+                            <td colspan="6">
+                                {$info['package_unit']}
+                            </td>
+                        </tr>
+                        <tr >
+                            <td colspan="2">包装数量：</td>
+                            <td colspan="6">
+                                {$info['package_num']}
+                            </td>
+                        </tr>
+                        <tr  >
+                            <td colspan="2">包装重量：</td>
+                            <td colspan="6">
+                                {$info['package_weight']}({$info['package_units']})
+                            </td>
+                        </tr>
+                    {/if}
+                    <tr>
+                        <td class="spmx_title" colspan="8">商品信息</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">商品名称</td>
+                        <td colspan="6">
+                            {$info['product']['product_name']}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="2">属性</td>
+                        <td colspan="6"> {$info['product']['attrs']}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">分类</td>
+                        <td colspan="6">
+                            {foreach:items=$info['product']['cate'] item=$cate key=$k}
+                                {if:$k==0}
+                                    {$cate['name']}
+                                {else:}
+                                    > {$cate['name']}
+                                {/if}
+
+                            {/foreach}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">重量</td>
+                        <td colspan="6">{$info['quantity']}({$info['unit']})</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">产地</td>
+                        <td colspan="6">{areatext:data=$info['product']['produce_area']}</td>
+                    </tr>
+                     <tr>
+                        <td colspan="2">商品描述</td>
+                        <td colspan="6">{$info['product']['note']}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">图片预览</td>
+                        <td colspan="6">
+                            <span class="zhs_img">
+                                    {foreach: items=$info['product']['photos'] item=$url}
+                                        <img src="{$url}"/>
+                                    {/foreach}
+    				        </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">签字入库单</td>
+                        <td colspan="6"> <img src="{$info['confirm_thumb']}" /></td>
+                    </tr>
+                     <tr>
+                        <td colspan="2">质检证书：</td>
+                        <td colspan="6"> <img src="{$info['quality']}" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">产品描述：</td>
+                        <td colspan="6">
+                            {$info['product']['note']}
+                        </td>
+                    </tr>
+
+                </table>
+
 
         </div>
     </div>
 </div>
 
-			
+
+
+

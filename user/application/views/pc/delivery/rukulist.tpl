@@ -8,30 +8,33 @@
 			
 			<table class="sjxx">
 				<tr class="sj_detal">
-					<th class="sj_ti_tit">提单号</th>
-					<th class="sj_ti_tit">品名</th>
-					<th class="sj_ti_tit">数量</th>
-					<th class="sj_ti_tit">仓库</th>
-					<th class="sj_ti_tit">订单号</th>
-					<th class="sj_ti_tit">日期</th>
-					<th class="sj_ti_tit">状态</th>
+					<th class="sj_ti_tit">序号</th>
+					<th class="sj_ti_tit">商品名称</th>
+					<th class="sj_ti_tit">市场分类</th>
+					<th class="sj_ti_tit">规格</th>
+					<th class="sj_ti_tit">重量</th>
+					<th class="sj_ti_tit">所在库</th>
+					<th class="sj_ti_tit">结算状态</th>
 					<th class="sj_ti_tit">操作</th>								
 				</tr>
 				{foreach:items=$data}
 				<tr class="sj_detal">
-					<td>{$item['delivery_id']}</td>
+					<td>{echo:$key+1}</td>
 					<td>{$item['name']}</td>
-					<td>{$item['delivery_num']}{$item['unit']}</td>
+					<td>{if:isset($item['product']['cate'][0]['name'])}{$item['product']['cate'][0]['name']}{/if}</td>
+					<td>
+						{foreach:items=$item['product']['attr_arr'] item=$attr key=$index}
+							{$index}:{$attr}</br>
+						{/foreach}
+					</td>
+					<td>{$item['num']}({$item['unit']})</td>
 					<td>{$item['store_name']}</td>
-					<td><a href="{url:/contract/buyerDetail?id=$item['id']}">{$item['order_no']}</a></td>
-					<td>{$item['delivery_time']}</td>
 					<td style="color:#079207;">{if:$item['jiesuan_prove']}已结算{else:}结算待确认{/if}</td>
 					<td>
 						{if:$item['jiesuan_prove']}
-							<a href="{url:/delivery/jiesuandetail?id=$item['delivery_id']}" >查看</a>
-						{else:}
-							<a href="{url:/delivery/rukudetail?id=$item['delivery_id']}" >入库单信息</a>
+							<a href="{url:/delivery/jiesuandetail?id=$item['id']}" >查看</a>
 						{/if}
+						<a href="{url:/delivery/rukudetail?id=$item['id']}" >入库单信息</a>
 					</td>
 				</tr>
 				{/foreach}
