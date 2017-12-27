@@ -94,11 +94,7 @@ class PairingController extends Yaf\Controller_Abstract{
 	//交易完结待确认的合同列表
 	public function tradeComplateListAction(){
 		$page = safe::filterGet('page','int',1);
-		$name = safe::filter($this->_request->getParam('name'));
-		$where = 'o.contract_status='.\nainai\order\Order::CONTRACT_ADMIN_CHECK;
-		if($name){
-			$where .= 'o.order_no like "%'.$name.'%"';
-		}
+		$where = 'o.contract_status>=8';
 
 		$list = $this->pairing->contractList($page,$where);
 
@@ -109,7 +105,7 @@ class PairingController extends Yaf\Controller_Abstract{
 		$id = safe::filter($this->_request->getParam('id'));
 
 		$info = $this->pairing->contractDetail($id);
-
+        $info['complate_prove'] = \Library\thumb::getOrigImg($info['complate_prove']);
 		//TODO:获取最后一笔提货单信息
 		$delivery = new \nainai\delivery\Delivery();
 		if(isset($info['id'])){
@@ -127,9 +123,11 @@ class PairingController extends Yaf\Controller_Abstract{
 	public function doTradeComplateAction(){
 		if(IS_POST){
             $order_id = safe::filterPost('order_id','int');
-			$status = safe::filterPost('status','int',1);
+			$data = array(
+				'complate_prove'=> tool::setImgApp(safe::filterPost('imgfile2'))
+			);
 
-			$res = $this->order->doTradeComplate($order_id,$status);
+			$res = $this->order->doTradeComplate($order_id,$data);
 			die(json::encode($res));
 		}
 	}

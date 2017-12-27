@@ -37,7 +37,6 @@ class pairingModel{
 	 * @param  int  $page   分页数
 	 * @param  string  $where   附加条件
 	 * @param  int $pairing  撮合人员id 为0获取未绑定合同列表
-	 * @param  boolean $is_complete 合同是否为已完成状态
 	 * @return array   结果
 	 */
 	public function contractList($page,$where = '',$pairing = 0){
@@ -53,7 +52,8 @@ class pairingModel{
 		$query->where = $sql_where;
 		$query->fields = 'o.*,p.name as product_name,p.unit,op.id as pairing_id';
 		$query->page = $page;
-		$query->pagesize = 5;
+		$query->order = 'o.id desc';
+		$query->pagesize = 20;
 		$res = $query->find();
 		$query->downExcel($res['list'], 'order_sell', '合同列表');
 		// tool::pre_dump($data['list'][0]);exit;

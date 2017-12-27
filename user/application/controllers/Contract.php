@@ -263,6 +263,26 @@ class ContractController extends UcenterBaseController{
 		die(json::encode($res));
 	}
 
+	public function tradeComplateListAction()
+	{
+		$proObj  = new ProductModel();
+		$page = safe::filterGet('page','int',1);
+		$data = $proObj->getOrderComplateList($page,$this->user_id);
+		$this->getView()->assign('data',$data['list']);
+		$this->getView()->assign('bar',$data['bar']);
+	}
+
+	public function tradeComplateDetailAction(){
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int', 0);
+		if($id){
+            $orderObj = new \nainai\order\Order();
+			$data = $orderObj->orderInfo($id);
+			$data['complate_prove'] = thumb::getOrigImg($data['complate_prove']);
+			$this->getView()->assign('data',$data);
+		}
+	}
+
 
 
 

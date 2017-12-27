@@ -323,10 +323,10 @@
                             </ul>
                         </li>
 
-                        <li><a  target="content">订单出库管理</a>
+                        <li><a  target="content">提货单管理</a>
                             <ul>
-                                <li><a target="content" href="{url:store/storeOrder/checkedorderList}">已出库列表</a></li>
-                                <li><a href="{url:store/storeOrder/checkorderList}" target="content">待审核</a></li>
+                                <li><a target="content" href="{url:store/storeOrder/checkedorderList}">已审核提货单</a></li>
+                                <li><a href="{url:store/storeOrder/checkorderList}" target="content">待审核提货单</a></li>
                             </ul>
                         </li>
 

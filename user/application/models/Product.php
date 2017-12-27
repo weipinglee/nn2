@@ -60,5 +60,30 @@ class productModel extends \nainai\offer\product{
 		return array($offerData,$productData);
 	}
 
+	/**
+	 * 获取已交易完结的订单
+	 * @param $page Int 页码
+	 * @param $user_id int 用户id
+	 */
+	public function getOrderComplateList($page,$user_id)
+	{
+		$query = new Query('order_sell as o');
+		$query->join = 'left join product_offer as p on o.offer_id=p.id';
+		$query->fields = 'o.*,if(o.user_id='.$user_id.',1,0) as is_buyer';
+		$query->where = '(o.user_id='.$user_id.' or p.user_id='.$user_id.') and o.complate_prove!=""';
+		$query->page = $page;
+		$list = $query->find();
+		$bar = $query->getPageBar();
+		if(!empty($list)){
+			$order = new \nainai\order\Order();
+			$order->adminContractStatus($list);
+			foreach($list as &$val){
+				$val['mode_txt'] = $this->getMode($val['mode']);
+			}
+		}
+
+		return array('list'=>$list,'bar'=>$bar);
+	}
+
 
 }

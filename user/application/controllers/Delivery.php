@@ -45,7 +45,9 @@ class DeliveryController extends UcenterBaseController {
 
         $delivery = new \nainai\delivery\Delivery();
         $res = $delivery->geneDelivery($deliveryData);
-
+        if(isset($res['delivery_id'])){
+            $delivery->createCheckOutEvent($res['delivery_id']);
+        }
         die(json::encode($res));
     }
 

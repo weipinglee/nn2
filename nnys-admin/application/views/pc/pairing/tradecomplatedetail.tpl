@@ -1,9 +1,7 @@
 
 
-        <script type="text/javascript" src="{views:js/libs/jquery/1.11/jquery.min.js}"></script>
-        <script type="text/javascript" src="{views:js/validform/validform.js}"></script>
-        <script type="text/javascript" src="{views:js/validform/formacc.js}"></script>
-        <script type="text/javascript" src="{views:js/layer/layer.js}"></script>
+        <script type="text/javascript" src='{root:js/upload/ajaxfileupload.js}'></script>
+        <script type="text/javascript" src='{root:js/upload/upload.js}'></script>
         <!--            
               CONTENT 
                         -->
@@ -81,6 +79,25 @@
                     {$delivery['out_time']}
                 </td>
             </tr>
+         {if:$info['complate_prove']!=''}
+             <th>交易完结确认单</th>
+             <td colspan="3">
+                 <img src="{$info['complate_prove']}" width="300px" />
+             </td>
+         {else:}
+             <tr>
+                 <th>上传交易完结确认单</th>
+                 <td colspan="5">  <input type="hidden" name="uploadUrl"             value="{url:balance/fundOut/upload}" />
+                     <input type='file' name="file2" id="file2"  onchange="javascript:uploadImg(this);" /></td>
+
+             </tr>
+             <tr>
+                 <th></th>
+                 <td>   <img name="file2" />
+                     <input type="hidden" name="imgfile2" id="imgfile2" /></td>
+             </tr>
+         {/if}
+
 
               <tr>
                  <th>操作</th>
