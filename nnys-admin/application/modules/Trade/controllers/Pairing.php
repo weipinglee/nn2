@@ -111,6 +111,13 @@ class PairingController extends Yaf\Controller_Abstract{
 		$info = $this->pairing->contractDetail($id);
 
 		//TODO:获取最后一笔提货单信息
+		$delivery = new \nainai\delivery\Delivery();
+		if(isset($info['id'])){
+			$deliInfo = $delivery->deliveryInfoByOrder($info['id']);
+			$this->getView()->assign('delivery',$deliInfo);
+		}
+
+
 		$this->getView()->assign('info',$info);
 	}
 

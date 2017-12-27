@@ -65,18 +65,20 @@
                 </td>
                 <th>付款时间</th>
                 <td >
-
+                     {if:isset($info['pay_log'][1]['create_time'])}
+                        {$info['pay_log'][1]['create_time']}
+                     {/if}
                 </td>
             </tr>
 
             <tr>
                 <th>提货日期</th>
                 <td >
-
+                   {$delivery['expect_time']}
                 </td>
                 <th>出库日期</th>
                 <td >
-
+                    {$delivery['out_time']}
                 </td>
             </tr>
 
