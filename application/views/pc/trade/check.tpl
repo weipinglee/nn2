@@ -158,15 +158,11 @@
                    <div class="yListr">
                            <ul>
                               <li>
-                                  {if:$data['mode']==5}
-                                  <em  invoice='1' class="yListrclickem">开发票<i></i></em>
-                                  {else:}
-                                      <em  invoice='1'>开发票<i></i></em>
-                                      <em invoice='2' class="yListrclickem">不开发票<i></i></em>
-                                  {/if}
+                                      <em  invoice='1' class="yListrclickem" >开发票<i></i></em>
+                                      <em invoice='2' {if:$data['mode']==5}style="display:none;"{/if}>不开发票<i></i></em>
                               </li>
                            </ul>
-                           <input type="hidden" name="invoice" value="2" />
+                           <input type="hidden" name="invoice" value="1" />
                      </div> 
                     </h3> 
                    </div>      
