@@ -20,10 +20,10 @@ $(function(){
     <div class="monitor_modular">
         <div class="modular_top clear">
             <div class="warehouse_img">
-                <a href="#"><img src="{views:images/storage/share2.png}"/></a>
+                <a href="http://yqdny.tpddns.cn:8080 "><img src="{views:images/storage/share2.png}"/></a>
             </div>
             <div class="warehouse_title">
-                <h3><a href="#">东大1号仓库</a></h3>
+                <h3><a href="http://yqdny.tpddns.cn:8080 ">东大1号仓库</a></h3>
                 <p><b>地址：山西省阳泉市郊区西南舁乡东南舁村</b></p>
                 <p><b>面积：45亩</b></p>
             </div>
