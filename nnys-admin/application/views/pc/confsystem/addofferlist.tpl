@@ -35,6 +35,8 @@
                         <option value="3">委托报盘</option>
                         <option value="4">仓单报盘</option>
                         <option value="0">采购报盘</option>
+                        <option value="5">竞价报盘</option>
+                        <option value="6">一口价报盘</option>
                     </select>
 
                     <select name="market_id">

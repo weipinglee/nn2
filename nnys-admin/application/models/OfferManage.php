@@ -393,6 +393,10 @@ class OfferManageModel extends \nainai\offer\product{
 			$whereStr .= ' and o.mode=:mode';
 			$bind['mode'] = $where['mode'];
 		}
+		if(isset($where['sub_mode'])&& $where['sub_mode']>=0){
+			$whereStr .= ' and o.sub_mode=:sub_mode';
+			$bind['sub_mode'] = $where['sub_mode'];
+		}
 		if(isset($where['area'])&&$where['area']){
 			$len = strlen($where['area']);
 			$whereStr .= ' and left(p.produce_area,'.$len.') =:area';
