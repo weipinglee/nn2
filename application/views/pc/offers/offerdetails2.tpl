@@ -271,10 +271,17 @@ show_time();
 }); 
 
 function show_time(){
-var time_start ="{$data['start_time']}";//设定开始时间 
-var time_end = "{$data['end_time']}"; //设定结束时间(等于系统当前时间) 
+    var time_start ="{$data['start_time']}";//设定开始时间
+    var now =  $.now();
+    {if:$offerStatus==1}
+    var time_end = {echo:\Library\time::getTime($data['start_time'])}; //设定结束时间(等于系统当前时间)
+    {elseif:$offerStatus==2}
+    var time_end = {echo:\Library\time::getTime($data['end_time'])}; //设定结束时间(等于系统当前时间)
+    {/if}
+
+    time_end = time_end*1000;
 //计算时间差 
-var time_distance = time_end - time_start; 
+var time_distance = time_end - now;
 if(time_distance > 0){ 
 // 天时分秒换算 
 var int_day = Math.floor(time_distance/86400000) 
