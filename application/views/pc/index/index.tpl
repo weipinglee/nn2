@@ -15,8 +15,18 @@ function timer(opj){
   }
 $(function() {
    $('.js_rep_offer .li_select').trigger('click');
-    showIndexOffers1();
-    showIndexOffers2();
+    {if:isset($productData[0])}
+    showIndexOffers('jingjiaTemplate','jingjiaBox',{$productData[0]['id']});
+    {/if}
+
+    {if:isset($productData[1])}
+    showIndexOffers('shebeiTemplate','shebeiBox',{$productData[1]['id']});
+    {/if}
+
+    {if:isset($productData[2])}
+    showIndexOffers('rexiaoTemplate','rexiaoBox',{$productData[2]['id']});
+    {/if}
+
     //异步获取最新资讯，默认获取10条
     var infoInterUrl = '{url:/ajaxdata/zixunData}';
     $.ajax({
@@ -200,212 +210,8 @@ $(function() {
 <!--         <link rel="stylesheet" href="{views:css/swiper.min.css}" /> -->
       <!--排行榜 拼眼力 设备 开始-->
         <div class="block-1">
-            <div class="containers clear">
-                
-                <div class="box nn-pinyanli">
-                    <div class="nn-pinyanli-hd">
-                        <a href="#">
-                            <h3 class="nn-order-title">今日拍品</h3>
-                            <span class="nn-order-subtitle">今日竞拍</span>
-                        </a>
-                    </div>
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="new-icon" >
-                                    <img src="{views:images/img_index/5-120601152100.gif}" alt="" />
-                                </div>
-                                <a href="#">
-                                    <img src="{views:images/img_index/b.jpg}" alt="" />
-                                    <p>高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="box nn-shebei">
-                    <div class="nn-shebei-hd">
-                        <a href="#">
-                            <h3 class="nn-order-title">排行榜</h3>
-                            <span class="nn-order-subtitle">产品热销排行榜</span>
-                        </a>
-                    </div>
-                    <div class="nn-shebei-bd clear">
-                        <div class="nn-shebei-item">
-                            <a href="#">
-                                
-                                <img src="{views:images/img_index/shebei1.jpg}" alt="" />
-                                <h3 class="nn-shebei-title">摇摆筛</h3>
-                                <p class="nn-shebei-con">摇摆筛的设计是为了满足大产量，高精度筛分的厂家而特殊设计的一种高效筛分机。最简单的筛分是双眼注视双手筛分，摇摆筛分机就是对此的机械模拟，它是目前最有效的模拟了人工筛分运动的有效原理（筛分精度、效率、筛网寿命均是常规圆筛的5－10倍），符合所有精细与超细范围的粉末与微粒状物料，特别适合难以处理的物料。</p>
-                                <p class="nn-shebei-price">￥
-                                    <span class="shebei-price-num">70000.00</span> /台
-                                </p>
-                                <!-- <div class="nn-jingpai-hover">
-                                    <div class="nn-jingpai-cir">
-                                        去竞拍
-                                    </div>
-                                </div> -->
-                            </a>
-                        </div>
-                        <div class="nn-shebei-item">
-                            <a href="#">
-                                <img src="{views:images/img_index/shebei2.jpg}" alt="" />
-                                <h3 class="nn-shebei-title">对流行星式立轴搅拌机</h3>
-                                <p class="nn-shebei-con"> 对流行星式立轴搅拌机 性能特点： 对流行星式立轴搅拌机 产品采用了全新的对流行星搅拌理念，在继承MP立轴行星式搅拌机原有优势的基础上又有新的突破： 1、 MP行星搅拌原理图 MPC对流式行星搅拌原理图 更高搅拌性能 搅拌行星自转方向与整套搅拌装置公转方向相反，不同搅拌行星间方向也不同，在搅拌过程中物料既有循环运动，又有对流运动，搅拌更加剧烈，搅拌轨迹更加复杂。相反方向运动的物料相互对流冲击，更有利于避免团聚现象，使各组分实现更充分地接触，更良好的结合，真正达到微观上的均
-                                </p>
-                                <p class="nn-shebei-price">￥
-                                    <span class="shebei-price-num">40000.00</span> /台
-                                </p>
-                            </a>
-                        </div>
-                        <div class="nn-shebei-item">
-                            <a href="#">
-                                <img src="{views:images/img_index/shebei3.jpg}" alt="" />
-                                <h3 class="nn-shebei-title">盘式搅拌机</h3>
-                                <p class="nn-shebei-con">
-                                    盘式搅拌机 盘式搅拌机是一种主要用于原料的混合的机械。该机采用聚丙烯板内衬或不锈钢板，具有不易粘料，耐磨损，采用摆线针轮减速机具有结构紧凑、操作方便、搅拌均匀、卸料输送方便等优点。 目录 1 优点 2 工作原理 3 结构组成 4 技术参数 优点编辑 物料得到充分的混合，从而提高了混合均匀度，采用新颖的转子结构，使转子与壳体的最小间隙可调至接近零位，有效地减少了物料的残留量，盘内采用聚丙烯板内衬或不锈钢板，因此不易粘料、耐磨损、采用摆线针轮减速具有结构紧凑、操作方便、搅拌均匀、卸料输送
-                                </p>
-                                <p class="nn-shebei-price">￥
-                                    <span class="shebei-price-num">30000.00</span> /台
-                                </p>
-                            </a>
-                        </div>
-                        <div class="nn-shebei-item">
-                            <a href="#">
-                                <img src="{views:images/img_index/shebei4.jpg}" alt="" />
-                                <h3 class="nn-shebei-title">耐火材料全自动生产线</h3>
-                                <p class="nn-shebei-con">
-                                    耐火材料全自动生产线 该耐火材料全自动生产线为6-16种原料配料生产线，分为静态和动态两种配料方式，日常只需3-4人即可完成单条线的操作（含包装、码垛），此套系统包含投料系统, 称重控制系统, 输送系统, 混合系统, 包装计量系统和中央控制系统。 各组成部分介绍 1.投料系统： 由6到30 个只储料仓组成，料仓成方形布局，节约空间，仓口为敞开式和封闭式。 1.1 敞开式投料方式 上面装有格栅防止工人投料时误把包装袋等杂质投入仓内，料仓底部装有料位控制器，方便实时监控料仓物
-                                </p>
-                                <p class="nn-shebei-price">￥
-                                    <span class="shebei-price-num">300000.00</span> /套
-                                </p>
-                            </a>
-                        </div>
-                        <div class="nn-shebei-item">
-                            <a href="#">
-                                <img src="{views:images/img_index/shebei2.jpg}" alt="" />
-                                <h3 class="nn-shebei-title">对流行星式立轴搅拌机</h3>
-                                <p class="nn-shebei-con"> 对流行星式立轴搅拌机 性能特点： 对流行星式立轴搅拌机 产品采用了全新的对流行星搅拌理念，在继承MP立轴行星式搅拌机原有优势的基础上又有新的突破： 1、 MP行星搅拌原理图 MPC对流式行星搅拌原理图 更高搅拌性能 搅拌行星自转方向与整套搅拌装置公转方向相反，不同搅拌行星间方向也不同，在搅拌过程中物料既有循环运动，又有对流运动，搅拌更加剧烈，搅拌轨迹更加复杂。相反方向运动的物料相互对流冲击，更有利于避免团聚现象，使各组分实现更充分地接触，更良好的结合，真正达到微观上的均
-                                </p>
-                                <p class="nn-shebei-price">￥
-                                    <span class="shebei-price-num">40000.00</span> /台
-                                </p>
-                            </a>
-                        </div>
-                        <div class="nn-shebei-item">
-                            <a href="#">
-                                <img src="{views:images/img_index/shebei3.jpg}" alt="" />
-                                <h3 class="nn-shebei-title">盘式搅拌机</h3>
-                                <p class="nn-shebei-con">
-                                    盘式搅拌机 盘式搅拌机是一种主要用于原料的混合的机械。该机采用聚丙烯板内衬或不锈钢板，具有不易粘料，耐磨损，采用摆线针轮减速机具有结构紧凑、操作方便、搅拌均匀、卸料输送方便等优点。 目录 1 优点 2 工作原理 3 结构组成 4 技术参数 优点编辑 物料得到充分的混合，从而提高了混合均匀度，采用新颖的转子结构，使转子与壳体的最小间隙可调至接近零位，有效地减少了物料的残留量，盘内采用聚丙烯板内衬或不锈钢板，因此不易粘料、耐磨损、采用摆线针轮减速具有结构紧凑、操作方便、搅拌均匀、卸料输送
-                                </p>
-                                <p class="nn-shebei-price">￥
-                                    <span class="shebei-price-num">30000.00</span> /台
-                                </p>
-                            </a>
-                        </div>
-                        <div class="nn-shebei-item">
-                            <a href="#">
-                                <img src="{views:images/img_index/shebei4.jpg}" alt="" />
-                                <h3 class="nn-shebei-title">耐火材料全自动生产线</h3>
-                                <p class="nn-shebei-con">
-                                    耐火材料全自动生产线 该耐火材料全自动生产线为6-16种原料配料生产线，分为静态和动态两种配料方式，日常只需3-4人即可完成单条线的操作（含包装、码垛），此套系统包含投料系统, 称重控制系统, 输送系统, 混合系统, 包装计量系统和中央控制系统。 各组成部分介绍 1.投料系统： 由6到30 个只储料仓组成，料仓成方形布局，节约空间，仓口为敞开式和封闭式。 1.1 敞开式投料方式 上面装有格栅防止工人投料时误把包装袋等杂质投入仓内，料仓底部装有料位控制器，方便实时监控料仓物
-                                </p>
-                                <p class="nn-shebei-price">￥
-                                    <span class="shebei-price-num">300000.00</span> /套
-                                </p>
-                            </a>
-                        </div>
-                         <div class="nn-shebei-item">
-                            <a href="#">
-                                <img src="{views:images/img_index/shebei3.jpg}" alt="" />
-                                <h3 class="nn-shebei-title">盘式搅拌机</h3>
-                                <p class="nn-shebei-con">
-                                    盘式搅拌机 盘式搅拌机是一种主要用于原料的混合的机械。该机采用聚丙烯板内衬或不锈钢板，具有不易粘料，耐磨损，采用摆线针轮减速机具有结构紧凑、操作方便、搅拌均匀、卸料输送方便等优点。 目录 1 优点 2 工作原理 3 结构组成 4 技术参数 优点编辑 物料得到充分的混合，从而提高了混合均匀度，采用新颖的转子结构，使转子与壳体的最小间隙可调至接近零位，有效地减少了物料的残留量，盘内采用聚丙烯板内衬或不锈钢板，因此不易粘料、耐磨损、采用摆线针轮减速具有结构紧凑、操作方便、搅拌均匀、卸料输送
-                                </p>
-                                <p class="nn-shebei-price">￥
-                                    <span class="shebei-price-num">30000.00</span> /台
-                                </p>
-                            </a>
-                        </div>
+            <div class="containers clear" id="jingjiaBox">
 
-                    </div>
-                </div>
-               <!--  <div class="box nn-order">
-                    <div class="nn-order-hd">
-                        <a href="#">
-                            <h3 class="nn-order-title">排行榜</h3>
-                            <span class="nn-order-subtitle">产品热销排行榜</span>
-                        </a>
-                    </div>
-                    <div class="nn-order-bd">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="nn-order-item clear">
-                                        <a class="nn-order-link" href="#">
-                                            <span class="nn-order-img">
-                                                <img src="{views:images/img_index/b.jpg}" alt="" />
-                                            </span>
-                                            <span class="nn-order-num order-1">1</span>
-                                            <span class="nn-order-txt">高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</span>
-                                        </a>
-                                    </div>
-                                    <div class="nn-order-item clear">
-                                        <a class="nn-order-link" href="#">
-                                            <span class="nn-order-img">
-                                                <img src="{views:images/img_index/b.jpg}" alt="" />
-                                            </span>
-                                            <span class="nn-order-num order-2">2</span>
-                                            <span class="nn-order-txt"> 厂家直销 量大从优  微信同号18736024977</span>
-                                        </a>
-                                    </div>
-                                    <div class="nn-order-item clear">
-                                        <a class="nn-order-link" href="#">
-                                            <span class="nn-order-img">
-                                                <img src="{views:images/img_index/e.png}" alt="" />
-                                            </span>
-                                            <span class="nn-order-num order-3">3</span>
-                                            <span class="nn-order-txt"> 可以寄样品，含税不含税都可以做（具体价格电话协商），价格会比小厂房的高，因为质量绝对过关</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="nn-order-item clear">
-                                        <a class="nn-order-link" href="#">
-                                            <span class="nn-order-img">
-                                                <img src="{views:images/img_index/b.jpg}" alt="" />
-                                            </span>
-                                            <span class="nn-order-num order-slib">4</span>
-                                            <span class="nn-order-txt">高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</span>
-                                        </a>
-                                    </div>
-                                    <div class="nn-order-item clear">
-                                        <a class="nn-order-link" href="#">
-                                            <span class="nn-order-img">
-                                                <img src="{views:images/img_index/c.jpg}" alt="" />
-                                            </span>
-                                            <span class="nn-order-num order-slib">5</span>
-                                            <span class="nn-order-txt"> 厂家直销 量大从优  微信同号18736024977</span>
-                                        </a>
-                                    </div>
-                                    <div class="nn-order-item clear">
-                                        <a class="nn-order-link" href="#">
-                                            <span class="nn-order-img">
-                                                <img src="{views:images/img_index/e.png}" alt="" />
-                                            </span>
-                                            <span class="nn-order-num order-slib">6</span>
-                                            <span class="nn-order-txt"> 可以寄样品，含税不含税都可以做（具体价格电话协商），价格会比小厂房的高，因为质量绝对过关</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-                    </div>
-                </div> -->
-                
             </div>
         </div>
         <!--排行榜 拼眼力 设备结束-->
@@ -416,59 +222,8 @@ $(function() {
         </div>
         <!--光学仪器-->
         <div class="block-guess">
-            <div class="containers clear">
-                <div class="nn-live-hd">
-                    <h3 class="nn-live-title">光学仪器</h3>
-                    <span class="nn-live-subtitle">设备专区</span>
-                </div>
-                <div class="nn-guess-items">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-items">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-items">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-items">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-items">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-items">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
+            <div class="containers clear" id="shebeiBox">
+
             </div>
         </div>
         <!--光学仪器结束-->
@@ -510,171 +265,8 @@ $(function() {
         <!--视频直播结束-->
         <!--热销产品开始-->
         <div class="block-hot">
-            <div class="containers clear">
-                <div class="nn-live-hd">
-                    <h3 class="nn-live-title">热销产品</h3>
-                    <span class="nn-live-subtitle">热销产品</span>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-hot-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
+            <div class="containers clear" id="rexiaoBox">
+
             </div>
         </div>
         <!--热销产品结束-->
@@ -813,10 +405,10 @@ $(function() {
 
                 }
 
-                //填充有好货板块一的信息
-                function showIndexOffers1(){
+                //填充后台配置的首页产品模块
+                function showIndexOffers(templateID,boxID,configID){
                     var ajaxUrl = "{url:/AjaxData/getIndexProduct}";
-                   var configId = {$product1['id']};
+                   var configId = configID;
                     $.ajax({
                         type : 'get',
                         url : ajaxUrl,
@@ -825,35 +417,14 @@ $(function() {
                         data : {config_id:configId},
                         success : function(data){
                             if(data){
-                                var proList = template.render('sellerProductTemplate',{data:data});
-                                $('#sellerProductBox1').html(proList);
+                                var proList = template.render(templateID,{data:data});
+                                $('#'+boxID).html(proList);
                             }
 
                         }
                     })
 
                 }
-                //填充有好货板块二的信息
-                function showIndexOffers2(){
-                    var ajaxUrl = "{url:/AjaxData/getIndexProduct}";
-                    var configId = {$product2['id']};
-                    $.ajax({
-                        type : 'get',
-                        url : ajaxUrl,
-                        async  : true,
-                        dataType : 'json',
-                        data : {config_id:configId},
-                        success : function(data){
-                            if(data){
-                                var proList = template.render('sellerProductTemplate',{data:data});
-                                $('#sellerProductBox2').html(proList);
-                            }
-
-                        }
-                    })
-
-                }
-
 
             </script>
         </div>
@@ -955,17 +526,103 @@ $(function() {
     </ul>
 </script>
 
-<script type="text/html" id="sellerProductTemplate" >
+<script type="text/html" id="jingjiaTemplate">
+    <div class="box nn-pinyanli">
+        <div class="nn-pinyanli-hd">
+            <a href="#">
+                <h3 class="nn-order-title">今日拍品</h3>
+                <span class="nn-order-subtitle">今日竞拍</span>
+            </a>
+        </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <%if (data.length>0) { %>
+                    <%for (var i=0;i<data.length;i++) { %>
+                        <%if i==0 { %>
+                        <div class="swiper-slide">
+                            <div class="new-icon" >
+                                <img src="<%=data[i].img%>" alt="" />
+                            </div>
+                            <a href="{url:/offers/offerdetails2}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                                <img src="<%=data[i].img%>" alt="" />
+                                <p><%=data[i].name%></p>
+                            </a>
+                        </div>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="box nn-shebei">
+        <div class="nn-shebei-hd">
+            <a href="#">
+                <h3 class="nn-order-title">排行榜</h3>
+                <span class="nn-order-subtitle">产品热销排行榜</span>
+            </a>
+        </div>
+        <div class="nn-shebei-bd clear">
+            <%if (data.length>0) { %>
+                <%for (var i=0;i<data.length;i++) { %>
+                      <%if i>0 { %>
+                          <div class="nn-shebei-item">
+                            <a href="{url:/offers/offerdetails2}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+
+                                <img src="{views:images/img_index/shebei1.jpg}" alt="" />
+                                <h3 class="nn-shebei-title"><%=data[i].name%></h3>
+                                <p class="nn-shebei-con"><%=data[i].note%></p>
+                                <p class="nn-shebei-price">￥
+                                    <span class="shebei-price-num"><%=data[i].price%></span> / <%=data[i].unit%>
+                                </p>
+                                <!-- <div class="nn-jingpai-hover">
+                                    <div class="nn-jingpai-cir">
+                                        去竞拍
+                                    </div>
+                                </div> -->
+                            </a>
+                        </div>
+                      <% } %>
+                 <% } %>
+            <% } %>
+
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="shebeiTemplate">
+    <div class="nn-live-hd">
+        <h3 class="nn-live-title">光学仪器</h3>
+        <span class="nn-live-subtitle">设备专区</span>
+    </div>
     <%if (data.length>0) { %>
-    <%for (var i=0;i<data.length;i++) { %>
-    <li class="market_ul_li">
-        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
-            <div class="product_img"><img src="<%=data[i].img%>"></div>
-            <h4><%=data[i].name%></h4>
-            <p><%=data[i].note%></p>
-            <p class="product_price">￥ <%=data[i].price%>/ <%=data[i].unit%></p>
-        </a>
-    </li>
+        <%for (var i=0;i<data.length;i++) { %>
+            <div class="nn-guess-items">
+                <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                    <img src="{views:images/img_index/c.jpg}" alt="" />
+                    <p class="nn-guess-title"><%=data[i].name%></p>
+                    <p class="nn-guess-con"> <%=data[i].note%></p>
+                    <p class="nn-guess-price">￥<span><%=data[i].price%>/<%=data[i].unit%></span></p>
+                </a>
+            </div>
+        <% } %>
     <% } %>
+</script>
+
+<script type="text/html" id="rexiaoTemplate">
+    <div class="nn-live-hd">
+        <h3 class="nn-live-title">热销产品</h3>
+        <span class="nn-live-subtitle">热销产品</span>
+    </div>
+    <%if (data.length>0) { %>
+        <%for (var i=0;i<data.length;i++) { %>
+            <div class="nn-hot-item">
+                <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                    <img src="{views:images/img_index/c.jpg}" alt="" />
+                    <p class="nn-guess-title"><%=data[i].name%></p>
+                    <p class="nn-guess-con">  <%=data[i].note%></p>
+                    <p class="nn-guess-price">￥<span><%=data[i].price%>/<%=data[i].unit%></span></p>
+                </a>
+            </div>
+        <% } %>
     <% } %>
 </script>

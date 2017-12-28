@@ -82,7 +82,7 @@
                     <div class="time_peo">
                         <span><b>{$data['baojia_count']}</b>人已报名</span>
                         &nbsp;
-                        <span><b>1097</b>人围观</span>
+                        <!--<span><b>1097</b>人围观</span>-->
                     </div>
                     </div>
                 </div>
@@ -101,10 +101,11 @@
                         <span>递增幅度：</span><b class="c816">￥{$data['jing_stepprice']}</b>
                     </div>
                 </div>
-                <form>
+                <form method="post" action="{url:/trade/jingjiabaojia@deal}" auto_submit="1" >
                 <div class="add_jian">
+                    <input type="hidden" name="offer_id" value="{$data['id']}" />
                     <input type="button" id="add" value="+">
-                    <input type="text" id="num" value="{$start_price}">
+                    <input type="text" id="num" value="{$start_price}" name="price">
                     <input type="button" id="jian" value="-">
                     <span class="jian_tex">最低价：<b>￥{$data['price_l']}</b> 最高价：<b>￥{$data['price_r']}</b></span>
                 </div>
@@ -280,43 +281,9 @@
 
                     </table>
 
-                    <!--<h5 class="tit"><i><img src="{views:images/pro_show_04.jpg}"></i><span>质量标准</span></h5>
-                    <table>
-
-                        <tr>
-                            <td>质量标准</td>
-                            <td></td>
-                        </tr>
-                    </table>-->
                                 <link href="{views:css/product_pic.css}" rel="stylesheet">
                                 <script src="{views:js/pic.js}"></script>
 
-                    <!-- <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
-
-
-                                                <div id="slider">
-                                                      {foreach:items=$data['origphotos']}
-                                                            <div class="spic">
-                                                                <img src="{$item}" />
-                                                            </div>
-                                                      {/if}
-                                                </div>
-
-
-                                    <script type="text/javascript">
-                                           $(document).ready(function() {
-                                                $('#slider').slider({ speed: 500 });
-                                                    var length=$("#slider img").size();
-                                                    if(length-1>4){
-                                                        $(".image-slider-back").css("display","block");
-                                                        $(".image-slider-forward").css("display","block");
-                                                    }else{
-                                                        $(".image-slider-back").css("display","none");
-                                                        $(".image-slider-forward").css("display","none");
-                                                }
-                                            });
-                                    </script> -->
-      <!-- content end -->
 
 
                </div>
