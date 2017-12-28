@@ -102,7 +102,7 @@
                         正在</br>进行
                     </div>
                     <div class="time_text">
-                    <h3 class="h32">距离结束仅剩：00天18时37分</h3>
+                    <h3 class="h32">距离结束仅剩：<span id="time_d">00</span>天<span id="time_h">18</span>时<span id="time_m">37</span>分<span id="time_s">10</span>秒</h3>
                     <div class="time_peo">
                         <span><b>3</b>人已报名</span>
                         &nbsp;
