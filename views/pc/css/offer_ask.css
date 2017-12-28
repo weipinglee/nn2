@@ -170,3 +170,185 @@
 	color: #A09D9D;
 
 }
+
+
+/* 商品详情修改*/
+.offer_content .left_img{
+    float: left;
+    padding: 0 20px;
+    width: 302px;
+}
+
+/*商品详情图片展示*/
+.tb-pic a{display:table-cell;text-align:center;vertical-align:middle;}
+.tb-pic a img{vertical-align:middle; width: 100%;}
+.tb-pic a{*display:block;*font-family:Arial;*line-height:1;}
+.tb-thumb{margin:10px 0 0;overflow:hidden;}
+.tb-thumb li{background:none repeat scroll 0 0 transparent;float:left;height:62px;margin:0 6px 0 0;overflow:hidden;/*padding:1px;*/}
+.tb-s310, .tb-s310 a{height:310px;width:300px;}
+.tb-s310, .tb-s310 img{max-height:310px;max-width:400px;}
+.tb-s310 a{*font-size:271px;}
+.tb-s40 a{*font-size:35px;}
+.tb-s40, .tb-s40 a{height:60px;width:52px;}
+.tb-booth{border:1px solid #CDCDCD;position:relative;z-index:1;}
+.tb-thumb .tb-selected{background:none repeat scroll 0 0 #C30008;height:60px;padding:2px;}
+.tb-thumb .tb-selected div{background-color:#FFFFFF;border:medium none;}
+.tb-thumb li div{border:1px solid #CDCDCD;}
+div.zoomDiv{z-index:999;position:absolute;top:0px;left:0px;width:200px;height:200px;background:#ffffff;border:1px solid #CCCCCC;display:none;text-align:center;overflow:hidden;}
+div.zoomMask{position:absolute;background:url("../images/icon/mask.png") repeat scroll 0 0 transparent;cursor:move;z-index:1;}
+.fdj{
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  background: #fff;
+  padding:5px;
+}
+/*商品详情图片展示end*/
+
+.left_center{
+    float: left;
+    padding: 0 20px;
+    width: 500px;
+    border-right: 1px solid #000;
+}
+.left_center .h31{
+    font-size: 18px;
+    padding: 5px 0px 20px 0px;
+}
+.left_center .pr_time{
+    position: relative;
+}
+.left_center .pr_time .time_icon{
+     position: absolute;
+    background: #c81623;
+    color: #fff;
+    text-align: center;
+    width: 24px;
+    padding: 6px 7px;
+
+}
+.left_center .pr_time .time_icon:after{
+    content: ' ';
+    font-size: 0;
+    position: absolute;
+    bottom: 12px;
+    margin-left: -7px;
+    left: 44px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 0px 6px 7px;
+    border-color: transparent #c81623 transparent;
+}
+.left_center .pr_time .time_text{
+    margin-left: 55px;
+}
+.left_center .pr_time .time_text .h32{
+    font-size: 16px;
+    color: #c81623;
+   margin-bottom: 6px; 
+}
+.left_center .offer{
+    margin-top:30px; 
+}
+.left_center .offer_num{
+    padding-top:10px; 
+}
+.left_center .offer_num b{
+    font-size: 20px;
+}
+.c816{
+    color: #c81623
+}
+.left_center .add_jian{
+    margin-top:20px; 
+    padding-left: 10px;
+}
+.left_center .add_jian #add,.left_center .add_jian #jian{
+    border:1px solid #ddd;
+    background: #fff;
+    width: 30px;
+    height: 30px;
+}
+.left_center .add_jian #num{
+    height: 30px;
+    padding: 0 10px;
+    width: 130px;
+    margin: 0 6px;
+}
+.left_center .add_jian .jian_tex{
+    padding-left: 10px;
+}
+.left_center  .submit_but .but{
+    margin: 10px 10px;
+    width: 233px;
+    height: 40px;
+    background: #c81623;
+    border:0px;
+    color: #fff;
+    font-size: 16px;
+}
+.left_center .auction_text{
+    margin-top:10px; 
+}
+.left_center .auction_text .auction_ul li{
+    float: left;
+    width: 30%;
+    height: 20px;
+    color: #7d7a7a;
+}
+.left_ringt{
+    float: left;
+    width: 257px;
+    padding: 0 20px;
+
+}
+.left_ringt .product_details p{
+    line-height: 25px;
+    padding-bottom: 5px;
+}
+.left_ringt .offers_auction{
+    border-radius: 5px 5px 0px 0px;
+    border:1px solid #ddd;
+}
+.left_ringt .offers_auction .offers_top{
+    height: 40px;
+    line-height: 40px;
+    background: #ddd;
+    padding: 0 20px;
+}
+.left_ringt .offers_auction .offers_top h3 a{
+    float: right;
+}
+.left_ringt .offers_auction .offers_auction_text{
+    padding: 0 10px;
+}
+.left_ringt .offers_auction .offers_auction_text ul li{
+    float: left;
+    width: 33%;
+    padding: 10px 0px;
+}
+.left_ringt .offers_auction .offers_auction_text ul li .of_au_span{
+    display: block;
+    width: 35px;
+    height: 25px;
+    line-height: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+}
+.left_ringt .offers_auction .offers_auction_text ul li .span_top{
+    
+    border: 1px solid #c81623;
+    
+}
+.left_ringt .offers_auction .offers_auction_text ul li.li_last{
+    text-align: right;
+}
+.details_text{
+    padding: 20px 25px;
+}
+.details_text p{
+    text-indent: 20px;
+}
+/* 商品详情修改 end*/
