@@ -306,10 +306,13 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $bind = array('status'=>self::OFFER_OK);
 
         $configObj = new M('configs_indexshow');
-        $productIds = $configObj->where(array('id'=>$configId))->getField('proids');
+        $productData = $configObj->where(array('id'=>$configId))->fields('proids,pic_num')->getObj();
 
-        if($productIds){
-            $whereStr .= ' and o.id in ('.$productIds.')';
+        if(empty($productData)){
+            return array();
+        }
+        if(isset($productData['proids']) && $productData['proids']){
+            $whereStr .= ' and o.id in ('.$productData['proids'].')';
         }
 
 
@@ -318,7 +321,7 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $query->bind = $bind;
 
         $query->page = $page;
-        $query->pagesize = $page_size;
+        $query->pagesize = $productData['pic_num']>0 ? $productData['pic_num'] : $page_size;
         if($order){
             $query->order = $order;
         }
