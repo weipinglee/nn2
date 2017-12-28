@@ -11,14 +11,20 @@ $(function () {
         })
     })
 })
-/* 商品详情页图片轮换和放大*/
+/* 商品详情页图片轮换*/
  $(function() {
-    $(".jqzoom").imagezoom();
-    $("#thumblist li a").click(function() {
-	    $(this).parents("li").addClass("tb-selected").siblings().removeClass("tb-selected");
-	    $(".jqzoom").attr('src', $(this).find("img").attr("mid"));
-	    $(".jqzoom").attr('rel', $(this).find("img").attr("big"));
-    });
+    $(".demo .box ul li").click(function(){
+      $(".demo .box ul li").removeClass("tb-selected")
+      var li_content= $(this).find("a").html();
+          $(".tb-booth a").html(li_content);//增加内容
+          $(".tb-booth .play").show();
+          $(this).addClass("tb-selected");
+    })
+    $(".play").click(function(){
+          var vodeo_content=$(".demo .video_main").html();
+          $(this).hide();
+          $(".tb-booth a").html(vodeo_content)
+    })
 });
  /* 商品详情页图片轮换和放大 end*/
 /* 按钮加减*/
