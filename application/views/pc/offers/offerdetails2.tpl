@@ -73,19 +73,51 @@
             </div>
             <div class="left_center">
                 <p class="h31">{$data['pro_name']}</p>
+                 {if:$offerStatus==1}
+                <div class="pr_time">
+                    <div class="time_icon">
+                        即将</br>进行
+                    </div>
+                    <div class="time_text">
+                    <h3 class="h32">距离开始仅剩：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h3>
+                    <div class="time_peo">
+                        <span><b>{$data['baojia_count']}</b>人已报名</span>
+                        &nbsp;
+                        <!-- <span><b>1097</b>人围观</span> -->
+                    </div>
+                    </div>
+                </div>
+                {/if}
+                 {if:$offerStatus==2}
                 <div class="pr_time">
                     <div class="time_icon">
                         正在</br>进行
                     </div>
                     <div class="time_text">
-                    <h3 class="h32">距离结束仅剩：<span id="time_d">00</span>天<span id="time_h">18</span>时<span id="time_m">37</span>分<span id="time_s">10</span>秒</h3>
+                    <h3 class="h32">距离结束仅剩：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h3>
                     <div class="time_peo">
                         <span><b>{$data['baojia_count']}</b>人已报名</span>
                         &nbsp;
-                        <span><b>1097</b>人围观</span>
+                        <!-- <span><b>1097</b>人围观</span> -->
                     </div>
                     </div>
                 </div>
+                {/if}
+                 {if:$offerStatus==3}
+                <div class="pr_time">
+                    <div class="time_icon">
+                        已经</br>结束
+                    </div>
+                    <div class="time_text">
+                    <h3 class="h32">竞拍结束：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h3>
+                    <div class="time_peo">
+                        <span><b>{$data['baojia_count']}</b>人已报名</span>
+                        &nbsp;
+                       <!--  <span><b>1097</b>人围观</span> -->
+                    </div>
+                    </div>
+                </div>
+                {/if}
                 <div class="offer">
                     <div class="offer_num">
                         <span>当前价：</span>
@@ -98,7 +130,7 @@
                         </b>
                     </div>
                     <div class="offer_num">
-                        <span>递增幅度：</span><b class="c816">￥{$data['jing_stepprice']}</b>
+                        <span>递增幅度：</span><b class="c816 jin_add">￥{$data['jing_stepprice']}</b>
                     </div>
                 </div>
                 <form>
@@ -106,7 +138,7 @@
                     <input type="button" id="add" value="+">
                     <input type="text" id="num" value="{$start_price}">
                     <input type="button" id="jian" value="-">
-                    <span class="jian_tex">最低价：<b>￥{$data['price_l']}</b> 最高价：<b>￥{$data['price_r']}</b></span>
+                    <span class="jian_tex">最低价：<b class="min">￥{$data['price_l']}</b> 最高价：<b class="max">￥{$data['price_r']}</b></span>
                 </div>
                 <div class="submit_but">
                     <input class="but" type="submit" name="" value="我要出价">
@@ -159,7 +191,108 @@
 
             </div>
                 <div style="clear:both;"></div>
+<script type="text/javascript">
+$(function(){
+    $(".submit_but")
+})
+    /* 按钮加减*/
+  var add_num={$data['jing_stepprice']};//增加幅度
+  var min_num={$data['price_l']};//最小值
+  var max_num={$data['price_r']};//最大值
+  $(function(){
+    $("#add").click(function(){
+      var n=$("#num").val(); //初始值
+      if(n>=max_num){
+        alert("亲这是最大值了！")
+      }else if(n<max_num){
+        if(add_num<=0){
+            var num=parseInt(n)+1;
+            $("#num").val(num); 
+        }else{
+            var num=parseInt(n)+parseInt(add_num);
+            $("#num").val(num); 
+        }
+      }
 
+    });
+    $("#jian").click(function(){
+      var n=$("#num").val(); //初始值
+
+      if(n==min_num){
+        alert("亲最小值了！")
+        $("#num").val(min_num);
+      }else{
+        if(add_num<=0){
+            var num=parseInt(n)-1;
+            if(num==0){alert("不能为0!"); return}
+            $("#num").val(num);
+        }else{
+            var num=parseInt(n)-parseInt(add_num);
+            if(num==0){alert("不能为0!"); return}
+            $("#num").val(num);
+        }
+      }
+      });
+  })
+ /* 按钮加减 end*/
+    /*倒计时*/
+  var ofer_statue={$data['offerStatus']}//状态
+
+$(function(){ 
+
+show_time(); 
+
+}); 
+
+function show_time(){
+var time_start ="{$data['start_time']}";//设定开始时间 
+var time_end = "{$data['end_time']}"; //设定结束时间(等于系统当前时间) 
+//计算时间差 
+var time_distance = time_end - time_start; 
+if(time_distance > 0){ 
+// 天时分秒换算 
+var int_day = Math.floor(time_distance/86400000) 
+time_distance -= int_day * 86400000; 
+
+var int_hour = Math.floor(time_distance/3600000) 
+time_distance -= int_hour * 3600000; 
+
+var int_minute = Math.floor(time_distance/60000) 
+time_distance -= int_minute * 60000; 
+
+var int_second = Math.floor(time_distance/1000) 
+// 时分秒为单数时、前面加零 
+if(int_day < 10){ 
+int_day = "0" + int_day; 
+} 
+if(int_hour < 10){ 
+int_hour = "0" + int_hour; 
+} 
+if(int_minute < 10){ 
+int_minute = "0" + int_minute; 
+} 
+if(int_second < 10){ 
+int_second = "0" + int_second; 
+} 
+// 显示时间 
+$("#time_d").html(int_day); 
+$("#time_h").html(int_hour); 
+$("#time_m").html(int_minute); 
+$("#time_s").html(int_second); 
+
+setTimeout("show_time()",1000); 
+
+}else{ 
+$("#time_d").html('00'); 
+$("#time_h").html('00'); 
+$("#time_m").html('00'); 
+$("#time_s").html('00'); 
+
+} 
+} 
+/*倒计时end*/
+
+</script>
             </div>
             <div class="cont_1">
                  <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>商品简介</span></h5>
