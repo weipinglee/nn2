@@ -154,7 +154,7 @@
                            {/if}
                             <tr>
                                 <td>商品单价</td>
-                                <td>{$offer['price']}元</td>
+                                <td>￥{$offer['price']}</td>
                             </tr>
                             <tr>
                                 <td>交货地址</td>
@@ -168,6 +168,24 @@
                                <td>记重方式</td>
                                <td>{$offer['weight_type']}</td>
                            </tr>
+                           {if:$offer['start_time']}
+                           <tr>
+                               <td>开始时间</td>
+                               <td>{$offer['start_time']}</td>
+                           </tr>
+                           {/if}
+                           {if:$offer['end_time']}
+                               <tr>
+                                   <td>结束时间</td>
+                                   <td>{$offer['end_time']}</td>
+                               </tr>
+                           {/if}
+                           {if:$offer['jing_stepprice']}
+                               <tr>
+                                   <td>递增价格</td>
+                                   <td>￥{$offer['jing_stepprice']}</td>
+                               </tr>
+                           {/if}
                             <tr>
                                 <td>产品描述</td>
                                 <td>{$product['note']}</td>

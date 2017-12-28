@@ -81,6 +81,20 @@
 
 
              </tr>
+             {if:$info['sub_mode']>0}
+                 <tr>
+                      <th>开始时间</th>
+                      <td>{$info['start_time']}</td>
+
+
+                     <th>结束时间</th>
+                     <td>{$info['end_time']}</td>
+                     <th>递增价格</th>
+                     <td>{$info['jing_stepprice']}</td>
+
+
+                 </tr>
+             {/if}
              {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
              <tr>
                  <th>可否拆分</th>

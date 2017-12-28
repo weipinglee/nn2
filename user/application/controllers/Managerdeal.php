@@ -924,7 +924,8 @@ class ManagerDealController extends UcenterBaseController {
                 'price_l'=>safe::filterPost('price_l'),
                 'price_r'=> safe::filterPost('price_r'),
                 'price'=> safe::filterPost('price'),
-                'max_num' => safe::filterPost('max_num')
+                'jing_stepprice' => safe::filterPost('step_price'),
+                'max_num' => safe::filterPost('max_num'),
             );
             if($offerData['submode']==1){
                 $offerObj = new \nainai\offer\jingjiaOffer();

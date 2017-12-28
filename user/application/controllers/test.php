@@ -13,7 +13,8 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-
+		echo time().'</br>';
+	//	echo substr(-1,3,time());
 	}
 
 

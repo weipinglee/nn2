@@ -31,7 +31,7 @@
                             <span>
                                 <select name="submode">
                                     <option value="1">竞价</option>
-                                    <option value="2">一口价</option>
+                                    <!--<option value="2">一口价</option>-->
                                 </select>
                              </span>
                             <span></span>
@@ -90,6 +90,14 @@
                         <td nowrap="nowrap"><span></span>最高价格：</td>
                         <td colspan="2">
                             <span><input class="text" type="text" datatype="money" value="" ignore="ignore" errormsg="" name="price_r"></span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+                    <tr class="jingjia">
+                        <td nowrap="nowrap"><span></span>递增价格：</td>
+                        <td colspan="2">
+                            <span><input class="text" type="text" datatype="money" value="" ignore="ignore" errormsg="" name="step_price"></span>
                             <span></span>
                         </td>
 

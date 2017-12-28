@@ -59,7 +59,7 @@ class productModel extends \nainai\offer\product{
 
 		// $query->order = ' a.create_time desc';
 
-		$where = 'o.user_id='.$user_id.' and o.type=1 and  o.sub_mode=0 and o.status='.self::OFFER_OK.' and o.is_del=0 and o.expire_time>now()';
+		$where = 'o.mode=4 and o.user_id='.$user_id.' and o.type=1 and  o.sub_mode=0 and o.status='.self::OFFER_OK.' and o.is_del=0 and o.expire_time>now()';
 
 		$query->where = $where;
 		$list = $query->find();
