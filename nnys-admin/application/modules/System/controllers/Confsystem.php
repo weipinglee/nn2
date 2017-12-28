@@ -321,6 +321,8 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			$config['type'] = safe::filterPost('type');
 			$config['sub_title'] = safe::filterPost('sub_title');
 			$config['title'] = safe::filterPost('title');
+			$config['sort'] = safe::filterPost('sort','int');
+			$config['pic_num'] = safe::filterPost('pic_num','int');
 			$res = $configObj->update($config);
 
 			die(json::encode($res));

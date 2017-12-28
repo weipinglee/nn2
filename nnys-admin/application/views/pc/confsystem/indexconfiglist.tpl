@@ -18,6 +18,7 @@
 				<th width="100">显示类型</th>
 				<th width="100">标题</th>
 				<th width="100">副标题</th>
+				<th width="100">排序</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -28,6 +29,7 @@
 				<td>{$item['type']}</td>
 				<td>{$item['title']}</td>
 				<td>{$item['sub_title']}</td>
+				<td>{$item['sort']}</td>
 				<td class="td-manage">
 				 <a title="编辑" href="{url:system/Confsystem/editindexconfig?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
 				<a title="添加商品" href="{url:system/Confsystem/addofferlist?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
