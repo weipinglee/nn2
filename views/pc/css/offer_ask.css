@@ -186,7 +186,7 @@
 .tb-thumb{margin:10px 0 0;overflow:hidden;}
 .tb-thumb li{background:none repeat scroll 0 0 transparent;float:left;height:62px;margin:0 6px 0 0;overflow:hidden;/*padding:1px;*/}
 .tb-s310, .tb-s310 a{height:310px;width:300px;}
-.tb-s310, .tb-s310 img{max-height:310px;max-width:400px;}
+.tb-s310, .tb-s310 img{height:310px;max-width:400px;}
 .tb-s310 a{*font-size:271px;}
 .tb-s40 a{*font-size:35px;}
 .tb-s40, .tb-s40 a{height:60px;width:52px;}
@@ -202,6 +202,13 @@ div.zoomMask{position:absolute;background:url("../images/icon/mask.png") repeat 
   bottom: 0px;
   background: #fff;
   padding:5px;
+}
+.play img{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
 }
 /*商品详情图片展示end*/
 

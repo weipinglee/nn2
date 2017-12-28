@@ -2,7 +2,6 @@
 <link rel="stylesheet" type="text/css" href="{views:css/offer_ask.css}"/>
 <link href="{views:css/pro_show.css}" rel="stylesheet">
 <link href="{views:css/tender_con.css}" rel="stylesheet">
-<script type="text/javascript" src="{views:js/jquery.imagezoom.min.js}"></script>
 <script type="text/javascript" src="{views:js/auc_pc_deail.js}"></script>
 <style type="text/css">
     .bj .bj_text{
@@ -47,44 +46,51 @@
                                     <img src="{views:images/banner/01_mid.jpg}" alt="美女" rel="{views:images/banner/001.jpg}" class="jqzoom" width="100%" />
                                     <div class="fdj icon-search"></div>
                                 </a>
+                                <i class="play"><img src="{views:images/banner/but_paly.png}"/></i>
                             </div>
                             <ul class="tb-thumb" id="thumblist">
                                 <li class="tb-selected">
                                     <div class="tb-pic tb-s40">
                                         <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/01_small.jpg}" mid="{views:images/banner/01_mid.jpg}" big="{views:images/banner/001.jpg}"/>
+                                            <img src="{views:images/banner/01_mid.jpg}"/>
                                         </a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="tb-pic tb-s40">
                                         <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/02_small.jpg}" mid="{views:images/banner/02_mid.jpg}" big="{views:images/banner/002.jpg}"/>
+                                            <img src="{views:images/banner/02_mid.jpg}"/>
                                         </a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="tb-pic tb-s40">
                                         <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/03_small.jpg}" mid="{views:images/banner/03_mid.jpg}" big="{views:images/banner/003.jpg}"/>
+                                            <img src="{views:images/banner/03_mid.jpg}"/>
                                         </a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="tb-pic tb-s40">
                                         <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/04_small.jpg}" mid="{views:images/banner/04_mid.jpg}" big="{views:images/banner/004.jpg}"/>
+                                            <img src="{views:images/banner/04_mid.jpg}"/>
                                         </a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="tb-pic tb-s40">
                                         <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/05_small.jpg}" mid="{views:images/banner/05_mid.jpg}" big="{views:images/banner/005.jpg}"/>
+                                            <img src="{views:images/banner/05_mid.jpg}"/>
                                         </a>
                                     </div>
                                 </li>
                             </ul>
+                            <div class="video_main" style="display: none">
+                                  <video width="300" height="310" controls="controls">
+                                  <source src="movie.ogg" type="video/ogg">
+                                  <source src="{views:images/img_index/ll.mp4}" type="video/mp4">
+                                  </video>
+                             </div>
                         </div>
                 </div>
        
