@@ -43,47 +43,23 @@
                         <div class="box">
                             <div class="tb-booth tb-pic tb-s310">
                                 <a href="images/01.jpg">
-                                    <img src="{views:images/banner/01_mid.jpg}" alt="美女" rel="{views:images/banner/001.jpg}" class="jqzoom" width="100%" />
+                                    <img src="{if:isset($data['origphotos'][0])}{$data['origphotos'][0]}{/if}"   class="jqzoom" width="100%" />
                                     <div class="fdj icon-search"></div>
                                 </a>
                                 <i class="play"><img src="{views:images/banner/but_paly.png}"/></i>
                             </div>
                             <ul class="tb-thumb" id="thumblist">
-                                <li class="tb-selected">
-                                    <div class="tb-pic tb-s40">
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/01_mid.jpg}"/>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="tb-pic tb-s40">
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/02_mid.jpg}"/>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="tb-pic tb-s40">
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/03_mid.jpg}"/>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="tb-pic tb-s40">
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/04_mid.jpg}"/>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="tb-pic tb-s40">
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/05_mid.jpg}"/>
-                                        </a>
-                                    </div>
-                                </li>
+                                {foreach:items=$data['origphotos']}
+                                    <li class="tb-selected">
+                                        <div class="tb-pic tb-s40">
+                                            <a href="javascript:void(0);">
+                                                <img src="{$item}"/>
+                                            </a>
+                                        </div>
+                                    </li>
+                                {/foreach}
+
+
                             </ul>
                             <div class="video_main" style="display: none">
                                   <video width="300" height="310" controls="controls">
@@ -96,7 +72,7 @@
        
             </div>
             <div class="left_center">
-                <p class="h31">阳泉市铝土矿1吨</p>
+                <p class="h31">{$data['pro_name']}</p>
                 <div class="pr_time">
                     <div class="time_icon">
                         正在</br>进行
@@ -104,7 +80,7 @@
                     <div class="time_text">
                     <h3 class="h32">距离结束仅剩：00天18时37分</h3>
                     <div class="time_peo">
-                        <span><b>3</b>人已报名</span>
+                        <span><b>{$data['baojia_count']}</b>人已报名</span>
                         &nbsp;
                         <span><b>1097</b>人围观</span>
                     </div>
@@ -112,24 +88,31 @@
                 </div>
                 <div class="offer">
                     <div class="offer_num">
-                        <span>当前价：</span><b>￥4,293,308</b>
+                        <span>当前价：</span>
+                        <b>
+                            ￥{set:$start_price=$data['price_l']}
+                            {if:isset($baojiaData[0]['price'])}
+                                {set:$start_price = $baojiaData[0]['price']}
+                             {/if}
+                            {$start_price}
+                        </b>
                     </div>
                     <div class="offer_num">
-                        <span>参考价：</span><b class="c816">￥4,293,308</b>
+                        <span>递增幅度：</span><b class="c816">￥{$data['jing_stepprice']}</b>
                     </div>
                 </div>
                 <form>
                 <div class="add_jian">
                     <input type="button" id="add" value="+">
-                    <input type="text" id="num" value="1,210">
+                    <input type="text" id="num" value="{$start_price}">
                     <input type="button" id="jian" value="-">
-                    <span class="jian_tex">最低加价：<b>￥1.00</b> 最高加价：<b>￥100</b></span>
+                    <span class="jian_tex">最低价：<b>￥{$data['price_l']}</b> 最高价：<b>￥{$data['price_r']}</b></span>
                 </div>
                 <div class="submit_but">
                     <input class="but" type="submit" name="" value="我要出价">
                 </div>
                 </form>
-                <div class="auction_text">
+                <!--<div class="auction_text">
                     <ul class="auction_ul">
                         <li><span>竞买代码：暂无代码</span></li>
                         <li><span>起拍价：￥30403</span></li>
@@ -139,46 +122,38 @@
                         <li><span>评估价：￥123433</span></li>
                         <li><span>保证金：800000</span></li>
                     </ul>
-                </div>
+                </div>-->
             </div>
             <div class="left_ringt">
                 <div class="product_details">
-                    <p><span>产地：</span><b>河南省 驻马店市 遂平县河南省 驻马店市 遂平县河南省 驻马店市 遂平县</b></p>
-                    <p><span>卖方：</span><b>光耀</b></p>
+                    <p><span>产地：</span><b>{areatext:data=$data['produce_area']}</b></p>
+                    <p><span>卖方：</span><b>{$user['company_name']}</b></p>
                     <p><img src="{views:images/password/eye_b.png}" alt="" style="position: relative;top:5px; " /><a id='contract_review' target='_blank' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:#3fa5d9;">合同预览</a></p>
                 </div>
                 <div class="offers_auction">
                     <div class="offers_top">
-                        <h3>出价记录（共9次） <a href="#bj_a">查看更多</a></h3>
+                        <h3>出价记录（共{echo:count($baojiaData)}次） <a href="#bj_a">查看更多</a></h3>
                     </div>
-                    <div class="offers_auction_text clear">
-                        <ul>
-                           <li><span class="of_au_span span_top">领先</span></li>
-                           <li>***某某</br>￥8999</li>
-                           <li class="li_last">2017-12-21</br>13:29:00</li>
-                        </ul>
-                    </div>
-                    <div class="offers_auction_text clear">
-                        <ul>
-                           <li><span class="of_au_span">出局</span></li>
-                           <li>***某某</br>￥8999</li>
-                           <li class="li_last">2017-12-21</br>13:29:00</li>
-                        </ul>
-                    </div>
-                    <div class="offers_auction_text clear">
-                        <ul>
-                           <li><span class="of_au_span">出局</span></li>
-                           <li>***某某</br>￥8999</li>
-                           <li class="li_last">2017-12-21</br>13:29:00</li>
-                        </ul>
-                    </div>
-                    <div class="offers_auction_text clear">
-                        <ul>
-                           <li><span class="of_au_span">出局</span></li>
-                           <li>***某某</br>￥8999</li>
-                           <li class="li_last">2017-12-21</br>13:29:00</li>
-                        </ul>
-                    </div>
+                    {foreach:items=$baojiaData}
+                        {if:$key==0}
+                            <div class="offers_auction_text clear">
+                                <ul>
+                                   <li><span class="of_au_span span_top">领先</span></li>
+                                   <li>{$item['true_name']}</br>￥{$item['price']}</li>
+                                   <li class="li_last">{$item['time']}</li>
+                                </ul>
+                            </div>
+                        {elseif:$key<4}
+                            <div class="offers_auction_text clear">
+                                <ul>
+                                    <li><span class="of_au_span">出局</span></li>
+                                    <li>{$item['true_name']}</br>￥{$item['price']}</li>
+                                    <li class="li_last">{$item['time']}</li>
+                                </ul>
+                            </div>
+                        {/if}
+
+                    {/foreach}
 
                 </div>
 
@@ -189,7 +164,7 @@
             <div class="cont_1">
                  <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>商品简介</span></h5>
                  <div class="details_text">
-                    <p> 商品详情图片展示 end 商品详情图片展示 end 商品详情图片展示 end 商品详情图片展示 end 商品详情图片展示 end</p>
+                    <p> {$data['note']}</p>
                 </div>
             </div>
             <!-- 拍卖价格情况 -->

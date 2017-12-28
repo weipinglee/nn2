@@ -267,6 +267,35 @@ class OffersController extends PublicController {
 			//获取报价信息
             $baojiaData = $this->offer->baojiaData($id);
 
+			//计算报盘的状态
+			$offerStatus = 0;
+			if($info['status']==6||$info['status']==7){
+				$offerStatus = 3;//已结束
+			}
+			elseif($info['status']==1){
+				if(time()>=\Library\time::getTime($info['start_time'])){//已开始
+					$offerStatus = 2;//已开始
+				}
+				else{
+					$offerStatus = 1;//未开始
+				}
+			}
+
+			//计算报价的人数
+			$info['baojia_count'] = 0;
+			if(!empty($baojiaData)){
+				$temp = array();
+				foreach($baojiaData as $val){
+					if(!in_array($val['user_id'],$temp)){
+						$temp[] = $val['user_id'];
+						$info['baojia_count']++;
+					}
+
+				}
+			}
+
+
+			$this->getView()->assign('offerStatus',$offerStatus);
 			$this->getView()->assign('data',$info);
 			$this->getView()->assign('user',$userData);
 			$this->getView()->assign('kefu',$kefuData);
