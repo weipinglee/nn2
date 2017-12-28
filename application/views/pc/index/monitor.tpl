@@ -20,12 +20,15 @@ $(function(){
     <div class="monitor_modular">
         <div class="modular_top clear">
             <div class="warehouse_img">
-                <a href="#"><img src="{views:images/storage/share2.png}"/></a>
+                <a href="http://yqdny.tpddns.cn:8000"><img src="{views:images/storage/share2.png}"/></a>
             </div>
             <div class="warehouse_title">
-                <h3><a href="#">东大1号仓库</a></h3>
+                <h3><a href="http://yqdny.tpddns.cn:8000">东大1号仓库</a></h3>
                 <p><b>地址：山西省阳泉市郊区西南舁乡东南舁村</b></p>
                 <p><b>面积：45亩</b></p>
+                <p style="height: 20px;"></p>
+                <p><b>登录监控用户名：demo</b></p>
+                <p><b>监控密码：demo8888</b></p>
             </div>
         </div>
         <div class="modular_infor">
@@ -37,12 +40,15 @@ $(function(){
     <div class="monitor_modular">
         <div class="modular_top clear">
             <div class="warehouse_img">
-                <span href="#"><img src="{views:images/storage/share.png}"/></span>
+                <a href="http://www.xmeye.net/ "><img src="{views:images/storage/share.png}"/></a>
             </div>
             <div class="warehouse_title">
-                <h3><a href="#">大洼仓库</a></h3>
+                <h3><a href="http://www.xmeye.net">大洼仓库</a></h3>
                 <p><b>地址：山西省阳泉市郊区西南舁乡大洼村</b></p>
                 <p><b>库容：10万吨</b></p>
+                <p style="height: 20px;"></p>
+                <p><b>登录监控用户名：admin</b></p>
+                <p><b>监控密码：a1234567</b></p>
             </div>
         </div>
         <div class="modular_infor">
