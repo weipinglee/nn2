@@ -2,6 +2,8 @@
 <link rel="stylesheet" type="text/css" href="{views:css/offer_ask.css}"/>
 <link href="{views:css/pro_show.css}" rel="stylesheet">
 <link href="{views:css/tender_con.css}" rel="stylesheet">
+<script type="text/javascript" src="{views:js/jquery.imagezoom.min.js}"></script>
+<script type="text/javascript" src="{views:js/auc_pc_deail.js}"></script>
 <style type="text/css">
     .bj .bj_text{
             float: left;
@@ -36,88 +38,157 @@
      <!-- content start -->
             <div class="offer_content">
 
-                <div class="offer_left">
-                    <ul>
-                        <li><h3>
-                                {foreach:items=$data['cate']}
-                                    {$item['name']}
-
-                                {/foreach}
-                                {$data['product_name']}
-                            </h3>
-                        </li>
-                        <li> 产地：<i><span id="areatext">{areatext:data=$data['produce_area'] id=areatext }</span></i></li>
-                        <li>卖方：<i>{$user['company_name']}</i></li>
-                        <li>开始时间：<i>{$data['start_time']}</i></li>
-                        <li>截止时间：<i>{$data['end_time']}</i></li>
-                        <li>{if:$data['status']==6}
-                                成交价
-                            {else:}
-                            目前最高报价
-                            {/if}
-                            <i class="f35">
-                                {if:!empty($baojiaData)}
-
-                                ￥{$baojiaData[0]['price']}
-                                {else:}
-                                暂无报价
-                                {/if}
-                            </i>
-
-                        </li>
-                    </ul>
-                    {if:!empty($kefu)}
-                    <div class="link_style">
-                        <h5><a href="tencent://message/?uin={$kefu['qq']}&Site=qq&Menu=yes"><img src="{views:images/order/QQ24x21.png}" alt="" style="width: 24px; height: 21px;" /><span>联系客服</span></a></h5>
-                        <!-- <h5><a href=""><img src="images/order/bj_shouc.png" alt="" /><span>收藏产品</span></a></h5> -->
-                    </div>
-                    {/if}
-
-                </div>
-                <div class="offer_right">
-                    <ul>
-                        <li>总数量： <i>{$data['max_num']}</i>  {$data['unit']}</li>
-                      <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
-                        <li>最低价： <i>{$data['price_l']}</i>/  {$data['unit']}</li>
-                        {if:$data['price_r']>$data['price_l']}
-                        <li>最高价： <i>{$data['price_r']} </i>/{$data['unit']}</li>
-                        {/if}
-                      <li><img src="{views:images/password/eye_b.png}" alt="" /><a id='contract_review' target='_blank' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:#3fa5d9;">合同预览</a></li>
-                    </ul>
-
-
-                    <div class="bj">
-                        {if:$data['status']==1}
-                        <form method="POST"  auto_submit="1" action="{url:/trade/jingjiabaojia}?callback={url:/offers/offerdetails2?id=$data['id']&pid=$data['product_id']@deal}"  >
-                            <input type="hidden" name="offer_id"  value="{$data['id']}" />
-                            <input class="bj_text" type="text" name="price"/>
-                            <span class="bj_button">报价</span>
-                        </form>
-                          <script type="text/javascript">
-                              $('.bj_button').on('click',function(){
-                                  $('form').submit();
-                              })
-                          </script>
-                        {else:}
-
-                            {if:$login && $user_id==$baojiaData[0]['user_id'] && $data['status']==7}
-                                <a class="bj_text" href="{url:/trade/check?id=$data['id']&pid=$data['product_id']}">
-                                去交易
+                <div class="left_img">
+          
+                <div class="demo">
+                        <div class="box">
+                            <div class="tb-booth tb-pic tb-s310">
+                                <a href="images/01.jpg">
+                                    <img src="{views:images/banner/01_mid.jpg}" alt="美女" rel="{views:images/banner/001.jpg}" class="jqzoom" width="100%" />
+                                    <div class="fdj icon-search"></div>
                                 </a>
-                            {else:}
-                                已成交
-                            {/if}
-
-                        {/if}
+                            </div>
+                            <ul class="tb-thumb" id="thumblist">
+                                <li class="tb-selected">
+                                    <div class="tb-pic tb-s40">
+                                        <a href="javascript:void(0);">
+                                            <img src="{views:images/banner/01_small.jpg}" mid="{views:images/banner/01_mid.jpg}" big="{views:images/banner/001.jpg}"/>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="tb-pic tb-s40">
+                                        <a href="javascript:void(0);">
+                                            <img src="{views:images/banner/02_small.jpg}" mid="{views:images/banner/02_mid.jpg}" big="{views:images/banner/002.jpg}"/>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="tb-pic tb-s40">
+                                        <a href="javascript:void(0);">
+                                            <img src="{views:images/banner/03_small.jpg}" mid="{views:images/banner/03_mid.jpg}" big="{views:images/banner/003.jpg}"/>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="tb-pic tb-s40">
+                                        <a href="javascript:void(0);">
+                                            <img src="{views:images/banner/04_small.jpg}" mid="{views:images/banner/04_mid.jpg}" big="{views:images/banner/004.jpg}"/>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="tb-pic tb-s40">
+                                        <a href="javascript:void(0);">
+                                            <img src="{views:images/banner/05_small.jpg}" mid="{views:images/banner/05_mid.jpg}" big="{views:images/banner/005.jpg}"/>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+       
+            </div>
+            <div class="left_center">
+                <p class="h31">阳泉市铝土矿1吨</p>
+                <div class="pr_time">
+                    <div class="time_icon">
+                        正在</br>进行
+                    </div>
+                    <div class="time_text">
+                    <h3 class="h32">距离结束仅剩：00天18时37分</h3>
+                    <div class="time_peo">
+                        <span><b>3</b>人已报名</span>
+                        &nbsp;
+                        <span><b>1097</b>人围观</span>
+                    </div>
+                    </div>
+                </div>
+                <div class="offer">
+                    <div class="offer_num">
+                        <span>当前价：</span><b>￥4,293,308</b>
+                    </div>
+                    <div class="offer_num">
+                        <span>参考价：</span><b class="c816">￥4,293,308</b>
+                    </div>
+                </div>
+                <form>
+                <div class="add_jian">
+                    <input type="button" id="add" value="+">
+                    <input type="text" id="num" value="1,210">
+                    <input type="button" id="jian" value="-">
+                    <span class="jian_tex">最低加价：<b>￥1.00</b> 最高加价：<b>￥100</b></span>
+                </div>
+                <div class="submit_but">
+                    <input class="but" type="submit" name="" value="我要出价">
+                </div>
+                </form>
+                <div class="auction_text">
+                    <ul class="auction_ul">
+                        <li><span>竞买代码：暂无代码</span></li>
+                        <li><span>起拍价：￥30403</span></li>
+                        <li><span>加价幅度：<i class="c816">￥10000</i></span></li>
+                        <li><span>延时周期：5分钟/次</span></li>
+                        <li><span>优先购买权人：有</span></li>
+                        <li><span>评估价：￥123433</span></li>
+                        <li><span>保证金：800000</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="left_ringt">
+                <div class="product_details">
+                    <p><span>产地：</span><b>河南省 驻马店市 遂平县河南省 驻马店市 遂平县河南省 驻马店市 遂平县</b></p>
+                    <p><span>卖方：</span><b>光耀</b></p>
+                    <p><img src="{views:images/password/eye_b.png}" alt="" style="position: relative;top:5px; " /><a id='contract_review' target='_blank' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:#3fa5d9;">合同预览</a></p>
+                </div>
+                <div class="offers_auction">
+                    <div class="offers_top">
+                        <h3>出价记录（共9次） <a href="#bj_a">查看更多</a></h3>
+                    </div>
+                    <div class="offers_auction_text clear">
+                        <ul>
+                           <li><span class="of_au_span span_top">领先</span></li>
+                           <li>***某某</br>￥8999</li>
+                           <li class="li_last">2017-12-21</br>13:29:00</li>
+                        </ul>
+                    </div>
+                    <div class="offers_auction_text clear">
+                        <ul>
+                           <li><span class="of_au_span">出局</span></li>
+                           <li>***某某</br>￥8999</li>
+                           <li class="li_last">2017-12-21</br>13:29:00</li>
+                        </ul>
+                    </div>
+                    <div class="offers_auction_text clear">
+                        <ul>
+                           <li><span class="of_au_span">出局</span></li>
+                           <li>***某某</br>￥8999</li>
+                           <li class="li_last">2017-12-21</br>13:29:00</li>
+                        </ul>
+                    </div>
+                    <div class="offers_auction_text clear">
+                        <ul>
+                           <li><span class="of_au_span">出局</span></li>
+                           <li>***某某</br>￥8999</li>
+                           <li class="li_last">2017-12-21</br>13:29:00</li>
+                        </ul>
                     </div>
 
                 </div>
+
+            </div>
                 <div style="clear:both;"></div>
 
             </div>
+            <div class="cont_1">
+                 <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>商品简介</span></h5>
+                 <div class="details_text">
+                    <p> 商品详情图片展示 end 商品详情图片展示 end 商品详情图片展示 end 商品详情图片展示 end 商品详情图片展示 end</p>
+                </div>
+            </div>
             <!-- 拍卖价格情况 -->
             <div class="cont_1">
-                 <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>报价情况</span></h5>
+                 <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span><a name="bj_a">报价情况</a></span></h5>
                  <div class="auction">
                      {foreach:items=$baojiaData}
                          <ul class="clear">
@@ -239,7 +310,7 @@
                                 <link href="{views:css/product_pic.css}" rel="stylesheet">
                                 <script src="{views:js/pic.js}"></script>
 
-                    <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
+                    <!-- <h5 class="tit"><i><img src="{views:images/pro_show_05.jpg}"></i><span>商品图片</span></h5>
 
 
                                                 <div id="slider">
@@ -263,7 +334,7 @@
                                                         $(".image-slider-forward").css("display","none");
                                                 }
                                             });
-                                    </script>
+                                    </script> -->
       <!-- content end -->
 
 
