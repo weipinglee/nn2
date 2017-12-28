@@ -107,7 +107,12 @@
                     <input type="button" id="add" value="+">
                     <input type="text" id="num" value="{$start_price}" name="price">
                     <input type="button" id="jian" value="-">
-                    <span class="jian_tex">最低价：<b>￥{$data['price_l']}</b> 最高价：<b>￥{$data['price_r']}</b></span>
+                    <span class="jian_tex">
+                        最低价：
+                        <b>￥{$data['price_l']}</b>
+                        最高价：
+                        <b>{if:$data['price_r']>0}￥{$data['price_r']}{else:}无上限{/if}</b>
+                    </span>
                 </div>
                 <div class="submit_but">
                     <input class="but" type="submit" name="" value="我要出价">

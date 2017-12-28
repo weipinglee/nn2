@@ -271,7 +271,8 @@ $(function() {
         </div>
         <!--热销产品结束-->
         <!--猜你需要开始-->
-        <div class="block-guess">
+                    <!--
+        <div class="block-guess" >
             <div class="containers clear">
                 <div class="nn-live-hd">
                     <h3 class="nn-live-title">猜你需要</h3>
@@ -417,6 +418,7 @@ $(function() {
                         data : {config_id:configId},
                         success : function(data){
                             if(data){
+                                //alert(JSON.stringify(data));
                                 var proList = template.render(templateID,{data:data});
                                 $('#'+boxID).html(proList);
                             }
@@ -538,7 +540,7 @@ $(function() {
             <div class="swiper-wrapper">
                 <%if (data.length>0) { %>
                     <%for (var i=0;i<data.length;i++) { %>
-                        <%if i==0 { %>
+                        <%if (i==0) { %>
                         <div class="swiper-slide">
                             <div class="new-icon" >
                                 <img src="<%=data[i].img%>" alt="" />
@@ -564,11 +566,11 @@ $(function() {
         <div class="nn-shebei-bd clear">
             <%if (data.length>0) { %>
                 <%for (var i=0;i<data.length;i++) { %>
-                      <%if i>0 { %>
+                      <%if (i>0) { %>
                           <div class="nn-shebei-item">
                             <a href="{url:/offers/offerdetails2}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
 
-                                <img src="{views:images/img_index/shebei1.jpg}" alt="" />
+                                <img src="<%=data[i].img%>" alt="" />
                                 <h3 class="nn-shebei-title"><%=data[i].name%></h3>
                                 <p class="nn-shebei-con"><%=data[i].note%></p>
                                 <p class="nn-shebei-price">￥
@@ -598,7 +600,7 @@ $(function() {
         <%for (var i=0;i<data.length;i++) { %>
             <div class="nn-guess-items">
                 <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
-                    <img src="{views:images/img_index/c.jpg}" alt="" />
+                    <img src="<%=data[i].img%>" alt="" />
                     <p class="nn-guess-title"><%=data[i].name%></p>
                     <p class="nn-guess-con"> <%=data[i].note%></p>
                     <p class="nn-guess-price">￥<span><%=data[i].price%>/<%=data[i].unit%></span></p>
@@ -617,7 +619,7 @@ $(function() {
         <%for (var i=0;i<data.length;i++) { %>
             <div class="nn-hot-item">
                 <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
-                    <img src="{views:images/img_index/c.jpg}" alt="" />
+                    <img src="<%=data[i].img%>" alt="" />
                     <p class="nn-guess-title"><%=data[i].name%></p>
                     <p class="nn-guess-con">  <%=data[i].note%></p>
                     <p class="nn-guess-price">￥<span><%=data[i].price%>/<%=data[i].unit%></span></p>
