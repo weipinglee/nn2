@@ -133,17 +133,16 @@
                         <span>递增幅度：</span><b class="c816 jin_add">￥{$data['jing_stepprice']}</b>
                     </div>
                 </div>
-                <form>
                 <div class="add_jian">
                     <input type="button" id="add" value="+">
-                    <input type="text" id="num" value="{$start_price}">
+                    <input type="text" id="num" name="start_price" value="{$start_price}">
                     <input type="button" id="jian" value="-">
                     <span class="jian_tex">最低价：<b class="min">￥{$data['price_l']}</b> 最高价：<b class="max">￥{$data['price_r']}</b></span>
                 </div>
                 <div class="submit_but">
+                    <input type="hidden" name="offer_id" value="{$data['id']}">
                     <input class="but" type="submit" name="" value="我要出价">
                 </div>
-                </form>
                 <!--<div class="auction_text">
                     <ul class="auction_ul">
                         <li><span>竞买代码：暂无代码</span></li>
@@ -193,7 +192,24 @@
                 <div style="clear:both;"></div>
 <script type="text/javascript">
 $(function(){
-    $(".submit_but")
+    $(".submit_but .but").click(function(){
+       var start_price= $("input[name='start_price']").val();
+       var offer_id=$("input[name='offer_id']").val();
+        $.ajax({
+          type:"post",
+          url:"{url:/trade/jingjiabaojia@deal}",
+          data:{price:start_price,offer_id:offer_id},
+          dataType:"json",
+          success:function(data){
+            if(data.success==1){
+                alert("报价成功");
+            }else{
+                alert(data.info);
+            }
+            
+          }
+        })
+    })
 })
     /* 按钮加减*/
   var add_num={$data['jing_stepprice']};//增加幅度
@@ -202,7 +218,15 @@ $(function(){
   $(function(){
     $("#add").click(function(){
       var n=$("#num").val(); //初始值
-      if(n>=max_num){
+      if(max_num==0){
+        if(add_num<=0){
+            var num=parseInt(n)+1;
+            $("#num").val(num); 
+        }else{
+            var num=parseInt(n)+parseInt(add_num);
+            $("#num").val(num); 
+        }
+      }else if(n>=max_num && n!=0){
         alert("亲这是最大值了！")
       }else if(n<max_num){
         if(add_num<=0){
