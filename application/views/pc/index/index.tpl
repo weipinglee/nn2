@@ -19,9 +19,11 @@ $(function() {
     showIndexOffers('jingjiaTemplate','jingjiaBox',{$productData[0]['id']});
     {/if}
 
-
-
     {if:isset($productData[1])}
+    showIndexOffers('shebeiTemplate','shebeiBox',{$productData[1]['id']});
+    {/if}
+
+    {if:isset($productData[2])}
     showIndexOffers('rexiaoTemplate','rexiaoBox',{$productData[2]['id']});
     {/if}
 
@@ -218,7 +220,7 @@ $(function() {
                 <img src="{views:images/img_index/20160902152314953.png}" alt="" />
             </div>
         </div>
-        <!--光学仪器
+        <!--光学仪器-->
         <div class="block-guess">
             <div class="containers clear" id="shebeiBox">
 
@@ -359,7 +361,7 @@ $(function() {
             </div>
         </div>
         <!--猜你需要结束-->        
-
+        --
 
                 </div>
 
@@ -589,6 +591,24 @@ $(function() {
     </div>
 </script>
 
+<script type="text/html" id="shebeiTemplate">
+    <div class="nn-live-hd">
+        <h3 class="nn-live-title">有好货</h3>
+        <span class="nn-live-subtitle"></span>
+    </div>
+    <%if (data.length>0) { %>
+        <%for (var i=0;i<data.length;i++) { %>
+            <div class="nn-guess-items">
+                <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                    <img src="<%=data[i].img%>" alt="" />
+                    <p class="nn-guess-title"><%=data[i].name%></p>
+                    <p class="nn-guess-con"> <%=data[i].note%></p>
+                    <p class="nn-guess-price">￥<span><%=data[i].price%>/<%=data[i].unit%></span></p>
+                </a>
+            </div>
+        <% } %>
+    <% } %>
+</script>
 
 <script type="text/html" id="rexiaoTemplate">
     <div class="nn-live-hd">
