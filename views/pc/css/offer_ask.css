@@ -295,6 +295,10 @@ div.zoomMask{position:absolute;background:url("../images/icon/mask.png") repeat 
     color: #fff;
     font-size: 16px;
 }
+.left_center  .submit_but .but_bag{
+    background: #bfb5b6 !important;
+}
+
 .left_center .auction_text{
     margin-top:10px; 
 }

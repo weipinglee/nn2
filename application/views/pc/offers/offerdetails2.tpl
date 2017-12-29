@@ -143,7 +143,13 @@
                 </div>
                 <div class="submit_but">
                     <input type="hidden" name="offer_id" value="{$data['id']}">
-                    <input class="but" type="submit" name="" value="我要出价">
+                    {if:$offerStatus==1}
+                    <input class="but" type="submit" name="" disabled="disabled" value="即将开始">
+                    {elseif:$offerStatus==2}
+                    <input class="but" type="submit" name=""  value="我要出价">
+                    {elseif:$offerStatus==3}
+                    <input class="but but_bag" type="submit" name=""  value="已结束">
+                    {/if}
                 </div>
                 <!--<div class="auction_text">
                     <ul class="auction_ul">
@@ -205,6 +211,7 @@ $(function(){
           success:function(data){
             if(data.success==1){
                 alert("报价成功");
+                window.location.reload();
             }else{
                 alert(data.info);
             }
