@@ -50,7 +50,7 @@
                             </div>
                             <ul class="tb-thumb" id="thumblist">
                                 {foreach:items=$data['origphotos']}
-                                    <li class="tb-selected">
+                                    <li {if:$key==0}class="tb-selected"{/if}>
                                         <div class="tb-pic tb-s40">
                                             <a href="javascript:void(0);">
                                                 <img src="{$item}"/>

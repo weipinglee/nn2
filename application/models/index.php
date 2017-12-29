@@ -78,7 +78,7 @@ class indexModel {
     public function getIndexconfigCP()
     {
         $configObj = new M('configs_indexshow');
-        return $configObj->where(array('type'=>'产品'))->limit(5)->select();
+        return $configObj->where(array('type'=>'产品'))->limit(5)->order('sort asc')->select();
 
     }
 

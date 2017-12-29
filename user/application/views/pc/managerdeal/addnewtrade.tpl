@@ -89,7 +89,7 @@
                     <tr class="jingjia">
                         <td nowrap="nowrap"><span></span>最高价格：</td>
                         <td colspan="2">
-                            <span><input class="text" type="text" datatype="money" value="0" ignore="ignore" errormsg="" name="price_r"></span>
+                            <span><input class="text" type="text" datatype="money|/[0]/" value="0" ignore="ignore" errormsg="" name="price_r"></span>
                             <span>默认为0，表示没有上限价格</span>
                         </td>
 
