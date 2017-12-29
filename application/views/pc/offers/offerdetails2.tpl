@@ -121,14 +121,19 @@
                     <div class="offer_num">
                         <span>当前价：</span>
                         <b>
-                            ￥{set:$start_price=$data['price_l']}
+                            ￥<span class="price">{set:$start_price=$data['price_l']}
                             {if:isset($baojiaData[0]['price'])}
                                 {set:$start_price = $baojiaData[0]['price']}
                              {/if}
-                            {$start_price}
+                            {$start_price}</span>
                         </b>
+                        &nbsp;&nbsp;
+                        <span>起订量：</span>
+                        <b class="minimum">{$data['minimum']}<span>({$data['unit']})</span></b>
                     </div>
                     <div class="offer_num">
+                        <span>总价：</span><b class="c816 all_price"></b>
+                            &nbsp;&nbsp;
                         <span>递增幅度：</span><b class="c816 jin_add">￥{$data['jing_stepprice']}</b>
                     </div>
                 </div>
@@ -141,6 +146,18 @@
                     <input type="button" id="jian" value="-">
                     <span class="jian_tex">最低价：<b class="min">￥{$data['price_l']}</b> 最高价：<b class="max">{if:$data['price_r']>0}￥{$data['price_r']}{else:}无上限{/if}</b></span>
                 </div>
+                <script type="text/javascript">
+//计算总价
+    $(function(){
+        var price=$(".offer_num .price").text();
+        var num ={$data['minimum']};
+               var all_price=parseInt(price)*parseInt(num);
+                alert(num+"2"+price+"3"+all_price)
+
+        $(".all_price").text("￥"+all_price)
+    })
+    //计算总价 end
+</script>
                 <div class="submit_but">
                     <input type="hidden" name="offer_id" value="{$data['id']}">
                     {if:$offerStatus==1}
