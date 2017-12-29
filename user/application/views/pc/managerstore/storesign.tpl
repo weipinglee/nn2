@@ -255,7 +255,7 @@
                         <tr>
                             <td>产品描述：</td>
                             <td colspan="2">
-                                <textarea name="note"></textarea>
+                                <textarea name="note" dataType="*" nullmsg="请填写产品描述"></textarea>
                             </td>
                         </tr>
                         <input type="hidden" name="token" value="{$token}" />

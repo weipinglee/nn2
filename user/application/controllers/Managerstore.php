@@ -281,6 +281,9 @@ class ManagerStoreController extends UcenterBaseController{
 				$storeProduct['package_units'] = safe::filterPost('pageUnits');
 			}
 			$productData = $this->getProductData();
+			if(empty($productData[1])){
+				die(json::encode(\Library\tool::getSuccInfo(0,'请上传商品图片')));
+			}
 			$productData[0]['user_id'] = $user_id;
 
 			$store = new store();

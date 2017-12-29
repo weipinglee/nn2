@@ -396,7 +396,8 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $baojiaObj->order = 'j.price desc';
         $baojiaObj->where = 'offer_id=:offer_id';
         $baojiaObj->bind = array('offer_id'=>$offer_id);
-        return $baojiaObj->find();
+        $res = $baojiaObj->find();
+        return $res;
 
     }
 

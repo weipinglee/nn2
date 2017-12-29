@@ -66,4 +66,9 @@ class testController extends  UcenterBaseController{
 		echo 'success';
 	}
 
+	//生成user表的true_name字段
+	public function setUserTrueNameAction(){
+
+	}
+
 }
