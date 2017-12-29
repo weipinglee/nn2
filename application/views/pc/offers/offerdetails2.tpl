@@ -152,7 +152,7 @@
         var price=$(".offer_num .price").text();
         var num ={$data['minimum']};
                var all_price=parseInt(price)*parseInt(num);
-                alert(num+"2"+price+"3"+all_price)
+                //alert(num+"2"+price+"3"+all_price)
 
         $(".all_price").text("￥"+all_price)
     })
