@@ -278,6 +278,12 @@ function show_time(){
     {elseif:$offerStatus==2}
     var time_end = {echo:\Library\time::getTime($data['end_time'])}; //设定结束时间(等于系统当前时间)
     {/if}
+    {if:$offerStatus==3}
+       $("#time_d").html('00'); 
+       $("#time_h").html('00'); 
+       $("#time_m").html('00'); 
+       $("#time_s").html('00'); 
+    {/if}
 
     time_end = time_end*1000;
 //计算时间差 
