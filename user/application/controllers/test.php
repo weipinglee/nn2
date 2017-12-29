@@ -18,6 +18,9 @@ class testController extends  UcenterBaseController{
 	}
 
 
+	/**
+	 * 生成旧的报盘的市场大分类id
+	 */
 	public function updateProIdAction(){
 //		$ProObj = new M('products');
 //		$data = $ProObj->where('create_time>"2017-1-1"')->fields('cate_id,id')->select();
@@ -33,6 +36,9 @@ class testController extends  UcenterBaseController{
 //		echo 'success';
 	}
 
+	/**
+	 * 设置旧报盘的product_offer表的max_num值
+	 */
 	public function setOfferMaxnumAction()
 	{
 		$page = safe::filterGet('page','int',1);

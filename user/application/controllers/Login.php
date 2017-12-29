@@ -109,6 +109,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 
 			    );
+				$userData['true_name'] = $companyData['company_name'];
 			    $res = $userModel->companyReg($userData,$companyData);
 		    }else{
 			    $res = $userModel->userInsert($userData);
