@@ -67,8 +67,15 @@ class testController extends  UcenterBaseController{
 	}
 
 	//生成user表的true_name字段
-	public function setUserTrueNameAction(){
-
+	public function setUserTrueNameAction()
+	{
+		$model = new M('user');
+		$user_id = safe::filterGet('id');
+		$str = 'SELECT createUsertruename('.$user_id.',1000)';
+		if($model->query($str)){
+			echo 'success';
+		}
+		else echo 'error';
 	}
 
 }

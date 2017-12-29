@@ -397,6 +397,13 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $baojiaObj->where = 'offer_id=:offer_id';
         $baojiaObj->bind = array('offer_id'=>$offer_id);
         $res = $baojiaObj->find();
+        $model = new M('user');
+        foreach($res as $val){
+            if($val['true_name']==''){
+                $str = 'SELECT createUsertruename('.$val['user_id'].',100)';
+                $model->query($str);
+            }
+        }
         return $res;
 
     }
