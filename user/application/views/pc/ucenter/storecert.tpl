@@ -58,7 +58,7 @@
 							<div class="zhxi_con">
 								<span class="con_tit"><i>*</i>公司名：</span>
 								<span>
-									<input class="text" type="text" name="company_name" datatype="s2-20" nullmsg="请填写公司名称" errormsg="请输入2-20位中文或字母数字下划线点" value="{$certData['company_name']}"/>
+									<input class="text" type="text" name="company_name" datatype="*" nullmsg="请填写公司名称" errormsg="请输入2-20位中文或字母数字下划线点" value="{$certData['company_name']}"/>
 								</span>
 								<span></span>
 							</div>
