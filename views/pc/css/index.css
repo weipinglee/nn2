@@ -134,7 +134,7 @@ a{
 	font-size: 15px;
 	margin-top:10px;
 	overflow:hidden;
-	text-overflow:ellipsis,
+	text-overflow:ellipsis;
 	white-space:nowrap
 }
 .nn-shebei-con{
