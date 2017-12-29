@@ -64,7 +64,7 @@
                             <div class="video_main" style="display: none">
                                   <video width="300" height="310" controls="controls">
                                   <source src="movie.ogg" type="video/ogg">
-                                  <source src="{views:images/img_index/ll.mp4}" type="video/mp4">
+                                  <source src="{views:images/img_index/lufantu.mp4}" type="video/mp4">
                                   </video>
                              </div>
                         </div>
@@ -296,7 +296,8 @@ show_time();
 
 function show_time(){
     var time_start ="{$data['start_time']}";//设定开始时间
-    var now =  $.now();
+    var now =  {echo:\Library\time::getTime()};
+	now = now * 1000;
     {if:$offerStatus==1}
     var time_end = {echo:\Library\time::getTime($data['start_time'])}; //设定结束时间(等于系统当前时间)
     {elseif:$offerStatus==2}
