@@ -168,25 +168,25 @@
                             </td>
                             </tr>
                             <tr>
-    <td>记重方式：</td>
-    <td colspan="2">
-        <span>
-            <select name="weight_type">
-                <option value="理论值">理论值</option>
-                <option value="过磅">过磅</option>
-                <option value="轨道衡">轨道衡</option>
-                <option value="吃水">吃水</option>
-            </select>
-        </span>
-        <span></span>
-    </td>
-    </tr>
-              			    <tr>
-        <td>补充条款：</td>
-        <td colspan="2">
-            <textarea name="other">{$offer['other']}</textarea>
-        </td>
-    </tr>                      
+                                <td>记重方式：</td>
+                                <td colspan="2">
+                                    <span>
+                                        <select name="weight_type">
+                                            <option value="理论值">理论值</option>
+                                            <option value="过磅">过磅</option>
+                                            <option value="轨道衡">轨道衡</option>
+                                            <option value="吃水">吃水</option>
+                                        </select>
+                                    </span>
+                                    <span></span>
+                                </td>
+                                </tr>
+                                                        <tr>
+                                    <td>补充条款：</td>
+                                    <td colspan="2">
+                                        <textarea name="other">{$offer['other']}</textarea>
+                                    </td>
+                                </tr>
 
                         <tr>
                             <td></td>

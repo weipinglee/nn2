@@ -27,6 +27,7 @@ class slideController extends Yaf\Controller_Abstract{
             $data['status']=safe::filterPost('status','int');
             $data['order']=safe::filterPost('order','int');
             $data['bgcolor']=safe::filterPost('bgcolor');
+            $data['link']=safe::filterPost('link');
             $slideModel=$this->slideModel;
             $res=$slideModel->addSlide($data);
             die(json::encode($res));
@@ -64,14 +65,16 @@ class slideController extends Yaf\Controller_Abstract{
      */
     public function editSlideAction(){
         if(IS_AJAX&&IS_POST){
-            $date['id']=safe::filterPost('id','int');
-            $date['name']=safe::filterPost('name');
-            $date['order']=safe::filterPost('order','int');
+            $data = array();
+            $data['id']=safe::filterPost('id','int');
+            $data['name']=safe::filterPost('name');
+            $data['order']=safe::filterPost('order','int');
             $img=safe::filterPost('imgfile2');
-            $date['img']=\Library\tool::setImgApp($img);
-            $date['status']=safe::filterPost('status','int');
-            $date['bgcolor']=safe::filterPost('bgcolor');
-            $res=$this->slideModel->editSlide($date);
+            $data['img']=\Library\tool::setImgApp($img);
+            $data['status']=safe::filterPost('status','int');
+            $data['bgcolor']=safe::filterPost('bgcolor');
+            $data['link']=safe::filterPost('link');
+            $res=$this->slideModel->editSlide($data);
             die(json::encode($res));
         }
         $id=safe::filterGet('id');
