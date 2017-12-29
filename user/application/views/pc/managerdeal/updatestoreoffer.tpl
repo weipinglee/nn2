@@ -78,6 +78,17 @@
                                    <input type ="radio" name ="safe" style="width:auto;height:auto;"> 线下
                                </td> -->
                             </tr>
+                             <tr>
+                                 <td>有效期：</td>
+                                  <td colspan="2">
+                                     <span>
+                                         <input class="Wdate text" datatype="*" value="{$offer['expire_time']}" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"
+                                                  name="expire_time" value="">
+                                     </span>
+                                      <span></span>
+                                  </td>
+
+                             </tr>
                               <tr>
 <!--         <td nowrap="nowrap"><span></span>是否投保：</td>
         <td>
@@ -128,6 +139,16 @@
           					
 
                             <tr>
+                             <tr>
+                                 <td>图片预览：</td>
+                                 <td colspan="2">
+    							<span class="zhs_img" id="photos">
+                                    {foreach:items=$product['origphotos']}
+                                        <img width="200px" src="{$item}" />
+                                    {/foreach}
+    							</span>
+                                 </td>
+                             </tr>
                         <td>交收地点：</td>
                             <td colspan="2">
                                 <input type="text" class='text' datatype="s2-100" errormsg="请填写有效地址" name="accept_area" value="{$offer['accept_area']}">
@@ -139,9 +160,29 @@
                                 <span>T+<input type="text" class='text' datatype="/[1-9]\d{0,5}/" name="accept_day" style="width:50px;" value="{$offer['accept_day']}">天</span>
                             </td>
                             </tr>
-              			                      
 
-                        <tr>
+                             <tr>
+                                 <td>记重方式：</td>
+                                 <td colspan="2">
+                                    <span>
+                                        <select name="weight_type">
+                                            <option value="理论值" {if:$offer['weight_type']=='理论值'}selected="selected"{/if}>理论值</option>
+                                            <option value="过磅"  {if:$offer['weight_type']=='过磅'}selected="selected"{/if}>过磅</option>
+                                            <option value="轨道衡"  {if:$offer['weight_type']=='轨道衡'}selected="selected"{/if}>轨道衡</option>
+                                            <option value="吃水"  {if:$offer['weight_type']=='吃水'}selected="selected"{/if}>吃水</option>
+                                        </select>
+                                    </span>
+                                     <span></span>
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td>补充条款：</td>
+                                 <td colspan="2">
+                                     <textarea name="other">{$offer['other']}</textarea>
+                                 </td>
+                             </tr>
+
+                             <tr>
                             <td></td>
                             <td colspan="2" class="btn">
                             <input type="hidden" name="mode" value="3">

@@ -97,8 +97,8 @@
                     <tr class="jingjia">
                         <td nowrap="nowrap"><span></span>递增价格：</td>
                         <td colspan="2">
-                            <span><input class="text" type="text" datatype="money" value="" ignore="ignore" errormsg="" name="step_price"></span>
-                            <span></span>
+                            <span><input class="text" type="text" datatype="money|/[0]/" value="" ignore="ignore" errormsg="" name="step_price"></span>
+                            <span>如果设置了该值，用户报价只能以该值的倍数递增。</span>
                         </td>
 
                     </tr>

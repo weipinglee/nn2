@@ -873,7 +873,10 @@ class ManagerDealController extends UcenterBaseController {
                     'price'        => Safe::filterPost('price', 'float'),
                     'user_id'     => $this->user_id,
                     'insurance' => Safe::filterPost('insurance', 'int'),
-                    'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+                    'risk' =>implode(',', Safe::filterPost('risk', 'int')),
+                    'weight_type' => Safe::filterPost('weight_type'),
+                    'expire_time'=> Safe::filterPost('expire_time'),
+                    'other'       => safe::filterPost('other')
                 );
 
                 $obj = new \Library\M('product_offer');
