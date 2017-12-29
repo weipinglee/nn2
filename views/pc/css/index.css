@@ -321,4 +321,9 @@ a{
 .nn-hot-item:hover .nn-guess-title{
 	color: #c81623;
 }
+.nn-guess-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 /*热销产品结束*/
