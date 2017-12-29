@@ -352,7 +352,7 @@
                                                 <span></span>
                                                  </td>
                                         </tr>
-                                        <tr >
+                                        <!--<tr >
                                             <td nowrap="nowrap"><span></span>检测机构：</td>
                                             <td colspan="2">
                                                 <input class="text" name="check" type="text">
@@ -363,7 +363,7 @@
                                             <td colspan="2">
                                                 <input class="text" name="check_no" type="text">
                                             </td>
-                                        </tr>
+                                        </tr>-->
 
                                         <tr>
                                             <td>双方签字入库单：</td>
@@ -378,7 +378,7 @@
                                             </td>
                                         </tr>
 
-                                        <tr>
+                                       <!-- <tr>
                                             <td>质检证书：</td>
                                             <td>
                                                 <div class="zhxi_con">
@@ -389,7 +389,7 @@
 
                                                 <img name="file2" />
                                             </td>
-                                        </tr>
+                                        </tr>-->
 
                              </table>
                         <div class="zhxi_con">
