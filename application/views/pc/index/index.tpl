@@ -240,9 +240,9 @@ $(function() {
                             耐耐直播
                         </h3>
                         <div class="nn-live-bg">
-                            <video width="570" height="310" controls="controls">
+                            <video width="570" height="310" controls="controls" poster="{views:images/img_index/live2.jpg}">
                             <source src="movie.ogg" type="video/ogg">
-                            <source src="{views:images/img_index/ll.mp4}" type="video/mp4">
+                            <source src="{views:images/video/vode1.mp4}" type="video/mp4">
                             <!-- <a href="#">
                                 <img src="{views:images/img_index/live1.jpg}" />
                                 <div class="nn-live-zhezhao"></div>
@@ -254,7 +254,7 @@ $(function() {
                             商家直播
                         </h3>
                         <div class="nn-live-bg">
-                             <video width="570" height="310" controls="controls">
+                             <video width="570" height="310" controls="controls" poster="{views:images/img_index/live1.jpg}">
                             <source src="movie.ogg" type="video/ogg">
                             <source src="{views:images/img_index/ll.mp4}" type="video/mp4">
                         </div>
