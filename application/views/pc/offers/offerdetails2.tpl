@@ -64,7 +64,7 @@
                             <div class="video_main" style="display: none">
                                   <video width="300" height="310" controls="controls">
                                   <source src="movie.ogg" type="video/ogg">
-                                  <source src="{views:images/img_index/lufantu.mp4}" type="video/mp4">
+                                  <source src="{views:images/video/lufantu.mp4}" type="video/mp4">
                                   </video>
                              </div>
                         </div>
