@@ -545,7 +545,7 @@ $(function() {
                             <div class="new-icon" >
                                 <img src="<%=data[i].img%>" alt="" />
                             </div>
-                            <a href="{url:/offers/offerdetails2}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                            <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
                                 <img src="<%=data[i].img%>" alt="" />
                                 <p><%=data[i].name%></p>
                             </a>
@@ -568,7 +568,7 @@ $(function() {
                 <%for (var i=0;i<data.length;i++) { %>
                       <%if (i>0) { %>
                           <div class="nn-shebei-item">
-                            <a href="{url:/offers/offerdetails2}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                            <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
 
                                 <img src="<%=data[i].img%>" alt="" />
                                 <h3 class="nn-shebei-title"><%=data[i].name%></h3>

@@ -127,7 +127,10 @@ class OffersController extends PublicController {
 		if(time() > strtotime($info['expire_time'])){
 			$this->error('报盘不存在或已过期');
 		}
-
+		//如果是竞价报盘，跳转到竞价报盘的页面
+		if($info['sub_mode']==1){
+			$this->redirect(\Library\url::createUrl('/Offers/offerDetails2?id='.$id.'&pid='.$info['product_id']));
+		}
 		$pro = new \nainai\offer\product();
 		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
 
