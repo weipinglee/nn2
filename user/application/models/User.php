@@ -60,7 +60,7 @@ class UserModel{
 	);
 
 	protected $companyRules = array(
-		array('company_name','s{2,30}','公司名称必填'),
+		array('company_name','s{2,100}','公司名称必填'),
 		array('area','number','地区错误'),
 		array('legal_person','zh{2,30}','法人填写错误'),
 		array('reg_fund','double','注册资金格式错误'),
