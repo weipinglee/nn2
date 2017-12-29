@@ -342,15 +342,15 @@ $("#time_d").html(int_day);
 $("#time_h").html(int_hour); 
 $("#time_m").html(int_minute); 
 $("#time_s").html(int_second); 
-
 setTimeout("show_time()",1000); 
-
+    if(int_day==0 && int_hour==0&& int_minute==0&& int_second==0){
+        window.location.reload();
+    }
 }else{ 
 $("#time_d").html('00'); 
 $("#time_h").html('00'); 
 $("#time_m").html('00'); 
 $("#time_s").html('00'); 
-
 } 
 } 
 /*倒计时end*/
