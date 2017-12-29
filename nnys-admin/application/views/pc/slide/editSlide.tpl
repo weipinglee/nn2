@@ -51,7 +51,13 @@
                         </div>
                         <div class="col-4"> </div>
                     </div>
-
+                    <div class="row cl">
+                        <label class="form-label col-2"><span class="c-red"></span> 链接：</label>
+                        <div class="formControls col-10">
+                            <input type="text" name="link" class="input-text" value="{$slideInfo['link']}" />
+                        </div>
+                        <div class="col-4"> </div>
+                    </div>
                     <div class="row cl">
                         <label class="form-label col-2">排序：</label>
                         <div class="formControls col-10">
