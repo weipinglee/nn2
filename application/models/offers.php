@@ -319,14 +319,13 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
 
         $query->where = $whereStr;
         $query->bind = $bind;
-
         $query->page = $page;
         $query->pagesize = $productData['pic_num']>0 ? $productData['pic_num'] : $page_size;
         if($order){
             $query->order = $order;
         }
         else
-            $query->order = " RAND() ";
+            $query->order = " o.sort asc ";
 
         $data = $query->find();
         foreach ($data as $key => &$value) {
