@@ -74,7 +74,7 @@ $(function() {
             {set:$count = count($indexSlide)}
                 {foreach: items=$indexSlide}
                 <div class="event-item" style="{if:$key==0}display: block;{else:}display:none;{/if}background:{$item['bgcolor']}">
-                    <a target="_blank" href="javascript:;">
+                    <a target="_blank" href="{if:$item['link']}{$item['link']}{else:}javascript:;{/if}">
                         <img src="{$item['img']}" class="photo" style="width: 100%; height: 470px;margin:0 auto" alt="{$itme['name']}" />
                     </a>
                 </div>
