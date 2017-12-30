@@ -1,8 +1,6 @@
 <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
 <input type="hidden" name="js_sign_banner" value="1">
 
-{set:$sub_titleZX=$configData1[0]['sub_title']}
-{set:$titleZX=$configData1[0]['title']}
 
 <script type="text/javascript">
 /*最新咨询动态效果*/
@@ -34,14 +32,13 @@ $(function() {
         url : infoInterUrl,
         async  : true,
         dataType : 'json',
-        success : function(data){//console.log(data[0].name);
+        success : function(data){
+            //console.log(data[0].name);
 			//data = JSON.parse(data);
             if(data){
                 var newsList = template.render('newsBox',{data:data});
                 $('#news_box').html(newsList);
 
-                var newsList2 = template.render('configZXBox',{data:data});
-                $('#zxBox').html(newsList2);
             }
             var num = $('.notice_active').find('li').length;
             if(num > 1){

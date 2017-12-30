@@ -47,12 +47,10 @@ class IndexController extends PublicController {
         //获取首页配置的板块信息
         $indexConfig = new indexModel();
         $configData = $indexConfig->getIndexconfigCP();
-        $configData1 = $indexConfig->getIndexconfigZX();//资讯配置数据
-        if(!isset($configData1[0]))
-            $configData1[0] = array('user_id'=>0,'sub_title'=>'');
+
 
         $this->getView()->assign('productData',$configData);
-        $this->getView()->assign('configData1',$configData1);
+       // $this->getView()->assign('configData1',$configData1);
 		$this->getView()->assign('offerCateList',\Library\json::encode($offerList));
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
