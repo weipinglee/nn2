@@ -9,7 +9,7 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legen
 /* Default Font */
 body,button,input,select,textarea {
     font: 12px/1.5 \5b8b\4f53,arial,sans-serif;
-    font-family: Î¢ÈíÑÅºÚ;
+    font-family: Î¢ï¿½ï¿½ï¿½Åºï¿½;
 }
 h1,h2,h3,h4,h5,h6 {
     font-size: 100%;
@@ -18,7 +18,7 @@ address,cite,dfn,em,var {
     font-style: normal;
 }
 code,kbd,pre,samp {
-    font-family: Î¢ÈíÑÅºÚ;
+    font-family: Î¢ï¿½ï¿½ï¿½Åºï¿½;
 }
 small {
     font-size: 12px;
@@ -115,6 +115,7 @@ a:hover,a:active {
 }
 .pro_classify .cla_sty .jiaoyi_num{
     position:absolute;
+    z-index: 1;
     top: 53px;
     right:20px;
     background: #c81623;
@@ -244,7 +245,7 @@ a:hover,a:active {
 .all-sort-list .item span {
     padding: 0px 5px;
     color: #A40000;
-    font-family: Î¢ÈíÑÅºÚ;
+    font-family: Î¢ï¿½ï¿½ï¿½Åºï¿½;
 }
 .all-sort-list .item a {
     text-decoration: none;
@@ -348,7 +349,7 @@ div.item h3 p.fenlei a:hover {
 
 
 
-/*ÂÖ²¥´óÍ¼*/
+/*ï¿½Ö²ï¿½ï¿½ï¿½Í¼*/
 .banner {
     width: 100%;
     height: 470px;
