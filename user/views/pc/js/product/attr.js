@@ -140,7 +140,7 @@ function getCategory(cate,attr){
                 var pro_add = $('#productAdd');
                 $('input[name=cate_id]').val(data.defaultCate);
 
-                  if (mode == 'weitou') {
+                  if (mode == 'weitou' && data.rate) {
                             if (data.rate.type == 0) {
                                  $('#weitou').html(data.rate.value + '%');
                             }else if(data.rate.type == 1){

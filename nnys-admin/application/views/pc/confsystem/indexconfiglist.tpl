@@ -18,6 +18,7 @@
 				<th width="100">显示类型</th>
 				<th width="100">标题</th>
 				<th width="100">副标题</th>
+				<th width="100">排序</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -28,11 +29,12 @@
 				<td>{$item['type']}</td>
 				<td>{$item['title']}</td>
 				<td>{$item['sub_title']}</td>
+				<td>{$item['sort']}</td>
 				<td class="td-manage">
 				 <a title="编辑" href="{url:system/Confsystem/editindexconfig?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
-				<a title="添加商品" href="{url:system/Confsystem/addofferlist?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+				<a title="添加商品" href="{url:system/Confsystem/addofferlist?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-plus fa-plus"></i></a>
 					<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:system/Confsystem/delindexconfig?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
-				<a title="商品列表" href="{url:system/Confsystem/configproList?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i></a>
+				<a title="商品列表" href="{url:system/Confsystem/configproList?id=$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-th-list fa-th-list"></i></a>
 				</td>
 			</tr>
 		{/foreach}

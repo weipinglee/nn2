@@ -47,10 +47,10 @@
 								<tr>
 									<td>{$key}</td>
 									<td>{$mode[$list['mode']]}</td>
-									<td><p>{$list['name']}</p></td>
+									<td><p>{if:$list['pro_name']==''}{$list['name']}{else:}{$list['pro_name']}{/if}</p></td>
 									<td>{$list['cname']}</td>
-									<td>{echo:\nainai\offer\product::floatForm($list['quantity'])}</td>
-									<td>{echo:$list['quantity']-$list['freeze']-$list['sell']}</td>
+									<td>{echo:\nainai\offer\product::floatForm($list['max_num'])}</td>
+									<td>{$list['left']}</td>
 									<td>{$list['unit']}</td>
 									<td>{$list['price']}</td>
 									<!-- <td>已投保</td> -->

@@ -1,8 +1,6 @@
 <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
 <input type="hidden" name="js_sign_banner" value="1">
 
-{set:$sub_titleZX=$configData1[0]['sub_title']}
-{set:$titleZX=$configData1[0]['title']}
 
 <script type="text/javascript">
 /*最新咨询动态效果*/
@@ -15,8 +13,18 @@ function timer(opj){
   }
 $(function() {
    $('.js_rep_offer .li_select').trigger('click');
-    showIndexOffers1();
-    showIndexOffers2();
+    {if:isset($productData[0])}
+    showIndexOffers('jingjiaTemplate','jingjiaBox',{$productData[0]['id']});
+    {/if}
+
+    {if:isset($productData[1])}
+    showIndexOffers('shebeiTemplate','shebeiBox',{$productData[1]['id']});
+    {/if}
+
+    {if:isset($productData[2])}
+    showIndexOffers('rexiaoTemplate','rexiaoBox',{$productData[2]['id']});
+    {/if}
+
     //异步获取最新资讯，默认获取10条
     var infoInterUrl = '{url:/ajaxdata/zixunData}';
     $.ajax({
@@ -24,14 +32,13 @@ $(function() {
         url : infoInterUrl,
         async  : true,
         dataType : 'json',
-        success : function(data){//console.log(data[0].name);
+        success : function(data){
+            //console.log(data[0].name);
 			//data = JSON.parse(data);
             if(data){
                 var newsList = template.render('newsBox',{data:data});
                 $('#news_box').html(newsList);
 
-                var newsList2 = template.render('configZXBox',{data:data});
-                $('#zxBox').html(newsList2);
             }
             var num = $('.notice_active').find('li').length;
             if(num > 1){
@@ -64,7 +71,7 @@ $(function() {
             {set:$count = count($indexSlide)}
                 {foreach: items=$indexSlide}
                 <div class="event-item" style="{if:$key==0}display: block;{else:}display:none;{/if}background:{$item['bgcolor']}">
-                    <a target="_blank" href="javascript:;">
+                    <a target="_blank" href="{if:$item['link']}{$item['link']}{else:}javascript:;{/if}">
                         <img src="{$item['img']}" class="photo" style="width: 100%; height: 470px;margin:0 auto" alt="{$itme['name']}" />
                     </a>
                 </div>
@@ -195,54 +202,163 @@ $(function() {
 
                 </div>    
                 <div class="guanimg">{echo: \Library\Ad::show("首页1")}</div>
-                <div class="i_market_two">
-                  <div class="market_content">
-                    <h3 class="market_content_h3">
-                        <em>{$titleZX}</em>
-                       <!--  <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/> -->
-                        <p>{$sub_titleZX}</p>
-                        <span class="tb-fn"><a href="{url:/index/index@info}">更多>></a></span>
-                    </h3>
-                    <ul class="i_market_two_ul" id="zxBox">
 
+        <link rel="stylesheet" type="text/css" href="{views:css/index.css}" />
+<!--         <link rel="stylesheet" href="{views:css/swiper.min.css}" /> -->
+      <!--排行榜 拼眼力 设备 开始-->
+        <div class="block-1">
+            <div class="containers clear" id="jingjiaBox">
 
-                    </ul>
-                  </div>
+            </div>
+        </div>
+        <!--排行榜 拼眼力 设备结束-->
+        <div class="block-guanggao">
+            <div class="containers">
+                <img src="{views:images/img_index/20160902152314953.png}" alt="" />
+            </div>
+        </div>
+        <!--光学仪器-->
+        <div class="block-guess">
+            <div class="containers clear" id="shebeiBox">
+
+            </div>
+        </div>
+        <!--光学仪器结束-->
+        <!--视频直播开始-->
+        <div class="block-live">
+            <div class="containers">
+                <div class="nn-live-hd">
+                    <h3 class="nn-live-title">耐耐直播</h3>
+                    <span class="nn-live-subtitle">好产品实时观看</span>
                 </div>
-                    <!--美金市场-->
-                    <div class="i_market clearfix">
-                      <div class="i_market_left_two">
-                        <div class="market_content" >
-                          <h3 class="market_content_h3">
-
-                            <em>{$product1['title']}</em>
-                           <!-- <img class="title_img" src="{views:images/new_index/TB1tqpnegMPMeJjy1XcXXXpppXa-148-48.png}"/>-->
-                            <p>{$product1['sub_title']}</p>
-                            <span class="tb-fn" onclick="showIndexOffers1()">换一换</span>
-
-                          </h3>
-                         <!--  限制6个商品 -->
-                            <ul class="market_ul" id="sellerProductBox1">
-
-                            </ul>
+                <div class="nn-live-bd clear">
+                    <div class="nn-live-left float-l">
+                        <h3 class="nn-live-left-title">
+                            耐耐直播
+                        </h3>
+                        <div class="nn-live-bg">
+                            <video width="570" height="310" controls="controls" poster="{views:images/img_index/live1.jpg}">
+                            <source src="movie.ogg" type="video/ogg">
+                            <source src="{views:images/video/dongdacangku.mp4}" type="video/mp4">
+                            <!-- <a href="#">
+                                <img src="{views:images/img_index/live1.jpg}" />
+                                <div class="nn-live-zhezhao"></div>
+                            </a> -->
                         </div>
-                      </div>
-                      <div class="i_market_right_two">
-                        <div class="market_content">
-                          <h3 class="market_content_h3">
-                            <em>{$product2['title']}</em>
-                            <p>{$product2['sub_title']}</p>
-                            <span class="tb-fn" ><a href="{url:/offers/indexofferList?configid=$product2['id']}" target="_blank">更多>></a></span>
-                          </h3>
-                         <!--  限制6个商品 -->
-                          <ul class="market_ul" id="sellerProductBox2">
-
-                          </ul>
-                        </div>
-                      </div>
-
                     </div>
+                    <div class="nn-live-right float-r">
+                        <h3 class="nn-live-right-title">
+                            商家直播
+                        </h3>
+                        <div class="nn-live-bg">
+                             <video width="570" height="310" controls="controls" poster="{views:images/img_index/live2.jpg}">
+                            <source src="movie.ogg" type="video/ogg">
+                            <source src="{views:images/video/vode1.mp4}" type="video/mp4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--视频直播结束-->
+        <!--热销产品开始-->
+        <div class="block-hot">
+            <div class="containers clear" id="rexiaoBox">
 
+            </div>
+        </div>
+        <!--热销产品结束-->
+        <!--猜你需要开始-->
+                    <!--
+        <div class="block-guess" >
+            <div class="containers clear">
+                <div class="nn-live-hd">
+                    <h3 class="nn-live-title">猜你需要</h3>
+                    <span class="nn-live-subtitle">我懂你的需要</span>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/c.jpg}" alt="" />
+                        <p class="nn-guess-title">耐火球 蓄热球</p>
+                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/b.jpg}" alt="" />
+                        <p class="nn-guess-title">厂家直销耐火砖</p>
+                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/c.jpg}" alt="" />
+                        <p class="nn-guess-title">耐火球 蓄热球</p>
+                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/b.jpg}" alt="" />
+                        <p class="nn-guess-title">厂家直销耐火砖</p>
+                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/c.jpg}" alt="" />
+                        <p class="nn-guess-title">耐火球 蓄热球</p>
+                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/b.jpg}" alt="" />
+                        <p class="nn-guess-title">厂家直销耐火砖</p>
+                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/c.jpg}" alt="" />
+                        <p class="nn-guess-title">耐火球 蓄热球</p>
+                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/b.jpg}" alt="" />
+                        <p class="nn-guess-title">厂家直销耐火砖</p>
+                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/c.jpg}" alt="" />
+                        <p class="nn-guess-title">耐火球 蓄热球</p>
+                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+                <div class="nn-guess-item">
+                    <a href="#">
+                        <img src="{views:images/img_index/b.jpg}" alt="" />
+                        <p class="nn-guess-title">厂家直销耐火砖</p>
+                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
+                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--猜你需要结束-->        
+        --
 
                 </div>
 
@@ -287,10 +403,10 @@ $(function() {
 
                 }
 
-                //填充有好货板块一的信息
-                function showIndexOffers1(){
+                //填充后台配置的首页产品模块
+                function showIndexOffers(templateID,boxID,configID){
                     var ajaxUrl = "{url:/AjaxData/getIndexProduct}";
-                   var configId = {$product1['id']};
+                   var configId = configID;
                     $.ajax({
                         type : 'get',
                         url : ajaxUrl,
@@ -299,35 +415,15 @@ $(function() {
                         data : {config_id:configId},
                         success : function(data){
                             if(data){
-                                var proList = template.render('sellerProductTemplate',{data:data});
-                                $('#sellerProductBox1').html(proList);
+                                //alert(JSON.stringify(data));
+                                var proList = template.render(templateID,{data:data});
+                                $('#'+boxID).html(proList);
                             }
 
                         }
                     })
 
                 }
-                //填充有好货板块二的信息
-                function showIndexOffers2(){
-                    var ajaxUrl = "{url:/AjaxData/getIndexProduct}";
-                    var configId = {$product2['id']};
-                    $.ajax({
-                        type : 'get',
-                        url : ajaxUrl,
-                        async  : true,
-                        dataType : 'json',
-                        data : {config_id:configId},
-                        success : function(data){
-                            if(data){
-                                var proList = template.render('sellerProductTemplate',{data:data});
-                                $('#sellerProductBox2').html(proList);
-                            }
-
-                        }
-                    })
-
-                }
-
 
             </script>
         </div>
@@ -429,17 +525,103 @@ $(function() {
     </ul>
 </script>
 
-<script type="text/html" id="sellerProductTemplate" >
+<script type="text/html" id="jingjiaTemplate">
+    <div class="box nn-pinyanli">
+        <div class="nn-pinyanli-hd">
+            <a href="#">
+                <h3 class="nn-order-title">今日拍品</h3>
+                <span class="nn-order-subtitle">今日竞拍</span>
+            </a>
+        </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <%if (data.length>0) { %>
+                    <%for (var i=0;i<data.length;i++) { %>
+                        <%if (i==0) { %>
+                        <div class="swiper-slide">
+                            <div class="new-icon" >
+                                <img src="<%=data[i].img%>" alt="" />
+                            </div>
+                            <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                                <img src="<%=data[i].img%>" alt="" />
+                                <p><%=data[i].name%></p>
+                            </a>
+                        </div>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="box nn-shebei">
+        <div class="nn-shebei-hd">
+            <a href="#">
+                <h3 class="nn-order-title">排行榜</h3>
+                <span class="nn-order-subtitle">产品热销排行榜</span>
+            </a>
+        </div>
+        <div class="nn-shebei-bd clear">
+            <%if (data.length>0) { %>
+                <%for (var i=0;i<data.length;i++) { %>
+                      <%if (i>0) { %>
+                          <div class="nn-shebei-item">
+                            <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+
+                                <img src="<%=data[i].img%>" alt="" />
+                                <h3 class="nn-shebei-title"><%=data[i].name%></h3>
+                                <p class="nn-shebei-con"><%=data[i].note%></p>
+                                <p class="nn-shebei-price">￥
+                                    <span class="shebei-price-num"><%=data[i].price%></span> / <%=data[i].unit%>
+                                </p>
+                                <!-- <div class="nn-jingpai-hover">
+                                    <div class="nn-jingpai-cir">
+                                        去竞拍
+                                    </div>
+                                </div> -->
+                            </a>
+                        </div>
+                      <% } %>
+                 <% } %>
+            <% } %>
+
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="shebeiTemplate">
+    <div class="nn-live-hd">
+        <h3 class="nn-live-title">有好货</h3>
+        <span class="nn-live-subtitle"></span>
+    </div>
     <%if (data.length>0) { %>
-    <%for (var i=0;i<data.length;i++) { %>
-    <li class="market_ul_li">
-        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
-            <div class="product_img"><img src="<%=data[i].img%>"></div>
-            <h4><%=data[i].name%></h4>
-            <p><%=data[i].note%></p>
-            <p class="product_price">￥ <%=data[i].price%>/ <%=data[i].unit%></p>
-        </a>
-    </li>
+        <%for (var i=0;i<data.length;i++) { %>
+            <div class="nn-guess-items">
+                <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                    <img src="<%=data[i].img%>" alt="" />
+                    <p class="nn-guess-title"><%=data[i].name%></p>
+                    <p class="nn-guess-con"> <%=data[i].note%></p>
+                    <p class="nn-guess-price">￥<span><%=data[i].price%>/<%=data[i].unit%></span></p>
+                </a>
+            </div>
+        <% } %>
     <% } %>
+</script>
+
+<script type="text/html" id="rexiaoTemplate">
+    <div class="nn-live-hd">
+        <h3 class="nn-live-title">热销产品</h3>
+        <span class="nn-live-subtitle">热销产品</span>
+    </div>
+    <%if (data.length>0) { %>
+        <%for (var i=0;i<data.length;i++) { %>
+            <div class="nn-hot-item">
+                <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                    <img src="<%=data[i].img%>" alt="" />
+                    <p class="nn-guess-title"><%=data[i].name%></p>
+                    <p class="nn-guess-con">  <%=data[i].note%></p>
+                    <p class="nn-guess-price">￥<span><%=data[i].price%>/<%=data[i].unit%></span></p>
+                </a>
+            </div>
+        <% } %>
     <% } %>
 </script>

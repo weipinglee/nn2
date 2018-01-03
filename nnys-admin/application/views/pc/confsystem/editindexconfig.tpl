@@ -38,7 +38,18 @@
                         <input type="text" id="website-title" name='sub_title' value=" {$data['sub_title']}"  class="input-text">
                     </div>
                 </div>
-
+                <div class="row cl">
+                    <label class="form-label col-2"><span class="c-red">*</span>显示商品数量</label>
+                    <div class="formControls col-10">
+                        <input type="text" id="website-title" name='pic_num' value=" {$data['pic_num']}"  class="input-text">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-2"><span class="c-red">*</span>排序</label>
+                    <div class="formControls col-10">
+                        <input type="text" id="website-title" name='sort' value=" {$data['sort']}"  class="input-text">
+                    </div>
+                </div>
 
             </div>            
         </div>

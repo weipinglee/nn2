@@ -28,7 +28,7 @@ class OfferManageModel extends \nainai\offer\product{
 		$Q->join = "left join products as p on o.product_id = p.id left join user as u on o.user_id = u.id
 					left join company_info as c on u.id = c.user_id left join person_info as per on u.id = per.user_id";
 		$Q->fields = "o.*,u.username,p.quantity,p.unit,p.name,per.true_name,c.company_name";
-		// $Q->order = 'apply_time desc';
+		 $Q->order = 'apply_time desc';
 		
 		if($where) $Q->where = $where;
 		// $Q->order = "sort";
@@ -392,6 +392,10 @@ class OfferManageModel extends \nainai\offer\product{
 		if(isset($where['mode'])&& $where['mode']>=0){
 			$whereStr .= ' and o.mode=:mode';
 			$bind['mode'] = $where['mode'];
+		}
+		if(isset($where['sub_mode'])&& $where['sub_mode']>=0){
+			$whereStr .= ' and o.sub_mode=:sub_mode';
+			$bind['sub_mode'] = $where['sub_mode'];
 		}
 		if(isset($where['area'])&&$where['area']){
 			$len = strlen($where['area']);

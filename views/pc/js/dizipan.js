@@ -1,4 +1,4 @@
-
+﻿
 //先在table的最后增加一行，然后再把第一行中的数据填充到新增加的行中，最后再删除table的第一行
 function change(){
 	$.ajax({
@@ -18,6 +18,7 @@ function change(){
 			var time=$(this).find("td").eq(0).find("span").text().substring(0,10);
 			$(this).find("td").eq(0).find("span").html(time);
 		});
+
 			
 		}
 	})
@@ -25,9 +26,11 @@ function change(){
 
 }
 $(document).ready(function(){ 
-	change();
+
+	change()
+	
 	/*根据最新涨跌额是否大于等于0来决定文字颜色 end*/
-	setInterval("change()",5000);//每隔2秒执行一次change函数，相当于table在向上滚动一样
+	setInterval("change()",15000);//每隔2秒执行一次change函数，相当于table在向上滚动一样
 }); 
 
 

@@ -1,0 +1,329 @@
+body,div,ul,li,h1,h2,h3,h4,h5,h6,p,span,img{
+	margin: 0;
+	padding: 0;
+}
+.containers{
+	width: 1190px;
+	margin: 0 auto;
+	height: 100%;
+	/*background-color: #ccc;*/
+}
+a{
+	color: #000;
+	text-decoration: none;
+}
+
+.float-l{
+	float: left;
+}
+.float-r{
+	float: right;
+}
+.clear:after{
+	content: "";
+	display: block;
+	clear: both;
+	overflow: hidden;
+}
+
+/*排行榜 拼眼力 设备开始*/
+.block-1{
+	min-width: 1190px;
+	width: 100%;
+}
+
+.block-1 .box{
+	width: 390px;
+	height: 450px;
+	float: left;
+	margin: 0 10px 30px 0;
+}
+.block-1 .nn-shebei{
+	margin-right: 0;
+	width: 790px;
+}
+
+.nn-order-title{
+	display: inline-block;
+	font-size: 22px;
+	color: #222;
+	line-height: 44px;
+	font-weight: 400;
+}
+.nn-order-subtitle{
+	font-size: 14px;
+	color: #999;
+	margin-left: 10px;
+}
+.nn-order-item{
+}
+.nn-order-item span{
+	float: left;
+}
+.nn-order-img img{
+	height: 130px;
+}
+.nn-order-num{
+	color: #666;
+	width: 30px;
+	line-height: 127px;
+	font-size: 32px;
+	text-align: center;
+	font-weight: 900;
+	font-style: italic;
+	margin-left: 10px;
+}
+.nn-order-item:hover .order-slib{
+	color: #C81623;
+}
+.order-1{
+	color: #e74240;
+}
+.order-2{
+	color: #ed713d;
+}
+.order-3{
+	color: #feb185;
+}
+.nn-order-txt{
+	width: 200px;
+	height: 40px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 14px;
+	color: #666;
+	margin-top: 46px;
+	margin-left: 10px;
+	
+}
+.nn-order-link:hover .nn-order-txt{
+	color: #c81623;
+}
+
+.nn-pinyanli .swiper-slide{
+	text-align: center;
+}
+.nn-pinyanli .swiper-slide img{
+	width: 80%;
+}
+.nn-pinyanli .swiper-slide p{
+	padding: 0 50px;
+	font-size: 15px;
+}
+.swiper-container{
+	height: 400px;
+}
+
+.nn-shebei-item{
+	position: relative;
+	float: left;
+	width: 153px;
+	border: 1px solid transparent;
+	text-align: center;
+	padding: 10px 20px;
+}
+.nn-shebei-item:hover{
+	/*border-color: #E74240;*/
+}
+.nn-shebei-item img{
+	width: 100%;
+	height: 90px;
+}
+.nn-shebei-title{
+	font-weight: normal;
+	font-size: 15px;
+	margin-top:10px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap
+}
+.nn-shebei-con{
+	margin-top: 10px;
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.nn-shebei-price{
+	margin-top: 10px;
+	color: #c81623;
+	font-size: 14px;
+	font-weight: 900;
+}
+.nn-shebei-price .shebei-price-num{
+	font-weight: 900;
+	font-size: 16px;
+}
+.new-icon{
+    position: absolute;
+    top: 28px;
+    left: 330px;
+    width: 38px;
+    height: 18px;
+    z-index: 99;
+}
+.new-icon img{
+	width: 100%;
+	height: 100%;
+}
+.nn-jingpai-hover{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,.6);
+	display: none;
+}
+.nn-jingpai-cir{
+	width: 55px;
+	height: 55px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 10px;
+	margin: auto;
+	background-color: #C81623;
+	color: #fff;
+	font-size: 15px;
+	line-height: 55px;
+	border-radius: 50%;
+}
+.swiper-wrapper{
+	position: relative;
+}
+/*排行榜 拼眼力 设备结束*/
+/*光学仪器*/
+.nn-guess-items{
+	width: 354px;
+	padding: 20px;
+	border:1px solid transparent;
+	float: left;
+	transition: all ease .3s;
+}
+.nn-guess-items:hover{
+	border-color: #c81623;
+}
+.nn-guess-items:hover .nn-guess-title{
+	color: #c81623;
+}
+.nn-guess-items img{
+	width: 100%;
+/*	height: 230px;*/
+}
+/*光学仪器 end*/
+/*直播视频开始*/
+.block-live{
+	margin-top: 30px;
+}
+.nn-live-title{
+	display: inline-block;
+	font-size: 22px;
+	color: #222;
+	line-height: 44px;
+	font-weight: 400;
+}
+.nn-live-subtitle{
+	font-size: 14px;
+	color: #999;
+	margin-left: 10px;
+}
+.nn-live-left,.nn-live-right{
+	width: 570px;
+	box-shadow: 0 2px 7px rgba(0,0,0,.3);
+	padding: 10px;
+}
+.nn-live-left-title,.nn-live-right-title{
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 40px;
+}
+.nn-live-bg{
+	position: relative;
+	width: 100%;
+	height: 310px;
+	overflow: hidden;
+}
+.nn-live-bg img{
+	width: 100%;
+	height: 100%;
+	transition: all ease 2s;
+}
+.nn-live-zhezhao{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url('../img/live_btn.png') no-repeat rgba(0,0,0,.3);
+	background-position: center;
+}
+.nn-live-bg:hover img{
+	transform: scale(1.1,1.1);
+}
+
+/*直播视频结束*/
+/*猜你需要开始*/
+.nn-guess-item{
+	width: 196px;
+	padding: 20px;
+	border:1px solid transparent;
+	float: left;
+	transition: all ease .3s;
+}
+
+.nn-guess-item:hover{
+	border-color: #c81623;
+}
+.nn-guess-item:hover .nn-guess-title{
+	color: #c81623;
+}
+.nn-guess-item img{
+	width: 100%;
+	height: 150px;
+}
+.nn-guess-con{
+	color: #999;
+	font-size: 13px;
+	margin-top: 5px;
+	transition: all ease .5s;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.nn-guess-price{
+	color: #c81623;
+	font-weight: bold;
+	font-size: 14px;
+	margin-top: 8px;
+}
+.block-guess{
+	margin-top: 35px;
+}
+/*猜你需要结束*/
+
+/*热销产品开始*/
+.block-hot{
+	margin-top: 35px;
+}
+.nn-hot-item{
+	width: 235px;
+	padding: 30px;
+	border:1px solid transparent;
+	float: left;
+}
+.nn-hot-item img{
+	width: 100%;
+}
+.nn-hot-item:hover{
+	border-color: #c81623;
+}
+.nn-hot-item:hover .nn-guess-title{
+	color: #c81623;
+}
+.nn-guess-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/*热销产品结束*/

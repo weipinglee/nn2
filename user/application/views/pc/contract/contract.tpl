@@ -41,17 +41,16 @@
                 一、交易商品
                 <div style="padding-left:20px;">第一条 交易商品：</div>
                 <table border="1" bordercolor="#000000" cellspacing="0" cellpadding="0" width="100%"
-                        style="border:1px #000 solid; border-collapse:collapse; margin:10px 0px; display:block;">
+                        style="border:1px #000 solid; border-collapse:collapse; margin:10px 0px;">
                     <tr style="height:35px">
-                        <td width="100px" style="padding:0 10px">商品名称:</td>
-                        <td style="padding:0 10px">{$info['name']}</td>
+                        <td style="padding:0 10px">商品名称:</td>
+                         <td style="padding:0 10px">商品规格:</td>
+                         <td style="padding:0 10px">生产地:</td>
+                        
                     </tr>
                     <tr style="height:35px">
-                        <td width="100px" style="padding:0 10px">商品规格:</td>
+                       <td style="padding:0 10px">{$info['name']}</td>
                         <td style="padding:0 10px">{$info['attrs']}</td>
-                    </tr>
-                    <tr style="height:35px">
-                        <td width="100px" style="padding:0 10px">生产地:</td>
                         <td style="padding:0 10px" id='areatextarea'>{areatext:id=area data=$info['produce_area']}</td>
                     </tr>
                 </table>

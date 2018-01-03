@@ -1,6 +1,31 @@
 
 ﻿<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
+  <script type="text/javascript">
+  /*竞拍模式选择*/
+        $(function () {
+            $(":radio").click(function () {
+                if (this.checked) {
+                    if ($(this).attr("id") == "Radio1") {
+                        $("#div1").show();
+                        $("#div2").hide();
+                        $("#div3").hide();
+                    }
+                    if ($(this).attr("id") == "Radio2") {
+                        $("#div1").hide();
+                        $("#div2").show();
+                        $("#div3").hide();
+                    }
+                    if ($(this).attr("id") == "Radio3") {
+                        $("#div1").hide();
+                        $("#div2").hide();
+                        $("#div3").show();
+                    }
+                }
+            });
+        });
+         /*竞拍模式选择 end*/
+    </script>
 			<!--start中间内容-->
 			<div class="user_c">
 				<div class="user_zhxi">
@@ -58,7 +83,7 @@
                             <tr>
 
                                 <td>产品数量(单位)</td>
-                                <td class="end_td">{$product['quantity']}（{$product['unit']}）</td>
+                                <td class="end_td">{$offer['max_num']}（{$product['unit']}）</td>
 
                             </tr>
                             <tr>
@@ -110,7 +135,7 @@
                             <tr>
 
                                 <td>报盘数量</td>
-                                <td>{$product['quantity']}</td>
+                                <td>{$offer['max_num']}</td>
 
                             </tr>
                            <tr>
@@ -129,7 +154,7 @@
                            {/if}
                             <tr>
                                 <td>商品单价</td>
-                                <td>{$offer['price']}元</td>
+                                <td>￥{$offer['price']}</td>
                             </tr>
                             <tr>
                                 <td>交货地址</td>
@@ -143,6 +168,24 @@
                                <td>记重方式</td>
                                <td>{$offer['weight_type']}</td>
                            </tr>
+                           {if:$offer['start_time']}
+                           <tr>
+                               <td>开始时间</td>
+                               <td>{$offer['start_time']}</td>
+                           </tr>
+                           {/if}
+                           {if:$offer['end_time']}
+                               <tr>
+                                   <td>结束时间</td>
+                                   <td>{$offer['end_time']}</td>
+                               </tr>
+                           {/if}
+                           {if:$offer['jing_stepprice']}
+                               <tr>
+                                   <td>递增价格</td>
+                                   <td>￥{$offer['jing_stepprice']}</td>
+                               </tr>
+                           {/if}
                             <tr>
                                 <td>产品描述</td>
                                 <td>{$product['note']}</td>
@@ -165,10 +208,29 @@
                                 <td>{$offer['admin_msg']}
                                 </td>
                             </tr>
+                           <!--
+                            <tr class="bidding">
+                                <td>竞拍模式</td>
+                                <td>
+                                  <label><input id="Radio1" name="Bidding" type="radio" value="">竞拍</label> 
+                                  <label><input id="Radio2" name="Bidding" type="radio" value="">一口价</label> 
+                                  <label><input id="Radio3" name="Bidding" type="radio" checked="checked" value="">无 </label> 
+                                  <div id="div1" style="display: none;">
+                                  <div><span>竞拍时间：</span><input class="Wdate Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="expire_time" nullmsg="请填写信息！">-<input class="Wdate Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="expire_time" nullmsg="请填写信息！"></div>
+                                      <div><span>起拍价：</span><input type="text"></div>
+                                  </div>
+                                  <div id="div2" style="display: none;">
+                                  <div><span>竞拍时间：</span><input class="Wdate Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="expire_time" nullmsg="请填写信息！">-<input class="Wdate Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="expire_time" nullmsg="请填写信息！"></div>
+                                      <div><span>一口价：</span><input type="text"></div>
+                                  </div>
+                                </td>
+                             <tr>-->
                              <tr>
                                 <td colspan="2">
                                    <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)" style="float:left;"/>
-                                  <input type="hidden" name="id" value="{$offer['id']}" />
+                                   <!-- 保存竞价模式的修改按钮 -->
+
+                               <input type="hidden" name="id" value="{$offer['id']}" />
                                   {if: ($product['quantity'] - $product['sell'] - $product['freeze']) > 0}
                                   <div class="pay_bton">
                                       <a href="javascript:void(0)" class="submit_chag"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？">撤销报盘</a>
@@ -181,6 +243,7 @@
                                     {/if}
                                 </td>
                             </tr>
+
                         </table>
             	    </form>
 

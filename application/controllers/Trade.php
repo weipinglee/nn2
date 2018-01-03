@@ -48,6 +48,7 @@ class tradeController extends \nainai\controller\Base {
 		if ($detail['user_id'] == $this->pid) {
 			die(json::encode(tool::getSuccInfo(0,'子账户不能购买父账户发布的商品')));
 		}
+
 		$certObj=new \nainai\cert\certificate();
 		$certStatus=$certObj->getCertStatus($detail['user_id'],'deal');
 		if($certStatus['status']==4){
@@ -77,7 +78,7 @@ class tradeController extends \nainai\controller\Base {
 				die(json::encode(tool::getSuccInfo(0,'无效报盘方式')));
 				break;
 		}
-
+		$order_submode = null;
 
 		
 		//判断用户账户类型
@@ -138,6 +139,26 @@ class tradeController extends \nainai\controller\Base {
 		try {
 			$order->beginTrans();
 
+			//交易前的预处理，竞价判断购买用户是否是胜出用户
+			if($detail['sub_mode']==1){
+				$subModeObj = new \nainai\offer\jingjiaOffer();
+				$condition = $subModeObj->beforeTrade($detail['id'],$this->user_id);
+				if($condition['success']==0){
+					$order->rollBack();
+					die(json::encode($condition));
+				}
+				$order_submode = new \nainai\order\JingjiaOrder();
+			}
+			elseif($detail['sub_mode']==2){//一口价交易锁住报盘的一行，以防并发修改
+				$subModeObj = new \nainai\offer\yikoujiaOffer();
+				$condition = $subModeObj->beforeTrade($detail['id'],$this->user_id);
+				if($condition['success']==0){
+					$order->rollBack();
+					die(json::encode($condition));
+				}
+			}
+
+			$order_mode->setSubmode($order_submode);
 			$gen_res = $order_mode->geneOrder($orderData);
 
 			if($gen_res['success'] == 1){
@@ -197,8 +218,8 @@ class tradeController extends \nainai\controller\Base {
 
 		if($info['divide']==\nainai\offer\product::UNDIVIDE ){//不可拆分
 			$info['fixed'] = true;
-			$info['minimum'] = $info['quantity'];
-			$info['amount'] = $info['quantity'] * $info['price'];
+			$info['minimum'] = $info['max_num'];
+			$info['amount'] = $info['max_num'] * $info['price'];
 		}
 		else if($info['left'] <= $info['minimum']){//余量不够最小起订量
 			$info['fixed'] = true;
@@ -410,5 +431,16 @@ class tradeController extends \nainai\controller\Base {
             $this->error('充值失败',url::createUrl("/fund/cz"));
         }
     }
+
+	//竞价交易报价
+	public function jingjiabaojiaAction()
+	{
+		$price = safe::filterPost('price','float');
+		$offer_id = safe::filterPost('offer_id','int',0);
+		$user_id = $this->user_id;
+		$jingjiaObj = new \nainai\offer\jingjiaOffer();
+		$res = $jingjiaObj->baojia($offer_id,$price,$user_id);
+		die(json::encode($res));
+	}
 
 }

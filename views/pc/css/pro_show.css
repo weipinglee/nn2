@@ -54,3 +54,42 @@ a:hover{color:#e60012;}
         #divCenter{position: fixed; z-index: 9; display: none; background-color: #eee; width:auto; height:auto;left:500px;top:200px; margin:15px; border:1px solid #eee;}
         .cont_1 .pro_pic{width:25%;}        
         .cont_1 .pro_pic .red{color: #bc1018;}
+        /*竞拍商品详情页面报价情况*/
+        .auction ul {
+            /* height:35px; */
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+           /* width: 800px;
+            margin: 0 auto;*/
+                padding-left: 30px;
+        }
+        .auction ul li{
+             float:left;
+             width: 20%;
+         }
+        .auction ul li span{
+            /* display:block; */
+            height:40px;
+            line-height:40px;
+        }
+        .auction ul li img{
+             width: 40px;
+            height: 40px;
+            float: left;
+            padding-right: 10px;
+        }
+       .auction ul li span.auction_lead{
+            color: #e41111;
+            font-size: 16px;
+            border: 1px solid;
+            padding: 2px 10px;
+            box-shadow: 0px 1px 3px #f52b2b;
+        }
+        .auction ul li span.auction_out{
+            color: #d8cfcf;
+            font-size: 16px;
+            border: 1px solid;
+            padding: 2px 10px;
+            box-shadow: 0px 1px 3px #736b6b;
+        }
+         /*商品详情页面报价情况 end*/

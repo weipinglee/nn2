@@ -185,10 +185,10 @@ class offersModel extends \nainai\offer\product{
     public function getList($page,$condition = array(),$order='',$user_id){
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id left join admin_kefu as ke on o.kefu=ke.admin_id";
-        $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze>0,0,1) as jiao";
+        $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze=0 || o.status=6,1,0) as jiao";
         $query->group = 'o.id';
-        $where = 'o.status=:status and o.is_del = 0  and o.expire_time > now()';
-        $bind = array('status'=>self::OFFER_OK);
+        $where = 'o.status in ('.self::OFFER_OK.','.self::OFFER_COMPLETE.','.self::OFFER_WAITINGTRADE.') and o.is_del = 0  and o.expire_time > now()';
+        $bind = array();
 
         if (empty($order)) {
             $model = new \nainai\offer\ProductSetting();
@@ -240,6 +240,12 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             $bind['mode'] = $condition['mode'];
         }
 
+        //获取竞价一口价的类型
+        if(isset($condition['sub_mode']) && $condition['sub_mode']!=0){
+            $where .= ' and o.sub_mode=:sub_mode';
+            $bind['sub_mode'] = $condition['sub_mode'];
+        }
+
         //获取地区条件
         if(isset($condition['area']) && $condition['area']!=0){
             $where .= ' and left(p.produce_area,2) = :area ';
@@ -270,8 +276,9 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             $value['info'] = $info;
             $value['mode_txt'] = $this->offerMode($value['mode']);
             $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
-            $value['left'] = number_format(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']));
+            $value['left'] = number_format(min(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']),$value['max_num']-$value['sell_num']));
         }
+        //print_r($data);
         $pageBar =  $query->getPageBar();
         return array('data'=>$data,'bar'=>$pageBar,'cate'=>$childcates,'childname'=>$childname);
     }
@@ -299,24 +306,26 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $bind = array('status'=>self::OFFER_OK);
 
         $configObj = new M('configs_indexshow');
-        $productIds = $configObj->where(array('id'=>$configId))->getField('proids');
+        $productData = $configObj->where(array('id'=>$configId))->fields('proids,pic_num')->getObj();
 
-        if($productIds){
-            $whereStr .= ' and o.id in ('.$productIds.')';
+        if(empty($productData)){
+            return array();
+        }
+        if(isset($productData['proids']) && $productData['proids']){
+            $whereStr .= ' and o.id in ('.$productData['proids'].')';
         }
 
 
 
         $query->where = $whereStr;
         $query->bind = $bind;
-
         $query->page = $page;
-        $query->pagesize = $page_size;
+        $query->pagesize = $productData['pic_num']>0 ? $productData['pic_num'] : $page_size;
         if($order){
             $query->order = $order;
         }
         else
-            $query->order = " RAND() ";
+            $query->order = " o.offer_sort asc ";
 
         $data = $query->find();
         foreach ($data as $key => &$value) {
@@ -370,6 +379,31 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             return array_reverse($parent);
         }
         return array();
+
+    }
+
+    /**
+     * 获取竞价报价数据
+     * @param $offer_id int 报盘id
+     * @return mixed
+     */
+    public function baojiaData($offer_id)
+    {
+        $baojiaObj = new Query('product_jingjia as j');
+        $baojiaObj->join = 'left join user as u on j.user_id=u.id';
+        $baojiaObj->fields = 'j.*,u.username,u.true_name';
+        $baojiaObj->order = 'j.price desc';
+        $baojiaObj->where = 'offer_id=:offer_id';
+        $baojiaObj->bind = array('offer_id'=>$offer_id);
+        $res = $baojiaObj->find();
+        $model = new M('user');
+        foreach($res as $val){
+            if($val['true_name']==''){
+                $str = 'SELECT createUsertruename('.$val['user_id'].',100)';
+                $model->query($str);
+            }
+        }
+        return $res;
 
     }
 

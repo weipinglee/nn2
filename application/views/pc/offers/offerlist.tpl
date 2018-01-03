@@ -35,6 +35,9 @@
                 </div>
             </div> -->
             <div class="clearfix cla_sty">
+
+                <div class="jiaoyi_num"><a href="{url:/ping}">交易数据</a></div>
+
                 <input type="hidden" name="attr_url" value="{url:/AjaxData/ajaxGetCategory}"  />
                <input type="hidden" name="sort" value="default" />
                 <input type="hidden" name="img_url" value="{views:}"  />
@@ -64,6 +67,10 @@
                     </li>
                     {/foreach}
 
+                    <!-- 增加报盘类型 -->
+                    <li><a  class='model' href="#" title="model" rel="5">竞价拍卖</a></li>
+                    <!--<li><a  class='model' href="#" title="model" rel="6">一口价</a></li>-->
+                     <!-- 增加报盘类型 end-->
 
                 </ul>
             </div>
@@ -195,11 +202,17 @@
                    <ul class="main_centon">
                        <li class="tit_left">
                            <!--<a title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
-                           <span><%=data[i].name%></span>
+                           <span>
+                               <% if(data[i].pro_name == ''){ %>
+                               <%=data[i].name%>
+                               <% } else {%>
+                               <%=data[i].pro_name%>
+                               <%}%>
+                           </span>
                        </li>
                        <li><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>{views:images/no_picture.png}<% }else { %><%=data[i].img%> <%}%>" class="icon_img" width="30"></a></li>
                        <li><% if(data[i].type == 1){ %><i class="green">供</i><% }else { %><i class="red">求</i> <%}%></li>
-                       <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>--<%}%></li>
+                       <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>保证金报盘<%}%></li>
 
                        <li style="width:200px;"><%=data[i].produce_area%></li>
                        <li><%=data[i].accept_area%></li>
@@ -231,18 +244,29 @@
                                      <img style="vertical-align:middle;" src="{views:images/icon/QQgray16X16.png}" class="ser_img"/>
                                      <% }%>
                                    <% if (data[i].type==1){ %>
-								                    
-                                   <a href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                       <% if (data[i].sub_mode==2){ %>
+                                   <a href="{url:/Offers/offerdetails3}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 								   <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>" class="check_btn"><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
-                                    <% } else { %>
+                                      <% }else if (data[i].sub_mode==1){ %>
+                                   <a href="{url:/Offers/offerdetails2}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+
+                                   <% } else { %>
+                                   <a href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                   <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>" class="check_btn"><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
+                                      <% } %>
+                                   <% } else { %>
 									<a href="{url:/Offers/purchaseDetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 								   <a href="{url:/trade/report}/id/<%=data[i].id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>"  class='check_btn'><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="报价"/></a>
                                  
                                     
                                    <% }%>
-                                   <% } else { %>
-                                   <img style="vertical-align:middle;" src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
+                               <% } else { %>
+                                   <% if (data[i].sub_mode==1){ %>
+                                   <a href="{url:/Offers/offerdetails2}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
                                    <% }%>
+                                     <img style="vertical-align:middle;" src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
+
+                                <% }%>
                                </div>
                                <ul>
                                    <li class="sele"><a class="cz_wz pro_img">图片</a></li>

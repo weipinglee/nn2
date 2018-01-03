@@ -223,7 +223,7 @@ class ManagerDealController extends UcenterBaseController {
     public function doDepositOfferAction(){
         if(IS_POST){
             $token = safe::filterPost('token');
-            if(!safe::checkToken($token))
+           // if(!safe::checkToken($token))
                  // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $offer_id = safe::filterPost('offer_id','int',0);
             $depositObj = new depositOffer($this->user_id);
@@ -459,7 +459,9 @@ class ManagerDealController extends UcenterBaseController {
                 }
             }
         }
-
+        if(empty($resImg)){
+            die(json::encode(tool::getSuccInfo(0,'请上传图片')));
+        }
         return array($detail,$resImg, $this->username);
     }
 
@@ -871,7 +873,10 @@ class ManagerDealController extends UcenterBaseController {
                     'price'        => Safe::filterPost('price', 'float'),
                     'user_id'     => $this->user_id,
                     'insurance' => Safe::filterPost('insurance', 'int'),
-                    'risk' =>implode(',', Safe::filterPost('risk', 'int'))
+                    'risk' =>implode(',', Safe::filterPost('risk', 'int')),
+                    'weight_type' => Safe::filterPost('weight_type'),
+                    'expire_time'=> Safe::filterPost('expire_time'),
+                    'other'       => safe::filterPost('other')
                 );
 
                 $obj = new \Library\M('product_offer');
@@ -905,6 +910,40 @@ class ManagerDealController extends UcenterBaseController {
             $this->getView()->assign('photos', $data['photos']);
         }else{
             $this->redirect(url::createUrl('/ManagerStore/ApplyStoreList'));
+        }
+    }
+
+    /*************************竞价交易**************************************/
+
+    public function addNewtradeAction()
+    {
+        if(IS_POST){
+            $offer_id = safe::filterPost('offer_id','int',0);
+            $offerData = array(
+                'proname' => safe::filterPost('proname'),
+                'submode' => safe::filterPost('submode','int',1),
+                'start_time'=> safe::filterPost('start_time'),
+                'end_time'=>safe::filterPost('end_time'),
+                'price_l'=>safe::filterPost('price_l'),
+                'price_r'=> safe::filterPost('price_r'),
+                'price'=> safe::filterPost('price'),
+                'jing_stepprice' => safe::filterPost('step_price'),
+                'max_num' => safe::filterPost('max_num'),
+            );
+            if($offerData['submode']==1){
+                $offerObj = new \nainai\offer\jingjiaOffer();
+            }
+            else{
+                $offerObj = new \nainai\offer\yikoujiaOffer();
+            }
+            $res = $offerObj->doOffer($offer_id,$offerData,$this->user_id);
+            die(json::encode($res));
+        }
+        else{
+            $proObj = new ProductModel();
+            $offer = $proObj->getAllokoffer($this->user_id);
+
+            $this->getView()->assign('offer',$offer);
         }
     }
 

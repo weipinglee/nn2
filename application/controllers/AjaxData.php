@@ -43,7 +43,14 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
                $condition['type'] = $type;
           }
           if($mode!=0){
-               $condition['mode'] = $mode;
+               if($mode<=4)
+                    $condition['mode'] = $mode;
+               elseif($mode==5){
+                    $condition['sub_mode'] = 1;
+               }
+               else
+                    $condition['sub_mode'] = 2;
+
           }
           if($area!=0){
                $condition['area'] = $area;

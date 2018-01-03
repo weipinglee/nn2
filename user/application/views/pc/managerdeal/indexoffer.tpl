@@ -47,6 +47,16 @@
 							<p class="of_title2 public">即将上线，敬请期待</p>
 							<!-- <p class="of_title1">委托报盘有什么吗</p> -->
 						</div>
+						<div class="offer public" onclick="if({$certStatus['status']}==4){alert('请完善您的资质认证');window.open('{url:/ucenter/dealcert}');return false;}window.open('{url:/ManagerDeal/storageoffer}')">
+							<div class="offer_right">
+								<img src="{views:/images/center/publish5.png}">
+							</div>
+							<p class="of_title1">
+								<span class="title1_a public">入库单报盘</span>
+							</p>
+							<p class="of_title2 public">降低交易成本，货物质量有保证</p>
+							<!-- <p class="of_title1">仓单报盘有什么吗</p> -->
+						</div>
 					</div>
 				</div>
 			</div>

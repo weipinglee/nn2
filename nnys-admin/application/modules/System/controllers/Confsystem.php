@@ -321,6 +321,8 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			$config['type'] = safe::filterPost('type');
 			$config['sub_title'] = safe::filterPost('sub_title');
 			$config['title'] = safe::filterPost('title');
+			$config['sort'] = safe::filterPost('sort','int');
+			$config['pic_num'] = safe::filterPost('pic_num','int');
 			$res = $configObj->update($config);
 
 			die(json::encode($res));
@@ -396,6 +398,14 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 			'cate_id' => safe::filterGet('cate_id','int',0)
 		);
 
+		if($searchArray['mode']==5){
+			$searchArray['sub_mode'] = 1;
+			unset($searchArray['mode']);
+		}
+		elseif($searchArray['mode']==6){
+			$searchArray['sub_mode'] = 2;
+			unset($searchArray['mode']);
+		}
 		$offerObj = new\OfferManageModel();
 		$result = $offerObj->getSearchProduct($searchArray);
 		die(JSON::encode($result));

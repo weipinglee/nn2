@@ -13,23 +13,74 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-		
+		echo time().'</br>';
+	//	echo substr(-1,3,time());
 	}
 
 
+	/**
+	 * 生成旧的报盘的市场大分类id
+	 */
 	public function updateProIdAction(){
-		$ProObj = new M('products');
-		$data = $ProObj->where('create_time>"2017-1-1"')->fields('cate_id,id')->select();
-		$product = new \nainai\offer\product();
-		$topCate = array();
-		foreach($data as $key=>$val){
-			if(!isset($topCate[$val['cate_id']])){
-				$topCate[$val['cate_id']] = $product->getcateTop($val['cate_id']);
-			}
-			$ProObj->data(array('market_id'=>$topCate[$val['cate_id']]))->where(array('id'=>$val['id']))->update();
+//		$ProObj = new M('products');
+//		$data = $ProObj->where('create_time>"2017-1-1"')->fields('cate_id,id')->select();
+//		$product = new \nainai\offer\product();
+//		$topCate = array();
+//		foreach($data as $key=>$val){
+//			if(!isset($topCate[$val['cate_id']])){
+//				$topCate[$val['cate_id']] = $product->getcateTop($val['cate_id']);
+//			}
+//			$ProObj->data(array('market_id'=>$topCate[$val['cate_id']]))->where(array('id'=>$val['id']))->update();
+//
+//		}
+//		echo 'success';
+	}
 
+	/**
+	 * 设置旧报盘的product_offer表的max_num值
+	 */
+	public function setOfferMaxnumAction()
+	{
+		$page = safe::filterGet('page','int',1);
+		$pagesize = 1000;
+		if($page==1){
+			$limit = $pagesize;
 		}
-		echo 'success';
+		else{
+			$limit = ($page-1)*$pagesize.','.$pagesize;
+		}
+
+		$proObj = new M('products');
+		$data = $proObj->order('id desc')->fields('id,quantity,sell,freeze')->limit($limit)->select();
+		$offerObj = new M('product_offer');
+		$offerObj->beginTrans();
+		foreach($data as $val){
+			$offerObj->table('product_offer');
+			$update = array(
+				'max_num'=>$val['quantity'],
+				'sell_num'=> $val['sell'] + $val['freeze']
+			);
+//print_r($update);
+
+			$res = $offerObj->where('product_id='.$val['id'].' and max_num<=0')->data($update)->update();
+			echo $res.'</br>';
+		}
+		if($offerObj->commit()){
+			echo 'success';
+		}
+		
+	}
+
+	//生成user表的true_name字段
+	public function setUserTrueNameAction()
+	{
+		$model = new M('user');
+		$user_id = safe::filterGet('id');
+		$str = 'SELECT createUsertruename('.$user_id.',1000)';
+		if($model->query($str)){
+			echo 'success';
+		}
+		else echo 'error';
 	}
 
 }
