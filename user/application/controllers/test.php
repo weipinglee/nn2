@@ -53,17 +53,22 @@ class testController extends  UcenterBaseController{
 		$proObj = new M('products');
 		$data = $proObj->order('id desc')->fields('id,quantity,sell,freeze')->limit($limit)->select();
 		$offerObj = new M('product_offer');
+		$offerObj->beginTrans();
 		foreach($data as $val){
-			//$offerObj->table('product_offer');
+			$offerObj->table('product_offer');
 			$update = array(
 				'max_num'=>$val['quantity'],
 				'sell_num'=> $val['sell'] + $val['freeze']
 			);
+//print_r($update);
 
-			$res = $offerObj->where(array('product_id'=>$val['id'],'max_num'=>0))->data($update)->update();
+			$res = $offerObj->where('product_id='.$val['id'].' and max_num<=0')->data($update)->update();
 			echo $res.'</br>';
 		}
-		echo 'success';
+		if($offerObj->commit()){
+			echo 'success';
+		}
+		
 	}
 
 	//生成user表的true_name字段

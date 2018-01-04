@@ -132,6 +132,10 @@ a{
 .nn-shebei-title{
 	font-weight: normal;
 	font-size: 15px;
+	margin-top:10px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap
 }
 .nn-shebei-con{
 	margin-top: 10px;
@@ -316,5 +320,10 @@ a{
 }
 .nn-hot-item:hover .nn-guess-title{
 	color: #c81623;
+}
+.nn-guess-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 /*热销产品结束*/

@@ -30,7 +30,7 @@ $(document).ready(function(){
 	change()
 	
 	/*根据最新涨跌额是否大于等于0来决定文字颜色 end*/
-	setInterval("change()",5000);//每隔2秒执行一次change函数，相当于table在向上滚动一样
+	setInterval("change()",15000);//每隔2秒执行一次change函数，相当于table在向上滚动一样
 }); 
 
 

@@ -35,6 +35,9 @@
                 </div>
             </div> -->
             <div class="clearfix cla_sty">
+
+                <div class="jiaoyi_num"><a href="{url:/ping}">交易数据</a></div>
+
                 <input type="hidden" name="attr_url" value="{url:/AjaxData/ajaxGetCategory}"  />
                <input type="hidden" name="sort" value="default" />
                 <input type="hidden" name="img_url" value="{views:}"  />
@@ -66,7 +69,7 @@
 
                     <!-- 增加报盘类型 -->
                     <li><a  class='model' href="#" title="model" rel="5">竞价拍卖</a></li>
-                    <!--<li><a  class='model' href="#" title="model" rel="6">一口价</a></li>-->
+                    <li><a  class='model' href="#" title="model" rel="6">抢购</a></li>
                      <!-- 增加报盘类型 end-->
 
                 </ul>

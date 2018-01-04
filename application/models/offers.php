@@ -306,7 +306,7 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $bind = array('status'=>self::OFFER_OK);
 
         $configObj = new M('configs_indexshow');
-        $productData = $configObj->where(array('id'=>$configId))->fields('proids,pic_num')->getObj();
+        $productData = $configObj->where(array('id'=>$configId))->fields('proids,pic_num,pic_num')->getObj();
 
         if(empty($productData)){
             return array();
@@ -319,14 +319,13 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
 
         $query->where = $whereStr;
         $query->bind = $bind;
-
         $query->page = $page;
         $query->pagesize = $productData['pic_num']>0 ? $productData['pic_num'] : $page_size;
         if($order){
             $query->order = $order;
         }
         else
-            $query->order = " RAND() ";
+            $query->order = " o.offer_sort asc ";
 
         $data = $query->find();
         foreach ($data as $key => &$value) {

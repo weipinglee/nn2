@@ -9,7 +9,7 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legen
 /* Default Font */
 body,button,input,select,textarea {
     font: 12px/1.5 \5b8b\4f53,arial,sans-serif;
-    font-family: 微软雅黑;
+    font-family: ΢���ź�;
 }
 h1,h2,h3,h4,h5,h6 {
     font-size: 100%;
@@ -18,7 +18,7 @@ address,cite,dfn,em,var {
     font-style: normal;
 }
 code,kbd,pre,samp {
-    font-family: 微软雅黑;
+    font-family: ΢���ź�;
 }
 small {
     font-size: 12px;
@@ -108,9 +108,24 @@ a:hover,a:active {
 
 .pro_classify .cla_sty{
     margin-top: 20px;
-    padding: 15px 0;
+    padding: 15px 160px 15px 0px;
     border-top: 5px solid #e3e3e3;
     background: #fff;
+    position: relative;
+}
+.pro_classify .cla_sty .jiaoyi_num{
+    position:absolute;
+    z-index: 1;
+    top: 53px;
+    right:20px;
+    background: #c81623;
+    height: 40px;
+    width: 130px;
+    line-height: 40px;
+    text-align: center;
+}
+.pro_classify .cla_sty .jiaoyi_num a{
+    color:#fff;
 }
 
 .wrap {
@@ -230,7 +245,7 @@ a:hover,a:active {
 .all-sort-list .item span {
     padding: 0px 5px;
     color: #A40000;
-    font-family: 微软雅黑;
+    font-family: ΢���ź�;
 }
 .all-sort-list .item a {
     text-decoration: none;
@@ -334,7 +349,7 @@ div.item h3 p.fenlei a:hover {
 
 
 
-/*轮播大图*/
+/*�ֲ���ͼ*/
 .banner {
     width: 100%;
     height: 470px;
