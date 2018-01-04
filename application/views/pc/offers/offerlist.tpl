@@ -69,7 +69,7 @@
 
                     <!-- 增加报盘类型 -->
                     <li><a  class='model' href="#" title="model" rel="5">竞价拍卖</a></li>
-                    <!--<li><a  class='model' href="#" title="model" rel="6">一口价</a></li>-->
+                    <li><a  class='model' href="#" title="model" rel="6">抢购</a></li>
                      <!-- 增加报盘类型 end-->
 
                 </ul>

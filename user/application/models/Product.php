@@ -46,20 +46,25 @@ class productModel extends \nainai\offer\product{
 	}
 
 	/**
-	 * 获取产品列表
-	 * @param  string $where    [where的条件]
-	 * @param  array  $bind     [where绑定的参数]
-	 * @return [Array.list]           [返回的对应的列表数据]
-	 * @return [Array.pageHtml]           [返回的分页html数据]
+	 * 获取正在进行的产品列表
+	 * @param  string $user_id    所属用户
+	 * @param  array  $mode    报盘类型
+	 * @return array   报盘数据
 	 */
-	public function getAllokoffer( $user_id){
+	public function getOkoffer( $user_id,$mode=array()){
 		$query = new Query('product_offer as o');
 		$query->fields = 'o.id,o.offer_no,o.mode,p.name,p.quantity-p.freeze-p.sell as leftnum,o.price';
 		$query->join = '  LEFT JOIN products as p ON o.product_id=p.id  ';
 
 		// $query->order = ' a.create_time desc';
-
-		$where = 'o.mode=4 and o.user_id='.$user_id.' and o.type=1 and  o.sub_mode=0 and o.status='.self::OFFER_OK.' and o.is_del=0 and o.expire_time>now()';
+		$where = '';
+        if(!empty($mode)){
+			$mode = join(',',$mode);
+			$where .= 'o.mode in ('.$mode.') and';
+		}
+		else
+			$mode = '';
+		$where .= ' o.user_id='.$user_id.' and o.type=1 and  o.sub_mode=0 and o.status='.self::OFFER_OK.' and o.is_del=0 and o.expire_time>now()';
 
 		$query->where = $where;
 		$list = $query->find();

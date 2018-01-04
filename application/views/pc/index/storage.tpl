@@ -51,7 +51,8 @@
             <a href="{url:/index/monitor}"><img src="{views:images/storage/banner2.png}" alt="" /></a>
           </div>
           <div class="banner_figure">
-            <a href="#"> <img src="{views:images/storage/banner.png}" alt=""></a>
+              {set:$storageUrl=\Library\tool::getGlobalConfig(array('host','storage'))}
+            <a href="{$storageUrl}"> <img src="{views:images/storage/banner.png}" alt=""></a>
           </div>
           
           
