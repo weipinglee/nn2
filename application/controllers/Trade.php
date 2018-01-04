@@ -134,7 +134,7 @@ class tradeController extends \nainai\controller\Base {
 			}
 		}
 
-		
+
 		$order = new M('order_sell');
 		try {
 			$order->beginTrans();
