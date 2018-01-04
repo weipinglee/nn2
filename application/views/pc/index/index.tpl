@@ -507,8 +507,8 @@ $(function() {
         <!--视频直播开始-->
         <div class="block-live">
             <div class="containers">
-                <div class="nn-live-hd">
-                    <h3 class="nn-live-title">耐耐直播</h3>
+                <div class="nn-live-hd nn-tile-hd">
+                    <h3 class="nn-live-title">—— 耐耐直播 ——</h3>
                     <span class="nn-live-subtitle">好产品实时观看</span>
                 </div>
                 <div class="nn-live-bd clear">
@@ -772,7 +772,7 @@ $(function() {
                 </div>
             </div>
             <div class="show_div">
-                  <a href="" class="fhdb_a" data="#toTop" rel="toTop" onclick="history.go(0)">
+                  <a href="javascript:scroll(0,0)" class="fhdb_a" data="#toTop" rel="toTop">
                       <i class="left_iconfont " display="none"><img src="{views:images/floor_05.png}">返回顶部</i>
                       <em class="two_line" display="black"><img src="{views:images/floor_cur_05.png}">返回顶部</em>
                   </a>
@@ -869,8 +869,8 @@ $(function() {
 </script>
 
 <script type="text/html" id="shebeiTemplate">
-    <div class="nn-live-hd">
-        <h3 class="nn-live-title">有好货</h3>
+    <div class="nn-live-hd nn-tile-hd">
+        <h3 class="nn-live-title">—— 有好货 ——</h3>
         <span class="nn-live-subtitle"></span>
     </div>
     <%if (data.length>0) { %>
@@ -888,8 +888,8 @@ $(function() {
 </script>
 
 <script type="text/html" id="rexiaoTemplate">
-    <div class="nn-live-hd">
-        <h3 class="nn-live-title">热销产品</h3>
+    <div class="nn-live-hd nn-tile-hd">
+        <h3 class="nn-live-title">—— 热销产品 ——</h3>
         <span class="nn-live-subtitle">热销产品</span>
     </div>
     <%if (data.length>0) { %>
