@@ -125,8 +125,24 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td>
+                            <span>
+                                <lable style="
+                                    float: left;
+                                "><input class="checkbox_jjxy" type="checkbox"></lable>
+                                <div style="
+                                    float: left;
+                                    padding-left: 10px;
+                                ">我已看过并同意<a href="/ducong/nn2/user/down/耐耐网竞价协议.docx" style="color:#1852ca;font-size:14px;">《耐耐网竞价协议》</a>
+                                </div>
+                                       
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
                         <td colspan="2" class="btn">
-                            <input  type="submit"  value="提交" />
+                            <input  class="submit_btn" type="submit"  value="提交" />
                             <span class="color"></span>
                         </td>
                     </tr>
@@ -151,6 +167,15 @@
             $('.jingjia').find('input').val('').attr('ignore','ignore');
         }
     })
+    $(".btn .submit_btn").click(function(){
+        if(!$("lable .checkbox_jjxy").attr('checked')){
+             alert("请阅读竞价协议并勾选。");
+            return false;
+        }
+        return true;
+           
+        })
+
 </script>
 
 
