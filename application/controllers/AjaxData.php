@@ -124,6 +124,10 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
 		die($output);
 	 }
 
+     public function indexAction(){
+          die(\Library\json::encode(\Library\tool::getSuccInfo(1,'操作成功')));
+     }
+
 
 
 }
