@@ -14,10 +14,18 @@ use \Library\Query;
 class DataSource
 {
 
-    private static $userFields = array('email','true_name','username','type','login_time');
+    private static $userFields = array('id','email','true_name','username','type','login_time');
 
     private static $offerFields = array('order_no','user_id','type','pro_name','price');
 
+    private static $userIds = array();
+
+    private static $userArr = array();
+    public static function addUser($user_id){
+        if(!isset(self::$userIds[$user_id])){
+            self::$userIds[] = $user_id;
+        }
+    }
 
     public static function findOffer($id,$info){
         $fields = array_keys($info->getFieldSelection());
@@ -31,8 +39,10 @@ class DataSource
         $res = $userObj->where(array('id'=>$id))->fields($fields)->getObj();
         return $res;
     }
-    public static function findUser($id,$info)
+    public static function loadUser($info)
     {
+        $user_ids = join(',',self::$userIds);
+
         $fields = array_keys($info->getFieldSelection());
         foreach($fields as $key=>$val){
             if(!in_array($val,self::$userFields)){
@@ -41,7 +51,37 @@ class DataSource
         }
         $fields = join(',',$fields);
         $userObj = new M('user');
-        $res = $userObj->where(array('id'=>$id))->fields($fields)->getObj();
+        $temp = $userObj->where(array('id'=>array('in',$user_ids)))->fields($fields)->select();
+        $res = array();
+        foreach($temp as $val){
+             $res[$val['id']] = $val;
+
+
+        }
+        self::$userArr=array();
+       self::$userArr = $res;
+    }
+
+    public static function findUser($id){
+        if(isset(self::$userArr[$id]))
+            return self::$userArr[$id];
+        return array();
+    }
+
+    public static function findOfferlist($page=1,$pageSize=20,$info){
+        $fields = array_keys($info->getFieldSelection());
+        foreach($fields as $key=>$val){
+            if(!in_array($val,self::$offerFields)){
+                unset($fields[$key]);
+            }
+        }
+        $fields = join(',',$fields);
+        $offerObj = new Query('product_offer');
+        $offerObj->fields = $fields;
+        $offerObj->page = $page;
+        $offerObj->order = 'id desc';
+        $offerObj->pagesize = $pageSize;
+        $res = $offerObj->find();
         return $res;
     }
 

@@ -28,7 +28,16 @@ class QueryType extends ObjectType
                     'args' => [
                         'id' => Types::nonNull(Types::id())
                     ],
-                ]
+                ],
+                'offerList' => [
+                    'type'=>Types::listOf(Types::offer()),
+                    'description' => '±¨ÅÌÁÐ±í',
+                    'args' => [
+                        'page' => Types::int(),
+                        'pageSize' => Types::int(),
+
+                    ]
+                ],
 
             ],
             'resolveField' => function($val, $args, $context, ResolveInfo $info) {//var_dump($info);
@@ -42,12 +51,22 @@ class QueryType extends ObjectType
 
     public function user($rootValue, $args, $context, $info)
     {
-        return DataSource::findUser($args['id'],$info);
+        DataSource::addUser($args['id']);
+        return new \GraphQL\Deferred(function () use ($args,$info) {
+            DataSource::loadUser($info);
+            return DataSource::findUser($args['id']);
+        });
     }
 
     public function offer($rootValue, $args, $context, $info)
     {
         return DataSource::findOffer($args['id'],$info);
+    }
+
+    public function offerList($rootValue, $args, $context, $info)
+    {
+
+        return DataSource::findOfferlist($args['page'],$args['pageSize'],$info);
     }
 
 

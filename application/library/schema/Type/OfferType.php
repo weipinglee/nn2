@@ -26,7 +26,12 @@ class OfferType extends ObjectType
                     'user' => [
                         'type'=>Types::user(),
                         'resolve'=> function($val, $args, $context, ResolveInfo $info){
-                            return DataSource::findUser($val['user_id'],$info);
+                            DataSource::addUser($val['user_id']);
+                            return new \GraphQL\Deferred(function () use ($val,$info) {
+                                DataSource::loadUser($info);
+                                return DataSource::findUser($val['user_id']);
+                            });
+                        //    return DataSource::findUser($val['user_id'],$info);
                         }
                     ]
 
