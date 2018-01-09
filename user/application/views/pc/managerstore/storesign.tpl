@@ -383,7 +383,7 @@
                                             <td>
                                                 <div class="zhxi_con">
                                                     <span style="position:relative;top:13px;" class="input-file">选择文件<input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
-                                                    <input type="hidden" name="imgfile2" value="" datatype="*" nullmsg="请上传质检证书" />
+                                                    <input type="hidden" name="imgfile2" value=""  />
 
                                                 </div>
 

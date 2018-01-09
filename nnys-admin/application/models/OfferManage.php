@@ -40,7 +40,7 @@ class OfferManageModel extends \nainai\offer\product{
 
 		foreach ($data['list'] as $key => &$value){
 			$value['divide_text'] = ($value['divide'] == 1) ? '是' : '否';
-			$value['quantity'] = $this->floatForm($value['quantity']);
+			$value['quantity'] = min($this->floatForm($value['quantity']),$value['max_num']);
 			$value['mode_txt'] = $this->getMode($value['mode']);
 			$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
 			$value['status_txt'] = $this->getStatus($value['status']);
