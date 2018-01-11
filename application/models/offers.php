@@ -325,7 +325,8 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             $query->order = $order;
         }
         else
-            $query->order = " o.offer_sort asc ";
+            //$query->order = " o.offer_sort asc ";
+            $query->order = " o.id desc ";
 
         $data = $query->find();
         foreach ($data as $key => &$value) {
