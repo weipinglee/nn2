@@ -531,6 +531,7 @@ $(function() {
 <script type="text/html" id="jingjiaTemplate">
     <%if (data.length>0) { %>
     <%for (var i=0;i<data.length;i++) { %>
+    <%if (i<6) { %>
     <div class="nn-shebei-item jingpai-new">
         <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
             <img src="<%=data[i].img%>" alt="" />
@@ -546,6 +547,29 @@ $(function() {
             </div>
         </a>
     </div>
+    <% } %>
+    <% } %>
+    <% } %>
+
+    <%if (data.length>6) { %>
+    <%for (var i=0;i<data.length;i++) { %>
+    <%if (i>5&&i<12) { %>
+    <div class="nn-shebei-item jingpai-new">
+        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+            <img src="<%=data[i].img%>" alt="" />
+            <h3 class="nn-shebei-title"><%=data[i].name%></h3>
+            <p class="nn-shebei-con"><%=data[i].note%></p>
+            <p class="nn-shebei-price">￥
+                <span class="shebei-price-num"><%=data[i].price%></span> /<%=data[i].unit%>
+            </p>
+            <div class="nn-jingpai-hover">
+                <div class="nn-jingpai-cir">
+                    去竞拍
+                </div>
+            </div>
+        </a>
+    </div>
+    <% } %>
     <% } %>
     <% } %>
 </script>
