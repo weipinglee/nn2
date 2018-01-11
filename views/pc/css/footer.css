@@ -87,13 +87,11 @@ a:hover {
     display: block;
     text-align: left;
     height: 25px;
-    color: #b1b1b1;
+    color: #888686;
     font-family: '微软雅黑';
     font-size: 12px;
 }
-#footer .footer_link ul li.footer_li a.fotter_a{
-    color: #b1b1b1;
-}
+
 #footer .footer_link ul li.footer_li a.fotter_div{
 	text-align: left;
 	padding-bottom:10px;
@@ -101,6 +99,7 @@ a:hover {
 }
 #footer .footer_link ul li.footer_li a:hover{
     text-decoration: none;
+    color:#004fda;
 }
 #footer .footer_link ul li.footer_li a.fotter_div b{
     color: #666;

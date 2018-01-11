@@ -124,8 +124,31 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
 		die($output);
 	 }
 
-     public function indexAction(){
-          die(\Library\json::encode(\Library\tool::getSuccInfo(1,'操作成功')));
+
+     public function indexAction()
+     {
+          die(\Library\json::encode(\Library\tool::getSuccInfo(1, '操作成功')));
+     }
+     /**
+      * 报盘热销排行榜
+      */
+     public function offerRankAction()
+     {
+          $query = new \Library\Query('product_offer as o');
+          $query->join = "left join products as p on o.product_id = p.id  ";
+          $query->fields = "o.*,p.img,p.name,p.note,p.unit,p.quantity,p.freeze,p.sell,p.produce_area,IF(p.quantity-p.sell-p.freeze>0,0,1) as jiao";
+
+          $query->where = ' o.status=:status and o.is_del = 0  and o.expire_time > now()';
+
+          $query->bind = array('status'=>1);
+          $query->order = 'o.sell_num desc';
+          $query->limit = 6;
+          $data = $query->find();
+          foreach ($data as $key => &$value) {
+               $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],180,180);//获取缩略图
+          }
+          die(\Library\json::encode($data));
+
      }
 
 

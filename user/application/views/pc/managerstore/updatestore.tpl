@@ -362,7 +362,7 @@
                                 <td>
                                     <div class="zhxi_con">
                                         <span class="input-file">选择文件<input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
-                                        <input type="hidden" name="imgfile2" value="{$detail['quality']}" datatype="*" nullmsg="请上传质检证书" />
+                                        <input type="hidden" name="imgfile2" value="{$detail['quality']}"  />
 
                                     </div>
                                    

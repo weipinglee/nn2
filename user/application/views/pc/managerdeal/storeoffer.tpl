@@ -69,6 +69,12 @@
                           
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="end_td">产品描述</td>
+                                            <td class="end_td" id="note">
+
+                                            </td>
+                                        </tr>
                                     </table>
                                     
                                 </td>
@@ -181,12 +187,13 @@
                                     <span></span>
                                 </td>
                                 </tr>
-                                                        <tr>
+                                 <tr>
                                     <td>补充条款：</td>
                                     <td colspan="2">
                                         <textarea name="other">{$offer['other']}</textarea>
                                     </td>
                                 </tr>
+
 
                         <tr>
                             <td></td>

@@ -25,6 +25,26 @@ $(function() {
     showIndexOffers('rexiaoTemplate','rexiaoBox',{$productData[2]['id']});
     {/if}
 
+    //异步获取排行榜报盘，获取6条
+    var offerPaihangUrl = '{url:/ajaxdata/offerRank}';
+    $.ajax({
+        type : 'post',
+        url : offerPaihangUrl,
+        async  : true,
+        dataType : 'json',
+        success : function(data){
+            // alert(JSON.stringify(data));
+            //console.log(data[0].name);
+            //data = JSON.parse(data);
+            if(data){
+                var offerList = template.render('paihangTemplate',{data:data});
+                $('#paihangBox').html(offerList);
+
+            }
+        }
+
+    })
+
     //异步获取最新资讯，默认获取10条
     var infoInterUrl = '{url:/ajaxdata/zixunData}';
     $.ajax({
@@ -48,6 +68,8 @@ $(function() {
         }
 
     })
+
+
 
 })
 </script>
@@ -201,19 +223,72 @@ $(function() {
 
 
                 </div>    
-                <div class="guanimg">{echo: \Library\Ad::show("首页1")}</div>
 
         <link rel="stylesheet" type="text/css" href="{views:css/index.css}" />
-<!--         <link rel="stylesheet" href="{views:css/swiper.min.css}" /> -->
+        <link rel="stylesheet" href="{views:css/swiper.min.css}" />
+        <script src="{views:js/swiper-3.4.2.jquery.min.js}"></script>
+        <script>
+            $(function(){
+                var swiper = new Swiper('.swiper-container', {
+                    pagination: '.swiper-pagination',
+                    paginationClickable: true,
+                    spaceBetween: 30,
+                    autoplay: 3000
+                });
+                $(".nn-shebei-item").hover(function(){
+                    $(this).find(".nn-jingpai-hover").fadeIn(200)
+                },function() {
+                    $(this).find(".nn-jingpai-hover").fadeOut(200)
+                })
+            })
+            
+        </script>
       <!--排行榜 拼眼力 设备 开始-->
         <div class="block-1">
-            <div class="containers clear" id="jingjiaBox">
+            <div class="containers clear" >
+                <div class="box nn-order">
+                    <div class="nn-order-hd">
+                        <a href="#">
+                            <h3 class="nn-order-title">排行榜</h3>
+                            <span class="nn-order-subtitle">产品热销排行榜</span>
+                        </a>
+                    </div>
+                    <div class="nn-order-bd">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper" id="paihangBox">
 
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box nn-shebei">
+                    <div class="nn-shebei-hd">
+                        <a href="#">
+                            <h3 class="nn-order-title">竞拍专区</h3>
+                            <span class="nn-order-subtitle">竞拍专区</span>
+                        </a>
+                    </div>
+
+                    <div class="nn-shebei-bd clear">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" id="jingjiaBox">
+
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </div>
         <!--排行榜 拼眼力 设备结束-->
         <div class="block-guanggao">
             <div class="containers">
+                {echo: \Library\Ad::show("首页1")}
                 <img src="{views:images/img_index/20160902152314953.png}" alt="" />
             </div>
         </div>
@@ -227,8 +302,8 @@ $(function() {
         <!--视频直播开始-->
         <div class="block-live">
             <div class="containers">
-                <div class="nn-live-hd">
-                    <h3 class="nn-live-title">耐耐直播</h3>
+                <div class="nn-live-hd nn-tile-hd">
+                    <h3 class="nn-live-title">—— 耐耐直播 ——</h3>
                     <span class="nn-live-subtitle">好产品实时观看</span>
                 </div>
                 <div class="nn-live-bd clear">
@@ -283,82 +358,10 @@ $(function() {
                         <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
                     </a>
                 </div>
-                <div class="nn-guess-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/c.jpg}" alt="" />
-                        <p class="nn-guess-title">耐火球 蓄热球</p>
-                        <p class="nn-guess-con"> 耐火球 直径15-60 含量65-85 厂家直销 没有中间商赚差价</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
-                <div class="nn-guess-item">
-                    <a href="#">
-                        <img src="{views:images/img_index/b.jpg}" alt="" />
-                        <p class="nn-guess-title">厂家直销耐火砖</p>
-                        <p class="nn-guess-con"> 高铝砖 粘土砖 轻质保温砖 耐火球等 微信同号 18736024977</p>
-                        <p class="nn-guess-price">￥ <span>1500.00/吨</span></p>
-                    </a>
-                </div>
+
             </div>
         </div>
         <!--猜你需要结束-->        
-        --
 
                 </div>
 
@@ -493,7 +496,7 @@ $(function() {
                 </div>
             </div>
             <div class="show_div">
-                  <a href="" class="fhdb_a" data="#toTop" rel="toTop">
+                  <a href="javascript:scroll(0,0)" class="fhdb_a" data="#toTop" rel="toTop">
                       <i class="left_iconfont " display="none"><img src="{views:images/floor_05.png}">返回顶部</i>
                       <em class="two_line" display="black"><img src="{views:images/floor_cur_05.png}">返回顶部</em>
                   </a>
@@ -526,76 +529,35 @@ $(function() {
 </script>
 
 <script type="text/html" id="jingjiaTemplate">
-    <div class="box nn-pinyanli">
-        <div class="nn-pinyanli-hd">
-            <a href="#">
-                <h3 class="nn-order-title">今日拍品</h3>
-                <span class="nn-order-subtitle">今日竞拍</span>
-            </a>
-        </div>
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <%if (data.length>0) { %>
-                    <%for (var i=0;i<data.length;i++) { %>
-                        <%if (i==0) { %>
-                        <div class="swiper-slide">
-                            <div class="new-icon" >
-                                <img src="<%=data[i].img%>" alt="" />
-                            </div>
-                            <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
-                                <img src="<%=data[i].img%>" alt="" />
-                                <p><%=data[i].name%></p>
-                            </a>
-                        </div>
-                        <% } %>
-                    <% } %>
-                <% } %>
+    <%if (data.length>0) { %>
+    <%for (var i=0;i<data.length;i++) { %>
+    <div class="nn-shebei-item jingpai-new">
+        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+            <img src="<%=data[i].img%>" alt="" />
+            <h3 class="nn-shebei-title"><%=data[i].name%></h3>
+            <p class="nn-shebei-con"><%=data[i].note%></p>
+            <p class="nn-shebei-price">￥
+                <span class="shebei-price-num"><%=data[i].price%></span> /<%=data[i].unit%>
+            </p>
+            <div class="nn-jingpai-hover">
+                <div class="nn-jingpai-cir">
+                    去竞拍
+                </div>
             </div>
-        </div>
+        </a>
     </div>
-    <div class="box nn-shebei">
-        <div class="nn-shebei-hd">
-            <a href="#">
-                <h3 class="nn-order-title">排行榜</h3>
-                <span class="nn-order-subtitle">产品热销排行榜</span>
-            </a>
-        </div>
-        <div class="nn-shebei-bd clear">
-            <%if (data.length>0) { %>
-                <%for (var i=0;i<data.length;i++) { %>
-                      <%if (i>0) { %>
-                          <div class="nn-shebei-item">
-                            <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
-
-                                <img src="<%=data[i].img%>" alt="" />
-                                <h3 class="nn-shebei-title"><%=data[i].name%></h3>
-                                <p class="nn-shebei-con"><%=data[i].note%></p>
-                                <p class="nn-shebei-price">￥
-                                    <span class="shebei-price-num"><%=data[i].price%></span> / <%=data[i].unit%>
-                                </p>
-                                <!-- <div class="nn-jingpai-hover">
-                                    <div class="nn-jingpai-cir">
-                                        去竞拍
-                                    </div>
-                                </div> -->
-                            </a>
-                        </div>
-                      <% } %>
-                 <% } %>
-            <% } %>
-
-        </div>
-    </div>
+    <% } %>
+    <% } %>
 </script>
 
 <script type="text/html" id="shebeiTemplate">
-    <div class="nn-live-hd">
-        <h3 class="nn-live-title">有好货</h3>
+    <div class="nn-live-hd nn-tile-hd">
+        <h3 class="nn-live-title">—— 有好货 ——</h3>
         <span class="nn-live-subtitle"></span>
     </div>
     <%if (data.length>0) { %>
         <%for (var i=0;i<data.length;i++) { %>
-            <div class="nn-guess-items">
+            <div class="nn-guess-item">
                 <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
                     <img src="<%=data[i].img%>" alt="" />
                     <p class="nn-guess-title"><%=data[i].name%></p>
@@ -608,8 +570,8 @@ $(function() {
 </script>
 
 <script type="text/html" id="rexiaoTemplate">
-    <div class="nn-live-hd">
-        <h3 class="nn-live-title">热销产品</h3>
+    <div class="nn-live-hd nn-tile-hd">
+        <h3 class="nn-live-title">—— 热销产品 ——</h3>
         <span class="nn-live-subtitle">热销产品</span>
     </div>
     <%if (data.length>0) { %>
@@ -625,3 +587,38 @@ $(function() {
         <% } %>
     <% } %>
 </script>
+
+<script type="text/html" id="paihangTemplate">
+    <div class="swiper-slide">
+        <%if (data.length>0) { %>
+        <%for (var i=0;i<data.length;i++) { %>
+        <div class="nn-order-item clear">
+            <a class="nn-order-link" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                <span class="nn-order-img">
+                    <img src="<%=data[i].img%>" alt="" />
+                </span>
+                <span class="nn-order-num order-<%=i+1%>"><%=i+1%></span>
+                <span class="nn-order-txt"><%=data[i].name%></span>
+            </a>
+        </div>
+        <% } %>
+        <% } %>
+    </div>
+    <div class="swiper-slide">
+        <%if (data.length>3) { %>
+        <%for (var i=0;i<data.length;i++) { %>
+        <div class="nn-order-item clear">
+            <a class="nn-order-link" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                <span class="nn-order-img">
+                    <img src="<%=data[i].img%>" alt="" />
+                </span>
+                <span class="nn-order-num order-slib"><%=i+4%></span>
+                <span class="nn-order-txt"><%=data[i].name%></span>
+            </a>
+        </div>
+        <% } %>
+        <% } %>
+    </div>
+</script>
+
+

@@ -54,6 +54,7 @@ $(document).ready(function(){
                 $('#cname').html(cate_text);
                 $('#create_time').html(data.create_time);
                 $('#unit').html(data.unit);
+                $('#note').html(data.note);
                 $('#quantity').html(data.quantity);
                 $('input[name="quantity"]').val(data.quantity);
                 $('#attrs').html(data.attrs);

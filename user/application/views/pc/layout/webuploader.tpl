@@ -21,6 +21,11 @@
             {/foreach}
         {/if}
     </ul>
+    <script type="text/javascript">
+        $('#filelist img').dblclick(function(){
+            $(this).parents('li').remove();
+        });
+    </script>
     <div class="btns">
         {set:$filesize = \Library\tool::getConfig(array('application','uploadsize'))}
         {if:!$filesize}
