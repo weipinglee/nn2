@@ -122,6 +122,8 @@ a{
 	border: 1px solid transparent;
 	text-align: center;
 	padding: 10px 20px;
+	height: 189px;
+    overflow: hidden;
 }
 .nn-shebei-item:hover{
 	/*border-color: #E74240;*/
