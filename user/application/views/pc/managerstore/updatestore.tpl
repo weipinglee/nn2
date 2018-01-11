@@ -291,7 +291,7 @@
                                 <td nowrap="nowrap"><span></span>租库价格：</td>
                                 <td colspan="2">
                                     <span>
-                                      <input name="store_price" class="text" value="{$detail['store_price']}" datatype="money" errormsg="请填写价格" type="text" />
+                                      <input name="store_price" class="text" value="{$detail['store_price']}" datatype="money|/^0?$/" errormsg="请填写价格" type="text" />
 
                                     </span>
                                     <span></span>

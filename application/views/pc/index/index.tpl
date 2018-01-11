@@ -592,6 +592,7 @@ $(function() {
     <div class="swiper-slide">
         <%if (data.length>0) { %>
         <%for (var i=0;i<data.length;i++) { %>
+        <%if (i<3) { %>
         <div class="nn-order-item clear">
             <a class="nn-order-link" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
                 <span class="nn-order-img">
@@ -603,10 +604,12 @@ $(function() {
         </div>
         <% } %>
         <% } %>
+        <% } %>
     </div>
     <div class="swiper-slide">
         <%if (data.length>3) { %>
         <%for (var i=0;i<data.length;i++) { %>
+        <%if (i>2&&i<6) { %>
         <div class="nn-order-item clear">
             <a class="nn-order-link" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
                 <span class="nn-order-img">
@@ -616,6 +619,7 @@ $(function() {
                 <span class="nn-order-txt"><%=data[i].name%></span>
             </a>
         </div>
+        <% } %>
         <% } %>
         <% } %>
     </div>

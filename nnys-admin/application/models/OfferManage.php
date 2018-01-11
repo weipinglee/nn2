@@ -145,7 +145,7 @@ class OfferManageModel extends \nainai\offer\product{
 		if(!($id = intval($id))) return tool::getSuccInfo(0,'参数错误');
 		$status = isset($status) ? intval($status) : 1;
 
-		$offerData = $this->offer->where(array('id'=>$id))->fields('user_id,acc_type,mode,offer_fee,status,product_id,type')->getObj();
+		$offerData = $this->offer->where(array('id'=>$id))->fields('user_id,acc_type,mode,sub_mode,offer_fee,status,product_id,type')->getObj();
 
 		if($offerData['status']!=self::OFFER_APPLY){
 			return tool::getSuccInfo(0,'该报盘已审核');
@@ -183,6 +183,16 @@ class OfferManageModel extends \nainai\offer\product{
 				$param = array('mode' => $offerData['mode'], 'offer_fee'=>$offerData['offer_fee'], 'status'=>$status);
 				$param['name'] = $this->offer->table('products')->where(array('id'=>$offerData['product_id']))->getField('name');
 				$param['type'] = $offerData['type'];
+				if($offerData['sub_mode']==1){
+					$param['mode_txt'] = '竞价报盘';
+				}
+				else if($offerData['sub_mode']==2){
+					$param['mode_txt'] = '抢购报盘';
+				}
+				else{
+					$param['mode_txt'] = $this->getMode($param['mode']);
+				}
+
 				$obj = new \nainai\message($offerData['user_id']);
 				$res = $obj->send('offer', $param);
 				if($status==self::OFFER_OK && $offerData['mode'] == self::FREE_OFFER){//审核通过增加信誉值
