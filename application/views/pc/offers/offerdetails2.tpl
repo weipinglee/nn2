@@ -184,7 +184,18 @@
                 <div class="product_details">
                     <p><span>产地：</span><b>{areatext:data=$data['produce_area']}</b></p>
                     <p><span>卖方：</span><b>{$user['company_name']}</b></p>
-                    <p><img src="{views:images/password/eye_b.png}" alt="" style="position: relative;top:5px; " /><a id='contract_review' target='_blank' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:#3fa5d9;">合同预览</a></p>
+                    <p><img src="{views:images/password/eye_b.png}" alt="" style="position: relative;top:5px; " />
+                        <a id='contract_review' target='_blank'
+                               href="
+                               {if:empty($orderData)}
+                                    {url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}
+                               {else:}
+                                    {url:/contract/contract?order_id=$orderData['id']@user}
+                               {/if}
+                               " style="color:#3fa5d9;">
+                            合同预览
+                        </a>
+                    </p>
                 </div>
                 <div class="offers_auction">
                     <div class="offers_top">

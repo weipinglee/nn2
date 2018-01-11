@@ -272,8 +272,14 @@ class OffersController extends PublicController {
 
 			//计算报盘的状态
 			$offerStatus = 0;
+			$orderData = array();
 			if($info['status']==6||$info['status']==7){
 				$offerStatus = 3;//已结束
+				//获取成交的订单号
+				$orderObj = new \Library\M('order_sell');
+				$orderData = $orderObj->where(array('offer_id'=>$id))->fields('id,user_id')->getObj();
+
+
 			}
 			elseif($info['status']==1){
 				if(time()>=\Library\time::getTime($info['start_time'])){//已开始
@@ -297,7 +303,7 @@ class OffersController extends PublicController {
 				}
 			}
 
-
+            $this->getView()->assign('orderData',$orderData);
 			$this->getView()->assign('offerStatus',$offerStatus);
 			$this->getView()->assign('data',$info);
 			$this->getView()->assign('user',$userData);
