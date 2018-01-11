@@ -1848,8 +1848,11 @@ a.close:hover {
 .div_flink ul li.li_txt a.li_a{
     padding: 0 15px;
     font-size: 14px;
-    color: #b1b1b1;
+    color: #888686;
     font-family: '微软雅黑';
+}
+.div_flink ul li.li_txt a.li_a:hover{
+    color: #004fda;
 }
 .div_flink ul li.li_l{
     width: 2px;

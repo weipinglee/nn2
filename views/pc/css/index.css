@@ -30,6 +30,7 @@ a{
 .block-1{
 	min-width: 1190px;
 	width: 100%;
+	margin-top:30px; 
 }
 
 .block-1 .box{
@@ -117,7 +118,7 @@ a{
 .nn-shebei-item{
 	position: relative;
 	float: left;
-	width: 153px;
+	width: 221px;
 	border: 1px solid transparent;
 	text-align: center;
 	padding: 10px 20px;
@@ -127,28 +128,31 @@ a{
 }
 .nn-shebei-item img{
 	width: 100%;
-	height: 90px;
+	height: 100px;
 }
 .nn-shebei-title{
 	font-weight: normal;
 	font-size: 15px;
-	margin-top:10px;
+	margin-top:5px;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	white-space:nowrap
 }
 .nn-shebei-con{
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	font-size: 14px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 .nn-shebei-price{
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	color: #c81623;
 	font-size: 14px;
 	font-weight: 900;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .nn-shebei-price .shebei-price-num{
 	font-weight: 900;
@@ -216,12 +220,17 @@ a{
 .block-live{
 	margin-top: 30px;
 }
+.nn-tile-hd{
+	text-align: center;
+    padding: 10px 0;
+    background: #ececec;
+    margin-bottom: 20px;
+}
 .nn-live-title{
-	display: inline-block;
-	font-size: 22px;
-	color: #222;
-	line-height: 44px;
-	font-weight: 400;
+    display: block;
+    font-size: 22px;
+    color: #222;
+    font-weight: 400;
 }
 .nn-live-subtitle{
 	font-size: 14px;
@@ -307,7 +316,7 @@ a{
 	margin-top: 35px;
 }
 .nn-hot-item{
-	width: 235px;
+	width: 176px;
 	padding: 30px;
 	border:1px solid transparent;
 	float: left;
