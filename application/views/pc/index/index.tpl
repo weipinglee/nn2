@@ -639,7 +639,7 @@ $(function() {
                 <span class="nn-order-img">
                     <img src="<%=data[i].img%>" alt="" />
                 </span>
-                <span class="nn-order-num order-slib"><%=i+4%></span>
+                <span class="nn-order-num order-slib"><%=i+1%></span>
                 <span class="nn-order-txt"><%=data[i].name%></span>
             </a>
         </div>
