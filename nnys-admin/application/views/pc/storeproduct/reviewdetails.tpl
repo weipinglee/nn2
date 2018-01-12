@@ -106,7 +106,7 @@
                      </td>
                      <th>商品说明</th>
                      <td>{$detail['note']}</td>
-                    <th>检测证书</th>
+                    <th>质检机构</th>
                     <td>{$detail['check_org']}</td>
              </tr>
              <tr>
