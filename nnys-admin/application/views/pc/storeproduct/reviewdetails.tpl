@@ -106,8 +106,8 @@
                      </td>
                      <th>商品说明</th>
                      <td>{$detail['note']}</td>
-                    <th></th>
-                    <td></td>
+                    <th>质检机构</th>
+                    <td>{$detail['check_org']}</td>
              </tr>
              <tr>
               <th>签字入库单</th>
@@ -116,8 +116,8 @@
                      <td>
                          {img:data=$detail['quality'] width=200 height=200}
                      </td>
-                     <th></th>
-                     <td></td>
+                     <th>质检证书编号</th>
+                     <td>{$detail['check_no']}</td>
                    
              </tr>
 

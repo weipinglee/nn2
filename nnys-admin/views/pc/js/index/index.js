@@ -4,7 +4,7 @@
  */
 
 
-    window.setInterval(getMsg, 1000);
+    window.setInterval(getMsg, 5000);
     var msgUrl = $('input[name=getMsgUrl]').val();
 
     //获取消息

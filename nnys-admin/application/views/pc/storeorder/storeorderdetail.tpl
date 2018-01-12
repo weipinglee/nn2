@@ -49,6 +49,20 @@
           </div>
           <div class="col-4"> </div>
       </div>
+      <div class="row cl">
+          <label class="form-label col-3"><span class="c-red">*</span>结算时间：</label>
+          <div class="formControls col-5">
+              {$info['jiesuan_time']}
+          </div>
+          <div class="col-4"> </div>
+      </div>
+      <div class="row cl">
+          <label class="form-label col-3"><span class="c-red">*</span>提货时间：</label>
+          <div class="formControls col-5">
+              {$info['out_time']}
+          </div>
+          <div class="col-4"> </div>
+      </div>
 
       <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>商品名：</label>
