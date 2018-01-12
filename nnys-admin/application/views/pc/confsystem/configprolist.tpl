@@ -22,7 +22,7 @@
 				<th>数量</th>
 				<th>挂牌价</th>
 				<th>状态</th>
-				<th>排序</th>
+				<th>排序(双击修改)</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -62,7 +62,7 @@
 				$(this).find('input').bind('blur',function(){
 					//更新排序值
 					var newValue = $(this).val();
-					if(newValue==value){
+					if(newValue==value||newValue==''){
 						_this.text(value);
 						return false;
 					}
