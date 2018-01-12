@@ -448,6 +448,18 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 		die(JSON::encode($res));
 	}
 
+	public function ajaxChgprosortAction(){
+		$offer_id = safe::filterPost('id','int');
+		$sort = safe::filterPost('sort','int');
+		$obj = new \Library\M('product_offer');
+		$res = $obj->where(array('id'=>$offer_id))->data(array('offer_sort'=>$sort))->update();
+		if($res){
+			die(JSON::encode(\Library\tool::getSuccInfo()));
+		}
+		else
+			die(JSON::encode(\Library\tool::getSuccInfo(0,'操作失败')));
+	}
+
 
 
 

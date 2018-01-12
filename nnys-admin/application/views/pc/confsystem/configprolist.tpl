@@ -22,7 +22,7 @@
 				<th>数量</th>
 				<th>挂牌价</th>
 				<th>状态</th>
-
+				<th>排序</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -37,6 +37,7 @@
 			<td>{$item['quantity']}</td>
 			<td>{$item['price']}</td>
 			<td>{$item['status_txt']}</td>
+			<td class="input">{$item['offer_sort']}</td>
 			<td class="td-manage">
 				<a title="查看" href="{url:trade/OfferManage/offerDetails?id=$item['id']&user=$item['username']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open fa-eye"></i></a>
 				<a title="删除" href="javascript:;" ajax_status=-1 ajax_url="{url:system/Confsystem/configproDel?proid=$item['id']&config_id=$config_id}" class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a></td>
@@ -51,6 +52,49 @@
 		{$data['bar']}
 	</div>
 </div>
+		<script type="text/javascript">
+			$('.input').dblclick(function(){
+				var chgUrl = '{url:system/confsystem/ajaxChgprosort}';
+				var value = $(this).text();
+				var offer_id = $(this).parent('tr').find('td:first-child').text();
+				var _this = $(this);
+				$(this).text('').append('<input type="text" style="width:60px;display:inline;text-align:center;" value="'+value+'"/> ');
+				$(this).find('input').bind('blur',function(){
+					//更新排序值
+					var newValue = $(this).val();
+					if(newValue==value){
+						_this.text(value);
+						return false;
+					}
+
+					$.ajax({
+						type : 'post',
+						url : chgUrl,
+						async  : true,
+						data : {sort:newValue,id:offer_id},
+						dataType : 'json',
+						success : function(data){
+							if(data){
+								if(data.success==1)
+								{
+									_this.text(newValue);
+								}
+								else{
+									_this.text(value);
+									layer.msg(data.info);
+								}
+							}
+						},
+						error : function(){
+							_this.text(value);
+						},
+						timeout: 3000
+					})
+				});
+			})
+
+			//$('')
+		</script>
 
 
 
