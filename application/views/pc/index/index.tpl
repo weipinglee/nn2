@@ -273,10 +273,8 @@ $(function() {
 
                     <div class="nn-shebei-bd clear">
                         <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide" id="jingjiaBox">
-
-                                </div>
+                            <div class="swiper-wrapper" id="jingjiaBox">
+                                
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
@@ -530,6 +528,7 @@ $(function() {
 
 <script type="text/html" id="jingjiaTemplate">
     <%if (data.length>0) { %>
+    <div class="swiper-slide" >                           
     <%for (var i=0;i<data.length;i++) { %>
     <%if (i<6) { %>
     <div class="nn-shebei-item jingpai-new">
@@ -549,9 +548,11 @@ $(function() {
     </div>
     <% } %>
     <% } %>
+    </div>
     <% } %>
 
     <%if (data.length>6) { %>
+     <div class="swiper-slide" >
     <%for (var i=0;i<data.length;i++) { %>
     <%if (i>5&&i<12) { %>
     <div class="nn-shebei-item jingpai-new">
@@ -571,6 +572,7 @@ $(function() {
     </div>
     <% } %>
     <% } %>
+    </div>
     <% } %>
 </script>
 
