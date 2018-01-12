@@ -27,6 +27,7 @@ class StoreDeliveryController extends DeliveryController{
 	public function storeFeesAction(){
 		$delivery_id = safe::filterPost('id','int');
 		$user_id = $this->user_id;
+
 		if($delivery_id){
 			$store = new \nainai\delivery\StoreDelivery();
 			$res = $store->payStoreFees($delivery_id,$user_id);
