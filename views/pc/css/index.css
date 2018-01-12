@@ -35,7 +35,7 @@ a{
 
 .block-1 .box{
 	width: 390px;
-	height: 450px;
+	height: 470px;
 	float: left;
 	margin: 0 10px 30px 0;
 }
@@ -62,7 +62,7 @@ a{
 	float: left;
 }
 .nn-order-img img{
-	height: 130px;
+	height: 140px;
 }
 .nn-order-num{
 	color: #666;
@@ -112,7 +112,7 @@ a{
 	font-size: 15px;
 }
 .swiper-container{
-	height: 400px;
+	height: 430px;
 }
 
 .nn-shebei-item{
@@ -172,6 +172,10 @@ a{
 	width: 100%;
 	height: 100%;
 }
+.nn-shebei-item:hover .nn-jingpai-hover{
+	display: block;
+}
+
 .nn-jingpai-hover{
 	position: absolute;
 	top: 0;
@@ -276,11 +280,13 @@ a{
 /*直播视频结束*/
 /*猜你需要开始*/
 .nn-guess-item{
-	width: 196px;
-	padding: 20px;
-	border:1px solid transparent;
-	float: left;
-	transition: all ease .3s;
+    width: 245px;
+    padding: 20px;
+    border: 1px solid transparent;
+    float: left;
+    transition: all ease .3s;
+    height: 237px;
+    overflow: hidden;
 }
 
 .nn-guess-item:hover{
@@ -322,6 +328,8 @@ a{
 	padding: 30px;
 	border:1px solid transparent;
 	float: left;
+	height: 242px;
+	overflow: hidden;
 }
 .nn-hot-item img{
 	width: 100%;
