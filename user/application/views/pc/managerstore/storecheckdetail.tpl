@@ -53,7 +53,7 @@
 
 							<div class="sj_detal">
 								<b class="sj_de_tit">结算日期：</b>
-								<span>&nbsp;{$info['now_time']}</span>
+								<span>&nbsp;{$info['jiesuan_time']}</span>
 							</div>
 
 							<div class="sj_detal">
