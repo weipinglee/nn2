@@ -26,7 +26,7 @@ $(function() {
     {/if}
 
     //异步获取排行榜报盘，获取6条
-    var offerPaihangUrl = '{url:/ajaxdata/offerRank}';
+    var offerPaihangUrl = '{url:/ajaxdata/offerRank@deal}';
     $.ajax({
         type : 'post',
         url : offerPaihangUrl,
