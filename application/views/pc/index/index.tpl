@@ -233,6 +233,8 @@ $(function() {
                     pagination: '.swiper-pagination',
                     paginationClickable: true,
                     spaceBetween: 30,
+                    observer:true,
+                    observeParents:true,
                     autoplay: 3000
                 });
                 $(".nn-shebei-item").hover(function(){
