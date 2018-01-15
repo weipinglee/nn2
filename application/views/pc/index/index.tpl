@@ -289,7 +289,7 @@ $(function() {
         <div class="block-guanggao">
             <div class="containers">
                 {echo: \Library\Ad::show("首页1")}
-                <img src="{views:images/img_index/20160902152314953.png}" alt="" />
+               <!--  <img src="{views:images/img_index/20160902152314953.png}" alt="" /> -->
             </div>
         </div>
         <!--光学仪器-->
