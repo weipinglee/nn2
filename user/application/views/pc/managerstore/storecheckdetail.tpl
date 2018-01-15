@@ -47,7 +47,7 @@
 								<span>&nbsp;{$info['in_time']}</span>
 							</div>
 							<div class="sj_detal">
-								<b class="sj_de_tit">提货日期：</b>
+								<b class="sj_de_tit">出库日期：</b>
 								<span>&nbsp;{$info['out_time']}</span>
 							</div>
 
