@@ -38,7 +38,7 @@
 
                 <div class="jiaoyi_num"><a href="{url:/ping}">交易数据</a></div>
 
-                <input type="hidden" name="attr_url" value="{url:/AjaxData/ajaxGetCategory}"  />
+                <input type="hidden" name="attr_url" value="{url:/AjaxData/ajaxGetCategory@deal}"  />
                <input type="hidden" name="sort" value="default" />
                 <input type="hidden" name="img_url" value="{views:}"  />
             <div class="class_jy tlist_100" id="offer_type">
