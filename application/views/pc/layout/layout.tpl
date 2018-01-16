@@ -93,6 +93,18 @@ z-index:1000;">
 <![endif]-->
 
 <!------------------公用头部控件 开始-------------------->
+<style type="text/css">
+    .top_fixed{
+        position: fixed;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 300;
+    }
+</style>
+<div class="top_fixed">
 <div class="bg_topnav">
     <div class="topnav_width">
         <div class="topnav_left">
@@ -260,6 +272,8 @@ z-index:1000;">
 	   </ul>
     </div>
 </div>
+</div>
+<div style="height: 156px"></div>
 
   <!-- 分类开始 -->
 
