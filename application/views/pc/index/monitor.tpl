@@ -26,9 +26,9 @@ $(function(){
                 <h3><a href="{url:/index/monitorvideo}">东大1号仓库</a></h3>
                 <p><b>地址：山西省阳泉市郊区西南舁乡东南舁村</b></p>
                 <p><b>面积：45亩</b></p>
-                <p style="height: 20px;"></p>
+                <!-- <p style="height: 20px;"></p>
                 <p><b>登录监控用户名：demo</b></p>
-                <p><b>监控密码：demo8888</b></p>
+                <p><b>监控密码：demo8888</b></p> -->
             </div>
         </div>
         <div class="modular_infor">
