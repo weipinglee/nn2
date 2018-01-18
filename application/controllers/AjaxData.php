@@ -126,8 +126,8 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
 
 
 
-     public function indexAction(){
-          die(\Library\json::encode(\Library\tool::getSuccInfo(1,'操作成功')));
+     public function healthAction(){
+          die(\Library\json::encode(array('status'=>'UP','info'=>'SUCCESS')));
 	 }
 
      /**

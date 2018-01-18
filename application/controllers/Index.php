@@ -182,4 +182,7 @@ class IndexController extends PublicController {
     public function monitorAction(){
          $this->getView()->assign('cur','storage');
     }
+    public function monitorvideoAction(){
+         $this->getView()->assign('cur','storage');
+    }
 }
