@@ -30,7 +30,7 @@
                  <th>交易方式</th>
                  <td>{$info['type_txt']}</td>
                  <th>报盘类型</th>
-                 <td>{$info['mode_txt']}</td>
+                 <td>{if:$info['submode_txt']==''}{$info['mode_txt']}{else:}{$info['submode_txt']}{/if}</td>
                  <th>报盘费率</th>
                  <td>
                  {if: $info['mode'] == \nainai\offer\product::DEPUTE_OFFER}
@@ -42,7 +42,7 @@
              </tr>
              <tr>
                  <th>商品名称</th>
-                 <td>{$info['product_name']}</td>
+                 <td>{if:$info['pro_name']!=''}{$info['pro_name']}{else:}{$info['product_name']}{/if}</td>
                  <th>商品产地</th>
                  <td id="area">{areatext: data=$info['produce_area'] id=area}</td>
                  <th>记重方式</th>
@@ -89,6 +89,34 @@
 
 
              </tr>
+             {if:$info['sub_mode']>0}
+                 <tr>
+                     <th>开始时间</th>
+                     <td>{$info['start_time']}</td>
+
+
+                     <th>结束时间</th>
+                     <td>{$info['end_time']}</td>
+                     <th></th>
+                     <td></td>
+
+
+                 </tr>
+             {/if}
+             {if:$info['sub_mode']==1}
+                 <tr>
+                     <th>最低价格</th>
+                     <td>{$info['price_l']}</td>
+
+
+                     <th>最高价格</th>
+                     <td>{if:$info['price_r']>0}{$info['price_r']}{else:}不限{/if}</td>
+                     <th>递增价格</th>
+                     <td>{$info['jing_stepprice']}</td>
+
+
+                 </tr>
+             {/if}
              {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
              <tr>
                  <th>可否拆分</th>
@@ -108,11 +136,11 @@
              {/if}
              <tr>
                  <th>报盘数量</th>
-                 <td>{$info['quantity']}</td>
-                 <th>冻结数量</th>
-                 <td>{$info['freeze']}</td>
+                 <td>{$info['max_num']}</td>
                  <th>已售数量</th>
-                 <td>{$info['sell']}</td>
+                 <td>{$info['sell_num']}</td>
+                 <th></th>
+                 <td></td>
              </tr>
             <tr>
 

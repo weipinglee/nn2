@@ -86,7 +86,7 @@
                  {if: $detail['package'] == 1}
              <tr>
                  <th>包装重量</th>
-                 <td>   {$detail['package_weight']} ({$detail['package_unit']} )</td>
+                 <td>   {$detail['package_weight']} ({$detail['package_units']} )</td>
                  <th>包装数量:</th>
                  <td>   {$detail['package_num']} </td>
                  <th>包装单位</th>

@@ -122,6 +122,7 @@ class OfferManageModel extends \nainai\offer\product{
 			$info['type_txt'] = $this->getType($info['type']);
 			$info['mode_txt'] = $this->getMode($info['mode']);
 			$info['mode_txt'] = $info['mode_txt'] == '未知' ? '--' : $info['mode_txt'];
+			$info['submode_txt'] = $this->getSubmode($info['sub_mode']);
 			$info['status_txt'] = $this->getStatus($info['status']);
 			$product = $this->getProductDetails($info['product_id']);
 
