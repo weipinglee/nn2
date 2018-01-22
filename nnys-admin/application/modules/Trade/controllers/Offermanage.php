@@ -84,19 +84,20 @@ class OffermanageController extends Yaf\Controller_Abstract{
 
 
 	//审核详情
-	public function reviewDetailsAction(){
+	public function reviewDetailsAction()
+	{
 		$id = intval($this->_request->getParam('id'));
 		$user = $this->_request->getParam('user');//委托人
 		$info = $this->offer->getofferDetail($id);
 		$obj = new \Library\M('user');
-		$info['user'] = $user ? $user  : $obj->where(array('id'=>$info['user_id']))->getField('username');
+		$info['user'] = $user ? $user : $obj->where(array('id' => $info['user_id']))->getField('username');
 		if ($info['insurance'] == 1 && $info['risk']) {
 			$risk = new \nainai\insurance\Risk();
 			$riskData = $risk->getRiskDetail($info['risk']);
-			$this->getView()->assign('riskData',$riskData);
+			$this->getView()->assign('riskData', $riskData);
 		}
-		
-		$this->getView()->assign('info',$info);
+
+		$this->getView()->assign('info', $info);
 	}
 
 	//设置审核状态

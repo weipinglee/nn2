@@ -194,6 +194,12 @@
                                 <td>补充条款</td>
                                 <td>{$offer['other']}</td>
                             </tr>
+                           {if:$offer['sign']}
+                           <tr>
+                               <td>签字单</td>
+                               <td><a href="{$offer['sign']}" >查看</a></td>
+                           </tr>
+                           {/if}
                             <tr>
                                 <td>产品图片</td>
                                 <td>

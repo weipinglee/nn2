@@ -10,7 +10,13 @@
 			<form method="post" action="{url:/Order/verifyQaulity}" auto_submit redirect_url="{url:/contract/buyerlist}">
 				<input type="hidden" name="order_id" value="{$order_id}"/>
 				<div class="zhxi_con">
-					<span class="con_tit"><i></i>定金数额：</span>
+					<span class="con_tit"><i></i>
+						{if:$order['pay_retainage']>0}
+						定金数额：
+						{else:}
+						全款数额：
+						{/if}
+					</span>
 					<span><input class="text" type="text"  disabled="disabled" value="{$max_reduce}" style="border:none;" /></span>
 					<span></span>
 				</div>
@@ -26,7 +32,9 @@
 
 				</div>
 				<div class="zhxi_con">
-					<span class="con_tit"><i></i>扣减金额需小于定金数额</span>
+					<span class="con_tit"><i></i>扣减金额需小于{if:$order['pay_retainage']>0}定金数额：
+						{else:}全款数额：
+						{/if}</span>
 					<span></span>
 					<span></span>
 				

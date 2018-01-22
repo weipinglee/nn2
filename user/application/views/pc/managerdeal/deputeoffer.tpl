@@ -70,13 +70,13 @@
                                 <td>
                                     <span>
 
-                                        <div>请您下载<a href="{root:down/耐耐网委托报盘协议书.docx}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传
+                                        <div>请您下载<a href="{root:down/耐耐网委托报盘协议书.docx}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传(pdf格式)
 
                                          </div>
                                        <div class="zhxi_con">
 
                                            <div>
-                                               <input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" />
+                                               <input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this,'{url:/ucenter/uploadFile}')" />
 
                                            </div>
                                            <div  >

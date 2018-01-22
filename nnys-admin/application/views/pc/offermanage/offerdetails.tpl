@@ -148,7 +148,7 @@
                  {/if}
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
-                     <td><img src="{$info['sign_thumb']}" /></td>
+                     <td><a href="{$info['sign_thumb']}" >[查看]</a></td>
                  {else:}
                      <th></th>
                      <td></td>

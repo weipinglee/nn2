@@ -115,6 +115,7 @@ class OrderController extends UcenterBaseController{
 	public function verifyQaulityPageAction(){
 		$order_id = safe::filter($this->_request->getParam('order_id'),'int',0);	
 		$order_info = $this->order->orderInfo($order_id);
+		$this->getView()->assign('order',$order_info);
 		$this->getView()->assign('max_reduce',$order_info['pay_deposit']);
 		$this->getView()->assign('order_id',$order_id);
 	}

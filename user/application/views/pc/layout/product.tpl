@@ -120,6 +120,11 @@
                         {/foreach}
                     {/if}
                 </ul>
+                <script type="text/javascript">
+                    $('#filelist img').dblclick(function(){
+                        $(this).parents('li').remove();
+                    });
+                </script>
                 <div class="btns">
                 {set:$filesize = \Library\tool::getConfig(array('application','uploadsize'))}
                     {if:!$filesize}
@@ -185,10 +190,10 @@
     <td colspan="2">
         <span>
             <select name="weight_type">
-                <option value="理论值">理论值</option>
-                <option value="过磅">过磅</option>
-                <option value="轨道衡">轨道衡</option>
-                <option value="吃水">吃水</option>
+                <option value="理论值" {if:$offer['weight_type']=="理论值"}selected="true"{/if}>理论值</option>
+                <option value="过磅" {if:$offer['weight_type']=="过磅"}selected="true"{/if} >过磅</option>
+                <option value="轨道衡" {if:$offer['weight_type']=="轨道衡"}selected="true"{/if} >轨道衡</option>
+                <option value="吃水" {if:$offer['weight_type']=="吃水"}selected="true"{/if} >吃水</option>
             </select>
         </span>
         <span></span>

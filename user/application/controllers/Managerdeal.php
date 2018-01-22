@@ -291,7 +291,9 @@ class ManagerDealController extends UcenterBaseController {
             $token = safe::filterPost('token');
             if(!safe::checkToken($token))
                  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
+            $offer_id = safe::filterPost('offer_id','int',0);
             $res = $this->offerCheck();
+
             if($res !== true) die($res);
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
@@ -319,7 +321,7 @@ class ManagerDealController extends UcenterBaseController {
             if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
                 $offerData['minimum'] = $productData[0]['quantity'];
             }
-            $res = $deputeObj->doOffer($productData,$offerData);
+            $res = $deputeObj->doOffer($productData,$offerData,$offer_id);
 
             echo json::encode($res);
             exit;
@@ -696,7 +698,9 @@ class ManagerDealController extends UcenterBaseController {
                 $riskData = $risk->getRiskDetail($offerDetail[0]['risk']);
                 $this->getView()->assign('riskData',$riskData);
             }
-
+            if(isset($offerDetail[0]['sign'])&&$offerDetail[0]['sign']){
+                $offerDetail[0]['sign'] = \Library\thumb::getOrigImg($offerDetail[0]['sign']);
+            }
             if($offerDetail[0]['status'] == $productModel::OFFER_NG){
                 if($offerDetail[0]['mode'] == $productModel::DEPOSIT_OFFER)
                     $updateUrl = url::createUrl('/managerdeal/updatedepositeoffer?id='.$offerDetail[0]['id']);

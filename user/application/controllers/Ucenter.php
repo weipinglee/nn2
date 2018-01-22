@@ -203,6 +203,28 @@ class UcenterController extends UcenterBaseController {
         return false;
     }
 
+    public function uploadFileAction(){
+        //调用文件上传类
+        $photoObj = new \Library\upload\commonUpload();
+        $photoObj->setallowType(array('pdf'));
+        $photo = current($photoObj->upload());
+
+        if($photo['flag'] == 1)
+        {
+            $result = array(
+                'flag'=> 1,
+                'img' => $photo['src'],
+            );
+        }
+        else
+        {
+            $result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
+        }
+        echo json::encode($result);
+
+        return false;
+    }
+
     /**
      * 修改用户信息
      */

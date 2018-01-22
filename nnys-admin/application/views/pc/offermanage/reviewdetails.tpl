@@ -23,14 +23,13 @@
                  <td>{$info['user']}</td>
                  <th>状态</th>
                  <td>{$info['status_txt']}</td>
-                 <th></th>
-                 <td></td>
-             </tr>
-             <tr>
                  <th>交易方式</th>
                  <td>{$info['type_txt']}</td>
+             </tr>
+             <tr>
                  <th>报盘类型</th>
-                 <td>{if:$info['submode_txt']==''}{$info['mode_txt']}{else:}{$info['submode_txt']}{/if}</td>
+                 <td>{$info['mode_txt']}</td>
+
                  <th>报盘费率</th>
                  <td>
                  {if: $info['mode'] == \nainai\offer\product::DEPUTE_OFFER}
@@ -39,6 +38,8 @@
                     {$info['offer_fee']}
                 {/if}
                     </td>
+                 <th>子报盘类型</th>
+                 <td>{$info['submode_txt']}{if:$info['old_offer']>0}<a href="{url:trade/offerManage/offerdetails?id=$info['old_offer']&user=$info['user']}">[查看原报盘]</a>{/if}</td>
              </tr>
              <tr>
                  <th>商品名称</th>
@@ -155,7 +156,7 @@
                  {/if}
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
-                     <td><img src="{$info['sign_thumb']}" /></td>
+                     <td><a href="{$info['sign_thumb']}" >[查看]</a></td>
                  {else:}
                      <th></th>
                      <td></td>

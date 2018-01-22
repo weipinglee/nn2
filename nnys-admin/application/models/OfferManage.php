@@ -126,7 +126,7 @@ class OfferManageModel extends \nainai\offer\product{
 			$info['status_txt'] = $this->getStatus($info['status']);
 			$product = $this->getProductDetails($info['product_id']);
 
-			$info['sign_thumb'] = \Library\thumb::get($info['sign'],150,150);
+			$info['sign_thumb'] = \Library\thumb::getOrigImg($info['sign']);
 			$info = array_merge($info,$product);
 			if ($info['mode'] == \nainai\offer\product::DEPUTE_OFFER) {
 				$Obj = new \nainai\system\EntrustSetting();
