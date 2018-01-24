@@ -24,6 +24,7 @@
 				<th width="100">卖方名称</th>
 				<th width="100">交易方式</th>
 				<th width="100">报盘方式</th>
+				<th width="100">子报盘方式</th>
 				<th width="100">成交数量</th>
 				<th width="100">合同金额</th>
 				<th width="100">质量扣款金额</th>
@@ -43,6 +44,7 @@
 				<td>{$item['buyer_name']}</td>
 				<td>{$item['seller_name']}</td>
 				<td>{$item['mode_txt']}</td>
+				<td>{$item['submode_txt']}</td>
 				<td>{$item['type_txt']}</td>
 				<td>{$item['num']}{$item['unit']}</td>
 				<td>{$item['amount']}</td>
