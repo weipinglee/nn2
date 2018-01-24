@@ -15,13 +15,13 @@
 	    </style>
 	    <div class="body_div">
 		<video id="myPlayer" poster="" controls playsInline webkit-playsinline autoplay>
-		    <source src="rtmp://rtmp.open.ys7.com/openlive/37c80b5701de4733be12d22c8df45fc5.hd" type="" />
-		    <source src="http://hls.open.ys7.com/openlive/37c80b5701de4733be12d22c8df45fc5.hd.m3u8" type="application/x-mpegURL" />
+		    <source src="rtmp://rtmp.open.ys7.com/openlive/b215f23c894c4ffe806f9d798241a86e" type="" />
+		    <source src="http://hls.open.ys7.com/openlive/b215f23c894c4ffe806f9d798241a86e.m3u8" type="application/x-mpegURL" />
 		
 		</video>
 		<div class="video_a">
 			<p><b>切换频道</b></p>
-			<a href="{url:/index/monitorvideo2}">东南舁2</a><a href="{url:/index/monitorvideo3}">东南舁3</a>
+			<a href="{url:/index/monitorvideo}">东南舁1</a><a href="{url:/index/monitorvideo2}">东南舁2</a>
 			</div>
 		</div>
 		<script>
