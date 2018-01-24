@@ -71,7 +71,18 @@ class bidController extends PublicController {
 		$this->getView()->assign('tbList',$tbList['list']);
 	}
 
-
+	public function bidIndexAction()
+	{
+		$this->getView()->assign('cur','bidIndex');
+	}
+	public function bidHallAction()
+	{
+		$this->getView()->assign('cur','bidIndex');
+	}
+	public function bidDetailsAction()
+	{
+		$this->getView()->assign('cur','bidIndex');
+	}
 
 
 
