@@ -43,9 +43,9 @@
 				<td>{$item['product_name']}</td>
 				<td>{$item['buyer_name']}</td>
 				<td>{$item['seller_name']}</td>
+				<td>{$item['type_txt']}</td>
 				<td>{$item['mode_txt']}</td>
 				<td>{$item['submode_txt']}</td>
-				<td>{$item['type_txt']}</td>
 				<td>{$item['num']}{$item['unit']}</td>
 				<td>{$item['amount']}</td>
 				<td>{$item['reduce_amount']}</td>
