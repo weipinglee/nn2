@@ -65,6 +65,7 @@
 }
 .main_bid .bid_jahc .jahc_a{
 	padding: 6px 20px;
+	border:1px solid #efefef;
     background: -webkit-linear-gradient(#efefef, #f9f9f9,#f9f9f9,#efefef);
     background: -o-linear-gradient(#efefef, #f9f9f9,#f9f9f9,#efefef);
     background: -moz-linear-gradient(#efefef, #f9f9f9,#f9f9f9,#efefef);
