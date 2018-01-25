@@ -70,7 +70,7 @@
                                 <td>
                                     <span>
 
-                                        <div>请您下载<a href="{root:down/耐耐网委托报盘协议书.docx}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传(pdf格式)
+                                        <div>请您下载<a href="{root:down/耐耐网委拖协议书.pdf}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传(pdf格式)
 
                                          </div>
                                        <div class="zhxi_con">
