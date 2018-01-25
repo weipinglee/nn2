@@ -84,7 +84,7 @@
                                             {$data['amount']}
                                         </span>   
                                 </td>
-                                {if:$data['type'] == 0}
+                                {if:$data['weituo']['type'] == 0}
                                  <td style="background-color: #F7F7F7;" width="100px">委托金比例</td>
                                 <td colspan="1" width="">
                                         <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;"></span>
@@ -97,7 +97,7 @@
                                 <td colspan="1" width="">
                                         <span class="orange price02" style="font-size:18px; text-decoration: none; list-style: none;">￥</span>
                                         <span class="orange" style="font-size:18px; text-decoration: none; list-style: none;" id="b_o_q">
-                                            {$data['seller_deposit']}
+                                            {$data['weituo']['amount']}
                                         </span>   
                                 </td>
                               </tr>
@@ -144,7 +144,7 @@
                            <input type="hidden" name="order_id" value="{$data['id']}" />
                            <input type="hidden" name="payment" value="1" />
                            <div class="pay_bton">
-                               <h5>待支付金额：<i>{$data['seller_deposit']}</i>元</h5>
+                               <h5>待支付金额：<i>{$data['weituo']['amount']}</i>元</h5>
                                <input class="submit_bzj" type="submit" value="立即缴纳委托金" />
                                <a href="{url:/deposit/entrustAlipay?order_id=$data['id']@user}" class="alipay" style='font-size: 16px;width:120px;height: 35px;line-height: 35px;margin: 0;display: none'>立即缴纳委托金</a>
                            </div>
