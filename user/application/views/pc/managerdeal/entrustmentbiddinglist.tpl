@@ -89,7 +89,7 @@
 					<td colspan="6">审核结果：</td>
 				</tr>
 				<tr class="jjsp_info">
-					<td colspan="6">审核结果：</td>
+					<td colspan="6">审核意见：</td>
 				</tr>
 			</table>
 			<div class="but_div"><input class="but_sub" type="submit" name="" value="提交"></div>
