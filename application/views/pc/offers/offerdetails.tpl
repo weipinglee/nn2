@@ -29,6 +29,7 @@
                         </li>
                         <li> 产地：<i><span id="areatext">{areatext:data=$data['produce_area'] id=areatext }</span></i></li>
                         <li>卖方：<i>{$user['company_name']}</i></li>
+                        <li>信用评级：<i>sss</i></li>
                         <li>发布时间：<i>{$data['apply_time']}</i></li>
                         <li>截止时间：<i>{$data['expire_time']}</i></li>
                     </ul>

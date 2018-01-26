@@ -22,7 +22,7 @@ a{
  	cursor: pointer;
  	text-decoration: none;
 	color:#666;
-    font-family: 微软雅黑;
+    font-family: '微软雅黑';
 }
 a:hover{
   text-decoration: none;
@@ -2401,3 +2401,60 @@ cursor: pointer;
 }
 
 .colblue{color: #0088cc;}
+
+
+/*委托竞价表*/
+.tbidding_table table{
+  width: 80%;
+  margin: auto;
+}
+.tbidding_table table tr th{
+   border: 1px solid #797777;
+   font-size: 18px;
+   padding:5px;
+}
+.tbidding_table table tr td{
+  border: 1px solid #797777;
+  padding: 0px 10px;
+  height:38px;
+}
+.tbidding_table table tr td input.text-input{
+  width: 100%;
+  border: 0px;
+  padding: 10px 0px;
+  outline:none;
+}
+.tbidding_table table .jjsp_info td{
+  text-align: left;
+}
+.jjsp_bz{
+  text-align: left;
+position: relative;
+}
+.jjsp_bz .textare_bz{
+    width: 100%;
+  border: 0px;
+  height: 150px;
+  padding: 10px 0px;
+outline: none;
+color: #777;
+}
+.tex_div_bz{
+ margin: 10px;
+ text-align: right;
+}
+
+.tex_div_bz .tex_span input{
+  width: 100px;
+  border: 0px;
+  outline: none;
+}
+
+.but_div .but_sub{
+  width: 150px;
+  height: 35px;
+  border: 0px;
+  background: rgb(214, 21, 21);
+  color: #fff;
+  margin: 10px;
+}

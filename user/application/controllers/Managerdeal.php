@@ -978,5 +978,8 @@ class ManagerDealController extends UcenterBaseController {
             $this->getView()->assign('offer',$offer);
         }
     }
+     public function entrustmentbiddingListAction()
+    {//委托竞价表
+    }
 
 }

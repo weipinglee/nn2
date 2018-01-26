@@ -89,6 +89,27 @@
             </div>
 
             {/if}
+            <div class="class_jy" id="level1">
+                <span class="jy_title">市场分类：</span>
+                <ul>
+                    <li value="0"  class="a_choose" ><a title="cate">不限</a></li>
+                     
+                    <li value="" ><a id="free_market" title="cate">自由市场</a></li>
+                    <li value="" ><a id="sincerity_market" title="cate">诚信市场</a></li>
+                    
+                </ul>
+            </div>
+            <script type="text/javascript">
+              /*诚信市场和自由市场弹框提示*/
+                $(function(){
+                  $("#free_market").click(function(){
+                    alert("自由有风险，交易需谨慎。");
+                  })
+                  $("#sincerity_market").click(function(){
+                    alert("诚信有保障，交易更安全。");
+                  })
+                })
+            </script>
         </div>
                <script  type='text/html' id='cateTemplate'>
                    <div class="class_jy" id="level1" >

@@ -51,6 +51,10 @@
 								<span>&nbsp;{$info['buyer_name']}</span>
 							</div>
 							<div class="sj_detal">
+								<b class="sj_de_tit">信用评级：</b>
+								<span>&nbsp;sss</span>
+							</div>
+							<div class="sj_detal">
 								<b class="sj_de_tit">联系电话：</b>
 								<span>&nbsp;{$info['buyer_phone']}</span>
 							</div>
