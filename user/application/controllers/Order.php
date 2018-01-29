@@ -35,10 +35,15 @@ class OrderController extends UcenterBaseController{
 			$type = safe::filterPost('payment');//线上or线下
 			$account = safe::filterPost('account');//支付方式
 			$proof = safe::filterPost('imgproof');
-			
+			$orderInfo = $this->order->orderInfo($order_id);
 			$user_id = $this->user_id;
-
-			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof,$account);
+            if(isset($orderInfo['mode']) && $orderInfo['mode']==1){
+				$orderObj = $this->free;
+			}
+			else{
+				$orderObj = $this->order;
+			}
+			$res = $orderObj->buyerRetainage($order_id,$user_id,$type,$proof,$account);
 
 			if($res['success'] == 1){
 				$title = $type == 'offline' ? '已上传支付凭证' : '已支付尾款';
@@ -63,7 +68,8 @@ class OrderController extends UcenterBaseController{
 
 			$data['seller'] = $seller;
 
-			$this->getView()->assign('show_online',in_array($data['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0);
+			$this->getView()->assign('show_online',in_array($data['mode'],array(\nainai\order\Order::ORDER_FREE,\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0);
+			$this->getView()->assign('hide_offline',in_array($data['mode'],array(\nainai\order\Order::ORDER_FREE)));
 			$this->getView()->assign('total_amount',$data['mode'] == \nainai\order\Order::ORDER_FREE ? 1 : 0);
 			$this->getView()->assign('bankinfo',$bankinfo);
 			$this->getView()->assign('data',$data);
