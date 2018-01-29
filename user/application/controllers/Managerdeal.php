@@ -945,7 +945,7 @@ class ManagerDealController extends UcenterBaseController {
         }
         else{
             $proObj = new ProductModel();
-            $offer = $proObj->getOkoffer($this->user_id,array(2,4));
+            $offer = $proObj->getOkoffer($this->user_id,array(1,2,4));
 
             $this->getView()->assign('offer',$offer);
         }
