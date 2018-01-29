@@ -117,6 +117,26 @@ class OrderController extends UcenterBaseController{
 		die(json::encode($res));
 	}
 
+	//确认线上已支付页面
+	public function confirmPayPageAction(){
+		$order_id = intval($this->_request->getParam('order_id'));
+		$info = $this->order->contractDetail($order_id);
+
+		$info['show_deposit'] = in_array($info['mode'],nainai\order\Order::ORDER_DEPOSIT,nainai\order\Order::ORDER_STORE) ? 1 : 0;
+		$info['pay_retainage'] = $info['amount'] - $info['pay_deposit'];
+		$info['is_free'] = 1;
+		$this->getView()->assign('data',$info);
+	}
+
+	//确认线上已支付
+	public function confirmPayAction()
+	{
+		$order_id = safe::filterPost('order_id','int');
+		$user_id = $this->user_id;
+		$res = $this->free->confirmPay($order_id,$user_id);
+		die(json::encode($res));
+	}
+
 	//扣减货款页面
 	public function verifyQaulityPageAction(){
 		$order_id = safe::filter($this->_request->getParam('order_id'),'int',0);	
