@@ -30,7 +30,7 @@
                     </tr>
                     <tr style="height:35px">
                         <td style="padding:0 10px;" width="110px">买方（乙方）</td>
-                        <td style="padding:0 10px;" width="110px">{$info['buyer_name']}</td>
+                        <td style="padding:0 10px;" width="110px">{if:$info['seller_name']!=$info['buyer_name']}{$info['buyer_name']}{/if}</td>
                         <td style="padding:0 10px; " width="110px">签约时间</td>
                         <td style="padding:0 10px;" width="110px">{$info['create_time']}</td>
                     </tr>
