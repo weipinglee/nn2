@@ -46,6 +46,18 @@
 
                     </tr>
                     <tr>
+                        <td nowrap="nowrap"><span></span>竞价类型：</td>
+                        <td colspan="2">
+                            <span>
+                                  <label><input type="radio" name="jingjia_mode" value="0" checked="true"/>场外竞价</label>
+                                  <label><input type="radio" name="jingjia_mode" value="1" />场内竞价</label>
+                            </span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
                         <td nowrap="nowrap"><span></span>选择报盘：</td>
                         <td colspan="2">
                             <span>

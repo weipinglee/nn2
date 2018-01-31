@@ -39,7 +39,20 @@
                 {/if}
                     </td>
                  <th>子报盘类型</th>
-                 <td>{$info['submode_txt']}{if:$info['old_offer']>0}<a href="{url:trade/offerManage/offerdetails?id=$info['old_offer']&user=$info['user']}">[查看原报盘]</a>{/if}</td>
+                 <td>{$info['submode_txt']}
+                     {if:$info['sub_mode']==1}
+                      -
+                      {if:$info['jingjia_mode']==1}
+                       场内竞价[口令：{$info['jingjia_pass']}]
+                      {else:}
+                       场外竞价
+                      {/if}
+                     {/if}
+                     {if:$info['old_offer']>0}
+                     <a href="{url:trade/offerManage/offerdetails?id=$info['old_offer']&user=$info['user']}">[查看原报盘]</a>
+                     {/if}
+
+                 </td>
              </tr>
              <tr>
                  <th>商品名称</th>

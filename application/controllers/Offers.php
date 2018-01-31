@@ -237,6 +237,12 @@ class OffersController extends PublicController {
 				$this->error('报盘不存在或已过期');
 			}
 
+			$jingjiaOffer = new \nainai\offer\jingjiaOffer();
+			$pass = safe::filterGet('pass');
+			if(!$jingjiaOffer->checkPass($id,$pass)){
+				$this->error('场内竞价口令错误，您无权查看');
+			}
+
 			$pro = new \nainai\offer\product();
 			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
 
@@ -363,6 +369,20 @@ class OffersController extends PublicController {
 			$this->getView()->assign('kefu',$kefuData);
 			$this->getView()->assign('cur','offerlist');
 		}
+	}
+
+	//检查场内竞价的校验密码是否正确
+	public function checkPassAction(){
+		$offer_id = safe::filterPost('offer_id','int');
+		$pass = safe::filterPost('pass');
+		$obj = new \nainai\offer\jingjiaOffer();
+		if($obj->checkPass($offer_id,$pass)){
+			die(json::encode(tool::getSuccInfo()));
+		}
+		else{
+			die(json::encode(tool::getSuccInfo(0,'口令错误')));
+		}
+
 	}
 
 

@@ -24,7 +24,19 @@
                  <th>交易方式</th>
                  <td>{$info['type_txt']}</td>
                  <th>报盘类型</th>
-                 <td>{if:$info['submode_txt']==''}{$info['mode_txt']}{else:}{$info['submode_txt']}{/if}</td>
+                 <td>{if:$info['submode_txt']==''}
+                     {$info['mode_txt']}
+                     {else:}
+                        {$info['submode_txt']}
+                         {if:$info['sub_mode']==1}
+                         -
+                         {if:$info['jingjia_mode']==1}
+                         场内竞价[口令：{$info['jingjia_pass']}]
+                         {else:}
+                         场外竞价
+                         {/if}
+                         {/if}
+                     {/if}</td>
                  <th>报盘费率</th>
                  <td> {if: $info['mode'] == \nainai\offer\product::DEPUTE_OFFER}
                     {if:!empty($info['rate'])}{$info['rate']['value']}{if:$info['rate']['type'] == 0}%{else:}元{/if}{else:}0{/if}

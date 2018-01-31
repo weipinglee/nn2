@@ -114,6 +114,18 @@
                               <td>支付方式</td>
                               <td>现汇</td>
                           </tr> -->
+                           {if:$offer['sub_mode']==1}
+                               <tr>
+                                   <td>竞价类型</td>
+                                   <td>{if: $offer['jingjia_mode'] == 1}场内竞价{else:}场外竞价{/if}</td>
+                               </tr>
+                               {if: $offer['jingjia_mode'] == 1}
+                                   <tr>
+                                       <td>竞价口令</td>
+                                       <td>{$offer['jingjia_pass']}</td>
+                                   </tr>
+                               {/if}
+                           {/if}
                           <tr>
                                 <td>是否投保</td>
                                 <td>{if: $offer['insurance'] == 1}是{else:}否{/if}</td>

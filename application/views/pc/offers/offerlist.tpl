@@ -248,7 +248,7 @@
                                    <a href="{url:/Offers/offerdetails3}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 								   <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>" class="check_btn"><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
                                       <% }else if (data[i].sub_mode==1){ %>
-                                   <a href="{url:/Offers/offerdetails2}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                   <a  alt="<%=data[i].jingjia_mode%>" onclick="checkRight($(this),<%=data[i].id%>,<%=data[i].product_id%>)" href="javascript:void(0);" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 
                                    <% } else { %>
                                    <a href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
@@ -283,6 +283,38 @@
 
 
     <script type="text/javascript">
+        function checkRight(obj,offer_id,product_id){
+            var jingjia_mode = obj.attr('alt');
+            var href = '{url:/Offers/offerdetails2}/id/'+offer_id+'/pid/'+product_id;
+            var ajaxUrl = '{url:/Offers/checkpass}';
+            if(jingjia_mode==1){
+                layer.config({
+                    extend: 'extend/layer.ext.js'
+                });
+                layer.prompt({title:'请输入口令',formType:1},function(pass){
+                    $.ajax({
+                        type:'post',
+                        url:ajaxUrl,
+                        data:{offer_id:offer_id,pass:pass},
+                        dataType:'json',
+                        success : function (data) {
+                            if(data.success==1){
+                                location.href=href+'?pass='+pass;
+                            }
+                            else{
+                                layer.msg(data.info);
+                            }
+                        }
+                    })
+                });
+            }
+            else{
+                //跳转
+                location.href=href;
+            }
+
+            return false;
+        }
         $(function(){
             
             {if:isset($cate_list) && !empty($cate_list)}
