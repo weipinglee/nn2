@@ -218,7 +218,7 @@
                        <li><%=data[i].accept_area%></li>
                        <li><%=data[i].left%> (<%=data[i].unit%>)</li>
                        <li class="price_unit"><i class="qian_blue">
-                               <% if(data[i].type == 1){ %>
+                               <% if(data[i].type == 1 && data[i].sub_mode!=1){ %>
                                ￥<%=data[i].price%>
                                <% }else { %>
                                ￥<%=data[i].price_l%> - ￥<%=data[i].price_r%>

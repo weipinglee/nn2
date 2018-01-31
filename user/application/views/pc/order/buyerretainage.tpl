@@ -197,7 +197,7 @@
                   	<h5>待支付金额：<i>{$data['topay_retainage']}</i>元</h5>
                     {if:$show_online}
                   	  {if:!$data['pay_retainage'] && !$data['proof']}
-                        <span style="display:block;"><a  href="javascript:;" id='pay_retainage'>立即支付尾款</a></span>
+                        <span style="display:block;"><a  href="javascript:;" id='pay_retainage'>立即支付{if:$total_amount}全款{else:}尾款{/if}</a></span>
                         {else:}
                         已支付
                       {/if}

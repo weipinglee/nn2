@@ -46,7 +46,7 @@ class OrderController extends UcenterBaseController{
 			$res = $orderObj->buyerRetainage($order_id,$user_id,$type,$proof,$account);
 
 			if($res['success'] == 1){
-				$title = $type == 'offline' ? '已上传支付凭证' : '已支付尾款';
+				$title = $type == 'offline' ? '已上传支付凭证' : '已支付';
 				$info = $type == 'offline' ? '请等待卖家确认凭证' : '合同已生效，可申请提货';
 				
 				die(json::encode(tool::getSuccInfo(1,$title,url::createUrl('/contract/buyerlist'))));
