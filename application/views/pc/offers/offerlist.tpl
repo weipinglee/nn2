@@ -221,7 +221,7 @@
                                <% if(data[i].type == 1 && data[i].sub_mode!=1){ %>
                                ￥<%=data[i].price%>
                                <% }else { %>
-                               ￥<%=data[i].price_l%> - ￥<%=data[i].price_r%>
+                               ￥<%=data[i].price_l%> - <% if(data[i].price_r==0){ %>-<% }else { %>￥<%=data[i].price_r%> <%}%>
                                <%}%>
                            </i>
                        </li>

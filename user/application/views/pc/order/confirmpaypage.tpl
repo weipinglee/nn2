@@ -139,7 +139,7 @@
                     <form action="{url:/Order/confirmPay}" method="post" auto_submit="1" redirect_url="{url:/contract/sellerdetail?id=$data['id']}" >
                         <input type="hidden" name="order_id" value="{$data['id']}" />
                         <div class="pay_bton">
-                            <a href="javascript:void(0)" id='pay_retainage'  confirm="1" confirm_text="确认已支付？" >确认收款</a>
+                            <a href="javascript:void(0)" id='pay_retainage'  confirm="1" confirm_text="确认收款，合同结束" >确认收款</a>
                         </div>
                     </form>
 
