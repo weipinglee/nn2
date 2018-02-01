@@ -145,7 +145,7 @@
                                 <div style="
                                     float: left;
                                     padding-left: 10px;
-                                ">我已阅读并同意<a href="{root:/down/竞价须知.pdf}" style="color:#1852ca;font-size:14px;">《耐耐网竞价协议》</a>
+                                ">我已阅读并同意<a href="{root:/down/竞价须知.pdf}" style="color:#1852ca;font-size:14px;">《竞价须知》</a>
                                 </div>
                                        
                             </span>
