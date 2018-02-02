@@ -181,7 +181,7 @@
     })
     $(".btn .submit_btn").click(function(){
         if(!$("lable .checkbox_jjxy").attr('checked')){
-             alert("请阅读竞价协议并勾选。");
+             alert("请阅读竞价须知并勾选。");
             return false;
         }
         return true;
