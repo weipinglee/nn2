@@ -47,6 +47,9 @@ a:hover{color:#e60012;}
     -moz-box-shadow:0px 3px 10px 1px #Ebebeb; /*这是兼容火狐浏览器*/
         }
         .cont_1 .tit{width: 100%;margin:10px 0;margin-top: 40px;}
+        .cont_1 .tit a[name="bj_a"]:target{
+    padding-top:200px;
+}
         .cont_1 .tit i{float: left;}
         .cont_1 .tit span{margin-left: 10px;font-size: 18px;line-height: 26px;height: 26px;display: inline-block;}
         .cont_1 table,.cont_1 table tr,.cont_1 table th,.cont_1 table td{border:1px solid #e7e7e7;font-size:14px;padding:10px 0 10px 20px;color: #808080;}
