@@ -82,6 +82,9 @@ class PurchaseController extends UcenterBaseController{
 	            }
 	        }
 	    }
+		if(empty($resImg)){
+			die(json::encode(tool::getSuccInfo(0,'请上传图片')));
+		}
 
 	    return array($detail,$resImg);
 	}

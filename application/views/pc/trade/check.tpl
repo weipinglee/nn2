@@ -184,7 +184,7 @@
             <span class="daizfji"><span class="zhifjin"><strong>数量：</strong><b class='prod_num'>{$data['minimum']}</b>{$data['unit']}</span></span>
             <span class="daizfji"><span class="zhifjin"><strong>总额：</strong><i>￥</i><b class='prod_amount'>{$data['amount']}</b></span></span>
             {if:$data['show_payment']}
-            <span class="daizfji"><span class="zhifjin"><strong>定金：</strong><i>￥</i><b class="pay_deposit">{$data['minimum_deposit']}</b></span></span>{/if}
+            <span class="daizfji"><span class="zhifjin"><strong class="ding">定金：</strong><i>￥</i><b class="pay_deposit">{$data['minimum_deposit']}</b></span></span>{/if}
            </div>    
            <div class="order_comit">
               <input type="hidden" name="id" value="{$data['id']}" />
@@ -272,8 +272,10 @@
                          if(paytype){
                              if(paytype == 1){
                                 //全款
+                                 $('strong.ding').text('全款：');
                                 deposit_text.text(prod_amount.eq(0).text());
                              }else{
+                                 $('strong.ding').text('定金：');
                                 deposit_text.text(temp_deposit);
                              }
                         }

@@ -158,7 +158,7 @@ class OfferManageModel extends \nainai\offer\product{
 
 			$res=true;
 			//如果是自由报盘，扣费或释放资金
-			if($offerData['mode'] == self::FREE_OFFER && $offerData['sub_mode']>0){
+			if($offerData['mode'] == self::FREE_OFFER && $offerData['sub_mode']==0){
 				$fund = \nainai\fund::createFund($offerData['acc_type']);
 				$free_offer = new \nainai\offer\freeOffer();
 				$fee = $free_offer->getFee($offerData['user_id']);

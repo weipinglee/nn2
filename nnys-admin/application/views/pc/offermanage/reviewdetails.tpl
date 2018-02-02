@@ -33,7 +33,16 @@
                  <th>报盘费率</th>
                  <td>
                  {if: $info['mode'] == \nainai\offer\product::DEPUTE_OFFER}
-                     {if:!empty($info['rate'])}{$info['rate']['value']}{if:$info['rate']['type'] == 0}%{else:}元{/if}{else:}0{/if}
+                     {if:!empty($info['rate'])}
+
+                         {if:$info['rate']['type'] == 0}
+                              {$info['rate']['value']} %
+                         {else:}
+                             每{$info['unit']} {$info['rate']['value']}元
+                         {/if}
+                     {else:}
+                         0
+                     {/if}
                  {else:}
                     {$info['offer_fee']}
                 {/if}
