@@ -161,7 +161,7 @@ class ManagerDealController extends UcenterBaseController {
             if($res !== true) die($res);
             $offer_id = safe::filterPost('offer_id','int',0);
             $offerObj = new freeOffer($this->user_id);
-
+           $shopInfo = \nainai\shop\shop::info($this->user_id);
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => Safe::filterPost('divide', 'int'),
@@ -177,6 +177,7 @@ class ManagerDealController extends UcenterBaseController {
                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
                'expire_time' =>  Safe::filterPost('expire_time'),
                'other' => Safe::filterPost('other'),
+			   'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : ''
             );
 
 
@@ -226,6 +227,7 @@ class ManagerDealController extends UcenterBaseController {
            // if(!safe::checkToken($token))
                  // die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $offer_id = safe::filterPost('offer_id','int',0);
+			$shopInfo = \nainai\shop\shop::info($this->user_id);
             $depositObj = new depositOffer($this->user_id);
             $res = $this->offerCheck();
             if($res !== true) die($res);
@@ -244,6 +246,7 @@ class ManagerDealController extends UcenterBaseController {
                 'risk' =>implode(',', Safe::filterPost('risk', 'int')),
                 'expire_time' =>  Safe::filterPost('expire_time'),
                'other' => Safe::filterPost('other'),
+			    'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : ''
                // 'acc_type'   => 1,
             );
             if(!$offerData['risk']){
@@ -293,7 +296,7 @@ class ManagerDealController extends UcenterBaseController {
                  die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $offer_id = safe::filterPost('offer_id','int',0);
             $res = $this->offerCheck();
-
+           $shopInfo = \nainai\shop\shop::info($this->user_id);
             if($res !== true) die($res);
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
@@ -310,6 +313,7 @@ class ManagerDealController extends UcenterBaseController {
                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
                'expire_time' =>  Safe::filterPost('expire_time'),
                'other' => Safe::filterPost('other'),
+			    'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : ''
                 // 'acc_type'   => 1,
             );
 
@@ -434,7 +438,7 @@ class ManagerDealController extends UcenterBaseController {
             }
         }
         $time = date('Y-m-d H:i:s', time());
-
+        $shopInfo = \nainai\shop\shop::info($this->user_id);
         $detail = array(
             'name'         => Safe::filterPost('warename'),
             'cate_id'      => Safe::filterPost('cate_id', 'int'),
@@ -444,7 +448,8 @@ class ManagerDealController extends UcenterBaseController {
             'produce_area' => Safe::filterPost('area'),
             'create_time'  => $time,
             'unit'         => Safe::filterPost('unit'),
-            'user_id' => $this->user_id
+            'user_id' => $this->user_id,
+			'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : ''
         );
         $proObj = new \nainai\offer\product();
         $detail['market_id'] = $proObj->getcateTop($detail['cate_id']);
@@ -478,7 +483,7 @@ class ManagerDealController extends UcenterBaseController {
                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             
             $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
-
+            $shopInfo = \nainai\shop\shop::info($this->user_id);
             $storeObj = new \nainai\store();
             $res = $this->offerCheck();
             if($res !== true) die($res);
@@ -499,6 +504,7 @@ class ManagerDealController extends UcenterBaseController {
                    'expire_time' =>  Safe::filterPost('expire_time'),
                    'other' => Safe::filterPost('other'),
                    'weight_type' => Safe::filterPost('weight_type'),
+				    'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : ''
                 );
                 if(!$offerData['risk']){
                     $offerData['risk'] = '';
