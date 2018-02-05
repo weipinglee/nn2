@@ -8,7 +8,7 @@
 						<p><a>产品管理</a>><a>产品详情</a></p>
 					</div>
 					<div class="center_tabl">
-                    <form action="" method="">
+                    <form action="{url:/purchase/cancle}" method="post" auto_submit="1" >
 					   <table class="table2" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="spmx_title" colspan="8">商品明细</td>
@@ -115,6 +115,7 @@
                                 <td colspan="8">
                                    <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
                                     {if:in_array($offer['status'],array(0,1,2))}
+                                    <input type="hidden" value="{$offer['id']}" name="id"/>
                                     <div class="pay_bton">
                                         <a href="javascript:void(0)" class="submit_chag"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？">撤销报盘</a>
                                     </div>

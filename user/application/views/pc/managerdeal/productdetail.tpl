@@ -34,7 +34,8 @@
 					</div>
 					<div class="center_tabl">
                     <form action="{url:/managerdeal/ajaxsetStatus}" method="post" auto_submit="1" redirect_url="{url:managerdeal/productList}" >
-					   <table class="table2" cellpadding="0" cellspacing="0">
+
+					     <table class="table2" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="spmx_title" colspan="2">商品明细</td>
                             </tr>

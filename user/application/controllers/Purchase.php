@@ -147,7 +147,7 @@ class PurchaseController extends UcenterBaseController{
 		if (intval($id) > 0) {
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
 			$offerDetail = $PurchaseOfferModel->getOfferProductDetail($id,$this->user_id);
-			print_r($offerDetail);
+
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
 		}else{
@@ -315,6 +315,48 @@ class PurchaseController extends UcenterBaseController{
 			$this->getView()->assign('product',$offerDetail[1]);
 			$this->getView()->assign('categorys',$categorys);
 			$this->getView()->assign('cate_sel',$cate_sel);
+		}
+	}
+
+	public function doUpdatepurchaseAction(){
+		if(IS_POST){
+			$offerData = array(
+					'apply_time'  => \Library\Time::getDateTime(),
+					'accept_area' => Safe::filterPost('accept_area'),
+					'accept_day' => Safe::filterPost('accept_day', 'int'),
+					'price_l'        => Safe::filterPost('price'),
+					'price_r'        => Safe::filterPost('price_r'),
+					'user_id' => $this->user_id,
+					'status' => product::OFFER_APPLY,
+					'expire_time' =>  Safe::filterPost('expire_time'),
+					'divide' => 0//默认不可拆分
+			);
+			$offer_id = safe::filterPost('offer_id','int',0);
+			$shopInfo = \nainai\shop\shop::info($this->user_id);
+			$offerData['shop_id'] = isset($shopInfo['id']) ? $shopInfo['id'] : '';
+			$productData = $this->getProductData();
+
+			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
+			$res = $PurchaseOfferModel->doOffer($productData,$offerData,$offer_id);
+			echo json::encode($res);
+			exit;
+		}
+	}
+
+	public function cancleAction(){
+		if(IS_POST){
+			$id = Safe::filterPost('id', 'int', 0);
+
+			if (intval($id) > 0) {
+				$model = new product('');
+				$data =array(
+						'status' => $model::OFFER_CANCEL
+				);
+
+				$res = $model->update($data, $id);
+				exit(json::encode($res));
+			}
+			exit(json::encode(tool::getSuccInfo(0, 'Error id')));
 		}
 	}
 

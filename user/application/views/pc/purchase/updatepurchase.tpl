@@ -45,7 +45,7 @@
                 {/foreach}
             {/if}
 
-            <form action="{url:/ManagerDeal/doDepositOffer}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
+            <form action="{url:/ManagerDeal/doUpdatepurchase}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
                 {include:/layout/product.tpl}
                 <tr>
                     <td></td>
