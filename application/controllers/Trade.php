@@ -110,6 +110,10 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
 		
+		//店铺id
+		$shopInfo = \nainai\shop\shop::info($user_id);
+		$orderData['shop_id'] = isset($shopInfo['id']) ? $shopInfo['id'] : '';
+		
 		//设置保险信息到合同里面
 		if ($detail['insurance'] == 1) {//投保产品
 			$orderData['risk'] = $detail['risk'];

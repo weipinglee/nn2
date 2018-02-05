@@ -26,6 +26,9 @@ class PurchaseController extends UcenterBaseController{
 			        'expire_time' =>  Safe::filterPost('expire_time'),
 					'divide' => 0//默认不可拆分
 			);
+			
+			 $shopInfo = \nainai\shop\shop::info($this->user_id);
+			 $offerData['shop_id'] = isset($shopInfo['id']) ? $shopInfo['id'] : '';
 			$productData = $this->getProductData();
 
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
