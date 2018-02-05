@@ -114,7 +114,18 @@
                              <tr>
                                 <td colspan="8">
                                    <input class="cg_fb" type="button" value="返回" onclick="history.go(-1)"/>
+                                    {if:in_array($offer['status'],array(0,1,2))}
+                                    <div class="pay_bton">
+                                        <a href="javascript:void(0)" class="submit_chag"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？">撤销报盘</a>
+                                    </div>
+                                    {/if}
+                                    {if:$offer['status']==2}
+                                        <div class="pay_bton">
+                                            <a class="submit_chag"  href="{url:/purchase/updatePurchase?id=$offer['id']}" >修改</a>
+                                        </div>
+                                    {/if}
                                 </td>
+
                             </tr>
                         </table>
             	    </form>
