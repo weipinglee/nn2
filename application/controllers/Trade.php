@@ -56,6 +56,7 @@ class tradeController extends \nainai\controller\Base {
 			$mess->send('credentials');
 			die(json::encode(tool::getSuccInfo(0,'该商品的发布商家资质不够，暂时不能购买')));
 		}
+		$seller_id = $detail['user_id'];
 		$offer_type = intval($detail['mode']);
 		switch ($offer_type) {
 			case order\Order::ORDER_FREE:
@@ -111,7 +112,7 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['mode'] = $offer_type;
 		
 		//店铺id
-		$shopInfo = \nainai\shop\shop::info($user_id);
+		$shopInfo = \nainai\shop\shop::info($seller_id);
 		$orderData['shop_id'] = isset($shopInfo['id']) ? $shopInfo['id'] : '';
 		
 		//设置保险信息到合同里面
