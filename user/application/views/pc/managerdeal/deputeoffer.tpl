@@ -99,14 +99,26 @@
                                 {if:$is_vip}
                                     <span class="color">您是收费会员,无需支付委托费</span>
                                 {else:}
-                                    <span class="color">合同完成后需支付<span id='weitou'>{if:!empty($rate)}{$rate['value']}{if:$rate['type'] == 0}%{else:}元{/if}{else:}0{/if}</span>的委托金,具体以买方实际购买数量为准</span>
+                                    <span class="color">合同完成后预计支付<span id='weitou' >{if:!empty($rate)}{if:$rate['type'] == 0}{$rate['value']}%{else:}0元{/if}{else:}0{/if}</span>的委托金,具体以买方实际购买数量为准</span>
                                 {/if}
+                                <input type="hidden" name="wtMoney" value="{if:!empty($rate)}{$rate['value']}{/if}"/>
+                                <input type="hidden" name="wtType" value="{if:!empty($rate)}{$rate['type']}{/if}"/>
                             </td>
                         </tr>
 
                  </table>
                 </form>
-
+<script type="text/javascript" >
+    $('input[name=quantity]').on('blur',function(){
+        var num = parseFloat($(this).val());
+        var value = parseFloat($('input[name=wtMoney]').val());
+        var type = $('input[name=wtType]').val();
+        if(num>0 && type==1){
+            $('#weitou').text(value*num + '元');
+        }
+        return false;
+    })
+</script>
                     </div>
                 </div>
             </div>

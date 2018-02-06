@@ -181,7 +181,7 @@ class OfferManageModel extends \nainai\offer\product{
 				$log = new \Library\log();
 				$log->addLog(array('table'=>'报盘','type'=>'check','id'=>$id,'check_text'=>$this->getStatus($status)));
 
-				$param = array('mode' => $offerData['mode'], 'offer_fee'=>$offerData['offer_fee'], 'status'=>$status);
+				$param = array('mode' => $offerData['mode'], 'offer_fee'=>$offerData['offer_fee'], 'status'=>$status,'sub_mode'=>$offerData['sub_mode']);
 				$param['name'] = $this->offer->table('products')->where(array('id'=>$offerData['product_id']))->getField('name');
 				$param['type'] = $offerData['type'];
 				if($offerData['sub_mode']==1){

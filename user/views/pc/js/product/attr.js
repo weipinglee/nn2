@@ -142,10 +142,17 @@ function getCategory(cate,attr){
                 $('input[name=cate_id]').val(data.defaultCate);
 
                   if (mode == 'weitou' && data.rate) {
+                            var quantity = $('input[name=quantity]').val();
+                             $('input[name=wtMoney]').val(data.rate.value);
+                             $('input[name=wtType]').val(data.rate.type);
                             if (data.rate.type == 0) {
                                  $('#weitou').html(data.rate.value + '%');
                             }else if(data.rate.type == 1){
-                                $('#weitou').html(data.rate.value + '元');
+                                if(quantity==''){
+                                    $('#weitou').html('0元');
+                                }
+                                else
+                                   $('#weitou').html(quantity*data.rate.value + '元');
                             }else{
                                 $('#weitou').html(0);
                             }

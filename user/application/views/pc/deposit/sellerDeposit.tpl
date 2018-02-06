@@ -42,7 +42,7 @@
                                           <tr>
                                             <td>{$data['name']}</td>
                                          <!--   <td></td> --> 
-                                            <td>多方位仓库</td>
+                                            <td>-</td>
                                             <td>
                                                     <label class="" id="d_price_1">
                                                        ￥ {$data['price']}

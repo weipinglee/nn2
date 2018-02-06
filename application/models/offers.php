@@ -277,6 +277,7 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             $value['mode_txt'] = $this->offerMode($value['mode']);
             $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
             $value['left'] = number_format(min(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']),$value['max_num']-$value['sell_num']));
+            $value['left'] = $value['left'] <0 ? 0 : $value['left'];
         }
         //print_r($data);
         $pageBar =  $query->getPageBar();
