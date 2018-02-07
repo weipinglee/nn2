@@ -58,7 +58,7 @@ class offersModel extends \nainai\offer\product{
 
 		if($this->offerQuery == null){
 			$this->offerQuery = new Query('product_offer as a');
-			$this->offerQuery->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,b.img,b.note';
+			$this->offerQuery->fields = 'a.id,a.mode, a.sub_mode,a.price_l,a.price_r,a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,b.img,b.note';
 			$this->offerQuery->join = 'LEFT JOIN products as b ON a.product_id=b.id ';
 		 //   $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
 
