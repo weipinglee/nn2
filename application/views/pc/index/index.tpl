@@ -521,7 +521,13 @@ $(function() {
                 <p> <%=data[i].note%></p>
                 <p class="product_price">
                     <%if (data[i].sub_mode==1) {%>
-                    ￥<%=data[i].price_l%>-￥<%=data[i].price_r%>/<%=data[i].unit%>
+                    ￥<%=data[i].price_l%> -
+                    <%if (data[i].price_r>0) {%>
+                    ￥<%=data[i].price_r%>
+                    <% } else {%>
+                    -
+                    <% } %>
+                    /<%=data[i].unit%>
                     <% } else {%>
                     ￥<%=data[i].price%>/ <%=data[i].unit%>
                     <% } %>
