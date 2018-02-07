@@ -73,6 +73,9 @@ class offersModel extends \nainai\offer\product{
             $categoryList[$k]['mode']=$this->getMode($v['mode']);
             $categoryList[$k]['produce_area'] = substr($v['produce_area'],0,2);
             $categoryList[$k]['img'] = \Library\Thumb::get($categoryList[$k]['img']);
+            if($categoryList[$k]['sub_mode']==1 && $categoryList[$k]['price_r']==0){
+                $categoryList[$k]['price_r'] = '-';
+            }
         }
 
 
