@@ -519,7 +519,14 @@ $(function() {
                 <div class="product_img"><img src=" <%=data[i].img%>"></div>
                 <h4> <%=data[i].pname%></h4>
                 <p> <%=data[i].note%></p>
-                <p class="product_price">￥ <%=data[i].price%>/ <%=data[i].unit%></p>
+                <p class="product_price">
+                    <%if (data[i].sub_mode==1) {%>
+                    ￥<%=data[i].price_l%>-<%=data[i].price_r%>
+                    /<%=data[i].unit%>
+                    <% } else {%>
+                    ￥<%=data[i].price%>/ <%=data[i].unit%>
+                    <% } %>
+                </p>
             </a>
         </li>
 
