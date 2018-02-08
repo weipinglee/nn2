@@ -45,6 +45,7 @@ class PublicController extends \Yaf\Controller_Abstract{
                $this->getView()->assign('mess',$mess);
                $this->getView()->assign('login',1);
                $this->getView()->assign('username',$this->login['username']);
+			   $this->getView()->assign('sess_id',session_id());
                $this->getView()->assign('user_id',$this->login['user_id']);
           }
           else
