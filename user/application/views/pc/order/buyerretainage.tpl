@@ -115,9 +115,9 @@
                                           <li>
                                             {if:$show_online}
                                             <em name="chooice" class="yListrclickem" payment='online'>线上支付<i></i></em> 
-                                            {if:!$hide_offline}
+                                           
                                             <em name="chooice" payment='offline'>线下支付<i></i></em>
-                                              {/if}
+                                            
                                             {else:}
                                               <em name="chooice" payment='offline' class="yListrclickem">线下支付<i></i></em> 
                                             {/if}
