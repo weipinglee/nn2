@@ -108,7 +108,7 @@ $(function() {
         </div>
         <script type="text/javascript">
              var _c = {$count};
-             $('#inner').nav({ t: 2000, a: 1000, c: _c});
+             $('#inner').nav({ t: 5000, a: 1000, c: _c});
         </script>
         <!-- 代码 结束 -->
       </div> 

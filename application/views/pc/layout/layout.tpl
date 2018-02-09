@@ -104,12 +104,10 @@ z-index:1000;">
     }
     .top_ad_img{
         width: 1190px;
-        height: 167px;
         margin: auto;
     }
     .top_ad_img img{
         width: 100%;
-        height: 167px;
     }
     .fixed_t{
         position:fixed;
@@ -119,7 +117,7 @@ z-index:1000;">
         position:relative;
     }
     .height_div{
-        height: 156px;
+        height: 83px;
     }
 </style>
 
@@ -141,17 +139,19 @@ $(function(){
             $(".top_fixed").removeClass("rela");
             $(".top_fixed").addClass("fixed_t");
             $("#div_het").addClass("height_div");
+            /*$("#index_logo").css({"border":"1px solid #eee"});  */
         }else if(scroH<head_top){  
             $(".top_fixed").removeClass("fixed_t");
             $("#div_het").removeClass("height_div");
         $(".top_fixed").addClass("rela");
+        /*$("#index_logo").css({"border":"0px solid #eee"});*/
         }  
     
     })
 
 })
 </script>
-<div class="top_fixed">
+
     <div class="bg_topnav">
     <div class="topnav_width">
         <div class="topnav_left">
@@ -217,6 +217,7 @@ $(function(){
 
 
 <!------------------logo 开始-------------------->
+<div class="top_fixed">
 <div id="index_logo">
     <div class="page_width">
         <div class="index_logo">
@@ -301,6 +302,8 @@ $(function(){
         </div>
     </div>
 </div>
+</div>
+<div id="div_het"></div>
 
 <!------------------logo 结束-------------------->
 <!------------------导航 开始-------------------->
@@ -320,8 +323,7 @@ $(function(){
 	   </ul>
     </div>
 </div>
-</div>
-<div id="div_het"></div>
+
 
   <!-- 分类开始 -->
 
