@@ -95,16 +95,64 @@ z-index:1000;">
 <!------------------公用头部控件 开始-------------------->
 <style type="text/css">
     .top_fixed{
-        position: fixed;
+        position: relative;
     margin: auto;
     left: 0;
     right: 0;
-    top: 0;
+    top:0px;
     z-index: 300;
     }
+    .top_ad_img{
+        width: 1190px;
+        height: 167px;
+        margin: auto;
+    }
+    .top_ad_img img{
+        width: 100%;
+        height: 167px;
+    }
 </style>
+
+
+    <div class="top_ad" style="background: #a04027;">
+        <div class="top_ad_img">{echo: \Library\Ad::show("头部广告")}</div>
+    </div>
+<script type="text/javascript">
+$(function(){
+    var head_top = ''; 
+     $(document).scroll(function(){  
+        var scroH = $(this).scrollTop();
+        if(head_top == ''){
+            head_top = $('.top_fixed').offset().top;
+        }
+        if(scroH>=head_top){  
+ 
+            $(".top_fixed").css({"position":"fixed","top":"0px"});
+        }else if(scroH<head_top){  
+     
+        $(".top_fixed").css({"position":"relative"});  
+     
+        }  
+    
+    })
+})
+/*$(function(){
+
+     $(document).scroll(function(){
+
+        var scroH = $(this).scrollTop();
+        if(scroH > 170){
+           $(".top_fixed").css({"position":"fixed","top":"0px"});
+        }else{
+            $(".top_fixed").css({"position":"relative","top":"167px"});
+        }
+         
+    
+    })
+})*/
+</script>
 <div class="top_fixed">
-<div class="bg_topnav">
+    <div class="bg_topnav">
     <div class="topnav_width">
         <div class="topnav_left">
             <div class="top_index">
@@ -278,7 +326,7 @@ z-index:1000;">
     </div>
 </div>
 </div>
-<div style="height: 156px"></div>
+<!-- <div style="height: 156px"></div> -->
 
   <!-- 分类开始 -->
 
