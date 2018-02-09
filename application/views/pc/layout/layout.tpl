@@ -130,7 +130,7 @@ $(function(){
             $(".top_fixed").css({"position":"fixed","top":"0px"});
         }else if(scroH<head_top){  
      
-        $(".top_fixed").css({"position":"static"});  
+        $(".top_fixed").css({"position":"relative"});  
      
         }  
     
