@@ -114,7 +114,7 @@ $(function() {
 		<div style="position: absolute;width: 15%;top: 0px;left:0px;">
 			<img style="width: 100%;height: 470px;" src="{views:images/newleft.jpg}">
 		</div>
-		<div style="position: absolute;width: 15%;top: 0px;left:0px;">
+		<div style="position: absolute;width: 15%;top: 0px;right:0px;">
 			<img style="width: 100%;height: 470px;" src="{views:images/newright.jpg}">
 		</div>
       </div> 
