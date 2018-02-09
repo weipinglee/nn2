@@ -111,7 +111,9 @@ z-index:1000;">
                 <img class="index_img" src="{views:images/index/icon_index.png}"/>
                 <a rel="external nofollow" href="{url:/index/index@deal}" target="_blank" >耐耐网首页</a>
             </div>
-
+{set:$sellerCenterUrl=\Library\tool::getGlobalConfig(array('host','sellerCenter'));}
+{set:$shopUrl=\Library\tool::getGlobalConfig(array('host','shop'));}
+            {$sellerCenterUrl}
             <div class="index_user">
             {if:isset($username)}您好，
                 <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">{$username}</a>
@@ -135,7 +137,7 @@ z-index:1000;">
         <div class="topnav_right">
             <ul>
                 <li>
-                    <a href="http://shop.nz826.com/back/index.html#/jump?sd={$sess_id}">卖家中心</a><span class="line_l">|<span>
+                    <a href="{$sellerCenterUrl}?sd={$sess_id}">卖家中心</a><span class="line_l">|<span>
                 </li>
                 {if:$login!=0}
                  <li>
@@ -267,7 +269,7 @@ z-index:1000;">
             <li {if:!isset($cur) || $cur=='index'}class="current"{/if}><a href="{url:/index/index}">首页</a></li>
             <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
             <li {if:isset($cur) && $cur=='bid'}class="current"{/if}><a href="{url:/bid/tenderlist}" target="_blank">招投标</a></li>
-            <li {if:isset($cur) && $cur=='shop'}class="current"{/if}><a href="http://shop.nz826.com/front/index.html#/?sd={$sess_id}" target="_blank">店铺</a></li>
+            <li {if:isset($cur) && $cur=='shop'}class="current"{/if}><a href="{$shopUrl}#/?sd={$sess_id}" target="_blank">店铺</a></li>
             <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}" target="_blank">仓储专区</a></li>
             <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}" target="_blank">帮我找</a></li>
              <li ><a href="http://info.nainaiwang.com" target="_blank">耐耐资讯</a></li>
