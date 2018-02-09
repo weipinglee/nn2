@@ -104,12 +104,20 @@ z-index:1000;">
     }
     .top_ad_img{
         width: 1190px;
-        height: 167px;
         margin: auto;
     }
     .top_ad_img img{
         width: 100%;
-        height: 167px;
+    }
+    .fixed_t{
+        position:fixed;
+        top:0px;
+    }
+    .rela{
+        position:relative;
+    }
+    .height_div{
+        height: 83px;
     }
 </style>
 
@@ -120,38 +128,30 @@ z-index:1000;">
 <script type="text/javascript">
 $(function(){
     var head_top = ''; 
+
      $(document).scroll(function(){  
         var scroH = $(this).scrollTop();
+
         if(head_top == ''){
             head_top = $('.top_fixed').offset().top;
         }
         if(scroH>=head_top){  
- 
-            $(".top_fixed").css({"position":"fixed","top":"0px"});
+            $(".top_fixed").removeClass("rela");
+            $(".top_fixed").addClass("fixed_t");
+            $("#div_het").addClass("height_div");
+            /*$("#index_logo").css({"border":"1px solid #eee"});  */
         }else if(scroH<head_top){  
-     
-        $(".top_fixed").css({"position":"relative"});  
-     
+            $(".top_fixed").removeClass("fixed_t");
+            $("#div_het").removeClass("height_div");
+        $(".top_fixed").addClass("rela");
+        /*$("#index_logo").css({"border":"0px solid #eee"});*/
         }  
     
     })
+
 })
-/*$(function(){
-
-     $(document).scroll(function(){
-
-        var scroH = $(this).scrollTop();
-        if(scroH > 170){
-           $(".top_fixed").css({"position":"fixed","top":"0px"});
-        }else{
-            $(".top_fixed").css({"position":"relative","top":"167px"});
-        }
-         
-    
-    })
-})*/
 </script>
-<div class="top_fixed">
+
     <div class="bg_topnav">
     <div class="topnav_width">
         <div class="topnav_left">
@@ -216,11 +216,13 @@ $(function(){
         </div>
     </div>
 </div>
+
 <div class="clearfix"></div>
 <!------------------公用头部控件 开始-------------------->
 
 
 <!------------------logo 开始-------------------->
+<div class="top_fixed">
 <div id="index_logo">
     <div class="page_width">
         <div class="index_logo">
@@ -305,6 +307,8 @@ $(function(){
         </div>
     </div>
 </div>
+</div>
+<div id="div_het"></div>
 
 <!------------------logo 结束-------------------->
 <!------------------导航 开始-------------------->
@@ -325,8 +329,7 @@ $(function(){
 	   </ul>
     </div>
 </div>
-</div>
-<!-- <div style="height: 156px"></div> -->
+
 
   <!-- 分类开始 -->
 
