@@ -113,7 +113,7 @@ z-index:1000;">
             </div>
 {set:$sellerCenterUrl=\Library\tool::getGlobalConfig(array('host','sellerCenter'));}
 {set:$shopUrl=\Library\tool::getGlobalConfig(array('host','shop'));}
-           
+
             <div class="index_user">
             {if:isset($username)}您好，
                 <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">{$username}</a>
