@@ -111,6 +111,12 @@ $(function() {
              $('#inner').nav({ t: 5000, a: 1000, c: _c});
         </script>
         <!-- 代码 结束 -->
+		<div style="position: absolute;width: 15%;top: 0px;left:0px;">
+			<img style="width: 100%;height: 470px;" src="{views:images/newleft.jpg}">
+		</div>
+		<div style="position: absolute;width: 15%;top: 0px;left:0px;">
+			<img style="width: 100%;height: 470px;" src="{views:images/newright.jpg}">
+		</div>
       </div> 
     <!-- 轮播大图 结束 -->
 
