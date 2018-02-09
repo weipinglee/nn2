@@ -111,6 +111,16 @@ z-index:1000;">
         width: 100%;
         height: 167px;
     }
+    .fixed_t{
+        position:fixed;
+        top:0px;
+    }
+    .rela{
+        position:relative;
+    }
+    .height_div{
+        height: 156px;
+    }
 </style>
 
 
@@ -120,36 +130,26 @@ z-index:1000;">
 <script type="text/javascript">
 $(function(){
     var head_top = ''; 
+
      $(document).scroll(function(){  
         var scroH = $(this).scrollTop();
+
         if(head_top == ''){
             head_top = $('.top_fixed').offset().top;
         }
         if(scroH>=head_top){  
- 
-            $(".top_fixed").css({"position":"fixed","top":"0px"});
+            $(".top_fixed").removeClass("rela");
+            $(".top_fixed").addClass("fixed_t");
+            $("#div_het").addClass("height_div");
         }else if(scroH<head_top){  
-     
-        $(".top_fixed").css({"position":"relative"});  
-     
+            $(".top_fixed").removeClass("fixed_t");
+            $("#div_het").removeClass("height_div");
+        $(".top_fixed").addClass("rela");
         }  
     
     })
+
 })
-/*$(function(){
-
-     $(document).scroll(function(){
-
-        var scroH = $(this).scrollTop();
-        if(scroH > 170){
-           $(".top_fixed").css({"position":"fixed","top":"0px"});
-        }else{
-            $(".top_fixed").css({"position":"relative","top":"167px"});
-        }
-         
-    
-    })
-})*/
 </script>
 <div class="top_fixed">
     <div class="bg_topnav">
@@ -211,6 +211,7 @@ $(function(){
         </div>
     </div>
 </div>
+
 <div class="clearfix"></div>
 <!------------------公用头部控件 开始-------------------->
 
@@ -320,7 +321,7 @@ $(function(){
     </div>
 </div>
 </div>
-<!-- <div style="height: 156px"></div> -->
+<div id="div_het"></div>
 
   <!-- 分类开始 -->
 
