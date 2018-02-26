@@ -255,7 +255,7 @@ a:hover {
 }
 #index_logo .index_phone {
     float: right;
-    background: url(../Images/index/icon_dh.png) no-repeat left top;
+    background: url(../Images/index/phone.gif) no-repeat -12px -15px;
     padding-left: 40px;
     height: 35px;
     width: 200px;

@@ -1870,13 +1870,13 @@ a.close:hover {
 }
 .mostnew_date .row1_clinch {
     width: 238px;
-    height: 326px;
+    height: 467px;
     overflow: hidden;
     position: absolute;
     z-index: 10;
-    top: -398px;
+    top: -471px;
     right: 0;
-    border-radius: 6px;
+    /* border-radius: 6px; */
 }
 
 
@@ -1907,7 +1907,7 @@ a.close:hover {
 /*最新咨询*/
 .notice_active{
     padding: 3px 15px;
-    height: 265px;
+    height: 407px;
     overflow: hidden;
     position: relative;
     background: #fff;
