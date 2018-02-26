@@ -83,7 +83,15 @@ $(function() {
 
     <input type="hidden" id="UserID">
       <!-- 轮播大图 开始 -->
-
+      <script type="text/javascript">
+      /*根据顶部图片的高度，改变轮播图距离顶部的高度*/
+          $(function(){
+            var o=$(".top_ad");
+            var h = o.height();
+            $(".banner").css({"top":155+h});
+          })
+          /*根据顶部图片的高度，改变轮播图距离顶部的高度end*/
+      </script>
     <div class="banner">
         <!-- 代码 开始 -->
     <link href="{views:css/nav.css}" rel="stylesheet" />
@@ -111,12 +119,6 @@ $(function() {
              $('#inner').nav({ t: 5000, a: 1000, c: _c});
         </script>
         <!-- 代码 结束 -->
-		<div style="position: absolute;width: 15%;top: 0px;left:0px;">
-			<img style="width: 100%;height: 470px;" src="{views:images/newleft.jpg}">
-		</div>
-		<div style="position: absolute;width: 15%;top: 0px;right:0px;">
-			<img style="width: 100%;height: 470px;" src="{views:images/newright.jpg}">
-		</div>
       </div> 
     <!-- 轮播大图 结束 -->
 
