@@ -151,7 +151,11 @@
                     </tr>
                     <tr>
                         <td colspan="2">签字入库单</td>
-                        <td colspan="6"> <img src="{$storeDetail['confirm_thumb']}" /></td>
+                        <td colspan="6">
+                            {foreach:items=$storeDetail['confirm']['thumb']}
+                            <img src="{$item}" />
+                            {/foreach}
+                        </td>
                     </tr>
 <tr>
                         <td colspan="2">质检证书</td>
