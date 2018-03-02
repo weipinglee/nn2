@@ -152,8 +152,8 @@
                     <tr>
                         <td colspan="2">签字入库单</td>
                         <td colspan="6">
-                            {foreach:items=$storeDetail['confirm']['thumb']}
-                            <img src="{$item}" />
+                            {foreach:items=$storeDetail['confirm']}
+                            {img:data=$item width=200 height=200}
                             {/foreach}
                         </td>
                     </tr>

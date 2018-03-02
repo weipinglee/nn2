@@ -435,9 +435,21 @@ class ManagerStoreController extends UcenterBaseController{
     			$storeProduct['package_num'] = safe::filterPost('packNumber', 'float');
     			$storeProduct['package_weight'] = safe::filterPost('packWeight', 'float');
     		}
-    		if (!empty(safe::filterPost('imgfile1'))) {
-    			$storeProduct['confirm'] = \Library\tool::setImgApp(safe::filterPost('imgfile1'));
-    		}
+			//入库单多张图片处理，以；相隔放入一个字段
+			$rukuImg = Safe::filterPost('imgData1');
+			$resImg = '';
+			if(!empty($rukuImg)){
+				foreach ($rukuImg as $key=>$imgUrl) {
+					if (!empty($imgUrl) && is_string($imgUrl)) {
+						if($key>0){
+							$resImg .=';'.\Library\tool::setImgApp($imgUrl);
+						}
+						else
+							$resImg .= \Library\tool::setImgApp($imgUrl);
+					}
+				}
+			}
+			$storeProduct['confirm'] = $resImg;
     		if (!empty(safe::filterPost('imgfile2'))) {
     			$storeProduct['quality'] = \Library\tool::setImgApp(safe::filterPost('imgfile2'));
     		}
