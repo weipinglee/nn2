@@ -83,4 +83,31 @@ class testController extends  UcenterBaseController{
 		else echo 'error';
 	}
 
+	public function setOrderOfferuserAction(){
+		$page = safe::filterGet('page','int',1);
+		$pagesize = 1000;
+		if($page==1){
+			$limit = $pagesize;
+		}
+		else{
+			$limit = ($page-1)*$pagesize.','.$pagesize;
+		}
+
+		$orderObj = new M('order_sell');
+		$offerObj = new M('product_offer');
+		$orderData = $orderObj->where(array('offer_user_id'=>0))->fields('id,offer_id')->limit($limit)->order('id desc')->select();
+		$orderObj->beginTrans();
+		foreach($orderData as $val){
+			$user_id = $offerObj->where(array('id'=>$val['offer_id']))->getField('user_id');
+			if($user_id){
+				$orderObj->where(array('id'=>$val['id']))->data(array('offer_user_id'=>$user_id))->update();
+			}
+		}
+		if($orderObj->commit()){
+			echo 'success';
+		}
+		else
+			echo 'error';
+	}
+
 }

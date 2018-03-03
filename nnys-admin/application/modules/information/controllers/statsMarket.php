@@ -124,4 +124,21 @@ class statsMarketController extends Yaf\Controller_Abstract
         $res=$statsModel->delStats($id);
         die(\Library\json::encode($res));
     }
+
+    public function statsUserListAction(){
+        $page=\Library\safe::filterGet('page','int');
+        $obj = new \Library\Query('stat_user');
+        $obj->page=$page;
+        $data = $obj->find();
+        $bar = $obj->getPageBar();
+        $this->getView()->assign('data',$data);
+        $this->getView()->assign('pageBar',$bar);
+    }
+
+    public function statsUserDetailAction(){
+        $statsModel=new \nainai\statsMarket();
+       $data = $statsModel->userStatData();
+        die(\Library\json::encode($data));
+
+    }
 }
