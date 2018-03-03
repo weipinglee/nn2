@@ -70,7 +70,7 @@
                         dataType:'json',
                         success:function(data){
                           //  alert(JSON.stringify(data));
-                            if(data.offer_num){
+                            if(data.offer_num>0){
                                 $('.offer_num').text(data.offer_num);
                                 $('.offer_dun').text(data.offer_dun+'吨');
                                 $('.offer_amount').text(data.offer_amount+'元');
