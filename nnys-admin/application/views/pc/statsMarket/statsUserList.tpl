@@ -72,27 +72,30 @@
                           //  alert(JSON.stringify(data));
                             if(data.offer_num>0){
                                 $('.offer_num').text(data.offer_num);
-                                $('.offer_dun').text(data.offer_dun+'吨');
-                                $('.offer_amount').text(data.offer_amount+'元');
+                                $('.offer_dun').text(data.offer_dun);
+                                $('.offer_amount').text(data.offer_amount);
                                 $('.order_dun').text(data.order_dun+'吨');
-                                $('.order_amount').text(data.order_amount+'元');
-                                $('.last_dun').text(data.last_dun+'吨');
-                                $('.last_amount').text(data.last_amount+'元');
+                                $('.order_amount').text(data.order_amount);
+                                $('.last_dun').text(data.last_dun);
+                                $('.last_amount').text(data.last_amount);
                             }
+							else{
+							    $('.show').find('span').text(0);
+							}
                         }
                     })
                })
             })
         </script>
 
-        <div>
+        <div class="show">
             报盘次数：<span class="offer_num"></span></br>
-            报盘吨数：<span class="offer_dun"></span></br>
-            报盘金额：<span class="offer_amount"></span></br>
-            销售吨数：<span class="order_dun"></span></br>
-            销售金额：<span class="order_amount"></span></br>
-            剩余吨数：<span class="last_dun"></span></br>
-            剩余金额：<span class="last_amount"></span></br>
+            报盘吨数：<span class="offer_dun"></span>吨</br>
+            报盘金额：<span class="offer_amount"></span>元</br>
+            销售吨数：<span class="order_dun"></span>吨</br>
+            销售金额：<span class="order_amount"></span>元</br>
+            剩余吨数：<span class="last_dun"></span>吨</br>
+            剩余金额：<span class="last_amount"></span>元</br>
         </div>
         {$pageBar}
     </div>
