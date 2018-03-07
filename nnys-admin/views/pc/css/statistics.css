@@ -1,0 +1,54 @@
+.cl .time_a{
+	padding: 2px 5px;
+	background: #BDEBEE;
+	margin-right: 1px;
+	text-decoration: none;
+}
+.cl .time_a.cur_time{
+	background: #fff;
+}
+.cl .text_cl{
+	width: 100px;
+	border: 1px solid #ddd;
+	padding: 5px 0px;
+}
+.col-md-4 .stats_img{
+	width: 224px;
+	height: 105px;
+}
+.col-md-4 .col_p{
+	padding: 0px !important;
+	margin: 0px;
+}
+.col_pandding1{
+	padding-left: 50px;
+	margin-bottom:20px;
+}
+.col_pandding2{
+	padding-left: 30px
+}
+
+.div_right{
+	padding: 20px 0px;
+}
+.div_right .hy_text{
+	border: 1px solid #ddd;
+	width: 100px;
+}
+.div_right .fold_line_text{
+	text-align: center;
+}
+.div_right .line_ok{
+	width: 40px;
+	height: 20px;
+}
+.div_right .fold_line{
+	width: 320px;
+	height: 300px;
+}
+.div_right .row_bag{
+	padding: 10px;
+	margin-left: 10px;
+	margin-bottom: 10px; 
+	background: #fff;
+}
