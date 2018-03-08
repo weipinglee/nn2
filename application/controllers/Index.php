@@ -49,11 +49,13 @@ class IndexController extends PublicController {
         $configData = $indexConfig->getIndexconfigCP();
 
 
+
         $this->getView()->assign('productData',$configData);
        // $this->getView()->assign('configData1',$configData1);
 		$this->getView()->assign('offerCateList',\Library\json::encode($offerList));
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
+        $this->getView()->setStaticFile();
 	}
     
     

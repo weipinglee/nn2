@@ -9,15 +9,9 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-        $casObj = new NNcas();
-        $res = $casObj->checkServerLogin();
-        if($res){
-            echo '已登录';
-        }
-        else{
-            echo '未登录';
-        }
-        exit;
+        echo 123;
+        $this->getView()->setLayout('');
+        $this->getView()->setStaticFile();
     }
 
 

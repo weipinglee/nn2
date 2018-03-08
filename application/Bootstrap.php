@@ -38,6 +38,7 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 
 	}
 
+
 	public function _initPlugin(Yaf\Dispatcher $dispatcher) {
 		//注册一个插件
 		$objSamplePlugin = new SamplePlugin();

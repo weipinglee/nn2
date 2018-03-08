@@ -8,12 +8,13 @@
 class SamplePlugin extends Yaf\Plugin_Abstract {
 
 	public function routerStartup(\Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-		$static = new \nainai\statistics();
-		$static->createStatistics();
+
 
 	}
 
 	public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
+		//判断是否有静态文件，如果有直接载入
+        \Library\staticPage::checkHasStatic($request);
 		//开闭市控制
 		$market = new \nainai\market();
 		$res = $market->checkCanOper($request);
@@ -39,6 +40,6 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 	}
 
 	public function dispatchLoopShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-		//echo $request->getActionName();
+
 	}
 }
