@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{views:css/roll.css}">
     <link rel="stylesheet" type="text/css" href="{views:css/user_index.css}">
     <!-- 轮播图end-->
-<script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
+
     <link rel="stylesheet" type="text/css" href="{views:css/font-awesome.min.css}">
 
     <link rel="stylesheet" type="text/css" href="{views:css/product.css}">

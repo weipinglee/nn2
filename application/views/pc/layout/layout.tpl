@@ -23,6 +23,7 @@
     <link href="{views:css/topnav20141027.css}" rel="stylesheet" type="text/css">
     <script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
     <script src="{views:js/countdown.js}" type="text/javascript"></script>
+    <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
     <!--[if lte IE 6]>
 
     
@@ -73,7 +74,57 @@
 
 </head>
 <body>
+<script type="text/html" id="topBarTemplate">
+    <div class="topnav_left">
+        <div class="top_index">
+            <img class="index_img" src="{views:images/index/icon_index.png}"/>
+            <a rel="external nofollow" href="{url:/index/index@deal}" target="_blank" >耐耐网首页</a>
+        </div>
+        <div class="index_user">
+            <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class=""><%=data.username%></a>
+        </div>
+        <div class="login_link" id="toploginbox">
+            <a rel="external nofollow" href="{url:/login/logOut@user}" target="_blank" class="topnav_login">退出</a>
+        </div>
 
+    </div>
+    <div class="topnav_right">
+        <ul>
+            <li>
+                <a href="{$sellerCenterUrl}">卖家中心</a><span class="line_l">|<span>
+            </li>
+
+            <li>
+                <a href="{url:/ucenterindex/index@user}">会员中心</a><span class="line_l">|<span>
+            </li>
+            <li>
+                <a href="{url:/contract/buyerList@user}">我的合同</a><span class="line_l">|<span>
+            </li>
+
+            <li>
+                <a href="{url:/message/usermail@user}">消息中心
+                    <% if(data.mess>0&&data.mess<=99){ %>
+                    <em class="information"><%=data.mess%></em>
+                    <% }else if (data.mess!=0&&data.mess>99){ %>
+                    <em class="information">99+</em>
+                    <%}%>
+                </a>
+                    <span class="line_l">|<span>
+            </li>
+            <!--<li>
+                <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
+                <a href="">手机版</a><span class="line_l">|<span>
+            </li>-->
+            <li>
+                <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" ><!--onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=279020473&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" --> 在线客服</a><span class="line_l">|<span>
+            </li>
+            <li style="padding-top:2px;">
+                <span>交易时间：{$deal['start_time']}--{$deal['end_time']}</span>
+            </li>
+
+        </ul>
+    </div>
+</script>
 
 
 
@@ -151,55 +202,37 @@ $(function(){
 
 })
 </script>
-
+{set:$sellerCenterUrl=\Library\tool::getGlobalConfig(array('host','sellerCenter'));}
+{set:$shopUrl=\Library\tool::getGlobalConfig(array('host','shop'));}
+<input type="hidden" name="checkLogin" value="{url:/public/checkLogin}"/>
     <div class="bg_topnav">
-    <div class="topnav_width">
+    <div class="topnav_width" id="topBox">
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="{views:images/index/icon_index.png}"/>
                 <a rel="external nofollow" href="{url:/index/index@deal}" target="_blank" >耐耐网首页</a>
             </div>
-{set:$sellerCenterUrl=\Library\tool::getGlobalConfig(array('host','sellerCenter'));}
-{set:$shopUrl=\Library\tool::getGlobalConfig(array('host','shop'));}
-
             <div class="index_user">
-            {if:isset($username)}您好，
-                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">{$username}</a>
-                {else:}
-                <span>您好，欢迎进入耐耐网</span>
-                {/if}
+               <span>您好，欢迎进入耐耐网</span>
             </div>
-            {if:$login==0}
             <div class="login_link" id="toploginbox">
                 <a rel="external nofollow" href="{url:/login/login@user}" target="_blank" class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
                 <a rel="external nofollow" href="{url:/login/register@user}" target="_blank">免费注册</a>
             </div>
-            {else:}
-            <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="{url:/login/logOut@user}" target="_blank" class="topnav_login">退出</a>
-            </div>
-            {/if}
+
         </div>
         <div class="topnav_right">
             <ul>
                 <li>
-                    <a href="{$sellerCenterUrl}?sd={$sess_id}">卖家中心</a><span class="line_l">|<span>
+                    <a href="{$sellerCenterUrl}">卖家中心</a><span class="line_l">|<span>
                 </li>
-                {if:$login!=0}
-                 <li>
-                   <a href="{url:/ucenterindex/index@user}">会员中心</a><span class="line_l">|<span>
-                </li>
+
                 <li>
-                   <a href="{url:/contract/buyerList@user}">我的合同</a><span class="line_l">|<span>
-                </li>
-                {/if}
-                <li>
-                    <a href="{url:/message/usermail@user}">消息中心{if:$login==1&&$mess!=0&&$mess<=99}
-                    <em class="information">{$mess}</em>
-                    {elseif:$login==1&&$mess!=0&&$mess>99}
-                    <em class="information">99+</em>{/if}</a><span class="line_l">|<span>
+                    <a href="{url:/message/usermail@user}">消息中心
+                    </a>
+                    <span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
@@ -215,6 +248,8 @@ $(function(){
             </ul>
         </div>
     </div>
+
+<script type="text/javascript" src="{views:js/topshow.js}" ></script>
 </div>
 
 <div class="clearfix"></div>
@@ -321,7 +356,7 @@ $(function(){
             <li {if:!isset($cur) || $cur=='index'}class="current"{/if}><a href="{url:/index/index}">首页</a></li>
             <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
             <li {if:isset($cur) && $cur=='bid'}class="current"{/if}><a href="{url:/bid/tenderlist}" target="_blank">招投标</a></li>
-            <li {if:isset($cur) && $cur=='shop'}class="current"{/if}><a href="{$shopUrl}#/?sd={$sess_id}" target="_blank">店铺</a></li>
+            <li {if:isset($cur) && $cur=='shop'}class="current"{/if}><a href="{$shopUrl}#/" target="_blank">店铺</a></li>
             <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}" target="_blank">仓储专区</a></li>
             <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}" target="_blank">帮我找</a></li>
              <li ><a href="http://info.nainaiwang.com" target="_blank">耐耐资讯</a></li>
