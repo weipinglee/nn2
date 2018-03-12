@@ -152,6 +152,28 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
 
      }
 
+    public function checkLoginAction(){
+        $right = new \Library\checkRight();
+        $isLogin = $right->checkLogin();
+        if($isLogin){
+            $this->login = \Library\session::get('login');
+            //获取未读消息
+            $messObj=new \nainai\message($this->login['user_id']);
+            $mess=$messObj->getCountMessage();
+            $jsonArr = array(
+                'mess'=>$mess,
+                'login'=>1,
+                'username'=>$this->login['username'],
+                'sess_id' =>session_id(),
+                'user_id' => $this->login['user_id']
+            );
+            die(json_encode($jsonArr));
+
+        }
+        else
+            die(json_encode(array('login'=>0)));
+    }
+
 
 
 }

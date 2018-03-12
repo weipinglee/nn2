@@ -48,8 +48,6 @@ class IndexController extends PublicController {
         $indexConfig = new indexModel();
         $configData = $indexConfig->getIndexconfigCP();
 
-
-
         $this->getView()->assign('productData',$configData);
        // $this->getView()->assign('configData1',$configData1);
 		$this->getView()->assign('offerCateList',\Library\json::encode($offerList));

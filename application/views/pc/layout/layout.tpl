@@ -204,7 +204,7 @@ $(function(){
 </script>
 {set:$sellerCenterUrl=\Library\tool::getGlobalConfig(array('host','sellerCenter'));}
 {set:$shopUrl=\Library\tool::getGlobalConfig(array('host','shop'));}
-<input type="hidden" name="checkLogin" value="{url:/public/checkLogin}"/>
+<input type="hidden" name="checkLogin" value="{url:/ajaxData/checkLogin}"/>
     <div class="bg_topnav">
     <div class="topnav_width" id="topBox">
         <div class="topnav_left">
