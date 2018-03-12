@@ -15,7 +15,10 @@ class PublicController extends \Yaf\Controller_Abstract{
          $isLogin = $right->checkLogin();
          if($isLogin){
              $this->login = \Library\session::get('login');
+             $login = 1;
          }
+         else
+             $login = 0;
           //获取所有分类
           $cacheObj = new \Library\cache\Cache(array('type'=>'m','expire'=>3600));
           if($res=$cacheObj->get('allCateData')){
@@ -46,6 +49,7 @@ class PublicController extends \Yaf\Controller_Abstract{
           $model = new \nainai\system\DealSetting();
           $deal = $model->getsetting();
           $this->getView()->assign('deal', $deal);
+          $this->getView()->assign('login',$login);
 
      }
 
