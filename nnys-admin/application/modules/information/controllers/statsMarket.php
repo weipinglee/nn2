@@ -124,4 +124,8 @@ class statsMarketController extends Yaf\Controller_Abstract
         $res=$statsModel->delStats($id);
         die(\Library\json::encode($res));
     }
+    /*广告统计*/
+    public function adstatsListAction(){
+
+    }
 }

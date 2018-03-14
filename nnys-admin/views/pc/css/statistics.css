@@ -52,3 +52,35 @@
 	margin-bottom: 10px; 
 	background: #fff;
 }
+
+
+/*广告统计图*/
+.ad_line_all{
+	background: #fff;
+	padding: 20px;
+	    margin-right: 20px;
+}
+.ad_line_all .ad_line_div{
+	width: 440px;
+	height: 320px;
+}
+.select_time{
+	float: right;
+	padding-right: 20px; 
+	font-weight: normal;
+	font-size: 13px;
+}
+.select_time .times_a{
+    padding: 1px 20px;
+    background: #d24141;
+    color: #fff !important; 
+    text-decoration: none;
+}
+.select_time .times_a:hover{
+	background: #f1ecec;
+    color: #151515 !important;
+}
+.select_time .times_a.time_cur_a{
+	background: #f1ecec;
+    color: #151515 !important;
+}
