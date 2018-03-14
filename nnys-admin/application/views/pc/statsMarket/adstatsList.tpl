@@ -61,7 +61,7 @@
 		    				<div class="ad_line_all">
 		    				<div class="ad_linex_time">
 		    			  		<span>时间选择：</span>
-		    			  		<a class="ad_time_a ad_time_cur">一天</a><a class="ad_time_a">一周</a><a class="ad_time_a">一月</a><a class="ad_time_a">一年</a>
+		    			  		<a class="ad_time_a2 ad_time_cur">一天</a><a class="ad_time_a2">一周</a><a class="ad_time_a2">一月</a><a class="ad_time_a2">一年</a>
 		    			  	</div> 
 		    			  	<div class="ad_line_div" id="ad_line2" ></div>
 		    			  </div>
@@ -79,6 +79,20 @@
 </div>
 
 <script type="text/javascript">
+$(function(){
+	$(".select_time .times_a").click(function(){
+		$(".select_time .times_a").removeClass("time_cur_a")
+		$(this).addClass("time_cur_a");
+	})
+	$(".ad_linex_time .ad_time_a").click(function(){
+		$(".ad_linex_time .ad_time_a").removeClass("ad_time_cur")
+		$(this).addClass("ad_time_cur");
+	})
+	$(".ad_linex_time .ad_time_a2").click(function(){
+		$(".ad_linex_time .ad_time_a2").removeClass("ad_time_cur")
+		$(this).addClass("ad_time_cur");
+	})
+})
 // 基于准备好的dom，初始化echarts图表
 	var data_times = ['8.35','15.00','18.00','20.00'];//初始x周
     var myChart1 = echarts.init(document.getElementById("ad_line1"));

@@ -64,6 +64,18 @@
 	width: 440px;
 	height: 320px;
 }
+.ad_linex_time .ad_time_a,.ad_linex_time .ad_time_a2{
+	    padding: 2px 5px;
+    background: #BDEBEE;
+    margin-right: 1px;
+    text-decoration: none;
+}
+.ad_linex_time .ad_time_a:hover,.ad_linex_time .ad_time_a2:hover{
+	background: #f9f9f9;
+}
+.ad_linex_time .ad_time_a.ad_time_cur,.ad_linex_time .ad_time_a2.ad_time_cur{
+	background: #f9f9f9;
+}
 .select_time{
 	float: right;
 	padding-right: 20px; 
