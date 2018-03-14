@@ -9,9 +9,7 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-        echo 123;
-        $this->getView()->setLayout('');
-        $this->getView()->setStaticFile();
+
     }
 
 

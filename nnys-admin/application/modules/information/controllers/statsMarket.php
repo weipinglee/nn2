@@ -141,4 +141,15 @@ class statsMarketController extends Yaf\Controller_Abstract
         die(\Library\json::encode($data));
 
     }
+
+    public function statsList2Action(){
+         $orderStaticObj = new \orderStaticModel();
+         $start = '20180201';
+         $end = '20180314';
+        // $orderStaticObj->createStaticDataDay($start,$end);
+
+         $startMonth = '201802';
+         $endMonth = '201802';
+         $orderStaticObj->createStaticDataMonth($startMonth,$endMonth);
+    }
 }
