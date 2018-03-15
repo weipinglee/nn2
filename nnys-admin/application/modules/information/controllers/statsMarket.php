@@ -6,6 +6,9 @@
  * Date: 2016/8/25
  * Time: 13:58
  */
+use \Library\safe;
+use \Library\json;
+use \Library\tool;
 class statsMarketController extends Yaf\Controller_Abstract
 {
     public function init(){
@@ -144,12 +147,92 @@ class statsMarketController extends Yaf\Controller_Abstract
 
     public function statsList2Action(){
          $orderStaticObj = new \orderStaticModel();
-         $start = '20180201';
-         $end = '20180314';
-        // $orderStaticObj->createStaticDataDay($start,$end);
+//         $start = '20180201';
+//         $end = '20180314';
+//        // $orderStaticObj->createStaticDataDay($start,$end);
+//
+//         $startMonth = '201802';
+//         $endMonth = '201802';
+//         $orderStaticObj->createStaticDataMonth($startMonth,$endMonth);
 
-         $startMonth = '201802';
-         $endMonth = '201802';
-         $orderStaticObj->createStaticDataMonth($startMonth,$endMonth);
+
+
+    }
+
+    public function tradeStatisticDataAction(){
+        $type = safe::filterGet('time');
+        $username = safe::filterGet('user_name');
+        $obj = new \Library\M('user');
+        $user_id=0;
+        if($username!=''){
+            $user_id = $obj->where(array('username'=>$username))->getField('id');
+            if(!$user_id)
+                die(\Library\json::encode(\Library\tool::getSuccInfo(0,'用户不存在')));
+        }
+        $num = 7;
+        if($type=='week'){
+            $type='day';
+        }
+        else{
+            $type='month';
+        }
+        try{
+            $orderStaticObj = new \orderStaticModel();
+            $data = $orderStaticObj->getStatisticData($type,$user_id,$num);
+            die(json::encode($data));
+        }catch (\Exception $e){
+            die(\Library\json::encode(\Library\tool::getSuccInfo(0,$e->getMessage())));
+        }
+
+
+
+    }
+
+    public function offerStatisticDataAction(){
+        $username = safe::filterGet('user_name');
+        $proname = safe::filterGet('pro_name');
+        $status = safe::filterGet('status');//1代表已成交，0未成交
+        $start_time = safe::filterGet('start');
+        $end_time = safe::filterGet('end');
+        if($start_time==''&& $end_time==''){
+            $time_type = safe::filterGet('type');
+            $timeObj = new \DateTime();
+            if($time_type=='week'){
+                $week = date('N',strtotime(time()))-1;
+                $timeObj->modify('-'.$week.' day');
+                $start_time = $timeObj->format('Y-m-d');
+            }
+            elseif($time_type=='month'){
+                $days = intval($timeObj->format('d'))-1;
+                $timeObj->modify('-'.$days.' day');
+                $start_time = $timeObj->format('Y-m-d');
+            }
+            elseif($time_type=='quarter'){
+                $months = intval($timeObj->format('m'));
+                $sub = 0;
+                if($months%3==0){
+                    $sub = 2;
+                }
+                elseif($months%3==1){
+                    $sub  = 0;
+                }
+                elseif($months%3==2){
+                    $sub = 1;
+                }
+                $timeObj->modify('-'.$sub.' month');
+                $start_time = $timeObj->format('Y-m').'-01';
+            }
+            $user_id = 0;
+            if($username!=''){
+                $obj = new \Library\M('user');
+                $user_id = $obj->where(array('username'=>$username))->getField('id');
+                if(!$user_id)
+                    die(\Library\json::encode(\Library\tool::getSuccInfo(0,'用户不存在')));
+            }
+            $orderStaticObj = new \orderStaticModel();
+            $data = $orderStaticObj->getOfferStatisticData($user_id,$proname,$status,$start_time,$end_time);
+            print_r($data);
+
+        }
     }
 }
