@@ -27,7 +27,7 @@ class OfferManageModel extends \nainai\offer\product{
 		$Q = new \Library\searchQuery('product_offer as o');
 		$Q->join = "left join products as p on o.product_id = p.id left join user as u on o.user_id = u.id
 					left join company_info as c on u.id = c.user_id left join person_info as per on u.id = per.user_id";
-		$Q->fields = "o.*,u.username,p.quantity,p.unit,p.name,per.true_name,c.company_name";
+		$Q->fields = "o.*,u.username,p.quantity,p.attribute,p.unit,p.name,p.note,p.market_id,p.cate_id,per.true_name,c.company_name";
 		 $Q->order = 'apply_time desc';
 		
 		if($where) $Q->where = $where;
@@ -45,7 +45,21 @@ class OfferManageModel extends \nainai\offer\product{
 			$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
 			$value['status_txt'] = $this->getStatus($value['status']);
 
-				$value['type_txt'] = $this->getType($value['type']);
+			$attr_id = array();
+            $attrs = unserialize($value['attribute']);
+            if(!empty($attrs)){
+                foreach ($attrs as $aid => $name) {
+                    if (!in_array($aid, $attr_id)) {
+                        $attr_id[] = $aid;
+                    }
+                }
+            }
+            $attrs = $this->getHTMLProductAttr($attr_id);
+           // foreach($)
+            $value['attr'] = unserialize($value['attribute']);
+            $value['market'] = $this->getCateName($this->getcateTop($value['market_id']));
+            $value['cate'] = $this->getCateName($value['cate_id']);
+			$value['type_txt'] = $this->getType($value['type']);
 		}
 		$Q->downExcel($data['list'],'product_offer', '报盘信息列表 ');
 		return $data;

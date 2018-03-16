@@ -40,7 +40,11 @@ class Downconfig
                 $config = array('id' => 'id', 'name' => '用户名', 'datetime' => '时间', 'ip' => 'ip', 'content' => '操作');
                 break;
               case 'product_offer':
-                $config = array('id' => 'id', 'username' => '用户名', 'true_name' => '姓名', 'company_name' => '企业名称', 'name' => '商品名', 'type_txt' => '交易方式', 'mode_txt' => '类型', 'divide_text' => '可否拆分', 'quantity' => '数量', 'price' => '挂牌价', 'status_txt' => '状态');
+                $config = array('id' => 'id', 'username' => '用户名', 'true_name' => '姓名', 'company_name' => '企业名称',
+                    'name' => '商品名', 'type_txt' => '交易方式', 'mode_txt' => '类型', 'divide_text' => '可否拆分',
+                    'quantity' => '数量', 'price' => '挂牌价', 'status_txt' => '状态','market'=>'商品大类','cate'=>'商品种类',
+                    'attr'=>'商品属性','sub_mode'=>'子报盘类型','offer_fee'=>'报盘费率','sell_num'=>'已售数量','unit'=>'计量单位',
+                    'note'=>'产品描述','other'=>'补充条款','apply_time'=>'申请时间','expire_time'=>'过期时间');
                 break;
               case 'user_log':
                 $config = array('id' => 'id', 'username' => '用户名', 'datetime' => '操作时间', 'action' => '动作', 'content' => '操作内容', 'ip' => 'ip');

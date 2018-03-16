@@ -200,10 +200,10 @@ class orderStaticModel {
         }
 
         if($start_time!=''){
-            $where['_string'] = ' create_time > '.$start_time;
+            $where['_string'] = ' apply_time > '.$start_time;
         }
         if($end_time!=''){
-            $where['_string'] .= ' AND create_time <'.$end_time;
+            $where['_string'] .= ' AND apply_time <'.$end_time;
         }
         $offerObj = new M('product_offer');
         $res = $offerObj->where($where)->fields('count(id) as total_times,sum(max_num) as total_num,
