@@ -231,7 +231,6 @@ class statsMarketController extends Yaf\Controller_Abstract
             }
             $orderStaticObj = new \orderStaticModel();
             $data = $orderStaticObj->getOfferStatisticData($user_id,$proname,$status,$start_time,$end_time);
-            print_r($data);
             die(json::encode($data));
 
         }
