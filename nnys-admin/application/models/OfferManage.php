@@ -45,6 +45,7 @@ class OfferManageModel extends \nainai\offer\product{
 			$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
 			$value['status_txt'] = $this->getStatus($value['status']);
 
+			$value['attr']='';
 			$attr_id = array();
             $attrs = unserialize($value['attribute']);
             if(!empty($attrs)){
@@ -54,12 +55,18 @@ class OfferManageModel extends \nainai\offer\product{
                     }
                 }
             }
-            $attrs = $this->getHTMLProductAttr($attr_id);
-           // foreach($)
-            $value['attr'] = unserialize($value['attribute']);
+            $attrName = $this->getHTMLProductAttr($attr_id);
+            if(!empty($attrs)){
+                foreach($attrs as $key=>$val){
+                    if(isset($attrName[$key])){
+                        $value['attr'] .= $attrName[$key].':'.$val.'<br>';
+                    }
+                }
+            }
             $value['market'] = $this->getCateName($this->getcateTop($value['market_id']));
             $value['cate'] = $this->getCateName($value['cate_id']);
 			$value['type_txt'] = $this->getType($value['type']);
+            $value['sub_mode'] = $this->getSubmode($value['sub_mode']);
 		}
 		$Q->downExcel($data['list'],'product_offer', '报盘信息列表 ');
 		return $data;
