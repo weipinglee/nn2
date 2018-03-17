@@ -8,9 +8,12 @@
 	background: #fff;
 }
 .cl .text_cl{
-	width: 100px;
+	width: 200px;
 	border: 1px solid #ddd;
 	padding: 5px 0px;
+}
+.cl .select_staus{
+	width: 150px;
 }
 .col-md-4 .stats_img{
 	width: 224px;
