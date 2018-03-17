@@ -81,12 +81,16 @@ class orderStaticModel {
         $data = array();
         if($type=='day'){
             $currDate->modify('-1 day');
+
             //获取过去几天的统计
-           $data = $this->dateIntervalStaticData($user_id,$currDate->format('Y-m-d'),$num);
-           //获取当天的统计
-            $data[] = $this->todayStaticData($user_id);
+            $data = $this->dateIntervalStaticData($user_id,$currDate->format('Y-m-d'),$num);
+            //获取当天的统计
+            $data[date('Y-m-d')] = $this->todayStaticData($user_id);
             foreach($data as &$val){
-                $val['week'] = date('N',strtotime($val['date']));
+                if(!empty($val)){
+                    $val['week'] = date('N',strtotime($val['date']));
+                }
+
             }
         }
         elseif($type=='month'){
@@ -94,7 +98,7 @@ class orderStaticModel {
             //获取过去几个月的统计
             $data = $this->monthIntervalStaticData($user_id,$currDate->format('Y-m-d'),$num);
             //获取当前月的统计
-            $data[] = $this->currMonthStaticData($user_id);
+            $data[date('Y-m')] = $this->currMonthStaticData($user_id);
             foreach($data as &$val){
                 $val['month'] = date('n',strtotime(substr($val['date'],0,-2).'01'));
             }
@@ -116,14 +120,21 @@ class orderStaticModel {
             $date_arr = array();
             $days = intval($days);
             while($days>0){
-                $date_arr[] = $dateObj->format('Y-m-d');
+                array_unshift($date_arr,$dateObj->format('Y-m-d'));
                 $dateObj->modify('-1 day');
                 $days--;
             }
             $where = array('user_id'=>$user_id,'date'=>array('in',join(',',$date_arr)));
-            $data = $dbObj->where($where)->order('date')->select();
-
-        return $data;
+            $data = $dbObj->where($where)->order('date asc')->select();
+            foreach($data as $key=>$val){
+                $data[$val['date']] = $val;
+                unset($data[$key]);
+            }
+            $resData = array();
+            foreach($date_arr as $val){
+                $resData[$val] = isset($data[$val]) ? $data[$val] : array('date'=>$val,'user_id'=>$user_id,'num'=>0,'amount'=>0);
+            }
+        return $resData;
     }
 
     /**
@@ -138,12 +149,22 @@ class orderStaticModel {
         $startDate = new \DateTime($endMonth);
         $date_arr = array();
         while($months>0){
-            $date_arr[] = $startDate->format('Y-m').'-99';
+            array_unshift($date_arr,$startDate->format('Y-m').'-99') ;
             $startDate->modify('-1 month');
             $months--;
         }
         $where = array('user_id'=>$user_id,'date'=>array('in',join(',',$date_arr)));
-        return $dbObj->where($where)->order('date')->select();
+        $data = $dbObj->where($where)->order('date asc')->select();
+        foreach($data as $key=>$val){
+            $data[substr($val['date'],0,-3)] = $val;
+            unset($data[$key]);
+        }
+        $resData = array();
+        foreach($date_arr as $val){
+            $temp = substr($val,0,-3);
+            $resData[$temp] = isset($data[$temp]) ? $data[$temp] : array('date'=>$val,'user_id'=>$user_id,'num'=>0,'amount'=>0);
+        }
+        return $resData;
     }
 
     /**
@@ -186,6 +207,8 @@ class orderStaticModel {
         $data = $orderObj->where($where)->fields('sum(num) as num,sum(amount) as amount')->getObj();
         $data['user_id']=$user_id;
         $data['date'] = date('Y-m-d');
+        $data['num'] = $data['num']==null ? 0 : $data['num'];
+        $data['amount'] = $data['amount']==null ? 0 : $data['amount'];
         return $data;
     }
 

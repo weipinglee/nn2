@@ -169,7 +169,7 @@ class statsMarketController extends Yaf\Controller_Abstract
             if(!$user_id)
                 die(\Library\json::encode(\Library\tool::getSuccInfo(0,'用户不存在')));
         }
-        $num = 7;
+        $num = 6;
         if($type=='week'){
             $type='day';
         }
