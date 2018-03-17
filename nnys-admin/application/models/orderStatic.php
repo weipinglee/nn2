@@ -223,11 +223,12 @@ class orderStaticModel {
         }
 
         if($start_time!=''){
-            $where['_string'] = ' apply_time > '.$start_time;
+            $where['_string'] = ' apply_time > "'.$start_time.'"';
         }
         if($end_time!=''){
-            $where['_string'] .= ' AND apply_time <'.$end_time;
+            $where['_string'] .= ' AND apply_time <"'.$end_time.'"';
         }
+
         $offerObj = new M('product_offer');
         $res = $offerObj->where($where)->fields('count(id) as total_times,sum(max_num) as total_num,
         sum(sell_num) as complate_num,sum(max_num*price) as total_money,sum(sell_num*price) as complate_money')->
@@ -246,6 +247,7 @@ class orderStaticModel {
         //获取报盘数据
         $offerObj->table('product_offer');
         $data = $offerObj->where($where)->fields('id,user_id,pro_name,max_num,price,status')->select();
+        $resData = array();
         if(!empty($data)){
             $user_ids = array();
             foreach($data as $key=>$val){
@@ -266,21 +268,19 @@ class orderStaticModel {
             }
             unset($userData);
             foreach($data as $key=>&$val){
-                if(!isset($val['user_id'])){
-                   echo $key.'_'.$val['user_id'];
-                }
+
                 if(isset($user[$val['user_id']])){
                     $val = array_merge($val,$user[$val['user_id']]);
                 }
                 else{
                     $val = array_merge($val,array('username'=>'','true_name'=>''));
                 }
+                $resData[intval($key/20)+1][] = $val;
 
             }
         }
-
         //$res是报盘统计数据，$data是具体报盘列表
-        return array('chart'=>$res,'offerlist'=>$data);
+        return array('chart'=>$res,'offerlist'=>$resData);
 
     }
 

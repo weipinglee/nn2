@@ -207,7 +207,7 @@ class statsMarketController extends Yaf\Controller_Abstract
                 $timeObj->modify('-'.$days.' day');
                 $start_time = $timeObj->format('Y-m-d');
             }
-            elseif($time_type=='quarter'){
+            else{
                 $months = intval($timeObj->format('m'));
                 $sub = 0;
                 if($months%3==0){
