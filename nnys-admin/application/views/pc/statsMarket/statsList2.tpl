@@ -569,7 +569,7 @@ $(function(){
 						xAxis_data=week;
 						}else if(time == 'year'){
 							xAxis_data=month;
-							alert(month)
+							//alert(month)
 						} /*if(time == 'week'){
 						xAxis_data=['周一','周二','周三','周四','周五','周六','周日'];
 						}else if(time == 'year'){
