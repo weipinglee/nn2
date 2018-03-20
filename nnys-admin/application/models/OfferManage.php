@@ -59,7 +59,7 @@ class OfferManageModel extends \nainai\offer\product{
             if(!empty($attrs)){
                 foreach($attrs as $key=>$val){
                     if(isset($attrName[$key])){
-                        $value['attr'] .= $attrName[$key].':'.$val.'<br>';
+                        $value['attr'] .= $attrName[$key].':'.$val.' ';
                     }
                 }
             }
