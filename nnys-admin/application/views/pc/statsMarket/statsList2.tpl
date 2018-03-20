@@ -305,8 +305,8 @@ function ajax_data(){
 		    	option3={
 			    	series:[{
 			    		data:[
-			   				{value:29838101.4458, name:'已完成'},
-		           			{value:12316764469.5542, name:'待完成'},
+			   				{value:complate_money, name:'已完成'},
+		           			{value:tbcomplate_money, name:'待完成'},
 		    			]
 		    		}]
 		    	}
