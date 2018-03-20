@@ -20,7 +20,7 @@
         			<option value="1">已成交</option>
         			<option value="0">待成交</option>
         		</select>
-        		<div style="margin: 10px 0;">时间：<a value="week" class="time_a">一周</a><a value="month" class="time_a cur_time">一个月</a><a value="quarte" class="time_a">一季度</a>&nbsp;&nbsp;
+        		<div style="margin-top: 10px;">时间：<a value="week" class="time_a ">一周</a><a value="month" class="time_a ">一个月</a><a value="quarte" class="time_a cur_time">一季度</a>&nbsp;&nbsp;
         		<input type="text" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" name="start" value="" style="width:180px;">-<input type="text" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" class="input-text Wdate" name="end" value="" style="width:180px;">
         		<button type="button" class="btn btn-success radius" id="stasearch" name=""><i class="icon-search fa-search"></i> 搜索</button>
         		</div>
@@ -76,7 +76,10 @@
 			</tbody>
 
 			</table>
-			{$pageBar}
+
+			<div class="pages_bar">
+				
+			</div>{$pageBar}
 		</div>
 	</div>
 	<div class="col-md-4 div_right">
@@ -113,6 +116,7 @@
 
 		})
 		//时间选择颜色变化end
+
 		
 	})
 	//初始化数据
@@ -122,11 +126,11 @@
 	//报盘数计
 	var option = {
 	   title : {
-	       text: '报盘数',
+	       text: '报盘数(/次)',
 	       x:'right',
 	       top:'70',
 	       textStyle: {
-	            fontSize: 16,
+	            fontSize: 13,
 	            fontWeight: '',
 	            color: '#333'          // 主标题文字颜色
 	        },
@@ -171,11 +175,11 @@
 	//重量统计
 	var option2 = {
 	   	title : {
-	       text: '总重',
+	       text: '总重(吨)',
 	       x:'130',
 	       top:'70',
 	       textStyle: {
-	            fontSize: 16,
+	            fontSize: 13,
 	            fontWeight: '',
 	            color: '#333'          // 主标题文字颜色
 	        },
@@ -213,11 +217,11 @@
 	//交易额统计
 	var option3 = {
 	   title : {
-	       text: '交易额',
+	       text: '交易额(元)',
 	       x:'100',
 	       top:'70',
 	       textStyle: {
-	            fontSize: 16,
+	            fontSize: 13,
 	            fontWeight: '',
 	            color: '#333'          // 主标题文字颜色
 	        },
@@ -272,17 +276,16 @@ function ajax_data(){
 	     if(data.success == 0){
 	    		alert(data.info)
 	    	}else{
-	 
-	    		var total_times=data.chart.total_times;
-		    	var complate_times=data.chart.complate_times
-		    	var tbcomplate_times=total_times-complate_times;
-		    	var total_num=data.chart.total_num;//总报盘吨数
-				var complate_num =data.chart.complate_num;//完成的报盘吨数
-				var tbcomplate_num=total_num-complate_num;//未完成报盘吨数
-				var total_money=data.chart.total_money;//总报盘金额
-				var complate_money=data.chart.complate_money;//完成的报盘金额
-				var tbcomplate_money=total_money-complate_money;//未完成报盘金额
-		    	//alert(complate_money + ' d '+tbcomplate_money)
+
+	    		var total_times=Number(data.chart.total_times);
+		    	var complate_times=Number(data.chart.complate_times);
+		    	var tbcomplate_times=Number(total_times-complate_times);
+		    	var total_num=Number(data.chart.total_num);//总报盘吨数
+				var complate_num =Number(data.chart.complate_num);//完成的报盘吨数
+				var tbcomplate_num=Number(total_num-complate_num);//未完成报盘吨数
+				var total_money=Number(data.chart.total_money);//总报盘金额
+				var complate_money=Number(data.chart.complate_money);//完成的报盘金额
+				var tbcomplate_money=Number(total_money-complate_money);//未完成报盘金额
 		    	option={
 			    	series:[{
 			    		data:[
@@ -302,8 +305,8 @@ function ajax_data(){
 		    	option3={
 			    	series:[{
 			    		data:[
-			   				{value:29838101.4458, name:'已完成'},
-		           			{value:12316764469.5542, name:'待完成'},
+			   				{value:complate_money, name:'已完成'},
+		           			{value:tbcomplate_money, name:'待完成'},
 		    			]
 		    		}]
 		    	}
@@ -311,36 +314,89 @@ function ajax_data(){
 			    stats2.setOption(option2);
 			    stats3.setOption(option3);
 			    //写入数据
+
 			    $("#total_times").text("当前报盘数："+total_times);
 			    $("#complate_times").text("已完成："+complate_times);
 			    $("#tbcomplate_times").text("待完成："+tbcomplate_times);
 			    $("#total_num").text("总交易量："+total_num);
 			    $("#complate_num").text("已完成："+complate_num);
 			    $("#tbcomplate_num").text("待完成："+tbcomplate_num);
-			     $("#total_money").text("总交易量："+total_money);
+			     $("#total_money").text("总交易额："+total_money);
 			    $("#complate_money").text("已完成："+complate_money);
 			    $("#tbcomplate_money").text("待完成："+tbcomplate_money);
-
 			    //获取表格list
 			    var offerlist = data.offerlist;
-			    
-			   var str=""
-			   for(var i=0;i<offerlist.length;i++){
-			   	str +="<tr class='text-c'>"+
-			   	 		"<td>" + offerlist[i].id + "</td>" +  
-                        "<td>" + offerlist[i].username + "</td>" +  
-                        "<td>" + offerlist[i].true_name + "</td>" +  
-                        "<td>" + offerlist[i].pro_name + "</td>" +  
-                        "<td>" + offerlist[i].max_num + "</td>" +  
-                        "<td>" + offerlist[i].price + "</td>" + 
-                        "<td>" + offerlist[i].status_text + "</td>"+
+			   // var str="";
+			    var page_str=""//页数
+			    var index =1 //当前页
+			    function data_a(n){
+			    	$("#tbody_list").empty();
+			    	//alert("dd")
+			    	var str='';
+			    	for(var i=0;i<20;i++){
+			    		 str+="<tr class='text-c'>"+
+			   	 		"<td>" + offerlist[n][i].id + "</td>" +  
+                        "<td>" +  offerlist[n][i].username + "</td>" +  
+                        "<td>" +  offerlist[n][i].true_name + "</td>" +  
+                        "<td>" +  offerlist[n][i].pro_name + "</td>" +  
+                        "<td>" +  offerlist[n][i].max_num + "</td>" +  
+                        "<td>" +  offerlist[n][i].price + "</td>" + 
+                        "<td>" +  offerlist[n][i].status_text + "</td>"+
                         "<td class='td-manage'><a title='功能开发中..'' href='' class='ml-5' style='text-decoration:none'><i class='icon-unlock fa-unlock'></i></a></td>" + 
-                         "</tr>"; 
-			   }
-			  // alert("dd"+str);
-			    tbody.innerHTML = str; 
-			   // $('#tbody_list').append(str) 
-		    }	
+                        "</tr>";  
+                         $("#tbody_list").html(str);   
+			    	}
+			    	
+			    }
+			    data_a(index)
+			   // alert(offerlist[2][20])
+			    $.each(offerlist,function(i,value){
+			    	//i是页码数
+			    	page_str+="<a class='num_a'>"+i+"</a>"
+			    })
+			    $(".pages_bar").html("<a class='heard_bar'>首页</a>			<a class='a_up'>上一页</a>"+page_str+"<a class='a_down'>下一页</a>")
+			  	$(".pages_bar .num_a:first").addClass("current_page")
+			    $(".pages_bar .num_a").click(function(){
+			    	$("#tbody_list").empty();
+					$(".pages_bar .num_a").removeClass("current_page");
+					$(this).addClass("current_page");
+					var page_num = parseInt($(this).text()) 
+					data_a(page_num);
+					$("#tbody_list").html(str);  
+				})
+				$(".a_up").click(function(){
+					var num_d=parseInt($(".pages_bar a.current_page").text());
+					var c=num_d-1;
+					if(c == 0){
+						c=1
+						alert("亲第一页了");
+					}else{
+						//alert("c="+c)
+						$(".pages_bar .num_a").removeClass("current_page");
+						$(".pages_bar").find(".num_a").eq(c-1).addClass("current_page");
+						data_a(c);
+					}
+				})
+				$(".a_down").click(function(){
+					var num_d=parseInt($(".pages_bar a.current_page").text());
+					var d=num_d+1
+					var l = $(".pages_bar .num_a").length;
+					//alert(d);
+					//l最后一页全局变量，l=l+1
+					if(d >l ){
+						alert("亲最后一页了");
+					}else{
+						$(".pages_bar .num_a").removeClass("current_page");
+						$(".pages_bar").find(".num_a").eq(d-1).addClass("current_page");
+						data_a(d);
+					}
+				})
+				$(".heard_bar").click(function(){
+					$(".pages_bar .num_a").removeClass("current_page");
+					$(".pages_bar .num_a:eq(0)").addClass("current_page");
+						data_a(index);
+				})
+			}	
 	    },
 	     error : function(data){
 	     	alert("获取数据失败");
@@ -348,6 +404,7 @@ function ajax_data(){
 	    
 	})
 }
+
 
 $(function(){
 //页面打开时执行函数ajax_data();获取总数据
@@ -512,6 +569,7 @@ $(function(){
 						xAxis_data=week;
 						}else if(time == 'year'){
 							xAxis_data=month;
+							//alert(month)
 						} /*if(time == 'week'){
 						xAxis_data=['周一','周二','周三','周四','周五','周六','周日'];
 						}else if(time == 'year'){
