@@ -13,10 +13,15 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-		echo time().'</br>';
-	//	echo substr(-1,3,time());
+		$obj = new \nainai\fund\jianshe\secretKey();
+		echo $obj->getPrivKey();
+
+
 	}
 
+	public function test2Action(){
+	    echo 345;
+    }
 
 	/**
 	 * 生成旧的报盘的市场大分类id

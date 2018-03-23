@@ -25,6 +25,7 @@
 				<th width="100">交易方式</th>
 				<th width="100">报盘方式</th>
 				<th width="100">子报盘方式</th>
+				<th width="100">支付方式</th>
 				<th width="100">成交数量</th>
 				<th width="100">合同金额</th>
 				<th width="100">质量扣款金额</th>
@@ -46,6 +47,10 @@
 				<td>{$item['type_txt']}</td>
 				<td>{$item['mode_txt']}</td>
 				<td>{$item['submode_txt']}</td>
+				<td>{if:$item['mode']==1}
+                        {if:$item['proof']}线下支付{else:}线上支付{/if}
+				    {/if}
+				</td>
 				<td>{$item['num']}{$item['unit']}</td>
 				<td>{$item['amount']}</td>
 				<td>{$item['reduce_amount']}</td>
