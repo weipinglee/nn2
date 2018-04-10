@@ -213,5 +213,16 @@ class OffermanageController extends Yaf\Controller_Abstract{
 
 		$this->getView()->assign('info',$info);
 	}
+
+    public function createBaojiaAction(){
+        $offer_id = safe::filterPost('offer_id');
+        $user_id = safe::filterPost('user_id');
+        $price = safe::filterPost('price');
+        $offerObj = new \nainai\offer\jingjiaOffer();
+        $res = $offerObj->createbaojia($offer_id,$price,$user_id);
+        die(json::encode($res));
+
+
+    }
 }
  ?>
