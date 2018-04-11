@@ -38,7 +38,7 @@ class UserModel{
 		array('username','/^[a-zA-Z][a-zA-Z0-9_]{2,29}$/','用户名格式错误'),
 		array('password','/^\S{6,15}$/','密码格式错误',0,'regex',3),
 		array('repassword','password','两次密码输入不同',0,'confirm'),
-		array('type',array(0,1),'类型错误',0,'in'),
+		array('type',array(0,1,-1),'类型错误',0,'in'),
 		array('head_photo','/^[a-zA-Z0-9_@\.\/]+$/','请正确上传头像',2,'regex'),
 		array('mobile','mobile','手机号码错误',0,'regex'),
 		array('email','email','邮箱格式错误',2,'regex'),
@@ -111,9 +111,6 @@ class UserModel{
 	//个人用户注册
 	public function userInsert(&$data){
 
-		if(false===$this->checkAgentPass($data['agent'],$data['serial_no']))
-			return $this->getSuccInfo(0,'代理商密码错误');
-
 		$user = self::$userObj;
 		if($user->data($data)->validate($this->userRules)){
 			$exit = $this->existUser($data);
@@ -121,13 +118,10 @@ class UserModel{
 				return $exit;
 
 			unset($user->repassword);
-			unset($user->serial_no);
 			$user->password = $data['password'] = sha1($data['password']);
 			$user->beginTrans();
 			$uID = $user->add();
-			if(is_numeric($uID) ){
-				$user->table('person_info')->data(array('user_id'=>$uID))->add();
-			}
+
 			foreach($this->initTables as $t){
 				$user->table($t)->data(array('user_id'=>$uID))->add();
 			}

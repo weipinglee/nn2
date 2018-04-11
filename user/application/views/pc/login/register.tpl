@@ -17,9 +17,6 @@
         <div class="logoimg_left">
             <div class="img_box"><img class="shouy" src="{views:images/password/logo.png}" id="btnImg"></div>
             <div class="word_box">欢迎注册</div>
-
-  
-
         </div>
          <div class="logoimg_right">
             <img class="shouy" src="{views:images/password/iphone.png}"> 
@@ -47,8 +44,10 @@
     </script>
         <!--注册-->
       <div class="reg_cot qy_reg">
-	   <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/login/regsucced}">
-          <input type="hidden" name="type" value="0"/>
+          <input name="checkUrl" value="{url:/login/checkisone@user}" type="hidden" />
+
+          <form action="{url:/login/doReg}" method="post" auto_submit redirect_url="{url:/login/regsucced}">
+
           <div class="cot">
             <span class="cot_tit">用户名：</span>
             <span><input class="text" type="text" name="username" nullmsg="请填写用户名"  datatype="/^[a-zA-Z0-9_]{3,30}$/" errormsg="请填写3-30位英文字母、数字" /></span>
@@ -69,14 +68,7 @@
             <span><input class="text" type="text" name="mobile" maxlength="11" datatype="mobile" nullmsg="请输入手机号" errormsg="请正确填写手机号"/></span>
               <span></span>
           </div>
-          <div class="cot" style="display: none">
-            <span class="cot_tit">验证码：</span>
 
-            <span><input class="text" style="width: 122px;display:block;float:left;margin-right: 4px; " type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
-              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img style="float:left;" src="{url:/login/getCaptcha}?w=200&h=50" /></a>
-
-              <span></span>
-          </div><!-- 隐藏图形验证码 -->
            <div class="cot">
             <span class="cot_tit">校验码：</span>
             <span><input style="width:122px;" class="text" type="text" name="validPhoneCode" maxlength="6" datatype="zip" nullmsg="请填写校验码" errormsg="校验码格式不正确"/> <a class="jiaoyma">获取校验码</a><span></span> </span>
@@ -102,29 +94,5 @@
   </div>
   <div style=" clear:both"></div>
 </div>
-<script type="text/javascript">
 
-    $(function(){
-
-        $('.pwd').on('click', function(){
-          if ($(this).attr('alt') == 0) {
-            var val = $(this).prev().val();
-            $(this).prev().remove();
-            $html = '<input class="text" type="text" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" value="'+val+'" />';
-            $(this).before($html);
-            $(this).attr('alt', 1);
-          }else{
-            var val = $(this).prev().val();
-            $(this).prev().remove();
-            $html = '<input class="text" type="password" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" value="'+val+'" />';
-            $(this).before($html);
-            $(this).attr('alt', 0);
-          }
-        })
-
-
-
-    });
-
-</script>
 

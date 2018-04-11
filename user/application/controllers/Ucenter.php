@@ -373,10 +373,10 @@ class UcenterController extends UcenterBaseController {
 
         if(IS_AJAX){
             $user_id = $this->user_id;
-
+            $user_type = safe::filterPost('user_type','int',1);
             $accData = array();
 
-            if($this->user_type==1){
+            if($user_type==1){
                 $accData['company_name'] = safe::filterPost('company_name');
                 $accData['legal_person'] = safe::filterPost('legal_person');
                 $accData['contact'] = safe::filterPost('contact');
@@ -397,7 +397,7 @@ class UcenterController extends UcenterBaseController {
                 $accData['identify_back'] = Tool::setImgApp(safe::filterPost('imgfile2'));
             }
 
-            $cert = new \nainai\cert\certDealer($user_id,$this->user_type);
+            $cert = new \nainai\cert\certDealer($user_id,$user_type);
 
             $res = $cert->certDealApply($accData);
             if($res['success']==1){

@@ -226,7 +226,7 @@ $(function(){
         <div class="topnav_right">
             <ul>
                 <li>
-                    <a href="{$sellerCenterUrl}">卖家中心</a><span class="line_l">|<span>
+                    <a href="{url:/shop/prompt}">卖家中心</a><span class="line_l">|<span>
                 </li>
 
                 <li>

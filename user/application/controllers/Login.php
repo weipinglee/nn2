@@ -87,33 +87,34 @@ class LoginController extends \Yaf\Controller_Abstract {
 			    'username'     =>safe::filterPost('username'),
 			    'password'     =>trim($_POST['password']),
 			    'repassword'   =>trim($_POST['repassword']),
-			    'type'         => safe::filterPost('type','int'),
+			    'pid'          => 0,
+			    'type'         => -1,//初始用户类型设置为-1
 			    'mobile'       => safe::filterPost('mobile','/^\d+$/'),
-			    'email'        =>safe::filterPost('email','email'),
-			    'agent' => safe::filterPost('agent','int',0),
-			    'serial_no' => safe::filterPost('agent_pass'),
+			  //  'email'        =>safe::filterPost('email','email'),
+			  //  'agent' => safe::filterPost('agent','int',0),
+			  //  'serial_no' => safe::filterPost('agent_pass'),
 			    'create_time' => \Library\time::getDateTime()
 		    );
 
-		    if($userData['type']==1){
-			    $companyData = array(
-				    'company_name' => safe::filterPost('company_name'),
-				    'area'         => safe::filterPost('area','/\d+/'),
-				    'legal_person' =>safe::filterPost('legal_person'),
-				    'reg_fund'     => safe::filterPost('reg_fund','float'),
-				    'category'     => safe::filterPost('category','int'),
-				    'nature'       => safe::filterPost('nature','int'),
-				    'contact'      => safe::filterPost('contact'),
-				    'contact_phone'=> safe::filterPost('contact_phone','/^\d+$/'),
-				    'contact_duty' => safe::filterPost('contact_duty','int'),
-
-
-			    );
-				$userData['true_name'] = $companyData['company_name'];
-			    $res = $userModel->companyReg($userData,$companyData);
-		    }else{
+//		    if($userData['type']==1){
+//			    $companyData = array(
+//				    'company_name' => safe::filterPost('company_name'),
+//				    'area'         => safe::filterPost('area','/\d+/'),
+//				    'legal_person' =>safe::filterPost('legal_person'),
+//				    'reg_fund'     => safe::filterPost('reg_fund','float'),
+//				    'category'     => safe::filterPost('category','int'),
+//				    'nature'       => safe::filterPost('nature','int'),
+//				    'contact'      => safe::filterPost('contact'),
+//				    'contact_phone'=> safe::filterPost('contact_phone','/^\d+$/'),
+//				    'contact_duty' => safe::filterPost('contact_duty','int'),
+//
+//
+//			    );
+//				$userData['true_name'] = $companyData['company_name'];
+//			    $res = $userModel->companyReg($userData,$companyData);
+//		    }else{
 			    $res = $userModel->userInsert($userData);
-            }
+            //}
         }
 		if(isset($res['success']) && $res['success']==1){//注册成功
 			$login = new CheckRight();
@@ -124,7 +125,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 			$mess = new \nainai\message($res['info']);
 			$re = $mess->send('register');
 		}
-
+		//$res['returnUrl'] = url::createUrl('/ucenter/dealcert@user');
 		die(json::encode($res));
 
 
@@ -198,16 +199,16 @@ class LoginController extends \Yaf\Controller_Abstract {
         $phone = safe::filterPost('phone');
         $captcha = safe::filterPost('captcha');
         $captchaObj = new captcha();
-        if(!$captchaObj->check($captcha))
-        {
-            die(JSON::encode(tool::getSuccInfo(0, '验证码错误')));
-        }
+       // if(!$captchaObj->check($captcha))
+       // {
+           // die(JSON::encode(tool::getSuccInfo(0, '验证码错误')));
+        //}
         $userObj = new M('user');
         if($userObj->where('mobile="'.$phone.'"')->getFields('id'))
         {
             die(JSON::encode(tool::getSuccInfo(0, '该手机号已注册')));
         }
-        $temp = rand(100000, 999999);
+        $temp = rand(100000, 999999);echo $temp;
         $text = "您申请的校验码为 {$temp},请尽快操作，妥善保管，如非本人操作，请忽略此信息。";
         session::set('mobileValidateReg', array('phone' => $phone, 'num' => $temp, 'time' => time()));
         $hsms = new Hsms();
