@@ -213,5 +213,23 @@ class OffermanageController extends Yaf\Controller_Abstract{
 
 		$this->getView()->assign('info',$info);
 	}
+
+    public function jingjiaTestAction(){
+	    if(IS_POST){
+            $offer_id = safe::filterPost('offer_id');
+            $username = safe::filterPost('username');
+            $price = safe::filterPost('price');
+            $obj = new \Library\M('user');
+            $user_id = $obj->where(array('username'=>$username))->getField('id');
+            if(!$user_id)
+                die(json::encode(tool::getSuccInfo(0,'用户不存在')));
+            $offerObj = new \nainai\offer\jingjiaOffer();
+            $res = $offerObj->createbaojia($offer_id,$price,$user_id);
+            die(json::encode($res));
+        }
+
+
+
+    }
 }
  ?>
