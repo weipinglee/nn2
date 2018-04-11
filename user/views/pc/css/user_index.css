@@ -79,6 +79,7 @@ img{border:0px;}
 .user_l,.user_c,.user_r{
   float: left;
   background: #fff;
+  position: relative;
 }
 .user_body .user_b:before,.user_l:before: {
   clear: none;
@@ -104,7 +105,7 @@ img{border:0px;}
   text-align: center;
 }
 .user_l .wrap_con .per_username p.username_p{
-  padding: 5px 0px;
+  padding: 3px 0px;
   line-height: 20px;
 }
 .user_l .wrap_con .per_username p.username_p .padding_right{
@@ -1610,7 +1611,7 @@ padding: 8px 15px;
   display: none
 }
 .zhxi_con .font-color{
-  padding: 0 85px;
+  padding: 0 170px;
 color: #CD2121;
 }
  /*end身份认证*/
@@ -2401,3 +2402,54 @@ cursor: pointer;
 }
 
 .colblue{color: #0088cc;}
+/*交易商认证*/
+.renz_select{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #eee;
+    padding-left: 90px;
+}
+.renz_select ul li{
+  float: left;
+  width: 200px;
+  height: 40px;
+  text-align: center;
+}
+.renz_select ul li a{
+  display: block;
+}
+.renz_select ul li a.cur{
+  border-bottom: 2px solid #D61515
+}
+.prompt_rez{
+  position: absolute;
+  top: 125px;
+  left: 100px;
+  background: #f9f9f9;
+  padding: 20px;
+  z-index: 200;
+  width: 300px;
+  display: none;
+}
+.prompt_rez h3{
+  text-align: left;
+  line-height: 40px;
+  font-weight: bold;
+  color: #D61515;
+}
+.prompt_rez p{
+  line-height: 25px;
+  text-align: left;
+  text-indent: 20px;
+  color: #000;
+}
+.prompt_rez .close{
+  text-align: right;
+  padding-top: 10px;
+}
+.prompt_rez .close a{
+  padding: 3px 15px;
+  border: 1px solid #999;
+}
+
+

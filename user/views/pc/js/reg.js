@@ -1,19 +1,4 @@
  $(function(){
-    $(".register_top .reg_zc").click(function(){
-        $(".reg_zc").removeClass("border_bom");
-        $(this).addClass("border_bom");
-    });
-    $(".register_top .register_l").click(function(){
-        $(".gr_reg").show().find('input').removeAttr('disabled');
-        $(".qy_reg").hide().find('input').attr('disabled', true); 
-        $('.gr_reg').find('.chgCode').trigger('click');
-    });
-    $(".register_top .register_r").click(function(){
-        $(".gr_reg").hide().find('input').attr('disabled', true);
-        $(".qy_reg").show().find('input').removeAttr('disabled'); 
-        $('.qy_reg').find('.chgCode').trigger('click');
-    });
-
     $('.jiaoyma').click(function(){
         var _t = $(this)
             ,_obj = $(this).closest('div.cot').prev('div.cot').find('input[name=captcha]')
