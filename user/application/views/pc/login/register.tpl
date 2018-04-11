@@ -82,7 +82,7 @@
                 </div>
 
            <div class="cot">
-            <span class="zc"><input class="but" type="submit"value="注&nbsp;&nbsp;册"/></span>
+            <span class="zc"><input class="but" type="submit" value="注&nbsp;&nbsp;册"/></span>
           </div>
         </form>
        
