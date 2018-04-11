@@ -4,7 +4,7 @@
             ,_obj = $(this).closest('div.cot').prev('div.cot').find('input[name=captcha]')
             ,captchaObj = $(this).closest('div.cot').prev('div.cot').find('.chgCode')
             ,captcha = $(_obj).val()
-            ,_o = $(_obj).closest('div.cot').prev('div.cot').find('input[name=mobile]')
+            ,_o = $('div.cot').prev('div.cot').find('input[name=mobile]')
             ,_phone = _o.val()
             ,pattern = /^1[2|3|4|5|6|7|8|9][0-9]\d{8}$/;
          if(_phone == '')
@@ -17,11 +17,6 @@
              layer.msg('请正确填写手机号');
              return false;
          }  
-        if(captcha == '')
-        {
-            layer.msg('请输入验证码');
-             return false;
-        }
         $.ajax({
              url:sendMessageUrl,
              async:true,

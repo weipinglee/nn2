@@ -69,6 +69,14 @@
             <span><input class="text" type="text" name="mobile" maxlength="11" datatype="mobile" nullmsg="请输入手机号" errormsg="请正确填写手机号"/></span>
               <span></span>
           </div>
+          <div class="cot" style="display: none">
+            <span class="cot_tit">验证码：</span>
+
+            <span><input class="text" style="width: 122px;display:block;float:left;margin-right: 4px; " type="text" name="captcha" maxlength="4" datatype="*" nullmsg="请填写验证码" errormsg="验证码格式错误"/></span>
+              <a class='chgCode' href="javascript:void(0)" onclick="changeCaptcha('{url:/login/getCaptcha}?w=200&h=50',$(this).find('img'))"><img style="float:left;" src="{url:/login/getCaptcha}?w=200&h=50" /></a>
+
+              <span></span>
+          </div><!-- 隐藏图形验证码 -->
            <div class="cot">
             <span class="cot_tit">校验码：</span>
             <span><input style="width:122px;" class="text" type="text" name="validPhoneCode" maxlength="6" datatype="zip" nullmsg="请填写校验码" errormsg="校验码格式不正确"/> <a class="jiaoyma">获取校验码</a><span></span> </span>
