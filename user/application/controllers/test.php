@@ -13,15 +13,20 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-		$obj = new \nainai\fund\jianshe\secretKey();
-		echo $obj->getPrivKey();
+		$obj = new \nainai\fund\js();
+		$user_id = 36;
+		$res = $obj->signedStatus($user_id);
+		if(is_string($res)){
+			echo $res;
+		}elseif($res===true){
+			echo 'success';
+		}
+		exit;
 
 
 	}
 
-	public function test2Action(){
-	    echo 345;
-    }
+	
 
 	/**
 	 * 生成旧的报盘的市场大分类id

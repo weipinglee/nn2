@@ -208,7 +208,7 @@ class LoginController extends \Yaf\Controller_Abstract {
         {
             die(JSON::encode(tool::getSuccInfo(0, '该手机号已注册')));
         }
-        $temp = rand(100000, 999999);echo $temp;
+        $temp = rand(100000, 999999);
         $text = "您申请的校验码为 {$temp},请尽快操作，妥善保管，如非本人操作，请忽略此信息。";
         session::set('mobileValidateReg', array('phone' => $phone, 'num' => $temp, 'time' => time()));
         $hsms = new Hsms();
