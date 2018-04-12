@@ -39,24 +39,10 @@ button{cursor:pointer;}
 .register .beinit a{
     color: #33a0d6;
 }
-.register .register_top .register_r,.register .register_top .register_l,.register .register_top .jg{
-    float: left;
-    text-align: center;
-    height: 45px;
-    line-height: 45px;
-    font-size: 16px;
-}
-.register .register_top .register_r,.register .register_top .register_l{
-	width: 50%;
-	cursor:pointer; 
-    position: relative;
-}
 
-.register .register_r img {
-    position: absolute;
-    top: 46px;
-    right: 170px;
-}
+
+
+
 
 .register .register_top .jg{
 	display: block;
@@ -67,13 +53,12 @@ button{cursor:pointer;}
 	border-bottom:3px solid #F70404;
     position: relative;
     /*background: url(../images/password/sanj.png) no-repeat 126px 45px;*/
-    position: relative;
 }
-.reg_zc img{
-    position: absolute;
-
-    top: 46px;
-    left: 175px;
+.reg_zc{
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    color:#c81623;
 }
 
 /*注册内容*/
@@ -146,9 +131,7 @@ button{cursor:pointer;}
     color: #0088cc;
 }
 /*企业注册*/
-.qy_reg{
-	display: none;
-}
+
 .reg_cot .cot .select{
     height: 30px;
     border: 1px solid #D8D5D5;

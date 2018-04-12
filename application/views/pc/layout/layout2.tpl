@@ -64,16 +64,16 @@ z-index:1000;">
         <li><a href="{url:/index/index@deal}"><img class="shouy mobil" src="{views:images/password/shouy.png}">耐耐网首页</a></li>
         <li class="space">
           {if:isset($username)}您好，
-                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">{$username}</a>
+                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}" class="">{$username}</a>
                 {else:}
                 <span>您好，欢迎进入耐耐网</span>
             {/if}
         </li>
         {if:$login==0}
-            <li><a href="{url:/login/login@user}" target="_blank">请登录</a></li>
-            <li><a href="{url:/login/register@user}" target="_blank">欢迎注册</a></li>
+            <li><a href="{url:/login/login@user}">请登录</a></li>
+            <li><a href="{url:/login/register@user}">欢迎注册</a></li>
             {else:}
-            <li><a href="{url:/login/logOut@user}" target="_blank">退出</a></li>
+            <li><a href="{url:/login/logOut@user}">退出</a></li>
         {/if}
       </ul>
       <div class="topnav_right">

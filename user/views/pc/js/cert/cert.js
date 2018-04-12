@@ -16,13 +16,23 @@ function nextTab(step){
 
 $(function(){
     //var validObj = formacc;
-
-    $('#next_step').on('click',function(){
+    formacc.form_init('entercer');
+    $('div.entercer').find('.next_step').on('click',function(){
         formacc.ignore('.yz_img input');
-        if(formacc.check()){
+        if(formacc.check(false)){
             nextTab();
             formacc.unignore();
         }
+
+    })
+
+    $('div.percer').find('.next_step').on('click',function(){
+        formacc.ignore('.yz_img input');
+        if(formacc.check(false)){
+            nextTab();
+            formacc.unignore();
+        }
+
     })
 
    

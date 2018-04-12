@@ -16,14 +16,19 @@ nn_panduo.formacc = function(obj){
 }
 
 nn_panduo.formacc.prototype = {
-	form_init:function(){
+	form_init:function(formID){
 		var _this = this;
-		$("form[auto_submit]").each(function(i){
+		var select = '';
+		if(formID){
+			select = "form#"+formID;
+		}
+		else
+            select =  "form[auto_submit]";
+		$(select).each(function(i){
 			_this.redirect_url = $(this).attr("redirect_url");
 			_this.form = this;
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
-			
-			_this.bind_select();
+
 			_this.validform();
 			var con = $(_this.form).find('[confirm=1]');
 			if(con){
@@ -40,6 +45,7 @@ nn_panduo.formacc.prototype = {
 	},
 
 	/**
+	 * @deprecated
 	 * 自动绑定select选中项
 	 */
 	bind_select:function(){

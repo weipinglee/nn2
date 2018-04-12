@@ -29,5 +29,8 @@ class ShopController extends PublicController {
                $this->getView()->assign('companyInfo',$companyInfo);
                $this->getView()->assign('photosList',$photosList);
      }
+     public function promptAction(){
+        $this->getView()->assign('cur','shop');
+    }
 
 }
