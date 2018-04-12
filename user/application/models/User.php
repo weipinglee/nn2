@@ -348,7 +348,8 @@ class UserModel{
         }
         $user = new M('person_info');
         if($user->validate($this->personRules,$personData)){
-            $userData = $user->where(array('id'=>$user_id))->getObj();
+            self::$userObj->where(array('id'=>$user_id))->data(array('type'=>0))->update();
+            $userData = $user->where(array('user_id'=>$user_id))->getObj();
             if(empty($userData)){
                 $res = $user->data($personData)->add();
                 if(!$res){
@@ -373,7 +374,8 @@ class UserModel{
         }
         $user = new M('company_info');
         if($user->validate($this->companyRules,$data)){
-            $userData = $user->where(array('id'=>$user_id))->getObj();
+            self::$userObj->where(array('id'=>$user_id))->data(array('type'=>1))->update();
+            $userData = $user->where(array('user_id'=>$user_id))->getObj();
             if(empty($userData)){
                 $res = $user->data($data)->add();
                 if(!$res){

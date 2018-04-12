@@ -11,15 +11,19 @@
 					<div class="zhxi_tit">
 						<p><a>账户管理</a>><a>身份认证</a>><a>企业认证</a></p>
 					</div>
+					{if:$userType<0}
 					<div class="renz_select">
 						<ul>
 							<li class="renz_select_li qyren"><a class="cur">企业认证</a></li>
 							<li class="renz_select_li grren"><a class="">个人认证</a></li>
 						</ul>
 					</div>
+					{/if}
+					{if:$userType==1 || $userType==-1}
 					<!-- 企业认证 -->
-					<form method="post" action="{url:/ucenter/doDealCert}" auto_submit>
-				   <div class="entercer">
+					<div class="entercer">
+					<form method="post" id="entercer" action="{url:/ucenter/doDealCert}" auto_submit >
+
 					<div class="rz_title">
 						<ul class="rz_ul">
 							<li class="rz_start"></li>
@@ -93,7 +97,7 @@
 								<p class="font-color"><b>注：</b>为了您方便交易请填写与证件一致的信息。</p>
 							</div>
 							<div class="zhxi_con">
-								<span><input class="submit" id="next_step" type="button"  value="下一步"/></span>
+								<span><input class="submit next_step"  type="button"  value="下一步"/></span>
 							</div>
 
 						</div>
@@ -163,8 +167,9 @@
 				    </form>
 				  </div>
 				  <!-- 企业认证 end-->
+                {/if}
+				{if:$userType==0 || $userType==-1}
 				  <!-- 个人认证 -->
-
 				   <div class="percer" style="display: none;">
 						<div class="rz_title">
 							<ul class="rz_ul">
@@ -176,7 +181,7 @@
 							</ul>
 
 						</div>
-						<form method="post" action="{url:/ucenter/doDealCert}" auto_submit>
+						<form method="post" id="percer" action="{url:/ucenter/doDealCert}" auto_submit>
 							<input type="hidden" name="userType" value="0">
 							<div class="re_xx">
 								<div class="zhxi_con">
@@ -198,7 +203,7 @@
 								<div class="zhxi_con">
 									<span class="con_tit"><i>*</i>地区：</span>
 									<span id="area">
-											{area:data=$certData['area']}
+											{area:data=$certData['area'] id=2}
 
 									</span>
 									<span></span>
@@ -215,7 +220,7 @@
 								</div>
 							
 								<div class="zhxi_con">
-									<span><input class="submit" id="next_step" type="button"  value="下一步"/></span>
+									<span><input class="submit next_step" type="button"  value="下一步"/></span>
 								</div>
 
 							</div>
@@ -269,6 +274,7 @@
 				    	</form>
 				  </div>
 				  <!-- 个人认证 end-->
+                {/if}
 				</div>
 				<!-- 交易商提示弹框 -->
 				<div class="prompt_rez">
@@ -291,14 +297,14 @@
 			$(this).find("a").addClass("cur");
 			$(".percer").hide();
 			$(".entercer").show();
-			
+			formacc.form_init('entercer');
 		})
 		$("li.grren").click(function(){
 			$(".renz_select_li a").removeClass("cur");
 			$(this).find("a").addClass("cur");
 			$(".entercer").hide();
 			$(".percer").show();
-			
+            formacc.form_init('percer');
 		})
 	})
 </script>
