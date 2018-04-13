@@ -44,8 +44,6 @@
                <ul class="mar_top">
                     <li><span class="error red"><span class="field-validation-valid" data-valmsg-for="txtMessage" data-valmsg-replace="true" id="txtMessage"></span></span></li>
                     <li><h3>恭喜您，新密码设置成功！</h3></li>
-
-
-                    <li><input type="button" value="立即登录" class="tj_btn success" id="login"></li>
+                    <li><a href="{url:/ucenter/index@user}"><input type="button" value="立即登录" class="tj_btn success" id="login"></a></li>
                 </ul> </div>
     </div>
