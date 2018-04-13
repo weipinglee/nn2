@@ -346,10 +346,10 @@ class LoginController extends \Yaf\Controller_Abstract {
 			$code = safe::filterPost('code');
 			$uid = safe::filterPost('uid');
 
-			$captchaObj = new captcha();
-			if (!$captchaObj->check($code)) {
-				die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
-			}
+//			$captchaObj = new captcha();
+//			if (!$captchaObj->check($code)) {
+//				die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
+//			}
 			$userObj = new UserModel();
 			if (empty($mobile)) {
 				$res = tool::getSuccInfo(0, '手机号不存在用户');
@@ -403,6 +403,13 @@ class LoginController extends \Yaf\Controller_Abstract {
 		if ($info['code'] == $code) {
 			\Library\session::set('mobile', $mobile);
 			$model->clearPassword($uid);
+			//做登录处理
+            $userObj = new M('user');
+            $userData = $userObj->where(array('mobile'=>$mobile))->field('id,username,mobile,pid,type')->getObj();
+            if(!empty($userData)){
+                $rightObj = new \Library\checkRight();
+                $rightObj->loginAfter($userData);
+            }
 			exit(json::encode(tool::getSuccInfo(1, 'success', url::createUrl('/Login/resetTo'))));
 		}else{
 			exit(json::encode(tool::getSuccInfo(0, '验证码错误')));
