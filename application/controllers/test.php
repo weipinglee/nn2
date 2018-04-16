@@ -10,7 +10,7 @@ class TestController extends \Yaf\Controller_Abstract{
 
     public function indexAction(){
          $js =  new \nainai\fund\js();
-		 $res = $js->transSigninfo(36);exit;
+		 $res = $js->transSigninfo(57);exit;
     }
 
 

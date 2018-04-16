@@ -405,7 +405,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 			$model->clearPassword($uid);
 			//做登录处理
             $userObj = new M('user');
-            $userData = $userObj->where(array('mobile'=>$mobile))->field('id,username,mobile,pid,type')->getObj();
+            $userData = $userObj->where(array('mobile'=>$mobile))->fields('id,username,mobile,pid,type')->getObj();
             if(!empty($userData)){
                 $rightObj = new \Library\checkRight();
                 $rightObj->loginAfter($userData);
