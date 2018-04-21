@@ -157,6 +157,9 @@
             <li style="width:130px;">
                单价
             </li>
+            <li >
+                会员价
+            </li>
 
         </ul>
     </div>
@@ -223,6 +226,9 @@
                                ￥<%=data[i].price_l%> - <% if(data[i].price_r==0){ %>-<% }else { %>￥<%=data[i].price_r%> <%}%>
                                <%}%>
                            </i>
+                       </li>
+                       <li>
+                           ￥<%=data[i].price_unit%>
                        </li>
                        <li class="toubao_rz">
                        <% if(data[i].insurance == 1){%>
