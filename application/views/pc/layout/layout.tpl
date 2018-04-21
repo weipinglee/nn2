@@ -223,7 +223,7 @@ $(function(){
                 <a rel="external nofollow" href="{url:/login/register@user}">免费注册</a>
             </div>
             <div class="login_link">
-                <a rel="external nofollow" href="{url:/login/membera@user}" target="_blank">会员申请</a>
+                <a rel="external nofollow" href="{url:/login/newMember@user}" target="_blank">会员申请</a>
             </div>
 
         </div>

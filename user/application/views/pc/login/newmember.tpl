@@ -47,8 +47,8 @@
           <div class="reg_cot qy_reg member_c_sq" style="display: none;">
             <input name="checkUrl" type="hidden" />
 
-            <form action="" method="post" auto_submit redirect_url="">
-
+            <form action="{url:/login/newMember@user}" method="post" auto_submit redirect_url="">
+             {if:!$login}
               <div class="cot">
                 <span class="cot_tit">用户名：</span>
                 <span><input class="text" type="text" name="username" nullmsg="请填写用户名"  datatype="/^[a-zA-Z0-9_]{3,30}$/" errormsg="请填写3-30位英文字母、数字" /></span>
@@ -64,6 +64,7 @@
                 <span><input class="text" type="password" name="repassword" datatype="*" nullmsg="请确认密码" errormsg="两次密码输入不一致" recheck="password" /><a alt="0" class="pwd"><img class="show_eye" src="{views:images/password/eye.png}" ></a></span>
                   <span></span>
               </div>
+             {/if}
               <div class="cot">
                 <span class="cot_tit">公司名称：</span>
                 <span><input class="text" type="text" name="company_name"  datatype="*" errormsg="请填写公司名称" nullmsg="请填写公司名称" /></span>
@@ -91,6 +92,7 @@
                 <span><input class="text" type="text" name="contact_phone" datatype="mobile" nullmsg="请填写联系人电话 " errormsg="请正确填写联系人电话"><span class="Validform_checktip"></span></span>
                 <span></span>
               </div>
+                {if:!$login}
               <div class="cot">
                 <span class="cot_tit">手机号：</span>
                 <span><input class="text" type="text" name="mobile" maxlength="11" datatype="mobile" nullmsg="请输入手机号" errormsg="请正确填写手机号"/></span>
@@ -108,7 +110,7 @@
                           <span></span>
                       </div>
               </div>
-
+              {/if}
               <div class="cot">
                <span class="zc"><input class="but" type="submit" value="申  请"/></span>
               </div>

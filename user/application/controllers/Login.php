@@ -167,6 +167,7 @@ class LoginController extends \Yaf\Controller_Abstract {
                 $memeberData = array(
                     'user_id'=>$user_id,
                     'name'=> safe::filterPost('name'),
+                    'area' => safe::filterPost('area'),
                     'address' => safe::filterPost('address'),
                     'contact_person' => safe::filterPost('contact'),
                     'contact_phone'  => safe::filterPost('contact_phone'),
