@@ -144,6 +144,10 @@
                             <td>{$data['price']}/{$data['unit']}</td>
                         </tr>
                         <tr>
+                            <td>会员单价</td>
+                            <td>{$data['price_vip']}/{$data['unit']}</td>
+                        </tr>
+                        <tr>
                             <th colspan="2">交收详情</th>
                         </tr>
                         <tr>
