@@ -14,7 +14,6 @@ use \Library\json;
 use \Library\tool;
 class VipManageController extends InitController {
 
-
     private $vipModel = null;
 	public function init(){
 		$this->getView()->setLayout('admin');
@@ -24,15 +23,15 @@ class VipManageController extends InitController {
 
     public function applyListAction(){
 	    $page = safe::filterGet('page','int',1);
-        $where = 'v.vip_status=:status';
-        $bind = array('status'=>0);
+        $where = 'v.status=:status';//状态1位申请状态，certificate类有定义
+        $bind = array('status'=>1);
         $data = $this->vipModel->getList($page,$where,$bind);
         $this->getView()->assign('data',$data);
     }
 
     public function vipListAction(){
         $page = safe::filterGet('page','int',1);
-        $where = 'v.vip_status=:status';
+        $where = 'v.status!=:status';
         $bind = array('status'=>1);
         $data = $this->vipModel->getList($page,$where,$bind);
         $this->getView()->assign('data',$data);

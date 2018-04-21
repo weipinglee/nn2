@@ -15,10 +15,12 @@ class vipModel extends \baseModel{
     const CERT_FAIL    =   3; //后台拒绝认证
 
     protected $table = 'user_vip';
+    protected $certObj = null;
 
     public function __construct(){
         parent::__construct();
     	$this->model = new M($this->table);
+    	$this->certObj = new \nainai\cert\certVip();
     }
 
    /**
@@ -63,9 +65,9 @@ class vipModel extends \baseModel{
     }
 
     public function setStatus($user_id,$status){
-        $obj = new M($this->table);
-        $status = $status==1 ? self::CERT_SUCCESS : self::CERT_FAIL;
-        return $obj->where(array('user_id'=>$user_id))->data(array('status'=>$status))->update();
+        $status = $status==1 ? 1 : 0;
+        return $this->certObj->verify($user_id,$status);
+
     }
 
 

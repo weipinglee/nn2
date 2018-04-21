@@ -172,7 +172,8 @@ class LoginController extends \Yaf\Controller_Abstract {
                     'contact_phone'  => safe::filterPost('contact_phone'),
                     'apply_time' => \Library\time::getDateTime()
                 );
-                $userModel->createMember($memeberData);
+                $certObj = new \nainai\cert\certVip();
+                $certObj->certApply($memeberData);
             }
             die(json::encode($res));
         }else{
