@@ -96,7 +96,7 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
                     <ul>
-                        <li><a target="content">会员认证</a>
+                        <li><a target="content">用户认证</a>
                             <ul>
                                 <li><a href="{url:member/certManage/dealerCert}" target="content">交易商认证</a>
                                     <ul>
@@ -120,14 +120,20 @@
                             </ul>
                         </li>-->
 
-                        <li><a href="{url:member/usergroup/groupList}" target="content">会员等级</a></li>
+                        <li><a href="{url:member/usergroup/groupList}" target="content">用户等级</a></li>
                         <li><a href="{url:member/payUserGroup/groupList}" target="content">收费会员等级</a></li>
                         <li><a target="content">会员管理</a>
                             <ul>
-                                <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
-                                <li><a href="{url:member/member/OnLineList}" target="content">在线会员信息</a></li>
-                                <li><a href="{url:member/member/userlog}" target="content">会员日志列表</a></li>
-                                <li><a href="{url:member/member/userfund}" target="content">会员资金列表</a></li>
+                                <li><a href="{url:member/vipManage/applyList}" target="content">申请会员列表</a></li>
+                                <li><a href="{url:member/vipManage/vipList}" target="content">会员列表</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">用户管理</a>
+                            <ul>
+                                <li><a href="{url:member/member/memberList}" target="content">用户列表</a></li>
+                                <li><a href="{url:member/member/OnLineList}" target="content">在线用户信息</a></li>
+                                <li><a href="{url:member/member/userlog}" target="content">用户日志列表</a></li>
+                                <li><a href="{url:member/member/userfund}" target="content">用户资金列表</a></li>
                             </ul>
                         </li>
 
