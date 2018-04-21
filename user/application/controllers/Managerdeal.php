@@ -986,4 +986,9 @@ class ManagerDealController extends UcenterBaseController {
         }
     }
 
+    /*销售列表增加推荐*/
+    public function productpushlistAction() {
+
+    }
+
 }

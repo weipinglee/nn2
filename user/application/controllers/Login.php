@@ -461,6 +461,9 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 		exit;
 	}
+	public function memberaAction(){
+		
+	}
 
 
 }

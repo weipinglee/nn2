@@ -360,6 +360,9 @@ class PurchaseController extends UcenterBaseController{
 		}
 	}
 
+	/*增加采购列表中推荐列表*/
+	public function pushlistsAction(){
 
+	}
 
 }
