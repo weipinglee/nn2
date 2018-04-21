@@ -91,17 +91,7 @@ class OffersController extends PublicController {
 	}
 
 
-	//计算定金
-	public function payDepositComAction(){
-		$num = safe::filterPost('num','floatval');
-		$id = safe::filterPost('id','int');
-		$price = safe::filterPost('price','floatval');
 
-		$amount = $num * $price;
-		$payDeposit = $this->order->payDepositCom($id,$amount);
-		$res = $payDeposit === false ? tool::getSuccInfo(0,'获取定金失败') : tool::getSuccInfo(1,$payDeposit);
-		die(JSON::encode($res));
-	}
 
 	//验证用户输入产品数量
 	// public function checkNumAction(){
