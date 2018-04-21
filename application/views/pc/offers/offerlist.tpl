@@ -154,11 +154,17 @@
             <li>交货地</li>
 
             <li>剩余/采购数量</li>
-            <li style="width:130px;">
+            <li style="width:103px;">
                单价
             </li>
             <li >
                 会员价
+            </li>
+            <li style="width:55px;">
+                质保
+            </li>
+            <li class="but_left">
+                操作
             </li>
 
         </ul>

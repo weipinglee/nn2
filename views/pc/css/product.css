@@ -14,16 +14,16 @@ a{cursor: pointer;text-decoration: none;}
     border: 0px;
     background: #c0181d;
     color: #fff;
-    font-family: 'å¾®è½¯é›…é»‘';
+    font-family: '微软雅黑';
 }
 .pro_se .pro_clear{
 	padding: 5px 15px;
     border: 0px;
     background: #c0c0c0;
     color: #fff;
-    font-family: 'å¾®è½¯é›…é»‘';
+    font-family: '微软雅黑';
 }
-/*åˆ†ç±»*/
+/*分类*/
 .pro_classify{
     margin-bottom: 10px;
 }
@@ -94,7 +94,7 @@ text-align: right;
 	visibility: hidden;
 	border:1px solid #ccc;
 }
-/*å•†å®¶å…¥é©»å±•ç¤º*/
+/*商家入驻展示*/
 .shop_show{
 	width:1190px;
 }
@@ -203,10 +203,7 @@ li.but_left .ser_img_1{
 	float: left;
 	width: 97px;
 	height: 40px;
-	text-align: center;
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow:ellipsis;
+	text-align: center; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 /*product.html*/
 .pro_main .pro_cen .poptwidth li{
@@ -254,9 +251,9 @@ li.but_left .ser_img_1{
     word-break: keep-all;
     white-space: nowrap;
     overflow: hidden;
-    width: 130px;
+    width: 103px;
 }
-.pro_main .pro_cen .main_centon .price_unit{width: 100px;}
+.pro_main .pro_cen .main_centon .price_unit{width: 103px;}
 .pro_main .pro_cen .main_centon .toubao_rz{width: 55px;}
 .pro_main .pro_cen .main_centon .icon_img{
 	vertical-align: middle;
@@ -306,7 +303,7 @@ li.but_left .ser_img_1{
 .pro_main .pro_cen .icon_color:hover{
 	background: #DA0F1A;
 }
-/*å¹¿å‘Š*/
+/*广告*/
 .pro_gg{
 	margin-top: 15px;
 }
@@ -361,7 +358,7 @@ li.but_left .ser_img_1{
 	padding: 20px 15px;
 }
 
-/*å¼¹æ¡†*/
+/*弹框*/
 .cd-popup,.cd-popup_d,.cd-popup_ht {
   position: fixed;
   left: 0;
@@ -431,7 +428,7 @@ text-decoration: none;
 margin: 0 auto;
 max-width: 540px;
 }
-/*å•†å“è¯¦æƒ…*/
+/*商品详情*/
 .pop_con{
 	padding: 15px ;
 }
@@ -494,7 +491,7 @@ cursor: pointer;
     filter: alpha(opacity=70);
 }
 
-/*åˆ†é¡µ*/
+/*分页*/
 .pages_bar, .page_num {
     display: inline-block;
     font:normal 12px arial,'Microsoft YaHei','\u5b8b\u4f53';
