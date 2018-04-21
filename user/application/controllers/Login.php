@@ -90,31 +90,11 @@ class LoginController extends \Yaf\Controller_Abstract {
 			    'pid'          => 0,
 			    'type'         => -1,//初始用户类型设置为-1
 			    'mobile'       => safe::filterPost('mobile','/^\d+$/'),
-			  //  'email'        =>safe::filterPost('email','email'),
-			  //  'agent' => safe::filterPost('agent','int',0),
-			  //  'serial_no' => safe::filterPost('agent_pass'),
 			    'create_time' => \Library\time::getDateTime()
 		    );
 
-//		    if($userData['type']==1){
-//			    $companyData = array(
-//				    'company_name' => safe::filterPost('company_name'),
-//				    'area'         => safe::filterPost('area','/\d+/'),
-//				    'legal_person' =>safe::filterPost('legal_person'),
-//				    'reg_fund'     => safe::filterPost('reg_fund','float'),
-//				    'category'     => safe::filterPost('category','int'),
-//				    'nature'       => safe::filterPost('nature','int'),
-//				    'contact'      => safe::filterPost('contact'),
-//				    'contact_phone'=> safe::filterPost('contact_phone','/^\d+$/'),
-//				    'contact_duty' => safe::filterPost('contact_duty','int'),
-//
-//
-//			    );
-//				$userData['true_name'] = $companyData['company_name'];
-//			    $res = $userModel->companyReg($userData,$companyData);
-//		    }else{
-			    $res = $userModel->userInsert($userData);
-            //}
+            $res = $userModel->userInsert($userData);
+
         }
 		if(isset($res['success']) && $res['success']==1){//注册成功
 			$login = new CheckRight();
@@ -131,7 +111,89 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 	}
 
-	
+    /**
+     * 会员申请
+     */
+	public function newMemberAction(){
+        $login = session::get('login');
+        $userModel = new UserModel();
+	    if(IS_POST){
+            $user_id = 0;
+            if($login){//已登录
+                $user_id = $login['user_id'];
+                $res = tool::getSuccInfo();
+            }else{
+                $agent = safe::filterPost('agent', 'int', 0);
+                if ($agent == 0) {
+                    die(json::encode(\Library\tool::getSuccinfo(0, '请同意耐耐网注册协议')));
+                }
+                \Library\session::clear('login');
+                $validPhoneCode = safe::filterPost('validPhoneCode','int');
+                $phone = safe::filterPost('mobile','/^\d+$/');
+                $data = self::checkMobileValidateCode($phone,$validPhoneCode);
+                if($data['err'] == 1)
+                {
+                    $res = array('success'=>0,'info'=>$data['info']);
+                    die(json::encode($res));
+                }
+                else
+                {
+                    $userData = array(
+                        'username'     =>safe::filterPost('username'),
+                        'password'     =>trim($_POST['password']),
+                        'repassword'   =>trim($_POST['repassword']),
+                        'pid'          => 0,
+                        'type'         => -1,//初始用户类型设置为-1
+                        'mobile'       => safe::filterPost('mobile','/^\d+$/'),
+                        'create_time' => \Library\time::getDateTime()
+                    );
+                    $res = $userModel->userInsert($userData);
+                }
+                if(isset($res['success']) && $res['success']==1){//注册成功
+                    $login = new CheckRight();
+                    $login->loginAfter($userData);
+                    $user_id = $userData['id'];
+                    $credit = new \nainai\CreditConfig();
+                    $credit->changeUserCredit($userData['id'],'register');
+                    //$this->redirect('index');
+                    $mess = new \nainai\message($res['info']);
+                    $re = $mess->send('register');
+                }
+                //$res['returnUrl'] = url::createUrl('/ucenter/dealcert@user');
+
+            }
+            if($user_id>0){
+                //会员数据
+                $memeberData = array(
+                    'user_id'=>$user_id,
+                    'name'=> safe::filterPost('name'),
+                    'address' => safe::filterPost('address'),
+                    'contact_person' => safe::filterPost('contact'),
+                    'contact_phone'  => safe::filterPost('contact_phone'),
+                    'apply_time' => \Library\time::getDateTime()
+                );
+                $userModel->createMember($memeberData);
+            }
+            die(json::encode($res));
+        }else{
+            $loginStatus = $login ? 1 : 0;
+	        if($login && $login['user_type']==1){//如果已登录，且是企业用户，带出企业信息
+	            $userData = $userModel->getCompanyInfo($login['user_id']);
+	            $companyData = array(
+	              'company_name' => $userData['company_name'],
+                    'area' => $userData['area'],
+                    'address' => $userData['address'],
+                    'contact' => $userData['contact'],
+                    'contact_phone' => $userData['contact_phone']
+                );
+	            $this->getView()->assign('company',$companyData);
+	            $this->getView()->assign('login',$loginStatus);
+            }
+        }
+
+    }
+
+
     public function regsuccedAction(){
         
     }

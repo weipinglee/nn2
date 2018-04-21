@@ -798,6 +798,16 @@ class UserModel{
 			return $model->where(array('uid' => $uid))->data($data)->update(0);
 		}
 	}
+
+    /**
+     * 生成请求的会员数据
+     * @param $memberData
+     * @return bool
+     */
+	public function  createMember($memberData){
+           $memObj = new M('user_vip');
+           return $memObj->data($memberData)->add();
+	}
 	
 
 

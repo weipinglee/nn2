@@ -15,7 +15,7 @@ use \Library\M;
 class tradeController extends \nainai\controller\Base {
  
 	private $offer;
-
+    private $login ;
 	protected $certType = 'deal';
 	public function init(){
 		parent::init();
@@ -28,6 +28,7 @@ class tradeController extends \nainai\controller\Base {
            $mess=$messObj->getCountMessage();
            $this->getView()->assign('mess',$mess);
            $this->getView()->assign('login',1);
+           $this->getView()->assign('cert',$this->login['cert']);
            $this->getView()->assign('username',$this->login['username']);
         }else{
             $this->getView()->assign('login',0);
@@ -245,6 +246,14 @@ class tradeController extends \nainai\controller\Base {
 		$pro = new \nainai\offer\product();
 
 		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+        $info['is_vip'] = 0;
+        $info['old_price'] = 0;
+		if($this->login['cert']['vip']==1){
+		    $info['is_vip'] = 1;
+            $info['old_price'] = $info['price'];
+            $info['price'] = $info['price_vip'];
+
+        }
 		// echo '<pre>';var_dump($info);
 		//判断下是否能够申请保险
 		if($info['insurance'] == 0){

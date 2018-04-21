@@ -349,7 +349,7 @@
                           layer.load(2);
                           unbindmin();
                           unbindadd();
-                          $.post("{url:/Offers/payDepositCom}",{id:id,num:num,price:price},function(data){
+                          $.post("{url:/ajaxData/payDepositCom}",{id:id,num:num,price:price},function(data){
                               layer.closeAll();
                               bindmin();
                               bindadd();

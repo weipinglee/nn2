@@ -90,16 +90,17 @@
                      <th>价格区间</th>
 
                      <td>{$info['price_l']}--{$info['price_r']}( 元/{$info['unit']})</td>
-
+                     <th>会员价</th>
+                     <td>-</td>
                  {else:}
                      <th>挂牌价</th>
                      <td>￥{$info['price']}</td>
+                     <th>会员价</th>
+                     <td>￥{$info['price_vip']}</td>
                  {/if}
 
                  <th>计量单位</th>
                  <td>{$info['unit']}</td>
-                 <th></th>
-                 <td></td>
 
 
              </tr>

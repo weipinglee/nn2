@@ -9,12 +9,14 @@ class PublicController extends \Yaf\Controller_Abstract{
      public $login;
 
      public function init(){
-
           $this->getView()->setLayout('layout');
          $right = new \Library\checkRight();
          $isLogin = $right->checkLogin();
          if($isLogin){
              $this->login = \Library\session::get('login');
+             $messObj=new \nainai\message($this->login['user_id']);
+             $mess=$messObj->getCountMessage();
+             $this->getView()->assign('mess',$mess);
              $login = 1;
          }
          else

@@ -155,8 +155,7 @@
 
             <li>剩余/采购数量</li>
             <li style="width:130px;">
-                <!-- <a class="main_mr">默认</a><a class="main_px">从低到高<i class="arrow_color icon-arrow-up"></i></a> -->
-                单价
+               单价
             </li>
 
         </ul>

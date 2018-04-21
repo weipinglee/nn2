@@ -24,6 +24,7 @@
     <script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
     <script src="{views:js/countdown.js}" type="text/javascript"></script>
     <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
+    <script type="text/javascript" src="{views:js/topshow.js}" ></script>
     <!--[if lte IE 6]>
 
     
@@ -252,7 +253,7 @@ $(function(){
         </div>
     </div>
 
-<script type="text/javascript" src="{views:js/topshow.js}" ></script>
+
 </div>
 
 <div class="clearfix"></div>
