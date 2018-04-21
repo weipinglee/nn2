@@ -234,7 +234,11 @@
                            </i>
                        </li>
                        <li>
-                           ￥<%=data[i].price_unit%>
+                           <% if(data[i].price_vip > 0 ){ %>
+                           ￥<%=data[i].price_vip%>
+                           <% }else { %>
+                           --
+                           <%}%>
                        </li>
                        <li class="toubao_rz">
                        <% if(data[i].insurance == 1){%>
