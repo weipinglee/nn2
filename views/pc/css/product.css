@@ -201,8 +201,8 @@ li.but_left .ser_img_1{
 }
 .pro_main .pro_cen ul li{
 	float: left;
-	width: 105px;
-	height: 35px;
+	width: 97px;
+	height: 40px;
 	text-align: center; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 /*product.html*/
@@ -251,9 +251,9 @@ li.but_left .ser_img_1{
     word-break: keep-all;
     white-space: nowrap;
     overflow: hidden;
-    width: 130px;
+    width: 103px;
 }
-.pro_main .pro_cen .main_centon .price_unit{width: 130px;}
+.pro_main .pro_cen .main_centon .price_unit{width: 103px;}
 .pro_main .pro_cen .main_centon .toubao_rz{width: 55px;}
 .pro_main .pro_cen .main_centon .icon_img{
 	vertical-align: middle;

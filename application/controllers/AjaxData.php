@@ -4,6 +4,7 @@
  */
 use \Library\url;
 use \Library\safe;
+use \Library\tool;
 class AjaxDataController extends \Yaf\Controller_Abstract{
 
      public $login;
@@ -165,13 +166,26 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
                 'login'=>1,
                 'username'=>$this->login['username'],
                 'sess_id' =>session_id(),
-                'user_id' => $this->login['user_id']
+                'user_id' => $this->login['user_id'],
+                'cert'    => $this->login['cert']
             );
             die(json_encode($jsonArr));
 
         }
         else
             die(json_encode(array('login'=>0)));
+    }
+
+    //计算定金
+    public function payDepositComAction(){
+        $num = safe::filterPost('num','floatval');
+        $id = safe::filterPost('id','int');
+        $price = safe::filterPost('price','floatval');
+        $order = new \nainai\order\Order();
+        $amount = $num * $price;
+        $payDeposit = $order->payDepositCom($id,$amount);
+        $res = $payDeposit === false ? tool::getSuccInfo(0,'获取定金失败') : tool::getSuccInfo(1,$payDeposit);
+        die(json_encode($res));
     }
 
 

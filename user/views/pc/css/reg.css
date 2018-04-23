@@ -164,3 +164,78 @@ button{cursor:pointer;}
 .w1200.secondaryend{
     width: 100%;
 }
+
+/*会员申请*/
+.clear:after{
+    content:'';
+    display:block;
+    clear:both;
+}
+.regis_boxs .member_a{
+    width: 1190px;
+    margin: 20px auto;
+}
+.member_a  a{
+    color: #747474;
+    text-decoration: none;
+}
+.member_a  a:hover{
+    color: #e60012;
+}
+.member_a .member_nav{
+    float: left;
+    border: 1px solid #999;
+    border-bottom: 0px;
+    background: #fff;
+}
+.member_a .member_nav ul.member_nav_ul li{
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #999;
+}
+.member_a .member_nav ul.member_nav_ul li a{
+    display: block;
+    text-align: center;
+    
+}
+.member_a .member_nav ul.member_nav_ul li a.cur{
+    background: #e60012;
+    color:#fff;
+}
+.member_a .member_nav ul.member_nav_ul li a.curs{
+    color: #e60012;
+}
+.member_a .member_content{
+    float: left;
+    width: 948px;
+    margin: 0 20px;
+}
+.member_a .member_content .member_title{
+    border-bottom: 1px solid #999; 
+}
+.member_a .member_content .member_title ul li{
+    float: left;
+    width: 100px;
+    border: 1px solid #999;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-bottom: 0px;
+}
+.member_a .member_content .member_title ul li a{
+    display: block;
+}
+.member_a .member_content .member_title ul li a.cur{
+    color: #e60012;
+}
+.member_c_tq1,.member_c_tq2{
+    padding: 0 20px;
+    margin: 20px 20px 40px;
+
+  
+}
+.member_c_tq1 p,.member_c_tq1 p{
+    line-height: 25px;
+}
+/*会员申请 end*/

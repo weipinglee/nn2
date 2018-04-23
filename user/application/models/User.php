@@ -798,6 +798,8 @@ class UserModel{
 			return $model->where(array('uid' => $uid))->data($data)->update(0);
 		}
 	}
+
+
 	
 
 

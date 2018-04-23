@@ -24,6 +24,7 @@
     <script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
     <script src="{views:js/countdown.js}" type="text/javascript"></script>
     <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
+    <script type="text/javascript" src="{views:js/topshow.js}" ></script>
     <!--[if lte IE 6]>
 
     
@@ -221,6 +222,9 @@ $(function(){
             <div class="topnav_regsiter">
                 <a rel="external nofollow" href="{url:/login/register@user}">免费注册</a>
             </div>
+            <div class="login_link">
+                <a rel="external nofollow" href="{url:/login/newMember@user}" target="_blank">会员申请</a>
+            </div>
 
         </div>
         <div class="topnav_right">
@@ -249,7 +253,7 @@ $(function(){
         </div>
     </div>
 
-<script type="text/javascript" src="{views:js/topshow.js}" ></script>
+
 </div>
 
 <div class="clearfix"></div>

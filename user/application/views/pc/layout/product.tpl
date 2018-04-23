@@ -24,6 +24,13 @@
         </td> -->
     </tr>
     <tr>
+        <td nowrap="nowrap"><span></span>会员单价：</td>
+        <td>
+            <span> <input class="text" type="text" datatype="money" value="{$offer['price_vip']}" errormsg="请正确填写单价" name="price_vip"></span>
+            <span></span>
+        </td>
+    </tr>
+    <tr>
         <td nowrap="nowrap"><span></span>数量：</td>
         <td>
             <span><input class="text" value="{$product['quantity']}" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity"></span>

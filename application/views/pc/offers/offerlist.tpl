@@ -154,9 +154,17 @@
             <li>交货地</li>
 
             <li>剩余/采购数量</li>
-            <li style="width:130px;">
-                <!-- <a class="main_mr">默认</a><a class="main_px">从低到高<i class="arrow_color icon-arrow-up"></i></a> -->
-                单价
+            <li style="width:103px;">
+               单价
+            </li>
+            <li >
+                会员价
+            </li>
+            <li style="width:55px;">
+                质保
+            </li>
+            <li class="but_left">
+                操作
             </li>
 
         </ul>
@@ -224,6 +232,13 @@
                                ￥<%=data[i].price_l%> - <% if(data[i].price_r==0){ %>-<% }else { %>￥<%=data[i].price_r%> <%}%>
                                <%}%>
                            </i>
+                       </li>
+                       <li>
+                           <% if(data[i].price_vip > 0 ){ %>
+                           ￥<%=data[i].price_vip%>
+                           <% }else { %>
+                           --
+                           <%}%>
                        </li>
                        <li class="toubao_rz">
                        <% if(data[i].insurance == 1){%>
