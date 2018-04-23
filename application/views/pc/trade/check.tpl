@@ -161,21 +161,24 @@
                            </ul>
                            <input type="hidden" name="invoice" value="2" />
                      </div> 
-                    </h3> 
-                    <!-- 开发票，非会员提示 -->
-                    <div class="no_member">
-                      <span class="c816">注：</span>请自行同卖方交易商联系查看开票进度
-                      <div>
-                        <span>急速开票</span>
-                        &nbsp;&nbsp;
-                        <a class="fa3a" href="">点击  开通会员</a>
-                      </div>
-                    </div>
+                    </h3>
+                       {if:!$login || $login && $cert['vip']==0}
+                           <!-- 开发票，非会员提示 -->
+                           <div class="no_member">
+                               <span class="c816">注：</span>请自行同卖方交易商联系查看开票进度
+                               <div>
+                                   <span>急速开票</span>
+                                   <a class="fa3a" href="{url:/login/newMember@user}">点击  开通会员</a>
+                               </div>
+                           </div>
+                       {/if}
+                       {if:$login && $cert['vip']==1}
                      <!-- 开发票，会员提示 -->
                     <div class="yes_member">
                       <span class="c816">注：</span>
-                      急速开票 收到货物后5个工作日内邮寄至n您的收票地址
+                      急速开票 收到货物后5个工作日内邮寄至您的收票地址
                     </div>
+                       {/if}
                    </div>      
               </div>     
              <script type="text/javascript">
