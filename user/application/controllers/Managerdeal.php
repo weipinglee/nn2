@@ -989,6 +989,22 @@ class ManagerDealController extends UcenterBaseController {
 
     /*销售列表增加推荐*/
     public function productpushlistAction() {
+        $id = $this->getRequest()->getParam('id');
+        $this->getView()->assign('id',$id);
+
+    }
+
+    public function proRecommendAction(){
+        //if(IS_POST){
+            $proObj = new ProductModel();
+            $id = safe::filterPost('id','int');
+            $page = safe::filterPost('page','int',1);
+            if($id) {
+                $res = $proObj->offerRecommend($id,$page);
+                die(json::encode($res));
+            }
+            die(json::encode(array()));
+        //}
 
     }
 

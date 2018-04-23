@@ -57,7 +57,7 @@
 										{if:$list['status'] == \nainai\offer\product::OFFER_OK}
 											<a href="{url:/Purchase/myreportlists}?id={$list['id']}">报价列表</a>
 										{/if}
-										<a href="{url:/Purchase/pushlists}">推荐</a>
+										<a href="{url:/Purchase/pushlists?id=$list['id']}">推荐</a>
 										<!-- <a href="{url:/Purchase/doApply?id=$list['id']}">审核</a> -->
 									</td>
 								</tr>

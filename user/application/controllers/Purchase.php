@@ -20,7 +20,8 @@ class PurchaseController extends UcenterBaseController{
 			        'accept_area' => Safe::filterPost('accept_area'),
 			        'accept_day' => Safe::filterPost('accept_day', 'int'),
 			        'price_l'        => Safe::filterPost('price'),
-				'price_r'        => Safe::filterPost('price_r'),
+                    'pro_name'    => Safe::filterPost('warename'),
+				    'price_r'        => Safe::filterPost('price_r'),
 			        'user_id' => $this->user_id,
 			        'status' => product::OFFER_APPLY,
 			        'expire_time' =>  Safe::filterPost('expire_time'),
@@ -362,7 +363,22 @@ class PurchaseController extends UcenterBaseController{
 
 	/*增加采购列表中推荐列表*/
 	public function pushlistsAction(){
-
+        $id = $this->getRequest()->getParam('id');
+        $this->getView()->assign('id',$id);
 	}
+
+    public function proRecommendAction(){
+        //if(IS_POST){
+        $proObj = new ProductModel();
+        $id = safe::filterPost('id','int');
+        $page = safe::filterPost('page','int',1);
+        if($id) {
+            $res = $proObj->offerRecommend($id,$page);
+            die(json::encode($res));
+        }
+        die(json::encode(array()));
+        //}
+
+    }
 
 }
