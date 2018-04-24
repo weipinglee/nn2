@@ -22,19 +22,19 @@
                  <td >{$user['username']}</td>
                  <th>手机号</th>
                  <td >{$user['mobile']}</td>
-                 <th>邮箱</th>
-                 <td >{$user['email']}</td>
+                 <th>企业名称</th>
+                 <td>{$user['name']}</td>
                  <th>申请时间</th>
                  <td>{$user['apply_time']}</td>
              </tr>
 
             <tr>
-                <th>企业名称</th>
-                <td>{$user['name']}</td>
                 <th>联系人</th>
                 <td>{$user['contact_person']}</td>
                 <th>联系人电话</th>
                 <td>{$user['contact_phone']}</td>
+                <th>地区</th>
+                <td >{areatext:data=$user['area']}</td>
                 <th>详细地址</th>
                 <td>{$user['address']}</td>
              <tr>
