@@ -135,6 +135,7 @@ class PurchaseController extends UcenterBaseController{
 		$this->getView()->assign('status', $PurchaseOfferModel->getStatusArray());
 		$this->getView()->assign('productList', $productList['list']);
 		$this->getView()->assign('pageHtml', $productList['pageHtml']);
+        $this->getView()->assign('cert',$this->cert);
 	}
 
 	/**
@@ -361,24 +362,24 @@ class PurchaseController extends UcenterBaseController{
 		}
 	}
 
-	/*增加采购列表中推荐列表*/
-	public function pushlistsAction(){
+    /*增加采购列表中推荐列表*/
+    public function pushlistsAction(){
+        if($this->cert['vip']==0){
+            $this->redirect(url::createUrl('/ucenter/index'));
+        }
         $id = $this->getRequest()->getParam('id');
-        $this->getView()->assign('id',$id);
-	}
-
-    public function proRecommendAction(){
-        //if(IS_POST){
         $proObj = new ProductModel();
-        $id = safe::filterPost('id','int');
-        $page = safe::filterPost('page','int',1);
+        $page = safe::filterGet('page','int',1);
+        $res = array();
         if($id) {
             $res = $proObj->offerRecommend($id,$page);
-            die(json::encode($res));
-        }
-        die(json::encode(array()));
-        //}
 
+        }
+        $this->getView()->assign('data',$res);
+        $this->getView()->assign('id',$id);
     }
+
+
+
 
 }
