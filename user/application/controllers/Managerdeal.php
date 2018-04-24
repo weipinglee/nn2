@@ -172,6 +172,7 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
+                'price_vip'   => safe::filterPost('price_vip','float'),
                 'acc_type'   => 1,//现在写死了，就是代理账户
                  'insurance' => Safe::filterPost('insurance', 'int'),
                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
@@ -309,6 +310,7 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
+                'price_vip'   => safe::filterPost('price_vip','float'),
                 'sign'        => Tool::setImgApp(Safe::filterPost('imgfile1')),//委托书照片
                 'insurance' => Safe::filterPost('insurance', 'int'),
                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
