@@ -90,11 +90,13 @@
                                     <input class="text" type="text" datatype="money" errormsg="价格错误" name="price">
                                     
                                 </td>
-                               <!--  <td> 
-                                   请选择付款方式：
-                                   <input type ="radio" name ="safe" checked="checked" style="width:auto;height:auto;"> 线上
-                                   <input type ="radio" name ="safe" style="width:auto;height:auto;"> 线下
-                               </td> -->
+                            </tr>
+                            <tr>
+                                <td nowrap="nowrap"><span></span>会员单价：</td>
+                                <td>
+                                    <input class="text" type="text" datatype="money" errormsg="价格错误" name="price_vip">
+
+                                </td>
                             </tr>
                                 <tr>
         <td>有效期：</td>

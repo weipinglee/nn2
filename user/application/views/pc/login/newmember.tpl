@@ -11,7 +11,10 @@
     <script type="text/javascript" src="{root:js/layer/layer.js}"></script>
     <script type="text/javascript" src="{views:js/common.js}"></script>
    <span style="display:none;"> {url:/login/doReg} </span>
-
+  <script type="text/javascript">
+      //发送短信地址
+      var sendMessageUrl = '{url:/login/sendMessage}';
+  </script>
    <div class="toplog_bor none">
     <div class="m_log w1200">
         <div class="logoimg_left">

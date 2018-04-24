@@ -21,7 +21,7 @@
 									<td width="450px" style="border-right:1px solid #eee;">
 										<ul class="dj">
 											<li>会员等级：<span><img src="{$group['icon']}"/>{$group['group_name']}</span></li>
-											<li><a href="http://company.nainaiwang.com/product.php?id=67"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员升级</span></a></li>
+											<li><a href="{url:/login/newMember@user}"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员申请</span></a></li>
 
 											<li style="clear:both;"><span>信誉分值：{$creditGap} 分</span></li>
 										</ul>
