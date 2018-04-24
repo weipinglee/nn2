@@ -205,7 +205,7 @@ class LoginController extends \Yaf\Controller_Abstract {
      * 验证手机验证码
      * @param $phone
      * @param $num
-     * @return int
+     * @return array
      */
     function checkMobileValidateCode($phone,$num){
         if($mobileValidateSess = session::get('mobileValidateReg')){
