@@ -55,13 +55,6 @@
 			data:{page:page,id:id},
 			dataType: 'json',
 			success : function(data){
-				if(data.length<=0){
-					page = 1;
-					chgRecommend();
-					return false;
-				}else {
-					page = page + 1;
-				}
 				for(var i in data){
 				    data[i]['produce_area'] = areaObj.getAreaText(data[i]['produce_area']);
                 }

@@ -124,7 +124,7 @@ class productModel extends \nainai\offer\product{
         $search = new Query('products as p ');
         $search->join = 'left join product_offer as o on o.product_id=p.id';
         $now = date('Y-m-d');
-        $where = 'o.expire_time>"'.$now.'" and o.status=1 AND ';
+        $where = 'o.expire_time>"'.$now.'" and o.status=1 AND o.max_num - o.sell_num>0 and ';
         $where .= $data['type']==1? ' o.type=2 and ' : 'o.type=1 and ';
         $where .= ' ((p.cate_id=:cate_id or p.name like "%'.$data['name'].'%")';
         $where .= $cldIds !='' ? ' OR (p.cate_id in('.$cldIds.')  or p.name like "%'.$data['name'].'%"))' : ')';
@@ -139,6 +139,7 @@ class productModel extends \nainai\offer\product{
         if(!empty($res)){
             foreach($res as  &$item){
                 $item['last'] = $item['max_num'] - $item['sell_num'];
+                $item['last'] = $item['last'] > 0 ? $item['last'] : 0;
             }
         }
         return $res;
