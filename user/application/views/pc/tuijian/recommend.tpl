@@ -4,7 +4,7 @@
 <input type="hidden" name="uploadUrl"  value="{url:/ucenter/upload}" />
 <input type="hidden" name="attr_url" value="{url:/Managerstore/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
-<form action="" method="post" auto_submit="1" >
+<form action="{url:/tuijian/recommend@user}" method="post" auto_submit="1" >
 
             <div class="user_c sign">
                 <div class="user_zhxi">
