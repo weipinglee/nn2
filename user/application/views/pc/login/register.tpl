@@ -94,5 +94,26 @@
   </div>
   <div style=" clear:both"></div>
 </div>
+<script type="text/javascript">
 
+    $(function(){
+        $('.pwd').on('click', function(){
+          if ($(this).attr('alt') == 0) {
+            var val = $(this).prev().val();
+            $(this).prev().remove();
+            $html = '<input class="text" type="text" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" value="'+val+'" />';
+            $(this).before($html);
+            $(this).attr('alt', 1);
+          }else{
+            var val = $(this).prev().val();
+            $(this).prev().remove();
+            $html = '<input class="text" type="password" name="password" datatype="/^[\S]{6,15}$/" nullmsg="请填写密码" errormsg="请使用6-15位字符" value="'+val+'" />';
+            $(this).before($html);
+            $(this).attr('alt', 0);
+          }
+        })
+    });
+
+</script>
+</script>
 
