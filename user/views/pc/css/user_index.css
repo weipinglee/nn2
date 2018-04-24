@@ -2476,6 +2476,7 @@ cursor: pointer;
     position: absolute;
     width: 70px;
     text-align: center;
+    font-size: 14px;
 }
 .r_con{
     float: left;
@@ -2502,13 +2503,15 @@ cursor: pointer;
     margin: 0px 5px;
     color: #000;
 }
-.r_con .recmmend_product p{
-  line-height: 25px;
+.r_con .recmmend_product p,.r_con .recmmend_s p{
+    line-height: 25px;
+    font-weight: 600;
+    color: #636060;
 }
 .r_con .recmmend_product.cur,.recmmend_s.cur{
   border:1px solid #D61515
 }
-.cur p{
+.r_con .recmmend_product.cur p,.r_con .recmmend_s.cur p{
   color: #D61515;
 }
 .recommend_con .button_div{
