@@ -19,7 +19,9 @@ class TuijianController extends UcenterBaseController {
 	protected  $certType = 'vip';
 
 	public function recommendAction(){
-
+        if(IS_POST){
+            die(json::encode(tool::getSuccInfo(1,'设置成功')));
+        }
     }
 
     public function pushListAction(){
