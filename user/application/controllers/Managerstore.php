@@ -466,5 +466,13 @@ class ManagerStoreController extends UcenterBaseController{
     		die(json::encode($res));
     	}
     }
+    /*增加推荐管理*/
+    public function recommendAction(){
+
+    }
+   /* 推荐管理推送列表*/
+    public function pushlistAction(){
+
+    }
 
 }
