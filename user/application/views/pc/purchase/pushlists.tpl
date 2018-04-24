@@ -17,56 +17,29 @@
 									<td>单价</td>
 									<td>操作</td>
 								</tr>
+                                {foreach: items=$data['list'] item=$list }
+									<tr>
+										<td><p>{$list['name']}</p></td>
+										<td>卖盘</td>
+										<td>{areatext:data=$list['produce_area']}</td>
+										<td>{$list['accept_area']}</td>
+										<td>{$list['last']}</td>
+										<td>{$list['price']}</td>
+										<td>
+											<a href="{url:/offers/offerdetails@deal}/id/{$list['id']}/pid/{$list['pid']}">查看</a>
 
+										</td>
+									</tr>
+                                {/foreach}
 							</table>
-							<div class="btn_div"><a class="btn_a" onclick="chgRecommend()">换一批</a></div>
+
 						</div>
 					
+					</div>
+					<div class="page_num">
+                        {$data['bar']}
 					</div>
 				</div>
 			</div>
 
 
-<script type="text/html" id="recTemplate">
-	<% for(var i=0;i<data.length;i++){ %>
-	<tr class="item">
-		<td><%=data[i].name%></td>
-		<td>卖盘</td>
-		<td><%=data[i].produce_area%></td>
-		<td><%=data[i].accept_area%></td>
-		<td><%=data[i].last%>(<%=data[i].unit%>)</td>
-		<td>￥<%=data[i].price%></td>
-		<td>
-			<a href="{url:/offers/offerdetails@deal}/id/<%=data[i].id%>/pid/<%=data[i].pid%>">查看</a>
-		</td>
-	</tr>
-	<% } %>
-</script>
-<script type="text/javascript">
-	var ajaxUrl = '{url:/purchase/proRecommend@user}';
-	var page = 1;
-	var id ={$id};//alert(page);
-
-	function chgRecommend() {
-	    var areaObj = new Area();
-		$.ajax({
-			type: 'post',
-			url: ajaxUrl,
-			data:{page:page,id:id},
-			dataType: 'json',
-			success : function(data){
-				for(var i in data){
-				    data[i]['produce_area'] = areaObj.getAreaText(data[i]['produce_area']);
-                }
-				//写入数据
-				var html = template.render('recTemplate',{data:data});
-				$('#dataBox tr.item').remove();
-				$('#dataBox').append(html);
-
-			}
-		})
-	}
-	$(function(){
-		chgRecommend();
-	})
-</script>

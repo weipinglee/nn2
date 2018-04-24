@@ -162,6 +162,7 @@
                            <input type="hidden" name="invoice" value="2" />
                      </div> 
                     </h3>
+                    <div class="invoicetishi">
                        {if:!$login || $login && $cert['vip']==0}
                            <!-- 开发票，非会员提示 -->
                            <div class="no_member">
@@ -179,13 +180,25 @@
                       急速开票 收到货物后5个工作日内邮寄至您的收票地址
                     </div>
                        {/if}
-                   </div>      
+                   </div> 
+                   </div>     
               </div>     
              <script type="text/javascript">
                  $(function() {
                      $(".yListr ul li em").click(function() {
                          $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+                         if($(this).attr("invoice") == "2"){
+                            $(".invoicetishi").hide();
+                         }else{
+                          $(".invoicetishi").show();
+                         }
                      })
+                     if($(".yListrclickem").attr("invoice") == "2"){
+                          $(".invoicetishi").hide();
+                       }else{
+                        $(".invoicetishi").show();
+                       }
+
                  })
              </script>  
             

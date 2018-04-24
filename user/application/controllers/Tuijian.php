@@ -27,5 +27,7 @@ class TuijianController extends UcenterBaseController {
     public function pushListAction(){
 
     }
+
+
 }
 ?>

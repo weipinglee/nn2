@@ -131,10 +131,8 @@ class productModel extends \nainai\offer\product{
         $search->where = $where;
         $search->bind = array('cate_id'=>$data['cate_id']);
         $search->fields = ' o.id,o.accept_area,p.produce_area,p.id as pid,p.quantity as num,o.type,o.max_num,o.sell_num,p.name,o.price,o.price_l,o.price_r,p.unit';
-       // $search->page = $page;
-        //$search->pagesize = 5;
-        $search->order = ' rand()';
-        $search->limit = 5;
+        $search->page = $page;
+        $search->pagesize = 5;
         $res = $search->find();//print_r($res);
         if(!empty($res)){
             foreach($res as  &$item){
@@ -142,7 +140,8 @@ class productModel extends \nainai\offer\product{
                 $item['last'] = $item['last'] > 0 ? $item['last'] : 0;
             }
         }
-        return $res;
+        $bar = $search->getPageBar();
+        return array('list'=>$res,'bar'=>$bar);
 
     }
 
