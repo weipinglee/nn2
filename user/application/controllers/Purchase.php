@@ -364,6 +364,9 @@ class PurchaseController extends UcenterBaseController{
 
     /*增加采购列表中推荐列表*/
     public function pushlistsAction(){
+        if($this->cert['vip']==0){
+            $this->redirect(url::createUrl('/ucenter/index'));
+        }
         $id = $this->getRequest()->getParam('id');
         $proObj = new ProductModel();
         $page = safe::filterGet('page','int',1);

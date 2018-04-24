@@ -994,6 +994,9 @@ class ManagerDealController extends UcenterBaseController {
 
     /*销售列表增加推荐*/
     public function productpushlistAction() {
+        if($this->cert['vip']==0){
+            $this->redirect(url::createUrl('/ucenter/index'));
+        }
         $id = $this->getRequest()->getParam('id');
         $proObj = new ProductModel();
         $page = safe::filterGet('page','int',1);
