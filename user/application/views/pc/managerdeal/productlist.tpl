@@ -57,8 +57,10 @@
 									<td><span class="col000000">{$list['status']}</span></td>
 									<td>{$list['apply_time']}</td>
 									<td><a href="{url:/managerDeal/productDetail?id=$list['id']}">查看</a>
+                                        {if:$cert['vip']==1}
 										<a href="{url:/managerDeal/productpushlist?id=$list['id']}">推荐</a></td>
-								</tr>
+                                         {/if}
+											</tr>
 								{/foreach}
 								
 							</table>
