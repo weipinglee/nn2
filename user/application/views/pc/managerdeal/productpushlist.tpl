@@ -49,13 +49,6 @@
             data:{page:page,id:id},
             dataType: 'json',
 			success : function(data){
-				if(data.length<=0){
-				    page = 1;
-				    chgRecommend();
-				    return false;
-                }else {
-                    page = page + 1;
-                }
 				//写入数据
                 var html = template.render('recTemplate',{data:data});
 				$('#dataBox tr.item').remove();
