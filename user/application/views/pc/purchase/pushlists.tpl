@@ -37,7 +37,7 @@
 		<td><%=data[i].last%>(<%=data[i].unit%>)</td>
 		<td>￥<%=data[i].price%></td>
 		<td>
-			<a href="{url:/offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].pid%>">查看</a>
+			<a href="{url:/offers/offerdetails@deal}/id/<%=data[i].id%>/pid/<%=data[i].pid%>">查看</a>
 		</td>
 	</tr>
 	<% } %>
