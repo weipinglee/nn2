@@ -193,13 +193,19 @@
                           $(".invoicetishi").show();
                          }
                      })
-                     if($(".yListrclickem").attr("invoice") == "2"){
-                          $(".invoicetishi").hide();
-                       }else{
-                        $(".invoicetishi").show();
-                       }
+
+                     
 
                  })
+                window.onload=function()//用window的onload事件，窗体加载完毕的时候
+
+                {
+                   if($(".yListrclickem").attr("invoice") == "2"){
+                                          $(".invoicetishi").hide();
+                                       }else{
+                                        $(".invoicetishi").show();
+                                       }
+                }
              </script>  
             
              <!-------------------------- -->                
