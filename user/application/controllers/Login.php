@@ -205,7 +205,7 @@ class LoginController extends \Yaf\Controller_Abstract {
      * 验证手机验证码
      * @param $phone
      * @param $num
-     * @return int
+     * @return array
      */
     function checkMobileValidateCode($phone,$num){
         if($mobileValidateSess = session::get('mobileValidateReg')){
@@ -272,7 +272,7 @@ class LoginController extends \Yaf\Controller_Abstract {
         {
             die(JSON::encode(tool::getSuccInfo(0, '该手机号已注册')));
         }
-        $temp = rand(100000, 999999);echo $temp;
+        $temp = rand(100000, 999999);
         $text = "您申请的校验码为 {$temp},请尽快操作，妥善保管，如非本人操作，请忽略此信息。";
         session::set('mobileValidateReg', array('phone' => $phone, 'num' => $temp, 'time' => time()));
         $hsms = new Hsms();
