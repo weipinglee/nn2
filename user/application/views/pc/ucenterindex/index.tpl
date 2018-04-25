@@ -21,6 +21,7 @@
 									<td width="450px" style="border-right:1px solid #eee;">
 										<ul class="dj">
 											<li>信誉等级：<span><img src="{$group['icon']}"/>{$group['group_name']}</span></li>
+
 											<li style="clear:both;"><span>信誉分值：{$creditGap} 分</span></li>
 											<li style="clear:both;">
                                                 {if:$cert['vip_temp']}

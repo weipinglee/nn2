@@ -85,6 +85,8 @@
         $(".member_c_tq1").show();
         $(".member_c_sq").hide();
         $(".member_c_tq2").hide();
+        $("input[name='vip_type']").val("1")
+
     })
     $(".member_nav_ul2 .hehuoren").click(function(){
         $(".member_nav_ul2  a").removeClass("curs");
@@ -94,6 +96,7 @@
         $(".member_c_tq1").hide();
         $(".member_c_sq").hide();
         $(".member_c_tq2").show();
+        $("input[name='vip_type']").val("2")
     })
     $(".member_title .member_t").click(function(){
         $(".member_title ul li a").removeClass("cur");
@@ -108,7 +111,6 @@
     $(".member_title .member_s").click(function(){
         $(".member_title ul li a").removeClass("cur");
         $(this).addClass("cur")
-        
         $(".member_c_sq").show();
         $(".member_c_tq1").hide();
         $(".member_c_tq2").hide();
