@@ -23,8 +23,8 @@ class VipManageController extends InitController {
 
     public function applyListAction(){
 	    $page = safe::filterGet('page','int',1);
-        $where = 'v.status=:status';//状态1位申请状态，certificate类有定义
-        $bind = array('status'=>1);
+        $where = 'v.status=:status or v.status=:status1';//状态1位申请状态，certificate类有定义
+        $bind = array('status'=>1,'status1'=>4);
         $data = $this->vipModel->getList($page,$where,$bind);
         $this->getView()->assign('data',$data);
     }

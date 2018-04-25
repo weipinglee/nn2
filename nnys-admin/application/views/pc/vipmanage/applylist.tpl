@@ -22,7 +22,7 @@
 				<th width="100">联系人</th>
 				<th width="90">联系电话</th>
 				<th width="150">申请时间</th>
-				<th width="150">会员类型</th>
+				<th width="150">申请类型</th>
 				<th width="130">状态</th>
 				<th width="100">操作</th>
 			</tr>

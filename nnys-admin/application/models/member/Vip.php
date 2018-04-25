@@ -71,6 +71,7 @@ class vipModel extends \baseModel{
         if($type==2){
             return $this->certTempObj->verify($user_id,$status);
         }else{
+
             return $this->certObj->verify($user_id,$status);
         }
 

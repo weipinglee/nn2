@@ -27,7 +27,7 @@
                                                 {if:$cert['vip_temp']}
 												    <span>会员：耐购联盟体验会员</span>
 													<a href="{url:/login/newMember@user}?oper=update" class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员升级</a>
-												{elseif($cert['vip'])}
+												{elseif:($cert['vip'])}
 													<span>会员：耐购联盟合伙人</span>
 												{else:}
 													<span>会员：非会员</span>
