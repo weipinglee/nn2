@@ -83,6 +83,54 @@ class testController extends  UcenterBaseController{
 //		else echo 'error';
 	}
 
+	public function setOfferpricevipAction(){
+        $page = safe::filterGet('page','int',1);
+        $pagesize = 1000;
+        if($page==1){
+            $limit = $pagesize;
+        }
+        else{
+            $limit = ($page-1)*$pagesize.','.$pagesize;
+        }
+        $offerObj = new M('product_offer');
+        $data = $offerObj->where(array('type'=>1,'price_vip'=>0))->fields('id,price')->limit($limit)->select();
+        $offerObj->beginTrans();
+        foreach($data as $item){
+            $offerObj->data(array('price_vip'=>$item['price']))->where(array('id'=>$item['id']))->update();
+        }
+        if($offerObj->commit()){
+            echo 'success';
+        }
+        else
+            echo 'fail';
+        die();
+    }
+	public function setOrderUnitpriceAction(){
+        $page = safe::filterGet('page','int',1);
+        $pagesize = 1000;
+        if($page==1){
+            $limit = $pagesize;
+        }
+        else{
+            $limit = ($page-1)*$pagesize.','.$pagesize;
+        }
+
+        $orderObj = new M('order_sell');
+        $offerObj = new M('product_offer');
+        $orderData = $orderObj->where(array('price_unit'=>0,'mode'=>array('gt',0)))->fields('id,offer_id,price_unit')->limit($limit)->order('id desc')->select();
+        $orderObj->beginTrans();
+        foreach($orderData as $val){
+            $price = $offerObj->where(array('id'=>$val['offer_id']))->getField('price');
+            if($price){
+                $orderObj->where(array('id'=>$val['id']))->data(array('price_unit'=>$price))->update();
+            }
+        }
+        if($orderObj->commit()){
+            echo 'success';
+        }
+        else
+            echo 'error';
+    }
 	public function setOrderOfferuserAction(){
 		$page = safe::filterGet('page','int',1);
 		$pagesize = 1000;
