@@ -57,9 +57,9 @@
                                                {/if}
 
                                             {if:$cert['store']==1}
-												<span><img src="{views:/images/center/icon_yrz.png}">交易商已认证</span>
+												<span><img src="{views:/images/center/icon_yrz.png}">仓库管理员已认证</span>
                                             {else:}
-												<span><img src="{views:/images/center/icon_wrz.png}">交易商未认证</span>
+												<span><img src="{views:/images/center/icon_wrz.png}">仓库管理员未认证</span>
 
                                             {/if}
 
