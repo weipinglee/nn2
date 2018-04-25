@@ -53,7 +53,6 @@ class IndexController extends PublicController {
 		$this->getView()->assign('offerCateList',\Library\json::encode($offerList));
 		$this->getView()->assign('topCat',$topCat);
 		$this->getView()->assign('indexSlide',$indexSlide);
-        $this->getView()->setStaticFile();
 	}
     
     
