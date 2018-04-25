@@ -195,8 +195,9 @@ class LoginController extends \Yaf\Controller_Abstract {
                     'contact_phone' => $userData['contact_phone']
                 );
 	            $this->getView()->assign('company',$companyData);
-	            $this->getView()->assign('login',$loginStatus);
+
             }
+            $this->getView()->assign('login',$loginStatus);
             $oper = safe::filterGet('oper');
 	        $oper = $oper=='update' ? $oper : '';
 	        $this->getView()->assign('oper',$oper);

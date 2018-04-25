@@ -170,7 +170,7 @@
                 {/if}
 				{if:$userType==0 || $userType==-1}
 				  <!-- 个人认证 -->
-				   <div class="percer" style="display: none;">
+				   <div class="percer" >
 						<div class="rz_title">
 							<ul class="rz_ul">
 								<li class="rz_start"></li>

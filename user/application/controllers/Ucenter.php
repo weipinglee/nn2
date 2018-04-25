@@ -373,7 +373,7 @@ class UcenterController extends UcenterBaseController {
 
         if(IS_AJAX){
             $user_id = $this->user_id;
-            $user_type = safe::filterPost('user_type','int',1);
+            $user_type = safe::filterPost('userType','int',1);
             $accData = array();
             $userModel = new userModel();
             if($user_type==1){
