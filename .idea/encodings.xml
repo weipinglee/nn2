@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/application/library/tool/staticPage.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/application/views/pc/test/index.tpl" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/Library/Hsms.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/Library/M.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/Library/check.php" charset="UTF-8" />
@@ -29,6 +27,7 @@
     <file url="file://$PROJECT_DIR$/user/application/views/pc/error/error.tpl" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/application/views/pc/layout/product.tpl" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/application/views/pc/message" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user/views/pc/js/cert/storecert.js" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>
