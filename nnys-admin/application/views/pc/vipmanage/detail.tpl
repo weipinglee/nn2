@@ -39,11 +39,11 @@
                 <td>{$user['address']}</td>
              <tr>
              <tr>
-                 <th>联系人</th>
+                 <th>会员类型</th>
                  <td scope="col" colspan="7">
                      <select name="type">
-                         <option value="1">免费体验</option>
-                         <option value="2">合伙人</option>
+                         <option value="1" {if:$user['type']==1}checked="true"{/if}>免费体验</option>
+                         <option value="2" {if:$user['type']==2}checked="true"{/if}>合伙人</option>
                      </select>
                  </td>
 
