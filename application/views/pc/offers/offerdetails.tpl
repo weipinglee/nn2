@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function getVipprice(data) {
-        if (data.login === 1 && data.cert['vip'] === 1) {
+        if (data.login === 1 && (data.cert['vip'] === 1 || data.cert['vip_temp'] === 1)) {
             $('.offer_right ul li').eq(0).css('display','none');
             $('.offer_right ul li').eq(1).css('display','block');
         }

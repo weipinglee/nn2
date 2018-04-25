@@ -46,7 +46,7 @@
                                   <td>{$data['store_name']}</td>
                                   <td>
                                           <label class="" id="d_price_1">
-                                              ￥{$data['price']}
+                                              ￥{$data['price_unit']}
                                           </label>
                                   </td>
                                   <td>
