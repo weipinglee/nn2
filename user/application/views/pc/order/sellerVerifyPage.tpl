@@ -31,7 +31,7 @@
                             <tr>
                                 <td nowrap="nowrap"><span></span>单价：</td>
                                 <td colspan="2">
-                                    {$info['price']}
+                                    {$info['price_unit']}
                                 </td>
                             </tr>
                             <tr>
