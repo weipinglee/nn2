@@ -163,7 +163,7 @@
                      </div> 
                     </h3>
                     <div class="invoicetishi" style="display: none;">
-                       {if:!$login || $login && $cert['vip']==0}
+                       {if:!$login || $login && ($cert['vip']==0 && $cert['vip_temp']==0)}
                            <!-- 开发票，非会员提示 -->
                            <div class="no_member">
                                <span class="c816">注：</span>请自行同卖方交易商联系查看开票进度
@@ -173,7 +173,7 @@
                                </div>
                            </div>
                        {/if}
-                       {if:$login && $cert['vip']==1}
+                       {if:$login && ($cert['vip']==1 || $cert['vip_temp']==1)}
                      <!-- 开发票，会员提示 -->
                     <div class="yes_member">
                       <span class="c816">注：</span>

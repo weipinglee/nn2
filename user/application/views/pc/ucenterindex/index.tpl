@@ -48,17 +48,28 @@
 								<tr>
 									<td width="280px" style="border-right:1px solid #eee;">
 										<div class="icon_rz">
-											{foreach:items=$cert}
-												{if:$cert[$key]==1}
-												<span><img src="{views:/images/center/icon_yrz.png}">{echo:\nainai\cert\certificate::$certRoleText[$key]}已认证</span>
-												{else:}
-												<span><img src="{views:/images/center/icon_wrz.png}">{echo:\nainai\cert\certificate::$certRoleText[$key]}未认证</span>
 
-												{/if}
-											{/foreach}
-											{if:$href}
-												<a href="{$href}"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">去认证</span></a>
-											{/if}
+                                               {if:$cert['deal']==1}
+												   <span><img src="{views:/images/center/icon_yrz.png}">交易商已认证</span>
+                                               {else:}
+												   <span><img src="{views:/images/center/icon_wrz.png}">交易商未认证</span>
+
+                                               {/if}
+
+                                            {if:$cert['store']==1}
+												<span><img src="{views:/images/center/icon_yrz.png}">交易商已认证</span>
+                                            {else:}
+												<span><img src="{views:/images/center/icon_wrz.png}">交易商未认证</span>
+
+                                            {/if}
+
+
+
+                                                {if:$href}
+													<a href="{$href}"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">去认证</span></a>
+
+                                                {/if}
+
 										</div>
 									</td>
 									<td>
