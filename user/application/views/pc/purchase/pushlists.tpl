@@ -17,11 +17,11 @@
 									<td>单价</td>
 									<td>操作</td>
 								</tr>
-                                {foreach: items=$data['list'] item=$list }
+                                {foreach: items=$data['list'] item=$list key=$k}
 									<tr>
 										<td><p>{$list['name']}</p></td>
 										<td>卖盘</td>
-										<td>{areatext:data=$list['produce_area']}</td>
+										<td>{areatext:data=$list['produce_area'] id=$k}</td>
 										<td>{$list['accept_area']}</td>
 										<td>{$list['last']}</td>
 										<td>{$list['price']}</td>
