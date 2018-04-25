@@ -64,7 +64,7 @@
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">商品单价：</b>
-								<span>&nbsp;{$info['price']}</span>
+								<span>&nbsp;￥{$info['price_unit']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">商品数量：</b>
@@ -72,7 +72,7 @@
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">小计：</b>
-								<span>&nbsp;{$info['delivery_amount']}</span>
+								<span>&nbsp;￥{$info['delivery_amount']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">配送：</b>

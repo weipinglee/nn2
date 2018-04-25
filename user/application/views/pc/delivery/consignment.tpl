@@ -143,7 +143,7 @@
 								<tr>
 									<td><img src="{$info['img_thumb']}"/></td>
 									<td>{$info['name']}</td>
-									<td>{$info['price']}</td>
+									<td>{$info['price_unit']}</td>
 									<td>{$info['num']}{$info['unit']}</td>
 									<td>{$info['amount']}</td>
 									<td>待发货</td>

@@ -87,7 +87,7 @@
 
 							<div class="sj_detal">
 								<b class="sj_de_tit">单价：</b>
-								<span>&nbsp;￥{$info['price']}</span>
+								<span>&nbsp;￥{$info['price_unit']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">数量：</b>
