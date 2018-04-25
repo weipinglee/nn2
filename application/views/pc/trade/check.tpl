@@ -157,12 +157,12 @@
 
                    <div class="yListr">
                            <ul>
-                              <li><em  class="yListrclickem" invoice='1'>开发票<i></i></em> <em invoice='2' >不开发票<i></i></em></li>
+                              <li><em invoice='1'>开发票<i></i></em> <em invoice='2' class="yListrclickem">不开发票<i></i></em></li>
                            </ul>
                            <input type="hidden" name="invoice" value="2" />
                      </div> 
                     </h3>
-                    <div class="invoicetishi">
+                    <div class="invoicetishi" style="display: none;">
                        {if:!$login || $login && $cert['vip']==0}
                            <!-- 开发票，非会员提示 -->
                            <div class="no_member">
@@ -197,15 +197,6 @@
                      
 
                  })
-                window.onload=function()//用window的onload事件，窗体加载完毕的时候
-
-                {
-                   if($(".yListrclickem").attr("invoice") == "2"){
-                                          $(".invoicetishi").hide();
-                                       }else{
-                                        $(".invoicetishi").show();
-                                       }
-                }
              </script>  
             
              <!-------------------------- -->                
