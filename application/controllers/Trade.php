@@ -248,7 +248,7 @@ class tradeController extends \nainai\controller\Base {
 		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
         $info['is_vip'] = 0;
         $info['old_price'] = 0;
-		if($this->login['cert']['vip']==1){
+		if($this->login['cert']['vip']==1 || $this->login['cert']['vip_temp']==1){
 		    $info['is_vip'] = 1;
             $info['old_price'] = $info['price'];
             $info['price'] = $info['price_vip'];

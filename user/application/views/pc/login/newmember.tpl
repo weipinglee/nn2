@@ -89,12 +89,12 @@
               </div>
               <div class="cot">
                 <span class="cot_tit">公司详细地址：</span>
-                <span><input class="text" type="text" name="address" datatype="*" errormsg="请填写地址信息"><span class="Validform_checktip"></span></span>
+                <span><input class="text" type="text" name="address" datatype="*" errormsg="请填写地址信息" nullmsg="请填写地址信息 "><span class="Validform_checktip"></span></span>
                 <span></span>
               </div>
               <div class="cot">
                 <span class="cot_tit">联系人：</span>
-                <span><input class="text" type="text" name="contact" datatype="zh2-20" errormsg="请填写联系人姓名"><span class="Validform_checktip"></span></span>
+                <span><input class="text" type="text" name="contact" datatype="zh2-20" errormsg="请填写联系人姓名" nullmsg="请填写联系人姓名 "><span class="Validform_checktip"></span></span>
                 <span></span>
               </div>
               <div class="cot">

@@ -95,7 +95,7 @@
       <div class="row cl">
           <label class="form-label col-3"><span class="c-red">*</span>商品单价：</label>
           <div class="formControls col-5">
-              {$info['price']}
+              {$info['price_unit']}
           </div>
           <div class="col-4"> </div>
       </div>
