@@ -13,10 +13,20 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-		echo time().'</br>';
-	//	echo substr(-1,3,time());
+		$obj = new \nainai\fund\js();
+		$user_id = 36;
+		$res = $obj->signedStatus($user_id);
+		if(is_string($res)){
+			echo $res;
+		}elseif($res===true){
+			echo 'success';
+		}
+		exit;
+
+
 	}
 
+	
 
 	/**
 	 * 生成旧的报盘的市场大分类id

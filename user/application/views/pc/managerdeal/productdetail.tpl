@@ -166,9 +166,13 @@
                                </tr>
                            {/if}
                             <tr>
-                                <td>商品单价</td>
-                                <td>￥{$offer['price']}</td>
-                            </tr>
+                                 <td>商品单价</td>
+                                 <td>￥{$offer['price']}</td>
+                             </tr>
+                             <tr>
+                                 <td>会员单价</td>
+                                 <td>￥{$offer['price_vip']}</td>
+                             </tr>
                             <tr>
                                 <td>交货地址</td>
                                 <td>{$offer['accept_area']}</td>

@@ -157,18 +157,45 @@
 
                    <div class="yListr">
                            <ul>
-                              <li><em  invoice='1'>开发票<i></i></em> <em invoice='2' class="yListrclickem">不开发票<i></i></em></li>
+                              <li><em invoice='1'>开发票<i></i></em> <em invoice='2' class="yListrclickem">不开发票<i></i></em></li>
                            </ul>
                            <input type="hidden" name="invoice" value="2" />
                      </div> 
-                    </h3> 
-                   </div>      
+                    </h3>
+                    <div class="invoicetishi" style="display: none;">
+                       {if:!$login || $login && ($cert['vip']==0 && $cert['vip_temp']==0)}
+                           <!-- 开发票，非会员提示 -->
+                           <div class="no_member">
+                               <span class="c816">注：</span>请自行同卖方交易商联系查看开票进度
+                               <div>
+                                   <span>急速开票</span>
+                                   <a class="fa3a" href="{url:/login/newMember@user}">点击  开通会员</a>
+                               </div>
+                           </div>
+                       {/if}
+                       {if:$login && ($cert['vip']==1 || $cert['vip_temp']==1)}
+                     <!-- 开发票，会员提示 -->
+                    <div class="yes_member">
+                      <span class="c816">注：</span>
+                      急速开票 收到货物后5个工作日内邮寄至您的收票地址
+                    </div>
+                       {/if}
+                   </div> 
+                   </div>     
               </div>     
              <script type="text/javascript">
                  $(function() {
                      $(".yListr ul li em").click(function() {
                          $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+                         if($(this).attr("invoice") == "2"){
+                            $(".invoicetishi").hide();
+                         }else{
+                          $(".invoicetishi").show();
+                         }
                      })
+
+                     
+
                  })
              </script>  
             
@@ -335,7 +362,7 @@
                           layer.load(2);
                           unbindmin();
                           unbindadd();
-                          $.post("{url:/Offers/payDepositCom}",{id:id,num:num,price:price},function(data){
+                          $.post("{url:/ajaxData/payDepositCom}",{id:id,num:num,price:price},function(data){
                               layer.closeAll();
                               bindmin();
                               bindadd();

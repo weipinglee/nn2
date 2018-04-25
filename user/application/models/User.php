@@ -38,7 +38,7 @@ class UserModel{
 		array('username','/^[a-zA-Z][a-zA-Z0-9_]{2,29}$/','用户名格式错误'),
 		array('password','/^\S{6,15}$/','密码格式错误',0,'regex',3),
 		array('repassword','password','两次密码输入不同',0,'confirm'),
-		array('type',array(0,1),'类型错误',0,'in'),
+		array('type',array(0,1,-1),'类型错误',0,'in'),
 		array('head_photo','/^[a-zA-Z0-9_@\.\/]+$/','请正确上传头像',2,'regex'),
 		array('mobile','mobile','手机号码错误',0,'regex'),
 		array('email','email','邮箱格式错误',2,'regex'),
@@ -90,29 +90,9 @@ class UserModel{
 		self::$userObj = new M('user');
 	}
 
-	/**
-	 * 验证代理商密码是否正确
-	 * @param $agentId
-	 * @param $agentNo
-	 */
-	protected function checkAgentPass($agentId,$agentNo){
-		if($agentId==0){//如果是市场，不需有密码
-			return true;
-		}
-		else{
-			$agent = new M('agent');
-			$no = $agent->where(array('id'=>$agentId))->getField('serial_no');
-			if($no==$agentNo){
-				return true;
-			}
-			else return false;
-		}
-	}
-	//个人用户注册
-	public function userInsert(&$data){
 
-		if(false===$this->checkAgentPass($data['agent'],$data['serial_no']))
-			return $this->getSuccInfo(0,'代理商密码错误');
+	//用户注册
+	public function userInsert(&$data){
 
 		$user = self::$userObj;
 		if($user->data($data)->validate($this->userRules)){
@@ -121,13 +101,10 @@ class UserModel{
 				return $exit;
 
 			unset($user->repassword);
-			unset($user->serial_no);
 			$user->password = $data['password'] = sha1($data['password']);
 			$user->beginTrans();
 			$uID = $user->add();
-			if(is_numeric($uID) ){
-				$user->table('person_info')->data(array('user_id'=>$uID))->add();
-			}
+
 			foreach($this->initTables as $t){
 				$user->table($t)->data(array('user_id'=>$uID))->add();
 			}
@@ -156,49 +133,6 @@ class UserModel{
 		return array('success'=>$res,'info'=>$info, 'data'=>$data);
 	}
 
-
-
-	/**
-	 * 公司注册
-	 * @param array $userData 用户数据
-	 * @param array $companyData 公司数据
-	 * @return string
-	 */
-	public function companyReg(&$userData,$companyData){
-
-		if(false===$this->checkAgentPass($userData['agent'],$userData['serial_no']))
-			return $this->getSuccInfo(0,'代理商密码错误');
-		unset($userData['serial_no']);
-		$user = self::$userObj;
-		if($user->data($userData)->validate($this->userRules) && $user->validate($this->companyRules,$companyData)){
-			$exit = $this->existUser($userData);
-			if($exit!==false)
-				return $exit;
-			unset($user->repassword);
-
-			$user->password = $userData['password'] = sha1($userData['password']);
-			$user->beginTrans();
-			$user_id = $user->add();
-			$userData['id'] = $user_id;
-			$companyData['user_id'] = $user_id;
-			if($user_id)$user->table('company_info')->data($companyData)->add();
-			foreach($this->initTables as $t){
-				$user->table($t)->data(array('user_id'=>$user_id))->add();
-			}
-			$res = $user->commit();
-		}
-		else{
-			$res =  $user->getError();
-		}
-
-		if(true === $res){//操作成功
-			return $this->getSuccInfo();
-		}else{
-			return $this->getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
-		}
-
-
-	}
 
 
 	/**
@@ -407,6 +341,51 @@ class UserModel{
 		return $res;
 	}
 
+	public function personInsert($personData){
+	    $user_id = isset($personData['user_id']) ? $personData['user_id'] : 0;
+	    if($user_id==0){
+	        return tool::getSuccInfo(0,'用户id不能为空');;
+        }
+        $user = new M('person_info');
+        if($user->validate($this->personRules,$personData)){
+            self::$userObj->where(array('id'=>$user_id))->data(array('type'=>0))->update();
+            $userData = $user->where(array('user_id'=>$user_id))->getObj();
+            if(empty($userData)){
+                $res = $user->data($personData)->add();
+                if(!$res){
+                    return tool::getSuccInfo(0,'个人信息添加失败');
+                }
+            }
+            return tool::getSuccInfo();
+        }
+        return tool::getSuccInfo(0,'字段类型错误');
+
+    }
+
+    /**
+     * insert a row of company data,if the 'user_id' has exist,do nothing.
+     * @param array $data 企业表的数据
+     * @return array
+     */
+    public function companyInsert($data){
+        $user_id = isset($data['user_id']) ? $data['user_id'] : 0;
+        if($user_id==0){
+            return tool::getSuccInfo(0,'用户id不能为空');
+        }
+        $user = new M('company_info');
+        if($user->validate($this->companyRules,$data)){
+            self::$userObj->where(array('id'=>$user_id))->data(array('type'=>1))->update();
+            $userData = $user->where(array('user_id'=>$user_id))->getObj();
+            if(empty($userData)){
+                $res = $user->data($data)->add();
+                if(!$res){
+                    return tool::getSuccInfo(0,'企业信息添加失败');
+                }
+            }
+            return tool::getSuccInfo();
+        }
+        return tool::getSuccInfo(0,'字段类型错误');
+    }
 	/**
 	 * 个人用户更新信息
 	 * @param array $userData 用户表数据
@@ -819,6 +798,8 @@ class UserModel{
 			return $model->where(array('uid' => $uid))->data($data)->update(0);
 		}
 	}
+
+
 	
 
 

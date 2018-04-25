@@ -20,7 +20,8 @@ class PurchaseController extends UcenterBaseController{
 			        'accept_area' => Safe::filterPost('accept_area'),
 			        'accept_day' => Safe::filterPost('accept_day', 'int'),
 			        'price_l'        => Safe::filterPost('price'),
-				'price_r'        => Safe::filterPost('price_r'),
+                    'pro_name'    => Safe::filterPost('warename'),
+				    'price_r'        => Safe::filterPost('price_r'),
 			        'user_id' => $this->user_id,
 			        'status' => product::OFFER_APPLY,
 			        'expire_time' =>  Safe::filterPost('expire_time'),
@@ -134,6 +135,7 @@ class PurchaseController extends UcenterBaseController{
 		$this->getView()->assign('status', $PurchaseOfferModel->getStatusArray());
 		$this->getView()->assign('productList', $productList['list']);
 		$this->getView()->assign('pageHtml', $productList['pageHtml']);
+        $this->getView()->assign('cert',$this->cert);
 	}
 
 	/**
@@ -359,6 +361,24 @@ class PurchaseController extends UcenterBaseController{
 			exit(json::encode(tool::getSuccInfo(0, 'Error id')));
 		}
 	}
+
+    /*增加采购列表中推荐列表*/
+    public function pushlistsAction(){
+        if($this->cert['vip']==0 && $this->cert['vip_temp']==0){
+            $this->redirect(url::createUrl('/ucenter/index'));
+        }
+        $id = $this->getRequest()->getParam('id');
+        $proObj = new ProductModel();
+        $page = safe::filterGet('page','int',1);
+        $res = array();
+        if($id) {
+            $res = $proObj->offerRecommend($id,$page);
+
+        }
+        $this->getView()->assign('data',$res);
+        $this->getView()->assign('id',$id);
+    }
+
 
 
 

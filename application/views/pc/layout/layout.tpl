@@ -24,6 +24,7 @@
     <script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
     <script src="{views:js/countdown.js}" type="text/javascript"></script>
     <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
+    <script type="text/javascript" src="{views:js/topshow.js}" ></script>
     <!--[if lte IE 6]>
 
     
@@ -78,20 +79,20 @@
     <div class="topnav_left">
         <div class="top_index">
             <img class="index_img" src="{views:images/index/icon_index.png}"/>
-            <a rel="external nofollow" href="{url:/index/index@deal}" target="_blank" >耐耐网首页</a>
+            <a rel="external nofollow" href="{url:/index/index@deal}" >耐耐网首页</a>
         </div>
         <div class="index_user">
-            <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class=""><%=data.username%></a>
+            <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  class=""><%=data.username%></a>
         </div>
         <div class="login_link" id="toploginbox">
-            <a rel="external nofollow" href="{url:/login/logOut@user}" target="_blank" class="topnav_login">退出</a>
+            <a rel="external nofollow" href="{url:/login/logOut@user}" class="topnav_login">退出</a>
         </div>
 
     </div>
     <div class="topnav_right">
         <ul>
             <li>
-                <a href="{$sellerCenterUrl}">卖家中心</a><span class="line_l">|<span>
+                <a href="{url:/shop/prompt}">卖家中心</a><span class="line_l">|<span>
             </li>
 
             <li>
@@ -116,7 +117,7 @@
                 <a href="">手机版</a><span class="line_l">|<span>
             </li>-->
             <li>
-                <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" ><!--onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=279020473&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" --> 在线客服</a><span class="line_l">|<span>
+                <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" ><!--onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=279020473&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" --> 在线客服</a><span class="line_l">|<span>
             </li>
             <li style="padding-top:2px;">
                 <span>交易时间：{$deal['start_time']}--{$deal['end_time']}</span>
@@ -210,23 +211,26 @@ $(function(){
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="{views:images/index/icon_index.png}"/>
-                <a rel="external nofollow" href="{url:/index/index@deal}" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="{url:/index/index@deal}">耐耐网首页</a>
             </div>
             <div class="index_user">
                <span>您好，欢迎进入耐耐网</span>
             </div>
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="{url:/login/login@user}" target="_blank" class="topnav_login">请登录</a>
+                <a rel="external nofollow" href="{url:/login/login@user}"  class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
-                <a rel="external nofollow" href="{url:/login/register@user}" target="_blank">免费注册</a>
+                <a rel="external nofollow" href="{url:/login/register@user}">免费注册</a>
+            </div>
+            <div class="login_link">
+                <a rel="external nofollow" href="{url:/login/newMember@user}" target="_blank">会员申请</a>
             </div>
 
         </div>
         <div class="topnav_right">
             <ul>
                 <li>
-                    <a href="{$sellerCenterUrl}">卖家中心</a><span class="line_l">|<span>
+                    <a href="{url:/shop/prompt}">卖家中心</a><span class="line_l">|<span>
                 </li>
 
                 <li>
@@ -239,7 +243,7 @@ $(function(){
                     <a href="">手机版</a><span class="line_l">|<span>
                 </li>-->
                 <li>
-                    <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" ><!--onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=279020473&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" --> 在线客服</a><span class="line_l">|<span>
+                    <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1"><!--onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=279020473&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" --> 在线客服</a><span class="line_l">|<span>
                 </li>
                 <li style="padding-top:2px;">
                     <span>交易时间：{$deal['start_time']}--{$deal['end_time']}</span>
@@ -249,7 +253,7 @@ $(function(){
         </div>
     </div>
 
-<script type="text/javascript" src="{views:js/topshow.js}" ></script>
+
 </div>
 
 <div class="clearfix"></div>
@@ -354,12 +358,12 @@ $(function(){
 
         <ul class="nav">
             <li {if:!isset($cur) || $cur=='index'}class="current"{/if}><a href="{url:/index/index}">首页</a></li>
-            <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
-            <li {if:isset($cur) && $cur=='bid'}class="current"{/if}><a href="{url:/bid/tenderlist}" target="_blank">招投标</a></li>
-            <li {if:isset($cur) && $cur=='shop'}class="current"{/if}><a href="{$shopUrl}#/" target="_blank">店铺</a></li>
-            <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}" target="_blank">仓储专区</a></li>
-            <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}" target="_blank">帮我找</a></li>
-             <li ><a href="http://info.nainaiwang.com" target="_blank">耐耐资讯</a></li>
+            <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}">交易中心</a></li>
+            <li {if:isset($cur) && $cur=='bid'}class="current"{/if}><a href="{url:/bid/tenderlist}">招投标</a></li>
+            <li {if:isset($cur) && $cur=='shop'}class="current"{/if}><a href="{url:/shop/prompt}">店铺</a></li>
+            <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}">仓储专区</a></li>
+            <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}">帮我找</a></li>
+             <li ><a href="http://info.nainaiwang.com">耐耐资讯</a></li>
      
 	   </ul>
     </div>
@@ -547,13 +551,13 @@ $(function(){
             <ul>
                 {foreach: items=$helpList2}
                     <li class="footer_li">
-                        <a class="fotter_div" target="_blank"><b>{$item['name']}</b></a>
+                        <a class="fotter_div"><b>{$item['name']}</b></a>
                         {foreach: items=$item['data'] item=$v key=$k}
                             {if:$v['link']}
-                                <a class="fotter_a" href="{$v['link']}" target="_blank">{$v['name']}</a>
+                                <a class="fotter_a" href="{$v['link']}">{$v['name']}</a>
 
                             {else:}
-                                <a class="fotter_a" href="{url:/help/help}?cat_id={$v['cat_id']}&id={$v['id']}" target="_blank">{$v['name']}</a>
+                                <a class="fotter_a" href="{url:/help/help}?cat_id={$v['cat_id']}&id={$v['id']}">{$v['name']}</a>
 
                             {/if}
                          {/foreach}
@@ -563,15 +567,15 @@ $(function(){
             </ul>
             <ul class="ewm_ul">
                 <li class="ewm_li">
-                    <div class="fotter_div" target="_blank"><b>关注耐火频道</b></div>
+                    <div class="fotter_div"><b>关注耐火频道</b></div>
                     <div><img src="{views:images/index/a_naih.png}"></div>
                 </li>
                 <li class="ewm_li">
-                    <div class="fotter_div" target="_blank"><b>关注耐耐网</b></div>
+                    <div class="fotter_div"><b>关注耐耐网</b></div>
                     <div><img src="{views:images/index/a_nain.png}"></div>
                 </li>
                 <li class="ewm_li">
-                    <div class="fotter_div" target="_blank"><b>关注建材频道</b></div>
+                    <div class="fotter_div"><b>关注建材频道</b></div>
                     <div><img src="{views:images/index/a_jianc.png}"></div>
                 </li>
             </ul>

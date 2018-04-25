@@ -20,13 +20,14 @@ class UcenterIndexController extends UcenterBaseController {
         $creditGap = $group->getGroupCreditGap($this->user_id);//与更高等级的分组的差值
         $this->getView()->assign('username',$this->username);
         $this->getView()->assign('user_type', $this->user_type);
-        
+
         $this->getView()->assign('group',$groupData);
         $this->getView()->assign('creditGap',$creditGap);
 
         $this->getView()->assign('cert',$this->cert);
 
         $cert = $this->cert;
+
         $href = $cert['deal'] == 1 ? ($cert['store'] == 1 ? '' : url::createUrl('/ucenter/storecert@user') ) : url::createUrl('/ucenter/dealcert@user');
         $this->getView()->assign('href',$href);
         //获取代理账户金额

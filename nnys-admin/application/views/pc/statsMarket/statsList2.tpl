@@ -326,9 +326,18 @@ function ajax_data(){
 			    $("#tbcomplate_money").text("待完成："+tbcomplate_money);
 			    //获取表格list
 			    var offerlist = data.offerlist;
-			   // var str="";
+			    //alert(JSON.stringify(offerlist))
 			    var page_str=""//页数
 			    var index =1 //当前页
+			    $.each(offerlist,function(i,value){
+			    	//i是页码数
+			    	page_str+="<a class='num_a'>"+i+"</a>"
+			    })
+			    if(page_str==""){
+			    	$(".pages_bar").html("<a class='heard_bar'>首页</a><a class='a_up'>上一页</a><a>1</a><a class='a_down'>下一页</a>") 
+			    }else{
+			    	$(".pages_bar").html("<a class='heard_bar'>首页</a>			<a class='a_up'>上一页</a>"+page_str+"<a class='a_down'>下一页</a>")   
+			    }
 			    function data_a(n){
 			    	$("#tbody_list").empty();
 			    	//alert("dd")
@@ -349,12 +358,6 @@ function ajax_data(){
 			    	
 			    }
 			    data_a(index)
-			   // alert(offerlist[2][20])
-			    $.each(offerlist,function(i,value){
-			    	//i是页码数
-			    	page_str+="<a class='num_a'>"+i+"</a>"
-			    })
-			    $(".pages_bar").html("<a class='heard_bar'>首页</a>			<a class='a_up'>上一页</a>"+page_str+"<a class='a_down'>下一页</a>")
 			  	$(".pages_bar .num_a:first").addClass("current_page")
 			    $(".pages_bar .num_a").click(function(){
 			    	$("#tbody_list").empty();

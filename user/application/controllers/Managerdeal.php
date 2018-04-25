@@ -172,6 +172,7 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
+                'price_vip'   => safe::filterPost('price_vip','float'),
                 'acc_type'   => 1,//现在写死了，就是代理账户
                  'insurance' => Safe::filterPost('insurance', 'int'),
                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
@@ -240,6 +241,7 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
                 'price'        => safe::filterPost('price', 'float'),
+                 'price_vip'   => safe::filterPost('price_vip','float'),
                  'insurance' => Safe::filterPost('insurance', 'int',''),
                  'weight_type' => Safe::filterPost('weight_type'),
 
@@ -308,6 +310,7 @@ class ManagerDealController extends UcenterBaseController {
                 'accept_area' => Safe::filterPost('accept_area'),
                 'accept_day' => Safe::filterPost('accept_day', 'int'),
                 'price'        => Safe::filterPost('price', 'float'),
+                'price_vip'   => safe::filterPost('price_vip','float'),
                 'sign'        => Tool::setImgApp(Safe::filterPost('imgfile1')),//委托书照片
                 'insurance' => Safe::filterPost('insurance', 'int'),
                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
@@ -355,7 +358,7 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function ajaxGetStoreAction(){
         $return_json = array();
-        $pid = Safe::filterPost('pid', 'int');
+        $pid = safe::filterPost('pid', 'int');
         if (intval($pid) > 0) {
             $storeModel = new \nainai\store();
             $return_json = $storeModel->getUserStoreDetail($pid,$this->user_id);
@@ -372,7 +375,7 @@ class ManagerDealController extends UcenterBaseController {
          * @return [Json]
          */
         public function ajaxGetCategoryAction(){
-            $pid = Safe::filterPost('pid', 'int',0);
+            $pid = safe::filterPost('pid', 'int',0);
             if($pid){
                 $productModel = new product();
                 $cate = $productModel->getCategoryLevel($pid);
@@ -430,7 +433,7 @@ class ManagerDealController extends UcenterBaseController {
      * @return array 商品数据数组
      */
     private function getProductData(){
-        $attrs = Safe::filterPost('attribute');
+        $attrs = safe::filterPost('attribute');
         foreach($attrs as $k=>$v){
             if(!is_numeric($k)){
                 echo JSON::encode(tool::getSuccInfo(0,'属性错误'));
@@ -440,21 +443,21 @@ class ManagerDealController extends UcenterBaseController {
         $time = date('Y-m-d H:i:s', time());
         $shopInfo = \nainai\shop\shop::info($this->user_id);
         $detail = array(
-            'name'         => Safe::filterPost('warename'),
-            'cate_id'      => Safe::filterPost('cate_id', 'int'),
-            'quantity'     => Safe::filterPost('quantity', 'float'),
+            'name'         => safe::filterPost('warename'),
+            'cate_id'      => safe::filterPost('cate_id', 'int'),
+            'quantity'     => safe::filterPost('quantity', 'float'),
             'attribute'    => empty($attrs) ? '' : serialize($attrs),
-            'note'         => Safe::filterPost('note'),
-            'produce_area' => Safe::filterPost('area'),
+            'note'         => safe::filterPost('note'),
+            'produce_area' => safe::filterPost('area'),
             'create_time'  => $time,
-            'unit'         => Safe::filterPost('unit'),
+            'unit'         => safe::filterPost('unit'),
             'user_id' => $this->user_id,
 			'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : ''
         );
         $proObj = new \nainai\offer\product();
         $detail['market_id'] = $proObj->getcateTop($detail['cate_id']);
         //图片数据
-        $imgData = Safe::filterPost('imgData');
+        $imgData = safe::filterPost('imgData');
 
         $resImg = array();
         if(!empty($imgData)){
@@ -482,7 +485,7 @@ class ManagerDealController extends UcenterBaseController {
             if(!safe::checkToken($token))
                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             
-            $id = Safe::filterPost('storeproduct', 'int', 0);//仓单id
+            $id = safe::filterPost('storeproduct', 'int', 0);//仓单id
             $shopInfo = \nainai\shop\shop::info($this->user_id);
             $storeObj = new \nainai\store();
             $res = $this->offerCheck();
@@ -491,26 +494,27 @@ class ManagerDealController extends UcenterBaseController {
                 // 报盘数据
                 $offerData = array(
                     'apply_time'  => \Library\Time::getDateTime(),
-                    'divide'      => Safe::filterPost('divide', 'int'),
+                    'divide'      => safe::filterPost('divide', 'int'),
                     'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'float') : 0,
                     'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
                     'status'      => 0,
-                    'accept_area' => Safe::filterPost('accept_area'),
-                    'accept_day' => Safe::filterPost('accept_day', 'int'),
-                    'price'        => Safe::filterPost('price', 'float'),
+                    'accept_area' => safe::filterPost('accept_area'),
+                    'accept_day' => safe::filterPost('accept_day', 'int'),
+                    'price'        => safe::filterPost('price', 'float'),
+                    'price_vip'   => safe::filterPost('price_vip','float'),
                     'user_id'     => $this->user_id,
-                    'insurance' => Safe::filterPost('insurance', 'int', 0),
-                    'risk' =>implode(',', Safe::filterPost('risk', 'int')),
-                   'expire_time' =>  Safe::filterPost('expire_time'),
-                   'other' => Safe::filterPost('other'),
-                   'weight_type' => Safe::filterPost('weight_type'),
+                    'insurance' => safe::filterPost('insurance', 'int', 0),
+                    'risk' =>implode(',', safe::filterPost('risk', 'int')),
+                   'expire_time' =>  safe::filterPost('expire_time'),
+                   'other' => safe::filterPost('other'),
+                   'weight_type' => safe::filterPost('weight_type'),
 				    'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : ''
                 );
                 if(!$offerData['risk']){
                     $offerData['risk'] = '';
                 }
                 $offerObj = new \nainai\offer\storeOffer($this->user_id);
-                $offerData['product_id'] = Safe::filterPost('product_id', 'int');
+                $offerData['product_id'] = safe::filterPost('product_id', 'int');
 
 
                 $res = $offerObj->insertStoreOffer($id,$offerData, $this->username);
@@ -542,11 +546,11 @@ class ManagerDealController extends UcenterBaseController {
                 die(json::encode(tool::getSuccInfo(0,'请勿重复提交'))) ;
             $productData = $this->getProductData();//获取商品数据
             $storeList = array(
-                'store_id' => Safe::filterPost('store_id', 'int'),
-                'package'  => Safe::filterPost('package','int'),
-                'package_num' => Safe::filterPost('packNumber'),
-                'package_unit' => Safe::filterPost('packUnit'),
-                'package_weight' => Safe::filterPost('packWeight'),
+                'store_id' => safe::filterPost('store_id', 'int'),
+                'package'  => safe::filterPost('package','int'),
+                'package_num' => safe::filterPost('packNumber'),
+                'package_unit' => safe::filterPost('packUnit'),
+                'package_weight' => safe::filterPost('packWeight'),
                 'apply_time'  => \Library\Time::getDateTime(),
                 'user_id' => $this->user_id,
                 'store_pos' => safe::filterPost('pos'),
@@ -570,10 +574,11 @@ class ManagerDealController extends UcenterBaseController {
      * 仓单列表
      */
     public function storeProductListAction(){
-        $page = Safe::filterGet('page', 'int', 0);
+        $page = safe::filterGet('page', 'int', 0);
         $store = new store();
 
         $data = $store->getUserStoreList($page,$this->user_id);
+
 
         $this->getView()->assign('statuList', $store->getStatus());
         $this->getView()->assign('data', $data);
@@ -586,7 +591,7 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function storeProductDetailAction(){
         $id = $this->getRequest()->getParam('id');
-        $id = Safe::filter($id,'int',0);
+        $id = safe::filter($id,'int',0);
         if($id){
             $stObj = new store();
             $detail = $stObj->getUserStoreDetail($id,$this->user_id);
@@ -644,11 +649,11 @@ class ManagerDealController extends UcenterBaseController {
      * 产品列表页面
      */
     public function productListAction(){
-        $page = Safe::filterGet('page', 'int', 0);
-        $name = Safe::filterGet('name');
-        $status = Safe::filterGet('status', 'int', 9);
-        $beginDate = Safe::filterGet('beginDate');
-        $endDate = Safe::filterGet('endDate');
+        $page = safe::filterGet('page', 'int', 0);
+        $name = safe::filterGet('name');
+        $status = safe::filterGet('status', 'int', 9);
+        $beginDate = safe::filterGet('beginDate');
+        $endDate = safe::filterGet('endDate');
 
         //查询组装条件
         $where = 'c.user_id=:uid';
@@ -685,6 +690,7 @@ class ManagerDealController extends UcenterBaseController {
         $this->getView()->assign('mode', $this->_mode);
         $this->getView()->assign('productList', $productList['list']);
         $this->getView()->assign('pageHtml', $productList['pageHtml']);
+        $this->getView()->assign('cert',$this->cert);
     }
 
 
@@ -694,7 +700,7 @@ class ManagerDealController extends UcenterBaseController {
     public function productDetailAction(){
 
         $id = $this->getRequest()->getParam('id');
-        $id = Safe::filter($id, 'int', 0);
+        $id = safe::filter($id, 'int', 0);
 
         if (intval($id) > 0) {
             $productModel = new ProductModel();
@@ -736,7 +742,7 @@ class ManagerDealController extends UcenterBaseController {
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
         $id = $this->getRequest()->getParam('id');
-        $id = Safe::filter($id, 'int', 0);
+        $id = safe::filter($id, 'int', 0);
         if($id){
             $productModel = new ProductModel();
             $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
@@ -764,7 +770,7 @@ class ManagerDealController extends UcenterBaseController {
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
         $id = $this->getRequest()->getParam('id');
-        $id = Safe::filter($id, 'int', 0);
+        $id = safe::filter($id, 'int', 0);
         if($id){
             $productModel = new ProductModel();
             $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
@@ -792,7 +798,7 @@ class ManagerDealController extends UcenterBaseController {
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
         $id = $this->getRequest()->getParam('id');
-        $id = Safe::filter($id, 'int', 0);
+        $id = safe::filter($id, 'int', 0);
         if($id){
             $productModel = new ProductModel();
             $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
@@ -820,7 +826,7 @@ class ManagerDealController extends UcenterBaseController {
      * 撤销报盘
      */
     public function ajaxsetStatusAction(){
-        $id = Safe::filterPost('id', 'int', 0);
+        $id = safe::filterPost('id', 'int', 0);
 
         if (intval($id) > 0) {
             $model = new product('');
@@ -848,7 +854,7 @@ class ManagerDealController extends UcenterBaseController {
      */
     public function updateStoreofferAction(){
         $id = $this->getRequest()->getParam('id');
-        $id = Safe::filter($id, 'int', 0);
+        $id = safe::filter($id, 'int', 0);
         $token =  \Library\safe::createToken();
         $this->getView()->assign('token',$token);
         if($id){
@@ -874,18 +880,18 @@ class ManagerDealController extends UcenterBaseController {
             if($id = safe::filterPost('offer_id','int',0)){
                 $offerData = array(
                     'apply_time'  => \Library\Time::getDateTime(),
-                    'divide'      => Safe::filterPost('divide', 'int'),
+                    'divide'      => safe::filterPost('divide', 'int'),
                     'minimum'     => ($this->getRequest()->getPost('divide') == 1) ? Safe::filterPost('minimum', 'float') : 0,
                     'minstep'     => (safe::filterPost('divide', 'int') == 1) ? safe::filterPost('minstep', 'float') : 0,
                     'status'      => 0,
-                    'accept_area' => Safe::filterPost('accept_area'),
-                    'accept_day' => Safe::filterPost('accept_day', 'int'),
-                    'price'        => Safe::filterPost('price', 'float'),
+                    'accept_area' => safe::filterPost('accept_area'),
+                    'accept_day' => safe::filterPost('accept_day', 'int'),
+                    'price'        => safe::filterPost('price', 'float'),
                     'user_id'     => $this->user_id,
-                    'insurance' => Safe::filterPost('insurance', 'int'),
+                    'insurance' => safe::filterPost('insurance', 'int'),
                     'risk' =>implode(',', Safe::filterPost('risk', 'int')),
-                    'weight_type' => Safe::filterPost('weight_type'),
-                    'expire_time'=> Safe::filterPost('expire_time'),
+                    'weight_type' => safe::filterPost('weight_type'),
+                    'expire_time'=> safe::filterPost('expire_time'),
                     'other'       => safe::filterPost('other')
                 );
 
@@ -907,7 +913,7 @@ class ManagerDealController extends UcenterBaseController {
     public function tableAction(){
         $this->getView()->setLayOut('');
         $id = $this->getRequest()->getParam('id');
-        $id = Safe::filter($id, 'int', 0);
+        $id = safe::filter($id, 'int', 0);
 
         if (intval($id) > 0) {
              $stObj = new store();
@@ -985,5 +991,24 @@ class ManagerDealController extends UcenterBaseController {
             $this->getView()->assign('offer',$offer);
         }
     }
+
+    /*销售列表增加推荐*/
+    public function productpushlistAction() {
+        if($this->cert['vip']==0&&$this->cert['vip_temp']==0){
+            $this->redirect(url::createUrl('/ucenter/index'));
+        }
+        $id = $this->getRequest()->getParam('id');
+        $proObj = new ProductModel();
+        $page = safe::filterGet('page','int',1);
+        $res = array();
+        if($id) {
+            $res = $proObj->offerRecommend($id,$page);
+
+        }
+        $this->getView()->assign('data',$res);
+        $this->getView()->assign('id',$id);
+
+    }
+
 
 }
