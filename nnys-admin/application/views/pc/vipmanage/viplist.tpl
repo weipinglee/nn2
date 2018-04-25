@@ -22,6 +22,7 @@
 				<th width="100">联系人</th>
 				<th width="90">联系电话</th>
 				<th width="150">申请时间</th>
+				<th width="150">会员类型</th>
 				<th width="130">状态</th>
 				<th width="100">操作</th>
 			</tr>
@@ -37,6 +38,7 @@
 				<td>{$item['contact_person']}</td>
 				<td>{$item['contact_phone']}</td>
 				<td>{$item['apply_time']}</td>
+				<td>{if:$item['type']==1}免费体验{else:}合伙人{/if}</td>
 				<td>{if:$item['status']==2}审核通过{else:}被驳回{/if}</td>
 				<td class="td-manage">
 				<a title="编辑" href="{url:member/vipManage/detail?id=$item['user_id']}" class="ml-5" style="text-decoration:none"><i class="icon-edit fa-edit"></i> </td>

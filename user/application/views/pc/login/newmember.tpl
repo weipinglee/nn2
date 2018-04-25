@@ -14,6 +14,11 @@
   <script type="text/javascript">
       //发送短信地址
       var sendMessageUrl = '{url:/login/sendMessage}';
+      {if:$oper=='update'}
+      $(function(){
+          $('.hehuoren').trigger('click');
+      })
+      {/if}
   </script>
    <div class="toplog_bor none">
     <div class="m_log w1200">
@@ -50,7 +55,7 @@
           <div class="reg_cot qy_reg member_c_sq" style="display: none;">
             <input name="checkUrl" type="hidden" />
 
-            <form action="{url:/login/newMember@user}" method="post" auto_submit redirect_url="">
+            <form action="{if:$oper=='update'}{url:/login/updateMember@user}{else:}{url:/login/newMember@user}{/if}" method="post" auto_submit redirect_url="">
              {if:!$login}
               <div class="cot">
                 <span class="cot_tit">用户名：</span>

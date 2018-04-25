@@ -47,7 +47,8 @@ class VipManageController extends InitController {
         if(IS_POST){
             $user_id = safe::filterPost('user_id','int');
             $status = safe::filterPost('status','int',1);
-            $res = $this->vipModel->setStatus($user_id,$status);
+            $type = safe::filterPost('type','int',1);
+            $res = $this->vipModel->setStatus($user_id,$status,$type);
             if($res){
                 die(json::encode(tool::getSuccInfo()));
             }

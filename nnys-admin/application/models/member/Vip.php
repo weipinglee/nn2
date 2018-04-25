@@ -16,11 +16,13 @@ class vipModel extends \baseModel{
 
     protected $table = 'user_vip';
     protected $certObj = null;
+    protected $certTempObj = null;
 
     public function __construct(){
         parent::__construct();
     	$this->model = new M($this->table);
     	$this->certObj = new \nainai\cert\certVip();
+    	$this->certTempObj = new \nainai\cert\certVipTemp();
     }
 
    /**
@@ -64,9 +66,14 @@ class vipModel extends \baseModel{
     	return array();
     }
 
-    public function setStatus($user_id,$status){
+    public function setStatus($user_id,$status,$type=1){
         $status = $status==1 ? 1 : 0;
-        return $this->certObj->verify($user_id,$status);
+        if($type==2){
+            return $this->certTempObj->verify($user_id,$status);
+        }else{
+            return $this->certObj->verify($user_id,$status);
+        }
+
 
     }
 

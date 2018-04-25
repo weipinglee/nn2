@@ -20,12 +20,20 @@
 								<tr>
 									<td width="450px" style="border-right:1px solid #eee;">
 										<ul class="dj">
-											<li>会员等级：<span><img src="{$group['icon']}"/>{$group['group_name']}</span></li>
-											<li><a href="{url:/login/newMember@user}"><span class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员申请</span></a></li>
-
+											<li>信誉等级：<span><img src="{$group['icon']}"/>{$group['group_name']}</span></li>
 											<li style="clear:both;"><span>信誉分值：{$creditGap} 分</span></li>
-											<li style="clear:both;"><span>会员：耐购联盟体验会员</span>
-											    <a herf="" class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员升级</a>
+											<li style="clear:both;">
+                                                {if:$cert['vip_temp']}
+												    <span>会员：耐购联盟体验会员</span>
+													<a href="{url:/login/newMember@user}?oper=update" class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员升级</a>
+												{elseif($cert['vip'])}
+													<span>会员：耐购联盟合伙人</span>
+												{else:}
+													<span>会员：非会员</span>
+													<a href="{url:/login/newMember@user}" class="colaa0707" style="padding-left:30px;text-decoration:underline;">会员申请</a>
+                                                {/if}
+
+
 											</li>
 										</ul>
 									</td>

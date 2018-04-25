@@ -173,7 +173,13 @@ class LoginController extends \Yaf\Controller_Abstract {
                     'contact_phone'  => safe::filterPost('contact_phone'),
                     'apply_time' => \Library\time::getDateTime()
                 );
-                $certObj = new \nainai\cert\certVip();
+                $vipType = safe::filterPost('vip_type','int',1);
+                if($vipType==1){
+                    $certObj = new \nainai\cert\certVipTemp();
+                }else{
+                    $certObj = new \nainai\cert\certVip();
+                }
+
                 $certObj->certApply($memeberData);
             }
             die(json::encode($res));
@@ -191,7 +197,33 @@ class LoginController extends \Yaf\Controller_Abstract {
 	            $this->getView()->assign('company',$companyData);
 	            $this->getView()->assign('login',$loginStatus);
             }
+            $oper = safe::filterGet('oper');
+	        $oper = $oper=='update' ? $oper : '';
+	        $this->getView()->assign('oper',$oper);
         }
+
+    }
+
+    public function updateMemberAction(){
+        $login = session::get('login');
+        if(IS_POST && $login){
+            $user_id = $login['user_id'];
+            //会员数据
+            $memeberData = array(
+                'user_id'=>$user_id,
+                'name'=> safe::filterPost('company_name'),
+                'area' => safe::filterPost('area'),
+                'address' => safe::filterPost('address'),
+                'contact_person' => safe::filterPost('contact'),
+                'contact_phone'  => safe::filterPost('contact_phone'),
+                'apply_time' => \Library\time::getDateTime()
+            );
+
+            $certObj = new \nainai\cert\certVipTemp();
+            $certObj->certUpdate($memeberData);
+            die(json::encode(tool::getSuccInfo()));
+        }
+
 
     }
 
@@ -525,9 +557,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 		exit;
 	}
-	public function memberaAction(){
-		
-	}
+
 
 
 }
