@@ -38,6 +38,16 @@
                 <th>详细地址</th>
                 <td>{$user['address']}</td>
              <tr>
+             <tr>
+                 <th>联系人</th>
+                 <td scope="col" colspan="7">
+                     <select name="type">
+                         <option value="1">免费体验</option>
+                         <option value="2">合伙人</option>
+                     </select>
+                 </td>
+
+             </tr>
                  <th>审核</th>
                  <th scope="col" colspan="7">
                      <input type="hidden" name="user_id" value="{$user['user_id']}" />

@@ -16,7 +16,7 @@ use \Library\tool;
 
 class TuijianController extends UcenterBaseController {
 
-	protected  $certType = 'vip';
+	protected  $certType = array('vip','vip_temp');
 
 	public function recommendAction(){
         if(IS_POST){

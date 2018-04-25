@@ -23,8 +23,8 @@ class VipManageController extends InitController {
 
     public function applyListAction(){
 	    $page = safe::filterGet('page','int',1);
-        $where = 'v.status=:status';//状态1位申请状态，certificate类有定义
-        $bind = array('status'=>1);
+        $where = 'v.status=:status or v.status=:status1';//状态1位申请状态，certificate类有定义
+        $bind = array('status'=>1,'status1'=>4);
         $data = $this->vipModel->getList($page,$where,$bind);
         $this->getView()->assign('data',$data);
     }
@@ -47,7 +47,8 @@ class VipManageController extends InitController {
         if(IS_POST){
             $user_id = safe::filterPost('user_id','int');
             $status = safe::filterPost('status','int',1);
-            $res = $this->vipModel->setStatus($user_id,$status);
+            $type = safe::filterPost('type','int',1);
+            $res = $this->vipModel->setStatus($user_id,$status,$type);
             if($res){
                 die(json::encode(tool::getSuccInfo()));
             }
