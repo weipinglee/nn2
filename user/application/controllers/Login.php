@@ -185,16 +185,32 @@ class LoginController extends \Yaf\Controller_Abstract {
             die(json::encode($res));
         }else{
             $loginStatus = $login ? 1 : 0;
-	        if($login && $login['user_type']==1){//如果已登录，且是企业用户，带出企业信息
-	            $userData = $userModel->getCompanyInfo($login['user_id']);
-	            $companyData = array(
-	              'company_name' => $userData['company_name'],
-                    'area' => $userData['area'],
-                    'address' => $userData['address'],
-                    'contact' => $userData['contact'],
-                    'contact_phone' => $userData['contact_phone']
-                );
-	            $this->getView()->assign('company',$companyData);
+	        if($login){//如果已登录，且是企业用户，带出企业信息
+                $companyData = array();
+                $user_id = $login['user_id'];
+                if($login['user_type']==1){
+                    $userData = $userModel->getCompanyInfo($user_id);
+                    $companyData = array(
+                        'company_name' => $userData['company_name'],
+                        'area' => $userData['area'],
+                        'address' => $userData['address'],
+                        'contact' => $userData['contact'],
+                        'contact_phone' => $userData['contact_phone']
+                    );
+
+                }
+
+                $res = $userModel->vipInfo($user_id);
+                if(!empty($res)){
+                    $companyData = array(
+                        'company_name' => $res['name'],
+                        'area' => $res['area'],
+                        'address' => $res['address'],
+                        'contact' => $res['contact_person'],
+                        'contact_phone' => $res['contact_phone']
+                    );
+                }
+                $this->getView()->assign('company',$companyData);
 
             }
             $this->getView()->assign('login',$loginStatus);
