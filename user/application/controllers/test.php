@@ -93,7 +93,7 @@ class testController extends  UcenterBaseController{
 //		else echo 'error';
 	}
 
-	public function setOfferpricevipAction(){
+	public function setOfferpricevipAction(){return '';
         $page = safe::filterGet('page','int',1);
         $pagesize = 1000;
         if($page==1){
@@ -116,6 +116,7 @@ class testController extends  UcenterBaseController{
         die();
     }
 	public function setOrderUnitpriceAction(){
+		return false;
         $page = safe::filterGet('page','int',1);
         $pagesize = 1000;
         if($page==1){
