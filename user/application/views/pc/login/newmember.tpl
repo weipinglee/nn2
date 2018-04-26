@@ -77,29 +77,29 @@
              {/if}
               <div class="cot">
                 <span class="cot_tit">公司名称：</span>
-                <span><input class="text" type="text" name="company_name"  datatype="*" errormsg="请填写公司名称" nullmsg="请填写公司名称" /></span>
+                <span><input class="text" type="text" name="company_name" value="{$company['company_name']}" datatype="*" errormsg="请填写公司名称" nullmsg="请填写公司名称" /></span>
                   <span></span>
               </div>
               <div class="cot">
                 <span class="cot_tit">公司地址：</span>
                 <div>
-                  <span>{area:  inputName=area pattern=area }</span>
+                  <span>{area: data=$company['area'] inputName=area pattern=area }</span>
                     <span></span>
                 </div>
               </div>
               <div class="cot">
                 <span class="cot_tit">公司详细地址：</span>
-                <span><input class="text" type="text" name="address" datatype="*" errormsg="请填写地址信息" nullmsg="请填写地址信息 "><span class="Validform_checktip"></span></span>
+                <span><input class="text" type="text" name="address" value="{$company['address']}" datatype="*" errormsg="请填写地址信息" nullmsg="请填写地址信息 "><span class="Validform_checktip"></span></span>
                 <span></span>
               </div>
               <div class="cot">
                 <span class="cot_tit">联系人：</span>
-                <span><input class="text" type="text" name="contact" datatype="zh2-20" errormsg="请填写联系人姓名" nullmsg="请填写联系人姓名 "><span class="Validform_checktip"></span></span>
+                <span><input class="text" type="text" name="contact" value="{$company['contact']}" datatype="zh2-20" errormsg="请填写联系人姓名" nullmsg="请填写联系人姓名 "><span class="Validform_checktip"></span></span>
                 <span></span>
               </div>
               <div class="cot">
                 <span class="cot_tit">联系电话：</span>
-                <span><input class="text" type="text" name="contact_phone" datatype="mobile" nullmsg="请填写联系人电话 " errormsg="请正确填写联系人电话"><span class="Validform_checktip"></span></span>
+                <span><input class="text" type="text" name="contact_phone" value="{$company['contact_phone']}" datatype="mobile" nullmsg="请填写联系人电话 " errormsg="请正确填写联系人电话"><span class="Validform_checktip"></span></span>
                 <span></span>
               </div>
                 {if:!$login}

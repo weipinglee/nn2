@@ -172,25 +172,8 @@
     
 
 
-        <!--广告 strat -->
-    {if:$login==0}
-        <div class="pro_gg">
-            <div class="tit_center">
-                <p><span class="title_big"><a href="{url:/login/login@user}"><u class="red">登录</u> </a>后可查看更多现货资源。</span><a href="{url:/login/register@user}"><u class="red">点击这里免费注册</u></a>
-                </p>
-            </div>
-        </div>
-    {/if}
-    <!--
-        <div class="pro_gg">
-            <div class="gg_img">
-                <div class="gg_cen">
-                    <textarea class="text" Placeholder="写下您的真实需求，包括规格、材质等，收到后我们会立即给您回电确认，剩下的交给我们吧。"></textarea><i
-                    class="icon_type icon-search"></i><input class="sumit" type="submit" value="帮我找"/>
-                </div>
-            </div>
-        </div>-->
-        <!-- 广告 end -->
+
+
         <!-- 温馨提示 -->
 
         <div class="pro_gg">

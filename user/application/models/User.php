@@ -799,6 +799,13 @@ class UserModel{
 		}
 	}
 
+	/*******************会员申请信息*******************/
+
+	public function vipInfo($user_id){
+	    $userObj = new M('user_vip');
+	    return $userObj->where(array('user_id'=>$user_id))->getObj();
+    }
+
 
 	
 
