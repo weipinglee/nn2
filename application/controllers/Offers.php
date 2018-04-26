@@ -110,7 +110,7 @@ class OffersController extends PublicController {
 	$id = Safe::filter($id, 'int');
 
 	if($id){
-		$info = $this->offer->offerDetail($id);//print_r($info);exit;
+		$info = $this->offer->offerDetail($id);
 		if(empty($info)){
 			$this->error('报盘不存在或未通过审核');
 		}
