@@ -175,7 +175,7 @@ class tradeController extends \nainai\controller\Base {
 					$order->commit();
 					
 					$amount = $order->where(array('id'=>$order_id))->getfield('amount');
-					$url = url::createUrl('/offers/paySuccess?id='.$order_id.'&order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证');
+					$url = url::createUrl('/offers/paySuccess?id='.$order_id.'&order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证或线上支付');
 					die(json::encode(tool::getSuccInfo(1,'操作成功,稍后跳转',$url)));
 				}else{
 

@@ -132,7 +132,7 @@ class DeliveryController extends UcenterBaseController {
         $storeInfo = $store->storeFees($delivery_id);
         $delivery_info = $store->deliveryInfo($delivery_id);
 
-        $storeInfo['delivery_amount'] = number_format($storeInfo['delivery_num'] * $storeInfo['price'],2);
+        $storeInfo['delivery_amount'] = number_format($storeInfo['delivery_num'] * $storeInfo['price_unit'],2);
         $this->getView()->assign('info',$storeInfo);
         $this->getView()->assign('delivery_info',$delivery_info);
     }
