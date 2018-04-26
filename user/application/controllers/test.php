@@ -126,14 +126,15 @@ class testController extends  UcenterBaseController{
         }
 
         $orderObj = new M('order_sell');
-        $offerObj = new M('product_offer');
-        $orderData = $orderObj->where(array('price_unit'=>0,'mode'=>array('gt',0)))->fields('id,offer_id,price_unit')->limit($limit)->order('id desc')->select();
+        $orderData = $orderObj->where(array('price_unit'=>0))->fields('id,amount,num')->limit($limit)->order('id desc')->select();
         $orderObj->beginTrans();
         foreach($orderData as $val){
-            $price = $offerObj->where(array('id'=>$val['offer_id']))->getField('price');
-            if($price){
-                $orderObj->where(array('id'=>$val['id']))->data(array('price_unit'=>$price))->update();
+            if($val['num']>0){
+                $price_u = bcdiv($val['amount'],$val['num'],2);
+                $orderObj->where(array('id'=>$val['id']))->data(array('price_unit'=>$price_u))->update();
+
             }
+
         }
         if($orderObj->commit()){
             echo 'success';
