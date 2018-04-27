@@ -172,25 +172,8 @@
     
 
 
-        <!--广告 strat -->
-    {if:$login==0}
-        <div class="pro_gg">
-            <div class="tit_center">
-                <p><span class="title_big"><a href="{url:/login/login@user}"><u class="red">登录</u> </a>后可查看更多现货资源。</span><a href="{url:/login/register@user}"><u class="red">点击这里免费注册</u></a>
-                </p>
-            </div>
-        </div>
-    {/if}
-    <!--
-        <div class="pro_gg">
-            <div class="gg_img">
-                <div class="gg_cen">
-                    <textarea class="text" Placeholder="写下您的真实需求，包括规格、材质等，收到后我们会立即给您回电确认，剩下的交给我们吧。"></textarea><i
-                    class="icon_type icon-search"></i><input class="sumit" type="submit" value="帮我找"/>
-                </div>
-            </div>
-        </div>-->
-        <!-- 广告 end -->
+
+
         <!-- 温馨提示 -->
 
         <div class="pro_gg">
@@ -208,7 +191,7 @@
                <% for(var i=0;i<data.length;i++){ %>
                <div class="pro_cen">
                    <ul class="main_centon">
-                       <li class="tit_left">
+                       <li class="tit_left to_det">
                            <!--<a title="品质保证"><img class="pz_img" src="{views:images/icon/icon_pz.png}"></a>-->
                            <span>
                                <% if(data[i].pro_name == ''){ %>
@@ -218,14 +201,14 @@
                                <%}%>
                            </span>
                        </li>
-                       <li><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>{views:images/no_picture.png}<% }else { %><%=data[i].img%> <%}%>" class="icon_img" width="30"></a></li>
-                       <li><% if(data[i].type == 1){ %><i class="green">供</i><% }else { %><i class="red">求</i> <%}%></li>
-                       <li><% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>保证金报盘<%}%></li>
+                       <li class="to_det"><a class="cz_wz pro_img"><img src="<% if(data[i].img == ''){ %>{views:images/no_picture.png}<% }else { %><%=data[i].img%> <%}%>" class="icon_img" width="30"></a></li>
+                       <li class="to_det"><% if(data[i].type == 1){ %><i class="green">供</i><% }else { %><i class="red">求</i> <%}%></li>
+                       <li class="to_det"> <% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>保证金报盘<%}%></li>
 
-                       <li style="width:200px;"><%=data[i].produce_area%></li>
-                       <li><%=data[i].accept_area%></li>
-                       <li><%=data[i].left%> (<%=data[i].unit%>)</li>
-                       <li class="price_unit"><i class="qian_blue">
+                       <li class="to_det" style="width:200px;"><%=data[i].produce_area%></li>
+                       <li class="to_det"><%=data[i].accept_area%></li>
+                       <li class="to_det"><%=data[i].left%> (<%=data[i].unit%>)</li>
+                       <li class="price_unit to_det"><i class="qian_blue">
                                <% if(data[i].type == 1 && data[i].sub_mode!=1){ %>
                                ￥<%=data[i].price%>
                                <% }else { %>
@@ -233,14 +216,14 @@
                                <%}%>
                            </i>
                        </li>
-                       <li>
+                       <li class="to_det">
                            <% if(data[i].price_vip > 0 ){ %>
                            ￥<%=data[i].price_vip%>
                            <% }else { %>
                            --
                            <%}%>
                        </li>
-                       <li class="toubao_rz">
+                       <li class="toubao_rz to_det">
                        <% if(data[i].insurance == 1){%>
                        <a title="已投保"><img class="icon_img" src="{views:images/icon/icon_yb.png}"/></a>
                        <% } else { %>
@@ -260,24 +243,24 @@
                                      <% }%>
                                    <% if (data[i].type==1){ %>
                                        <% if (data[i].sub_mode==2){ %>
-                                   <a href="{url:/Offers/offerdetails3}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                   <a name="detail" href="{url:/Offers/offerdetails3}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 								   <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>" class="check_btn"><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
                                       <% }else if (data[i].sub_mode==1){ %>
                                    <a  alt="<%=data[i].jingjia_mode%>" onclick="checkRight($(this),<%=data[i].id%>,<%=data[i].product_id%>)" href="javascript:void(0);" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 
                                    <% } else { %>
-                                   <a href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                   <a name="detail" href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
                                    <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>" class="check_btn"><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
                                       <% } %>
                                    <% } else { %>
-									<a href="{url:/Offers/purchaseDetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+									<a name="detail" href="{url:/Offers/purchaseDetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 								   <a href="{url:/trade/report}/id/<%=data[i].id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>"  class='check_btn'><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="报价"/></a>
                                  
                                     
                                    <% }%>
                                <% } else { %>
                                    <% if (data[i].sub_mode==1){ %>
-                                   <a href="{url:/Offers/offerdetails2}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                   <a name="detail" href="{url:/Offers/offerdetails2}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
                                    <% }%>
                                      <img style="vertical-align:middle;" src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
 

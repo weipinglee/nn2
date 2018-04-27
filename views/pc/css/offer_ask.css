@@ -60,6 +60,13 @@
     color: #f35f23;
     font-size: 24px;
 }
+.p_line{
+    text-decoration: line-through;
+}
+.offer_right ul li.hmember b{
+    color:#666;
+    font-size: 16px;
+}
 .offer_right ul li{
 	font-size: 14px;
 	line-height: 26px;

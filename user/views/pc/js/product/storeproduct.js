@@ -51,12 +51,16 @@ $(function(){
         }
 
 
-    })
+    });
 
     $('input[name=unit]').on('blur',function(){
         $('.unit').text($(this).val());
-    })
+    });
 
+    //会员价输入默认为市场价
+    $('input[name=price]').on('blur',function(){
+        $('input[name=price_vip]').val($(this).val());
+    })
 
 
 

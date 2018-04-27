@@ -54,12 +54,12 @@ function getCategory(cond){
     }
     getting = true;
     var area = 0;
-    var search = '';
+    var search = $('input[name=content]').val();
     var offertype = 0;
     var mode = 0;
     if(cond){
         area = cond.area ? cond.area : 0;
-        search = cond.search ? cond.search : '';
+        search = cond.search ? cond.search : search;
         offertype = cond.offertype ? cond.offertype : 0;
         mode = cond.mode ? cond.mode : 0;
     }
@@ -118,10 +118,10 @@ function getCategory(cond){
                 var proHtml = template.render('productTemplate',{data:data.data});
                 data.bar = data.bar.replace(/<span>.*<\/span>/i,'');
                 $('.page_num').remove();
-                if (data.login == 1) {
+
                     data.bar = '<div class="page_num">' + data.bar + '</div>';
                     proHtml += data.bar;
-                }
+
                 $('.pro_cen').eq(0).after(proHtml);
                 $('.pages_bar').find('a').each(function(){
                     var href = $(this).attr('href').split('=',2);
@@ -145,6 +145,14 @@ function getCategory(cond){
                     })
                   }
                 });
+
+                //列表字段点击跳转详情页
+                $('.main_centon').find('li.to_det').on('click',function(){
+                    var url = $(this).parents('ul').find('li:last-child').find('a[name=detail]').attr('href');
+                   if(url){
+                       window.location.href=url;
+                   }
+                })
             }
 
             layer.closeAll();

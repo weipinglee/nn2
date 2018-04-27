@@ -204,6 +204,7 @@ li.but_left .ser_img_1{
 	width: 97px;
 	height: 40px;
 	text-align: center; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+	cursor: pointer;
 }
 /*product.html*/
 .pro_main .pro_cen .poptwidth li{

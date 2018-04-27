@@ -116,6 +116,7 @@ class testController extends  UcenterBaseController{
         die();
     }
 	public function setOrderUnitpriceAction(){
+		return false;
         $page = safe::filterGet('page','int',1);
         $pagesize = 1000;
         if($page==1){

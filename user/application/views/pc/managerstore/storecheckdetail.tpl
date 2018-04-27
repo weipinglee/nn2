@@ -91,7 +91,7 @@
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">数量：</b>
-								<span>&nbsp;{$info['quantit']}{$info['unit']}</span>
+								<span>&nbsp;{$info['quantity']}{$info['unit']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">交收地点：</b>
