@@ -13,15 +13,7 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-		$obj = new \nainai\fund\js();
-		$user_id = 36;
-		$res = $obj->signedStatus($user_id);
-		if(is_string($res)){
-			echo $res;
-		}elseif($res===true){
-			echo 'success';
-		}
-		exit;
+		echo 123;
 
 
 	}
@@ -93,28 +85,7 @@ class testController extends  UcenterBaseController{
 //		else echo 'error';
 	}
 
-	public function setOfferpricevipAction(){
-        $page = safe::filterGet('page','int',1);
-        $pagesize = 1000;
-        if($page==1){
-            $limit = $pagesize;
-        }
-        else{
-            $limit = ($page-1)*$pagesize.','.$pagesize;
-        }
-        $offerObj = new M('product_offer');
-        $data = $offerObj->where(array('type'=>1,'price_vip'=>0))->fields('id,price')->limit($limit)->select();
-        $offerObj->beginTrans();
-        foreach($data as $item){
-            $offerObj->data(array('price_vip'=>$item['price']))->where(array('id'=>$item['id']))->update();
-        }
-        if($offerObj->commit()){
-            echo 'success';
-        }
-        else
-            echo 'fail';
-        die();
-    }
+
 	public function setOrderUnitpriceAction(){
 		return false;
         $page = safe::filterGet('page','int',1);
