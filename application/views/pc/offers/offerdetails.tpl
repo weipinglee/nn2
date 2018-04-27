@@ -59,7 +59,7 @@
                         <li class="notmember hmember">会员价：<b> {$data['price_vip']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span><a>去申请会员</a></li>
 
                        <li class="ismember" style="display:none;">会员价：<b> {$data['price_vip']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
-                       <li class="ismember hmember" style="display:none;">市场价：<b> {$data['price']}</b>元/ <span class="p_line">{$data['unit']}</span> <span class="qianse">（含税）</span></li>
+                       <li class="ismember hmember" style="display:none;">市场价：<span class="p_line">{$data['price']}元/ {$data['unit']}</span> <span class="qianse">（含税）</span></li>
 
 
                         <li>总数量： <i>{$data['max_num']}</i>  {$data['unit']}</li>
