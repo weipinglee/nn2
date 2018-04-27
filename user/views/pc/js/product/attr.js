@@ -107,6 +107,11 @@ $(document).ready(function(){
 
     $('#storeList').trigger('change');
 
+    //会员价输入默认为市场价
+    $('input[name=price]').on('blur',function(){
+        $('input[name=price_vip]').val($(this).val());
+    })
+
 });
 
 //异步获取分类
