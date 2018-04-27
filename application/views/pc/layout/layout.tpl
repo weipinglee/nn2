@@ -272,11 +272,7 @@ $(function(){
 
         <script type="text/javascript" src="{views:js/search&floor.js}"></script>
         <div class="searchbox">
-            <div class="search_xz">
-               <!--  <select class="search_select" name="type">
-                    <option value="gong" {if:isset($searchtype) && $searchtype==1}selected{/if}>供应</option>
-                    <option value="qiu" {if:isset($searchtype) && $searchtype==2}selected{/if}>求购</option>
-                </select> -->
+            <!-- <div class="search_xz">
                 {if:isset($searchtype) && $searchtype==2}
                 <input type="button" class="search_select" value="求购">
                 <input type="hidden" name="type" value="qiu"/>
@@ -289,13 +285,13 @@ $(function(){
                         <li js_data="qiu">求购</li>
                       </ul> 
 
-            </div>
+            </div> -->
             <div class="bodys">
                 <p class="keyword_0"><input type="text" {if:isset($search)}value="{$search}"{/if} name="content" placeholder="请输入关键词查询" value="" id=""  /><a href="javascript:void(0)" onclick="searchGoods()"><button class="one1">搜索</button></a></p>
             </div>
         </div>  
         <script>
-         $(function(){
+        /* $(function(){
                 $(".search_select").click(function(){
                     if($("#search_list").is(":hidden")){
                         $("#search_list").show();
@@ -323,7 +319,7 @@ $(function(){
                 })
                 
 
-         });
+         });*/
 
         </script>
 
