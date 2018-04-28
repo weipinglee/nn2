@@ -63,6 +63,15 @@
 .p_line{
     text-decoration: line-through;
 }
+.line_l{
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: 100px;
+    background: #666;
+    top: 15px;
+    left: 55px;
+}
 .offer_right ul li.hmember b{
     color:#666;
     font-size: 16px;
@@ -71,6 +80,7 @@
 	font-size: 14px;
 	line-height: 26px;
 	color: #666666;
+    position: relative;
 }
 .offer_right ul li img{
     width: 18px;
