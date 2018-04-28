@@ -85,35 +85,40 @@ class testController extends  UcenterBaseController{
 //		else echo 'error';
 	}
 
-
-	public function setOrderUnitpriceAction(){
-		return false;
+    public function attrtoJsonAction(){
         $page = safe::filterGet('page','int',1);
-        $pagesize = 1000;
+        $pagesize = 10000;
         if($page==1){
             $limit = $pagesize;
         }
         else{
             $limit = ($page-1)*$pagesize.','.$pagesize;
         }
-
-        $orderObj = new M('order_sell');
-        $orderData = $orderObj->where(array('price_unit'=>0))->fields('id,amount,num')->limit($limit)->order('id desc')->select();
-        $orderObj->beginTrans();
-        foreach($orderData as $val){
-            if($val['num']>0){
-                $price_u = bcdiv($val['amount'],$val['num'],2);
-                $orderObj->where(array('id'=>$val['id']))->data(array('price_unit'=>$price_u))->update();
-
+        $offerObj = new M('products');
+        $data = $offerObj->where('attr_json ="" ')->fields('attribute,id')->limit($limit)->select();
+        $offerObj->beginTrans();
+        if(!empty($data)){
+            foreach($data as $item) {
+                $attr = $item['attribute'];
+                if ($attr == '')
+                    continue;
+                $attr = unserialize($attr);
+                if(empty($attr))
+                    continue;
+                $attr = json::encode($attr);
+                $offerObj->where(array('id' => $item['id']))->data(array('attr_json' => $attr))->update();
             }
-
         }
-        if($orderObj->commit()){
+
+        if($offerObj->commit()){
             echo 'success';
         }
         else
             echo 'error';
+
+        exit;
     }
+
 	public function setOrderOfferuserAction(){
 		$page = safe::filterGet('page','int',1);
 		$pagesize = 1000;
