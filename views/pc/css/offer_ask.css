@@ -63,14 +63,14 @@
 .p_line{
     text-decoration: line-through;
 }
-.line_l{
+.offer_right .line_span{
     display: block;
     position: absolute;
     height: 1px;
     width: 100px;
     background: #666;
     top: 15px;
-    left: 55px;
+    left: 60px;
 }
 .offer_right ul li.hmember b{
     color:#666;
