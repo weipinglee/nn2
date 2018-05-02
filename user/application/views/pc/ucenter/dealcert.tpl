@@ -9,7 +9,7 @@
 				<div class="user_zhxi">
 
 					<div class="zhxi_tit">
-						<p><a>账户管理</a>><a>身份认证</a>><a>企业认证</a></p>
+						<p><a>账户管理</a>><a>身份认证</a>><a>交易商认证</a></p>
 					</div>
 					{if:$userType<0}
 					<div class="renz_select">
@@ -224,27 +224,27 @@
 								<div class="yz_img">
 									<div class="zhxi_con">
 										<span class="con_tit"><i></i>身份证正面：</span>
-										<span class="input-file">选择文件<input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
-										<input type="hidden" name="imgfile1" value="{$certData['identify_front']}" />
+										<span class="input-file">选择文件<input class="doc" type="file" name="file5" id="file5" onchange="javascript:uploadImg(this);" ></span>
+										<input type="hidden" name="imgfile5" value="{$certData['identify_front']}" />
 
 									</div>
 									<div class="zhxi_con">
 										<span class="con_tit tit_img"><i></i></span>
 										<span class="zh_img">
-										<img name="file1" src="{if:isset($certData['identify_front_thumb'])}{$certData['identify_front_thumb']}{else:}{views:/images/icon/wt.jpg}{/if}"/>
+										<img name="file5" src="{if:isset($certData['identify_front_thumb'])}{$certData['identify_front_thumb']}{else:}{views:/images/icon/wt.jpg}{/if}"/>
 									</span>
 									</div>
 
 									<div class="zhxi_con">
 										<span class="con_tit"><i></i>身份证背面：</span>
-										<span class="input-file">选择文件<input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
-										<input type="hidden" name="imgfile2" value="{$certData['identify_back']}" />
+										<span class="input-file">选择文件<input class="doc" type="file" name="file6" id="file6" onchange="javascript:uploadImg(this);" ></span>
+										<input type="hidden" name="imgfile6" value="{$certData['identify_back']}" />
 
 									</div>
 									<div class="zhxi_con">
 										<span class="con_tit tit_img"><i></i></span>
 										<span class="zh_img">
-										<img name="file2" src="{if:isset($certData['identify_back_thumb'])}{$certData['identify_back_thumb']}{else:}{views:/images/icon/wt.jpg}{/if}"/>
+										<img name="file6" src="{if:isset($certData['identify_back_thumb'])}{$certData['identify_back_thumb']}{else:}{views:/images/icon/wt.jpg}{/if}"/>
 									</span>
 									</div>
 									<div class="zhxi_con">
@@ -480,27 +480,27 @@
 							<div class="yz_img">
 								<div class="zhxi_con">
 									<span class="con_tit"><i></i>身份证正面：</span>
-									<span class="input-file">选择文件<input class="doc" type="file" name="file1" id="file1" onchange="javascript:uploadImg(this);" ></span>
-									<input type="hidden" name="imgfile1" value="{$certData['identify_front']}" />
+									<span class="input-file">选择文件<input class="doc" type="file" name="file5" id="file5" onchange="javascript:uploadImg(this);" ></span>
+									<input type="hidden" name="imgfile5" value="{$certData['identify_front']}" />
 
 								</div>
 								<div class="zhxi_con">
 									<span class="con_tit tit_img"><i></i></span>
 									<span class="zh_img">
-										<img name="file1" src="{if:isset($certData['identify_front_thumb'])}{$certData['identify_front_thumb']}{else:}{views:/images/icon/wt.jpg}{/if}"/>
+										<img name="file5" src="{if:isset($certData['identify_front_thumb'])}{$certData['identify_front_thumb']}{else:}{views:/images/icon/wt.jpg}{/if}"/>
 									</span>
 								</div>
 
 								<div class="zhxi_con">
 									<span class="con_tit"><i></i>身份证背面：</span>
-									<span class="input-file">选择文件<input class="doc" type="file" name="file2" id="file2" onchange="javascript:uploadImg(this);" ></span>
-									<input type="hidden" name="imgfile2" value="{$certData['identify_back']}" />
+									<span class="input-file">选择文件<input class="doc" type="file" name="file6" id="file6" onchange="javascript:uploadImg(this);" ></span>
+									<input type="hidden" name="imgfile6" value="{$certData['identify_back']}" />
 
 								</div>
 								<div class="zhxi_con">
 									<span class="con_tit tit_img"><i></i></span>
 									<span class="zh_img">
-										<img name="file2" src="{if:isset($certData['identify_back_thumb'])}{$certData['identify_back_thumb']}{else:}{views:/images/icon/wt.jpg}{/if}"/>
+										<img name="file6" src="{if:isset($certData['identify_back_thumb'])}{$certData['identify_back_thumb']}{else:}{views:/images/icon/wt.jpg}{/if}"/>
 									</span>
 								</div>
 								<div class="zhxi_con">

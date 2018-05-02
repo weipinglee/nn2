@@ -153,7 +153,7 @@
             <li style="width:200px;">产地</li>
             <li>交货地</li>
 
-            <li>剩余/采购数量</li>
+            <li>数量</li>
             <li style="width:103px;">
                市场价
             </li>
