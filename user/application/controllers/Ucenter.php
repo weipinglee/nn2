@@ -394,8 +394,8 @@ class UcenterController extends UcenterBaseController {
                 $accData['area'] = safe::filterPost('area');
                 $accData['address'] = safe::filterPost('address');
                 $accData['identify_no'] = safe::filterPost('no');
-                $accData['identify_front'] = Tool::setImgApp(safe::filterPost('imgfile1'));
-                $accData['identify_back'] = Tool::setImgApp(safe::filterPost('imgfile2'));
+                $accData['identify_front'] = Tool::setImgApp(safe::filterPost('imgfile5'));
+                $accData['identify_back'] = Tool::setImgApp(safe::filterPost('imgfile6'));
                 $res = $userModel->personInsert(array('user_id'=>$user_id));
             }
             if($res['success']==0){
