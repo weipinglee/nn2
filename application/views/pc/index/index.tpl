@@ -11,10 +11,10 @@ function timer(opj){
       $(this).css({marginTop : "0px"}).find("li:first").appendTo(this);  
     })  
   }
-$(function() {jingjiaTemplate
+$(function() {
    $('.js_rep_offer .li_select').trigger('click');
     {if:isset($productData[0])}
-    showIndexOffers('','jingjiaBox',{$productData[0]['id']});
+    showIndexOffers('jingjiaTemplate','jingjiaBox',{$productData[0]['id']});
     {/if}
 
     {if:isset($productData[1])}
@@ -557,7 +557,7 @@ $(function() {jingjiaTemplate
             <p class="nn-shebei-price">￥
                 <span class="shebei-price-num">
                     <%=data[i].price_l%>-
-                    <%if (data[i].price_r < data[i].price_l) { %>
+                    <%if ( data[i].price_l<=0) { %>
                     -
                     <% } else { %>
                     <%=data[i].price_r%>

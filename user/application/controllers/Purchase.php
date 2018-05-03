@@ -72,7 +72,8 @@ class PurchaseController extends UcenterBaseController{
 	        'unit'         => Safe::filterPost('unit'),
 	        'user_id' => $this->user_id
 	    );
-
+        $proObj = new \nainai\offer\product();
+        $detail['market_id'] = $proObj->getcateTop($detail['cate_id']);
 	    //图片数据
 	    $imgData = Safe::filterPost('imgData');
 
