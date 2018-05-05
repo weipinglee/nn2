@@ -836,6 +836,14 @@ class ManagerDealController extends UcenterBaseController {
 
             $res = $model->update($data, $id);
             if ($res['success'] == 1) {
+                $proObj = new \Library\M('product_offer');
+                $row = $proObj->where(array('id'=>$id))->getObj();
+                //如果是仓单报盘，将对应的仓单恢复为未报盘
+                if(!empty($row) && $row['mode']==4){
+                    $spObj = new \Library\M('store_products');
+                    $spObj->where(array('product_id'=>$row['product_id']))
+                        ->data(array('is_offer'=>0))->update();
+                }
                     $credit = new \nainai\CreditConfig();
                     $credit->changeUserCredit($this->user_id, 'cancel_offer');
                     $log = array();

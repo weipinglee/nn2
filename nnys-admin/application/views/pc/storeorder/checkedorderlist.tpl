@@ -5,7 +5,7 @@
             <h1><img src="{views:img/icons/posts.png}" alt="" /> 仓库管理</h1>
 <div class="bloc">
     <div class="title">
-        待审核出库列表
+        已审核出库列表
     </div>
     <div class="content">
         <div class="pd-20"> {include:layout/search.tpl}

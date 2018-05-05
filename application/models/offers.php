@@ -334,7 +334,8 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $data = $query->find();
         foreach ($data as $key => &$value) {
            $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],180,180);//获取缩略图
-         }
+           $value['price_r'] = $value['price_r']<=0 ? '-' : $value['price_r'];
+        }
 
         if($pagebar){
             return array('list'=>$data,'bar'=>$query->getPageBar());
