@@ -29,11 +29,11 @@
                     
                     <ul>
 
-                        <li class='hit'>银联在线支付</li> 
-                        <li class=''>银联在线支付b2b</li> 
-                        <li class="" >线下支付</li>
+                        <!-- <li class=''>银联在线支付</li> 
+                        <li class=''>银联在线支付b2b</li>  -->
+                        <li class="hit" >线下支付</li>
                     </ul>
-                    <form method='post' class="js_redi_o" action="{url:/fund/doFundIn}" auto_submit redirect_url="{url:/fund/index}">
+                    <!-- <form method='post' class="js_redi_o" action="{url:/fund/doFundIn}" auto_submit redirect_url="{url:/fund/index}">
                         <div class="js_tab_choose cont" >
                            <div class="" >
                                 <div class="zhxi_con">
@@ -44,7 +44,7 @@
                             </div>
                             
                         </div>
-                    </form>
+                    </form> -->
                     <form method='post' class="js_redi_o" action="{url:/fund/doFundIn}" auto_submit redirect_url="{url:/fund/index}">
                         <div class="js_tab_choose  cont" style="display:none">
                            <div class="" >
@@ -114,13 +114,13 @@
                 $('input[name=recharge]').val(v);
             })
            // $('.js_show_payment_choose').html($('.js_tab_choose>div:eq(0)').clone());   
-               $('.tabPanel ul li').click(function(){
+               /*$('.tabPanel ul li').click(function(){
 
                      $(this).addClass('hit').siblings().removeClass('hit');
-                   // $('.js_show_payment_choose').html($('.js_tab_choose>div:eq('+$(this).index()+')').clone().css('display', 'block'));
+                   
                    $('.cont').hide().eq($(this).index()).show();
 
-               })
+               })*/
            })
            var submit_pay = "{url:/fund/doFundIn}";
            </script>

@@ -1922,7 +1922,7 @@ a.for_cangdan:hover,a.for_cangdan:active{
   background:-webkit-gradient(linear, left top, left bottom, from(#e1e1e1), to(#fff));
   background:-moz-linear-gradient(top, #e1e1e1, #fff);
 }
-.pane{border:1px solid #aaa;border-top:0;min-height:100px;background-color:#fff;display:none;
+.pane{border:1px solid #aaa;border-top:0;min-height:100px;background-color:#fff;/*display:none;*/
      font-size: 13px;
      color: #666;}
 .tabs_total{
