@@ -297,7 +297,7 @@ class OffersController extends PublicController {
 						$info['baojia_count']++;
 					}
 					//隐藏真是名称
-                    $val['true_name'] = mb_substr($val['true_name'],0,1).'***************';
+                    $val['true_name'] = mb_substr($val['true_name'],0,1,'UTF-8').'*********';
 
 				}
 			}
