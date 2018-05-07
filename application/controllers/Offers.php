@@ -291,11 +291,13 @@ class OffersController extends PublicController {
 			$info['baojia_count'] = 0;
 			if(!empty($baojiaData)){
 				$temp = array();
-				foreach($baojiaData as $val){
+				foreach($baojiaData as &$val){
 					if(!in_array($val['user_id'],$temp)){
 						$temp[] = $val['user_id'];
 						$info['baojia_count']++;
 					}
+					//隐藏真是名称
+                    $val['true_name'] = mb_substr($val['true_name'],0,1).'***************';
 
 				}
 			}
