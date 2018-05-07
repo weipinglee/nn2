@@ -154,7 +154,10 @@
 
 								<div class="sh_jg">
 									<div class="success_text">
-										<p><b class="b_size">认证状态：{$certShow['status_text']}</b></p>
+										<p>
+											<b class="b_size">认证状态：{$certShow['status_text']}</b>
+											<span class="tishi" style="padding-left: 10px;color:#D61515; ">(1小时出审核结果，请耐心等待)</span>
+										</p>
                                         {if:$certData['cert_status']==\nainai\cert\certificate::CERT_SUCCESS || $certData['cert_status']==\nainai\cert\certificate::CERT_FAIL}<p>审核意见：{$certData['message']}</p>{/if}
                                         {if:$certShow['button_show']===true}
 										<p>您还可以进行以下操作:</p>
@@ -259,7 +262,9 @@
 
 								<div class="sh_jg">
 									<div class="success_text">
-										<p><b class="b_size">认证状态：{$certShow['status_text']}</b></p>
+										<p><b class="b_size">认证状态：{$certShow['status_text']}</b>
+											<span class="tishi" style="padding-left: 10px;color:#D61515; ">(1小时出审核结果，请耐心等待)</span>
+										</p>
                                         {if:$certData['cert_status']==\nainai\cert\certificate::CERT_SUCCESS || $certData['cert_status']==\nainai\cert\certificate::CERT_FAIL}<p>审核意见：{$certData['message']}</p>{/if}
                                         {if:$certShow['button_show']===true}
 										<p>您还可以进行以下操作:</p>
@@ -408,7 +413,9 @@
 				
 						<div class="sh_jg">
 							<div class="success_text">
-								<p><b class="b_size">认证状态：{$certShow['status_text']}</b></p>
+								<p><b class="b_size">认证状态：{$certShow['status_text']}</b>
+									<span class="tishi" style="padding-left: 10px;color:#D61515; ">(1小时出审核结果，请耐心等待)</span>
+								</p>
 								{if:$certData['cert_status']==\nainai\cert\certificate::CERT_SUCCESS || $certData['cert_status']==\nainai\cert\certificate::CERT_FAIL}<p>审核意见：{$certData['message']}</p>{/if}
 								{if:$certShow['button_show']===true}
 								<p>您还可以进行以下操作:</p>
@@ -515,7 +522,9 @@
 				
 							<div class="sh_jg">
 								<div class="success_text">
-									<p><b class="b_size">认证状态：{$certShow['status_text']}</b></p>
+									<p><b class="b_size">认证状态：{$certShow['status_text']}</b>
+										<span class="tishi" style="padding-left: 10px;color:#D61515; ">(1小时出审核结果，请耐心等待)</span>
+									</p>
 									{if:$certData['cert_status']==\nainai\cert\certificate::CERT_SUCCESS || $certData['cert_status']==\nainai\cert\certificate::CERT_FAIL}<p>审核意见：{$certData['message']}</p>{/if}
 									{if:$certShow['button_show']===true}
 									<p>您还可以进行以下操作:</p>
