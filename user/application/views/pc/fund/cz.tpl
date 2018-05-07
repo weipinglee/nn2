@@ -1,5 +1,20 @@
 ﻿<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
+<style type="text/css">
+    .cztip{
+    position: absolute;
+    top: 10px;
+    width: 360px;
+    left: 400px;
+    background: #e6e6e6;
+    padding: 20px 20px;
+
+    }
+    .cztip p{
+        line-height: 25px;
+    }
+
+</style>
 <!--start中间内容-->
             <div class="user_c">
                 <!--start代理账户充值-->
@@ -9,10 +24,10 @@
                         <p><a>资金管理</a>><a>代理账户管理</a>><a>充值</a>
                         </p>
                     </div>
-                    <div class="pay_cot">
-                        <div class="zhxi_con font_set">
-                            <span class="con_tit">账户余额：</span>
-                            <span><i>￥</i><i class="bold">{$total}</i></span>
+                    <div class="pay_cot" style="position: relative;">
+                        <div class="cztip">
+                            <p>耐耐网资金结算时间以各大银行对公工作时间为准。由于结算审核、申请排队等因素可能导致不能及时操作，因此请提前申请充值。</p>
+                        
                         </div>
                         <form auto_submit>
                             <div class="zhxi_con font_set">
