@@ -37,6 +37,12 @@ class tradeController extends \nainai\controller\Base {
 		$this->offer = new offersModel();
 	}
 
+	public function createOrderAction(){
+        $id = safe::filterPost('id','int',0);
+        $num = safe::filterPost('num');
+        
+        die(json::encode(tool::getSuccInfo(0,'下单成功')));
+    }
 	//付款
 	public function buyerPayAction(){
 		$id = safe::filterPost('id','int');
