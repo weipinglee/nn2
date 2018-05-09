@@ -38,13 +38,30 @@ class tradeController extends \nainai\controller\Base {
 	}
 
 	public function createOrderAction(){
-        $id = safe::filterPost('id','int',0);
-        $num = safe::filterPost('num');
-        
-        die(json::encode(tool::getSuccInfo(0,'下单成功')));
+	    if(IS_POST){
+            $id = safe::filterPost('id','int');
+            $num = safe::filterPost('num');
+
+            $user_id = $this->user_id;
+            $url = 'https://127.0.0.1/Java/createOrder';
+            $param = 'id='.$id.'&num='.$num.'&user_id='.$user_id;
+            $ch = curl_init($url);
+            curl_setopt($ch,CURLOPT_URL,$url);
+            curl_setopt($ch,CURLOPT_POST,1);
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+            curl_setopt($ch,CURLOPT_POSTFIELDS,$param);
+            $output = curl_exec($ch);
+            if(curl_errno($ch)){
+                die(json::encode(tool::getSuccInfo(0,curl_error($ch))));
+            }
+            curl_close($ch);
+            die($output);
+        }
+
     }
 	//付款
 	public function buyerPayAction(){
+	    return false;
 		$id = safe::filterPost('id','int');
 		$num = safe::filterPost('num');
 		$paytype = safe::filterPost('paytype');
@@ -88,7 +105,7 @@ class tradeController extends \nainai\controller\Base {
 		}
 		$order_submode = null;
 
-		
+
 		//判断用户账户类型
 		if(in_array($offer_type,array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT))){
 			switch ($account) {
@@ -100,7 +117,7 @@ class tradeController extends \nainai\controller\Base {
 					break;
 				case \nainai\order\Order::PAYMENT_TICKET:
 					die(json::encode(tool::getSuccInfo(0,'票据账户支付暂时未开通，请选择其他支付方式')));
-					
+
 					break;
 				default:
 					die(json::encode(tool::getSuccInfo(0,'无效账户类型')));
@@ -109,7 +126,7 @@ class tradeController extends \nainai\controller\Base {
 		}
 		$user_id = $this->user_id;
 
-		
+
 		$orderData['payment'] = $account;
 		$orderData['offer_id'] = $id;
 		$orderData['num'] = $num;
@@ -121,7 +138,7 @@ class tradeController extends \nainai\controller\Base {
 		//店铺id
 		$shopInfo = \nainai\shop\shop::info($seller_id);
 		$orderData['shop_id'] = isset($shopInfo['id']) ? $shopInfo['id'] : '';
-		
+
 		//设置保险信息到合同里面
 		if ($detail['insurance'] == 1) {//投保产品
 			$orderData['risk'] = $detail['risk'];
@@ -132,7 +149,7 @@ class tradeController extends \nainai\controller\Base {
 				$orderData['risk'] = $data['risk'];
 			}
 		}
-		
+
 
 		//判断是否需要开具发票
 		$orderData['invoice'] = $invoice == 1 ? 1 : 0;
@@ -247,7 +264,7 @@ class tradeController extends \nainai\controller\Base {
 		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
 		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));
 
-		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0;
+		$info['show_payment'] = in_array($info['mode'],array()) ? 1 : 0;
 		//商品剩余数量
 		$pro = new \nainai\offer\product();
 
