@@ -16,6 +16,7 @@ class tradeController extends \nainai\controller\Base {
  
 	private $offer;
     private $login ;
+    private $order;
 	protected $certType = 'deal';
 	public function init(){
 		parent::init();
@@ -35,28 +36,20 @@ class tradeController extends \nainai\controller\Base {
         }
 		$this->getView()->setLayout('layout');
 		$this->offer = new offersModel();
+        $this->order = new orderModel();
 	}
 
 	public function createOrderAction(){
-	    if(IS_POST){
-            $id = safe::filterPost('id','int');
-            $num = safe::filterPost('num');
+	    if(IS_POST) {
+            $id = safe::filterPost('id', 'int',0);
+            $num = safe::filterPost('num','float',0);
 
             $user_id = $this->user_id;
-            $url = 'https://127.0.0.1/Java/createOrder';
-            $param = 'id='.$id.'&num='.$num.'&user_id='.$user_id;
-            $ch = curl_init($url);
-            curl_setopt($ch,CURLOPT_URL,$url);
-            curl_setopt($ch,CURLOPT_POST,1);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-            curl_setopt($ch,CURLOPT_POSTFIELDS,$param);
-            $output = curl_exec($ch);
-            if(curl_errno($ch)){
-                die(json::encode(tool::getSuccInfo(0,curl_error($ch))));
-            }
-            curl_close($ch);
-            die($output);
+            $res = $this->order->createOneOrder($id, $num, $user_id);
+            die(json::encode($res));
+
         }
+
 
     }
 	//付款
