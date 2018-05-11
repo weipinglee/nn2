@@ -248,10 +248,10 @@ $(function(){
                 dataType:"json",
                 success:function(data){
                     if(data.success===1){
-                        alert("报价成功");
+                        layer.msg("报价成功");
                         window.location.reload();
                     }else{
-                        alert(data.info);
+                        layer.msg(data.info);
                     }
 
                 },

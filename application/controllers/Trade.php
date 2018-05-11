@@ -466,7 +466,7 @@ class tradeController extends \nainai\controller\Base {
 	public function jingjiabaojiaAction()
 	{
         $zhi = new \nainai\member();
-        $pay_secret = safe::filterPost('pay_secret');
+        $pay_secret = safe::filterPost('pass');
         $user_id = $this->user_id;
         if(!$zhi->validPaymentPassword($pay_secret,$user_id)){
             die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
