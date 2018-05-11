@@ -233,20 +233,33 @@ $(function(){
     $(".submit_but .but").click(function(){
        var start_price= $("input[name='start_price']").val();
        var offer_id=$("input[name='offer_id']").val();
-        $.ajax({
-          type:"post",
-          url:"{url:/trade/jingjiabaojia@deal}",
-          data:{price:start_price,offer_id:offer_id},
-          dataType:"json",
-          success:function(data){
-            if(data.success==1){
-                alert("报价成功");
-                window.location.reload();
-            }else{
-                alert(data.info);
-            }
-            
-          }
+       layer.closeAll();
+        layer.config({
+            extend: 'extend/layer.ext.js'
+        });
+        layer.prompt({title:'请输入支付密码',formType:1},function(pass){
+            if(pass==='')
+                return false;
+            layer.closeAll();
+            $.ajax({
+                type:"post",
+                url:"{url:/trade/jingjiabaojia@deal}",
+                data:{price:start_price,offer_id:offer_id,pass:pass},
+                dataType:"json",
+                success:function(data){
+                    if(data.success===1){
+                        alert("报价成功");
+                        window.location.reload();
+                    }else{
+                        alert(data.info);
+                    }
+
+                },
+                error:function(){
+
+                }
+        });
+
         })
     })
 })

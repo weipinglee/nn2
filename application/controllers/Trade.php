@@ -465,9 +465,16 @@ class tradeController extends \nainai\controller\Base {
 	//竞价交易报价
 	public function jingjiabaojiaAction()
 	{
+        $zhi = new \nainai\member();
+        $pay_secret = safe::filterPost('pay_secret');
+        $user_id = $this->user_id;
+        if(!$zhi->validPaymentPassword($pay_secret,$user_id)){
+            die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
+        }
+
 		$price = safe::filterPost('price','float');
 		$offer_id = safe::filterPost('offer_id','int',0);
-		$user_id = $this->user_id;
+
 		$jingjiaObj = new \nainai\offer\jingjiaOffer();
 		$res = $jingjiaObj->baojia($offer_id,$price,$user_id);
 		die(json::encode($res));
