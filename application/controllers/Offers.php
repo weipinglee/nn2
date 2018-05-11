@@ -249,6 +249,17 @@ class OffersController extends PublicController {
 				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
 			}
 
+            if(substr($info['start_time'],0,4)==date('Y')){
+                 $info['time1'] = substr($info['start_time'],5);
+            }else{
+                $info['time1'] = $info['start_time'];
+            }
+            if(substr($info['end_time'],0,4)==date('Y')){
+                $info['time2'] = substr($info['end_time'],5);
+            }else{
+                $info['time2'] = $info['end_time'];
+            }
+
 			$mem = new \nainai\member();
 
 			$userData = $mem->getUserDetail($info['user_id']);
