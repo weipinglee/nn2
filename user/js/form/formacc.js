@@ -185,15 +185,22 @@ nn_panduo.formacc.prototype = {
 					}
 		        }else{
 			        _this.ajax_post(url,data,function(){
+			        	var return_data = _this.ajax_return_data;
 				        if(!_this.no_redirect){
-				       	    layer.msg("操作成功!稍后自动跳转");
+				        	if(return_data.info!==''){
+                                layer.msg(return_data.info);
+							}else{
+                                layer.msg("操作成功!稍后自动跳转");
+							}
+				       	   var sec = return_data.time ? return_data.time : 1;
+				        	sec = sec * 1000;
 				            setTimeout(function(){
 				              	if(_this.redirect_url){
 					                window.location.href=_this.redirect_url;
 					            }else{
 					            	window.location.reload();
 					            }
-				            },1000);
+				            },sec);
 				        }else{
 				          	layer.msg('操作成功！');
 				        }
@@ -348,7 +355,7 @@ nn_panduo.formacc.prototype = {
 					else{
 						_this.ajax_return_data = data;
 						if(typeof(eval(suc_callback)) == 'function'){
-							suc_callback();
+							suc_callback(data);
 						}
 						_this.ajax_return_data = '';
 					}

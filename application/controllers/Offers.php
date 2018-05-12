@@ -249,6 +249,17 @@ class OffersController extends PublicController {
 				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
 			}
 
+            if(substr($info['start_time'],0,4)==date('Y')){
+                 $info['time1'] = substr($info['start_time'],5);
+            }else{
+                $info['time1'] = $info['start_time'];
+            }
+            if(substr($info['end_time'],0,4)==date('Y')){
+                $info['time2'] = substr($info['end_time'],5);
+            }else{
+                $info['time2'] = $info['end_time'];
+            }
+
 			$mem = new \nainai\member();
 
 			$userData = $mem->getUserDetail($info['user_id']);
@@ -291,11 +302,13 @@ class OffersController extends PublicController {
 			$info['baojia_count'] = 0;
 			if(!empty($baojiaData)){
 				$temp = array();
-				foreach($baojiaData as $val){
+				foreach($baojiaData as &$val){
 					if(!in_array($val['user_id'],$temp)){
 						$temp[] = $val['user_id'];
 						$info['baojia_count']++;
 					}
+					//隐藏真是名称
+                    $val['true_name'] = mb_substr($val['true_name'],0,1,'UTF-8').'*********';
 
 				}
 			}

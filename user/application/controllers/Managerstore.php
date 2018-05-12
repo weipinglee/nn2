@@ -45,7 +45,7 @@ class ManagerStoreController extends UcenterBaseController{
 		if(IS_POST){
 			$acc = safe::filterPost('username');
 			$user = new \nainai\member();
-			$res = $user->getUserDetail(array('username'=>$acc, 'type' => 1));
+			$res = $user->getUserDetail(array('username'=>$acc, 'type' => 1,'status'=>0));
 			die(json::encode($res));
 		}
 		return false;

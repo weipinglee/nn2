@@ -21,9 +21,8 @@
         
     </div>
    </div> 
-<div class="clearfix"></div> 
-
-<form method="post" {if:$data['show_payment']}pay_secret="1" has_secret="{url:/trade/hasPaySecret}"{/if} auto_submit="1" action='{url:/trade/buyerPay}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
+<div class="clearfix"></div>
+<form method="post"auto_submit="1" action='{url:/trade/createOrder}?callback={url:/offers/check?id=$data['id']&pid=$data['product_id']@deal}'>
 
     <!--主要内容 开始-->
     <div id="mainContent" style="background:#FFF;"> 
@@ -94,27 +93,27 @@
 
              <!------------------订单 开始-------------------->
             <div class="submit">
-             
-             
-            
-               
-            
+
+
+
+
+
             <div class="checkim">
-           
-            
+
+
              {if:$data['show_payment']}
                 <div class="zhiffs"><b>支付方式</b>
                   <h3 class="addwidth">
 
                    <div class="yListr">
-                     
+
                            <ul>
                                <li><em class="yListrclickem" paytype='0'>定金支付<i></i></em> <em paytype='1'>全款支付<i></i></em></li>
-                               
+
                            </ul>
                             <input type="hidden" name="paytype" value="0" />
-                     </div> 
-                    </h3> 
+                     </div>
+                    </h3>
                   </div>
                   <div class="zhiffs"><b>账户类型</b>
                   <h3 class="addwidth">
@@ -126,13 +125,13 @@
                                     <em account='2' class="qianyue" id="click_show">银行签约账户<i></i></em></li>
 
                            </ul>
-                           <input type="hidden" name="account" value="1" />   
+                           <input type="hidden" name="account" value="1" />
                      </div>
                      <div class="bank_box" style="display:none;">
                       <!--  <label for=""><input type="radio" name="bank"/></label><img src="{views:images/password/bank_js.png}" alt="" />
-                       
+
                         <label for=""><input type="radio" name="bank"/></label><img src="{views:images/password/bank_pa.png}" alt="" /> -->
-                        
+
                         <label for=""><input type="radio" checked="checked" name="bank"/></label><img src="{views:images/password/bank_zx.png}" alt="" />
                      </div>
              <script>
@@ -144,14 +143,18 @@
                   $(".yListr.bank #click_show").click(function(){
                     $(".bank_box").show();
                   });
-                  
+
                  });
 
              </script>
-              
-              {/if}
-                    </h3> 
-                   </div>  
+
+
+                    </h3>
+                   </div>
+             {/if}
+                {if:$invioce}
+
+
                    <div class="zhiffs"><b>是否开具发票</b>
                   <h3 class="addwidth">
 
@@ -160,7 +163,7 @@
                               <li><em invoice='1'>开发票<i></i></em> <em invoice='2' class="yListrclickem">不开发票<i></i></em></li>
                            </ul>
                            <input type="hidden" name="invoice" value="2" />
-                     </div> 
+                     </div>
                     </h3>
                     <div class="invoicetishi" style="display: none;">
                        {if:!$login || $login && ($cert['vip']==0 && $cert['vip_temp']==0)}
@@ -180,9 +183,10 @@
                       急速开票 收到货物后5个工作日内邮寄至您的收票地址
                     </div>
                        {/if}
-                   </div> 
-                   </div>     
-              </div>     
+                   </div>
+                   </div>
+                {/if}
+              </div>
              <script type="text/javascript">
                  $(function() {
                      $(".yListr ul li em").click(function() {
@@ -194,14 +198,14 @@
                          }
                      })
 
-                     
+
 
                  })
-             </script>  
+             </script>
             
              <!-------------------------- -->                
             
-            <span class="jiesim"><h3></h3> </span>  
+            <span class="jiesim"><h3></h3> </span>
 
             <div class="zhiffs" style="margin:35px 0px;">
               <b class="trans" style="width:auto;padding-left:35px;height:25px;line-height:25px;">物流方式：物流自提</b>
@@ -212,7 +216,7 @@
             <span class="daizfji"><span class="zhifjin"><strong>总额：</strong><i>￥</i><b class='prod_amount'>{$data['amount']}</b></span></span>
             {if:$data['show_payment']}
             <span class="daizfji"><span class="zhifjin"><strong class="ding">定金：</strong><i>￥</i><b class="pay_deposit">{$data['minimum_deposit']}</b></span></span>{/if}
-           </div>    
+           </div>
            <div class="order_comit">
               <input type="hidden" name="id" value="{$data['id']}" />
              {if:$data['left'] == 0}
@@ -370,7 +374,7 @@
                                   var total = num*price;
                                   prod_amount.text(total.toFixed(2));
                                   deposit_text.text(paytype == 1 ? total.toFixed(2): data.info.toFixed(2));
-                                  
+
                                   temp_deposit = data.info;
                                   $('#contract_review').attr('href',$('#contract_review').attr('href')+"/num/"+num);
                               }else{

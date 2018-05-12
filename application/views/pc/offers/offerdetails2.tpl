@@ -79,7 +79,8 @@
                         即将</br>进行
                     </div>
                     <div class="time_text">
-                    <h3 class="h32">距离开始仅剩：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h3>
+                        <h3 class="h32">开始时间：<span >{$data['time1']}</span></h3>
+                        <h3 class="h32">距离开始仅剩：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h3>
                     <div class="time_peo">
                         <span><b>{$data['baojia_count']}</b>人已报名</span>
                         &nbsp;
@@ -94,6 +95,7 @@
                         正在</br>进行
                     </div>
                     <div class="time_text">
+                    <h3 class="h32">结束时间：<span >{$data['time2']}</span></h3>
                     <h3 class="h32">距离结束仅剩：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h3>
                     <div class="time_peo">
                         <span><b>{$data['baojia_count']}</b>人已报名</span>
@@ -231,20 +233,33 @@ $(function(){
     $(".submit_but .but").click(function(){
        var start_price= $("input[name='start_price']").val();
        var offer_id=$("input[name='offer_id']").val();
-        $.ajax({
-          type:"post",
-          url:"{url:/trade/jingjiabaojia@deal}",
-          data:{price:start_price,offer_id:offer_id},
-          dataType:"json",
-          success:function(data){
-            if(data.success==1){
-                alert("报价成功");
-                window.location.reload();
-            }else{
-                alert(data.info);
-            }
-            
-          }
+       layer.closeAll();
+        layer.config({
+            extend: 'extend/layer.ext.js'
+        });
+        layer.prompt({title:'请输入支付密码',formType:1},function(pass){
+            if(pass==='')
+                return false;
+            layer.closeAll();
+            $.ajax({
+                type:"post",
+                url:"{url:/trade/jingjiabaojia@deal}",
+                data:{price:start_price,offer_id:offer_id,pass:pass},
+                dataType:"json",
+                success:function(data){
+                    if(data.success===1){
+                        layer.msg("报价成功");
+                        window.location.reload();
+                    }else{
+                        layer.msg(data.info);
+                    }
+
+                },
+                error:function(){
+
+                }
+        });
+
         })
     })
 })

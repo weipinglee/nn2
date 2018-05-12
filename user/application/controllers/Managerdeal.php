@@ -193,7 +193,10 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData['minimum'] = $productData[0]['quantity'];
             }
             $res = $offerObj->doOffer($productData,$offerData,$offer_id);
-            
+            if($res['success']==1){
+                $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
+                $res['time'] = 3;
+            }
             echo json::encode($res);
             exit;
         }
@@ -261,7 +264,10 @@ class ManagerDealController extends UcenterBaseController {
             }
 
             $res = $depositObj->doOffer($productData,$offerData,$offer_id);
-            
+            if($res['success']==1){
+                $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
+                $res['time'] = 3;
+            }
             echo json::encode($res);
             exit;
         }
@@ -329,7 +335,10 @@ class ManagerDealController extends UcenterBaseController {
                 $offerData['minimum'] = $productData[0]['quantity'];
             }
             $res = $deputeObj->doOffer($productData,$offerData,$offer_id);
-
+            if($res['success']==1){
+                $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
+                $res['time'] = 3;
+            }
             echo json::encode($res);
             exit;
         }
@@ -525,7 +534,10 @@ class ManagerDealController extends UcenterBaseController {
                     $adminMsg = new \nainai\AdminMsg();
                     $adminMsg->createMsg('checkoffer',$res['id'],$content,$title);
                 }
-
+                if($res['success']==1){
+                    $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
+                    $res['time'] = 3;
+                }
                 die(json::encode($res)) ;
             }
             die(json::encode(tool::getSuccInfo(0,'仓单不存在'))) ;

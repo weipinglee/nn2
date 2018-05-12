@@ -1,5 +1,20 @@
 ﻿<script type="text/javascript" src="{root:js/upload/ajaxfileupload.js}"></script>
 <script type="text/javascript" src="{root:js/upload/upload.js}"></script>
+<style type="text/css">
+    .cztip{
+    position: absolute;
+    top: 10px;
+    width: 360px;
+    left: 400px;
+    background: #e6e6e6;
+    padding: 20px 20px;
+
+    }
+    .cztip p{
+        line-height: 25px;
+    }
+
+</style>
 <!--start中间内容-->
             <div class="user_c">
                 <!--start代理账户充值-->
@@ -9,10 +24,10 @@
                         <p><a>资金管理</a>><a>代理账户管理</a>><a>充值</a>
                         </p>
                     </div>
-                    <div class="pay_cot">
-                        <div class="zhxi_con font_set">
-                            <span class="con_tit">账户余额：</span>
-                            <span><i>￥</i><i class="bold">{$total}</i></span>
+                    <div class="pay_cot" style="position: relative;">
+                        <div class="cztip">
+                            <p>耐耐网资金结算时间以各大银行对公工作时间为准。由于结算审核、申请排队等因素可能导致不能及时操作，因此请提前申请充值。</p>
+                        
                         </div>
                         <form auto_submit>
                             <div class="zhxi_con font_set">
@@ -29,11 +44,11 @@
                     
                     <ul>
 
-                        <li class='hit'>银联在线支付</li> 
-                        <li class=''>银联在线支付b2b</li> 
-                        <li class="" >线下支付</li>
+                        <!-- <li class=''>银联在线支付</li> 
+                        <li class=''>银联在线支付b2b</li>  -->
+                        <li class="hit" >线下支付</li>
                     </ul>
-                    <form method='post' class="js_redi_o" action="{url:/fund/doFundIn}" auto_submit redirect_url="{url:/fund/index}">
+                    <!-- <form method='post' class="js_redi_o" action="{url:/fund/doFundIn}" auto_submit redirect_url="{url:/fund/index}">
                         <div class="js_tab_choose cont" >
                            <div class="" >
                                 <div class="zhxi_con">
@@ -44,7 +59,7 @@
                             </div>
                             
                         </div>
-                    </form>
+                    </form> -->
                     <form method='post' class="js_redi_o" action="{url:/fund/doFundIn}" auto_submit redirect_url="{url:/fund/index}">
                         <div class="js_tab_choose  cont" style="display:none">
                            <div class="" >
@@ -114,13 +129,13 @@
                 $('input[name=recharge]').val(v);
             })
            // $('.js_show_payment_choose').html($('.js_tab_choose>div:eq(0)').clone());   
-               $('.tabPanel ul li').click(function(){
+               /*$('.tabPanel ul li').click(function(){
 
                      $(this).addClass('hit').siblings().removeClass('hit');
-                   // $('.js_show_payment_choose').html($('.js_tab_choose>div:eq('+$(this).index()+')').clone().css('display', 'block'));
+                   
                    $('.cont').hide().eq($(this).index()).show();
 
-               })
+               })*/
            })
            var submit_pay = "{url:/fund/doFundIn}";
            </script>
