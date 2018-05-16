@@ -582,7 +582,10 @@ $(function() {
             <h3 class="nn-shebei-title"><%=data[i].name%></h3>
             <p class="nn-shebei-con"><%=data[i].note%></p>
             <p class="nn-shebei-price">￥
-                <span class="shebei-price-num"><%=data[i].price%></span> /<%=data[i].unit%>
+                <span class="shebei-price-num">
+                    <%=data[i].price_l%>-
+                    <%=data[i].price_r%
+                </span>/<%=data[i].unit%>
             </p>
             <div class="nn-jingpai-hover">
                 <div class="nn-jingpai-cir">
