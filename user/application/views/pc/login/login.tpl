@@ -38,7 +38,7 @@
         <input type="hidden" name="callback" value="{$callback}" />
         <div class="cell">
            <img  src="{views:images/password/data.png}"> 
-           <input type="text" name="mobile" id="js-mobile_ipt" class="text" maxlength="20" placeholder="用户名/手机号"/>
+           <input type="text" name="mobile" id="js-mobile_ipt" class="text" maxlength="30" placeholder="用户名/手机号"/>
         </div>
         <div class="cell">
           <img  src="{views:images/password/account.png}"> 
