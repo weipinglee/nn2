@@ -43,9 +43,10 @@ class tradeController extends \nainai\controller\Base {
 	    if(IS_POST) {
             $id = safe::filterPost('id', 'int',0);
             $num = safe::filterPost('num','float',0);
-
+            $invoice = safe::filterPost('invoice','int',1);
+            $invoice = $invoice==1 ? 1 : 0;
             $user_id = $this->user_id;
-            $res = $this->order->createOneOrder($id, $num, $user_id);
+            $res = $this->order->createOneOrder($id, $num, $user_id,$invoice);
             die(json::encode($res));
 
         }

@@ -152,9 +152,8 @@
                     </h3>
                    </div>
              {/if}
+                {set:$invioce=1}
                 {if:$invioce}
-
-
                    <div class="zhiffs"><b>是否开具发票</b>
                   <h3 class="addwidth">
 

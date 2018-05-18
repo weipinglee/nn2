@@ -22,9 +22,10 @@ class orderModel {
      * @param $id
      * @param $num
      * @param $user_id
+     * @param int $invoice 是否开发票1,开
      * @return array
      */
-    public function createOneOrder($id,$num,$user_id){
+    public function createOneOrder($id,$num,$user_id,$invoice=1){
         if($id<=0 || $num<=0 || $user_id<=0){
             return tool::getSuccInfo(0,'下单参数错误');
         }
@@ -75,7 +76,7 @@ class orderModel {
         $orderData['user_id'] = $user_id;
         $orderData['create_time'] = date('Y-m-d H:i:s',time());
         $orderData['mode'] = $offer_type;
-
+        $orderData['invoice'] = $invoice==1 ? 1 : 0;
         //店铺id
         $shopInfo = \nainai\shop\shop::info($seller_id);
         $orderData['shop_id'] = isset($shopInfo['id']) ? $shopInfo['id'] : '';
