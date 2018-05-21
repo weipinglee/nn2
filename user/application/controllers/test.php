@@ -13,12 +13,7 @@ use \Library\M;
 class testController extends  UcenterBaseController{
 
 	public function indexAction(){
-		$order = new \nainai\order\order();
-		$orderData = $order->orderInfo(7824);print_r($orderData);
-		$data = array('id'=>$orderData['id'],'o_lock'=>$orderData['o_lock'],'offer_no'=>'234123qweqwe');
-		$res = $order->orderUpdate($data);
-
-		die(json::encode($res));
+		
 
 	}
 

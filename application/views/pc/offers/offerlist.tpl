@@ -208,20 +208,21 @@
                        <li class="to_det" style="width:200px;"><%=data[i].produce_area%></li>
                        <li class="to_det"><%=data[i].accept_area%></li>
                        <li class="to_det"><%=data[i].left%> (<%=data[i].unit%>)</li>
-                       <li class="price_unit to_det"><i class="qian_blue">
+                       <li class="price_unit to_det">
                                <% if(data[i].type == 1 && data[i].sub_mode!=1){ %>
                                ￥<%=data[i].price%>
                                <% }else { %>
                                ￥<%=data[i].price_l%> - <% if(data[i].price_r==0){ %>-<% }else { %>￥<%=data[i].price_r%> <%}%>
                                <%}%>
-                           </i>
+                          
                        </li>
-                       <li class="to_det">
+                       <li class="to_det"><i class="qian_blue">
                            <% if(data[i].price_vip > 0 ){ %>
                            ￥<%=data[i].price_vip%>
                            <% }else { %>
                            --
                            <%}%>
+						   </i>
                        </li>
                        <li class="toubao_rz to_det">
                        <% if(data[i].insurance == 1){%>
