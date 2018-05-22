@@ -55,7 +55,7 @@
                 <div class="offer_right">
                     <ul>
 
-                        <li class="notmember hmember">参考价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
+                        <li class="notmember hmember">市场价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
                         <li class="notmember ">会员价：<b> {$data['price_vip']}</b>元/ {$data['unit']} <span class="line_span"></span>
                         <span class="qianse">（含税）</span><a href="{url:/login/newMember@user}">去申请会员</a></li>
 

@@ -308,7 +308,9 @@ class OffersController extends PublicController {
 						$info['baojia_count']++;
 					}
 					//隐藏真是名称
-                    $val['true_name'] = mb_substr($val['true_name'],0,1,'UTF-8').'*********';
+
+                    if(!isset($this->login['user_id']) || $val['user_id']!=$this->login['user_id'])
+                       $val['true_name'] = mb_substr($val['true_name'],0,1,'UTF-8').'*********';
 
 				}
 			}

@@ -66,7 +66,15 @@
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">三、成交价格与成交时间
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;">第四条 买卖双方通过交易平台电子交易系统成交的产品的含税单价为_______{$info['price']}_______元（人民币）/__{$info['unit']}__(单位)。（以挂牌交易中买卖双方达成的交易价格为准）</li>
+                    <li style="text-indent: 20px;">第四条 买卖双方通过交易平台电子交易系统成交的产品的含税单价为_______
+                        {if:isset($info['price_unit'])&& $info['price_unit']>0}
+                             {$info['price_unit']}
+                        {elseif:$info['price']>0}
+                             {$info['price']}
+                        {else:}
+                            {$info['price_l']}
+                        {/if}
+                        _______元（人民币）/__{$info['unit']}__(单位)。（以挂牌交易中买卖双方达成的交易价格为准）</li>
                     <li style="text-indent: 20px;">第五条 成交时间:________{$info['create_time']}________（以挂牌交易中双方达成的交易时间为准）</li>
                 </ol>
             </div>
