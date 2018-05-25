@@ -139,9 +139,15 @@ nn_panduo.formacc.prototype = {
 								// console.log(data);
 								layer.load(2,{shade:[0.1,'gray']});
 								_this.ajax_post(url,data,function(){
+                                    var return_data = _this.ajax_return_data;
+                                    
 									layer.closeAll();
 									if(!_this.no_redirect){
-										layer.msg("操作成功!稍后自动跳转");
+                                        if(return_data.info!==''){
+                                            layer.msg(return_data.info);
+                                        }else{
+                                            layer.msg("操作成功!稍后自动跳转");
+                                        }
 										setTimeout(function(){
 											if(_this.redirect_url){
 												window.location.href=_this.redirect_url;
@@ -167,9 +173,14 @@ nn_panduo.formacc.prototype = {
 							// console.log(data);
 							layer.load(2,{shade:[0.1,'gray']});
 							_this.ajax_post(url,data,function(){
+                                var return_data = _this.ajax_return_data;
 								layer.closeAll();
 								if(!_this.no_redirect){
-									layer.msg("操作成功!稍后自动跳转");
+                                    if(return_data.info!==''){
+                                        layer.msg(return_data.info);
+                                    }else{
+                                        layer.msg("操作成功!稍后自动跳转");
+                                    }
 									setTimeout(function(){
 										if(_this.redirect_url){
 											window.location.href=_this.redirect_url;
