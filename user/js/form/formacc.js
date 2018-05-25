@@ -140,7 +140,7 @@ nn_panduo.formacc.prototype = {
 								layer.load(2,{shade:[0.1,'gray']});
 								_this.ajax_post(url,data,function(){
                                     var return_data = _this.ajax_return_data;
-                                    
+
 									layer.closeAll();
 									if(!_this.no_redirect){
                                         if(return_data.info!==''){
