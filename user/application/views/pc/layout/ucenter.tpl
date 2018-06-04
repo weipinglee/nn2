@@ -162,6 +162,7 @@
                     <div class="wrap_con">
                         <div class="personal_data">
                             <div class="head_portrait">
+
                                 <a href="#">
                                     <img src="{views:/images/icon/head_portrait.jpg}">
                                 </a>

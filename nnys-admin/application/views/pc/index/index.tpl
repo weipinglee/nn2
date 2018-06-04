@@ -86,6 +86,7 @@
                                 <li><a href="{url:system/admin/adminAdd}" target="content">新增管理员</a></li>
                                 <li><a href="{url:system/admin/adminList}" target="content">管理员列表</a></li>
                                 <li><a href="{url:system/admin/logList}" target="content">管理员操作记录</a></li>
+                                <li><a href="{url:system/admin/checkNotice}" target="content">审核通知</a></li>
                             </ul>
                         </li>
                         <!-- <li><a  target="content">系统设置</a></li> -->

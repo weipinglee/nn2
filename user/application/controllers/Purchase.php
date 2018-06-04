@@ -36,7 +36,7 @@ class PurchaseController extends UcenterBaseController{
 			$res = $PurchaseOfferModel->doOffer($productData,$offerData);
 
             if($res['success']==1){
-                $res['info'] = '您的采购报盘会在30分钟内进行审核，请耐心等待结果';
+                $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
                 $res['time'] = 3;
             }
 			echo json::encode($res);
