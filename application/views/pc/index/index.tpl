@@ -584,7 +584,7 @@ $(function() {
             <p class="nn-shebei-price">￥
                 <span class="shebei-price-num">
                     <%=data[i].price_l%>-
-                    <%=data[i].price_r%
+                    <%=data[i].price_r%>
                 </span>/<%=data[i].unit%>
             </p>
             <div class="nn-jingpai-hover">
