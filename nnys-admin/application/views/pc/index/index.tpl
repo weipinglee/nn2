@@ -98,13 +98,13 @@
                     <ul>
                         <li><a target="content">用户认证</a>
                             <ul>
-                                <li><a href="{url:member/certManage/dealerCert}" target="content">交易商认证</a>
+                                <li><a  target="content">交易商认证</a>
                                     <ul>
                                         <li><a href="{url:member/certManage/dealerCert}" target="content">待审核</a></li>
                                         <li><a href="{url:member/certManage/dealerCerted}" target="content">已审核</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{url:member/certManage/storeCert}" target="content">仓库认证</a>
+                                <li><a  target="content">仓库认证</a>
                                     <ul>
                                         <li><a href="{url:member/certManage/storeCert}" target="content">待审核</a></li>
                                         <li><a href="{url:member/certManage/storeCerted}" target="content">已审核</a></li>
