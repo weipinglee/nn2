@@ -984,6 +984,33 @@ class ManagerDealController extends UcenterBaseController {
         }
     }
 
+    public function updatejingjiaAction(){
+        $offerObj = new \nainai\offer\jingjiaOffer();
+        if(IS_POST){
+             $id = safe::filterPost('id','int');
+             $data = array(
+                 'pro_name'=>safe::filterPost('proname'),
+                 'start_time'=> safe::filterPost('start_time'),
+                 'end_time'=>safe::filterPost('end_time'),
+                 'price_l'=>safe::filterPost('price_l'),
+                 'price_r'=> safe::filterPost('price_r'),
+
+                 'jing_stepprice' => safe::filterPost('step_price'),
+                 'max_num' => safe::filterPost('max_num'),
+                 'jingjia_mode' => safe::filterPost('jingjia_mode','int',0)
+             );
+            $res = $offerObj->updateOffer($id,$data,$this->user_id);
+            die(json_encode($res));
+
+        }else{
+            $id = safe::filterGet('id','int');
+
+            $data = $offerObj->offerDetail($id);
+            //print_r($data);
+            $this->getView()->assign('data',$data);
+        }
+    }
+
     public function addQianggouAction()
     {
         if(IS_POST){

@@ -261,7 +261,7 @@
                                   {/if}
                                     {if:isset($updateUrl)}
                                     <div class="pay_bton">
-                                        <a class="submit_chag"  href="{$updateUrl}" >修改</a>
+                                        <a class="submit_chag"   {if:$offer['sub_mode']==1}href="{url:/managerdeal/updatejingjia}?id={$offer['id']}"{else:}href="{$updateUrl}"{/if} >修改</a>
                                     </div>
                                     {/if}
                                 </td>
