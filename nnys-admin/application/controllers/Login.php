@@ -47,10 +47,5 @@ class LoginController extends InitController{//Yaf\Controller_Abstract {
 		return false;
 	}
 
-	public function testAction(){
-		$rbac = new \Library\adminrbac\rbac();
-		$acc = $rbac->getAccessList(105);
-		print_r($acc);
-	}
 }
  ?>
