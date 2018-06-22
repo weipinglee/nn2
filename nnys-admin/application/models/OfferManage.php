@@ -341,7 +341,7 @@ class OfferManageModel extends \nainai\offer\product{
 	 * 获取过期的报盘
 	 */
 	public function getExpireOfferList($page){
-		return $this->getList($page,'now()>o.expire_time || o.status=6 || o.status=5');
+		return $this->getList($page,'(now()>o.expire_time || o.status=6 || o.status=5) ');
 	}
 
 	public function expireOfferDetailsAction(){
