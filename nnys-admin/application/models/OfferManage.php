@@ -78,7 +78,7 @@ class OfferManageModel extends \nainai\offer\product{
 	 * @return array
 	 */
 	public function  getActiveList($page){
-		return $this->getList($page,'o.is_del = 0 and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
+		return $this->getList($page,'o.is_del = 0 and now()< o.expire_time and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
 	}
 
 	public function getrepertoryList(){
@@ -341,7 +341,7 @@ class OfferManageModel extends \nainai\offer\product{
 	 * 获取过期的报盘
 	 */
 	public function getExpireOfferList($page){
-		return $this->getList($page,'now()>o.expire_time || o.status=6 || o.status=5');
+		return $this->getList($page,'(now()>o.expire_time || o.status=6 || o.status=5) ');
 	}
 
 	public function expireOfferDetailsAction(){

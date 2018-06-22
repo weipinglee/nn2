@@ -17,7 +17,7 @@
 						<span><input class="text" type="password" name="new_secret" datatype='*6-10' errormsg='请填写新的支付密码'/>
 					</div>
 					<div class="zhxi_con">
-						<span class="con_tit"><i>*</i>重复支付密码：</span>
+						<span class="con_tit"><i>*</i>确认支付密码：</span>
 						<span><input class="text" type="password"  name="re_secret" datatype='*' recheck='new_secret' errormsg='两次输入的密码不一致'/></span>
 					<span></span>
 					</div> 
@@ -31,7 +31,7 @@
 						<span><input class="text" type="password" name="pay_secret"/>
 					</div>
 					<div class="zhxi_con">
-						<span class="con_tit"><i>*</i>重复支付密码：</span>
+						<span class="con_tit"><i>*</i>确认支付密码：</span>
 						<span><input class="text" type="password"  name="re_secret" datatype='*' recheck='pay_secret' errormsg='两次输入的密码不一致'/></span>
 						<span></span>
 					</div>
