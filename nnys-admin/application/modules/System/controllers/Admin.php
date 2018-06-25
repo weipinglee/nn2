@@ -65,6 +65,7 @@ class AdminController extends InitController {
 			$adminData['name']  = safe::filterPost('admin-name');
 			$adminData['id']    = safe::filterPost('admin-id');
 			$adminData['email'] = safe::filterPost('admin-email');
+			$adminData['mobile'] = safe::filterPost('mobile');
 			$adminData['role'] = safe::filterPost('admin-role','int');
 			$res = $this->adminModel->adminUpdate($adminData);
 
