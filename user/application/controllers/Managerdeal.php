@@ -973,7 +973,7 @@ class ManagerDealController extends UcenterBaseController {
             else{
                 $offerObj = new \nainai\offer\yikoujiaOffer();
             }
-            $res = $offerObj->doOffer($offer_id,$offerData,$this->user_id);
+            $res = $offerObj->transJingjiaOffer($offer_id,$offerData,$this->user_id);
             die(json::encode($res));
         }
         else{
@@ -1055,6 +1055,61 @@ class ManagerDealController extends UcenterBaseController {
         $this->getView()->assign('data',$res);
         $this->getView()->assign('id',$id);
 
+    }
+
+    /**
+     * 竞价新增页面和提交处理
+     */
+    public function xinJingjiaAction(){
+        if(IS_POST){
+            $offer_id = safe::filterPost('offer_id','int',0);
+            $shopInfo = \nainai\shop\shop::info($this->user_id);
+            $offerObj = new \nainai\offer\jingjiaOffer($this->user_id);
+
+            $offerData = array(
+                'mode' => safe::filterPost('mode'),
+                'apply_time'  => \Library\Time::getDateTime(),
+                'divide'      => 0,
+                'minimum'     =>  0,
+                'minstep'     =>  0,
+
+                'accept_area' => safe::filterPost('accept_area'),
+                'accept_day' => safe::filterPost('accept_day', 'int'),
+                'price'        => safe::filterPost('price', 'float'),
+                'price_vip'   => safe::filterPost('price','float'),
+                'insurance' => Safe::filterPost('insurance', 'int',''),
+                'weight_type' => Safe::filterPost('weight_type'),
+
+                'risk' =>implode(',', Safe::filterPost('risk', 'int')),
+                'expire_time' =>  Safe::filterPost('expire_time'),
+                'other' => Safe::filterPost('other'),
+                'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : '',
+                'set'   => safe::filterPost('set')
+                // 'acc_type'   => 1,
+            );
+
+
+            if(!$offerData['risk']){
+                $offerData['risk'] = '';
+            }
+            $productData = $this->getProductData();
+
+            if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
+                $offerData['minimum'] = $productData[0]['quantity'];
+            }
+
+            $res = $offerObj->doOffer($productData,$offerData,$offer_id);
+            if($res['success']==1){
+                $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
+                $res['time'] = 3;
+            }
+            echo json::encode($res);
+            exit;
+        }
+        else{
+            $this->productAddAction();
+
+        }
     }
 
 
