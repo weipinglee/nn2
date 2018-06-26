@@ -153,6 +153,8 @@ class OfferManageModel extends \nainai\offer\product{
 				$Obj = new \nainai\system\EntrustSetting();
 			            $info['rate'] = $Obj->getRate($info['cate_id']);
 			}
+			$stageObj = new M('product_jingjia_set');
+			$info['stage_set'] = $stageObj->where(array('jingjia_id'=>$id))->select();
 		}
 		return $info ? $info : array();
 	}
