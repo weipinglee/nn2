@@ -17,5 +17,13 @@ class TestController extends \Yaf\Controller_Abstract{
 
     }
 
+    public function timeAction(){
+
+    }
+
+    public function getNowTimeAction(){
+        echo time();exit;
+    }
+
 
 }
