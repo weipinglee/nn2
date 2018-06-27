@@ -84,6 +84,7 @@ class productModel extends \nainai\offer\product{
 	public function getOfferProductDetail($id,$user_id){
 		$query = new M('product_offer');
 		$offerData = $query->where(array('id'=>$id,'user_id'=>$user_id))->getObj();
+
 		$offerData['divide_txt'] = $this->getDivide($offerData['divide']);
 		$offerData['status_txt'] = $this->getStatus($offerData['status']);
 		$productData = $this->getProductDetails($offerData['product_id']);

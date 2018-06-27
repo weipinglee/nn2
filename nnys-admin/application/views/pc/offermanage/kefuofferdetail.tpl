@@ -127,6 +127,32 @@
                  <th>描述</th>
                  <td>{$info['note']}</td>
              </tr>
+             {if:!empty($info['stage_set'])}
+                 {foreach: items=$info['stage_set']}
+                     <tr>
+                         <th scope="col" colspan="6">
+                             竞价第{echo:$key+1}阶段
+                         </th>
+                     </tr>
+                     <tr>
+                         <th>开始时间</th>
+                         <td>{$item['start_time']}</td>
+                         <th>结束时间</th>
+                         <td>{$item['end_time']}</td>
+                         <th>起拍价</th>
+                         <td>￥{$item['price_l']}</td>
+                     </tr>
+                     <tr>
+                         <th>递增价</th>
+                         <td>￥{$item['price_step']}</td>
+                         <th>验证码</th>
+                         <td>{$item['pass']}</td>
+                         <th>结束时有报价</th>
+                         <td>{if:$item['always_next']==1}转入下一阶段{else:}忽略后续阶段{/if}</td>
+                     </tr>
+                 {/foreach}
+
+             {/if}
 
              <tr>
                  <th>操作</th>

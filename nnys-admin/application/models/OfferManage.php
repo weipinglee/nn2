@@ -78,7 +78,7 @@ class OfferManageModel extends \nainai\offer\product{
 	 * @return array
 	 */
 	public function  getActiveList($page){
-		return $this->getList($page,'o.is_del = 0 and now()< o.expire_time and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
+		return $this->getList($page,'o.is_del = 0 and (now()< o.expire_time or o.expire_time is null) and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
 	}
 
 	public function getrepertoryList(){

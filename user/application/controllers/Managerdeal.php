@@ -736,6 +736,9 @@ class ManagerDealController extends UcenterBaseController {
                     $updateUrl = url::createUrl('/managerdeal/updatedeputeoffer?id='.$offerDetail[0]['id']);
                 $this->getView()->assign('updateUrl',$updateUrl);
             }
+            $jingjiaObj = new \nainai\offer\jingjiaOffer();
+            $offerDetail[0]['jingjia_stage'] = $jingjiaObj->getOfferStage($id);
+            print_r($offerDetail);
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
 
