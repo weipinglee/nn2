@@ -738,7 +738,7 @@ class ManagerDealController extends UcenterBaseController {
             }
             $jingjiaObj = new \nainai\offer\jingjiaOffer();
             $offerDetail[0]['jingjia_stage'] = $jingjiaObj->getOfferStage($id);
-            print_r($offerDetail);
+            //print_r($offerDetail);
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
 
