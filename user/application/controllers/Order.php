@@ -67,7 +67,7 @@ class OrderController extends UcenterBaseController{
 			$bankinfo = $this->order->userBankInfo($seller);
 
 			$data['seller'] = $seller;
-			$total_amount = $data['pay_deposit']>0 ? 0 : 1;
+			$total_amount = floatval($data['pay_deposit'])>0 ? 0 : 1;
 
 			$this->getView()->assign('show_online',in_array($data['mode'],array(\nainai\order\Order::ORDER_FREE,\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0);
 			$this->getView()->assign('hide_offline',in_array($data['mode'],array(\nainai\order\Order::ORDER_FREE)));
