@@ -293,10 +293,13 @@
                 layer.prompt(
                     {
                     title:'请输入口令',
-                    formType:1,
+                    formType:3,
                         success:function(){
                             $("input.layui-layer-input").on('keydown',function(e){
-                                if (e.which == 13) {
+                                e.stopPropagation();
+                                if (e.which === 13) {
+                                    var pass =  $("input.layui-layer-input").val();
+                                    //alert(pass);
                                     $.ajax({
                                         type:'post',
                                         url:ajaxUrl,
@@ -313,23 +316,25 @@
                                     })
                                 }
                             });
+                        },
+                        yes:function(){
+                        var pass = $("input.layui-layer-input").val();
+                            $.ajax({
+                                type:'post',
+                                url:ajaxUrl,
+                                data:{offer_id:offer_id,pass:pass},
+                                dataType:'json',
+                                success : function (data) {
+                                    if(data.success==1){
+                                        location.href=href+'?pass='+pass;
+                                    }
+                                    else{
+                                        layer.msg(data.info);
+                                    }
+                                }
+                            });
                         }
-                    },
-                    function(pass){
-                    $.ajax({
-                        type:'post',
-                        url:ajaxUrl,
-                        data:{offer_id:offer_id,pass:pass},
-                        dataType:'json',
-                        success : function (data) {
-                            if(data.success==1){
-                                location.href=href+'?pass='+pass;
-                            }
-                            else{
-                                layer.msg(data.info);
-                            }
-                        }
-                    })
+
                 });
             }
             else{
