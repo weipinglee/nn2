@@ -287,12 +287,12 @@ $(function(){
                 var content = $('input[name=content]').val();0
                 window.location.href='{url:/offers/offerList}/type/'+type+'/content/'+content;
             }
-            document.onkeydown=function(event){
+            $('input[name=content]').on('keydown',function(event) {
                 e = event ? event :(window.event ? window.event : null);
                 if(e.keyCode==13){
                     searchGoods();
                 }
-            }
+            });
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
