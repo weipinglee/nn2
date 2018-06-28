@@ -78,7 +78,7 @@ class OfferManageModel extends \nainai\offer\product{
 	 * @return array
 	 */
 	public function  getActiveList($page){
-		return $this->getList($page,'o.is_del = 0 and now()< o.expire_time and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
+		return $this->getList($page,'o.is_del = 0 and (now()< o.expire_time or o.expire_time is null) and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
 	}
 
 	public function getrepertoryList(){
@@ -153,6 +153,8 @@ class OfferManageModel extends \nainai\offer\product{
 				$Obj = new \nainai\system\EntrustSetting();
 			            $info['rate'] = $Obj->getRate($info['cate_id']);
 			}
+			$stageObj = new M('product_jingjia_set');
+			$info['stage_set'] = $stageObj->where(array('jingjia_id'=>$id))->select();
 		}
 		return $info ? $info : array();
 	}
@@ -167,7 +169,7 @@ class OfferManageModel extends \nainai\offer\product{
 		if(!($id = intval($id))) return tool::getSuccInfo(0,'参数错误');
 		$status = isset($status) ? intval($status) : 1;
 
-		$offerData = $this->offer->where(array('id'=>$id))->fields('user_id,acc_type,mode,sub_mode,offer_fee,status,product_id,type')->getObj();
+		$offerData = $this->offer->where(array('id'=>$id))->fields('user_id,old_offer,acc_type,mode,sub_mode,offer_fee,status,product_id,type')->getObj();
 
 		if($offerData['status']!=self::OFFER_APPLY){
 			return tool::getSuccInfo(0,'该报盘已审核');
@@ -228,6 +230,11 @@ class OfferManageModel extends \nainai\offer\product{
 			}
 
 			$res = $this->offer->commit();
+			//事务成功且设置状态为通过，报盘是非转的竞价，生成mysql event
+			if($res===true && $status==self::OFFER_OK && $offerData['sub_mode']==1 &&$offerData['old_offer']==0){
+			    $jingjiaObj = new \nainai\offer\jingjiaOffer();
+			    $jingjiaObj->createXinEvent($id);
+            }
 		} catch (PDOException $e) {
 			$this->offer->rollBack();
 			$res = $e->getMessage();
