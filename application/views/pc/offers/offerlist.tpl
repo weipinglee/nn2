@@ -292,11 +292,12 @@
                 });
                 layer.prompt(
                     {
-                    title:'请输入口令',
-                    formType:3,
+                        title:'请输入口令',
+                        formType:3,
                         success:function(){
                             $("input.layui-layer-input").on('keydown',function(e){
-                                e.stopPropagation();
+                                // e.stopPropagation();
+
                                 if (e.which === 13) {
                                     var pass =  $("input.layui-layer-input").val();
                                     //alert(pass);
@@ -318,7 +319,9 @@
                             });
                         },
                         yes:function(){
-                        var pass = $("input.layui-layer-input").val();
+
+                            var pass = $("input.layui-layer-input").val();
+
                             $.ajax({
                                 type:'post',
                                 url:ajaxUrl,
@@ -335,7 +338,9 @@
                             });
                         }
 
+
                 });
+
             }
             else{
                 //跳转

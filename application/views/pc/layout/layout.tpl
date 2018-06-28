@@ -293,12 +293,7 @@ $(function(){
                     searchGoods();
                 }
             });
-            // document.onkeydown=function(event){
-            //     e = event ? event :(window.event ? window.event : null);
-            //     if(e.keyCode==13){
-            //         searchGoods();
-            //     }
-            // }
+
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
