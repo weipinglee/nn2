@@ -1086,6 +1086,13 @@ class ManagerDealController extends UcenterBaseController {
                 'other' => Safe::filterPost('other'),
                 'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : '',
 
+                //竞价信息
+                'start_time'=> safe::filterPost('start_time'),
+                'end_time' => safe::filterPost('end_time'),
+                'price_l'  => safe::filterPost('price_l'),
+                'jing_stepprice'=> safe::filterPost('step_price'),
+                'jing_mode' => safe::filterPost('jing_mode',0)
+
             );
 
 
@@ -1094,7 +1101,7 @@ class ManagerDealController extends UcenterBaseController {
             }
             $productData = $this->getProductData();
 
-            if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
+            if(isset($productData[0]['quantity']) ){
                 $offerData['minimum'] = $productData[0]['quantity'];
             }
 
