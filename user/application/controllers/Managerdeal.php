@@ -1111,6 +1111,9 @@ class ManagerDealController extends UcenterBaseController {
 
         }
     }
+     public function bidpriceAction(){
+
+     }
 
 
 }
