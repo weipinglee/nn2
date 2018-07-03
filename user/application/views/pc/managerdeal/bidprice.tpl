@@ -17,6 +17,22 @@
 </style>
 <input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
 <script type="text/javascript" src="{views:js/product/attr.js}" ></script>
+<div class="class_jy" id="cate_box" style="display:none;">
+    <span class="jy_title"></span>
+    <ul>
+        <!-- <li value=""   class="a_choose" ><a></a></li>
+-->
+    </ul>
+
+    <ul class="infoslider" style="display: none;">
+        <li value=""   class="a_choose"  ><a></a></li>
+
+    </ul>
+    <!--<div class="sl_ext">
+        <a href="javascript:;" class="sl_e_more info-show" style="visibility: visible;">展开</a>
+    </div>-->
+
+</div>
    <!--start中间内容-->    
    <div class="user_c">
       <div class="user_zhxi pro_classify">
@@ -52,7 +68,9 @@
                 {include:/layout/product2.tpl}
                 <tr>
                     <td></td>
+
                     <td colspan="2" class="btn">
+                        <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
                         <input  type="submit"  value="确定提交" />
                     </td>
                 </tr>

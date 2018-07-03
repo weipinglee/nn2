@@ -1064,6 +1064,7 @@ class ManagerDealController extends UcenterBaseController {
      * 竞价新增页面和提交处理
      */
     public function xinJingjiaAction(){
+        if(IS_POST){
             $offer_id = safe::filterPost('offer_id','int',0);
             $shopInfo = \nainai\shop\shop::info($this->user_id);
             $offerObj = new \nainai\offer\jingjiaOffer($this->user_id);
@@ -1107,11 +1108,18 @@ class ManagerDealController extends UcenterBaseController {
 
             $res = $offerObj->doOffer($productData,$offerData,$offer_id);
             if($res['success']==1){
-                $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
-                $res['time'] = 3;
+                //发送短信
+                $offerObj->buyerMessageAfterDeploy($res['id']);
+                $offerObj->sellerMessageAfterDeploy($this->user_id,$productData);
+
+               // $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
+               // $res['time'] = 3;
             }
+            exit;
             echo json::encode($res);
             exit;
+        }
+
 
 
     }
