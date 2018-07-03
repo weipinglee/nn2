@@ -1071,13 +1071,12 @@ class ManagerDealController extends UcenterBaseController {
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => 0,
-                'minimum'     =>  0,
                 'minstep'     =>  0,
 
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
-                'price'        => safe::filterPost('price', 'float'),
-                'price_vip'   => safe::filterPost('price','float'),
+                'price'        => safe::filterPost('price', 'float',0),
+                'price_vip'   => safe::filterPost('price','float',0),
                 'insurance' => Safe::filterPost('insurance', 'int',''),
                 'weight_type' => Safe::filterPost('weight_type'),
 
@@ -1091,7 +1090,7 @@ class ManagerDealController extends UcenterBaseController {
                 'end_time' => safe::filterPost('end_time'),
                 'price_l'  => safe::filterPost('price_l'),
                 'jing_stepprice'=> safe::filterPost('step_price'),
-                'jing_mode' => safe::filterPost('jing_mode',0)
+                'jingjia_mode' => safe::filterPost('jingjia_mode',0)
 
             );
 
