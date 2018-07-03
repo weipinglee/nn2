@@ -1263,4 +1263,9 @@ ul.icons li [class^="icon-"],ul.icons li [class*=" icon-"] {
     content: "\f115"
 }
 
-.Validform_wrong{color:red;}
+.Validform_wrong{
+        color: red;
+    position: absolute;
+    bottom: -15px;
+    left: 0px;
+}

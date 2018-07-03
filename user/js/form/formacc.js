@@ -411,9 +411,9 @@ $(function(){
 	formacc.buttonSubmit();
 	formacc.form_init();
 	//地址验证，根据是两级或三级动态调整验证规则
-	if($('#areabox').length && $('#areabox').length>0){
-		$('#areabox').find('select').on('change',function(){
-			var num = $('#areabox').find('select:visible').length;
+	if($('#areabox,#areaboxt').length && $('#areabox,#areaboxt').length>0){
+		$('#areabox,#areaboxt').find('select').on('change',function(){
+			var num = $('#areabox,#areaboxt').find('select:visible').length;
 			var rules = [{
 				ele:"input[name=area]",
 				datatype:"n"+num*2+"-6",
