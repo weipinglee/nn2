@@ -7,40 +7,24 @@
     <tr>
         <td nowrap="nowrap"><b class="required">*</b>商品名称：</td>
         <td colspan="2">
-            <span><input class="text" type="text" datatype="s1-30" value="{$product['product_name']}" errormsg="填写商品名称" name="warename">
+            <span><input class="text" type="text" name="warename" datatype="s1-30" value="{$product['product_name']}" errormsg="填写商品名称" >
             </span>
             <span></span>
         </td>
 
     </tr>
-    <tr>
-        <td nowrap="nowrap"><b class="required">*</b>AI2O3：</td>
-        <td>
-            <span> <input class="text" type="text" datatype="money" value="{$offer['price']}" errormsg="" name="price"></span>
-            <span></span>
-        </td>
-        
+    <tr style="display:none" id='productAdd'>
+        <td ></td>
+        <td ></td>
     </tr>
-    <tr>
-        <td nowrap="nowrap"><b class="required">*</b>Fe2O3：</td>
-        <td>
-            <span> <input class="text" type="text" value="{$offer['price_vip']}" errormsg="请正确填写单价" name="price_vip"></span>
-            <span></span>
-        </td>
-    </tr>
-    <tr>
-        <td nowrap="nowrap"><b class="required">*</b>CaO：</td>
-        <td>
-            <span><input class="text" value="{$product['quantity']}" type="text" datatype="/^\d{1,10}(\.\d{0,5})?$/" errormsg="请正确填写数量" name="quantity"></span>
-            <span></span>
-        </td>
-        <span></span>
-    </tr>
+    <input type="hidden" name="cate_id" id="cid" />
+    <input type="hidden" name="ajax_url" id="ajax_url" value="{url: Trade/Insurance/ajaxGetCate}">
+
     <tr>
         <td><b class="required">*</b>产地：</td>
         <td colspan="2">
-            <span id="areabox">{area:data=$product['produce_area']}</span>
-            <span><input class="text" placeholder="请输入具体地址" value="" type="text" name="">
+            <span id="areabox">{area:data=$product['produce_area'] inputName=produce_area}</span>
+            <span><input class="text" placeholder="请输入具体地址" value="{$product['produce_address']}" type="text" name="produce_address">
             </span>
             <span></span>
         </td>
@@ -49,8 +33,8 @@
     <tr>
         <td><b class="required">*</b>交收地点：</td>
         <td colspan="2">
-            <span id="areaboxt">{area:data=$product['produce_area']}</span>
-            <span><input class="text" placeholder="请输入具体地址" value="" type="text" name="">
+            <span id="areaboxt">{area:data=$product['produce_area'] id=area1 inputName=accept_area_code}</span>
+            <span><input class="text" placeholder="请输入具体地址" value="" type="text" name="accept_area">
             </span>
             <span></span>
         </td>
@@ -58,7 +42,7 @@
     <tr>
     <td><b class="required">*</b>交收时间：</td>
     <td colspan="2">
-        <span><input class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="expire_time" >     
+        <span><input class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="accept_day" >
         <span></span>
     </td>
     </tr>
@@ -149,22 +133,22 @@
     <tr>
         <td><b class="required">*</b>竞价数量：</td>
         <td>
-            <span><input type="text" datatype="*"  class='text' placeholder="请输入竞价数量" ></span>
+            <span><input type="text" datatype="*" name="quantity" value="{$product['quantity']}" class='text' placeholder="请输入竞价数量" ></span>
         </td>
     </tr>
     <tr>
         <td>数量单位：</td>
         <td>
-            <span><input type="text" class='text' datatype="*"  placeholder="请输入竞价数量单位" value="" placeholder="吨"></span>
+            <span><input type="text" class='text' datatype="*"  placeholder="请输入竞价数量单位" name="unit" value="{$product['unit']}" value="" placeholder="吨"></span>
         </td>
     </tr>
     <tr>
         <td>参与竞价人群：</td>
         <td colspan="2">
             <span>
-                <select class="jzselect">
-                    <option>自行指定交易商</option>
-                    <option>全部</option>
+                <select name="jingjia_mode" class="jzselect">
+                    <option value="1" {if:$offer['jingjia_mode']==1}selected="true"{/if}>自行指定交易商</option>
+                    <option value="0" {if:$offer['jingjia_mode']==0}selected="true"{/if}>全部</option>
                 </select>
             </span>
             <span class="tip">提示：请您将竞价验证码线下告知您通知的客户，竞价发布后，客户可输入验证码进入竞价详情页面</span>
@@ -173,7 +157,7 @@
     <tr>
         <td><b class="required">*</b>竞价开始时间：</td>
         <td colspan="2">
-            <span><input class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="expire_time" >     
+            <span><input name="start_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"  >
            <span class="tip">竞价开始时间说明：竞价信息发布选择的日期必须在距离开始竞价日期三日以上，距离，若在2018年6月5日16:21 
 发布竞价信息，竞价开始最早的时间为2018年6月8日16:21。，若没选择正确，则提示：竞价开始时间为当前时间
 的3个工作日后，请您重新选择时间</span>
@@ -182,19 +166,19 @@
     <tr>
         <td><b class="required">*</b>竞价结束时间：</td>
         <td colspan="2">
-             <span><input class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="expire_time" nullmsg="请填写信息！">     
+             <span><input name="end_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"  nullmsg="请填写信息！">
         </td>
     </tr>
     <tr class='nowrap'>
         <td nowrap="nowrap" ><b class="required">*</b>起拍价：</td>
         <td>
-            <span><input name="minimum" id="" datatype="*" type="text" class="text" value="" /><span class="munit">￥</span></span>
+            <span><input name="price_l" id="" datatype="*" type="text" class="text" value="" /><span class="munit">￥</span></span>
         </td>
     </tr>
     <tr class='nowrap'>
         <td nowrap="nowrap" ><b class="required">*</b>递增幅度：</td>
         <td>
-            <span><input name="minstep" datatype="*" type="text" class="text" value="" /><span class="munit">￥</span></span>
+            <span><input name="step_price" datatype="*" type="text" class="text" value="" /><span class="munit">￥</span></span>
             <span></span>
         </td>
     </tr>

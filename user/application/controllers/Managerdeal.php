@@ -458,6 +458,7 @@ class ManagerDealController extends UcenterBaseController {
             'attribute'    => empty($attrs) ? '' : serialize($attrs),
             'note'         => safe::filterPost('note'),
             'produce_area' => safe::filterPost('area'),
+            'produce_address'=> safe::filterPost('produce_address'),
             'create_time'  => $time,
             'unit'         => safe::filterPost('unit'),
             'user_id' => $this->user_id,
@@ -1063,7 +1064,6 @@ class ManagerDealController extends UcenterBaseController {
      * 竞价新增页面和提交处理
      */
     public function xinJingjiaAction(){
-        if(IS_POST){
             $offer_id = safe::filterPost('offer_id','int',0);
             $shopInfo = \nainai\shop\shop::info($this->user_id);
             $offerObj = new \nainai\offer\jingjiaOffer($this->user_id);
@@ -1074,6 +1074,7 @@ class ManagerDealController extends UcenterBaseController {
                 'minstep'     =>  0,
 
                 'accept_area' => safe::filterPost('accept_area'),
+                'accept_area_code'=> safe::filterPost('accept_area_code'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
                 'price'        => safe::filterPost('price', 'float',0),
                 'price_vip'   => safe::filterPost('price','float',0),
@@ -1111,14 +1112,11 @@ class ManagerDealController extends UcenterBaseController {
             }
             echo json::encode($res);
             exit;
-        }
-        else{
-            $this->productAddAction();
 
-        }
+
     }
      public function bidpriceAction(){
-
+         $this->productAddAction();
      }
 
 

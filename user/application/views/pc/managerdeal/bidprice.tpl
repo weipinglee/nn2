@@ -15,6 +15,8 @@
     right:15px;
 }
 </style>
+<input type="hidden" name="attr_url" value="{url:/ManagerDeal/ajaxGetCategory}"  />
+<script type="text/javascript" src="{views:js/product/attr.js}" ></script>
    <!--start中间内容-->    
    <div class="user_c">
       <div class="user_zhxi pro_classify">
@@ -46,7 +48,7 @@
                     </div>
                 {/foreach}
             {/if}
-            <form action="" method="POST" auto_submit redirect_url="">
+            <form action="{url:/ManagerDeal/xinjingjia}" method="POST" auto_submit redirect_url="">
                 {include:/layout/product2.tpl}
                 <tr>
                     <td></td>
