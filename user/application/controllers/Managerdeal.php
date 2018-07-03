@@ -736,6 +736,8 @@ class ManagerDealController extends UcenterBaseController {
                     $updateUrl = url::createUrl('/managerdeal/updatedeputeoffer?id='.$offerDetail[0]['id']);
                 $this->getView()->assign('updateUrl',$updateUrl);
             }
+
+            //print_r($offerDetail);
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
 
@@ -1067,7 +1069,6 @@ class ManagerDealController extends UcenterBaseController {
             $offerObj = new \nainai\offer\jingjiaOffer($this->user_id);
 
             $offerData = array(
-                'mode' => safe::filterPost('mode'),
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => 0,
                 'minimum'     =>  0,
@@ -1084,8 +1085,7 @@ class ManagerDealController extends UcenterBaseController {
                 'expire_time' =>  Safe::filterPost('expire_time'),
                 'other' => Safe::filterPost('other'),
                 'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : '',
-                'set'   => safe::filterPost('set')
-                // 'acc_type'   => 1,
+
             );
 
 

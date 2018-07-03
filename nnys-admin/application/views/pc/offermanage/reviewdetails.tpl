@@ -238,6 +238,7 @@
                  <th></th>
                  <td></td>
              </tr>
+
              <tr>
                  <th>审核结果</th><input type="hidden" name="id" value="{$info['id']}" />
                  <td> <label><input type="radio" name="status" value="1" checked/>通过</label>
@@ -260,6 +261,8 @@
                   <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
               </th>
             </tr>
+
+
 	 	</table>
          </form>
  	</div>
