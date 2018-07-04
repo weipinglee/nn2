@@ -9,8 +9,7 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-        $fund = new fund();
-       echo  $fund->test();
+
     }
 
 

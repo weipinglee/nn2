@@ -57,7 +57,7 @@
                         {/if}
 
 
-                    <form action="{url:/ManagerDeal/doDepositOffer}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
+                    <form action="{url:/ManagerDeal/xinjingjia}" method="POST" auto_submit redirect_url="{url:/managerdeal/indexoffer}">
 
                         <table border="0" >
 
@@ -78,6 +78,14 @@
                             <tr style="display:none" id='productAdd'>
                                 <td ></td>
                                 <td ></td>
+                            </tr>
+                            <tr>
+                                <td>产地：</td>
+                                <td colspan="2">
+                                    <span id="areabox">{area:data=$product['produce_area']}</span>
+                                    <span></span>
+                                </td>
+
                             </tr>
                             <tr>
                                 <td><span>*</span>交收地点：</td>
@@ -128,14 +136,7 @@
                             <input type="hidden" name="cate_id" id="cid">
                             <input type="hidden" name="ajax_url" id="ajax_url" value="{url: Trade/Insurance/ajaxGetCate}">
 
-                            <tr>
-                                <td>产地：</td>
-                                <td colspan="2">
-                                    <span id="areabox">{area:data=$product['produce_area']}</span>
-                                    <span></span>
-                                </td>
 
-                            </tr>
 
 
                             <tr>
@@ -233,6 +234,58 @@
                                 </td> -->
                             </tr>
 
+                            <tr>
+                                <td>竞价参与人群：</td>
+                                <td colspan="2">
+                                    <span>
+                                        <select name="jingjia_mode">
+                                            <option value="1" {if:$offer['jingjia_mode']==1}selected="true"{/if}>自行指定交易商</option>
+                                            <option value="0" {if:$offer['jingjia_mode']==0}selected="true"{/if} >系统指定交易商</option>
+                                         </select>
+                                     </span>
+                                    <span></span>
+                                </td>
+                            </tr>
+
+                            <tr >
+                                <td nowrap="nowrap"><span></span>开始时间：</td>
+                                <td colspan="2">
+                            <span>
+                                <input class="Wdate text" datatype="datetime"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d}'})"
+                                       name="start_time" value="">
+                            </span>
+                                    <span></span>
+                                </td>
+
+                            </tr>
+                            <tr >
+                                <td nowrap="nowrap"><span></span>结束时间：</td>
+                                <td colspan="2">
+                            <span>
+                                <input class="Wdate text" datatype="datetime"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-#{%d}'})"
+                                       name="end_time" value="">
+                            </span>
+                                    <span></span>
+                                </td>
+
+                            </tr>
+
+                            <tr class="jingjia">
+                                <td nowrap="nowrap"><span></span>起拍价：</td>
+                                <td colspan="2">
+                                    <span><input class="text" type="text" datatype="money" value="" ignore="ignore" errormsg="" name="price_l"></span>
+                                    <span></span>
+                                </td>
+
+                            </tr>
+                            <tr class="jingjia">
+                                <td nowrap="nowrap"><span></span>递增价格：</td>
+                                <td colspan="2">
+                                    <span><input class="text" type="text" datatype="money|/[0]/" value="" ignore="ignore" errormsg="" name="step_price"></span>
+                                    <span>如果设置了该值，用户报价只能以该值的倍数递增。</span>
+                                </td>
+
+                            </tr>
 
 
                         <tr>

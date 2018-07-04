@@ -458,6 +458,7 @@ class ManagerDealController extends UcenterBaseController {
             'attribute'    => empty($attrs) ? '' : serialize($attrs),
             'note'         => safe::filterPost('note'),
             'produce_area' => safe::filterPost('area'),
+            'produce_address'=> safe::filterPost('produce_address'),
             'create_time'  => $time,
             'unit'         => safe::filterPost('unit'),
             'user_id' => $this->user_id,
@@ -1071,13 +1072,13 @@ class ManagerDealController extends UcenterBaseController {
             $offerData = array(
                 'apply_time'  => \Library\Time::getDateTime(),
                 'divide'      => 0,
-                'minimum'     =>  0,
                 'minstep'     =>  0,
 
                 'accept_area' => safe::filterPost('accept_area'),
+                'accept_area_code'=> safe::filterPost('accept_area_code'),
                 'accept_day' => safe::filterPost('accept_day', 'int'),
-                'price'        => safe::filterPost('price', 'float'),
-                'price_vip'   => safe::filterPost('price','float'),
+                'price'        => safe::filterPost('price', 'float',0),
+                'price_vip'   => safe::filterPost('price','float',0),
                 'insurance' => Safe::filterPost('insurance', 'int',''),
                 'weight_type' => Safe::filterPost('weight_type'),
 
@@ -1085,6 +1086,13 @@ class ManagerDealController extends UcenterBaseController {
                 'expire_time' =>  Safe::filterPost('expire_time'),
                 'other' => Safe::filterPost('other'),
                 'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : '',
+
+                //竞价信息
+                'start_time'=> safe::filterPost('start_time'),
+                'end_time' => safe::filterPost('end_time'),
+                'price_l'  => safe::filterPost('price_l'),
+                'jing_stepprice'=> safe::filterPost('step_price'),
+                'jingjia_mode' => safe::filterPost('jingjia_mode',0)
 
             );
 
@@ -1094,25 +1102,29 @@ class ManagerDealController extends UcenterBaseController {
             }
             $productData = $this->getProductData();
 
-            if(isset($productData[0]['quantity']) && $offerData['minimum'] > $productData[0]['quantity']){
+            if(isset($productData[0]['quantity']) ){
                 $offerData['minimum'] = $productData[0]['quantity'];
             }
 
             $res = $offerObj->doOffer($productData,$offerData,$offer_id);
             if($res['success']==1){
-                $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
-                $res['time'] = 3;
+                //发送短信
+                $offerObj->buyerMessageAfterDeploy($res['id']);
+                $offerObj->sellerMessageAfterDeploy($this->user_id,$productData);
+
+               // $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
+               // $res['time'] = 3;
             }
+            exit;
             echo json::encode($res);
             exit;
         }
-        else{
-            $this->productAddAction();
 
-        }
+
+
     }
      public function bidpriceAction(){
-
+         $this->productAddAction();
      }
 
 
