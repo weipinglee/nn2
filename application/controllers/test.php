@@ -9,13 +9,20 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-        $fund = new fund();
-       echo  $fund->test();
+
     }
 
 
     public function doLoginAction(){
 
+    }
+
+    public function timeAction(){
+
+    }
+
+    public function getNowTimeAction(){
+        echo time();exit;
     }
 
 
