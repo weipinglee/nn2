@@ -137,13 +137,13 @@
         </td>
     </tr>
     <tr>
-        <td>数量单位：</td>
+        <td><b class="required">*</b>数量单位：</td>
         <td>
             <span><input type="text" class='text' datatype="*"  placeholder="请输入竞价数量单位" name="unit" value="{$product['unit']}" value="" placeholder="吨"></span>
         </td>
     </tr>
     <tr>
-        <td>参与竞价人群：</td>
+        <td><b class="required">*</b>参与竞价人群：</td>
         <td colspan="2">
             <span>
                 <select name="jingjia_mode" class="jzselect">

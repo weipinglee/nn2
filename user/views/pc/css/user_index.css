@@ -746,13 +746,15 @@ visibility: hidden;
     line-height: 28px;
 }
 .class_jy {
-    padding: 0px 15px;
-    border-bottom: 1px solid #e3e3e3;
+    padding: 0px 15px 15px;
     position: relative;
     overflow: hidden;
     float: left;
     width: 96%;
 }
+#level2{
+  margin-bottom: 15px;
+}     
 .class_jy .jy_title {
     float: left;
     line-height: 30px;
