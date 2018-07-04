@@ -155,6 +155,12 @@ class jingjiaOffer extends product{
         }
 
         $offerData['user_id'] = $this->user_id;
+//        $dateObj = new \DateTime($offerData['end_time']);
+//        $dateObj->add(new \DateInterval('P1D'));
+//
+        if(isset($offerData['expire_time'])){
+            unset($offerData['expire_time']);
+        }
         $offerData['sub_mode'] = 1;
         $offerData['status'] = 1;
         $insert = $this->insertOffer($productData,$offerData);

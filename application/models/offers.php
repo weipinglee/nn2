@@ -190,19 +190,19 @@ class offersModel extends \nainai\offer\product{
         $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id left join admin_kefu as ke on o.kefu=ke.admin_id";
         $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze=0 || o.status=6,1,0) as jiao";
         $query->group = 'o.id';
-        $where = 'o.status in ('.self::OFFER_OK.','.self::OFFER_COMPLETE.','.self::OFFER_WAITINGTRADE.') and o.is_del = 0  and o.expire_time > now()';
+        $where = 'o.status in ('.self::OFFER_OK.','.self::OFFER_COMPLETE.','.self::OFFER_WAITINGTRADE.') and o.is_del = 0 and (now()< o.expire_time OR o.expire_time is null) ';
         $bind = array();
 
-        if (empty($order)) {
-            $model = new \nainai\offer\ProductSetting();
-            $detail = $model->getProductSetting(1);
-            $dbName = \Library\tool::getConfig(array('database','master','database'));
-			
-            $query->join .= ' LEFT JOIN (select *, (time*' .$detail['time']. '+credit*'.$detail['credit'].') as common from (
-SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_TIMESTAMP(p.apply_time))/86400) / '.$detail['day'].') as time, (100*u.credit)/'.$detail['max_credit'].' as credit FROM '.$dbName.'.product_offer as p left join user
- as u ON p.user_id=u.id ) as s ) as cha on o.user_id=cha.user_id';
-            $order = 'cha.common desc, o.apply_time desc';
-        }
+//        if (empty($order)) {
+//            $model = new \nainai\offer\ProductSetting();
+//            $detail = $model->getProductSetting(1);
+//            $dbName = \Library\tool::getConfig(array('database','master','database'));
+//
+//            $query->join .= ' LEFT JOIN (select *, (time*' .$detail['time']. '+credit*'.$detail['credit'].') as common from (
+//SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_TIMESTAMP(p.apply_time))/86400) / '.$detail['day'].') as time, (100*u.credit)/'.$detail['max_credit'].' as credit FROM '.$dbName.'.product_offer as p left join user
+// as u ON p.user_id=u.id ) as s ) as cha on o.user_id=cha.user_id';
+//            $order = 'cha.common desc, o.apply_time desc';
+//        }
 
         //获取分类条件
         $childcates = array();

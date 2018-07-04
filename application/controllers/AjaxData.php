@@ -80,7 +80,7 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
                     }
                }
           }
-          else $order = 'apply_time desc';
+
           $data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
           if ( ! empty($this->login)) {
                $data['login'] = 1;

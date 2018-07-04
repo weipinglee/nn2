@@ -224,9 +224,7 @@ class OffersController extends PublicController {
 			if(empty($info)){
 				$this->error('报盘不存在或未通过审核');
 			}
-			if(time() > strtotime($info['expire_time'])){
-				$this->error('报盘不存在或已过期');
-			}
+			
 
 			$jingjiaOffer = new \nainai\offer\jingjiaOffer();
 			$pass = safe::filterGet('pass');
