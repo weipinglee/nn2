@@ -230,10 +230,10 @@ class OfferManageModel extends \nainai\offer\product{
 
 			$res = $this->offer->commit();
 			//事务成功且设置状态为通过，报盘是非转的竞价，生成mysql event
-			if($res===true && $status==self::OFFER_OK && $offerData['sub_mode']==1 &&$offerData['old_offer']==0){
-			    $jingjiaObj = new \nainai\offer\jingjiaOffer();
-			    $jingjiaObj->createXinEvent($id);
-            }
+//			if($res===true && $status==self::OFFER_OK && $offerData['sub_mode']==1 &&$offerData['old_offer']==0){
+//			    $jingjiaObj = new \nainai\offer\jingjiaOffer();
+//			    $jingjiaObj->createXinEvent($id);
+//            }
 		} catch (PDOException $e) {
 			$this->offer->rollBack();
 			$res = $e->getMessage();

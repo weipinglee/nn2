@@ -33,7 +33,7 @@
     <tr>
         <td><b class="required">*</b>交收地点：</td>
         <td colspan="2">
-            <span id="areaboxt">{area:data=$product['produce_area'] id=area1 inputName=accept_area_code}</span>
+            <span id="areabox">{area:data=$product['produce_area'] id=area1 inputName=accept_area_code}</span>
             <span><input class="text" placeholder="请输入具体地址" value="" type="text" name="accept_area">
             </span>
             <span></span>
@@ -157,7 +157,7 @@
     <tr>
         <td><b class="required">*</b>竞价开始时间：</td>
         <td colspan="2">
-            <span><input name="start_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"  >
+            <span><input name="start_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd  HH:mm:ss',minDate:'%y-%M-#{%d+1}'})"  >
            <span class="tip">竞价开始时间说明：竞价信息发布选择的日期必须在距离开始竞价日期三日以上，距离，若在2018年6月5日16:21 
 发布竞价信息，竞价开始最早的时间为2018年6月8日16:21。，若没选择正确，则提示：竞价开始时间为当前时间
 的3个工作日后，请您重新选择时间</span>
@@ -166,7 +166,7 @@
     <tr>
         <td><b class="required">*</b>竞价结束时间：</td>
         <td colspan="2">
-             <span><input name="end_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})"  nullmsg="请填写信息！">
+             <span><input name="end_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd  HH:mm:ss',minDate:'%y-%M-#{%d+1}'})"  nullmsg="请填写信息！">
         </td>
     </tr>
     <tr class='nowrap'>

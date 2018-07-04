@@ -1108,6 +1108,8 @@ class ManagerDealController extends UcenterBaseController {
 
             $res = $offerObj->doOffer($productData,$offerData,$offer_id);
             if($res['success']==1){
+                //生成mysql event
+                $offerObj->createXinEvent($res['id']);
                 //发送短信
                 $offerObj->buyerMessageAfterDeploy($res['id']);
                 $offerObj->sellerMessageAfterDeploy($this->user_id,$productData);
@@ -1115,7 +1117,7 @@ class ManagerDealController extends UcenterBaseController {
                // $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
                // $res['time'] = 3;
             }
-            exit;
+
             echo json::encode($res);
             exit;
         }

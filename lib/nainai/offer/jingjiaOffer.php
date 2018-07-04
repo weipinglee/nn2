@@ -141,7 +141,7 @@ class jingjiaOffer extends product{
             return tool::getSuccInfo(0,'开始时间不能小于当前时间');
         }
 
-        $days = 3;//开始前的预留天数
+        $days = 0;//开始前的预留天数
         if(time::getTime()+$days * 24*3600 > time::getTime($offerData['start_time'])){
             return tool::getSuccInfo(0,'必须要有至少3天的公示时间');
         }
@@ -404,14 +404,16 @@ class jingjiaOffer extends product{
      */
     public function createXinEvent($offer_id){
         $offerObj = new M('product_offer');
-        $offerData = $offerObj->where(array('id'=>$offer_id))->select();
+        $offerData = $offerObj->where(array('id'=>$offer_id))->getObj();
 
         $event_name = 'autoStopJingjia_'.$offer_id;
         $sql = 'CREATE  EVENT IF NOT EXISTS `'.$event_name.'`  ON SCHEDULE AT "'.$offerData['end_time'].
             '" ON COMPLETION NOT  PRESERVE ENABLE DO
     CALL xinJingjiaHandle('.$offer_id.',@a);';
         $res = $offerObj->query($sql);
-
+        if(false===$res){//如果创建失败，处理已发出的报盘
+            $offerData->data(array('status'=>self::OFFER_NG))->where(array('id'=>$offer_id))->update();
+        }
         return $res;
     }
 

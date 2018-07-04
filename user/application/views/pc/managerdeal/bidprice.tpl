@@ -64,7 +64,7 @@
                     </div>
                 {/foreach}
             {/if}
-            <form action="{url:/ManagerDeal/xinjingjia}" method="POST" auto_submit redirect_url="">
+            <form action="{url:/ManagerDeal/xinjingjia}" method="POST" auto_submit redirect_url="{url:/managerdeal/productlist@user}">
                 {include:/layout/product2.tpl}
                 <tr>
                     <td></td>
