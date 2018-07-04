@@ -314,6 +314,7 @@ $(function(){
             <li {if:!isset($cur) || $cur=='index'}class="current"{/if}><a href="{url:/index/index}">首页</a></li>
             <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}">交易中心</a></li>
             <li {if:isset($cur) && $cur=='bid'}class="current"{/if}><a href="{url:/bid/tenderlist}">招投标</a></li>
+            <li {if:isset($cur) && $cur=='bidprice'}class="current"{/if}><a href="{url:/bidprice/bidpriceList}">竞价</a></li>
             <li {if:isset($cur) && $cur=='shop'}class="current"{/if}><a href="{url:/shop/prompt}">店铺</a></li>
             <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}">仓储专区</a></li>
             <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}">帮我找</a></li>
