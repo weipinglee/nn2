@@ -228,7 +228,7 @@ class OffersController extends PublicController {
 
 			$jingjiaOffer = new \nainai\offer\jingjiaOffer();
 			$pass = safe::filterGet('pass');
-			if(!$jingjiaOffer->checkPass($id,$pass)){
+			if($info['status']==1 && !$jingjiaOffer->checkPass($id,$pass)){
 				$this->error('场内竞价口令错误，您无权查看');
 			}
 

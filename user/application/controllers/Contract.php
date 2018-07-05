@@ -105,7 +105,7 @@ class ContractController extends UcenterBaseController{
 		
 		if($order_id){
 			$order_info = $order->contractDetail($order_id);
-			if($order_info['buyer_id']!=$this->user_id){
+			if($order_info['buyer_id']!=$this->user_id && $order_info['offer_user_id']!=$this->user_id){
 			    $order_info['buyer_name'] = mb_substr($order_info['buyer_name'],0,1,'UTF-8').'*********';
             }
 

@@ -1076,7 +1076,7 @@ class ManagerDealController extends UcenterBaseController {
 
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_area_code'=> safe::filterPost('accept_area_code'),
-                'accept_day' => safe::filterPost('accept_day', 'int'),
+                'accept_day' => safe::filterPost('accept_day'),
                 'price'        => safe::filterPost('price', 'float',0),
                 'price_vip'   => safe::filterPost('price','float',0),
                 'insurance' => Safe::filterPost('insurance', 'int',''),

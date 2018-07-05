@@ -104,20 +104,7 @@
 
 
              </tr>
-             {if:$info['sub_mode']>0}
-                 <tr>
-                      <th>开始时间</th>
-                      <td>{$info['start_time']}</td>
 
-
-                     <th>结束时间</th>
-                     <td>{$info['end_time']}</td>
-                     <th>递增价格</th>
-                     <td>{$info['jing_stepprice']}</td>
-
-
-                 </tr>
-             {/if}
              {if:$info['sub_mode']==1}
                  <tr>
                      <th>最低价格</th>
@@ -161,7 +148,7 @@
              <tr>
 
                  <th>交收地点</th>
-                 <td>{$info['accept_area']}</td>
+                 <td>{areatext: data=$info['accept_area_code'] id=area1}{$info['accept_area']}</td>
                  {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
                  <th>交收时间</th>
                  <td>{$info['accept_day']}</td>
