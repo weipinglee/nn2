@@ -1117,10 +1117,10 @@ class ManagerDealController extends UcenterBaseController {
                 $offerObj->adminMessageAfterDeploy($productData);
 
                // $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
-               // $res['time'] = 3;
+                $res['time'] = 3;
             }
 
-           // echo json::encode($res);
+            echo json::encode($res);
             exit;
         }
 
