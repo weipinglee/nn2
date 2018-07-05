@@ -472,7 +472,7 @@ class jingjiaOffer extends product{
     /**
      * 卖方发布竞价后给买方发送短信
      */
-    public function buyerMessageAfterDeploy($offer_id){
+    public function MessageAfterDeploy($offer_id){
 
             $obj = new Query('product_offer as po');
             $obj->join = 'left join products as p on po.product_id=p.id 
@@ -482,33 +482,31 @@ class jingjiaOffer extends product{
             $offerData = $obj->getObj();
 
 
-        //竞价模式为1，卖方自行通知
-        if($offerData['jingjia_mode']==1){
-            return false;
+        //竞价模式为1，卖方自行通知,不为 1时，给买家发短信
+        if($offerData['jingjia_mode']!=1){
+            //获取发送的买用户
+            $userObj = new M('user');
+            $userData = $userObj->where(array('is_false'=>0,'id'=>array('neq',$offerData['user_id'])))->getFields('mobile');
+
+            $hsms = new \Library\Hsms();
+            $content = "您好，您关注的商品：".$offerData['pro_name']."已发布竞价。发布企业为：".$offerData['true_name']."，竞价开始时间为：".$offerData['start_time'].".竞价结束时间为：".$offerData['end_time']."。起拍价为".$offerData['price_l']."元/".$offerData['unit']."。递增价为：".$offerData['jing_stepprice']."元/".$offerData['unit']."。竞价数量为".$offerData['max_num'].$offerData['unit']."。请您及时进入耐耐网竞价模块进行查看并参与。";
+            $hsms->send($userData,$content);
         }
-        //获取发送的买用户
-        $userObj = new M('user');
-        $userData = $userObj->where(array('is_false'=>0,'id'=>array('neq',$offerData['user_id'])))->getFields('mobile');
 
-        $hsms = new \Library\Hsms();
-        $content = "您好，您关注的商品：".$offerData['pro_name']."已发布竞价。发布企业为：".$offerData['true_name']."，竞价开始时间为：".$offerData['start_time'].".竞价结束时间为：".$offerData['end_time']."。起拍价为".$offerData['price_l']."元/".$offerData['unit']."。递增价为：".$offerData['jing_stepprice']."元/".$offerData['unit']."。竞价数量为".$offerData['max_num'].$offerData['unit']."。请您及时进入耐耐网竞价模块进行查看并参与。";
-        return $hsms->send($userData,$content);
+        if($offerData['jingjia_mode']==1) {
+            //给卖方发短信
+            $userObj = new M('user');
+            $mobile = $userObj->where(array('id' => $offerData['user_id']))->getField('mobile');
+            $content = '我是' . $offerData['true_name'] . ',现邀请您参与'.$offerData['start_time'].
+                '开始的'.$offerData['pro_name'].'的竞价，参与验证码为'.$offerData['jingjia_pass'].',请登录耐耐网竞价。';
+            $hsms->send($mobile, $content);
+        }
+
+
 
     }
 
-    /**
-     * 卖家发布竞价后给卖家发送的短信
-     * @param int $seller_id
-     * @param array $offerData 报盘信息
-     */
-    public function sellerMessageAfterDeploy($seller_id,$offerData){
-        $userObj = new M('user');
-        $mobile = $userObj->where(array('id'=>$seller_id))->getField('mobile');
-        $hsms = new \Library\Hsms();
-        $content = '您发布的'.$offerData['name'].'竞价信息已发布成功，请关注后续竞价动态信息。';
-        $hsms->send($mobile,$content);
-    }
-
+    
     /**
      *
      */

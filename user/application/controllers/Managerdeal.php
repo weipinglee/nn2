@@ -1112,7 +1112,6 @@ class ManagerDealController extends UcenterBaseController {
                 $offerObj->createXinEvent($res['id']);
                 //发送短信
                 $offerObj->buyerMessageAfterDeploy($res['id']);
-                $offerObj->sellerMessageAfterDeploy($this->user_id,$productData[0]);
                 //给后台管理员发送短信
                 $offerObj->adminMessageAfterDeploy($productData[0]);
 
