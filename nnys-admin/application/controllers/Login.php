@@ -18,6 +18,7 @@ class LoginController extends InitController{//Yaf\Controller_Abstract {
 	 * @return [type] [description]
 	 */
 	public function loginAction(){
+
 		//$memc = new \Library\cache\driver\Memcached();
 	}
 

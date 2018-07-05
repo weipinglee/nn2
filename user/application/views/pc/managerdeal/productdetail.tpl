@@ -71,7 +71,7 @@
                             </tr>
                             <tr>
                                 <td>产地</td>
-                                <td id="areat">{areatext: data=$product['produce_area'] id=areat }</td>
+                                <td id="areat">{areatext: data=$product['produce_area'] id=areat } {$product['produce_address']}</td>
                             </tr>
                             <tr>
                                 <td>申请时间</td>

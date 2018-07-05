@@ -205,7 +205,7 @@
                        <li class="to_det"><% if(data[i].type == 1){ %><i class="green">供</i><% }else { %><i class="red">求</i> <%}%></li>
                        <li class="to_det"> <% if(data[i].type == 1){ %><%=data[i].mode_txt%><% }else { %>保证金报盘<%}%></li>
 
-                       <li class="to_det" style="width:200px;"><%=data[i].produce_area%></li>
+                       <li class="to_det" style="width:200px;"><%=data[i].produce_area%><%=data[i].produce_address%></li>
                        <li class="to_det"><%=data[i].accept_area%></li>
                        <li class="to_det"><%=data[i].left%> (<%=data[i].unit%>)</li>
                        <li class="price_unit to_det">

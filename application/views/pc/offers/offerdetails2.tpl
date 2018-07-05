@@ -426,7 +426,7 @@ function show_time(){
 
                         <tr>
                             <td>产地</td>
-                            <td><span id="area">{areatext:data=$data['produce_area'] id=area }</span></td>
+                            <td><span id="area">{areatext:data=$data['produce_area'] id=area }{$data['produce_address']}</span></td>
                         </tr>
                         {foreach:items=$data['attr_arr']}
                         <tr>
