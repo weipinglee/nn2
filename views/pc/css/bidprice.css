@@ -47,15 +47,11 @@
 .bid_commodity a{
 	display: block;
 }
-.bid_commodity a:hover .commodityimgs .commoditysx{
-	display: block;
-	
-}
+
 .commodityimgs .commoditysx{
     display: none;
     position: absolute;
     bottom:  0px;
-   
   	color: #fff;
    	width: 180px;
 	height:134px;
@@ -76,6 +72,10 @@
 }
 .commodityimgs .commoditysx span:first-child{
 	width: 158px;
+}
+.bid_commodity .commodityimgs:hover .commoditysx{
+	display: block;
+	
 }
 .bid_commoditys .bid_commodity .commodityimgs img{
 	width: 	180px;
@@ -143,6 +143,44 @@
 	display: inline-block;
 	padding:0px 5px;
 	color:#999;
+}
+.commodity_text .yzm_con{
+	position: absolute;
+    top: 0px;
+    background: #fff;
+    height: 125px;
+    z-index: 1;
+    padding-top: 10px;
+    display: none;
+}
+.commodity_text:hover .yzm_con{
+	display: block;
+}
+.yzm_con .yzm_tip{
+	color:#ccc;
+}
+.yzm_con .yzm_input{
+	margin:13px 0 10px;
+	text-align: center;
+}
+.yzm_con .yzm_input input{
+    width: 220px;
+    height: 28px;
+    background: #f1f1f1;
+    border: 0px;
+    padding: 0 5px;
+}
+.yzm_con .yzm_but {
+	text-align: right;
+	padding-right: 10px
+}
+.yzm_con .yzm_but .but_ok{
+	width: 60px;
+	height: 22px;
+	background:#c81623;
+	border-radius: 2px;
+	border:0px;
+	color:#fff;
 }
 /*竞价规则*/
 .bid_rule{

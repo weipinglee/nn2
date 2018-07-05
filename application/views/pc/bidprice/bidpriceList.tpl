@@ -60,7 +60,17 @@
 										2018年7月20 &nbsp;18:00:00结束
 									</span>
 								</div>
-							
+								<div class="yzm_con">
+									<div class="yzm_tip">
+										此竞价需输入验证码进入，请在卖家处获取验证码，在此输入。
+									</div>
+									<div class="yzm_input">
+										<input type="text" placeholder="请输入验证码" name="">
+									</div>
+									<div class="yzm_but">
+										<button class="but_ok">确定</button>
+									</div>
+								</div>
 							</div>
 						</a>
 					</div>
@@ -136,7 +146,7 @@
 										竞价已结束
 									</span>
 								</div>
-							
+								
 							</div>
 						</a>
 					</div>
