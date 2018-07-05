@@ -1120,7 +1120,7 @@ class ManagerDealController extends UcenterBaseController {
                // $res['time'] = 3;
             }
 
-            echo json::encode($res);
+           // echo json::encode($res);
             exit;
         }
 

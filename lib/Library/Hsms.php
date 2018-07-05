@@ -80,16 +80,8 @@ class Hsms
 
 		if(is_array($mobile) && empty($mobile)){
 		    foreach($mobile as $key=>$item){
-                if(preg_match('/^\d{11}$/',$item) && $content) {
-                    $ip = tool::getIp();
-                    if ($ip) {
-                        $mobileKey = md5($item . $ip);
-                        $sendTime = \Library\session::get($mobileKey);
-                        if ($sendTime && time() - $sendTime < 60) {
-                            unset($mobile[$key]);
-                        }else
-                           \Library\session::set($mobileKey, time());
-                    }
+                if(!preg_match('/^\d{11}$/',$item) ||  !$content) {
+                    return false;
                 }
             }
             return self::$smsInstance->send($mobile, $content);
