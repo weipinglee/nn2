@@ -19,9 +19,20 @@
                                 </div>
                                 <div class="lefts"></div>
                                 <div class="rights"></div>  
+                                <div class="imglist">
                                 <ul class="tb-thumb" id="thumblist">
                                     <li class="tb-selected">
                                         <a class="cur" href="javascript:void(0);">
+                                            <img src="{views:images/banner/004.jpg}"/>
+                                        </a>
+                                    </li>
+                                    <li class="tb-selected">
+                                        <a  href="javascript:void(0);">
+                                            <img src="{views:images/banner/004.jpg}"/>
+                                        </a>
+                                    </li>
+                                    <li class="tb-selected">
+                                        <a href="javascript:void(0);">
                                             <img src="{views:images/banner/004.jpg}"/>
                                         </a>
                                     </li>
@@ -46,6 +57,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -127,7 +139,7 @@
                                 <span class="">5590次围观</span>
                             </div>
                             <!-- 暂未开始竞价显示申请看货提示 -->
-                            <div class="sqkh" style="display: ">
+                            <div class="sqkh" style="display: none;">
                                 申请看货请联系耐耐网客服热线 400-6238-086
                             </div>
                         </div>

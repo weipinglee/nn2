@@ -1,98 +1,68 @@
 
 /* 商品详情页图片轮换*/
  $(function() {
+    function leftanimate(n){
+        var leftJl=60*(n)
+        $(".demo .box ul").animate({
+                left:-leftJl
+            },1000);
+    }
+    function show(m){
+        var liIndex = $(".demo .box ul li.tb-selected").index()
+        var content 
+        $(".demo .box ul li").removeClass("tb-selected")
+        $(".demo .box ul li a").removeClass("cur")
+        content = $(".demo .box ul li").eq(m).find("a").html();
+        $(".tb-booth a").html(content);//增加内容
+        $(".demo .box ul li").eq(m).addClass("tb-selected")
+        $(".demo .box ul li").eq(m).find("a").addClass("cur")
+    }
+    var line = $(".demo .box ul li").length;
     $(".demo .box ul li").click(function(){
-      $(".demo .box ul li").removeClass("tb-selected")
-      $(".demo .box ul li a").removeClass("cur")
-      var li_content= $(this).find("a").html();
-          $(".tb-booth a").html(li_content);//增加内容
-          $(this).addClass("tb-selected");
-          $(this).find("a").addClass("cur");
-         
+        var idexM=$(this).index();
+        show(idexM)
+        if(line>5 && idexM>3 && line-idexM>1 ){
+            leftanimate(idexM-3)
+        }else if(line>5 && idexM<3 && line-idexM>4 && idexM !=0){
+            leftanimate(idexM-1)
+        }
+
     })
     $(".lefts").click(function(){
-    	var liIndex = $(".demo .box ul li.tb-selected").index()
-    	var content 
-    	//alert(liIndex)
-    	if(liIndex<=0){
-    		$(".demo .box ul li").removeClass("tb-selected")
-    		$(".demo .box ul li a").removeClass("cur")
-    		content = $(".demo .box ul li").eq(0).find("a").html();
-    		$(".tb-booth a").html(content);//增加内容
-    		$(".demo .box ul li").eq(0).addClass("tb-selected")
-    		$(".demo .box ul li").eq(0).find("a").addClass("cur")
-    		
-    	}else if(liIndex>0){
-    		$(".demo .box ul li").removeClass("tb-selected")
-    		$(".demo .box ul li a").removeClass("cur")
-    		content = $(".demo .box ul li").eq(liIndex-1).find("a").html();
-    		$(".tb-booth a").html(content);//增加内容
-    		$(".demo .box ul li").eq(liIndex-1).addClass("tb-selected")
-    		$(".demo .box ul li").eq(liIndex-1).find("a").addClass("cur")
+    	var leftIndex = $(".demo .box ul li.tb-selected").index()
+    	if(leftIndex<=0){
+    		show(0)
+    	}else if(leftIndex>0){           
+    		show(leftIndex-1)
+            if(line>5 && leftIndex<4 && line-leftIndex>3 && leftIndex>1){
+                leftanimate(leftIndex-2)
+            }
     	}
-    	//
+        
     })
     $(".rights").click(function(){
-    	var liIndex = $(".demo .box ul li.tb-selected").index()
+    	var rightIndex = $(".demo .box ul li.tb-selected").index()
     	var content
-    	if(4<=liIndex<0){
-    		$(".demo .box ul li").removeClass("tb-selected")
-    		$(".demo .box ul li a").removeClass("cur")
-    		content = $(".demo .box ul li").eq(0).find("a").html();
-    		$(".tb-booth a").html(content);//增加内容
-    		$(".demo .box ul li").eq(0).addClass("tb-selected")
-    		$(".demo .box ul li").eq(0).find("a").addClass("cur")
-    	}else if(liIndex<4){
-    		$(".demo .box ul li").removeClass("tb-selected")
-	  		$(".demo .box ul li a").removeClass("cur")
-	    	content = $(".demo .box ul li").eq(liIndex+1).find("a").html();
-	    	$(".tb-booth a").html(content);//增加内容
-	   		$(".demo .box ul li").eq(liIndex+1).addClass("tb-selected")
-	   		$(".demo .box ul li").eq(liIndex+1).find("a").addClass("cur")
+    	if(4<=rightIndex<0){
+    		show(0)
+    	}else if(rightIndex+1<line){
+            show(rightIndex+1)
+            if(line>5 && rightIndex>3 && line-rightIndex>2){
+                leftanimate(rightIndex-2)
+            }
     	}
+        
 	   })
-     /* 按钮加减 end*/
-    $("#add").click(function(){
-      var n=$("#num").val(); //初始值
-      if(max_num==0){
-        if(add_num<=0){
-            var num=parseInt(n)+1;
-            $("#num").val(num); 
-        }else{
-            var num=parseInt(n)+parseInt(add_num);
-            $("#num").val(num); 
-        }
-      }else if(n>=max_num && n!=0){
-        alert("亲这是最大值了！")
-      }else if(n<max_num){
-        if(add_num<=0){
-            var num=parseInt(n)+1;
-            $("#num").val(num); 
-        }else{
-            var num=parseInt(n)+parseInt(add_num);
-            $("#num").val(num); 
-        }
-      }
+    /*保证金遮罩层提示*/
+    $(".bidbond_btn .submitIn").click(function(){
+        $(".bidbond_result").fadeIn()
+        /*保证金缴纳成功，3秒跳转竞价界面*/
+        /*setTimeout(function () {
+            location.href = "";
+        },3000);*/
     });
-    $("#jian").click(function(){
-      var n=$("#num").val(); //初始值
+    $(".close,.mark").click(function(){
+         $(".bidbond_result").fadeOut()
+    })
 
-      if(n==min_num){
-        alert("亲最小值了！")
-        $("#num").val(min_num);
-      }else{
-        if(add_num<=0){
-            var num=parseInt(n)-1;
-            if(num==0){alert("不能为0!"); return}
-            $("#num").val(num);
-        }else{
-            var num=parseInt(n)-parseInt(add_num);
-            if(num==0){alert("不能为0!"); return}
-            $("#num").val(num);
-        }
-      }
-      });
-
- /* 按钮加减 end*/
-    
 });

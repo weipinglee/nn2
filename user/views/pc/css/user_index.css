@@ -282,7 +282,7 @@ text-align: left;
 .user_zhxi .zhxi_tit,.user_pay .zhxi_tit,.user_pay_tx .zhxi_tit,.user_xqbz .zhxi_tit{
     height: 35px;
     line-height: 35px;
-    border-bottom: 1px solid #EC2F2F;
+    border-bottom: 1px solid #c6c6c6;
     margin: 0 5px;
 }
 .user_zhxi .zhxi_tit p a,.user_pay .zhxi_tit p a,.user_pay_tx .zhxi_tit p a,.user_xqbz .zhxi_tit p a{
