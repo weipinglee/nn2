@@ -6,11 +6,10 @@
 
 use \Library\safe;
 use \Library\json;
-class LoginController extends InitController{//Yaf\Controller_Abstract {
+class LoginController extends Yaf\Controller_Abstract {
 
 	private $loginModel = '';
 	public function init(){
-		parent::init();
 		$this->loginModel = new loginModel();
 	}
 	/**

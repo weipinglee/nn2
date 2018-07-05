@@ -117,7 +117,7 @@ class userRisk
         if($output===false){
             return false;
         }*/
-        if(false===$ip)
+        if(!$ip)
             return false;
         $output=file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip='.$ip);
         $cityInfo=\Library\json::decode($output);
