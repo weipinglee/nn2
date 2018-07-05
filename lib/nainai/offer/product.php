@@ -585,11 +585,14 @@ class product  {
 
                 if ($id > 0) {
 
-                    $title =  $this->getMode($productOffer['mode'])  . '审核';
-                    $content = $productData[0]['name'] . $this->getMode($productOffer['mode']) . '需要审核';
+                    if($productOffer['sub_mode']!=1){
+                        $title =  $this->getMode($productOffer['mode'])  . '审核';
+                        $content = $productData[0]['name'] . $this->getMode($productOffer['mode']) . '需要审核';
 
-                    $adminMsg = new \nainai\AdminMsg();
-                    $adminMsg->createMsg('checkoffer',$id,$content,$title);
+                        $adminMsg = new \nainai\AdminMsg();
+                        $adminMsg->createMsg('checkoffer',$id,$content,$title);
+                    }
+
 
                     if ($productOffer['mode'] == self::DEPOSIT_OFFER) {
                         $operate = 'free_offer';

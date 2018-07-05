@@ -1113,6 +1113,8 @@ class ManagerDealController extends UcenterBaseController {
                 //发送短信
                 $offerObj->buyerMessageAfterDeploy($res['id']);
                 $offerObj->sellerMessageAfterDeploy($this->user_id,$productData);
+                //给后台管理员发送短信
+                $offerObj->adminMessageAfterDeploy($productData);
 
                // $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
                // $res['time'] = 3;
