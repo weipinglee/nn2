@@ -18,6 +18,11 @@ class AdminMsg extends \nainai\Abstruct\ModelAbstract{
 			'url_oper' => 'trade/offermanage/setstatus',
 			'title' => '报盘审核',
 		),
+        'jingjia'=>array(
+            'url' => 'trade/offermanage/offerdetails/id/',
+            'url_oper' => '',
+            'title' => '竞价发布',
+        ),
 		'fundoutfirst'=>array(
 			'url'=>'balance/fundout/fundOutEdit/id/',
 			'url_oper'=>'balance/fundout/firstCheck',
@@ -91,17 +96,15 @@ class AdminMsg extends \nainai\Abstruct\ModelAbstract{
      * @param $type
      * @param $content
      */
- 	private function sendShortMessage($type,$content){
+ 	public function sendShortMessage($type,$content){
 	    $obj = new M('admin_check');
 	    $checkData = $obj->where(array('checkname'=>$type))->getObj();
 	    if(isset($checkData['admin_names']) && $checkData['admin_names']!=''){
 	        $adminObj = new M('admin');
-	        $adminData = $adminObj->where(array('name'=>array('in',$checkData['admin_names'])))->fields('mobile')->select();
+	        $adminData = $adminObj->where(array('name'=>array('in',$checkData['admin_names'])))->getFields('mobile');
 	        if(!empty($adminData)){
-                foreach($adminData as $item){
-                    if($item['mobile'])
-                        \Library\hsms::send($item['mobile'],$content);
-                }
+                 \Library\hsms::send($adminData,$content);
+
             }
 
         }

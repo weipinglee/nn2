@@ -1076,7 +1076,7 @@ class ManagerDealController extends UcenterBaseController {
 
                 'accept_area' => safe::filterPost('accept_area'),
                 'accept_area_code'=> safe::filterPost('accept_area_code'),
-                'accept_day' => safe::filterPost('accept_day', 'int'),
+                'accept_day' => safe::filterPost('accept_day'),
                 'price'        => safe::filterPost('price', 'float',0),
                 'price_vip'   => safe::filterPost('price','float',0),
                 'insurance' => Safe::filterPost('insurance', 'int',''),
@@ -1113,12 +1113,14 @@ class ManagerDealController extends UcenterBaseController {
                 //发送短信
                 $offerObj->buyerMessageAfterDeploy($res['id']);
                 $offerObj->sellerMessageAfterDeploy($this->user_id,$productData);
+                //给后台管理员发送短信
+                $offerObj->adminMessageAfterDeploy($productData);
 
                // $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
                // $res['time'] = 3;
             }
 
-            echo json::encode($res);
+           // echo json::encode($res);
             exit;
         }
 

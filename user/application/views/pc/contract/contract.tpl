@@ -51,7 +51,7 @@
                     <tr style="height:35px">
                        <td style="padding:0 10px">{$info['name']}</td>
                         <td style="padding:0 10px">{$info['attrs']}</td>
-                        <td style="padding:0 10px" id='areatextarea'>{areatext:id=area data=$info['produce_area']}</td>
+                        <td style="padding:0 10px" id='areatextarea'>{areatext:id=area data=$info['produce_area']}{$info['produce_address']}</td>
                     </tr>
                 </table>
                 <div style="text-align:center">（以挂牌交易中的相关商品描述为准，或买卖双方自行约定）</div>

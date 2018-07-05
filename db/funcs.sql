@@ -189,38 +189,42 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `xinJingjiaHandle`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `xinJingjiaHandle`(IN `offer_id` int,OUT `return_status` int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `xinJingjiaHandle`(IN `offerID` int,OUT `return_status` int)
 BEGIN
 	#非由其他报盘转的竞价报盘在结束时间执行的过程
   DECLARE baojia_user INT(11) default 0;#当前报价的用户
   DECLARE mode_id   INT(11) ;#报盘模式
   DECLARE offer_num DECIMAL(15,2);#报盘数量
   DECLARE max_price DECIMAL(15,2);#报价最高价
+  DECLARE baojia_id INT(11);#价格最高的报价id
 
   DECLARE offer_status INT(2) default 1;#报盘状态
 
   #获取状态为正常且id为offer_id的竞价报盘的竞价阶段id
-  select `mode`,max_num INTO mode_id ,offer_num FROM product_offer where id = offer_id AND sub_mode=1 AND `status`=1;
+  select `mode`,max_num INTO mode_id ,offer_num FROM product_offer where id = offerID AND sub_mode=1 AND `status`=1;
   start TRANSACTION;
 
    #生成订单要重新获取最新的报价数据
-   SELECT user_id ,price INTO baojia_user,max_price FROM product_jingjia WHERE `offer_id`=offer_id ORDER BY price desc LIMIT 1;
+   SELECT user_id ,price,id INTO baojia_user,max_price,baojia_id FROM product_jingjia WHERE `offer_id`=offerID ORDER BY price desc LIMIT 1;
 
    IF baojia_user>0 THEN  #生成订单
 
         SET offer_status=6;
-        UPDATE product_offer SET `status`=offer_status WHERE id=offer_id;
+
+        UPDATE product_jingjia SET win=1 WHERE id=baojia_id LIMIT 1;
+        UPDATE product_offer SET status=offer_status,price=max_price,sell_num=offer_num  WHERE id=offerID;
+
         IF mode_id=4 THEN
-         CALL  createStoreOrder(offer_id,baojia_user, offer_num,1,max_price*offer_num,1);
+         CALL  createStoreOrder(offerID,baojia_user, offer_num,1,max_price*offer_num,1);
         ELSEIF mode_id=2 THEN
-          CALL  createDepositOrder(offer_id,baojia_user, offer_num,1,max_price*offer_num,1);
+          CALL  createDepositOrder(offerID,baojia_user, offer_num,1,max_price*offer_num,1);
         ELSEIF mode_id=1 THEN
-          CALL createFreeOrder(offer_id,baojia_user, offer_num,1,max_price*offer_num,1);
+          CALL createFreeOrder(offerID,baojia_user, offer_num,1,max_price*offer_num,1);
         END IF;
         set return_status=6;
    ELSE  #报盘改成已过期
        SET offer_status=5;
-       UPDATE product_offer SET `status`=offer_status WHERE id=offer_id;
+       UPDATE product_offer SET `status`=offer_status WHERE id=offerID;
        set return_status=5;
    END IF;
 

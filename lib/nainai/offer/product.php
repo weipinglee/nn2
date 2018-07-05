@@ -451,7 +451,7 @@ class product  {
         if(!$product_id)
             return array();
         $obj = new M('products');
-        $obj->fields('name as product_name,  attribute, produce_area, create_time, quantity,freeze,sell,cate_id, unit, id as product_id, note');
+        $obj->fields('name as product_name,  attribute, produce_area, produce_address,create_time, quantity,freeze,sell,cate_id, unit, id as product_id, note');
         $obj->where(array('id'=>$product_id));
         $detail = $obj->getObj();
 
@@ -585,11 +585,14 @@ class product  {
 
                 if ($id > 0) {
 
-                    $title =  $this->getMode($productOffer['mode'])  . '审核';
-                    $content = $productData[0]['name'] . $this->getMode($productOffer['mode']) . '需要审核';
+                    if($productOffer['sub_mode']!=1){
+                        $title =  $this->getMode($productOffer['mode'])  . '审核';
+                        $content = $productData[0]['name'] . $this->getMode($productOffer['mode']) . '需要审核';
 
-                    $adminMsg = new \nainai\AdminMsg();
-                    $adminMsg->createMsg('checkoffer',$id,$content,$title);
+                        $adminMsg = new \nainai\AdminMsg();
+                        $adminMsg->createMsg('checkoffer',$id,$content,$title);
+                    }
+
 
                     if ($productOffer['mode'] == self::DEPOSIT_OFFER) {
                         $operate = 'free_offer';

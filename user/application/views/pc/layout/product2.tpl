@@ -23,7 +23,7 @@
     <tr>
         <td><b class="required">*</b>产地：</td>
         <td colspan="2">
-            <span id="areabox">{area:data=$product['produce_area'] inputName=produce_area}</span>
+            <span id="areabox">{area:data=$product['produce_area'] inputName=area}</span>
             <span><input class="text" placeholder="请输入具体地址" value="{$product['produce_address']}" type="text" name="produce_address">
             </span>
             <span></span>

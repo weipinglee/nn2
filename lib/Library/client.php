@@ -47,7 +47,7 @@ class Client
 	    }
 
 	    preg_match("/[\d\.]{7,15}/", $realip, $match);
-	    $realip = isset($match[0]) ? $match[0] : false;
+	    $realip = isset($match[0]) ? $match[0] : '';
 	    return $realip;
 	}
 

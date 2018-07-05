@@ -509,6 +509,15 @@ class jingjiaOffer extends product{
         $hsms->send($mobile,$content);
     }
 
+    /**
+     *
+     */
+    public function adminMessageAfterDeploy($product){
+        $msgObj =  new \nainai\AdminMsg();
+        $content = '商品：'.$product['name'].'已发布竞价。请登录网站进行查看。';
+        $msgObj->sendShortMessage('jingjia',$content);
+    }
+
 
 
 

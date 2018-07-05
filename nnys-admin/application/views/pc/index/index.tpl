@@ -458,7 +458,7 @@
               CONTENT 
                         --> 
         <div class="main_content" id="content_1" >
-            <iframe class="white" scrolling="yes" frameborder="0" src="{url:index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="728px"  id="iframe" style="overflow-y:scroll;"></iframe>
+            <iframe class="white" scrolling="yes" frameborder="0" src="{url:/index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="728px"  id="iframe" style="overflow-y:scroll;"></iframe>
 
      </div>
 </div>

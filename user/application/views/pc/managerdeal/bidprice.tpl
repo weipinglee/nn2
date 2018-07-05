@@ -1,6 +1,5 @@
 ﻿<script type="text/javascript" src="{root:js/area/AreaData_min.js}" ></script>
 <script type="text/javascript" src="{root:js/area/Area.js}" ></script>
-<script type="text/javascript" src="{views:js/product/attr.js}" ></script>
 <style type="text/css">
 .required{
     padding-right: 5px;
@@ -64,7 +63,7 @@
                     </div>
                 {/foreach}
             {/if}
-            <form action="{url:/ManagerDeal/xinjingjia}" method="POST" auto_submit redirect_url="{url:/managerdeal/productlist@user}">
+            <form action="{url:/ManagerDeal/xinjingjia}" method="POST" auto_submit="1" redirect_url="{url:/managerdeal/productlist@user}">
                 {include:/layout/product2.tpl}
                 <tr>
                     <td></td>
