@@ -79,7 +79,7 @@ class Hsms
 		self::$smsInstance = self::getSmsInstance();
 		if(!$content)
 		    return false;
-		if(is_array($mobile) && empty($mobile)){
+		if(is_array($mobile) && !empty($mobile)){
 		    foreach($mobile as $key=>$item){
                 if(!preg_match('/^\d{11}$/',$item)) {
                     unset($mobile[$key]);
