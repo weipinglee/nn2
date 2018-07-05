@@ -196,6 +196,7 @@ BEGIN
   DECLARE mode_id   INT(11) ;#报盘模式
   DECLARE offer_num DECIMAL(15,2);#报盘数量
   DECLARE max_price DECIMAL(15,2);#报价最高价
+  DECLARE baojia_id INT(11);#价格最高的报价id
 
   DECLARE offer_status INT(2) default 1;#报盘状态
 
@@ -204,12 +205,15 @@ BEGIN
   start TRANSACTION;
 
    #生成订单要重新获取最新的报价数据
-   SELECT user_id ,price INTO baojia_user,max_price FROM product_jingjia WHERE `offer_id`=offerID ORDER BY price desc LIMIT 1;
+   SELECT user_id ,price,id INTO baojia_user,max_price,baojia_id FROM product_jingjia WHERE `offer_id`=offerID ORDER BY price desc LIMIT 1;
 
    IF baojia_user>0 THEN  #生成订单
 
         SET offer_status=6;
-        UPDATE product_offer SET `status`=offer_status WHERE id=offerID;
+
+        UPDATE product_jingjia SET win=1 WHERE id=baojia_id LIMIT 1;
+        UPDATE product_offer SET status=offer_status,price=max_price,sell_num=offer_num  WHERE id=offerID;
+
         IF mode_id=4 THEN
          CALL  createStoreOrder(offerID,baojia_user, offer_num,1,max_price*offer_num,1);
         ELSEIF mode_id=2 THEN
