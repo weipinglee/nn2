@@ -72,18 +72,21 @@ class Hsms
 	 * @brief 发送短信
 	 * @param string $mobile
 	 * @param string $content
-	 * @return success or fail
+	 * @return bool or int
 	 */
 	public static function send($mobile,$content)
 	{
 		self::$smsInstance = self::getSmsInstance();
-
+		if(!$content)
+		    return false;
 		if(is_array($mobile) && empty($mobile)){
 		    foreach($mobile as $key=>$item){
-                if(!preg_match('/^\d{11}$/',$item) ||  !$content) {
-                    return false;
+                if(!preg_match('/^\d{11}$/',$item)) {
+                    unset($mobile[$key]);
                 }
             }
+            if(empty($mobile))
+                return false;
             return self::$smsInstance->send($mobile, $content);
         }else{
             if(preg_match('/^\d{11}$/',$mobile) && $content) {
