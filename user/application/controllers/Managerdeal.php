@@ -1112,9 +1112,9 @@ class ManagerDealController extends UcenterBaseController {
                 $offerObj->createXinEvent($res['id']);
                 //发送短信
                 $offerObj->buyerMessageAfterDeploy($res['id']);
-                $offerObj->sellerMessageAfterDeploy($this->user_id,$productData);
+                $offerObj->sellerMessageAfterDeploy($this->user_id,$productData[0]);
                 //给后台管理员发送短信
-                $offerObj->adminMessageAfterDeploy($productData);
+                $offerObj->adminMessageAfterDeploy($productData[0]);
 
                // $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
                 $res['time'] = 3;
