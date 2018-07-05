@@ -2586,3 +2586,59 @@ cursor: pointer;
   color: #fff;
 }
 /**/
+/*遮罩层*/
+.mark{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.32);
+    opacity: 0.32;
+    z-index: 1;
+}
+.bidbond_result{
+  position: relative;
+  margin: 0 auto;
+  display: none;
+}
+.bidbond_result .result{
+  position: fixed;
+  z-index: 100;
+  top: 150px;
+  width: 497px;
+  margin-left: 100px;
+  background: #fff;
+}
+.bidbond_result .result .result_title{
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background: #f3f3f3;
+    position: relative;
+    color: #ccc;
+    font-size: 14px;
+    text-align: left;
+}
+.bidbond_result .result .result_title i.close{
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: url(../images/icon/closeIcon.png) no-repeat;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+}
+.result .result_cont{
+  text-align: center;
+  margin-bottom: 60px;
+}
+.result .result_cont .result_img{
+  margin:30px 0 20px;
+}
+.result .result_cont .result_tip{
+  font-size: 16px;
+}
+.result .result_cont .success_tip{
+  color: #ccc;
+}

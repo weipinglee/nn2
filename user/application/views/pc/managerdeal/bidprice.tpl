@@ -79,9 +79,31 @@
             </form>
         </div>
     </div>
+<!-- 遮罩层 -->
+<div class="bidbond_result">
+    <div class="mark"></div>
+    <div class="result">
+        <div class="result_title">
+            提示
+            <i class="close"></i>
+        </div>
+        <div id="resule_success" class="result_cont">
+            <div class="result_img"><img src="{views:images/icon/successIcon.png}"/></div>
+            <!-- 如果选择的是系统指定交易商 -->
+            <div class="result_tip">恭喜，您的商品竞价已发布成功！</div>
+            <!-- 如果选择的是自行指定交易商 -->
+            <div class="result_tip" style="display: none"> 恭喜，您的商品竞价已发布成功！请您将收到的含有验证码的短信转发给您指定的交易商。</div>
+            <div class="result_tip success_tip">系统将自动在3秒内跳转到商品竞价列表</div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
             $(function(){
                 getCategory({$cate_id});
+                $(".close,.mark").click(function(){
+                    $(".bidbond_result").fadeOut()
+                })
+
             })
         </script>
 
