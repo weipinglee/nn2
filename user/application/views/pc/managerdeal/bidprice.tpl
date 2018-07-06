@@ -63,14 +63,14 @@
                     </div>
                 {/foreach}
             {/if}
-            <form action="{url:/ManagerDeal/xinjingjia}" method="POST"  redirect_url="{url:/managerdeal/productlist@user}">
+            <form id="form_bidInfo">
                 {include:/layout/product2.tpl}
                 <tr>
                     <td></td>
 
                     <td colspan="2" class="btn">
                         <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
-                        <input  type="submit"  value="确定提交" />
+                        <input class="submit_form"  type="button"  value="确定提交" />
                     </td>
                 </tr>
                              
@@ -88,23 +88,53 @@
         </div>
         <div id="resule_success" class="result_cont">
             <div class="result_img"><img src="{views:images/icon/successIcon.png}"/></div>
-            <!-- 如果选择的是系统指定交易商 -->
-            <div class="result_tip">恭喜，您的商品竞价已发布成功！</div>
-            <!-- 如果选择的是自行指定交易商 -->
-            <div class="result_tip" style="display: none"> 恭喜，您的商品竞价已发布成功！请您将收到的含有验证码的短信转发给您指定的交易商。</div>
+            <div class="result_tip" id="success_text">恭喜，您的商品竞价已发布成功！</div>
             <div class="result_tip success_tip">系统将自动在3秒内跳转到商品竞价列表</div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-            $(function(){
-                getCategory({$cate_id});
-                $(".close,.mark").click(function(){
-                    $(".bidbond_result").fadeOut()
-                })
+$(function(){
+    getCategory({$cate_id});
+    var postUrl = '{url:/ManagerDeal/xinjingjia}'
+    $(".submit_form").click(function(){
+        var seleceValue=$("select[name='jingjia_mode'] ").val();
+        $.ajax({
+            type: "POST",
+            url:postUrl,
+            contentType : "application/x-www-form-urlencoded; charset=utf-8",
+            data:$("#form_bidInfo").serialize(),
+            dataType: "json",  
+            async: false,
+            success: function (msg) {
+                console.log(seleceValue,"d")
+                if(msg.success==1){
+                    //成功提交，判断所属人群，写入提示语句
+                    if(seleceValue == 0){
+                        $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！")
+                    }else{
+                        $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！请您将收到的含有验证码的短信转发给您指定的交易商。")
+                            }
+                        setTimeout(function(){//3秒后跳转
+                            $(".bidbond_result").fadeIn();
+                            location.href = "{url:/managerdeal/productlist@user}";//PC网页式跳转
+                                
+                        },3000);
+                }else{
+                    alert(msg.info)
+                }
+            },
+            error: function (msg) {
+                //alert(msg.info)
+            }
+        })
+    })
+    $(".close,.mark").click(function(){
+        $(".bidbond_result").fadeOut()
+    })
 
-            })
-        </script>
+})
+</script>
 
 
 

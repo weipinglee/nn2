@@ -2,13 +2,13 @@ body,dl,ul,ol,dd,h1,h2,h3,h4,h5,p ,table,tr,td,span{
   padding: 0px;
   margin: 0px;
   font-size: 12px;
-    font-family: 微软雅黑;
+    font-family: MicrosoftYaHei;
   color:#777;border:0;
   border-collapse:collapse;
 }
 *{
   margin: 0px;padding: 0px;
-  font-family: 微软雅黑;
+  font-family: MicrosoftYaHei;
 }
 
 /*清除ie的默认选择框样式清除，隐藏下拉箭头
@@ -22,7 +22,7 @@ a{
   cursor: pointer;
   text-decoration: none;
   color:#666;
-    font-family: 微软雅黑;
+    font-family: MicrosoftYaHei;
 }
 a:hover{
   text-decoration: none;
@@ -2628,6 +2628,7 @@ cursor: pointer;
     position: absolute;
     right: 10px;
     top: 8px;
+    cursor: pointer;
 }
 .result .result_cont{
   text-align: center;
@@ -2638,6 +2639,7 @@ cursor: pointer;
 }
 .result .result_cont .result_tip{
   font-size: 16px;
+  padding:0 20px;
 }
 .result .result_cont .success_tip{
   color: #ccc;
