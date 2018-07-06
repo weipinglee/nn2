@@ -80,13 +80,14 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
                     }
                }
           }
-
-          $data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
           if ( ! empty($this->login)) {
-               $data['login'] = 1;
+             $login_status = 1;
           }else{
-               $data['login'] = 0;
+             $login_status = 0;
+             $this->login['user_id'] = 0;
           }
+          $data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
+          $data['login'] = $login_status;
 
           // var_dump($data);exit;
           echo \Library\json::encode($data);
