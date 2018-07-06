@@ -506,7 +506,7 @@ class jingjiaOffer extends product{
 
     }
 
-    
+
     /**
      *
      */

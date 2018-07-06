@@ -1088,9 +1088,9 @@ class ManagerDealController extends UcenterBaseController {
                 'shop_id' => isset($shopInfo['id']) ? $shopInfo['id'] : '',
 
                 //竞价信息
-                'start_time'=> safe::filterPost('start_time'),
-                'end_time' => safe::filterPost('end_time'),
-                'price_l'  => safe::filterPost('price_l'),
+                'start_time'=> safe::filterPost('start_time','datetime'),
+                'end_time' => safe::filterPost('end_time','datetime'),
+                'price_l'  => safe::filterPost('price_l','float'),
                 'jing_stepprice'=> safe::filterPost('step_price'),
                 'jingjia_mode' => safe::filterPost('jingjia_mode',0)
 

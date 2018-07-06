@@ -283,7 +283,10 @@ nn_panduo.formacc.prototype = {
 
 
 	addRule :function(roles){
-		this.validObj.addRule(roles);
+		if(typeof this.validObj === 'object'){
+            this.validObj.addRule(roles);
+		}
+
 	},
 
 	addDatatype : function(name,rule){
