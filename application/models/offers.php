@@ -272,6 +272,8 @@ class offersModel extends \nainai\offer\product{
         $data = $query->find();
 		$certObj = new \nainai\cert\certificate();
         foreach ($data as $key => &$value) {
+            if($user_id!=$value['user_id'])
+                $value['jingjia_pass']='';
             $user_id = $value['type'] == \nainai\offer\product::TYPE_SELL ? $value['user_id'] : $user_id;
             $info = $value['type'] == \nainai\offer\product::TYPE_SELL ? '该卖家资质不完善,不能进行此交易' : '您的资质不完善,无法进行报价';
             $certStatus = $certObj->getCertStatus($user_id,'deal');
@@ -281,6 +283,7 @@ class offersModel extends \nainai\offer\product{
             $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
             $value['left'] = number_format(min(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']),$value['max_num']-$value['sell_num']));
             $value['left'] = $value['left'] <0 ? 0 : $value['left'];
+
         }
         //print_r($data);
         $pageBar =  $query->getPageBar();
