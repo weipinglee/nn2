@@ -113,7 +113,7 @@ $(function(){
                     if(seleceValue == 0){
                         $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！")
                     }else{
-                        $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！请您将收到的含有验证码的短信转发给您指定的交易商。")
+                        $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！请您将收到的含有竞价口令的短信转发给您指定的交易商。")
                             }
                         setTimeout(function(){//3秒后跳转
                             $(".bidbond_result").fadeIn();
