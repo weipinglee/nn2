@@ -272,8 +272,6 @@ class offersModel extends \nainai\offer\product{
         $data = $query->find();
 		$certObj = new \nainai\cert\certificate();
         foreach ($data as $key => &$value) {
-            if($user_id!=$value['user_id'])
-                $value['jingjia_pass']='';
             $user_id = $value['type'] == \nainai\offer\product::TYPE_SELL ? $value['user_id'] : $user_id;
             $info = $value['type'] == \nainai\offer\product::TYPE_SELL ? '该卖家资质不完善,不能进行此交易' : '您的资质不完善,无法进行报价';
             $certStatus = $certObj->getCertStatus($user_id,'deal');

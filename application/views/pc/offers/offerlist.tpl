@@ -247,7 +247,7 @@
                                    <a name="detail" href="{url:/Offers/offerdetails3}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 								   <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>" class="check_btn"><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
                                       <% }else if (data[i].sub_mode==1){ %>
-                                   <a  alt="<%=data[i].jingjia_mode%>" onclick="checkRight($(this),<%=data[i].id%>,<%=data[i].product_id%>,<%=data[i].jingjia_pass%>)" href="javascript:void(0);" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                   <a  alt="<%=data[i].jingjia_mode%>" onclick="checkRight($(this),<%=data[i].id%>,<%=data[i].product_id%>)" href="javascript:void(0);" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 
                                    <% } else { %>
                                    <a name="detail" href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
@@ -282,11 +282,11 @@
 
 
     <script type="text/javascript">
-        function checkRight(obj,offer_id,product_id,jingjia_pass){
+        function checkRight(obj,offer_id,product_id){
             var jingjia_mode = obj.attr('alt');
             var href = '{url:/Offers/offerdetails2}/id/'+offer_id+'/pid/'+product_id;
             var ajaxUrl = '{url:/Offers/checkpass}';
-            if(jingjia_mode===1 && jingjia_pass==''){
+            if(jingjia_mode===1 ){
                 layer.config({
                     extend: 'extend/layer.ext.js'
                 });
@@ -344,7 +344,7 @@
             }
             else{
                 //跳转
-                location.href=href+'?pass='+jingjia_pass;
+                location.href=href;
             }
 
             return false;
