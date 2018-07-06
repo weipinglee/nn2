@@ -286,7 +286,7 @@
             var jingjia_mode = obj.attr('alt');
             var href = '{url:/Offers/offerdetails2}/id/'+offer_id+'/pid/'+product_id;
             var ajaxUrl = '{url:/Offers/checkpass}';
-            if(jingjia_mode===1 ){
+            if(jingjia_mode==1 ){
                 layer.config({
                     extend: 'extend/layer.ext.js'
                 });
