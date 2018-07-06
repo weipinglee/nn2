@@ -145,6 +145,7 @@ class jingjiaOffer extends product{
         if(time::getTime()+$days * 24*3600 > time::getTime($offerData['start_time'])){
             return tool::getSuccInfo(0,'必须要有至少3天的公示时间');
         }
+
         if(time::getTime($offerData['end_time'])<=time::getTime($offerData['start_time'])){
             return tool::getSuccInfo(0,'结束时间必须大于开始时间');
         }

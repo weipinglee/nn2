@@ -121,7 +121,7 @@ $(function(){
                                 
                         },3000);
                 }else{
-                    alert(msg.info)
+                    layer.msg(msg.info)
                 }
             },
             error: function (msg) {
