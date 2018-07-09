@@ -247,7 +247,7 @@
                                    <a name="detail" href="{url:/Offers/offerdetails3}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 								   <a href="{url:/trade/check}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" no_cert="<%=data[i].no_cert%>" info="<%=data[i].info%>" class="check_btn"><img style="vertical-align:middle;"  src="{views:images/icon/ico_sc3.png}" class="ser_img" alt="下单"/></a>
                                       <% }else if (data[i].sub_mode==1){ %>
-                                   <a  alt="<%=data[i].jingjia_mode%>" onclick="checkRight($(this),<%=data[i].id%>,<%=data[i].product_id%>)" href="javascript:void(0);" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                   <a  alt="<%=data[i].jingjia_mode%>" onclick="checkRight($(this),<%=data[i].id%>,<%=data[i].product_id%>,<%=data[i].jingjia_pass%>,<%=data[i].user_id%>)" href="javascript:void(0);" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
 
                                    <% } else { %>
                                    <a name="detail" href="{url:/Offers/offerdetails}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
@@ -282,64 +282,70 @@
 
 
     <script type="text/javascript">
-        function checkRight(obj,offer_id,product_id){
+        function checkRight(obj,offer_id,product_id,jingjia_pass,user_id){
             var jingjia_mode = obj.attr('alt');
+            var login_user = {if:$user_id}{$user_id}{else:}0{/if};
             var href = '{url:/Offers/offerdetails2}/id/'+offer_id+'/pid/'+product_id;
             var ajaxUrl = '{url:/Offers/checkpass}';
-            if(jingjia_mode==1 ){
-                layer.config({
-                    extend: 'extend/layer.ext.js'
-                });
-                layer.prompt(
-                    {
-                        title:'请输入口令',
-                        formType:3,
-                        success:function(){
-                            $("input.layui-layer-input").on('keydown',function(e){
-                                // e.stopPropagation();
+            if(jingjia_mode==1){
+                if(user_id!=login_user){
+                    layer.config({
+                        extend: 'extend/layer.ext.js'
+                    });
+                    layer.prompt(
+                        {
+                            title:'请输入口令',
+                            formType:3,
+                            success:function(){
+                                $("input.layui-layer-input").on('keydown',function(e){
+                                    // e.stopPropagation();
 
-                                if (e.which === 13) {
-                                    var pass =  $("input.layui-layer-input").val();
-                                    //alert(pass);
-                                    $.ajax({
-                                        type:'post',
-                                        url:ajaxUrl,
-                                        data:{offer_id:offer_id,pass:pass},
-                                        dataType:'json',
-                                        success : function (data) {
-                                            if(data.success==1){
-                                                location.href=href+'?pass='+pass;
+                                    if (e.which === 13) {
+                                        var pass =  $("input.layui-layer-input").val();
+                                        //alert(pass);
+                                        $.ajax({
+                                            type:'post',
+                                            url:ajaxUrl,
+                                            data:{offer_id:offer_id,pass:pass},
+                                            dataType:'json',
+                                            success : function (data) {
+                                                if(data.success==1){
+                                                    location.href=href+'?pass='+pass;
+                                                }
+                                                else{
+                                                    layer.msg(data.info);
+                                                }
                                             }
-                                            else{
-                                                layer.msg(data.info);
-                                            }
+                                        })
+                                    }
+                                });
+                            },
+                            yes:function(){
+
+                                var pass = $("input.layui-layer-input").val();
+
+                                $.ajax({
+                                    type:'post',
+                                    url:ajaxUrl,
+                                    data:{offer_id:offer_id,pass:pass},
+                                    dataType:'json',
+                                    success : function (data) {
+                                        if(data.success==1){
+                                            location.href=href+'?pass='+pass;
                                         }
-                                    })
-                                }
-                            });
-                        },
-                        yes:function(){
-
-                            var pass = $("input.layui-layer-input").val();
-
-                            $.ajax({
-                                type:'post',
-                                url:ajaxUrl,
-                                data:{offer_id:offer_id,pass:pass},
-                                dataType:'json',
-                                success : function (data) {
-                                    if(data.success==1){
-                                        location.href=href+'?pass='+pass;
+                                        else{
+                                            layer.msg(data.info);
+                                        }
                                     }
-                                    else{
-                                        layer.msg(data.info);
-                                    }
-                                }
-                            });
-                        }
+                                });
+                            }
 
 
-                });
+                        });
+                }else{
+                    location.href=href+'?pass='+jingjia_pass;
+                }
+
 
             }
             else{
