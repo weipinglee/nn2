@@ -101,9 +101,19 @@ $(function(){
         label:".label",
         showAllError:true,
     })
+    function attrVal(){
+        $(".attr").each(function(i){
+           var attVal=$(this).find("input").val();
+           if(attVal == ""){
+            $(this).find("input").after('<span class="Validform_checktip Validform_wrong">请填写信息！</span>')
+           }
+        })
+    }//属性内容是否为空的提示
+
     var postUrl = '{url:/ManagerDeal/xinjingjia}'
     $(".submit_form").click(function(){
-        var seleceValue=$("select[name='jingjia_mode'] ").val();
+        var seleceValue=$("select[name='jingjia_mode'] ").val(); 
+        attrVal();
         $.ajax({
             type: "POST",
             url:postUrl,
@@ -117,13 +127,14 @@ $(function(){
                     //成功提交，判断所属人群，写入提示语句
                     if(seleceValue == 0){
                         $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！")
-                    }else{
+                    }else if(seleceValue == 1){
                         $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！请您将收到的含有竞价口令的短信转发给您指定的交易商。")
                     }
-                    $(".bidbond_result").fadeIn();
-                    setTimeout(function(){//3秒后跳转
+                    $(".bidbond_result").fadeIn(1000,function(){
+                        setTimeout(function(){//3秒后跳转
                         location.href = "{url:/managerdeal/productlist@user}";//PC网页式跳转 
-                    },5000);
+                        },3000);
+                    });
                 }else{
                     layer.msg(msg.info)
                 }
