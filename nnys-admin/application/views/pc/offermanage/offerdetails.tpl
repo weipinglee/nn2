@@ -58,7 +58,7 @@
                  <th>商品名称</th>
                  <td>{if:$info['pro_name']!=''}{$info['pro_name']}{else:}{$info['product_name']}{/if}</td>
                  <th>商品产地</th>
-                 <td id="area">{areatext: data=$info['produce_area'] id=area}</td>
+                 <td id="area">{areatext: data=$info['produce_area'] id=area}{$info['produce_address']}</td>
                  <th>记重方式</th>
                  <td>{$info['weight_type']}</td>
 
@@ -167,10 +167,17 @@
                <tr>
                  <th>申请时间</th>
                  <td>{$info['apply_time']}</td>
-                 <th>过期时间</th>
-                 <td>{$info['expire_time']}</td>
+
                  <th>补充条款</th>
                  <td>{$info['other']}</td>
+                   {if:$info['expire_time']}
+                       <th>过期时间</th>
+                       <td>{$info['expire_time']}</td>
+                       {else:}
+                       <th></th>
+                       <td></td>
+                   {/if}
+
              </tr>
 
              <tr>

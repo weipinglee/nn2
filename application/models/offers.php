@@ -188,7 +188,7 @@ class offersModel extends \nainai\offer\product{
     public function getList($page,$condition = array(),$order='',$user_id){
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id left join admin_kefu as ke on o.kefu=ke.admin_id";
-        $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze=0 || o.status=6,1,0) as jiao";
+        $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area,p.produce_address, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze=0 || o.status=6,1,0) as jiao";
         $query->group = 'o.id';
         $where = 'o.status in ('.self::OFFER_OK.','.self::OFFER_COMPLETE.','.self::OFFER_WAITINGTRADE.') and o.is_del = 0 and (now()< o.expire_time OR o.expire_time is null) ';
         $bind = array();

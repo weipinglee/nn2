@@ -1309,7 +1309,7 @@ class Order{
 	public function contractReview($offer_id,$num,$user_id = ''){
 		$query = new Query('product_offer as po');
 		$query->join = 'left join products as p on po.product_id = p.id';
-		$query->fields = 'po.type,po.sub_mode,po.mode,po.user_id as offer_user,po.price,po.price_l,po.price_vip,p.name,po.product_id,po.accept_area,po.other,p.cate_id,p.produce_area,p.unit';
+		$query->fields = 'po.type,po.sub_mode,po.mode,po.user_id as offer_user,po.price,po.price_l,po.price_vip,p.name,po.product_id,po.accept_area,po.other,p.cate_id,p.produce_area,p.produce_address,p.unit';
 		$query->where = 'po.id = :id';
 		$query->bind = array('id'=>$offer_id);
 		$res = $query->getObj();	

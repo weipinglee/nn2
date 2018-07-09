@@ -77,10 +77,13 @@
                                 <td>申请时间</td>
                                 <td>{$product['create_time']}</td>
                             </tr>
-                           <tr>
-                               <td>过期时间</td>
-                               <td>{$offer['expire_time']}</td>
-                           </tr>
+                             {if:$offer['expire_time']}
+                                 <tr>
+                                     <td>过期时间</td>
+                                     <td>{$offer['expire_time']}</td>
+                                 </tr>
+                             {/if}
+
                             <tr>
 
                                 <td>产品数量(单位)</td>
@@ -232,7 +235,7 @@
                              </tr>
                             <tr>
                                 <td>交货地址</td>
-                                <td>{$offer['accept_area']}</td>
+                                <td>{areatext:data=$offer['accept_area_code'] id=area_a}{$offer['accept_area']}</td>
                             </tr>
                            <tr>
                                <td>交收时间</td>
