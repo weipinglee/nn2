@@ -70,7 +70,7 @@
 
                     <td colspan="2" class="btn">
                         <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
-                        <input class="submit_form"  type="button"  value="确定提交" />
+                        <input class="submit_form" id="btn_sub"  type="button"  value="确定提交" />
                     </td>
                 </tr>
                              
@@ -92,10 +92,15 @@
             <div class="result_tip success_tip">系统将自动在3秒内跳转到商品竞价列表</div>
         </div>
     </div>
-</div>
 <script type="text/javascript">
 $(function(){
     getCategory({$cate_id});
+    var demo=$("#form_bidInfo").Validform({//指明是哪一表单需要验证,名称需加在form表单上;
+        btnSubmit:"#btn_sub", 
+        tiptype:3,
+        label:".label",
+        showAllError:true,
+    })
     var postUrl = '{url:/ManagerDeal/xinjingjia}'
     $(".submit_form").click(function(){
         var seleceValue=$("select[name='jingjia_mode'] ").val();
@@ -114,12 +119,11 @@ $(function(){
                         $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！")
                     }else{
                         $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！请您将收到的含有竞价口令的短信转发给您指定的交易商。")
-                            }
-                        setTimeout(function(){//3秒后跳转
-                            $(".bidbond_result").fadeIn();
-                            location.href = "{url:/managerdeal/productlist@user}";//PC网页式跳转
-                                
-                        },3000);
+                    }
+                    $(".bidbond_result").fadeIn();
+                    setTimeout(function(){//3秒后跳转
+                        location.href = "{url:/managerdeal/productlist@user}";//PC网页式跳转 
+                    },5000);
                 }else{
                     layer.msg(msg.info)
                 }

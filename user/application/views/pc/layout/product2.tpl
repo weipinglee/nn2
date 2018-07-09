@@ -7,9 +7,8 @@
     <tr>
         <td nowrap="nowrap"><b class="required">*</b>商品名称：</td>
         <td colspan="2">
-            <span><input class="text" type="text" name="warename" datatype="s1-30" value="{$product['product_name']}" errormsg="填写商品名称" >
+            <span><input class="text" type="text" name="warename" datatype="*" value="{$product['product_name']}" errormsg="填写商品名称" nullmsg="请填写信息！">
             </span>
-            <span></span>
         </td>
 
     </tr>
@@ -24,7 +23,7 @@
         <td><b class="required">*</b>产地：</td>
         <td colspan="2">
             <span id="areabox">{area:data=$product['produce_area'] inputName=area}</span>
-            <span><input class="text" placeholder="请输入具体地址" value="{$product['produce_address']}" type="text" name="produce_address">
+            <span><input class="text" placeholder="请输入具体地址" value="{$product['produce_address']}" datatype="*" errormsg="请输入地址" nullmsg="请填写信息！" type="text" name="produce_address">
             </span>
             <span></span>
         </td>
@@ -34,15 +33,14 @@
         <td><b class="required">*</b>交收地点：</td>
         <td colspan="2">
             <span id="areabox">{area:data=$product['produce_area'] id=area1 inputName=accept_area_code}</span>
-            <span><input class="text" placeholder="请输入具体地址" value="" type="text" name="accept_area">
+            <span><input class="text" placeholder="请输入具体地址" value="" type="text" name="accept_area" datatype="*" errormsg="请输入地址" nullmsg="请填写信息！">
             </span>
-            <span></span>
         </td>
     </tr>
     <tr>
     <td><b class="required">*</b>交收时间：</td>
     <td colspan="2">
-        <span><input class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="accept_day" >
+        <span><input class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="accept_day">
         <span></span>
     </td>
     </tr>
@@ -172,17 +170,16 @@
     <tr class='nowrap'>
         <td nowrap="nowrap" ><b class="required">*</b>起拍价：</td>
         <td>
-            <span><input name="price_l" id="" datatype="*" type="text" class="text" value="" /><span class="munit">￥</span></span>
+            <span><input name="price_l" id="" datatype="n" errormsg="请输入数字" nullmsg="请填写信息！" type="text"  class="text" value="" /><span class="munit">￥</span></span>
         </td>
     </tr>
     <tr class='nowrap'>
         <td nowrap="nowrap" ><b class="required">*</b>递增幅度：</td>
         <td>
-            <span><input name="step_price" datatype="*" type="text" class="text" value="" /><span class="munit">￥</span></span>
+            <span><input name="step_price" datatype="n" type="text" class="text" value="" errormsg="请输入数字" nullmsg="请填写信息！" /><span class="munit">￥</span></span>
             <span></span>
         </td>
     </tr>
-   
 
     
     
