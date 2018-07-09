@@ -88,6 +88,7 @@ class OffersController extends PublicController {
 		$this->getView()->assign('type', $type);
 		$this->getView()->assign('mode', $mode);
 		$this->getView()->assign('user_type', $this->login['user_type']);
+		$this->getView()->assign('user_id',$this->login['user_id']);
 	}
 
 

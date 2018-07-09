@@ -184,7 +184,7 @@
             </div>
             <div class="left_ringt">
                 <div class="product_details">
-                    <p><span>产地：</span><b>{areatext:data=$data['produce_area']}</b></p>
+                    <p><span>产地：</span><b>{areatext:data=$data['produce_area']}{$data['produce_address']}</b></p>
                     <p><span>卖方：</span><b>{$user['company_name']}</b></p>
                     <p><img src="{views:images/password/eye_b.png}" alt="" style="position: relative;top:5px; " />
                         <a id='contract_review' target='_blank'
@@ -479,26 +479,19 @@ function show_time(){
                             <td>起订量</td>
                             <td>{$data['minimum']}{$data['unit']}</td>
                         </tr>
-                        <tr>
-                            <td>商品单价</td>
-                            <td>{$data['price']}/{$data['unit']}</td>
-                        </tr>
+
                         <tr>
                             <th colspan="2">交收详情</th>
                         </tr>
                         <tr>
                             <td>交收时间</td>
-                            <td>成交后顺延{$data['accept_day']}天开始交收</td>
+                            <td>{$data['accept_day']}</td>
                         </tr>
                         <tr>
                             <td>交收地点</td>
-                            <td>{$data['accept_area']}</td>
+                            <td>{areatext:data=$data['accept_area_code'] id=area1 }{$data['accept_area']}</td>
                         </tr>
 
-                        <tr>
-                            <td>有效期</td>
-                            <td>{$data['expire_time']}</td>
-                        </tr>
                         <tr>
                             <td>补充条款</td>
                             <td>{$data['other']}</td>

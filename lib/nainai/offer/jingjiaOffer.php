@@ -482,14 +482,14 @@ class jingjiaOffer extends product{
             $obj->fields = 'po.*,u.true_name,p.unit';
             $offerData = $obj->getObj();
 
-
+        $hsms = new \Library\Hsms();
         //竞价模式为1，卖方自行通知,不为 1时，给买家发短信
         if($offerData['jingjia_mode']!=1){
             //获取发送的买用户
-            $userObj = new M('user');
-            $userData = $userObj->where(array('is_false'=>0,'id'=>array('neq',$offerData['user_id'])))->getFields('mobile');
+            $userObj = new M('user_rec');
+            $userData = $userObj->where(array('subject'=>'jingjia','user_id'=>array('neq',$offerData['user_id'])))->getFields('mobile');
 
-            $hsms = new \Library\Hsms();
+
             $content = "您好，您关注的商品：".$offerData['pro_name']."已发布竞价。发布企业为：".$offerData['true_name']."，竞价开始时间为：".$offerData['start_time'].".竞价结束时间为：".$offerData['end_time']."。起拍价为".$offerData['price_l']."元/".$offerData['unit']."。递增价为：".$offerData['jing_stepprice']."元/".$offerData['unit']."。竞价数量为".$offerData['max_num'].$offerData['unit']."。请您及时进入耐耐网竞价模块进行查看并参与。";
             $hsms->send($userData,$content);
         }
