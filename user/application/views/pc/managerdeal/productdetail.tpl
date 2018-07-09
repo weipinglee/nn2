@@ -239,7 +239,12 @@
                             </tr>
                            <tr>
                                <td>交收时间</td>
-                               <td>T+{$offer['accept_day']}天</td>
+                               {if:is_numeric($offer['accept_day'])}
+                                   <td>T+{$offer['accept_day']}天</td>
+                               {else:}
+                                   <td>{$offer['accept_day']}</td>
+                               {/if}
+
                            </tr>
                            <tr>
                                <td>记重方式</td>
