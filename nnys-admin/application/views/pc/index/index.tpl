@@ -132,6 +132,7 @@
                         <li><a target="content">用户管理</a>
                             <ul>
                                 <li><a href="{url:member/member/memberList}" target="content">用户列表</a></li>
+                                <li><a href="{url:member/member/userNotice}" target="content">通知用户</a></li>
                                 <li><a href="{url:member/member/OnLineList}" target="content">在线用户信息</a></li>
                                 <li><a href="{url:member/member/userlog}" target="content">用户日志列表</a></li>
                                 <li><a href="{url:member/member/userfund}" target="content">用户资金列表</a></li>
