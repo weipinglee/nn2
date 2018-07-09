@@ -62,7 +62,7 @@
 								</div>
 								<div class="yzm_con">
 									<div class="yzm_tip">
-										此竞价需输入验证码进入，请在卖家处获取验证码，在此输入。
+										此竞价需输入竞价口令进入，请在卖家处获取竞价口令 ，在此输入。
 									</div>
 									<div class="yzm_input">
 										<input type="text" placeholder="请输入验证码" name="">
