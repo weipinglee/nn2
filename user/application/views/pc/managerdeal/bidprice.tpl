@@ -95,16 +95,19 @@
 <script type="text/javascript">
 $(function(){
     getCategory({$cate_id});
+
     var demo=$("#form_bidInfo").Validform({//指明是哪一表单需要验证,名称需加在form表单上;
         btnSubmit:"#btn_sub", 
         tiptype:3,
         label:".label",
         showAllError:true,
-  
         beforeSubmit:function(curform){
             var postUrl = '{url:/ManagerDeal/xinjingjia}'
             $(".submit_form").click(function(){
                 var seleceValue=$("select[name='jingjia_mode'] ").val(); 
+                var areVal1=$("#form_bidInfo .area1 select").val()
+                var areVal2=$("#form_bidInfo .area1 select").val()
+
                 $.ajax({
                     type: "POST",
                     url:postUrl,
@@ -114,7 +117,15 @@ $(function(){
                     async: false,
                     success: function (msg) {
                         console.log(seleceValue,"d")
-                        if(msg.success==1){
+                        if(areVal1 == 0 || areVal2 == 0){
+                            if(areVal1 == 0 ){
+                                alert("产地不能为空")
+                            }else if(areVal2== 0){
+                                alert("交收地址不能为空")
+                            }
+                            return false
+                        }else{
+                           if(msg.success==1){
                             //成功提交，判断所属人群，写入提示语句
                             if(seleceValue == 0){
                                 $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！")
@@ -126,9 +137,11 @@ $(function(){
                                 location.href = "{url:/managerdeal/productlist@user}";//PC网页式跳转 
                                 },10000);
                             });
-                        }else{
-                            layer.msg(msg.info)
+                           }else{
+                             layer.msg(msg.info)
+                           } 
                         }
+                        
                     },
                     error: function (msg) {
                         //alert(msg.info)
