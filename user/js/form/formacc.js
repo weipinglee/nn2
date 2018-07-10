@@ -43,6 +43,9 @@ nn_panduo.formacc.prototype = {
 		});
 		_this.validPaymentPassword();
 	},
+	successMsg : function (a) {
+		layer.msg(a);
+    },
 
 	/**
 	 * @deprecated
@@ -199,9 +202,9 @@ nn_panduo.formacc.prototype = {
 			        	var return_data = _this.ajax_return_data;
 				        if(!_this.no_redirect){
 				        	if(return_data.info!==''){
-                                layer.msg(return_data.info);
+                                _this.successMsg(return_data.info);
 							}else{
-                                layer.msg("操作成功!稍后自动跳转");
+                                _this.successMsg("操作成功!稍后自动跳转");
 							}
 				       	   var sec = return_data.time ? return_data.time : 1;
 				        	sec = sec * 1000;
@@ -213,7 +216,7 @@ nn_panduo.formacc.prototype = {
 					            }
 				            },sec);
 				        }else{
-				          	layer.msg('操作成功！');
+                            _this.successMsg('操作成功！');
 				        }
 			        });
 			    }

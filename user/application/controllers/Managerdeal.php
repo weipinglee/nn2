@@ -1114,9 +1114,13 @@ class ManagerDealController extends UcenterBaseController {
                 $offerObj->MessageAfterDeploy($res['id']);
                 //给后台管理员发送短信
                 $offerObj->adminMessageAfterDeploy($productData[0]);
+                if($offerData['jingjia_mode']==1){
+                    $res['info'] = '恭喜，您的商品竞价已发布成功！请您将收到的含有竞价口令的短信转发给您指定的交易商。';
+                }else{
+                    $res['info'] = "恭喜，您的商品竞价已发布成功！";
+                }
 
-               // $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
-                $res['time'] = 3;
+                $res['time'] = 10;
             }
 
             echo json::encode($res);

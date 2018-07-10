@@ -32,7 +32,7 @@
     <tr>
         <td><b class="required">*</b>交收地点：</td>
         <td colspan="2">
-            <span class="area2" id="areabox">{area:data=$product['produce_area'] id=area1 inputName=accept_area_code}</span>
+            <span class="area2" id="areabox1">{area:data=$product['produce_area'] id=area1 inputName=accept_area_code}</span>
             <span><input class="text" placeholder="请输入具体地址" value="" type="text" name="accept_area" datatype="*" errormsg="请输入地址" nullmsg="请填写信息！">
             </span>
         </td>

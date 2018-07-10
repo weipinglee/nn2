@@ -63,14 +63,14 @@
                     </div>
                 {/foreach}
             {/if}
-            <form id="form_bidInfo">
+            <form id="form_bidInfo" action="{url:/ManagerDeal/xinjingjia}" method="POST" auto_submit="1" redirect_url="{url:/ManagerDeal/productlist}">
                 {include:/layout/product2.tpl}
                 <tr>
                     <td></td>
 
                     <td colspan="2" class="btn">
                         <input type="hidden" name='cate_id' id="cate_id" value="{$cate_id}">
-                        <input class="submit_form" id="btn_sub"  type="button"  value="确定提交" />
+                        <input class="submit_form" id="btn_sub"  type="submit"  value="确定提交" />
                     </td>
                 </tr>
                              
@@ -95,64 +95,11 @@
 <script type="text/javascript">
 $(function(){
     getCategory({$cate_id});
+    formacc.successMsg = function(a) {
+        $(".bidbond_result #resule_success #success_text").html(a);
+        $(".bidbond_result").fadeIn(1000);
+    };
 
-    var demo=$("#form_bidInfo").Validform({//指明是哪一表单需要验证,名称需加在form表单上;
-        btnSubmit:"#btn_sub", 
-        tiptype:3,
-        label:".label",
-        showAllError:true,
-        beforeSubmit:function(curform){
-            var postUrl = '{url:/ManagerDeal/xinjingjia}'
-            $(".submit_form").click(function(){
-                var seleceValue=$("select[name='jingjia_mode'] ").val(); 
-                var areVal1=$("#form_bidInfo .area1 select").val()
-                var areVal2=$("#form_bidInfo .area1 select").val()
-
-                $.ajax({
-                    type: "POST",
-                    url:postUrl,
-                    contentType : "application/x-www-form-urlencoded; charset=utf-8",
-                    data:$("#form_bidInfo").serialize(),
-                    dataType: "json",  
-                    async: false,
-                    success: function (msg) {
-                        console.log(seleceValue,"d")
-                        if(areVal1 == 0 || areVal2 == 0){
-                            if(areVal1 == 0 ){
-                                alert("产地不能为空")
-                            }else if(areVal2== 0){
-                                alert("交收地址不能为空")
-                            }
-                            return false
-                        }else{
-                           if(msg.success==1){
-                            //成功提交，判断所属人群，写入提示语句
-                            if(seleceValue == 0){
-                                $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！")
-                            }else if(seleceValue == 1){
-                                $(".bidbond_result #resule_success #success_text").html("恭喜，您的商品竞价已发布成功！请您将收到的含有竞价口令的短信转发给您指定的交易商。")
-                            }
-                            $(".bidbond_result").fadeIn(1000,function(){
-                                setTimeout(function(){//10秒后跳转
-                                location.href = "{url:/managerdeal/productlist@user}";//PC网页式跳转 
-                                },10000);
-                            });
-                           }else{
-                             layer.msg(msg.info)
-                           } 
-                        }
-                        
-                    },
-                    error: function (msg) {
-                        //alert(msg.info)
-                    }
-                })
-            })
-        }
-    })
-    $(".close,.mark").click(function(){
-        $(".bidbond_result").fadeOut()
-    })
 
 })
 </script>
