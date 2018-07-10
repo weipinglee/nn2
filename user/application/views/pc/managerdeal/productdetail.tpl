@@ -90,63 +90,7 @@
                                 <td class="end_td">{$offer['max_num']}（{$product['unit']}）</td>
 
                             </tr>
-                             {if:!empty($offer['jingjia_stage'])}
-                                 <tr>
-                                     <td class="spmx_title" colspan="2">竞价阶段</td>
-                                 </tr>
-                                 {foreach:items=$offer['jingjia_stage']}
-                                     <tr>
-                                         <td colspan="2">
 
-                                             <span class="col12aa07">第{echo:$key+1}阶段</span>
-
-                                         </td>
-                                     </tr>
-                                     <tr>
-                                         <td>邀请方式</td>
-                                         <td>
-                                             <span></span>
-                                         </td>
-                                     </tr>
-                                     <tr>
-                                         <td>开始时间</td>
-                                         <td>
-                                             <span>{$item['start_time']}</span>
-                                         </td>
-                                     </tr>
-                                     <tr>
-                                         <td>结束时间</td>
-                                         <td>
-                                             <span>{$item['end_time']}</span>
-                                         </td>
-                                     </tr>
-                                     <tr>
-                                         <td>起拍价</td>
-                                         <td>
-                                             <span>{$item['price_l']}</span>
-                                         </td>
-                                     </tr>
-                                     <tr>
-                                         <td>递增价</td>
-                                         <td>
-                                             <span>{$item['price_step']}</span>
-                                         </td>
-                                     </tr>
-                                     <tr>
-                                         <td>验证码</td>
-                                         <td>
-                                             <span>{$item['pass']}</span>
-                                         </td>
-                                     </tr>
-                                     <tr>
-                                         <td>当前阶段结束后有报价</td>
-                                         <td>
-                                             <span>{if:$item['always_next']==1}转入下一阶段{else:}成交{/if}</span>
-                                         </td>
-                                     </tr>
-                                 {/foreach}
-
-                             {/if}
                             <tr>
                                 <td class="spmx_title" colspan="2">报盘详情</td>
                             </tr>
@@ -225,14 +169,17 @@
                                    <td>{$offer['minstep']}</td>
                                </tr>
                            {/if}
-                            <tr>
-                                 <td>商品单价</td>
-                                 <td>￥{$offer['price']}</td>
-                             </tr>
-                             <tr>
-                                 <td>会员单价</td>
-                                 <td>￥{$offer['price_vip']}</td>
-                             </tr>
+                             {if:$offer['sub_mode']!=1}
+                                 <tr>
+                                     <td>商品单价</td>
+                                     <td>￥{$offer['price']}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>会员单价</td>
+                                     <td>￥{$offer['price_vip']}</td>
+                                 </tr>
+                             {/if}
+
                             <tr>
                                 <td>交货地址</td>
                                 <td>{areatext:data=$offer['accept_area_code'] id=area_a}{$offer['accept_area']}</td>
@@ -262,6 +209,12 @@
                                    <td>{$offer['end_time']}</td>
                                </tr>
                            {/if}
+                             {if:$offer['sub_mode']==1 && $offer['price_l']}
+                                 <tr>
+                                     <td>起拍价</td>
+                                     <td>￥{$offer['price_l']}</td>
+                                 </tr>
+                             {/if}
                            {if:$offer['jing_stepprice']}
                                <tr>
                                    <td>递增价格</td>
