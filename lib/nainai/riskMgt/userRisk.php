@@ -122,7 +122,7 @@ class userRisk
         $output=file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip='.$ip);
         $cityInfo=\Library\json::decode($output);
         if(!is_array($cityInfo)){return false;}
-        $cityInfo['data']['province'] = $cityInfo['region'];
+        $cityInfo['data']['province'] = $cityInfo['data']['region'];
         return $cityInfo['data'];
     }
     //写入预警记录
