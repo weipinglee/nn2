@@ -101,6 +101,10 @@ $(function(){
     };
 
 
+    $(".close,.mark").click(function(){
+        $(".bidbond_result").fadeOut()
+    })
+
 })
 </script>
 
