@@ -103,7 +103,7 @@ $(function(){
         showAllError:true,
         beforeSubmit:function(curform){
             var postUrl = '{url:/ManagerDeal/xinjingjia}'
-            $(".submit_form").click(function(){
+            /*$(".submit_form").click(function(){*/
                 var seleceValue=$("select[name='jingjia_mode'] ").val(); 
                 var areVal1=$("#form_bidInfo .area1 select").val()
                 var areVal2=$("#form_bidInfo .area1 select").val()
@@ -147,8 +147,8 @@ $(function(){
                         //alert(msg.info)
                     }
                 })
-            })
-        }
+            /*})
+*/        }
     })
     $(".close,.mark").click(function(){
         $(".bidbond_result").fadeOut()
