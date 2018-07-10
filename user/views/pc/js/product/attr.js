@@ -210,7 +210,7 @@ function getCategory(cate,attr){
                     if(v.type==1){
                         attr_box.children('td').eq(0).html('<b class="required">*</b>'+v.name+'：');
 
-                        attr_box.children('td').eq(1).html(' <input class="text" type="text"  name="attribute['+ v.id+']" value="'+attr_value+'"  datatype="*" />');
+                        attr_box.children('td').eq(1).html('<span> <input class="text" type="text"  name="attribute['+ v.id+']" value="'+attr_value+'"  datatype="*" /></span>');
                     }
                     else if(v.type==2){//2是单选
                         var radio = v.value.split(',');
