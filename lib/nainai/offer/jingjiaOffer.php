@@ -164,6 +164,7 @@ class jingjiaOffer extends product{
         }
         $offerData['sub_mode'] = 1;
         $offerData['status'] = 1;
+        $offerData['jingjia_deposit'] = $this->getDeposit($offerData);
         $insert = $this->insertOffer($productData,$offerData);
 
         if( is_numeric($insert) && $insert>0){
@@ -519,6 +520,46 @@ class jingjiaOffer extends product{
         $msgObj =  new \nainai\AdminMsg();
         $content = '商品：'.$product['name'].'已发布竞价。请登录网站进行查看。';
         $msgObj->sendShortMessage('jingjia',$content);
+    }
+
+    /**
+     * 获取竞价保证金数额
+     * @param $offerData
+     * @return float
+     */
+    private function getDeposit($offerData){
+        $rate = 0.1;
+        $amount = round(bcmul($offerData['price_l'],$offerData['max_num'],0)*$rate);
+
+        if($amount>100){
+            $amount = round($amount,-2);
+        }
+        return $amount;
+    }
+
+    public function checkDeposit($offerId,$user_id){
+        $compareData = array('amount'=>0,'acc_no'=>'');
+        //查找报盘保证金数额，报盘申请的时间
+        $offerData = $this->offerDetail($offerId);
+        if(empty($offerData)){
+            return tool::getSuccInfo(0,'竞价不存在');
+        }
+
+
+        $payLogObj = new \nainai\user\UserPaylog();
+        $payLogObj->subject = 'jingjia';
+        $payLogObj->user_id = $user_id;
+        $payLogObj->subject_id = $offerId;
+
+        //比对的金额
+        $compareData['amount'] = $offerData['jingjia_deposit'];
+        //查询银行流水记录，如果有匹配记录，写入pay_log
+        $dateObj = new \DateTime();
+        $dateObj->sub(new \DateInterval('P7D'));
+
+        $startDate = $dateObj->format('Y-m-d');
+
+        $res = $payLogObj->createMatchLog($startDate,'',$compareData['amount']);
     }
 
 
