@@ -40,7 +40,7 @@
     <tr>
     <td><b class="required">*</b>交收时间：</td>
     <td colspan="2">
-        <span><input class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="accept_day">
+        <span>T+<input class="text" datatype="*" value="" type="text"  name="accept_day" />天</span>
         <span></span>
     </td>
     </tr>
