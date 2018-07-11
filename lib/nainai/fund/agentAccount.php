@@ -372,5 +372,10 @@ class agentAccount extends account{
         // TODO: Implement marketToUser() method.
     }
 
+    public function marketFlow($conf = array())
+    {
+        // TODO: Implement marketFlow() method.
+    }
+
 
 }

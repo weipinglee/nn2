@@ -102,5 +102,6 @@ abstract class account{
      */
     abstract protected function transSigninfo($user_id);
 
+    abstract protected function marketFlow($conf=array());
 
 }

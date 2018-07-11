@@ -159,21 +159,27 @@ class js extends account{
      */
     public function getFundFlow($user_id=0,$cond=array())
     {
+        return false;
+    }
+
+    /**
+     * 获取市场账号流水
+     * @param array $conf
+     */
+    public function marketFlow($conf = array())
+    {
         try {
             $code = '3FC007';
             if (!isset($cond['start']))
                 $cond['start'] = '20000101';
             if (!isset($cond['end'])) {
-                $cond['end'] = time::getDateTime('YMD');
+                $cond['end'] = time::getDateTime('Ymd');
             }
-            $accInfo = $this->attachAccount->attachInfo($user_id, $this->bankName);
-            if (empty($accInfo)) {
-                throw new \Exception('该建行账户不存在');
-            }
+
             $bodyParams = array(
-                'FUNC_CODE' => 1,
+                'FUNC_CODE' => 2,//查询商户流水
                 'MCH_NO' => $this->mainacc,
-                'SIT_NO' => $accInfo['no'],//获取用户席位号
+                'MCH_SIT_TYP' => 1,
                 'STRT_DT' => $cond['start'],
                 'END_DT' => $cond['end'],
                 'INQ_AMT_TYP' => 0
@@ -189,7 +195,6 @@ class js extends account{
             return $e->getMessage();
         }
     }
-
 
 
     /**
