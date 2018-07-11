@@ -16,7 +16,7 @@ class UserPaylog
 
     protected $subjects = array();//主题的取值
 
-    protected $bankObj = null;
+    public $bankObj = null;
 
     public $subject = '';
     public $subject_id = 0;
@@ -27,7 +27,9 @@ class UserPaylog
     public function __construct()
     {
         $this->subjects = array('jingjia');
-        $this->bankObj = new \nainai\fund\js();
+         $this->bankObj = new \nainai\fund\js();
+
+
     }
 
     public function __set($name, $value)

@@ -11,7 +11,14 @@ namespace tests\mock;
 class testAccount {
 
 
+    public $flow = array();
 
+    public function __set($name, $value)
+    {
+        switch($name){
+            case 'flow':$this->flow = $value;
+        }
+    }
 
     public function createMessageProduct()
     {
@@ -168,6 +175,10 @@ class testAccount {
     public function marketToUser($user_id, $num,$note='')
     {
         // TODO: Implement marketToUser() method.
+    }
+
+    public function marketFlow(){
+          return $this->flow;
     }
 
 
