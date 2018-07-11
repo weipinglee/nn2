@@ -40,7 +40,7 @@
     <tr>
     <td><b class="required">*</b>交收时间：</td>
     <td colspan="2">
-        <span><input class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-#{%d+1}'})" name="accept_day">
+        <span><input class="text" datatype="float" value="" type="text"  name="accept_day" /> <span class="tip">输入成交后多少天完成交收</span>
         <span></span>
     </td>
     </tr>
