@@ -24,6 +24,8 @@ class UserPaylogTest extends base
     public static  function setUpBeforeClass(){
 
     }
+
+    //银行流水数据
     protected $bankLog = array(
         array(
             'TX_DT'=>'20180510',
@@ -52,7 +54,7 @@ class UserPaylogTest extends base
             'CRDR_IDEN'=>'1',
             'TX_AMT'=>350,
             'ACCT_BAL'=>0,
-            'OP_ACCT_NO_32'=>'62262645632145222222',//账号
+            'OP_ACCT_NO_32'=>'62262645632145222222',//账号，用户开户账号尾号66666，与此不匹配
             'OP_CUST_NAME'=>'李卫平',
             'TX_LOG_NO'=>'1234567890002',
             'CTRT_NO'=>'',
@@ -66,6 +68,8 @@ class UserPaylogTest extends base
     {
         parent::__construct();
         $this->initData = array('acc_no'=>'62262645632145666666');
+
+        //用户开户类的桩件，方法返回开户账号
         $userBankStub = $this->createMock(UserBank::class);
         $userBankStub->method("getActiveBankInfo")->willReturn(array('card_no'=>$this->initData['acc_no']));
 
@@ -74,8 +78,6 @@ class UserPaylogTest extends base
         $bankObjStub->method("marketFlow")->willReturn($this->bankLog);
 
         $this->Obj = new \nainai\user\UserPaylog($bankObjStub,$userBankStub);
-        $this->dbObj = new \Library\M('');
-
 
 
 
@@ -127,7 +129,7 @@ class UserPaylogTest extends base
 
 
 
-        /**为subject_id为3的offer匹配，金额350，账号尾号还是66666，没有可匹配的记录**/
+        /**为subject_id为3的offer匹配，金额350，用户账号尾号还是66666，没有可匹配的记录**/
         $this->Obj->subject = 'jingjia';
         $this->Obj->subject_id = 3;
         $this->Obj->user_id = 36;
@@ -144,11 +146,6 @@ class UserPaylogTest extends base
             'user_id'=>36,
             'subject'=>'jingjia',
             'subject_id'=>3,
-            'acc_no'=>'62262645632145222222',
-            'acc_name'=>'李卫平',
-            'pay_total'=>$amount,
-            'bank_flow'=>'1234567890002',
-            'status'=>1
         );
         $this->notSeeInDatabase('user_pay_log',$expectData);
     }
