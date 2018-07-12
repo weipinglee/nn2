@@ -14,7 +14,7 @@ class UserPaylog
 
     protected $tabalName = 'user_pay_log';
 
-    protected $subjects = array();//Ö÷ÌâµÄÈ¡Öµ
+    protected $subjects = array();//ä¸»é¢˜çš„å–å€¼
 
     public $bankObj = null;
 
@@ -47,47 +47,47 @@ class UserPaylog
 
 
     /**
-     * ÉÌÆ·ÑéÖ¤¹æÔò
+     * å•†å“éªŒè¯è§„åˆ™
      * @var array
      */
     protected $rules = array(
-        array('user_id','number','ÓÃ»§id±ØĞëÊÇÊı×Ö'),
-        array('subject','/^[a-zA-Z0-9_]+$/','Ö§¸¶¼ÇÂ¼Ö÷Ìâ±ØĞëÊÇÓ¢ÎÄ×ÖÄ¸»òÊı×Ö'),
-       // array('acc_bank','require','ÕËºÅËùÊôÒøĞĞ±ØÌî'),
-        array('acc_no','require','ÕËºÅ±ØÌî'),
-        array('subject_id', 'number', 'Ö÷Ìâid±ØĞëÊÇÊı×Ö')
+        array('user_id','number','ç”¨æˆ·idå¿…é¡»æ˜¯æ•°å­—'),
+        array('subject','/^[a-zA-Z0-9_]+$/','æ”¯ä»˜è®°å½•ä¸»é¢˜å¿…é¡»æ˜¯è‹±æ–‡å­—æ¯æˆ–æ•°å­—'),
+       // array('acc_bank','require','è´¦å·æ‰€å±é“¶è¡Œå¿…å¡«'),
+        array('acc_no','require','è´¦å·å¿…å¡«'),
+        array('subject_id', 'number', 'ä¸»é¢˜idå¿…é¡»æ˜¯æ•°å­—')
     );
 
 
     public function createMatchLog($startDate,$endDate='',$amount){
         $where = array('subject'=>$this->subject,'subject_id'=>$this->subject_id,'user_id'=>$this->user_id);
         $log = $this->getOneLog($where);
-        if(!empty($log) && $log['bank_flow']!=''){//ÒÑ¾­¹ØÁªÁ÷Ë®ºÅ£¬²»ÄÜÔÙ´Î¹ØÁª
-            return tool::getSuccInfo(0,'²»ÒªÖØ¸´¹ØÁª');
+        if(!empty($log) && $log['bank_flow']!=''){//å·²ç»å…³è”æµæ°´å·ï¼Œä¸èƒ½å†æ¬¡å…³è”
+            return tool::getSuccInfo(0,'ä¸è¦é‡å¤å…³è”');
         }
-        //»ñÈ¡±È¶ÔµÄÕËºÅ
+        //è·å–æ¯”å¯¹çš„è´¦å·
         $compareData = $this->getCompareAcc($this->user_id);
 
         if(empty($compareData)){
-            return tool::getSuccInfo(0,'ÇëÏÈ¿ª»§');
+            return tool::getSuccInfo(0,'è¯·å…ˆå¼€æˆ·');
         }
 
         $matchFlow = $this->findMatchFlow($startDate,$endDate,$compareData['acc_no'],$amount);
 
-        if($matchFlow['acc_no']){//ÓĞÆ¥ÅäµÄÁ÷Ë®
+        if($matchFlow['acc_no']){//æœ‰åŒ¹é…çš„æµæ°´
             $where = array('subject'=>'jingjia','subject_id'=>$this->subject_id,'user_id'=>$this->user_id);
             $res = $this->existUpdateElseInsert($matchFlow,$where);
             if($res){
                 return tool::getSuccInfo();
             }else{
-                return tool::getSuccInfo(0,'Æ¥ÅäÊ§°Ü');
+                return tool::getSuccInfo(0,'åŒ¹é…å¤±è´¥');
             }
         }else{
-            return tool::getSuccInfo(0,'Ã»ÓĞÆ¥ÅäµÄ½É·Ñ¼ÇÂ¼');
+            return tool::getSuccInfo(0,'æ²¡æœ‰åŒ¹é…çš„ç¼´è´¹è®°å½•');
         }
     }
     /**
-     * ¸ù¾İÖ÷ÌâºÍid»ñÈ¡Ò»ÌõÖ§¸¶¼ÇÂ¼
+     * æ ¹æ®ä¸»é¢˜å’Œidè·å–ä¸€æ¡æ”¯ä»˜è®°å½•
      * @param $subject
      * @param $id
      * @return array
@@ -99,7 +99,7 @@ class UserPaylog
     }
 
     /**
-     * »ñÈ¡±È¶ÔµÄÕË»§ĞÅÏ¢,¿ª»§ĞÅÏ¢ÖĞµÄÕËºÅ
+     * è·å–æ¯”å¯¹çš„è´¦æˆ·ä¿¡æ¯,å¼€æˆ·ä¿¡æ¯ä¸­çš„è´¦å·
      * @param $user_id
      * @return array
      */
@@ -116,7 +116,7 @@ class UserPaylog
 
 
     /**
-     * »ñÈ¡Ê±¼ä¶ÎÄÚµÄÒøĞĞÁ÷Ë®
+     * è·å–æ—¶é—´æ®µå†…çš„é“¶è¡Œæµæ°´
      * @param $startDate
      * @param string $endDate
      * @return array|string
@@ -144,7 +144,7 @@ class UserPaylog
 
 
     /**
-     * ·µ»ØÔÚÒ»¸öÊ±¼ä¶ÎÄÚÓëÕË»§¡¢½ğ¶îÆ¥ÅäµÄÁ÷Ë®
+     * è¿”å›åœ¨ä¸€ä¸ªæ—¶é—´æ®µå†…ä¸è´¦æˆ·ã€é‡‘é¢åŒ¹é…çš„æµæ°´
      * @param $startDate
      * @param string $endDate
      * @param $acc_no
@@ -153,7 +153,7 @@ class UserPaylog
      */
     public function findMatchFlow($startDate,$endDate='',$acc_no,$amount){
         $flow = $this->bankFlow($startDate,$endDate);
-        $res = array(
+        $resData = array(
             'acc_no'=>'',
             'acc_name'=>'',
             'pay_total'=>0,
@@ -162,36 +162,36 @@ class UserPaylog
         );
         if(!empty($flow)){
             foreach($flow as $item){
-                //Èç¹ûÕË»§Óë½»Ò×½ğ¶îºÍÌá¹©µÄÕËºÅ½ğ¶îÆ¥Åä
+                //å¦‚æœè´¦æˆ·ä¸äº¤æ˜“é‡‘é¢å’Œæä¾›çš„è´¦å·é‡‘é¢åŒ¹é…
                 $tempAccNo = $item['OP_ACCT_NO_32'];
                 $tempAmount = $item['TX_AMT'];
                 $tempAccName = $item['OP_CUST_NAME'];
                 $tempFlow = $item['TX_LOG_NO'];
                 $tempPayTime = substr($item['TX_DT'].$item['TX_TM'],0,-3);
                 if($tempAccNo==$acc_no && bccomp($amount,$tempAmount,2)==0){
-                    //È»ºóÔÙÅĞ¶ÏÕâ¸öÁ÷Ë®ÔÚpay_log±íÖĞÊÇ·ñ´æÔÚ£¬ÒÑ´æÔÚÔò²»ÄÜÊ¹ÓÃ
-                    $res = $this->getOneLog(array('bank_flow'=>$tempFlow))->getObj();
-                    if(empty($res)){//Èç¹ûÎª¿Õ£¬¸ÃÁ÷Ë®¿ÉÓÃ
-                        $res['acc_no'] = $acc_no;
-                        $res['acc_name'] = $tempAccName;
-                        $res['pay_total'] = $amount;
-                        $res['bank_flow'] = $tempFlow;
-                        //×ª»»Ê±¼ä¸ñÊ½
+                    //ç„¶åå†åˆ¤æ–­è¿™ä¸ªæµæ°´åœ¨pay_logè¡¨ä¸­æ˜¯å¦å­˜åœ¨ï¼Œå·²å­˜åœ¨åˆ™ä¸èƒ½ä½¿ç”¨
+                    $res = $this->getOneLog(array('bank_flow'=>$tempFlow));
+                    if(empty($res)){//å¦‚æœä¸ºç©ºï¼Œè¯¥æµæ°´å¯ç”¨
+                        $resData['acc_no'] = $acc_no;
+                        $resData['acc_name'] = $tempAccName;
+                        $resData['pay_total'] = $amount;
+                        $resData['bank_flow'] = $tempFlow;
+                        //è½¬æ¢æ—¶é—´æ ¼å¼
                         $dateObj = new \DateTime($tempPayTime);
                         $dateObj->createFromFormat('YmdHis',$tempPayTime);
-                        $res['pay_time'] = $dateObj->format('Y-m-d H:i:s');
-                        $res['status'] = 1;//±íÊ¾ÒÑ½ÉÄÉ
-
+                        $resData['pay_time'] = $dateObj->format('Y-m-d H:i:s');
+                        $resData['status'] = 1;//è¡¨ç¤ºå·²ç¼´çº³
+                        break;
                     }
                 }
             }
         }
-        return $res;
+        return $resData;
 
     }
 
     /**
-     * whereÌõ¼şµÄ¼ÇÂ¼´æÔÚÔò¸üĞÂ£¬²»´æÔÚÔò²åÈë
+     * whereæ¡ä»¶çš„è®°å½•å­˜åœ¨åˆ™æ›´æ–°ï¼Œä¸å­˜åœ¨åˆ™æ’å…¥
      * @param $data
      * @param $where
      */

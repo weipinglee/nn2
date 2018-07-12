@@ -18,7 +18,10 @@ class base extends TestCase
     {
         parent::__construct();
 
+    }
 
+    public function testInit(){
+        $this->assertEquals(1,1);
     }
 
 
