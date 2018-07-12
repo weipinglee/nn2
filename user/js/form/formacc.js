@@ -416,28 +416,32 @@ $(function(){
 	formacc.bind_confirm();
 	formacc.buttonSubmit();
 	formacc.form_init();
-	//地址验证，根据是两级或三级动态调整验证规则
-	if($('#areabox,#areaboxt').length && $('#areabox,#areaboxt').length>0){
-		$('#areabox,#areaboxt').find('select').on('change',function(){
-			var num = $('#areabox,#areaboxt').find('select:visible').length;
-			var rules = [{
-				ele:"input[name=area]",
-				datatype:"n"+num*2+"-6",
-				nullmsg:"请选择地址！",
-				errormsg:"请选择地址！"
-			}];
-			formacc.addRule(rules);
+	formacc.addressRule = function(spanID){
+        if($('#'+spanID).length && $('#'+spanID).length>0){
+            $('#'+spanID).find('select').on('change',function(){
+                var num = $('#'+spanID).find('select:visible').length;
+                var rules = [{
+                    ele:"#"+spanID+" input",
+                    datatype:"n"+num*2+"-6",
+                    nullmsg:"请选择地址！",
+                    errormsg:"请选择地址！"
+                }];
+                formacc.addRule(rules);
 
-		})
-		//为地址选择框添加验证规则
-		var rules = [{
-			ele:"input[name=area]",
-			datatype:"n2-6",
-			nullmsg:"请选择地址！",
-			errormsg:"请选择地址！"
-		}];
-		formacc.addRule(rules);
-	}
+            })
+            //为地址选择框添加验证规则
+            var rules = [{
+                ele:"#"+spanID+" input",
+                datatype:"n2-6",
+                nullmsg:"请选择地址！",
+                errormsg:"请选择地址！"
+            }];
+            formacc.addRule(rules);
+        }
+	};
+    formacc.addressRule('areabox');
+    formacc.addressRule('areaboxt');
+
 
 
 

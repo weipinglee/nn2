@@ -117,13 +117,13 @@ class userRisk
         if($output===false){
             return false;
         }*/
-        return false;
         if(!$ip)
             return false;
-        $output=file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip='.$ip);
+        $output=file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip='.$ip);
         $cityInfo=\Library\json::decode($output);
         if(!is_array($cityInfo)){return false;}
-        return $cityInfo;
+        $cityInfo['data']['province'] = $cityInfo['data']['region'];
+        return $cityInfo['data'];
     }
     //写入预警记录
     /**

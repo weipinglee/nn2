@@ -936,7 +936,7 @@ class Order{
 				$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
 				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order['user_id'];
 				if($order['pay_deposit']>0 && $reduceData['reduce_amount'] >= $order['pay_deposit'])
-					return tool::getSuccInfo(0,'扣减货款不能超过或等于定金数额'.$order['pay_deposit']);
+					return tool::getSuccInfo(0,'扣减货款不能超过或等于全款数额'.$order['pay_deposit']);
 				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'操作用户错误');
 				$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//状态置为买家已确认质量
@@ -1339,7 +1339,7 @@ class Order{
 	public function contractDetail($id,$identity = 'buyer'){
 		$query = new Query('order_sell as do');
 		$query->join  = 'left join product_offer as po on do.offer_id = po.id left join user as u on u.id = do.user_id left join products as p on po.product_id = p.id left join product_category as pc on p.cate_id = pc.id';
-		$query->fields = 'do.*,po.type,po.other,po.price_vip,p.name,po.price,po.price_l,do.amount,p.unit,po.product_id,po.accept_area,p.cate_id,p.img,p.produce_area,pc.name as cate_name,po.user_id as seller_id';
+		$query->fields = 'do.*,po.type,po.other,po.price_vip,p.name,po.price,po.price_l,do.amount,p.unit,po.product_id,po.accept_area,p.cate_id,p.img,p.produce_area,p.produce_address,pc.name as cate_name,po.user_id as seller_id';
 		$query->where = 'do.id=:id';
 		$query->bind = array('id'=>$id);
 		$res = $query->getObj();

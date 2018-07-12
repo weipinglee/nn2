@@ -494,12 +494,16 @@ class jingjiaOffer extends product{
             $hsms->send($userData,$content);
         }
 
+
+        //给卖方发短信
+        $userObj = new M('user');
+        $mobile = $userObj->where(array('id' => $offerData['user_id']))->getField('mobile');
         if($offerData['jingjia_mode']==1) {
-            //给卖方发短信
-            $userObj = new M('user');
-            $mobile = $userObj->where(array('id' => $offerData['user_id']))->getField('mobile');
             $content = '我是' . $offerData['true_name'] . ',现邀请您参与'.$offerData['start_time'].
-                '开始的'.$offerData['pro_name'].'的竞价，参与验证码为'.$offerData['jingjia_pass'].',请登录耐耐网竞价。';
+                '开始的'.$offerData['pro_name'].'的竞价，竞价口令为'.$offerData['jingjia_pass'].'，请登录耐耐网进行竞价';
+            $hsms->send($mobile, $content);
+        }else{
+            $content = '系统已为您通知匹配的交易商，请关注后续竞价动态信息。';
             $hsms->send($mobile, $content);
         }
 

@@ -133,7 +133,7 @@ BEGIN
        DECLARE orderTime VARCHAR(20);
         DECLARE orderPrice DECIMAL(12,2);
        DECLARE offerUserId INT(11);
-       SELECT price,mode,uer_id INTO orderPrice,modeId ,offerUserId FROM product_offer   WHERE id=offerId;
+       SELECT price,mode,user_id INTO orderPrice,modeId ,offerUserId FROM product_offer   WHERE id=offerId;
        SET totalAmt = orderPrice * buyNum;
        IF pay_times=1 THEN
          SET contractStatus=4;/*合同生效*/

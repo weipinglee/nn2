@@ -100,7 +100,7 @@ $(function(){
         $(".bidbond_result").fadeIn(1000);
     };
 
-
+    formacc.addressRule('areabox1');
     $(".close,.mark").click(function(){
         $(".bidbond_result").fadeOut()
     })

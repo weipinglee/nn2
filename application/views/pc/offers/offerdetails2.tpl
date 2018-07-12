@@ -485,7 +485,7 @@ function show_time(){
                         </tr>
                         <tr>
                             <td>交收时间</td>
-                            <td>{$data['accept_day']}</td>
+                            <td>成交后{$data['accept_day']}天完成交收</td>
                         </tr>
                         <tr>
                             <td>交收地点</td>
