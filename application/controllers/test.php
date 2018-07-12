@@ -9,7 +9,8 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-
+         $obj = new \nainai\member();
+         $obj->sendShortMessage(array('36','57'),'2134234');
     }
 
 

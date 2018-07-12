@@ -18,6 +18,9 @@ class jingjiaOffer extends product{
 
     protected $yikoujiaMode = 2;//一口价模式代码
 
+    public $messageObj = null;//发送消息类
+
+
     /**
      * 获取报盘的最大可售数量
      * @param $offer_id int 报盘id
@@ -25,6 +28,14 @@ class jingjiaOffer extends product{
     protected function getActiveNums($offer_id)
     {
 
+    }
+
+    public function __set($name, $value)
+    {
+        switch($name){
+            case 'messageObj' : $this->messageObj = $value;
+            break;
+        }
     }
 
 
@@ -103,6 +114,7 @@ class jingjiaOffer extends product{
                 $newOfferData['jingjia_pass'] = rand(1000,9999);
             }
             //插入新的报盘和更改旧报盘
+            $newOfferData['jingjia_deposit'] = $this->getDeposit($newOfferData);
             $newOfferId = $obj->data($newOfferData)->add();
             $obj->data($oldOfferData)->where(array('id'=>$offer_id))->update();
 
@@ -262,10 +274,16 @@ class jingjiaOffer extends product{
      * @param $offer_id int 报盘id
      * @param $price float 提报的价格
      * @param $user_id int 报价的用户id
-     * @param $pay_way int 支付方式，默认代理账户
      */
-    public function baojia($offer_id,$price,$user_id,$pay_way=1)
+    public function baojia($offer_id,$price,$user_id,$payLogObj=null)
     {
+        //检验是否已经缴纳保证金
+        $payLog = $payLogObj==null ? new \nainai\user\UserPaylog() : $payLogObj;
+        $payRes = $payLog->existPayLog('jingjia',$offer_id,$user_id);
+        if(!$payRes){
+            return tool::getSuccInfo(0,'您未支付保证金，请先支付保证金然后再竞价');
+        }
+
         $offerObj = new M('product_offer');
         $offerObj->beginTrans();
         //获取符合条件的报盘,对相应的竞价报盘行锁定，同一竞价的多个会话的报价必须串行执行
@@ -286,8 +304,6 @@ class jingjiaOffer extends product{
             return tool::getSuccInfo(0,'该竞价未开始或已过期');
         }
 
-
-
         //判断价格是否合适
         $baojiaObj = new M('product_jingjia');
         $baojiaData = $baojiaObj->where(array('offer_id'=>$offer_id))->fields('max(price) as max')->getObj();
@@ -304,56 +320,64 @@ class jingjiaOffer extends product{
         }
 
 
-
-
-        $fund = new \nainai\fund();
-
-        //冻结该用户新的金额
-        if(is_object($pay_way)){
-            $fundObj = $pay_way;
-        }else{
-            $fundObj = $fund->createFund($pay_way);
-        }
-
         $amount = bcmul($price,$res['max_num'],2);
-        $payRes = $fundObj->freeze($user_id,$amount,'参加竞价交易报价冻结金额');
-        if($payRes!==true){
-            $offerObj->rollBack();
-            return tool::getSuccInfo(0,'账户内资金不足，请充值后再报价');
-        }
-        //上一个报价冻结的金额进行释放，并将该记录更新为已释放
-        $oldBaojia = $baojiaObj->where(array('offer_id'=>$offer_id,'is_freeze'=>0))->fields('*')->lock('update')->order('id desc')->getObj();
-        if(isset($oldBaojia['price']) && $oldBaojia['price']>0){
-            $oldfundObj = $fund->createFund($oldBaojia['pay_way']);
-            $oldfundObj->freezeRelease($oldBaojia['user_id'],$oldBaojia['amount'],'释放参加竞价交易报价的金额');
-            $baojiaObj->where(array('id'=>$oldBaojia['id']))->data(array('is_freeze'=>1))->update();
-        }
       //插入报价数据
         $insertData = array(
             'user_id'=>$user_id,
             'offer_id'=>$offer_id,
             'price' => $price,
             'time' => time::getDateTime(),
-            'is_freeze'=>0,
-            'pay_way' => is_scalar($pay_way) ? $pay_way : 0,
+            'is_freeze'=> 0,
+            'pay_way' => 0,
             'amount'=>$amount
         );
         $insertRes = $baojiaObj->data($insertData)->add();
         if($insertRes){
-            if($res['price_r']>0 && $price>=$res['price_r']){//报价高于设置的最高价，调用用户定义的mysql程序，更改offer状态
-                $sql = 'CALL jingjiaHandle('.$offer_id.','.$user_id.','.$price.')';
-                $offerObj->query($sql);
-                $message = new \nainai\message($user_id);
-                $message->jingjiaWin($res['pro_name']);
-
-            }
             if($offerObj->commit()){
+                /***************发送短信*********************************/
+                $this->messageObj = $this->messageObj==null ? new \nainai\member():$this->messageObj;
+                //给报价人发送短信
+                $baojiaQuery = new Query('product_jingjia as j');
+                $baojiaQuery->join = ' left join user as u on j.user_id=u.id';
+                $baojiaQuery->fields = ' j.user_id,u.true_name';
+                $baojiaQuery->where = ' j.offer_id='.$offer_id;
+                $baojiaQuery->group = ' j.user_id';
+                $buyers = $baojiaQuery->find();
+                $content = '您好，您参与竞拍的'.$res['pro_name'].'已被超越，若需重新竞拍，请及时登录耐耐网进行出价。';
+                $sellerData  =  array(//给卖方发送短信需要的数据
+                    'name'=>'',
+                    'time'=>$insertData['time'],
+                    'price'=> $insertData['price'],
+                    'remain'=> ''
+                );
+                $endDate = new \DateTime($res['end_time']);
+                $now = new \DateTime($insertData['time']);
+                $interval = $now->diff($endDate);
+                $sellerData['remain'] = $interval->format('h:i:s');
+                foreach($buyers as $buyer){
+                    if($buyer['user_id']==$user_id){//给出价人发送短信
+                        $sellerData['name'] = $buyer['true_name'];
+                        $content1='您好，您参与竞拍的'.$res['pro_name'].'出价成功。';
+                        $this->messageObj->sendShortMessage($user_id,$buyer['true_name'].$content1);
+                    }else{//给之前报价的买方发送短信
+                        $this->messageObj->sendShortMessage($buyer['user_id'],$buyer['true_name'].$content);
+                    }
+
+                }
+                //给卖方发送短信
+                $contentToSeller = "您发布的竞价商品：".$res['pro_name']."已有企业出价。出价企业名称：".$sellerData['name']."。
+                出价时间为：".$sellerData['time']."。出价价格为：".$sellerData['price']."元/吨。距离竞价结束时间还剩余".$sellerData['remain']."。";
+                $this->messageObj->sendShortMessage($res['user_id'],$contentToSeller);
+
+
                 return tool::getSuccInfo();
             }
 
+        }else{
+            $offerObj->rollBack();
+            return tool::getSuccInfo(0,'报价失败');
         }
-        $offerObj->rollBack();
-        return tool::getSuccInfo(0,'报价失败');
+
 
 
 

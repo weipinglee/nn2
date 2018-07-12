@@ -234,7 +234,12 @@ class member{
      */
     public function sendShortMessage($user_id,$text){
         $userObj = new M($this->table);
-        $mobile = $userObj->where(array('id'=>$user_id))->getField('mobile');
+        if(is_array($user_id) && !empty($user_id)){
+            $mobile = $userObj->where(array('id'=>array('in',join(',',$user_id))))->getFields('mobile');
+        }else{
+            $mobile = $userObj->where(array('id'=>$user_id))->getField('mobile');
+        }
+
         if($mobile&&$text){
             $text = preg_replace('/<a.*<\/a>/','',$text);
             $hsms = new \Library\Hsms();

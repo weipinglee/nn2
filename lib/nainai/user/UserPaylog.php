@@ -203,6 +203,22 @@ class UserPaylog
         return $res;
     }
 
+    /**
+     * 检查某个用户某个主题下的某个主题是否有支付记录
+     * @param $subject
+     * @param $subject_id
+     * @param $user_id
+     * @return bool true:已支付
+     */
+    public function existPayLog($subject,$subject_id,$user_id){
+        $where = array('subject'=>$subject,'subject_id'=>$subject_id,'user_id'=>$user_id,'status'=>1);
+        if(empty($this->getOneLog($where))){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
 
 
