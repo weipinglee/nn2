@@ -216,113 +216,75 @@ class OffersController extends PublicController {
 	}
 
 	//竞价的详情页面
-	public function offerDetails2Action(){
-		$id = $this->getRequest()->getParam('id');
-		$id = Safe::filter($id, 'int');
+	public function jingjiaPageAction(){
 
-		if($id){
-			$info = $this->offer->offerDetail($id);
-			if(empty($info)){
-				$this->error('报盘不存在或未通过审核');
-			}
-			
-
-			$jingjiaOffer = new \nainai\offer\jingjiaOffer();
-			$pass = safe::filterGet('pass');
-			if($info['status']==1 && !$jingjiaOffer->checkPass($id,$pass)){
-				$this->error('场内竞价口令错误，您无权查看');
-			}
-
-			$pro = new \nainai\offer\product();
-			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
-
-			if ($info['insurance'] == 1 && $info['risk']) {
-				$risk = new \nainai\insurance\Risk();
-				$riskData = $risk->getProductRisk($info['risk']);
-				$this->getView()->assign('riskData',$riskData);
-			}
-
-			$kefuData = array();
-			if($info['kefu']){
-				$kefu = new \Library\M('admin_kefu');
-				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
-			}
-
-            if(substr($info['start_time'],0,4)==date('Y')){
-                 $info['time1'] = substr($info['start_time'],5);
-            }else{
-                $info['time1'] = $info['start_time'];
-            }
-            if(substr($info['end_time'],0,4)==date('Y')){
-                $info['time2'] = substr($info['end_time'],5);
-            }else{
-                $info['time2'] = $info['end_time'];
-            }
-
-			$mem = new \nainai\member();
-
-			$userData = $mem->getUserDetail($info['user_id']);
-
-			//卖家资质
-			$certObj = new \nainai\cert\certificate();
-			$certStatus = $certObj->getCertStatus($info['user_id'],'deal');
-			if($certStatus['status']==2){
-				$this->getView()->assign('no_cert',0);
-			}else{
-				$mess = new \nainai\message($info['user_id']);
-				$mess->send('credentials');
-				$this->getView()->assign('no_cert',1);
-			}
-
-			//获取报价信息
-            $baojiaData = $this->offer->baojiaData($id);
-
-			//计算报盘的状态
-			$offerStatus = 0;
-			$orderData = array();
-			if($info['status']==6||$info['status']==7){
-				$offerStatus = 3;//已结束
-				//获取成交的订单号
-				$orderObj = new \Library\M('order_sell');
-				$orderData = $orderObj->where(array('offer_id'=>$id))->fields('id,user_id')->getObj();
-
-
-			}
-			elseif($info['status']==1){
-				if(time()>=\Library\time::getTime($info['start_time'])){//已开始
-					$offerStatus = 2;//已开始
-				}
-				else{
-					$offerStatus = 1;//未开始
-				}
-			}
-
-			//计算报价的人数
-			$info['baojia_count'] = 0;
-			if(!empty($baojiaData)){
-				$temp = array();
-				foreach($baojiaData as &$val){
-					if(!in_array($val['user_id'],$temp)){
-						$temp[] = $val['user_id'];
-						$info['baojia_count']++;
-					}
-					//隐藏真是名称
-
-                    if(!isset($this->login['user_id']) || $val['user_id']!=$this->login['user_id'])
-                       $val['true_name'] = mb_substr($val['true_name'],0,1,'UTF-8').'*********';
-
-				}
-			}
-
-            $this->getView()->assign('orderData',$orderData);
-			$this->getView()->assign('offerStatus',$offerStatus);
-			$this->getView()->assign('data',$info);
-			$this->getView()->assign('user',$userData);
-			$this->getView()->assign('kefu',$kefuData);
-			$this->getView()->assign('cur','offerlist');
-			$this->getView()->assign('baojiaData',$baojiaData);
-		}
 	}
+
+	public function jingjiaDetailAction(){
+        $id = Safe::filterGet('id', 'int');
+        $pass = safe::filterGet('pass');
+        if($id){
+            //获取offer数据
+            $info = $this->offer->offerDetail($id);
+            if(empty($info)){
+                die(json_encode(tool::getSuccInfo(0,'竞价不存在')));
+            }
+
+            $jingjiaOffer = new \nainai\offer\jingjiaOffer();
+            if($info['status']==1 && !$jingjiaOffer->checkPass($id,$pass)){
+                die(json_encode(tool::getSuccInfo(0,'场内竞价口令错误，您无权查看')));
+            }
+
+            //获取产品数据
+            $pro = new \nainai\offer\product();
+            $info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
+            //获取卖方数据
+            $mem = new \nainai\member();
+            $info['user'] = $mem->getUserDetail($info['user_id']);
+
+
+            //计算报盘的状态
+            $offerStatus = 0;
+            if($info['status']==6||$info['status']==7){
+                $offerStatus = 3;//已结束
+            }
+            elseif($info['status']==1){
+                if(time()>=\Library\time::getTime($info['start_time'])){//已开始
+                    $offerStatus = 2;//已开始
+                }
+                else{
+                    $offerStatus = 1;//未开始
+                }
+            }
+            $info['status'] = $offerStatus;
+
+            die(json_encode($info));
+        }
+    }
+
+    public function baojiaDataAction(){
+	    $id = safe::filterGet('id','int');//报盘id
+        //获取报价信息
+        $baojiaData = $this->offer->baojiaData($id);
+        //计算报价的人数
+        $baojiaData['baojia_count'] = 0;
+        if(!empty($baojiaData)){
+            $temp = array();
+            foreach($baojiaData as &$val){
+                if(!in_array($val['user_id'],$temp)){
+                    $temp[] = $val['user_id'];
+                    $baojiaData['baojia_count']++;
+                }
+                //隐藏真是名称
+
+                if(!isset($this->login['user_id']) || $val['user_id']!=$this->login['user_id'])
+                    $val['true_name'] = mb_substr($val['true_name'],0,1,'UTF-8').'*********';
+
+            }
+        }
+        die(json_encode($baojiaData));
+    }
 
 	//竞价一口价的详情页面
 	public function offerDetails3Action(){
