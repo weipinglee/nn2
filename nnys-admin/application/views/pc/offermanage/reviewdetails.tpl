@@ -129,6 +129,19 @@
 
 
                  </tr>
+
+                 <tr>
+                     <th>开始时间</th>
+                     <td>{$info['start_time']}</td>
+
+
+                     <th>结束时间</th>
+                     <td>{$info['end_time']}</td>
+                     <th></th>
+                     <td></td>
+
+
+                 </tr>
              {/if}
              {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
              <tr>
