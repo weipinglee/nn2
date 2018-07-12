@@ -936,7 +936,7 @@ class Order{
 				$buyer = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $order['user_id'] : $offerInfo['user_id'];
 				$seller = $offerInfo['type'] == \nainai\offer\product::TYPE_SELL ? $offerInfo['user_id'] : $order['user_id'];
 				if($order['pay_deposit']>0 && $reduceData['reduce_amount'] >= $order['pay_deposit'])
-					return tool::getSuccInfo(0,'扣减货款不能超过或等于定金数额'.$order['pay_deposit']);
+					return tool::getSuccInfo(0,'扣减货款不能超过或等于全款数额'.$order['pay_deposit']);
 				if($buyer != $user_id)
 					return tool::getSuccInfo(0,'操作用户错误');
 				$orderData['contract_status'] = self::CONTRACT_VERIFY_QAULITY;//状态置为买家已确认质量
