@@ -7,7 +7,9 @@
  */
 
 namespace tests;
-use PHPUnit\Framework\TestCase;
+
+use \PHPUnit\Framework\TestCase;
+
 
 class base extends TestCase
 {
@@ -15,7 +17,6 @@ class base extends TestCase
     public function __construct()
     {
         parent::__construct();
-
 
 
     }

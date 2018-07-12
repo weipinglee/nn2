@@ -21,22 +21,20 @@ class UserPaylog
     public $subject = '';
     public $subject_id = 0;
     public $user_id  = 0;
+    public $userBankObj = null;
 
 
-
-    public function __construct()
+    public function __construct($bankObj=null,$userBankObj=null)
     {
         $this->subjects = array('jingjia');
-         $this->bankObj = new \nainai\fund\js();
-
+        $this->bankObj = $bankObj==null ? new \nainai\fund\js() : $bankObj;
+        $this->userBankObj = $userBankObj==null ? new \nainai\user\UserBank() : $userBankObj;
 
     }
 
     public function __set($name, $value)
     {
        switch($name){
-           case 'bankObj' : $this->bankObj = $value;
-           break;
            case 'subject' : $this->subject = $value;
            break;
            case 'subject_id': $this->subject_id = $value;
@@ -106,7 +104,7 @@ class UserPaylog
      * @return array
      */
     private function getCompareAcc($user_id){
-        $userBankObj = new \nainai\user\UserBank();
+        $userBankObj = $this->userBankObj;
         $bankData = $userBankObj->getActiveBankInfo($user_id);
         if(empty($bankData)){
             return array();

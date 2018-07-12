@@ -11,14 +11,6 @@ namespace tests\mock;
 class testAccount {
 
 
-    public $flow = array();
-
-    public function __set($name, $value)
-    {
-        switch($name){
-            case 'flow':$this->flow = $value;
-        }
-    }
 
     public function createMessageProduct()
     {

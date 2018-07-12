@@ -7,10 +7,10 @@
 
 namespace tests;
 
+require_once "start.php";
 
-require 'start.php';
-
-use \nainai\offer\jingjiaOffer;
+use nainai\user\UserPaylog;
+use nainai\user\UserBank;
 use tests\mock\testAccount;
 
 class UserPaylogTest extends base
@@ -19,7 +19,11 @@ class UserPaylogTest extends base
 
     protected $Obj = null;
     protected $dbObj = null;
+    protected $initData = array();
 
+    public static  function setUpBeforeClass(){
+
+    }
     protected $bankLog = array(
         array(
             'TX_DT'=>'20180510',
@@ -61,37 +65,51 @@ class UserPaylogTest extends base
     public function __construct()
     {
         parent::__construct();
-        $this->Obj = new \nainai\user\UserPaylog();
-        $this->dbObj = new \Library\M('');
-        $this->Obj->bankObj = new testAccount();
-        $this->Obj->bankObj->flow = $this->bankLog;
+
+//        $userBankStub = $this->createMock(UserBank::class);
+//        $userBankStub->method("getActiveBankInfo")->willReturn(array('acc_no'=>$this->initData['acc_no']));
+//
+//        //银行类的桩件，方法marketFlow返回设定好的流水
+//        $bankObjStub = $this->createMock(testAccount::class);
+//        $bankObjStub->method("marketFlow")->willReturn($this->bankLog);
+//
+//        $this->Obj = new \nainai\user\UserPaylog($bankObjStub,$userBankStub);
+//        $this->dbObj = new \Library\M('');
+//
+//        $this->initData = array('acc_no'=>'62262645632145666666');
+
+
     }
 
-    private function createMatchLogTest()
+    public function testCreateMatchLog()
     {
+       // $bankData =  $this->Obj->userBankObj->getActiveBankInfo(1);
+        $bankData = array('acc_no'=>'34234');
+       // $this->assertArrayHasKey('acc_no',$bankData);
+        $this->assertEquals('34234',$bankData['acc_no']);
         //$flow = $this->Obj->bankObj->marketFlow();
         //print_r($flow);
-        $this->Obj->subject = 'jingjia';
-        $this->Obj->subject_id = 1;
-        $this->Obj->user_id = 36;
-
-        $amount = 2000;
-        $start = '2018-04-01';
-        $end = '2018-05-20';//第一组记录在该时间之间
-        $res = $this->Obj->createMatchLog($start,$end,$amount);
-
-        //期望在数据库中出现的数据
-        $expectData = array(
-            'user_id'=>36,
-            'subject'=>'jingjia',
-            'subject_id'=>1,
-            'acc_no'=>'62262645632145666666',
-            'acc_name'=>'李卫平',
-            'pay_total'=>$amount,
-            'bank_flow'=>'1234567890001',
-            'status'=>1
-        );
-        $this->seeInDatabase('user_pay_log',$expectData);
+//        $this->Obj->subject = 'jingjia';
+//        $this->Obj->subject_id = 1;
+//        $this->Obj->user_id = 36;
+//
+//        $amount = 2000;
+//        $start = '2018-04-01';
+//        $end = '2018-05-20';//第一组记录在该时间之间
+//        $res = $this->Obj->createMatchLog($start,$end,$amount);
+//
+//        //期望在数据库中出现的数据
+//        $expectData = array(
+//            'user_id'=>36,
+//            'subject'=>'jingjia',
+//            'subject_id'=>1,
+//            'acc_no'=>'62262645632145666666',
+//            'acc_name'=>'李卫平',
+//            'pay_total'=>$amount,
+//            'bank_flow'=>'1234567890001',
+//            'status'=>1
+//        );
+//        $this->seeInDatabase('user_pay_log',$expectData);
 
     }
 
