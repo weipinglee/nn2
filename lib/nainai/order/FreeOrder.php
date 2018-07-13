@@ -114,8 +114,13 @@ class FreeOrder extends Order{
 							$upd_res = $this->orderUpdate($orderData);
 							if($upd_res['success'] == 1){
 								$log_res = $this->payLog($order_id,$user_id,0,'买家线上支付全款');
+                                if($offerInfo['sub_mode']==1){
+                                    $jingjiaContent = "您发布的竞价商品：".$offerInfo['pro_name']."买方已支付货款".$amount."元，请及时查收并登录系统进行确认。";
+                                    $mess->send('common',$jingjiaContent);
+                                }else{
+                                    $mess->send('buyerRetainage',$info['order_no']);
+                                }
 
-								$mess->send('buyerRetainage',$info['order_no']);
 								$mess_buyer = new \nainai\message($buyer);
 
 								$content = '(合同'.$info['order_no'].'买家已支付全款，请您关注资金动态。交收流程请您在线下进行操作。)';
@@ -141,7 +146,13 @@ class FreeOrder extends Order{
 							if($upd_res['success'] == 1){
 								$jump_url = "<a href='".url::createUrl('/contract/sellerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
 								$content = '(合同'.$info['order_no'].',买方已上传支付凭证,请您及时进行凭证确认,并关注资金动态。)'.$jump_url;
-								$mess->send('common',$content);
+                                if($offerInfo['sub_mode']==1){
+                                    $jingjiaContent = "您发布的竞价商品：".$offerInfo['pro_name']."买方已支付货款".$amount."元，请及时查收并登录系统进行确认。";
+                                    $mess->send('common',$jingjiaContent);
+                                }else{
+                                    $mess->send('common',$content);
+                                }
+
 								$log_res = $this->payLog($order_id,$user_id,0,'买家上传线下支付凭证');
 								$res = $log_res === true ? $this->order->commit() : $log_res;
 							}else{
