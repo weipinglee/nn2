@@ -35,14 +35,14 @@ $worker->onMessage = function($connection, $data)
         $connection->offer_id = $data['offer_id'];
         echo $connection->offer_id;
         global $offerData;
-        if(!isset($offerData[$data['offer_id']])){
+        if(!isset($offerData[$data['offer_id']])){//该报盘初次连接，初始化数据
             $offerData[$data['offer_id']] = array('count'=>0,'baojia'=>array(),'conns'=>array());
         }
         if(!in_array($connection->id,$offerData[$data['offer_id']]['conns'])){
-            $regOffer[$data['offer_id']][] = $connection->id;
+            $offerData[$data['offer_id']]['conns'][] = $connection->id;
         }
         //获取报价数据给买方发送，之后有变化再发送
-        global $baojia;//给买方发送已有的报价数据
+
 
         $connection->send(Json::encode($baojia));
         print_r($regOffer);
