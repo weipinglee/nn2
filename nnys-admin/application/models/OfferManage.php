@@ -81,6 +81,24 @@ class OfferManageModel extends \nainai\offer\product{
 		return $this->getList($page,'o.is_del = 0 and (now()< o.expire_time or o.expire_time is null) and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
 	}
 
+	public function getJingjiaList($page){
+        return $this->getList($page,'o.sub_mode=1 AND o.is_del = 0 and (now()< o.expire_time or o.expire_time is null) and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
+
+    }
+
+    public function Baojialist($offer_id){
+        $baojiaObj = new Query('product_jingjia as j');
+        $baojiaObj->join = 'left join user as u on j.user_id=u.id';
+        $baojiaObj->fields = 'j.*,u.username,u.true_name,u.mobile';
+        $baojiaObj->order = 'j.price desc';
+        $baojiaObj->where = 'offer_id=:offer_id';
+        $baojiaObj->bind = array('offer_id'=>$offer_id);
+        $res = $baojiaObj->find();
+
+        return $res;
+    }
+
+
 	public function getrepertoryList(){
 		$Q = new \Library\searchQuery('store_products as a');
 		$Q->join = 'LEFT JOIN store_list  as b ON a.store_id=b.id LEFT JOIN product_offer as po ON a.product_id=po.product_id LEFT JOIN products as c ON po.product_id = c.id LEFT JOIN product_category as pc ON c.cate_id=pc.id';

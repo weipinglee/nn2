@@ -38,6 +38,17 @@ class OffermanageController extends Yaf\Controller_Abstract{
 
 		$this->getView()->assign('data',$pageData);
 	}
+
+	public function jingjiaListAction(){
+        $pageData = $this->offer->getJingjiaList(0);
+        $this->getView()->assign('data',$pageData);
+    }
+
+    public function baojialistAction(){
+        $id = intval($this->_request->getParam('id'));
+        $data = $this->offer->Baojialist($id);
+        $this->getView()->assign('list',$data);
+    }
 	
 	/**
 	 * 报盘详情
