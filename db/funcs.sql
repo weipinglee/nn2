@@ -75,7 +75,7 @@ BEGIN
        DECLARE offerUserId INT(11);
        SELECT price,mode,user_id INTO orderPrice,modeId,offerUserId FROM product_offer   WHERE id=offerId;
        SET totalAmt = orderPrice * buyNum;
-         SET contractStatus=9;/*合同等待卖家确认收款*/
+         SET contractStatus=3;/*等待买方支付*/
        SET random =  FLOOR(0 + (RAND() * 99));
       SET orderNo = CONCAT(FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y%m%d%H%i%s') ,  random );
       SET orderTime = FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y-%m-%d %H:%i:%s') ;
