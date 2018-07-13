@@ -9,6 +9,7 @@ $worker = new Worker("websocket://localhost:89");
 
 $worker->onWorkerStart = function ($connection){
     echo "Worker starting...\n";
+    //定时检查每个连接发送包的时间，长时间未发送则close
 };
 
 
@@ -41,12 +42,10 @@ $worker->onMessage = function($connection, $data)
         if(!in_array($connection->id,$offerData[$data['offer_id']]['conns'])){
             $offerData[$data['offer_id']]['conns'][] = $connection->id;
         }
-        //获取报价数据给买方发送，之后有变化再发送
+        //给买方发送现时的报价数据，之后有变化再发送
+        $connection->send(Json::encode($offerData[$data['offer_id']]['baojia']));
 
 
-        $connection->send(Json::encode($baojia));
-        print_r($regOffer);
-        $connection->send($data['cookie']);
     }catch(\Exception $e){
         echo $e->getMessage();
     }
@@ -55,21 +54,46 @@ $worker->onMessage = function($connection, $data)
     //echo $data;
 };
 
-foreach($regOffer as $offer_id=>$conn){
-    if(!empty($conn)){
-        //查询offer_id的竞价报价
+//轮询
+if(!empty($offerData)){
+    foreach($offerData as $offer_id=>$item){
+        $new = baojiaCount($offer_id);
+        global $worker;
+        global $offerData;
+        if($new){//有新报价
+            $newBaojia = allBaojia($offer_id);
+            $offerData[$offer_id]['baojia']=$newBaojia;
+            if(!empty($item['conn'])){
+                foreach($item['conn'] as $conn){//给每个连接发送新报价数据
+                    $worker->connections[$conn]->send(Json::encode($newBaojia));
+                }
+            }
 
+        }
     }
 }
 
+$db = new \Workerman\MySQL\Connection('localhost', '3306', 'root', '123456', 'nn_dev');
+
 function allBaojia($offer_id){
-    $db = new \Workerman\MySQL\Connection('localhost', '3306', 'root', '123456', 'nn_dev');
+    global $db;
     $sql = "select j.*,u.true_name from product_jingjia as j left join user as u on j.user_id=u.id where j.offer_id=".$offer_id;
     $data = $db->query($sql);
     return $data;
 }
 
-function
+function baojiaCount($offer_id){
+    global $db;
+    global $offerData;
+    $count = $db->select("count(id) as num")->from('product_jingjia')
+        ->where('offer_id:offer_id')->bindValues(array('offer_id'=>$offer_id))->single();
+    if($count>$offerData[$offer_id]['count']){
+        $offerData[$offer_id]['count']=$count;
+        return true;
+    }else{
+        return false;
+    }
+}
 // 运行worker
 Worker::runAll();
 ?>
