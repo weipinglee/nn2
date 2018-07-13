@@ -9,8 +9,9 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-         $obj = new \nainai\member();
-         $obj->sendShortMessage(array('36','57'),'2134234');
+         $str = '{"cookie":"123456"}';
+         print_r(json_decode($str,true));echo 234;
+
     }
 
 
