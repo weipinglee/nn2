@@ -34,7 +34,7 @@ $worker->onMessage = function($connection, $data)
 
         //如果已登录，
         $connection->offer_id = $data['offer_id'];
-        echo $connection->offer_id;
+
         global $offerData;
         if(!isset($offerData[$data['offer_id']])){//该报盘初次连接，初始化数据
             $offerData[$data['offer_id']] = array('count'=>0,'baojia'=>array(),'conns'=>array());
