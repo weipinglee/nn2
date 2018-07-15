@@ -24,10 +24,9 @@ class UserPaylog
     public $userBankObj = null;
 
 
-    public function __construct($bankObj=null,$userBankObj=null)
+    public function __construct($userBankObj=null)
     {
         $this->subjects = array('jingjia');
-        $this->bankObj = $bankObj==null ? new \nainai\fund\js() : $bankObj;
         $this->userBankObj = $userBankObj==null ? new \nainai\user\UserBank() : $userBankObj;
 
     }
@@ -35,6 +34,10 @@ class UserPaylog
     public function __set($name, $value)
     {
        switch($name){
+           case 'bankObj' : $this->bankObj = $value;
+           break;
+           case 'userBankObj' : $this->userBankObj=$value;
+           break;
            case 'subject' : $this->subject = $value;
            break;
            case 'subject_id': $this->subject_id = $value;
@@ -122,6 +125,7 @@ class UserPaylog
      * @return array|string
      */
     private function bankFlow($startDate,$endDate=''){
+        $this->bankObj = $this->bankObj==null ? new \nainai\fund\js() : $this->bankObj;
         try {
             $date = new \DateTime($startDate);
         } catch (\Exception $e) {

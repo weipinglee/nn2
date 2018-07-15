@@ -16,6 +16,7 @@ require_once dirname(__DIR__)."/vendor/autoload.php";
 
 use \Workerman\Worker;
 use Nette\Utils\Json;
+use Workerman\Lib\Timer;
 use \nainai\offer\jingjiaOffer;
 class jingjiaSocket
 {
@@ -32,9 +33,24 @@ class jingjiaSocket
 
         $this->db = new \Workerman\MySQL\Connection('localhost', '3306', 'root', '123456', 'nn');
 
-        $this->worker->onWorkerStart = function ($connection){
+        $this->worker->onWorkerStart = function ($worker){
             echo "Worker starting...\n";
             //定时检查每个连接发送包的时间，长时间未发送则close
+            Timer::add(1, function()use($worker){
+                $time_now = time();
+                foreach($worker->connections as $connection) {
+                    // 有可能该connection还没收到过消息，则lastMessageTime设置为当前时间
+                    if (empty($connection->lastMessageTime)) {
+                        $connection->lastMessageTime = $time_now;
+                        continue;
+                    }
+                    // 上次通讯时间间隔大于心跳间隔，则认为客户端已经下线，关闭连接
+                    if ($time_now - $connection->lastMessageTime > 50) {
+                        $connection->close();
+                    }
+                    echo count($worker->connections);
+                }
+            });
         };
 
 
@@ -60,6 +76,7 @@ class jingjiaSocket
 
             try{
                 $data = Json::decode($data,true);
+
                 //鉴权，如果未登录，关闭连接，返回json
                 $user_id = 0;
                 if(!isset($data['cookie']) || !$user_id=$this->checkLogin($data['cookie'])){
@@ -67,7 +84,8 @@ class jingjiaSocket
                     $connection->send($returnJson);
                 }else{//已经登陆，可以进行操作了
                     $connection->user_id=$user_id;
-                    if(!isset($data['type']) || !isset($data['data'])){
+                    $connection->lastMessageTime = time();
+                    if(!isset($data['type']) ){
                         $returnJson = Json::encode(array('success'=>0,'info'=>'数据传输错误'));
                         $connection->send($returnJson);
                     }else{
@@ -84,9 +102,9 @@ class jingjiaSocket
                             case 'baojia':{//
                                 $offer_id = isset($data['data']['offer_id']) ? $data['data']['offer_id'] : 0;
                                 $price = isset($data['data']['price']) ? $data['data']['price'] : 0;
-                               // $jingjiaObj = new JingjiaOffer();
-                               // $baojiaRes = $jingjiaObj->baojia($offer_id,$price,$connection->user_id);
-                                $baojiaRes = array('success'=>1,'info'=>'123');
+                                $jingjiaObj = new JingjiaOffer();
+                                $baojiaRes = $jingjiaObj->baojia($offer_id,$price,$connection->user_id);
+                                //$baojiaRes = array('success'=>1,'info'=>'123');
                                 $connection->send(Json::encode($baojiaRes));//发送报价结果
                                 if($baojiaRes['success']==1){//报价成功，给其他用户发送
                                     $allBaojia = Json::encode($this->allBaojia($offer_id));
@@ -97,7 +115,14 @@ class jingjiaSocket
 
                                     }
                                 }
+
                             } ;
+                            break;
+
+                            case 'heart' : {
+                                $send = array('heart'=>1);
+                                $connection->send(Json::encode($send));
+                            };
                             break;
                         }
 

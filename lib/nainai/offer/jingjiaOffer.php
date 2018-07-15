@@ -279,28 +279,34 @@ class jingjiaOffer extends product{
     {
         //检验是否已经缴纳保证金
         $payLog = $payLogObj==null ? new \nainai\user\UserPaylog() : $payLogObj;
-        $payRes = $payLog->existPayLog('jingjia',$offer_id,$user_id);
-        if(!$payRes){
-            return tool::getSuccInfo(0,'您未支付保证金，请先支付保证金然后再竞价');
-        }
+//        $payRes = $payLog->existPayLog('jingjia',$offer_id,$user_id);
+//        if(!$payRes){
+//            return tool::getSuccInfo(0,'您未支付保证金，请先支付保证金然后再竞价');
+//        }
 
         $offerObj = new M('product_offer');
         $offerObj->beginTrans();
         //获取符合条件的报盘,对相应的竞价报盘行锁定，同一竞价的多个会话的报价必须串行执行
         $res = $offerObj->where(array('id'=>$offer_id,'sub_mode'=>$this->jingjiaMode))->lock('update')->getObj();
         if(empty($res)){
+            $offerObj->rollBack();
             return tool::getSuccInfo(0,'该报盘不存在');
         }
 
         if($res['status']!=1){
+            $offerObj->rollBack();
             return tool::getSuccInfo(0,'该报盘已成交');
         }
-        if($user_id==$res['user_id'])
+        if($user_id==$res['user_id']){
+            $offerObj->rollBack();
             return tool::getSuccInfo(0,'不能给自己的报盘报价');
+        }
+
 
         //判断是否处于交易时间内
         $now = time::getTime();
         if($now<time::getTime($res['start_time']) || $now>time::getTime($res['end_time'])){
+            $offerObj->rollBack();
             return tool::getSuccInfo(0,'该竞价未开始或已过期');
         }
 
@@ -310,12 +316,15 @@ class jingjiaOffer extends product{
         //获取报价的基础价
         $minPrice = isset($baojiaData['max']) ? $baojiaData['max'] : $res['price_l'];
         if(!isset($baojiaData['max']) && $price<$res['price_l']){
+            $offerObj->rollBack();
             return tool::getSuccInfo(0,'您的报价低于卖方设置的最低价，请重新出价');
         }
         if(isset($baojiaData['max']) && $price <=$baojiaData['max']){
+            $offerObj->rollBack();
             return tool::getSuccInfo(0,'您的报价不能低于当前报价的最高价，请重新出价');
         }
         if($res['jing_stepprice']>0 && ($price-$minPrice)%$res['jing_stepprice']!=0){
+            $offerObj->rollBack();
             return tool::getSuccInfo(0,'报价必须按照'.$res['jing_stepprice'].'的倍数递增');
         }
 

@@ -9,8 +9,7 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-         $str = '{"cookie":"123456"}';
-         print_r(json_decode($str,true));echo 234;
+
 
     }
 
