@@ -231,10 +231,11 @@ class OffersController extends PublicController {
             }
 
             $jingjiaOffer = new \nainai\offer\jingjiaOffer();
+
             if($info['status']==1 && !$jingjiaOffer->checkPass($id,$pass)){
                 die(json_encode(tool::getSuccInfo(0,'场内竞价口令错误，您无权查看')));
             }
-
+            $jingjiaOffer->addViews($id);
             //获取产品数据
             $pro = new \nainai\offer\product();
             $info = array_merge($info,$pro->getProductDetails($info['product_id']));

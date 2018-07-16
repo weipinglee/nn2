@@ -595,6 +595,15 @@ class jingjiaOffer extends product{
         $res = $payLogObj->createMatchLog($startDate,'',$compareData['amount']);
     }
 
+    /**
+     * 增加围观次数
+     * @param $offer_id
+     */
+    public function addViews($offer_id){
+        $obj = new \Library\M('product_offer');
+        return $obj->where(array('id'=>$offer_id))->setInc('views');
+    }
+
 
 
 
