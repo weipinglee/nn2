@@ -379,6 +379,16 @@ class offersModel extends \nainai\offer\product{
             }
             $value['attr'] = $detail['attr_arr'];
 
+            $startTime = strtotime($value['start_time']);
+            $now = time();
+            $endTime = strtotime($value['end_time']);
+            if($now<$startTime){
+                $value['status']=1;
+            }elseif($now>=$startTime && $now<=$endTime){
+                $value['status']=2;
+            }else{
+                $value['status']=3;
+            }
         }
         //print_r($data);
         $pageBar =  $query->getPageBar();

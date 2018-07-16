@@ -604,6 +604,60 @@ class jingjiaOffer extends product{
         return $obj->where(array('id'=>$offer_id))->setInc('views');
     }
 
+    public function endNotice($offer_id){
+        $obj = new \Library\Query('product_offer as o');
+        $obj->join = 'left join user as u on o.user_id=u.id';
+        $obj->where = 'o.auto_notice=0 and o.id='.$offer_id;
+        $obj->fields = 'o.*,u.true_name';
+        $data = $obj->getObj();
+
+        if(!empty($data)){
+            //给卖方发短信，成功和流拍
+            $seller = $data['user_id'];
+            $jingjiaObj = new \Library\Query('product_jingjia as j');
+            $jingjiaObj->join = 'left join user as u on j.user_id=u.id';
+            $jingjiaObj->where = 'j.offer_id='.$offer_id;
+            $jingjiaObj->fields = 'j.*,u.true_name';
+            $jingjiaObj->order = 'j.price desc';
+            $baojiaData = $jingjiaObj->find();
+            $member = new \nainai\member();
+             //print_r($baojiaData);
+            if(empty($baojiaData)){//流拍
+                $content = "您发布的竞价商品：".$data['pro_name']."已竞价结束。未有买方参与竞价，请重新选择参与其他场次的竞拍或选择其他销售方式（一口价）";
+                $member->sendShortMessage($seller,$content);
+            }else{
+                $users = array();//已通知的用户
+                foreach($baojiaData as $k=>$item){
+                   if($k==0){//成功用户
+                       //给卖方发送
+                       $addPrice = $item['price'] - $data['price_l'];
+                       $contentSeller = "您发布的竞价商品：".$data['pro_name']."已竞价结束。成交价格为".$item['price']."元/吨，
+                       增价".$addPrice."元/吨。竞价成功企业为：".$item['true_name']."，该企业出价时间为：".$item['time']."。";
+                       $member->sendShortMessage($seller,$contentSeller);
+
+                       //给竞价成功方发送
+                       $content = $item['true_name']."，您好，恭喜您成功竞拍".$data['pro_name']."，竞拍的成交价为".$item['price']."元/吨。请您在**时间内缴纳货款".$item['amount']."元，
+                       缴纳完成后，竞价保证金将在1个工作日内原路退还至您的账户。若未在规定时间内完成付款，则保证金全部扣除作为竞价违约赔付。";
+                       $member->sendShortMessage($item['user_id'],$content);
+                        $users[] = $item['user_id'];
+                   }else{
+                       //给竞价失败用户通知
+                       if(!in_array($item['user_id'],$users)){
+                           $content = $item['true_name']."您好，很遗憾您参与的".$data['pro_name']."竞拍未竞价成功，此次竞拍的成交价为".$baojiaData[0]['price']."元/吨。竞价保证金将在1个工作日内原路退还至您的账户。请关注其他竞价信息。";
+                           $member->sendShortMessage($item['user_id'],$content);
+                           $users[] = $item['user_id'];
+                       }
+
+                   }
+
+                }
+            }
+
+        }
+
+
+    }
+
 
 
 

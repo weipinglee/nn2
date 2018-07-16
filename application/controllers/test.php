@@ -9,6 +9,8 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
+       $obj = new \nainai\offer\jingjiaOffer();
+       $obj->endNotice(15879);
 
 
     }
