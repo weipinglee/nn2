@@ -94,7 +94,9 @@ class jingjiaSocket
                         switch($data['type']){
                             case 'list' : {//获取所有报价
                                 $offer_id = isset($data['data']['offer_id']) ? $data['data']['offer_id'] : 0;
-                                $this->offerData[$offer_id][] = $connection->id;
+                                if(!in_array($connection->id,$this->offerData[$offer_id])){
+                                    $this->offerData[$offer_id][] = $connection->id;
+                                }
                                 $connection->offer_id = $offer_id;
                                 $baojiaData = $this->allBaojia($offer_id);
                                 $connection->send(Json::encode($baojiaData));
