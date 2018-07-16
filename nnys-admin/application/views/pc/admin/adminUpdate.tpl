@@ -66,12 +66,19 @@
       <div class="col-4"> </div>
     </div> -->
     <div class="row cl">
-      <label class="form-label col-3"><span class="c-red">*</span>邮箱：</label>
+      <label class="form-label col-3"><span class="c-red"></span>邮箱：</label>
       <div class="formControls col-5">
-        <input type="text" class="input-text" placeholder="@" name="admin-email" value="{$info['email']}" id="admin-email" datatype="e" nullmsg="请输入邮箱！">
+        <input type="text" class="input-text" placeholder="@" name="admin-email" value="{$info['email']}" id="admin-email"  >
       </div>
       <div class="col-4"> </div>
     </div>
+      <div class="row cl">
+          <label class="form-label col-3"><span class="c-red">*</span>手机：</label>
+          <div class="formControls col-5">
+              <input type="text" class="input-text" placeholder="" name="mobile" value="{$info['mobile']}" id=""  >
+          </div>
+          <div class="col-4"> </div>
+      </div>
     <div class="row cl">
       <div class="col-9 col-offset-3">
         <input type="hidden" name="admin-id" value="{$info['id']}"/>

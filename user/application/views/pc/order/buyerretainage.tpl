@@ -46,7 +46,7 @@
                                   <td>{$data['store_name']}</td>
                                   <td>
                                           <label class="" id="d_price_1">
-                                              ￥{$data['price']}
+                                              ￥{$data['price_unit']}
                                           </label>
                                   </td>
                                   <td>
@@ -115,8 +115,9 @@
                                           <li>
                                             {if:$show_online}
                                             <em name="chooice" class="yListrclickem" payment='online'>线上支付<i></i></em> 
-
-                                            <em name="chooice" payment='offline'>线下支付<i></i></em> 
+                                           
+                                            <em name="chooice" payment='offline'>线下支付<i></i></em>
+                                            
                                             {else:}
                                               <em name="chooice" payment='offline' class="yListrclickem">线下支付<i></i></em> 
                                             {/if}
@@ -196,7 +197,7 @@
                   	<h5>待支付金额：<i>{$data['topay_retainage']}</i>元</h5>
                     {if:$show_online}
                   	  {if:!$data['pay_retainage'] && !$data['proof']}
-                        <span style="display:block;"><a  href="javascript:;" id='pay_retainage'>立即支付尾款</a></span>
+                        <span style="display:block;"><a  href="javascript:;" id='pay_retainage'>立即支付</a></span>
                         {else:}
                         已支付
                       {/if}

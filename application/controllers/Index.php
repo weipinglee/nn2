@@ -48,7 +48,6 @@ class IndexController extends PublicController {
         $indexConfig = new indexModel();
         $configData = $indexConfig->getIndexconfigCP();
 
-
         $this->getView()->assign('productData',$configData);
        // $this->getView()->assign('configData1',$configData1);
 		$this->getView()->assign('offerCateList',\Library\json::encode($offerList));
@@ -180,6 +179,12 @@ class IndexController extends PublicController {
         die(json::encode($data));
     }
     public function monitorAction(){
+         $this->getView()->assign('cur','storage');
+    }
+    public function monitorvideoAction(){
+         $this->getView()->assign('cur','storage');
+    }
+    public function monitorvideo2Action(){
          $this->getView()->assign('cur','storage');
     }
 }

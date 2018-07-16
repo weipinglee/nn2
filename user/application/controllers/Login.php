@@ -87,33 +87,14 @@ class LoginController extends \Yaf\Controller_Abstract {
 			    'username'     =>safe::filterPost('username'),
 			    'password'     =>trim($_POST['password']),
 			    'repassword'   =>trim($_POST['repassword']),
-			    'type'         => safe::filterPost('type','int'),
+			    'pid'          => 0,
+			    'type'         => -1,//初始用户类型设置为-1
 			    'mobile'       => safe::filterPost('mobile','/^\d+$/'),
-			    'email'        =>safe::filterPost('email','email'),
-			    'agent' => safe::filterPost('agent','int',0),
-			    'serial_no' => safe::filterPost('agent_pass'),
 			    'create_time' => \Library\time::getDateTime()
 		    );
 
-		    if($userData['type']==1){
-			    $companyData = array(
-				    'company_name' => safe::filterPost('company_name'),
-				    'area'         => safe::filterPost('area','/\d+/'),
-				    'legal_person' =>safe::filterPost('legal_person'),
-				    'reg_fund'     => safe::filterPost('reg_fund','float'),
-				    'category'     => safe::filterPost('category','int'),
-				    'nature'       => safe::filterPost('nature','int'),
-				    'contact'      => safe::filterPost('contact'),
-				    'contact_phone'=> safe::filterPost('contact_phone','/^\d+$/'),
-				    'contact_duty' => safe::filterPost('contact_duty','int'),
+            $res = $userModel->userInsert($userData);
 
-
-			    );
-				$userData['true_name'] = $companyData['company_name'];
-			    $res = $userModel->companyReg($userData,$companyData);
-		    }else{
-			    $res = $userModel->userInsert($userData);
-            }
         }
 		if(isset($res['success']) && $res['success']==1){//注册成功
 			$login = new CheckRight();
@@ -124,13 +105,146 @@ class LoginController extends \Yaf\Controller_Abstract {
 			$mess = new \nainai\message($res['info']);
 			$re = $mess->send('register');
 		}
-
+		//$res['returnUrl'] = url::createUrl('/ucenter/dealcert@user');
 		die(json::encode($res));
 
 
 	}
 
-	
+    /**
+     * 会员申请
+     */
+	public function newMemberAction(){
+        $login = session::get('login');
+        $userModel = new UserModel();
+	    if(IS_POST){
+            $user_id = 0;
+            if($login){//已登录
+                $user_id = $login['user_id'];
+                $res = tool::getSuccInfo();
+            }else{
+                $agent = safe::filterPost('agent', 'int', 0);
+                if ($agent == 0) {
+                    die(json::encode(\Library\tool::getSuccinfo(0, '请同意耐耐网注册协议')));
+                }
+                \Library\session::clear('login');
+                $validPhoneCode = safe::filterPost('validPhoneCode','int');
+                $phone = safe::filterPost('mobile','/^\d+$/');
+                $data = self::checkMobileValidateCode($phone,$validPhoneCode);
+                if($data['err'] == 1)
+                {
+                    $res = array('success'=>0,'info'=>$data['info']);
+                    die(json::encode($res));
+                }
+                else
+                {
+                    $userData = array(
+                        'username'     =>safe::filterPost('username'),
+                        'password'     =>trim($_POST['password']),
+                        'repassword'   =>trim($_POST['repassword']),
+                        'pid'          => 0,
+                        'type'         => -1,//初始用户类型设置为-1
+                        'mobile'       => safe::filterPost('mobile','/^\d+$/'),
+                        'create_time' => \Library\time::getDateTime()
+                    );
+                    $res = $userModel->userInsert($userData);
+                }
+                if(isset($res['success']) && $res['success']==1){//注册成功
+                    $login = new CheckRight();
+                    $login->loginAfter($userData);
+                    $user_id = $userData['id'];
+                    $credit = new \nainai\CreditConfig();
+                    $credit->changeUserCredit($userData['id'],'register');
+                    //$this->redirect('index');
+                    $mess = new \nainai\message($res['info']);
+                    $re = $mess->send('register');
+                }
+                //$res['returnUrl'] = url::createUrl('/ucenter/dealcert@user');
+
+            }
+            if($user_id>0){
+                //会员数据
+                $memeberData = array(
+                    'user_id'=>$user_id,
+                    'name'=> safe::filterPost('company_name'),
+                    'area' => safe::filterPost('area'),
+                    'address' => safe::filterPost('address'),
+                    'contact_person' => safe::filterPost('contact'),
+                    'contact_phone'  => safe::filterPost('contact_phone'),
+                    'apply_time' => \Library\time::getDateTime()
+                );
+                $vipType = safe::filterPost('vip_type','int',1);
+                if($vipType==1){
+                    $certObj = new \nainai\cert\certVipTemp();
+                }else{
+                    $certObj = new \nainai\cert\certVip();
+                }
+
+                $certObj->certApply($memeberData);
+            }
+            die(json::encode($res));
+        }else{
+            $loginStatus = $login ? 1 : 0;
+	        if($login){//如果已登录，且是企业用户，带出企业信息
+                $companyData = array();
+                $user_id = $login['user_id'];
+                if($login['user_type']==1){
+                    $userData = $userModel->getCompanyInfo($user_id);
+                    $companyData = array(
+                        'company_name' => $userData['company_name'],
+                        'area' => $userData['area'],
+                        'address' => $userData['address'],
+                        'contact' => $userData['contact'],
+                        'contact_phone' => $userData['contact_phone']
+                    );
+
+                }
+
+                $res = $userModel->vipInfo($user_id);
+                if(!empty($res)){
+                    $companyData = array(
+                        'company_name' => $res['name'],
+                        'area' => $res['area'],
+                        'address' => $res['address'],
+                        'contact' => $res['contact_person'],
+                        'contact_phone' => $res['contact_phone']
+                    );
+                }
+                $this->getView()->assign('company',$companyData);
+
+            }
+            $this->getView()->assign('login',$loginStatus);
+            $oper = safe::filterGet('oper');
+	        $oper = $oper=='update' ? $oper : '';
+	        $this->getView()->assign('oper',$oper);
+        }
+
+    }
+
+    public function updateMemberAction(){
+        $login = session::get('login');
+        if(IS_POST && $login){
+            $user_id = $login['user_id'];
+            //会员数据
+            $memeberData = array(
+                'user_id'=>$user_id,
+                'name'=> safe::filterPost('company_name'),
+                'area' => safe::filterPost('area'),
+                'address' => safe::filterPost('address'),
+                'contact_person' => safe::filterPost('contact'),
+                'contact_phone'  => safe::filterPost('contact_phone'),
+                'apply_time' => \Library\time::getDateTime()
+            );
+
+            $certObj = new \nainai\cert\certVipTemp();
+            $certObj->certUpdate($memeberData);
+            die(json::encode(tool::getSuccInfo()));
+        }
+
+
+    }
+
+
     public function regsuccedAction(){
         
     }
@@ -140,7 +254,7 @@ class LoginController extends \Yaf\Controller_Abstract {
      * 验证手机验证码
      * @param $phone
      * @param $num
-     * @return int
+     * @return array
      */
     function checkMobileValidateCode($phone,$num){
         if($mobileValidateSess = session::get('mobileValidateReg')){
@@ -198,10 +312,10 @@ class LoginController extends \Yaf\Controller_Abstract {
         $phone = safe::filterPost('phone');
         $captcha = safe::filterPost('captcha');
         $captchaObj = new captcha();
-        if(!$captchaObj->check($captcha))
-        {
-            die(JSON::encode(tool::getSuccInfo(0, '验证码错误')));
-        }
+       // if(!$captchaObj->check($captcha))
+       // {
+           // die(JSON::encode(tool::getSuccInfo(0, '验证码错误')));
+        //}
         $userObj = new M('user');
         if($userObj->where('mobile="'.$phone.'"')->getFields('id'))
         {
@@ -246,22 +360,21 @@ class LoginController extends \Yaf\Controller_Abstract {
 			else if($captcha==''){
 				$data['errorCode'] = 3;
 			}
-            $userModel = new UserModel();
-            $userData = $userModel->checkUser($account,$password);
-            
-            if(empty($userData)){//账户密码错误
-                $data['errorCode'] = 5;
-            }
-            else{
-                  if(!$captchaObj->check($captcha)){//验证码是否正确
-                      $data['errorCode'] = 4;
-                  }
-                  else{//登录成功
-                    $checkRight = new checkRight();
-                    $checkRight->loginAfter($userData);
-                  }
-            }
-			
+			elseif(!$captchaObj->check($captcha)){//验证码是否正确
+				$data['errorCode'] = 4;
+			}
+			else{
+				$userModel = new UserModel();
+				$userData = $userModel->checkUser($account,$password);
+
+				if(empty($userData)){//账户密码错误
+					$data['errorCode'] = 5;
+				}
+				else{//登录成功
+					$checkRight = new checkRight();
+					$checkRight->loginAfter($userData);
+				}
+			}
 
 			$data['returnUrl'] =  isset($_POST['callback']) && $_POST['callback']!=''?htmlspecialchars(trim($_POST['callback'])) : url::createUrl('/index/index@deal');
 
@@ -346,10 +459,10 @@ class LoginController extends \Yaf\Controller_Abstract {
 			$code = safe::filterPost('code');
 			$uid = safe::filterPost('uid');
 
-			$captchaObj = new captcha();
-			if (!$captchaObj->check($code)) {
-				die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
-			}
+//			$captchaObj = new captcha();
+//			if (!$captchaObj->check($code)) {
+//				die(JSON::encode(\Library\tool::getSuccInfo(0, '验证码错误')));
+//			}
 			$userObj = new UserModel();
 			if (empty($mobile)) {
 				$res = tool::getSuccInfo(0, '手机号不存在用户');
@@ -403,6 +516,13 @@ class LoginController extends \Yaf\Controller_Abstract {
 		if ($info['code'] == $code) {
 			\Library\session::set('mobile', $mobile);
 			$model->clearPassword($uid);
+			//做登录处理
+            $userObj = new M('user');
+            $userData = $userObj->where(array('mobile'=>$mobile))->fields('id,username,mobile,pid,type')->getObj();
+            if(!empty($userData)){
+                $rightObj = new \Library\checkRight();
+                $rightObj->loginAfter($userData);
+            }
 			exit(json::encode(tool::getSuccInfo(1, 'success', url::createUrl('/Login/resetTo'))));
 		}else{
 			exit(json::encode(tool::getSuccInfo(0, '验证码错误')));
@@ -454,6 +574,7 @@ class LoginController extends \Yaf\Controller_Abstract {
 
 		exit;
 	}
+
 
 
 }

@@ -20,16 +20,25 @@ class PurchaseController extends UcenterBaseController{
 			        'accept_area' => Safe::filterPost('accept_area'),
 			        'accept_day' => Safe::filterPost('accept_day', 'int'),
 			        'price_l'        => Safe::filterPost('price'),
-				'price_r'        => Safe::filterPost('price_r'),
+                    'pro_name'    => Safe::filterPost('warename'),
+				    'price_r'        => Safe::filterPost('price_r'),
 			        'user_id' => $this->user_id,
 			        'status' => product::OFFER_APPLY,
 			        'expire_time' =>  Safe::filterPost('expire_time'),
 					'divide' => 0//默认不可拆分
 			);
+			
+			 $shopInfo = \nainai\shop\shop::info($this->user_id);
+			 $offerData['shop_id'] = isset($shopInfo['id']) ? $shopInfo['id'] : '';
 			$productData = $this->getProductData();
 
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
 			$res = $PurchaseOfferModel->doOffer($productData,$offerData);
+
+            if($res['success']==1){
+                $res['info'] = '您的报盘会在30分钟内进行审核，请耐心等待结果';
+                $res['time'] = 3;
+            }
 			echo json::encode($res);
 			exit;
 		}
@@ -60,7 +69,7 @@ class PurchaseController extends UcenterBaseController{
 	    $detail = array(
 	        'name'         => Safe::filterPost('warename'),
 	        'cate_id'      => Safe::filterPost('cate_id', 'int'),
-	        'quantity'     => Safe::filterPost('quantity', 'int'),
+	        'quantity'     => Safe::filterPost('quantity'),
 	        'attribute'    => empty($attrs) ? '' : serialize($attrs),
 	        'note'         => Safe::filterPost('note'),
 	        'produce_area' => Safe::filterPost('area'),
@@ -68,7 +77,8 @@ class PurchaseController extends UcenterBaseController{
 	        'unit'         => Safe::filterPost('unit'),
 	        'user_id' => $this->user_id
 	    );
-
+        $proObj = new \nainai\offer\product();
+        $detail['market_id'] = $proObj->getcateTop($detail['cate_id']);
 	    //图片数据
 	    $imgData = Safe::filterPost('imgData');
 
@@ -82,6 +92,9 @@ class PurchaseController extends UcenterBaseController{
 	            }
 	        }
 	    }
+		if(empty($resImg)){
+			die(json::encode(tool::getSuccInfo(0,'请上传图片')));
+		}
 
 	    return array($detail,$resImg);
 	}
@@ -128,6 +141,7 @@ class PurchaseController extends UcenterBaseController{
 		$this->getView()->assign('status', $PurchaseOfferModel->getStatusArray());
 		$this->getView()->assign('productList', $productList['list']);
 		$this->getView()->assign('pageHtml', $productList['pageHtml']);
+        $this->getView()->assign('cert',$this->cert);
 	}
 
 	/**
@@ -141,7 +155,7 @@ class PurchaseController extends UcenterBaseController{
 		if (intval($id) > 0) {
 			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
 			$offerDetail = $PurchaseOfferModel->getOfferProductDetail($id,$this->user_id);
-			
+
 			$this->getView()->assign('offer', $offerDetail[0]);
 			$this->getView()->assign('product', $offerDetail[1]);
 		}else{
@@ -286,6 +300,91 @@ class PurchaseController extends UcenterBaseController{
 		$this->getView()->assign('reportLists', $reportLists['list']);
 		$this->getView()->assign('pageHtml', $reportLists['pageHtml']);
 	}
+
+	public function updatePurchaseAction(){
+		$token =  \Library\safe::createToken();
+		$this->getView()->assign('token',$token);
+		$id = $this->getRequest()->getParam('id');
+		$id = Safe::filter($id, 'int', 0);
+		if($id){
+			$productModel = new ProductModel();
+			$offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);//print_r($offerDetail);
+			$cate_sel = array();//商品所属的各级分类
+			foreach($offerDetail[1]['cate'] as $k=>$v){
+				$cate_sel[] = $v['id'];
+			}
+			$pro = new \nainai\offer\product();
+			$categorys = $pro->getCategoryLevelSpec($cate_sel);
+
+			$this->getView()->assign('attr',json::encode($offerDetail[1]['attribute']));
+			unset($offerDetail[1]['attribute']);
+
+			$this->getView()->assign('offer',$offerDetail[0]);
+			$this->getView()->assign('product',$offerDetail[1]);
+			$this->getView()->assign('categorys',$categorys);
+			$this->getView()->assign('cate_sel',$cate_sel);
+		}
+	}
+
+	public function doUpdatepurchaseAction(){
+		if(IS_POST){
+			$offerData = array(
+					'apply_time'  => \Library\Time::getDateTime(),
+					'accept_area' => Safe::filterPost('accept_area'),
+					'accept_day' => Safe::filterPost('accept_day', 'int'),
+					'price_l'        => Safe::filterPost('price'),
+					'price_r'        => Safe::filterPost('price_r'),
+					'user_id' => $this->user_id,
+					'status' => product::OFFER_APPLY,
+					'expire_time' =>  Safe::filterPost('expire_time'),
+					'divide' => 0//默认不可拆分
+			);
+			$offer_id = safe::filterPost('offer_id','int',0);
+			$shopInfo = \nainai\shop\shop::info($this->user_id);
+			$offerData['shop_id'] = isset($shopInfo['id']) ? $shopInfo['id'] : '';
+			$productData = $this->getProductData();
+
+			$PurchaseOfferModel = new \nainai\offer\PurchaseOffer();
+			$res = $PurchaseOfferModel->doOffer($productData,$offerData,$offer_id);
+			echo json::encode($res);
+			exit;
+		}
+	}
+
+	public function cancleAction(){
+		if(IS_POST){
+			$id = Safe::filterPost('id', 'int', 0);
+
+			if (intval($id) > 0) {
+				$model = new product('');
+				$data =array(
+						'status' => $model::OFFER_CANCEL
+				);
+
+				$res = $model->update($data, $id);
+				exit(json::encode($res));
+			}
+			exit(json::encode(tool::getSuccInfo(0, 'Error id')));
+		}
+	}
+
+    /*增加采购列表中推荐列表*/
+    public function pushlistsAction(){
+        if($this->cert['vip']==0 && $this->cert['vip_temp']==0){
+            $this->redirect(url::createUrl('/ucenter/index'));
+        }
+        $id = $this->getRequest()->getParam('id');
+        $proObj = new ProductModel();
+        $page = safe::filterGet('page','int',1);
+        $res = array();
+        if($id) {
+            $res = $proObj->offerRecommend($id,$page);
+
+        }
+        $this->getView()->assign('data',$res);
+        $this->getView()->assign('id',$id);
+    }
+
 
 
 

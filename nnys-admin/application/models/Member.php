@@ -55,6 +55,52 @@ class MemberModel extends baseModel{
 
 	}
 
+    /**
+     * 获取通知用户列表
+     * @param int $page
+     * @param int $pagesize
+     * @return array
+     */
+	public function getNoticeList($page=1,$pagesize=20){
+        $Q1 = new \Library\Query('user_rec as ur');
+        $Q1->join = 'left join user as u on ur.user_id = u.id';
+        $Q1->fields = 'ur.*,u.username,u.true_name';
+        $Q1->page = $page;
+        $Q1->pagesize=$pagesize;
+        $data = $Q1->find();
+        $bar = $Q1->getPageBar();
+        return array('list'=>$data,'bar'=>$bar);
+    }
+
+    public function addNoticeUser($data){
+	    $data['subject'] = 'jingjia';
+	    if($data['user_id']==0)
+	        return tool::getSuccInfo(0,'用户不存在');
+	    $m = new M('user_rec');
+	    $has = $m->where($data)->getObj();
+	    if(!empty($has)){
+	        return tool::getSuccInfo(0,'不能重复添加');
+        }
+	    $res = $m->data($data)->add();
+	    if($res)
+	        return tool::getSuccInfo();
+	    return tool::getSuccInfo(0,'添加失败');
+    }
+
+    public function delNoticeUser($id){
+        $m = new M('user_rec');
+        $res = $m->where(array('id'=>$id))->delete();
+        if($res)
+            return tool::getSuccInfo();
+        return tool::getSuccInfo(0,'删除失败');
+    }
+
+    public function seachUser($name){
+	    $user = new M('user');
+	    $data = $user->where('username="'.$name.'" OR mobile="'.$name.'"')->fields('id,username,mobile,true_name')->getObj();
+	    return $data;
+    }
+
 	/**
 	 *
 	 * @param $offer_id

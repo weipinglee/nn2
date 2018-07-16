@@ -89,19 +89,7 @@ class DepositController extends OrderController{
 		}else{
 			$order_id = safe::filter($this->getRequest()->getParam('order_id'),'int');
 			$data = $this->entrust->contractDetail($order_id,'seller');
-			$obj = new \nainai\system\EntrustSetting();
-
-			$percent = $obj->getRate($data['cate_id']);
-			// $percent = $this->order->entrustFee($order_id);
-			if (empty($percent)) {
-				$percent['value'] = 0;
-			}
-			$member = new \nainai\member();
-			$is_vip = $member->is_vip($this->user_id);
-
-			$data['seller_percent'] = $percent['value'];
-			$data['type'] = $percent['type'];
-			$data['seller_deposit'] = $is_vip ? 0 : ($percent['type'] == 0 ? number_format($data['amount'] * $percent['value'] / 100,2) : $percent['value']);
+			$data['weituo'] = $this->entrust->getWeituojin($this->user_id,$data['offer_id'],$data);
 			$this->getView()->assign('data',$data);
 		}
 	}

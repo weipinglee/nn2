@@ -175,7 +175,12 @@ class FundController extends UcenterBaseController {
 
 	//处理充值操作
 	public function doFundInAction() {
-
+        $fund = new fundModel();
+        $res = $fund->checkBank($this->user_id);
+        if(!$res){
+            die(json::encode(\Library\tool::getSuccInfo(0,'请先开户并审核通过后再进行入金操作',url::createUrl('/fund/bank'))) ) ;
+            exit;
+        }
 		$payment_id = safe::filterPost('payment_id', 'int');
 		$recharge = safe::filterPost('recharge', 'float');
         $sign = safe::filterPost('sign', 'int');
@@ -241,7 +246,8 @@ class FundController extends UcenterBaseController {
 					$adminMsg->createMsg('fundinfirst',$r_id,$content);
 					$userLog=new \Library\userLog();
 					$userLog->addLog(['action'=>'线下充值操作','content'=>'充值了'.$recharge.'元']);
-					die(json::encode(\Library\tool::getSuccInfo()));
+					$succInfo = '大约需要1个小时来进行审核，请耐心等待';
+					die(json::encode(\Library\tool::getSuccInfo(1,$succInfo,'','',3)));
 				}
 
 			} else {
@@ -254,6 +260,12 @@ class FundController extends UcenterBaseController {
 	}
 	//充值视图
 	public function czAction() {
+        $fund = new fundModel();
+        $res = $fund->checkBank($this->user_id);
+        if(!$res){
+            $this->redirect('bank');
+            exit;
+        }
 		$where = array();
 		$cond['begin'] = safe::filterGet('begin');
 		$cond['end'] = safe::filterGet('end');
@@ -348,6 +360,8 @@ class FundController extends UcenterBaseController {
 			$content='编号为'.$user_id.'的用户有一笔提现需要处理';
 			$adminmsg->createMsg('fundoutfirst',$res['id'],$content);
 
+			$res['info'] = '大约需要1个小时来进行审核，请耐心等待';
+            $res['time'] = 3;
 		}
 		die(json::encode($res));
 

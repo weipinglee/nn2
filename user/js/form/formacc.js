@@ -16,14 +16,19 @@ nn_panduo.formacc = function(obj){
 }
 
 nn_panduo.formacc.prototype = {
-	form_init:function(){
+	form_init:function(formID){
 		var _this = this;
-		$("form[auto_submit]").each(function(i){
+		var select = '';
+		if(formID){
+			select = "form#"+formID;
+		}
+		else
+            select =  "form[auto_submit]";
+		$(select).each(function(i){
 			_this.redirect_url = $(this).attr("redirect_url");
 			_this.form = this;
 			_this.no_redirect = $(this).attr('no_redirect') ? 1:0;
-			
-			_this.bind_select();
+
 			_this.validform();
 			var con = $(_this.form).find('[confirm=1]');
 			if(con){
@@ -38,8 +43,12 @@ nn_panduo.formacc.prototype = {
 		});
 		_this.validPaymentPassword();
 	},
+	successMsg : function (a) {
+		layer.msg(a);
+    },
 
 	/**
+	 * @deprecated
 	 * 自动绑定select选中项
 	 */
 	bind_select:function(){
@@ -133,9 +142,15 @@ nn_panduo.formacc.prototype = {
 								// console.log(data);
 								layer.load(2,{shade:[0.1,'gray']});
 								_this.ajax_post(url,data,function(){
+                                    var return_data = _this.ajax_return_data;
+
 									layer.closeAll();
 									if(!_this.no_redirect){
-										layer.msg("操作成功!稍后自动跳转");
+                                        if(return_data.info!==''){
+                                            layer.msg(return_data.info);
+                                        }else{
+                                            layer.msg("操作成功!稍后自动跳转");
+                                        }
 										setTimeout(function(){
 											if(_this.redirect_url){
 												window.location.href=_this.redirect_url;
@@ -161,9 +176,14 @@ nn_panduo.formacc.prototype = {
 							// console.log(data);
 							layer.load(2,{shade:[0.1,'gray']});
 							_this.ajax_post(url,data,function(){
+                                var return_data = _this.ajax_return_data;
 								layer.closeAll();
 								if(!_this.no_redirect){
-									layer.msg("操作成功!稍后自动跳转");
+                                    if(return_data.info!==''){
+                                        layer.msg(return_data.info);
+                                    }else{
+                                        layer.msg("操作成功!稍后自动跳转");
+                                    }
 									setTimeout(function(){
 										if(_this.redirect_url){
 											window.location.href=_this.redirect_url;
@@ -179,17 +199,24 @@ nn_panduo.formacc.prototype = {
 					}
 		        }else{
 			        _this.ajax_post(url,data,function(){
+			        	var return_data = _this.ajax_return_data;
 				        if(!_this.no_redirect){
-				       	    layer.msg("操作成功!稍后自动跳转");
+				        	if(return_data.info!==''){
+                                _this.successMsg(return_data.info);
+							}else{
+                                _this.successMsg("操作成功!稍后自动跳转");
+							}
+				       	   var sec = return_data.time ? return_data.time : 1;
+				        	sec = sec * 1000;
 				            setTimeout(function(){
 				              	if(_this.redirect_url){
 					                window.location.href=_this.redirect_url;
 					            }else{
 					            	window.location.reload();
 					            }
-				            },1000);
+				            },sec);
 				        }else{
-				          	layer.msg('操作成功！');
+                            _this.successMsg('操作成功！');
 				        }
 			        });
 			    }
@@ -259,7 +286,10 @@ nn_panduo.formacc.prototype = {
 
 
 	addRule :function(roles){
-		this.validObj.addRule(roles);
+		if(typeof this.validObj === 'object'){
+            this.validObj.addRule(roles);
+		}
+
 	},
 
 	addDatatype : function(name,rule){
@@ -342,7 +372,7 @@ nn_panduo.formacc.prototype = {
 					else{
 						_this.ajax_return_data = data;
 						if(typeof(eval(suc_callback)) == 'function'){
-							suc_callback();
+							suc_callback(data);
 						}
 						_this.ajax_return_data = '';
 					}
@@ -386,28 +416,32 @@ $(function(){
 	formacc.bind_confirm();
 	formacc.buttonSubmit();
 	formacc.form_init();
-	//地址验证，根据是两级或三级动态调整验证规则
-	if($('#areabox').length && $('#areabox').length>0){
-		$('#areabox').find('select').on('change',function(){
-			var num = $('#areabox').find('select:visible').length;
-			var rules = [{
-				ele:"input[name=area]",
-				datatype:"n"+num*2+"-6",
-				nullmsg:"请选择地址！",
-				errormsg:"请选择地址！"
-			}];
-			formacc.addRule(rules);
+	formacc.addressRule = function(spanID){
+        if($('#'+spanID).length && $('#'+spanID).length>0){
+            $('#'+spanID).find('select').on('change',function(){
+                var num = $('#'+spanID).find('select:visible').length;
+                var rules = [{
+                    ele:"#"+spanID+" input",
+                    datatype:"n"+num*2+"-6",
+                    nullmsg:"请选择地址！",
+                    errormsg:"请选择地址！"
+                }];
+                formacc.addRule(rules);
 
-		})
-		//为地址选择框添加验证规则
-		var rules = [{
-			ele:"input[name=area]",
-			datatype:"n2-6",
-			nullmsg:"请选择地址！",
-			errormsg:"请选择地址！"
-		}];
-		formacc.addRule(rules);
-	}
+            })
+            //为地址选择框添加验证规则
+            var rules = [{
+                ele:"#"+spanID+" input",
+                datatype:"n2-6",
+                nullmsg:"请选择地址！",
+                errormsg:"请选择地址！"
+            }];
+            formacc.addRule(rules);
+        }
+	};
+    formacc.addressRule('areabox');
+    formacc.addressRule('areaboxt');
+
 
 
 

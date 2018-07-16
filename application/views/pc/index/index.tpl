@@ -83,7 +83,15 @@ $(function() {
 
     <input type="hidden" id="UserID">
       <!-- 轮播大图 开始 -->
-
+      <script type="text/javascript">
+      /*根据顶部图片的高度，改变轮播图距离顶部的高度*/
+          $(function(){
+            var o=$(".top_ad");
+            var h = o.height();
+            $(".banner").css({"top":155+h});
+          })
+          /*根据顶部图片的高度，改变轮播图距离顶部的高度end*/
+      </script>
     <div class="banner">
         <!-- 代码 开始 -->
     <link href="{views:css/nav.css}" rel="stylesheet" />
@@ -93,7 +101,7 @@ $(function() {
             {set:$count = count($indexSlide)}
                 {foreach: items=$indexSlide}
                 <div class="event-item" style="{if:$key==0}display: block;{else:}display:none;{/if}background:{$item['bgcolor']}">
-                    <a target="_blank" href="{if:$item['link']}{$item['link']}{else:}javascript:;{/if}">
+                    <a href="{if:$item['link']}{$item['link']}{else:}javascript:;{/if}">
                         <img src="{$item['img']}" class="photo" style="width: 100%; height: 470px;margin:0 auto" alt="{$itme['name']}" />
                     </a>
                 </div>
@@ -108,7 +116,7 @@ $(function() {
         </div>
         <script type="text/javascript">
              var _c = {$count};
-             $('#inner').nav({ t: 2000, a: 1000, c: _c});
+             $('#inner').nav({ t: 5000, a: 1000, c: _c});
         </script>
         <!-- 代码 结束 -->
       </div> 
@@ -457,7 +465,7 @@ $(function() {
                     <ul class="lin_lists">
                     {foreach: items=$frdLinkList}
                         <li class="li_txt">
-                            <a class="li_a" href="{$item['link']}" target="_blank">{$item['name']}</a>
+                            <a class="li_a" href="{$item['link']}">{$item['name']}</a>
                         </li>
                         {if:$key!=$sum-1}
                             <li class="li_l">
@@ -486,13 +494,14 @@ $(function() {
               </div>
 
             <div class="show_div">
-              <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur fhdb_a">
+              <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" 
+              data="#toTop" rel="floor-4" style="margin-top:7px;" class="cur fhdb_a">
                   <i class="left_iconfont " display="none"><img src="{views:images/floor_04.png}">客服</i>
                   <em class="two_line" display="black"><img src="{views:images/floor_cur_04.png}">客服</em>
               </a>
                <div class="hover_div">
                     <em></em>
-                    <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" data="#toTop" rel="toTop" class="hove_a">联系客服</a>
+                    <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" data="#toTop" rel="toTop" class="hove_a">联系客服</a>
                 </div>
             </div>
             <div class="show_div">
@@ -519,7 +528,14 @@ $(function() {
                 <div class="product_img"><img src=" <%=data[i].img%>"></div>
                 <h4> <%=data[i].pname%></h4>
                 <p> <%=data[i].note%></p>
-                <p class="product_price">￥ <%=data[i].price%>/ <%=data[i].unit%></p>
+                <p class="product_price">
+                    <%if (data[i].sub_mode==1) {%>
+                    ￥<%=data[i].price_l%>-<%=data[i].price_r%>
+                    /<%=data[i].unit%>
+                    <% } else {%>
+                    ￥<%=data[i].price%>/ <%=data[i].unit%>
+                    <% } %>
+                </p>
             </a>
         </li>
 
@@ -534,12 +550,15 @@ $(function() {
     <%for (var i=0;i<data.length;i++) { %>
     <%if (i<6) { %>
     <div class="nn-shebei-item jingpai-new">
-        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>" target="_blank">
             <img src="<%=data[i].img%>" alt="" />
             <h3 class="nn-shebei-title"><%=data[i].name%></h3>
             <p class="nn-shebei-con"><%=data[i].note%></p>
             <p class="nn-shebei-price">￥
-                <span class="shebei-price-num"><%=data[i].price%></span> /<%=data[i].unit%>
+                <span class="shebei-price-num">
+                    <%=data[i].price_l%>-
+                    <%=data[i].price_r%>
+                    </span> /<%=data[i].unit%>
             </p>
             <div class="nn-jingpai-hover">
                 <div class="nn-jingpai-cir">
@@ -558,12 +577,15 @@ $(function() {
     <%for (var i=0;i<data.length;i++) { %>
     <%if (i>5&&i<12) { %>
     <div class="nn-shebei-item jingpai-new">
-        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>" target="_blank">
             <img src="<%=data[i].img%>" alt="" />
             <h3 class="nn-shebei-title"><%=data[i].name%></h3>
             <p class="nn-shebei-con"><%=data[i].note%></p>
             <p class="nn-shebei-price">￥
-                <span class="shebei-price-num"><%=data[i].price%></span> /<%=data[i].unit%>
+                <span class="shebei-price-num">
+                    <%=data[i].price_l%>-
+                    <%=data[i].price_r%>
+                </span>/<%=data[i].unit%>
             </p>
             <div class="nn-jingpai-hover">
                 <div class="nn-jingpai-cir">
@@ -586,7 +608,7 @@ $(function() {
     <%if (data.length>0) { %>
         <%for (var i=0;i<data.length;i++) { %>
             <div class="nn-guess-item">
-                <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>" target="_blank">
                     <img src="<%=data[i].img%>" alt="" />
                     <p class="nn-guess-title"><%=data[i].name%></p>
                     <p class="nn-guess-con"> <%=data[i].note%></p>
@@ -605,7 +627,7 @@ $(function() {
     <%if (data.length>0) { %>
         <%for (var i=0;i<data.length;i++) { %>
             <div class="nn-hot-item">
-                <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+                <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>" target="_blank">
                     <img src="<%=data[i].img%>" alt="" />
                     <p class="nn-guess-title"><%=data[i].name%></p>
                     <p class="nn-guess-con">  <%=data[i].note%></p>
@@ -622,7 +644,7 @@ $(function() {
         <%for (var i=0;i<data.length;i++) { %>
         <%if (i<3) { %>
         <div class="nn-order-item clear">
-            <a class="nn-order-link" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+            <a class="nn-order-link" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>" target="_blank">
                 <span class="nn-order-img">
                     <img src="<%=data[i].img%>" alt="" />
                 </span>
@@ -639,7 +661,7 @@ $(function() {
         <%for (var i=0;i<data.length;i++) { %>
         <%if (i>2&&i<6) { %>
         <div class="nn-order-item clear">
-            <a class="nn-order-link" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>">
+            <a class="nn-order-link" href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>" target="_blank">
                 <span class="nn-order-img">
                     <img src="<%=data[i].img%>" alt="" />
                 </span>

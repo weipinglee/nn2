@@ -15,7 +15,8 @@ use \Library\M;
 class tradeController extends \nainai\controller\Base {
  
 	private $offer;
-
+    private $login ;
+    private $order;
 	protected $certType = 'deal';
 	public function init(){
 		parent::init();
@@ -28,16 +29,33 @@ class tradeController extends \nainai\controller\Base {
            $mess=$messObj->getCountMessage();
            $this->getView()->assign('mess',$mess);
            $this->getView()->assign('login',1);
+           $this->getView()->assign('cert',$this->login['cert']);
            $this->getView()->assign('username',$this->login['username']);
         }else{
             $this->getView()->assign('login',0);
         }
 		$this->getView()->setLayout('layout');
 		$this->offer = new offersModel();
+        $this->order = new orderModel();
 	}
 
+	public function createOrderAction(){
+	    if(IS_POST) {
+            $id = safe::filterPost('id', 'int',0);
+            $num = safe::filterPost('num','float',0);
+            $invoice = safe::filterPost('invoice','int',1);
+            $invoice = $invoice==1 ? 1 : 0;
+            $user_id = $this->user_id;
+            $res = $this->order->createOneOrder($id, $num, $user_id,$invoice);
+            die(json::encode($res));
+
+        }
+
+
+    }
 	//付款
 	public function buyerPayAction(){
+	    return false;
 		$id = safe::filterPost('id','int');
 		$num = safe::filterPost('num');
 		$paytype = safe::filterPost('paytype');
@@ -56,6 +74,7 @@ class tradeController extends \nainai\controller\Base {
 			$mess->send('credentials');
 			die(json::encode(tool::getSuccInfo(0,'该商品的发布商家资质不够，暂时不能购买')));
 		}
+		$seller_id = $detail['user_id'];
 		$offer_type = intval($detail['mode']);
 		switch ($offer_type) {
 			case order\Order::ORDER_FREE:
@@ -80,7 +99,7 @@ class tradeController extends \nainai\controller\Base {
 		}
 		$order_submode = null;
 
-		
+
 		//判断用户账户类型
 		if(in_array($offer_type,array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT))){
 			switch ($account) {
@@ -92,7 +111,7 @@ class tradeController extends \nainai\controller\Base {
 					break;
 				case \nainai\order\Order::PAYMENT_TICKET:
 					die(json::encode(tool::getSuccInfo(0,'票据账户支付暂时未开通，请选择其他支付方式')));
-					
+
 					break;
 				default:
 					die(json::encode(tool::getSuccInfo(0,'无效账户类型')));
@@ -101,7 +120,7 @@ class tradeController extends \nainai\controller\Base {
 		}
 		$user_id = $this->user_id;
 
-		
+
 		$orderData['payment'] = $account;
 		$orderData['offer_id'] = $id;
 		$orderData['num'] = $num;
@@ -110,6 +129,10 @@ class tradeController extends \nainai\controller\Base {
 		$orderData['create_time'] = date('Y-m-d H:i:s',time());
 		$orderData['mode'] = $offer_type;
 		
+		//店铺id
+		$shopInfo = \nainai\shop\shop::info($seller_id);
+		$orderData['shop_id'] = isset($shopInfo['id']) ? $shopInfo['id'] : '';
+
 		//设置保险信息到合同里面
 		if ($detail['insurance'] == 1) {//投保产品
 			$orderData['risk'] = $detail['risk'];
@@ -120,7 +143,7 @@ class tradeController extends \nainai\controller\Base {
 				$orderData['risk'] = $data['risk'];
 			}
 		}
-		
+
 
 		//判断是否需要开具发票
 		$orderData['invoice'] = $invoice == 1 ? 1 : 0;
@@ -169,7 +192,7 @@ class tradeController extends \nainai\controller\Base {
 					$order->commit();
 					
 					$amount = $order->where(array('id'=>$order_id))->getfield('amount');
-					$url = url::createUrl('/offers/paySuccess?id='.$order_id.'&order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证');
+					$url = url::createUrl('/offers/paySuccess?id='.$order_id.'&order_no='.$orderData['order_no'].'&amount='.$amount.'&payed=0&info=等待上传线下支付凭证或线上支付');
 					die(json::encode(tool::getSuccInfo(1,'操作成功,稍后跳转',$url)));
 				}else{
 
@@ -235,11 +258,19 @@ class tradeController extends \nainai\controller\Base {
 		$info['minimum_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['minimum']*$info['price']));
 		$info['left_deposit'] = floatval($order_mode->payDepositCom($info['id'],$info['left']*$info['price']));
 
-		$info['show_payment'] = in_array($info['mode'],array(\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0;
+		$info['show_payment'] = in_array($info['mode'],array()) ? 1 : 0;
 		//商品剩余数量
 		$pro = new \nainai\offer\product();
 
 		$info = array_merge($info,$pro->getProductDetails($info['product_id']));
+        $info['is_vip'] = 0;
+        $info['old_price'] = 0;
+		if($this->login['cert']['vip']==1 || $this->login['cert']['vip_temp']==1){
+		    $info['is_vip'] = 1;
+            $info['old_price'] = $info['price'];
+            $info['price'] = $info['price_vip'];
+
+        }
 		// echo '<pre>';var_dump($info);
 		//判断下是否能够申请保险
 		if($info['insurance'] == 0){
@@ -435,9 +466,16 @@ class tradeController extends \nainai\controller\Base {
 	//竞价交易报价
 	public function jingjiabaojiaAction()
 	{
+        $zhi = new \nainai\member();
+        $pay_secret = safe::filterPost('pass');
+        $user_id = $this->user_id;
+        if(!$zhi->validPaymentPassword($pay_secret,$user_id)){
+            die(json::encode(tool::getSuccInfo(0,'支付密码错误')));
+        }
+
 		$price = safe::filterPost('price','float');
 		$offer_id = safe::filterPost('offer_id','int',0);
-		$user_id = $this->user_id;
+
 		$jingjiaObj = new \nainai\offer\jingjiaOffer();
 		$res = $jingjiaObj->baojia($offer_id,$price,$user_id);
 		die(json::encode($res));

@@ -79,7 +79,8 @@
                         即将</br>进行
                     </div>
                     <div class="time_text">
-                    <h3 class="h32">距离开始仅剩：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h3>
+                        <h3 class="h32">开始时间：<span >{$data['time1']}</span></h3>
+                        <h3 class="h32">距离开始仅剩：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h3>
                     <div class="time_peo">
                         <span><b>{$data['baojia_count']}</b>人已报名</span>
                         &nbsp;
@@ -94,6 +95,7 @@
                         正在</br>进行
                     </div>
                     <div class="time_text">
+                    <h3 class="h32">结束时间：<span >{$data['time2']}</span></h3>
                     <h3 class="h32">距离结束仅剩：<span id="time_d"></span>天<span id="time_h"></span>时<span id="time_m"></span>分<span id="time_s"></span>秒</h3>
                     <div class="time_peo">
                         <span><b>{$data['baojia_count']}</b>人已报名</span>
@@ -182,7 +184,7 @@
             </div>
             <div class="left_ringt">
                 <div class="product_details">
-                    <p><span>产地：</span><b>{areatext:data=$data['produce_area']}</b></p>
+                    <p><span>产地：</span><b>{areatext:data=$data['produce_area']}{$data['produce_address']}</b></p>
                     <p><span>卖方：</span><b>{$user['company_name']}</b></p>
                     <p><img src="{views:images/password/eye_b.png}" alt="" style="position: relative;top:5px; " />
                         <a id='contract_review' target='_blank'
@@ -231,20 +233,33 @@ $(function(){
     $(".submit_but .but").click(function(){
        var start_price= $("input[name='start_price']").val();
        var offer_id=$("input[name='offer_id']").val();
-        $.ajax({
-          type:"post",
-          url:"{url:/trade/jingjiabaojia@deal}",
-          data:{price:start_price,offer_id:offer_id},
-          dataType:"json",
-          success:function(data){
-            if(data.success==1){
-                alert("报价成功");
-                window.location.reload();
-            }else{
-                alert(data.info);
-            }
-            
-          }
+       layer.closeAll();
+        layer.config({
+            extend: 'extend/layer.ext.js'
+        });
+        layer.prompt({title:'请输入支付密码',formType:1},function(pass){
+            if(pass==='')
+                return false;
+            layer.closeAll();
+            $.ajax({
+                type:"post",
+                url:"{url:/trade/jingjiabaojia@deal}",
+                data:{price:start_price,offer_id:offer_id,pass:pass},
+                dataType:"json",
+                success:function(data){
+                    if(data.success===1){
+                        layer.msg("报价成功");
+                        window.location.reload();
+                    }else{
+                        layer.msg(data.info);
+                    }
+
+                },
+                error:function(){
+
+                }
+        });
+
         })
     })
 })
@@ -297,17 +312,17 @@ $(function(){
   })
  /* 按钮加减 end*/
     /*倒计时*/
-  var ofer_statue={$data['offerStatus']}//状态
-
-$(function(){ 
-
-show_time(); 
+var now = {echo:time()};
+var i = 0;
+$(function(){
+    show_time();
 
 }); 
 
 function show_time(){
     var time_start ="{$data['start_time']}";//设定开始时间
-    var now = $.now();
+    var nowTime = (now + i)*1000;
+    i++;
     {if:$offerStatus==1}
     var time_end = {echo:\Library\time::getTime($data['start_time'])}; //设定结束时间(等于系统当前时间)
     {elseif:$offerStatus==2}
@@ -317,51 +332,55 @@ function show_time(){
        $("#time_d").html('00'); 
        $("#time_h").html('00'); 
        $("#time_m").html('00'); 
-       $("#time_s").html('00'); 
+       $("#time_s").html('00');
+    return false;
     {/if}
 
     time_end = time_end*1000;
     //计算时间差
-    var time_distance = time_end - now;
+    var time_distance = time_end - nowTime;//console.log(time_distance);
     if(time_distance > 0){
-    // 天时分秒换算
-    var int_day = Math.floor(time_distance/86400000)
-    time_distance -= int_day * 86400000;
+        // 天时分秒换算
+        var int_day = Math.floor(time_distance/86400000)
+        time_distance -= int_day * 86400000;
 
-    var int_hour = Math.floor(time_distance/3600000)
-    time_distance -= int_hour * 3600000;
+        var int_hour = Math.floor(time_distance/3600000)
+        time_distance -= int_hour * 3600000;
 
-    var int_minute = Math.floor(time_distance/60000)
-    time_distance -= int_minute * 60000;
+        var int_minute = Math.floor(time_distance/60000)
+        time_distance -= int_minute * 60000;
 
-    var int_second = Math.floor(time_distance/1000)
-    // 时分秒为单数时、前面加零
-    if(int_day < 10){
-    int_day = "0" + int_day;
-    }
-    if(int_hour < 10){
-    int_hour = "0" + int_hour;
-    }
-    if(int_minute < 10){
-    int_minute = "0" + int_minute;
-    }
-    if(int_second < 10){
-    int_second = "0" + int_second;
-    }
-    // 显示时间
-    $("#time_d").html(int_day);
-    $("#time_h").html(int_hour);
-    $("#time_m").html(int_minute);
-    $("#time_s").html(int_second);
-    setTimeout("show_time()",1000);
-        if(int_day==0 && int_hour==0&& int_minute==0&& int_second==0){
-            window.location.reload();
+        var int_second = Math.floor(time_distance/1000)
+        // 时分秒为单数时、前面加零
+        if(int_day < 10){
+        int_day = "0" + int_day;
         }
-    }else{
-    $("#time_d").html('00');
-    $("#time_h").html('00');
-    $("#time_m").html('00');
-    $("#time_s").html('00');
+        if(int_hour < 10){
+        int_hour = "0" + int_hour;
+        }
+        if(int_minute < 10){
+        int_minute = "0" + int_minute;
+        }
+        if(int_second < 10){
+        int_second = "0" + int_second;
+        }
+        // 显示时间
+        $("#time_d").html(int_day);
+        $("#time_h").html(int_hour);
+        $("#time_m").html(int_minute);
+        $("#time_s").html(int_second);
+        setTimeout("show_time()",1000);
+
+    }
+    else if(time_distance==0){
+        window.location.reload();
+    }
+    else{
+        $("#time_d").html('00');
+        $("#time_h").html('00');
+        $("#time_m").html('00');
+        $("#time_s").html('00');
+        return false;
     }
 } 
 /*倒计时end*/
@@ -407,7 +426,7 @@ function show_time(){
 
                         <tr>
                             <td>产地</td>
-                            <td><span id="area">{areatext:data=$data['produce_area'] id=area }</span></td>
+                            <td><span id="area">{areatext:data=$data['produce_area'] id=area }{$data['produce_address']}</span></td>
                         </tr>
                         {foreach:items=$data['attr_arr']}
                         <tr>
@@ -460,26 +479,19 @@ function show_time(){
                             <td>起订量</td>
                             <td>{$data['minimum']}{$data['unit']}</td>
                         </tr>
-                        <tr>
-                            <td>商品单价</td>
-                            <td>{$data['price']}/{$data['unit']}</td>
-                        </tr>
+
                         <tr>
                             <th colspan="2">交收详情</th>
                         </tr>
                         <tr>
                             <td>交收时间</td>
-                            <td>成交后顺延{$data['accept_day']}天开始交收</td>
+                            <td>成交后{$data['accept_day']}天完成交收</td>
                         </tr>
                         <tr>
                             <td>交收地点</td>
-                            <td>{$data['accept_area']}</td>
+                            <td>{areatext:data=$data['accept_area_code'] id=area1 }{$data['accept_area']}</td>
                         </tr>
 
-                        <tr>
-                            <td>有效期</td>
-                            <td>{$data['expire_time']}</td>
-                        </tr>
                         <tr>
                             <td>补充条款</td>
                             <td>{$data['other']}</td>

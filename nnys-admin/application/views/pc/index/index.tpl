@@ -86,6 +86,7 @@
                                 <li><a href="{url:system/admin/adminAdd}" target="content">新增管理员</a></li>
                                 <li><a href="{url:system/admin/adminList}" target="content">管理员列表</a></li>
                                 <li><a href="{url:system/admin/logList}" target="content">管理员操作记录</a></li>
+                                <li><a href="{url:system/admin/checkNotice}" target="content">审核通知</a></li>
                             </ul>
                         </li>
                         <!-- <li><a  target="content">系统设置</a></li> -->
@@ -96,15 +97,15 @@
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/brush.png}" alt="" />会员管理</a>
                     <ul>
-                        <li><a target="content">会员认证</a>
+                        <li><a target="content">用户认证</a>
                             <ul>
-                                <li><a href="{url:member/certManage/dealerCert}" target="content">交易商认证</a>
+                                <li><a  target="content">交易商认证</a>
                                     <ul>
                                         <li><a href="{url:member/certManage/dealerCert}" target="content">待审核</a></li>
                                         <li><a href="{url:member/certManage/dealerCerted}" target="content">已审核</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{url:member/certManage/storeCert}" target="content">仓库认证</a>
+                                <li><a  target="content">仓库认证</a>
                                     <ul>
                                         <li><a href="{url:member/certManage/storeCert}" target="content">待审核</a></li>
                                         <li><a href="{url:member/certManage/storeCerted}" target="content">已审核</a></li>
@@ -120,14 +121,21 @@
                             </ul>
                         </li>-->
 
-                        <li><a href="{url:member/usergroup/groupList}" target="content">会员等级</a></li>
+                        <li><a href="{url:member/usergroup/groupList}" target="content">用户等级</a></li>
                         <li><a href="{url:member/payUserGroup/groupList}" target="content">收费会员等级</a></li>
                         <li><a target="content">会员管理</a>
                             <ul>
-                                <li><a href="{url:member/member/memberList}" target="content">会员列表</a></li>
-                                <li><a href="{url:member/member/OnLineList}" target="content">在线会员信息</a></li>
-                                <li><a href="{url:member/member/userlog}" target="content">会员日志列表</a></li>
-                                <li><a href="{url:member/member/userfund}" target="content">会员资金列表</a></li>
+                                <li><a href="{url:member/vipManage/applyList}" target="content">申请会员列表</a></li>
+                                <li><a href="{url:member/vipManage/vipList}" target="content">会员列表</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="content">用户管理</a>
+                            <ul>
+                                <li><a href="{url:member/member/memberList}" target="content">用户列表</a></li>
+                                <li><a href="{url:member/member/userNotice}" target="content">通知用户</a></li>
+                                <li><a href="{url:member/member/OnLineList}" target="content">在线用户信息</a></li>
+                                <li><a href="{url:member/member/userlog}" target="content">用户日志列表</a></li>
+                                <li><a href="{url:member/member/userfund}" target="content">用户资金列表</a></li>
                             </ul>
                         </li>
 
@@ -185,6 +193,7 @@
                             <ul>
                                 <li><a href="{url:trade/OfferManage/kefuOfferList}" target="content">客服报盘列表</a></li>
                                 <li><a href="{url:trade/OfferManage/offerList}" target="content">报盘管理</a></li>
+                                <li><a href="{url:trade/OfferManage/jingjiaList}" target="content">竞价管理</a></li>
                                 <li><a href="{url:trade/OfferManage/offerReview}" target="content">报盘审核</a></li>
                                 <li><a href="{url:trade/OfferManage/expireOfferList}" target="content">历史报盘信息查询</a></li>
                                 <li><a href="{url:trade/OfferManage/offerRecycle}" target="content">报盘信息垃圾箱</a></li>
@@ -288,6 +297,7 @@
                             </ul> </li>-->
                             <li><a target="content">市场统计</a>
                             <ul>
+                                <li><a href="{url:information/statsMarket/statsList2}" target="content">订单统计数据</a></li>
                                 <li><a href="{url:information/statsMarket/statsMarketList}" target="content">统计项列表</a></li>
                                 <li><a href="{url:information/statsMarket/statsList}" target="content">市场统计数据</a></li>
                             </ul>
@@ -450,7 +460,7 @@
               CONTENT 
                         --> 
         <div class="main_content" id="content_1" >
-            <iframe class="white" scrolling="yes" frameborder="0" src="{url:index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="728px"  id="iframe" style="overflow-y:scroll;"></iframe>
+            <iframe class="white" scrolling="yes" frameborder="0" src="{url:/index/index/welcome}" name="content" marginheight="0" marginwidth="0" width="100%" height="728px"  id="iframe" style="overflow-y:scroll;"></iframe>
 
      </div>
 </div>

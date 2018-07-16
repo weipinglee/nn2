@@ -80,11 +80,11 @@
               {if: $detail['package'] == 1}
                             <tr>
                             <th>包装重量</th>
-              <td>   {$detail['package_weight']} ({$detail['unit']} )</td>
+              <td>   {$detail['package_weight']} ({$detail['package_units']} )</td>
                 <th>包装数量:</th>
                 <td>   {$detail['package_num']} </td>
-                <th></th>
-                <td></td>
+                <th>包装单位</th>
+                <td>{$detail['package_unit']}</td>
 
                             </tr>
                             {/if}

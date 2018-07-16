@@ -104,7 +104,11 @@ class ContractController extends UcenterBaseController{
 		$order_id = safe::filter($this->_request->getParam('order_id'));
 		
 		if($order_id){
-			$order_info = $order->contractDetail($order_id);			
+			$order_info = $order->contractDetail($order_id);
+			if($order_info['buyer_id']!=$this->user_id && $order_info['offer_user_id']!=$this->user_id){
+			    $order_info['buyer_name'] = mb_substr($order_info['buyer_name'],0,1,'UTF-8').'*********';
+            }
+
 		}else{
 			$offer_id = safe::filter($this->_request->getParam('offer_id'));
 			$num = safe::filter($this->_request->getParam('num'));
@@ -119,7 +123,7 @@ class ContractController extends UcenterBaseController{
 		$order_info['product_cate'] = rtrim($tmp,'/');
 		
 		// echo '<pre>';var_dump($order_info);exit;
-		
+
 		$this->getView()->assign('info',$order_info);
 	}
 

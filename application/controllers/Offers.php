@@ -88,20 +88,11 @@ class OffersController extends PublicController {
 		$this->getView()->assign('type', $type);
 		$this->getView()->assign('mode', $mode);
 		$this->getView()->assign('user_type', $this->login['user_type']);
+		$this->getView()->assign('user_id',$this->login['user_id']);
 	}
 
 
-	//计算定金
-	public function payDepositComAction(){
-		$num = safe::filterPost('num','floatval');
-		$id = safe::filterPost('id','int');
-		$price = safe::filterPost('price','floatval');
 
-		$amount = $num * $price;
-		$payDeposit = $this->order->payDepositCom($id,$amount);
-		$res = $payDeposit === false ? tool::getSuccInfo(0,'获取定金失败') : tool::getSuccInfo(1,$payDeposit);
-		die(JSON::encode($res));
-	}
 
 	//验证用户输入产品数量
 	// public function checkNumAction(){
@@ -120,7 +111,7 @@ class OffersController extends PublicController {
 	$id = Safe::filter($id, 'int');
 
 	if($id){
-		$info = $this->offer->offerDetail($id);//print_r($info);exit;
+		$info = $this->offer->offerDetail($id);
 		if(empty($info)){
 			$this->error('报盘不存在或未通过审核');
 		}
@@ -165,6 +156,7 @@ class OffersController extends PublicController {
 		$this->getView()->assign('user',$userData);
 		$this->getView()->assign('kefu',$kefuData);
 		$this->getView()->assign('cur','offerlist');
+		//$this->getView()->setStaticFile();
 	}
 }
 
@@ -224,94 +216,75 @@ class OffersController extends PublicController {
 	}
 
 	//竞价的详情页面
-	public function offerDetails2Action(){
-		$id = $this->getRequest()->getParam('id');
-		$id = Safe::filter($id, 'int');
+	public function jingjiaPageAction(){
 
-		if($id){
-			$info = $this->offer->offerDetail($id);
-			if(empty($info)){
-				$this->error('报盘不存在或未通过审核');
-			}
-			if(time() > strtotime($info['expire_time'])){
-				$this->error('报盘不存在或已过期');
-			}
-
-			$pro = new \nainai\offer\product();
-			$info = array_merge($info,$pro->getProductDetails($info['product_id']));
-
-			if ($info['insurance'] == 1 && $info['risk']) {
-				$risk = new \nainai\insurance\Risk();
-				$riskData = $risk->getProductRisk($info['risk']);
-				$this->getView()->assign('riskData',$riskData);
-			}
-
-			$kefuData = array();
-			if($info['kefu']){
-				$kefu = new \Library\M('admin_kefu');
-				$kefuData = $kefu->where(array('admin_id'=>$info['kefu']))->getObj();
-			}
-
-			$mem = new \nainai\member();
-
-			$userData = $mem->getUserDetail($info['user_id']);
-
-			//卖家资质
-			$certObj = new \nainai\cert\certificate();
-			$certStatus = $certObj->getCertStatus($info['user_id'],'deal');
-			if($certStatus['status']==2){
-				$this->getView()->assign('no_cert',0);
-			}else{
-				$mess = new \nainai\message($info['user_id']);
-				$mess->send('credentials');
-				$this->getView()->assign('no_cert',1);
-			}
-
-			//获取报价信息
-            $baojiaData = $this->offer->baojiaData($id);
-
-			//计算报盘的状态
-			$offerStatus = 0;
-			$orderData = array();
-			if($info['status']==6||$info['status']==7){
-				$offerStatus = 3;//已结束
-				//获取成交的订单号
-				$orderObj = new \Library\M('order_sell');
-				$orderData = $orderObj->where(array('offer_id'=>$id))->fields('id,user_id')->getObj();
-
-
-			}
-			elseif($info['status']==1){
-				if(time()>=\Library\time::getTime($info['start_time'])){//已开始
-					$offerStatus = 2;//已开始
-				}
-				else{
-					$offerStatus = 1;//未开始
-				}
-			}
-
-			//计算报价的人数
-			$info['baojia_count'] = 0;
-			if(!empty($baojiaData)){
-				$temp = array();
-				foreach($baojiaData as $val){
-					if(!in_array($val['user_id'],$temp)){
-						$temp[] = $val['user_id'];
-						$info['baojia_count']++;
-					}
-
-				}
-			}
-
-            $this->getView()->assign('orderData',$orderData);
-			$this->getView()->assign('offerStatus',$offerStatus);
-			$this->getView()->assign('data',$info);
-			$this->getView()->assign('user',$userData);
-			$this->getView()->assign('kefu',$kefuData);
-			$this->getView()->assign('cur','offerlist');
-			$this->getView()->assign('baojiaData',$baojiaData);
-		}
 	}
+
+	public function jingjiaDetailAction(){
+        $id = Safe::filterGet('id', 'int');
+        $pass = safe::filterGet('pass');
+        if($id){
+            //获取offer数据
+            $info = $this->offer->offerDetail($id);
+            if(empty($info)){
+                die(json_encode(tool::getSuccInfo(0,'竞价不存在')));
+            }
+
+            $jingjiaOffer = new \nainai\offer\jingjiaOffer();
+            if($info['status']==1 && !$jingjiaOffer->checkPass($id,$pass)){
+                die(json_encode(tool::getSuccInfo(0,'场内竞价口令错误，您无权查看')));
+            }
+
+            //获取产品数据
+            $pro = new \nainai\offer\product();
+            $info = array_merge($info,$pro->getProductDetails($info['product_id']));
+
+            //获取卖方数据
+            $mem = new \nainai\member();
+            $info['user'] = $mem->getUserDetail($info['user_id']);
+
+
+            //计算报盘的状态
+            $offerStatus = 0;
+            if($info['status']==6||$info['status']==7){
+                $offerStatus = 3;//已结束
+            }
+            elseif($info['status']==1){
+                if(time()>=\Library\time::getTime($info['start_time'])){//已开始
+                    $offerStatus = 2;//已开始
+                }
+                else{
+                    $offerStatus = 1;//未开始
+                }
+            }
+            $info['status'] = $offerStatus;
+
+            die(json_encode($info));
+        }
+    }
+
+    public function baojiaDataAction(){
+	    $id = safe::filterGet('id','int');//报盘id
+        //获取报价信息
+        $baojiaData = $this->offer->baojiaData($id);
+        //计算报价的人数
+        $baojiaData['baojia_count'] = 0;
+        if(!empty($baojiaData)){
+            $temp = array();
+            foreach($baojiaData as &$val){
+                if(!in_array($val['user_id'],$temp)){
+                    $temp[] = $val['user_id'];
+                    $baojiaData['baojia_count']++;
+                }
+                //隐藏真是名称
+
+                if(!isset($this->login['user_id']) || $val['user_id']!=$this->login['user_id'])
+                    $val['true_name'] = mb_substr($val['true_name'],0,1,'UTF-8').'*********';
+
+            }
+        }
+        die(json_encode($baojiaData));
+    }
 
 	//竞价一口价的详情页面
 	public function offerDetails3Action(){
@@ -363,6 +336,20 @@ class OffersController extends PublicController {
 			$this->getView()->assign('kefu',$kefuData);
 			$this->getView()->assign('cur','offerlist');
 		}
+	}
+
+	//检查场内竞价的校验密码是否正确
+	public function checkPassAction(){
+		$offer_id = safe::filterPost('offer_id','int');
+		$pass = safe::filterPost('pass');
+		$obj = new \nainai\offer\jingjiaOffer();
+		if($obj->checkPass($offer_id,$pass)){
+			die(json::encode(tool::getSuccInfo()));
+		}
+		else{
+			die(json::encode(tool::getSuccInfo(0,'口令错误')));
+		}
+
 	}
 
 

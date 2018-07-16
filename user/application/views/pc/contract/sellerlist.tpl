@@ -28,9 +28,8 @@
 											<input id="controlAll" type="checkbox" class="controlAll">
 											单号:<a href="{url:/contract/sellerDetail?id=$item['id']}"><span class="col2517EF">{$item['order_no']}</span></a>
 											<span class="colaa0707 ht_padd"></span>
-											<span><img class="middle_img" src="{views:images/center/ico_cj.png}">{if:$item['company_name']}购买单位：{$item['company_name']}{else:}购买个人：{$item['true_name']}{/if}</span>
+											<span><img class="middle_img" src="{views:images/center/ico_cj.png}">{if:$item['buyer_type']==1}购买单位：{$item['true_name']}{else:}购买个人：{$item['true_name']}{/if}</span>
 											<span class="ht_padd">
-												<!-- <img class="middle_img" src="{views:images/center/ico_kf.png}">  客服 -->
 											</span>
 										</td>
 										
@@ -40,21 +39,16 @@
 										<td colspan="2">
 											<img class="middle_img" src="{echo:\Library\thumb::get($item['img'],100,100)}" align="left" width="100px"/>
 											<div class="div_height">&nbsp;{$item['product_name']}</div>
-											<!-- <div class="div_height">&nbsp;是否含税：是</div>
-											<div class="div_height">&nbsp;是否含保险：是</div> -->
 											{if:isset($item['store_name']) && $item['mode'] == \nainai\order\Order::ORDER_STORE}
 											<div class="div_height">&nbsp;所在地：{$item['store_name']}</div>
 											{/if}
 										</td>
 										<td>
 											<div class="div_heights colaa0707">合同总额：￥{$item['amount']}</div>
-											<!-- <div class="div_heights colA39F9F">等级折扣：￥10.00</div> -->
 											<div class="hr"></div>
-											<!-- <div class="div_heights">保证金支付（{$item['percent']}%）</div> -->
 										</td>
 										<td>
-											<!-- <div class="div_heights">规格：230*114*65</div> -->
-											<!-- <div class="div_heights">材质：高铝质</div> -->
+
 											<div class="div_heights">数量：{$item['num']}{$item['unit']}</div>
 										</td>
 										<td>
@@ -74,20 +68,10 @@
 						</div>
 						
 						<div class="page_num">
-							<!-- 共0条记录&nbsp;当前第<font color="#FF0000">1</font>/0页&nbsp;
-							<a href="#">第一页</a>&nbsp;
-							<a href="#">上一页</a>&nbsp;
-							<a href="#">下一页</a>&nbsp;
-							<a href="#">最后页</a>&nbsp; 
-							跳转到第 <input name="pagefind" id="pagefind" type="text" style="width:20px;font-size: 12px;" maxlength="5" value="1"> 页 
-							<a><span class="style1">确定</span></a> -->
-
 							{$data['bar']}
 						</div>
 
 					</div>
 				</div>
-				
-				
 			</div>
 			<!--end中间内容-->	

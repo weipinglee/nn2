@@ -23,26 +23,49 @@
                  <td>{$info['user']}</td>
                  <th>状态</th>
                  <td>{$info['status_txt']}</td>
-                 <th></th>
-                 <td></td>
-             </tr>
-             <tr>
                  <th>交易方式</th>
                  <td>{$info['type_txt']}</td>
+             </tr>
+             <tr>
                  <th>报盘类型</th>
                  <td>{$info['mode_txt']}</td>
+
                  <th>报盘费率</th>
                  <td>
                  {if: $info['mode'] == \nainai\offer\product::DEPUTE_OFFER}
-                     {if:!empty($info['rate'])}{$info['rate']['value']}{if:$info['rate']['type'] == 0}%{else:}元{/if}{else:}0{/if}
+                     {if:!empty($info['rate'])}
+
+                         {if:$info['rate']['type'] == 0}
+                              {$info['rate']['value']} %
+                         {else:}
+                             每{$info['unit']} {$info['rate']['value']}元
+                         {/if}
+                     {else:}
+                         0
+                     {/if}
                  {else:}
                     {$info['offer_fee']}
                 {/if}
                     </td>
+                 <th>子报盘类型</th>
+                 <td>{$info['submode_txt']}
+                     {if:$info['sub_mode']==1}
+                      -
+                      {if:$info['jingjia_mode']==1}
+                       场内竞价[口令：{$info['jingjia_pass']}]
+                      {else:}
+                       场外竞价
+                      {/if}
+                     {/if}
+                     {if:$info['old_offer']>0}
+                     <a href="{url:trade/offerManage/offerdetails?id=$info['old_offer']&user=$info['user']}">[查看原报盘]</a>
+                     {/if}
+
+                 </td>
              </tr>
              <tr>
                  <th>商品名称</th>
-                 <td>{$info['product_name']}</td>
+                 <td>{if:$info['pro_name']!=''}{$info['pro_name']}{else:}{$info['product_name']}{/if}</td>
                  <th>商品产地</th>
                  <td id="area">{areatext: data=$info['produce_area'] id=area}</td>
                  <th>记重方式</th>
@@ -76,19 +99,50 @@
                      <th>价格区间</th>
 
                      <td>{$info['price_l']}--{$info['price_r']}( 元/{$info['unit']})</td>
+                     <th>会员价</th>
+                     <td>-</td>
 
                  {else:}
                      <th>挂牌价</th>
                      <td>￥{$info['price']}</td>
+                     <th>会员价</th>
+                     <td>￥{$info['price_vip']}</td>
                  {/if}
 
                  <th>计量单位</th>
                  <td>{$info['unit']}</td>
-                 <th></th>
-                 <td></td>
+
 
 
              </tr>
+
+             {if:$info['sub_mode']==1}
+                 <tr>
+                     <th>最低价格</th>
+                     <td>{$info['price_l']}</td>
+
+
+                     <th>最高价格</th>
+                     <td>{if:$info['price_r']>0}{$info['price_r']}{else:}不限{/if}</td>
+                     <th>递增价格</th>
+                     <td>{$info['jing_stepprice']}</td>
+
+
+                 </tr>
+
+                 <tr>
+                     <th>开始时间</th>
+                     <td>{$info['start_time']}</td>
+
+
+                     <th>结束时间</th>
+                     <td>{$info['end_time']}</td>
+                     <th></th>
+                     <td></td>
+
+
+                 </tr>
+             {/if}
              {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
              <tr>
                  <th>可否拆分</th>
@@ -108,11 +162,11 @@
              {/if}
              <tr>
                  <th>报盘数量</th>
-                 <td>{$info['quantity']}</td>
-                 <th>冻结数量</th>
-                 <td>{$info['freeze']}</td>
+                 <td>{$info['max_num']}</td>
                  <th>已售数量</th>
-                 <td>{$info['sell']}</td>
+                 <td>{$info['sell_num']}</td>
+                 <th></th>
+                 <td></td>
              </tr>
             <tr>
 
@@ -127,7 +181,7 @@
                  {/if}
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
-                     <td><img src="{$info['sign_thumb']}" /></td>
+                     <td><a href="{$info['sign_thumb']}" >[查看]</a></td>
                  {else:}
                      <th></th>
                      <td></td>
@@ -184,6 +238,7 @@
                  <th></th>
                  <td></td>
              </tr>
+
              <tr>
                  <th>审核结果</th><input type="hidden" name="id" value="{$info['id']}" />
                  <td> <label><input type="radio" name="status" value="1" checked/>通过</label>
@@ -206,6 +261,8 @@
                   <a onclick="history.go(-1)" class="btn btn-default radius"><i class="icon-remove fa-remove"></i> 返回</a>
               </th>
             </tr>
+
+
 	 	</table>
          </form>
  	</div>

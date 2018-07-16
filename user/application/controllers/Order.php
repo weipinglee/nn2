@@ -35,13 +35,18 @@ class OrderController extends UcenterBaseController{
 			$type = safe::filterPost('payment');//线上or线下
 			$account = safe::filterPost('account');//支付方式
 			$proof = safe::filterPost('imgproof');
-			
+			$orderInfo = $this->order->orderInfo($order_id);
 			$user_id = $this->user_id;
-
-			$res = $this->order->buyerRetainage($order_id,$user_id,$type,$proof,$account);
+            if(isset($orderInfo['mode']) && $orderInfo['mode']==1){
+				$orderObj = $this->free;
+			}
+			else{
+				$orderObj = $this->order;
+			}
+			$res = $orderObj->buyerRetainage($order_id,$user_id,$type,$proof,$account);
 
 			if($res['success'] == 1){
-				$title = $type == 'offline' ? '已上传支付凭证' : '已支付尾款';
+				$title = $type == 'offline' ? '已上传支付凭证' : '已支付';
 				$info = $type == 'offline' ? '请等待卖家确认凭证' : '合同已生效，可申请提货';
 				
 				die(json::encode(tool::getSuccInfo(1,$title,url::createUrl('/contract/buyerlist'))));
@@ -62,9 +67,11 @@ class OrderController extends UcenterBaseController{
 			$bankinfo = $this->order->userBankInfo($seller);
 
 			$data['seller'] = $seller;
+			$total_amount = floatval($data['pay_deposit'])>0 ? 0 : 1;
 
-			$this->getView()->assign('show_online',in_array($data['mode'],array(\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0);
-			$this->getView()->assign('total_amount',$data['mode'] == \nainai\order\Order::ORDER_FREE ? 1 : 0);
+			$this->getView()->assign('show_online',in_array($data['mode'],array(\nainai\order\Order::ORDER_FREE,\nainai\order\Order::ORDER_DEPOSIT,\nainai\order\Order::ORDER_STORE,\nainai\order\Order::ORDER_PURCHASE,\nainai\order\Order::ORDER_ENTRUST)) ? 1 : 0);
+			$this->getView()->assign('hide_offline',in_array($data['mode'],array(\nainai\order\Order::ORDER_FREE)));
+			$this->getView()->assign('total_amount',$total_amount);
 			$this->getView()->assign('bankinfo',$bankinfo);
 			$this->getView()->assign('data',$data);
 		}
@@ -111,10 +118,31 @@ class OrderController extends UcenterBaseController{
 		die(json::encode($res));
 	}
 
+	//确认线上已支付页面
+	public function confirmPayPageAction(){
+		$order_id = intval($this->_request->getParam('order_id'));
+		$info = $this->order->contractDetail($order_id);
+
+		$info['show_deposit'] = in_array($info['mode'],nainai\order\Order::ORDER_DEPOSIT,nainai\order\Order::ORDER_STORE) ? 1 : 0;
+		$info['pay_retainage'] = $info['amount'] - $info['pay_deposit'];
+		$info['is_free'] = 1;
+		$this->getView()->assign('data',$info);
+	}
+
+	//确认线上已支付
+	public function confirmPayAction()
+	{
+		$order_id = safe::filterPost('order_id','int');
+		$user_id = $this->user_id;
+		$res = $this->free->confirmPay($order_id,$user_id);
+		die(json::encode($res));
+	}
+
 	//扣减货款页面
 	public function verifyQaulityPageAction(){
 		$order_id = safe::filter($this->_request->getParam('order_id'),'int',0);	
 		$order_info = $this->order->orderInfo($order_id);
+		$this->getView()->assign('order',$order_info);
 		$this->getView()->assign('max_reduce',$order_info['pay_deposit']);
 		$this->getView()->assign('order_id',$order_id);
 	}

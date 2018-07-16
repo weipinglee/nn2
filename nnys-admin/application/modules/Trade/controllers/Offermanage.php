@@ -38,6 +38,17 @@ class OffermanageController extends Yaf\Controller_Abstract{
 
 		$this->getView()->assign('data',$pageData);
 	}
+
+	public function jingjiaListAction(){
+        $pageData = $this->offer->getJingjiaList(0);
+        $this->getView()->assign('data',$pageData);
+    }
+
+    public function baojialistAction(){
+        $id = intval($this->_request->getParam('id'));
+        $data = $this->offer->Baojialist($id);
+        $this->getView()->assign('list',$data);
+    }
 	
 	/**
 	 * 报盘详情
@@ -84,19 +95,20 @@ class OffermanageController extends Yaf\Controller_Abstract{
 
 
 	//审核详情
-	public function reviewDetailsAction(){
+	public function reviewDetailsAction()
+	{
 		$id = intval($this->_request->getParam('id'));
 		$user = $this->_request->getParam('user');//委托人
 		$info = $this->offer->getofferDetail($id);
 		$obj = new \Library\M('user');
-		$info['user'] = $user ? $user  : $obj->where(array('id'=>$info['user_id']))->getField('username');
+		$info['user'] = $user ? $user : $obj->where(array('id' => $info['user_id']))->getField('username');
 		if ($info['insurance'] == 1 && $info['risk']) {
 			$risk = new \nainai\insurance\Risk();
 			$riskData = $risk->getRiskDetail($info['risk']);
-			$this->getView()->assign('riskData',$riskData);
+			$this->getView()->assign('riskData', $riskData);
 		}
-		
-		$this->getView()->assign('info',$info);
+
+		$this->getView()->assign('info', $info);
 	}
 
 	//设置审核状态
@@ -212,5 +224,23 @@ class OffermanageController extends Yaf\Controller_Abstract{
 
 		$this->getView()->assign('info',$info);
 	}
+
+    public function jingjiaTestAction(){
+	    if(IS_POST){
+            $offer_id = safe::filterPost('offer_id');
+            $username = safe::filterPost('username');
+            $price = safe::filterPost('price');
+            $obj = new \Library\M('user');
+            $user_id = $obj->where(array('username'=>$username))->getField('id');
+            if(!$user_id)
+                die(json::encode(tool::getSuccInfo(0,'用户不存在')));
+            $offerObj = new \nainai\offer\jingjiaOffer();
+            $res = $offerObj->createbaojia($offer_id,$price,$user_id);
+            die(json::encode($res));
+        }
+
+
+
+    }
 }
  ?>

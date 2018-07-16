@@ -70,13 +70,13 @@
                                 <td>
                                     <span>
 
-                                        <div>请您下载<a href="{root:down/耐耐网委托报盘协议书.docx}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传
+                                        <div>请您下载<a href="{root:down/耐耐网委拖协议书.pdf}" style="color:#1852ca;font-size:14px;">《耐耐网委托报盘协议书》</a>，并签字扫描上传(pdf格式)
 
                                          </div>
                                        <div class="zhxi_con">
 
                                            <div>
-                                               <input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this);" />
+                                               <input type="file" name="file1" id="file1"  onchange="javascript:uploadImg(this,'{url:/ucenter/uploadFile}')" />
 
                                            </div>
                                            <div  >
@@ -99,14 +99,26 @@
                                 {if:$is_vip}
                                     <span class="color">您是收费会员,无需支付委托费</span>
                                 {else:}
-                                    <span class="color">需支付总金额<span id='weitou'>{if:!empty($rate)}{$rate['value']}{if:$rate['type'] == 0}%{else:}元{/if}{else:}0{/if}</span>的委托金</span>
+                                    <span class="color">合同完成后预计支付<span id='weitou' >{if:!empty($rate)}{if:$rate['type'] == 0}{$rate['value']}%{else:}0元{/if}{else:}0{/if}</span>的委托金,具体以买方实际购买数量为准</span>
                                 {/if}
+                                <input type="hidden" name="wtMoney" value="{if:!empty($rate)}{$rate['value']}{/if}"/>
+                                <input type="hidden" name="wtType" value="{if:!empty($rate)}{$rate['type']}{/if}"/>
                             </td>
                         </tr>
 
                  </table>
                 </form>
-
+<script type="text/javascript" >
+    $('input[name=quantity]').on('blur',function(){
+        var num = parseFloat($(this).val());
+        var value = parseFloat($('input[name=wtMoney]').val());
+        var type = $('input[name=wtType]').val();
+        if(num>0 && type==1){
+            $('#weitou').text(value*num + '元');
+        }
+        return false;
+    })
+</script>
                     </div>
                 </div>
             </div>

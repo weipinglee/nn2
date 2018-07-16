@@ -46,6 +46,18 @@
 
                     </tr>
                     <tr>
+                        <td nowrap="nowrap"><span></span>竞价类型：</td>
+                        <td colspan="2">
+                            <span>
+                                  <label><input type="radio" name="jingjia_mode" value="0" checked="true"/>场外竞价</label>
+                                  <label><input type="radio" name="jingjia_mode" value="1" />场内竞价</label>
+                            </span>
+                            <span></span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
                         <td nowrap="nowrap"><span></span>选择报盘：</td>
                         <td colspan="2">
                             <span>
@@ -133,7 +145,7 @@
                                 <div style="
                                     float: left;
                                     padding-left: 10px;
-                                ">我已阅读并同意<a href="{root:/down/竞价须知.pdf}" style="color:#1852ca;font-size:14px;">《耐耐网竞价协议》</a>
+                                ">我已阅读并同意<a href="{root:/down/竞价须知.pdf}" style="color:#1852ca;font-size:14px;">《竞价须知》</a>
                                 </div>
                                        
                             </span>
@@ -169,7 +181,7 @@
     })
     $(".btn .submit_btn").click(function(){
         if(!$("lable .checkbox_jjxy").attr('checked')){
-             alert("请阅读竞价协议并勾选。");
+             alert("请阅读竞价须知并勾选。");
             return false;
         }
         return true;

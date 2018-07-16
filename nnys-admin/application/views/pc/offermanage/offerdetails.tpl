@@ -24,19 +24,41 @@
                  <th>交易方式</th>
                  <td>{$info['type_txt']}</td>
                  <th>报盘类型</th>
-                 <td>{$info['mode_txt']}</td>
+                 <td>{if:$info['submode_txt']==''}
+                     {$info['mode_txt']}
+                     {else:}
+                        {$info['submode_txt']}
+                         {if:$info['sub_mode']==1}
+                         -
+                         {if:$info['jingjia_mode']==1}
+                         场内竞价[口令：{$info['jingjia_pass']}]
+                         {else:}
+                         场外竞价
+                         {/if}
+                         {/if}
+                     {/if}</td>
                  <th>报盘费率</th>
                  <td> {if: $info['mode'] == \nainai\offer\product::DEPUTE_OFFER}
-                    {if:!empty($info['rate'])}{$info['rate']['value']}{if:$info['rate']['type'] == 0}%{else:}元{/if}{else:}0{/if}
-                 {else:}
-                    {$info['offer_fee']}
-                {/if}</td>
+                             {if:!empty($info['rate'])}
+
+                             {if:$info['rate']['type'] == 0}
+                             {$info['rate']['value']} %
+                             {else:}
+                             每{$info['unit']} {$info['rate']['value']}元
+                             {/if}
+                             {else:}
+                             0
+                             {/if}
+                        {else:}
+                             {$info['offer_fee']}
+                         {/if}
+                 </td>
              </tr>
              <tr>
                  <th>商品名称</th>
-                 <td>{$info['product_name']}</td>
+                 <td>{if:$info['pro_name']!=''}{$info['pro_name']}{else:}{$info['product_name']}{/if}</td>
                  <th>商品产地</th>
-                 <td id="area">{areatext: data=$info['produce_area'] id=area}</td>
+                 <td id="area">{areatext: data=$info['produce_area'] id=area}{$info['produce_address']}</td>
                  <th>记重方式</th>
                  <td>{$info['weight_type']}</td>
 
@@ -68,29 +90,43 @@
                      <th>价格区间</th>
 
                      <td>{$info['price_l']}--{$info['price_r']}( 元/{$info['unit']})</td>
-
+                     <th>会员价</th>
+                     <td>-</td>
                  {else:}
                      <th>挂牌价</th>
                      <td>￥{$info['price']}</td>
+                     <th>会员价</th>
+                     <td>￥{$info['price_vip']}</td>
                  {/if}
 
                  <th>计量单位</th>
                  <td>{$info['unit']}</td>
-                 <th></th>
-                 <td></td>
 
 
              </tr>
-             {if:$info['sub_mode']>0}
+
+             {if:$info['sub_mode']==1}
                  <tr>
-                      <th>开始时间</th>
-                      <td>{$info['start_time']}</td>
+                     <th>最低价格</th>
+                     <td>{$info['price_l']}</td>
+
+
+                     <th>最高价格</th>
+                     <td>{if:$info['price_r']>0}{$info['price_r']}{else:}不限{/if}</td>
+                     <th>递增价格</th>
+                     <td>{$info['jing_stepprice']}</td>
+
+
+                 </tr>
+                 <tr>
+                     <th>开始时间</th>
+                     <td>{$info['start_time']}</td>
 
 
                      <th>结束时间</th>
                      <td>{$info['end_time']}</td>
-                     <th>递增价格</th>
-                     <td>{$info['jing_stepprice']}</td>
+                     <th></th>
+                     <td></td>
 
 
                  </tr>
@@ -114,16 +150,17 @@
              {/if}
              <tr>
                  <th>报盘数量</th>
-                 <td>{$info['quantity']}</td>
-                 <th>冻结数量</th>
-                 <td>{$info['freeze']}</td>
+                 <td>{$info['max_num']}</td>
                  <th>已售数量</th>
-                 <td>{$info['sell']}</td>
+                 <td>{$info['sell_num']}</td>
+                 <th></th>
+                 <td></td>
              </tr>
+
              <tr>
 
                  <th>交收地点</th>
-                 <td>{$info['accept_area']}</td>
+                 <td>{areatext: data=$info['accept_area_code'] id=area1}{$info['accept_area']}</td>
                  {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
                  <th>交收时间</th>
                  <td>{$info['accept_day']}</td>
@@ -133,7 +170,7 @@
                  {/if}
                  {if:$info['mode']==\nainai\offer\product::DEPUTE_OFFER}
                      <th>委托书</th>
-                     <td><img src="{$info['sign_thumb']}" /></td>
+                     <td><a href="{$info['sign_thumb']}" >[查看]</a></td>
                  {else:}
                      <th></th>
                      <td></td>
@@ -142,11 +179,19 @@
                <tr>
                  <th>申请时间</th>
                  <td>{$info['apply_time']}</td>
-                 <th>过期时间</th>
-                 <td>{$info['expire_time']}</td>
+
                  <th>补充条款</th>
                  <td>{$info['other']}</td>
+                   {if:$info['expire_time']}
+                       <th>过期时间</th>
+                       <td>{$info['expire_time']}</td>
+                       {else:}
+                       <th></th>
+                       <td></td>
+                   {/if}
+
              </tr>
+
              <tr>
                  <th>图片</th>
 
@@ -189,6 +234,7 @@
                  <th></th>
                  <td></td>
              </tr>
+
 <tr>
 
                  <th>审核意见</th>

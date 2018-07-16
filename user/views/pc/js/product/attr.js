@@ -107,6 +107,11 @@ $(document).ready(function(){
 
     $('#storeList').trigger('change');
 
+    //会员价输入默认为市场价
+    $('input[name=price]').on('blur',function(){
+        $('input[name=price_vip]').val($(this).val());
+    })
+
 });
 
 //异步获取分类
@@ -142,10 +147,17 @@ function getCategory(cate,attr){
                 $('input[name=cate_id]').val(data.defaultCate);
 
                   if (mode == 'weitou' && data.rate) {
+                            var quantity = $('input[name=quantity]').val();
+                             $('input[name=wtMoney]').val(data.rate.value);
+                             $('input[name=wtType]').val(data.rate.type);
                             if (data.rate.type == 0) {
                                  $('#weitou').html(data.rate.value + '%');
                             }else if(data.rate.type == 1){
-                                $('#weitou').html(data.rate.value + '元');
+                                if(quantity==''){
+                                    $('#weitou').html('0元');
+                                }
+                                else
+                                   $('#weitou').html(quantity*data.rate.value + '元');
                             }else{
                                 $('#weitou').html(0);
                             }
@@ -196,9 +208,9 @@ function getCategory(cate,attr){
                     }
 
                     if(v.type==1){
-                        attr_box.children('td').eq(0).html(v.name+'：');
+                        attr_box.children('td').eq(0).html('<b class="required">*</b>'+v.name+'：');
 
-                        attr_box.children('td').eq(1).html(' <input class="text" type="text" name="attribute['+ v.id+']" value="'+attr_value+'" />');
+                        attr_box.children('td').eq(1).html('<span> <input class="text" type="text"  name="attribute['+ v.id+']" value="'+attr_value+'"  datatype="*" /><span class="Validform_checktip Validform_right"></span></span>');
                     }
                     else if(v.type==2){//2是单选
                         var radio = v.value.split(',');

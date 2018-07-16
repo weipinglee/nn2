@@ -9,9 +9,18 @@ class PublicController extends \Yaf\Controller_Abstract{
      public $login;
 
      public function init(){
-          $right = new \Library\checkRight();
-          $isLogin = $right->checkLogin();
           $this->getView()->setLayout('layout');
+         $right = new \Library\checkRight();
+         $isLogin = $right->checkLogin();
+         if($isLogin){
+             $this->login = \Library\session::get('login');
+             $messObj=new \nainai\message($this->login['user_id']);
+             $mess=$messObj->getCountMessage();
+             $this->getView()->assign('mess',$mess);
+             $login = 1;
+         }
+         else
+             $login = 0;
           //获取所有分类
           $cacheObj = new \Library\cache\Cache(array('type'=>'m','expire'=>3600));
           if($res=$cacheObj->get('allCateData')){
@@ -37,24 +46,15 @@ class PublicController extends \Yaf\Controller_Abstract{
           $frdLinkModel= new \nainai\system\friendlyLink();
           $frdLinkList=$frdLinkModel->getFrdLink(20);
           $this->getView()->assign('frdLinkList',$frdLinkList);
-          if($isLogin){
-               $this->login = \Library\session::get('login');
-               //获取未读消息
-               $messObj=new \nainai\message($this->login['user_id']);
-               $mess=$messObj->getCountMessage();
-               $this->getView()->assign('mess',$mess);
-               $this->getView()->assign('login',1);
-               $this->getView()->assign('username',$this->login['username']);
-               $this->getView()->assign('user_id',$this->login['user_id']);
-          }
-          else
-               $this->getView()->assign('login',0);
+
           
           $model = new \nainai\system\DealSetting();
           $deal = $model->getsetting();
           $this->getView()->assign('deal', $deal);
+          $this->getView()->assign('login',$login);
 
      }
+
 
 
      protected function success($info = '操作成功！',$redirect = ''){

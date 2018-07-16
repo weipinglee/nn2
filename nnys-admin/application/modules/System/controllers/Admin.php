@@ -12,10 +12,12 @@ use \Library\tool;
 class AdminController extends InitController {
 
 	private $adminModel,$rbacModel;
+	private $method='';
 	public function init(){
 		parent::init();
 		$this->adminModel = new AdminModel();
 		$this->rbacModel = new RbacModel();
+		$this->method = $this->getRequest()->getMethod();
 		//echo $this->getViewPath();
 	}
 
@@ -63,6 +65,7 @@ class AdminController extends InitController {
 			$adminData['name']  = safe::filterPost('admin-name');
 			$adminData['id']    = safe::filterPost('admin-id');
 			$adminData['email'] = safe::filterPost('admin-email');
+			$adminData['mobile'] = safe::filterPost('mobile');
 			$adminData['role'] = safe::filterPost('admin-role','int');
 			$res = $this->adminModel->adminUpdate($adminData);
 
@@ -142,4 +145,42 @@ class AdminController extends InitController {
 		$this->getView()->assign('data',$pageData);
 		$this->getView()->assign('name',$name);
 	}
+
+
+	public function checkNoticeAction(){
+        $checkModel = new adminCheckModel();
+        $page = safe::filterGet('page','int',1);
+
+        $list = $checkModel->getList($page);
+        $this->getView()->assign('data',$list);
+
+    }
+
+
+
+    public function adminCheckAction(){
+        $checkModel = new adminCheckModel();
+        switch($this->method){
+            case 'PUT'://
+                $input = file_get_contents('php://input');
+                $res = array();
+                parse_str($input,$res);
+                //print_r($res);
+                $checkID = isset($res['id']) ? $res['id'] : 0;
+                $names = isset($res['managers']) ? $res['managers'] : '';
+
+                $res = $checkModel->editCheck($checkID,$names);
+
+                die(json::encode($res));
+                break;
+
+            case 'GET' : //获取通知管理员列表
+            default:
+            $checkID = safe::filterGet('id','int');
+            $data = $checkModel->getOne($checkID);
+            $this->getView()->assign('data',$data);print_r($data);
+              break;
+
+        }
+    }
 }

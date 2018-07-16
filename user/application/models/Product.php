@@ -84,11 +84,67 @@ class productModel extends \nainai\offer\product{
 	public function getOfferProductDetail($id,$user_id){
 		$query = new M('product_offer');
 		$offerData = $query->where(array('id'=>$id,'user_id'=>$user_id))->getObj();
+
 		$offerData['divide_txt'] = $this->getDivide($offerData['divide']);
 		$offerData['status_txt'] = $this->getStatus($offerData['status']);
 		$productData = $this->getProductDetails($offerData['product_id']);
 		return array($offerData,$productData);
 	}
+
+	/*****推荐管理***************/
+
+
+	public function offerRecommend($offer_id,$page=1){
+	    //获取报盘的商品名、分类、属性
+        $query = new Query('product_offer as o');
+        $query->join = 'left join products as p on o.product_id=p.id';
+        $query->fields = 'o.type,p.name,p.cate_id,p.attribute,o.id,p.id as pid';
+        $query->where = 'o.id=:offer_id';
+        $query->bind  = array('offer_id'=>$offer_id);
+        $data = $query->getObj();
+        if(empty($data)){
+            return array();
+        }
+
+        //根据获取的名称、分类、属性，查找匹配的商品
+        //获取分类的上级分类，再由上级分类找出其下级所有分类
+        $cateObj = new M('product_category');
+        $pid = $cateObj->where(array('id'=>$data['cate_id']))->getField('pid');
+        $cldIds = '';//父分类相同的同级分类id
+        if($pid){
+            $childs = $cateObj->where(array('pid'=>$pid))->fields('id')->select();
+            if(!empty($childs)){
+                foreach($childs as $c){
+                    if($c['id']==$data['cate_id'])
+                        continue;
+                    $cldIds .= $cldIds=='' ? $c['id'] : ','.$c['id'];
+                }
+            }
+
+        }
+        $search = new Query('products as p ');
+        $search->join = 'left join product_offer as o on o.product_id=p.id';
+        $now = date('Y-m-d');
+        $where = 'o.expire_time>"'.$now.'" and o.status=1 AND o.max_num - o.sell_num>0 and ';
+        $where .= $data['type']==1? ' o.type=2 and ' : 'o.type=1 and ';
+        $where .= ' ((p.cate_id=:cate_id or p.name like "%'.$data['name'].'%")';
+        $where .= $cldIds !='' ? ' OR (p.cate_id in('.$cldIds.')  or p.name like "%'.$data['name'].'%"))' : ')';
+        $search->where = $where;
+        $search->bind = array('cate_id'=>$data['cate_id']);
+        $search->fields = ' o.id,o.accept_area,p.produce_area,p.id as pid,p.quantity as num,o.type,o.max_num,o.sell_num,p.name,o.price,o.price_l,o.price_r,p.unit';
+        $search->page = $page;
+        $search->pagesize = 5;
+        $res = $search->find();//print_r($res);
+        if(!empty($res)){
+            foreach($res as  &$item){
+                $item['last'] = $item['max_num'] - $item['sell_num'];
+                $item['last'] = $item['last'] > 0 ? $item['last'] : 0;
+            }
+        }
+        $bar = $search->getPageBar();
+        return array('list'=>$res,'bar'=>$bar);
+
+    }
 
 
 }

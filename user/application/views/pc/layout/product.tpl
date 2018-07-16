@@ -14,7 +14,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>商品单价：</td>
         <td>
-            <span> <input class="text" type="text" datatype="money" value="{$offer['price']}" errormsg="请正确填写单价" name="price"></span>
+            <span> <input class="text" type="text" datatype="money" value="{$offer['price']}" errormsg="请正确填写单价" name="price">（含税）</span>
             <span></span>
         </td>
         <!--                                 <td>
@@ -22,6 +22,13 @@
             <input type ="radio" name ="safe" checked="checked" style="width:auto;height:auto;"> 线上
             <input type ="radio" name ="safe" style="width:auto;height:auto;"> 线下
         </td> -->
+    </tr>
+    <tr>
+        <td nowrap="nowrap"><span></span>会员单价：</td>
+        <td>
+            <span> <input class="text" type="text" datatype="money" value="{$offer['price_vip']}" errormsg="请正确填写单价" name="price_vip">（含税）</span>
+            <span></span>
+        </td>
     </tr>
     <tr>
         <td nowrap="nowrap"><span></span>数量：</td>
@@ -120,13 +127,19 @@
                         {/foreach}
                     {/if}
                 </ul>
+                <script type="text/javascript">
+                    $('#filelist img').dblclick(function(){
+                        $(this).parents('li').remove();
+                    });
+                </script>
                 <div class="btns">
                 {set:$filesize = \Library\tool::getConfig(array('application','uploadsize'))}
                     {if:!$filesize}
                         {set:$filesize = 2048;}
                     {/if}
                     {set:$filesize = $filesize / 1024;}
-                    <div id="picker" style="line-height:15px;">选择文件</div><span>每张图片大小不能超过{$filesize}M,双击图片可以删除</span>
+                    <div id="picker" style="line-height:15px;"> <span class="line_l"></span>
+                        <span class="line_h"></span></div><span>每张图片大小不能超过{$filesize}M,双击图片可以删除</span>
                     <div class="totalprogress" style="display:none;">
                         <span class="text">0%</span>
                         <span class="percentage"></span>
@@ -185,10 +198,10 @@
     <td colspan="2">
         <span>
             <select name="weight_type">
-                <option value="理论值">理论值</option>
-                <option value="过磅">过磅</option>
-                <option value="轨道衡">轨道衡</option>
-                <option value="吃水">吃水</option>
+                <option value="理论值" {if:$offer['weight_type']=="理论值"}selected="true"{/if}>理论值</option>
+                <option value="过磅" {if:$offer['weight_type']=="过磅"}selected="true"{/if} >过磅</option>
+                <option value="轨道衡" {if:$offer['weight_type']=="轨道衡"}selected="true"{/if} >轨道衡</option>
+                <option value="吃水" {if:$offer['weight_type']=="吃水"}selected="true"{/if} >吃水</option>
             </select>
         </span>
         <span></span>

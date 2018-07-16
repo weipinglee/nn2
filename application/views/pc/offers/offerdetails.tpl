@@ -1,4 +1,16 @@
-
+<script type="text/javascript">
+    function getVipprice(data) {
+        if (data.login === 1 && (data.cert['vip'] === 1 || data.cert['vip_temp'] === 1)) {
+            $('.ismember').css('display','block');
+            $('.notmember').css('display','none');
+        }
+        else{
+            $('.notmember').css('display','block');
+            $('.ismember').css('display','none');
+        }
+    }
+    checkLogin.pushCallback(getVipprice);
+</script>
 <link rel="stylesheet" type="text/css" href="{views:css/offer_ask.css}"/>
 <link href="{views:css/pro_show.css}" rel="stylesheet">
 <link href="{views:css/tender_con.css}" rel="stylesheet">
@@ -42,7 +54,15 @@
                 </div>
                 <div class="offer_right">
                     <ul>
-                        <li>参考价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
+
+                        <li class="notmember hmember">市场价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
+                        <li class="notmember ">会员价：<b> {$data['price_vip']}</b>元/ {$data['unit']} <span class="line_span"></span>
+                        <span class="qianse">（含税）</span><a href="{url:/login/newMember@user}">去申请会员</a></li>
+
+                       <li class="ismember" style="display:none;">会员价：<b> {$data['price_vip']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
+                       <li class="ismember hmember" style="display:none;">市场价：<span class="p_line">{$data['price']}元/ {$data['unit']}</span> <span class="qianse">（含税）</span></li>
+
+
                         <li>总数量： <i>{$data['max_num']}</i>  {$data['unit']}</li>
                       <li>起订量： <i>{$data['minimum']} </i> {$data['unit']}</li>
                       <li><img src="{views:images/password/eye_b.png}" alt="" /><a id='contract_review' target='_blank' href="{url:/contract/contract?offer_id=$data['id']&num=$data['minimum']@user}" style="color:#3fa5d9;">合同预览</a></li>
@@ -142,6 +162,10 @@
                         <tr>
                             <td>商品单价</td>
                             <td>{$data['price']}/{$data['unit']}</td>
+                        </tr>
+                        <tr>
+                            <td>会员单价</td>
+                            <td>{$data['price_vip']}/{$data['unit']}</td>
                         </tr>
                         <tr>
                             <th colspan="2">交收详情</th>

@@ -27,7 +27,7 @@ class OfferManageModel extends \nainai\offer\product{
 		$Q = new \Library\searchQuery('product_offer as o');
 		$Q->join = "left join products as p on o.product_id = p.id left join user as u on o.user_id = u.id
 					left join company_info as c on u.id = c.user_id left join person_info as per on u.id = per.user_id";
-		$Q->fields = "o.*,u.username,p.quantity,p.unit,p.name,per.true_name,c.company_name";
+		$Q->fields = "o.*,u.username,p.quantity,p.attribute,p.unit,p.name,p.note,p.market_id,p.cate_id,per.true_name,c.company_name";
 		 $Q->order = 'apply_time desc';
 		
 		if($where) $Q->where = $where;
@@ -45,7 +45,28 @@ class OfferManageModel extends \nainai\offer\product{
 			$value['mode_txt'] = $value['mode_txt']=='未知' ? '--' : $value['mode_txt'];
 			$value['status_txt'] = $this->getStatus($value['status']);
 
-				$value['type_txt'] = $this->getType($value['type']);
+			$value['attr']='';
+			$attr_id = array();
+            $attrs = unserialize($value['attribute']);
+            if(!empty($attrs)){
+                foreach ($attrs as $aid => $name) {
+                    if (!in_array($aid, $attr_id)) {
+                        $attr_id[] = $aid;
+                    }
+                }
+            }
+            $attrName = $this->getHTMLProductAttr($attr_id);
+            if(!empty($attrs)){
+                foreach($attrs as $key=>$val){
+                    if(isset($attrName[$key])){
+                        $value['attr'] .= $attrName[$key].':'.$val.' ';
+                    }
+                }
+            }
+            $value['market'] = $this->getCateName($this->getcateTop($value['market_id']));
+            $value['cate'] = $this->getCateName($value['cate_id']);
+			$value['type_txt'] = $this->getType($value['type']);
+            $value['sub_mode'] = $this->getSubmode($value['sub_mode']);
 		}
 		$Q->downExcel($data['list'],'product_offer', '报盘信息列表 ');
 		return $data;
@@ -57,8 +78,26 @@ class OfferManageModel extends \nainai\offer\product{
 	 * @return array
 	 */
 	public function  getActiveList($page){
-		return $this->getList($page,'o.is_del = 0 and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .')');
+		return $this->getList($page,'o.is_del = 0 and (now()< o.expire_time or o.expire_time is null) and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
 	}
+
+	public function getJingjiaList($page){
+        return $this->getList($page,'o.sub_mode=1 AND o.is_del = 0 and (now()< o.expire_time or o.expire_time is null) and o.status IN ('.self::OFFER_OK . ',' . self::OFFER_NG .','.self::OFFER_COMPLETE.')');
+
+    }
+
+    public function Baojialist($offer_id){
+        $baojiaObj = new Query('product_jingjia as j');
+        $baojiaObj->join = 'left join user as u on j.user_id=u.id';
+        $baojiaObj->fields = 'j.*,u.username,u.true_name,u.mobile';
+        $baojiaObj->order = 'j.price desc';
+        $baojiaObj->where = 'offer_id=:offer_id';
+        $baojiaObj->bind = array('offer_id'=>$offer_id);
+        $res = $baojiaObj->find();
+
+        return $res;
+    }
+
 
 	public function getrepertoryList(){
 		$Q = new \Library\searchQuery('store_products as a');
@@ -122,15 +161,17 @@ class OfferManageModel extends \nainai\offer\product{
 			$info['type_txt'] = $this->getType($info['type']);
 			$info['mode_txt'] = $this->getMode($info['mode']);
 			$info['mode_txt'] = $info['mode_txt'] == '未知' ? '--' : $info['mode_txt'];
+			$info['submode_txt'] = $this->getSubmode($info['sub_mode']);
 			$info['status_txt'] = $this->getStatus($info['status']);
 			$product = $this->getProductDetails($info['product_id']);
 
-			$info['sign_thumb'] = \Library\thumb::get($info['sign'],150,150);
+			$info['sign_thumb'] = \Library\thumb::getOrigImg($info['sign']);
 			$info = array_merge($info,$product);
 			if ($info['mode'] == \nainai\offer\product::DEPUTE_OFFER) {
 				$Obj = new \nainai\system\EntrustSetting();
 			            $info['rate'] = $Obj->getRate($info['cate_id']);
 			}
+
 		}
 		return $info ? $info : array();
 	}
@@ -145,7 +186,7 @@ class OfferManageModel extends \nainai\offer\product{
 		if(!($id = intval($id))) return tool::getSuccInfo(0,'参数错误');
 		$status = isset($status) ? intval($status) : 1;
 
-		$offerData = $this->offer->where(array('id'=>$id))->fields('user_id,acc_type,mode,sub_mode,offer_fee,status,product_id,type')->getObj();
+		$offerData = $this->offer->where(array('id'=>$id))->fields('user_id,old_offer,acc_type,mode,sub_mode,offer_fee,status,product_id,type')->getObj();
 
 		if($offerData['status']!=self::OFFER_APPLY){
 			return tool::getSuccInfo(0,'该报盘已审核');
@@ -157,7 +198,7 @@ class OfferManageModel extends \nainai\offer\product{
 
 			$res=true;
 			//如果是自由报盘，扣费或释放资金
-			if($offerData['mode'] == self::FREE_OFFER){
+			if($offerData['mode'] == self::FREE_OFFER && $offerData['sub_mode']==0){
 				$fund = \nainai\fund::createFund($offerData['acc_type']);
 				$free_offer = new \nainai\offer\freeOffer();
 				$fee = $free_offer->getFee($offerData['user_id']);
@@ -180,7 +221,7 @@ class OfferManageModel extends \nainai\offer\product{
 				$log = new \Library\log();
 				$log->addLog(array('table'=>'报盘','type'=>'check','id'=>$id,'check_text'=>$this->getStatus($status)));
 
-				$param = array('mode' => $offerData['mode'], 'offer_fee'=>$offerData['offer_fee'], 'status'=>$status);
+				$param = array('mode' => $offerData['mode'], 'offer_fee'=>$offerData['offer_fee'], 'status'=>$status,'sub_mode'=>$offerData['sub_mode']);
 				$param['name'] = $this->offer->table('products')->where(array('id'=>$offerData['product_id']))->getField('name');
 				$param['type'] = $offerData['type'];
 				if($offerData['sub_mode']==1){
@@ -206,6 +247,11 @@ class OfferManageModel extends \nainai\offer\product{
 			}
 
 			$res = $this->offer->commit();
+			//事务成功且设置状态为通过，报盘是非转的竞价，生成mysql event
+//			if($res===true && $status==self::OFFER_OK && $offerData['sub_mode']==1 &&$offerData['old_offer']==0){
+//			    $jingjiaObj = new \nainai\offer\jingjiaOffer();
+//			    $jingjiaObj->createXinEvent($id);
+//            }
 		} catch (PDOException $e) {
 			$this->offer->rollBack();
 			$res = $e->getMessage();
@@ -319,7 +365,7 @@ class OfferManageModel extends \nainai\offer\product{
 	 * 获取过期的报盘
 	 */
 	public function getExpireOfferList($page){
-		return $this->getList($page,'now()>o.expire_time');
+		return $this->getList($page,'(now()>o.expire_time || o.status=6 || o.status=5) ');
 	}
 
 	public function expireOfferDetailsAction(){

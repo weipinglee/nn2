@@ -47,7 +47,7 @@
 								<span>&nbsp;{$info['in_time']}</span>
 							</div>
 							<div class="sj_detal">
-								<b class="sj_de_tit">提货日期：</b>
+								<b class="sj_de_tit">出库日期：</b>
 								<span>&nbsp;{$info['out_time']}</span>
 							</div>
 
@@ -87,11 +87,11 @@
 
 							<div class="sj_detal">
 								<b class="sj_de_tit">单价：</b>
-								<span>&nbsp;￥{$info['price']}</span>
+								<span>&nbsp;￥{$info['price_unit']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">数量：</b>
-								<span>&nbsp;{$info['quantit']}{$info['unit']}</span>
+								<span>&nbsp;{$info['quantity']}{$info['unit']}</span>
 							</div>
 							<div class="sj_detal">
 								<b class="sj_de_tit">交收地点：</b>

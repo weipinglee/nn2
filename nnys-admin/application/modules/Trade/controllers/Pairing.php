@@ -23,7 +23,7 @@ class PairingController extends Yaf\Controller_Abstract{
 		$page = safe::filterGet('page','int',1);
 		$name = safe::filter($this->_request->getParam('name'));
 
-		$list = $this->order->memberContractList($page,$name ? 'do.order_no like "%'.$name.'%"' : '');
+		$list = $this->order->memberContractList($page,$name ? 'do.order_no like "'.$name.'%"' : '');
 		// var_dump($list);
 		$this->getView()->assign('data',$list);
 	}

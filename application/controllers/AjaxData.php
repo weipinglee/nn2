@@ -4,6 +4,7 @@
  */
 use \Library\url;
 use \Library\safe;
+use \Library\tool;
 class AjaxDataController extends \Yaf\Controller_Abstract{
 
      public $login;
@@ -19,6 +20,64 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
           }
      }
 
+     private function offerList($pid='',$type=1,$mode=0,$page=1,$order='',$area='',$search=''){
+         //获取这个分类下对应的产品信息
+         $condition = array();
+         $cate = array();
+         if($pid!=0)
+             $condition['pid'] = $pid;
+         if($type!=0){
+             $condition['type'] = $type;
+         }
+         if($mode!=0){
+             if($mode<=4)
+                 $condition['mode'] = $mode;
+             elseif($mode==5){
+                 $condition['sub_mode'] = 1;
+             }
+             else
+                 $condition['sub_mode'] = 2;
+
+         }
+         if($area!=0){
+             $condition['area'] = $area;
+         }
+         if($search!=''){
+             $condition['search'] = $search;
+         }
+
+         if($order!=''){
+             $orderArr = explode('_',$order);
+             switch($orderArr[0]){
+                 case 'price' : {
+                     if(isset($orderArr[1]) && $orderArr[1]=='asc')
+                         $order = 'price asc';
+                     else $order = 'price desc';
+                 }
+                     break;
+                 case 'time' : {
+                     if(isset($orderArr[1]) && $orderArr[1]=='asc')
+                         $order = 'apply_time asc';
+                     else $order = 'apply_time desc';
+                 }
+                     break;
+                 default : {
+                     $order = '';
+                 }
+             }
+         }
+         if ( ! empty($this->login)) {
+             $login_status = 1;
+         }else{
+             $login_status = 0;
+             $this->login['user_id'] = 0;
+         }
+         $data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
+         $data['login'] = $login_status;
+
+         // var_dump($data);exit;
+         return $data;
+     }
      /**
       * AJax获取产品分类信息
       * @return [Json]
@@ -32,64 +91,61 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
           $area = safe::filterPost('area','int',0);
           $search = safe::filterPost('search');
 
+          $data = $this->offerList($pid,$type,$mode,$page,$order,$area,$search);
+          die(json_encode($data));
 
 
-          //获取这个分类下对应的产品信息
-          $condition = array();
-          $cate = array();
-          if($pid!=0)
-               $condition['pid'] = $pid;
-          if($type!=0){
-               $condition['type'] = $type;
-          }
-          if($mode!=0){
-               if($mode<=4)
-                    $condition['mode'] = $mode;
-               elseif($mode==5){
-                    $condition['sub_mode'] = 1;
-               }
-               else
-                    $condition['sub_mode'] = 2;
+     }
 
-          }
-          if($area!=0){
-               $condition['area'] = $area;
-          }
-          if($search!=''){
-               $condition['search'] = $search;
-          }
+     public function jingjiaListAction(){
+         $pid = safe::filterGet('pid', 'int',0);
+         $status = safe::filterGet('status','int');
+         $page = safe::filterGet('page','int',1);
+         $area = safe::filterGet('area','int',0);
+         $search = safe::filterGet('search');
+         $order = safe::filterGet('sort');
+         $condition = array();
+         if($pid!=0)
+             $condition['pid'] = $pid;
 
-          if($order!=''){
-               $orderArr = explode('_',$order);
-               switch($orderArr[0]){
-                    case 'price' : {
-                         if(isset($orderArr[1]) && $orderArr[1]=='asc')
-                              $order = 'price asc';
-                         else $order = 'price desc';
-                    }
-                         break;
-                    case 'time' : {
-                         if(isset($orderArr[1]) && $orderArr[1]=='asc')
-                              $order = 'apply_time asc';
-                         else $order = 'apply_time desc';
-                    }
-                         break;
-                    default : {
-                         $order = '';
-                    }
-               }
-          }
-          else $order = '';
-          $data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
-          if ( ! empty($this->login)) {
-               $data['login'] = 1;
-          }else{
-               $data['login'] = 0;
-          }
+         if($area!=0){
+             $condition['area'] = $area;
+         }
+         if($search!=''){
+             $condition['search'] = $search;
+         }
 
-          // var_dump($data);exit;
-          echo \Library\json::encode($data);
-          exit();
+         if($order!=''){
+             $orderArr = explode('_',$order);
+             switch($orderArr[0]){
+                 case 'price' : {
+                     if(isset($orderArr[1]) && $orderArr[1]=='asc')
+                         $order = 'price asc';
+                     else $order = 'price desc';
+                 }
+                     break;
+                 case 'time' : {
+                     if(isset($orderArr[1]) && $orderArr[1]=='asc')
+                         $order = 'apply_time asc';
+                     else $order = 'apply_time desc';
+                 }
+                     break;
+                 default : {
+                     $order = '';
+                 }
+             }
+         }
+         //各状态对应的sql条件
+         if($status==1){
+             $condition['status'] = "o.start_time>now()";
+         }elseif($status==2){
+             $condition['status'] = "o.start_time<now() and o.end_time>now()";
+         }elseif($status==3){
+             $condition['status'] = "now()>o.end_time";
+         }
+         $data = $this->offer->jingjiaList($page, $condition,$order);
+print_r($data);
+         die(json_encode($data));
      }
 
      /**
@@ -126,8 +182,8 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
 
 
 
-     public function indexAction(){
-          die(\Library\json::encode(\Library\tool::getSuccInfo(1,'操作成功')));
+     public function healthAction(){
+          die(\Library\json::encode(array('status'=>'UP','info'=>'SUCCESS')));
 	 }
 
      /**
@@ -151,6 +207,41 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
           die(\Library\json::encode($data));
 
      }
+
+    public function checkLoginAction(){
+        $right = new \Library\checkRight();
+        $isLogin = $right->checkLogin();
+        if($isLogin){
+            $this->login = \Library\session::get('login');
+            //获取未读消息
+            $messObj=new \nainai\message($this->login['user_id']);
+            $mess=$messObj->getCountMessage();
+            $jsonArr = array(
+                'mess'=>$mess,
+                'login'=>1,
+                'username'=>$this->login['username'],
+                'sess_id' =>session_id(),
+                'user_id' => $this->login['user_id'],
+                'cert'    => $this->login['cert']
+            );
+            die(json_encode($jsonArr));
+
+        }
+        else
+            die(json_encode(array('login'=>0)));
+    }
+
+    //计算定金
+    public function payDepositComAction(){
+        $num = safe::filterPost('num','floatval');
+        $id = safe::filterPost('id','int');
+        $price = safe::filterPost('price','floatval');
+        $order = new \nainai\order\Order();
+        $amount = $num * $price;
+        $payDeposit = $order->payDepositCom($id,$amount);
+        $res = $payDeposit === false ? tool::getSuccInfo(0,'获取定金失败') : tool::getSuccInfo(1,$payDeposit);
+        die(json_encode($res));
+    }
 
 
 

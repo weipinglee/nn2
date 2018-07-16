@@ -23,6 +23,8 @@
     <link href="{views:css/topnav20141027.css}" rel="stylesheet" type="text/css">
     <script src="{views:js/gtxh_Login.js}" type="text/javascript"></script>
     <script src="{views:js/countdown.js}" type="text/javascript"></script>
+    <script type="text/javascript" src="{root:js/arttemplate/artTemplate.js}"></script>
+    <script type="text/javascript" src="{views:js/topshow.js}" ></script>
     <!--[if lte IE 6]>
 
     
@@ -73,7 +75,57 @@
 
 </head>
 <body>
+<script type="text/html" id="topBarTemplate">
+    <div class="topnav_left">
+        <div class="top_index">
+            <img class="index_img" src="{views:images/index/icon_index.png}"/>
+            <a rel="external nofollow" href="{url:/index/index@deal}" >耐耐网首页</a>
+        </div>
+        <div class="index_user">
+            <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  class=""><%=data.username%></a>
+        </div>
+        <div class="login_link" id="toploginbox">
+            <a rel="external nofollow" href="{url:/login/logOut@user}" class="topnav_login">退出</a>
+        </div>
 
+    </div>
+    <div class="topnav_right">
+        <ul>
+            <li>
+                <a href="{url:/shop/prompt}">卖家中心</a><span class="line_l">|<span>
+            </li>
+
+            <li>
+                <a href="{url:/ucenterindex/index@user}">会员中心</a><span class="line_l">|<span>
+            </li>
+            <li>
+                <a href="{url:/contract/buyerList@user}">我的合同</a><span class="line_l">|<span>
+            </li>
+
+            <li>
+                <a href="{url:/message/usermail@user}">消息中心
+                    <% if(data.mess>0&&data.mess<=99){ %>
+                    <em class="information"><%=data.mess%></em>
+                    <% }else if (data.mess!=0&&data.mess>99){ %>
+                    <em class="information">99+</em>
+                    <%}%>
+                </a>
+                    <span class="line_l">|<span>
+            </li>
+            <!--<li>
+                <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
+                <a href="">手机版</a><span class="line_l">|<span>
+            </li>-->
+            <li>
+                <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" ><!--onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=279020473&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" --> 在线客服</a><span class="line_l">|<span>
+            </li>
+            <li style="padding-top:2px;">
+                <span>交易时间：{$deal['start_time']}--{$deal['end_time']}</span>
+            </li>
+
+        </ul>
+    </div>
+</script>
 
 
 
@@ -93,56 +145,105 @@ z-index:1000;">
 <![endif]-->
 
 <!------------------公用头部控件 开始-------------------->
-<div class="bg_topnav">
-    <div class="topnav_width">
+<style type="text/css">
+    .top_fixed{
+        position: relative;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top:0px;
+    z-index: 300;
+    }
+    .top_ad_img{
+        width: 1190px;
+        margin: auto;
+    }
+    .top_ad_img img{
+        width: 100%;
+    }
+    .fixed_t{
+        position:fixed;
+        top:0px;
+    }
+    .rela{
+        position:relative;
+    }
+    .height_div{
+        height: 83px;
+    }
+</style>
+
+
+    <div class="top_ad" style="background: #a04027;">
+        <div class="top_ad_img">{echo: \Library\Ad::show("头部广告")}</div>
+    </div>
+<script type="text/javascript">
+$(function(){
+    var head_top = ''; 
+
+     $(document).scroll(function(){  
+        var scroH = $(this).scrollTop();
+
+        if(head_top == ''){
+            head_top = $('.top_fixed').offset().top;
+        }
+        if(scroH>=head_top){  
+            $(".top_fixed").removeClass("rela");
+            $(".top_fixed").addClass("fixed_t");
+            $("#div_het").addClass("height_div");
+            /*$("#index_logo").css({"border":"1px solid #eee"});  */
+        }else if(scroH<head_top){  
+            $(".top_fixed").removeClass("fixed_t");
+            $("#div_het").removeClass("height_div");
+        $(".top_fixed").addClass("rela");
+        /*$("#index_logo").css({"border":"0px solid #eee"});*/
+        }  
+    
+    })
+
+})
+</script>
+{set:$sellerCenterUrl=\Library\tool::getGlobalConfig(array('host','sellerCenter'));}
+{set:$shopUrl=\Library\tool::getGlobalConfig(array('host','shop'));}
+<input type="hidden" name="checkLogin" value="{url:/ajaxData/checkLogin}"/>
+    <div class="bg_topnav">
+    <div class="topnav_width" id="topBox">
         <div class="topnav_left">
             <div class="top_index">
                 <img class="index_img" src="{views:images/index/icon_index.png}"/>
-                <a rel="external nofollow" href="{url:/index/index@deal}" target="_blank" >耐耐网首页</a>
+                <a rel="external nofollow" href="{url:/index/index@deal}">耐耐网首页</a>
             </div>
-
             <div class="index_user">
-            {if:isset($username)}您好，
-                <a rel="external nofollow"  href="{url:/ucenterindex/index@user}"  target="_blank" class="">{$username}</a>
-                {else:}
-                <span>您好，欢迎进入耐耐网</span>
-                {/if}
+               <span>您好，欢迎进入耐耐网</span>
             </div>
-            {if:$login==0}
             <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="{url:/login/login@user}" target="_blank" class="topnav_login">请登录</a>
+                <a rel="external nofollow" href="{url:/login/login@user}"  class="topnav_login">请登录</a>
             </div>
             <div class="topnav_regsiter">
-                <a rel="external nofollow" href="{url:/login/register@user}" target="_blank">免费注册</a>
+                <a rel="external nofollow" href="{url:/login/register@user}">免费注册</a>
             </div>
-            {else:}
-            <div class="login_link" id="toploginbox">
-                <a rel="external nofollow" href="{url:/login/logOut@user}" target="_blank" class="topnav_login">退出</a>
+            <div class="login_link">
+                <a rel="external nofollow" href="{url:/login/newMember@user}" target="_blank">会员申请</a>
             </div>
-            {/if}
+
         </div>
         <div class="topnav_right">
             <ul>
-                {if:$login!=0}
-                 <li>
-                   <a href="{url:/ucenterindex/index@user}">会员中心</a><span class="line_l">|<span>
-                </li>
                 <li>
-                   <a href="{url:/contract/buyerList@user}">我的合同</a><span class="line_l">|<span>
+                    <a href="{url:/shop/prompt}">卖家中心</a><span class="line_l">|<span>
                 </li>
-                {/if}
+
                 <li>
-                    <a href="{url:/message/usermail@user}">消息中心{if:$login==1&&$mess!=0&&$mess<=99}
-                    <em class="information">{$mess}</em>
-                    {elseif:$login==1&&$mess!=0&&$mess>99}
-                    <em class="information">99+</em>{/if}</a><span class="line_l">|<span>
+                    <a href="{url:/message/usermail@user}">消息中心
+                    </a>
+                    <span class="line_l">|<span>
                 </li>
                 <!--<li>
                     <img class="iphon_img" src="{views:images/index/icon_iphon.png}"/>
                     <a href="">手机版</a><span class="line_l">|<span>
                 </li>-->
                 <li>
-                    <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1" target="_blank" ><!--onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=279020473&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" --> 在线客服</a><span class="line_l">|<span>
+                    <a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=4006238086&aty=0&a=0&curl=&ty=1"><!--onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=279020473&o=new.nainaiwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" --> 在线客服</a><span class="line_l">|<span>
                 </li>
                 <li style="padding-top:2px;">
                     <span>交易时间：{$deal['start_time']}--{$deal['end_time']}</span>
@@ -151,12 +252,16 @@ z-index:1000;">
             </ul>
         </div>
     </div>
+
+
 </div>
+
 <div class="clearfix"></div>
 <!------------------公用头部控件 开始-------------------->
 
 
 <!------------------logo 开始-------------------->
+<div class="top_fixed">
 <div id="index_logo">
     <div class="page_width">
         <div class="index_logo">
@@ -167,80 +272,36 @@ z-index:1000;">
 
         <script type="text/javascript" src="{views:js/search&floor.js}"></script>
         <div class="searchbox">
-            <div class="search_xz">
-               <!--  <select class="search_select" name="type">
-                    <option value="gong" {if:isset($searchtype) && $searchtype==1}selected{/if}>供应</option>
-                    <option value="qiu" {if:isset($searchtype) && $searchtype==2}selected{/if}>求购</option>
-                </select> -->
-                {if:isset($searchtype) && $searchtype==2}
-                <input type="button" class="search_select" value="求购">
-                <input type="hidden" name="type" value="qiu"/>
-                {else:}
-                <input type="button" class="search_select" value="供应">
-                <input type="hidden" name="type" value="gong"/>
-                {/if}
-                     <ul id="search_list">
-                        <li js_data="gong">供应</li>
-                        <li js_data="qiu">求购</li>
-                      </ul> 
-
-            </div>
             <div class="bodys">
-                <p class="keyword_0"><input type="text" {if:isset($search)}value="{$search}"{/if} name="content" placeholder="请输入关键词查询" value="" id=""  /><a href="javascript:void(0)" onclick="searchGoods()"><button class="one1">搜索</button></a></p>
+                <p class="keyword_0"><input type="text" value="{$search}" name="content" placeholder="请输入关键词查询" value="" id=""  /><a href="javascript:void(0)" onclick="searchGoods()"><button class="one1">搜索</button></a></p>
             </div>
         </div>  
         <script>
-         $(function(){
-                $(".search_select").click(function(){
-                    if($("#search_list").is(":hidden")){
-                        $("#search_list").show();
-                    }else{
-                    $("#search_list").hide();
 
-                     }
-                })
-                $("#search_list li").each(function(){
-                    $(this).hover(function(){ 
-                        $(this).css('background','#f7f7f7');
-                     },function(){ 
-                        $(this).css('background','#FFF');
-                     }) 
-                       
-                })
-                $("#search_list li").each(function(){
-                    var _t = $(this)
-                        ,_v = _t.attr('js_data');
-                     _t.click(function(){
-                        $('.search_select').val(_t.text());
-                        $('input[name=type]').val(_v);
-                        $('#search_list').hide();
-                     })
-                })
-                
-
-         });
 
         </script>
 
         <script type="text/javascript">
             function searchGoods(){
-                var type = $('input[name=type]').val();
+                var type = 'all';
                 var content = $('input[name=content]').val();
-                if(content=='')return false;
                 window.location.href='{url:/offers/offerList}/type/'+type+'/content/'+content;
             }
-            document.onkeydown=function(event){
+            $('input[name=content]').on('keydown',function(event) {
                 e = event ? event :(window.event ? window.event : null);
                 if(e.keyCode==13){
                     searchGoods();
                 }
-            }
+            });
+
         </script>
         <div class="index_phone">
             服务热线：<span>400-6238-086</span>
         </div>
     </div>
 </div>
+</div>
+<div id="div_het"></div>
 
 <!------------------logo 结束-------------------->
 <!------------------导航 开始-------------------->
@@ -251,15 +312,20 @@ z-index:1000;">
 
         <ul class="nav">
             <li {if:!isset($cur) || $cur=='index'}class="current"{/if}><a href="{url:/index/index}">首页</a></li>
-            <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}" target="_blank">交易中心</a></li>
-            <li {if:isset($cur) && $cur=='bid'}class="current"{/if}><a href="{url:/bid/tenderlist}" target="_blank">招投标</a></li>
-            <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}" target="_blank">仓储专区</a></li>
-            <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}" target="_blank">帮我找</a></li>
-             <li ><a href="http://info.nainaiwang.com" target="_blank">耐耐资讯</a></li>
+            <li {if:isset($cur) && $cur=='offerlist'}class="current"{/if}><a href="{url:/offers/offerlist}">交易中心</a></li>
+            <li {if:isset($cur) && $cur=='bid'}class="current"{/if}><a href="{url:/bid/tenderlist}">招投标</a></li>
+            <li {if:isset($cur) && $cur=='bidprice'}class="current"{/if}><a href="{url:/bidprice/bidpriceList}">竞价</a>
+                <span class="bidNew">NEW</span>
+            </li>
+            <li {if:isset($cur) && $cur=='shop'}class="current"{/if}><a href="{url:/shop/prompt}">店铺</a></li>
+            <li {if:isset($cur) && $cur=='storage'}class="current"{/if}><a href="{url:/index/storage}">仓储专区</a></li>
+            <li {if:isset($cur) && $cur=='found'}class="current"{/if}><a href="{url:/index/found}">帮我找</a></li>
+             <li ><a href="http://info.nainaiwang.com">耐耐资讯</a></li>
      
 	   </ul>
     </div>
 </div>
+
 
   <!-- 分类开始 -->
 
@@ -442,13 +508,13 @@ z-index:1000;">
             <ul>
                 {foreach: items=$helpList2}
                     <li class="footer_li">
-                        <a class="fotter_div" target="_blank"><b>{$item['name']}</b></a>
+                        <a class="fotter_div"><b>{$item['name']}</b></a>
                         {foreach: items=$item['data'] item=$v key=$k}
                             {if:$v['link']}
-                                <a class="fotter_a" href="{$v['link']}" target="_blank">{$v['name']}</a>
+                                <a class="fotter_a" href="{$v['link']}">{$v['name']}</a>
 
                             {else:}
-                                <a class="fotter_a" href="{url:/help/help}?cat_id={$v['cat_id']}&id={$v['id']}" target="_blank">{$v['name']}</a>
+                                <a class="fotter_a" href="{url:/help/help}?cat_id={$v['cat_id']}&id={$v['id']}">{$v['name']}</a>
 
                             {/if}
                          {/foreach}
@@ -458,15 +524,15 @@ z-index:1000;">
             </ul>
             <ul class="ewm_ul">
                 <li class="ewm_li">
-                    <div class="fotter_div" target="_blank"><b>关注耐火频道</b></div>
+                    <div class="fotter_div"><b>关注耐火频道</b></div>
                     <div><img src="{views:images/index/a_naih.png}"></div>
                 </li>
                 <li class="ewm_li">
-                    <div class="fotter_div" target="_blank"><b>关注耐耐网</b></div>
+                    <div class="fotter_div"><b>关注耐耐网</b></div>
                     <div><img src="{views:images/index/a_nain.png}"></div>
                 </li>
                 <li class="ewm_li">
-                    <div class="fotter_div" target="_blank"><b>关注建材频道</b></div>
+                    <div class="fotter_div"><b>关注建材频道</b></div>
                     <div><img src="{views:images/index/a_jianc.png}"></div>
                 </li>
             </ul>

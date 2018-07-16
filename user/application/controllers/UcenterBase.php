@@ -39,7 +39,7 @@ class UcenterBaseController extends \nainai\controller\Base{
 	public $goUrl;
 
 
-	protected function init(){
+	public function init(){
 		parent::init();//继承父类的方法，检测是否登录和角色
 		$this->getView()->setLayout('layout');
 		$controllerName = $this->_request->getControllerName();
@@ -81,8 +81,9 @@ class UcenterBaseController extends \nainai\controller\Base{
                     
         
 		// 判断该方法买家是否能操作，如果不能，跳转到用户中心首页
-		 if($this->user_type==0 && isset($this->sellerAction) && in_array($action,$this->sellerAction)){
+		 if($this->user_type==0 && isset($this->sellerAction) && in_array($actionName,$this->sellerAction)){
 		 	$this->redirect(url::createUrl('/ucenter/index'));
+			 exit;
 		 }
 		$this->getView()->assign('action', $actionName);
 		$mess=new \nainai\message($this->user_id);

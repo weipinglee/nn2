@@ -90,7 +90,7 @@
                  <th>包装数量:</th>
                  <td>   {$detail['package_num']} </td>
                  <th>包装单位</th>
-                 <td>{$detail['package_units']}</td>
+                 <td>{$detail['package_unit']}</td>
 
              </tr>
              {/if}
@@ -111,7 +111,11 @@
              </tr>
              <tr>
               <th>签字入库单</th>
-                    <td>{img:data=$detail['confirm'] width=200 height=200}</td>
+                 <td>
+                     {foreach:items=$detail['confirm']}
+                     {img:data=$item width=200 height=200}
+                     {/foreach}
+                 </td>
                  <th>质检证书：</th>
                      <td>
                          {img:data=$detail['quality'] width=200 height=200}

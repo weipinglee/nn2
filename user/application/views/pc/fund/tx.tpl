@@ -1,4 +1,16 @@
-﻿
+﻿<style type="text/css">
+	.txtip{
+	    position: absolute;
+	    width: 360px;
+	    top: 40px;
+	    left: 474px;
+	    background: #e6e6e6;
+	    padding: 20px;
+	}
+	.txtip p{
+	    line-height: 20px;
+	}
+</style>
 			<!--start中间内容-->	
 			<div class="user_c">
 				<!--start代理账户提现-->
@@ -9,7 +21,7 @@
 						<p><a>资金管理</a>><a>代理账户管理</a>><a>提现</a>
 						</p>
 					</div>
-					<div class="pay_cot">
+					<div class="pay_cot" style="position: relative;">
 						<div class="zhxi_con">
 							<span class="con_tit"><i></i>可提现金额：</span>
 							<span><input class="text" type="text" disabled="disabled" style="border:none;" value="￥{$active}" /></span>
@@ -29,6 +41,11 @@
 						
 						<div class="zhxi_con">
 							<span><input class="submit" type="submit" value="提现"/></span>
+						</div>
+						<div class="txtip">
+							<p>耐耐网资金结算时间以各大银行对公工作时间为准。由于结算审核、申请排队等因素可能导致不能及时操作，因此请提前申请提现。
+							</p>
+							<p>原则上16:30之后不再受理新的提现业务，详情请咨询客服。</p>
 						</div>
 					</div>
 				</form>

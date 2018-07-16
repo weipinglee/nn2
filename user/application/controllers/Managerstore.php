@@ -45,7 +45,7 @@ class ManagerStoreController extends UcenterBaseController{
 		if(IS_POST){
 			$acc = safe::filterPost('username');
 			$user = new \nainai\member();
-			$res = $user->getUserDetail(array('username'=>$acc, 'type' => 1));
+			$res = $user->getUserDetail(array('username'=>$acc, 'type' => 1,'status'=>0));
 			die(json::encode($res));
 		}
 		return false;
@@ -231,7 +231,8 @@ class ManagerStoreController extends UcenterBaseController{
 			'create_time'  => $time,
 			'unit'         => Safe::filterPost('unit'),
 		);
-
+        $proObj = new \nainai\offer\product();
+        $detail['market_id'] = $proObj->getcateTop($detail['cate_id']);
 		//图片数据
 		$imgData = Safe::filterPost('imgData');
 
@@ -257,7 +258,7 @@ class ManagerStoreController extends UcenterBaseController{
 			$user_id = safe::filterPost('user_id','int',0);
 			if(!$user_id)
 				die(json::encode(\Library\tool::getSuccInfo(0,'用户id错误')));
-			
+
 			$storeProduct = array(
 				'user_id'   => $user_id,
 				'store_pos' => safe::filterPost('pos'),
@@ -270,16 +271,32 @@ class ManagerStoreController extends UcenterBaseController{
 				'check_no'  => safe::filterPost('check_no'),
 				'sign_time' => \Library\time::getDateTime(),
 				'package'   => safe::filterPost('package','int'),
-				'confirm'   => \Library\tool::setImgApp(safe::filterPost('imgfile1')),
 				'quality'   => \Library\tool::setImgApp(safe::filterPost('imgfile2')),
 				'sign_user' => $this->user_id
 			);
+			//入库单多张图片处理，以；相隔放入一个字段
+			$rukuImg = Safe::filterPost('imgData1');
+			$resImg = '';
+			if(!empty($rukuImg)){
+				foreach ($rukuImg as $key=>$imgUrl) {
+					if (!empty($imgUrl) && is_string($imgUrl)) {
+						if($key>0){
+							$resImg .=';'.\Library\tool::setImgApp($imgUrl);
+						}
+						else
+							$resImg .= \Library\tool::setImgApp($imgUrl);
+					}
+				}
+			}
+			$storeProduct['confirm'] = $resImg;
+
 			if ($storeProduct['package']) {
 				$storeProduct['package_unit'] = safe::filterPost('packUnit');
 				$storeProduct['package_num'] = safe::filterPost('packNumber', 'float');
 				$storeProduct['package_weight'] = safe::filterPost('packWeight', 'float');
 				$storeProduct['package_units'] = safe::filterPost('pageUnits');
 			}
+
 			$productData = $this->getProductData();
 			if(empty($productData[1])){
 				die(json::encode(\Library\tool::getSuccInfo(0,'请上传商品图片')));
@@ -288,6 +305,8 @@ class ManagerStoreController extends UcenterBaseController{
 
 			$store = new store();
 			$res = $store->createStoreProduct( $productData,$storeProduct,$this->user_id);
+
+
 			if($res['success']==1){
 				$log = new \Library\userLog();
 				$log->addLog(array('action'=>'仓单签发','content'=>'签发了id为'.$res['id'].'的仓单'));
@@ -417,9 +436,21 @@ class ManagerStoreController extends UcenterBaseController{
     			$storeProduct['package_num'] = safe::filterPost('packNumber', 'float');
     			$storeProduct['package_weight'] = safe::filterPost('packWeight', 'float');
     		}
-    		if (!empty(safe::filterPost('imgfile1'))) {
-    			$storeProduct['confirm'] = \Library\tool::setImgApp(safe::filterPost('imgfile1'));
-    		}
+			//入库单多张图片处理，以；相隔放入一个字段
+			$rukuImg = Safe::filterPost('imgData1');
+			$resImg = '';
+			if(!empty($rukuImg)){
+				foreach ($rukuImg as $key=>$imgUrl) {
+					if (!empty($imgUrl) && is_string($imgUrl)) {
+						if($key>0){
+							$resImg .=';'.\Library\tool::setImgApp($imgUrl);
+						}
+						else
+							$resImg .= \Library\tool::setImgApp($imgUrl);
+					}
+				}
+			}
+			$storeProduct['confirm'] = $resImg;
     		if (!empty(safe::filterPost('imgfile2'))) {
     			$storeProduct['quality'] = \Library\tool::setImgApp(safe::filterPost('imgfile2'));
     		}
@@ -435,6 +466,14 @@ class ManagerStoreController extends UcenterBaseController{
 			}
     		die(json::encode($res));
     	}
+    }
+    /*增加推荐管理*/
+    public function recommendAction(){
+
+    }
+   /* 推荐管理推送列表*/
+    public function pushlistAction(){
+
     }
 
 }

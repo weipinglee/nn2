@@ -162,6 +162,7 @@
                     <div class="wrap_con">
                         <div class="personal_data">
                             <div class="head_portrait">
+
                                 <a href="#">
                                     <img src="{views:/images/icon/head_portrait.jpg}">
                                 </a>
@@ -169,6 +170,7 @@
                             <div class="per_username">
                                 <p class="username_p"><b>您好，{$username}</b></p>
                                 <p class="username_p"><!--<img src="{$group['icon']}">-->{$group['group_name']}</p>
+                                
                                 <p class="username_p">消息提醒：<a href="{url:/message/userMail}"><b class="colaa0707">{$mess}</b></a></p>
                             </div>
                             <div class="per_function">

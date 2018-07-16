@@ -233,13 +233,20 @@ class fundOutModel {
 			if ($fundOut->where($where)->data($data)->update()) {
 
 				$fund = \nainai\fund::createFund(1);
-				$fund->out($userData['user_id'],floatval($userData['amount']),$userData['request_no'].'提现成功');
-				$log = new \Library\log();
-				$log->addLog(array('table'=>'withdraw_request','type'=>'check','field'=>'request_no','id'=>$wid,'check_text'=>$this->getFundOutStatustext($data['status'])));
+				$res = $fund->out($userData['user_id'],floatval($userData['amount']),$userData['request_no'].'提现成功');
+				if(true===$res){
+                    $log = new \Library\log();
+                    $log->addLog(array('table'=>'withdraw_request','type'=>'check','field'=>'request_no','id'=>$wid,'check_text'=>$this->getFundOutStatustext($data['status'])));
 
-				if(true===$fundOut->commit()){
-					return $this->hintCode['outOk'];
-				}
+                    if(true===$fundOut->commit()){
+                        return $this->hintCode['outOk'];
+                    }
+                }else{
+                    $fundOut->rollBack();
+				    return $res;
+                }
+
+
 
 			}
 			$fundOut->rollBack();

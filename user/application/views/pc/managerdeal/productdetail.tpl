@@ -34,7 +34,8 @@
 					</div>
 					<div class="center_tabl">
                     <form action="{url:/managerdeal/ajaxsetStatus}" method="post" auto_submit="1" redirect_url="{url:managerdeal/productList}" >
-					   <table class="table2" cellpadding="0" cellspacing="0">
+
+					     <table class="table2" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="spmx_title" colspan="2">商品明细</td>
                             </tr>
@@ -70,22 +71,26 @@
                             </tr>
                             <tr>
                                 <td>产地</td>
-                                <td id="areat">{areatext: data=$product['produce_area'] id=areat }</td>
+                                <td id="areat">{areatext: data=$product['produce_area'] id=areat } {$product['produce_address']}</td>
                             </tr>
                             <tr>
                                 <td>申请时间</td>
                                 <td>{$product['create_time']}</td>
                             </tr>
-                           <tr>
-                               <td>过期时间</td>
-                               <td>{$offer['expire_time']}</td>
-                           </tr>
+                             {if:$offer['expire_time']}
+                                 <tr>
+                                     <td>过期时间</td>
+                                     <td>{$offer['expire_time']}</td>
+                                 </tr>
+                             {/if}
+
                             <tr>
 
                                 <td>产品数量(单位)</td>
                                 <td class="end_td">{$offer['max_num']}（{$product['unit']}）</td>
 
                             </tr>
+
                             <tr>
                                 <td class="spmx_title" colspan="2">报盘详情</td>
                             </tr>
@@ -114,6 +119,18 @@
                               <td>支付方式</td>
                               <td>现汇</td>
                           </tr> -->
+                           {if:$offer['sub_mode']==1}
+                               <tr>
+                                   <td>竞价类型</td>
+                                   <td>{if: $offer['jingjia_mode'] == 1}场内竞价{else:}场外竞价{/if}</td>
+                               </tr>
+                               {if: $offer['jingjia_mode'] == 1}
+                                   <tr>
+                                       <td>竞价口令</td>
+                                       <td>{$offer['jingjia_pass']}</td>
+                                   </tr>
+                               {/if}
+                           {/if}
                           <tr>
                                 <td>是否投保</td>
                                 <td>{if: $offer['insurance'] == 1}是{else:}否{/if}</td>
@@ -152,17 +169,29 @@
                                    <td>{$offer['minstep']}</td>
                                </tr>
                            {/if}
-                            <tr>
-                                <td>商品单价</td>
-                                <td>￥{$offer['price']}</td>
-                            </tr>
+                             {if:$offer['sub_mode']!=1}
+                                 <tr>
+                                     <td>商品单价</td>
+                                     <td>￥{$offer['price']}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>会员单价</td>
+                                     <td>￥{$offer['price_vip']}</td>
+                                 </tr>
+                             {/if}
+
                             <tr>
                                 <td>交货地址</td>
-                                <td>{$offer['accept_area']}</td>
+                                <td>{areatext:data=$offer['accept_area_code'] id=area_a}{$offer['accept_area']}</td>
                             </tr>
                            <tr>
                                <td>交收时间</td>
-                               <td>T+{$offer['accept_day']}天</td>
+                               {if:is_numeric($offer['accept_day'])}
+                                   <td>T+{$offer['accept_day']}天</td>
+                               {else:}
+                                   <td>{$offer['accept_day']}</td>
+                               {/if}
+
                            </tr>
                            <tr>
                                <td>记重方式</td>
@@ -180,6 +209,12 @@
                                    <td>{$offer['end_time']}</td>
                                </tr>
                            {/if}
+                             {if:$offer['sub_mode']==1 && $offer['price_l']}
+                                 <tr>
+                                     <td>起拍价</td>
+                                     <td>￥{$offer['price_l']}</td>
+                                 </tr>
+                             {/if}
                            {if:$offer['jing_stepprice']}
                                <tr>
                                    <td>递增价格</td>
@@ -194,6 +229,12 @@
                                 <td>补充条款</td>
                                 <td>{$offer['other']}</td>
                             </tr>
+                           {if:$offer['sign']}
+                           <tr>
+                               <td>签字单</td>
+                               <td><a href="{$offer['sign']}" >查看</a></td>
+                           </tr>
+                           {/if}
                             <tr>
                                 <td>产品图片</td>
                                 <td>
@@ -238,7 +279,7 @@
                                   {/if}
                                     {if:isset($updateUrl)}
                                     <div class="pay_bton">
-                                        <a class="submit_chag"  href="{$updateUrl}" >修改</a>
+                                        <a class="submit_chag"   {if:$offer['sub_mode']==1 && $offer['old_offer']>0}href="{url:/managerdeal/updatejingjia}?id={$offer['id']}"{else:}href="{$updateUrl}"{/if} >修改</a>
                                     </div>
                                     {/if}
                                 </td>

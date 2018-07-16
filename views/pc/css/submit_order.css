@@ -1282,3 +1282,15 @@ tr.form_infoma{
     margin:0 auto;
 }
 
+/*开发票根据是否非会员提示*/
+.no_member,.yes_member{
+    line-height: 25px;
+}
+.c816{
+    color: #c81624
+}
+.no_member .fa3a{
+    color: #3fa5d9
+}
+/*开发票根据是否非会员提示 end*/
+

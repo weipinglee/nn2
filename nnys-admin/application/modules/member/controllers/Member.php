@@ -532,5 +532,49 @@ class MemberController extends InitController {
 		$this->getView()->assign('data', $data);
 	}
 
+	/************************用户通知管理**************************/
+
+
+	public function userNoticeAction(){
+        $m = new MemberModel();
+        $page = safe::filterGet('page','int');
+        $pageData = $m->getNoticeList($page);
+
+        $this->getView()->assign('data',$pageData);
+    }
+
+    public function addUsernoticeAction(){
+	    if(IS_POST){
+            $data = array(
+                'user_id'=> safe::filterPost('id'),
+                'mobile' => safe::filterPost('mobile')
+            );
+            $m  = new MemberModel();
+            $res = $m->addNoticeUser($data);
+            die(json_encode($res));
+        }else{
+
+        }
+
+    }
+
+    public function delUsernoticeAction(){
+	    if(IS_POST){
+	        $id = $this->getRequest()->getParam('id');
+            $m  = new MemberModel();
+            $res = $m->delNoticeUser($id);
+            die(json_encode($res));
+        }
+    }
+
+    public function searchUserAction(){
+	    if(IS_GET){
+	        $name = safe::filterGet('name');
+            $m  = new MemberModel();
+            $data = $m->seachUser($name);
+            die(json_encode($data));
+        }
+    }
+
 
 }

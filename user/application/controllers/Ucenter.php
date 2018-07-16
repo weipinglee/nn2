@@ -203,6 +203,28 @@ class UcenterController extends UcenterBaseController {
         return false;
     }
 
+    public function uploadFileAction(){
+        //调用文件上传类
+        $photoObj = new \Library\upload\commonUpload();
+        $photoObj->setallowType(array('pdf'));
+        $photo = current($photoObj->upload());
+
+        if($photo['flag'] == 1)
+        {
+            $result = array(
+                'flag'=> 1,
+                'img' => $photo['src'],
+            );
+        }
+        else
+        {
+            $result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
+        }
+        echo json::encode($result);
+
+        return false;
+    }
+
     /**
      * 修改用户信息
      */
@@ -351,10 +373,10 @@ class UcenterController extends UcenterBaseController {
 
         if(IS_AJAX){
             $user_id = $this->user_id;
-
+            $user_type = safe::filterPost('userType','int',1);
             $accData = array();
-
-            if($this->user_type==1){
+            $userModel = new userModel();
+            if($user_type==1){
                 $accData['company_name'] = safe::filterPost('company_name');
                 $accData['legal_person'] = safe::filterPost('legal_person');
                 $accData['contact'] = safe::filterPost('contact');
@@ -365,17 +387,22 @@ class UcenterController extends UcenterBaseController {
                 $accData['cert_tax'] = Tool::setImgApp(safe::filterPost('imgfile2'));
                 $accData['cert_oc'] = Tool::setImgApp(safe::filterPost('imgfile3'));
                 $accData['business'] = safe::filterPost('zhuying');
+                $res = $userModel->companyInsert(array('user_id'=>$user_id));
             }
             else{
                 $accData['true_name'] = safe::filterPost('name');
                 $accData['area'] = safe::filterPost('area');
                 $accData['address'] = safe::filterPost('address');
                 $accData['identify_no'] = safe::filterPost('no');
-                $accData['identify_front'] = Tool::setImgApp(safe::filterPost('imgfile1'));
-                $accData['identify_back'] = Tool::setImgApp(safe::filterPost('imgfile2'));
+                $accData['identify_front'] = Tool::setImgApp(safe::filterPost('imgfile5'));
+                $accData['identify_back'] = Tool::setImgApp(safe::filterPost('imgfile6'));
+                $res = $userModel->personInsert(array('user_id'=>$user_id));
+            }
+            if($res['success']==0){
+                die(json::encode($res));
             }
 
-            $cert = new \nainai\cert\certDealer($user_id,$this->user_type);
+            $cert = new \nainai\cert\certDealer($user_id,$user_type);
 
             $res = $cert->certDealApply($accData);
             if($res['success']==1){
@@ -397,7 +424,7 @@ class UcenterController extends UcenterBaseController {
             $user_id = $this->user_id;
 
             $accData = array();
-
+            $userModel = new userModel();
             if($this->user_type==1){
                 $accData['company_name'] = Safe::filterPost('company_name');
                 $accData['legal_person'] = Safe::filterPost('legal_person');
@@ -405,14 +432,18 @@ class UcenterController extends UcenterBaseController {
                 $accData['contact_phone'] = Safe::filterPost('phone');
                 $accData['area'] = Safe::filterPost('area');
                 $accData['address'] = Safe::filterPost('address');
-
+                //插入企业表的数据，如果已经存在数据，则不做处理且返回成功
+                $res = $userModel->companyInsert(array('user_id'=>$user_id));
             }
             else{
                 $accData['true_name'] = Safe::filterPost('true_name');
                 $accData['area'] = Safe::filterPost('area');
                 $accData['address'] = Safe::filterPost('address');
+                $res = $userModel->personInsert(array('user_id'=>$user_id));
             }
-
+            if($res['success']==0){
+                die(json::encode($res));
+            }
             $cert = new \nainai\cert\certStore($user_id,$this->user_type);
             $certData = array('store_id'=>safe::filterPost('store_id','int',0));
             if($certData['store_id']){
@@ -423,8 +454,6 @@ class UcenterController extends UcenterBaseController {
                 }
                 echo JSON::encode($res);
             }
-
-
 
         }
         return false;

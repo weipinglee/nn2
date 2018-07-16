@@ -44,10 +44,10 @@
                     <li>
                         <label>手机号：</label><input type="text" class="text1" id="txtMobile" name="mobile"> 
                     </li>
-                     <li>
+                     <!--<li>
                         <label class="yanzm">验证码：</label><input type="text" class="text1 text1_yzm" id="inputCode" placeholder="请输入验证码"  name="inputCode">
                         <img id="image" src="{url:/login/getCaptcha}" onclick="this.src='{url:/login/getCaptcha}?'+Math.random()"/>
-                    </li>
+                    </li>-->
                     <li>
                         <label>校验码：</label><input type="text" class=" text1 text1_yzm" id="txtCode" name="code"> <input  id="yzmBtn" type="button" value="获取校验码" class="yzm"> 
                     </li>

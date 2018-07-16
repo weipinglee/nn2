@@ -37,7 +37,7 @@ class searchConfig {
         ),
         'order_sell' => array(
             'time'=>array('do.create_time','提货时间'),
-            'likes' => array('o.order_no, p.name', '订单号,商品名称'),
+            'likes' => array('do.order_no, p.name', '订单号,商品名称'),
             'down' => 1
         ),
         'product_offer' => array(

@@ -44,7 +44,7 @@
 							<p class="of_title1">
 								<span class="title1_a public">委托报盘</span>
 							</p>
-							<p class="of_title2 public">即将上线，敬请期待</p>
+							<p class="of_title2 public">委托平台交易 提高成交率</p>
 							<!-- <p class="of_title1">委托报盘有什么吗</p> -->
 						</div>
 						<div class="offer public" onclick="if({$certStatus['status']}==4){alert('请完善您的资质认证');window.open('{url:/ucenter/dealcert}');return false;}window.open('{url:/ManagerDeal/storageoffer}')">

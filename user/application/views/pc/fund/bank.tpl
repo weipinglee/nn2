@@ -139,7 +139,7 @@
 							</div>
 						{if:$user_type!=1}
 							<div class="zhxi_con">
-								<span class="con_tit"><i>*</i>打款凭证： </span>
+								<span class="con_tit"><i>*</i>开户凭据： </span>
 								<span class="con_tit">
 									<img name="file2" src="{$bank['proof_thumb']}"/>
 

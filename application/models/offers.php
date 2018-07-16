@@ -58,7 +58,7 @@ class offersModel extends \nainai\offer\product{
 
 		if($this->offerQuery == null){
 			$this->offerQuery = new Query('product_offer as a');
-			$this->offerQuery->fields = 'a.id,a.mode, a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,b.img,b.note';
+			$this->offerQuery->fields = 'a.id,a.mode, a.sub_mode,a.price_l,a.price_r,a.type,a.accept_area, a.price, b.cate_id,b.id as product_id, b.name as pname, b.quantity, b.freeze,b.sell,b.unit,b.produce_area,b.img,b.note';
 			$this->offerQuery->join = 'LEFT JOIN products as b ON a.product_id=b.id ';
 		 //   $query->where = 'a.status='.self::OFFER_OK.' AND a.expire_time>now() AND  find_in_set(b.cate_id, getChildLists(:cid))';
 
@@ -73,6 +73,9 @@ class offersModel extends \nainai\offer\product{
             $categoryList[$k]['mode']=$this->getMode($v['mode']);
             $categoryList[$k]['produce_area'] = substr($v['produce_area'],0,2);
             $categoryList[$k]['img'] = \Library\Thumb::get($categoryList[$k]['img']);
+            if($categoryList[$k]['sub_mode']==1 && $categoryList[$k]['price_r']==0){
+                $categoryList[$k]['price_r'] = '-';
+            }
         }
 
 
@@ -185,21 +188,21 @@ class offersModel extends \nainai\offer\product{
     public function getList($page,$condition = array(),$order='',$user_id){
         $query = new Query('product_offer as o');
         $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id left join admin_kefu as ke on o.kefu=ke.admin_id";
-        $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze=0 || o.status=6,1,0) as jiao";
+        $query->fields = "o.*,p.img,p.cate_id,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area,p.produce_address, c.name as cname,ke.qq,IF(p.quantity-p.sell-p.freeze=0 || o.status=6,1,0) as jiao";
         $query->group = 'o.id';
-        $where = 'o.status in ('.self::OFFER_OK.','.self::OFFER_COMPLETE.','.self::OFFER_WAITINGTRADE.') and o.is_del = 0  and o.expire_time > now()';
+        $where = 'o.status in ('.self::OFFER_OK.','.self::OFFER_COMPLETE.','.self::OFFER_WAITINGTRADE.') and o.is_del = 0 and (now()< o.expire_time OR o.expire_time is null) ';
         $bind = array();
 
-        if (empty($order)) {
-            $model = new \nainai\offer\ProductSetting();
-            $detail = $model->getProductSetting(1);
-            $dbName = \Library\tool::getConfig(array('database','master','database'));
-			
-            $query->join .= ' LEFT JOIN (select *, (time*' .$detail['time']. '+credit*'.$detail['credit'].') as common from (
-SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_TIMESTAMP(p.apply_time))/86400) / '.$detail['day'].') as time, (100*u.credit)/'.$detail['max_credit'].' as credit FROM '.$dbName.'.product_offer as p left join user
- as u ON p.user_id=u.id ) as s ) as cha on o.user_id=cha.user_id';
-            $order = 'cha.common desc, o.apply_time desc';
-        }
+//        if (empty($order)) {
+//            $model = new \nainai\offer\ProductSetting();
+//            $detail = $model->getProductSetting(1);
+//            $dbName = \Library\tool::getConfig(array('database','master','database'));
+//
+//            $query->join .= ' LEFT JOIN (select *, (time*' .$detail['time']. '+credit*'.$detail['credit'].') as common from (
+//SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_TIMESTAMP(p.apply_time))/86400) / '.$detail['day'].') as time, (100*u.credit)/'.$detail['max_credit'].' as credit FROM '.$dbName.'.product_offer as p left join user
+// as u ON p.user_id=u.id ) as s ) as cha on o.user_id=cha.user_id';
+//            $order = 'cha.common desc, o.apply_time desc';
+//        }
 
         //获取分类条件
         $childcates = array();
@@ -277,6 +280,105 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
             $value['mode_txt'] = $this->offerMode($value['mode']);
             $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],30,30);//获取缩略图
             $value['left'] = number_format(min(floatval($value['quantity']) - floatval($value['freeze']) - floatval($value['sell']),$value['max_num']-$value['sell_num']));
+            $value['left'] = $value['left'] <0 ? 0 : $value['left'];
+
+        }
+        //print_r($data);
+        $pageBar =  $query->getPageBar();
+        return array('data'=>$data,'bar'=>$pageBar,'cate'=>$childcates,'childname'=>$childname);
+    }
+
+    public function jingjiaList($page,$condition = array(),$order=''){
+        $query = new Query('product_offer as o');
+        $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id 
+                        left join user as u on o.user_id=u.id ";
+        $query->fields = "o.*,u.true_name,p.img,p.cate_id,p.attr_json,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area,p.produce_address, c.name as cname";
+        $where = 'o.sub_mode=1  and o.is_del = 0 ';
+        $bind = array();
+
+        //获取分类条件
+        $childcates = array();
+        $childname = '';
+        if(isset($condition['pid']) && $condition['pid']>0) {
+            $memcache=new \Library\cache\Cache(array('type'=>'m','expire'=>0));
+            $cates = $memcache->get('cates'.$condition['pid']);
+            if(!$cates){
+                $cates = $this->getChildCate($condition['pid'],0);
+                $memcache->set('cates'.$condition['pid'],serialize($cates));
+            }
+            else{
+                $cates = unserialize($cates);
+            }
+            $childname = $cates[2];
+            $cate_ids = array();
+            $cate_ids[] = $condition['pid'];
+            foreach($cates[0] as $v){
+                $cate_ids[] = $v['id'];
+            }
+            $cate_ids = join(',',$cate_ids);
+            $where .= ' and c.id in ('.$cate_ids.')';
+
+            $childcates = $cates[1];
+
+
+        }
+
+        //获取地区条件
+        if(isset($condition['area']) && $condition['area']!=0){
+            $where .= ' and left(p.produce_area,2) = :area ';
+            $bind['area'] = $condition['area'];
+        }
+
+        //获取搜索条件
+        if(isset($condition['search']) && $condition['search']!=''){
+            $where .= ' and p.name like "%'.$condition['search'].'%" ';
+        }
+
+        if(isset($condition['status'])){
+            $where .= ' and '.$condition['status'];
+        }
+        $query->where = $where;
+        $query->bind = $bind;
+
+        $query->page = $page;
+        $query->pagesize = 20;
+        if($order=='')
+            $query->order = "o.id desc";
+        else {
+            $query->order = $order;
+        }
+        $data = $query->find();
+        $baojiaObj = new M('product_jingjia');
+        foreach ($data as $key => &$value) {
+            $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],300,300);//获取缩略图
+            $value['baojia'] = $baojiaObj->where(array('offer_id'=>$value['id']))->getField('count(id)');
+            $attr_ids = array();
+            $detail['attribute'] = json_decode($value['attr_json'],true);
+            if(!empty($detail['attribute'])){
+                foreach ($detail['attribute'] as $k => $v) {
+                    if(!is_numeric($k)){
+                        $value['attr'] = $detail['attribute'];
+                        break;
+                    }
+                    $attr_ids[] = $k;
+                }
+            }
+            if(!empty($value['attr'])){
+                continue;
+            }
+            //获取属性
+            $attrs = $this->getHTMLProductAttr($attr_ids);
+            $detail['attr_arr'] = array();
+            if(!empty($detail['attribute'])) {
+                foreach ($detail['attribute'] as $k => $v) {
+                    if(isset($attrs[$k])){
+                        $detail['attr_arr'][$attrs[$k]] = $v;
+                    }
+
+                }
+            }
+            $value['attr'] = $detail['attr_arr'];
+
         }
         //print_r($data);
         $pageBar =  $query->getPageBar();
@@ -330,7 +432,8 @@ SELECT  p.user_id, p.apply_time, 100 * ( 1 - floor((UNIX_TIMESTAMP(now())-UNIX_T
         $data = $query->find();
         foreach ($data as $key => &$value) {
            $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],180,180);//获取缩略图
-         }
+           $value['price_r'] = $value['price_r']<=0 ? '-' : $value['price_r'];
+        }
 
         if($pagebar){
             return array('list'=>$data,'bar'=>$query->getPageBar());
