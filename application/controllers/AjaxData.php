@@ -20,6 +20,64 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
           }
      }
 
+     private function offerList($pid='',$type=1,$mode=0,$page=1,$order='',$area='',$search=''){
+         //获取这个分类下对应的产品信息
+         $condition = array();
+         $cate = array();
+         if($pid!=0)
+             $condition['pid'] = $pid;
+         if($type!=0){
+             $condition['type'] = $type;
+         }
+         if($mode!=0){
+             if($mode<=4)
+                 $condition['mode'] = $mode;
+             elseif($mode==5){
+                 $condition['sub_mode'] = 1;
+             }
+             else
+                 $condition['sub_mode'] = 2;
+
+         }
+         if($area!=0){
+             $condition['area'] = $area;
+         }
+         if($search!=''){
+             $condition['search'] = $search;
+         }
+
+         if($order!=''){
+             $orderArr = explode('_',$order);
+             switch($orderArr[0]){
+                 case 'price' : {
+                     if(isset($orderArr[1]) && $orderArr[1]=='asc')
+                         $order = 'price asc';
+                     else $order = 'price desc';
+                 }
+                     break;
+                 case 'time' : {
+                     if(isset($orderArr[1]) && $orderArr[1]=='asc')
+                         $order = 'apply_time asc';
+                     else $order = 'apply_time desc';
+                 }
+                     break;
+                 default : {
+                     $order = '';
+                 }
+             }
+         }
+         if ( ! empty($this->login)) {
+             $login_status = 1;
+         }else{
+             $login_status = 0;
+             $this->login['user_id'] = 0;
+         }
+         $data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
+         $data['login'] = $login_status;
+
+         // var_dump($data);exit;
+         return $data;
+     }
      /**
       * AJax获取产品分类信息
       * @return [Json]
@@ -33,65 +91,61 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
           $area = safe::filterPost('area','int',0);
           $search = safe::filterPost('search');
 
+          $data = $this->offerList($pid,$type,$mode,$page,$order,$area,$search);
+          die(json_encode($data));
 
 
-          //获取这个分类下对应的产品信息
-          $condition = array();
-          $cate = array();
-          if($pid!=0)
-               $condition['pid'] = $pid;
-          if($type!=0){
-               $condition['type'] = $type;
-          }
-          if($mode!=0){
-               if($mode<=4)
-                    $condition['mode'] = $mode;
-               elseif($mode==5){
-                    $condition['sub_mode'] = 1;
-               }
-               else
-                    $condition['sub_mode'] = 2;
+     }
 
-          }
-          if($area!=0){
-               $condition['area'] = $area;
-          }
-          if($search!=''){
-               $condition['search'] = $search;
-          }
+     public function jingjiaListAction(){
+         $pid = safe::filterGet('pid', 'int',0);
+         $status = safe::filterGet('status','int');
+         $page = safe::filterGet('page','int',1);
+         $area = safe::filterGet('area','int',0);
+         $search = safe::filterGet('search');
+         $order = safe::filterGet('sort');
+         $condition = array();
+         if($pid!=0)
+             $condition['pid'] = $pid;
 
-          if($order!=''){
-               $orderArr = explode('_',$order);
-               switch($orderArr[0]){
-                    case 'price' : {
-                         if(isset($orderArr[1]) && $orderArr[1]=='asc')
-                              $order = 'price asc';
-                         else $order = 'price desc';
-                    }
-                         break;
-                    case 'time' : {
-                         if(isset($orderArr[1]) && $orderArr[1]=='asc')
-                              $order = 'apply_time asc';
-                         else $order = 'apply_time desc';
-                    }
-                         break;
-                    default : {
-                         $order = '';
-                    }
-               }
-          }
-          if ( ! empty($this->login)) {
-             $login_status = 1;
-          }else{
-             $login_status = 0;
-             $this->login['user_id'] = 0;
-          }
-          $data = $this->offer->getList($page, $condition,$order,$this->login['user_id']);
-          $data['login'] = $login_status;
+         if($area!=0){
+             $condition['area'] = $area;
+         }
+         if($search!=''){
+             $condition['search'] = $search;
+         }
 
-          // var_dump($data);exit;
-          echo \Library\json::encode($data);
-          exit();
+         if($order!=''){
+             $orderArr = explode('_',$order);
+             switch($orderArr[0]){
+                 case 'price' : {
+                     if(isset($orderArr[1]) && $orderArr[1]=='asc')
+                         $order = 'price asc';
+                     else $order = 'price desc';
+                 }
+                     break;
+                 case 'time' : {
+                     if(isset($orderArr[1]) && $orderArr[1]=='asc')
+                         $order = 'apply_time asc';
+                     else $order = 'apply_time desc';
+                 }
+                     break;
+                 default : {
+                     $order = '';
+                 }
+             }
+         }
+         //各状态对应的sql条件
+         if($status==1){
+             $condition['status'] = "o.start_time>now()";
+         }elseif($status==2){
+             $condition['status'] = "o.start_time<now() and o.end_time>now()";
+         }elseif($status==3){
+             $condition['status'] = "now()>o.end_time";
+         }
+         $data = $this->offer->jingjiaList($page, $condition,$order);
+print_r($data);
+         die(json_encode($data));
      }
 
      /**
