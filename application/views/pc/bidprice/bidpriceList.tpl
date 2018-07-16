@@ -11,9 +11,10 @@
 					<div class="criteriacont clear">
 						<span class="criterItem">交易类型：</span>
 						<span class="criterItem"><a class="cur">不限</a></span>
-						<span class="criterItem"><a>耐火市场</a></span>
-						<span class="criterItem"><a>建材市场</a></span>
-						<span class="criterItem"><a>钢材市场</a></span>
+						{foreach:items=$cate}
+							<span class="criterItem" id="{$item['id']}"><a>{$item['name']}</a></span>
+						{/foreach}
+
 					</div>
 					<div class="criteriacont clear">
 						<span class="criterItem">竞价状态：</span>

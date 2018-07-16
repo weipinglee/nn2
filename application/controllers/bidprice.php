@@ -19,6 +19,10 @@ use \Library\JSON;
 class BidpriceController extends PublicController {
 
 	public function bidpriceListAction(){
+        //获取商品顶级分类
+        $productModel = new product();
+        $category = $productModel->getTopCate();
+        $this->getView()->assign('cate',$category);
 		$this->getView()->assign('cur','bidprice');
 	}
 	public function biddetailsAction(){
