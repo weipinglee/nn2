@@ -1,0 +1,750 @@
+@charset "utf-8";
+.bidpriceContent .bidpriceTop{
+	padding:10px 0px;
+	font-size: 16px;
+	color: #535353;
+}
+.search_bidprice .search_bidpriceTitle{
+    height: 34px;
+    line-height: 34px;
+    padding-left: 20px;
+    background: #f1f1f1;
+}
+.searchcriteria {
+    padding: 10px 22px 0;
+    border-bottom: 1px solid #e7e7e7;
+}
+.searchcriteria .criteriacont{
+    height: 30px;
+}
+.searchcriteria .criteriacont span{
+	display: inline-block;
+	padding-right: 10px; 
+	color:#535353;
+}
+.searchcriteria .criteriacont span a.cur{
+	color: #c81623
+}
+.bidpricelist_con{
+	padding: 20px 0;
+}
+.bidpricelist_con .bid_commoditys{
+	float: left;
+	width: 920px;
+}
+.bidpricelist_con .bid_commoditys .bid_commodity{
+	display: inline-block;
+	width: 434px;
+	border: solid 1px #e7e7e7;
+	margin: 20px 20px 20px 0px;
+}
+.bid_commoditys .bid_commodity .commodityimgs{
+	position: relative;
+	float: left;
+	width: 180px;
+	height:134px;
+}
+.bid_commodity a{
+	display: block;
+}
+
+.commodityimgs .commoditysx{
+    display: none;
+    position: absolute;
+    bottom:  0px;
+  	color: #fff;
+   	width: 180px;
+	height:134px;
+	background-image: linear-gradient(0deg, 
+		rgba(0, 0, 0, 0.5) 0%, 
+		#000000 100%);
+	opacity: 0.5;
+}
+.commodityimgs .commoditysx .commoditysxcont{
+	position: absolute;
+	padding: 0px 9px;
+	bottom: 0px;
+}
+.commodityimgs .commoditysx span{
+	display: inline-block;
+	width:78px;	
+	padding-bottom: 10px 
+}
+.commodityimgs .commoditysx span:first-child{
+	width: 158px;
+}
+.bid_commodity .commodityimgs:hover .commoditysx{
+	display: block;
+	
+}
+.bid_commoditys .bid_commodity .commodityimgs img{
+	width: 	180px;
+	height:134px;
+}
+.bid_commoditys .bid_commodity .commodity_text{
+	float: left;
+	width: 224px;
+	padding: 5px 15px;
+	position: relative;
+}
+.bid_commodity .commodity_text .commoditycont{
+	padding-bottom: 5px;
+}
+.commodity_text .commoditycont .commodityName{
+	width: 149px;
+	font-size: 16px;
+	color: #333333;
+}
+.commodity_text .commoditycont .bidType{
+	display: block;
+	width: 62px;
+	height: 24px;
+	line-height: 24px;
+	position: absolute;
+	top:0px;
+	right: 0px;
+	color: #fff;
+	text-align: center;
+}
+.commodity_text .commoditycont .bidType.zjx{
+	background: #c81623
+}
+.commodity_text .commoditycont .bidType.zwks{
+	background: #e9b001
+}
+.commodity_text .commoditycont .bidType.jjs{
+	background: #b8b8b8
+}
+.commoditycont .commprice{
+	height: 13px;
+	font-size: 14px;
+	
+}
+.commoditycont .commprice.dqj{
+	color: #c81623;
+}
+.commoditycont .commprice.qpj{
+	color: #e9b001;
+}
+.commoditycont .commprice.cjj{
+	color: #333;
+}
+.commoditycont .commNum,.commoditycont .commitsj{
+	color: #ccc;
+	display: inline-block;
+}
+.commoditycont .commitcprice{
+	color:#ccc;
+	display: inline-block;
+	float: right;
+}
+.commoditycont .committime{
+	background: #f5f5f5;
+	display: inline-block;
+	padding:0px 5px;
+	color:#999;
+}
+.commodity_text .yzm_con{
+	position: absolute;
+    top: 0px;
+    background: #fff;
+    height: 125px;
+    z-index: 1;
+    padding-top: 10px;
+    display: none;
+}
+.commodity_text:hover .yzm_con{
+	display: block;
+}
+.yzm_con .yzm_tip{
+	color:#ccc;
+}
+.yzm_con .yzm_input{
+	margin:13px 0 10px;
+	text-align: center;
+}
+.yzm_con .yzm_input input{
+    width: 220px;
+    height: 28px;
+    background: #f1f1f1;
+    border: 0px;
+    padding: 0 5px;
+}
+.yzm_con .yzm_but {
+	text-align: right;
+	padding-right: 10px
+}
+.yzm_con .yzm_but .but_ok{
+	width: 60px;
+	height: 22px;
+	background:#c81623;
+	border-radius: 2px;
+	border:0px;
+	color:#fff;
+}
+/*竞价规则*/
+.bid_rule{
+	display: inline-block;
+	border: solid 1px #e7e7e7;
+	width: 268px;
+}
+.bid_rule .bidrule_title{
+	text-align: center;
+	height: 28px;
+	line-height: 28px;
+	background: #eee;
+	font-size: 14px;
+}
+.bidrule_content{
+	padding:0 12px;
+	margin:24px 0;
+}
+.bidrule_content .bidrule_qy{
+	text-indent: 20px;
+	line-height: 20px;
+	margin-bottom: 20px;
+}
+.bidrule_content .bidrule_bt{
+	display: inline-block;
+	padding:2px 5px;
+	background-image: linear-gradient(0deg, 
+		#dddddd 0%, 
+		#ffffff 100%);
+	border-radius: 9px;
+	font-size: 14px;
+
+}
+.bidrule_content .bidruletk{
+	line-height: 20px;
+}
+
+/*竞价详情*/
+.biddetails_left{
+	float: left;
+	width: 350px;
+}
+.biddetails_left .demo .tb-pic{
+	width: 350px;
+	height: 350px;
+}
+.box .tb-booth img{
+	width: 350px;
+	height: 350px;
+}
+.box ul img{
+	width: 50px;
+	height: 50px;
+}
+.box{
+	position: relative;
+}
+.box .lefts{
+	position: absolute;
+	top: 370px;
+	left: 0px;
+	font-size: 20px;
+	cursor: pointer;
+	width: 22px;
+	height: 37px;
+	background: url(../images/icon/leftIcon.png) no-repeat center;
+}
+.box .rights{
+	position: absolute;
+	top: 370px;
+	right: 0px;
+	font-size: 20px;
+	cursor: pointer;
+	width: 22px;
+	height: 37px;
+	background: url(../images/icon/rightIcon.png) no-repeat;
+}
+.imglist{
+	width: 290px;
+	overflow: hidden;
+	margin:0 auto;
+}
+.box ul#thumblist{
+	width: 2000px;
+	height: 70px;
+	padding: 0px;
+	margin: 0px auto 10px;
+	position: relative;
+	
+}
+.box ul#thumblist li {
+	padding-left: 6px;
+	display:inline-block;
+	width: 50px;
+	height: 50px;
+}
+.box ul#thumblist li a{
+	display: block;
+}
+.box ul#thumblist li a.cur{
+	border:1px solid #c81623;
+}
+.box ul#thumblist li a img{
+	width: 100%;
+	height: 50px;
+}
+.box ul#thumblist li:nth-child(1){
+	padding:0;
+}
+.biddetails_top .biddetails_right{
+	float:left;
+	width:820px;
+	margin-left: 20px; 
+}
+.biddetails_right .bidTitle{
+	font-size: 16px;
+}
+.biddetails_right .bidTitle span:first-child{
+	font-size: 18px;
+}
+.biddetails_right .price{
+	margin: 10px 0;
+}
+.biddetails_right .price .price_type{
+	font-size: 18px;
+	display: inline-block;
+}
+.biddetails_right .price .cprice{
+	padding-left:  52px;
+	display: inline-block;
+	font-size: 14px;
+	color:#cccccc;
+}
+.biddetails_right .price .dqprice{
+	color: #c81623
+}
+.biddetails_right .bidInfor .bidinfortitle{
+	background: #c81623;
+	padding-left: 20px;
+	position: relative;
+	height: 32px;
+	line-height: 32px;
+}
+.biddetails_right .bidInfor .bidinfortitle .bid_left{
+	color: #fff;
+	font-size: 16px;
+}
+.biddetails_right .bidInfor .bidinfortitle .bid_right{
+	position: absolute;
+	top:0px;
+	right: 0px;
+	color:#fff;
+}
+#time_d,#time_h,#time_m,#time_s{
+	display: inline-block;
+	width: 22px;
+	height: 24px;
+	line-height: 24px;
+	background:#7d050e;
+	border-radius: 2px; 
+	text-align: center;
+	margin: 0 5px;
+}
+.bidInfor .bidinfor_cont{
+	background: #f4f4f4;
+	padding:17px 0;
+}
+.bidInfor .bidinfor_cont .bidfor_cont_left{
+	float: left;
+	padding-left: 20px;
+	width: 290px;
+}
+.bidInfor .bidinfor_cont .bidfor_cont_left .cj{
+	font-size: 14px;
+	color: #bbb;
+	height: 32px;
+	line-height: 32px;
+}
+ .bidinfor_cont .bidfor_cont_left .cj span{
+ 	float: left;
+ }
+  .bidinfor_cont .bidfor_cont_left .cj span.reduce,span.add{
+  	width: 32px;
+  	height: 32px;
+  	line-height: 32px;
+  	text-align: center;
+  	background: #e4e4e4;
+  	margin: 0px 4px;
+  	position: relative;
+  }
+  .bidfor_cont_left .cj span.reduce i.reduce_icon, 
+  .bidfor_cont_left .cj span.add i.add_h{
+  	display: block;
+  	position: absolute;
+  	width: 12px;
+  	height: 2px;
+  	top:15px;
+  	left:10px;
+  	background: #bbb;
+ }
+ .bidfor_cont_left .cj span.add i.add_l{
+ 	display: block;
+ 	position: absolute;
+  	width: 2px;
+  	height: 12px;
+  	top:10px;
+  	left:15px;
+  	background: #bbb;
+ }
+ .bidfor_cont_left .cj span.inputName input{
+ 	border:0px;
+ 	width: 110px;
+ 	height: 32px;
+ 	text-align: center;
+ 	font-size: 16px;
+ 	background: #e4e4e4;
+ 	color: #666; 
+ }
+  .bidfor_cont_left .but .submitBut{
+  	margin-left: 33px;
+  	margin-top: 10px;
+  	margin-bottom: 10px;
+  	width: 180px;
+  	height: 32px;
+  	border: 0px;
+  	color: #fff;
+  	font-size:  14px;
+
+ }
+.bidfor_cont_left .but .submitBut.yes{
+	background: #c81623;
+}
+.bidfor_cont_left .but .submitBut.end{
+	background: #b8b8b8;
+}
+
+  .bidfor_cont_left .tip{
+  	margin-left: 33px;
+  }
+ .bidfor_cont_left .tip .tipcolor1{
+  	color:#ccc;
+  }
+.bidfor_cont_left .tip .tipcolor2{
+  	color:#c81623;
+  }
+   .bidinfor_cont  .bidfor_cont_center{
+   	float: left;
+   	padding: 0 50px;
+   	border-left: #e4e4e4 1px solid;
+   	border-right: 1px solid #e4e4e4;
+  }
+ .bidinfor_cont  .bidfor_cont_center p,
+ .bidinfor_cont  .bidfor_cont_right p{
+ 	font-size: 14px;
+ 	color: #999999;
+ 	padding: 5px 0;
+}
+.bidinfor_cont  .bidfor_cont_right{
+    float: left;
+    padding-left: 42px;
+}
+.bidinfor_cont  .bidfor_cont_right p a{
+	color:#2c94ed;
+	border-bottom:1px solid #2c94ed;
+}
+.bidContent{
+	padding:15px 0px 15px 20px;
+}
+.bidContent p{
+	padding:5px 0;
+	font-size: 14px;
+	color: #ccc;
+}
+hr{
+	height:1px;
+	border:none;
+	border-top:1px dashed #eee;
+}
+.bidBottom{
+	padding: 5px 20px;
+	position: relative;
+}
+.bidBottom .bidpricepop,
+.bidBottom .bidwk{
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	margin-right: 40px;
+	color: #ccc;
+}
+.bidBottom .bidpricepop i.icon_pop{
+	display: inline-block;
+	width: 14px;
+	height: 18px;
+	background: url("../images/icon/cjIcon.png") no-repeat;
+	position: relative;
+	top: 4px;
+	margin-right: 3px;
+}
+.bidBottom .bidwk i.icon_wk{
+	display: inline-block;
+	width: 21px;
+	height: 15px;
+	background: url("../images/icon/wgIcon.png") no-repeat;
+	position: relative;
+	top: 4px;
+	margin-right: 3px;
+}
+.bidBottom .sqkh{
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    height: 24px;
+    line-height: 24px;
+    background: #fbeced;
+    color: #fe8992;
+    padding: 0 10px;
+}
+.bidintroduce{
+	margin-top: 8px;
+}
+.bidintroduce .introduce_title{
+	height: 36px;
+	line-height: 36px;
+	background: #f0f0f0;
+}
+.bidintroduce .introduce_title a{
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+	color:#898989;
+	font-size: 14px;
+}
+.bidintroduce .introduce_title a:first-child{
+	border-right: 1px solid #e2e2e2;
+}
+.bidintroduce .cont_1 h5.tit{
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    margin: 5px 0;
+    font-weight: 100;
+    color: #000;
+}
+.bidintroduce .cont_1 h5.tit i{
+	position: relative;
+	top:7px;
+	margin-right: 10px
+}
+.bidintroduce .cont_1 table{
+	width: 100%;
+	margin-bottom: 10px;
+}
+.bidintroduce .cont_1 table tr th{
+	text-align: left;
+	height: 48px;
+	padding-left: 20px;
+	font-size: 16px;
+	font-weight: normal;
+	color: #808087;
+	border:1px solid #e7e7e7;
+	background: #f5f6f7;
+}
+
+.bidintroduce .cont_1 table tr td{
+	border:1px solid #e7e7e7;
+	height: 37px;
+	padding-left: 20px;
+	color:#808087;
+	font-size: 13px;
+}
+.auction {
+	border:1px solid #e7e7e7;
+	border-bottom: 0px;
+	margin:10px 0 20px;
+}
+.auction ul.auction_title{
+	width: 1188px;
+	height: 36px;
+	line-height: 36px;
+	background: #f5f6f7;
+	border-bottom: 1px solid #e7e7e7;
+}
+.auction ul.auction_title li,
+.auction ul.auction_cont li{
+	float: left;
+	width:25%; 
+	text-align: center;
+}
+.auction ul.auction_cont{
+	width: 1190px;
+	height: 36px;
+	line-height: 36px;
+
+}
+.auction ul.auction_cont li span{
+	display: block;
+	border-left:1px solid #e7e7e7;
+	border-bottom: 1px solid #e7e7e7;
+}
+.auction ul.auction_cont li span:first-child{
+	border-left:0px;
+}
+.auction ul.first{
+	color: #c81623;
+}
+/*竞价详情end*/
+/*保证金*/
+.bidpriceContent .bidbond{
+	border:1px solid #f1f1f1;
+	padding:20px;
+	margin:10px 0 20px;
+}
+.bidbond_top{
+    border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 10px;
+}
+.bidbond_top .bidbond_left,
+.bidBond_cont .bidbond_left{
+	float: left;
+	width: 356px;
+}
+.bidbond_top .bidbond_left .bidbondname,
+.bidbond_top .bidbond_left .bidbondprice{
+	font-size: 14px;
+	padding-bottom: 20px;
+}
+.bidbond_top .bidbond_left .bidbondprice span{
+	font-size: 16px;
+	color: #c81623;
+}
+.bidbond_top .bidbond_right,
+.bidBond_cont .bidbond_right{
+    float: left;
+    width: 740px;
+    padding-left: 51px;
+    color: #ccc;
+    border-left: 1px solid #efefef;
+}
+.bidbond .bidBond_cont{
+    padding: 30px 0 20px;
+}
+
+.bidbondtitle{
+  display: inline-block;
+  color: #808087;
+  background: #e9e7e7;
+  padding:3px 5px;
+}
+.bidbondInfo .bidbondInput{
+	margin-top:15px;
+}
+.bidbondInfo .bidbondInput .inputName,
+.bidbondInfo .bidbondInput .spanName{
+	display: inline-block;
+	width: 100px;
+	font-size: 14px;
+}
+.bidbondInfo .bidbondInput .spanName{
+	color:#ccc;
+}
+.bidbondInput input[type="text"]{
+	width: 180px;
+	padding:0 10px;
+	height: 21px;
+	border: solid 1px #bfbfbf;
+}
+.bidbondInput input[type="text"]::-webkit-input-placeholder{
+  color: #bfbfbf;
+}
+.bidbondInput input[type="text"]::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color: #bfbfbf;
+}
+.bidbondInput input[type="text"]::-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color: #bfbfbf;
+}
+.bidbondInput input[type="text"]::-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+  color: #bfbfbf;
+}
+.bidbond_btn input.submitIn{
+	margin-left: 100px;
+	margin-top: 35px;
+	background: #c53026;
+	color: #fff;
+	border:0px;
+	width: 200px;
+	height: 32px;
+	font-size: 14px;
+}
+.bidbondInfo .bidBond_tip{
+	margin-left: 96px;
+	margin-top: 18px;
+	color: #ccc;
+	width: 210px;
+	position: relative;
+	padding-left: 8px;
+}
+.bidbondInfo .bidBond_tip b.prompt_b{
+	color: #c53026;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+.bidbondInput .spanCont{
+	color:#333;
+	font-size: 14px;
+}
+/*遮罩层*/
+.mark{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.32);
+    opacity: 0.32;
+    z-index: 400;
+}
+.bidbond_result{
+	position: relative;
+    width: 1190px;
+    margin: 0 auto;
+    display: none;
+}
+.bidbond_result .result{
+	position: fixed;
+    z-index: 401;
+    top: 150px;
+    width: 497px;
+    margin-left: 346px;
+    background: #fff;
+}
+.bidbond_result .result .result_title{
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background: #f3f3f3;
+    position: relative;
+    color: #ccc;
+    font-size: 14px;
+}
+.bidbond_result .result .result_title i.close{
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: url(../images/icon/closeIcon.png) no-repeat;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+}
+.result .result_cont{
+	text-align: center;
+	margin-bottom: 60px;
+}
+.result .result_cont .result_img{
+	margin:30px 0 20px;
+}
+.result .result_cont .result_tip{
+	font-size: 16px;
+}
+.result .result_cont .success_tip{
+	color: #ccc;
+}
+.result .result_cont .fail_tip{
+	color: #c53026;
+}
+/*保证金*/
