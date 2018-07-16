@@ -55,10 +55,10 @@ class jingjiaSocket
             });
 
             //定时检查竞价订单，有新订单生成，通知买卖方
-            Timer::add(60, function()use($worker){
+            Timer::add(3, function()use($worker){
                 $time_now = time();
                 //查找最近1分钟内结束的竞价offer
-                $time_interval=65;//秒
+                $time_interval=5;//秒
                 $offer = $this->db->select('id')->where("TIMESTAMPDIFF(SECOND,end_time,now()) <".$time_interval)->query();
                 foreach($offer as $item){
                     $jingjiaOffer = new jingjiaOffer();
