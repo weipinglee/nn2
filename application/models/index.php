@@ -94,4 +94,15 @@ class indexModel {
 
     }
 
+    public function userInfo($mobile){
+        $obj = new \Library\Query('user as u');
+        $obj->join = 'left join company_info as c on u.id=c.user_id 
+                      left join user_invoice as i on u.id=i.user_id';
+        $obj->fields = ' c.company_name ,c.legal_person,c.contact,c.contact_phone,c.area,c.address,c.business,
+                        i.tax_no as duty_paragraph,i.phone as ticket_mobile,i.address as ticket_address,i.bank_name as deposit_bank,
+                        i.bank_no as bank_acc ';
+        $obj->where = 'u.mobile='.$mobile;
+        return $obj->getObj();
+    }
+
 }
