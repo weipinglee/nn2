@@ -59,10 +59,11 @@ class jingjiaSocket
                 $time_now = time();
                 //查找最近1分钟内结束的竞价offer
                 $time_interval=5;//秒
-                $offer = $this->db->select('id')->where("TIMESTAMPDIFF(SECOND,end_time,now()) <".$time_interval)->query();
+                $offer = $this->db->select('id')->from('product_offer')->where("auto_notice=0 and end_time<now() and end_time >TIMESTAMPADD(SECOND,-".$time_interval.",now())")->query();
                 foreach($offer as $item){
                     $jingjiaOffer = new jingjiaOffer();
                     $jingjiaOffer->endNotice($item['id']);
+                    echo $item['id'];
                 }
             });
         };

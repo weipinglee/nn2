@@ -612,6 +612,9 @@ class jingjiaOffer extends product{
         $data = $obj->getObj();
 
         if(!empty($data)){
+            //设置已通知
+            $offerObj = new M('product_offer');
+            $offerObj->where(array('id'=>$offer_id))->data(array('auto_notice'=>1))->update();
             //给卖方发短信，成功和流拍
             $seller = $data['user_id'];
             $jingjiaObj = new \Library\Query('product_jingjia as j');
@@ -621,6 +624,8 @@ class jingjiaOffer extends product{
             $jingjiaObj->order = 'j.price desc';
             $baojiaData = $jingjiaObj->find();
             $member = new \nainai\member();
+
+
              //print_r($baojiaData);
             if(empty($baojiaData)){//流拍
                 $content = "您发布的竞价商品：".$data['pro_name']."已竞价结束。未有买方参与竞价，请重新选择参与其他场次的竞拍或选择其他销售方式（一口价）";

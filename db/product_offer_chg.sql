@@ -12,3 +12,8 @@ ALTER TABLE `product_offer`
 ADD COLUMN `views`  int(11) NOT NULL DEFAULT 0 COMMENT '围观次数' AFTER `jingjia_deposit`;
 ALTER TABLE `product_offer`
 ADD COLUMN `auto_notice`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '自动通知' AFTER `views`;
+
+ALTER TABLE `product_offer`
+ADD INDEX `end_time` (`end_time`, `auto_notice`) USING BTREE;
+
+
