@@ -31,7 +31,8 @@ class jingjiaSocket
     {
         $this->worker = new Worker("websocket://localhost:89");
 
-        $this->db = new \Workerman\MySQL\Connection('localhost', '3306', 'root', '123456', 'nn');
+        $db_config = \Library\tool::getConfig(array('database','master'));
+        $this->db = new \Workerman\MySQL\Connection($db_config['host'], '3306', $db_config['user'], $db_config['password'], $db_config['database']);
 
         $this->worker->onWorkerStart = function ($worker){
             echo "Worker starting...\n";
@@ -48,7 +49,21 @@ class jingjiaSocket
                     if ($time_now - $connection->lastMessageTime > 50) {
                         $connection->close();
                     }
-                    echo count($worker->connections);
+                   // echo count($worker->connections);
+                    print_r($this->offerData);
+                }
+            });
+
+            //定时检查竞价订单，有新订单生成，通知买卖方
+            Timer::add(3, function()use($worker){
+                $time_now = time();
+                //查找最近1分钟内结束的竞价offer
+                $time_interval=5;//秒
+                $offer = $this->db->select('id')->from('product_offer')->where("auto_notice=0 and end_time<now() and end_time >TIMESTAMPADD(SECOND,-".$time_interval.",now())")->query();
+                foreach($offer as $item){
+                    $jingjiaOffer = new jingjiaOffer();
+                    $jingjiaOffer->endNotice($item['id']);
+                    echo $item['id'];
                 }
             });
         };
@@ -92,7 +107,9 @@ class jingjiaSocket
                         switch($data['type']){
                             case 'list' : {//获取所有报价
                                 $offer_id = isset($data['data']['offer_id']) ? $data['data']['offer_id'] : 0;
-                                $this->offerData[$offer_id][] = $connection->id;
+                                if(!in_array($connection->id,$this->offerData[$offer_id])){
+                                    $this->offerData[$offer_id][] = $connection->id;
+                                }
                                 $connection->offer_id = $offer_id;
                                 $baojiaData = $this->allBaojia($offer_id);
                                 $connection->send(Json::encode($baojiaData));
@@ -142,17 +159,22 @@ class jingjiaSocket
 
     public function run(){
         //某个连接关闭时，清除这个连接在offerData中的数据，也就不在给他
-//        $this->worker->onClose = function ($connection){
-//            if(!empty($this->offerData)){
-//                foreach($this->offerData as $offer_id=>$item){
-//                    foreach($item as $k=>$conn){
-//                        if($conn==$connection->id){
-//                            unset($this->offerData[$offer_id][$k]);
-//                        }
-//                    }
-//                }
-//            }
-//        };
+        $this->worker->onClose = function ($connection){
+            if(!empty($this->offerData)){
+                foreach($this->offerData as $offer_id=>$item){
+                    if(!empty($item)) {
+                        foreach ($item as $key => $conn) {
+                            if ($connection->id == $conn) {
+                                unset($this->offerData[$offer_id][$key]);
+                            }
+                        }
+                    }
+                    if(empty($this->offerData[$offer_id])){
+                        unset($this->offerData[$offer_id]);
+                    }
+                }
+            }
+        };
         Worker::runAll();
     }
 

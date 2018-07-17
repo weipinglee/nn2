@@ -288,6 +288,117 @@ class offersModel extends \nainai\offer\product{
         return array('data'=>$data,'bar'=>$pageBar,'cate'=>$childcates,'childname'=>$childname);
     }
 
+    public function jingjiaList($page,$condition = array(),$order=''){
+        $query = new Query('product_offer as o');
+        $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id 
+                        left join user as u on o.user_id=u.id ";
+        $query->fields = "o.*,u.true_name,p.img,p.cate_id,p.attr_json,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area,p.produce_address, c.name as cname";
+        $where = 'o.sub_mode=1  and o.is_del = 0 ';
+        $bind = array();
+
+        //获取分类条件
+        $childcates = array();
+        $childname = '';
+        if(isset($condition['pid']) && $condition['pid']>0) {
+            $memcache=new \Library\cache\Cache(array('type'=>'m','expire'=>0));
+            $cates = $memcache->get('cates'.$condition['pid']);
+            if(!$cates){
+                $cates = $this->getChildCate($condition['pid'],0);
+                $memcache->set('cates'.$condition['pid'],serialize($cates));
+            }
+            else{
+                $cates = unserialize($cates);
+            }
+            $childname = $cates[2];
+            $cate_ids = array();
+            $cate_ids[] = $condition['pid'];
+            foreach($cates[0] as $v){
+                $cate_ids[] = $v['id'];
+            }
+            $cate_ids = join(',',$cate_ids);
+            $where .= ' and c.id in ('.$cate_ids.')';
+
+            $childcates = $cates[1];
+
+
+        }
+
+        //获取地区条件
+        if(isset($condition['area']) && $condition['area']!=0){
+            $where .= ' and left(p.produce_area,2) = :area ';
+            $bind['area'] = $condition['area'];
+        }
+
+        //获取搜索条件
+        if(isset($condition['search']) && $condition['search']!=''){
+            $where .= ' and p.name like "%'.$condition['search'].'%" ';
+        }
+
+        if(isset($condition['status'])){
+            $where .= ' and '.$condition['status'];
+        }
+        $query->where = $where;
+        $query->bind = $bind;
+
+        $query->page = $page;
+        $query->pagesize = 20;
+        if($order=='')
+            $query->order = "o.id desc";
+        else {
+            $query->order = $order;
+        }
+        $data = $query->find();
+        $baojiaObj = new M('product_jingjia');
+        foreach ($data as $key => &$value) {
+            $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],300,300);//获取缩略图
+            $value['baojia'] = $baojiaObj->where(array('offer_id'=>$value['id']))->getField('count(id)');
+            $attr_ids = array();
+            $detail['attribute'] = json_decode($value['attr_json'],true);
+            if(!empty($detail['attribute'])){
+                foreach ($detail['attribute'] as $k => $v) {
+                    if(!is_numeric($k)){
+                        $value['attr'] = $detail['attribute'];
+                        break;
+                    }
+                    $attr_ids[] = $k;
+                }
+            }
+            if(!empty($value['attr'])){
+                continue;
+            }
+            //获取属性
+            $attrs = $this->getHTMLProductAttr($attr_ids);
+            $detail['attr_arr'] = array();
+            if(!empty($detail['attribute'])) {
+                foreach ($detail['attribute'] as $k => $v) {
+                    if(isset($attrs[$k])){
+                        $detail['attr_arr'][] = array(
+                            'name'=>$attrs[$k],
+                            'value'=>$v
+                        );
+                    }
+
+                }
+            }
+
+            $value['attr'] = $detail['attr_arr'];
+
+            $startTime = strtotime($value['start_time']);
+            $now = time();
+            $endTime = strtotime($value['end_time']);
+            if($now<$startTime){
+                $value['status']=1;
+            }elseif($now>=$startTime && $now<=$endTime){
+                $value['status']=2;
+            }else{
+                $value['status']=3;
+            }
+        }
+        //print_r($data);
+        $pageBar =  $query->getPageBar();
+        return array('data'=>$data,'bar'=>$pageBar,'cate'=>$childcates,'childname'=>$childname);
+    }
+
     //获取报盘类型
     public function offerMode($type){
         return $this->getMode($type);
