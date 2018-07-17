@@ -97,16 +97,14 @@ class indexModel {
     public function userInfo($mobile){
         $obj = new \Library\Query('user as u');
         $obj->join = 'left join company_info as c on u.id=c.user_id 
-                      left join user_invoice as i on u.id=i.user_id';
+                      left join user_bank as b on u.id=b.user_id';
         $obj->fields = ' c.company_name ,c.legal_person,c.contact,c.contact_phone,c.area,c.address,c.business,c.cert_bl as business_licence,
-                        i.tax_no as duty_paragraph,i.phone as ticket_mobile,i.address as ticket_address,i.bank_name as deposit_bank,
-                        i.bank_no as bank_acc ';
+                        b.bank_name,b.card_no as bank_no,b.true_name as name,b.proof as evidence';
         $obj->where = 'u.mobile='.$mobile;
         $data = $obj->getObj();
         if($data['business_licence']){
             $data['business_licence'] = dirname(dirname(__dir__)).'/user/'.$data['business_licence'];
             $data['business_licence'] = substr($data['business_licence'],0,strpos($data['business_licence'],'@'));
-           // $fp      = fopen($data['business_licence'], 'rb');
             if(file_exists($data['business_licence'])){
                 $data['business_licence'] = base64_encode(file_get_contents($data['business_licence']));
             }else{
@@ -115,6 +113,17 @@ class indexModel {
 
 
         }
+
+        if($data['evidence']){
+            $data['evidence'] = dirname(dirname(__dir__)).'/user/'.$data['evidence'];
+            $data['evidence'] = substr($data['evidence'],0,strpos($data['evidence'],'@'));
+            if(file_exists($data['evidence'])){
+                $data['evidence'] = base64_encode(file_get_contents($data['evidence']));
+            }else{
+                $data['evidence'] = '';
+            }
+        }
+
         return $data;
     }
 

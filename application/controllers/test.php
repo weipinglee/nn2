@@ -10,7 +10,9 @@ class TestController extends \Yaf\Controller_Abstract{
 
     public function indexAction(){
         $graphql = new \nainai\graphqls();
-        $query = '';
+        $query = '{
+                        user(id:1){email,username}
+                   }';
 
         $graphql->query($query);
     }
