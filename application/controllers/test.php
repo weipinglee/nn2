@@ -9,7 +9,10 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
+        $graphql = new \nainai\graphqls();
+        $query = '';
 
+        $graphql->query($query);
     }
 
 

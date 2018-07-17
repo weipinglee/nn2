@@ -44,7 +44,7 @@ class JavaController extends \Yaf\Controller_Abstract{
 
          die(json::encode($res));
 
-         
+
      }
 
      public function userInfoAction(){
