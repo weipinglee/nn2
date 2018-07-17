@@ -246,17 +246,15 @@ class OffersController extends PublicController {
 
 
             //计算报盘的状态
-            $offerStatus = 0;
-            if($info['status']==6||$info['status']==7){
-                $offerStatus = 3;//已结束
-            }
-            elseif($info['status']==1){
-                if(time()>=\Library\time::getTime($info['start_time'])){//已开始
-                    $offerStatus = 2;//已开始
-                }
-                else{
-                    $offerStatus = 1;//未开始
-                }
+            $startTime = strtotime($info['start_time']);
+            $now = time();
+            $endTime = strtotime($info['end_time']);
+            if($now<$startTime){
+                $offerStatus=1;
+            }elseif($now>=$startTime && $now<=$endTime){
+                $offerStatus=2;
+            }else{
+                $offerStatus=3;
             }
             $info['status'] = $offerStatus;
 
@@ -268,23 +266,23 @@ class OffersController extends PublicController {
 	    $id = safe::filterGet('id','int');//报盘id
         //获取报价信息
         $baojiaData = $this->offer->baojiaData($id);
-        //计算报价的人数
-        $baojiaData['baojia_count'] = 0;
+        $count = 0;
         if(!empty($baojiaData)){
             $temp = array();
             foreach($baojiaData as &$val){
+                //计算报价的人数
                 if(!in_array($val['user_id'],$temp)){
                     $temp[] = $val['user_id'];
-                    $baojiaData['baojia_count']++;
+                    $count++;
                 }
                 //隐藏真是名称
-
                 if(!isset($this->login['user_id']) || $val['user_id']!=$this->login['user_id'])
                     $val['true_name'] = mb_substr($val['true_name'],0,1,'UTF-8').'*********';
 
             }
         }
-        die(json_encode($baojiaData));
+
+        die(json_encode(array('data'=>$baojiaData,'count'=>$count)));
     }
 
 	//竞价一口价的详情页面
