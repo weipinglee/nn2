@@ -19,9 +19,17 @@ class QueryType extends ObjectType
                     'type' => Types::user(),
                     'description' => '用户数据',
                     'args' => [
-                        'id' => Types::nonNull(Types::id()),
-                        'mobile' => Types::nonNull(Types::string()),
-                        'username' => Types::nonNull(Types::string())
+                        'id' => [
+                                  'type'=>Types::id(),
+                                  'name'=>'id',
+                                   'defaultValue'=>0
+                                 ],
+                        'mobile' => [
+                                   'type'=>Types::string(),
+                                    'name'=>'mobile',
+                                    'defaultValue'=>''
+                            ],
+                       // 'username' => Types::nonNull(Types::string())
                     ],
                 ]
 

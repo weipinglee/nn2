@@ -26,7 +26,17 @@ class DataSource
                 unset($fields[$key]);
             }
         }
-        $where = $arg;
+        if($arg['id']){
+            $where['id'] = $arg['id'];
+        }
+        if($arg['mobile']){
+            $where['mobile'] = $arg['mobile'];
+        }
+        foreach($fields as $key=>$val){
+            if(!in_array($val,self::$userFields)){
+                unset($fields[$key]);
+            }
+        }
         $fields = join(',',$fields);
         $obj = new M('user');
         $data = $obj->fields($fields)->where($where)->getObj();

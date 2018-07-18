@@ -24,18 +24,12 @@ class UserType extends ObjectType
                     'mobile' => Types::string(),
                     'email' => Types::email(),
                     'login_time' => Types::string(),
-                    'type_txt' => [
-                        'type'=>Types::string(),
-                        'resolve'=>function($val, $args, $context, ResolveInfo $info)
-                                    {
-                                        return DataSource::type_txt($val);
-                                    }
-                    ],
+
                     'invoice' => [
                         'type'=>Types::Invoice(),
                         'description'=>'¿ªÆ±ÐÅÏ¢',
                         'args' => [
-                            'user_id' => Types::nonNull(Types::id())
+                            'user_id' => Types::id()
                         ],
                     ],
 
@@ -51,7 +45,16 @@ class UserType extends ObjectType
 
                 ];
             },
+            'resolveField' => function($val, $args, $context, ResolveInfo $info) {//var_dump($info);
+                // print_r($info->getFieldSelection());
 
+                if(method_exists($this,$info->fieldName) &&$info->fieldName!='id'){
+                    return $this->{$info->fieldName}($val, $args, $context, $info);
+                }else{
+                    return $val[$info->fieldName];
+                }
+
+            }
 
 
         ];
@@ -59,7 +62,7 @@ class UserType extends ObjectType
     }
 
     public function invoice($rootValue, $args, $context, $info){
-        return DataSource::findUser($rootValue->id,$info);
+        return DataSource::findInvoice($rootValue['id'],$info);
     }
 
     public function company($rootValue, $args, $context, $info){
