@@ -10,10 +10,14 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-       $obj = new \nainai\offer\jingjiaOffer();
-       $obj->endNotice(15879);
+
+        $graphql = new \nainai\graphqls();
+        $query = '{
+                        user(id:1){email,username}
+                   }';
 
 
+        $graphql->query($query);
     }
 
 
@@ -29,18 +33,6 @@ class TestController extends \Yaf\Controller_Abstract{
         echo time();exit;
     }
 
-    public function areaAction(){
-       // print_r($_POST);
-        $json = $_POST['json'];
-        $json = json_decode($json,true);
-        print_r($json);
 
-exit;
-        $obj = new \Library\M('area');
-        $obj->data($json)->adds();
-        die(json_encode(tool::getSuccInfo()));
-
-
-    }
 
 }

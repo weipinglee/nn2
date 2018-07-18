@@ -191,7 +191,7 @@
                             <tr>
                             <td>产地：</td>
                             <td colspan="2" >
-                                <span id="areabox">{area:}</span>
+                                <span class="area" id="areabox">{area:}</span>
                                 <span></span>
                             </td>
                          
