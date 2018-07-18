@@ -102,6 +102,9 @@ class indexModel {
                         b.bank_name,b.card_no as bank_no,b.true_name as name,b.proof as evidence';
         $obj->where = 'u.mobile='.$mobile;
         $data = $obj->getObj();
+        if(empty($data) || !$data['company_name']){
+            return  array();
+        }
         if($data['business_licence']){
             $data['business_licence'] = dirname(dirname(__dir__)).'/user/'.$data['business_licence'];
             $data['business_licence'] = substr($data['business_licence'],0,strpos($data['business_licence'],'@'));
