@@ -144,5 +144,23 @@ class tool{
         return isset($str) && $str ? (strpos($str,',') ? explode($str,',') : array($str) ): array();
     }
 
+    public static function areaText($str,$needle=' '){
+        $obj = new M('area');
+        $pro = $obj->where(array('code'=>substr($str,0,2)))->getField('name');
+        $city = $district = '';
+        if(strlen($str)>3){
+            $city = $obj->where(array('code'=>substr($str,0,4)))->getField('name');
+        }
+        if(strlen($str)>5){
+            $district = $obj->where(array('code'=>substr($str,0,6)))->getField('name');
+        }
+        if($city){
+            $city = $needle.$city;
+        }
+        if($district){
+            $district = $needle.$district;
+        }
+        return $pro.$city.$district;
+    }
 
 }

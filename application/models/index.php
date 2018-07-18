@@ -124,6 +124,10 @@ class indexModel {
             }
         }
 
+        if($data['area']){
+            $data['area'] = \Library\tool::areaText($data['area']);
+        }
+
         return $data;
     }
 
