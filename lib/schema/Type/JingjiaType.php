@@ -1,0 +1,67 @@
+<?php
+namespace schema\Type;
+
+use schema\Types;
+use schema\MyTypes;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ResolveInfo;
+use schema\Data\Handle;
+
+class JingjiaType extends ObjectType
+{
+    public function __construct()
+    {
+        $config = [
+            'name' => 'Jingjia',
+            'description' => '竞价数据',
+            'fields' => function() {
+                return [
+                    'id'      => Types::id(),
+                    'user_id' => Types::id(),
+                    'sub_mode' => Types::int(),//子报盘模式，1：竞价
+                    'product_id' => Types::id(),//产品id
+                    'pro_name' => Types::string(),
+                    'old_offer'=> Types::id(),
+                    'price'    => Types::float(),//成交后价格
+                    'price_l'    => Types::float(),//起拍价
+                    'price_r'    => Types::float(),
+                    'accept_area_code' => Types::string(),
+                    'accept_area'=> Types::string(),
+                    'accept_day' => Types::string(),
+                    'acc_type'   => Types::string(),
+                    'status'     => Types::int(),
+                    'start_time' => Types::string(),
+                    'end_time'   => Types::string(),
+                    'max_num'    => Types::float(),
+                    'jing_stepprice' => Types::float(),
+                    'jingjia_mode' => Types::int(),
+                    'jingjia_pass' => Types::int(),
+                    'jingjia_deposit' => Types::float(),
+                    'views'      => Types::int(),
+
+                    'seller'    => [
+                        'type'=>MyTypes::User(),
+                        'description'=>'卖方信息',
+                        'args' => [
+                            'id' => Types::nonNull(Types::id())
+                        ],
+                    ],
+                ];
+            },
+            'resolveField' => function($val, $args, $context, ResolveInfo $info) {//var_dump($info);
+                // print_r($info->getFieldSelection());
+                return Handle::findOne($val, $args, $context, $info);
+
+            }
+
+
+
+        ];
+        parent::__construct($config);
+    }
+
+
+
+
+
+}

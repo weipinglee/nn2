@@ -357,6 +357,25 @@ class OffersController extends PublicController {
 
 	}
 
+	public function jingjiaDepositAction(){
+        $graphql = new \nainai\graphqls();
+        $user_id = '';
+        $query = '{
+                        user(id:'.$user_id.')
+                        {
+                        id,
+                         bank{
+                           bank_name,card_no,true_name
+                         },
+                        }
+                   }';
+
+
+        $data = $graphql->query($query);
+
+        exit;
+    }
+
 
 
 

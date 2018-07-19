@@ -30,7 +30,7 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
         $data = $graphql->query($query);
-
+print_r($data);
         exit;
 
     }

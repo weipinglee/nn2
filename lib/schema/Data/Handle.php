@@ -13,8 +13,8 @@ class Handle
 {
      public static function findOne($val, $args, $context, $info)
      {
-         $class = '\schema\Data\\'.ucfirst($info->fieldName);
-         $file = __DIR__.'/'.ucfirst($info->fieldName).'.php';
+         $class = '\schema\Data\\'.ucfirst($info->returnType);
+         $file = __DIR__.'/'.ucfirst($info->returnType).'.php';
          if(file_exists($file) && class_exists($class)){
              return call_user_func_array(array($class,'findOne'),array($val, $args, $context, $info));
          }elseif(isset($val[$info->fieldName])){

@@ -31,7 +31,19 @@ class QueryType extends ObjectType
                             ],
                        // 'username' => Types::nonNull(Types::string())
                     ],
-                ]
+                ],
+                'jingjia' => [
+                    'type' => MyTypes::jingjia(),
+                    'description' => '¾º¼ÛÊý¾Ý',
+                    'args' => [
+                        'id' => [
+                            'type'=>Types::id(),
+                            'name'=>'id',
+                            'defaultValue'=>0
+                        ]
+
+                    ],
+                ],
 
 
             ],
