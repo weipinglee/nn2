@@ -20,7 +20,7 @@ class Invoice
     public static function findOne($val, $args, $context, $info){
         $fields = array_keys($info->getFieldSelection());
 
-        $where = array('user_id'=>$val['id']);
+        $where = array('user_id'=>$args['user_id']);
         $fields = join(',',$fields);
         $obj = new M(self::$table);
         $data = $obj->fields($fields)->where($where)->getObj();

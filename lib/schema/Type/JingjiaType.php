@@ -43,13 +43,16 @@ class JingjiaType extends ObjectType
                         'type'=>MyTypes::User(),
                         'description'=>'Âô·½ÐÅÏ¢',
                         'args' => [
-                            'id' => Types::nonNull(Types::id())
+                            'id' => Types::id()
                         ],
                     ],
                 ];
             },
             'resolveField' => function($val, $args, $context, ResolveInfo $info) {//var_dump($info);
                 // print_r($info->getFieldSelection());
+                if($info->fieldName=='seller'){
+                    $args['id'] = $val['user_id'];
+                }
                 return Handle::findOne($val, $args, $context, $info);
 
             }

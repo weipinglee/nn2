@@ -23,7 +23,17 @@ class TestController extends \Yaf\Controller_Abstract{
                            bank_name,card_no,true_name
                          },
                          invoice{
-                            tax_no,address
+                            tax_no,bank_name
+                         }
+                        },
+                        jingjia(id:16068)
+                        {
+                         id,user_id,pro_name,price_l,start_time,end_time,max_num,
+                         seller{
+                           username,true_name,mobile,id
+                           bank{
+                             bank_name,card_no
+                           }
                          }
                         }
                    }';

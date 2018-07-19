@@ -37,7 +37,7 @@ class UserType extends ObjectType
                         'type'=>MyTypes::Company(),
                         'description'=>'企业信息',
                         'args' => [
-                            'user_id' => Types::nonNull(Types::id())
+                            'user_id' => Types::id()
                         ],
                     ],
 
@@ -55,6 +55,16 @@ class UserType extends ObjectType
             },
             'resolveField' => function($val, $args, $context, ResolveInfo $info) {//var_dump($info);
                 // print_r($info->getFieldSelection());
+                //print_r($args);echo $info->fieldName;
+                if($info->fieldName=='bank'){
+                    $args['user_id'] = $val['id'];
+                }
+                if($info->fieldName=='company'){
+                    $args['user_id'] = $val['id'];
+                }
+                if($info->fieldName=='invoice'){
+                    $args['user_id'] = $val['id'];
+                }
                 return Handle::findOne($val, $args, $context, $info);
 
             }
