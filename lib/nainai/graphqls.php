@@ -14,6 +14,13 @@ use \GraphQL\Error\Debug;
 
 class graphqls{
 
+    private $contextObj = null;
+
+    public function __construct($context=null)
+    {
+
+    }
+
     public function query($query,$appContext=null,$variables=array()){
         ini_set('display_errors', 0);
 
@@ -47,7 +54,7 @@ class graphqls{
             ];
         }
 
-        print_r($output);
+        //print_r($output);
         return $output;
     }
 }

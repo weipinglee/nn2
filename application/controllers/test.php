@@ -11,21 +11,22 @@ class TestController extends \Yaf\Controller_Abstract{
 
     public function indexAction(){
 
-        $graphql = new \nainai\graphqls();
-        $query = '{
-                        user(mobile:"15296631253")
-                        {
-                        id,
-                        email,
-                        username,
-                          invoice{
-                             tax_no
-                          }
-                        }
-                   }';
-
-
-        $graphql->query($query);exit;
+//        $graphql = new \nainai\graphqls();
+//        $query = '{
+//                        user(id:57)
+//                        {
+//                        id,
+//                        email,
+//                        username,
+//                        type,
+//                          invoice{
+//                             tax_no
+//                          }
+//                        }
+//                   }';
+//
+//
+//        $graphql->query($query);exit;
     }
 
 

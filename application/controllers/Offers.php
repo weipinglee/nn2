@@ -257,8 +257,14 @@ class OffersController extends PublicController {
                 $offerStatus=3;
             }
             $info['status'] = $offerStatus;
+            $info['attr'] = array();
+            if(!empty($info['attr_arr'])){
+                foreach($info['attr_arr'] as $key=>$item){
+                    $info['attr'][] = array('name'=>$key,'value'=>$item);
+                }
+            }
 
-            die(json_encode($info));
+            die(JSON::encode($info));
         }
     }
 
