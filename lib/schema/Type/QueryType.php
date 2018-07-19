@@ -1,9 +1,9 @@
 <?php
 namespace schema\Type;
 
-use schema\AppContext;
-use schema\Data\DataSource;
+use schema\Data\Handle;
 use schema\Types;
+use schema\MyTypes;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
@@ -16,7 +16,7 @@ class QueryType extends ObjectType
             'name' => 'Query',
             'fields' => [
                 'user' => [
-                    'type' => Types::user(),
+                    'type' => MyTypes::user(),
                     'description' => '用户数据',
                     'args' => [
                         'id' => [
@@ -36,19 +36,13 @@ class QueryType extends ObjectType
 
             ],
             'resolveField' => function($val, $args, $context, ResolveInfo $info) {//var_dump($info);
-            // print_r($info->getFieldSelection());
-                return $this->{$info->fieldName}($val, $args, $context, $info);
+                return Handle::findOne($val, $args, $context, $info);
             }
         ];
         parent::__construct($config);
 
     }
 
-    public function user($rootValue, $args, $context, $info)
-    {
-         return DataSource::findUser($args,$info);
-
-    }
 
 
 

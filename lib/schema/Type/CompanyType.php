@@ -2,7 +2,6 @@
 namespace schema\Type;
 
 use schema\AppContext;
-use schema\Data\DataSource;
 use schema\Data\User;
 use schema\Types;
 use GraphQL\Type\Definition\ObjectType;

@@ -5,8 +5,6 @@ namespace nainai;
 require_once dirname(__DIR__) . '\vendor\autoload.php';
 
 use \schema\Types;
-use \schema\AppContext;
-use \schema\Data\DataSource;
 use \GraphQL\Type\Schema;
 use \GraphQL\GraphQL;
 use \GraphQL\Error\FormattedError;
@@ -22,7 +20,6 @@ class graphqls{
     }
 
     public function query($query,$appContext=null,$variables=array()){
-        ini_set('display_errors', 0);
 
         $debug = false;
         if (!empty($_GET['debug'])) {
@@ -54,7 +51,6 @@ class graphqls{
             ];
         }
 
-        //print_r($output);
         return $output;
     }
 }

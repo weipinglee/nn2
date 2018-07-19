@@ -1,13 +1,7 @@
 <?php
 namespace schema;
 
-use schema\Type\Field\HtmlField;
 use schema\Type\QueryType;
-use schema\Type\Scalar\EmailType;
-use schema\Type\Scalar\UrlType;
-use schema\Type\UserType;
-use schema\Type\InvoiceType;
-use schema\Type\CompanyType;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\Type;
@@ -25,29 +19,7 @@ use GraphQL\Type\Definition\Type;
 class Types
 {
     // Object types:
-    private static $user;
     private static $query;
-    private static $invoice;
-    private static $company;
-
-    /**
-     * @return UserType
-     */
-    public static function user()
-    {
-        return self::$user ?: (self::$user = new UserType());
-    }
-
-
-    public static function invoice(){
-        return self::$invoice ?:(self::$invoice = new InvoiceType());
-    }
-
-    public static function company(){
-        return self::$company ?:(self::$company = new CompanyType());
-    }
-
-
 
 
     /**
@@ -56,40 +28,6 @@ class Types
     public static function query()
     {
         return self::$query ?: (self::$query = new QueryType());
-    }
-
-
-    // Interface types
-    private static $node;
-
-
-
-
-    // Custom Scalar types:
-    private static $urlType;
-    private static $emailType;
-
-    public static function email()
-    {
-        return self::$emailType ?: (self::$emailType = EmailType::create());
-    }
-
-    /**
-     * @return UrlType
-     */
-    public static function url()
-    {
-        return self::$urlType ?: (self::$urlType = new UrlType());
-    }
-
-    /**
-     * @param $name
-     * @param null $objectKey
-     * @return array
-     */
-    public static function htmlField($name, $objectKey = null)
-    {
-        return HtmlField::build($name, $objectKey);
     }
 
 
