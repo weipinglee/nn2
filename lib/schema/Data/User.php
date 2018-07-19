@@ -26,17 +26,13 @@ class User
             }
         }
 
-        if($args['id']){
+        if(isset($args['id']) && $args['id']){
             $where['id'] = $args['id'];
         }
-        if($args['mobile']){
+        if(isset($args['mobile']) && $args['mobile']){
             $where['mobile'] = $args['mobile'];
         }
-        foreach($fields as $key=>$val){
-            if(!in_array($val,self::$userFields)){
-                unset($fields[$key]);
-            }
-        }
+
         $fields = join(',',$fields);
         $obj = new M('user');
         $data = $obj->fields($fields)->where($where)->getObj();

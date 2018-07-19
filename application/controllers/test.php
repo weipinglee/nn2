@@ -21,9 +21,6 @@ class TestController extends \Yaf\Controller_Abstract{
                         type,
                          bank{
                            bank_name,card_no,true_name
-                         },
-                         invoice{
-                            tax_no,bank_name
                          }
                         },
                         jingjia(id:16068)
