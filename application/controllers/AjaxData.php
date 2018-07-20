@@ -111,7 +111,7 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
      }
 	 
 	 public function zixunDataAction(){
-		 $url = 'http://172.16.2.30/interface/tradewebinfo';
+		 $url = 'http://info.nainaiwang.com/interface/tradewebinfo';
 		 $ch = curl_init($url);
 		curl_setopt($ch,CURLOPT_URL,$url);
 		curl_setopt($ch,CURLOPT_POST,1);
