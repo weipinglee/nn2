@@ -25,4 +25,21 @@ class Handle
 
      }
 
+     public static function findList($val, $args, $context, $info){
+         if(strpos($info->returnType,'[',0)!==false){
+             $returnType = substr($info->returnType,1,strlen($info->returnType)-2);
+             $class = '\schema\Data\\'.ucfirst($returnType);
+             $file = __DIR__.'/'.ucfirst($returnType).'.php';
+             if(file_exists($file) && class_exists($class)){
+                 return call_user_func_array(array($class,'findList'),array($val, $args, $context, $info));
+             }elseif(isset($val[$info->fieldName])){
+                 return $val[$info->fieldName];
+             }else{
+                 return false;
+             }
+         }else{
+             return false;
+         }
+     }
+
 }

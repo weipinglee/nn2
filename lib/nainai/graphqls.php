@@ -53,7 +53,7 @@ class graphqls{
 
         }
         //print_r($output);
-        header('Content-Type: application/json', true, $httpStatus);
+        //header('Content-Type: application/json', true, $httpStatus);
         return $output;
     }
 }

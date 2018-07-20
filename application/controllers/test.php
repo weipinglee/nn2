@@ -10,7 +10,23 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
+        $graphql = new \nainai\graphqls();
+        $offer_id = 15855;
+        $query = '{
+                      
+                        jingjia(id:'.$offer_id.'){
+                            id,pro_name,jingjia_deposit,
+                            baojia{
+                              price,time,user_id,offer_id,
+                              buyer{
+                                id,username
+                              }
+                            }
+                        }
+                   }';
 
+        $data = $graphql->query($query);
+       print_r($data);exit;
     }
 
 

@@ -7,6 +7,7 @@ use schema\Type\InvoiceType;
 use schema\Type\CompanyType;
 use schema\Type\BankType;
 use schema\Type\JingjiaType;
+use schema\Type\JingjiaBaojiaType;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\Type;
@@ -32,6 +33,8 @@ class MyTypes extends Types
 
     private static $jingjia;
 
+    private static $jingjiaBaojia;
+
     /**
      * @return UserType
      */
@@ -55,6 +58,10 @@ class MyTypes extends Types
 
     public static function jingjia(){
         return self::$jingjia ?:(self::$jingjia = new JingjiaType());
+    }
+
+    public static function jingjiaBaojia(){
+        return self::$jingjiaBaojia ?:(self::$jingjiaBaojia = new JingjiaBaojiaType());
     }
 
 

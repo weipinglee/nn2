@@ -51,6 +51,18 @@ class JingjiaType extends ObjectType
                             return !empty($res)?$res : null;
                         }
                     ],
+                    'baojia'    => [
+                        'type'=>MyTypes::listOf(MyTypes::jingjiaBaojia()),
+                        'description'=>'竞价的报价信息',
+                        'args' => [
+                            'offer_id' => Types::id()
+                        ],
+                        'resolve' => function($val, $args, $context, ResolveInfo $info){
+                            $args['offer_id'] = $val['id'];
+                            $res = Handle::findlist($val, $args, $context, $info);
+                            return !empty($res)?$res : null;
+                        }
+                    ]
                 ];
             },
 
