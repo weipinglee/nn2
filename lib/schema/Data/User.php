@@ -25,7 +25,7 @@ class User
                 unset($fields[$key]);
             }
         }
-
+        $where = array();
         if(isset($args['id']) && $args['id']){
             $where['id'] = $args['id'];
         }
@@ -35,6 +35,9 @@ class User
 
         $fields = join(',',$fields);
         $obj = new M('user');
+        if(empty($where)){
+            return array();
+        }
         $data = $obj->fields($fields)->where($where)->getObj();
         return $data;
     }

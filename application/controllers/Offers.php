@@ -359,7 +359,8 @@ class OffersController extends PublicController {
 
 	public function jingjiaDepositAction(){
         $graphql = new \nainai\graphqls();
-        $user_id = '';
+        $user_id = isset($this->login['user_id']) ? $this->login['user_id']:0;
+        $offer_id = safe::filterGet('id','int');
         $query = '{
                         user(id:'.$user_id.')
                         {
@@ -367,14 +368,18 @@ class OffersController extends PublicController {
                          bank{
                            bank_name,card_no,true_name
                          },
+                        },
+                        jingjia(id:'.$offer_id.'){
+                            pro_name,jingjia_deposit
                         }
                    }';
 
-
         $data = $graphql->query($query);
+        die(JSON::encode($data['data']));
 
-        exit;
     }
+
+
 
 
 

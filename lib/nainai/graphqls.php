@@ -43,14 +43,17 @@ class graphqls{
                 (array) $variables//与查询字符串一起传递的参数
             );
             $output = $result->toArray(true);
-            //$httpStatus = 200;
+            $httpStatus = 200;
         } catch (\Exception $error) {
-            //$httpStatus = 500;
+            $httpStatus = 500;
             $output['errors'] = [
                 FormattedError::createFromException($error, $debug)
             ];
-        }
 
+
+        }
+        //print_r($output);
+        header('Content-Type: application/json', true, $httpStatus);
         return $output;
     }
 }
