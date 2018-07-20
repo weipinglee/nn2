@@ -49,9 +49,7 @@ class QueryType extends ObjectType
             ],
             'resolveField' => function($val, $args, $context, ResolveInfo $info) {//var_dump($info);
                 $res = Handle::findOne($val, $args, $context, $info);
-                if(!empty($res)){
-                    return $res;
-                }
+                return !empty($res)?$res : null;
             }
         ];
         parent::__construct($config);

@@ -34,9 +34,7 @@ class UserType extends ObjectType
                         'resolve' => function($val, $args, $context, ResolveInfo $info){
                             $args['user_id'] = $val['id'];
                             $res = Handle::findOne($val, $args, $context, $info);
-                            if(!empty($res)){
-                                return $res;
-                            }
+                            return !empty($res)?$res : null;
                         }
                     ],
 
@@ -49,9 +47,7 @@ class UserType extends ObjectType
                         'resolve' => function($val, $args, $context, ResolveInfo $info){
                             $args['user_id'] = $val['id'];
                             $res = Handle::findOne($val, $args, $context, $info);
-                            if(!empty($res)){
-                                return $res;
-                            }
+                            return !empty($res)?$res : null;
                         }
 
                     ],
@@ -65,21 +61,13 @@ class UserType extends ObjectType
                         'resolve' => function($val, $args, $context, ResolveInfo $info){
                             $args['user_id'] = $val['id'];
                             $res = Handle::findOne($val, $args, $context, $info);
-                            if(!empty($res)){
-                                return $res;
-                            }
+                            return !empty($res)?$res : null;
                         }
                     ]
 
 
 
                 ];
-            },
-            'resolveField' => function($val, $args, $context, ResolveInfo $info) {//var_dump($info);
-                // print_r($info->getFieldSelection());
-                //print_r($args);echo $info->fieldName;
-                return Handle::findOne($val, $args, $context, $info);
-
             }
 
 

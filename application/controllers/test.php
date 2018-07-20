@@ -13,13 +13,14 @@ class TestController extends \Yaf\Controller_Abstract{
 
         $graphql = new \nainai\graphqls();
         $query = '{
-                       
-                        jingjia(id:15886)
+                        user(id:554)
                         {
-                         id,user_id,pro_name,price_l,start_time,end_time,max_num,
-                         seller{
-                           username,true_name,mobile,id
-                          
+                        id,
+                        email,
+                        username,
+                        type,
+                         bank{
+                           bank_name,card_no,true_name
                          }
                         }
                    }';
