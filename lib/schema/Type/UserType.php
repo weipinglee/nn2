@@ -31,6 +31,13 @@ class UserType extends ObjectType
                         'args' => [
                             'user_id' => Types::id()
                         ],
+                        'resolve' => function($val, $args, $context, ResolveInfo $info){
+                            $args['user_id'] = $val['id'];
+                            $res = Handle::findOne($val, $args, $context, $info);
+                            if(!empty($res)){
+                                return $res;
+                            }
+                        }
                     ],
 
                     'company' => [
@@ -39,6 +46,14 @@ class UserType extends ObjectType
                         'args' => [
                             'user_id' => Types::id()
                         ],
+                        'resolve' => function($val, $args, $context, ResolveInfo $info){
+                            $args['user_id'] = $val['id'];
+                            $res = Handle::findOne($val, $args, $context, $info);
+                            if(!empty($res)){
+                                return $res;
+                            }
+                        }
+
                     ],
 
                     'bank' => [
@@ -47,6 +62,13 @@ class UserType extends ObjectType
                         'args' => [
                             'user_id' => Types::id()
                         ],
+                        'resolve' => function($val, $args, $context, ResolveInfo $info){
+                            $args['user_id'] = $val['id'];
+                            $res = Handle::findOne($val, $args, $context, $info);
+                            if(!empty($res)){
+                                return $res;
+                            }
+                        }
                     ]
 
 
@@ -56,15 +78,6 @@ class UserType extends ObjectType
             'resolveField' => function($val, $args, $context, ResolveInfo $info) {//var_dump($info);
                 // print_r($info->getFieldSelection());
                 //print_r($args);echo $info->fieldName;
-                if($info->fieldName=='bank'){
-                    $args['user_id'] = $val['id'];
-                }
-                if($info->fieldName=='company'){
-                    $args['user_id'] = $val['id'];
-                }
-                if($info->fieldName=='invoice'){
-                    $args['user_id'] = $val['id'];
-                }
                 return Handle::findOne($val, $args, $context, $info);
 
             }
