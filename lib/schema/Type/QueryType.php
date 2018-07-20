@@ -32,6 +32,28 @@ class QueryType extends ObjectType
                        // 'username' => Types::nonNull(Types::string())
                     ],
                 ],
+                'users'   => [
+                    'type' => Types::listOf(MyTypes::user()),
+                    'description' => '用户数据列表',
+                    'args' => [
+                        'page' => [
+                            'type'=>Types::int(),
+                            'name'=>'page',
+                            'defaultValue'=>1
+                        ],
+                        'pagesize' => [
+                            'type'=>Types::int(),
+                            'name'=>'pagesize',
+                            'defaultValue'=>20
+                        ]
+                        // 'username' => Types::nonNull(Types::string())
+                    ],
+                    'resolve' => function($val, $args, $context, ResolveInfo $info){
+                        $res = Handle::findList($val, $args, $context, $info);
+                        return !empty($res)?$res : null;
+                    }
+                ],
+
                 'jingjia' => [
                     'type' => MyTypes::jingjia(),
                     'description' => '竞价数据',

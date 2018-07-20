@@ -7,6 +7,7 @@ use schema\MyTypes;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use schema\Data\Handle;
+use GraphQL\Deferred;
 
 class UserType extends ObjectType
 {
@@ -59,9 +60,19 @@ class UserType extends ObjectType
                             'user_id' => Types::id()
                         ],
                         'resolve' => function($val, $args, $context, ResolveInfo $info){
-                            $args['user_id'] = $val['id'];
-                            $res = Handle::findOne($val, $args, $context, $info);
-                            return !empty($res)?$res : null;
+                            Handle::bufferAdd('bank',$val['id']);
+                            return new Deferred(function () use ($val, $args, $context, $info) {
+
+                                $args['user_id'] = $val['id'];
+
+                               // Handle::bufferClear('bank');
+                                $res = Handle::findOne($val, $args, $context, $info,'bank');
+                                return !empty($res)?$res : null;
+                            });
+
+
+
+
                         }
                     ]
 
