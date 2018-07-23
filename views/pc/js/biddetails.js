@@ -71,11 +71,10 @@ var id =getUrlParam("id");
 var pass =getUrlParam("pass")
 console.log(id,pass,"dd")
 //竞价详情数据获取
-var pastUrl = "http://192.168.13.4:3000/mock/9"
 biddetailData();
 function biddetailData(){
     $.ajax({
-        'url':pastUrl+'/offers/jingjiadetail',
+        'url':$('input[name=detail]').val(),
         'type':'get',
         'dataType':'json',
         'data':{
@@ -172,7 +171,7 @@ function biddetailData(){
                 //时间计算end
                    //竞价列表
                     $.ajax({
-                        'url':pastUrl+'/offers/baojiadata',
+                        'url':$('input[name=baojiaList]').val(),
                         'type':'get',
                         'dataType':'json',
                         'data':{
@@ -279,7 +278,7 @@ var payPassword ="";//支付密码
 bzjData()
 function bzjData(){
     $.ajax({
-        'url':pastUrl+'/offers/jingjiadeposit',
+        'url':$('input[name=jingjiaPost]').val(),
         'type':'get',
         'dataType':'json',
         'data':{
@@ -358,7 +357,7 @@ function yescj(){
 }
     function baojiaPost(pass,curprice){
         $.ajax({
-            'url':pastUrl+'/trade/jingjiabaojia',
+            'url':$('input[name=baojiaPost]').val(),
             'type':'post',
             'dataType':'json',
             'data':{
