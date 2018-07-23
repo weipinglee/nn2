@@ -7,3 +7,13 @@ ADD COLUMN `produce_address`  varchar(255) CHARACTER SET utf8 COLLATE utf8_gener
 
 ALTER TABLE `product_offer`
 ADD COLUMN `jingjia_deposit`  decimal(12,2) NOT NULL DEFAULT 0 COMMENT '竞价保证金' AFTER `accept_area_code`;
+
+ALTER TABLE `product_offer`
+ADD COLUMN `views`  int(11) NOT NULL DEFAULT 0 COMMENT '围观次数' AFTER `jingjia_deposit`;
+ALTER TABLE `product_offer`
+ADD COLUMN `auto_notice`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '自动通知' AFTER `views`;
+
+ALTER TABLE `product_offer`
+ADD INDEX `end_time` (`end_time`, `auto_notice`) USING BTREE;
+
+

@@ -45,8 +45,13 @@ class JavaController extends \Yaf\Controller_Abstract{
          die(json::encode($res));
 
 
+     }
 
-
+     public function userInfoAction(){
+         $mobile = safe::filterGet('mobile');
+         $obj = new indexModel();
+         $data = $obj->userInfo($mobile);
+         die(json_encode($data,JSON_UNESCAPED_UNICODE));
      }
 
 

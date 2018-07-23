@@ -372,13 +372,27 @@ class offersModel extends \nainai\offer\product{
             if(!empty($detail['attribute'])) {
                 foreach ($detail['attribute'] as $k => $v) {
                     if(isset($attrs[$k])){
-                        $detail['attr_arr'][$attrs[$k]] = $v;
+                        $detail['attr_arr'][] = array(
+                            'name'=>$attrs[$k],
+                            'value'=>$v
+                        );
                     }
 
                 }
             }
+
             $value['attr'] = $detail['attr_arr'];
 
+            $startTime = strtotime($value['start_time']);
+            $now = time();
+            $endTime = strtotime($value['end_time']);
+            if($now<$startTime){
+                $value['status']=1;
+            }elseif($now>=$startTime && $now<=$endTime){
+                $value['status']=2;
+            }else{
+                $value['status']=3;
+            }
         }
         //print_r($data);
         $pageBar =  $query->getPageBar();

@@ -231,10 +231,11 @@ class OffersController extends PublicController {
             }
 
             $jingjiaOffer = new \nainai\offer\jingjiaOffer();
+
             if($info['status']==1 && !$jingjiaOffer->checkPass($id,$pass)){
                 die(json_encode(tool::getSuccInfo(0,'场内竞价口令错误，您无权查看')));
             }
-
+            $jingjiaOffer->addViews($id);
             //获取产品数据
             $pro = new \nainai\offer\product();
             $info = array_merge($info,$pro->getProductDetails($info['product_id']));
@@ -245,21 +246,25 @@ class OffersController extends PublicController {
 
 
             //计算报盘的状态
-            $offerStatus = 0;
-            if($info['status']==6||$info['status']==7){
-                $offerStatus = 3;//已结束
-            }
-            elseif($info['status']==1){
-                if(time()>=\Library\time::getTime($info['start_time'])){//已开始
-                    $offerStatus = 2;//已开始
-                }
-                else{
-                    $offerStatus = 1;//未开始
-                }
+            $startTime = strtotime($info['start_time']);
+            $now = time();
+            $endTime = strtotime($info['end_time']);
+            if($now<$startTime){
+                $offerStatus=1;
+            }elseif($now>=$startTime && $now<=$endTime){
+                $offerStatus=2;
+            }else{
+                $offerStatus=3;
             }
             $info['status'] = $offerStatus;
+            $info['attr'] = array();
+            if(!empty($info['attr_arr'])){
+                foreach($info['attr_arr'] as $key=>$item){
+                    $info['attr'][] = array('name'=>$key,'value'=>$item);
+                }
+            }
 
-            die(json_encode($info));
+            die(JSON::encode($info));
         }
     }
 
@@ -267,23 +272,23 @@ class OffersController extends PublicController {
 	    $id = safe::filterGet('id','int');//报盘id
         //获取报价信息
         $baojiaData = $this->offer->baojiaData($id);
-        //计算报价的人数
-        $baojiaData['baojia_count'] = 0;
+        $count = 0;
         if(!empty($baojiaData)){
             $temp = array();
             foreach($baojiaData as &$val){
+                //计算报价的人数
                 if(!in_array($val['user_id'],$temp)){
                     $temp[] = $val['user_id'];
-                    $baojiaData['baojia_count']++;
+                    $count++;
                 }
                 //隐藏真是名称
-
                 if(!isset($this->login['user_id']) || $val['user_id']!=$this->login['user_id'])
                     $val['true_name'] = mb_substr($val['true_name'],0,1,'UTF-8').'*********';
 
             }
         }
-        die(json_encode($baojiaData));
+
+        die(json_encode(array('data'=>$baojiaData,'count'=>$count)));
     }
 
 	//竞价一口价的详情页面
@@ -351,6 +356,30 @@ class OffersController extends PublicController {
 		}
 
 	}
+
+	public function jingjiaDepositAction(){
+        $graphql = new \nainai\graphqls();
+        $user_id = isset($this->login['user_id']) ? $this->login['user_id']:0;
+        $offer_id = safe::filterGet('id','int');
+        $query = '{
+                        user(id:'.$user_id.')
+                        {
+                        id,
+                         bank{
+                           bank_name,card_no,true_name
+                         },
+                        },
+                        jingjia(id:'.$offer_id.'){
+                            pro_name,jingjia_deposit
+                        }
+                   }';
+
+        $data = $graphql->query($query);
+        die(JSON::encode($data['data']));
+
+    }
+
+
 
 
 

@@ -21,7 +21,7 @@ use GraphQL\Utils\Utils;
  */
 class Error extends \Exception implements \JsonSerializable, ClientAware
 {
-    const CATEGORY_GRAPHQL = 'graphql';
+    const CATEGORY_GRAPHQL = 'graphqls';
     const CATEGORY_INTERNAL = 'internal';
 
     /**

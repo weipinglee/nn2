@@ -52,7 +52,7 @@ class Source
 
         $this->body = $body;
         $this->length = mb_strlen($body, 'UTF-8');
-        $this->name = $name ?: 'GraphQL';
+        $this->name = $name ?: 'graphqls';
         $this->locationOffset = $location ?: new SourceLocation(1, 1);
 
         Utils::invariant(

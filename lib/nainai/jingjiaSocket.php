@@ -53,6 +53,19 @@ class jingjiaSocket
                     print_r($this->offerData);
                 }
             });
+
+            //定时检查竞价订单，有新订单生成，通知买卖方
+            Timer::add(3, function()use($worker){
+                $time_now = time();
+                //查找最近1分钟内结束的竞价offer
+                $time_interval=5;//秒
+                $offer = $this->db->select('id')->from('product_offer')->where("auto_notice=0 and end_time<now() and end_time >TIMESTAMPADD(SECOND,-".$time_interval.",now())")->query();
+                foreach($offer as $item){
+                    $jingjiaOffer = new jingjiaOffer();
+                    $jingjiaOffer->endNotice($item['id']);
+                    echo $item['id'];
+                }
+            });
         };
 
 
