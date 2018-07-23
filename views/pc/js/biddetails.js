@@ -169,8 +169,19 @@ function biddetailData(){
 
                 }
                 //时间计算end
-                   //竞价列表
-                    $.ajax({
+                //竞价列表
+                baojiaList(data)
+
+         }
+          
+        },error:function(data){
+                console.log("网络出错")    
+        }
+    })
+}
+//竞价列表
+ function baojiaList(data){
+                     $.ajax({
                         'url':$('input[name=baojiaList]').val(),
                         'type':'get',
                         'dataType':'json',
@@ -270,13 +281,8 @@ function biddetailData(){
                                console.log("报价列表出错")    
                         }
                     })
-         }
-          
-        },error:function(data){
-                console.log("网络出错")    
-        }
-    })
-}
+                   }
+
     //竞价详情数据获取 end
  
     //报价接口
