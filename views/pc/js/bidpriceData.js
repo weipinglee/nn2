@@ -1,13 +1,12 @@
 	$(function(){
-		//var pastUrl = "http://192.168.13.119/nn2"
 		var curpage = 1;//
 		var curpid="";
 		var curstatus=""
 		bidData();
 		function bidData(){
 			$.ajax({
-				/*'url':$('input[name=bidList]').val(),*/
-				'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiaList',
+				'url':$('input[name=bidList]').val(),
+				/*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiaList',*/
 				'type':'get',
 				'dataType':'json',
 				'data':{
@@ -31,6 +30,13 @@
 		               $(".curpage").text(data.page.current);
 		               $(".total").text(data.page.totalPage)
 		               $(".page .numPage").eq(data.page.current-1).addClass("current_page")
+		               var w;
+		               if(data.page.totalPage<11){
+		               	w=data.page.totalPage
+		               }else{
+		               	w=10
+		               }
+		               $(".pagediv").css("width",38*w)
 		               onClickA();
 		            }
 				},error:function(data){
@@ -53,8 +59,6 @@
 			curstatus =$(this).attr('id')
 			bidData();
 			$(this).children("a").addClass("cur");
-			alert($(".page_num .pages_bar a").length+"a长度")
-			
 		})
 		//分页数据
 		function onClickA(){

@@ -804,7 +804,7 @@ hr{
 }
 .page_num .pagediv{
     display: inline-block;
-    width: 383px;
+
     overflow: hidden;
     position: relative;
     top: 10px;
