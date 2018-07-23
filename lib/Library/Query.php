@@ -225,6 +225,11 @@ class Query
         return $this->paging->getPageBar($url,$attrs);
     }
 
+    public function getPageData()
+    {
+        return $this->paging->getPageData();
+    }
+
     public function cache($key)
     {
     	if($this->cache)

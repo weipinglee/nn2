@@ -102,7 +102,7 @@ function biddetailData(){
                 var imgList=""
                 $.each(data.origphotos,function(index,item){
                         imgList+="<li class='tb-selected'><a><img style='display:block !important' src="
-                     +item+"/></a></li>"
+                     +item+"></img></a></li>"
                 })
                 
                 $("#thumblist").append(imgList);
@@ -121,13 +121,13 @@ function biddetailData(){
                     var nowTime = (now + s)*1000;
                     s++ ;
                     if(data.status ==1){
-                       var time_end  = new Date(data.start_time).getTime()
+                       var time_end  = new Date(data.start_time).getTime();
                     }else if(data.status ==2){
                         time_end  = new Date(data.end_time).getTime()
                     }
                     // 计算时间差 
                     var time_distance = time_end - nowTime;
-                    //console.log(time_distance,"时间差",s) 
+                    console.log(time_distance,"时间差",s) 
                     // 天
                      if(time_distance > 0){
                     var int_day = Math.floor(time_distance/86400000) 
@@ -179,7 +179,8 @@ function biddetailData(){
                         },
                         success: function(res){
                             var bjListData = res.data//列表数据
-                            if(res){
+                            console.log(res,"res数据")
+                        
                                 //竞拍状态，价格
                                 var priceText=""//价格
                                 var bidType ="" //竞价状态
@@ -189,6 +190,7 @@ function biddetailData(){
                                 var tip=""//提示
                                 var bid_time=""//时间说明
                                 if(data.status ==1){
+                                     console.log(data.status,"res数据1")
                                     priceText = "起拍价："+data.price_l
                                     bidType ="竞价暂未开始"
                                     cprice="出价人：竞价暂未开始，目前没有出价的人"
@@ -198,26 +200,35 @@ function biddetailData(){
                                     //是否登录，需要判断是否缴纳保证金error
                                     but='<input class="submitBut yes" type="button" name="bzj" value="支付保证金">'
                                 }else if (data.status ==2){
-                                    priceText = "当前价："+data.price_l
+                                    console.log(data.status,"res数据2")
+                                    if(bjListData.length>0){
+                                      priceText = "当前价："+bjListData[0].price
+                                      curprice=bjListData[0].price
+                                      cprice="出价人："+bjListData[0].true_name //出价人字段
+                                    }else{
+                                      priceText = "当前价："+data.price_l
+                                      curprice=data.price_l
+                                      cprice="出价人：无出价"//出价人字段
+                                    }
                                     bidType ="竞价进行中"
-                                    cprice="出价人："+bjListData[0].true_name //出价人字段
-                                    curprice=data.price_l//
                                     bid_time="距离结束还有"
                                     but='<input class="submitBut yes" type="button" name="yescj" value="确认出价">'
                                 }else if(data.status ==3){
-                                    priceText = "成交价"+bjListData[0].price
-                                    cprice="出价人："+bjListData[0].true_name
-                                    curprice=bjListData[0].price
+                                    if(bjListData.length>0){
+                                     priceText = "成交价"+bjListData[0].price
+                                     cprice="出价人："+bjListData[0].true_name
+                                     curprice=bjListData[0].price
+                                      bidType ="竞价结束,该商品成功竞价!"
+                                    }else{
+                                     priceText = "成交价"+data.price_l
+                                     cprice="出价人：无出价"
+                                     curprice=data.price_l
+                                     bidType ="竞价结束，该商品竞价失败!"
+                                    }
                                     bid_time="该商品已竞价结束"
                                     but='<input class="submitBut end" type="button" disabled="disabled" name="jjend" value="竞价已结束">'
-                                    //是否登录，是否缴纳货款，error
-                                    if(bjListData.length>0){
-                                        bidType ="竞价结束,该商品成功竞价!"
-                                    }else{
-                                        bidType ="竞价结束，该商品竞价失败!"
-                                    }        
-                                     //竞价结束，失败成功判断
                                 }
+                                console.log(res.count,data.views,"res数据k")
                                 $(".bidBottom .bidpricepop .pepNum").text(res.count);//出价人数
                                 $(".bidBottom .bidwk .viewNum").text(data.views);//围观人数
                                 $(".price .price_type .dqprice_con").text(priceText) ;//价格
@@ -230,7 +241,7 @@ function biddetailData(){
                                 numprice(data.jing_stepprice,curprice);//价格加减
                                 $(".but input[name='bzj']").click(function(){
                                     bzj();
-                                })//单击保证金按钮执行事件
+                                });//单击保证金按钮执行事件
                                 $(".but input[name='yescj']").click(function(){
                                     yescj()
                                 })//单击出价按钮执行事件
@@ -255,9 +266,8 @@ function biddetailData(){
                                 }
                                 $("#baojiaList").html(baojiaListone+baojiaList)
 
-                            }
                         },error:function(res){
-                                   
+                               console.log("报价列表出错")    
                         }
                     })
          }
