@@ -29,7 +29,16 @@
 				 <input type="hidden" name="bidList" value="{url:/ajaxdata/jingjiaList}">
 				<div class="bid_commoditys" >
 					<div id="bidcomBox"></div>
-					<div class="page_num"></div>
+					<div class="page_num">
+						<div class="pages_bar">
+							<a class="firstpage">首页</a>
+							<a class="uppage">上一页</a>
+							<span class="page"></span>
+							<a class="downpage">下一页</a>
+							<a class="lastpage">尾页</a>
+							<span>当前第<span class="curpage"></span>页/共<span class="total"></span>页</span>
+						</div>
+					</div>
 				</div>
 				<div class="bid_rule">
 					<div class="bidrule_title">竞价交易规则</div>

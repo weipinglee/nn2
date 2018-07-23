@@ -172,7 +172,6 @@ function biddetailData(){
                    //竞价列表
                     $.ajax({
                         'url':$('input[name=baojiaList]').val(),
-
                         'type':'get',
                         'dataType':'json',
                         'data':{
@@ -222,7 +221,7 @@ function biddetailData(){
                                       bidType ="竞价结束,该商品成功竞价!"
                                     }else{
                                      priceText = "成交价"+data.price_l
-                                     cprice="出价人："+bjListData[0].true_name
+                                     cprice="出价人：无出价"
                                      curprice=data.price_l
                                      bidType ="竞价结束，该商品竞价失败!"
                                     }
