@@ -8,54 +8,23 @@
                 <div class="bidpriceTop">
                     <a>竞价</a> &gt; <a>竞价商品详情</a> 
                 </div>
-                <div class="biddetails_top clear">
+                <div class="biddetails_top clear" id="commodityTop">
+                <script type="text/html" id="commdToptemplat">
+                    <%if (detailtop!=null) { %>
                     <div class="biddetails_left">
                         <div class="demo">
                             <div class="box">
                                 <div class="tb-booth tb-pic">
                                     <a href="">
-                                        <img src="{views:images/banner/004.jpg}"   class="jqzoom" width="100%" />
+                                        <img src="<%=detailtop.origphotos[0]%>"   class="jqzoom" width="100%" />
                                     </a>
                                 </div>
                                 <div class="lefts"></div>
                                 <div class="rights"></div>  
                                 <div class="imglist">
                                 <ul class="tb-thumb" id="thumblist">
-                                    <li class="tb-selected">
-                                        <a class="cur" href="javascript:void(0);">
-                                            <img src="{views:images/banner/004.jpg}"/>
-                                        </a>
-                                    </li>
-                                    <li class="tb-selected">
-                                        <a  href="javascript:void(0);">
-                                            <img src="{views:images/banner/004.jpg}"/>
-                                        </a>
-                                    </li>
-                                    <li class="tb-selected">
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/004.jpg}"/>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/001.jpg}"/>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/01.jpg}"/>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/01.jpg}"/>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <img src="{views:images/banner/01.jpg}"/>
-                                        </a>
-                                    </li>
+                                   <!-- 图片 -->
+                                  
                                 </ul>
                                 </div>
                             </div>
@@ -63,29 +32,29 @@
                     </div>
                     <div class="biddetails_right">
                         <div class="bidTitle">
-                            <span>耐火市场</span>>
-                            <span>铝矾土</span>>
-                            <span>铝矾土一级生矿混料</span>
+                            <span class="cate_chain"><!-- 耐火市场 --></span>
+                           <!--  <span>铝矾土</span>> -->
+                            <span class="name"><%=detailtop.pro_name%><!-- 铝矾土一级生矿混料 --></span>
                         </div>
                         <div class="price">
                             <div class="price_type dqprice">
-                                <span>当前价：980</span>
+                                <span class="dqprice_con"><!-- 当前价：980 --></span>
                                 <span>元</span>
                             </div>
-                            <div class="cprice">出价人：耐****公司</div>
+                            <div class="cprice"><!-- 出价人：耐****公司 --></div>
                         </div>
                         <div class="bidInfor">
                             <div class="bidinfortitle">
                                 <div class="bid_left">
                                     <!-- 竞价暂未开始 -->
-                                    竞价进行中
+                                    <!-- 竞价进行中 -->
                                     <!-- 竞价已截止 -->
                                     <!-- 竞价结束，该商品竞价失败！-->
                                     <!-- 竞价已结束，该商品成功竞价！ -->
                                 </div>
                                 <div class="bid_right">
                                     <!-- 距离开始还有<span id="time_d">7</span>天<span id="time_h">06</span>:<span id="time_m">58</span>:<span id="time_s">28</span> -->
-                                    距离结束还有<span id="time_d">7</span>天<span id="time_h">06</span>:<span id="time_m">58</span>:<span id="time_s">28</span>
+                                    <span class="bid_time"></span><span id="time_d">00</span>天<span id="time_h">00</span>:<span id="time_m">00</span>:<span id="time_s">00</span>
                                    <!--  该商品已竞价结束<span id="time_d">0</span>天<span id="time_h">00</span>:<span id="time_m">00</span>:<span id="time_s">00</span>-->
 
                                 </div>
@@ -107,36 +76,36 @@
                                     </div>
                                     <div class="tip">
                                         <!--  <span class="tipcolor1">*提示：出价需要先交支付保证金</span> -->
-                                        <span class="tipcolor1">*提示：您已支付定金可以出价竞拍</span>
+                                        <span class="tipcolor1"><!-- *提示：您已支付定金可以出价竞拍 --></span>
                                         <!-- <span class="tipcolor2">*提示：竞价成功请尽快完成货款</span> -->
                                     </div>
                                 </div>
                                 <div class="bidfor_cont_center">
-                                    <p>加价幅度：30.00元</p>
-                                    <p>竞拍数量：30.00元</p>
-                                    <p>起拍价：360.00元</p>
+                                    <p>加价幅度：<span class="jsfd"><%=detailtop.jing_stepprice%></span>元</p>
+                                    <p>竞拍数量：<span class="bidnum"><%=detailtop.max_num%></span>元</p>
+                                    <p>起拍价：<span class="qpmoney"><%=detailtop.price_l%><!-- 360.00 --></span>元</p>
                                 </div>
                                 <div class="bidfor_cont_right">
-                                    <p>卖方：阳泉耐火厂</p>
+                                    <p class="seller">卖方：<span><%=detailtop.user.true_name%><!-- 阳泉耐火厂 --></span></p>
                                     <p>合同：<a href="">预览合同协议</a></p>
                                 </div>
                             </div>
 
                         </div>
                         <div class="bidContent">
-                            <p>保证金金额：10000元</p>
-                            <p>竞拍开始时间：2018年6月30日&nbsp;08:00:00</p>
-                            <p>竞拍结束时间：2018年7月10日&nbsp;20:00:00</p>
+                            <p>保证金金额：<span class="bzjprice"><%=detailtop.jingjia_deposit%><!-- 10000元 --></span></p>
+                            <p>竞拍开始时间：<span class="stratTime"><%=detailtop.start_time%></span></p>
+                            <p>竞拍结束时间：<span class="endTime"><%=detailtop.end_time%></span></p>
                         </div>
                         <hr/>
                         <div class="bidBottom clear">
                             <div class="bidpricepop">
                                 <i class="icon_pop"></i>
-                                <span class="">13人已出价</span>
+                                <span class=""><span class="pepNum"></span>人已出价</span>
                             </div>
                             <div class="bidwk">
                                  <i class="icon_wk"></i>
-                                <span class="">5590次围观</span>
+                                <span class=""><span class="viewNum"><!-- 5590 --></span>次围观</span>
                             </div>
                             <!-- 暂未开始竞价显示申请看货提示 -->
                             <div class="sqkh" style="display: none;">
@@ -144,101 +113,80 @@
                             </div>
                         </div>
                     </div>
+                    <% } %>
+                </script>
                 </div>
                 <div class="bidintroduce">
                     <div class="introduce_title">
-                        <a>商品介绍</a>
-                        <a>竞价记录(16条)</a>
+                        <a  href="#title1">商品介绍</a>
+                        <a  href="#bj_a">竞价记录(<span class="numt"><!-- 16 --></span>条)</a>
                     </div>
                     <div class="cont_1">
-                        <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><span>商品介绍</span></h5>
-                        <table>
-                            <tr> <th colspan="2">商品明细</th>            </tr>
+                        <h5 class="tit"><i><img src="{views:images/pro_show_03.jpg}"></i><a  name="#title1">商品介绍</a></h5>
+                        <table id="commoditydetail">
+                            <script type="text/html" id="commdetailtemplat">
+                           <%if (detailData!=null) { %>
+                            <tr> <th colspan="2">商品明细</th></tr>
                             <tr>
                                 <td>品名</td>
-                                <td>{$data['product_name']}</td>
+                                <td><%=detailData.pro_name%></td>
                             </tr>
-
-                            <tr>
+                            <tr class="attrAfter">
                                 <td>产地</td>
-                                <td><span id="area">{areatext:data=$data['produce_area'] id=area }</span></td>
+                                <td><span id="area"><%=detailData.produce_address%></span></td>
                             </tr>
-                            {foreach:items=$data['attr_arr']}
-                            <tr>
-                                <td>{$key}</td>
-                                <td>{$item}</td>
-                            </tr>
-                            {/foreach}
+                            <!-- <tr class="attr">
+                                属性
+                            </tr> -->
                             <tr>
                                 <td style="width:15%;">详情</td>
-                                <td>{$data['note']}</td>
+                                <td><%=detailData.note%></td>
                             </tr>
                             <tr>
                                 <th colspan="2">报盘详情</th>
                             </tr>
                             <tr>
                                 <td>报盘类型</td>
-                                <td>{$data['mode_text']}</td>
+                                <td><%=detailData.mode_text%></td>
                             </tr>
                             <tr>
                                 <td>交易方式</td>
                                 <td>卖盘</td>
                             </tr>
-                            <tr>
-                                <td>是否投保</td>
-                                <td>{if: $data['insurance'] == 1}是{else:}否{/if}</td>
-                            </tr>
-                            {if: $data['insurance'] == 1}
-                            <tr>
-                                <td>投保产品</td>
-                                <td>
-                                     {foreach: items=$riskData}
-                                        保险公司：{$item['company']} - 保险产品：{$item['name']} {if:$item['mode']==1}比例 : ({$item['rate']}){else:}定额 : ({$item['fee']}){/if}<br />
-                                       {/foreach}
-                                </td>
-                            </tr>
-                            {/if}
+                           
                             <tr>
                                 <td>计重方式</td>
-                                <td>{$data['weight_type']}</td>
+                                <td><%=detailData.weight_type%></td>
                             </tr>
                             <tr>
                                 <td>是否拆分</td>
-                                <td>{$data['divide_txt']}</td>
+                                <td>否</td>
                             </tr>
                             <tr>
                                 <td>报盘数量</td>
-                                <td>{$data['max_num']}{$data['unit']}</td>
+                                <td><%=detailData.max_num%><%=detailData.unit%></td>
                             </tr>
                             <tr>
                                 <td>起订量</td>
-                                <td>{$data['minimum']}{$data['unit']}</td>
-                            </tr>
-                            <tr>
-                                <td>商品单价</td>
-                                <td>{$data['price']}/{$data['unit']}</td>
+                                <td><%=detailData.max_num%><%=detailData.unit%></td>
                             </tr>
                             <tr>
                                 <th colspan="2">交收详情</th>
                             </tr>
                             <tr>
                                 <td>交收时间</td>
-                                <td>成交后顺延{$data['accept_day']}天开始交收</td>
+                                <td>成交后顺延<%=detailData.accept_day%>天开始交收</td>
                             </tr>
                             <tr>
                                 <td>交收地点</td>
-                                <td>{$data['accept_area']}</td>
-                            </tr>
-
-                            <tr>
-                                <td>有效期</td>
-                                <td>{$data['expire_time']}</td>
+                                <td><%=detailData.accept_area%></td>
                             </tr>
                             <tr>
                                 <td>补充条款</td>
-                                <td>{$data['other']}</td>
+                                <td><%=detailData.other%></td>
                             </tr>
-
+                            <% } %>
+                            </script>
                         </table>
                     </div>
                     <!-- 拍卖价格情况 -->
@@ -251,148 +199,53 @@
                                 <li><span>出价时间</span></li>
                                 <li><span>竞价结果</span></li>
                             </ul>
-                            <ul class="auction_cont first">
-                                <li><span>耐******</span></li>
+                            <div id="baojiaList">
+                            <!-- <script type="text/html" id="bidListtemplat">
+                                 <%if (data.length>0) { %>
+                                <ul class="auction_cont first" >
+                                <li><span><%=data[0].name%></span></li>
                                 <li><span>980.00元</span></li>
                                 <li><span>2018年7月01日 12:30:09</span></li>
-                                <li><span>领先</span></li>
-                            </ul>
-                            <ul class="auction_cont">
-                                <li><span>耐******</span></li>
-                                <li><span>970.00元</span></li>
-                                <li><span>2018年7月01日 12:20:09</span></li>
-                                <li><span>出局</span></li>
-                            </ul>
+                                <li><span>领先</span></li>                         
+                                </ul>
+                                <%for (var i=1;i<data.length;i++) { %>
+                                <ul class="auction_cont">
+                                    <li><span><%=data[i].name%>耐******</span></li>
+                                    <li><span>970.00元</span></li>
+                                    <li><span>2018年7月01日 12:20:09</span></li>
+                                    <li><span>出局</span></li>
+                                </ul>
+                                <% } %>
+                                <% } else{%> 
+                                <div>暂无出价</div>
+                                <% } %>
+                            </script> -->
+                            </div>
 
                          </div>
                     </div>
                     <!-- 拍卖价格情况 end-->
                 </div>
+
             </div>
         </div>        
     </div>
+<div class="pay_password">
+   <div class="mark"></div>
+   <div class="pay_cont">
+        <div class="pay_title">
+            支付密码
+            <i class="close"></i>
+        </div>
+       <div class="pay_input">
+        <div class="tip_password"></div>
+         <input type="password" placeholder="请输入支付密码" name="payPassword" value=""/>
+       </div>
+       <div class="pay_but"><input type="button" name="butPassword" value="确定"/></div>
+   </div>
+</div>
 <script type="text/javascript" src="{views:js/biddetails.js}"></script>
-<script>
-$(function(){
-         /* 按钮加减 end*/
-    var add_num={$data['jing_stepprice']};//增加幅度
-    var min_num={$data['price_l']};//最小值
-    var max_num={$data['price_r']};//最大值
-    $("#add").click(function(){
-      var n=$("#num").val(); //初始值
-      if(max_num==0){
-        if(add_num<=0){
-            var num=parseInt(n)+1;
-            $("#num").val(num); 
-        }else{
-            var num=parseInt(n)+parseInt(add_num);
-            $("#num").val(num); 
-        }
-      }else if(n>=max_num && n!=0){
-        alert("亲这是最大值了！")
-      }else if(n<max_num){
-        if(add_num<=0){
-            var num=parseInt(n)+1;
-            $("#num").val(num); 
-        }else{
-            var num=parseInt(n)+parseInt(add_num);
-            $("#num").val(num); 
-        }
-      }
-    });
-    $("#jian").click(function(){
-      var n=$("#num").val(); //初始值
-
-      if(n==min_num){
-        alert("亲最小值了！")
-        $("#num").val(min_num);
-      }else{
-        if(add_num<=0){
-            var num=parseInt(n)-1;
-            if(num==0){alert("不能为0!"); return}
-            $("#num").val(num);
-        }else{
-            var num=parseInt(n)-parseInt(add_num);
-            if(num==0){alert("不能为0!"); return}
-            $("#num").val(num);
-        }
-      }
-      });
-
- /* 按钮加减 end*/
-  /*倒计时*/
+<script type="text/javascript">
 var now = {echo:time()};
-var i = 0;
-$(function(){
-    show_time();
-
-}); 
-
-function show_time(){
-    var time_start ="{$data['start_time']}";//设定开始时间
-    var nowTime = (now + i)*1000;
-    i++;
-    {if:$offerStatus==1}
-    var time_end = {echo:\Library\time::getTime($data['start_time'])}; //设定结束时间(等于系统当前时间)
-    {elseif:$offerStatus==2}
-    var time_end = {echo:\Library\time::getTime($data['end_time'])}; //设定结束时间(等于系统当前时间)
-    {/if}
-    {if:$offerStatus==3}
-       $("#time_d").html('00'); 
-       $("#time_h").html('00'); 
-       $("#time_m").html('00'); 
-       $("#time_s").html('00');
-    return false;
-    {/if}
-
-    time_end = time_end*1000;
-    //计算时间差
-    var time_distance = time_end - nowTime;//console.log(time_distance);
-    if(time_distance > 0){
-        // 天时分秒换算
-        var int_day = Math.floor(time_distance/86400000)
-        time_distance -= int_day * 86400000;
-
-        var int_hour = Math.floor(time_distance/3600000)
-        time_distance -= int_hour * 3600000;
-
-        var int_minute = Math.floor(time_distance/60000)
-        time_distance -= int_minute * 60000;
-
-        var int_second = Math.floor(time_distance/1000)
-        // 时分秒为单数时、前面加零
-        if(int_day < 10){
-        int_day = "0" + int_day;
-        }
-        if(int_hour < 10){
-        int_hour = "0" + int_hour;
-        }
-        if(int_minute < 10){
-        int_minute = "0" + int_minute;
-        }
-        if(int_second < 10){
-        int_second = "0" + int_second;
-        }
-        // 显示时间
-        $("#time_d").html(int_day);
-        $("#time_h").html(int_hour);
-        $("#time_m").html(int_minute);
-        $("#time_s").html(int_second);
-        setTimeout("show_time()",1000);
-
-    }
-    else if(time_distance==0){
-        window.location.reload();
-    }
-    else{
-        $("#time_d").html('00');
-        $("#time_h").html('00');
-        $("#time_m").html('00');
-        $("#time_s").html('00');
-        return false;
-    }
-} 
-/*倒计时end*/
-    })
+var s = 0;
 </script>
-

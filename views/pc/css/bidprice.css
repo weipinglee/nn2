@@ -67,7 +67,7 @@
 }
 .commodityimgs .commoditysx span{
 	display: inline-block;
-	width:78px;	
+/*	width:78px;	*/
 	padding-bottom: 10px 
 }
 .commodityimgs .commoditysx span:first-child{
@@ -261,7 +261,7 @@
 .imglist{
 	width: 290px;
 	overflow: hidden;
-	margin:0 auto;
+	margin:10px auto;
 }
 .box ul#thumblist{
 	width: 2000px;
@@ -275,7 +275,7 @@
 	padding-left: 6px;
 	display:inline-block;
 	width: 50px;
-	height: 50px;
+/*	height: 50px;*/
 }
 .box ul#thumblist li a{
 	display: block;
@@ -408,6 +408,7 @@
   	border: 0px;
   	color: #fff;
   	font-size:  14px;
+  	cursor: pointer;
 
  }
 .bidfor_cont_left .but .submitBut.yes{
@@ -699,7 +700,8 @@ hr{
     opacity: 0.32;
     z-index: 400;
 }
-.bidbond_result{
+.bidbond_result,
+.pay_password{
 	position: relative;
     width: 1190px;
     margin: 0 auto;
@@ -713,7 +715,8 @@ hr{
     margin-left: 346px;
     background: #fff;
 }
-.bidbond_result .result .result_title{
+.bidbond_result .result .result_title,
+.pay_password .pay_cont .pay_title{
     height: 30px;
     line-height: 30px;
     padding: 0 10px;
@@ -722,7 +725,8 @@ hr{
     color: #ccc;
     font-size: 14px;
 }
-.bidbond_result .result .result_title i.close{
+.bidbond_result .result .result_title i.close,
+.pay_password .pay_cont .pay_title i.close{
     display: block;
     width: 14px;
     height: 14px;
@@ -747,4 +751,58 @@ hr{
 .result .result_cont .fail_tip{
 	color: #c53026;
 }
+/*支付密码*/
+.pay_password .pay_cont{
+	position: fixed;
+    z-index: 401;
+    top: 150px;
+    width: 300px;
+    margin-left: 445px;
+    background: #fff;
+}
+.pay_password .pay_cont .pay_input{
+	margin: 20px;
+    text-align: center;
+}
+.pay_password .pay_cont .pay_input  input[name="payPassword"]{
+	width: 200px;
+    padding: 0px 10px;
+    height: 25px;
+}
+.pay_password .pay_cont .pay_but{
+	margin: 10px 40px 10px 0px;
+    text-align: right;
+}
+.pay_password .pay_cont .pay_but  input[name="butPassword"]{
+	width: 80px;
+    padding: 0px 10px;
+    height: 25px;
+    background: #c81623;
+    border: 0;
+    color: #fff;
+}
+.tip_password{
+	    text-align: left;
+    margin-left: 18px;
+    font-size: 12px;
+    color: #c81623;
+}
 /*保证金*/
+
+/*分页*/
+.page_num {
+    text-align: center;
+    margin-top: 12px;
+    width: 100%;
+}
+.page_num a:link, .page_num a:visited, .page_num a:active {
+    padding: 5px 10px;
+    border: 1px #e5e5e5 solid;
+    background: #f5f5f5;
+    color: #8c8a8b;
+        margin:0 3px
+}
+.page_num a.current_page {
+    background: #c91224;
+    color: #fff;
+}
