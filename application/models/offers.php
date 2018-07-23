@@ -395,8 +395,8 @@ class offersModel extends \nainai\offer\product{
             }
         }
         //print_r($data);
-        $pageBar =  $query->getPageBar();
-        return array('data'=>$data,'bar'=>$pageBar,'cate'=>$childcates,'childname'=>$childname);
+        $pageBar =  $query->getPageData();
+        return array('data'=>$data,'page'=>$pageBar,'cate'=>$childcates,'childname'=>$childname);
     }
 
     //获取报盘类型
