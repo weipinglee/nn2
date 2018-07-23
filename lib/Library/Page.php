@@ -203,5 +203,54 @@ class Page
 		$href = $baseUrl.($flag?$this->totalpage:'');
 		return $tem."<a href='{$href}' {$attr}>尾页</a><span>当前第{$this->index}页/共{$this->totalpage}页</span></div>";
 	}
+
+    /**
+     * @brief 取得pageBar
+     * @return array 分页数据
+     */
+    public function getPageData()
+    {
+
+        $pageData = array(
+            'totalPage' => $this->totalpage,
+            'current' => $this->getIndex(),
+            'firstPage' => $this->firstpage,
+            'lastPage' => $this->lastpage
+        );
+
+        $pageData['page'] = array(
+            'head' => array('text' => '首页', 'num' => 1, 'enable' => 1),
+            'last' => array('text' => '尾页', 'num' => $this->totalpage, 'enable' => 1),
+            'prev' => array('text' => '上一页', 'num' => 1),
+            'next' => array('text' => '下一页', 'num' => 1)
+        );
+        if ($this->index == $this->totalpage) {
+            $pageData['page']['next']['enable'] = 0;
+            $pageData['page']['next']['num'] = $this->totalpage;
+        }else{
+            $pageData['page']['next']['num'] = $this->index + 1;
+        }
+        if ($this->index == 1) {
+            $pageData['page']['prev']['enable'] = 1;
+            $pageData['page']['prev']['num'] =1;
+        }else{
+            $pageData['page']['prev']['num'] =$this->index - 1;
+        }
+
+
+        for ($i = $this->firstpage; $i <= $this->lastpage; $i++) {
+            $pageData['page'][$i] = array(
+                'text' => $i,
+                'num' => $i,
+                'enable' => $i == $this->index ? 0 : 1
+            );
+
+
+        }
+
+        return $pageData;
+
+
+    }
 }
 ?>

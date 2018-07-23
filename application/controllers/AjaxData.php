@@ -144,7 +144,7 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
              $condition['status'] = "now()>o.end_time";
          }
          $data = $this->offer->jingjiaList($page, $condition,$order);
-
+print_r($data);
          die(json_encode($data));
      }
 
