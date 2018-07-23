@@ -1212,7 +1212,8 @@ class Order{
 		                 left join user as u on u.id = do.user_id 
 		                 left join user as u2 on do.offer_user_id = u2.id 
 		                 left join products as p on po.product_id = p.id ';
-		if($where)$query->where = $where;
+		if($where)$query->where = 'do.del=0 and '.$where;
+		else $query->where = 'do.del=0 ';
 		$query->fields = 'po.type,po.id as offer_id,u2.username as po_username,u2.true_name,po.mode,po.sub_mode,u.username as do_username,u.true_name as company_name,do.*,p.name as product_name,p.img,p.unit';
 		// $query->bind  = array_merge($bind,array('user_id'=>$user_id));
 
