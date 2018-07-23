@@ -178,7 +178,7 @@ class AdminController extends InitController {
             default:
             $checkID = safe::filterGet('id','int');
             $data = $checkModel->getOne($checkID);
-            $this->getView()->assign('data',$data);print_r($data);
+            $this->getView()->assign('data',$data);
               break;
 
         }
