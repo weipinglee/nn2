@@ -1,12 +1,12 @@
 	$(function(){
-		var pastUrl = "http://192.168.13.119/nn2"
+		//var pastUrl = "http://192.168.13.119/nn2"
 		var curpage = 1;//
 		var curpid="";
 		var curstatus=""
 		bidData();
 		function bidData(){
 			$.ajax({
-				'url':pastUrl+'/ajaxdata/jingjiaList',
+				'url':$('input[name=bidList]').val(),
 				'type':'get',
 				'dataType':'json',
 				'data':{

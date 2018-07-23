@@ -26,6 +26,7 @@
 				</div>
 			</div>
 			<div class="bidpricelist_con clear">
+				 <input type="hidden" name="bidList" value="{url:/ajaxdata/jingjiaList}">
 				<div class="bid_commoditys" >
 					<div id="bidcomBox"></div>
 					<div class="page_num"></div>
