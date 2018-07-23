@@ -33,7 +33,7 @@
 						<div class="pages_bar">
 							<a class="firstpage">首页</a>
 							<a class="uppage">上一页</a>
-							<span class="page"></span>
+							<div class="pagediv"><span class="page"></span></div>
 							<a class="downpage">下一页</a>
 							<a class="lastpage">尾页</a>
 							<span>当前第<span class="curpage"></span>页/共<span class="total"></span>页</span>
