@@ -14,25 +14,48 @@ class Handle
 
     public static $buffer = array();
 
-    public static function bufferAdd($name,$value){
+    public static function bufferAdd($id,$info){
+        $name = strval($info->returnType);
+
         if(!isset(self::$buffer[$name])){
             self::$buffer[$name] = array();
+            self::$buffer[$name]['id'] = array();
+            self::$buffer[$name]['field'] = array();
         }
-        self::$buffer[$name][] = $value;
+
+        if(!in_array($id,self::$buffer[$name]['id'])){
+            self::$buffer[$name]['id'][] = $id;
+        }
+
+        self::$buffer[$name]['field'] =
+            array_merge(self::$buffer[$name]['field'],$info->getFieldSelection());
+        self::$buffer[$name]['data'] = false;
+
+
     }
 
-    public static function bufferClear($name){
-        unset(self::$buffer[$name]);
+    public static function loadBuffer($args, $context, $info){
+        $name = strval($info->returnType);
+        if(!self::$buffer[$name]['data']){
+            $class = '\schema\Data\\'.ucfirst($info->returnType);
+            $file = __DIR__.'/'.ucfirst($info->returnType).'.php';
+            if(file_exists($file) && class_exists($class)){
+                $fields = array_keys(self::$buffer[$name]['field']);
+                self::$buffer[$name]['data'] = call_user_func_array(array($class,'loadBuffer'),array($args, $context,
+                    self::$buffer[$name]['id'],$fields));
+            }
+        }
+
+        return true;
+
     }
 
-
-     public static function findOne($val, $args, $context, $info,$bufferName='')
+     public static function findOne($val, $args, $context, $info)
      {
          $class = '\schema\Data\\'.ucfirst($info->returnType);
          $file = __DIR__.'/'.ucfirst($info->returnType).'.php';
          if(file_exists($file) && class_exists($class)){
-             $buffer = $bufferName ? self::$buffer[$bufferName] : '';
-             return call_user_func_array(array($class,'findOne'),array($val, $args, $context, $info,$buffer));
+             return call_user_func_array(array($class,'findOne'),array($val, $args, $context, $info));
          }elseif(isset($val[$info->fieldName])){
              return $val[$info->fieldName];
          }else{

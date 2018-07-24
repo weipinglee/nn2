@@ -352,6 +352,7 @@ class offersModel extends \nainai\offer\product{
         foreach ($data as $key => &$value) {
             $value['img'] = empty($value['img']) ? '' : \Library\thumb::get($value['img'],300,300);//获取缩略图
             $value['baojia'] = $baojiaObj->where(array('offer_id'=>$value['id']))->getField('count(id)');
+            $value['price_f'] = $baojiaObj->where(array('offer_id'=>$value['id']))->order('price desc')->limit(1)->getField('price');
             $attr_ids = array();
             $detail['attribute'] = json_decode($value['attr_json'],true);
             if(!empty($detail['attribute'])){

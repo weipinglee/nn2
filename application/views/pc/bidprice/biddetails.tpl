@@ -13,7 +13,6 @@
                 <input type="hidden" name="jingjiaPost" value="{url:/offers/jingjiadeposit}">
                 <input type="hidden" name="baojiaPost" value="{url:/trade/jingjiabaojia}">
                 <div class="biddetails_top clear" id="commodityTop">
-              
                 <script type="text/html" id="commdToptemplat">
                     <%if (detailtop!=null) { %>
                     <div class="biddetails_left">

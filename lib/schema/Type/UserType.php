@@ -60,13 +60,11 @@ class UserType extends ObjectType
                             'user_id' => Types::id()
                         ],
                         'resolve' => function($val, $args, $context, ResolveInfo $info){
-                            Handle::bufferAdd('bank',$val['id']);
+                            Handle::bufferAdd($val['id'],$info);
                             return new Deferred(function () use ($val, $args, $context, $info) {
-
+                                Handle::loadBuffer($args,$context,$info);
                                 $args['user_id'] = $val['id'];
-
-                               // Handle::bufferClear('bank');
-                                $res = Handle::findOne($val, $args, $context, $info,'bank');
+                                $res = Handle::findOne($val, $args, $context, $info);
                                 return !empty($res)?$res : null;
                             });
 

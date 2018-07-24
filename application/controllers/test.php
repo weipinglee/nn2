@@ -25,12 +25,19 @@ class TestController extends \Yaf\Controller_Abstract{
 //                        }
 //                   }';
         $query = '{
-                      users{
+        user(id:581){
+                      id,username,mobile,
+                      bank{
+                      bank_name,user_id,card_no
+                      }
+                      },
+                      users(pagesize:2){
                          username,id,mobile,
                          bank{
                            bank_name,user_id
                          }
                       }
+                      
                    }';
         $data = $graphql->query($query);
        print_r($data);exit;
