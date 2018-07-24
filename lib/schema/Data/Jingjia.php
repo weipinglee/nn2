@@ -8,32 +8,69 @@ use \Library\Query;
  *
 
  */
-class Jingjia
+class Jingjia extends Template
 {
 
-    private static $fields = array('user_id','bank_name','card_no','true_name','proof','status');
 
-    private static $except = array('seller','baojia');//排除的字段
-
-    private static $table = 'product_offer';
+    protected  $except = array('seller','baojia');//排除的字段
 
 
-    public static function findOne($val, $args, $context, $info){
-        $fields = array_keys($info->getFieldSelection());
-        foreach($fields as $key=>$val){
-            if(in_array($val,self::$except)){
-                unset($fields[$key]);
-            }
+    protected  $table = 'product_offer';
+
+    protected  $primaryKey = 'id';
+
+    protected  $buffer = array();
+
+    protected  function selectData($args, $context, $ids=array() ,$fields = '*')
+    {
+        if(!empty($ids)){
+            $where = array('id'=>array('in',join(',',$ids)));
+        }else{
+            $where = array('id'=>$args['id']);
         }
-        $where = array('id'=>$args['id']);
-        $fields = join(',',$fields);
-        $obj = new M(self::$table);
+        $obj = new M($this->table);
+        $data = $obj->fields($fields)->where($where)->select();
+        return $data;
+    }
+
+    protected  function getOneBuffer($args){
+        $id = $args['id'];
+        if(!empty( $this->buffer) && isset($this->$buffer[$id])){
+            return $this->buffer[$id];
+        }else{
+            return array();
+        }
+    }
+
+    /**
+     * 根据参数和字段，从数据库查找一条数据
+     * @param $args
+     * @param array $fields
+     * @return mixed
+     */
+    protected  function getOneData($args,$fields=array())
+    {
+        if(isset($args['id']) && $args['id']){
+            $where['id'] = $args['id'];
+        }
+
+
+        $obj = new M($this->table);
+        if(empty($where)){
+            return array();
+        }
+
         $data = $obj->fields($fields)->where($where)->getObj();
         return $data;
     }
 
-    public static function findList($val, $args, $context, $info){
-
+    protected  function getMoreData($args, $context, $fields='*'){
+        $obj = new Query($this->table);
+        $obj->page = isset($args['page']) ? $args['page'] : 1;
+        $obj->pagesize = isset($args['pagesize']) ? $args['pagesize'] : 20;
+        $obj->fields = $fields;
+        $list = $obj->find();
+        return $list;
     }
 
 

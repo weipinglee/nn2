@@ -66,12 +66,7 @@ class Bank extends Template
 
     protected  function getMoreData($args, $context, $fields='*')
     {
-        $obj = new Query('user');
-        $obj->page = isset($args['page']) ? $args['page'] : 1;
-        $obj->pagesize = isset($args['pagesize']) ? $args['pagesize'] : 20;
-        $obj->fields = $fields;
-        $list = $obj->find();
-        return $list;
+        return array();
     }
 
 

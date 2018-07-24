@@ -7,8 +7,7 @@ use \Library\Query;
 class User extends Template
 {
 
-    protected  $fields = array('id','email','true_name','username','type','login_time');
-
+    protected $except = array('bank','invoice');
     protected  $table = 'user';
 
     protected  $primaryKey = 'id';
@@ -22,14 +21,14 @@ class User extends Template
         }else{
             $where = array('id'=>$args['id']);
         }
-        $obj = new M(self::$table);
+        $obj = new M($this->table);
         $data = $obj->fields($fields)->where($where)->select();
         return $data;
     }
 
     protected  function getOneBuffer($args){
         $id = $args['id'];
-        if(!empty( $this->buffer) && isset($this->$buffer[$id])){
+        if(!empty($this->buffer) && isset($this->buffer[$id])){
             return $this->buffer[$id];
         }else{
             return array();

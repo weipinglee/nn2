@@ -32,7 +32,7 @@ abstract class Template
         $fields = $this->getFields($fields);
 
         //初始化buffer
-        self::initBuffer($ids);
+        $this->initBuffer($ids);
         //查询数据
         $data = $this->selectData($args, $context,$ids,$fields);
         //填充buffer
@@ -50,8 +50,17 @@ abstract class Template
      */
     public final  function findOne($val, $args, $context, $info){
         $data = $this->getOneBuffer($args);
-        if(empty($data)){
-            $fields = array_keys($info->getFieldSelection());
+        $fields = array_keys($info->getFieldSelection());
+        $flag = true;
+        if(!empty($data)){//判断data中是否包含info中的所有字段，有未包含的字段需重新获取
+            foreach($fields as $f){
+                if(!isset($data[$f])){
+                    $flag=false;
+                }
+            }
+        }
+
+        if(empty($data) || !$flag){
             $fields = $this->getFields($fields);
             $data = $this->getOneData($args,$fields);
         }
@@ -82,14 +91,11 @@ abstract class Template
                         unset($fields[$key]);
                     }
                 }
-            }else{
-                foreach($fields as $key=>$val){
-                    if(!in_array($val,$this->fields)){
-                        unset($fields[$key]);
-                    }
-                }
             }
-
+            //如果查询字段不包含主键，加进去
+            if(!in_array($this->primaryKey,$fields)){
+                $fields[] = $this->primaryKey;
+            }
         }
 
         return join(',',$fields);

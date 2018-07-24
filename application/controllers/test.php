@@ -27,16 +27,12 @@ class TestController extends \Yaf\Controller_Abstract{
         $query = '{
       
                       users(pagesize:2){
-                         username,id,mobile,
-                         bank{
-                           bank_name,user_id
-                         }
+                         username,id,mobile,true_name
+                       
                       },
                       user(id:36){
-                      id,username,mobile,
-                          bank{
-                            bank_name,user_id,card_no
-                          }
+                      id,username,mobile,true_name
+                          
                       }
                       
                    }';
