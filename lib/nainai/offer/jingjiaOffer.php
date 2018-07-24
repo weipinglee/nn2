@@ -592,7 +592,7 @@ class jingjiaOffer extends product{
 
         $startDate = $dateObj->format('Y-m-d');
 
-        $res = $payLogObj->createMatchLog($startDate,'',$compareData['amount']);
+        return $payLogObj->createMatchLog($startDate,'',$compareData['amount']);
     }
 
     /**

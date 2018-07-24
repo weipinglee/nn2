@@ -243,6 +243,33 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
         die(json_encode($res));
     }
 
+    public function jingjiaDepositAction(){
+         if(isset($this->login['user_id'])){
+             $offer_id = safe::filterGet('id','int');
+             $userPaylog = new \nainai\user\UserPaylog();
+             $res = $userPaylog->existPayLog('jingjia',$offer_id,$this->login['user_id']);
+             if($res){
+                 die(\Library\JSON::encode(tool::getSuccInfo()));
+             }else{
+                 die(\Library\JSON::encode(tool::getSuccInfo(0,'未缴纳保证金')));
+             }
+         }else{
+             die(\Library\JSON::encode(tool::getSuccInfo(0,'未登录')));
+         }
+    }
+
+    public function alrealyDepositAction(){
+        if(isset($this->login['user_id'])){
+            $offer_id = safe::filterGet('id','int');
+            $jingjiaObj = new \nainai\offer\jingjiaOffer();
+            $res = $jingjiaObj->checkDeposit($offer_id,$this->login['user_id']);
+            die(\Library\JSON::encode($res));
+        }else{
+            die(\Library\JSON::encode(tool::getSuccInfo(0,'未登录')));
+        }
+
+    }
+
 
 
 }
