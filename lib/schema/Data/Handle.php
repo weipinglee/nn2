@@ -40,6 +40,7 @@ class Handle
             $class = '\schema\Data\\'.ucfirst($info->returnType);
             $file = __DIR__.'/'.ucfirst($info->returnType).'.php';
             if(file_exists($file) && class_exists($class)){
+                $class = new $class();
                 $fields = array_keys(self::$buffer[$name]['field']);
                 self::$buffer[$name]['data'] = call_user_func_array(array($class,'loadBuffer'),array($args, $context,
                     self::$buffer[$name]['id'],$fields));
@@ -55,6 +56,7 @@ class Handle
          $class = '\schema\Data\\'.ucfirst($info->returnType);
          $file = __DIR__.'/'.ucfirst($info->returnType).'.php';
          if(file_exists($file) && class_exists($class)){
+             $class = new $class();
              return call_user_func_array(array($class,'findOne'),array($val, $args, $context, $info));
          }elseif(isset($val[$info->fieldName])){
              return $val[$info->fieldName];
@@ -70,6 +72,7 @@ class Handle
              $class = '\schema\Data\\'.ucfirst($returnType);
              $file = __DIR__.'/'.ucfirst($returnType).'.php';
              if(file_exists($file) && class_exists($class)){
+                 $class = new $class();
                  return call_user_func_array(array($class,'findList'),array($val, $args, $context, $info));
              }elseif(isset($val[$info->fieldName])){
                  return $val[$info->fieldName];

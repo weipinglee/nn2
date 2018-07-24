@@ -25,17 +25,18 @@ class TestController extends \Yaf\Controller_Abstract{
 //                        }
 //                   }';
         $query = '{
-        user(id:581){
-                      id,username,mobile,
-                      bank{
-                      bank_name,user_id,card_no
-                      }
-                      },
+      
                       users(pagesize:2){
                          username,id,mobile,
                          bank{
                            bank_name,user_id
                          }
+                      },
+                      user(id:36){
+                      id,username,mobile,
+                          bank{
+                            bank_name,user_id,card_no
+                          }
                       }
                       
                    }';

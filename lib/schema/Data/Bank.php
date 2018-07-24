@@ -8,58 +8,71 @@ use \Library\Query;
  *
 
  */
-class Bank
+class Bank extends Template
 {
 
-    private static $fields = array('user_id','bank_name','card_no','true_name','proof','status');
+    protected  $fields = array('user_id','bank_name','card_no','true_name','proof','status');
 
 
-    private static $table = 'user_bank';
+    protected  $table = 'user_bank';
 
-    private static $primaryKey = 'user_id';
+    protected  $primaryKey = 'user_id';
 
-    private static $buffer = array();
+    protected  $buffer = array();
 
-    public static function loadBuffer($args, $context,$ids=array(),$fields=array()){
-        $obj = new M(self::$table);
+
+
+    protected  function selectData($args, $context, $ids=array() ,$fields = '*')
+    {
         if(!empty($ids)){
             $where = array('user_id'=>array('in',join(',',$ids)));
         }else{
             $where = array('user_id'=>$args['user_id']);
         }
-        foreach($ids as $id){
-            self::$buffer[$id] = array();
-        }
-        $data = $obj->fields(join(',',$fields))->where($where)->select();
-        if(!empty($data)){
-            foreach($data as $item){
-                self::$buffer[$item[self::$primaryKey]] = $item;
-            }
-        }
-        
-        return true;
-
-    }
-
-    public static function findOne($val, $args, $context, $info){
-         $id = $args['user_id'];
-         if(!empty( self::$buffer) && isset(self::$buffer[$id])){
-             return self::$buffer[$id];
-         }else{
-             $fields = array_keys($info->getFieldSelection());
-
-             $where = array('user_id'=>$id);
-             $fields = join(',',$fields);
-             $obj = new M(self::$table);
-             $data = $obj->fields($fields)->where($where)->getObj();
-             return $data;
-         }
+        $obj = new M($this->table);
+        $data = $obj->fields($fields)->where($where)->select();
+        return $data;
     }
 
 
+    /**
+     * 根据参数，从buffer中查找一条数据
+     * @param $args
+     * @return array|mixed
+     */
+    protected  function getOneBuffer($args){
+        $id = $args['user_id'];
+        if(!empty( $this->buffer) && isset($this->buffer[$id])){
+            return $this->buffer[$id];
+        }else{
+            return array();
+        }
+    }
 
+    /**
+     * 根据参数和字段，从数据库查找一条数据
+     * @param $args
+     * @param array $fields
+     * @return mixed
+     */
+    protected  function getOneData($args,$fields='*')
+    {
+        $id = $args['user_id'];
+        $where = array('user_id'=>$id);
+        $obj = new M($this->table);
+        $data = $obj->fields($fields)->where($where)->getObj();
+        return $data;
+    }
 
-
+    protected  function getMoreData($args, $context, $fields='*')
+    {
+        $obj = new Query('user');
+        $obj->page = isset($args['page']) ? $args['page'] : 1;
+        $obj->pagesize = isset($args['pagesize']) ? $args['pagesize'] : 20;
+        $obj->fields = $fields;
+        $list = $obj->find();
+        return $list;
+    }
 
 
 }
