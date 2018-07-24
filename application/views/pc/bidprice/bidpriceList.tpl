@@ -100,11 +100,11 @@
 									<% } %>
 									<%if(data[i].status==2) { %>
 									<span class="bidType zjx">正在进行</span>
-									<span class="commprice dqj">当前价:<%=data[i].price_l%></span>
+									<span class="commprice dqj">当前价:<%=data[i].price_f%></span>
 									<% } %>
 									<%if(data[i].status==3) { %>
 									<span class="bidType jjs">竞价结束</span>
-									<span class="commprice cjj">成交价:<%=data[i].price_l%></span>
+									<span class="commprice cjj">成交价:<%=data[i].price_f%></span>
 									<% } %>
 									
 								</div>
