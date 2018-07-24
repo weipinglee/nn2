@@ -43,9 +43,9 @@ class pairingModel{
 		$query = new Query('order_sell as o ');
 		$query->join = 'left join product_offer as po on o.offer_id = po.id left join products as p on po.product_id = p.id left join order_pairing as op on op.order_id = o.id';
 		if($is_complete){
-			$sql_where = 'o.contract_status = '.\nainai\order\Order::CONTRACT_COMPLETE;
+			$sql_where = 'o.del=0 and o.contract_status = '.\nainai\order\Order::CONTRACT_COMPLETE;
 		}else{
-			$sql_where = 'o.contract_status >= '.\nainai\order\Order::CONTRACT_EFFECT.' and o.contract_status < '.\nainai\order\Order::CONTRACT_COMPLETE;
+			$sql_where = 'o.del=0 and o.contract_status >= '.\nainai\order\Order::CONTRACT_EFFECT.' and o.contract_status < '.\nainai\order\Order::CONTRACT_COMPLETE;
 		}
 		if($pairing){
 			$sql_where .= ' and op.admin_id = '.$pairing;
