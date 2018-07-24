@@ -1,5 +1,4 @@
 	$(function(){
-		//var pastUrl = "http://192.168.13.119/nn2"
 		var curpage = 1;//
 		var curpid="";
 		var curstatus=""
@@ -7,6 +6,7 @@
 		function bidData(){
 			$.ajax({
 				'url':$('input[name=bidList]').val(),
+				/*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiaList',*/
 				'type':'get',
 				'dataType':'json',
 				'data':{
@@ -30,6 +30,14 @@
 		               $(".curpage").text(data.page.current);
 		               $(".total").text(data.page.totalPage)
 		               $(".page .numPage").eq(data.page.current-1).addClass("current_page")
+		               var w;
+		               if(data.page.totalPage<11){
+		               	w=data.page.totalPage
+		               }else{
+		               	w=10
+		               }
+		               $(".pagediv").css("width",38*w)
+		               onClickA();
 		            }
 				},error:function(data){
 					//alert("失败")
@@ -51,44 +59,45 @@
 			curstatus =$(this).attr('id')
 			bidData();
 			$(this).children("a").addClass("cur");
-			alert($(".page_num .pages_bar a").length+"a长度")
-			
 		})
 		//分页数据
-		 
-		$(".page_num .pages_bar a").click(function(){
+		function onClickA(){
+			$(".pages_bar a").click(function(){
+
 			curpid =$(".jileix .criterItem a.addClass").attr('id')
 			curstatus =$(".jijia .criterItem").attr('id')
 			var curContent=parseInt($(".page_num .pages_bar a.current_page").text());//当前内容
 			var alength = $(".page_num .pages_bar a.numPage").length
 			var aContent = $(this).text();//单击的当前内容
-			if(aContent = "首页"){
+			if(aContent =="首页"){
 			 curpage=1;
-			}else if(aContent="尾页"){
+			}else if(aContent=="尾页"){
 				curpage =""	
-			}else if(aContent="上一页"){
+			}else if(aContent=="上一页"){
 				if(curContent>1){
 					curpage=curContent-1
 				}
-			}else if(aContent="下一页"){
+			}else if(aContent=="下一页"){
 				if(curContent<alength){
 					curpage=curContent+1
 				}
 			}else{
 				curpage=parseInt(aContent);
 			}
+			var leftJl
+			if(curpage>=8 && curpage<alength-1){
+				leftJl=38*(curpage-8)
+		        $(".pagediv .page").animate({
+		                left:-leftJl
+		        },1000);
+			}
 			$(".page_num .pages_bar a").removeClass("current_page");
-			console.log(curContent,"-",aContent,"-",alength,"单击的当前内容")
+			console.log(curContent,"-",curpage,"-",alength,"单击的当前内容")
 			bidData();
 
 		});
-		//点击首页
-		$(".page_num .pages_bar a.first").click(function(){
-			curpid =$(".jileix .criterItem a.addClass").attr('id')
-			curstatus =$(".jijia .criterItem").attr('id')
-			$(".page_num .pages_bar a").removeClass("cur");
-			bidData();
-			$()
-		})
+		}
+		 
+		
 
 	})

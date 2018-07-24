@@ -33,7 +33,7 @@
 						<div class="pages_bar">
 							<a class="firstpage">首页</a>
 							<a class="uppage">上一页</a>
-							<span class="page"></span>
+							<div class="pagediv"><span class="page"></span></div>
 							<a class="downpage">下一页</a>
 							<a class="lastpage">尾页</a>
 							<span>当前第<span class="curpage"></span>页/共<span class="total"></span>页</span>
@@ -100,11 +100,11 @@
 									<% } %>
 									<%if(data[i].status==2) { %>
 									<span class="bidType zjx">正在进行</span>
-									<span class="commprice dqj">当前价:960.00</span>
+									<span class="commprice dqj">当前价:<%=data[i].price_l%></span>
 									<% } %>
 									<%if(data[i].status==3) { %>
 									<span class="bidType jjs">竞价结束</span>
-									<span class="commprice cjj">成交价:960.00</span>
+									<span class="commprice cjj">成交价:<%=data[i].price_l%></span>
 									<% } %>
 									
 								</div>
