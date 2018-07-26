@@ -573,6 +573,7 @@ class jingjiaOffer extends product{
     public function checkDeposit($offerId,$user_id){
         $compareData = array('amount'=>0,'acc_no'=>'');
         //查找报盘保证金数额，报盘申请的时间
+
         $offerData = $this->offerDetail($offerId);
         if(empty($offerData)){
             return tool::getSuccInfo(0,'竞价不存在');

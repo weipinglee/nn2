@@ -260,7 +260,7 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
 
     public function alrealyDepositAction(){
         if(isset($this->login['user_id'])){
-            $offer_id = safe::filterGet('id','int');
+            $offer_id = safe::filterPost('id','int');
             $jingjiaObj = new \nainai\offer\jingjiaOffer();
             $res = $jingjiaObj->checkDeposit($offer_id,$this->login['user_id']);
             die(\Library\JSON::encode($res));
