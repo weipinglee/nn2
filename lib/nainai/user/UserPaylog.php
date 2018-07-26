@@ -66,7 +66,7 @@ class UserPaylog
         $where = array('subject'=>$this->subject,'subject_id'=>$this->subject_id,'user_id'=>$this->user_id);
         $log = $this->getOneLog($where);
         if(!empty($log) && $log['bank_flow']!=''){//已经关联流水号，不能再次关联
-            return tool::getSuccInfo(0,'不要重复关联');
+            return tool::getSuccInfo(0,'当前竞价已支付保证金');
         }
         //获取比对的账号
         $compareData = $this->getCompareAcc($this->user_id);
