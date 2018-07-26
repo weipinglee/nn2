@@ -584,6 +584,8 @@ class jingjiaOffer extends product{
         $payLogObj->user_id = $user_id;
         $payLogObj->subject_id = $offerId;
 
+        //mock建行接口，测试过后删除
+        $payLogObj->bankObj = new \nainai\fund\jsMock();
         //比对的金额
         $compareData['amount'] = $offerData['jingjia_deposit'];
         //查询银行流水记录，如果有匹配记录，写入pay_log
