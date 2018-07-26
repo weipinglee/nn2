@@ -170,7 +170,7 @@
     <tr class='nowrap'>
         <td nowrap="nowrap" ><b class="required">*</b>起拍价：</td>
         <td>
-            <span><input name="price_l" id="" datatype="n" errormsg="请输入数字" nullmsg="请填写信息！" type="text"  class="text" value="" /><span class="munit">￥</span></span>
+            <span><input name="price_l" id="" datatype="money" errormsg="请输入金额" nullmsg="请填写信息！" type="text"  class="text" value="" /><span class="munit">￥</span></span>
         </td>
     </tr>
     <tr class='nowrap'>

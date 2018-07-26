@@ -261,7 +261,7 @@
                                    <% }%>
                                <% } else { %>
                                    <% if (data[i].sub_mode==1){ %>
-                                   <a name="detail" href="{url:/Offers/offerdetails2}/id/<%=data[i].id%>/pid/<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
+                                   <a name="detail" href="{url:/bidprice/biddetails}?id=<%=data[i].id%>&pid=<%=data[i].product_id%>" ><img style="vertical-align:middle;" src="{views:images/icon/ico_sc1.png}" class="ser_img" alt="查看详情"/></a>
                                    <% }%>
                                      <img style="vertical-align:middle;" src="{views:images/icon/bg_ycj.png}" class="ser_img_1"/>
 
@@ -285,7 +285,7 @@
         function checkRight(obj,offer_id,product_id,jingjia_pass,user_id){
             var jingjia_mode = obj.attr('alt');
             var login_user = {if:$user_id}{$user_id}{else:}0{/if};
-            var href = '{url:/Offers/offerdetails2}/id/'+offer_id+'/pid/'+product_id;
+            var href = '{url:/bidprice/biddetails}?id='+offer_id+'&pid='+product_id;
             var ajaxUrl = '{url:/Offers/checkpass}';
             if(jingjia_mode==1){
                 if(user_id!=login_user){
@@ -310,7 +310,7 @@
                                             dataType:'json',
                                             success : function (data) {
                                                 if(data.success==1){
-                                                    location.href=href+'?pass='+pass;
+                                                    location.href=href+'&pass='+pass;
                                                 }
                                                 else{
                                                     layer.msg(data.info);
@@ -331,7 +331,7 @@
                                     dataType:'json',
                                     success : function (data) {
                                         if(data.success==1){
-                                            location.href=href+'?pass='+pass;
+                                            location.href=href+'&pass='+pass;
                                         }
                                         else{
                                             layer.msg(data.info);
@@ -343,7 +343,7 @@
 
                         });
                 }else{
-                    location.href=href+'?pass='+jingjia_pass;
+                    location.href=href+'&pass='+jingjia_pass;
                 }
 
 
