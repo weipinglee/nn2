@@ -1,0 +1,306 @@
+@charset "utf-8";
+*{
+    padding:0px;
+    margin: 0px;
+    font-family: SimHei;
+}
+.bg_img{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: url("../images/ping/bag.jpg")no-repeat center;
+    background-size: cover;
+    z-index: -1;
+}
+/*字体大小*/
+.main .title h2{
+    font-size: 0.7rem;
+}
+.chartTitle{
+
+    font-size: 0.5rem;
+
+    color: #efefef;
+
+    display: flex;
+
+    align-items: center;
+
+    margin-bottom: 0.2rem;
+}
+/*字体大小end*/
+.main .title {
+    text-align: center;
+    margin: 0.3rem;
+}
+.main .title h2{
+    color:#fff;
+    display: inline-block;
+    width: 12rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    text-align: center;
+    background-color: rgba(0, 160, 233, 0.29);
+    position: relative;
+    border-radius: 0px 0rem 1.2rem 1.2rem;
+}
+/*线条*/
+.main .title h2 .left_line{
+    position: absolute;
+    top: 0.2rem;
+    left: -6.4rem;
+    width: 6.4rem;
+    height: 1.5rem;
+    background: url(../images/ping/bag_left.png) no-repeat right center;
+}
+.main .title h2 .right_line{
+    position: absolute;
+    top: 0.2rem;
+    right: -6.4rem;
+    width: 6.4rem;
+    height: 1.5rem;
+    background: url(../images/ping/bag_right.png) no-repeat left center;
+}
+.main .title h2 i.lines{
+    display: inline-block;
+    position: absolute;
+    top:0px;
+    left: 0px;
+    width: 12rem;
+    height: 0.1rem;
+    background: rgba(0, 160, 233, 1);
+}
+.main .title h2 i.linex{
+    display: inline-block;
+    position: absolute;
+    bottom: 0px;
+    left: 0.63rem;
+    width: 10.8rem;
+    height: 0.1rem;
+    background: rgba(0, 160, 233, 1);
+}
+.main .title h2 i.linez1{
+    display: inline-block;
+    position: absolute;
+    top: 0rem;
+    left: 0.28rem;
+    width: 0.1rem;
+    height: 1.65rem;
+    background: rgba(0, 160, 233, 1);
+    transform: rotate(160deg);
+    -o-transform: rotate(160deg);
+    -moz-transform: rotate(160deg);
+    -webkit-transform: rotate(160deg);
+}
+.main .title h2 i.linez2{
+    display: inline-block;
+    position: absolute;
+    top: 0rem;
+    left: 0.01rem;
+    width: 0.09rem;
+    height: 1.65rem;
+    background: rgba(0, 160, 233, 1);
+    transform: rotate(160deg);
+    -o-transform: rotate(160deg);
+    -moz-transform: rotate(160deg);
+    -webkit-transform: rotate(160deg);
+}
+.main .title h2 i.liney1{
+    display: inline-block;
+    position: absolute;
+    top: 0rem;
+    right: 0.3rem;
+    width: 0.1rem;
+    height: 1.65rem;
+    background: rgba(0, 160, 233, 1);
+    transform: rotate(-160deg);
+    -o-transform: rotate(-160deg);
+    -moz-transform: rotate(-160deg);
+    -webkit-transform: rotate(-160deg);
+}
+.main .title h2 i.liney2{
+    display: inline-block;
+    position: absolute;
+    top: 0rem;
+    right: 0.01rem;
+    width: 0.09rem;
+    height: 1.65rem;
+    background: rgba(0, 160, 233, 1);
+    transform: rotate(-160deg);
+    -o-transform: rotate(-160deg);
+    -moz-transform: rotate(-160deg);
+    -webkit-transform: rotate(-160deg);
+}
+/*线条 end*/
+.content{
+    display: flex;
+    justify-content: center;
+}
+.content .productleft{
+    width: 20rem;
+    margin: 0.5rem
+}
+.productleft .chartTitle .titleName{
+    width: 5.5rem;
+}
+.chartTitle i.i_Icon{
+    width: 0.6rem;
+    height: 0.5rem;
+    margin-right: 0.2rem;
+    background: #e98900;
+}
+.productleft .chartTitle .icon_line{
+    width: 13.5rem;
+    height: 1px;
+    background: #7aaccd;
+    display: flex;
+    align-items: center;
+    margin-left: 0.2rem;
+    position: relative;
+}
+
+.line_header{
+    width: 0.15rem;
+    height: 0.15rem;
+    background: #7aaccd;
+}
+.line_wb{
+    width: 0.15rem;
+    height: 0.15rem;
+    background: #7aaccd;
+    position: absolute;
+    right: 0px;
+}
+.line{
+    width: 100%;
+    height: 1px;
+    background: #7aaccd;
+    display: flex;
+    align-items: center;
+    /* margin-top: 0.2rem; */
+    position: relative;
+}
+.productleft .productList{
+    height: 19rem;
+    overflow: hidden;
+}
+.productleft .productList ul{
+    display: flex;
+    font-size: 0.35rem;
+    color: #9acced;
+    align-items: center;
+}
+.productleft .productList ul li {
+    width: 4rem;
+    height: 1rem;
+    line-height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.productleft .productList ul.ul_List:nth-child(2n+1) {
+    background:rgba(24, 93, 143, 0.57);
+}
+/*.productleft .productList ul.ul_List li .disparity{
+    width: 2rem;
+    text-align: center;
+}*/
+.productleft .productList ul.ul_List li .jt_icon{
+    width: 0.2rem;
+    height: 0.7rem;
+    margin-left: 0.2rem;
+}
+.color_red{
+    color:#f94600
+}
+.color_greed{
+    color:#00e900;
+}
+
+/*右侧图表*/
+.content .highchartRight {
+    width: 18.3rem;
+    margin: 0.5rem
+}
+.highchartRight .chartTitle .name{
+    width: 7.6rem;
+    height: 1rem;
+    line-height: 1rem;
+    overflow: hidden;
+}
+.highchartRight .chartTitle .icon_line{
+    width: 10.5rem;
+    height: 1px;
+    background: #7aaccd;
+    display: flex;
+    align-items: center;
+    margin-left: 0.2rem;
+    position: relative;
+}
+#chartOne,#chartTwo{
+    margin: 0.5rem 0;
+    height: 8.8rem;
+}
+
+/*图表标题样式*/
+.titleStyle{
+    padding: 0.1rem 0.6rem;
+    background-color: rgba(23, 76, 130, 0.5);
+    border: 1px solid rgba(73, 203, 227, 0.5);
+    border-top:1px solid #50d0fd;
+    border-right:1px solid #50d0fd;
+    position: relative;
+}
+.titleStyle:before{
+    display: inline-block;
+    content: "";
+    border-style: solid;
+    border-width: 0.3rem 0rem 0rem  0.3rem;
+    border-color:  #50d0fd transparent;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: 1px;
+    top:1px;
+}
+.titleStyle:after{
+    display: inline-block;
+    content: "";
+    border-style: solid;
+    border-width: 0rem 0.3rem   0.3rem 0rem   ;
+    border-color:  #50d0fd transparent;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    left: 1px;
+    bottom:1px;
+}
+.titleStyle .right_sj1{
+    display: inline-block;
+    content: "";
+    border-style: solid;
+    border-width: 0rem 0rem  0.2rem   0.2rem ;
+    border-color:  #50d0fd transparent;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: -1px;
+    bottom:0px;
+}
+.titleStyle .right_sj2{
+    display: inline-block;
+    content: "";
+    border-style: solid;
+    border-width: 0rem 0rem  0.2rem   0.2rem ;
+    border-color:  #000 transparent;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: -1px;
+    bottom:-1px;
+}
+/*图表标题样式 end*/
+

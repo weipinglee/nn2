@@ -1,0 +1,16 @@
+@media only screen and (max-width: 1920px), only screen and (max-device-width:1920px) {
+     html,body {
+         font-size:40px
+     }
+   }
+
+@media only screen and (max-width: 1366px), only screen and (max-device-width:1366px) {
+    html,body {
+        font-size:33px
+    }
+}
+@media only screen and (max-width: 1280px), only screen and (max-device-width:1280px) {
+    html,body {
+        font-size:26.6px
+    }
+}
