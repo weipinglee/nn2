@@ -74,8 +74,8 @@ console.log(id,pass,"dd")
 biddetailData();
 function biddetailData(){
     $.ajax({
-        'url':$('input[name=detail]').val(),
-    /*  'url':'http://ceshi.nainaiwang.com/offers/jingjiadetail',*/
+       /* 'url':$('input[name=detail]').val(),*/
+      'url':'http://ceshi.nainaiwang.com/offers/jingjiadetail',
         'type':'get',
         'dataType':'json',
         'data':{
@@ -183,8 +183,8 @@ function biddetailData(){
                 //竞价列表
                  function baojiaList(data){
                      $.ajax({
-                        'url':$('input[name=baojiaList]').val(),
-                       /* 'url':'http://ceshi.nainaiwang.com//offers/baojiadata',*/
+                       /* 'url':$('input[name=baojiaList]').val(),*/
+                        'url':'http://ceshi.nainaiwang.com//offers/baojiadata',
                         'type':'get',
                         'dataType':'json',
                         'data':{
@@ -289,18 +289,19 @@ function biddetailData(){
  
 function bzj(){
      $.ajax({
-            'url':$('input[name=jingjiaPost]').val(),
-           /*'url':'http://ceshi.nainaiwang.com/offers/jingjiadeposit',*/
-            'type':'post',
+            /*'url':$('input[name=jingjiaPost]').val(),*/
+           'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',
+            'type':'get',
             'dataType':'json',
             'data':{
                 offer_id:id//报盘id
             },
             success: function(data){
-                if(data.url!=null){
+                if(data.success==1){
                     location.url='/bidbond/?id='+id
                 }else{
-                    alert("请先登录再操作")
+                    alert(data.info)
+                    location.url=data.returnUrl
                 }
             },error:function(data){
                  console.log("网络错误")  
@@ -323,7 +324,7 @@ function yescj(){
     function baojiaPost(pass,curprice){
         $.ajax({
             'url':$('input[name=baojiaPost]').val(),
-          /* 'url':'http://ceshi.nainaiwang.com//trade/jingjiabaojia',*/
+          /* 'url':'http://ceshi.nainaiwang.com/trade/jingjiabaojia',*/
             'type':'post',
             'dataType':'json',
             'data':{
