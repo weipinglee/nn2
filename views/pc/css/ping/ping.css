@@ -10,7 +10,7 @@
     left: 0px;
     width: 100%;
     height: 100%;
-    background: url("../images/ping/bag.jpg")no-repeat center;
+    background: url("../../images/ping/bag.jpg")no-repeat center;
     background-size: cover;
     z-index: -1;
 }
@@ -33,7 +33,7 @@
 /*字体大小end*/
 .main .title {
     text-align: center;
-    margin: 0.3rem;
+    margin: 0 0.3rem;
 }
 .main .title h2{
     color:#fff;
@@ -53,7 +53,7 @@
     left: -6.4rem;
     width: 6.4rem;
     height: 1.5rem;
-    background: url(../images/ping/bag_left.png) no-repeat right center;
+    background:url("../../images/ping/bag_left.png") no-repeat right center;
 }
 .main .title h2 .right_line{
     position: absolute;
@@ -61,7 +61,7 @@
     right: -6.4rem;
     width: 6.4rem;
     height: 1.5rem;
-    background: url(../images/ping/bag_right.png) no-repeat left center;
+    background: url("../../images/ping/bag_right.png") no-repeat left center;
 }
 .main .title h2 i.lines{
     display: inline-block;
@@ -140,7 +140,7 @@
 }
 .content .productleft{
     width: 20rem;
-    margin: 0.5rem
+    margin: 0.5rem;
 }
 .productleft .chartTitle .titleName{
     width: 5.5rem;
@@ -155,8 +155,6 @@
     width: 13.5rem;
     height: 1px;
     background: #7aaccd;
-    display: flex;
-    align-items: center;
     margin-left: 0.2rem;
     position: relative;
 }
@@ -165,6 +163,9 @@
     width: 0.15rem;
     height: 0.15rem;
     background: #7aaccd;
+    position: absolute;
+    left: 0px;
+    top: -0.055rem;
 }
 .line_wb{
     width: 0.15rem;
@@ -172,6 +173,7 @@
     background: #7aaccd;
     position: absolute;
     right: 0px;
+    top: -0.055rem;
 }
 .line{
     width: 100%;
@@ -179,18 +181,15 @@
     background: #7aaccd;
     display: flex;
     align-items: center;
-    /* margin-top: 0.2rem; */
     position: relative;
-}
-.productleft .productList{
-    height: 19rem;
-    overflow: hidden;
 }
 .productleft .productList ul{
     display: flex;
     font-size: 0.35rem;
     color: #9acced;
     align-items: center;
+    height: 1rem;
+    line-height: 1rem;
 }
 .productleft .productList ul li {
     width: 4rem;
@@ -204,15 +203,21 @@
 .productleft .productList ul.ul_List:nth-child(2n+1) {
     background:rgba(24, 93, 143, 0.57);
 }
-/*.productleft .productList ul.ul_List li .disparity{
+.productleft .productList ul.ul_List .disparity{
     width: 2rem;
     text-align: center;
-}*/
-.productleft .productList ul.ul_List li .jt_icon{
-    width: 0.2rem;
-    height: 0.7rem;
-    margin-left: 0.2rem;
 }
+.productleft .productList ul.ul_List li .jt_icon{
+    margin-left: 0.2rem;
+    font-size: 0.5rem;
+}
+.productleft .productList ul.ul_List  .jt_icon.icon-arrowUp{
+    color:#f94600
+}
+.productleft .productList ul.ul_List  .jt_icon.icon-arrowDown{
+    color:#00e900;
+}
+
 .color_red{
     color:#f94600
 }
@@ -295,7 +300,7 @@
     content: "";
     border-style: solid;
     border-width: 0rem 0rem  0.2rem   0.2rem ;
-    border-color:  #000 transparent;
+    border-color:  #0c2c43 transparent;
     width: 0px;
     height: 0px;
     position: absolute;
@@ -303,4 +308,23 @@
     bottom:-1px;
 }
 /*图表标题样式 end*/
+.list_div{
+    height: 18rem;
+    overflow: hidden;
+    transition:all 0.5s;
+}
+.anim{
+    transition:all 0.5s;
+}
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+/*.slide-fade-enter-active {
+    transition: all .8s cubic-bezier(.17,.67,.83,.67)
+}
+.slide-fade-enter, .slide-fade-leave-to
+    !* .slide-fade-leave-active for below version 2.1.8 *! {
+    transform: translateX(19rem);
+    opacity: 0;
+}*/
+
 
