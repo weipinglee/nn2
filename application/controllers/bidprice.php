@@ -31,5 +31,8 @@ class BidpriceController extends PublicController {
 	public function bidbondAction(){
 		$this->getView()->assign('cur','bidprice');
 	}
+	public function bidContractAction(){
+		$this->getView()->setLayout('');
+	}
 	
 }
